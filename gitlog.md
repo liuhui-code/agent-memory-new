@@ -119,3 +119,36 @@ Verification:
 
 Rollback notes:
 - Remove `docs/usage-guide.md` and revert the README, agent, skill, and gitlog edits from this entry.
+
+## 2026-05-26 - Simplify to four skills and add local learning commands
+
+Files changed:
+- `tools/agent_memory.py`
+- `skills/agent-memory-learn/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-reflect/SKILL.md`
+- `README.md`
+- `agent.md`
+- `docs/usage-guide.md`
+- `docs/mvp-implementation-plan.md`
+- `gitlog.md`
+
+What changed:
+- Collapsed user-facing skills into Learn, Query, Maintain, and Reflect.
+- Added `learn-entry` for entry-file-based local memory indexing.
+- Added `learn-path` for directory-based local memory indexing.
+- Updated usage docs so natural language maps to the four skills.
+
+Why:
+- Lower the user-facing skill count and make partial project memory easier to use.
+
+Verification:
+- Command: `python3 tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.py --depth 1 --json`
+- Expected: indexes the entry file and writes `last_learn_entry.json`.
+- Command: `python3 tools/agent_memory.py learn-path --project . --path skills`
+- Expected: indexes skill files and writes a learning episode.
+
+Rollback notes:
+- Revert `tools/agent_memory.py` parser and learning helpers.
+- Restore removed skill directories if returning to the previous six-skill model.

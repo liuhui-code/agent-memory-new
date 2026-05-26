@@ -24,7 +24,7 @@ The MVP must support:
 3. Query relevant memory through a JSON-capable CLI.
 4. Generate concise task context for an Agent.
 5. Export Markdown into an Obsidian-compatible vault.
-6. Provide skills that call the runtime script.
+6. Provide four user-facing skills that call the runtime script.
 7. Provide an installer and a doctor command.
 
 The MVP must not depend on:
@@ -67,6 +67,8 @@ python tools/agent_memory.py context --project . --query "..." --json
 python tools/agent_memory.py search --project . --query "..." --json
 python tools/agent_memory.py reflect --project . --task "..." --summary "..." --lesson "..."
 python tools/agent_memory.py vault-export --project .
+python tools/agent_memory.py learn-entry --project . --entry "<file>" --depth 2 --json
+python tools/agent_memory.py learn-path --project . --path "<directory>"
 python tools/agent_memory.py wiki-index --project .
 python tools/agent_memory.py wiki-search --project . --query "..." --json
 ```
@@ -75,14 +77,12 @@ All query commands must support `--json`.
 
 ## Skill Set
 
-Create six skills:
+Create four user-facing skills:
 
-- `agent-memory-init`: initialize and verify memory storage.
-- `agent-memory-query`: retrieve context before substantial work.
-- `agent-memory-update`: store durable facts and episodes.
+- `agent-memory-learn`: learn code around an entry file, directory, or whole project.
+- `agent-memory-query`: retrieve memory and codebase wiki context.
+- `agent-memory-maintain`: initialize, health-check, refresh, and export the memory system.
 - `agent-memory-reflect`: store lessons after a task, bug, or failed attempt.
-- `agent-memory-wiki`: index and search the lightweight codebase wiki.
-- `agent-memory-vault`: export SQLite memory into Obsidian Markdown.
 
 Skills should call the runtime script. They should not implement storage logic themselves.
 
@@ -104,12 +104,10 @@ Skills should call the runtime script. They should not implement storage logic t
     Daily/
 
 .agent-skills/
-  agent-memory-init/
+  agent-memory-learn/
   agent-memory-query/
-  agent-memory-update/
+  agent-memory-maintain/
   agent-memory-reflect/
-  agent-memory-wiki/
-  agent-memory-vault/
 
 tools/
   agent_memory.py

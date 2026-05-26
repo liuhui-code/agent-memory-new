@@ -1,24 +1,41 @@
 ---
 name: agent-memory-query
-description: Use before starting substantial local coding or agent work, or when the user asks to recall project facts, prior lessons, reflections, task history, or codebase wiki entries.
+description: Use when the user asks to query, search, recall, inspect, or retrieve previous memory, project facts, reflections, task history, or codebase wiki context.
 ---
 
 # Agent Memory Query
 
-Retrieve concise memory context before substantial work.
+Retrieve memory context before substantial work or when the user asks what the system knows.
 
-Run:
+## Context Query
 
 ```bash
-python tools/agent_memory.py context --project . --query "<user task>" --json
+python tools/agent_memory.py context --project . --query "<query>" --json
 ```
 
-Use the result as advisory context only.
+Use for:
+
+```text
+查一下之前有没有相关经验。
+What does memory know about this module?
+Before editing, retrieve relevant context.
+```
+
+## Raw Search
+
+```bash
+python tools/agent_memory.py search --project . --query "<query>" --json
+```
+
+## Wiki Search
+
+```bash
+python tools/agent_memory.py wiki-search --project . --query "<query>" --json
+```
 
 Rules:
 
-- Inject at most 1500 words.
-- Prefer high-confidence semantic facts and recent reflections.
-- Do not inject stale memories unless clearly labeled.
+- Retrieved memory is advisory.
 - Current source files are more authoritative than stored memory.
-- If the database is missing, use `agent-memory-init`.
+- Avoid injecting stale or low-confidence memories as facts.
+- Keep injected context concise.

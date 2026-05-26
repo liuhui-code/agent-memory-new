@@ -23,7 +23,8 @@ LLM / Local Agent
 - Task episodes
 - Reflections and future rules
 - Keyword-based memory context retrieval
-- Lightweight codebase wiki indexing
+- Entry-file and directory-based codebase learning
+- Lightweight codebase wiki indexing and search
 - Obsidian-compatible Markdown export
 - Install script for runtime and skills
 - Doctor command for verification
@@ -37,6 +38,8 @@ python tools/agent_memory.py update --project . --type semantic --fact "..."
 python tools/agent_memory.py context --project . --query "..." --json
 python tools/agent_memory.py reflect --project . --task "..." --summary "..." --lesson "..."
 python tools/agent_memory.py vault-export --project .
+python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.py --depth 2 --json
+python tools/agent_memory.py learn-path --project . --path skills
 python tools/agent_memory.py wiki-index --project .
 python tools/agent_memory.py wiki-search --project . --query "..." --json
 ```

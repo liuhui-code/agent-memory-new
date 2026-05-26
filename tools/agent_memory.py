@@ -11,7 +11,6 @@ import hashlib
 import json
 import os
 import re
-import shutil
 import sqlite3
 import sys
 from dataclasses import dataclass
@@ -748,41 +747,279 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
 def wiki_index(args: argparse.Namespace) -> None:
     project = resolve_project(args.project)
     ensure_initialized(project)
+    files = collect_project_files(project)
+    replace_wiki_index(project, files)
+    print("wiki index updated")
+
+
+def collect_project_files(project: Project) -> list[Path]:
+    files_to_index: list[Path] = []
+    for root, dirs, files in os.walk(project.root):
+        root_path = Path(root)
+        dirs[:] = [d for d in dirs if d not in IGNORE_DIRS]
+        if should_skip_dir(root_path.relative_to(project.root) if root_path != project.root else Path("")):
+            continue
+        for filename in files:
+            path = root_path / filename
+            rel = path.relative_to(project.root)
+            if should_skip_dir(rel):
+                continue
+            if language_for(path):
+                files_to_index.append(path)
+    return files_to_index
+
+
+def collect_path_files(project: Project, target: Path) -> list[Path]:
+    if not target.exists():
+        raise SystemExit(f"path does not exist: {target}")
+    if target.is_file():
+        return [target] if language_for(target) else []
+    files_to_index: list[Path] = []
+    for root, dirs, files in os.walk(target):
+        root_path = Path(root)
+        dirs[:] = [d for d in dirs if d not in IGNORE_DIRS]
+        rel_root = root_path.relative_to(project.root)
+        if should_skip_dir(rel_root):
+            continue
+        for filename in files:
+            path = root_path / filename
+            rel = path.relative_to(project.root)
+            if should_skip_dir(rel):
+                continue
+            if language_for(path):
+                files_to_index.append(path)
+    return files_to_index
+
+
+def replace_wiki_index(project: Project, files: list[Path]) -> None:
     ts = now_iso()
+    unique_files = sorted({path.resolve() for path in files})
     with connect(project) as conn:
         conn.execute("DELETE FROM code_files WHERE project_id = ?", (project.project_id,))
         conn.execute("DELETE FROM code_symbols WHERE project_id = ?", (project.project_id,))
-        for root, dirs, files in os.walk(project.root):
-            root_path = Path(root)
-            dirs[:] = [d for d in dirs if d not in IGNORE_DIRS]
-            if should_skip_dir(root_path.relative_to(project.root) if root_path != project.root else Path("")):
-                continue
-            for filename in files:
-                path = root_path / filename
+        for path in unique_files:
+            try:
                 rel = path.relative_to(project.root)
-                if should_skip_dir(rel):
-                    continue
-                language = language_for(path)
-                if not language:
-                    continue
-                summary = summarize_file(path, language)
+            except ValueError:
+                continue
+            if should_skip_dir(rel):
+                continue
+            language = language_for(path)
+            if not language:
+                continue
+            summary = summarize_file(path, language)
+            conn.execute(
+                """
+                INSERT INTO code_files(project_id, file_path, summary, language, updated_at)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (project.project_id, str(rel), summary, language, ts),
+            )
+            for symbol, symbol_type in extract_symbols(path, language):
                 conn.execute(
                     """
-                    INSERT INTO code_files(project_id, file_path, summary, language, updated_at)
-                    VALUES (?, ?, ?, ?, ?)
+                    INSERT INTO code_symbols(project_id, file_path, symbol, symbol_type, summary, calls, updated_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
-                    (project.project_id, str(rel), summary, language, ts),
+                    (project.project_id, str(rel), symbol, symbol_type, "", "", ts),
                 )
-                for symbol, symbol_type in extract_symbols(path, language):
-                    conn.execute(
-                        """
-                        INSERT INTO code_symbols(project_id, file_path, symbol, symbol_type, summary, calls, updated_at)
-                        VALUES (?, ?, ?, ?, ?, ?, ?)
-                        """,
-                        (project.project_id, str(rel), symbol, symbol_type, "", "", ts),
-                    )
         conn.commit()
-    print("wiki index updated")
+
+
+def resolve_target(project: Project, raw_path: str) -> Path:
+    target = Path(raw_path).expanduser()
+    if not target.is_absolute():
+        target = project.root / target
+    target = target.resolve()
+    try:
+        target.relative_to(project.root)
+    except ValueError:
+        raise SystemExit(f"path must be inside project: {target}")
+    return target
+
+
+def learn_path(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project)
+    ensure_initialized(project)
+    target = resolve_target(project, args.path)
+    files = collect_path_files(project, target)
+    replace_wiki_index(project, files)
+    task = f"Learn path {target.relative_to(project.root)}"
+    summary = f"Indexed {len(files)} files from {target.relative_to(project.root)}"
+    add_episode_from_values(project, task, summary, "learned")
+    print(summary)
+
+
+def add_episode_from_values(project: Project, task: str, summary: str, outcome: str | None) -> None:
+    with connect(project) as conn:
+        conn.execute(
+            """
+            INSERT INTO episodes(project_id, task, summary, outcome, files_touched, commands_run, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (project.project_id, task, summary, outcome, None, None, now_iso()),
+        )
+        conn.commit()
+
+
+def learn_entry(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project)
+    ensure_initialized(project)
+    entry = resolve_target(project, args.entry)
+    if not entry.is_file():
+        raise SystemExit(f"entry must be a file: {entry}")
+    files = collect_entry_related_files(project, entry, args.depth)
+    replace_wiki_index(project, files)
+    rel_files = [str(path.relative_to(project.root)) for path in sorted(files)]
+    payload = {
+        "entry": str(entry.relative_to(project.root)),
+        "depth": args.depth,
+        "files": rel_files,
+        "count": len(rel_files),
+    }
+    project.runtime_dir.mkdir(parents=True, exist_ok=True)
+    (project.runtime_dir / "last_learn_entry.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    add_episode_from_values(
+        project,
+        f"Learn entry {entry.relative_to(project.root)}",
+        f"Indexed {len(rel_files)} files related to {entry.relative_to(project.root)} with depth {args.depth}",
+        "learned",
+    )
+    output(payload, args.json)
+
+
+def collect_entry_related_files(project: Project, entry: Path, depth: int) -> list[Path]:
+    seen: set[Path] = set()
+    frontier: list[tuple[Path, int]] = [(entry.resolve(), 0)]
+    while frontier:
+        current, current_depth = frontier.pop(0)
+        if current in seen:
+            continue
+        if not current.exists() or not current.is_file() or not language_for(current):
+            continue
+        seen.add(current)
+        if current_depth >= depth:
+            continue
+        for imported in resolve_project_imports(project, current):
+            if imported not in seen:
+                frontier.append((imported, current_depth + 1))
+    return sorted(seen)
+
+
+def resolve_project_imports(project: Project, path: Path) -> list[Path]:
+    language = language_for(path)
+    if not language:
+        return []
+    try:
+        text = path.read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        return []
+    candidates: list[Path] = []
+    if language == "Python":
+        candidates.extend(resolve_python_imports(project, path, text))
+    elif language in {"TypeScript", "JavaScript"}:
+        candidates.extend(resolve_js_imports(project, path, text))
+    elif language == "Dart":
+        candidates.extend(resolve_quoted_relative_imports(project, path, text, [".dart"]))
+    elif language == "Markdown":
+        candidates.extend(resolve_markdown_links(project, path, text))
+    return [candidate for candidate in candidates if candidate.exists() and language_for(candidate)]
+
+
+def resolve_python_imports(project: Project, path: Path, text: str) -> list[Path]:
+    candidates: list[Path] = []
+    for line in text.splitlines():
+        line = line.strip()
+        rel_match = re.match(r"from\s+(\.+[\w\.]*)\s+import\s+([\w,\s*]+)", line)
+        if rel_match:
+            module = rel_match.group(1)
+            names = [name.strip() for name in rel_match.group(2).split(",") if name.strip() and name.strip() != "*"]
+            candidates.extend(resolve_python_module(project, path, module))
+            for name in names:
+                candidates.extend(resolve_python_module(project, path, f"{module}.{name}"))
+            continue
+        abs_match = re.match(r"(?:from|import)\s+([A-Za-z_][\w\.]*)", line)
+        if abs_match:
+            candidates.extend(resolve_python_module(project, path, abs_match.group(1)))
+    return candidates
+
+
+def resolve_python_module(project: Project, path: Path, module: str) -> list[Path]:
+    base: Path
+    parts: list[str]
+    if module.startswith("."):
+        dot_count = len(module) - len(module.lstrip("."))
+        base = path.parent
+        for _ in range(max(dot_count - 1, 0)):
+            base = base.parent
+        parts = [part for part in module.lstrip(".").split(".") if part]
+    else:
+        base = project.root
+        parts = [part for part in module.split(".") if part]
+    module_path = base.joinpath(*parts) if parts else base
+    return existing_module_paths(module_path, [".py"])
+
+
+def existing_module_paths(base: Path, extensions: list[str]) -> list[Path]:
+    matches: list[Path] = []
+    for ext in extensions:
+        file_path = base.with_suffix(ext)
+        if file_path.exists():
+            matches.append(file_path.resolve())
+    for ext in extensions:
+        init_path = base / f"__init__{ext}"
+        if init_path.exists():
+            matches.append(init_path.resolve())
+    return matches
+
+
+def resolve_js_imports(project: Project, path: Path, text: str) -> list[Path]:
+    imports = re.findall(r"(?:from\s+|import\s*\(|require\s*\()\s*['\"]([^'\"]+)['\"]", text)
+    candidates: list[Path] = []
+    for spec in imports:
+        if spec.startswith("."):
+            candidates.extend(resolve_relative_spec(path.parent / spec, [".ts", ".tsx", ".js", ".jsx"]))
+    return candidates
+
+
+def resolve_quoted_relative_imports(project: Project, path: Path, text: str, extensions: list[str]) -> list[Path]:
+    imports = re.findall(r"import\s+['\"]([^'\"]+)['\"]", text)
+    candidates: list[Path] = []
+    for spec in imports:
+        if spec.startswith("."):
+            candidates.extend(resolve_relative_spec(path.parent / spec, extensions))
+    return candidates
+
+
+def resolve_relative_spec(base: Path, extensions: list[str]) -> list[Path]:
+    matches: list[Path] = []
+    if base.suffix and base.exists():
+        matches.append(base.resolve())
+    matches.extend(existing_module_paths(base, extensions))
+    for ext in extensions:
+        index_path = base / f"index{ext}"
+        if index_path.exists():
+            matches.append(index_path.resolve())
+    return matches
+
+
+def resolve_markdown_links(project: Project, path: Path, text: str) -> list[Path]:
+    links = re.findall(r"\[[^\]]+\]\(([^)]+)\)", text)
+    candidates: list[Path] = []
+    for link in links:
+        if "://" in link or link.startswith("#"):
+            continue
+        target = (path.parent / link.split("#", 1)[0]).resolve()
+        try:
+            target.relative_to(project.root)
+        except ValueError:
+            continue
+        if target.exists() and target.is_file():
+            candidates.append(target)
+    return candidates
 
 
 def wiki_search(args: argparse.Namespace) -> None:
@@ -875,6 +1112,18 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--query", required=True)
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=wiki_search)
+
+    p = sub.add_parser("learn-path")
+    add_project(p)
+    p.add_argument("--path", required=True)
+    p.set_defaults(func=learn_path)
+
+    p = sub.add_parser("learn-entry")
+    add_project(p)
+    p.add_argument("--entry", required=True)
+    p.add_argument("--depth", type=int, default=2)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=learn_entry)
 
     return parser
 
