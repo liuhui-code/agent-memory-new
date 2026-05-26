@@ -52,6 +52,7 @@ Responsibilities:
 - `tools/agent_memory.py` is the stable local API.
 - SQLite is the machine-readable source of truth.
 - Obsidian Markdown is a read-only human review mirror.
+- Natural language plus skills is the intended user interface; direct CLI usage is the backend and debugging interface.
 
 ## Runtime Commands
 
@@ -124,7 +125,12 @@ tools/
 6. Make initialization and export commands idempotent.
 7. Do not edit shell profiles automatically from the installer.
 8. Record meaningful local development changes in `gitlog.md`.
+9. Design new workflows so the LLM invokes skills first, and skills invoke runtime commands.
 
 ## Primary Plan
 
 See `docs/mvp-implementation-plan.md`.
+
+## Usage Guide
+
+See `docs/usage-guide.md`.

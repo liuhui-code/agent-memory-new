@@ -95,3 +95,27 @@ Verification:
 
 Rollback notes:
 - Delete `.gitignore`, `tools/agent_memory.py`, `install.py`, `skills/`, `references/`, and generated `.agent-memory/` / `.agent-skills/` directories if reverting the runtime implementation.
+
+## 2026-05-26 - Add skill-first usage guidance
+
+Files changed:
+- `docs/usage-guide.md`
+- `README.md`
+- `agent.md`
+- `skills/agent-memory-wiki/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added user-facing guidance that normal use should start with natural language and skills.
+- Documented current wiki usage and the planned `learn-entry` / `learn-path` direction for partial project memory.
+- Updated project docs to preserve the design rule: LLM invokes skills, skills invoke deterministic runtime commands.
+
+Why:
+- Improve usability and lower the command memorization burden for users.
+
+Verification:
+- Command: `python3 tools/agent_memory.py doctor --project .`
+- Expected: all checks OK.
+
+Rollback notes:
+- Remove `docs/usage-guide.md` and revert the README, agent, skill, and gitlog edits from this entry.

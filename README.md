@@ -4,6 +4,8 @@ A local memory and reflection runtime for coding agents.
 
 The system lets a local Agent query previous project facts, task episodes, reflections, and lightweight codebase wiki entries through skills that call a stable local script.
 
+The primary user experience is skill-first: users ask the Agent in natural language, the Agent chooses the relevant memory skill, and the skill calls `tools/agent_memory.py`.
+
 ## Architecture
 
 ```text
@@ -43,6 +45,7 @@ python tools/agent_memory.py wiki-search --project . --query "..." --json
 
 - `agent.md`: project mission and agent-facing rules
 - `AGENTS.md`: concise repository instructions for coding agents
+- `docs/usage-guide.md`: skill-first usage guide and entry-file learning direction
 - `docs/mvp-implementation-plan.md`: detailed MVP implementation plan
 - `docs/runtime.md`: runtime protocol notes
 - `gitlog.md`: local development log for changes and rollback notes
