@@ -33,6 +33,7 @@ VAULT_DIRS = [
     "Reflections",
     "Semantic Facts",
     "Codebase Wiki",
+    "Governance",
     "Daily",
 ]
 
@@ -56,6 +57,44 @@ CODE_EXTENSIONS = {
     ".dart": "Dart",
     ".swift": "Swift",
     ".md": "Markdown",
+}
+
+ACTIVE_STATUS = "active"
+NON_QUERY_STATUSES = {"stale", "merged", "archived", "rejected"}
+VALID_MEMORY_STATUSES = {"active", "stale", "merged", "archived", "rejected"}
+
+GOVERNANCE_COLUMNS = {
+    "semantic_facts": [
+        ("status", "TEXT DEFAULT 'active'"),
+        ("category", "TEXT"),
+        ("scope", "TEXT"),
+        ("evidence", "TEXT"),
+        ("last_used_at", "TEXT"),
+        ("use_count", "INTEGER DEFAULT 0"),
+        ("reviewed_at", "TEXT"),
+        ("merged_into_id", "INTEGER"),
+        ("stale_reason", "TEXT"),
+    ],
+    "reflections": [
+        ("status", "TEXT DEFAULT 'active'"),
+        ("scope", "TEXT"),
+        ("confidence", "REAL DEFAULT 0.8"),
+        ("evidence", "TEXT"),
+        ("last_used_at", "TEXT"),
+        ("use_count", "INTEGER DEFAULT 0"),
+        ("reviewed_at", "TEXT"),
+        ("merged_into_id", "INTEGER"),
+        ("stale_reason", "TEXT"),
+    ],
+    "episodes": [
+        ("status", "TEXT DEFAULT 'active'"),
+        ("importance", "REAL DEFAULT 0.5"),
+        ("last_used_at", "TEXT"),
+        ("use_count", "INTEGER DEFAULT 0"),
+        ("reviewed_at", "TEXT"),
+        ("derived_facts", "TEXT"),
+        ("derived_reflections", "TEXT"),
+    ],
 }
 
 
@@ -179,7 +218,28 @@ def create_schema(conn: sqlite3.Connection) -> None:
         ON reflections(project_id, is_stale);
         """
     )
+    migrate_schema(conn)
     conn.commit()
+
+
+def migrate_schema(conn: sqlite3.Connection) -> None:
+    for table, columns in GOVERNANCE_COLUMNS.items():
+        existing = {
+            row["name"]
+            for row in conn.execute(f"PRAGMA table_info({table})").fetchall()
+        }
+        for name, definition in columns:
+            if name not in existing:
+                conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {definition}")
+    for table in ("semantic_facts", "reflections"):
+        conn.execute(
+            f"""
+            UPDATE {table}
+            SET status = 'stale'
+            WHERE COALESCE(is_stale, 0) = 1
+              AND COALESCE(status, 'active') = 'active'
+            """
+        )
 
 
 def upsert_project(conn: sqlite3.Connection, project: Project) -> None:
@@ -268,14 +328,20 @@ def add_semantic(args: argparse.Namespace, project: Project) -> None:
     with connect(project) as conn:
         cur = conn.execute(
             """
-            INSERT INTO semantic_facts(project_id, fact, source, confidence, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO semantic_facts(
+              project_id, fact, source, confidence, category, scope, evidence,
+              created_at, updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 project.project_id,
                 args.fact,
                 args.source or "manual",
                 args.confidence,
+                args.category,
+                args.scope,
+                args.evidence,
                 ts,
                 ts,
             ),
@@ -290,8 +356,11 @@ def add_episode(args: argparse.Namespace, project: Project) -> None:
     with connect(project) as conn:
         cur = conn.execute(
             """
-            INSERT INTO episodes(project_id, task, summary, outcome, files_touched, commands_run, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO episodes(
+              project_id, task, summary, outcome, files_touched, commands_run,
+              importance, created_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 project.project_id,
@@ -300,6 +369,7 @@ def add_episode(args: argparse.Namespace, project: Project) -> None:
                 args.outcome,
                 args.files_touched,
                 args.commands_run,
+                args.importance,
                 now_iso(),
             ),
         )
@@ -337,6 +407,18 @@ def row_dict(row: sqlite3.Row) -> dict[str, Any]:
     return {key: row[key] for key in row.keys()}
 
 
+def memory_warning(item: dict[str, Any]) -> str | None:
+    status = item.get("status") or ACTIVE_STATUS
+    if status in NON_QUERY_STATUSES:
+        return "This memory is not active. Verify before use."
+    confidence = item.get("confidence")
+    if isinstance(confidence, (int, float)) and confidence < 0.6:
+        return "This memory has low confidence. Verify against current source files."
+    if item.get("is_stale"):
+        return "This memory is stale. Verify against current source files."
+    return None
+
+
 def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, Any]]]:
     tokens = tokenize(query)
     results: dict[str, list[dict[str, Any]]] = {
@@ -348,25 +430,27 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
     with connect(project) as conn:
         semantic = conn.execute(
             """
-            SELECT id, fact, source, confidence, created_at
+            SELECT *
             FROM semantic_facts
-            WHERE project_id = ? AND is_stale = 0
+            WHERE project_id = ? AND COALESCE(is_stale, 0) = 0
+              AND COALESCE(status, 'active') = 'active'
             """,
             (project.project_id,),
         ).fetchall()
         reflections = conn.execute(
             """
-            SELECT id, task, summary, mistake, lesson, future_rule, created_at
+            SELECT *
             FROM reflections
-            WHERE project_id = ? AND is_stale = 0
+            WHERE project_id = ? AND COALESCE(is_stale, 0) = 0
+              AND COALESCE(status, 'active') = 'active'
             """,
             (project.project_id,),
         ).fetchall()
         episodes = conn.execute(
             """
-            SELECT id, task, summary, outcome, created_at
+            SELECT *
             FROM episodes
-            WHERE project_id = ?
+            WHERE project_id = ? AND COALESCE(status, 'active') = 'active'
             """,
             (project.project_id,),
         ).fetchall()
@@ -392,6 +476,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
         if score:
             item = row_dict(row)
             item["score"] = score + float(row["confidence"] or 0)
+            item["warning"] = memory_warning(item)
             results["semantic_facts"].append(item)
 
     for row in reflections:
@@ -403,6 +488,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
         if score:
             item = row_dict(row)
             item["score"] = score
+            item["warning"] = memory_warning(item)
             results["reflections"].append(item)
 
     for row in episodes:
@@ -411,6 +497,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
         if score:
             item = row_dict(row)
             item["score"] = score
+            item["warning"] = memory_warning(item)
             results["episodes"].append(item)
 
     for row in files:
@@ -442,12 +529,36 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "project_id": project.project_id,
         "project_path": str(project.root),
         "query": query,
+        "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
         "semantic_facts": matches["semantic_facts"][:3],
         "reflections": matches["reflections"][:3],
         "episodes": matches["episodes"][:2],
         "wiki_matches": matches["wiki_matches"][:5],
     }
+    record_context_use(project, context)
     return context
+
+
+def record_context_use(project: Project, context_data: dict[str, Any]) -> None:
+    ts = now_iso()
+    updates = [
+        ("semantic_facts", context_data.get("semantic_facts", [])),
+        ("reflections", context_data.get("reflections", [])),
+        ("episodes", context_data.get("episodes", [])),
+    ]
+    with connect(project) as conn:
+        for table, items in updates:
+            for item in items:
+                conn.execute(
+                    f"""
+                    UPDATE {table}
+                    SET use_count = COALESCE(use_count, 0) + 1,
+                        last_used_at = ?
+                    WHERE project_id = ? AND id = ?
+                    """,
+                    (ts, project.project_id, item["id"]),
+                )
+        conn.commit()
 
 
 def output(data: Any, as_json: bool) -> None:
@@ -491,13 +602,19 @@ def reflect(args: argparse.Namespace) -> None:
         "mistake": args.mistake,
         "lesson": args.lesson,
         "future_rule": args.future_rule,
+        "scope": args.scope,
+        "evidence": args.evidence,
+        "confidence": args.confidence,
         "created_at": now_iso(),
     }
     with connect(project) as conn:
         cur = conn.execute(
             """
-            INSERT INTO reflections(project_id, task, summary, mistake, lesson, future_rule, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO reflections(
+              project_id, task, summary, mistake, lesson, future_rule,
+              scope, evidence, confidence, created_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 project.project_id,
@@ -506,6 +623,9 @@ def reflect(args: argparse.Namespace) -> None:
                 args.mistake,
                 args.lesson,
                 args.future_rule,
+                args.scope,
+                args.evidence,
+                args.confidence,
                 data["created_at"],
             ),
         )
@@ -552,11 +672,315 @@ def mark_stale(args: argparse.Namespace) -> None:
         raise SystemExit("mark-stale supports semantic and reflection records")
     with connect(project) as conn:
         conn.execute(
-            f"UPDATE {table} SET is_stale = 1 WHERE project_id = ? AND id = ?",
+            f"UPDATE {table} SET is_stale = 1, status = 'stale' WHERE project_id = ? AND id = ?",
             (project.project_id, args.id),
         )
         conn.commit()
     print(f"{args.type} #{args.id} marked stale")
+
+
+def memory_text(row: dict[str, Any], kind: str) -> str:
+    if kind == "semantic":
+        return str(row.get("fact") or "")
+    if kind == "reflection":
+        return " ".join(
+            str(row.get(key) or "")
+            for key in ("task", "summary", "mistake", "lesson", "future_rule")
+        )
+    if kind == "episode":
+        return " ".join(str(row.get(key) or "") for key in ("task", "summary", "outcome"))
+    return ""
+
+
+def token_set(text: str) -> set[str]:
+    return {token for token in tokenize(text) if len(token) > 1}
+
+
+def duplicate_candidates(rows: list[dict[str, Any]], kind: str, limit: int = 10) -> list[dict[str, Any]]:
+    candidates: list[dict[str, Any]] = []
+    prepared = [(row, token_set(memory_text(row, kind))) for row in rows]
+    for index, (left, left_tokens) in enumerate(prepared):
+        if not left_tokens:
+            continue
+        for right, right_tokens in prepared[index + 1 :]:
+            if not right_tokens:
+                continue
+            overlap = len(left_tokens & right_tokens)
+            union = len(left_tokens | right_tokens)
+            similarity = overlap / union if union else 0.0
+            if similarity >= 0.55:
+                candidates.append(
+                    {
+                        "type": kind,
+                        "ids": [left["id"], right["id"]],
+                        "similarity": round(similarity, 3),
+                        "reason": "high token overlap",
+                        "suggested_action": "review or merge",
+                    }
+                )
+    candidates.sort(key=lambda item: item["similarity"], reverse=True)
+    return candidates[:limit]
+
+
+def fetch_memory_rows(conn: sqlite3.Connection, project: Project, kind: str, active_only: bool = True) -> list[dict[str, Any]]:
+    table = table_for_type(kind)
+    status_filter = "AND COALESCE(status, 'active') = 'active'" if active_only else ""
+    stale_filter = "AND COALESCE(is_stale, 0) = 0" if table in {"semantic_facts", "reflections"} and active_only else ""
+    rows = conn.execute(
+        f"""
+        SELECT * FROM {table}
+        WHERE project_id = ? {status_filter} {stale_filter}
+        ORDER BY id DESC
+        """,
+        (project.project_id,),
+    ).fetchall()
+    return [row_dict(row) for row in rows]
+
+
+def maintain_health(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project)
+    ensure_initialized(project)
+    with connect(project) as conn:
+        semantic_rows = fetch_memory_rows(conn, project, "semantic", active_only=False)
+        reflection_rows = fetch_memory_rows(conn, project, "reflection", active_only=False)
+        episode_rows = fetch_memory_rows(conn, project, "episode", active_only=False)
+
+    semantic_active = [row for row in semantic_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
+    reflection_active = [row for row in reflection_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
+    duplicate_count = len(duplicate_candidates(semantic_active, "semantic")) + len(duplicate_candidates(reflection_active, "reflection"))
+    low_confidence_count = sum(1 for row in semantic_rows + reflection_rows if float(row.get("confidence") or 0.8) < 0.6)
+    stale_count = sum(1 for row in semantic_rows + reflection_rows if row.get("is_stale") or row.get("status") == "stale")
+    unreviewed_reflections = sum(
+        1
+        for row in reflection_rows
+        if not row.get("reviewed_at")
+        and (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS
+        and not row.get("is_stale")
+    )
+
+    recommended_actions: list[str] = []
+    if stale_count:
+        recommended_actions.append("Review stale memories and archive, merge, or refresh them.")
+    if duplicate_count:
+        recommended_actions.append("Run maintain-review and merge duplicate candidates.")
+    if low_confidence_count:
+        recommended_actions.append("Verify low-confidence memories against source files or user instructions.")
+    if unreviewed_reflections:
+        recommended_actions.append("Review reflections and promote durable lessons into semantic facts.")
+
+    data = {
+        "project_id": project.project_id,
+        "counts": {
+            "semantic_facts": len(semantic_rows),
+            "reflections": len(reflection_rows),
+            "episodes": len(episode_rows),
+            "stale": stale_count,
+            "low_confidence": low_confidence_count,
+            "duplicate_candidates": duplicate_count,
+            "unreviewed_reflections": unreviewed_reflections,
+        },
+        "recommended_actions": recommended_actions,
+    }
+    output(data, args.json)
+
+
+def maintain_review(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project)
+    ensure_initialized(project)
+    with connect(project) as conn:
+        semantic_rows = fetch_memory_rows(conn, project, "semantic", active_only=False)
+        reflection_rows = fetch_memory_rows(conn, project, "reflection", active_only=False)
+        episode_rows = fetch_memory_rows(conn, project, "episode", active_only=False)
+
+    semantic_active = [row for row in semantic_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
+    reflection_active = [row for row in reflection_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
+    data = {
+        "stale_memories": [
+            row for row in semantic_rows + reflection_rows
+            if row.get("is_stale") or row.get("status") == "stale"
+        ][: args.limit],
+        "low_confidence": [
+            row for row in semantic_rows + reflection_rows
+            if float(row.get("confidence") or 0.8) < 0.6
+        ][: args.limit],
+        "unreviewed_reflections": [
+            row for row in reflection_rows
+            if not row.get("reviewed_at")
+            and (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS
+            and not row.get("is_stale")
+        ][: args.limit],
+        "unreviewed_episodes": [
+            row for row in episode_rows
+            if not row.get("reviewed_at") and (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS
+        ][: args.limit],
+        "duplicate_candidates": (
+            duplicate_candidates(semantic_active, "semantic", args.limit)
+            + duplicate_candidates(reflection_active, "reflection", args.limit)
+        )[: args.limit],
+    }
+    output(data, args.json)
+
+
+def maintain_status(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project)
+    ensure_initialized(project)
+    if args.status not in VALID_MEMORY_STATUSES:
+        raise SystemExit(f"unsupported status: {args.status}")
+    table = table_for_type(args.type)
+    if table not in {"semantic_facts", "reflections", "episodes"}:
+        raise SystemExit("maintain-status supports semantic, reflection, and episode records")
+    ts = now_iso()
+    assignments = ["status = ?", "reviewed_at = ?"]
+    values: list[Any] = [args.status, ts]
+    if "stale_reason" in {name for name, _ in GOVERNANCE_COLUMNS.get(table, [])}:
+        assignments.append("stale_reason = ?")
+        values.append(args.reason)
+    if table in {"semantic_facts", "reflections"}:
+        assignments.append("is_stale = ?")
+        values.append(1 if args.status == "stale" else 0)
+    values.extend([project.project_id, args.id])
+    with connect(project) as conn:
+        conn.execute(
+            f"""
+            UPDATE {table}
+            SET {", ".join(assignments)}
+            WHERE project_id = ? AND id = ?
+            """,
+            values,
+        )
+        conn.commit()
+    print(f"{args.type} #{args.id} status set to {args.status}")
+
+
+def parse_ids(raw: str) -> list[int]:
+    ids = [int(part.strip()) for part in raw.split(",") if part.strip()]
+    if not ids:
+        raise SystemExit("--ids must contain at least one id")
+    return ids
+
+
+def maintain_merge(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project)
+    ensure_initialized(project)
+    ids = parse_ids(args.ids)
+    table = table_for_type(args.type)
+    if table not in {"semantic_facts", "reflections"}:
+        raise SystemExit("maintain-merge supports semantic and reflection records")
+    ts = now_iso()
+    with connect(project) as conn:
+        rows = conn.execute(
+            f"SELECT * FROM {table} WHERE project_id = ? AND id IN ({','.join('?' for _ in ids)})",
+            [project.project_id, *ids],
+        ).fetchall()
+        if len(rows) != len(set(ids)):
+            raise SystemExit("some ids were not found")
+        if args.type == "semantic":
+            if not args.fact:
+                raise SystemExit("--fact is required when merging semantic records")
+            cur = conn.execute(
+                """
+                INSERT INTO semantic_facts(
+                  project_id, fact, source, confidence, category, scope, evidence,
+                  created_at, updated_at, reviewed_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    project.project_id,
+                    args.fact,
+                    args.source or "maintain-merge",
+                    args.confidence,
+                    args.category,
+                    args.scope,
+                    f"merged from semantic ids: {','.join(map(str, ids))}",
+                    ts,
+                    ts,
+                    ts,
+                ),
+            )
+        else:
+            if not args.lesson:
+                raise SystemExit("--lesson is required when merging reflections")
+            cur = conn.execute(
+                """
+                INSERT INTO reflections(
+                  project_id, task, summary, mistake, lesson, future_rule,
+                  scope, evidence, confidence, created_at, reviewed_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    project.project_id,
+                    args.task or "Merged reflections",
+                    args.summary,
+                    None,
+                    args.lesson,
+                    args.future_rule,
+                    args.scope,
+                    f"merged from reflection ids: {','.join(map(str, ids))}",
+                    args.confidence,
+                    ts,
+                    ts,
+                ),
+            )
+        new_id = cur.lastrowid
+        conn.execute(
+            f"""
+            UPDATE {table}
+            SET status = 'merged', merged_into_id = ?, reviewed_at = ?
+            WHERE project_id = ? AND id IN ({','.join('?' for _ in ids)})
+            """,
+            [new_id, ts, project.project_id, *ids],
+        )
+        conn.commit()
+    output({"merged_into_id": new_id, "source_ids": ids, "type": args.type}, args.json)
+
+
+def maintain_promote(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project)
+    ensure_initialized(project)
+    if not args.fact:
+        raise SystemExit("--fact is required")
+    ts = now_iso()
+    with connect(project) as conn:
+        episode = conn.execute(
+            "SELECT * FROM episodes WHERE project_id = ? AND id = ?",
+            (project.project_id, args.episode_id),
+        ).fetchone()
+        if not episode:
+            raise SystemExit(f"episode not found: {args.episode_id}")
+        cur = conn.execute(
+            """
+            INSERT INTO semantic_facts(
+              project_id, fact, source, confidence, category, scope, evidence,
+              created_at, updated_at, reviewed_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                project.project_id,
+                args.fact,
+                f"episode:{args.episode_id}",
+                args.confidence,
+                args.category,
+                args.scope,
+                args.evidence or f"promoted from episode {args.episode_id}",
+                ts,
+                ts,
+                ts,
+            ),
+        )
+        fact_id = cur.lastrowid
+        conn.execute(
+            """
+            UPDATE episodes
+            SET reviewed_at = ?, derived_facts = ?
+            WHERE project_id = ? AND id = ?
+            """,
+            (ts, json.dumps([fact_id]), project.project_id, args.episode_id),
+        )
+        conn.commit()
+    output({"episode_id": args.episode_id, "semantic_fact_id": fact_id}, args.json)
 
 
 def slugify(text: str, fallback: str) -> str:
@@ -629,6 +1053,13 @@ def vault_export(args: argparse.Namespace) -> None:
         slug = slugify(row["task"], f"reflection-{row['id']}")
         content = frontmatter("reflection", project, row["created_at"])
         content += f"# Reflection: {row['task']}\n\n"
+        content += f"- Status: {row['status'] or ACTIVE_STATUS}\n"
+        content += f"- Confidence: {row['confidence'] or 0.8}\n"
+        if row["scope"]:
+            content += f"- Scope: {row['scope']}\n"
+        if row["evidence"]:
+            content += f"- Evidence: {row['evidence']}\n"
+        content += "\n"
         if row["summary"]:
             content += f"## Summary\n\n{row['summary']}\n\n"
         if row["mistake"]:
@@ -641,8 +1072,11 @@ def vault_export(args: argparse.Namespace) -> None:
     facts_content = frontmatter("semantic-facts", project, now_iso())
     facts_content += "# Semantic Facts\n\n"
     for row in facts:
-        stale = " stale" if row["is_stale"] else ""
-        facts_content += f"- #{row['id']} ({row['source']}, confidence {row['confidence']}{stale}): {row['fact']}\n"
+        status = row["status"] or ("stale" if row["is_stale"] else ACTIVE_STATUS)
+        details = f"{row['source']}, status {status}, confidence {row['confidence']}"
+        if row["scope"]:
+            details += f", scope {row['scope']}"
+        facts_content += f"- #{row['id']} ({details}): {row['fact']}\n"
     write_vault_file(project.vault_dir / "Semantic Facts" / "project-facts.md", facts_content)
 
     files_content = frontmatter("codebase-wiki", project, now_iso())
@@ -663,8 +1097,75 @@ def vault_export(args: argparse.Namespace) -> None:
     daily_content += f"- Exported at {now_iso()}\n"
     write_vault_file(daily, daily_content)
 
+    write_governance_dashboard(project, facts, reflections, episodes)
     vault_index(args)
     print(f"vault exported to {project.vault_dir}")
+
+
+def write_governance_dashboard(
+    project: Project,
+    facts: list[sqlite3.Row],
+    reflections: list[sqlite3.Row],
+    episodes: list[sqlite3.Row],
+) -> None:
+    fact_rows = [row_dict(row) for row in facts]
+    reflection_rows = [row_dict(row) for row in reflections]
+    episode_rows = [row_dict(row) for row in episodes]
+    active_facts = [row for row in fact_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
+    active_reflections = [row for row in reflection_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
+    stale = [
+        row for row in fact_rows + reflection_rows
+        if row.get("is_stale") or row.get("status") == "stale"
+    ]
+    low_confidence = [
+        row for row in fact_rows + reflection_rows
+        if float(row.get("confidence") or 0.8) < 0.6
+    ]
+    duplicates = duplicate_candidates(active_facts, "semantic") + duplicate_candidates(active_reflections, "reflection")
+    unreviewed_reflections = [
+        row for row in reflection_rows
+        if not row.get("reviewed_at") and (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS
+    ]
+
+    header = frontmatter("governance", project, now_iso())
+    notice = "This file is generated. Edit memory through agent-memory-maintain or agent-memory-reflect.\n\n"
+
+    health = header + "# Memory Health\n\n" + notice
+    health += f"- Semantic facts: {len(fact_rows)}\n"
+    health += f"- Reflections: {len(reflection_rows)}\n"
+    health += f"- Episodes: {len(episode_rows)}\n"
+    health += f"- Stale memories: {len(stale)}\n"
+    health += f"- Low-confidence memories: {len(low_confidence)}\n"
+    health += f"- Duplicate candidates: {len(duplicates)}\n"
+    health += f"- Unreviewed reflections: {len(unreviewed_reflections)}\n"
+    write_vault_file(project.vault_dir / "Governance" / "Health.md", health)
+
+    review = header + "# Review Queue\n\n" + notice
+    review += "## Unreviewed Reflections\n\n"
+    for row in unreviewed_reflections[:30]:
+        review += f"- reflection #{row['id']}: {row['task']}\n"
+    review += "\n## Unreviewed Episodes\n\n"
+    for row in episode_rows[:30]:
+        if not row.get("reviewed_at") and (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS:
+            review += f"- episode #{row['id']}: {row['task']}\n"
+    write_vault_file(project.vault_dir / "Governance" / "Review Queue.md", review)
+
+    stale_doc = header + "# Stale Memories\n\n" + notice
+    for row in stale[:50]:
+        text = row.get("fact") or row.get("lesson") or row.get("task")
+        stale_doc += f"- #{row['id']} ({row.get('status') or 'stale'}): {text}\n"
+    write_vault_file(project.vault_dir / "Governance" / "Stale Memories.md", stale_doc)
+
+    merge_doc = header + "# Merge Candidates\n\n" + notice
+    for item in duplicates[:50]:
+        merge_doc += f"- {item['type']} ids {item['ids']} similarity {item['similarity']}: {item['reason']}\n"
+    write_vault_file(project.vault_dir / "Governance" / "Merge Candidates.md", merge_doc)
+
+    low_doc = header + "# Low Confidence\n\n" + notice
+    for row in low_confidence[:50]:
+        text = row.get("fact") or row.get("lesson") or row.get("task")
+        low_doc += f"- #{row['id']} confidence {row.get('confidence')}: {text}\n"
+    write_vault_file(project.vault_dir / "Governance" / "Low Confidence.md", low_doc)
 
 
 def vault_index(args: argparse.Namespace) -> None:
@@ -679,6 +1180,12 @@ def vault_index(args: argparse.Namespace) -> None:
         content += f"- [[Reflections/{path.stem}]]\n"
     content += "\n## Semantic Facts\n\n- [[Semantic Facts/project-facts]]\n"
     content += "\n## Codebase Wiki\n\n- [[Codebase Wiki/files]]\n- [[Codebase Wiki/symbols]]\n"
+    content += "\n## Governance\n\n"
+    content += "- [[Governance/Health]]\n"
+    content += "- [[Governance/Review Queue]]\n"
+    content += "- [[Governance/Stale Memories]]\n"
+    content += "- [[Governance/Merge Candidates]]\n"
+    content += "- [[Governance/Low Confidence]]\n"
     write_vault_file(project.vault_dir / "index.md", content)
 
 
@@ -748,7 +1255,7 @@ def wiki_index(args: argparse.Namespace) -> None:
     project = resolve_project(args.project)
     ensure_initialized(project)
     files = collect_project_files(project)
-    replace_wiki_index(project, files)
+    write_wiki_index(project, files, replace=True)
     print("wiki index updated")
 
 
@@ -791,29 +1298,44 @@ def collect_path_files(project: Project, target: Path) -> list[Path]:
     return files_to_index
 
 
-def replace_wiki_index(project: Project, files: list[Path]) -> None:
+def write_wiki_index(project: Project, files: list[Path], replace: bool = False) -> None:
     ts = now_iso()
     unique_files = sorted({path.resolve() for path in files})
+    relative_files: list[tuple[Path, Path, str, str]] = []
+    for path in unique_files:
+        try:
+            rel = path.relative_to(project.root)
+        except ValueError:
+            continue
+        if should_skip_dir(rel):
+            continue
+        language = language_for(path)
+        if not language:
+            continue
+        relative_files.append((path, rel, str(rel), language))
+
     with connect(project) as conn:
-        conn.execute("DELETE FROM code_files WHERE project_id = ?", (project.project_id,))
-        conn.execute("DELETE FROM code_symbols WHERE project_id = ?", (project.project_id,))
-        for path in unique_files:
-            try:
-                rel = path.relative_to(project.root)
-            except ValueError:
-                continue
-            if should_skip_dir(rel):
-                continue
-            language = language_for(path)
-            if not language:
-                continue
+        if replace:
+            conn.execute("DELETE FROM code_files WHERE project_id = ?", (project.project_id,))
+            conn.execute("DELETE FROM code_symbols WHERE project_id = ?", (project.project_id,))
+        else:
+            for _, _, rel_text, _ in relative_files:
+                conn.execute(
+                    "DELETE FROM code_files WHERE project_id = ? AND file_path = ?",
+                    (project.project_id, rel_text),
+                )
+                conn.execute(
+                    "DELETE FROM code_symbols WHERE project_id = ? AND file_path = ?",
+                    (project.project_id, rel_text),
+                )
+        for path, _rel, rel_text, language in relative_files:
             summary = summarize_file(path, language)
             conn.execute(
                 """
                 INSERT INTO code_files(project_id, file_path, summary, language, updated_at)
                 VALUES (?, ?, ?, ?, ?)
                 """,
-                (project.project_id, str(rel), summary, language, ts),
+                (project.project_id, rel_text, summary, language, ts),
             )
             for symbol, symbol_type in extract_symbols(path, language):
                 conn.execute(
@@ -821,7 +1343,7 @@ def replace_wiki_index(project: Project, files: list[Path]) -> None:
                     INSERT INTO code_symbols(project_id, file_path, symbol, symbol_type, summary, calls, updated_at)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
-                    (project.project_id, str(rel), symbol, symbol_type, "", "", ts),
+                    (project.project_id, rel_text, symbol, symbol_type, "", "", ts),
                 )
         conn.commit()
 
@@ -843,9 +1365,10 @@ def learn_path(args: argparse.Namespace) -> None:
     ensure_initialized(project)
     target = resolve_target(project, args.path)
     files = collect_path_files(project, target)
-    replace_wiki_index(project, files)
+    write_wiki_index(project, files, replace=args.replace)
     task = f"Learn path {target.relative_to(project.root)}"
-    summary = f"Indexed {len(files)} files from {target.relative_to(project.root)}"
+    mode = "replaced" if args.replace else "merged"
+    summary = f"{mode.capitalize()} {len(files)} files from {target.relative_to(project.root)}"
     add_episode_from_values(project, task, summary, "learned")
     print(summary)
 
@@ -869,11 +1392,12 @@ def learn_entry(args: argparse.Namespace) -> None:
     if not entry.is_file():
         raise SystemExit(f"entry must be a file: {entry}")
     files = collect_entry_related_files(project, entry, args.depth)
-    replace_wiki_index(project, files)
+    write_wiki_index(project, files, replace=args.replace)
     rel_files = [str(path.relative_to(project.root)) for path in sorted(files)]
     payload = {
         "entry": str(entry.relative_to(project.root)),
         "depth": args.depth,
+        "mode": "replace" if args.replace else "merge",
         "files": rel_files,
         "count": len(rel_files),
     }
@@ -885,7 +1409,7 @@ def learn_entry(args: argparse.Namespace) -> None:
     add_episode_from_values(
         project,
         f"Learn entry {entry.relative_to(project.root)}",
-        f"Indexed {len(rel_files)} files related to {entry.relative_to(project.root)} with depth {args.depth}",
+        f"{'Replaced' if args.replace else 'Merged'} {len(rel_files)} files related to {entry.relative_to(project.root)} with depth {args.depth}",
         "learned",
     )
     output(payload, args.json)
@@ -1050,11 +1574,15 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--fact")
     p.add_argument("--source", default="manual")
     p.add_argument("--confidence", type=float, default=0.8)
+    p.add_argument("--category")
+    p.add_argument("--scope")
+    p.add_argument("--evidence")
     p.add_argument("--task")
     p.add_argument("--summary")
     p.add_argument("--outcome")
     p.add_argument("--files-touched")
     p.add_argument("--commands-run")
+    p.add_argument("--importance", type=float, default=0.5)
     p.set_defaults(func=update)
 
     p = sub.add_parser("search")
@@ -1076,6 +1604,9 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--mistake")
     p.add_argument("--lesson", required=True)
     p.add_argument("--future-rule")
+    p.add_argument("--scope")
+    p.add_argument("--evidence")
+    p.add_argument("--confidence", type=float, default=0.8)
     p.set_defaults(func=reflect)
 
     p = sub.add_parser("list")
@@ -1090,6 +1621,52 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--type", required=True, choices=["semantic", "reflection"])
     p.add_argument("--id", required=True, type=int)
     p.set_defaults(func=mark_stale)
+
+    p = sub.add_parser("maintain-health")
+    add_project(p)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=maintain_health)
+
+    p = sub.add_parser("maintain-review")
+    add_project(p)
+    p.add_argument("--limit", type=int, default=20)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=maintain_review)
+
+    p = sub.add_parser("maintain-status")
+    add_project(p)
+    p.add_argument("--type", required=True, choices=["semantic", "reflection", "episode"])
+    p.add_argument("--id", required=True, type=int)
+    p.add_argument("--status", required=True, choices=sorted(VALID_MEMORY_STATUSES))
+    p.add_argument("--reason")
+    p.set_defaults(func=maintain_status)
+
+    p = sub.add_parser("maintain-merge")
+    add_project(p)
+    p.add_argument("--type", required=True, choices=["semantic", "reflection"])
+    p.add_argument("--ids", required=True)
+    p.add_argument("--fact")
+    p.add_argument("--lesson")
+    p.add_argument("--task")
+    p.add_argument("--summary")
+    p.add_argument("--future-rule")
+    p.add_argument("--source", default="maintain-merge")
+    p.add_argument("--confidence", type=float, default=0.85)
+    p.add_argument("--category")
+    p.add_argument("--scope")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=maintain_merge)
+
+    p = sub.add_parser("maintain-promote")
+    add_project(p)
+    p.add_argument("--episode-id", required=True, type=int)
+    p.add_argument("--fact", required=True)
+    p.add_argument("--confidence", type=float, default=0.85)
+    p.add_argument("--category")
+    p.add_argument("--scope")
+    p.add_argument("--evidence")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=maintain_promote)
 
     p = sub.add_parser("vault-init")
     add_project(p)
@@ -1116,12 +1693,14 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("learn-path")
     add_project(p)
     p.add_argument("--path", required=True)
+    p.add_argument("--replace", action="store_true")
     p.set_defaults(func=learn_path)
 
     p = sub.add_parser("learn-entry")
     add_project(p)
     p.add_argument("--entry", required=True)
     p.add_argument("--depth", type=int, default=2)
+    p.add_argument("--replace", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=learn_entry)
 

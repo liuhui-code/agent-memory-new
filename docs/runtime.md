@@ -42,5 +42,39 @@ The first MVP keeps the runtime intentionally small:
 - Skills call `tools/agent_memory.py`.
 - Query commands support `--json`.
 - Keyword search ships before vector search.
+- Governance commands keep memory clean without slowing normal query flow.
 
 See `docs/mvp-implementation-plan.md` for the full implementation plan.
+
+---
+
+# 2. Query Fast Path
+
+`context`, `search`, and `wiki-search` are read-oriented commands.
+
+They may:
+
+- filter inactive, stale, merged, archived, or rejected memories;
+- return confidence, status, source, scope, evidence, and warnings;
+- update lightweight usage fields such as `use_count` and `last_used_at`.
+
+They must not:
+
+- merge records;
+- promote episodes;
+- run expensive duplicate scans;
+- export the vault.
+
+# 3. Governance Path
+
+Governance belongs to `agent-memory-maintain` and these runtime commands:
+
+```bash
+python tools/agent_memory.py maintain-health --project . --json
+python tools/agent_memory.py maintain-review --project . --json
+python tools/agent_memory.py maintain-status --project . --type semantic --id 1 --status stale --reason "..."
+python tools/agent_memory.py maintain-merge --project . --type semantic --ids 1,2 --fact "..." --json
+python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact "..." --json
+```
+
+Governance actions should preserve history. Prefer status transitions over destructive deletion.

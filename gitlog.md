@@ -177,3 +177,76 @@ Verification:
 
 Rollback notes:
 - Delete `docs/templates/` and revert the query skill, usage guide, README, and gitlog edits from this entry.
+
+## 2026-05-27 - Add Phase 2 memory governance
+
+Files changed:
+- `tools/agent_memory.py`
+- `.gitignore`
+- `agent.md`
+- `README.md`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/mvp-implementation-plan.md`
+- `docs/phase-2-memory-governance-plan.md`
+- `references/schema.md`
+- `skills/agent-memory-learn/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-reflect/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added schema migration for memory governance metadata: status, scope, evidence, usage, review, merge, stale reason, and episode promotion fields.
+- Added `maintain-health`, `maintain-review`, `maintain-status`, `maintain-merge`, and `maintain-promote` runtime commands.
+- Updated `context` and `search` output to include governance metadata and advisory warnings.
+- Added generated Obsidian governance dashboard pages under `Governance/`.
+- Updated skill and usage docs while preserving the four-skill interface.
+
+Why:
+- Keep memory clean as records grow, without slowing the normal query path or adding a new user-facing skill.
+
+Verification:
+- Command: `python3 tools/agent_memory.py doctor --project .`
+- Expected: all checks OK and existing database migrates.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py`
+- Expected: no syntax errors.
+- Command: `python3 tools/agent_memory.py maintain-health --project . --json`
+- Expected: JSON health summary with counts and recommended actions.
+- Command: `python3 tools/agent_memory.py vault-export --project .`
+- Expected: governance dashboard Markdown files are generated.
+
+Rollback notes:
+- Revert the runtime governance commands and schema migration additions.
+- Revert skill/docs/gitlog edits from this entry.
+- Existing SQLite files may retain extra nullable columns; they are backwards compatible with the earlier runtime unless older code assumes exact table shapes.
+
+## 2026-05-27 - Make partial learning incremental by default
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `README.md`
+- `agent.md`
+- `docs/usage-guide.md`
+- `docs/mvp-implementation-plan.md`
+- `docs/phase-2-memory-governance-plan.md`
+- `skills/agent-memory-learn/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added tests for default merge behavior and explicit replace behavior.
+- Changed `learn-entry` and `learn-path` to merge learned files into the existing codebase wiki by default.
+- Added `--replace` to `learn-entry` and `learn-path` for explicit reset/relearn workflows.
+- Updated user-facing docs and the learn skill to explain incremental partial learning.
+
+Why:
+- Make "add part of a project to memory" behave naturally across multiple entry files or directories.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Expected: two tests pass.
+
+Rollback notes:
+- Revert `write_wiki_index` merge behavior and remove the `--replace` parser options.
+- Remove `tests/test_agent_memory.py` if returning to manual verification only.

@@ -42,7 +42,9 @@ Rules:
 
 - Retrieved memory is advisory.
 - Current source files are more authoritative than stored memory.
+- Use `confidence`, `status`, `source`, `scope`, `evidence`, and `warning` fields when deciding what to inject.
 - Avoid injecting stale or low-confidence memories as facts.
 - Keep injected context concise.
+- Do not run merge, promotion, duplicate detection, or vault export from this skill.
 - For bug diagnosis, use the diagnosis template to query memory recursively as the problem frame changes.
 - For design/change planning, use the change design template to query memory recursively as the proposed plan changes.

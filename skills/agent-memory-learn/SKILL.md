@@ -17,6 +17,8 @@ When the user names an entry file:
 python tools/agent_memory.py learn-entry --project . --entry "<file>" --depth 2 --json
 ```
 
+This merges the entry-related files into the existing codebase wiki by default. Use `--replace` only when the user asks to reset the learned code scope.
+
 Examples:
 
 ```text
@@ -32,6 +34,8 @@ When the user names a directory:
 ```bash
 python tools/agent_memory.py learn-path --project . --path "<directory>"
 ```
+
+This merges the directory into the existing codebase wiki by default. Use `--replace` only when the user asks to replace the current learned scope.
 
 Examples:
 
@@ -52,5 +56,8 @@ Rules:
 
 - Prefer `learn-entry` or `learn-path` over full-project `wiki-index`.
 - Use the smallest scope that satisfies the task.
+- Default to incremental merge for partial learning.
+- Use `--replace` only for explicit reset/relearn requests.
 - After learning, query with `agent-memory-query` before editing.
 - Do not treat the wiki as a complete call graph.
+- Treat learned code context as evidence for future reflections and semantic facts.

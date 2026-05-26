@@ -66,8 +66,14 @@ The runtime will:
 Read the entry file
   -> extract project-local imports
   -> follow related files up to depth
-  -> index only that file set
+  -> merge that file set into the codebase wiki
   -> save an episode describing what was learned
+```
+
+Use `--replace` only when you want this learned scope to replace the current codebase wiki:
+
+```bash
+python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.py --depth 2 --replace --json
 ```
 
 For a directory:
@@ -81,6 +87,12 @@ Expected skill path:
 ```text
 agent-memory-learn
   -> python tools/agent_memory.py learn-path --project . --path skills
+```
+
+Partial learning is incremental by default. A second `learn-path` call adds or refreshes that directory without removing previously learned files. Use `--replace` only for an explicit reset:
+
+```bash
+python tools/agent_memory.py learn-path --project . --path skills --replace
 ```
 
 For the whole project:
@@ -163,6 +175,29 @@ Expected skill path:
 ```text
 agent-memory-maintain
   -> python tools/agent_memory.py doctor --project .
+  -> python tools/agent_memory.py maintain-health --project . --json
+```
+
+Ask:
+
+```text
+检查记忆系统健康状况，并整理需要 review 的记忆。
+```
+
+Expected skill path:
+
+```text
+agent-memory-maintain
+  -> python tools/agent_memory.py maintain-health --project . --json
+  -> python tools/agent_memory.py maintain-review --project . --json
+```
+
+The Agent may then propose specific follow-up actions:
+
+```bash
+python tools/agent_memory.py maintain-status --project . --type semantic --id 12 --status stale --reason "source changed"
+python tools/agent_memory.py maintain-merge --project . --type semantic --ids 3,8 --fact "..."
+python tools/agent_memory.py maintain-promote --project . --episode-id 9 --fact "..."
 ```
 
 Ask:
@@ -194,6 +229,21 @@ agent-memory-reflect
   -> python tools/agent_memory.py vault-export --project .
 ```
 
+Prefer structured reflection fields when possible:
+
+```bash
+python tools/agent_memory.py reflect \
+  --project . \
+  --task "<task>" \
+  --summary "<what happened>" \
+  --mistake "<what went wrong or empty>" \
+  --lesson "<durable lesson>" \
+  --future-rule "<rule for next time>" \
+  --scope "<where this applies>" \
+  --evidence "<file, command, or episode>" \
+  --confidence 0.8
+```
+
 Ask:
 
 ```text
@@ -214,9 +264,12 @@ When debugging or scripting, call the runtime directly:
 ```bash
 python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.py --depth 2 --json
 python tools/agent_memory.py learn-path --project . --path skills
+python tools/agent_memory.py learn-path --project . --path skills --replace
 python tools/agent_memory.py context --project . --query "..." --json
 python tools/agent_memory.py update --project . --type semantic --fact "..." --source user --confidence 1.0
 python tools/agent_memory.py reflect --project . --task "..." --lesson "..."
+python tools/agent_memory.py maintain-health --project . --json
+python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py vault-export --project .
 ```
 
@@ -247,3 +300,15 @@ Runtime command performs deterministic work
 SQLite remains source of truth
 Obsidian remains review mirror
 ```
+
+## 9. Governance Performance Rule
+
+Keep regular retrieval fast:
+
+```text
+agent-memory-query consumes governance metadata.
+agent-memory-reflect writes local lessons and lightweight metadata.
+agent-memory-maintain performs heavier review, merge, stale, promote, and export work.
+```
+
+Do not run duplicate detection, promotion, or vault dashboard generation on every query.

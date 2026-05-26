@@ -69,8 +69,14 @@ python tools/agent_memory.py reflect --project . --task "..." --summary "..." --
 python tools/agent_memory.py vault-export --project .
 python tools/agent_memory.py learn-entry --project . --entry "<file>" --depth 2 --json
 python tools/agent_memory.py learn-path --project . --path "<directory>"
+python tools/agent_memory.py learn-path --project . --path "<directory>" --replace
 python tools/agent_memory.py wiki-index --project .
 python tools/agent_memory.py wiki-search --project . --query "..." --json
+python tools/agent_memory.py maintain-health --project . --json
+python tools/agent_memory.py maintain-review --project . --json
+python tools/agent_memory.py maintain-status --project . --type semantic --id 1 --status stale --reason "..."
+python tools/agent_memory.py maintain-merge --project . --type semantic --ids 1,2 --fact "..." --json
+python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact "..." --json
 ```
 
 All query commands must support `--json`.
@@ -124,6 +130,7 @@ tools/
 7. Do not edit shell profiles automatically from the installer.
 8. Record meaningful local development changes in `gitlog.md`.
 9. Design new workflows so the LLM invokes skills first, and skills invoke runtime commands.
+10. Keep query fast: consume governance metadata in query, run heavier review/merge/promote work through maintain.
 
 ## Primary Plan
 

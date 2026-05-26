@@ -16,7 +16,10 @@ python tools/agent_memory.py reflect \
   --summary "<what happened>" \
   --mistake "<mistake or empty>" \
   --lesson "<durable lesson>" \
-  --future-rule "<rule for next time>"
+  --future-rule "<rule for next time>" \
+  --scope "<where this applies>" \
+  --evidence "<file, command, or episode>" \
+  --confidence 0.8
 ```
 
 ## Remember Explicit User Fact
@@ -44,3 +47,5 @@ Rules:
 - Do not store secrets, credentials, or private tokens.
 - Use semantic facts for explicit user instructions.
 - Use reflections for task outcomes, mistakes, and future rules.
+- Include `scope` and `evidence` when the lesson only applies to part of a project.
+- If a reflection reveals an old memory is wrong, ask `agent-memory-maintain` to mark it stale or merge it.

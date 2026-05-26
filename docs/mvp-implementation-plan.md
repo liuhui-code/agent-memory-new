@@ -82,6 +82,23 @@ Do not build in MVP:
 - Obsidian-to-SQLite reverse sync
 - Complete AST call graph
 
+## Phase 2 Direction
+
+After the first MVP, the next layer is memory governance and consolidation. Keep the same four user-facing skills, but add runtime support for:
+
+- status lifecycle: `active`, `stale`, `merged`, `archived`, `rejected`
+- confidence, scope, evidence, review, merge, and usage metadata
+- health and review queue commands
+- manual merge and episode-to-fact promotion
+- generated Obsidian governance dashboard pages
+
+See `docs/phase-2-memory-governance-plan.md`.
+
+Partial learning behavior:
+
+- `learn-entry` and `learn-path` merge into the existing codebase wiki by default.
+- Add `--replace` only when the user explicitly wants to reset the learned code scope.
+
 ## Phase 1: Runtime Init and Doctor
 
 **Files:**
