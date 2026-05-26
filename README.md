@@ -49,6 +49,8 @@ python tools/agent_memory.py wiki-search --project . --query "..." --json
 - `agent.md`: project mission and agent-facing rules
 - `AGENTS.md`: concise repository instructions for coding agents
 - `docs/usage-guide.md`: skill-first usage guide and entry-file learning direction
+- `docs/templates/diagnosis-memory-query-template.md`: recursive memory-query template for bug diagnosis skills
+- `docs/templates/change-design-memory-query-template.md`: recursive memory-query template for design/change planning skills
 - `docs/mvp-implementation-plan.md`: detailed MVP implementation plan
 - `docs/runtime.md`: runtime protocol notes
 - `gitlog.md`: local development log for changes and rollback notes

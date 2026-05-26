@@ -124,6 +124,18 @@ agent-memory-query
   -> python tools/agent_memory.py wiki-search --project . --query "memory runtime commands" --json
 ```
 
+For workflows that need repeated query refinement, use the integration templates:
+
+```text
+Bug diagnosis:
+  docs/templates/diagnosis-memory-query-template.md
+
+Design or modification planning:
+  docs/templates/change-design-memory-query-template.md
+```
+
+These templates are meant to be copied into other skills. They keep `agent-memory-query` simple while allowing recursive memory-aware reasoning.
+
 ## 4. Maintain Memory System
 
 Ask:

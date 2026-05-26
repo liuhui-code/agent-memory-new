@@ -7,6 +7,11 @@ description: Use when the user asks to query, search, recall, inspect, or retrie
 
 Retrieve memory context before substantial work or when the user asks what the system knows.
 
+This skill intentionally stays small. Complex recursive workflows should use the templates in:
+
+- `docs/templates/diagnosis-memory-query-template.md`
+- `docs/templates/change-design-memory-query-template.md`
+
 ## Context Query
 
 ```bash
@@ -39,3 +44,5 @@ Rules:
 - Current source files are more authoritative than stored memory.
 - Avoid injecting stale or low-confidence memories as facts.
 - Keep injected context concise.
+- For bug diagnosis, use the diagnosis template to query memory recursively as the problem frame changes.
+- For design/change planning, use the change design template to query memory recursively as the proposed plan changes.

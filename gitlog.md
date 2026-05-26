@@ -152,3 +152,28 @@ Verification:
 Rollback notes:
 - Revert `tools/agent_memory.py` parser and learning helpers.
 - Restore removed skill directories if returning to the previous six-skill model.
+
+## 2026-05-26 - Add recursive memory query integration templates
+
+Files changed:
+- `docs/templates/diagnosis-memory-query-template.md`
+- `docs/templates/change-design-memory-query-template.md`
+- `skills/agent-memory-query/SKILL.md`
+- `docs/usage-guide.md`
+- `README.md`
+- `gitlog.md`
+
+What changed:
+- Added a recursive memory-query template for bug diagnosis skills.
+- Added a recursive memory-query template for design/change planning skills.
+- Kept `agent-memory-query` small and pointed complex workflows to reusable templates.
+
+Why:
+- Support recursive memory interaction without turning the query skill into a complex diagnosis or design skill.
+
+Verification:
+- Command: `python3 tools/agent_memory.py doctor --project .`
+- Expected: all checks OK.
+
+Rollback notes:
+- Delete `docs/templates/` and revert the query skill, usage guide, README, and gitlog edits from this entry.
