@@ -250,3 +250,35 @@ Verification:
 Rollback notes:
 - Revert `write_wiki_index` merge behavior and remove the `--replace` parser options.
 - Remove `tests/test_agent_memory.py` if returning to manual verification only.
+
+## 2026-05-27 - Add guided memory review workflow
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `skills/agent-memory-maintain/SKILL.md`
+- `docs/guided-memory-review-workflow.md`
+- `docs/usage-guide.md`
+- `docs/runtime.md`
+- `docs/phase-2-memory-governance-plan.md`
+- `docs/mvp-implementation-plan.md`
+- `README.md`
+- `agent.md`
+- `gitlog.md`
+
+What changed:
+- Added `maintain-plan`, a read-only command that converts review signals into confirmable action candidates.
+- Added tests for stale exclusion, promote, merge, and maintain plan behavior.
+- Updated the maintain skill to run doctor, health, plan, user confirmation, then confirmed governance actions.
+- Documented the guided review workflow and confirmation boundary.
+
+Why:
+- Make memory governance usable through the skill layer instead of requiring users to interpret raw JSON manually.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Expected: six tests pass.
+
+Rollback notes:
+- Remove `maintain-plan` parser/function and the guided workflow docs.
+- Revert the maintain skill and usage/runtime documentation updates from this entry.

@@ -27,9 +27,23 @@ When the user asks to review, clean, govern, merge, or check memory quality:
 
 ```bash
 python tools/agent_memory.py maintain-review --project . --json
+python tools/agent_memory.py maintain-plan --project . --json
 ```
 
-Use the review output to propose specific actions before changing records.
+Use `maintain-plan` to propose grouped actions before changing records.
+
+## Guided Review Workflow
+
+When the user asks to clean, organize, review, or govern memory:
+
+1. Run `doctor`.
+2. Run `maintain-health --json`.
+3. Run `maintain-plan --json`.
+4. Present grouped actions to the user by risk and type.
+5. Wait for confirmation before executing `maintain-status`, `maintain-merge`, or `maintain-promote`.
+6. After confirmed changes, run `vault-export`.
+
+If an action has `command: null`, draft the needed replacement fact or lesson first, then ask for confirmation.
 
 ## Governance Actions
 
@@ -86,3 +100,6 @@ Rules:
 - Report failed `doctor` checks exactly.
 - `agent-memory-query` should stay fast; run heavier governance through this maintain skill.
 - Do not auto-delete memory. Prefer stale, merge, archive, or reject status changes.
+- `maintain-plan` is read-only. It proposes actions; it does not mutate memory.
+- Merge only when the replacement fact is more precise than all source facts.
+- Promote only durable lessons, not task logs.

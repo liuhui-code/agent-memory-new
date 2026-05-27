@@ -787,36 +787,140 @@ def maintain_health(args: argparse.Namespace) -> None:
 def maintain_review(args: argparse.Namespace) -> None:
     project = resolve_project(args.project)
     ensure_initialized(project)
+    data = build_review_data(project, args.limit)
+    output(data, args.json)
+
+
+def build_review_data(project: Project, limit: int) -> dict[str, Any]:
     with connect(project) as conn:
         semantic_rows = fetch_memory_rows(conn, project, "semantic", active_only=False)
         reflection_rows = fetch_memory_rows(conn, project, "reflection", active_only=False)
         episode_rows = fetch_memory_rows(conn, project, "episode", active_only=False)
 
-    semantic_active = [row for row in semantic_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
-    reflection_active = [row for row in reflection_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
-    data = {
+    semantic_active = [
+        row for row in semantic_rows
+        if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")
+    ]
+    reflection_active = [
+        row for row in reflection_rows
+        if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")
+    ]
+    return {
         "stale_memories": [
             row for row in semantic_rows + reflection_rows
             if row.get("is_stale") or row.get("status") == "stale"
-        ][: args.limit],
+        ][:limit],
         "low_confidence": [
             row for row in semantic_rows + reflection_rows
             if float(row.get("confidence") or 0.8) < 0.6
-        ][: args.limit],
+        ][:limit],
         "unreviewed_reflections": [
             row for row in reflection_rows
             if not row.get("reviewed_at")
             and (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS
             and not row.get("is_stale")
-        ][: args.limit],
+        ][:limit],
         "unreviewed_episodes": [
             row for row in episode_rows
             if not row.get("reviewed_at") and (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS
-        ][: args.limit],
+        ][:limit],
         "duplicate_candidates": (
-            duplicate_candidates(semantic_active, "semantic", args.limit)
-            + duplicate_candidates(reflection_active, "reflection", args.limit)
-        )[: args.limit],
+            duplicate_candidates(semantic_active, "semantic", limit)
+            + duplicate_candidates(reflection_active, "reflection", limit)
+        )[:limit],
+    }
+
+
+def maintain_plan(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project)
+    ensure_initialized(project)
+    review = build_review_data(project, args.limit)
+    actions: list[dict[str, Any]] = []
+
+    for row in review["stale_memories"]:
+        kind = "semantic" if "fact" in row else "reflection"
+        reason = row.get("stale_reason") or "stale memory should be archived, refreshed, or merged"
+        actions.append(
+            {
+                "action": "archive",
+                "type": kind,
+                "id": row["id"],
+                "reason": reason,
+                "risk": "low",
+                "requires_confirmation": True,
+                "command": (
+                    "python tools/agent_memory.py maintain-status "
+                    f"--project . --type {kind} --id {row['id']} --status archived "
+                    f"--reason {json.dumps(reason, ensure_ascii=False)}"
+                ),
+            }
+        )
+
+    for candidate in review["duplicate_candidates"]:
+        actions.append(
+            {
+                "action": "review",
+                "type": candidate["type"],
+                "ids": candidate["ids"],
+                "reason": candidate["reason"],
+                "risk": "medium",
+                "requires_confirmation": True,
+                "command": None,
+            }
+        )
+
+    for row in review["low_confidence"]:
+        kind = "semantic" if "fact" in row else "reflection"
+        actions.append(
+            {
+                "action": "verify",
+                "type": kind,
+                "id": row["id"],
+                "reason": "low-confidence memory needs source verification",
+                "risk": "medium",
+                "requires_confirmation": True,
+                "command": None,
+            }
+        )
+
+    for row in review["unreviewed_reflections"]:
+        actions.append(
+            {
+                "action": "promote_or_mark_reviewed",
+                "type": "reflection",
+                "id": row["id"],
+                "reason": "unreviewed reflection may contain a durable lesson",
+                "risk": "medium",
+                "requires_confirmation": True,
+                "command": None,
+            }
+        )
+
+    for row in review["unreviewed_episodes"]:
+        actions.append(
+            {
+                "action": "promote_or_archive",
+                "type": "episode",
+                "id": row["id"],
+                "reason": "unreviewed episode may contain durable project knowledge",
+                "risk": "medium",
+                "requires_confirmation": True,
+                "command": None,
+            }
+        )
+
+    data = {
+        "project_id": project.project_id,
+        "project_path": str(project.root),
+        "summary": {
+            "stale": len(review["stale_memories"]),
+            "duplicate_candidates": len(review["duplicate_candidates"]),
+            "low_confidence": len(review["low_confidence"]),
+            "unreviewed_reflections": len(review["unreviewed_reflections"]),
+            "unreviewed_episodes": len(review["unreviewed_episodes"]),
+        },
+        "actions": actions,
+        "advisory_notice": "maintain-plan only proposes actions. Execute changes only after user confirmation.",
     }
     output(data, args.json)
 
@@ -1632,6 +1736,12 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--limit", type=int, default=20)
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=maintain_review)
+
+    p = sub.add_parser("maintain-plan")
+    add_project(p)
+    p.add_argument("--limit", type=int, default=20)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=maintain_plan)
 
     p = sub.add_parser("maintain-status")
     add_project(p)

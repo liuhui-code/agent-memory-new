@@ -72,9 +72,12 @@ Governance belongs to `agent-memory-maintain` and these runtime commands:
 ```bash
 python tools/agent_memory.py maintain-health --project . --json
 python tools/agent_memory.py maintain-review --project . --json
+python tools/agent_memory.py maintain-plan --project . --json
 python tools/agent_memory.py maintain-status --project . --type semantic --id 1 --status stale --reason "..."
 python tools/agent_memory.py maintain-merge --project . --type semantic --ids 1,2 --fact "..." --json
 python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact "..." --json
 ```
 
 Governance actions should preserve history. Prefer status transitions over destructive deletion.
+
+`maintain-plan` is read-only. It converts review signals into confirmable action candidates for the skill layer. It must not mutate SQLite.

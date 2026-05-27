@@ -89,6 +89,7 @@ After the first MVP, the next layer is memory governance and consolidation. Keep
 - status lifecycle: `active`, `stale`, `merged`, `archived`, `rejected`
 - confidence, scope, evidence, review, merge, and usage metadata
 - health and review queue commands
+- guided review plans that propose confirmable actions without mutating memory
 - manual merge and episode-to-fact promotion
 - generated Obsidian governance dashboard pages
 

@@ -189,16 +189,18 @@ Expected skill path:
 ```text
 agent-memory-maintain
   -> python tools/agent_memory.py maintain-health --project . --json
-  -> python tools/agent_memory.py maintain-review --project . --json
+  -> python tools/agent_memory.py maintain-plan --project . --json
 ```
 
-The Agent may then propose specific follow-up actions:
+The Agent should group the proposed actions by risk and ask for confirmation before mutating memory. It may then execute confirmed actions:
 
 ```bash
 python tools/agent_memory.py maintain-status --project . --type semantic --id 12 --status stale --reason "source changed"
 python tools/agent_memory.py maintain-merge --project . --type semantic --ids 3,8 --fact "..."
 python tools/agent_memory.py maintain-promote --project . --episode-id 9 --fact "..."
 ```
+
+`maintain-plan` is read-only. Actions with `command: null` need the Agent to draft a replacement fact or durable lesson before execution.
 
 Ask:
 
@@ -270,6 +272,7 @@ python tools/agent_memory.py update --project . --type semantic --fact "..." --s
 python tools/agent_memory.py reflect --project . --task "..." --lesson "..."
 python tools/agent_memory.py maintain-health --project . --json
 python tools/agent_memory.py maintain-review --project . --json
+python tools/agent_memory.py maintain-plan --project . --json
 python tools/agent_memory.py vault-export --project .
 ```
 
