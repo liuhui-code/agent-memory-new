@@ -35,6 +35,7 @@ python tools/agent_memory.py maintain-promote ...
 - `verify`: low-confidence memory needs evidence.
 - `promote_or_mark_reviewed`: reflection may become a durable fact or be marked reviewed.
 - `promote_or_archive`: episode may become a durable fact or be archived.
+- `review_query_miss`: a previous query returned no memory or wiki results.
 - `rewrite_reflection`: reflection lacks enough trigger/action structure.
 - `mark_stale`: reflection has been misleading and should leave the active path.
 
@@ -50,6 +51,9 @@ Medium risk:
   review duplicates
   verify low-confidence records
   promote reflections or episodes
+
+Low-friction feedback:
+  review query misses
 ```
 
 Actions with `command: null` need the Agent to draft the replacement fact, durable lesson, or verification step first.
@@ -69,6 +73,12 @@ After confirmed changes, run:
 
 ```bash
 python tools/agent_memory.py vault-export --project .
+```
+
+If a query miss is handled, mark it:
+
+```bash
+python tools/agent_memory.py miss-status --project . --id 7 --status resolved --resolution "learned relevant directory"
 ```
 
 Obsidian remains a generated review mirror. SQLite remains the source of truth.

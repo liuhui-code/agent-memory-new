@@ -28,6 +28,7 @@ When the user asks to review, clean, govern, merge, or check memory quality:
 ```bash
 python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py reflect-review --project . --json
+python tools/agent_memory.py miss-list --project . --status open --json
 python tools/agent_memory.py maintain-plan --project . --json
 ```
 
@@ -40,7 +41,7 @@ When the user asks to clean, organize, review, or govern memory:
 1. Run `doctor`.
 2. Run `maintain-health --json`.
 3. Run `maintain-plan --json`.
-4. Present grouped actions to the user by risk and type.
+4. Present grouped actions to the user by risk and type, including open query misses.
 5. Wait for confirmation before executing `maintain-status`, `maintain-merge`, or `maintain-promote`.
 6. After confirmed changes, run `vault-export`.
 
@@ -90,6 +91,16 @@ python tools/agent_memory.py maintain-promote \
   --json
 ```
 
+Mark a query miss reviewed, resolved, or ignored:
+
+```bash
+python tools/agent_memory.py miss-status \
+  --project . \
+  --id "<id>" \
+  --status resolved \
+  --resolution "<what fixed the miss>"
+```
+
 ## Refresh Indexes
 
 ```bash
@@ -115,3 +126,4 @@ Rules:
 - Merge only when the replacement fact is more precise than all source facts.
 - Promote only durable lessons, not task logs.
 - Treat `rewrite_reflection` and `mark_stale` actions from `maintain-plan` as confirmation-required reflection quality actions.
+- Treat `review_query_miss` actions as low-risk signals that may require learning a missing path or adding a durable fact.

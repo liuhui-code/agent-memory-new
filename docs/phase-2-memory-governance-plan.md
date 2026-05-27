@@ -56,6 +56,8 @@ python tools/agent_memory.py maintain-promote --project . --reflection-id 12 --f
 
 `maintain-plan` is the bridge between raw review signals and Agent action. It proposes confirmable actions and does not mutate memory.
 
+Query misses are also surfaced through `maintain-plan`. They are low-risk signals that a real query failed to hit memory or wiki context. The Agent should decide whether to learn a missing path, add a durable fact, or mark the miss ignored/resolved.
+
 ## Memory Lifecycle
 
 ```text

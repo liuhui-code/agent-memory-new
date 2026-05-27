@@ -38,6 +38,8 @@ python tools/agent_memory.py search --project . --query "<query>" --json
 python tools/agent_memory.py wiki-search --project . --query "<query>" --json
 ```
 
+If `context`, `search`, or `wiki-search` returns no results, the runtime records a query miss automatically. Do not add manual keywords just to improve retrieval; let maintain review real misses later.
+
 Rules:
 
 - Retrieved memory is advisory.
@@ -48,5 +50,6 @@ Rules:
 - Treat reflections missing scope or actionability as weak hints, not strong rules.
 - Keep injected context concise.
 - Do not run merge, promotion, duplicate detection, or vault export from this skill.
+- Do not manually maintain keyword lists for retrieval. Query misses are the feedback signal.
 - For bug diagnosis, use the diagnosis template to query memory recursively as the problem frame changes.
 - For design/change planning, use the change design template to query memory recursively as the proposed plan changes.

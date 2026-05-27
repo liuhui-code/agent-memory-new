@@ -123,6 +123,8 @@ agent-memory-query
   -> python tools/agent_memory.py context --project . --query "<task>" --json
 ```
 
+If a query returns no semantic facts, reflections, episodes, or wiki matches, the runtime records a query miss automatically. The user does not need to maintain keywords.
+
 Ask:
 
 ```text
@@ -192,12 +194,13 @@ agent-memory-maintain
   -> python tools/agent_memory.py maintain-plan --project . --json
 ```
 
-The Agent should group the proposed actions by risk and ask for confirmation before mutating memory. It may then execute confirmed actions:
+The Agent should group the proposed actions by risk and ask for confirmation before mutating memory. Query miss actions are low-risk signals that suggest the Agent may need to learn a path, add a durable fact, or ignore the miss. It may then execute confirmed actions:
 
 ```bash
 python tools/agent_memory.py maintain-status --project . --type semantic --id 12 --status stale --reason "source changed"
 python tools/agent_memory.py maintain-merge --project . --type semantic --ids 3,8 --fact "..."
 python tools/agent_memory.py maintain-promote --project . --episode-id 9 --fact "..."
+python tools/agent_memory.py miss-status --project . --id 7 --status resolved --resolution "learned relevant directory"
 ```
 
 `maintain-plan` is read-only. Actions with `command: null` need the Agent to draft a replacement fact or durable lesson before execution.
@@ -296,6 +299,8 @@ python tools/agent_memory.py reflect-review --project . --json
 python tools/agent_memory.py maintain-health --project . --json
 python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py maintain-plan --project . --json
+python tools/agent_memory.py miss-list --project . --status open --json
+python tools/agent_memory.py miss-status --project . --id 1 --status ignored --resolution "not useful"
 python tools/agent_memory.py vault-export --project .
 ```
 

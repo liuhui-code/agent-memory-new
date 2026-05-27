@@ -26,6 +26,7 @@ REQUIRED_TABLES = {
     "reflections",
     "code_files",
     "code_symbols",
+    "query_misses",
 }
 
 VAULT_DIRS = [
@@ -216,6 +217,18 @@ def create_schema(conn: sqlite3.Connection) -> None:
           updated_at TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS query_misses (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          query TEXT NOT NULL,
+          source TEXT DEFAULT 'context',
+          result_counts TEXT,
+          created_at TEXT NOT NULL,
+          reviewed_at TEXT,
+          status TEXT DEFAULT 'open',
+          resolution TEXT
+        );
+
         CREATE UNIQUE INDEX IF NOT EXISTS idx_code_files_project_file
         ON code_files(project_id, file_path);
 
@@ -224,6 +237,9 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_reflections_project_stale
         ON reflections(project_id, is_stale);
+
+        CREATE INDEX IF NOT EXISTS idx_query_misses_project_status
+        ON query_misses(project_id, status);
         """
     )
     migrate_schema(conn)
@@ -544,6 +560,7 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "wiki_matches": matches["wiki_matches"][:5],
     }
     record_context_use(project, context)
+    record_query_miss_if_empty(project, "context", query, context)
     return context
 
 
@@ -569,6 +586,40 @@ def record_context_use(project: Project, context_data: dict[str, Any]) -> None:
         conn.commit()
 
 
+def result_counts(data: dict[str, Any]) -> dict[str, int]:
+    return {
+        "semantic_facts": len(data.get("semantic_facts", [])),
+        "reflections": len(data.get("reflections", [])),
+        "episodes": len(data.get("episodes", [])),
+        "wiki_matches": len(data.get("wiki_matches", [])),
+    }
+
+
+def has_any_result(data: dict[str, Any]) -> bool:
+    return any(result_counts(data).values())
+
+
+def record_query_miss_if_empty(project: Project, source: str, query: str, data: dict[str, Any]) -> None:
+    counts = result_counts(data)
+    if any(counts.values()):
+        return
+    with connect(project) as conn:
+        conn.execute(
+            """
+            INSERT INTO query_misses(project_id, query, source, result_counts, created_at)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (
+                project.project_id,
+                query,
+                source,
+                json.dumps(counts, ensure_ascii=False),
+                now_iso(),
+            ),
+        )
+        conn.commit()
+
+
 def output(data: Any, as_json: bool) -> None:
     if as_json:
         print(json.dumps(data, ensure_ascii=False, indent=2))
@@ -583,6 +634,7 @@ def search(args: argparse.Namespace) -> None:
     project = resolve_project(args.project)
     ensure_initialized(project)
     data = collect_matches(project, args.query)
+    record_query_miss_if_empty(project, "search", args.query, data)
     output(data, args.json)
 
 
@@ -693,6 +745,45 @@ def table_for_type(kind: str) -> str:
     if kind not in tables:
         raise SystemExit(f"unsupported type: {kind}")
     return tables[kind]
+
+
+def miss_list(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project)
+    ensure_initialized(project)
+    status_filter = "AND status = ?" if args.status else ""
+    values: list[Any] = [project.project_id]
+    if args.status:
+        values.append(args.status)
+    values.append(args.limit)
+    with connect(project) as conn:
+        rows = conn.execute(
+            f"""
+            SELECT * FROM query_misses
+            WHERE project_id = ? {status_filter}
+            ORDER BY id DESC
+            LIMIT ?
+            """,
+            values,
+        ).fetchall()
+    output([row_dict(row) for row in rows], args.json)
+
+
+def miss_status(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project)
+    ensure_initialized(project)
+    if args.status not in {"open", "reviewed", "resolved", "ignored"}:
+        raise SystemExit(f"unsupported query miss status: {args.status}")
+    with connect(project) as conn:
+        conn.execute(
+            """
+            UPDATE query_misses
+            SET status = ?, resolution = ?, reviewed_at = ?
+            WHERE project_id = ? AND id = ?
+            """,
+            (args.status, args.resolution, now_iso(), project.project_id, args.id),
+        )
+        conn.commit()
+    print(f"query miss #{args.id} status set to {args.status}")
 
 
 def mark_stale(args: argparse.Namespace) -> None:
@@ -961,6 +1052,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     ensure_initialized(project)
     review = build_review_data(project, args.limit)
     reflection_quality = build_reflect_review_data(project, args.limit)
+    query_misses = build_query_miss_data(project, args.limit)
     actions: list[dict[str, Any]] = []
 
     for row in review["stale_memories"]:
@@ -1066,6 +1158,19 @@ def maintain_plan(args: argparse.Namespace) -> None:
             }
         )
 
+    for row in query_misses:
+        actions.append(
+            {
+                "action": "review_query_miss",
+                "type": "query_miss",
+                "id": row["id"],
+                "reason": "query had no memory or wiki matches",
+                "risk": "low",
+                "requires_confirmation": False,
+                "command": None,
+            }
+        )
+
     data = {
         "project_id": project.project_id,
         "project_path": str(project.root),
@@ -1076,11 +1181,26 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "unreviewed_reflections": len(review["unreviewed_reflections"]),
             "unreviewed_episodes": len(review["unreviewed_episodes"]),
             "reflection_quality_issues": len(reflection_quality["reflections"]),
+            "open_query_misses": len(query_misses),
         },
         "actions": actions,
         "advisory_notice": "maintain-plan only proposes actions. Execute changes only after user confirmation.",
     }
     output(data, args.json)
+
+
+def build_query_miss_data(project: Project, limit: int) -> list[dict[str, Any]]:
+    with connect(project) as conn:
+        rows = conn.execute(
+            """
+            SELECT * FROM query_misses
+            WHERE project_id = ? AND status = 'open'
+            ORDER BY id DESC
+            LIMIT ?
+            """,
+            (project.project_id, limit),
+        ).fetchall()
+    return [row_dict(row) for row in rows]
 
 
 def maintain_status(args: argparse.Namespace) -> None:
@@ -1328,6 +1448,10 @@ def vault_export(args: argparse.Namespace) -> None:
             "SELECT * FROM code_symbols WHERE project_id = ? ORDER BY file_path, symbol",
             (project.project_id,),
         ).fetchall()
+        query_misses = conn.execute(
+            "SELECT * FROM query_misses WHERE project_id = ? ORDER BY id DESC",
+            (project.project_id,),
+        ).fetchall()
 
     for row in episodes:
         slug = slugify(row["task"], f"episode-{row['id']}")
@@ -1400,7 +1524,7 @@ def vault_export(args: argparse.Namespace) -> None:
     daily_content += f"- Exported at {now_iso()}\n"
     write_vault_file(daily, daily_content)
 
-    write_governance_dashboard(project, facts, reflections, episodes)
+    write_governance_dashboard(project, facts, reflections, episodes, query_misses)
     vault_index(args)
     print(f"vault exported to {project.vault_dir}")
 
@@ -1410,10 +1534,12 @@ def write_governance_dashboard(
     facts: list[sqlite3.Row],
     reflections: list[sqlite3.Row],
     episodes: list[sqlite3.Row],
+    query_misses: list[sqlite3.Row],
 ) -> None:
     fact_rows = [row_dict(row) for row in facts]
     reflection_rows = [row_dict(row) for row in reflections]
     episode_rows = [row_dict(row) for row in episodes]
+    query_miss_rows = [row_dict(row) for row in query_misses]
     active_facts = [row for row in fact_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
     active_reflections = [row for row in reflection_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
     stale = [
@@ -1441,6 +1567,7 @@ def write_governance_dashboard(
     health += f"- Low-confidence memories: {len(low_confidence)}\n"
     health += f"- Duplicate candidates: {len(duplicates)}\n"
     health += f"- Unreviewed reflections: {len(unreviewed_reflections)}\n"
+    health += f"- Open query misses: {sum(1 for row in query_miss_rows if row.get('status') == 'open')}\n"
     write_vault_file(project.vault_dir / "Governance" / "Health.md", health)
 
     review = header + "# Review Queue\n\n" + notice
@@ -1485,6 +1612,13 @@ def write_governance_dashboard(
         quality_doc += f"- reflection #{item['id']} {item['task']}: {', '.join(item['issues'])}\n"
     write_vault_file(project.vault_dir / "Governance" / "Reflection Quality.md", quality_doc)
 
+    misses_doc = header + "# Query Misses\n\n" + notice
+    for row in query_miss_rows[:50]:
+        misses_doc += f"- query miss #{row['id']} ({row['status']}, {row['source']}): {row['query']}\n"
+        if row.get("resolution"):
+            misses_doc += f"  - resolution: {row['resolution']}\n"
+    write_vault_file(project.vault_dir / "Governance" / "Query Misses.md", misses_doc)
+
 
 def vault_index(args: argparse.Namespace) -> None:
     project = resolve_project(args.project)
@@ -1505,6 +1639,7 @@ def vault_index(args: argparse.Namespace) -> None:
     content += "- [[Governance/Merge Candidates]]\n"
     content += "- [[Governance/Low Confidence]]\n"
     content += "- [[Governance/Reflection Quality]]\n"
+    content += "- [[Governance/Query Misses]]\n"
     write_vault_file(project.vault_dir / "index.md", content)
 
 
@@ -1869,6 +2004,17 @@ def wiki_search(args: argparse.Namespace) -> None:
     project = resolve_project(args.project)
     ensure_initialized(project)
     data = collect_matches(project, args.query)["wiki_matches"]
+    record_query_miss_if_empty(
+        project,
+        "wiki-search",
+        args.query,
+        {
+            "semantic_facts": [],
+            "reflections": [],
+            "episodes": [],
+            "wiki_matches": data,
+        },
+    )
     output(data[:20], args.json)
 
 
@@ -1947,6 +2093,20 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--limit", type=int, default=50)
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=list_records)
+
+    p = sub.add_parser("miss-list")
+    add_project(p)
+    p.add_argument("--status", choices=["open", "reviewed", "resolved", "ignored"])
+    p.add_argument("--limit", type=int, default=50)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=miss_list)
+
+    p = sub.add_parser("miss-status")
+    add_project(p)
+    p.add_argument("--id", required=True, type=int)
+    p.add_argument("--status", required=True, choices=["open", "reviewed", "resolved", "ignored"])
+    p.add_argument("--resolution")
+    p.set_defaults(func=miss_status)
 
     p = sub.add_parser("mark-stale")
     add_project(p)

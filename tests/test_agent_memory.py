@@ -40,6 +40,10 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
         )
         return json.loads(result.stdout)
 
+    def miss_list(self, project: Path) -> list[dict]:
+        result = self.run_memory(project, "miss-list", "--json")
+        return json.loads(result.stdout)
+
     def test_learn_path_merges_index_by_default(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
@@ -386,6 +390,89 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             dashboard = project / ".agent-memory" / "vault" / "Governance" / "Reflection Quality.md"
             self.assertTrue(dashboard.exists())
             self.assertIn("missing_trigger_condition", dashboard.read_text(encoding="utf-8"))
+
+    def test_context_records_query_miss_when_all_result_sets_are_empty(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+
+            self.run_memory(project, "context", "--query", "no-such-memory-token", "--json")
+
+            misses = self.miss_list(project)
+            self.assertEqual(len(misses), 1)
+            self.assertEqual(misses[0]["query"], "no-such-memory-token")
+            self.assertEqual(misses[0]["source"], "context")
+            self.assertEqual(misses[0]["status"], "open")
+            self.assertEqual(json.loads(misses[0]["result_counts"])["semantic_facts"], 0)
+
+    def test_context_does_not_record_query_miss_when_memory_matches(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "update",
+                "--type",
+                "semantic",
+                "--fact",
+                "SQLite remains the source of truth.",
+                "--source",
+                "test",
+            )
+
+            self.run_memory(project, "context", "--query", "SQLite", "--json")
+
+            self.assertEqual(self.miss_list(project), [])
+
+    def test_wiki_search_records_query_miss_when_no_wiki_match_exists(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+
+            self.run_memory(project, "wiki-search", "--query", "missing-wiki-token", "--json")
+
+            misses = self.miss_list(project)
+            self.assertEqual(len(misses), 1)
+            self.assertEqual(misses[0]["source"], "wiki-search")
+
+    def test_miss_status_updates_query_miss_review_state(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(project, "context", "--query", "unanswered-question", "--json")
+
+            self.run_memory(
+                project,
+                "miss-status",
+                "--id",
+                "1",
+                "--status",
+                "resolved",
+                "--resolution",
+                "added semantic fact",
+            )
+
+            miss = self.miss_list(project)[0]
+            self.assertEqual(miss["status"], "resolved")
+            self.assertEqual(miss["resolution"], "added semantic fact")
+            self.assertIsNotNone(miss["reviewed_at"])
+
+    def test_maintain_plan_includes_open_query_miss_actions(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(project, "context", "--query", "unanswered-question", "--json")
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            actions = json.loads(result.stdout)["actions"]
+
+            self.assertTrue(any(action["action"] == "review_query_miss" and action["id"] == 1 for action in actions))
+
+    def test_vault_export_writes_query_misses_dashboard(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(project, "context", "--query", "unanswered-question", "--json")
+
+            self.run_memory(project, "vault-export")
+
+            dashboard = project / ".agent-memory" / "vault" / "Governance" / "Query Misses.md"
+            self.assertTrue(dashboard.exists())
+            self.assertIn("unanswered-question", dashboard.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

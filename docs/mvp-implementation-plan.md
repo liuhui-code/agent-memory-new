@@ -91,6 +91,7 @@ After the first MVP, the next layer is memory governance and consolidation. Keep
 - health and review queue commands
 - guided review plans that propose confirmable actions without mutating memory
 - reflection quality review and reuse feedback
+- query miss feedback for completely failed retrievals
 - manual merge and episode-to-fact promotion
 - generated Obsidian governance dashboard pages
 

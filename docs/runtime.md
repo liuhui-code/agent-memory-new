@@ -57,6 +57,7 @@ They may:
 - filter inactive, stale, merged, archived, or rejected memories;
 - return confidence, status, source, scope, evidence, and warnings;
 - update lightweight usage fields such as `use_count` and `last_used_at`.
+- record a query miss when no result set has matches.
 
 They must not:
 
@@ -73,6 +74,8 @@ Governance belongs to `agent-memory-maintain` and these runtime commands:
 python tools/agent_memory.py maintain-health --project . --json
 python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py maintain-plan --project . --json
+python tools/agent_memory.py miss-list --project . --status open --json
+python tools/agent_memory.py miss-status --project . --id 1 --status resolved --resolution "..."
 python tools/agent_memory.py maintain-status --project . --type semantic --id 1 --status stale --reason "..."
 python tools/agent_memory.py maintain-merge --project . --type semantic --ids 1,2 --fact "..." --json
 python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact "..." --json
@@ -82,6 +85,8 @@ python tools/agent_memory.py maintain-promote --project . --reflection-id 1 --fa
 Governance actions should preserve history. Prefer status transitions over destructive deletion.
 
 `maintain-plan` is read-only. It converts review signals into confirmable action candidates for the skill layer. It must not mutate SQLite.
+
+Query miss commands manage feedback from failed retrievals. A miss is recorded only when `context`, `search`, or `wiki-search` has zero matches.
 
 # 4. Reflection Quality Path
 

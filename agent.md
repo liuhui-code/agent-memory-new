@@ -76,6 +76,8 @@ python tools/agent_memory.py wiki-search --project . --query "..." --json
 python tools/agent_memory.py maintain-health --project . --json
 python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py maintain-plan --project . --json
+python tools/agent_memory.py miss-list --project . --status open --json
+python tools/agent_memory.py miss-status --project . --id 1 --status resolved --resolution "..."
 python tools/agent_memory.py maintain-status --project . --type semantic --id 1 --status stale --reason "..."
 python tools/agent_memory.py maintain-merge --project . --type semantic --ids 1,2 --fact "..." --json
 python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact "..." --json

@@ -14,6 +14,7 @@ SQLite is the source of truth for the MVP. Obsidian files are generated mirrors.
 - `reflections`: lessons, mistakes, and future rules.
 - `code_files`: lightweight file-level wiki index.
 - `code_symbols`: lightweight symbol-level wiki index.
+- `query_misses`: failed retrieval attempts that may need later learning or reflection.
 
 ## Governance Fields
 
@@ -36,6 +37,14 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 - `repair_action`: the concrete next action.
 - `applies_to` and `does_not_apply_to`: applicability boundaries.
 - `last_applied_at`, `applied_count`, and `last_outcome`: reuse feedback from later tasks.
+
+`query_misses` track retrieval feedback:
+
+- `query`: the user or Agent query that produced no results.
+- `source`: `context`, `search`, or `wiki-search`.
+- `result_counts`: JSON counts for each result set at miss time.
+- `status`: `open`, `reviewed`, `resolved`, or `ignored`.
+- `resolution`: how the miss was handled.
 
 ## Staleness
 

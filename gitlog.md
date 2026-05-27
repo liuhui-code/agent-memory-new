@@ -320,3 +320,81 @@ Verification:
 Rollback notes:
 - Remove reflection quality migration fields, parser args, `reflect-review`, and reflection promotion support.
 - Revert reflection quality docs and skill updates from this entry.
+
+## 2026-05-27 - Rewrite README in classic bilingual format
+
+Files changed:
+- `README.md`
+- `gitlog.md`
+
+What changed:
+- Reworked README into a classic project structure: features, why use it, architecture, quick start, usage, commands, documentation, and roadmap.
+- Added a full Chinese version with 特性、为何使用、快速开始、如何使用、常用命令、将来规划.
+- Kept current runtime capabilities in the README, including query misses, reflection quality, and memory governance.
+
+Why:
+- Make the project easier to understand for first-time readers and Chinese users.
+
+Verification:
+- Command: checked README Markdown fence balance with a Python one-liner.
+- Expected: balanced fences.
+
+Rollback notes:
+- Revert `README.md` and this gitlog entry.
+
+## 2026-05-27 - Rewrite README in concise bilingual format
+
+Files changed:
+- `README.md`
+- `gitlog.md`
+
+What changed:
+- Rewrote README again into a cleaner open-source style with English and Chinese sections.
+- Kept the classic structure: features, why use it, architecture, quick start, usage, common commands, docs, and roadmap.
+- Shortened repeated explanations while preserving current runtime capabilities.
+
+Why:
+- Improve readability and make the first page easier to scan.
+
+Verification:
+- Command: checked README Markdown fence balance with a Python one-liner.
+- Expected: balanced fences.
+
+Rollback notes:
+- Revert `README.md` and this gitlog entry.
+
+## 2026-05-27 - Add query miss feedback loop
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `docs/query-miss-feedback-loop.md`
+- `docs/usage-guide.md`
+- `docs/runtime.md`
+- `docs/guided-memory-review-workflow.md`
+- `docs/phase-2-memory-governance-plan.md`
+- `docs/mvp-implementation-plan.md`
+- `references/schema.md`
+- `README.md`
+- `agent.md`
+- `gitlog.md`
+
+What changed:
+- Added `query_misses` storage for fully failed `context`, `search`, and `wiki-search` retrievals.
+- Added `miss-list` and `miss-status` commands.
+- Integrated open query misses into `maintain-plan` as `review_query_miss` actions.
+- Added `Governance/Query Misses.md` vault dashboard output.
+- Documented the feedback loop as an alternative to manual keyword maintenance.
+
+Why:
+- Improve retrieval over time by observing real misses, without adding manual keyword or alias maintenance burden.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Expected: query miss tests and existing runtime tests pass.
+
+Rollback notes:
+- Remove `query_misses` table creation, miss commands, miss recording hooks, and vault dashboard output.
+- Revert query miss docs and skill updates from this entry.
