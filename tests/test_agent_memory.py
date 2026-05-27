@@ -211,6 +211,182 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertIn("promote_or_archive", {action["action"] for action in actions})
             self.assertTrue(any(action["type"] == "semantic" and action["id"] == 2 for action in actions))
 
+    def test_reflect_writes_actionable_quality_fields(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+
+            self.run_memory(
+                project,
+                "reflect",
+                "--task",
+                "change runtime command",
+                "--lesson",
+                "Command behavior changes need tests and docs.",
+                "--future-rule",
+                "Update parser, tests, skill docs, usage guide, and gitlog together.",
+                "--trigger-condition",
+                "When changing runtime CLI behavior",
+                "--anti-pattern",
+                "Only update parser implementation",
+                "--repair-action",
+                "Update tests, docs, and skill instructions in the same change",
+                "--applies-to",
+                "runtime command behavior changes",
+                "--does-not-apply-to",
+                "docs-only edits",
+            )
+
+            reflection = self.list_records(project, "reflection")[0]
+            self.assertEqual(reflection["trigger_condition"], "When changing runtime CLI behavior")
+            self.assertEqual(reflection["anti_pattern"], "Only update parser implementation")
+            self.assertEqual(reflection["repair_action"], "Update tests, docs, and skill instructions in the same change")
+            self.assertEqual(reflection["applies_to"], "runtime command behavior changes")
+            self.assertEqual(reflection["does_not_apply_to"], "docs-only edits")
+
+    def test_reflect_updates_used_reflection_feedback(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "reflect",
+                "--task",
+                "old lesson",
+                "--lesson",
+                "Use maintain-plan before memory mutations.",
+            )
+
+            self.run_memory(
+                project,
+                "reflect",
+                "--task",
+                "new task",
+                "--lesson",
+                "The old lesson helped this task.",
+                "--used-reflection-ids",
+                "1",
+                "--reflection-outcome",
+                "helped",
+            )
+
+            old_reflection = sorted(self.list_records(project, "reflection"), key=lambda row: row["id"])[0]
+            self.assertEqual(old_reflection["applied_count"], 1)
+            self.assertEqual(old_reflection["last_outcome"], "helped")
+            self.assertIsNotNone(old_reflection["last_applied_at"])
+
+    def test_reflect_review_reports_missing_actionability(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "reflect",
+                "--task",
+                "thin reflection",
+                "--lesson",
+                "Be careful.",
+            )
+
+            result = self.run_memory(project, "reflect-review", "--json")
+            payload = json.loads(result.stdout)
+            item = payload["reflections"][0]
+
+            self.assertEqual(item["id"], 1)
+            self.assertIn("missing_trigger_condition", item["issues"])
+            self.assertIn("missing_repair_action", item["issues"])
+            self.assertEqual(item["suggested_action"], "rewrite")
+
+    def test_maintain_plan_includes_reflection_quality_actions(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "reflect",
+                "--task",
+                "thin reflection",
+                "--lesson",
+                "Be careful.",
+            )
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            actions = json.loads(result.stdout)["actions"]
+
+            self.assertTrue(any(action["action"] == "rewrite_reflection" and action["id"] == 1 for action in actions))
+
+    def test_maintain_plan_marks_misleading_reflection_stale(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "reflect",
+                "--task",
+                "bad lesson",
+                "--lesson",
+                "Use stale data first.",
+            )
+            self.run_memory(
+                project,
+                "reflect",
+                "--task",
+                "later task",
+                "--lesson",
+                "That lesson misled the task.",
+                "--used-reflection-ids",
+                "1",
+                "--reflection-outcome",
+                "misleading",
+            )
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            actions = json.loads(result.stdout)["actions"]
+
+            self.assertTrue(any(action["action"] == "mark_stale" and action["id"] == 1 for action in actions))
+
+    def test_maintain_promote_reflection_to_semantic_fact(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "reflect",
+                "--task",
+                "durable workflow",
+                "--lesson",
+                "Runtime changes need parser tests and skill docs.",
+            )
+
+            result = self.run_memory(
+                project,
+                "maintain-promote",
+                "--reflection-id",
+                "1",
+                "--fact",
+                "Runtime changes must update parser tests and skill docs.",
+                "--json",
+            )
+
+            payload = json.loads(result.stdout)
+            facts = self.list_records(project, "semantic")
+            reflection = self.list_records(project, "reflection")[0]
+            self.assertEqual(payload["semantic_fact_id"], 1)
+            self.assertEqual(facts[0]["source"], "reflection:1")
+            self.assertIsNotNone(reflection["reviewed_at"])
+
+    def test_vault_export_writes_reflection_quality_dashboard(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "reflect",
+                "--task",
+                "thin reflection",
+                "--lesson",
+                "Be careful.",
+            )
+
+            self.run_memory(project, "vault-export")
+
+            dashboard = project / ".agent-memory" / "vault" / "Governance" / "Reflection Quality.md"
+            self.assertTrue(dashboard.exists())
+            self.assertIn("missing_trigger_condition", dashboard.read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()

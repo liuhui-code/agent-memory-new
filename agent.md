@@ -66,6 +66,7 @@ python tools/agent_memory.py update --project . --type episode --task "..." --su
 python tools/agent_memory.py context --project . --query "..." --json
 python tools/agent_memory.py search --project . --query "..." --json
 python tools/agent_memory.py reflect --project . --task "..." --summary "..." --lesson "..."
+python tools/agent_memory.py reflect-review --project . --json
 python tools/agent_memory.py vault-export --project .
 python tools/agent_memory.py learn-entry --project . --entry "<file>" --depth 2 --json
 python tools/agent_memory.py learn-path --project . --path "<directory>"
@@ -78,6 +79,7 @@ python tools/agent_memory.py maintain-plan --project . --json
 python tools/agent_memory.py maintain-status --project . --type semantic --id 1 --status stale --reason "..."
 python tools/agent_memory.py maintain-merge --project . --type semantic --ids 1,2 --fact "..." --json
 python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact "..." --json
+python tools/agent_memory.py maintain-promote --project . --reflection-id 1 --fact "..." --json
 ```
 
 All query commands must support `--json`.

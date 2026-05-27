@@ -29,6 +29,14 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 
 `episodes` also track `importance`, usage counts, and derived fact/reflection ids.
 
+`reflections` also track reflection quality and reuse:
+
+- `trigger_condition`: when the Agent should remember the reflection.
+- `anti_pattern`: the mistake or weak pattern to avoid.
+- `repair_action`: the concrete next action.
+- `applies_to` and `does_not_apply_to`: applicability boundaries.
+- `last_applied_at`, `applied_count`, and `last_outcome`: reuse feedback from later tasks.
+
 ## Staleness
 
 `semantic_facts` and `reflections` include `is_stale` for backwards compatibility. New governance commands also set `status = 'stale'`. Stale records are excluded from `context` by default.

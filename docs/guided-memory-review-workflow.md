@@ -35,6 +35,8 @@ python tools/agent_memory.py maintain-promote ...
 - `verify`: low-confidence memory needs evidence.
 - `promote_or_mark_reviewed`: reflection may become a durable fact or be marked reviewed.
 - `promote_or_archive`: episode may become a durable fact or be archived.
+- `rewrite_reflection`: reflection lacks enough trigger/action structure.
+- `mark_stale`: reflection has been misleading and should leave the active path.
 
 ## Confirmation Rule
 

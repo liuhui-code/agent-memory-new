@@ -282,3 +282,41 @@ Verification:
 Rollback notes:
 - Remove `maintain-plan` parser/function and the guided workflow docs.
 - Revert the maintain skill and usage/runtime documentation updates from this entry.
+
+## 2026-05-27 - Add reflection quality loop
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `skills/agent-memory-reflect/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `skills/agent-memory-query/SKILL.md`
+- `docs/reflection-quality-loop.md`
+- `docs/usage-guide.md`
+- `docs/runtime.md`
+- `docs/guided-memory-review-workflow.md`
+- `docs/phase-2-memory-governance-plan.md`
+- `docs/mvp-implementation-plan.md`
+- `references/schema.md`
+- `README.md`
+- `agent.md`
+- `gitlog.md`
+
+What changed:
+- Added actionable reflection fields: trigger condition, anti-pattern, repair action, applies-to, and does-not-apply-to.
+- Added reflection reuse feedback with used reflection ids and outcome tracking.
+- Added `reflect-review`, a read-only reflection quality checker.
+- Integrated reflection quality actions into `maintain-plan`.
+- Extended `maintain-promote` to support `--reflection-id`.
+- Added Reflection Quality vault dashboard output.
+
+Why:
+- Make reflections more actionable, reusable, and governable without adding a new user-facing skill.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Expected: thirteen tests pass.
+
+Rollback notes:
+- Remove reflection quality migration fields, parser args, `reflect-review`, and reflection promotion support.
+- Revert reflection quality docs and skill updates from this entry.

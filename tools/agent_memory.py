@@ -80,11 +80,19 @@ GOVERNANCE_COLUMNS = {
         ("scope", "TEXT"),
         ("confidence", "REAL DEFAULT 0.8"),
         ("evidence", "TEXT"),
+        ("trigger_condition", "TEXT"),
+        ("anti_pattern", "TEXT"),
+        ("repair_action", "TEXT"),
+        ("applies_to", "TEXT"),
+        ("does_not_apply_to", "TEXT"),
         ("last_used_at", "TEXT"),
         ("use_count", "INTEGER DEFAULT 0"),
         ("reviewed_at", "TEXT"),
         ("merged_into_id", "INTEGER"),
         ("stale_reason", "TEXT"),
+        ("last_applied_at", "TEXT"),
+        ("applied_count", "INTEGER DEFAULT 0"),
+        ("last_outcome", "TEXT"),
     ],
     "episodes": [
         ("status", "TEXT DEFAULT 'active'"),
@@ -605,6 +613,11 @@ def reflect(args: argparse.Namespace) -> None:
         "scope": args.scope,
         "evidence": args.evidence,
         "confidence": args.confidence,
+        "trigger_condition": args.trigger_condition,
+        "anti_pattern": args.anti_pattern,
+        "repair_action": args.repair_action,
+        "applies_to": args.applies_to,
+        "does_not_apply_to": args.does_not_apply_to,
         "created_at": now_iso(),
     }
     with connect(project) as conn:
@@ -612,9 +625,10 @@ def reflect(args: argparse.Namespace) -> None:
             """
             INSERT INTO reflections(
               project_id, task, summary, mistake, lesson, future_rule,
-              scope, evidence, confidence, created_at
+              scope, evidence, confidence, trigger_condition, anti_pattern,
+              repair_action, applies_to, does_not_apply_to, created_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 project.project_id,
@@ -626,9 +640,26 @@ def reflect(args: argparse.Namespace) -> None:
                 args.scope,
                 args.evidence,
                 args.confidence,
+                args.trigger_condition,
+                args.anti_pattern,
+                args.repair_action,
+                args.applies_to,
+                args.does_not_apply_to,
                 data["created_at"],
             ),
         )
+        if args.used_reflection_ids:
+            ids = parse_ids(args.used_reflection_ids)
+            conn.execute(
+                f"""
+                UPDATE reflections
+                SET applied_count = COALESCE(applied_count, 0) + 1,
+                    last_applied_at = ?,
+                    last_outcome = ?
+                WHERE project_id = ? AND id IN ({','.join('?' for _ in ids)})
+                """,
+                [data["created_at"], args.reflection_outcome, project.project_id, *ids],
+            )
         conn.commit()
         data["id"] = cur.lastrowid
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
@@ -791,6 +822,100 @@ def maintain_review(args: argparse.Namespace) -> None:
     output(data, args.json)
 
 
+def reflect_review(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project)
+    ensure_initialized(project)
+    data = build_reflect_review_data(project, args.limit)
+    output(data, args.json)
+
+
+def build_reflect_review_data(project: Project, limit: int) -> dict[str, Any]:
+    with connect(project) as conn:
+        rows = conn.execute(
+            """
+            SELECT * FROM reflections
+            WHERE project_id = ?
+              AND COALESCE(status, 'active') = 'active'
+              AND COALESCE(is_stale, 0) = 0
+            ORDER BY id DESC
+            LIMIT ?
+            """,
+            (project.project_id, limit),
+        ).fetchall()
+    items = []
+    for row in rows:
+        item = row_dict(row)
+        issues = reflection_quality_issues(item)
+        if issues:
+            action = reflection_quality_action(issues)
+            items.append(
+                {
+                    "id": item["id"],
+                    "task": item["task"],
+                    "issues": issues,
+                    "suggested_action": action,
+                    "reason": reflection_quality_reason(issues),
+                }
+            )
+    return {"project_id": project.project_id, "reflections": items}
+
+
+def reflection_quality_issues(row: dict[str, Any]) -> list[str]:
+    issues: list[str] = []
+    if not row.get("scope"):
+        issues.append("missing_scope")
+    if not row.get("evidence"):
+        issues.append("missing_evidence")
+    if not row.get("future_rule"):
+        issues.append("missing_future_rule")
+    if not row.get("trigger_condition"):
+        issues.append("missing_trigger_condition")
+    if not row.get("repair_action"):
+        issues.append("missing_repair_action")
+    if is_generic_reflection_text(row.get("future_rule") or ""):
+        issues.append("future_rule_too_generic")
+    if is_generic_reflection_text(row.get("lesson") or ""):
+        issues.append("lesson_too_generic")
+    if int(row.get("applied_count") or 0) == 0:
+        issues.append("never_applied")
+    if row.get("last_outcome") == "misleading":
+        issues.append("misleading_outcome")
+    return issues
+
+
+def is_generic_reflection_text(text: str) -> bool:
+    normalized = text.strip().lower()
+    if not normalized:
+        return False
+    generic_phrases = {
+        "be careful",
+        "be careful.",
+        "do better",
+        "do better.",
+        "注意",
+        "小心",
+        "以后注意",
+    }
+    return normalized in generic_phrases or len(tokenize(normalized)) <= 2
+
+
+def reflection_quality_reason(issues: list[str]) -> str:
+    if "misleading_outcome" in issues:
+        return "reflection was previously misleading"
+    if reflection_quality_action(issues) == "observe":
+        return "reflection has not been reused yet"
+    return "reflection is not actionable enough for future tasks"
+
+
+def reflection_quality_action(issues: list[str]) -> str:
+    if "misleading_outcome" in issues:
+        return "mark_stale"
+    structural_issues = set(issues) - {"never_applied"}
+    if structural_issues:
+        return "rewrite"
+    return "observe"
+
+
 def build_review_data(project: Project, limit: int) -> dict[str, Any]:
     with connect(project) as conn:
         semantic_rows = fetch_memory_rows(conn, project, "semantic", active_only=False)
@@ -835,6 +960,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     project = resolve_project(args.project)
     ensure_initialized(project)
     review = build_review_data(project, args.limit)
+    reflection_quality = build_reflect_review_data(project, args.limit)
     actions: list[dict[str, Any]] = []
 
     for row in review["stale_memories"]:
@@ -883,6 +1009,37 @@ def maintain_plan(args: argparse.Namespace) -> None:
             }
         )
 
+    for item in reflection_quality["reflections"]:
+        if item["suggested_action"] == "mark_stale":
+            reason = item["reason"]
+            actions.append(
+                {
+                    "action": "mark_stale",
+                    "type": "reflection",
+                    "id": item["id"],
+                    "reason": reason,
+                    "risk": "medium",
+                    "requires_confirmation": True,
+                    "command": (
+                        "python tools/agent_memory.py maintain-status "
+                        f"--project . --type reflection --id {item['id']} --status stale "
+                        f"--reason {json.dumps(reason, ensure_ascii=False)}"
+                    ),
+                }
+            )
+        elif item["suggested_action"] == "rewrite":
+            actions.append(
+                {
+                    "action": "rewrite_reflection",
+                    "type": "reflection",
+                    "id": item["id"],
+                    "reason": ", ".join(item["issues"]),
+                    "risk": "medium",
+                    "requires_confirmation": True,
+                    "command": None,
+                }
+            )
+
     for row in review["unreviewed_reflections"]:
         actions.append(
             {
@@ -918,6 +1075,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "low_confidence": len(review["low_confidence"]),
             "unreviewed_reflections": len(review["unreviewed_reflections"]),
             "unreviewed_episodes": len(review["unreviewed_episodes"]),
+            "reflection_quality_issues": len(reflection_quality["reflections"]),
         },
         "actions": actions,
         "advisory_notice": "maintain-plan only proposes actions. Execute changes only after user confirmation.",
@@ -1045,14 +1203,26 @@ def maintain_promote(args: argparse.Namespace) -> None:
     ensure_initialized(project)
     if not args.fact:
         raise SystemExit("--fact is required")
+    if bool(args.episode_id) == bool(args.reflection_id):
+        raise SystemExit("provide exactly one of --episode-id or --reflection-id")
     ts = now_iso()
     with connect(project) as conn:
-        episode = conn.execute(
-            "SELECT * FROM episodes WHERE project_id = ? AND id = ?",
-            (project.project_id, args.episode_id),
-        ).fetchone()
-        if not episode:
-            raise SystemExit(f"episode not found: {args.episode_id}")
+        source = f"episode:{args.episode_id}" if args.episode_id else f"reflection:{args.reflection_id}"
+        evidence = args.evidence or f"promoted from {source}"
+        if args.episode_id:
+            source_row = conn.execute(
+                "SELECT * FROM episodes WHERE project_id = ? AND id = ?",
+                (project.project_id, args.episode_id),
+            ).fetchone()
+            if not source_row:
+                raise SystemExit(f"episode not found: {args.episode_id}")
+        else:
+            source_row = conn.execute(
+                "SELECT * FROM reflections WHERE project_id = ? AND id = ?",
+                (project.project_id, args.reflection_id),
+            ).fetchone()
+            if not source_row:
+                raise SystemExit(f"reflection not found: {args.reflection_id}")
         cur = conn.execute(
             """
             INSERT INTO semantic_facts(
@@ -1064,27 +1234,42 @@ def maintain_promote(args: argparse.Namespace) -> None:
             (
                 project.project_id,
                 args.fact,
-                f"episode:{args.episode_id}",
+                source,
                 args.confidence,
                 args.category,
                 args.scope,
-                args.evidence or f"promoted from episode {args.episode_id}",
+                evidence,
                 ts,
                 ts,
                 ts,
             ),
         )
         fact_id = cur.lastrowid
-        conn.execute(
-            """
-            UPDATE episodes
-            SET reviewed_at = ?, derived_facts = ?
-            WHERE project_id = ? AND id = ?
-            """,
-            (ts, json.dumps([fact_id]), project.project_id, args.episode_id),
-        )
+        if args.episode_id:
+            conn.execute(
+                """
+                UPDATE episodes
+                SET reviewed_at = ?, derived_facts = ?
+                WHERE project_id = ? AND id = ?
+                """,
+                (ts, json.dumps([fact_id]), project.project_id, args.episode_id),
+            )
+        else:
+            conn.execute(
+                """
+                UPDATE reflections
+                SET reviewed_at = ?
+                WHERE project_id = ? AND id = ?
+                """,
+                (ts, project.project_id, args.reflection_id),
+            )
         conn.commit()
-    output({"episode_id": args.episode_id, "semantic_fact_id": fact_id}, args.json)
+    payload = {"semantic_fact_id": fact_id}
+    if args.episode_id:
+        payload["episode_id"] = args.episode_id
+    else:
+        payload["reflection_id"] = args.reflection_id
+    output(payload, args.json)
 
 
 def slugify(text: str, fallback: str) -> str:
@@ -1171,6 +1356,20 @@ def vault_export(args: argparse.Namespace) -> None:
         content += f"## Lesson\n\n{row['lesson']}\n\n"
         if row["future_rule"]:
             content += f"## Future Rule\n\n{row['future_rule']}\n"
+        quality_sections = [
+            ("Trigger Condition", row["trigger_condition"]),
+            ("Anti Pattern", row["anti_pattern"]),
+            ("Repair Action", row["repair_action"]),
+            ("Applies To", row["applies_to"]),
+            ("Does Not Apply To", row["does_not_apply_to"]),
+        ]
+        for heading, value in quality_sections:
+            if value:
+                content += f"\n## {heading}\n\n{value}\n"
+        content += "\n## Reuse\n\n"
+        content += f"- Applied count: {row['applied_count'] or 0}\n"
+        content += f"- Last applied at: {row['last_applied_at'] or ''}\n"
+        content += f"- Last outcome: {row['last_outcome'] or ''}\n"
         write_vault_file(project.vault_dir / "Reflections" / f"{row['id']:04d}-{slug}.md", content)
 
     facts_content = frontmatter("semantic-facts", project, now_iso())
@@ -1271,6 +1470,21 @@ def write_governance_dashboard(
         low_doc += f"- #{row['id']} confidence {row.get('confidence')}: {text}\n"
     write_vault_file(project.vault_dir / "Governance" / "Low Confidence.md", low_doc)
 
+    reflection_quality = [
+        {
+            "id": row["id"],
+            "task": row["task"],
+            "issues": reflection_quality_issues(row),
+        }
+        for row in active_reflections
+    ]
+    reflection_quality = [item for item in reflection_quality if item["issues"]]
+    quality_doc = header + "# Reflection Quality\n\n" + notice
+    quality_doc += "## Reflection Quality Issues\n\n"
+    for item in reflection_quality[:50]:
+        quality_doc += f"- reflection #{item['id']} {item['task']}: {', '.join(item['issues'])}\n"
+    write_vault_file(project.vault_dir / "Governance" / "Reflection Quality.md", quality_doc)
+
 
 def vault_index(args: argparse.Namespace) -> None:
     project = resolve_project(args.project)
@@ -1290,6 +1504,7 @@ def vault_index(args: argparse.Namespace) -> None:
     content += "- [[Governance/Stale Memories]]\n"
     content += "- [[Governance/Merge Candidates]]\n"
     content += "- [[Governance/Low Confidence]]\n"
+    content += "- [[Governance/Reflection Quality]]\n"
     write_vault_file(project.vault_dir / "index.md", content)
 
 
@@ -1711,7 +1926,20 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--scope")
     p.add_argument("--evidence")
     p.add_argument("--confidence", type=float, default=0.8)
+    p.add_argument("--trigger-condition")
+    p.add_argument("--anti-pattern")
+    p.add_argument("--repair-action")
+    p.add_argument("--applies-to")
+    p.add_argument("--does-not-apply-to")
+    p.add_argument("--used-reflection-ids")
+    p.add_argument("--reflection-outcome")
     p.set_defaults(func=reflect)
+
+    p = sub.add_parser("reflect-review")
+    add_project(p)
+    p.add_argument("--limit", type=int, default=50)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=reflect_review)
 
     p = sub.add_parser("list")
     add_project(p)
@@ -1769,7 +1997,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("maintain-promote")
     add_project(p)
-    p.add_argument("--episode-id", required=True, type=int)
+    p.add_argument("--episode-id", type=int)
+    p.add_argument("--reflection-id", type=int)
     p.add_argument("--fact", required=True)
     p.add_argument("--confidence", type=float, default=0.85)
     p.add_argument("--category")

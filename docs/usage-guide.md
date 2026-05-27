@@ -243,7 +243,29 @@ python tools/agent_memory.py reflect \
   --future-rule "<rule for next time>" \
   --scope "<where this applies>" \
   --evidence "<file, command, or episode>" \
+  --trigger-condition "<when to remember this>" \
+  --anti-pattern "<mistake pattern to avoid>" \
+  --repair-action "<concrete next action>" \
+  --applies-to "<valid scope>" \
+  --does-not-apply-to "<invalid scope>" \
   --confidence 0.8
+```
+
+When a task used older reflections, record whether they helped:
+
+```bash
+python tools/agent_memory.py reflect \
+  --project . \
+  --task "<task>" \
+  --lesson "<new lesson>" \
+  --used-reflection-ids "3,8" \
+  --reflection-outcome helped
+```
+
+Review reflection quality:
+
+```bash
+python tools/agent_memory.py reflect-review --project . --json
 ```
 
 Ask:
@@ -270,6 +292,7 @@ python tools/agent_memory.py learn-path --project . --path skills --replace
 python tools/agent_memory.py context --project . --query "..." --json
 python tools/agent_memory.py update --project . --type semantic --fact "..." --source user --confidence 1.0
 python tools/agent_memory.py reflect --project . --task "..." --lesson "..."
+python tools/agent_memory.py reflect-review --project . --json
 python tools/agent_memory.py maintain-health --project . --json
 python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py maintain-plan --project . --json

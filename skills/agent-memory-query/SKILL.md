@@ -44,6 +44,8 @@ Rules:
 - Current source files are more authoritative than stored memory.
 - Use `confidence`, `status`, `source`, `scope`, `evidence`, and `warning` fields when deciding what to inject.
 - Avoid injecting stale or low-confidence memories as facts.
+- Prefer reflections that include a clear trigger condition and repair action.
+- Treat reflections missing scope or actionability as weak hints, not strong rules.
 - Keep injected context concise.
 - Do not run merge, promotion, duplicate detection, or vault export from this skill.
 - For bug diagnosis, use the diagnosis template to query memory recursively as the problem frame changes.

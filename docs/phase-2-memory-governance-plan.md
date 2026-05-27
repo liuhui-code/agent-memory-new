@@ -51,6 +51,7 @@ python tools/agent_memory.py maintain-plan --project . --json
 python tools/agent_memory.py maintain-status --project . --type semantic --id 12 --status stale --reason "source changed"
 python tools/agent_memory.py maintain-merge --project . --type semantic --ids 3,8 --fact "..."
 python tools/agent_memory.py maintain-promote --project . --episode-id 9 --fact "..."
+python tools/agent_memory.py maintain-promote --project . --reflection-id 12 --fact "..."
 ```
 
 `maintain-plan` is the bridge between raw review signals and Agent action. It proposes confirmable actions and does not mutate memory.
@@ -91,6 +92,11 @@ future_rule
 scope
 evidence
 confidence
+trigger_condition
+anti_pattern
+repair_action
+applies_to
+does_not_apply_to
 ```
 
 The important motion is:

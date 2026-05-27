@@ -76,8 +76,19 @@ python tools/agent_memory.py maintain-plan --project . --json
 python tools/agent_memory.py maintain-status --project . --type semantic --id 1 --status stale --reason "..."
 python tools/agent_memory.py maintain-merge --project . --type semantic --ids 1,2 --fact "..." --json
 python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact "..." --json
+python tools/agent_memory.py maintain-promote --project . --reflection-id 1 --fact "..." --json
 ```
 
 Governance actions should preserve history. Prefer status transitions over destructive deletion.
 
 `maintain-plan` is read-only. It converts review signals into confirmable action candidates for the skill layer. It must not mutate SQLite.
+
+# 4. Reflection Quality Path
+
+Reflection quality belongs to `agent-memory-reflect` and is reviewed through:
+
+```bash
+python tools/agent_memory.py reflect-review --project . --json
+```
+
+`reflect-review` is read-only. It reports missing trigger conditions, missing repair actions, vague rules, unused reflections, and misleading outcomes.

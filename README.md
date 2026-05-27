@@ -38,6 +38,7 @@ python tools/agent_memory.py doctor --project .
 python tools/agent_memory.py update --project . --type semantic --fact "..."
 python tools/agent_memory.py context --project . --query "..." --json
 python tools/agent_memory.py reflect --project . --task "..." --summary "..." --lesson "..."
+python tools/agent_memory.py reflect-review --project . --json
 python tools/agent_memory.py vault-export --project .
 python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.py --depth 2 --json
 python tools/agent_memory.py learn-path --project . --path skills
@@ -50,6 +51,7 @@ python tools/agent_memory.py maintain-plan --project . --json
 python tools/agent_memory.py maintain-status --project . --type semantic --id 1 --status stale --reason "..."
 python tools/agent_memory.py maintain-merge --project . --type semantic --ids 1,2 --fact "..." --json
 python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact "..." --json
+python tools/agent_memory.py maintain-promote --project . --reflection-id 1 --fact "..." --json
 ```
 
 ## Documentation
@@ -63,6 +65,7 @@ python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact 
 - `docs/runtime.md`: runtime protocol notes
 - `docs/phase-2-memory-governance-plan.md`: Phase 2 governance and consolidation plan
 - `docs/guided-memory-review-workflow.md`: guided review workflow for Agent-driven cleanup
+- `docs/reflection-quality-loop.md`: reflection quality and reuse feedback loop
 - `gitlog.md`: local development log for changes and rollback notes
 
 ## Current Status

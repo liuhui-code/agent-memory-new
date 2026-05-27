@@ -27,6 +27,7 @@ When the user asks to review, clean, govern, merge, or check memory quality:
 
 ```bash
 python tools/agent_memory.py maintain-review --project . --json
+python tools/agent_memory.py reflect-review --project . --json
 python tools/agent_memory.py maintain-plan --project . --json
 ```
 
@@ -79,6 +80,16 @@ python tools/agent_memory.py maintain-promote \
   --json
 ```
 
+Promote a high-quality reflection into a durable semantic fact:
+
+```bash
+python tools/agent_memory.py maintain-promote \
+  --project . \
+  --reflection-id "<id>" \
+  --fact "<durable fact>" \
+  --json
+```
+
 ## Refresh Indexes
 
 ```bash
@@ -103,3 +114,4 @@ Rules:
 - `maintain-plan` is read-only. It proposes actions; it does not mutate memory.
 - Merge only when the replacement fact is more precise than all source facts.
 - Promote only durable lessons, not task logs.
+- Treat `rewrite_reflection` and `mark_stale` actions from `maintain-plan` as confirmation-required reflection quality actions.
