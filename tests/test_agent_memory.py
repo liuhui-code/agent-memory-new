@@ -442,6 +442,79 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(reflection["applies_to"], "runtime command behavior changes")
             self.assertEqual(reflection["does_not_apply_to"], "docs-only edits")
 
+    def test_reflect_payload_writes_agent_structured_task_review(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payload = {
+                "task_type": "diagnosis",
+                "outcome": "success",
+                "problem": "Profile page shows a blank screen after navigation.",
+                "task": "diagnose profile blank page",
+                "summary": "Queried memory, inspected route registration, and found the profile route path mismatch.",
+                "reasoning_summary": "The useful clue was the route_to edge from Home to ProfileDetail plus the router.pushUrl log.",
+                "context_used": [
+                    "query: profile blank page route",
+                    "file: entry/src/main/ets/pages/Home.ets",
+                    "log: router.pushUrl failed",
+                    "reflection:#3",
+                ],
+                "what_worked": [
+                    "Search by business term profile before scanning all pages.",
+                    "Check route edges before editing UI state.",
+                ],
+                "what_failed": [
+                    "Searching only for blank screen was too broad.",
+                ],
+                "mistake": "The first query omitted the business page name.",
+                "lesson": "ArkTS blank-screen diagnosis should combine the business page name with route terms.",
+                "future_rule": "When a HarmonyOS page opens blank after navigation, query business page terms plus route/router terms first.",
+                "scope": "HarmonyOS ArkTS route diagnosis",
+                "evidence": "entry/src/main/ets/pages/Home.ets router.pushUrl",
+                "trigger_condition": "Page opens blank after route navigation",
+                "anti_pattern": "Only search generic symptom terms",
+                "repair_action": "Query memory with business page name, route terms, and related log template",
+                "applies_to": "ArkTS routing and page navigation failures",
+                "does_not_apply_to": "Pure layout rendering bugs without navigation",
+                "confidence": 0.9,
+            }
+
+            self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            reflection = self.list_records(project, "reflection")[0]
+            self.assertEqual(reflection["task_type"], "diagnosis")
+            self.assertEqual(reflection["outcome"], "success")
+            self.assertEqual(reflection["problem"], "Profile page shows a blank screen after navigation.")
+            self.assertIn("route_to edge", reflection["reasoning_summary"])
+            self.assertEqual(json.loads(reflection["context_used"])[0], "query: profile blank page route")
+            self.assertEqual(json.loads(reflection["what_worked"])[1], "Check route edges before editing UI state.")
+            self.assertEqual(json.loads(reflection["what_failed"])[0], "Searching only for blank screen was too broad.")
+
+    def test_search_matches_structured_reflection_payload_fields(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payload = {
+                "task_type": "design",
+                "outcome": "failure",
+                "problem": "Image resource on product card does not appear.",
+                "task": "design product card image fix",
+                "lesson": "Resource display fixes need business resource names and $r lookup terms.",
+                "future_rule": "When product image resources fail, query the product card business terms and app.media references.",
+                "reasoning_summary": "The failed plan ignored app.media and searched only UI component names.",
+                "context_used": ["query: product card image", "file: pages/ProductCard.ets"],
+                "what_worked": ["Adding app.media terms found the right code file."],
+                "what_failed": ["Searching only Card component was too broad."],
+                "trigger_condition": "Business image or icon resource does not render",
+                "repair_action": "Search by business noun plus resource/app.media/$r terms",
+            }
+            self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            result = self.run_memory(project, "search", "--query", "商品卡片图片资源不显示", "--json")
+            reflections = json.loads(result.stdout)["reflections"]
+
+            self.assertEqual(reflections[0]["task_type"], "design")
+            self.assertEqual(reflections[0]["outcome"], "failure")
+            self.assertEqual(reflections[0]["problem"], "Image resource on product card does not appear.")
+
     def test_reflect_updates_used_reflection_feedback(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)

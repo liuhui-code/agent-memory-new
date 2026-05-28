@@ -94,6 +94,7 @@ After the first MVP, the next layer is memory governance and consolidation. Keep
 - health and review queue commands
 - guided review plans that propose confirmable actions without mutating memory
 - reflection quality review and reuse feedback
+- structured Agent-authored reflection payloads for diagnosis, design, execution, and workflow attempts
 - query miss feedback for completely failed retrievals
 - manual merge and episode-to-fact promotion
 - generated Obsidian governance dashboard pages
@@ -340,6 +341,13 @@ python tools/agent_memory.py reflect \
   --future-rule "优先让 skill 调用 runtime，不绑定特定 Agent CLI"
 ```
 
+- [x] Support structured Agent-authored reflection payloads:
+
+```bash
+python tools/agent_memory.py reflect --project . --payload "<json>"
+python tools/agent_memory.py reflect --project . --payload-file "<review.json>"
+```
+
 - [x] Write the reflection to SQLite.
 
 - [x] Write `runtime/last_reflection.json` under the project's workspace memory-home store.
@@ -465,6 +473,7 @@ python tools/agent_memory.py vault-export --project .
 
 ```bash
 python tools/agent_memory.py reflect --project . --task "..." --summary "..." --lesson "..."
+python tools/agent_memory.py reflect --project . --payload "<json>"
 python tools/agent_memory.py update --project . --type semantic --fact "..." --source user --confidence 1.0
 python tools/agent_memory.py vault-export --project .
 ```

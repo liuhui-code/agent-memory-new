@@ -307,6 +307,28 @@ Prefer structured reflection fields when possible:
 ```bash
 python tools/agent_memory.py reflect \
   --project . \
+  --payload '{
+    "task_type": "diagnosis",
+    "outcome": "success",
+    "problem": "Profile page opens blank after navigation.",
+    "task": "diagnose profile blank page",
+    "summary": "Queried memory, inspected route registration, and found a route path mismatch.",
+    "reasoning_summary": "The useful clue was the route edge plus router.pushUrl log.",
+    "context_used": ["query: profile blank page route", "file: pages/Home.ets", "log: router.pushUrl failed"],
+    "what_worked": ["Search by business page name", "Check route edges"],
+    "what_failed": ["Searching only generic blank-screen terms"],
+    "lesson": "ArkTS blank-screen diagnosis should combine business page names with route terms.",
+    "future_rule": "When a HarmonyOS page opens blank after navigation, query business page terms plus route/router terms first.",
+    "trigger_condition": "Page opens blank after route navigation",
+    "repair_action": "Query memory with business page name, route terms, and related log template"
+  }'
+```
+
+Use the argument form for short manual notes:
+
+```bash
+python tools/agent_memory.py reflect \
+  --project . \
   --task "<task>" \
   --summary "<what happened>" \
   --mistake "<what went wrong or empty>" \

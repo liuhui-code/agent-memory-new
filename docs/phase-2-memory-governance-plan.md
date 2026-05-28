@@ -99,8 +99,15 @@ Duplicate detection is deterministic and heuristic in Phase 2. It should propose
 `agent-memory-reflect` should prefer durable structure:
 
 ```text
+task_type
+outcome
+problem
 task
 summary
+reasoning_summary
+context_used
+what_worked
+what_failed
 mistake
 lesson
 future_rule

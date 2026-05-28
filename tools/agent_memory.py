@@ -129,6 +129,13 @@ GOVERNANCE_COLUMNS = {
     ],
     "reflections": [
         ("status", "TEXT DEFAULT 'active'"),
+        ("task_type", "TEXT"),
+        ("outcome", "TEXT"),
+        ("problem", "TEXT"),
+        ("reasoning_summary", "TEXT"),
+        ("context_used", "TEXT"),
+        ("what_worked", "TEXT"),
+        ("what_failed", "TEXT"),
         ("scope", "TEXT"),
         ("confidence", "REAL DEFAULT 0.8"),
         ("evidence", "TEXT"),
@@ -651,6 +658,19 @@ def json_list_text(values: Any) -> str:
     return json.dumps(unique_list(json_list(values)), ensure_ascii=False)
 
 
+def reflection_list_text(values: Any) -> str:
+    seen: set[str] = set()
+    result: list[str] = []
+    for value in json_list(values):
+        stripped = value.strip()
+        normalized = stripped.lower()
+        if not stripped or normalized in seen:
+            continue
+        seen.add(normalized)
+        result.append(stripped)
+    return json.dumps(result, ensure_ascii=False)
+
+
 def code_search_terms(kind: str, row: sqlite3.Row | dict[str, Any]) -> list[str]:
     get = row.get if isinstance(row, dict) else lambda key, default=None: row[key] if key in row.keys() else default
     terms: list[str] = []
@@ -806,7 +826,23 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
     for row in reflections:
         text = " ".join(
             str(row[key] or "")
-            for key in ("task", "summary", "mistake", "lesson", "future_rule")
+            for key in (
+                "task",
+                "task_type",
+                "outcome",
+                "problem",
+                "summary",
+                "reasoning_summary",
+                "context_used",
+                "what_worked",
+                "what_failed",
+                "mistake",
+                "lesson",
+                "future_rule",
+                "trigger_condition",
+                "repair_action",
+                "evidence",
+            )
         )
         score, reasons = score_weighted_fields(
             query,
@@ -1162,26 +1198,73 @@ def context(args: argparse.Namespace) -> None:
     output(data, args.json)
 
 
+REFLECTION_PAYLOAD_TASK_TYPES = {"diagnosis", "design", "execution", "workflow"}
+REFLECTION_PAYLOAD_OUTCOMES = {"success", "failure", "partial"}
+
+
+def load_reflection_payload(args: argparse.Namespace) -> dict[str, Any]:
+    if args.payload and args.payload_file:
+        raise SystemExit("provide only one of --payload or --payload-file")
+    if args.payload_file:
+        try:
+            raw = Path(args.payload_file).read_text(encoding="utf-8")
+        except OSError as exc:
+            raise SystemExit(f"cannot read --payload-file: {exc}") from exc
+    else:
+        raw = args.payload
+    if not raw:
+        return {}
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise SystemExit(f"invalid reflection payload JSON: {exc}") from exc
+    if not isinstance(payload, dict):
+        raise SystemExit("reflection payload must be a JSON object")
+    task_type = payload.get("task_type")
+    if task_type and task_type not in REFLECTION_PAYLOAD_TASK_TYPES:
+        raise SystemExit(
+            "--payload task_type must be one of diagnosis, design, execution, workflow"
+        )
+    outcome = payload.get("outcome")
+    if outcome and outcome not in REFLECTION_PAYLOAD_OUTCOMES:
+        raise SystemExit("--payload outcome must be one of success, failure, partial")
+    return payload
+
+
+def reflection_value(args: argparse.Namespace, payload: dict[str, Any], key: str) -> Any:
+    return payload.get(key) if key in payload else getattr(args, key, None)
+
+
 def reflect(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    if not args.task or not args.lesson:
+    payload = load_reflection_payload(args)
+    task = reflection_value(args, payload, "task")
+    lesson = reflection_value(args, payload, "lesson")
+    if not task or not lesson:
         raise SystemExit("--task and --lesson are required")
     data = {
         "project_id": project.project_id,
-        "task": args.task,
-        "summary": args.summary,
-        "mistake": args.mistake,
-        "lesson": args.lesson,
-        "future_rule": args.future_rule,
-        "scope": args.scope,
-        "evidence": args.evidence,
-        "confidence": args.confidence,
-        "trigger_condition": args.trigger_condition,
-        "anti_pattern": args.anti_pattern,
-        "repair_action": args.repair_action,
-        "applies_to": args.applies_to,
-        "does_not_apply_to": args.does_not_apply_to,
+        "task": task,
+        "summary": reflection_value(args, payload, "summary"),
+        "mistake": reflection_value(args, payload, "mistake"),
+        "lesson": lesson,
+        "future_rule": reflection_value(args, payload, "future_rule"),
+        "task_type": payload.get("task_type"),
+        "outcome": payload.get("outcome"),
+        "problem": payload.get("problem"),
+        "reasoning_summary": payload.get("reasoning_summary"),
+        "context_used": reflection_list_text(payload.get("context_used")),
+        "what_worked": reflection_list_text(payload.get("what_worked")),
+        "what_failed": reflection_list_text(payload.get("what_failed")),
+        "scope": reflection_value(args, payload, "scope"),
+        "evidence": reflection_value(args, payload, "evidence"),
+        "confidence": float(reflection_value(args, payload, "confidence") or args.confidence),
+        "trigger_condition": reflection_value(args, payload, "trigger_condition"),
+        "anti_pattern": reflection_value(args, payload, "anti_pattern"),
+        "repair_action": reflection_value(args, payload, "repair_action"),
+        "applies_to": reflection_value(args, payload, "applies_to"),
+        "does_not_apply_to": reflection_value(args, payload, "does_not_apply_to"),
         "created_at": now_iso(),
     }
     with connect(project) as conn:
@@ -1189,26 +1272,34 @@ def reflect(args: argparse.Namespace) -> None:
             """
             INSERT INTO reflections(
               project_id, task, summary, mistake, lesson, future_rule,
-              scope, evidence, confidence, trigger_condition, anti_pattern,
+              task_type, outcome, problem, reasoning_summary, context_used,
+              what_worked, what_failed, scope, evidence, confidence, trigger_condition, anti_pattern,
               repair_action, applies_to, does_not_apply_to, created_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 project.project_id,
-                args.task,
-                args.summary,
-                args.mistake,
-                args.lesson,
-                args.future_rule,
-                args.scope,
-                args.evidence,
-                args.confidence,
-                args.trigger_condition,
-                args.anti_pattern,
-                args.repair_action,
-                args.applies_to,
-                args.does_not_apply_to,
+                data["task"],
+                data["summary"],
+                data["mistake"],
+                data["lesson"],
+                data["future_rule"],
+                data["task_type"],
+                data["outcome"],
+                data["problem"],
+                data["reasoning_summary"],
+                data["context_used"],
+                data["what_worked"],
+                data["what_failed"],
+                data["scope"],
+                data["evidence"],
+                data["confidence"],
+                data["trigger_condition"],
+                data["anti_pattern"],
+                data["repair_action"],
+                data["applies_to"],
+                data["does_not_apply_to"],
                 data["created_at"],
             ),
         )
@@ -2030,9 +2121,29 @@ def vault_export(args: argparse.Namespace) -> None:
             content += f"- Scope: {row['scope']}\n"
         if row["evidence"]:
             content += f"- Evidence: {row['evidence']}\n"
+        if row["task_type"]:
+            content += f"- Task type: {row['task_type']}\n"
+        if row["outcome"]:
+            content += f"- Outcome: {row['outcome']}\n"
         content += "\n"
+        if row["problem"]:
+            content += f"## Problem\n\n{row['problem']}\n\n"
         if row["summary"]:
             content += f"## Summary\n\n{row['summary']}\n\n"
+        if row["reasoning_summary"]:
+            content += f"## Reasoning Summary\n\n{row['reasoning_summary']}\n\n"
+        list_sections = [
+            ("Context Used", row["context_used"]),
+            ("What Worked", row["what_worked"]),
+            ("What Failed", row["what_failed"]),
+        ]
+        for heading, raw_items in list_sections:
+            items = json_list(raw_items)
+            if items:
+                content += f"## {heading}\n\n"
+                for item in items:
+                    content += f"- {item}\n"
+                content += "\n"
         if row["mistake"]:
             content += f"## Mistake\n\n{row['mistake']}\n\n"
         content += f"## Lesson\n\n{row['lesson']}\n\n"
@@ -3382,10 +3493,12 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("reflect")
     add_project(p)
-    p.add_argument("--task", required=True)
+    p.add_argument("--payload")
+    p.add_argument("--payload-file")
+    p.add_argument("--task")
     p.add_argument("--summary")
     p.add_argument("--mistake")
-    p.add_argument("--lesson", required=True)
+    p.add_argument("--lesson")
     p.add_argument("--future-rule")
     p.add_argument("--scope")
     p.add_argument("--evidence")

@@ -115,11 +115,21 @@ Reflect after a task:
 ```bash
 python tools/agent_memory.py reflect \
   --project . \
-  --task "add guided review workflow" \
-  --lesson "Governance actions should be proposed before mutation." \
-  --future-rule "Run maintain-plan before status, merge, or promote." \
-  --trigger-condition "When cleaning or organizing memory" \
-  --repair-action "Generate an action plan and ask for confirmation"
+  --payload '{
+    "task_type": "execution",
+    "outcome": "success",
+    "problem": "Add guided review workflow.",
+    "task": "add guided review workflow",
+    "summary": "Implemented maintain-plan before mutation.",
+    "reasoning_summary": "The workflow is safer when review actions are generated before writes.",
+    "context_used": ["query: memory governance workflow"],
+    "what_worked": ["Use a read-only plan before status changes"],
+    "what_failed": [],
+    "lesson": "Governance actions should be proposed before mutation.",
+    "future_rule": "Run maintain-plan before status, merge, or promote.",
+    "trigger_condition": "When cleaning or organizing memory",
+    "repair_action": "Generate an action plan and ask for confirmation"
+  }'
 ```
 
 Export the review vault:
@@ -305,11 +315,21 @@ python tools/agent_memory.py context --project . --query "retrying job" --json
 ```bash
 python tools/agent_memory.py reflect \
   --project . \
-  --task "add guided review workflow" \
-  --lesson "治理动作应先生成计划，再执行修改。" \
-  --future-rule "执行 status、merge、promote 前先运行 maintain-plan。" \
-  --trigger-condition "当用户要求整理或治理记忆时" \
-  --repair-action "生成行动计划并等待用户确认"
+  --payload '{
+    "task_type": "execution",
+    "outcome": "success",
+    "problem": "增加 guided review workflow。",
+    "task": "add guided review workflow",
+    "summary": "实现先生成 maintain-plan，再执行治理修改。",
+    "reasoning_summary": "治理动作先计划后写入，更适合确认和回退。",
+    "context_used": ["query: memory governance workflow"],
+    "what_worked": ["先运行只读计划再修改状态"],
+    "what_failed": [],
+    "lesson": "治理动作应先生成计划，再执行修改。",
+    "future_rule": "执行 status、merge、promote 前先运行 maintain-plan。",
+    "trigger_condition": "当用户要求整理或治理记忆时",
+    "repair_action": "生成行动计划并等待用户确认"
+  }'
 ```
 
 导出 Obsidian 镜像：

@@ -24,6 +24,38 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-28 - Add Agent-structured reflection payloads
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `skills/agent-memory-reflect/SKILL.md`
+- `README.md`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/mvp-implementation-plan.md`
+- `docs/phase-2-memory-governance-plan.md`
+- `references/schema.md`
+- `gitlog.md`
+
+What changed:
+- Added `reflect --payload` and `reflect --payload-file` for Agent-authored task reviews.
+- Added structured reflection fields for task type, outcome, problem, reasoning summary, context used, worked actions, and failed actions.
+- Included those fields in reflection search/context scoring and Obsidian reflection export.
+- Updated the reflection skill to make the local Agent CLI organize successful or failed diagnosis, design, execution, and workflow attempts before writing memory.
+
+Why:
+- Reflection should capture how an Agent located a problem, designed a fix, executed work, or failed, so future recursive query loops can reuse real evidence and reasoning rather than vague lessons.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tests/test_agent_memory.py install.py`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 54 tests passed.
+
+Rollback notes:
+- Remove the new reflection columns from `GOVERNANCE_COLUMNS`, remove payload parsing from `reflect`, and revert the skill/docs examples to argument-only reflection writes.
+
 ## 2026-05-28 - Separate learning source from memory archive
 
 Files changed:

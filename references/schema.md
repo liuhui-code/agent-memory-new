@@ -41,6 +41,13 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 
 `reflections` also track reflection quality and reuse:
 
+- `task_type`: `diagnosis`, `design`, `execution`, or `workflow`.
+- `outcome`: `success`, `failure`, or `partial`.
+- `problem`: the user-facing problem or goal being reflected on.
+- `reasoning_summary`: compact explanation of how the Agent reached the conclusion.
+- `context_used`: JSON list of queries, files, logs, edges, or prior memories used.
+- `what_worked`: JSON list of useful actions.
+- `what_failed`: JSON list of failed or weak actions.
 - `trigger_condition`: when the Agent should remember the reflection.
 - `anti_pattern`: the mistake or weak pattern to avoid.
 - `repair_action`: the concrete next action.

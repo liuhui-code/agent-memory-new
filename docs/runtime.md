@@ -108,6 +108,37 @@ Query miss commands manage feedback from failed retrievals. A miss is recorded o
 
 Query commands expand common natural-language problem descriptions into technical search terms before scoring rows. The expansion is deterministic and local. It helps symptom queries such as `页面跳转后白屏`, `图片资源显示不出来`, or `加载用户资料失败日志` match learned ArkTS route, resource, config, and log records without adding a vector database.
 
+# 3.5 Structured Reflection Path
+
+`agent-memory-reflect` should let the local Agent CLI organize a completed attempt before writing memory. For diagnosis, design, execution, and workflow attempts, prefer:
+
+```bash
+python tools/agent_memory.py reflect --project . --payload "<json>"
+python tools/agent_memory.py reflect --project . --payload-file "<review.json>"
+```
+
+The payload stores the Agent-authored task review in `reflections`:
+
+```json
+{
+  "task_type": "diagnosis",
+  "outcome": "success",
+  "problem": "Profile page opens blank after navigation.",
+  "task": "diagnose profile blank page",
+  "summary": "Queried memory and found a route path mismatch.",
+  "reasoning_summary": "The useful clue was the route edge plus router.pushUrl log.",
+  "context_used": ["query: profile blank page route", "file: pages/Home.ets", "log: router.pushUrl failed"],
+  "what_worked": ["Search by business page name", "Check route edges"],
+  "what_failed": ["Searching only generic blank-screen terms"],
+  "lesson": "ArkTS blank-screen diagnosis should combine business page names with route terms.",
+  "future_rule": "When a HarmonyOS page opens blank after navigation, query business page terms plus route/router terms first.",
+  "trigger_condition": "Page opens blank after route navigation",
+  "repair_action": "Query memory with business page name, route terms, and related log template"
+}
+```
+
+These fields participate in `search` and `context`, so later issue-location or design skills can retrieve successful and failed attempts by problem description, business term, file, log, or prior query.
+
 # 4. Code Learning Path
 
 `learn-entry`, `learn-path`, and `wiki-index` update the codebase wiki.
