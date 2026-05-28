@@ -24,6 +24,63 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-28 - Split runtime models, storage, and text helpers
+
+Files changed:
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/__init__.py`
+- `tools/agent_memory_runtime/models.py`
+- `tools/agent_memory_runtime/storage.py`
+- `tools/agent_memory_runtime/text.py`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Kept `tools/agent_memory.py` as the only user-facing runtime entry point.
+- Added an internal `agent_memory_runtime` package for smaller implementation modules.
+- Moved project dataclass, constants, schema governance constants, and runtime layout constants into `models.py`.
+- Moved project resolution, memory-home handling, SQLite connection/schema/migration, config writing, and initialization helpers into `storage.py`.
+- Moved tokenization, query expansion, JSON list helpers, code search term generation, and weighted scoring helpers into `text.py`.
+- Added a regression test that imports the new modules and verifies query expansion still works.
+
+Why:
+- `tools/agent_memory.py` had grown past 3600 lines. Splitting stable helper layers reduces cognitive load while preserving the CLI contract required by the MVP.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_runtime_modules_expose_project_and_text_helpers`
+- Result: fails before module creation, then passes after the refactor.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/models.py tools/agent_memory_runtime/storage.py tools/agent_memory_runtime/text.py tests/test_agent_memory.py`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 55 tests passed.
+
+Rollback notes:
+- Move the constants and helper functions from `tools/agent_memory_runtime/` back into `tools/agent_memory.py`, delete the package, and remove the module import regression test.
+
+## 2026-05-28 - Rewrite experience system principles
+
+Files changed:
+- `docs/experience-system-principles.md`
+- `gitlog.md`
+
+What changed:
+- Reframed memory as compressed facts and experience as higher-level abstraction over facts, hidden assumptions, reasoning, and validation.
+- Added Memory / Reflection / Experience layer boundaries.
+- Mapped Kolb experiential learning, Case-Based Reasoning, double-loop learning, SECI, MemGPT/Letta, Generative Agents, Zep, and Voyager ideas to this project.
+- Documented project principles: reflection is only an experience candidate, experience requires preconditions and counterexamples, query should prefer experience before evidence drill-down, and validated experience may become a skill.
+
+Why:
+- The project needs a clearer distinction between the memory system and the higher-level experience system before adding more reflection or governance features.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py`
+- Result: passes.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+- Restore the previous `docs/experience-system-principles.md` content from git history if the project should return to the earlier reflection-focused principles.
+
 ## 2026-05-28 - Add local ownership fingerprint
 
 Files changed:

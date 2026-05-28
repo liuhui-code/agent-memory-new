@@ -8,468 +8,55 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
-import hashlib
 import json
 import os
 import re
 import sqlite3
 import sys
-from dataclasses import dataclass, replace
-from datetime import datetime, timezone
+from dataclasses import replace
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-
-PROJECT_FINGERPRINT_SCHEME = "owner-salted-sha256:v1"
-PROJECT_FINGERPRINT = "sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77"
-
-REQUIRED_TABLES = {
-    "projects",
-    "episodes",
-    "semantic_facts",
-    "reflections",
-    "code_files",
-    "code_symbols",
-    "code_log_statements",
-    "memory_edges",
-    "query_misses",
-}
-
-VAULT_DIRS = [
-    "Episodes",
-    "Reflections",
-    "Semantic Facts",
-    "Codebase Wiki",
-    "Governance",
-    "Daily",
-]
-
-IGNORE_DIRS = {
-    ".git",
-    "node_modules",
-    "build",
-    "dist",
-    ".dart_tool",
-    "__pycache__",
-    ".agent-memory",
-    ".agent-skills",
-}
-
-CODE_EXTENSIONS = {
-    ".py": "Python",
-    ".ts": "TypeScript",
-    ".tsx": "TypeScript",
-    ".ets": "ArkTS",
-    ".js": "JavaScript",
-    ".jsx": "JavaScript",
-    ".dart": "Dart",
-    ".swift": "Swift",
-    ".md": "Markdown",
-    ".json5": "HarmonyOS Config",
-}
-
-ACTIVE_STATUS = "active"
-NON_QUERY_STATUSES = {"stale", "merged", "archived", "rejected"}
-VALID_MEMORY_STATUSES = {"active", "stale", "merged", "archived", "rejected"}
-NETWORK_MAX_DEPTH = 1
-NETWORK_EDGE_LIMIT = 10
-EVIDENCE_CHAIN_LIMIT = 3
-QUERY_ALLOWED_EDGE_RELATIONS = {"contains", "emits_log", "imports", "routes_to", "uses_resource"}
-
-QUERY_EXPANSION_RULES = [
-    (
-        ("跳转", "路由", "导航", "打开页面", "页面跳", "白屏", "空白页", "打不开"),
-        ("route", "routes", "router", "pushurl", "replaceurl", "navigation", "page", "pages", "pagestack"),
-    ),
-    (
-        ("资源", "图片", "图标", "文案", "字符串", "显示不出来", "不显示", "找不到资源"),
-        ("resource", "resources", "media", "image", "string", "app.media", "app.string", "$r"),
-    ),
-    (
-        ("日志", "报错", "错误", "异常", "失败", "崩溃", "打印", "定位"),
-        ("log", "logger", "console", "hilog", "error", "warning", "exception", "failed", "failure", "debug"),
-    ),
-    (
-        ("加载", "请求", "接口", "网络", "用户", "资料", "数据"),
-        ("load", "request", "fetch", "network", "profile", "account", "user", "data"),
-    ),
-    (
-        ("权限", "授权", "网络权限", "依赖", "配置", "ability", "module"),
-        ("permission", "permissions", "dependency", "dependencies", "ability", "module", "json5", "config"),
-    ),
-    (
-        ("鸿蒙", "harmony", "harmonyos", "arkts", "ets"),
-        ("harmonyos", "arkts", "ets", "entry", "ability", "stage"),
-    ),
-]
-
-CODE_BUSINESS_COLUMNS = {
-    "code_files": [
-        ("business_summary", "TEXT"),
-        ("business_terms", "TEXT"),
-    ],
-    "code_symbols": [
-        ("business_summary", "TEXT"),
-        ("business_terms", "TEXT"),
-    ],
-    "code_log_statements": [
-        ("business_summary", "TEXT"),
-        ("business_terms", "TEXT"),
-    ],
-}
-
-GOVERNANCE_COLUMNS = {
-    "semantic_facts": [
-        ("status", "TEXT DEFAULT 'active'"),
-        ("category", "TEXT"),
-        ("scope", "TEXT"),
-        ("evidence", "TEXT"),
-        ("last_used_at", "TEXT"),
-        ("use_count", "INTEGER DEFAULT 0"),
-        ("reviewed_at", "TEXT"),
-        ("merged_into_id", "INTEGER"),
-        ("stale_reason", "TEXT"),
-    ],
-    "reflections": [
-        ("status", "TEXT DEFAULT 'active'"),
-        ("task_type", "TEXT"),
-        ("outcome", "TEXT"),
-        ("problem", "TEXT"),
-        ("reasoning_summary", "TEXT"),
-        ("context_used", "TEXT"),
-        ("what_worked", "TEXT"),
-        ("what_failed", "TEXT"),
-        ("scope", "TEXT"),
-        ("confidence", "REAL DEFAULT 0.8"),
-        ("evidence", "TEXT"),
-        ("trigger_condition", "TEXT"),
-        ("anti_pattern", "TEXT"),
-        ("repair_action", "TEXT"),
-        ("applies_to", "TEXT"),
-        ("does_not_apply_to", "TEXT"),
-        ("last_used_at", "TEXT"),
-        ("use_count", "INTEGER DEFAULT 0"),
-        ("reviewed_at", "TEXT"),
-        ("merged_into_id", "INTEGER"),
-        ("stale_reason", "TEXT"),
-        ("last_applied_at", "TEXT"),
-        ("applied_count", "INTEGER DEFAULT 0"),
-        ("last_outcome", "TEXT"),
-    ],
-    "episodes": [
-        ("status", "TEXT DEFAULT 'active'"),
-        ("importance", "REAL DEFAULT 0.5"),
-        ("last_used_at", "TEXT"),
-        ("use_count", "INTEGER DEFAULT 0"),
-        ("reviewed_at", "TEXT"),
-        ("derived_facts", "TEXT"),
-        ("derived_reflections", "TEXT"),
-    ],
-}
-
-
-@dataclass(frozen=True)
-class Project:
-    root: Path
-    memory_home: Path
-    memory_dir: Path
-    db_path: Path
-    vault_dir: Path
-    runtime_dir: Path
-    project_id: str
-    project_name: str
-
-
-def now_iso() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-
-
-def resolve_memory_home(path: str | None = None) -> Path:
-    env_home = os.environ.get("AGENT_MEMORY_HOME")
-    raw = path or (env_home if env_home else None)
-    if raw:
-        return Path(raw).expanduser().resolve()
-    return (Path.cwd() / ".agent-memory").resolve()
-
-
-def resolve_project(path: str, memory_home: str | None = None) -> Project:
-    root = Path(path).expanduser().resolve()
-    project_id = hashlib.sha256(str(root).encode("utf-8")).hexdigest()[:16]
-    resolved_memory_home = resolve_memory_home(memory_home)
-    memory_dir = resolved_memory_home / "projects" / project_id
-    return Project(
-        root=root,
-        memory_home=resolved_memory_home,
-        memory_dir=memory_dir,
-        db_path=memory_dir / "memory.db",
-        vault_dir=memory_dir / "vault",
-        runtime_dir=memory_dir / "runtime",
-        project_id=project_id,
-        project_name=root.name,
-    )
-
-
-def ensure_dirs(project: Project) -> None:
-    project.memory_home.mkdir(parents=True, exist_ok=True)
-    (project.memory_home / "projects").mkdir(parents=True, exist_ok=True)
-    project.memory_dir.mkdir(parents=True, exist_ok=True)
-    project.runtime_dir.mkdir(parents=True, exist_ok=True)
-    project.vault_dir.mkdir(parents=True, exist_ok=True)
-    for name in VAULT_DIRS:
-        (project.vault_dir / name).mkdir(parents=True, exist_ok=True)
-
-
-def connect(project: Project) -> sqlite3.Connection:
-    conn = sqlite3.connect(project.db_path)
-    conn.row_factory = sqlite3.Row
-    return conn
-
-
-def create_schema(conn: sqlite3.Connection) -> None:
-    conn.executescript(
-        """
-        CREATE TABLE IF NOT EXISTS projects (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          project_id TEXT UNIQUE NOT NULL,
-          project_path TEXT NOT NULL,
-          project_name TEXT NOT NULL,
-          created_at TEXT NOT NULL,
-          updated_at TEXT NOT NULL
-        );
-
-        CREATE TABLE IF NOT EXISTS episodes (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          project_id TEXT NOT NULL,
-          task TEXT NOT NULL,
-          summary TEXT NOT NULL,
-          outcome TEXT,
-          files_touched TEXT,
-          commands_run TEXT,
-          created_at TEXT NOT NULL
-        );
-
-        CREATE TABLE IF NOT EXISTS semantic_facts (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          project_id TEXT NOT NULL,
-          fact TEXT NOT NULL,
-          source TEXT NOT NULL,
-          confidence REAL DEFAULT 0.8,
-          is_stale INTEGER DEFAULT 0,
-          created_at TEXT NOT NULL,
-          updated_at TEXT NOT NULL
-        );
-
-        CREATE TABLE IF NOT EXISTS reflections (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          project_id TEXT NOT NULL,
-          task TEXT NOT NULL,
-          summary TEXT,
-          mistake TEXT,
-          lesson TEXT NOT NULL,
-          future_rule TEXT,
-          is_stale INTEGER DEFAULT 0,
-          created_at TEXT NOT NULL
-        );
-
-        CREATE TABLE IF NOT EXISTS code_files (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          project_id TEXT NOT NULL,
-          file_path TEXT NOT NULL,
-          summary TEXT,
-          language TEXT,
-          business_summary TEXT,
-          business_terms TEXT,
-          updated_at TEXT NOT NULL
-        );
-
-        CREATE TABLE IF NOT EXISTS code_symbols (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          project_id TEXT NOT NULL,
-          file_path TEXT NOT NULL,
-          symbol TEXT NOT NULL,
-          symbol_type TEXT,
-          summary TEXT,
-          calls TEXT,
-          business_summary TEXT,
-          business_terms TEXT,
-          updated_at TEXT NOT NULL
-        );
-
-        CREATE TABLE IF NOT EXISTS code_log_statements (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          project_id TEXT NOT NULL,
-          file_path TEXT NOT NULL,
-          line INTEGER,
-          function TEXT,
-          level TEXT,
-          logger TEXT,
-          message_template TEXT NOT NULL,
-          raw_statement TEXT,
-          business_summary TEXT,
-          business_terms TEXT,
-          updated_at TEXT NOT NULL
-        );
-
-        CREATE TABLE IF NOT EXISTS memory_edges (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          project_id TEXT NOT NULL,
-          source_type TEXT NOT NULL,
-          source_id INTEGER NOT NULL,
-          relation TEXT NOT NULL,
-          target_type TEXT NOT NULL,
-          target_id INTEGER NOT NULL,
-          evidence TEXT,
-          confidence REAL DEFAULT 0.8,
-          created_at TEXT NOT NULL
-        );
-
-        CREATE TABLE IF NOT EXISTS query_misses (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          project_id TEXT NOT NULL,
-          query TEXT NOT NULL,
-          normalized_query TEXT,
-          source TEXT DEFAULT 'context',
-          result_counts TEXT,
-          created_at TEXT NOT NULL,
-          last_seen_at TEXT,
-          miss_count INTEGER DEFAULT 1,
-          reviewed_at TEXT,
-          status TEXT DEFAULT 'open',
-          resolution TEXT
-        );
-
-        CREATE UNIQUE INDEX IF NOT EXISTS idx_code_files_project_file
-        ON code_files(project_id, file_path);
-
-        CREATE INDEX IF NOT EXISTS idx_semantic_project_stale
-        ON semantic_facts(project_id, is_stale);
-
-        CREATE INDEX IF NOT EXISTS idx_reflections_project_stale
-        ON reflections(project_id, is_stale);
-
-        CREATE INDEX IF NOT EXISTS idx_query_misses_project_status
-        ON query_misses(project_id, status);
-
-        CREATE INDEX IF NOT EXISTS idx_query_misses_project_normalized
-        ON query_misses(project_id, source, normalized_query, status);
-
-        CREATE INDEX IF NOT EXISTS idx_code_logs_project_file
-        ON code_log_statements(project_id, file_path);
-
-        CREATE INDEX IF NOT EXISTS idx_memory_edges_project_source
-        ON memory_edges(project_id, source_type, source_id);
-
-        CREATE INDEX IF NOT EXISTS idx_memory_edges_project_target
-        ON memory_edges(project_id, target_type, target_id);
-        """
-    )
-    migrate_schema(conn)
-    conn.commit()
-
-
-def migrate_schema(conn: sqlite3.Connection) -> None:
-    for table, columns in GOVERNANCE_COLUMNS.items():
-        existing = {
-            row["name"]
-            for row in conn.execute(f"PRAGMA table_info({table})").fetchall()
-        }
-        for name, definition in columns:
-            if name not in existing:
-                conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {definition}")
-    for table, columns in CODE_BUSINESS_COLUMNS.items():
-        existing = {
-            row["name"]
-            for row in conn.execute(f"PRAGMA table_info({table})").fetchall()
-        }
-        for name, definition in columns:
-            if name not in existing:
-                conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {definition}")
-    existing_query_miss_columns = {
-        row["name"]
-        for row in conn.execute("PRAGMA table_info(query_misses)").fetchall()
-    }
-    for name, definition in (
-        ("normalized_query", "TEXT"),
-        ("last_seen_at", "TEXT"),
-        ("miss_count", "INTEGER DEFAULT 1"),
-    ):
-        if name not in existing_query_miss_columns:
-            conn.execute(f"ALTER TABLE query_misses ADD COLUMN {name} {definition}")
-    conn.execute(
-        """
-        UPDATE query_misses
-        SET normalized_query = LOWER(TRIM(query))
-        WHERE normalized_query IS NULL OR normalized_query = ''
-        """
-    )
-    conn.execute(
-        """
-        UPDATE query_misses
-        SET last_seen_at = created_at
-        WHERE last_seen_at IS NULL OR last_seen_at = ''
-        """
-    )
-    conn.execute(
-        """
-        UPDATE query_misses
-        SET miss_count = 1
-        WHERE miss_count IS NULL OR miss_count < 1
-        """
-    )
-    for table in ("semantic_facts", "reflections"):
-        conn.execute(
-            f"""
-            UPDATE {table}
-            SET status = 'stale'
-            WHERE COALESCE(is_stale, 0) = 1
-              AND COALESCE(status, 'active') = 'active'
-            """
-        )
-
-
-def upsert_project(conn: sqlite3.Connection, project: Project) -> None:
-    ts = now_iso()
-    conn.execute(
-        """
-        INSERT INTO projects(project_id, project_path, project_name, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?)
-        ON CONFLICT(project_id) DO UPDATE SET
-          project_path=excluded.project_path,
-          project_name=excluded.project_name,
-          updated_at=excluded.updated_at
-        """,
-        (project.project_id, str(project.root), project.project_name, ts, ts),
-    )
-    conn.commit()
-
-
-def write_config(project: Project) -> None:
-    config = {
-        "project_id": project.project_id,
-        "project_path": str(project.root),
-        "project_name": project.project_name,
-        "memory_home": str(project.memory_home),
-        "memory_dir": str(project.memory_dir),
-        "runtime": "tools/agent_memory.py",
-        "vault": str(project.vault_dir),
-        "version": 1,
-        "updated_at": now_iso(),
-    }
-    (project.memory_dir / "config.json").write_text(
-        json.dumps(config, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-
-
-def write_global_config(project: Project) -> None:
-    config_path = project.memory_home / "config.json"
-    config = {
-        "memory_home": str(project.memory_home),
-        "layout": "projects/<project_id>",
-        "version": 1,
-        "updated_at": now_iso(),
-    }
-    config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+from agent_memory_runtime.models import (
+    ACTIVE_STATUS,
+    CODE_EXTENSIONS,
+    EVIDENCE_CHAIN_LIMIT,
+    GOVERNANCE_COLUMNS,
+    IGNORE_DIRS,
+    NETWORK_EDGE_LIMIT,
+    NETWORK_MAX_DEPTH,
+    NON_QUERY_STATUSES,
+    PROJECT_FINGERPRINT,
+    PROJECT_FINGERPRINT_SCHEME,
+    Project,
+    QUERY_ALLOWED_EDGE_RELATIONS,
+    REQUIRED_TABLES,
+    VALID_MEMORY_STATUSES,
+)
+from agent_memory_runtime.storage import (
+    connect,
+    create_schema,
+    ensure_dirs,
+    ensure_initialized,
+    now_iso,
+    resolve_project,
+    upsert_project,
+    write_config,
+    write_global_config,
+)
+from agent_memory_runtime.text import (
+    code_search_terms,
+    json_list,
+    json_list_text,
+    query_tokens,
+    reflection_list_text,
+    score_text,
+    score_weighted_fields,
+    terms_from_text,
+    tokenize,
+    unique_list,
+)
 
 
 def init_project(args: argparse.Namespace) -> None:
@@ -511,17 +98,6 @@ def doctor(args: argparse.Namespace) -> None:
         failed = failed or not ok
     if failed:
         raise SystemExit(1)
-
-
-def ensure_initialized(project: Project) -> None:
-    ensure_dirs(project)
-    with connect(project) as conn:
-        create_schema(conn)
-        upsert_project(conn, project)
-    if not (project.memory_home / "config.json").exists():
-        write_global_config(project)
-    if not (project.memory_dir / "config.json").exists():
-        write_config(project)
 
 
 def add_semantic(args: argparse.Namespace, project: Project) -> None:
@@ -589,146 +165,6 @@ def update(args: argparse.Namespace) -> None:
         add_episode(args, project)
     else:
         raise SystemExit(f"unsupported update type: {args.type}")
-
-
-def tokenize(text: str) -> list[str]:
-    tokens = re.findall(r"[\w\u4e00-\u9fff]+", text.lower())
-    expanded: list[str] = []
-    for token in tokens:
-        expanded.append(token)
-        if re.search(r"[\u4e00-\u9fff]", token) and len(token) > 1:
-            expanded.extend(token[i : i + 2] for i in range(len(token) - 1))
-    return [token for token in expanded if token]
-
-
-def query_tokens(query: str) -> list[str]:
-    tokens = tokenize(query)
-    lowered = query.lower()
-    for triggers, expansions in QUERY_EXPANSION_RULES:
-        if any(trigger in lowered for trigger in triggers):
-            tokens.extend(expansions)
-    seen: set[str] = set()
-    deduped: list[str] = []
-    for token in tokens:
-        if token in seen:
-            continue
-        seen.add(token)
-        deduped.append(token)
-    return deduped
-
-
-def score_text(query_tokens: list[str], text: str) -> int:
-    lowered = text.lower()
-    return sum(1 for token in query_tokens if token in lowered)
-
-
-def unique_list(values: list[str]) -> list[str]:
-    seen: set[str] = set()
-    result: list[str] = []
-    for value in values:
-        normalized = value.strip().lower()
-        if not normalized or normalized in seen:
-            continue
-        seen.add(normalized)
-        result.append(normalized)
-    return result
-
-
-def terms_from_text(text: str) -> list[str]:
-    return [token for token in tokenize(text) if token]
-
-
-def json_list(values: Any) -> list[str]:
-    if values is None:
-        return []
-    if isinstance(values, list):
-        return [str(value) for value in values if str(value).strip()]
-    if isinstance(values, str):
-        stripped = values.strip()
-        if not stripped:
-            return []
-        try:
-            parsed = json.loads(stripped)
-        except json.JSONDecodeError:
-            return [part.strip() for part in stripped.split(",") if part.strip()]
-        if isinstance(parsed, list):
-            return [str(value) for value in parsed if str(value).strip()]
-        return [str(parsed)]
-    return [str(values)]
-
-
-def json_list_text(values: Any) -> str:
-    return json.dumps(unique_list(json_list(values)), ensure_ascii=False)
-
-
-def reflection_list_text(values: Any) -> str:
-    seen: set[str] = set()
-    result: list[str] = []
-    for value in json_list(values):
-        stripped = value.strip()
-        normalized = stripped.lower()
-        if not stripped or normalized in seen:
-            continue
-        seen.add(normalized)
-        result.append(stripped)
-    return json.dumps(result, ensure_ascii=False)
-
-
-def code_search_terms(kind: str, row: sqlite3.Row | dict[str, Any]) -> list[str]:
-    get = row.get if isinstance(row, dict) else lambda key, default=None: row[key] if key in row.keys() else default
-    terms: list[str] = []
-    file_path = str(get("file_path") or "")
-    language = str(get("language") or "")
-    summary = str(get("summary") or "")
-    symbol = str(get("symbol") or "")
-    symbol_type = str(get("symbol_type") or "")
-    level = str(get("level") or "")
-    logger = str(get("logger") or "")
-    message_template = str(get("message_template") or "")
-    function = str(get("function") or "")
-    raw_statement = str(get("raw_statement") or "")
-    business_summary = str(get("business_summary") or "")
-    business_terms = json_list(get("business_terms"))
-    terms.extend([file_path, language, summary, symbol, symbol_type, level, logger, message_template, function])
-    terms.extend([business_summary, *business_terms])
-    terms.extend(terms_from_text(" ".join(terms + [raw_statement])))
-    if language == "ArkTS" or file_path.endswith(".ets"):
-        terms.extend(["arkts", "harmonyos", "ets", "component", "page"])
-    if symbol_type == "route" or "routes:" in summary.lower():
-        terms.extend(["route", "routes", "router", "pushurl", "replaceurl", "navigation", "page", "pages"])
-    if symbol_type == "resource" or "resources:" in summary.lower() or symbol.startswith("app."):
-        terms.extend(["resource", "resources", "media", "image", "string", "app.media", "app.string", "$r"])
-    if kind == "log_statement":
-        terms.extend(["log", "logger", "console", "hilog", "debug", "error", "warning", "failed", "failure"])
-    return unique_list(terms)
-
-
-def score_weighted_fields(
-    query: str,
-    tokens: list[str],
-    expanded_terms: set[str],
-    weighted_fields: list[tuple[str, str, float]],
-    exact_fields: list[tuple[str, str, float]],
-) -> tuple[float, list[str]]:
-    query_lower = query.strip().lower()
-    score = 0.0
-    reasons: list[str] = []
-    for reason, value, weight in exact_fields:
-        lowered = value.lower()
-        if query_lower and lowered and (query_lower in lowered or lowered in query_lower):
-            score += weight
-            reasons.append(reason)
-    for reason, value, weight in weighted_fields:
-        lowered = value.lower()
-        matched = [token for token in tokens if token and token in lowered]
-        if not matched:
-            continue
-        score += len(matched) * weight
-        if any(token in expanded_terms for token in matched):
-            reasons.append(f"expanded_query:{reason}")
-        else:
-            reasons.append(reason)
-    return score, unique_list(reasons)
 
 
 def row_dict(row: sqlite3.Row) -> dict[str, Any]:

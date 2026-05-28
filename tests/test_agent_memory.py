@@ -14,6 +14,16 @@ RUNTIME = REPO_ROOT / "tools" / "agent_memory.py"
 
 
 class AgentMemoryRuntimeTests(unittest.TestCase):
+    def test_runtime_modules_expose_project_and_text_helpers(self) -> None:
+        from tools.agent_memory_runtime.models import Project
+        from tools.agent_memory_runtime.storage import resolve_project
+        from tools.agent_memory_runtime.text import json_list, query_tokens
+
+        self.assertEqual(Project.__name__, "Project")
+        self.assertEqual(resolve_project(".", None).project_name, "agent-memory-new")
+        self.assertEqual(json_list('["profile", "avatar"]'), ["profile", "avatar"])
+        self.assertIn("router", query_tokens("页面跳转后白屏"))
+
     def memory_home(self, project: Path) -> Path:
         return project.parent / f"memory-home-{project.name}"
 

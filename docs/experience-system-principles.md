@@ -1,167 +1,441 @@
 # Experience System Principles
 
-反思是生成经验的必要条件之一，但不是充分条件。一个良好的经验系统不只是保存心得，而是让经验在下一次任务中被正确命中、正确解释、正确迁移、正确修正。
+本文定义 Agent Memory 项目中的“记忆系统”和“经验系统”边界，并说明主流理论与成熟 Agent 产品实践对当前项目的设计参考。
 
-核心闭环：
+核心定义：
 
 ```text
-事件记录
--> 结构化反思
--> 抽象规则
--> 业务/代码/日志实体链接
--> 查询命中
--> 使用反馈
--> 治理修正
--> 再次沉淀
+记忆是对事实的压缩。
+经验是对事实、上下文、隐含前提、失败路径和推理过程再抽象后的结论。
 ```
 
-## 1. 经验必须来自可追溯事件
+因此，经验系统不是更大的记忆库，而是记忆系统之上的学习、抽象、迁移和验证层。
 
-反思不能悬空。每条经验最好能回到：
+## 1. 分层定义
 
-- 原始问题
-- 当时上下文
-- 用过的查询
-- 相关代码、日志、文件、命令
-- 成功或失败的证据
-- 最终结果
+当前项目应清晰区分三层：
 
-经验应包含出处、证据和可复用建议，而不是只保存一句心得。
+```text
+Memory Layer
+  facts / episodes / code wiki / logs / business semantics / edges
 
-## 2. 经验需要类型分层
+Reflection Layer
+  task review / reasoning summary / worked paths / failed paths / assumptions
 
-成熟的 agent memory 系统通常不会把所有内容放在一个扁平 notes 表中。至少应区分：
+Experience Layer
+  verified abstract rule / preconditions / transfer rule / verification method / reusable skill pattern
+```
 
-- `episodic memory`：发生过什么，例如一次任务、一次失败、一次定位过程。
-- `semantic memory`：稳定事实、项目规则、业务含义。
-- `procedural memory`：下次怎么做，例如流程、检查表、修复策略。
-- `working/core memory`：当前必须放进上下文的少量高价值内容。
-- `archival memory`：大量长期内容，需要查询时召回。
+### Memory Layer
 
-当前项目已有 `episodes`、`semantic_facts`、`reflections`、`code_files`、`code_symbols`、`code_log_statements`、`memory_edges`。下一步重点是让 `reflections` 更接近 procedural memory，也就是让它明确记录触发条件和下次动作。
+记忆层回答：
 
-## 3. 要有检索命中机制
+```text
+发生过什么？
+代码里有什么？
+日志在哪里？
+事实是什么？
+实体之间如何相连？
+```
 
-经验系统最容易失败的地方是：写得很多，但下一次查不到。
+典型数据：
 
-需要同时支持：
+- `semantic_facts`
+- `episodes`
+- `code_files`
+- `code_symbols`
+- `code_log_statements`
+- `memory_edges`
+- business summaries and terms
 
-- 多字段检索：问题、业务词、文件、函数、日志、错误现象、修复动作。
-- 查询扩展：用户自然语言问题转成技术关键词。
-- 实体链接：把文件、函数、日志、业务词、历史任务连起来。
-- 网络检索：不是只查一条记录，而是查相关链路。
-- 加权排序：结合 recency、confidence、scope、status 和命中字段。
+记忆层可以被压缩、索引、查询和治理，但它本身不等于经验。
 
-对当前项目来说，`memory_edges`、业务语义字段、日志语义字段和 query expansion 是核心能力。后续重点不是增加更多表，而是让每次 learn 和 reflect 都产出真实业务词、代码实体、日志模板和触发条件。
+### Reflection Layer
 
-## 4. 要有复用、修正、保留闭环
+反思层回答：
 
-Case-Based Reasoning 的经典循环可以映射为：
+```text
+这次任务为什么成功或失败？
+Agent 当时如何推理？
+哪些线索有效？
+哪些假设误导？
+下次应避免什么？
+```
+
+典型数据：
+
+- `task_type`
+- `outcome`
+- `problem`
+- `reasoning_summary`
+- `context_used`
+- `what_worked`
+- `what_failed`
+- `mistake`
+- `lesson`
+- `future_rule`
+- `trigger_condition`
+- `repair_action`
+
+反思是经验生成的必要条件之一，但不是充分条件。未经验证和抽象的 reflection 只是经验候选。
+
+### Experience Layer
+
+经验层回答：
+
+```text
+在什么前提下，哪种判断方式可以迁移到类似问题？
+这条经验如何验证？
+什么时候它不适用？
+它是否值得沉淀成 skill？
+```
+
+经验必须包含：
+
+- abstract conclusion：抽象结论。
+- preconditions：适用前提。
+- hidden assumptions：隐含假设。
+- negative preconditions：不适用条件。
+- reasoning pattern：推理模式。
+- transfer rule：迁移规则。
+- verification method：验证方法。
+- failure modes：可能误导的情况。
+- source cases：来自哪些 episode/reflection。
+- reuse feedback：复用后是否帮助或误导。
+
+## 2. 理论参考
+
+### Kolb Experiential Learning
+
+Kolb 的体验学习循环可以映射为：
+
+```text
+Concrete Experience
+  -> Reflective Observation
+  -> Abstract Conceptualization
+  -> Active Experimentation
+```
+
+对应当前项目：
+
+```text
+episode / code / logs
+  -> structured reflection
+  -> experience rule
+  -> next query / diagnosis / design / execution
+```
+
+参考意义：
+
+- `episode` 和代码日志只是具体经历。
+- `reflection` 是观察和复盘。
+- `experience` 是抽象概念，必须高于单次任务。
+- 经验必须在下一次任务中被主动实验和验证。
+
+### Case-Based Reasoning
+
+Case-Based Reasoning 的经典循环是：
 
 ```text
 Retrieve -> Reuse -> Revise -> Retain
-检索 -> 复用 -> 修正 -> 保留
 ```
 
-一次历史经验不是拿来照抄，而是：
+对应当前项目：
 
-- 检索相似案例。
-- 迁移到当前问题。
-- 验证是否有效。
-- 如果有效，增强经验。
-- 如果误导，标记 stale 或写入反例。
+```text
+query similar cases
+  -> adapt prior solution or reasoning path
+  -> verify against current source/logs
+  -> retain new experience or mark old one stale
+```
 
-当前项目的 `used_reflection_ids`、`reflection_outcome`、`applied_count`、`last_outcome` 是正确方向。后续应继续加强“使用后反馈”：每次用了哪条经验、是否帮助、哪里不适用。
+参考意义：
 
-## 5. 要有经验治理
+- query 不应只返回事实，也应返回相似 case。
+- 相似 case 不能直接照搬，必须经过适配。
+- 使用后的反馈必须写回：helped、misleading、partial。
+- 经验系统要保留正例，也要保留反例和失败前提。
 
-没有治理的记忆会腐烂。经验系统必须能处理：
+### Double-Loop Learning
 
-- `stale`：过时。
-- `merged`：重复合并。
-- `archived`：低频归档。
-- `rejected`：错误经验。
-- `confidence`：可信度。
-- `scope`：适用范围。
-- `evidence`：证据。
-- `reviewed_at`：是否复核。
-- `miss`：查询失败记录。
-
-记忆不是越多越好，而是要可控地留下高信号内容。`maintain`、`review`、`miss` 的方向是对的，尤其是 miss 记录，它能反向驱动学习和字段补全。
-
-## 6. 要从单环学习走向双环学习
-
-单环学习：
+单环学习修正动作：
 
 ```text
 这次失败了 -> 下次改一个操作
 ```
 
-双环学习：
+双环学习修正判断框架：
 
 ```text
 这次失败了 -> 为什么我的判断框架会让我失败？
 ```
 
-对应到本地 Agent：
-
-- 单环：下次先查日志。
-- 双环：为什么我总是只查 symptom，不查业务实体？
-- 单环：补一个 query expansion。
-- 双环：learn 阶段是否缺少业务语义字段？
-- 单环：修复某个 bug。
-- 双环：为什么方案设计没有验证前置假设？
-
-经验系统要支持这种递归整理：不只是记录结果，还要持续整理判断方式。
-
-## 7. 要有抽象化能力
-
-体验学习可以抽象成：
+对应当前项目：
 
 ```text
-具体经验 -> 反思观察 -> 抽象概念 -> 主动实验
+single-loop:
+  页面白屏 -> 下次先查 route
+
+double-loop:
+  页面白屏 -> 不要只按 symptom 查；
+  先识别业务实体、入口文件、路由链、日志模板，再递归查询。
 ```
 
-对应 Agent Memory：
+参考意义：
+
+- 经验系统必须记录隐含假设和失败假设。
+- 经验不是操作清单，而是判断方式的改进。
+- miss 记录不仅表示“查不到”，也可能表示 learn/reflect 的抽象维度缺失。
+
+### SECI Knowledge Creation
+
+SECI 强调隐性知识和显性知识之间的转换：
 
 ```text
-一次任务 episode
--> 反思 reflection
--> 稳定规则 semantic/procedural memory
--> 下一次 query / plan / execution 使用
+tacit reasoning
+  -> explicit reflection
+  -> combined experience wiki
+  -> internalized skill behavior
 ```
 
-如果只停在 reflection，没有抽象成 `future_rule`、`trigger_condition`、`repair_action`，它就还不是成熟经验，只是复盘文本。
-
-## 8. 要有人类可审查的外部化表示
-
-经验系统需要人类可读、可审查、可治理的外部表示。SQLite 适合作为源事实，Obsidian 适合作为人类复核镜像。
-
-当前项目的架构是合理的：
+对应当前项目：
 
 ```text
-SQLite source of truth
--> generated Obsidian mirror
--> human review
--> maintain / reflect 写回 SQLite
+Agent 隐性推理
+  -> reflect --payload
+  -> SQLite + Obsidian mirror
+  -> query / plan / skill reuse
 ```
 
-这比只依赖黑盒向量库更适合本地 agent，因为用户可以看到经验如何形成、为什么命中、何时过期。
+参考意义：
 
-## Current Project Direction
+- Obsidian mirror 不只是展示层，也是人类审查经验形成过程的界面。
+- SQLite 仍是 source of truth。
+- 经验应可读、可审查、可治理，而不是黑盒向量命中。
 
-下一阶段可以命名为 `Procedural Memory Loop`，目标是把反思升级成真正的可执行经验。
+## 3. 产品实践参考
 
-优先加强四个方向：
+### MemGPT / Letta: Memory Hierarchy
 
-1. 经验入库质量：问题、业务词、文件、函数、日志、触发条件必须结构化。
-2. 经验召回质量：自然语言问题能命中业务语义、代码实体、日志模板和历史反思。
-3. 经验复用反馈：每次用了哪条经验，是否帮助，是否误导。
-4. 经验治理压缩：重复合并、过期标记、失败 miss 反哺学习字段。
+MemGPT/Letta 的核心启发是：上下文是稀缺资源，应把记忆分层管理。
 
-一句话总结：
+对当前项目的意义：
 
 ```text
-经验系统的价值不在于记得多，而在于下一次能把正确经验带回正确问题，并在使用后继续修正自己。
+Experience Layer
+  highest priority, compact, action-oriented
+
+Reflection Layer
+  retrieved when reasoning history or failure path matters
+
+Memory Layer
+  retrieved as evidence, source context, code/log anchors
 ```
 
+query 返回时不应把所有内容平铺。更合理的顺序是：
+
+```text
+experience candidates
+  -> similar reflections/cases
+  -> semantic facts
+  -> code/log/wiki evidence
+  -> bounded edges
+```
+
+### Generative Agents: Observation, Planning, Reflection
+
+Generative Agents 的启发是：reflection 的价值在于影响 planning。
+
+对当前项目的意义：
+
+- `agent-memory-query` 不能只服务问答，也要服务方案设计。
+- 经验应该进入 diagnosis/design/execution 的前置上下文。
+- 反思应记录“为什么这个计划有效或无效”，而不仅是“做了什么”。
+
+### Zep: Temporal Knowledge Graph
+
+Zep 的启发是：记忆需要实体、关系和时间变化。
+
+对当前项目的意义：
+
+```text
+experience
+  -> problem type
+  -> business entity
+  -> file / symbol / log
+  -> assumption
+  -> repair action
+  -> verification method
+```
+
+当前 `memory_edges` 已经连接代码文件、函数和日志。下一步应让经验也进入网络，形成：
+
+```text
+reflection -> abstracts_to -> experience
+experience -> applies_to -> problem/business entity
+experience -> supported_by -> episode/log/file
+experience -> warns_against -> anti-pattern
+```
+
+### Voyager: Skill Library
+
+Voyager 的启发是：高阶经验最终可以沉淀为可复用 skill。
+
+对当前项目的意义：
+
+经验的最高形态不是一句 lesson，而是可执行的过程模板。例如：
+
+```text
+ArkTS 页面白屏定位经验
+1. query 业务页面名 + route/router/page stack
+2. query 相关 log template
+3. 检查入口文件、router.pushUrl、页面注册
+4. 检查资源和生命周期
+5. 输出修改计划和验证命令
+```
+
+这与项目宗旨一致：通过 LLM skill 调用命令降低使用门槛。
+
+## 4. 对当前项目的设计原则
+
+### 原则一：不要把 reflection 直接当 experience
+
+`reflection` 是经验候选。它只有在经过复用、验证、抽象后，才可以升级为经验。
+
+建议后续在 maintain/reflect 中区分：
+
+```text
+raw reflection
+validated reflection
+experience candidate
+accepted experience
+skill candidate
+```
+
+### 原则二：经验必须带适用前提
+
+没有前提的经验很容易污染推理。
+
+示例：
+
+```text
+经验：
+ArkTS 页面白屏优先查 route。
+
+适用前提：
+问题发生在页面跳转后，且存在 router.pushUrl / page stack / route config。
+
+不适用：
+页面未跳转，只是局部组件不渲染。
+
+验证：
+查询 route edge、入口文件、相关日志模板，并检查页面注册。
+```
+
+### 原则三：经验必须保留隐含假设
+
+经验抽象时需要记录：
+
+- 当时默认了什么？
+- 哪些前提后来被证明正确？
+- 哪些前提误导了方案？
+- 下次如何更早验证这些前提？
+
+这比简单记录“下次先查 X”更重要。
+
+### 原则四：经验必须支持反例
+
+成熟经验系统不只记录有效路径，还记录：
+
+- 什么时候无效。
+- 为什么误导。
+- 哪些症状看起来相似但本质不同。
+- 哪些查询词会把 Agent 带偏。
+
+这要求 `reflection_outcome=misleading` 不只是治理信号，也应成为经验边界的一部分。
+
+### 原则五：query 应先召回经验，再下钻事实
+
+推荐 query 组织：
+
+```text
+1. 当前问题属于哪类？
+2. 是否有 accepted experience 或 experience candidate？
+3. 是否有相似成功/失败 case？
+4. 相关事实、代码、日志、边是什么？
+5. 这条经验的前提在当前问题中是否成立？
+```
+
+这样 query 结果才会服务推理，而不是只返回一堆片段。
+
+### 原则六：经验可以升级为 skill
+
+当同一类经验多次被验证有效，可以生成 skill 候选：
+
+```text
+multiple helped reflections
+  -> accepted experience
+  -> skill candidate
+  -> user review
+  -> local Agent skill template
+```
+
+这会把经验系统和项目的四个 skill 入口自然连接起来。
+
+## 5. 建议的后续演进
+
+短期不必立刻新增表。可以先在现有 `reflections` 和 governance 字段上表达经验候选：
+
+```text
+task_type
+outcome
+problem
+reasoning_summary
+context_used
+what_worked
+what_failed
+trigger_condition
+repair_action
+applies_to
+does_not_apply_to
+confidence
+last_outcome
+applied_count
+```
+
+下一步再考虑新增或明确经验层字段：
+
+```text
+experience_statement
+preconditions
+negative_preconditions
+hidden_assumptions
+reasoning_pattern
+transfer_rule
+verification_method
+failure_modes
+source_cases
+helped_count
+misled_count
+```
+
+最终目标：
+
+```text
+事实被压缩成记忆；
+记忆和隐含前提被推理成经验；
+经验被验证后沉淀成可调用 skill。
+```
+
+## 6. 当前项目的一句话方向
+
+当前项目不应止步于 Agent Memory Runtime，而应演进为：
+
+```text
+Agent Memory Runtime
+  + Reflection Capture
+  + Experience Abstraction
+  + Skill-level Reuse
+```
+
+记忆负责提供事实基底，反思负责暴露推理过程，经验负责形成可迁移判断，skill 负责把成熟经验变成可重复执行的行为。
