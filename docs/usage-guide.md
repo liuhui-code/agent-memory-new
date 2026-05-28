@@ -68,7 +68,24 @@ Read the entry file
   -> follow related files up to depth
   -> merge that file set into the codebase wiki
   -> extract code log statements and rebuild file/function/log edges
+  -> return parse_stats with file, symbol, log, language, and edge counts
   -> save an episode describing what was learned
+```
+
+`learn-entry --json` returns parse feedback:
+
+```json
+{
+  "parse_stats": {
+    "files_indexed": 1,
+    "languages": { "ArkTS": 1 },
+    "symbols_total": 4,
+    "symbols_by_type": { "component": 1, "route": 1, "resource": 1 },
+    "code_logs_total": 1,
+    "code_logs_by_level": { "error": 1 },
+    "memory_edges_total": 6
+  }
+}
 ```
 
 Use `--replace` only when you want this learned scope to replace the current codebase wiki:
@@ -87,13 +104,13 @@ Expected skill path:
 
 ```text
 agent-memory-learn
-  -> python tools/agent_memory.py learn-path --project . --path skills
+  -> python tools/agent_memory.py learn-path --project . --path skills --json
 ```
 
 Partial learning is incremental by default. A second `learn-path` call adds or refreshes that directory without removing previously learned files. Use `--replace` only for an explicit reset:
 
 ```bash
-python tools/agent_memory.py learn-path --project . --path skills --replace
+python tools/agent_memory.py learn-path --project . --path skills --replace --json
 ```
 
 Learning also stores code log statements such as `print(...)`, `logger.error(...)`, `console.warn(...)`, and ArkTS `hilog.info(...)`. These are connected to learned files and nearest detected functions through `memory_edges`.

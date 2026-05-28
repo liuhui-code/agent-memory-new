@@ -109,6 +109,12 @@ Code log statement network:
 - Query commands expose `code_log_matches` and `edge_matches`.
 - This stays inside the existing four-skill interface and does not add a separate log skill.
 
+Parse feedback:
+
+- `learn-entry --json` and `learn-path --json` return `parse_stats`.
+- Counts include files indexed, languages, symbols by type, code logs by level, and memory edge total.
+- Agents should report low or surprising counts before relying on learned context.
+
 ## Phase 1: Runtime Init and Doctor
 
 **Files:**

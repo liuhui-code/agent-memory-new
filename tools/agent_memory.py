@@ -7,6 +7,7 @@ This is the stable script API used by Agent Memory skills.
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import hashlib
 import json
 import os
@@ -2091,8 +2092,8 @@ def wiki_index(args: argparse.Namespace) -> None:
     project = resolve_project(args.project)
     ensure_initialized(project)
     files = collect_project_files(project)
-    write_wiki_index(project, files, replace=True)
-    print("wiki index updated")
+    stats = write_wiki_index(project, files, replace=True)
+    print(f"wiki index updated ({parse_stats_summary(stats)})")
 
 
 def collect_project_files(project: Project) -> list[Path]:
@@ -2134,7 +2135,7 @@ def collect_path_files(project: Project, target: Path) -> list[Path]:
     return files_to_index
 
 
-def write_wiki_index(project: Project, files: list[Path], replace: bool = False) -> None:
+def write_wiki_index(project: Project, files: list[Path], replace: bool = False) -> dict[str, Any]:
     ts = now_iso()
     unique_files = sorted({path.resolve() for path in files})
     relative_files: list[tuple[Path, Path, str, str]] = []
@@ -2149,6 +2150,22 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
         if not language:
             continue
         relative_files.append((path, rel, str(rel), language))
+
+    language_counts: Counter[str] = Counter()
+    symbol_type_counts: Counter[str] = Counter()
+    log_level_counts: Counter[str] = Counter()
+    symbols_by_file: dict[str, list[tuple[str, str]]] = {}
+    logs_by_file: dict[str, list[dict[str, Any]]] = {}
+    for path, _rel, rel_text, language in relative_files:
+        language_counts[language] += 1
+        symbols = extract_symbols(path, language)
+        logs = extract_log_statements(path, language)
+        symbols_by_file[rel_text] = symbols
+        logs_by_file[rel_text] = logs
+        for _symbol, symbol_type in symbols:
+            symbol_type_counts[symbol_type or "symbol"] += 1
+        for log in logs:
+            log_level_counts[str(log.get("level") or "log")] += 1
 
     with connect(project) as conn:
         if replace:
@@ -2179,7 +2196,7 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                 """,
                 (project.project_id, rel_text, summary, language, ts),
             )
-            for symbol, symbol_type in extract_symbols(path, language):
+            for symbol, symbol_type in symbols_by_file.get(rel_text, []):
                 conn.execute(
                     """
                     INSERT INTO code_symbols(project_id, file_path, symbol, symbol_type, summary, calls, updated_at)
@@ -2187,7 +2204,7 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                     """,
                     (project.project_id, rel_text, symbol, symbol_type, "", "", ts),
                 )
-            for log in extract_log_statements(path, language):
+            for log in logs_by_file.get(rel_text, []):
                 conn.execute(
                     """
                     INSERT INTO code_log_statements(
@@ -2209,7 +2226,20 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                     ),
                 )
         rebuild_code_memory_edges(conn, project.project_id)
+        memory_edges_total = conn.execute(
+            "SELECT COUNT(*) AS count FROM memory_edges WHERE project_id = ?",
+            (project.project_id,),
+        ).fetchone()["count"]
         conn.commit()
+    return {
+        "files_indexed": len(relative_files),
+        "languages": dict(sorted(language_counts.items())),
+        "symbols_total": sum(symbol_type_counts.values()),
+        "symbols_by_type": dict(sorted(symbol_type_counts.items())),
+        "code_logs_total": sum(log_level_counts.values()),
+        "code_logs_by_level": dict(sorted(log_level_counts.items())),
+        "memory_edges_total": memory_edges_total,
+    }
 
 
 def rebuild_code_memory_edges(conn: sqlite3.Connection, project_id: str) -> None:
@@ -2330,12 +2360,37 @@ def learn_path(args: argparse.Namespace) -> None:
     ensure_initialized(project)
     target = resolve_target(project, args.path)
     files = collect_path_files(project, target)
-    write_wiki_index(project, files, replace=args.replace)
+    stats = write_wiki_index(project, files, replace=args.replace)
     task = f"Learn path {target.relative_to(project.root)}"
     mode = "replaced" if args.replace else "merged"
     summary = f"{mode.capitalize()} {len(files)} files from {target.relative_to(project.root)}"
     add_episode_from_values(project, task, summary, "learned")
-    print(summary)
+    payload = {
+        "path": str(target.relative_to(project.root)),
+        "mode": "replace" if args.replace else "merge",
+        "files": [str(path.relative_to(project.root)) for path in sorted(files)],
+        "count": len(files),
+        "summary": summary,
+        "parse_stats": stats,
+    }
+    project.runtime_dir.mkdir(parents=True, exist_ok=True)
+    (project.runtime_dir / "last_learn_path.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    if args.json:
+        output(payload, True)
+    else:
+        print(f"{summary} ({parse_stats_summary(stats)})")
+
+
+def parse_stats_summary(stats: dict[str, Any]) -> str:
+    return (
+        f"parsed files={stats.get('files_indexed', 0)}, "
+        f"symbols={stats.get('symbols_total', 0)}, "
+        f"logs={stats.get('code_logs_total', 0)}, "
+        f"edges={stats.get('memory_edges_total', 0)}"
+    )
 
 
 def add_episode_from_values(project: Project, task: str, summary: str, outcome: str | None) -> None:
@@ -2357,7 +2412,7 @@ def learn_entry(args: argparse.Namespace) -> None:
     if not entry.is_file():
         raise SystemExit(f"entry must be a file: {entry}")
     files = collect_entry_related_files(project, entry, args.depth)
-    write_wiki_index(project, files, replace=args.replace)
+    stats = write_wiki_index(project, files, replace=args.replace)
     rel_files = [str(path.relative_to(project.root)) for path in sorted(files)]
     payload = {
         "entry": str(entry.relative_to(project.root)),
@@ -2365,6 +2420,7 @@ def learn_entry(args: argparse.Namespace) -> None:
         "mode": "replace" if args.replace else "merge",
         "files": rel_files,
         "count": len(rel_files),
+        "parse_stats": stats,
     }
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_learn_entry.json").write_text(
@@ -2743,6 +2799,7 @@ def build_parser() -> argparse.ArgumentParser:
     add_project(p)
     p.add_argument("--path", required=True)
     p.add_argument("--replace", action="store_true")
+    p.add_argument("--json", action="store_true")
     p.set_defaults(func=learn_path)
 
     p = sub.add_parser("learn-entry")

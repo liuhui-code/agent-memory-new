@@ -117,6 +117,20 @@ code_symbol --emits_log--> code_log_statement
 
 This supports memory-aware diagnosis without adding a separate user-facing skill. An Agent can query an observed log or console message, receive `code_log_matches`, inspect `edge_matches`, then recursively query again with the related file/function names.
 
+Learning commands return parse feedback. `learn-entry --json` and `learn-path --json` include `parse_stats`:
+
+```text
+files_indexed
+languages
+symbols_total
+symbols_by_type
+code_logs_total
+code_logs_by_level
+memory_edges_total
+```
+
+Agents should use these counts to detect narrow or failed learning scopes before relying on the codebase wiki.
+
 # 5. Reflection Quality Path
 
 Reflection quality belongs to `agent-memory-reflect` and is reviewed through:

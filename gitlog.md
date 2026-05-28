@@ -526,3 +526,32 @@ Verification:
 
 Rollback notes:
 - Remove `.json5` from `CODE_EXTENSIONS`, HarmonyOS config extraction, ArkTS reference extraction, router target resolution, and related docs/tests.
+
+## 2026-05-28 - Add code learning parse feedback
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `README.md`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/mvp-implementation-plan.md`
+- `skills/agent-memory-learn/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `parse_stats` output for `learn-entry --json` and `learn-path --json`.
+- Added parse counts for indexed files, languages, symbols by type, code logs by level, and total memory edges.
+- Added `learn-path --json`.
+- Wrote `last_learn_path.json` with the same payload shape for Agent inspection.
+- Updated learning docs to tell Agents to report low or surprising parse counts.
+
+Why:
+- Make learning feedback visible so users and Agents can tell whether the memory system actually parsed meaningful content.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 35 tests passed.
+
+Rollback notes:
+- Remove `parse_stats` generation, `learn-path --json`, `last_learn_path.json`, parse feedback tests, and related docs.

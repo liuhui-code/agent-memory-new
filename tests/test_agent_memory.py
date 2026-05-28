@@ -659,6 +659,60 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
 
             self.assertEqual(self.list_code_files(project), {"pages/Index.ets", "pages/Detail.ets"})
 
+    def test_learn_entry_returns_parse_stats(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Index.ets").write_text(
+                "import router from '@ohos.router';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index {\n"
+                "  aboutToAppear(): void {\n"
+                "    console.error('load failed');\n"
+                "  }\n"
+                "  openDetail() {\n"
+                "    router.pushUrl({ url: 'pages/Detail' });\n"
+                "  }\n"
+                "  build() {\n"
+                "    Text($r('app.string.home_title'))\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            result = self.run_memory(project, "learn-entry", "--entry", "pages/Index.ets", "--depth", "0", "--json")
+            stats = json.loads(result.stdout)["parse_stats"]
+
+            self.assertEqual(stats["files_indexed"], 1)
+            self.assertEqual(stats["languages"]["ArkTS"], 1)
+            self.assertEqual(stats["symbols_by_type"]["component"], 1)
+            self.assertEqual(stats["symbols_by_type"]["route"], 1)
+            self.assertEqual(stats["symbols_by_type"]["resource"], 1)
+            self.assertEqual(stats["code_logs_total"], 1)
+            self.assertEqual(stats["code_logs_by_level"]["error"], 1)
+            self.assertGreaterEqual(stats["memory_edges_total"], 1)
+
+    def test_learn_path_json_returns_parse_stats_for_harmonyos_config(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "entry").mkdir()
+            (project / "entry" / "oh-package.json5").write_text(
+                "{\n"
+                "  \"dependencies\": {\n"
+                "    \"@ohos/axios\": \"^2.2.0\"\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            result = self.run_memory(project, "learn-path", "--path", "entry", "--json")
+            payload = json.loads(result.stdout)
+
+            self.assertEqual(payload["parse_stats"]["files_indexed"], 1)
+            self.assertEqual(payload["parse_stats"]["languages"]["HarmonyOS Config"], 1)
+            self.assertEqual(payload["parse_stats"]["symbols_by_type"]["dependency"], 1)
+
     def test_context_returns_code_log_and_related_edge_matches(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)

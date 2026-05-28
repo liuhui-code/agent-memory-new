@@ -21,6 +21,8 @@ This merges the entry-related files into the existing codebase wiki by default. 
 
 Learning also extracts code log statements and rebuilds lightweight file/function/log edges. This happens automatically through the same command.
 
+Read the returned `parse_stats` field. If `files_indexed`, `symbols_total`, and `code_logs_total` are unexpectedly low, tell the user what scope was learned and suggest a narrower entry file or a broader directory.
+
 Examples:
 
 ```text
@@ -35,12 +37,14 @@ Learn the code around tools/agent_memory.py.
 When the user names a directory:
 
 ```bash
-python tools/agent_memory.py learn-path --project . --path "<directory>"
+python tools/agent_memory.py learn-path --project . --path "<directory>" --json
 ```
 
 This merges the directory into the existing codebase wiki by default. Use `--replace` only when the user asks to replace the current learned scope.
 
 Directory learning also refreshes log statement records for the learned files.
+
+Use `--json` when another Agent skill will consume the result. The output includes `parse_stats` with counts by language, symbol type, log level, and memory edge total.
 
 Examples:
 
@@ -66,6 +70,7 @@ Rules:
 - Default to incremental merge for partial learning.
 - Use `--replace` only for explicit reset/relearn requests.
 - After learning, query with `agent-memory-query` before editing.
+- Report parse feedback concisely: files indexed, symbols extracted, logs extracted, and edge total.
 - Do not treat the wiki as a complete call graph.
 - Treat `code_log_matches` and `edge_matches` as diagnosis hints, not runtime traces.
 - Treat learned code context as evidence for future reflections and semantic facts.
