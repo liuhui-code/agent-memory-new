@@ -24,6 +24,33 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-28 - Add local ownership fingerprint
+
+Files changed:
+- `tools/agent_memory.py`
+- `.gitignore`
+- `.fingerprint-salt` (local ignored file)
+- `gitlog.md`
+
+What changed:
+- Added a public salted SHA256 fingerprint constant to the runtime script.
+- Added `.fingerprint-salt` to `.gitignore`.
+- Stored the private salt, owner/project inputs, and local verification method in `.fingerprint-salt`.
+
+Why:
+- Provide a lightweight authorship/provenance marker that survives direct code copying while keeping the proof material local and untracked.
+
+Verification:
+- Command: local fingerprint verification command
+- Result: fingerprint verification ok.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py`
+- Result: passes.
+- Command: `git check-ignore -v .fingerprint-salt`
+- Result: `.fingerprint-salt` is ignored by `.gitignore`.
+
+Rollback notes:
+- Remove `PROJECT_FINGERPRINT_SCHEME` and `PROJECT_FINGERPRINT` from `tools/agent_memory.py`, remove `.fingerprint-salt` from `.gitignore`, and delete the local `.fingerprint-salt` file if the watermark is no longer wanted.
+
 ## 2026-05-28 - Add Agent-structured reflection payloads
 
 Files changed:
