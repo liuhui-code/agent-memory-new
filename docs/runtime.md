@@ -112,6 +112,14 @@ Query commands expand common natural-language problem descriptions into technica
 
 `learn-entry`, `learn-path`, and `wiki-index` update the codebase wiki.
 
+`learn-business` writes Agent-authored business semantics into the existing code wiki tables:
+
+```bash
+python tools/agent_memory.py learn-business --project . --payload "<json>" --json
+```
+
+The payload contains files, symbols, and logs with `business_summary` and `business_terms`. Use it after the Agent has read the target source and organized the code's real business meaning. It does not create a separate business table; it enriches `code_files`, `code_symbols`, and `code_log_statements`.
+
 They also extract code log statements and rebuild deterministic code-wiki edges:
 
 ```text

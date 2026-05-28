@@ -136,6 +136,14 @@ Learning also stores code log statements such as `print(...)`, `logger.error(...
 
 For HarmonyOS projects, learning also indexes `.json5` config files, ArkTS router targets, and `$r(...)` resource references as code wiki symbols. `learn-entry` can follow ArkTS router targets such as `router.pushUrl({ url: 'pages/Detail' })` to the related `.ets` page.
 
+For higher-quality business recall, the Agent should read the target files first, organize file/method/field/log business meaning, then write it with `learn-business`:
+
+```bash
+python tools/agent_memory.py learn-business --project . --payload "<json>" --json
+```
+
+This stores `business_summary` and `business_terms` directly on existing code file, symbol, and log records. Business terms should name real business objects such as profile, avatar, order status, device binding, user id, route names, resource keys, and log meanings.
+
 For the whole project:
 
 ```text

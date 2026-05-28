@@ -11,6 +11,46 @@ Prefer natural language from the user, then choose the narrowest runtime command
 
 `--project` selects the current memory archive and query context. If the code to learn lives elsewhere, pass that external source root with `--source`; learned data is still archived under `--project`.
 
+For high-quality project learning, first read the target files and summarize business meaning in the required structure, then write it with `learn-business`. The runtime should store the Agent's structured understanding alongside the existing file, symbol, and log records.
+
+```bash
+python tools/agent_memory.py learn-business --project . --payload "<json>" --json
+```
+
+Payload shape:
+
+```json
+{
+  "files": [
+    {
+      "file_path": "pages/ProfileDetail.ets",
+      "summary": "ArkTS profile detail page",
+      "business_summary": "个人信息详情页，负责加载用户资料并展示头像。",
+      "business_terms": ["个人信息", "用户资料", "profile", "头像", "avatar"],
+      "symbols": [
+        {
+          "symbol": "loadUserProfile",
+          "symbol_type": "function",
+          "business_summary": "加载用户资料的方法。",
+          "business_terms": ["加载用户资料", "profile", "load profile"]
+        }
+      ],
+      "logs": [
+        {
+          "message_template": "load profile failed",
+          "function": "loadUserProfile",
+          "level": "error",
+          "business_summary": "用户资料加载失败时输出的错误日志。",
+          "business_terms": ["用户资料加载失败", "profile failed"]
+        }
+      ]
+    }
+  ]
+}
+```
+
+Use this structure when the user asks the Agent to understand a feature, page, module, or business flow. Include real file names, method names, fields, routes, resources, and logs. Business terms should include code naming and user-facing Chinese/English business wording when it can be inferred from the source. Do not invent business flows that are not supported by the code.
+
 ## Entry File
 
 When the user names an entry file:

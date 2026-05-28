@@ -20,6 +20,11 @@ Storage lives in a global memory home, defaulting to `~/.agent-memory`. Each `--
 - `memory_edges`: lightweight relation edges between learned files, symbols, and log statements.
 - `query_misses`: failed retrieval attempts that may need later learning or reflection.
 
+`code_files`, `code_symbols`, and `code_log_statements` also store Agent-authored business semantics:
+
+- `business_summary`: concise business meaning of the file, method, field, route, resource, or log.
+- `business_terms`: JSON array of searchable business terms grounded in code names, fields, routes, resources, logs, or UI wording.
+
 ## Governance Fields
 
 Phase 2 adds memory governance metadata while keeping SQLite as the source of truth:

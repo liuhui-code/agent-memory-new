@@ -100,6 +100,21 @@ QUERY_EXPANSION_RULES = [
     ),
 ]
 
+CODE_BUSINESS_COLUMNS = {
+    "code_files": [
+        ("business_summary", "TEXT"),
+        ("business_terms", "TEXT"),
+    ],
+    "code_symbols": [
+        ("business_summary", "TEXT"),
+        ("business_terms", "TEXT"),
+    ],
+    "code_log_statements": [
+        ("business_summary", "TEXT"),
+        ("business_terms", "TEXT"),
+    ],
+}
+
 GOVERNANCE_COLUMNS = {
     "semantic_facts": [
         ("status", "TEXT DEFAULT 'active'"),
@@ -249,6 +264,8 @@ def create_schema(conn: sqlite3.Connection) -> None:
           file_path TEXT NOT NULL,
           summary TEXT,
           language TEXT,
+          business_summary TEXT,
+          business_terms TEXT,
           updated_at TEXT NOT NULL
         );
 
@@ -260,6 +277,8 @@ def create_schema(conn: sqlite3.Connection) -> None:
           symbol_type TEXT,
           summary TEXT,
           calls TEXT,
+          business_summary TEXT,
+          business_terms TEXT,
           updated_at TEXT NOT NULL
         );
 
@@ -273,6 +292,8 @@ def create_schema(conn: sqlite3.Connection) -> None:
           logger TEXT,
           message_template TEXT NOT NULL,
           raw_statement TEXT,
+          business_summary TEXT,
+          business_terms TEXT,
           updated_at TEXT NOT NULL
         );
 
@@ -335,6 +356,14 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
 def migrate_schema(conn: sqlite3.Connection) -> None:
     for table, columns in GOVERNANCE_COLUMNS.items():
+        existing = {
+            row["name"]
+            for row in conn.execute(f"PRAGMA table_info({table})").fetchall()
+        }
+        for name, definition in columns:
+            if name not in existing:
+                conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {definition}")
+    for table, columns in CODE_BUSINESS_COLUMNS.items():
         existing = {
             row["name"]
             for row in conn.execute(f"PRAGMA table_info({table})").fetchall()
@@ -596,6 +625,29 @@ def terms_from_text(text: str) -> list[str]:
     return [token for token in tokenize(text) if token]
 
 
+def json_list(values: Any) -> list[str]:
+    if values is None:
+        return []
+    if isinstance(values, list):
+        return [str(value) for value in values if str(value).strip()]
+    if isinstance(values, str):
+        stripped = values.strip()
+        if not stripped:
+            return []
+        try:
+            parsed = json.loads(stripped)
+        except json.JSONDecodeError:
+            return [part.strip() for part in stripped.split(",") if part.strip()]
+        if isinstance(parsed, list):
+            return [str(value) for value in parsed if str(value).strip()]
+        return [str(parsed)]
+    return [str(values)]
+
+
+def json_list_text(values: Any) -> str:
+    return json.dumps(unique_list(json_list(values)), ensure_ascii=False)
+
+
 def code_search_terms(kind: str, row: sqlite3.Row | dict[str, Any]) -> list[str]:
     get = row.get if isinstance(row, dict) else lambda key, default=None: row[key] if key in row.keys() else default
     terms: list[str] = []
@@ -609,7 +661,10 @@ def code_search_terms(kind: str, row: sqlite3.Row | dict[str, Any]) -> list[str]
     message_template = str(get("message_template") or "")
     function = str(get("function") or "")
     raw_statement = str(get("raw_statement") or "")
+    business_summary = str(get("business_summary") or "")
+    business_terms = json_list(get("business_terms"))
     terms.extend([file_path, language, summary, symbol, symbol_type, level, logger, message_template, function])
+    terms.extend([business_summary, *business_terms])
     terms.extend(terms_from_text(" ".join(terms + [raw_statement])))
     if language == "ArkTS" or file_path.endswith(".ets"):
         terms.extend(["arkts", "harmonyos", "ets", "component", "page"])
@@ -707,7 +762,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
         ).fetchall()
         files = conn.execute(
             """
-            SELECT id, file_path, summary, language, updated_at
+            SELECT *
             FROM code_files
             WHERE project_id = ?
             """,
@@ -715,7 +770,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
         ).fetchall()
         symbols = conn.execute(
             """
-            SELECT id, file_path, symbol, symbol_type, summary, updated_at
+            SELECT *
             FROM code_symbols
             WHERE project_id = ?
             """,
@@ -787,6 +842,8 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             tokens,
             expanded_terms,
             [
+                ("business_terms", " ".join(json_list(row["business_terms"])), 5.0),
+                ("business_summary", row["business_summary"] or "", 3.0),
                 ("file_path", row["file_path"], 3.0),
                 ("file_summary", row["summary"] or "", 1.0),
                 ("file_language", row["language"] or "", 0.6),
@@ -799,6 +856,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             item["kind"] = "file"
             item["score"] = score
             item["search_terms"] = search_terms
+            item["business_terms"] = json_list(row["business_terms"])
             item["match_reasons"] = reasons
             results["wiki_matches"].append(item)
 
@@ -809,6 +867,8 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             tokens,
             expanded_terms,
             [
+                ("business_terms", " ".join(json_list(row["business_terms"])), 5.0),
+                ("business_summary", row["business_summary"] or "", 3.0),
                 ("file_path", row["file_path"], 2.0),
                 ("symbol", row["symbol"], 4.0),
                 ("symbol_type", row["symbol_type"] or "", 2.0),
@@ -825,6 +885,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             item["kind"] = "symbol"
             item["score"] = score
             item["search_terms"] = search_terms
+            item["business_terms"] = json_list(row["business_terms"])
             item["match_reasons"] = reasons
             results["wiki_matches"].append(item)
 
@@ -835,6 +896,8 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             tokens,
             expanded_terms,
             [
+                ("business_terms", " ".join(json_list(row["business_terms"])), 5.0),
+                ("business_summary", row["business_summary"] or "", 3.0),
                 ("log_message", row["message_template"], 3.0),
                 ("log_context", " ".join(str(row[key] or "") for key in ("file_path", "function", "level", "logger", "raw_statement")), 1.2),
                 ("search_terms", " ".join(search_terms), 1.0),
@@ -850,6 +913,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             item["kind"] = "log_statement"
             item["score"] = score
             item["search_terms"] = search_terms
+            item["business_terms"] = json_list(row["business_terms"])
             item["match_reasons"] = reasons
             results["code_log_matches"].append(item)
 
@@ -1313,6 +1377,33 @@ def maintain_health(args: argparse.Namespace) -> None:
         semantic_rows = fetch_memory_rows(conn, project, "semantic", active_only=False)
         reflection_rows = fetch_memory_rows(conn, project, "reflection", active_only=False)
         episode_rows = fetch_memory_rows(conn, project, "episode", active_only=False)
+        code_files_missing_business_terms = conn.execute(
+            """
+            SELECT COUNT(*) AS count
+            FROM code_files
+            WHERE project_id = ?
+              AND (business_terms IS NULL OR business_terms = '' OR business_terms = '[]')
+            """,
+            (project.project_id,),
+        ).fetchone()["count"]
+        code_symbols_missing_business_terms = conn.execute(
+            """
+            SELECT COUNT(*) AS count
+            FROM code_symbols
+            WHERE project_id = ?
+              AND (business_terms IS NULL OR business_terms = '' OR business_terms = '[]')
+            """,
+            (project.project_id,),
+        ).fetchone()["count"]
+        code_logs_missing_business_terms = conn.execute(
+            """
+            SELECT COUNT(*) AS count
+            FROM code_log_statements
+            WHERE project_id = ?
+              AND (business_terms IS NULL OR business_terms = '' OR business_terms = '[]')
+            """,
+            (project.project_id,),
+        ).fetchone()["count"]
 
     semantic_active = [row for row in semantic_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
     reflection_active = [row for row in reflection_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
@@ -1336,6 +1427,8 @@ def maintain_health(args: argparse.Namespace) -> None:
         recommended_actions.append("Verify low-confidence memories against source files or user instructions.")
     if unreviewed_reflections:
         recommended_actions.append("Review reflections and promote durable lessons into semantic facts.")
+    if code_files_missing_business_terms or code_symbols_missing_business_terms or code_logs_missing_business_terms:
+        recommended_actions.append("Enrich learned code with business summaries and terms through agent-memory-learn.")
 
     data = {
         "project_id": project.project_id,
@@ -1347,6 +1440,9 @@ def maintain_health(args: argparse.Namespace) -> None:
             "low_confidence": low_confidence_count,
             "duplicate_candidates": duplicate_count,
             "unreviewed_reflections": unreviewed_reflections,
+            "code_files_missing_business_terms": code_files_missing_business_terms,
+            "code_symbols_missing_business_terms": code_symbols_missing_business_terms,
+            "code_logs_missing_business_terms": code_logs_missing_business_terms,
         },
         "recommended_actions": recommended_actions,
     }
@@ -1969,12 +2065,22 @@ def vault_export(args: argparse.Namespace) -> None:
     files_content += "# Code Files\n\n"
     for row in files:
         files_content += f"- `{row['file_path']}` ({row['language'] or 'unknown'}): {row['summary'] or ''}\n"
+        if row["business_summary"]:
+            files_content += f"  - Business: {row['business_summary']}\n"
+        terms = json_list(row["business_terms"])
+        if terms:
+            files_content += f"  - Terms: {', '.join(terms)}\n"
     write_vault_file(project.vault_dir / "Codebase Wiki" / "files.md", files_content)
 
     symbols_content = frontmatter("codebase-wiki", project, now_iso())
     symbols_content += "# Code Symbols\n\n"
     for row in symbols:
         symbols_content += f"- `{row['file_path']}` :: `{row['symbol']}` ({row['symbol_type'] or 'symbol'})\n"
+        if row["business_summary"]:
+            symbols_content += f"  - Business: {row['business_summary']}\n"
+        terms = json_list(row["business_terms"])
+        if terms:
+            symbols_content += f"  - Terms: {', '.join(terms)}\n"
     write_vault_file(project.vault_dir / "Codebase Wiki" / "symbols.md", symbols_content)
 
     logs_content = frontmatter("codebase-wiki", project, now_iso())
@@ -1986,6 +2092,11 @@ def vault_export(args: argparse.Namespace) -> None:
             f"- `{location}`{function} [{row['level'] or 'log'}] "
             f"{row['message_template']}\n"
         )
+        if row["business_summary"]:
+            logs_content += f"  - Business: {row['business_summary']}\n"
+        terms = json_list(row["business_terms"])
+        if terms:
+            logs_content += f"  - Terms: {', '.join(terms)}\n"
     write_vault_file(project.vault_dir / "Codebase Wiki" / "log-statements.md", logs_content)
 
     edges_content = frontmatter("codebase-wiki", project, now_iso())
@@ -2867,6 +2978,131 @@ def parse_stats_summary(stats: dict[str, Any]) -> str:
     )
 
 
+def learn_business(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    ensure_initialized(project)
+    source_project = project_for_learning_source(project, args.source)
+    try:
+        payload = json.loads(args.payload)
+    except json.JSONDecodeError as exc:
+        raise SystemExit(f"invalid --payload JSON: {exc}") from exc
+    if not isinstance(payload, dict) or not isinstance(payload.get("files"), list):
+        raise SystemExit("--payload must be an object with a files array")
+    ts = now_iso()
+    files_written = 0
+    symbols_written = 0
+    logs_written = 0
+    with connect(source_project) as conn:
+        for file_item in payload["files"]:
+            if not isinstance(file_item, dict) or not file_item.get("file_path"):
+                raise SystemExit("each file item must include file_path")
+            file_path = str(file_item["file_path"])
+            language = file_item.get("language") or CODE_EXTENSIONS.get(Path(file_path).suffix.lower()) or "unknown"
+            summary = file_item.get("summary") or f"{language} file"
+            conn.execute(
+                """
+                INSERT INTO code_files(
+                  project_id, file_path, summary, language,
+                  business_summary, business_terms, updated_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(project_id, file_path) DO UPDATE SET
+                  summary=excluded.summary,
+                  language=excluded.language,
+                  business_summary=excluded.business_summary,
+                  business_terms=excluded.business_terms,
+                  updated_at=excluded.updated_at
+                """,
+                (
+                    source_project.project_id,
+                    file_path,
+                    summary,
+                    language,
+                    file_item.get("business_summary"),
+                    json_list_text(file_item.get("business_terms")),
+                    ts,
+                ),
+            )
+            files_written += 1
+            conn.execute(
+                "DELETE FROM code_symbols WHERE project_id = ? AND file_path = ?",
+                (source_project.project_id, file_path),
+            )
+            conn.execute(
+                "DELETE FROM code_log_statements WHERE project_id = ? AND file_path = ?",
+                (source_project.project_id, file_path),
+            )
+            for symbol_item in file_item.get("symbols") or []:
+                if not isinstance(symbol_item, dict) or not symbol_item.get("symbol"):
+                    continue
+                symbol = str(symbol_item["symbol"])
+                symbol_type = symbol_item.get("symbol_type") or "symbol"
+                symbol_summary = symbol_item.get("summary") or summarize_symbol(file_path, symbol, symbol_type, language)
+                conn.execute(
+                    """
+                    INSERT INTO code_symbols(
+                      project_id, file_path, symbol, symbol_type, summary, calls,
+                      business_summary, business_terms, updated_at
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        source_project.project_id,
+                        file_path,
+                        symbol,
+                        symbol_type,
+                        symbol_summary,
+                        symbol_item.get("calls") or "",
+                        symbol_item.get("business_summary"),
+                        json_list_text(symbol_item.get("business_terms")),
+                        ts,
+                    ),
+                )
+                symbols_written += 1
+            for log_item in file_item.get("logs") or []:
+                if not isinstance(log_item, dict) or not log_item.get("message_template"):
+                    continue
+                conn.execute(
+                    """
+                    INSERT INTO code_log_statements(
+                      project_id, file_path, line, function, level, logger,
+                      message_template, raw_statement,
+                      business_summary, business_terms, updated_at
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        source_project.project_id,
+                        file_path,
+                        log_item.get("line"),
+                        log_item.get("function"),
+                        log_item.get("level"),
+                        log_item.get("logger"),
+                        log_item.get("message_template"),
+                        log_item.get("raw_statement"),
+                        log_item.get("business_summary"),
+                        json_list_text(log_item.get("business_terms")),
+                        ts,
+                    ),
+                )
+                logs_written += 1
+        rebuild_code_memory_edges(conn, source_project)
+        edge_count = conn.execute(
+            "SELECT COUNT(*) AS count FROM memory_edges WHERE project_id = ?",
+            (source_project.project_id,),
+        ).fetchone()["count"]
+        conn.commit()
+    data = {
+        "project_id": project.project_id,
+        "source": str(source_project.root),
+        "files_written": files_written,
+        "symbols_written": symbols_written,
+        "logs_written": logs_written,
+        "memory_edges_total": edge_count,
+    }
+    output(data, args.json)
+
+
 def add_episode_from_values(project: Project, task: str, summary: str, outcome: str | None) -> None:
     with connect(project) as conn:
         conn.execute(
@@ -3289,6 +3525,13 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--replace", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=learn_entry)
+
+    p = sub.add_parser("learn-business")
+    add_project(p)
+    p.add_argument("--source")
+    p.add_argument("--payload", required=True)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=learn_business)
 
     return parser
 

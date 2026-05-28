@@ -774,3 +774,35 @@ Verification:
 
 Rollback notes:
 - Remove `code_search_terms`, `score_weighted_fields`, result `search_terms` / `match_reasons`, reranking tests, and related docs.
+
+## 2026-05-28 - Store Agent-authored code business semantics
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `references/schema.md`
+- `skills/agent-memory-learn/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `business_summary` and `business_terms` to `code_files`, `code_symbols`, and `code_log_statements`.
+- Added `learn-business --payload` so an Agent can read source, organize business meaning, and persist it into existing code memory tables.
+- Added business terms and summaries to query scoring and returned code/log matches.
+- Exported business summaries and terms in existing Codebase Wiki files, symbols, and log pages.
+- Added maintain-health counts for code records missing business terms.
+
+Why:
+- Improve business-level recall by storing real file, method, field, resource, route, and log meaning during learning instead of relying only on technical keywords.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tests/test_agent_memory.py install.py`
+- Result: passed.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 51 tests passed.
+- Command: `git diff --check`
+- Result: clean.
+
+Rollback notes:
+- Remove code business columns, `learn-business`, business query scoring, business vault output, health counts, tests, and related docs.

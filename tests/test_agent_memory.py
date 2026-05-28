@@ -968,6 +968,111 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(data["wiki_matches"][0]["file_path"], "pages/Detail.ets")
             self.assertIn("exact_file_path", data["wiki_matches"][0]["match_reasons"])
 
+    def test_learn_business_writes_business_semantics_to_existing_code_tables(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payload = {
+                "files": [
+                    {
+                        "file_path": "pages/ProfileDetail.ets",
+                        "summary": "ArkTS profile detail page",
+                        "business_summary": "个人信息详情页，负责加载用户资料并展示头像。",
+                        "business_terms": ["个人信息", "用户资料", "profile", "头像", "avatar"],
+                        "symbols": [
+                            {
+                                "symbol": "loadUserProfile",
+                                "symbol_type": "function",
+                                "business_summary": "加载用户资料的方法。",
+                                "business_terms": ["加载用户资料", "profile", "load profile"],
+                            }
+                        ],
+                        "logs": [
+                            {
+                                "message_template": "load profile failed",
+                                "function": "loadUserProfile",
+                                "level": "error",
+                                "logger": "hilog",
+                                "business_summary": "用户资料加载失败时输出的错误日志。",
+                                "business_terms": ["用户资料加载失败", "profile failed", "load profile failed"],
+                            }
+                        ],
+                    }
+                ]
+            }
+
+            self.run_memory(project, "learn-business", "--payload", json.dumps(payload, ensure_ascii=False), "--json")
+
+            files = self.list_records(project, "code-file")
+            symbols = self.list_records(project, "code-symbol")
+            logs = self.list_records(project, "code-log")
+            self.assertEqual(files[0]["business_summary"], "个人信息详情页，负责加载用户资料并展示头像。")
+            self.assertIn("头像", json.loads(files[0]["business_terms"]))
+            self.assertEqual(symbols[0]["business_summary"], "加载用户资料的方法。")
+            self.assertEqual(logs[0]["business_summary"], "用户资料加载失败时输出的错误日志。")
+
+    def test_business_terms_are_high_signal_query_matches(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payload = {
+                "files": [
+                    {
+                        "file_path": "pages/ProfileDetail.ets",
+                        "business_summary": "个人信息详情页，负责加载用户资料并展示头像。",
+                        "business_terms": ["个人信息", "用户资料", "profile", "头像", "avatar"],
+                        "symbols": [
+                            {
+                                "symbol": "loadUserProfile",
+                                "symbol_type": "function",
+                                "business_summary": "加载用户资料的方法。",
+                                "business_terms": ["加载用户资料", "profile", "load profile"],
+                            }
+                        ],
+                        "logs": [
+                            {
+                                "message_template": "load profile failed",
+                                "function": "loadUserProfile",
+                                "level": "error",
+                                "business_summary": "用户资料加载失败时输出的错误日志。",
+                                "business_terms": ["用户资料加载失败", "profile failed"],
+                            }
+                        ],
+                    }
+                ]
+            }
+            self.run_memory(project, "learn-business", "--payload", json.dumps(payload, ensure_ascii=False), "--json")
+
+            result = self.run_memory(project, "context", "--query", "个人信息头像加载失败", "--json")
+            data = json.loads(result.stdout)
+
+            self.assertEqual(data["wiki_matches"][0]["file_path"], "pages/ProfileDetail.ets")
+            self.assertIn("头像", data["wiki_matches"][0]["business_terms"])
+            self.assertTrue(any("business_terms" in reason for reason in data["wiki_matches"][0]["match_reasons"]))
+            self.assertTrue(any(log["message_template"] == "load profile failed" for log in data["code_log_matches"]))
+
+    def test_vault_and_health_include_code_business_semantics(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payload = {
+                "files": [
+                    {
+                        "file_path": "pages/ProfileDetail.ets",
+                        "business_summary": "个人信息详情页，负责加载用户资料并展示头像。",
+                        "business_terms": ["个人信息", "profile", "头像"],
+                    }
+                ]
+            }
+            self.run_memory(project, "learn-business", "--payload", json.dumps(payload, ensure_ascii=False), "--json")
+            self.run_memory(project, "learn-business", "--payload", json.dumps({"files": [{"file_path": "pages/Empty.ets"}]}), "--json")
+
+            health = json.loads(self.run_memory(project, "maintain-health", "--json").stdout)
+            self.assertEqual(health["counts"]["code_files_missing_business_terms"], 1)
+
+            self.run_memory(project, "vault-export")
+            files_page = self.project_memory_dir(project) / "vault" / "Codebase Wiki" / "files.md"
+            content = files_page.read_text(encoding="utf-8")
+            self.assertIn("Business: 个人信息详情页", content)
+            self.assertIn("Terms: 个人信息, profile, 头像", content)
+
     def test_arkts_memory_edges_connect_imports_routes_and_resources(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
