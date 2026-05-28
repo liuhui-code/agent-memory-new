@@ -96,7 +96,7 @@ Partial learning is incremental by default. A second `learn-path` call adds or r
 python tools/agent_memory.py learn-path --project . --path skills --replace
 ```
 
-Learning also stores code log statements such as `print(...)`, `logger.error(...)`, and `console.warn(...)`. These are connected to learned files and nearest detected functions through `memory_edges`.
+Learning also stores code log statements such as `print(...)`, `logger.error(...)`, `console.warn(...)`, and ArkTS `hilog.info(...)`. These are connected to learned files and nearest detected functions through `memory_edges`.
 
 For the whole project:
 

@@ -18,6 +18,7 @@ The first version records single-line log-like statements from learned files:
 
 - Python: `print(...)`, `logger.info(...)`, `logger.error(...)`, `logging.warning(...)`
 - JavaScript and TypeScript: `console.log(...)`, `console.error(...)`, `logger.warn(...)`
+- ArkTS: `console.info(...)`, `console.error(...)`, `hilog.info(...)`, `hilog.error(...)`
 - Dart: `print(...)`, `debugPrint(...)`, `log(...)`
 - Swift: `print(...)`, `NSLog(...)`, `os_log(...)`, `logger.error(...)`
 

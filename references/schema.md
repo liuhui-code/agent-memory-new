@@ -57,7 +57,7 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 - `file_path` and `line`: where the statement appears.
 - `function`: nearest detected function or class-like symbol.
 - `level`: `print`, `debug`, `info`, `warning`, `error`, `exception`, or similar.
-- `logger`: logger family such as `print`, `logging`, `logger`, `console`, `debugPrint`, or `NSLog`.
+- `logger`: logger family such as `print`, `logging`, `logger`, `console`, `hilog`, `debugPrint`, or `NSLog`.
 - `message_template`: first string literal or compact argument text.
 - `raw_statement`: the original single-line statement.
 

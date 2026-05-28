@@ -512,6 +512,65 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(logs[0]["function"], "loadUser")
             self.assertIn("load failed", logs[0]["message_template"])
 
+    def test_learn_path_extracts_arkts_symbols_and_logs(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Index.ets").write_text(
+                "import hilog from '@ohos.hilog';\n\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index {\n"
+                "  aboutToAppear(): void {\n"
+                "    console.error('load account failed');\n"
+                "    hilog.info(0x0000, 'Index', 'page ready %{public}s', 'ok');\n"
+                "  }\n"
+                "  build() {\n"
+                "    Column() {}\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages")
+
+            files = self.list_code_files(project)
+            symbols = self.list_records(project, "code-symbol")
+            logs = sorted(self.list_records(project, "code-log"), key=lambda row: row["line"])
+
+            self.assertEqual(files, {"pages/Index.ets"})
+            self.assertTrue(any(row["symbol"] == "Index" and row["symbol_type"] == "component" for row in symbols))
+            self.assertTrue(any(row["symbol"] == "aboutToAppear" and row["symbol_type"] == "function" for row in symbols))
+            self.assertEqual([log["level"] for log in logs], ["error", "info"])
+            self.assertEqual([log["function"] for log in logs], ["aboutToAppear", "aboutToAppear"])
+            self.assertEqual(logs[1]["logger"], "hilog")
+            self.assertIn("page ready %{public}s", logs[1]["message_template"])
+
+    def test_learn_entry_follows_arkts_relative_imports(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "model").mkdir()
+            (project / "pages" / "Index.ets").write_text(
+                "import { UserModel } from '../model/UserModel';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index {\n"
+                "  build() {}\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            (project / "model" / "UserModel.ets").write_text(
+                "export class UserModel {\n"
+                "  name: string = '';\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-entry", "--entry", "pages/Index.ets", "--depth", "1", "--json")
+
+            self.assertEqual(self.list_code_files(project), {"pages/Index.ets", "model/UserModel.ets"})
+
     def test_context_returns_code_log_and_related_edge_matches(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)

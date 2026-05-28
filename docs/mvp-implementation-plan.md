@@ -404,6 +404,7 @@ __pycache__/
 ```text
 Python: def, class
 TS/JS: function, class, const name =
+ArkTS: .ets, struct components, class, function, lifecycle/build methods
 Dart: class, Future<, void, Widget build
 Swift: class, struct, func
 Markdown: # headings

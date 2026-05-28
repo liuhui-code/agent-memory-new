@@ -13,6 +13,7 @@ Supported extraction:
 
 - Python: `def`, `class`
 - TypeScript/JavaScript: `function`, `class`, `const name =`
+- ArkTS: `.ets`, `struct` components, `class`, `function`, component lifecycle/build methods
 - Dart: `class`, `Future<`, `void`, `Widget build`
 - Swift: `class`, `struct`, `func`
 - Markdown: headings

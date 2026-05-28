@@ -26,6 +26,7 @@ Examples:
 ```text
 Learn the code around tools/agent_memory.py.
 从 lib/main.dart 开始理解这个项目。
+从 entry/src/main/ets/pages/Index.ets 开始理解这个鸿蒙页面。
 把 src/app.ts 入口相关代码加入记忆系统。
 ```
 
@@ -60,6 +61,7 @@ Rules:
 
 - Prefer `learn-entry` or `learn-path` over full-project `wiki-index`.
 - Use the smallest scope that satisfies the task.
+- For HarmonyOS projects, prefer `.ets` page/component entry files or `entry/src/main/ets` feature directories.
 - Default to incremental merge for partial learning.
 - Use `--replace` only for explicit reset/relearn requests.
 - After learning, query with `agent-memory-query` before editing.

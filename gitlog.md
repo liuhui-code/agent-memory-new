@@ -466,3 +466,34 @@ Verification:
 
 Rollback notes:
 - Remove `NETWORK_*` constants, relation filtering, evidence chain output, and related tests/docs.
+
+## 2026-05-28 - Add HarmonyOS ArkTS code learning support
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `README.md`
+- `docs/code-log-statement-network.md`
+- `docs/usage-guide.md`
+- `docs/mvp-implementation-plan.md`
+- `references/schema.md`
+- `references/codebase-wiki.md`
+- `skills/agent-memory-learn/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `.ets` language detection as ArkTS.
+- Added lightweight ArkTS symbol extraction for `struct` components, classes, functions, and lifecycle/build methods.
+- Added ArkTS log extraction for `console.*`, `logger.*`, and `hilog.*`, including hilog format-message detection.
+- Added `learn-entry` import following for ArkTS relative imports.
+- Updated user docs and skill guidance for HarmonyOS projects.
+
+Why:
+- Improve first-class usability for HarmonyOS/ArkTS developers while keeping the runtime deterministic and lightweight.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 30 tests passed.
+
+Rollback notes:
+- Remove `.ets` from `CODE_EXTENSIONS`, ArkTS extraction/import branches, ArkTS tests, and related docs.

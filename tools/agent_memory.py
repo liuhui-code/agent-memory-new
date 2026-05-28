@@ -55,6 +55,7 @@ CODE_EXTENSIONS = {
     ".py": "Python",
     ".ts": "TypeScript",
     ".tsx": "TypeScript",
+    ".ets": "ArkTS",
     ".js": "JavaScript",
     ".jsx": "JavaScript",
     ".dart": "Dart",
@@ -1868,6 +1869,13 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
             (r"^\s*class\s+([A-Za-z_$][\w$]*)", "class"),
             (r"^\s*const\s+([A-Za-z_$][\w$]*)\s*=", "const"),
         ]
+    elif language == "ArkTS":
+        patterns = [
+            (r"^\s*(?:export\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(", "function"),
+            (r"^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)", "class"),
+            (r"^\s*(?:export\s+)?struct\s+([A-Za-z_$][\w$]*)", "component"),
+            (r"^\s*(?:private\s+|public\s+|protected\s+)?([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{?", "function"),
+        ]
     elif language == "Dart":
         patterns = [
             (r"^\s*class\s+([A-Za-z_]\w*)", "class"),
@@ -1891,6 +1899,8 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
                     name = match.group(2).strip()
                 else:
                     name = match.group(1).strip()
+                if name in {"if", "for", "while", "switch", "catch"}:
+                    continue
                 symbols.append((name, kind))
     return symbols
 
@@ -1934,6 +1944,13 @@ def function_symbol_on_line(line: str, language: str) -> tuple[str, int] | None:
             r"^\s*(?:export\s+)?const\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s*)?\(",
             r"^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)",
         ]
+    elif language == "ArkTS":
+        patterns = [
+            r"^\s*(?:export\s+)?(?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(",
+            r"^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)",
+            r"^\s*(?:export\s+)?struct\s+([A-Za-z_$][\w$]*)",
+            r"^\s*(?:private\s+|public\s+|protected\s+)?([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{?",
+        ]
     elif language == "Dart":
         patterns = [
             r"^\s*(?:Future<[^>]+>|void|Widget|String|int|bool|double)\s+([A-Za-z_]\w*)\s*\(",
@@ -1949,7 +1966,10 @@ def function_symbol_on_line(line: str, language: str) -> tuple[str, int] | None:
     for pattern in patterns:
         match = re.match(pattern, line)
         if match:
-            return match.group(1), indent
+            name = match.group(1)
+            if name in {"if", "for", "while", "switch", "catch"}:
+                continue
+            return name, indent
     return None
 
 
@@ -1967,6 +1987,12 @@ def log_statement_on_line(line: str, language: str) -> dict[str, Any] | None:
         patterns = [
             (r"\bconsole\.(log|info|warn|error|debug)\s*\((.*)\)", "console", ""),
             (r"\blogger\.(log|info|warn|error|debug)\s*\((.*)\)", "logger", ""),
+        ]
+    elif language == "ArkTS":
+        patterns = [
+            (r"\bconsole\.(log|info|warn|error|debug)\s*\((.*)\)", "console", ""),
+            (r"\blogger\.(log|info|warn|error|debug)\s*\((.*)\)", "logger", ""),
+            (r"\bhilog\.(debug|info|warn|error|fatal)\s*\((.*)\)", "hilog", ""),
         ]
     elif language == "Dart":
         patterns = [
@@ -1991,7 +2017,7 @@ def log_statement_on_line(line: str, language: str) -> dict[str, Any] | None:
             logger = match.group(1)
             level = match.group(2)
             args_text = match.group(3)
-        elif language in {"TypeScript", "JavaScript"}:
+        elif language in {"TypeScript", "JavaScript", "ArkTS"}:
             logger = logger_name
             level = match.group(1)
             args_text = match.group(2)
@@ -2006,14 +2032,22 @@ def log_statement_on_line(line: str, language: str) -> dict[str, Any] | None:
         return {
             "level": "warning" if level == "warn" else level,
             "logger": logger,
-            "message_template": first_string_literal(args_text) or args_text.strip(),
+            "message_template": message_template_for_args(logger, args_text),
         }
     return None
 
 
-def first_string_literal(text: str) -> str | None:
-    match = re.search(r"""(['"])(.*?)(?<!\\)\1""", text)
-    return match.group(2) if match else None
+def message_template_for_args(logger: str, args_text: str) -> str:
+    literals = string_literals(args_text)
+    if logger == "hilog" and len(literals) >= 2:
+        return literals[1]
+    if literals:
+        return literals[0]
+    return args_text.strip()
+
+
+def string_literals(text: str) -> list[str]:
+    return [match.group(2) for match in re.finditer(r"""(['"])(.*?)(?<!\\)\1""", text)]
 
 
 def wiki_index(args: argparse.Namespace) -> None:
@@ -2340,6 +2374,8 @@ def resolve_project_imports(project: Project, path: Path) -> list[Path]:
         candidates.extend(resolve_python_imports(project, path, text))
     elif language in {"TypeScript", "JavaScript"}:
         candidates.extend(resolve_js_imports(project, path, text))
+    elif language == "ArkTS":
+        candidates.extend(resolve_js_imports(project, path, text, [".ets", ".ts", ".js"]))
     elif language == "Dart":
         candidates.extend(resolve_quoted_relative_imports(project, path, text, [".dart"]))
     elif language == "Markdown":
@@ -2394,12 +2430,18 @@ def existing_module_paths(base: Path, extensions: list[str]) -> list[Path]:
     return matches
 
 
-def resolve_js_imports(project: Project, path: Path, text: str) -> list[Path]:
+def resolve_js_imports(
+    project: Project,
+    path: Path,
+    text: str,
+    extensions: list[str] | None = None,
+) -> list[Path]:
     imports = re.findall(r"(?:from\s+|import\s*\(|require\s*\()\s*['\"]([^'\"]+)['\"]", text)
     candidates: list[Path] = []
+    extensions = extensions or [".ts", ".tsx", ".js", ".jsx"]
     for spec in imports:
         if spec.startswith("."):
-            candidates.extend(resolve_relative_spec(path.parent / spec, [".ts", ".tsx", ".js", ".jsx"]))
+            candidates.extend(resolve_relative_spec(path.parent / spec, extensions))
     return candidates
 
 
