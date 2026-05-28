@@ -293,9 +293,12 @@ def create_schema(conn: sqlite3.Connection) -> None:
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           project_id TEXT NOT NULL,
           query TEXT NOT NULL,
+          normalized_query TEXT,
           source TEXT DEFAULT 'context',
           result_counts TEXT,
           created_at TEXT NOT NULL,
+          last_seen_at TEXT,
+          miss_count INTEGER DEFAULT 1,
           reviewed_at TEXT,
           status TEXT DEFAULT 'open',
           resolution TEXT
@@ -312,6 +315,9 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_query_misses_project_status
         ON query_misses(project_id, status);
+
+        CREATE INDEX IF NOT EXISTS idx_query_misses_project_normalized
+        ON query_misses(project_id, source, normalized_query, status);
 
         CREATE INDEX IF NOT EXISTS idx_code_logs_project_file
         ON code_log_statements(project_id, file_path);
@@ -336,6 +342,38 @@ def migrate_schema(conn: sqlite3.Connection) -> None:
         for name, definition in columns:
             if name not in existing:
                 conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {definition}")
+    existing_query_miss_columns = {
+        row["name"]
+        for row in conn.execute("PRAGMA table_info(query_misses)").fetchall()
+    }
+    for name, definition in (
+        ("normalized_query", "TEXT"),
+        ("last_seen_at", "TEXT"),
+        ("miss_count", "INTEGER DEFAULT 1"),
+    ):
+        if name not in existing_query_miss_columns:
+            conn.execute(f"ALTER TABLE query_misses ADD COLUMN {name} {definition}")
+    conn.execute(
+        """
+        UPDATE query_misses
+        SET normalized_query = LOWER(TRIM(query))
+        WHERE normalized_query IS NULL OR normalized_query = ''
+        """
+    )
+    conn.execute(
+        """
+        UPDATE query_misses
+        SET last_seen_at = created_at
+        WHERE last_seen_at IS NULL OR last_seen_at = ''
+        """
+    )
+    conn.execute(
+        """
+        UPDATE query_misses
+        SET miss_count = 1
+        WHERE miss_count IS NULL OR miss_count < 1
+        """
+    )
     for table in ("semantic_facts", "reflections"):
         conn.execute(
             f"""
@@ -832,22 +870,60 @@ def has_any_result(data: dict[str, Any]) -> bool:
     return any(result_counts(data).values())
 
 
+def normalize_query_miss(query: str) -> str:
+    return " ".join(query.lower().split())
+
+
 def record_query_miss_if_empty(project: Project, source: str, query: str, data: dict[str, Any]) -> None:
     counts = result_counts(data)
     if any(counts.values()):
         return
+    normalized_query = normalize_query_miss(query)
+    ts = now_iso()
+    counts_json = json.dumps(counts, ensure_ascii=False)
     with connect(project) as conn:
+        existing = conn.execute(
+            """
+            SELECT id
+            FROM query_misses
+            WHERE project_id = ?
+              AND source = ?
+              AND normalized_query = ?
+              AND status = 'open'
+            ORDER BY id DESC
+            LIMIT 1
+            """,
+            (project.project_id, source, normalized_query),
+        ).fetchone()
+        if existing:
+            conn.execute(
+                """
+                UPDATE query_misses
+                SET result_counts = ?,
+                    last_seen_at = ?,
+                    miss_count = COALESCE(miss_count, 1) + 1
+                WHERE project_id = ? AND id = ?
+                """,
+                (counts_json, ts, project.project_id, existing["id"]),
+            )
+            conn.commit()
+            return
         conn.execute(
             """
-            INSERT INTO query_misses(project_id, query, source, result_counts, created_at)
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO query_misses(
+              project_id, query, normalized_query, source, result_counts,
+              created_at, last_seen_at, miss_count
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, 1)
             """,
             (
                 project.project_id,
                 query,
+                normalized_query,
                 source,
-                json.dumps(counts, ensure_ascii=False),
-                now_iso(),
+                counts_json,
+                ts,
+                ts,
             ),
         )
         conn.commit()
@@ -1399,6 +1475,10 @@ def maintain_plan(args: argparse.Namespace) -> None:
                 "action": "review_query_miss",
                 "type": "query_miss",
                 "id": row["id"],
+                "query": row["query"],
+                "source": row["source"],
+                "miss_count": row.get("miss_count") or 1,
+                "last_seen_at": row.get("last_seen_at") or row.get("created_at"),
                 "reason": "query had no memory or wiki matches",
                 "risk": "low",
                 "requires_confirmation": False,
@@ -1880,10 +1960,28 @@ def write_governance_dashboard(
 
     misses_doc = header + "# Query Misses\n\n" + notice
     for row in query_miss_rows[:50]:
-        misses_doc += f"- query miss #{row['id']} ({row['status']}, {row['source']}): {row['query']}\n"
+        miss_count = row.get("miss_count") or 1
+        last_seen_at = row.get("last_seen_at") or row.get("created_at")
+        misses_doc += f"- query miss #{row['id']} ({row['status']}, {row['source']}, misses {miss_count}, last seen {last_seen_at}): {row['query']}\n"
         if row.get("resolution"):
             misses_doc += f"  - resolution: {row['resolution']}\n"
     write_vault_file(project.vault_dir / "Governance" / "Query Misses.md", misses_doc)
+
+    wiki_misses_doc = frontmatter("codebase-wiki", project, now_iso())
+    wiki_misses_doc += "# Query Misses\n\n" + notice
+    wiki_misses_doc += "These misses show where natural-language questions failed to retrieve learned code or memory context.\n\n"
+    for row in query_miss_rows[:50]:
+        miss_count = row.get("miss_count") or 1
+        normalized = row.get("normalized_query") or normalize_query_miss(row["query"])
+        last_seen_at = row.get("last_seen_at") or row.get("created_at")
+        wiki_misses_doc += (
+            f"- query miss #{row['id']} ({row['status']}, {row['source']}, "
+            f"misses {miss_count}, last seen {last_seen_at}): {row['query']}\n"
+        )
+        wiki_misses_doc += f"  - normalized: `{normalized}`\n"
+        if row.get("resolution"):
+            wiki_misses_doc += f"  - resolution: {row['resolution']}\n"
+    write_vault_file(project.vault_dir / "Codebase Wiki" / "query-misses.md", wiki_misses_doc)
 
 
 def vault_index(args: argparse.Namespace) -> None:
@@ -1902,6 +2000,7 @@ def vault_index(args: argparse.Namespace) -> None:
     content += "- [[Codebase Wiki/symbols]]\n"
     content += "- [[Codebase Wiki/log-statements]]\n"
     content += "- [[Codebase Wiki/memory-edges]]\n"
+    content += "- [[Codebase Wiki/query-misses]]\n"
     content += "\n## Governance\n\n"
     content += "- [[Governance/Health]]\n"
     content += "- [[Governance/Review Queue]]\n"

@@ -577,6 +577,20 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(misses[0]["status"], "open")
             self.assertEqual(json.loads(misses[0]["result_counts"])["semantic_facts"], 0)
 
+    def test_repeated_query_miss_updates_existing_open_record(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+
+            self.run_memory(project, "context", "--query", "No Such Memory Token", "--json")
+            self.run_memory(project, "context", "--query", "  no   such memory token  ", "--json")
+
+            misses = self.miss_list(project)
+            self.assertEqual(len(misses), 1)
+            self.assertEqual(misses[0]["query"], "No Such Memory Token")
+            self.assertEqual(misses[0]["normalized_query"], "no such memory token")
+            self.assertEqual(misses[0]["miss_count"], 2)
+            self.assertIsNotNone(misses[0]["last_seen_at"])
+
     def test_context_does_not_record_query_miss_when_memory_matches(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
@@ -634,7 +648,8 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             result = self.run_memory(project, "maintain-plan", "--json")
             actions = json.loads(result.stdout)["actions"]
 
-            self.assertTrue(any(action["action"] == "review_query_miss" and action["id"] == 1 for action in actions))
+            action = next(action for action in actions if action["action"] == "review_query_miss" and action["id"] == 1)
+            self.assertEqual(action["miss_count"], 1)
 
     def test_vault_export_writes_query_misses_dashboard(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -646,6 +661,22 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             dashboard = self.project_memory_dir(project) / "vault" / "Governance" / "Query Misses.md"
             self.assertTrue(dashboard.exists())
             self.assertIn("unanswered-question", dashboard.read_text(encoding="utf-8"))
+
+    def test_vault_export_writes_query_misses_codebase_wiki_page(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(project, "context", "--query", "arkts route miss", "--json")
+            self.run_memory(project, "context", "--query", "arkts   route miss", "--json")
+
+            self.run_memory(project, "vault-export")
+
+            wiki_page = self.project_memory_dir(project) / "vault" / "Codebase Wiki" / "query-misses.md"
+            index = self.project_memory_dir(project) / "vault" / "index.md"
+            self.assertTrue(wiki_page.exists())
+            content = wiki_page.read_text(encoding="utf-8")
+            self.assertIn("arkts route miss", content)
+            self.assertIn("misses 2", content)
+            self.assertIn("[[Codebase Wiki/query-misses]]", index.read_text(encoding="utf-8"))
 
     def test_learn_path_extracts_python_print_and_logger_statements(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

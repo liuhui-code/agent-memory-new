@@ -4,6 +4,8 @@ Query misses are lightweight retrieval feedback.
 
 The runtime records a miss only when a query has zero matches across memory and wiki result sets. This avoids manual keyword maintenance while still showing where memory failed to help.
 
+Repeated open misses are merged by `source` and normalized query text. The first query text is kept for review, while `miss_count` and `last_seen_at` show recurrence. This prevents noisy duplicate rows while preserving the signal that a query pattern keeps failing.
+
 ## Recorded Sources
 
 - `context`
@@ -42,6 +44,7 @@ Vault export writes:
 
 ```text
 Governance/Query Misses.md
+Codebase Wiki/query-misses.md
 ```
 
 This file is generated. SQLite remains the source of truth.

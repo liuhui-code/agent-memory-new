@@ -711,3 +711,35 @@ Verification:
 
 Rollback notes:
 - Remove `QUERY_EXPANSION_RULES`, `query_tokens`, related tests, and query-expansion docs.
+
+## 2026-05-28 - Maintain recurring query misses and export wiki page
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `docs/runtime.md`
+- `docs/query-miss-feedback-loop.md`
+- `references/schema.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `normalized_query`, `miss_count`, and `last_seen_at` to query miss records.
+- Merged repeated open misses by project, source, and normalized query instead of creating duplicate rows.
+- Added miss recurrence fields to `maintain-plan` review actions.
+- Exported query misses into both `Governance/Query Misses.md` and `Codebase Wiki/query-misses.md`.
+- Added the query misses wiki page to the vault index.
+
+Why:
+- Keep real retrieval failures visible without letting repeated failed searches pollute the memory database.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tests/test_agent_memory.py install.py`
+- Result: passed.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 47 tests passed.
+- Command: `git diff --check`
+- Result: clean.
+
+Rollback notes:
+- Remove query miss recurrence columns, upsert logic, wiki export page, index link, and related tests/docs.

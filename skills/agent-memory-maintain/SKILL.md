@@ -103,6 +103,8 @@ python tools/agent_memory.py miss-status \
   --resolution "<what fixed the miss>"
 ```
 
+Open misses are merged by normalized query text. Use `miss_count` and `last_seen_at` to prioritize recurring retrieval gaps before one-off misses.
+
 ## Refresh Indexes
 
 ```bash

@@ -45,8 +45,11 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 `query_misses` track retrieval feedback:
 
 - `query`: the user or Agent query that produced no results.
+- `normalized_query`: lowercased whitespace-normalized query used to merge repeated open misses.
 - `source`: `context`, `search`, or `wiki-search`.
 - `result_counts`: JSON counts for each result set at miss time.
+- `miss_count`: how many times the same open miss has been observed.
+- `last_seen_at`: most recent repeated miss timestamp.
 - `status`: `open`, `reviewed`, `resolved`, or `ignored`.
 - `resolution`: how the miss was handled.
 
