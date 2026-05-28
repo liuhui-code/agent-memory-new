@@ -474,6 +474,136 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertTrue(dashboard.exists())
             self.assertIn("unanswered-question", dashboard.read_text(encoding="utf-8"))
 
+    def test_learn_path_extracts_python_print_and_logger_statements(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "service.py").write_text(
+                "import logging\n"
+                "logger = logging.getLogger(__name__)\n\n"
+                "def sync_user(user_id):\n"
+                "    print('starting sync', user_id)\n"
+                "    logger.error('sync failed for user %s', user_id)\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", ".")
+
+            logs = sorted(self.list_records(project, "code-log"), key=lambda row: row["line"])
+            self.assertEqual([log["level"] for log in logs], ["print", "error"])
+            self.assertEqual([log["function"] for log in logs], ["sync_user", "sync_user"])
+            self.assertIn("sync failed for user %s", logs[1]["message_template"])
+
+    def test_learn_path_extracts_javascript_console_error(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "app.js").write_text(
+                "function loadUser(id) {\n"
+                "  console.error('load failed', id);\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", ".")
+
+            logs = self.list_records(project, "code-log")
+            self.assertEqual(len(logs), 1)
+            self.assertEqual(logs[0]["level"], "error")
+            self.assertEqual(logs[0]["function"], "loadUser")
+            self.assertIn("load failed", logs[0]["message_template"])
+
+    def test_context_returns_code_log_and_related_edge_matches(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "worker.py").write_text(
+                "def process_job(job_id):\n"
+                "    logger.warning('retrying job %s', job_id)\n",
+                encoding="utf-8",
+            )
+            self.run_memory(project, "learn-path", "--path", ".")
+
+            result = self.run_memory(project, "context", "--query", "retrying job", "--json")
+            payload = json.loads(result.stdout)
+
+            self.assertEqual(payload["code_log_matches"][0]["file_path"], "worker.py")
+            self.assertEqual(payload["code_log_matches"][0]["function"], "process_job")
+            self.assertTrue(
+                any(edge["relation"] == "emits_log" for edge in payload["edge_matches"])
+            )
+
+    def test_wiki_search_returns_code_log_matches(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "worker.py").write_text(
+                "def process_job(job_id):\n"
+                "    logger.warning('retrying job %s', job_id)\n",
+                encoding="utf-8",
+            )
+            self.run_memory(project, "learn-path", "--path", ".")
+
+            result = self.run_memory(project, "wiki-search", "--query", "retrying job", "--json")
+            payload = json.loads(result.stdout)
+
+            self.assertEqual(payload[0]["kind"], "log_statement")
+            self.assertEqual(payload[0]["function"], "process_job")
+
+    def test_memory_edges_connect_files_symbols_and_log_statements(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "worker.py").write_text(
+                "def process_job(job_id):\n"
+                "    logger.warning('retrying job %s', job_id)\n",
+                encoding="utf-8",
+            )
+            self.run_memory(project, "learn-path", "--path", ".")
+
+            edges = self.list_records(project, "memory-edge")
+            relations = {(edge["source_type"], edge["relation"], edge["target_type"]) for edge in edges}
+
+            self.assertIn(("code_file", "contains", "code_symbol"), relations)
+            self.assertIn(("code_file", "contains", "code_log_statement"), relations)
+            self.assertIn(("code_symbol", "emits_log", "code_log_statement"), relations)
+
+    def test_learn_path_replace_clears_old_code_log_statements(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "a").mkdir()
+            (project / "b").mkdir()
+            (project / "a" / "one.py").write_text(
+                "def one():\n    print('old log')\n",
+                encoding="utf-8",
+            )
+            (project / "b" / "two.py").write_text(
+                "def two():\n    print('new log')\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "a")
+            self.run_memory(project, "learn-path", "--path", "b", "--replace")
+
+            logs = self.list_records(project, "code-log")
+            self.assertEqual(len(logs), 1)
+            self.assertEqual(logs[0]["file_path"], "b/two.py")
+            self.assertIn("new log", logs[0]["message_template"])
+
+    def test_vault_export_writes_code_log_network_pages(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "worker.py").write_text(
+                "def process_job(job_id):\n"
+                "    logger.warning('retrying job %s', job_id)\n",
+                encoding="utf-8",
+            )
+            self.run_memory(project, "learn-path", "--path", ".")
+
+            self.run_memory(project, "vault-export")
+
+            logs = project / ".agent-memory" / "vault" / "Codebase Wiki" / "log-statements.md"
+            edges = project / ".agent-memory" / "vault" / "Codebase Wiki" / "memory-edges.md"
+            self.assertTrue(logs.exists())
+            self.assertTrue(edges.exists())
+            self.assertIn("retrying job %s", logs.read_text(encoding="utf-8"))
+            self.assertIn("emits_log", edges.read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()

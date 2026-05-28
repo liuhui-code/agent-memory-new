@@ -38,6 +38,8 @@ python tools/agent_memory.py search --project . --query "<query>" --json
 python tools/agent_memory.py wiki-search --project . --query "<query>" --json
 ```
 
+When the query is an observed error, print, or console message, inspect `code_log_matches` and `edge_matches` from `context` or `search`. `wiki-search` may return matching log statements with `kind: "log_statement"`.
+
 If `context`, `search`, or `wiki-search` returns no results, the runtime records a query miss automatically. Do not add manual keywords just to improve retrieval; let maintain review real misses later.
 
 Rules:
@@ -53,3 +55,4 @@ Rules:
 - Do not manually maintain keyword lists for retrieval. Query misses are the feedback signal.
 - For bug diagnosis, use the diagnosis template to query memory recursively as the problem frame changes.
 - For design/change planning, use the change design template to query memory recursively as the proposed plan changes.
+- If a log statement matches, use related edges to refine the next query with the file path, function name, and message template.

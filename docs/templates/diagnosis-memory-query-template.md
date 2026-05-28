@@ -67,8 +67,10 @@ For each round:
    - `reflections` become diagnostic checks.
    - `episodes` become recent-history risks.
    - `wiki_matches` become inspection targets.
+   - `code_log_matches` become possible observed-log anchors.
+   - `edge_matches` connect matched logs to learned files and functions.
 
-4. Inspect only the smallest useful target:
+4. Inspect only the smallest useful target. If a log statement matched, refine the next target with the related file path, function name, and message template.
 
    ```bash
    python tools/agent_memory.py wiki-search --project . --query "<module/function/error>" --json

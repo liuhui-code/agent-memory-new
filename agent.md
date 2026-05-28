@@ -26,6 +26,7 @@ The MVP must support:
 5. Export Markdown into an Obsidian-compatible vault.
 6. Provide four user-facing skills that call the runtime script.
 7. Provide an installer and a doctor command.
+8. Extract code log statements during code learning and connect them to files/functions through lightweight edges.
 
 The MVP must not depend on:
 
@@ -73,6 +74,8 @@ python tools/agent_memory.py learn-path --project . --path "<directory>"
 python tools/agent_memory.py learn-path --project . --path "<directory>" --replace
 python tools/agent_memory.py wiki-index --project .
 python tools/agent_memory.py wiki-search --project . --query "..." --json
+python tools/agent_memory.py list --project . --type code-log --json
+python tools/agent_memory.py list --project . --type memory-edge --json
 python tools/agent_memory.py maintain-health --project . --json
 python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py maintain-plan --project . --json

@@ -398,3 +398,42 @@ Verification:
 Rollback notes:
 - Remove `query_misses` table creation, miss commands, miss recording hooks, and vault dashboard output.
 - Revert query miss docs and skill updates from this entry.
+
+## 2026-05-28 - Add code log statement network
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `agent.md`
+- `README.md`
+- `docs/code-log-statement-network.md`
+- `docs/usage-guide.md`
+- `docs/runtime.md`
+- `docs/mvp-implementation-plan.md`
+- `docs/templates/diagnosis-memory-query-template.md`
+- `docs/templates/change-design-memory-query-template.md`
+- `references/schema.md`
+- `skills/agent-memory-learn/SKILL.md`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `skills/agent-memory-reflect/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `code_log_statements` and `memory_edges` tables.
+- Added code learning extraction for Python, JavaScript/TypeScript, Dart, and Swift log-like statements.
+- Rebuilds deterministic code wiki edges after learning: file contains symbol, file contains log statement, and symbol emits log.
+- Added `code_log_matches` and `edge_matches` to query context, and log statement results to `wiki-search`.
+- Added generated Obsidian pages for code log statements and memory edges.
+- Documented the feature as part of the existing four-skill workflow.
+
+Why:
+- Let Agents diagnose from observed log/output strings and move toward related files/functions without adding a fifth user-facing skill.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 26 tests passed.
+
+Rollback notes:
+- Remove `code_log_statements` and `memory_edges` schema additions, extraction helpers, query/vault integrations, and list types.
+- Revert the code log statement network docs and skill/readme updates from this entry.

@@ -107,6 +107,8 @@ python tools/agent_memory.py miss-status \
 python tools/agent_memory.py wiki-index --project .
 ```
 
+Refreshing the wiki also refreshes extracted code log statements and the generated file/function/log edges.
+
 ## Sync Obsidian Mirror
 
 ```bash
@@ -127,3 +129,4 @@ Rules:
 - Promote only durable lessons, not task logs.
 - Treat `rewrite_reflection` and `mark_stale` actions from `maintain-plan` as confirmation-required reflection quality actions.
 - Treat `review_query_miss` actions as low-risk signals that may require learning a missing path or adding a durable fact.
+- Vault export includes generated code log statement and memory edge pages for review.

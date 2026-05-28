@@ -67,6 +67,7 @@ Read the entry file
   -> extract project-local imports
   -> follow related files up to depth
   -> merge that file set into the codebase wiki
+  -> extract code log statements and rebuild file/function/log edges
   -> save an episode describing what was learned
 ```
 
@@ -94,6 +95,8 @@ Partial learning is incremental by default. A second `learn-path` call adds or r
 ```bash
 python tools/agent_memory.py learn-path --project . --path skills --replace
 ```
+
+Learning also stores code log statements such as `print(...)`, `logger.error(...)`, and `console.warn(...)`. These are connected to learned files and nearest detected functions through `memory_edges`.
 
 For the whole project:
 
@@ -125,6 +128,8 @@ agent-memory-query
 
 If a query returns no semantic facts, reflections, episodes, or wiki matches, the runtime records a query miss automatically. The user does not need to maintain keywords.
 
+When diagnosing an error message or observed output, query the message text directly. `context` may return `code_log_matches` and `edge_matches` that point to the likely file and function.
+
 Ask:
 
 ```text
@@ -137,6 +142,8 @@ Expected skill path:
 agent-memory-query
   -> python tools/agent_memory.py wiki-search --project . --query "memory runtime commands" --json
 ```
+
+`wiki-search` also returns matching code log statements with `kind: "log_statement"`.
 
 For workflows that need repeated query refinement, use the integration templates:
 

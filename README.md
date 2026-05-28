@@ -23,6 +23,7 @@ SQLite is the source of truth. Obsidian is a readable mirror.
 - Semantic facts, task episodes, reflections, and future rules.
 - Entry-file and directory-based code learning.
 - Lightweight codebase wiki indexing and search.
+- Code log statement extraction with file/function/log edges for diagnosis.
 - JSON-capable context retrieval for agent integration.
 - Query miss feedback when retrieval returns nothing.
 - Reflection quality review and reuse feedback.
@@ -77,10 +78,18 @@ python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.
 python tools/agent_memory.py learn-path --project . --path skills
 ```
 
+Learning also records log-like statements in code, such as `logger.error(...)`, `console.warn(...)`, and `print(...)`, then connects them to the learned file and nearest detected function.
+
 Query memory:
 
 ```bash
 python tools/agent_memory.py context --project . --query "memory governance workflow" --json
+```
+
+For diagnosis, query an observed log or output string directly:
+
+```bash
+python tools/agent_memory.py context --project . --query "retrying job" --json
 ```
 
 Reflect after a task:
@@ -157,6 +166,7 @@ python tools/agent_memory.py vault-export --project .
 - `docs/guided-memory-review-workflow.md`: guided review workflow.
 - `docs/reflection-quality-loop.md`: reflection quality loop.
 - `docs/query-miss-feedback-loop.md`: query miss feedback loop.
+- `docs/code-log-statement-network.md`: code log statement extraction and memory edges.
 - `docs/templates/diagnosis-memory-query-template.md`: recursive diagnosis template.
 - `docs/templates/change-design-memory-query-template.md`: recursive change-design template.
 - `gitlog.md`: local development log and rollback notes.
@@ -197,6 +207,7 @@ SQLite 是真实数据源。Obsidian 是可读镜像。
 - 支持语义事实、任务 episode、反思和 future rule。
 - 支持从入口文件、目录、全项目学习代码。
 - 轻量 codebase wiki 索引和搜索。
+- 支持抽取代码日志语句，并建立文件/函数/日志边关系，辅助定位问题。
 - 支持 JSON 输出，方便 Agent 调用。
 - 查询无结果时自动记录 query miss。
 - 支持反思质量检查和反思复用反馈。
@@ -241,10 +252,18 @@ python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.
 python tools/agent_memory.py learn-path --project . --path skills
 ```
 
+学习代码时也会记录代码里的日志输出语句，例如 `logger.error(...)`、`console.warn(...)`、`print(...)`，并把它们连接到对应文件和最近的函数。
+
 查询记忆：
 
 ```bash
 python tools/agent_memory.py context --project . --query "memory governance workflow" --json
+```
+
+定位问题时，可以直接查询观察到的日志或输出文本：
+
+```bash
+python tools/agent_memory.py context --project . --query "retrying job" --json
 ```
 
 任务结束后写入反思：

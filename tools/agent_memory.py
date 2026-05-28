@@ -26,6 +26,8 @@ REQUIRED_TABLES = {
     "reflections",
     "code_files",
     "code_symbols",
+    "code_log_statements",
+    "memory_edges",
     "query_misses",
 }
 
@@ -217,6 +219,32 @@ def create_schema(conn: sqlite3.Connection) -> None:
           updated_at TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS code_log_statements (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          file_path TEXT NOT NULL,
+          line INTEGER,
+          function TEXT,
+          level TEXT,
+          logger TEXT,
+          message_template TEXT NOT NULL,
+          raw_statement TEXT,
+          updated_at TEXT NOT NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS memory_edges (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          source_type TEXT NOT NULL,
+          source_id INTEGER NOT NULL,
+          relation TEXT NOT NULL,
+          target_type TEXT NOT NULL,
+          target_id INTEGER NOT NULL,
+          evidence TEXT,
+          confidence REAL DEFAULT 0.8,
+          created_at TEXT NOT NULL
+        );
+
         CREATE TABLE IF NOT EXISTS query_misses (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           project_id TEXT NOT NULL,
@@ -240,6 +268,15 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_query_misses_project_status
         ON query_misses(project_id, status);
+
+        CREATE INDEX IF NOT EXISTS idx_code_logs_project_file
+        ON code_log_statements(project_id, file_path);
+
+        CREATE INDEX IF NOT EXISTS idx_memory_edges_project_source
+        ON memory_edges(project_id, source_type, source_id);
+
+        CREATE INDEX IF NOT EXISTS idx_memory_edges_project_target
+        ON memory_edges(project_id, target_type, target_id);
         """
     )
     migrate_schema(conn)
@@ -450,6 +487,8 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
         "reflections": [],
         "episodes": [],
         "wiki_matches": [],
+        "code_log_matches": [],
+        "edge_matches": [],
     }
     with connect(project) as conn:
         semantic = conn.execute(
@@ -490,6 +529,14 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             """
             SELECT id, file_path, symbol, symbol_type, summary, updated_at
             FROM code_symbols
+            WHERE project_id = ?
+            """,
+            (project.project_id,),
+        ).fetchall()
+        logs = conn.execute(
+            """
+            SELECT *
+            FROM code_log_statements
             WHERE project_id = ?
             """,
             (project.project_id,),
@@ -542,9 +589,61 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             item["score"] = score
             results["wiki_matches"].append(item)
 
+    for row in logs:
+        text = " ".join(
+            str(row[key] or "")
+            for key in ("file_path", "function", "level", "logger", "message_template", "raw_statement")
+        )
+        score = score_text(tokens, text)
+        if score:
+            item = row_dict(row)
+            item["kind"] = "log_statement"
+            item["score"] = score
+            results["code_log_matches"].append(item)
+
+    edge_targets: dict[str, set[int]] = {
+        "code_file": set(),
+        "code_symbol": set(),
+        "code_log_statement": set(),
+    }
+    for item in results["wiki_matches"]:
+        if item.get("kind") == "file":
+            edge_targets["code_file"].add(int(item["id"]))
+        elif item.get("kind") == "symbol":
+            edge_targets["code_symbol"].add(int(item["id"]))
+    for item in results["code_log_matches"]:
+        edge_targets["code_log_statement"].add(int(item["id"]))
+    if any(edge_targets.values()):
+        results["edge_matches"] = collect_related_edges(project, edge_targets)
+
     for key in results:
         results[key].sort(key=lambda item: (item.get("score", 0), item.get("created_at", "")), reverse=True)
     return results
+
+
+def collect_related_edges(project: Project, targets: dict[str, set[int]]) -> list[dict[str, Any]]:
+    clauses: list[str] = []
+    values: list[Any] = [project.project_id]
+    for entity_type, ids in targets.items():
+        for entity_id in sorted(ids):
+            clauses.append("(source_type = ? AND source_id = ?)")
+            values.extend([entity_type, entity_id])
+            clauses.append("(target_type = ? AND target_id = ?)")
+            values.extend([entity_type, entity_id])
+    if not clauses:
+        return []
+    with connect(project) as conn:
+        rows = conn.execute(
+            f"""
+            SELECT *
+            FROM memory_edges
+            WHERE project_id = ? AND ({' OR '.join(clauses)})
+            ORDER BY confidence DESC, id DESC
+            LIMIT 50
+            """,
+            values,
+        ).fetchall()
+    return [row_dict(row) for row in rows]
 
 
 def limited_context(project: Project, query: str) -> dict[str, Any]:
@@ -558,6 +657,8 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "reflections": matches["reflections"][:3],
         "episodes": matches["episodes"][:2],
         "wiki_matches": matches["wiki_matches"][:5],
+        "code_log_matches": matches["code_log_matches"][:5],
+        "edge_matches": matches["edge_matches"][:10],
     }
     record_context_use(project, context)
     record_query_miss_if_empty(project, "context", query, context)
@@ -588,10 +689,9 @@ def record_context_use(project: Project, context_data: dict[str, Any]) -> None:
 
 def result_counts(data: dict[str, Any]) -> dict[str, int]:
     return {
-        "semantic_facts": len(data.get("semantic_facts", [])),
-        "reflections": len(data.get("reflections", [])),
-        "episodes": len(data.get("episodes", [])),
-        "wiki_matches": len(data.get("wiki_matches", [])),
+        key: len(value)
+        for key, value in data.items()
+        if isinstance(value, list)
     }
 
 
@@ -741,6 +841,8 @@ def table_for_type(kind: str) -> str:
         "episode": "episodes",
         "code-file": "code_files",
         "code-symbol": "code_symbols",
+        "code-log": "code_log_statements",
+        "memory-edge": "memory_edges",
     }
     if kind not in tables:
         raise SystemExit(f"unsupported type: {kind}")
@@ -1448,6 +1550,14 @@ def vault_export(args: argparse.Namespace) -> None:
             "SELECT * FROM code_symbols WHERE project_id = ? ORDER BY file_path, symbol",
             (project.project_id,),
         ).fetchall()
+        logs = conn.execute(
+            "SELECT * FROM code_log_statements WHERE project_id = ? ORDER BY file_path, line",
+            (project.project_id,),
+        ).fetchall()
+        edges = conn.execute(
+            "SELECT * FROM memory_edges WHERE project_id = ? ORDER BY source_type, source_id, relation",
+            (project.project_id,),
+        ).fetchall()
         query_misses = conn.execute(
             "SELECT * FROM query_misses WHERE project_id = ? ORDER BY id DESC",
             (project.project_id,),
@@ -1517,6 +1627,29 @@ def vault_export(args: argparse.Namespace) -> None:
     for row in symbols:
         symbols_content += f"- `{row['file_path']}` :: `{row['symbol']}` ({row['symbol_type'] or 'symbol'})\n"
     write_vault_file(project.vault_dir / "Codebase Wiki" / "symbols.md", symbols_content)
+
+    logs_content = frontmatter("codebase-wiki", project, now_iso())
+    logs_content += "# Code Log Statements\n\n"
+    for row in logs:
+        location = f"{row['file_path']}:{row['line']}" if row["line"] else row["file_path"]
+        function = f" in `{row['function']}`" if row["function"] else ""
+        logs_content += (
+            f"- `{location}`{function} [{row['level'] or 'log'}] "
+            f"{row['message_template']}\n"
+        )
+    write_vault_file(project.vault_dir / "Codebase Wiki" / "log-statements.md", logs_content)
+
+    edges_content = frontmatter("codebase-wiki", project, now_iso())
+    edges_content += "# Memory Edges\n\n"
+    for row in edges:
+        edges_content += (
+            f"- {row['source_type']} #{row['source_id']} "
+            f"--{row['relation']}--> {row['target_type']} #{row['target_id']}"
+        )
+        if row["evidence"]:
+            edges_content += f" ({row['evidence']})"
+        edges_content += "\n"
+    write_vault_file(project.vault_dir / "Codebase Wiki" / "memory-edges.md", edges_content)
 
     daily = project.vault_dir / "Daily" / f"{datetime.now().date().isoformat()}.md"
     daily_content = frontmatter("daily", project, now_iso())
@@ -1631,7 +1764,11 @@ def vault_index(args: argparse.Namespace) -> None:
     for path in sorted((project.vault_dir / "Reflections").glob("*.md"), reverse=True)[:10]:
         content += f"- [[Reflections/{path.stem}]]\n"
     content += "\n## Semantic Facts\n\n- [[Semantic Facts/project-facts]]\n"
-    content += "\n## Codebase Wiki\n\n- [[Codebase Wiki/files]]\n- [[Codebase Wiki/symbols]]\n"
+    content += "\n## Codebase Wiki\n\n"
+    content += "- [[Codebase Wiki/files]]\n"
+    content += "- [[Codebase Wiki/symbols]]\n"
+    content += "- [[Codebase Wiki/log-statements]]\n"
+    content += "- [[Codebase Wiki/memory-edges]]\n"
     content += "\n## Governance\n\n"
     content += "- [[Governance/Health]]\n"
     content += "- [[Governance/Review Queue]]\n"
@@ -1705,6 +1842,127 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
     return symbols
 
 
+def extract_log_statements(path: Path, language: str) -> list[dict[str, Any]]:
+    try:
+        text = path.read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        return []
+    logs: list[dict[str, Any]] = []
+    current_function: str | None = None
+    current_indent = -1
+    for line_number, line in enumerate(text.splitlines(), start=1):
+        symbol = function_symbol_on_line(line, language)
+        if symbol:
+            current_function, current_indent = symbol
+        elif language == "Python" and current_function:
+            stripped = line.strip()
+            indent = len(line) - len(line.lstrip())
+            if stripped and indent <= current_indent and not stripped.startswith(("#", "@")):
+                current_function = None
+                current_indent = -1
+        log = log_statement_on_line(line, language)
+        if not log:
+            continue
+        log["line"] = line_number
+        log["function"] = current_function
+        log["raw_statement"] = line.strip()
+        logs.append(log)
+    return logs
+
+
+def function_symbol_on_line(line: str, language: str) -> tuple[str, int] | None:
+    indent = len(line) - len(line.lstrip())
+    if language == "Python":
+        match = re.match(r"^\s*(?:async\s+)?def\s+([A-Za-z_]\w*)\s*\(", line)
+        return (match.group(1), indent) if match else None
+    if language in {"TypeScript", "JavaScript"}:
+        patterns = [
+            r"^\s*(?:export\s+)?(?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(",
+            r"^\s*(?:export\s+)?const\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s*)?\(",
+            r"^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)",
+        ]
+    elif language == "Dart":
+        patterns = [
+            r"^\s*(?:Future<[^>]+>|void|Widget|String|int|bool|double)\s+([A-Za-z_]\w*)\s*\(",
+            r"^\s*class\s+([A-Za-z_]\w*)",
+        ]
+    elif language == "Swift":
+        patterns = [
+            r"^\s*func\s+([A-Za-z_]\w*)\s*\(",
+            r"^\s*(?:class|struct)\s+([A-Za-z_]\w*)",
+        ]
+    else:
+        patterns = []
+    for pattern in patterns:
+        match = re.match(pattern, line)
+        if match:
+            return match.group(1), indent
+    return None
+
+
+def log_statement_on_line(line: str, language: str) -> dict[str, Any] | None:
+    stripped = line.strip()
+    if not stripped or stripped.startswith(("#", "//")):
+        return None
+    patterns: list[tuple[str, str, str]]
+    if language == "Python":
+        patterns = [
+            (r"\bprint\s*\((.*)\)", "print", "print"),
+            (r"\b(logging|logger)\.(debug|info|warning|warn|error|exception)\s*\((.*)\)", "", ""),
+        ]
+    elif language in {"TypeScript", "JavaScript"}:
+        patterns = [
+            (r"\bconsole\.(log|info|warn|error|debug)\s*\((.*)\)", "console", ""),
+            (r"\blogger\.(log|info|warn|error|debug)\s*\((.*)\)", "logger", ""),
+        ]
+    elif language == "Dart":
+        patterns = [
+            (r"\bprint\s*\((.*)\)", "print", "print"),
+            (r"\bdebugPrint\s*\((.*)\)", "debugPrint", "debug"),
+            (r"\blog\s*\((.*)\)", "log", "log"),
+        ]
+    elif language == "Swift":
+        patterns = [
+            (r"\bprint\s*\((.*)\)", "print", "print"),
+            (r"\bNSLog\s*\((.*)\)", "NSLog", "log"),
+            (r"\bos_log\s*\((.*)\)", "os_log", "log"),
+            (r"\blogger\.(debug|info|warning|error)\s*\((.*)\)", "logger", ""),
+        ]
+    else:
+        return None
+    for pattern, logger_name, fixed_level in patterns:
+        match = re.search(pattern, stripped)
+        if not match:
+            continue
+        if language == "Python" and logger_name == "":
+            logger = match.group(1)
+            level = match.group(2)
+            args_text = match.group(3)
+        elif language in {"TypeScript", "JavaScript"}:
+            logger = logger_name
+            level = match.group(1)
+            args_text = match.group(2)
+        elif language == "Swift" and logger_name == "logger":
+            logger = logger_name
+            level = match.group(1)
+            args_text = match.group(2)
+        else:
+            logger = logger_name
+            level = fixed_level
+            args_text = match.group(1)
+        return {
+            "level": "warning" if level == "warn" else level,
+            "logger": logger,
+            "message_template": first_string_literal(args_text) or args_text.strip(),
+        }
+    return None
+
+
+def first_string_literal(text: str) -> str | None:
+    match = re.search(r"""(['"])(.*?)(?<!\\)\1""", text)
+    return match.group(2) if match else None
+
+
 def wiki_index(args: argparse.Namespace) -> None:
     project = resolve_project(args.project)
     ensure_initialized(project)
@@ -1772,6 +2030,7 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
         if replace:
             conn.execute("DELETE FROM code_files WHERE project_id = ?", (project.project_id,))
             conn.execute("DELETE FROM code_symbols WHERE project_id = ?", (project.project_id,))
+            conn.execute("DELETE FROM code_log_statements WHERE project_id = ?", (project.project_id,))
         else:
             for _, _, rel_text, _ in relative_files:
                 conn.execute(
@@ -1782,6 +2041,11 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                     "DELETE FROM code_symbols WHERE project_id = ? AND file_path = ?",
                     (project.project_id, rel_text),
                 )
+                conn.execute(
+                    "DELETE FROM code_log_statements WHERE project_id = ? AND file_path = ?",
+                    (project.project_id, rel_text),
+                )
+        conn.execute("DELETE FROM memory_edges WHERE project_id = ?", (project.project_id,))
         for path, _rel, rel_text, language in relative_files:
             summary = summarize_file(path, language)
             conn.execute(
@@ -1799,7 +2063,130 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                     """,
                     (project.project_id, rel_text, symbol, symbol_type, "", "", ts),
                 )
+            for log in extract_log_statements(path, language):
+                conn.execute(
+                    """
+                    INSERT INTO code_log_statements(
+                      project_id, file_path, line, function, level, logger,
+                      message_template, raw_statement, updated_at
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        project.project_id,
+                        rel_text,
+                        log.get("line"),
+                        log.get("function"),
+                        log.get("level"),
+                        log.get("logger"),
+                        log.get("message_template") or "",
+                        log.get("raw_statement"),
+                        ts,
+                    ),
+                )
+        rebuild_code_memory_edges(conn, project.project_id)
         conn.commit()
+
+
+def rebuild_code_memory_edges(conn: sqlite3.Connection, project_id: str) -> None:
+    ts = now_iso()
+    files = conn.execute(
+        "SELECT id, file_path FROM code_files WHERE project_id = ?",
+        (project_id,),
+    ).fetchall()
+    symbols = conn.execute(
+        "SELECT id, file_path, symbol FROM code_symbols WHERE project_id = ?",
+        (project_id,),
+    ).fetchall()
+    logs = conn.execute(
+        "SELECT id, file_path, function, line FROM code_log_statements WHERE project_id = ?",
+        (project_id,),
+    ).fetchall()
+    file_ids = {row["file_path"]: row["id"] for row in files}
+    symbol_ids = {
+        (row["file_path"], row["symbol"]): row["id"]
+        for row in symbols
+    }
+    for row in symbols:
+        file_id = file_ids.get(row["file_path"])
+        if file_id:
+            insert_memory_edge(
+                conn,
+                project_id,
+                "code_file",
+                file_id,
+                "contains",
+                "code_symbol",
+                row["id"],
+                row["file_path"],
+                0.9,
+                ts,
+            )
+    for row in logs:
+        file_id = file_ids.get(row["file_path"])
+        evidence = f"{row['file_path']}:{row['line']}" if row["line"] else row["file_path"]
+        if file_id:
+            insert_memory_edge(
+                conn,
+                project_id,
+                "code_file",
+                file_id,
+                "contains",
+                "code_log_statement",
+                row["id"],
+                evidence,
+                0.9,
+                ts,
+            )
+        function_name = row["function"]
+        symbol_id = symbol_ids.get((row["file_path"], function_name)) if function_name else None
+        if symbol_id:
+            insert_memory_edge(
+                conn,
+                project_id,
+                "code_symbol",
+                symbol_id,
+                "emits_log",
+                "code_log_statement",
+                row["id"],
+                evidence,
+                0.8,
+                ts,
+            )
+
+
+def insert_memory_edge(
+    conn: sqlite3.Connection,
+    project_id: str,
+    source_type: str,
+    source_id: int,
+    relation: str,
+    target_type: str,
+    target_id: int,
+    evidence: str,
+    confidence: float,
+    created_at: str,
+) -> None:
+    conn.execute(
+        """
+        INSERT INTO memory_edges(
+          project_id, source_type, source_id, relation, target_type,
+          target_id, evidence, confidence, created_at
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            project_id,
+            source_type,
+            source_id,
+            relation,
+            target_type,
+            target_id,
+            evidence,
+            confidence,
+            created_at,
+        ),
+    )
 
 
 def resolve_target(project: Project, raw_path: str) -> Path:
@@ -2003,7 +2390,9 @@ def resolve_markdown_links(project: Project, path: Path, text: str) -> list[Path
 def wiki_search(args: argparse.Namespace) -> None:
     project = resolve_project(args.project)
     ensure_initialized(project)
-    data = collect_matches(project, args.query)["wiki_matches"]
+    matches = collect_matches(project, args.query)
+    data = matches["wiki_matches"] + matches["code_log_matches"]
+    data.sort(key=lambda item: (item.get("score", 0), item.get("updated_at", "")), reverse=True)
     record_query_miss_if_empty(
         project,
         "wiki-search",
@@ -2012,7 +2401,9 @@ def wiki_search(args: argparse.Namespace) -> None:
             "semantic_facts": [],
             "reflections": [],
             "episodes": [],
-            "wiki_matches": data,
+            "wiki_matches": matches["wiki_matches"],
+            "code_log_matches": matches["code_log_matches"],
+            "edge_matches": matches["edge_matches"],
         },
     )
     output(data[:20], args.json)
@@ -2089,7 +2480,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("list")
     add_project(p)
-    p.add_argument("--type", required=True, choices=["semantic", "reflection", "episode", "code-file", "code-symbol"])
+    p.add_argument(
+        "--type",
+        required=True,
+        choices=["semantic", "reflection", "episode", "code-file", "code-symbol", "code-log", "memory-edge"],
+    )
     p.add_argument("--limit", type=int, default=50)
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=list_records)

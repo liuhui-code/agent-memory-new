@@ -14,6 +14,8 @@ SQLite is the source of truth for the MVP. Obsidian files are generated mirrors.
 - `reflections`: lessons, mistakes, and future rules.
 - `code_files`: lightweight file-level wiki index.
 - `code_symbols`: lightweight symbol-level wiki index.
+- `code_log_statements`: log, print, and console statements extracted from learned source files.
+- `memory_edges`: lightweight relation edges between learned files, symbols, and log statements.
 - `query_misses`: failed retrieval attempts that may need later learning or reflection.
 
 ## Governance Fields
@@ -45,6 +47,27 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 - `result_counts`: JSON counts for each result set at miss time.
 - `status`: `open`, `reviewed`, `resolved`, or `ignored`.
 - `resolution`: how the miss was handled.
+
+## Code Log Statement Network
+
+`learn-entry`, `learn-path`, and `wiki-index` extract code log statements as part of the existing codebase wiki workflow. This does not add a fifth user-facing skill.
+
+`code_log_statements` stores:
+
+- `file_path` and `line`: where the statement appears.
+- `function`: nearest detected function or class-like symbol.
+- `level`: `print`, `debug`, `info`, `warning`, `error`, `exception`, or similar.
+- `logger`: logger family such as `print`, `logging`, `logger`, `console`, `debugPrint`, or `NSLog`.
+- `message_template`: first string literal or compact argument text.
+- `raw_statement`: the original single-line statement.
+
+`memory_edges` currently stores deterministic code-wiki edges:
+
+- `code_file --contains--> code_symbol`
+- `code_file --contains--> code_log_statement`
+- `code_symbol --emits_log--> code_log_statement`
+
+These edges are intentionally lightweight. They help diagnosis queries move from an observed log message to the related file and function, but they are not a complete call graph.
 
 ## Staleness
 

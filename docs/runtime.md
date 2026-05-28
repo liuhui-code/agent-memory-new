@@ -58,6 +58,7 @@ They may:
 - return confidence, status, source, scope, evidence, and warnings;
 - update lightweight usage fields such as `use_count` and `last_used_at`.
 - record a query miss when no result set has matches.
+- return learned code log statements and lightweight edges between files, symbols, and log statements.
 
 They must not:
 
@@ -88,7 +89,21 @@ Governance actions should preserve history. Prefer status transitions over destr
 
 Query miss commands manage feedback from failed retrievals. A miss is recorded only when `context`, `search`, or `wiki-search` has zero matches.
 
-# 4. Reflection Quality Path
+# 4. Code Learning Path
+
+`learn-entry`, `learn-path`, and `wiki-index` update the codebase wiki.
+
+They also extract code log statements and rebuild deterministic code-wiki edges:
+
+```text
+code_file --contains--> code_symbol
+code_file --contains--> code_log_statement
+code_symbol --emits_log--> code_log_statement
+```
+
+This supports memory-aware diagnosis without adding a separate user-facing skill. An Agent can query an observed log or console message, receive `code_log_matches`, inspect `edge_matches`, then recursively query again with the related file/function names.
+
+# 5. Reflection Quality Path
 
 Reflection quality belongs to `agent-memory-reflect` and is reviewed through:
 

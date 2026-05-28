@@ -19,6 +19,8 @@ python tools/agent_memory.py learn-entry --project . --entry "<file>" --depth 2 
 
 This merges the entry-related files into the existing codebase wiki by default. Use `--replace` only when the user asks to reset the learned code scope.
 
+Learning also extracts code log statements and rebuilds lightweight file/function/log edges. This happens automatically through the same command.
+
 Examples:
 
 ```text
@@ -36,6 +38,8 @@ python tools/agent_memory.py learn-path --project . --path "<directory>"
 ```
 
 This merges the directory into the existing codebase wiki by default. Use `--replace` only when the user asks to replace the current learned scope.
+
+Directory learning also refreshes log statement records for the learned files.
 
 Examples:
 
@@ -60,4 +64,5 @@ Rules:
 - Use `--replace` only for explicit reset/relearn requests.
 - After learning, query with `agent-memory-query` before editing.
 - Do not treat the wiki as a complete call graph.
+- Treat `code_log_matches` and `edge_matches` as diagnosis hints, not runtime traces.
 - Treat learned code context as evidence for future reflections and semantic facts.

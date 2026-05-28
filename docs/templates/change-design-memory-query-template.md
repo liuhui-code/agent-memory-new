@@ -61,6 +61,7 @@ For each round:
    - `reflections`: previous mistakes and design cautions.
    - `episodes`: related recent changes.
    - `wiki_matches`: files/symbols to inspect before planning.
+   - `code_log_matches` and `edge_matches`: observability points that may need to stay stable or be updated with the change.
 
 4. Inspect relevant code/wiki:
 

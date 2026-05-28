@@ -70,6 +70,7 @@ Rules:
 - Use semantic facts for explicit user instructions.
 - Use reflections for task outcomes, mistakes, and future rules.
 - Include `scope` and `evidence` when the lesson only applies to part of a project.
+- When a lesson came from diagnosing a log message, include the related file, function, or log message template in `evidence`.
 - Prefer actionable reflections with `trigger-condition`, `anti-pattern`, `repair-action`, `applies-to`, and `does-not-apply-to`.
 - Avoid vague lessons like "be careful"; write the condition and next action.
 - If a reflection reveals an old memory is wrong, ask `agent-memory-maintain` to mark it stale or merge it.

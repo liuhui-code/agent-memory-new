@@ -102,6 +102,13 @@ Partial learning behavior:
 - `learn-entry` and `learn-path` merge into the existing codebase wiki by default.
 - Add `--replace` only when the user explicitly wants to reset the learned code scope.
 
+Code log statement network:
+
+- `learn-entry`, `learn-path`, and `wiki-index` extract code log statements as part of learning.
+- The runtime stores `code_log_statements` and deterministic `memory_edges`.
+- Query commands expose `code_log_matches` and `edge_matches`.
+- This stays inside the existing four-skill interface and does not add a separate log skill.
+
 ## Phase 1: Runtime Init and Doctor
 
 **Files:**
