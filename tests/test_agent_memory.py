@@ -33,6 +33,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
         memory_home: Optional[Path] = None,
         use_memory_home_arg: bool = True,
         env: Optional[dict[str, str]] = None,
+        cwd: Optional[Path] = None,
     ) -> subprocess.CompletedProcess[str]:
         command = [sys.executable, str(RUNTIME), *args, "--project", str(project)]
         if use_memory_home_arg:
@@ -42,7 +43,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             process_env.update(env)
         return subprocess.run(
             command,
-            cwd=REPO_ROOT,
+            cwd=cwd or REPO_ROOT,
             text=True,
             capture_output=True,
             check=True,
@@ -106,6 +107,27 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
 
             self.assertTrue((memory_home / "projects" / self.project_id(project) / "memory.db").exists())
             self.assertFalse((project / ".agent-memory").exists())
+
+    def test_default_memory_home_is_current_workspace_agent_memory(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            workspace = Path(temp_dir)
+            project = workspace / "app"
+            project.mkdir()
+
+            command = [sys.executable, str(RUNTIME), "init", "--project", str(project)]
+            process_env = os.environ.copy()
+            process_env.pop("AGENT_MEMORY_HOME", None)
+            subprocess.run(
+                command,
+                cwd=workspace,
+                text=True,
+                capture_output=True,
+                check=True,
+                env=process_env,
+            )
+
+            self.assertTrue((workspace / ".agent-memory" / "projects" / self.project_id(project) / "memory.db").exists())
+            self.assertFalse((Path.home() / ".agent-memory" / "projects" / self.project_id(project) / "memory.db").exists())
 
     def test_global_memory_home_keeps_project_databases_isolated(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

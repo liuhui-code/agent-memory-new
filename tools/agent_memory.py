@@ -175,8 +175,11 @@ def now_iso() -> str:
 
 
 def resolve_memory_home(path: str | None = None) -> Path:
-    raw = path or os.environ.get("AGENT_MEMORY_HOME") or "~/.agent-memory"
-    return Path(raw).expanduser().resolve()
+    env_home = os.environ.get("AGENT_MEMORY_HOME")
+    raw = path or (env_home if env_home else None)
+    if raw:
+        return Path(raw).expanduser().resolve()
+    return (Path.cwd() / ".agent-memory").resolve()
 
 
 def resolve_project(path: str, memory_home: str | None = None) -> Project:

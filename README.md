@@ -18,7 +18,7 @@ SQLite is the source of truth. Obsidian is a readable mirror.
 
 ## Features
 
-- Global memory home with isolated per-project SQLite stores.
+- Workspace-local memory home with isolated per-project SQLite stores.
 - Four skill-facing workflows: learn, query, maintain, reflect.
 - Semantic facts, task episodes, reflections, and future rules.
 - Entry-file and directory-based code learning.
@@ -54,11 +54,11 @@ This keeps memory useful without making it more authoritative than current sourc
 Local Agent / LLM
   -> Agent Memory Skills
   -> tools/agent_memory.py
-  -> ~/.agent-memory/projects/<project_id>/memory.db
-  -> ~/.agent-memory/projects/<project_id>/vault/
+  -> ./.agent-memory/projects/<project_id>/memory.db
+  -> ./.agent-memory/projects/<project_id>/vault/
 ```
 
-`--project` selects the memory archive and query context. Learning commands may use `--source` to read code from any external project path into the current archive. Memory data is stored under a configurable global memory home. Resolution order is `--memory-home`, `AGENT_MEMORY_HOME`, then `~/.agent-memory`.
+`--project` selects the memory archive and query context. Learning commands may use `--source` to read code from any external project path into the current archive. Memory data is stored under the current workspace `.agent-memory/` directory by default, next to `skills/` and `tools/`. Resolution order is `--memory-home`, `AGENT_MEMORY_HOME`, then `./.agent-memory`.
 
 ## Quick Start
 
@@ -268,7 +268,7 @@ python install.py --project . --local-skills
 python tools/agent_memory.py doctor --project .
 ```
 
-默认记忆会写入 `~/.agent-memory/projects/<project_id>/`，不会写入被学习项目的 `.agent-memory/`。`--project` 表示当前记忆档案和查询上下文；学习外部项目时用 `--source /path/to/project`。可通过 `--memory-home` 或 `AGENT_MEMORY_HOME` 修改全局记忆目录。
+默认记忆会写入当前工作目录的 `.agent-memory/projects/<project_id>/`，和 `skills/`、`tools/` 同级。`--project` 表示当前记忆档案和查询上下文；学习外部项目时用 `--source /path/to/project`。可通过 `--memory-home` 或 `AGENT_MEMORY_HOME` 修改记忆目录。
 
 学习局部代码：
 

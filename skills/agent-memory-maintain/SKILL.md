@@ -7,7 +7,7 @@ description: Use when the user asks to initialize, check health, update, repair,
 
 Use this skill for memory system health and maintenance.
 
-Memory data is stored in the global memory home, not in the learned project directory. Use `--memory-home <path>` when the user configured a custom location; otherwise the runtime uses `AGENT_MEMORY_HOME` or `~/.agent-memory`.
+Memory data is stored in the current workspace `.agent-memory/` by default, next to `skills/` and `tools/`, not in the learned external source directory. Use `--memory-home <path>` when the user configured a custom location; otherwise the runtime uses `AGENT_MEMORY_HOME` or `./.agent-memory`.
 
 ## Initialize Or Repair
 

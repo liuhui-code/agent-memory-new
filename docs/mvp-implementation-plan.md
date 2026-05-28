@@ -37,7 +37,7 @@ references/
 Installed project layout:
 
 ```text
-~/.agent-memory/
+.agent-memory/
   config.json
   projects/
     <project_id>/
@@ -130,8 +130,8 @@ Parse feedback:
 Required behavior:
 
 ```text
-Create global memory home, defaulting to ~/.agent-memory/
-Create ~/.agent-memory/projects/<project_id>/
+Create workspace memory home, defaulting to ./.agent-memory/
+Create .agent-memory/projects/<project_id>/
 Create runtime/
 Create vault/
 Create config.json files
@@ -147,7 +147,7 @@ Required checks:
 ```text
 memory home exists
 project memory directory exists
-global config.json exists
+workspace config.json exists
 config.json exists
 memory.db exists
 required tables exist
@@ -342,7 +342,7 @@ python tools/agent_memory.py reflect \
 
 - [x] Write the reflection to SQLite.
 
-- [x] Write `runtime/last_reflection.json` under the project's global memory-home store.
+- [x] Write `runtime/last_reflection.json` under the project's workspace memory-home store.
 
 ## Phase 6: Obsidian Vault Export
 
@@ -362,12 +362,12 @@ python tools/agent_memory.py vault-index --project .
 - [x] Generate:
 
 ```text
-~/.agent-memory/projects/<project_id>/vault/index.md
-~/.agent-memory/projects/<project_id>/vault/Episodes/
-~/.agent-memory/projects/<project_id>/vault/Reflections/
-~/.agent-memory/projects/<project_id>/vault/Semantic Facts/
-~/.agent-memory/projects/<project_id>/vault/Codebase Wiki/
-~/.agent-memory/projects/<project_id>/vault/Daily/
+.agent-memory/projects/<project_id>/vault/index.md
+.agent-memory/projects/<project_id>/vault/Episodes/
+.agent-memory/projects/<project_id>/vault/Reflections/
+.agent-memory/projects/<project_id>/vault/Semantic Facts/
+.agent-memory/projects/<project_id>/vault/Codebase Wiki/
+.agent-memory/projects/<project_id>/vault/Daily/
 ```
 
 - [x] Use Markdown frontmatter:
@@ -490,12 +490,12 @@ python install.py --project . --force
 ```text
 Check Python >= 3.9
 Resolve project path
-Create global memory home if missing
+Create workspace memory home if missing
 Initialize memory.db
 Create vault/
 Copy tools/agent_memory.py to project tools/
 Copy skills to .agent-skills/
-Write global and per-project config.json
+Write workspace and per-project config.json
 Run doctor
 Print usage examples
 ```

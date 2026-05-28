@@ -32,7 +32,7 @@ Skill / Protocol Layer
     ↓
 tools/agent_memory.py
     ↓
-Global memory home
+Workspace memory home
     ↓
 Per-project SQLite + Obsidian Vault Mirror
 ```
@@ -45,7 +45,7 @@ The first MVP keeps the runtime intentionally small:
 - Query commands support `--json`.
 - Keyword search ships before vector search.
 - Governance commands keep memory clean without slowing normal query flow.
-- `--project` selects the memory archive and query context. Learning commands can use `--source` to read code from an external source tree into that archive. `--memory-home`, `AGENT_MEMORY_HOME`, or `~/.agent-memory` selects where memory data is stored.
+- `--project` selects the memory archive and query context. Learning commands can use `--source` to read code from an external source tree into that archive. `--memory-home`, `AGENT_MEMORY_HOME`, or the current workspace `./.agent-memory` selects where memory data is stored.
 
 See `docs/mvp-implementation-plan.md` for the full implementation plan.
 

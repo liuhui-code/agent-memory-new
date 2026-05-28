@@ -19,7 +19,7 @@ Agent starts task
 
 The MVP must support:
 
-1. Initialize global memory-home storage with per-project isolation.
+1. Initialize workspace-local memory-home storage with per-project isolation.
 2. Store semantic facts, episodes, reflections, and lightweight codebase wiki entries.
 3. Query relevant memory through a JSON-capable CLI.
 4. Generate concise task context for an Agent.
@@ -43,8 +43,8 @@ The MVP must not depend on:
 LLM / Local Agent
   -> Agent Memory Skills
   -> tools/agent_memory.py
-  -> ~/.agent-memory/projects/<project_id>/memory.db
-  -> ~/.agent-memory/projects/<project_id>/vault/
+  -> ./.agent-memory/projects/<project_id>/memory.db
+  -> ./.agent-memory/projects/<project_id>/vault/
 ```
 
 Responsibilities:
@@ -107,7 +107,7 @@ Skills should call the runtime script. They should not implement storage logic t
 ## Installed Layout
 
 ```text
-~/.agent-memory/
+.agent-memory/
   config.json
   projects/
     <project_id>/

@@ -806,3 +806,38 @@ Verification:
 
 Rollback notes:
 - Remove code business columns, `learn-business`, business query scoring, business vault output, health counts, tests, and related docs.
+
+## 2026-05-28 - Default memory home to workspace directory
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `README.md`
+- `agent.md`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/mvp-implementation-plan.md`
+- `references/schema.md`
+- `references/obsidian-vault.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Changed default memory-home resolution from the user home directory to the current workspace `.agent-memory/`.
+- Kept explicit overrides through `--memory-home` and `AGENT_MEMORY_HOME`.
+- Added a regression test proving default init writes to the current workspace and not `~/.agent-memory`.
+- Updated docs to describe `.agent-memory/` as living next to `skills/` and `tools/`.
+
+Why:
+- Keep memory data beside the local Agent Memory project and installed skills instead of scattering runtime data under the user's home directory.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tests/test_agent_memory.py install.py`
+- Result: passed.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 52 tests passed.
+- Command: `git diff --check`
+- Result: clean.
+
+Rollback notes:
+- Restore `resolve_memory_home()` fallback to `~/.agent-memory` and revert related docs/tests.

@@ -2,7 +2,7 @@
 
 SQLite is the source of truth for the MVP. Obsidian files are generated mirrors.
 
-Storage lives in a global memory home, defaulting to `~/.agent-memory`. Each `--project` archive gets an isolated store at `projects/<project_id>/`.
+Storage lives in a memory home, defaulting to the current workspace `./.agent-memory`. Each `--project` archive gets an isolated store at `projects/<project_id>/`. `--memory-home` or `AGENT_MEMORY_HOME` can override the default.
 
 ## Project Identity
 
