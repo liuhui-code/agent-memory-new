@@ -839,6 +839,66 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertIn("route target", symbol_summaries[("pages/Detail", "route")])
             self.assertIn("resource", symbol_summaries[("app.string.home_title", "resource")])
 
+    def test_chinese_problem_query_expands_to_arkts_route_context(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Index.ets").write_text(
+                "import router from '@ohos.router';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index {\n"
+                "  openDetail() {\n"
+                "    router.pushUrl({ url: 'pages/Detail' });\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages")
+
+            result = self.run_memory(project, "context", "--query", "页面跳转后白屏", "--json")
+            data = json.loads(result.stdout)
+            matched = [
+                item
+                for item in data["wiki_matches"]
+                if item.get("symbol") == "pages/Detail" or item.get("file_path") == "pages/Index.ets"
+            ]
+            self.assertTrue(matched)
+
+    def test_chinese_problem_query_expands_to_arkts_resource_and_log_context(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Index.ets").write_text(
+                "import hilog from '@ohos.hilog';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index {\n"
+                "  build() {\n"
+                "    Image($r('app.media.logo'))\n"
+                "  }\n"
+                "  aboutToAppear() {\n"
+                "    hilog.error(0x0000, 'Index', 'load profile failed');\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages")
+
+            resource_result = self.run_memory(project, "context", "--query", "图片资源显示不出来", "--json")
+            resource_data = json.loads(resource_result.stdout)
+            self.assertTrue(
+                any(item.get("symbol") == "app.media.logo" for item in resource_data["wiki_matches"])
+            )
+
+            log_result = self.run_memory(project, "context", "--query", "加载用户资料失败日志", "--json")
+            log_data = json.loads(log_result.stdout)
+            self.assertTrue(
+                any(item.get("message_template") == "load profile failed" for item in log_data["code_log_matches"])
+            )
+
     def test_arkts_memory_edges_connect_imports_routes_and_resources(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)

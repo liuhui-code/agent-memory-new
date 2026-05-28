@@ -681,3 +681,33 @@ Verification:
 
 Rollback notes:
 - Remove `parse_stats` generation, `learn-path --json`, `last_learn_path.json`, parse feedback tests, and related docs.
+
+## 2026-05-28 - Improve natural-language query recall for ArkTS issues
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added deterministic query expansion before memory scoring.
+- Mapped common Chinese symptom descriptions to technical terms for routes, resources, logs, requests, permissions, and HarmonyOS/ArkTS concepts.
+- Added tests showing Chinese problem queries can recall ArkTS route, resource, and hilog records.
+- Updated query skill and runtime docs to explain natural-language query expansion and anchor-based follow-up searches.
+
+Why:
+- Reduce retrieval misses when the user's problem description uses symptom language instead of exact code keywords.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tests/test_agent_memory.py install.py`
+- Result: passed.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 45 tests passed.
+- Command: `git diff --check`
+- Result: clean.
+
+Rollback notes:
+- Remove `QUERY_EXPANSION_RULES`, `query_tokens`, related tests, and query-expansion docs.

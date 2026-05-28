@@ -73,6 +73,33 @@ NETWORK_EDGE_LIMIT = 10
 EVIDENCE_CHAIN_LIMIT = 3
 QUERY_ALLOWED_EDGE_RELATIONS = {"contains", "emits_log", "imports", "routes_to", "uses_resource"}
 
+QUERY_EXPANSION_RULES = [
+    (
+        ("跳转", "路由", "导航", "打开页面", "页面跳", "白屏", "空白页", "打不开"),
+        ("route", "routes", "router", "pushurl", "replaceurl", "navigation", "page", "pages", "pagestack"),
+    ),
+    (
+        ("资源", "图片", "图标", "文案", "字符串", "显示不出来", "不显示", "找不到资源"),
+        ("resource", "resources", "media", "image", "string", "app.media", "app.string", "$r"),
+    ),
+    (
+        ("日志", "报错", "错误", "异常", "失败", "崩溃", "打印", "定位"),
+        ("log", "logger", "console", "hilog", "error", "warning", "exception", "failed", "failure", "debug"),
+    ),
+    (
+        ("加载", "请求", "接口", "网络", "用户", "资料", "数据"),
+        ("load", "request", "fetch", "network", "profile", "account", "user", "data"),
+    ),
+    (
+        ("权限", "授权", "网络权限", "依赖", "配置", "ability", "module"),
+        ("permission", "permissions", "dependency", "dependencies", "ability", "module", "json5", "config"),
+    ),
+    (
+        ("鸿蒙", "harmony", "harmonyos", "arkts", "ets"),
+        ("harmonyos", "arkts", "ets", "entry", "ability", "stage"),
+    ),
+]
+
 GOVERNANCE_COLUMNS = {
     "semantic_facts": [
         ("status", "TEXT DEFAULT 'active'"),
@@ -494,6 +521,22 @@ def tokenize(text: str) -> list[str]:
     return [token for token in expanded if token]
 
 
+def query_tokens(query: str) -> list[str]:
+    tokens = tokenize(query)
+    lowered = query.lower()
+    for triggers, expansions in QUERY_EXPANSION_RULES:
+        if any(trigger in lowered for trigger in triggers):
+            tokens.extend(expansions)
+    seen: set[str] = set()
+    deduped: list[str] = []
+    for token in tokens:
+        if token in seen:
+            continue
+        seen.add(token)
+        deduped.append(token)
+    return deduped
+
+
 def score_text(query_tokens: list[str], text: str) -> int:
     lowered = text.lower()
     return sum(1 for token in query_tokens if token in lowered)
@@ -516,7 +559,7 @@ def memory_warning(item: dict[str, Any]) -> str | None:
 
 
 def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, Any]]]:
-    tokens = tokenize(query)
+    tokens = query_tokens(query)
     results: dict[str, list[dict[str, Any]]] = {
         "semantic_facts": [],
         "reflections": [],

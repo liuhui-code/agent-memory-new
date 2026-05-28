@@ -26,6 +26,8 @@ What does memory know about this module?
 Before editing, retrieve relevant context.
 ```
 
+The runtime expands common symptom words into technical search terms. For HarmonyOS/ArkTS projects, natural-language queries such as `页面跳转后白屏`, `图片资源显示不出来`, or `加载用户资料失败日志` can match route, resource, config, and log records indexed from learned source.
+
 ## Raw Search
 
 ```bash
@@ -55,6 +57,7 @@ Rules:
 - Keep injected context concise.
 - Do not run merge, promotion, duplicate detection, or vault export from this skill.
 - Do not manually maintain keyword lists for retrieval. Query misses are the feedback signal.
+- Start with the user's natural-language problem. If results are weak, issue a sharper follow-up using matched file paths, symbols, routes, resources, log templates, or edge evidence.
 - For bug diagnosis, use the diagnosis template to query memory recursively as the problem frame changes.
 - For design/change planning, use the change design template to query memory recursively as the proposed plan changes.
 - If a log statement matches, use related edges to refine the next query with the file path, function name, and message template.

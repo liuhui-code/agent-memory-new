@@ -166,6 +166,16 @@ agent-memory-query
 
 If a query returns no semantic facts, reflections, episodes, or wiki matches, the runtime records a query miss automatically. The user does not need to maintain keywords.
 
+The runtime also performs lightweight query expansion before matching. It maps common symptom words to technical terms, especially for HarmonyOS/ArkTS work. For example:
+
+```text
+页面跳转后白屏 -> route, router, pushUrl, page, pages
+图片资源显示不出来 -> resource, media, image, app.media, $r
+加载用户资料失败日志 -> load, profile, failed, log, hilog, error
+```
+
+This is deterministic keyword expansion, not a vector database. If the first result is broad, the Agent should query again with matched anchors such as file paths, route names, resources, log templates, or function names.
+
 When diagnosing an error message or observed output, query the message text directly. `context` may return `code_log_matches` and `edge_matches` that point to the likely file and function.
 
 Ask:
