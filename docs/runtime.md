@@ -59,6 +59,7 @@ They may:
 - update lightweight usage fields such as `use_count` and `last_used_at`.
 - record a query miss when no result set has matches.
 - return learned code log statements and lightweight edges between files, symbols, and log statements.
+- return compact one-hop `evidence_chains` derived from allowed edge matches.
 
 They must not:
 
@@ -66,6 +67,19 @@ They must not:
 - promote episodes;
 - run expensive duplicate scans;
 - export the vault.
+- recursively traverse the memory graph.
+- return arbitrary relation types from `memory_edges`.
+
+Network limits for the query fast path:
+
+```text
+max_depth = 1
+edge_limit = 10
+evidence_chain_limit = 3
+allowed_relations = contains, emits_log
+```
+
+The runtime returns these limits in `network_limits` so skill callers know the context is intentionally bounded. Recursive reasoning belongs in the LLM skill layer: inspect the returned context, sharpen the query, and call `context` again.
 
 # 3. Governance Path
 

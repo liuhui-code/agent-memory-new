@@ -92,6 +92,8 @@ For diagnosis, query an observed log or output string directly:
 python tools/agent_memory.py context --project . --query "retrying job" --json
 ```
 
+Network context is bounded: the runtime returns only allowed one-hop edges and compact evidence chains. Recursive investigation happens by asking a sharper follow-up query.
+
 Reflect after a task:
 
 ```bash
@@ -265,6 +267,8 @@ python tools/agent_memory.py context --project . --query "memory governance work
 ```bash
 python tools/agent_memory.py context --project . --query "retrying job" --json
 ```
+
+网络上下文是受限的：runtime 只返回允许的一跳边和简短证据链。递归定位由 Agent 通过更精确的下一次 query 完成。
 
 任务结束后写入反思：
 

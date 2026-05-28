@@ -1,4 +1,5 @@
 import json
+import sqlite3
 import subprocess
 import sys
 import tempfile
@@ -529,6 +530,62 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertTrue(
                 any(edge["relation"] == "emits_log" for edge in payload["edge_matches"])
             )
+
+    def test_context_limits_network_edges_and_reports_limits(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "worker.py").write_text(
+                "def process_job(job_id):\n"
+                "    logger.warning('retrying job %s', job_id)\n",
+                encoding="utf-8",
+            )
+            self.run_memory(project, "learn-path", "--path", ".")
+
+            db_path = project / ".agent-memory" / "memory.db"
+            with sqlite3.connect(db_path) as conn:
+                project_id = conn.execute("SELECT project_id FROM projects").fetchone()[0]
+                for index in range(25):
+                    conn.execute(
+                        """
+                        INSERT INTO memory_edges(
+                          project_id, source_type, source_id, relation, target_type,
+                          target_id, evidence, confidence, created_at
+                        )
+                        VALUES (?, 'code_log_statement', 1, 'calls', 'code_symbol', ?, 'synthetic', 0.9, '2026-01-01T00:00:00+00:00')
+                        """,
+                        (project_id, 1000 + index),
+                    )
+
+            result = self.run_memory(project, "context", "--query", "retrying job", "--json")
+            payload = json.loads(result.stdout)
+
+            self.assertEqual(payload["network_limits"]["max_depth"], 1)
+            self.assertEqual(payload["network_limits"]["edge_limit"], 10)
+            self.assertNotIn("calls", payload["network_limits"]["allowed_relations"])
+            self.assertLessEqual(len(payload["edge_matches"]), 10)
+            self.assertTrue(all(edge["relation"] != "calls" for edge in payload["edge_matches"]))
+
+    def test_context_returns_one_hop_evidence_chains(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "worker.py").write_text(
+                "def process_job(job_id):\n"
+                "    logger.warning('retrying job %s', job_id)\n",
+                encoding="utf-8",
+            )
+            self.run_memory(project, "learn-path", "--path", ".")
+
+            result = self.run_memory(project, "context", "--query", "retrying job", "--json")
+            payload = json.loads(result.stdout)
+            chain = next(
+                item for item in payload["evidence_chains"]
+                if item["relation"] == "emits_log"
+            )
+
+            self.assertEqual(chain["depth"], 1)
+            self.assertEqual(chain["reason"], "matched log statement emitted by symbol")
+            self.assertEqual(chain["target_type"], "code_log_statement")
+            self.assertIn("worker.py", chain["evidence"])
 
     def test_wiki_search_returns_code_log_matches(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

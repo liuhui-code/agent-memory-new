@@ -65,6 +65,10 @@ CODE_EXTENSIONS = {
 ACTIVE_STATUS = "active"
 NON_QUERY_STATUSES = {"stale", "merged", "archived", "rejected"}
 VALID_MEMORY_STATUSES = {"active", "stale", "merged", "archived", "rejected"}
+NETWORK_MAX_DEPTH = 1
+NETWORK_EDGE_LIMIT = 10
+EVIDENCE_CHAIN_LIMIT = 3
+QUERY_ALLOWED_EDGE_RELATIONS = {"contains", "emits_log"}
 
 GOVERNANCE_COLUMNS = {
     "semantic_facts": [
@@ -637,13 +641,60 @@ def collect_related_edges(project: Project, targets: dict[str, set[int]]) -> lis
             f"""
             SELECT *
             FROM memory_edges
-            WHERE project_id = ? AND ({' OR '.join(clauses)})
+            WHERE project_id = ?
+              AND relation IN ({','.join('?' for _ in sorted(QUERY_ALLOWED_EDGE_RELATIONS))})
+              AND ({' OR '.join(clauses)})
             ORDER BY confidence DESC, id DESC
-            LIMIT 50
+            LIMIT ?
             """,
-            values,
+            [
+                values[0],
+                *sorted(QUERY_ALLOWED_EDGE_RELATIONS),
+                *values[1:],
+                NETWORK_EDGE_LIMIT,
+            ],
         ).fetchall()
     return [row_dict(row) for row in rows]
+
+
+def network_limits() -> dict[str, Any]:
+    return {
+        "max_depth": NETWORK_MAX_DEPTH,
+        "edge_limit": NETWORK_EDGE_LIMIT,
+        "evidence_chain_limit": EVIDENCE_CHAIN_LIMIT,
+        "allowed_relations": sorted(QUERY_ALLOWED_EDGE_RELATIONS),
+    }
+
+
+def evidence_reason(edge: dict[str, Any]) -> str:
+    if (
+        edge.get("source_type") == "code_symbol"
+        and edge.get("relation") == "emits_log"
+        and edge.get("target_type") == "code_log_statement"
+    ):
+        return "matched log statement emitted by symbol"
+    if edge.get("relation") == "contains":
+        return "matched node contained by learned code file"
+    return "matched node connected by allowed one-hop edge"
+
+
+def build_evidence_chains(edges: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    chains: list[dict[str, Any]] = []
+    for edge in edges[:EVIDENCE_CHAIN_LIMIT]:
+        chains.append(
+            {
+                "depth": NETWORK_MAX_DEPTH,
+                "reason": evidence_reason(edge),
+                "source_type": edge.get("source_type"),
+                "source_id": edge.get("source_id"),
+                "relation": edge.get("relation"),
+                "target_type": edge.get("target_type"),
+                "target_id": edge.get("target_id"),
+                "evidence": edge.get("evidence"),
+                "confidence": edge.get("confidence"),
+            }
+        )
+    return chains
 
 
 def limited_context(project: Project, query: str) -> dict[str, Any]:
@@ -659,6 +710,8 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "wiki_matches": matches["wiki_matches"][:5],
         "code_log_matches": matches["code_log_matches"][:5],
         "edge_matches": matches["edge_matches"][:10],
+        "evidence_chains": build_evidence_chains(matches["edge_matches"]),
+        "network_limits": network_limits(),
     }
     record_context_use(project, context)
     record_query_miss_if_empty(project, "context", query, context)

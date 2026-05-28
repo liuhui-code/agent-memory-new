@@ -32,6 +32,7 @@ Allowed work:
 - filter by active status;
 - return confidence, source, scope, evidence, and warning fields;
 - update `use_count` and `last_used_at`.
+- return only allowed one-hop network edges and compact evidence chains.
 
 Avoid:
 
@@ -39,6 +40,18 @@ Avoid:
 - merge;
 - promotion;
 - vault export.
+- recursive graph traversal.
+
+Network query limits:
+
+```text
+max_depth = 1
+edge_limit = 10
+evidence_chain_limit = 3
+allowed_relations = contains, emits_log
+```
+
+LLM skills may perform recursive reasoning by changing the query and calling the runtime again. The runtime itself should stay deterministic and bounded.
 
 ## Maintain Path
 

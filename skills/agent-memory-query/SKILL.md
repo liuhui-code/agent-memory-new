@@ -40,6 +40,8 @@ python tools/agent_memory.py wiki-search --project . --query "<query>" --json
 
 When the query is an observed error, print, or console message, inspect `code_log_matches` and `edge_matches` from `context` or `search`. `wiki-search` may return matching log statements with `kind: "log_statement"`.
 
+`context` also includes `network_limits` and may include compact `evidence_chains`. Treat these chains as one-hop explanations, not complete graph paths.
+
 If `context`, `search`, or `wiki-search` returns no results, the runtime records a query miss automatically. Do not add manual keywords just to improve retrieval; let maintain review real misses later.
 
 Rules:
@@ -56,3 +58,4 @@ Rules:
 - For bug diagnosis, use the diagnosis template to query memory recursively as the problem frame changes.
 - For design/change planning, use the change design template to query memory recursively as the proposed plan changes.
 - If a log statement matches, use related edges to refine the next query with the file path, function name, and message template.
+- Do not ask the runtime for unbounded graph traversal. Recursive investigation should happen by issuing a sharper follow-up query.

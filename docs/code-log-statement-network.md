@@ -51,8 +51,25 @@ It is not a complete AST or runtime trace.
 
 - `code_log_matches`
 - `edge_matches`
+- `evidence_chains`
+- `network_limits`
 
 `wiki-search` returns normal wiki file/symbol matches plus matching log statements with `kind: "log_statement"`.
+
+The query fast path is deliberately bounded:
+
+```text
+keyword match -> top nodes -> allowed one-hop edges -> compact context
+```
+
+It does not recursively traverse the network. Current limits are:
+
+- `max_depth`: 1
+- `edge_limit`: 10
+- `evidence_chain_limit`: 3
+- `allowed_relations`: `contains`, `emits_log`
+
+`evidence_chains` are readable summaries of returned one-hop edges, not multi-hop graph paths.
 
 If no result set matches, query miss recording still works normally.
 

@@ -69,6 +69,8 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 
 These edges are intentionally lightweight. They help diagnosis queries move from an observed log message to the related file and function, but they are not a complete call graph.
 
+Query commands do not recursively traverse `memory_edges`. The fast path only returns allowed one-hop relations, currently `contains` and `emits_log`, with hard output limits. Heavier network health checks belong to maintain commands.
+
 ## Staleness
 
 `semantic_facts` and `reflections` include `is_stale` for backwards compatibility. New governance commands also set `status = 'stale'`. Stale records are excluded from `context` by default.

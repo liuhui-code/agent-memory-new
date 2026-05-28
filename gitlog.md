@@ -437,3 +437,32 @@ Verification:
 Rollback notes:
 - Remove `code_log_statements` and `memory_edges` schema additions, extraction helpers, query/vault integrations, and list types.
 - Revert the code log statement network docs and skill/readme updates from this entry.
+
+## 2026-05-28 - Bound network query context
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `README.md`
+- `docs/runtime.md`
+- `docs/code-log-statement-network.md`
+- `docs/phase-2-memory-governance-plan.md`
+- `references/schema.md`
+- `skills/agent-memory-query/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added hard query fast-path limits for network memory: one-hop depth, 10 edge matches, and 3 evidence chains.
+- Added an allowed relation whitelist for query edge matches.
+- Added `network_limits` and compact one-hop `evidence_chains` to `context` output.
+- Documented that recursive investigation belongs to the LLM skill layer, not runtime graph traversal.
+
+Why:
+- Prevent network memory from becoming an expensive or looping graph traversal while still giving Agents useful evidence hints.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 28 tests passed.
+
+Rollback notes:
+- Remove `NETWORK_*` constants, relation filtering, evidence chain output, and related tests/docs.
