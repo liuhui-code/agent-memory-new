@@ -35,6 +35,7 @@ Files changed:
 What changed:
 - Added a copyable local Agent CLI skill template for using `context --json`.
 - Documented query input shaping, returned field interpretation, recursive follow-up search, log-first querying, and final answer organization.
+- Added the rule that final answers must be summarized conclusions, not raw memory result dumps.
 
 Why:
 - Users need a practical skill showing how to consume query results and turn memory hits, logs, wiki matches, and edges into a final answer.

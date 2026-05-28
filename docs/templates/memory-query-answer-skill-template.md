@@ -172,23 +172,37 @@ Do not inject all results into the answer. Use only what changes the answer or n
 
 ## Final Answer Shape
 
+The final answer must be a reasonable summarized output, not a raw dump of query results.
+
+Before answering:
+
+1. Merge duplicate or overlapping memory hits.
+2. Separate confirmed evidence from memory hints.
+3. Name uncertainty or missing evidence.
+4. Collapse low-value details.
+5. Produce a concise conclusion that directly answers the user.
+
 When answering the user, include:
 
 ```text
-Answer:
-- Direct conclusion or recommended next step.
+Summary:
+- One concise conclusion or recommended next step.
 
 Evidence used:
 - Current source/log/test evidence checked.
 - Memory facts or reflections that mattered.
 - Files, symbols, logs, routes, resources, or edges used.
 
-Reasoning:
-- Why this answer follows from the evidence.
+Reasoning summary:
+- Why this conclusion follows from the evidence.
 
 Next action:
 - Smallest useful file to inspect, command to run, or change to make.
 ```
+
+Do not include every query result. Include only the results that explain the conclusion.
+
+If evidence is weak, say so plainly and make the next action an investigation step instead of a confident answer.
 
 For diagnosis, use:
 
