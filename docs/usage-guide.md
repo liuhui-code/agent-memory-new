@@ -179,6 +179,9 @@ Bug diagnosis:
 
 Design or modification planning:
   docs/templates/change-design-memory-query-template.md
+
+General memory-aware answering with logs:
+  docs/templates/memory-query-answer-skill-template.md
 ```
 
 These templates are meant to be copied into other skills. They keep `agent-memory-query` simple while allowing recursive memory-aware reasoning.

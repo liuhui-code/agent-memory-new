@@ -24,6 +24,28 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-28 - Add memory-aware answer skill template
+
+Files changed:
+- `docs/templates/memory-query-answer-skill-template.md`
+- `README.md`
+- `docs/usage-guide.md`
+- `gitlog.md`
+
+What changed:
+- Added a copyable local Agent CLI skill template for using `context --json`.
+- Documented query input shaping, returned field interpretation, recursive follow-up search, log-first querying, and final answer organization.
+
+Why:
+- Users need a practical skill showing how to consume query results and turn memory hits, logs, wiki matches, and edges into a final answer.
+
+Verification:
+- Command: `python3 -m py_compile tools/agent_memory.py`
+- Result: runtime still compiles; this change is documentation/template only.
+
+Rollback notes:
+- Remove `docs/templates/memory-query-answer-skill-template.md` and its links from README and usage guide.
+
 ## 2026-05-28 - Make ArkTS learning more knowledge-like
 
 Files changed:

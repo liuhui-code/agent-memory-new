@@ -180,6 +180,7 @@ python tools/agent_memory.py vault-export --project .
 - `docs/code-log-statement-network.md`: code log statement extraction and memory edges.
 - `docs/templates/diagnosis-memory-query-template.md`: recursive diagnosis template.
 - `docs/templates/change-design-memory-query-template.md`: recursive change-design template.
+- `docs/templates/memory-query-answer-skill-template.md`: copyable skill template for query, logs, recursive search, and final answers.
 - `gitlog.md`: local development log and rollback notes.
 
 ## Roadmap
