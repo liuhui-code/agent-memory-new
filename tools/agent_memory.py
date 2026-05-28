@@ -71,7 +71,7 @@ VALID_MEMORY_STATUSES = {"active", "stale", "merged", "archived", "rejected"}
 NETWORK_MAX_DEPTH = 1
 NETWORK_EDGE_LIMIT = 10
 EVIDENCE_CHAIN_LIMIT = 3
-QUERY_ALLOWED_EDGE_RELATIONS = {"contains", "emits_log"}
+QUERY_ALLOWED_EDGE_RELATIONS = {"contains", "emits_log", "imports", "routes_to", "uses_resource"}
 
 GOVERNANCE_COLUMNS = {
     "semantic_facts": [
@@ -706,6 +706,12 @@ def evidence_reason(edge: dict[str, Any]) -> str:
         return "matched log statement emitted by symbol"
     if edge.get("relation") == "contains":
         return "matched node contained by learned code file"
+    if edge.get("relation") == "imports":
+        return "matched file connected by ArkTS import"
+    if edge.get("relation") == "routes_to":
+        return "matched file connected by ArkTS router target"
+    if edge.get("relation") == "uses_resource":
+        return "matched ArkTS resource used by learned file"
     return "matched node connected by allowed one-hop edge"
 
 
@@ -1881,7 +1887,49 @@ def summarize_file(path: Path, language: str) -> str:
     if language == "Markdown":
         heading = next((line.lstrip("#").strip() for line in lines if line.startswith("#")), "")
         return heading or f"Markdown file with {len(lines)} non-empty lines"
+    if language == "ArkTS":
+        symbols = extract_symbols(path, language)
+        components = [name for name, kind in symbols if kind == "component"]
+        routes = [name for name, kind in symbols if kind == "route"]
+        resources = [name for name, kind in symbols if kind == "resource"]
+        parts = [f"ArkTS file with {len(lines)} non-empty lines"]
+        if components:
+            parts.append("components: " + ", ".join(sorted(set(components))[:5]))
+        if routes:
+            parts.append("routes: " + ", ".join(sorted(set(routes))[:5]))
+        if resources:
+            parts.append("resources: " + ", ".join(sorted(set(resources))[:5]))
+        return "; ".join(parts)
+    if language == "HarmonyOS Config":
+        symbols = extract_symbols(path, language)
+        grouped: dict[str, list[str]] = {}
+        for name, kind in symbols:
+            grouped.setdefault(kind, []).append(name)
+        parts = [f"HarmonyOS config with {len(lines)} non-empty lines"]
+        for kind in ("ability", "permission", "dependency", "page_profile"):
+            names = grouped.get(kind, [])
+            if names:
+                parts.append(f"{kind}s: " + ", ".join(sorted(set(names))[:5]))
+        return "; ".join(parts)
     return f"{language} file with {len(lines)} non-empty lines"
+
+
+def summarize_symbol(file_path: str, symbol: str, symbol_type: str | None, language: str) -> str:
+    kind = symbol_type or "symbol"
+    if language == "ArkTS":
+        if kind == "component":
+            return f"ArkTS component {symbol} declared in {file_path}"
+        if kind == "route":
+            return f"ArkTS route target {symbol} referenced by {file_path}"
+        if kind == "resource":
+            return f"ArkTS resource {symbol} referenced by {file_path}"
+        if kind == "function":
+            return f"ArkTS function or lifecycle method {symbol} in {file_path}"
+        if kind == "class":
+            return f"ArkTS class {symbol} declared in {file_path}"
+    if language == "HarmonyOS Config":
+        return f"HarmonyOS {kind} {symbol} configured in {file_path}"
+    return f"{kind} {symbol} in {file_path}"
 
 
 def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
@@ -2225,12 +2273,13 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                 (project.project_id, rel_text, summary, language, ts),
             )
             for symbol, symbol_type in symbols_by_file.get(rel_text, []):
+                summary = summarize_symbol(rel_text, symbol, symbol_type, language)
                 conn.execute(
                     """
                     INSERT INTO code_symbols(project_id, file_path, symbol, symbol_type, summary, calls, updated_at)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                     """,
-                    (project.project_id, rel_text, symbol, symbol_type, "", "", ts),
+                    (project.project_id, rel_text, symbol, symbol_type, summary, "", ts),
                 )
             for log in logs_by_file.get(rel_text, []):
                 conn.execute(
@@ -2253,7 +2302,7 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                         ts,
                     ),
                 )
-        rebuild_code_memory_edges(conn, project.project_id)
+        rebuild_code_memory_edges(conn, project)
         memory_edges_total = conn.execute(
             "SELECT COUNT(*) AS count FROM memory_edges WHERE project_id = ?",
             (project.project_id,),
@@ -2270,14 +2319,15 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
     }
 
 
-def rebuild_code_memory_edges(conn: sqlite3.Connection, project_id: str) -> None:
+def rebuild_code_memory_edges(conn: sqlite3.Connection, project: Project) -> None:
     ts = now_iso()
+    project_id = project.project_id
     files = conn.execute(
-        "SELECT id, file_path FROM code_files WHERE project_id = ?",
+        "SELECT id, file_path, language FROM code_files WHERE project_id = ?",
         (project_id,),
     ).fetchall()
     symbols = conn.execute(
-        "SELECT id, file_path, symbol FROM code_symbols WHERE project_id = ?",
+        "SELECT id, file_path, symbol, symbol_type FROM code_symbols WHERE project_id = ?",
         (project_id,),
     ).fetchall()
     logs = conn.execute(
@@ -2320,6 +2370,106 @@ def rebuild_code_memory_edges(conn: sqlite3.Connection, project_id: str) -> None
                 0.9,
                 ts,
             )
+        function_name = row["function"]
+        symbol_id = symbol_ids.get((row["file_path"], function_name)) if function_name else None
+        if symbol_id:
+            insert_memory_edge(
+                conn,
+                project_id,
+                "code_symbol",
+                symbol_id,
+                "emits_log",
+                "code_log_statement",
+                row["id"],
+                evidence,
+                0.8,
+                ts,
+            )
+
+    insert_arkts_knowledge_edges(conn, project, files, symbols, ts)
+
+
+def insert_arkts_knowledge_edges(
+    conn: sqlite3.Connection,
+    project: Project,
+    files: list[sqlite3.Row],
+    symbols: list[sqlite3.Row],
+    ts: str,
+) -> None:
+    file_ids = {row["file_path"]: row["id"] for row in files}
+    symbol_ids = {
+        (row["file_path"], row["symbol"], row["symbol_type"]): row["id"]
+        for row in symbols
+    }
+    for row in files:
+        if row["language"] != "ArkTS":
+            continue
+        source_rel = row["file_path"]
+        source_id = row["id"]
+        source_abs = project.root / source_rel
+        try:
+            text = source_abs.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+
+        for target in resolve_js_imports(project, source_abs, text, [".ets", ".ts", ".js"]):
+            target_rel = relative_project_path(project, target)
+            target_id = file_ids.get(target_rel)
+            if target_id:
+                insert_memory_edge(
+                    conn,
+                    project.project_id,
+                    "code_file",
+                    source_id,
+                    "imports",
+                    "code_file",
+                    target_id,
+                    f"{source_rel} -> {target_rel}",
+                    0.85,
+                    ts,
+                )
+
+        for target in resolve_arkts_router_targets(project, source_abs, text):
+            target_rel = relative_project_path(project, target)
+            target_id = file_ids.get(target_rel)
+            if target_id:
+                insert_memory_edge(
+                    conn,
+                    project.project_id,
+                    "code_file",
+                    source_id,
+                    "routes_to",
+                    "code_file",
+                    target_id,
+                    f"{source_rel} -> {target_rel}",
+                    0.85,
+                    ts,
+                )
+
+        for resource, kind in extract_arkts_reference_symbols(text):
+            if kind != "resource":
+                continue
+            symbol_id = symbol_ids.get((source_rel, resource, "resource"))
+            if symbol_id:
+                insert_memory_edge(
+                    conn,
+                    project.project_id,
+                    "code_file",
+                    source_id,
+                    "uses_resource",
+                    "code_symbol",
+                    symbol_id,
+                    f"{source_rel} uses {resource}",
+                    0.8,
+                    ts,
+                )
+
+
+def relative_project_path(project: Project, path: Path) -> str:
+    try:
+        return str(path.resolve().relative_to(project.root))
+    except ValueError:
+        return str(path)
         function_name = row["function"]
         symbol_id = symbol_ids.get((row["file_path"], function_name)) if function_name else None
         if symbol_id:

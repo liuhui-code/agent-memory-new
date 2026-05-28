@@ -730,6 +730,85 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertIn(("app.string.home_title", "resource"), symbol_pairs)
             self.assertIn(("app.media.logo", "resource"), symbol_pairs)
 
+    def test_arkts_learning_writes_knowledge_summaries_for_files_and_symbols(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Index.ets").write_text(
+                "import router from '@ohos.router';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index {\n"
+                "  build() {\n"
+                "    Text($r('app.string.home_title'))\n"
+                "  }\n"
+                "  openDetail() {\n"
+                "    router.pushUrl({ url: 'pages/Detail' });\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages")
+
+            files = self.list_records(project, "code-file")
+            symbols = self.list_records(project, "code-symbol")
+            file_summary = files[0]["summary"]
+            symbol_summaries = {
+                (row["symbol"], row["symbol_type"]): row["summary"]
+                for row in symbols
+            }
+
+            self.assertIn("components: Index", file_summary)
+            self.assertIn("routes: pages/Detail", file_summary)
+            self.assertIn("resources: app.string.home_title", file_summary)
+            self.assertIn("ArkTS component", symbol_summaries[("Index", "component")])
+            self.assertIn("route target", symbol_summaries[("pages/Detail", "route")])
+            self.assertIn("resource", symbol_summaries[("app.string.home_title", "resource")])
+
+    def test_arkts_memory_edges_connect_imports_routes_and_resources(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "model").mkdir()
+            (project / "pages" / "Index.ets").write_text(
+                "import { UserModel } from '../model/UserModel';\n"
+                "import router from '@ohos.router';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index {\n"
+                "  build() {\n"
+                "    Text($r('app.string.home_title'))\n"
+                "  }\n"
+                "  openDetail() {\n"
+                "    router.pushUrl({ url: 'pages/Detail' });\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            (project / "pages" / "Detail.ets").write_text(
+                "@Component\n"
+                "struct Detail { build() {} }\n",
+                encoding="utf-8",
+            )
+            (project / "model" / "UserModel.ets").write_text(
+                "export class UserModel {}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-entry", "--entry", "pages/Index.ets", "--depth", "1", "--json")
+
+            edges = self.list_records(project, "memory-edge")
+            relations = {(edge["source_type"], edge["relation"], edge["target_type"]) for edge in edges}
+            evidence_by_relation = {edge["relation"]: edge["evidence"] for edge in edges}
+
+            self.assertIn(("code_file", "imports", "code_file"), relations)
+            self.assertIn(("code_file", "routes_to", "code_file"), relations)
+            self.assertIn(("code_file", "uses_resource", "code_symbol"), relations)
+            self.assertIn("pages/Index.ets -> model/UserModel.ets", evidence_by_relation["imports"])
+            self.assertIn("pages/Index.ets -> pages/Detail.ets", evidence_by_relation["routes_to"])
+            self.assertIn("app.string.home_title", evidence_by_relation["uses_resource"])
+
     def test_learn_entry_follows_arkts_router_targets(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)

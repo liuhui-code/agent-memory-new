@@ -68,9 +68,11 @@ It does not recursively traverse the network. Current limits are:
 - `max_depth`: 1
 - `edge_limit`: 10
 - `evidence_chain_limit`: 3
-- `allowed_relations`: `contains`, `emits_log`
+- `allowed_relations`: `contains`, `emits_log`, `imports`, `routes_to`, `uses_resource`
 
 `evidence_chains` are readable summaries of returned one-hop edges, not multi-hop graph paths.
+
+For ArkTS, the same bounded network also connects learned `.ets` files through project imports, router target pages, and `$r(...)` resource references. This makes HarmonyOS page/component context more knowledge-like without adding a full AST graph.
 
 If no result set matches, query miss recording still works normally.
 

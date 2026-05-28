@@ -68,10 +68,13 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 - `code_file --contains--> code_symbol`
 - `code_file --contains--> code_log_statement`
 - `code_symbol --emits_log--> code_log_statement`
+- `code_file --imports--> code_file`
+- `code_file --routes_to--> code_file`
+- `code_file --uses_resource--> code_symbol`
 
-These edges are intentionally lightweight. They help diagnosis queries move from an observed log message to the related file and function, but they are not a complete call graph.
+The ArkTS edges connect learned pages/components to imported project files, router target pages, and `$r(...)` resource references. These edges are intentionally lightweight. They help diagnosis and design queries move from a symptom or page name to related files, functions, routes, and resources, but they are not a complete call graph.
 
-Query commands do not recursively traverse `memory_edges`. The fast path only returns allowed one-hop relations, currently `contains` and `emits_log`, with hard output limits. Heavier network health checks belong to maintain commands.
+Query commands do not recursively traverse `memory_edges`. The fast path only returns allowed one-hop relations, currently `contains`, `emits_log`, `imports`, `routes_to`, and `uses_resource`, with hard output limits. Heavier network health checks belong to maintain commands.
 
 ## Staleness
 

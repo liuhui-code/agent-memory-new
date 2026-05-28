@@ -24,6 +24,35 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-28 - Make ArkTS learning more knowledge-like
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `docs/code-log-statement-network.md`
+- `references/schema.md`
+- `references/codebase-wiki.md`
+- `skills/agent-memory-learn/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added readable ArkTS file summaries with components, routes, and resources.
+- Added readable ArkTS symbol summaries for components, routes, resources, functions, and classes.
+- Added deterministic ArkTS network edges: `imports`, `routes_to`, and `uses_resource`.
+- Allowed those ArkTS relations in bounded one-hop query context.
+
+Why:
+- ArkTS learning should behave more like a lightweight knowledge base and navigable network, not only a flat symbol dump.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_arkts_learning_writes_knowledge_summaries_for_files_and_symbols tests.test_agent_memory.AgentMemoryRuntimeTests.test_arkts_memory_edges_connect_imports_routes_and_resources`
+- Result: passes after implementation.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 40 tests passed.
+
+Rollback notes:
+- Remove ArkTS summary generation, `insert_arkts_knowledge_edges`, and the new allowed edge relations if the graph needs to return to file/symbol/log-only behavior.
+
 ## 2026-05-28 - Move memory storage to global memory home
 
 Files changed:
