@@ -98,6 +98,8 @@ python tools/agent_memory.py learn-path --project . --path skills --replace
 
 Learning also stores code log statements such as `print(...)`, `logger.error(...)`, `console.warn(...)`, and ArkTS `hilog.info(...)`. These are connected to learned files and nearest detected functions through `memory_edges`.
 
+For HarmonyOS projects, learning also indexes `.json5` config files, ArkTS router targets, and `$r(...)` resource references as code wiki symbols. `learn-entry` can follow ArkTS router targets such as `router.pushUrl({ url: 'pages/Detail' })` to the related `.ets` page.
+
 For the whole project:
 
 ```text

@@ -571,6 +571,94 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
 
             self.assertEqual(self.list_code_files(project), {"pages/Index.ets", "model/UserModel.ets"})
 
+    def test_learn_path_extracts_harmonyos_json5_config_symbols(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "entry" / "src" / "main").mkdir(parents=True)
+            (project / "entry" / "oh-package.json5").write_text(
+                "{\n"
+                "  \"dependencies\": {\n"
+                "    \"@ohos/axios\": \"^2.2.0\"\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            (project / "entry" / "src" / "main" / "module.json5").write_text(
+                "{\n"
+                "  \"module\": {\n"
+                "    \"name\": \"entry\",\n"
+                "    \"abilities\": [{ \"name\": \"EntryAbility\" }],\n"
+                "    \"requestPermissions\": [{ \"name\": \"ohos.permission.INTERNET\" }],\n"
+                "    \"pages\": \"$profile:main_pages\"\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "entry")
+
+            symbols = self.list_records(project, "code-symbol")
+            symbol_pairs = {(row["symbol"], row["symbol_type"]) for row in symbols}
+            self.assertIn(("EntryAbility", "ability"), symbol_pairs)
+            self.assertIn(("ohos.permission.INTERNET", "permission"), symbol_pairs)
+            self.assertIn(("@ohos/axios", "dependency"), symbol_pairs)
+
+    def test_learn_path_extracts_arkts_router_and_resource_references(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Index.ets").write_text(
+                "import router from '@ohos.router';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index {\n"
+                "  build() {\n"
+                "    Text($r('app.string.home_title'))\n"
+                "    Image($r(\"app.media.logo\"))\n"
+                "  }\n"
+                "  openDetail() {\n"
+                "    router.pushUrl({ url: 'pages/Detail' });\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages")
+
+            symbols = self.list_records(project, "code-symbol")
+            symbol_pairs = {(row["symbol"], row["symbol_type"]) for row in symbols}
+            self.assertIn(("pages/Detail", "route"), symbol_pairs)
+            self.assertIn(("app.string.home_title", "resource"), symbol_pairs)
+            self.assertIn(("app.media.logo", "resource"), symbol_pairs)
+
+    def test_learn_entry_follows_arkts_router_targets(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Index.ets").write_text(
+                "import router from '@ohos.router';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index {\n"
+                "  openDetail() {\n"
+                "    router.pushUrl({ url: 'pages/Detail' });\n"
+                "  }\n"
+                "  build() {}\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            (project / "pages" / "Detail.ets").write_text(
+                "@Component\n"
+                "struct Detail {\n"
+                "  build() {}\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-entry", "--entry", "pages/Index.ets", "--depth", "1", "--json")
+
+            self.assertEqual(self.list_code_files(project), {"pages/Index.ets", "pages/Detail.ets"})
+
     def test_context_returns_code_log_and_related_edge_matches(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)

@@ -13,7 +13,8 @@ Supported extraction:
 
 - Python: `def`, `class`
 - TypeScript/JavaScript: `function`, `class`, `const name =`
-- ArkTS: `.ets`, `struct` components, `class`, `function`, component lifecycle/build methods
+- ArkTS: `.ets`, `struct` components, `class`, `function`, component lifecycle/build methods, `router.*` targets, `$r(...)` resources
+- HarmonyOS config: `.json5` module/app/package config, abilities, permissions, dependencies, page profiles
 - Dart: `class`, `Future<`, `void`, `Widget build`
 - Swift: `class`, `struct`, `func`
 - Markdown: headings

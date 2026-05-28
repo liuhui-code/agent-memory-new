@@ -61,6 +61,7 @@ CODE_EXTENSIONS = {
     ".dart": "Dart",
     ".swift": "Swift",
     ".md": "Markdown",
+    ".json5": "HarmonyOS Config",
 }
 
 ACTIVE_STATUS = "active"
@@ -1874,7 +1875,7 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
             (r"^\s*(?:export\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(", "function"),
             (r"^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)", "class"),
             (r"^\s*(?:export\s+)?struct\s+([A-Za-z_$][\w$]*)", "component"),
-            (r"^\s*(?:private\s+|public\s+|protected\s+)?([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{?", "function"),
+            (r"^\s*(?:private\s+|public\s+|protected\s+)?([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{", "function"),
         ]
     elif language == "Dart":
         patterns = [
@@ -1889,6 +1890,8 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
         ]
     elif language == "Markdown":
         patterns = [(r"^(#{1,6})\s+(.+)$", "heading")]
+    elif language == "HarmonyOS Config":
+        return extract_harmonyos_config_symbols(text)
     else:
         patterns = []
     for line in text.splitlines():
@@ -1902,6 +1905,40 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
                 if name in {"if", "for", "while", "switch", "catch"}:
                     continue
                 symbols.append((name, kind))
+    if language == "ArkTS":
+        symbols.extend(extract_arkts_reference_symbols(text))
+    return symbols
+
+
+def extract_arkts_reference_symbols(text: str) -> list[tuple[str, str]]:
+    symbols: list[tuple[str, str]] = []
+    for match in re.finditer(
+        r"\brouter\.(?:pushUrl|replaceUrl)\s*\(\s*\{[^}]*\burl\s*:\s*['\"]([^'\"]+)['\"]",
+        text,
+        re.DOTALL,
+    ):
+        symbols.append((match.group(1), "route"))
+    for match in re.finditer(r"\$r\s*\(\s*['\"]([^'\"]+)['\"]", text):
+        symbols.append((match.group(1), "resource"))
+    return symbols
+
+
+def extract_harmonyos_config_symbols(text: str) -> list[tuple[str, str]]:
+    symbols: list[tuple[str, str]] = []
+    for match in re.finditer(r'"name"\s*:\s*"([^"]+)"', text):
+        name = match.group(1)
+        if "permission." in name:
+            symbols.append((name, "permission"))
+        elif name.endswith("Ability"):
+            symbols.append((name, "ability"))
+    for block_name in ("dependencies", "devDependencies", "overrides"):
+        block_match = re.search(rf'"{block_name}"\s*:\s*\{{(.*?)\}}', text, re.DOTALL)
+        if not block_match:
+            continue
+        for dep in re.finditer(r'"([^"]+)"\s*:', block_match.group(1)):
+            symbols.append((dep.group(1), "dependency"))
+    for match in re.finditer(r'"pages"\s*:\s*"([^"]+)"', text):
+        symbols.append((match.group(1), "page_profile"))
     return symbols
 
 
@@ -1949,7 +1986,7 @@ def function_symbol_on_line(line: str, language: str) -> tuple[str, int] | None:
             r"^\s*(?:export\s+)?(?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(",
             r"^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)",
             r"^\s*(?:export\s+)?struct\s+([A-Za-z_$][\w$]*)",
-            r"^\s*(?:private\s+|public\s+|protected\s+)?([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{?",
+            r"^\s*(?:private\s+|public\s+|protected\s+)?([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{",
         ]
     elif language == "Dart":
         patterns = [
@@ -2376,6 +2413,7 @@ def resolve_project_imports(project: Project, path: Path) -> list[Path]:
         candidates.extend(resolve_js_imports(project, path, text))
     elif language == "ArkTS":
         candidates.extend(resolve_js_imports(project, path, text, [".ets", ".ts", ".js"]))
+        candidates.extend(resolve_arkts_router_targets(project, path, text))
     elif language == "Dart":
         candidates.extend(resolve_quoted_relative_imports(project, path, text, [".dart"]))
     elif language == "Markdown":
@@ -2443,6 +2481,28 @@ def resolve_js_imports(
         if spec.startswith("."):
             candidates.extend(resolve_relative_spec(path.parent / spec, extensions))
     return candidates
+
+
+def resolve_arkts_router_targets(project: Project, path: Path, text: str) -> list[Path]:
+    candidates: list[Path] = []
+    for route, kind in extract_arkts_reference_symbols(text):
+        if kind != "route":
+            continue
+        if route.startswith("$") or route.startswith("@"):
+            continue
+        if route.startswith("/"):
+            route = route.lstrip("/")
+        bases = [project.root, arkts_ets_root(path), path.parent]
+        for base in bases:
+            candidates.extend(resolve_relative_spec(base / route, [".ets"]))
+    return candidates
+
+
+def arkts_ets_root(path: Path) -> Path:
+    for parent in [path.parent, *path.parents]:
+        if parent.name == "ets":
+            return parent
+    return path.parent
 
 
 def resolve_quoted_relative_imports(project: Project, path: Path, text: str, extensions: list[str]) -> list[Path]:

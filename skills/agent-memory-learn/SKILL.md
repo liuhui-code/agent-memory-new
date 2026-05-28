@@ -62,6 +62,7 @@ Rules:
 - Prefer `learn-entry` or `learn-path` over full-project `wiki-index`.
 - Use the smallest scope that satisfies the task.
 - For HarmonyOS projects, prefer `.ets` page/component entry files or `entry/src/main/ets` feature directories.
+- HarmonyOS learning indexes `.json5` config, ArkTS router targets, and `$r(...)` resource references when present.
 - Default to incremental merge for partial learning.
 - Use `--replace` only for explicit reset/relearn requests.
 - After learning, query with `agent-memory-query` before editing.

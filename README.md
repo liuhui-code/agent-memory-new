@@ -24,7 +24,7 @@ SQLite is the source of truth. Obsidian is a readable mirror.
 - Entry-file and directory-based code learning.
 - Lightweight codebase wiki indexing and search.
 - Code log statement extraction with file/function/log edges for diagnosis.
-- HarmonyOS ArkTS `.ets` learning support for components, imports, and console/hilog logs.
+- HarmonyOS ArkTS `.ets` learning support for components, imports, router/resource references, JSON5 config, and console/hilog logs.
 - JSON-capable context retrieval for agent integration.
 - Query miss feedback when retrieval returns nothing.
 - Reflection quality review and reuse feedback.
@@ -79,7 +79,7 @@ python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.
 python tools/agent_memory.py learn-path --project . --path skills
 ```
 
-Learning also records log-like statements in code, such as `logger.error(...)`, `console.warn(...)`, ArkTS `hilog.info(...)`, and `print(...)`, then connects them to the learned file and nearest detected function.
+Learning also records log-like statements in code, such as `logger.error(...)`, `console.warn(...)`, ArkTS `hilog.info(...)`, and `print(...)`, then connects them to the learned file and nearest detected function. For HarmonyOS projects, it also indexes `.json5` module/package config, ArkTS router targets, and `$r(...)` resource references.
 
 Query memory:
 
@@ -211,7 +211,7 @@ SQLite 是真实数据源。Obsidian 是可读镜像。
 - 支持从入口文件、目录、全项目学习代码。
 - 轻量 codebase wiki 索引和搜索。
 - 支持抽取代码日志语句，并建立文件/函数/日志边关系，辅助定位问题。
-- 支持 HarmonyOS ArkTS `.ets` 代码学习，包括组件、相对 import、console/hilog 日志。
+- 支持 HarmonyOS ArkTS `.ets` 代码学习，包括组件、相对 import、路由/资源引用、JSON5 配置、console/hilog 日志。
 - 支持 JSON 输出，方便 Agent 调用。
 - 查询无结果时自动记录 query miss。
 - 支持反思质量检查和反思复用反馈。
@@ -256,7 +256,7 @@ python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.
 python tools/agent_memory.py learn-path --project . --path skills
 ```
 
-学习代码时也会记录代码里的日志输出语句，例如 `logger.error(...)`、`console.warn(...)`、ArkTS `hilog.info(...)`、`print(...)`，并把它们连接到对应文件和最近的函数。
+学习代码时也会记录代码里的日志输出语句，例如 `logger.error(...)`、`console.warn(...)`、ArkTS `hilog.info(...)`、`print(...)`，并把它们连接到对应文件和最近的函数。对 HarmonyOS 项目，还会索引 `.json5` 模块/依赖配置、ArkTS 路由目标和 `$r(...)` 资源引用。
 
 查询记忆：
 

@@ -497,3 +497,32 @@ Verification:
 
 Rollback notes:
 - Remove `.ets` from `CODE_EXTENSIONS`, ArkTS extraction/import branches, ArkTS tests, and related docs.
+
+## 2026-05-28 - Add HarmonyOS config, route, and resource learning
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `README.md`
+- `docs/usage-guide.md`
+- `docs/mvp-implementation-plan.md`
+- `references/codebase-wiki.md`
+- `skills/agent-memory-learn/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `.json5` HarmonyOS config indexing.
+- Extracted config symbols for abilities, permissions, dependencies, and page profiles.
+- Extracted ArkTS `router.pushUrl` / `router.replaceUrl` targets as route symbols.
+- Extracted ArkTS `$r(...)` references as resource symbols.
+- Let `learn-entry` follow ArkTS router targets to related `.ets` pages.
+
+Why:
+- Make memory learning more useful for common HarmonyOS project layout, navigation, resource, permission, and dependency tasks.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 33 tests passed.
+
+Rollback notes:
+- Remove `.json5` from `CODE_EXTENSIONS`, HarmonyOS config extraction, ArkTS reference extraction, router target resolution, and related docs/tests.
