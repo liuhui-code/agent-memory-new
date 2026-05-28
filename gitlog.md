@@ -24,6 +24,46 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-28 - Move memory storage to global memory home
+
+Files changed:
+- `tools/agent_memory.py`
+- `install.py`
+- `tests/test_agent_memory.py`
+- `agent.md`
+- `README.md`
+- `docs/mvp-implementation-plan.md`
+- `docs/usage-guide.md`
+- `docs/runtime.md`
+- `docs/superpowers/specs/2026-05-28-global-memory-home-design.md`
+- `docs/superpowers/plans/2026-05-28-global-memory-home.md`
+- `references/schema.md`
+- `references/obsidian-vault.md`
+- `skills/agent-memory-learn/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added configurable global memory home resolution: `--memory-home`, `AGENT_MEMORY_HOME`, then `~/.agent-memory`.
+- Changed project storage to `projects/<project_id>/` under the memory home.
+- Kept each project in its own SQLite database, runtime cache, and generated vault.
+- Updated installer, docs, skills, and tests for the global layout.
+
+Why:
+- Learned projects should be source inputs only. Memory data should live in a shared user-configurable location.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_init_uses_configured_global_memory_home_without_project_local_state tests.test_agent_memory.AgentMemoryRuntimeTests.test_environment_memory_home_is_used_when_cli_option_is_absent tests.test_agent_memory.AgentMemoryRuntimeTests.test_global_memory_home_keeps_project_databases_isolated`
+- Result: passes after implementation.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 38 tests passed.
+- Command: `python3 tools/agent_memory.py doctor --project . --memory-home /private/tmp/agent-memory-new-verify-global`
+- Result: all checks report OK.
+
+Rollback notes:
+- Revert the `resolve_project`/`--memory-home` changes and restore `memory_dir = root / ".agent-memory"` if project-local storage is needed again.
+- Existing global memory directories can be deleted manually after exporting any needed vault files.
+
 ## 2026-05-26 - Add MVP planning documents
 
 Files changed:

@@ -62,16 +62,21 @@ def install(args: argparse.Namespace) -> None:
             if skill_dir.is_dir():
                 copy_skill_dir(skill_dir, skill_target_root / skill_dir.name, args.force)
 
-    run([sys.executable, str(runtime_target), "init", "--project", str(project)], project)
-    run([sys.executable, str(runtime_target), "doctor", "--project", str(project)], project)
+    memory_args = []
+    if args.memory_home:
+        memory_args = ["--memory-home", str(Path(args.memory_home).expanduser().resolve())]
+
+    run([sys.executable, str(runtime_target), "init", "--project", str(project), *memory_args], project)
+    run([sys.executable, str(runtime_target), "doctor", "--project", str(project), *memory_args], project)
 
     print("")
     print("Agent Memory MVP installed.")
     print("")
     print("Try:")
-    print(f"  python {runtime_target.relative_to(project)} update --project . --type semantic --fact \"用户偏好先做 MVP\" --source user --confidence 1.0")
-    print(f"  python {runtime_target.relative_to(project)} context --project . --query \"实现本地 agent memory\" --json")
-    print(f"  python {runtime_target.relative_to(project)} vault-export --project .")
+    option_hint = f" {' '.join(memory_args)}" if memory_args else ""
+    print(f"  python {runtime_target.relative_to(project)} update --project .{option_hint} --type semantic --fact \"用户偏好先做 MVP\" --source user --confidence 1.0")
+    print(f"  python {runtime_target.relative_to(project)} context --project .{option_hint} --query \"实现本地 agent memory\" --json")
+    print(f"  python {runtime_target.relative_to(project)} vault-export --project .{option_hint}")
     print("")
     print("Optional shell alias:")
     print(f"  alias agent-memory='python {runtime_target}'")
@@ -82,6 +87,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--project", default=".")
     parser.add_argument("--local-skills", action="store_true", default=True)
     parser.add_argument("--global-skills", action="store_true")
+    parser.add_argument("--memory-home")
     parser.add_argument("--force", action="store_true")
     return parser
 

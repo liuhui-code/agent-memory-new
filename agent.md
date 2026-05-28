@@ -19,7 +19,7 @@ Agent starts task
 
 The MVP must support:
 
-1. Initialize project-local memory storage.
+1. Initialize global memory-home storage with per-project isolation.
 2. Store semantic facts, episodes, reflections, and lightweight codebase wiki entries.
 3. Query relevant memory through a JSON-capable CLI.
 4. Generate concise task context for an Agent.
@@ -43,8 +43,8 @@ The MVP must not depend on:
 LLM / Local Agent
   -> Agent Memory Skills
   -> tools/agent_memory.py
-  -> .agent-memory/memory.db
-  -> .agent-memory/vault/
+  -> ~/.agent-memory/projects/<project_id>/memory.db
+  -> ~/.agent-memory/projects/<project_id>/vault/
 ```
 
 Responsibilities:
@@ -53,6 +53,7 @@ Responsibilities:
 - `tools/agent_memory.py` is the stable local API.
 - SQLite is the machine-readable source of truth.
 - Obsidian Markdown is a read-only human review mirror.
+- The learned project directory is the input source; memory data is stored in a configurable global memory home.
 - Natural language plus skills is the intended user interface; direct CLI usage is the backend and debugging interface.
 
 ## Runtime Commands
@@ -100,22 +101,25 @@ Create four user-facing skills:
 
 Skills should call the runtime script. They should not implement storage logic themselves.
 
-## Project-Local Installed Layout
+## Installed Layout
 
 ```text
-.agent-memory/
-  memory.db
+~/.agent-memory/
   config.json
-  runtime/
-    last_context.json
-    last_reflection.json
-  vault/
-    index.md
-    Episodes/
-    Reflections/
-    Semantic Facts/
-    Codebase Wiki/
-    Daily/
+  projects/
+    <project_id>/
+      memory.db
+      config.json
+      runtime/
+        last_context.json
+        last_reflection.json
+      vault/
+        index.md
+        Episodes/
+        Reflections/
+        Semantic Facts/
+        Codebase Wiki/
+        Daily/
 
 .agent-skills/
   agent-memory-learn/

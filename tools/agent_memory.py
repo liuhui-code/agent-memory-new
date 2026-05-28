@@ -119,6 +119,7 @@ GOVERNANCE_COLUMNS = {
 @dataclass(frozen=True)
 class Project:
     root: Path
+    memory_home: Path
     memory_dir: Path
     db_path: Path
     vault_dir: Path
@@ -131,12 +132,19 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
-def resolve_project(path: str) -> Project:
+def resolve_memory_home(path: str | None = None) -> Path:
+    raw = path or os.environ.get("AGENT_MEMORY_HOME") or "~/.agent-memory"
+    return Path(raw).expanduser().resolve()
+
+
+def resolve_project(path: str, memory_home: str | None = None) -> Project:
     root = Path(path).expanduser().resolve()
     project_id = hashlib.sha256(str(root).encode("utf-8")).hexdigest()[:16]
-    memory_dir = root / ".agent-memory"
+    resolved_memory_home = resolve_memory_home(memory_home)
+    memory_dir = resolved_memory_home / "projects" / project_id
     return Project(
         root=root,
+        memory_home=resolved_memory_home,
         memory_dir=memory_dir,
         db_path=memory_dir / "memory.db",
         vault_dir=memory_dir / "vault",
@@ -147,6 +155,8 @@ def resolve_project(path: str) -> Project:
 
 
 def ensure_dirs(project: Project) -> None:
+    project.memory_home.mkdir(parents=True, exist_ok=True)
+    (project.memory_home / "projects").mkdir(parents=True, exist_ok=True)
     project.memory_dir.mkdir(parents=True, exist_ok=True)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     project.vault_dir.mkdir(parents=True, exist_ok=True)
@@ -331,8 +341,10 @@ def write_config(project: Project) -> None:
         "project_id": project.project_id,
         "project_path": str(project.root),
         "project_name": project.project_name,
+        "memory_home": str(project.memory_home),
+        "memory_dir": str(project.memory_dir),
         "runtime": "tools/agent_memory.py",
-        "vault": ".agent-memory/vault",
+        "vault": str(project.vault_dir),
         "version": 1,
         "updated_at": now_iso(),
     }
@@ -342,21 +354,35 @@ def write_config(project: Project) -> None:
     )
 
 
+def write_global_config(project: Project) -> None:
+    config_path = project.memory_home / "config.json"
+    config = {
+        "memory_home": str(project.memory_home),
+        "layout": "projects/<project_id>",
+        "version": 1,
+        "updated_at": now_iso(),
+    }
+    config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def init_project(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_dirs(project)
     with connect(project) as conn:
         create_schema(conn)
         upsert_project(conn, project)
+    write_global_config(project)
     write_config(project)
     vault_index(args)
-    print(f"initialized agent memory for {project.root}")
+    print(f"initialized agent memory for {project.root} at {project.memory_dir}")
 
 
 def doctor(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     checks: list[tuple[str, bool]] = [
-        (".agent-memory exists", project.memory_dir.exists()),
+        ("memory home exists", project.memory_home.exists()),
+        ("project memory directory exists", project.memory_dir.exists()),
+        ("global config.json exists", (project.memory_home / "config.json").exists()),
         ("config.json exists", (project.memory_dir / "config.json").exists()),
         ("memory.db exists", project.db_path.exists()),
         ("vault directory exists", project.vault_dir.exists()),
@@ -385,6 +411,8 @@ def ensure_initialized(project: Project) -> None:
     with connect(project) as conn:
         create_schema(conn)
         upsert_project(conn, project)
+    if not (project.memory_home / "config.json").exists():
+        write_global_config(project)
     if not (project.memory_dir / "config.json").exists():
         write_config(project)
 
@@ -446,7 +474,7 @@ def add_episode(args: argparse.Namespace, project: Project) -> None:
 
 
 def update(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     if args.type == "semantic":
         add_semantic(args, project)
@@ -787,7 +815,7 @@ def output(data: Any, as_json: bool) -> None:
 
 
 def search(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     data = collect_matches(project, args.query)
     record_query_miss_if_empty(project, "search", args.query, data)
@@ -795,7 +823,7 @@ def search(args: argparse.Namespace) -> None:
 
 
 def context(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     data = limited_context(project, args.query)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
@@ -807,7 +835,7 @@ def context(args: argparse.Namespace) -> None:
 
 
 def reflect(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     if not args.task or not args.lesson:
         raise SystemExit("--task and --lesson are required")
@@ -879,7 +907,7 @@ def reflect(args: argparse.Namespace) -> None:
 
 
 def list_records(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     table = table_for_type(args.type)
     with connect(project) as conn:
@@ -906,7 +934,7 @@ def table_for_type(kind: str) -> str:
 
 
 def miss_list(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     status_filter = "AND status = ?" if args.status else ""
     values: list[Any] = [project.project_id]
@@ -927,7 +955,7 @@ def miss_list(args: argparse.Namespace) -> None:
 
 
 def miss_status(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     if args.status not in {"open", "reviewed", "resolved", "ignored"}:
         raise SystemExit(f"unsupported query miss status: {args.status}")
@@ -945,7 +973,7 @@ def miss_status(args: argparse.Namespace) -> None:
 
 
 def mark_stale(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     table = table_for_type(args.type)
     if table not in {"semantic_facts", "reflections"}:
@@ -1018,7 +1046,7 @@ def fetch_memory_rows(conn: sqlite3.Connection, project: Project, kind: str, act
 
 
 def maintain_health(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     with connect(project) as conn:
         semantic_rows = fetch_memory_rows(conn, project, "semantic", active_only=False)
@@ -1065,14 +1093,14 @@ def maintain_health(args: argparse.Namespace) -> None:
 
 
 def maintain_review(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     data = build_review_data(project, args.limit)
     output(data, args.json)
 
 
 def reflect_review(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     data = build_reflect_review_data(project, args.limit)
     output(data, args.json)
@@ -1206,7 +1234,7 @@ def build_review_data(project: Project, limit: int) -> dict[str, Any]:
 
 
 def maintain_plan(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     review = build_review_data(project, args.limit)
     reflection_quality = build_reflect_review_data(project, args.limit)
@@ -1362,7 +1390,7 @@ def build_query_miss_data(project: Project, limit: int) -> list[dict[str, Any]]:
 
 
 def maintain_status(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     if args.status not in VALID_MEMORY_STATUSES:
         raise SystemExit(f"unsupported status: {args.status}")
@@ -1400,7 +1428,7 @@ def parse_ids(raw: str) -> list[int]:
 
 
 def maintain_merge(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     ids = parse_ids(args.ids)
     table = table_for_type(args.type)
@@ -1477,7 +1505,7 @@ def maintain_merge(args: argparse.Namespace) -> None:
 
 
 def maintain_promote(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     if not args.fact:
         raise SystemExit("--fact is required")
@@ -1569,7 +1597,7 @@ def frontmatter(record_type: str, project: Project, created_at: str) -> str:
 
 
 def vault_init(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     ensure_dirs(project)
     vault_index(args)
@@ -1582,7 +1610,7 @@ def write_vault_file(path: Path, content: str) -> None:
 
 
 def vault_export(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     ensure_dirs(project)
     with connect(project) as conn:
@@ -1810,7 +1838,7 @@ def write_governance_dashboard(
 
 
 def vault_index(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_dirs(project)
     content = "# Agent Memory Vault\n\n"
     content += "## Recent Episodes\n\n"
@@ -2089,7 +2117,7 @@ def string_literals(text: str) -> list[str]:
 
 
 def wiki_index(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     files = collect_project_files(project)
     stats = write_wiki_index(project, files, replace=True)
@@ -2356,7 +2384,7 @@ def resolve_target(project: Project, raw_path: str) -> Path:
 
 
 def learn_path(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     target = resolve_target(project, args.path)
     files = collect_path_files(project, target)
@@ -2406,7 +2434,7 @@ def add_episode_from_values(project: Project, task: str, summary: str, outcome: 
 
 
 def learn_entry(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     entry = resolve_target(project, args.entry)
     if not entry.is_file():
@@ -2599,7 +2627,7 @@ def resolve_markdown_links(project: Project, path: Path, text: str) -> list[Path
 
 
 def wiki_search(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project)
+    project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     matches = collect_matches(project, args.query)
     data = matches["wiki_matches"] + matches["code_log_matches"]
@@ -2626,6 +2654,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     def add_project(p: argparse.ArgumentParser) -> None:
         p.add_argument("--project", default=".")
+        p.add_argument("--memory-home")
 
     p = sub.add_parser("init")
     add_project(p)

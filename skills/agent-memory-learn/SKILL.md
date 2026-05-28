@@ -9,6 +9,8 @@ Use this skill to add part of a project to the memory system.
 
 Prefer natural language from the user, then choose the narrowest runtime command.
 
+The project path is only the source scope. Learned data is saved under the configured global memory home, not inside the project directory.
+
 ## Entry File
 
 When the user names an entry file:

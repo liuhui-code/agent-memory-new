@@ -32,7 +32,9 @@ Skill / Protocol Layer
     ↓
 tools/agent_memory.py
     ↓
-SQLite + Obsidian Vault Mirror
+Global memory home
+    ↓
+Per-project SQLite + Obsidian Vault Mirror
 ```
 
 The first MVP keeps the runtime intentionally small:
@@ -43,6 +45,7 @@ The first MVP keeps the runtime intentionally small:
 - Query commands support `--json`.
 - Keyword search ships before vector search.
 - Governance commands keep memory clean without slowing normal query flow.
+- `--project` selects the code project. `--memory-home`, `AGENT_MEMORY_HOME`, or `~/.agent-memory` selects where memory data is stored.
 
 See `docs/mvp-implementation-plan.md` for the full implementation plan.
 

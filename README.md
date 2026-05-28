@@ -18,7 +18,7 @@ SQLite is the source of truth. Obsidian is a readable mirror.
 
 ## Features
 
-- Project-local memory store in SQLite.
+- Global memory home with isolated per-project SQLite stores.
 - Four skill-facing workflows: learn, query, maintain, reflect.
 - Semantic facts, task episodes, reflections, and future rules.
 - Entry-file and directory-based code learning.
@@ -54,9 +54,11 @@ This keeps memory useful without making it more authoritative than current sourc
 Local Agent / LLM
   -> Agent Memory Skills
   -> tools/agent_memory.py
-  -> .agent-memory/memory.db
-  -> .agent-memory/vault/
+  -> ~/.agent-memory/projects/<project_id>/memory.db
+  -> ~/.agent-memory/projects/<project_id>/vault/
 ```
+
+The learned project directory is the input source. Memory data is stored under a configurable global memory home, not inside the learned project. Resolution order is `--memory-home`, `AGENT_MEMORY_HOME`, then `~/.agent-memory`.
 
 ## Quick Start
 
@@ -64,6 +66,12 @@ Install into a project:
 
 ```bash
 python install.py --project . --local-skills
+```
+
+Optional custom memory home:
+
+```bash
+python install.py --project . --memory-home ~/AgentMemory --local-skills
 ```
 
 Check the installation:
@@ -181,7 +189,7 @@ python tools/agent_memory.py vault-export --project .
 - More precise import and link discovery for local code learning.
 - More examples for integrating with different local agent CLIs.
 - Optional richer retrieval backends after the deterministic runtime is stable.
-- Cross-project memory only after project-local memory is proven reliable.
+- Cross-project memory only after per-project isolated memory is proven reliable.
 
 ---
 
@@ -205,7 +213,7 @@ SQLite 是真实数据源。Obsidian 是可读镜像。
 
 ## 特性
 
-- 项目本地 SQLite 记忆库。
+- 全局记忆目录，按项目隔离 SQLite、runtime cache 和 Obsidian 镜像。
 - 四个 skill 工作流：学习、查询、维护、反思。
 - 支持语义事实、任务 episode、反思和 future rule。
 - 支持从入口文件、目录、全项目学习代码。
@@ -248,6 +256,8 @@ python install.py --project . --local-skills
 ```bash
 python tools/agent_memory.py doctor --project .
 ```
+
+默认记忆会写入 `~/.agent-memory/projects/<project_id>/`，不会写入被学习项目的 `.agent-memory/`。可通过 `--memory-home` 或 `AGENT_MEMORY_HOME` 修改全局记忆目录。
 
 学习局部代码：
 
@@ -322,4 +332,4 @@ python tools/agent_memory.py vault-export --project .
 - 更精确的代码 import/link 发现。
 - 更多本地 Agent CLI 对接示例。
 - 在确定性 runtime 稳定后，再考虑可选的高级检索后端。
-- 跨项目记忆要等项目本地记忆足够可靠后再做。
+- 跨项目记忆要等项目隔离记忆足够可靠后再做。

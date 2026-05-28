@@ -2,6 +2,8 @@
 
 SQLite is the source of truth for the MVP. Obsidian files are generated mirrors.
 
+Storage lives in a global memory home, defaulting to `~/.agent-memory`. Each learned project gets an isolated store at `projects/<project_id>/`.
+
 ## Project Identity
 
 `project_id` is `sha256(abs_project_path)[:16]`.

@@ -37,19 +37,22 @@ references/
 Installed project layout:
 
 ```text
-.agent-memory/
-  memory.db
+~/.agent-memory/
   config.json
-  runtime/
-    last_context.json
-    last_reflection.json
-  vault/
-    index.md
-    Episodes/
-    Reflections/
-    Semantic Facts/
-    Codebase Wiki/
-    Daily/
+  projects/
+    <project_id>/
+      memory.db
+      config.json
+      runtime/
+        last_context.json
+        last_reflection.json
+      vault/
+        index.md
+        Episodes/
+        Reflections/
+        Semantic Facts/
+        Codebase Wiki/
+        Daily/
 .agent-skills/
   agent-memory-learn/
   agent-memory-query/
@@ -127,11 +130,12 @@ Parse feedback:
 Required behavior:
 
 ```text
-Create .agent-memory/
-Create .agent-memory/runtime/
-Create .agent-memory/vault/
-Create .agent-memory/config.json
-Create .agent-memory/memory.db
+Create global memory home, defaulting to ~/.agent-memory/
+Create ~/.agent-memory/projects/<project_id>/
+Create runtime/
+Create vault/
+Create config.json files
+Create memory.db
 Create required SQLite tables
 Create or update project row
 ```
@@ -141,7 +145,9 @@ Create or update project row
 Required checks:
 
 ```text
-.agent-memory exists
+memory home exists
+project memory directory exists
+global config.json exists
 config.json exists
 memory.db exists
 required tables exist
@@ -336,7 +342,7 @@ python tools/agent_memory.py reflect \
 
 - [x] Write the reflection to SQLite.
 
-- [x] Write `.agent-memory/runtime/last_reflection.json`.
+- [x] Write `runtime/last_reflection.json` under the project's global memory-home store.
 
 ## Phase 6: Obsidian Vault Export
 
@@ -356,12 +362,12 @@ python tools/agent_memory.py vault-index --project .
 - [x] Generate:
 
 ```text
-.agent-memory/vault/index.md
-.agent-memory/vault/Episodes/
-.agent-memory/vault/Reflections/
-.agent-memory/vault/Semantic Facts/
-.agent-memory/vault/Codebase Wiki/
-.agent-memory/vault/Daily/
+~/.agent-memory/projects/<project_id>/vault/index.md
+~/.agent-memory/projects/<project_id>/vault/Episodes/
+~/.agent-memory/projects/<project_id>/vault/Reflections/
+~/.agent-memory/projects/<project_id>/vault/Semantic Facts/
+~/.agent-memory/projects/<project_id>/vault/Codebase Wiki/
+~/.agent-memory/projects/<project_id>/vault/Daily/
 ```
 
 - [x] Use Markdown frontmatter:
@@ -478,12 +484,12 @@ python install.py --project . --force
 ```text
 Check Python >= 3.9
 Resolve project path
-Create .agent-memory/
+Create global memory home if missing
 Initialize memory.db
 Create vault/
 Copy tools/agent_memory.py to project tools/
 Copy skills to .agent-skills/
-Write .agent-memory/config.json
+Write global and per-project config.json
 Run doctor
 Print usage examples
 ```

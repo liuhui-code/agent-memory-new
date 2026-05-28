@@ -4,7 +4,9 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import os
 from pathlib import Path
+from typing import Optional
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -12,38 +14,135 @@ RUNTIME = REPO_ROOT / "tools" / "agent_memory.py"
 
 
 class AgentMemoryRuntimeTests(unittest.TestCase):
-    def run_memory(self, project: Path, *args: str) -> subprocess.CompletedProcess[str]:
+    def memory_home(self, project: Path) -> Path:
+        return project.parent / f"memory-home-{project.name}"
+
+    def project_memory_dir(self, project: Path) -> Path:
+        project_id = self.project_id(project)
+        return self.memory_home(project) / "projects" / project_id
+
+    def project_id(self, project: Path) -> str:
+        import hashlib
+
+        return hashlib.sha256(str(project.resolve()).encode("utf-8")).hexdigest()[:16]
+
+    def run_memory(
+        self,
+        project: Path,
+        *args: str,
+        memory_home: Optional[Path] = None,
+        use_memory_home_arg: bool = True,
+        env: Optional[dict[str, str]] = None,
+    ) -> subprocess.CompletedProcess[str]:
+        command = [sys.executable, str(RUNTIME), *args, "--project", str(project)]
+        if use_memory_home_arg:
+            command.extend(["--memory-home", str(memory_home or self.memory_home(project))])
+        process_env = os.environ.copy()
+        if env:
+            process_env.update(env)
         return subprocess.run(
-            [sys.executable, str(RUNTIME), *args, "--project", str(project)],
+            command,
             cwd=REPO_ROOT,
             text=True,
             capture_output=True,
             check=True,
+            env=process_env,
         )
 
-    def list_code_files(self, project: Path) -> set[str]:
+    def list_code_files(self, project: Path, memory_home: Optional[Path] = None) -> set[str]:
         result = self.run_memory(
             project,
             "list",
             "--type",
             "code-file",
             "--json",
+            memory_home=memory_home,
         )
         return {row["file_path"] for row in json.loads(result.stdout)}
 
-    def list_records(self, project: Path, kind: str) -> list[dict]:
+    def list_records(self, project: Path, kind: str, memory_home: Optional[Path] = None) -> list[dict]:
         result = self.run_memory(
             project,
             "list",
             "--type",
             kind,
             "--json",
+            memory_home=memory_home,
         )
         return json.loads(result.stdout)
 
-    def miss_list(self, project: Path) -> list[dict]:
-        result = self.run_memory(project, "miss-list", "--json")
+    def miss_list(self, project: Path, memory_home: Optional[Path] = None) -> list[dict]:
+        result = self.run_memory(project, "miss-list", "--json", memory_home=memory_home)
         return json.loads(result.stdout)
+
+    def test_init_uses_configured_global_memory_home_without_project_local_state(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            memory_home = root / "global-memory"
+            project.mkdir()
+
+            self.run_memory(project, "init", memory_home=memory_home)
+
+            project_memory = memory_home / "projects" / self.project_id(project)
+            self.assertTrue((project_memory / "memory.db").exists())
+            self.assertTrue((project_memory / "runtime").exists())
+            self.assertTrue((project_memory / "vault").exists())
+            self.assertFalse((project / ".agent-memory").exists())
+
+    def test_environment_memory_home_is_used_when_cli_option_is_absent(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            memory_home = root / "env-memory"
+            project.mkdir()
+
+            self.run_memory(
+                project,
+                "init",
+                use_memory_home_arg=False,
+                env={"AGENT_MEMORY_HOME": str(memory_home)},
+            )
+
+            self.assertTrue((memory_home / "projects" / self.project_id(project) / "memory.db").exists())
+            self.assertFalse((project / ".agent-memory").exists())
+
+    def test_global_memory_home_keeps_project_databases_isolated(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            memory_home = root / "memory"
+            project_a = root / "app-a"
+            project_b = root / "app-b"
+            project_a.mkdir()
+            project_b.mkdir()
+
+            self.run_memory(
+                project_a,
+                "update",
+                "--type",
+                "semantic",
+                "--fact",
+                "Project A fact",
+                "--source",
+                "test",
+                memory_home=memory_home,
+            )
+            self.run_memory(
+                project_b,
+                "update",
+                "--type",
+                "semantic",
+                "--fact",
+                "Project B fact",
+                "--source",
+                "test",
+                memory_home=memory_home,
+            )
+
+            facts_a = self.list_records(project_a, "semantic", memory_home=memory_home)
+            facts_b = self.list_records(project_b, "semantic", memory_home=memory_home)
+            self.assertEqual([row["fact"] for row in facts_a], ["Project A fact"])
+            self.assertEqual([row["fact"] for row in facts_b], ["Project B fact"])
 
     def test_learn_path_merges_index_by_default(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -388,7 +487,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
 
             self.run_memory(project, "vault-export")
 
-            dashboard = project / ".agent-memory" / "vault" / "Governance" / "Reflection Quality.md"
+            dashboard = self.project_memory_dir(project) / "vault" / "Governance" / "Reflection Quality.md"
             self.assertTrue(dashboard.exists())
             self.assertIn("missing_trigger_condition", dashboard.read_text(encoding="utf-8"))
 
@@ -471,7 +570,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
 
             self.run_memory(project, "vault-export")
 
-            dashboard = project / ".agent-memory" / "vault" / "Governance" / "Query Misses.md"
+            dashboard = self.project_memory_dir(project) / "vault" / "Governance" / "Query Misses.md"
             self.assertTrue(dashboard.exists())
             self.assertIn("unanswered-question", dashboard.read_text(encoding="utf-8"))
 
@@ -742,7 +841,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             )
             self.run_memory(project, "learn-path", "--path", ".")
 
-            db_path = project / ".agent-memory" / "memory.db"
+            db_path = self.project_memory_dir(project) / "memory.db"
             with sqlite3.connect(db_path) as conn:
                 project_id = conn.execute("SELECT project_id FROM projects").fetchone()[0]
                 for index in range(25):
@@ -855,8 +954,8 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
 
             self.run_memory(project, "vault-export")
 
-            logs = project / ".agent-memory" / "vault" / "Codebase Wiki" / "log-statements.md"
-            edges = project / ".agent-memory" / "vault" / "Codebase Wiki" / "memory-edges.md"
+            logs = self.project_memory_dir(project) / "vault" / "Codebase Wiki" / "log-statements.md"
+            edges = self.project_memory_dir(project) / "vault" / "Codebase Wiki" / "memory-edges.md"
             self.assertTrue(logs.exists())
             self.assertTrue(edges.exists())
             self.assertIn("retrying job %s", logs.read_text(encoding="utf-8"))

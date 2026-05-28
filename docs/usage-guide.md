@@ -34,10 +34,17 @@ python install.py --project . --local-skills
 This creates:
 
 ```text
-.agent-memory/
+~/.agent-memory/
+  config.json
+  projects/<project_id>/
+    memory.db
+    runtime/
+    vault/
 .agent-skills/
 tools/agent_memory.py
 ```
+
+The project directory is the code source. Memory data is stored in the global memory home. Override it with `--memory-home <path>` or `AGENT_MEMORY_HOME=<path>`.
 
 Verify:
 
@@ -341,7 +348,7 @@ python tools/agent_memory.py vault-export --project .
 Open this directory in Obsidian:
 
 ```text
-.agent-memory/vault/
+~/.agent-memory/projects/<project_id>/vault/
 ```
 
 Obsidian is a read-only review mirror in the MVP. Edit memory through skills or CLI commands, then export again.
