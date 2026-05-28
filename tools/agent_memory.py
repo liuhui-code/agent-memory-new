@@ -580,6 +580,76 @@ def score_text(query_tokens: list[str], text: str) -> int:
     return sum(1 for token in query_tokens if token in lowered)
 
 
+def unique_list(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for value in values:
+        normalized = value.strip().lower()
+        if not normalized or normalized in seen:
+            continue
+        seen.add(normalized)
+        result.append(normalized)
+    return result
+
+
+def terms_from_text(text: str) -> list[str]:
+    return [token for token in tokenize(text) if token]
+
+
+def code_search_terms(kind: str, row: sqlite3.Row | dict[str, Any]) -> list[str]:
+    get = row.get if isinstance(row, dict) else lambda key, default=None: row[key] if key in row.keys() else default
+    terms: list[str] = []
+    file_path = str(get("file_path") or "")
+    language = str(get("language") or "")
+    summary = str(get("summary") or "")
+    symbol = str(get("symbol") or "")
+    symbol_type = str(get("symbol_type") or "")
+    level = str(get("level") or "")
+    logger = str(get("logger") or "")
+    message_template = str(get("message_template") or "")
+    function = str(get("function") or "")
+    raw_statement = str(get("raw_statement") or "")
+    terms.extend([file_path, language, summary, symbol, symbol_type, level, logger, message_template, function])
+    terms.extend(terms_from_text(" ".join(terms + [raw_statement])))
+    if language == "ArkTS" or file_path.endswith(".ets"):
+        terms.extend(["arkts", "harmonyos", "ets", "component", "page"])
+    if symbol_type == "route" or "routes:" in summary.lower():
+        terms.extend(["route", "routes", "router", "pushurl", "replaceurl", "navigation", "page", "pages"])
+    if symbol_type == "resource" or "resources:" in summary.lower() or symbol.startswith("app."):
+        terms.extend(["resource", "resources", "media", "image", "string", "app.media", "app.string", "$r"])
+    if kind == "log_statement":
+        terms.extend(["log", "logger", "console", "hilog", "debug", "error", "warning", "failed", "failure"])
+    return unique_list(terms)
+
+
+def score_weighted_fields(
+    query: str,
+    tokens: list[str],
+    expanded_terms: set[str],
+    weighted_fields: list[tuple[str, str, float]],
+    exact_fields: list[tuple[str, str, float]],
+) -> tuple[float, list[str]]:
+    query_lower = query.strip().lower()
+    score = 0.0
+    reasons: list[str] = []
+    for reason, value, weight in exact_fields:
+        lowered = value.lower()
+        if query_lower and lowered and (query_lower in lowered or lowered in query_lower):
+            score += weight
+            reasons.append(reason)
+    for reason, value, weight in weighted_fields:
+        lowered = value.lower()
+        matched = [token for token in tokens if token and token in lowered]
+        if not matched:
+            continue
+        score += len(matched) * weight
+        if any(token in expanded_terms for token in matched):
+            reasons.append(f"expanded_query:{reason}")
+        else:
+            reasons.append(reason)
+    return score, unique_list(reasons)
+
+
 def row_dict(row: sqlite3.Row) -> dict[str, Any]:
     return {key: row[key] for key in row.keys()}
 
@@ -598,6 +668,8 @@ def memory_warning(item: dict[str, Any]) -> str | None:
 
 def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, Any]]]:
     tokens = query_tokens(query)
+    original_terms = set(tokenize(query))
+    expanded_terms = set(tokens) - original_terms
     results: dict[str, list[dict[str, Any]]] = {
         "semantic_facts": [],
         "reflections": [],
@@ -659,10 +731,17 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
         ).fetchall()
 
     for row in semantic:
-        score = score_text(tokens, row["fact"])
+        score, reasons = score_weighted_fields(
+            query,
+            tokens,
+            expanded_terms,
+            [("semantic_fact", row["fact"], 1.0)],
+            [("exact_semantic_fact", row["fact"], 2.0)],
+        )
         if score:
             item = row_dict(row)
             item["score"] = score + float(row["confidence"] or 0)
+            item["match_reasons"] = reasons
             item["warning"] = memory_warning(item)
             results["semantic_facts"].append(item)
 
@@ -671,50 +750,107 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             str(row[key] or "")
             for key in ("task", "summary", "mistake", "lesson", "future_rule")
         )
-        score = score_text(tokens, text)
+        score, reasons = score_weighted_fields(
+            query,
+            tokens,
+            expanded_terms,
+            [("reflection", text, 1.0)],
+            [("exact_reflection", text, 2.0)],
+        )
         if score:
             item = row_dict(row)
             item["score"] = score
+            item["match_reasons"] = reasons
             item["warning"] = memory_warning(item)
             results["reflections"].append(item)
 
     for row in episodes:
         text = f"{row['task']} {row['summary']} {row['outcome'] or ''}"
-        score = score_text(tokens, text)
+        score, reasons = score_weighted_fields(
+            query,
+            tokens,
+            expanded_terms,
+            [("episode", text, 0.8)],
+            [("exact_episode", text, 1.5)],
+        )
         if score:
             item = row_dict(row)
             item["score"] = score
+            item["match_reasons"] = reasons
             item["warning"] = memory_warning(item)
             results["episodes"].append(item)
 
     for row in files:
-        text = f"{row['file_path']} {row['summary'] or ''} {row['language'] or ''}"
-        score = score_text(tokens, text)
+        search_terms = code_search_terms("file", row)
+        score, reasons = score_weighted_fields(
+            query,
+            tokens,
+            expanded_terms,
+            [
+                ("file_path", row["file_path"], 3.0),
+                ("file_summary", row["summary"] or "", 1.0),
+                ("file_language", row["language"] or "", 0.6),
+                ("search_terms", " ".join(search_terms), 0.8),
+            ],
+            [("exact_file_path", row["file_path"], 12.0)],
+        )
         if score:
             item = row_dict(row)
             item["kind"] = "file"
             item["score"] = score
+            item["search_terms"] = search_terms
+            item["match_reasons"] = reasons
             results["wiki_matches"].append(item)
 
     for row in symbols:
-        text = f"{row['file_path']} {row['symbol']} {row['symbol_type'] or ''} {row['summary'] or ''}"
-        score = score_text(tokens, text)
+        search_terms = code_search_terms("symbol", row)
+        score, reasons = score_weighted_fields(
+            query,
+            tokens,
+            expanded_terms,
+            [
+                ("file_path", row["file_path"], 2.0),
+                ("symbol", row["symbol"], 4.0),
+                ("symbol_type", row["symbol_type"] or "", 2.0),
+                ("symbol_summary", row["summary"] or "", 1.5),
+                ("search_terms", " ".join(search_terms), 1.0),
+            ],
+            [
+                ("exact_symbol", row["symbol"], 12.0),
+                ("exact_file_path", row["file_path"], 4.0),
+            ],
+        )
         if score:
             item = row_dict(row)
             item["kind"] = "symbol"
             item["score"] = score
+            item["search_terms"] = search_terms
+            item["match_reasons"] = reasons
             results["wiki_matches"].append(item)
 
     for row in logs:
-        text = " ".join(
-            str(row[key] or "")
-            for key in ("file_path", "function", "level", "logger", "message_template", "raw_statement")
+        search_terms = code_search_terms("log_statement", row)
+        score, reasons = score_weighted_fields(
+            query,
+            tokens,
+            expanded_terms,
+            [
+                ("log_message", row["message_template"], 3.0),
+                ("log_context", " ".join(str(row[key] or "") for key in ("file_path", "function", "level", "logger", "raw_statement")), 1.2),
+                ("search_terms", " ".join(search_terms), 1.0),
+            ],
+            [
+                ("exact_log_message", row["message_template"], 12.0),
+                ("exact_file_path", row["file_path"], 4.0),
+                ("exact_function", row["function"] or "", 5.0),
+            ],
         )
-        score = score_text(tokens, text)
         if score:
             item = row_dict(row)
             item["kind"] = "log_statement"
             item["score"] = score
+            item["search_terms"] = search_terms
+            item["match_reasons"] = reasons
             results["code_log_matches"].append(item)
 
     edge_targets: dict[str, set[int]] = {

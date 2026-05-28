@@ -896,6 +896,8 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                 if item.get("symbol") == "pages/Detail" or item.get("file_path") == "pages/Index.ets"
             ]
             self.assertTrue(matched)
+            self.assertTrue(any(item.get("match_reasons") for item in matched))
+            self.assertTrue(any("expanded_query" in reason for item in matched for reason in item["match_reasons"]))
 
     def test_chinese_problem_query_expands_to_arkts_resource_and_log_context(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -923,12 +925,48 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertTrue(
                 any(item.get("symbol") == "app.media.logo" for item in resource_data["wiki_matches"])
             )
+            resource_match = next(item for item in resource_data["wiki_matches"] if item.get("symbol") == "app.media.logo")
+            self.assertIn("resource", resource_match["search_terms"])
 
             log_result = self.run_memory(project, "context", "--query", "加载用户资料失败日志", "--json")
             log_data = json.loads(log_result.stdout)
             self.assertTrue(
                 any(item.get("message_template") == "load profile failed" for item in log_data["code_log_matches"])
             )
+            log_match = next(item for item in log_data["code_log_matches"] if item.get("message_template") == "load profile failed")
+            self.assertTrue(any("log" in reason for reason in log_match["match_reasons"]))
+
+    def test_query_reranks_exact_file_path_above_expanded_summary_match(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Index.ets").write_text(
+                "import router from '@ohos.router';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index {\n"
+                "  openDetail() {\n"
+                "    router.pushUrl({ url: 'pages/Detail' });\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            (project / "pages" / "Detail.ets").write_text(
+                "@Entry\n"
+                "@Component\n"
+                "struct Detail {\n"
+                "  build() {}\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages")
+
+            result = self.run_memory(project, "context", "--query", "pages/Detail.ets", "--json")
+            data = json.loads(result.stdout)
+
+            self.assertEqual(data["wiki_matches"][0]["file_path"], "pages/Detail.ets")
+            self.assertIn("exact_file_path", data["wiki_matches"][0]["match_reasons"])
 
     def test_arkts_memory_edges_connect_imports_routes_and_resources(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

@@ -91,6 +91,15 @@ evidence_chains  -> readable explanations for returned edges
 network_limits   -> bounds; never ask for unbounded graph traversal
 ```
 
+For `wiki_matches` and `code_log_matches`, inspect:
+
+```text
+search_terms    -> generated anchors and platform/problem terms used for retrieval
+match_reasons   -> why the row matched, such as exact_file_path, exact_symbol, exact_log_message, or expanded_query:...
+```
+
+Prefer anchors with exact or log-related `match_reasons` for recursive follow-up queries.
+
 ## Log Query Rule
 
 If the user provides a real log, error message, console output, hilog text, or stack trace:

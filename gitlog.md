@@ -743,3 +743,34 @@ Verification:
 
 Rollback notes:
 - Remove query miss recurrence columns, upsert logic, wiki export page, index link, and related tests/docs.
+
+## 2026-05-28 - Add search terms and match reasons for query results
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `docs/usage-guide.md`
+- `docs/templates/memory-query-answer-skill-template.md`
+- `skills/agent-memory-query/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added generated `search_terms` to code wiki and code log query results.
+- Added `match_reasons` explaining exact file, exact symbol, exact log, expanded query, and field-level matches.
+- Replaced flat text scoring with lightweight multi-field scoring for files, symbols, logs, facts, reflections, and episodes.
+- Added reranking so exact file path matches outrank broader expanded summary matches.
+- Updated query guidance so Agents use reasons and terms as recursive query anchors.
+
+Why:
+- Make search results more explainable and let Agents refine follow-up queries from high-signal anchors instead of guessing.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tests/test_agent_memory.py install.py`
+- Result: passed.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 48 tests passed.
+- Command: `git diff --check`
+- Result: clean.
+
+Rollback notes:
+- Remove `code_search_terms`, `score_weighted_fields`, result `search_terms` / `match_reasons`, reranking tests, and related docs.

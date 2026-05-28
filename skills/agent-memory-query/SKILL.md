@@ -42,6 +42,8 @@ python tools/agent_memory.py wiki-search --project . --query "<query>" --json
 
 When the query is an observed error, print, or console message, inspect `code_log_matches` and `edge_matches` from `context` or `search`. `wiki-search` may return matching log statements with `kind: "log_statement"`.
 
+Code and log matches include `search_terms` and `match_reasons`. Use `match_reasons` to explain why a record was retrieved, and use high-signal `search_terms` as anchors for a sharper follow-up query.
+
 `context` also includes `network_limits` and may include compact `evidence_chains`. Treat these chains as one-hop explanations, not complete graph paths.
 
 If `context`, `search`, or `wiki-search` returns no results, the runtime records a query miss automatically. Do not add manual keywords just to improve retrieval; let maintain review real misses later.

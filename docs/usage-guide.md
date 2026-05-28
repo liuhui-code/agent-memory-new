@@ -176,6 +176,8 @@ The runtime also performs lightweight query expansion before matching. It maps c
 
 This is deterministic keyword expansion, not a vector database. If the first result is broad, the Agent should query again with matched anchors such as file paths, route names, resources, log templates, or function names.
 
+Code and log matches include `search_terms` and `match_reasons`. `search_terms` expose the generated anchors used for retrieval. `match_reasons` explain whether a row matched by exact file path, exact symbol, log text, expanded query terms, or broader summary text.
+
 When diagnosing an error message or observed output, query the message text directly. `context` may return `code_log_matches` and `edge_matches` that point to the likely file and function.
 
 Ask:
