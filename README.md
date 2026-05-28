@@ -58,7 +58,7 @@ Local Agent / LLM
   -> ~/.agent-memory/projects/<project_id>/vault/
 ```
 
-The learned project directory is the input source. Memory data is stored under a configurable global memory home, not inside the learned project. Resolution order is `--memory-home`, `AGENT_MEMORY_HOME`, then `~/.agent-memory`.
+`--project` selects the memory archive and query context. Learning commands may use `--source` to read code from any external project path into the current archive. Memory data is stored under a configurable global memory home. Resolution order is `--memory-home`, `AGENT_MEMORY_HOME`, then `~/.agent-memory`.
 
 ## Quick Start
 
@@ -85,6 +85,13 @@ Learn a local project scope:
 ```bash
 python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.py --depth 2 --json
 python tools/agent_memory.py learn-path --project . --path skills --json
+```
+
+Learn an external project into the current archive:
+
+```bash
+python tools/agent_memory.py learn-entry --project . --source /path/to/app --entry entry/src/main/ets/pages/Index.ets --depth 2 --json
+python tools/agent_memory.py learn-path --project . --source /path/to/app --path entry/src/main/ets --json
 ```
 
 Learning returns `parse_stats` with file, language, symbol, log, and edge counts. It also records log-like statements in code, such as `logger.error(...)`, `console.warn(...)`, ArkTS `hilog.info(...)`, and `print(...)`, then connects them to the learned file and nearest detected function. For HarmonyOS projects, it also indexes `.json5` module/package config, ArkTS router targets, and `$r(...)` resource references.
@@ -141,8 +148,11 @@ python tools/agent_memory.py init --project .
 python tools/agent_memory.py doctor --project .
 
 python tools/agent_memory.py learn-entry --project . --entry "<file>" --depth 2 --json
+python tools/agent_memory.py learn-entry --project . --source "<external-project>" --entry "<file>" --depth 2 --json
 python tools/agent_memory.py learn-path --project . --path "<directory>" --json
+python tools/agent_memory.py learn-path --project . --source "<external-project>" --path "<directory>" --json
 python tools/agent_memory.py wiki-index --project .
+python tools/agent_memory.py wiki-index --project . --source "<external-project>"
 
 python tools/agent_memory.py context --project . --query "..." --json
 python tools/agent_memory.py search --project . --query "..." --json
@@ -258,13 +268,20 @@ python install.py --project . --local-skills
 python tools/agent_memory.py doctor --project .
 ```
 
-默认记忆会写入 `~/.agent-memory/projects/<project_id>/`，不会写入被学习项目的 `.agent-memory/`。可通过 `--memory-home` 或 `AGENT_MEMORY_HOME` 修改全局记忆目录。
+默认记忆会写入 `~/.agent-memory/projects/<project_id>/`，不会写入被学习项目的 `.agent-memory/`。`--project` 表示当前记忆档案和查询上下文；学习外部项目时用 `--source /path/to/project`。可通过 `--memory-home` 或 `AGENT_MEMORY_HOME` 修改全局记忆目录。
 
 学习局部代码：
 
 ```bash
 python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.py --depth 2 --json
 python tools/agent_memory.py learn-path --project . --path skills --json
+```
+
+把外部项目学习到当前记忆档案：
+
+```bash
+python tools/agent_memory.py learn-entry --project . --source /path/to/app --entry entry/src/main/ets/pages/Index.ets --depth 2 --json
+python tools/agent_memory.py learn-path --project . --source /path/to/app --path entry/src/main/ets --json
 ```
 
 学习命令会返回 `parse_stats`，包含文件、语言、符号、日志和边数量统计。学习代码时也会记录代码里的日志输出语句，例如 `logger.error(...)`、`console.warn(...)`、ArkTS `hilog.info(...)`、`print(...)`，并把它们连接到对应文件和最近的函数。对 HarmonyOS 项目，还会索引 `.json5` 模块/依赖配置、ArkTS 路由目标和 `$r(...)` 资源引用。

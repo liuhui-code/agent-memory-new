@@ -9,7 +9,7 @@ Use this skill to add part of a project to the memory system.
 
 Prefer natural language from the user, then choose the narrowest runtime command.
 
-The project path is only the source scope. Learned data is saved under the configured global memory home, not inside the project directory.
+`--project` selects the current memory archive and query context. If the code to learn lives elsewhere, pass that external source root with `--source`; learned data is still archived under `--project`.
 
 ## Entry File
 
@@ -17,6 +17,12 @@ When the user names an entry file:
 
 ```bash
 python tools/agent_memory.py learn-entry --project . --entry "<file>" --depth 2 --json
+```
+
+For an external source tree:
+
+```bash
+python tools/agent_memory.py learn-entry --project . --source "<external-project>" --entry "<file>" --depth 2 --json
 ```
 
 This merges the entry-related files into the existing codebase wiki by default. Use `--replace` only when the user asks to reset the learned code scope.
@@ -42,6 +48,12 @@ When the user names a directory:
 python tools/agent_memory.py learn-path --project . --path "<directory>" --json
 ```
 
+For an external source tree:
+
+```bash
+python tools/agent_memory.py learn-path --project . --source "<external-project>" --path "<directory>" --json
+```
+
 This merges the directory into the existing codebase wiki by default. Use `--replace` only when the user asks to replace the current learned scope.
 
 Directory learning also refreshes log statement records for the learned files.
@@ -63,10 +75,17 @@ When the user asks to refresh the whole codebase wiki:
 python tools/agent_memory.py wiki-index --project .
 ```
 
+For an external source tree:
+
+```bash
+python tools/agent_memory.py wiki-index --project . --source "<external-project>"
+```
+
 Rules:
 
 - Prefer `learn-entry` or `learn-path` over full-project `wiki-index`.
 - Use the smallest scope that satisfies the task.
+- Use `--source` when the source project is not the same as the current memory archive directory.
 - For HarmonyOS projects, prefer `.ets` page/component entry files or `entry/src/main/ets` feature directories.
 - HarmonyOS learning indexes `.json5` config, ArkTS project imports, router targets, and `$r(...)` resource references when present.
 - ArkTS learning writes readable file/symbol summaries and network edges for imports, route targets, and resources.

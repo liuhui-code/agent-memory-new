@@ -14,7 +14,7 @@ import os
 import re
 import sqlite3
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -2167,8 +2167,9 @@ def string_literals(text: str) -> list[str]:
 def wiki_index(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    files = collect_project_files(project)
-    stats = write_wiki_index(project, files, replace=True)
+    source_project = project_for_learning_source(project, args.source)
+    files = collect_project_files(source_project)
+    stats = write_wiki_index(source_project, files, replace=True)
     print(f"wiki index updated ({parse_stats_summary(stats)})")
 
 
@@ -2521,6 +2522,21 @@ def insert_memory_edge(
     )
 
 
+def resolve_learning_source(project: Project, raw_source: str | None) -> Path:
+    source = Path(raw_source).expanduser() if raw_source else project.root
+    if not source.is_absolute():
+        source = project.root / source
+    source = source.resolve()
+    if not source.exists() or not source.is_dir():
+        raise SystemExit(f"source must be a directory: {source}")
+    return source
+
+
+def project_for_learning_source(project: Project, raw_source: str | None) -> Project:
+    source = resolve_learning_source(project, raw_source)
+    return replace(project, root=source, project_name=source.name)
+
+
 def resolve_target(project: Project, raw_path: str) -> Path:
     target = Path(raw_path).expanduser()
     if not target.is_absolute():
@@ -2536,17 +2552,19 @@ def resolve_target(project: Project, raw_path: str) -> Path:
 def learn_path(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    target = resolve_target(project, args.path)
-    files = collect_path_files(project, target)
-    stats = write_wiki_index(project, files, replace=args.replace)
-    task = f"Learn path {target.relative_to(project.root)}"
+    source_project = project_for_learning_source(project, args.source)
+    target = resolve_target(source_project, args.path)
+    files = collect_path_files(source_project, target)
+    stats = write_wiki_index(source_project, files, replace=args.replace)
+    task = f"Learn path {target.relative_to(source_project.root)} from {source_project.root}"
     mode = "replaced" if args.replace else "merged"
-    summary = f"{mode.capitalize()} {len(files)} files from {target.relative_to(project.root)}"
+    summary = f"{mode.capitalize()} {len(files)} files from {target.relative_to(source_project.root)}"
     add_episode_from_values(project, task, summary, "learned")
     payload = {
-        "path": str(target.relative_to(project.root)),
+        "source": str(source_project.root),
+        "path": str(target.relative_to(source_project.root)),
         "mode": "replace" if args.replace else "merge",
-        "files": [str(path.relative_to(project.root)) for path in sorted(files)],
+        "files": [str(path.relative_to(source_project.root)) for path in sorted(files)],
         "count": len(files),
         "summary": summary,
         "parse_stats": stats,
@@ -2586,14 +2604,16 @@ def add_episode_from_values(project: Project, task: str, summary: str, outcome: 
 def learn_entry(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    entry = resolve_target(project, args.entry)
+    source_project = project_for_learning_source(project, args.source)
+    entry = resolve_target(source_project, args.entry)
     if not entry.is_file():
         raise SystemExit(f"entry must be a file: {entry}")
-    files = collect_entry_related_files(project, entry, args.depth)
-    stats = write_wiki_index(project, files, replace=args.replace)
-    rel_files = [str(path.relative_to(project.root)) for path in sorted(files)]
+    files = collect_entry_related_files(source_project, entry, args.depth)
+    stats = write_wiki_index(source_project, files, replace=args.replace)
+    rel_files = [str(path.relative_to(source_project.root)) for path in sorted(files)]
     payload = {
-        "entry": str(entry.relative_to(project.root)),
+        "source": str(source_project.root),
+        "entry": str(entry.relative_to(source_project.root)),
         "depth": args.depth,
         "mode": "replace" if args.replace else "merge",
         "files": rel_files,
@@ -2607,8 +2627,8 @@ def learn_entry(args: argparse.Namespace) -> None:
     )
     add_episode_from_values(
         project,
-        f"Learn entry {entry.relative_to(project.root)}",
-        f"{'Replaced' if args.replace else 'Merged'} {len(rel_files)} files related to {entry.relative_to(project.root)} with depth {args.depth}",
+        f"Learn entry {entry.relative_to(source_project.root)} from {source_project.root}",
+        f"{'Replaced' if args.replace else 'Merged'} {len(rel_files)} files related to {entry.relative_to(source_project.root)} with depth {args.depth}",
         "learned",
     )
     output(payload, args.json)
@@ -2966,6 +2986,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("wiki-index")
     add_project(p)
+    p.add_argument("--source")
     p.set_defaults(func=wiki_index)
 
     p = sub.add_parser("wiki-search")
@@ -2976,6 +2997,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("learn-path")
     add_project(p)
+    p.add_argument("--source")
     p.add_argument("--path", required=True)
     p.add_argument("--replace", action="store_true")
     p.add_argument("--json", action="store_true")
@@ -2983,6 +3005,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("learn-entry")
     add_project(p)
+    p.add_argument("--source")
     p.add_argument("--entry", required=True)
     p.add_argument("--depth", type=int, default=2)
     p.add_argument("--replace", action="store_true")

@@ -67,13 +67,19 @@ agent-memory-learn
   -> python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.py --depth 2 --json
 ```
 
+If the source code lives outside the current memory archive directory, keep `--project .` for the archive/query context and add `--source` for the external source root:
+
+```bash
+python tools/agent_memory.py learn-entry --project . --source /path/to/app --entry entry/src/main/ets/pages/Index.ets --depth 2 --json
+```
+
 The runtime will:
 
 ```text
 Read the entry file
-  -> extract project-local imports
+  -> extract imports relative to the source root
   -> follow related files up to depth
-  -> merge that file set into the codebase wiki
+  -> merge that file set into the current project archive's codebase wiki
   -> extract code log statements and rebuild file/function/log edges
   -> return parse_stats with file, symbol, log, language, and edge counts
   -> save an episode describing what was learned
@@ -112,6 +118,12 @@ Expected skill path:
 ```text
 agent-memory-learn
   -> python tools/agent_memory.py learn-path --project . --path skills --json
+```
+
+External directory example:
+
+```bash
+python tools/agent_memory.py learn-path --project . --source /path/to/app --path entry/src/main/ets --json
 ```
 
 Partial learning is incremental by default. A second `learn-path` call adds or refreshes that directory without removing previously learned files. Use `--replace` only for an explicit reset:
@@ -326,7 +338,9 @@ When debugging or scripting, call the runtime directly:
 
 ```bash
 python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.py --depth 2 --json
+python tools/agent_memory.py learn-entry --project . --source /path/to/app --entry entry/src/main/ets/pages/Index.ets --depth 2 --json
 python tools/agent_memory.py learn-path --project . --path skills
+python tools/agent_memory.py learn-path --project . --source /path/to/app --path entry/src/main/ets
 python tools/agent_memory.py learn-path --project . --path skills --replace
 python tools/agent_memory.py context --project . --query "..." --json
 python tools/agent_memory.py update --project . --type semantic --fact "..." --source user --confidence 1.0

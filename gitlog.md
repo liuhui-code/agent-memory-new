@@ -24,6 +24,40 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-28 - Separate learning source from memory archive
+
+Files changed:
+- `tools/agent_memory.py`
+- `tests/test_agent_memory.py`
+- `agent.md`
+- `README.md`
+- `docs/mvp-implementation-plan.md`
+- `docs/usage-guide.md`
+- `docs/runtime.md`
+- `references/schema.md`
+- `skills/agent-memory-learn/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `--source` to `learn-entry`, `learn-path`, and `wiki-index`.
+- Kept `--project` as the memory archive and query context.
+- Allowed learning code from any external source root while archiving learned files into the current project memory.
+- Kept stored code file paths relative to the learned source root.
+
+Why:
+- The project parameter should act as an archive/query context, while the learned source path may live anywhere on disk.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_learn_path_can_archive_external_source_into_current_project_memory tests.test_agent_memory.AgentMemoryRuntimeTests.test_learn_entry_follows_imports_inside_external_source_but_archives_current_project tests.test_agent_memory.AgentMemoryRuntimeTests.test_wiki_index_can_replace_archive_from_external_source`
+- Result: passes after implementation.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 43 tests passed.
+- Command: `python3 tools/agent_memory.py init --project . --memory-home /private/tmp/agent-memory-new-source-verify && python3 tools/agent_memory.py doctor --project . --memory-home /private/tmp/agent-memory-new-source-verify`
+- Result: all checks report OK after initialization.
+
+Rollback notes:
+- Remove `--source`, `project_for_learning_source`, and external-source tests to return to requiring learned paths inside `--project`.
+
 ## 2026-05-28 - Add memory-aware answer skill template
 
 Files changed:

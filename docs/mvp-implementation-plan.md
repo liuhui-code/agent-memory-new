@@ -394,8 +394,11 @@ tags:
 
 ```bash
 python tools/agent_memory.py learn-entry --project . --entry tools/agent_memory.py --depth 2 --json
+python tools/agent_memory.py learn-entry --project . --source /path/to/app --entry "<file>" --depth 2 --json
 python tools/agent_memory.py learn-path --project . --path skills
+python tools/agent_memory.py learn-path --project . --source /path/to/app --path "<directory>"
 python tools/agent_memory.py wiki-index --project .
+python tools/agent_memory.py wiki-index --project . --source /path/to/app
 python tools/agent_memory.py wiki-search --project . --query "memory" --json
 ```
 
@@ -436,8 +439,11 @@ Markdown: # headings
 
 ```bash
 python tools/agent_memory.py learn-entry --project . --entry "<file>" --depth 2 --json
+python tools/agent_memory.py learn-entry --project . --source "<external-project>" --entry "<file>" --depth 2 --json
 python tools/agent_memory.py learn-path --project . --path "<directory>"
+python tools/agent_memory.py learn-path --project . --source "<external-project>" --path "<directory>"
 python tools/agent_memory.py wiki-index --project .
+python tools/agent_memory.py wiki-index --project . --source "<external-project>"
 ```
 
 - [x] `agent-memory-query` calls:

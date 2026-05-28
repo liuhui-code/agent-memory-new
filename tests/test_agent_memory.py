@@ -157,6 +157,79 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
 
             self.assertEqual(self.list_code_files(project), {"a/one.py", "b/two.py"})
 
+    def test_learn_path_can_archive_external_source_into_current_project_memory(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            archive = root / "memory-archive"
+            source = root / "external-app"
+            archive.mkdir()
+            (source / "lib").mkdir(parents=True)
+            (source / "lib" / "main.py").write_text(
+                "def bootstrap():\n"
+                "    return 'external app'\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(archive, "learn-path", "--source", str(source), "--path", "lib", "--json")
+
+            self.assertEqual(self.list_code_files(archive), {"lib/main.py"})
+            self.assertEqual(self.list_code_files(source, memory_home=self.memory_home(archive)), set())
+            result = self.run_memory(archive, "context", "--query", "bootstrap external app", "--json")
+            payload = json.loads(result.stdout)
+            self.assertTrue(any(row["file_path"] == "lib/main.py" for row in payload["wiki_matches"]))
+
+    def test_learn_entry_follows_imports_inside_external_source_but_archives_current_project(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            archive = root / "memory-archive"
+            source = root / "external-harmony"
+            archive.mkdir()
+            (source / "pages").mkdir(parents=True)
+            (source / "model").mkdir()
+            (source / "pages" / "Index.ets").write_text(
+                "import { UserModel } from '../model/UserModel';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index { build() {} }\n",
+                encoding="utf-8",
+            )
+            (source / "model" / "UserModel.ets").write_text(
+                "export class UserModel {}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(
+                archive,
+                "learn-entry",
+                "--source",
+                str(source),
+                "--entry",
+                "pages/Index.ets",
+                "--depth",
+                "1",
+                "--json",
+            )
+
+            self.assertEqual(self.list_code_files(archive), {"pages/Index.ets", "model/UserModel.ets"})
+            self.assertEqual(self.list_code_files(source, memory_home=self.memory_home(archive)), set())
+
+    def test_wiki_index_can_replace_archive_from_external_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            archive = root / "memory-archive"
+            source = root / "external-app"
+            archive.mkdir()
+            (source / "feature").mkdir(parents=True)
+            (source / "feature" / "page.ets").write_text(
+                "@Component\n"
+                "struct FeaturePage { build() {} }\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(archive, "wiki-index", "--source", str(source))
+
+            self.assertEqual(self.list_code_files(archive), {"feature/page.ets"})
+
     def test_learn_path_replace_keeps_only_latest_scope(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)

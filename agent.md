@@ -53,7 +53,7 @@ Responsibilities:
 - `tools/agent_memory.py` is the stable local API.
 - SQLite is the machine-readable source of truth.
 - Obsidian Markdown is a read-only human review mirror.
-- The learned project directory is the input source; memory data is stored in a configurable global memory home.
+- `--project` selects the memory archive and query context. `--source` on learning commands can point at any external source tree to learn into that archive.
 - Natural language plus skills is the intended user interface; direct CLI usage is the backend and debugging interface.
 
 ## Runtime Commands
@@ -71,9 +71,12 @@ python tools/agent_memory.py reflect --project . --task "..." --summary "..." --
 python tools/agent_memory.py reflect-review --project . --json
 python tools/agent_memory.py vault-export --project .
 python tools/agent_memory.py learn-entry --project . --entry "<file>" --depth 2 --json
+python tools/agent_memory.py learn-entry --project . --source "<external-project>" --entry "<file>" --depth 2 --json
 python tools/agent_memory.py learn-path --project . --path "<directory>"
+python tools/agent_memory.py learn-path --project . --source "<external-project>" --path "<directory>"
 python tools/agent_memory.py learn-path --project . --path "<directory>" --replace
 python tools/agent_memory.py wiki-index --project .
+python tools/agent_memory.py wiki-index --project . --source "<external-project>"
 python tools/agent_memory.py wiki-search --project . --query "..." --json
 python tools/agent_memory.py list --project . --type code-log --json
 python tools/agent_memory.py list --project . --type memory-edge --json
