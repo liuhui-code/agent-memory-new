@@ -44,6 +44,7 @@ def table_for_type(kind: str) -> str:
         "code-symbol": "code_symbols",
         "code-log": "code_log_statements",
         "memory-edge": "memory_edges",
+        "reflection-reuse": "reflection_reuse_events",
     }
     if kind not in tables:
         raise SystemExit(f"unsupported type: {kind}")

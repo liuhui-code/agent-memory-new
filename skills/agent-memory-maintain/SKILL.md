@@ -49,6 +49,19 @@ When the user asks to clean, organize, review, or govern memory:
 
 If an action has `command: null`, draft the needed replacement fact or lesson first, then ask for confirmation.
 
+When `maintain-plan` returns `promote_experience_candidate`, review the reflection as reusable experience. Check `candidate_fields`, `verification_method`, `source_cases`, and `skill_candidate`; do not promote it automatically.
+
+When `maintain-plan` returns `review_query_miss`, inspect `suggested_fixes`:
+
+```text
+learn_missing_scope
+add_business_terms
+rewrite_reflection
+ignore_noise
+```
+
+Choose the smallest fix. A miss caused by missing code context should trigger `agent-memory-learn`; a miss caused by weak business meaning should trigger `learn-business`; a miss caused by absent experience should trigger `agent-memory-reflect`; irrelevant misses can be marked ignored.
+
 ## Governance Actions
 
 Mark a record stale, archived, rejected, merged, or active:
@@ -132,5 +145,6 @@ Rules:
 - Merge only when the replacement fact is more precise than all source facts.
 - Promote only durable lessons, not task logs.
 - Treat `rewrite_reflection` and `mark_stale` actions from `maintain-plan` as confirmation-required reflection quality actions.
-- Treat `review_query_miss` actions as low-risk signals that may require learning a missing path or adding a durable fact.
-- Vault export includes generated code log statement and memory edge pages for review.
+- Treat `promote_experience_candidate` as a review signal, not an automatic promotion.
+- Treat `review_query_miss` actions as low-risk signals that may require learning a missing path, adding business terms, rewriting a reflection, or ignoring noise.
+- Vault export includes generated code log statement, memory edge, query miss, reflection quality, and experience candidate pages for review.

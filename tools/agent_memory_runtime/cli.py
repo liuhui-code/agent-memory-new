@@ -75,7 +75,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--applies-to")
     p.add_argument("--does-not-apply-to")
     p.add_argument("--used-reflection-ids")
-    p.add_argument("--reflection-outcome")
+    p.add_argument("--reflection-outcome", choices=["helped", "partial", "misleading", "unused"])
     p.set_defaults(func=command("reflect"))
 
     p = sub.add_parser("reflect-review")
@@ -89,7 +89,16 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument(
         "--type",
         required=True,
-        choices=["semantic", "reflection", "episode", "code-file", "code-symbol", "code-log", "memory-edge"],
+        choices=[
+            "semantic",
+            "reflection",
+            "episode",
+            "code-file",
+            "code-symbol",
+            "code-log",
+            "memory-edge",
+            "reflection-reuse",
+        ],
     )
     p.add_argument("--limit", type=int, default=50)
     p.add_argument("--json", action="store_true")

@@ -130,6 +130,12 @@ The payload stores the Agent-authored task review in `reflections`:
   "context_used": ["query: profile blank page route", "file: pages/Home.ets", "log: router.pushUrl failed"],
   "what_worked": ["Search by business page name", "Check route edges"],
   "what_failed": ["Searching only generic blank-screen terms"],
+  "hidden_assumptions": ["The blank screen happened after route navigation."],
+  "negative_preconditions": ["Do not apply when no navigation occurred."],
+  "verification_method": "Confirm route registration, inspect router logs, and reproduce navigation.",
+  "reuse_feedback": "experience candidate until reused",
+  "source_cases": ["episode:12", "reflection:7", "file: pages/Home.ets"],
+  "skill_candidate": "arkts-route-blank-screen-diagnosis",
   "lesson": "ArkTS blank-screen diagnosis should combine business page names with route terms.",
   "future_rule": "When a HarmonyOS page opens blank after navigation, query business page terms plus route/router terms first.",
   "trigger_condition": "Page opens blank after route navigation",
@@ -138,6 +144,10 @@ The payload stores the Agent-authored task review in `reflections`:
 ```
 
 These fields participate in `search` and `context`, so later issue-location or design skills can retrieve successful and failed attempts by problem description, business term, file, log, or prior query.
+
+The extra experience-candidate fields do not create accepted experience by themselves.
+Future Agents must verify them against current source, logs, tests, and code wiki
+evidence before using them as conclusions.
 
 # 4. Code Learning Path
 
@@ -183,4 +193,4 @@ Reflection quality belongs to `agent-memory-reflect` and is reviewed through:
 python tools/agent_memory.py reflect-review --project . --json
 ```
 
-`reflect-review` is read-only. It reports missing trigger conditions, missing repair actions, vague rules, unused reflections, and misleading outcomes.
+`reflect-review` is read-only. It reports missing trigger conditions, missing repair actions, missing hidden assumptions, missing negative preconditions, missing verification methods, missing reuse feedback, vague rules, unused reflections, and misleading outcomes.

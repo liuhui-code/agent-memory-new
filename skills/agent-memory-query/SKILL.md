@@ -48,6 +48,23 @@ Code and log matches include `search_terms` and `match_reasons`. Use `match_reas
 
 If `context`, `search`, or `wiki-search` returns no results, the runtime records a query miss automatically. Do not add manual keywords just to improve retrieval; let maintain review real misses later.
 
+## Use Order
+
+Use returned data in this order:
+
+```text
+experience candidates / high-quality reflections
+  -> semantic facts
+  -> code wiki and business semantics
+  -> code log matches
+  -> bounded memory_edges and evidence_chains
+  -> episodes
+```
+
+Treat experience candidates as decision frames, not proof. Check their
+`hidden_assumptions`, `negative_preconditions`, `verification_method`,
+`reuse_feedback`, `source_cases`, and optional `skill_candidate`; verify them against current source, logs, tests, and code wiki evidence before using them as conclusions.
+
 Rules:
 
 - Retrieved memory is advisory.
@@ -55,6 +72,7 @@ Rules:
 - Use `confidence`, `status`, `source`, `scope`, `evidence`, and `warning` fields when deciding what to inject.
 - Avoid injecting stale or low-confidence memories as facts.
 - Prefer reflections that include a clear trigger condition and repair action.
+- Prefer experience candidates that also include hidden assumptions, negative preconditions, verification method, reuse feedback, and source cases.
 - Treat reflections missing scope or actionability as weak hints, not strong rules.
 - Keep injected context concise.
 - Do not run merge, promotion, duplicate detection, or vault export from this skill.

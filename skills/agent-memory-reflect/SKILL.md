@@ -11,6 +11,10 @@ The local Agent CLI must lead the reflection. After one successful or failed dia
 design, execution, or workflow attempt, first organize the task into structured data.
 Then call the runtime to store it.
 
+A reflection is an experience candidate, not accepted experience. The Agent must capture
+the assumptions, invalid cases, verification method, source cases, and reuse feedback
+needed for future Agents to decide whether the lesson should transfer.
+
 ## Save Agent-Structured Reflection
 
 Prefer this JSON payload form when the Agent has enough context:
@@ -38,6 +42,23 @@ python tools/agent_memory.py reflect \
     "what_failed": [
       "Searching only generic blank-screen terms was too broad."
     ],
+    "hidden_assumptions": [
+      "The page blanked after route navigation, not during static rendering.",
+      "The destination page was expected to be registered."
+    ],
+    "negative_preconditions": [
+      "Do not apply when no route navigation occurred.",
+      "Do not apply to pure layout visibility bugs."
+    ],
+    "verification_method": "Confirm route registration, inspect router logs, and reproduce navigation.",
+    "reuse_feedback": "experience candidate until reused on another route issue",
+    "source_cases": [
+      "episode:profile-route-mismatch",
+      "reflection:#3",
+      "file: entry/src/main/ets/pages/Home.ets",
+      "log: router.pushUrl failed"
+    ],
+    "skill_candidate": "arkts-route-blank-screen-diagnosis",
     "mistake": "The first query omitted the business page name.",
     "lesson": "ArkTS blank-screen diagnosis should combine the business page name with route terms.",
     "future_rule": "When a HarmonyOS page opens blank after navigation, query business page terms plus route/router terms first.",
@@ -104,6 +125,17 @@ python tools/agent_memory.py reflect \
   --reflection-outcome helped
 ```
 
+Valid `--reflection-outcome` values:
+
+- `helped`
+- `partial`
+- `misleading`
+- `unused`
+
+This writes an auditable reuse event for each used reflection and updates the
+older reflection's aggregate reuse fields. Use `misleading` when the earlier
+reflection made the current task worse; maintain can later mark it stale.
+
 ## Review Reflection Quality
 
 ```bash
@@ -134,6 +166,13 @@ Rules:
 - Store durable lessons, not transcripts.
 - Let the Agent summarize its own reasoning, evidence, failed attempts, and useful context before writing.
 - Prefer `--payload` or `--payload-file` after a real task because structured fields improve future query recall.
+- Treat every structured reflection as an experience candidate until it has reuse feedback and verification evidence.
+- Include `hidden_assumptions` so future Agents can see why the conclusion might fail.
+- Include `negative_preconditions` so similar-looking but different problems do not inherit the wrong rule.
+- Include `verification_method` so future Agents know how to check the candidate against current source, logs, tests, or code wiki evidence.
+- Include `source_cases` with episode ids, reflection ids, files, logs, routes, resources, or commands that support the candidate.
+- Include `reuse_feedback` when a previous reflection or candidate helped, partly helped, misled, or was unused.
+- Include `skill_candidate` when the reflection looks like a reusable process template, but do not generate a new skill automatically.
 - Do not store secrets, credentials, or private tokens.
 - Use semantic facts for explicit user instructions.
 - Use reflections for task outcomes, mistakes, and future rules.

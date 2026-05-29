@@ -95,11 +95,13 @@ After the first MVP, the next layer is memory governance and consolidation. Keep
 - guided review plans that propose confirmable actions without mutating memory
 - reflection quality review and reuse feedback
 - structured Agent-authored reflection payloads for diagnosis, design, execution, and workflow attempts
+- experience-candidate reflection fields: hidden assumptions, negative preconditions, verification method, reuse feedback, source cases, and optional skill candidate
 - query miss feedback for completely failed retrievals
 - manual merge and episode-to-fact promotion
 - generated Obsidian governance dashboard pages
 
 See `docs/phase-2-memory-governance-plan.md`.
+See `docs/experience-system-plan.md` for the experience layer direction above raw memory.
 
 Partial learning behavior:
 

@@ -19,6 +19,7 @@ REQUIRED_TABLES = {
     "code_log_statements",
     "memory_edges",
     "query_misses",
+    "reflection_reuse_events",
 }
 
 VAULT_DIRS = [
@@ -98,6 +99,12 @@ GOVERNANCE_COLUMNS = {
         ("context_used", "TEXT"),
         ("what_worked", "TEXT"),
         ("what_failed", "TEXT"),
+        ("hidden_assumptions", "TEXT"),
+        ("negative_preconditions", "TEXT"),
+        ("verification_method", "TEXT"),
+        ("reuse_feedback", "TEXT"),
+        ("source_cases", "TEXT"),
+        ("skill_candidate", "TEXT"),
         ("scope", "TEXT"),
         ("confidence", "REAL DEFAULT 0.8"),
         ("evidence", "TEXT"),

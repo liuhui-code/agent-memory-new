@@ -24,6 +24,73 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-29 - Start experience candidate loop
+
+Files changed:
+- `docs/experience-system-plan.md`
+- `docs/guided-memory-review-workflow.md`
+- `docs/reflection-quality-loop.md`
+- `docs/runtime.md`
+- `docs/mvp-implementation-plan.md`
+- `docs/phase-2-memory-governance-plan.md`
+- `references/schema.md`
+- `references/obsidian-vault.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `skills/agent-memory-reflect/SKILL.md`
+- `skills/agent-memory-query/SKILL.md`
+- `docs/usage-guide.md`
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/models.py`
+- `tools/agent_memory_runtime/storage.py`
+- `tools/agent_memory_runtime/records.py`
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/vault.py`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Added the experience system plan and defined Phase One as the `Experience Candidate Loop`.
+- Extended structured reflections with `hidden_assumptions`, `negative_preconditions`, `verification_method`, `reuse_feedback`, `source_cases`, and `skill_candidate`.
+- Made the new fields persist in the existing `reflections` table through schema migration columns.
+- Included the new fields in reflection query matching and reflection quality review.
+- Updated reflect/query skill instructions so Agents treat reflections as experience candidates and verify them against current evidence.
+- Added `promote_experience_candidate` maintain-plan actions for complete structured reflections.
+- Added `suggested_fixes` to query miss review actions: learn missing scope, add business terms, rewrite reflection, or ignore noise.
+- Added generated Obsidian review output at `Governance/Experience Candidates.md` and linked it from the vault index.
+- Added `reflection_reuse_events` to preserve auditable reuse feedback events behind aggregate reflection fields.
+- Restricted `--reflection-outcome` to `helped`, `partial`, `misleading`, and `unused`.
+- Added generated Obsidian review output at `Governance/Reflection Reuse.md`.
+
+Why:
+- The project distinguishes memory from experience. This change starts the experience layer without adding a new table or fifth skill.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_experience_phase_one_docs_define_candidate_protocol`
+- Result: fails before `docs/experience-system-plan.md` exists, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_reflect_payload_writes_agent_structured_task_review`
+- Result: fails before experience-candidate fields are persisted, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_promotes_complete_experience_candidates`
+- Result: fails before maintain-plan emits `promote_experience_candidate`, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_includes_open_query_miss_actions`
+- Result: fails before query miss actions include `suggested_fixes`, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_vault_export_writes_experience_candidates_dashboard`
+- Result: fails before the vault writes `Governance/Experience Candidates.md`, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_reflect_records_reuse_feedback_events`
+- Result: fails before `reflection_reuse_events` exists, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_vault_export_writes_reflection_reuse_dashboard`
+- Result: fails before the vault writes `Governance/Reflection Reuse.md`, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 61 tests passed.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile install.py tools/agent_memory.py tools/agent_memory_runtime/__init__.py tools/agent_memory_runtime/cli.py tools/agent_memory_runtime/code_wiki.py tools/agent_memory_runtime/governance.py tools/agent_memory_runtime/models.py tools/agent_memory_runtime/query.py tools/agent_memory_runtime/records.py tools/agent_memory_runtime/storage.py tools/agent_memory_runtime/text.py tools/agent_memory_runtime/vault.py tests/test_agent_memory.py`
+- Result: passes.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+- Remove the added reflection columns from `GOVERNANCE_COLUMNS`, remove the extra reflection insert/query/review fields, remove the `reflection_reuse_events` table/listing/events, remove `promote_experience_candidate`, query miss `suggested_fixes`, `Experience Candidates.md`, and `Reflection Reuse.md` vault output, delete `docs/experience-system-plan.md`, and revert the skill/doc/test updates.
+
 ## 2026-05-29 - Split code wiki runtime module
 
 Files changed:

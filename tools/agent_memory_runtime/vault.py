@@ -8,7 +8,7 @@ import sqlite3
 from datetime import datetime
 from pathlib import Path
 
-from .governance import duplicate_candidates, reflection_quality_issues
+from .governance import duplicate_candidates, is_complete_experience_candidate, reflection_quality_issues
 from .models import ACTIVE_STATUS, Project
 from .query import normalize_query_miss
 from .records import row_dict
@@ -82,6 +82,10 @@ def vault_export(args: argparse.Namespace) -> None:
         ).fetchall()
         query_misses = conn.execute(
             "SELECT * FROM query_misses WHERE project_id = ? ORDER BY id DESC",
+            (project.project_id,),
+        ).fetchall()
+        reflection_reuse_events = conn.execute(
+            "SELECT * FROM reflection_reuse_events WHERE project_id = ? ORDER BY id DESC",
             (project.project_id,),
         ).fetchall()
 
@@ -214,7 +218,7 @@ def vault_export(args: argparse.Namespace) -> None:
     daily_content += f"- Exported at {now_iso()}\n"
     write_vault_file(daily, daily_content)
 
-    write_governance_dashboard(project, facts, reflections, episodes, query_misses)
+    write_governance_dashboard(project, facts, reflections, episodes, query_misses, reflection_reuse_events)
     vault_index(args)
     print(f"vault exported to {project.vault_dir}")
 
@@ -225,11 +229,13 @@ def write_governance_dashboard(
     reflections: list[sqlite3.Row],
     episodes: list[sqlite3.Row],
     query_misses: list[sqlite3.Row],
+    reflection_reuse_events: list[sqlite3.Row],
 ) -> None:
     fact_rows = [row_dict(row) for row in facts]
     reflection_rows = [row_dict(row) for row in reflections]
     episode_rows = [row_dict(row) for row in episodes]
     query_miss_rows = [row_dict(row) for row in query_misses]
+    reflection_reuse_rows = [row_dict(row) for row in reflection_reuse_events]
     active_facts = [row for row in fact_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
     active_reflections = [row for row in reflection_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
     stale = [
@@ -302,6 +308,55 @@ def write_governance_dashboard(
         quality_doc += f"- reflection #{item['id']} {item['task']}: {', '.join(item['issues'])}\n"
     write_vault_file(project.vault_dir / "Governance" / "Reflection Quality.md", quality_doc)
 
+    experience_candidates = [
+        row for row in active_reflections
+        if is_complete_experience_candidate(row)
+    ]
+    candidates_doc = header + "# Experience Candidates\n\n" + notice
+    candidates_doc += "These reflections have enough structure to review as reusable experience. They are not accepted experience until reviewed.\n\n"
+    for row in experience_candidates[:50]:
+        candidates_doc += f"## Reflection #{row['id']}: {row['task']}\n\n"
+        if row.get("skill_candidate"):
+            candidates_doc += f"- Skill candidate: `{row['skill_candidate']}`\n"
+        if row.get("problem"):
+            candidates_doc += f"- Problem: {row['problem']}\n"
+        if row.get("trigger_condition"):
+            candidates_doc += f"- Trigger: {row['trigger_condition']}\n"
+        if row.get("verification_method"):
+            candidates_doc += f"- Verification: {row['verification_method']}\n"
+        if row.get("reuse_feedback"):
+            candidates_doc += f"- Reuse feedback: {row['reuse_feedback']}\n"
+        source_cases = json_list(row.get("source_cases"))
+        if source_cases:
+            candidates_doc += "- Source cases:\n"
+            for item in source_cases:
+                candidates_doc += f"  - {item}\n"
+        hidden_assumptions = json_list(row.get("hidden_assumptions"))
+        if hidden_assumptions:
+            candidates_doc += "- Hidden assumptions:\n"
+            for item in hidden_assumptions:
+                candidates_doc += f"  - {item}\n"
+        negative_preconditions = json_list(row.get("negative_preconditions"))
+        if negative_preconditions:
+            candidates_doc += "- Negative preconditions:\n"
+            for item in negative_preconditions:
+                candidates_doc += f"  - {item}\n"
+        candidates_doc += "\n"
+    write_vault_file(project.vault_dir / "Governance" / "Experience Candidates.md", candidates_doc)
+
+    reuse_doc = header + "# Reflection Reuse\n\n" + notice
+    reuse_doc += "These events show when a later reflection reused an earlier reflection and whether it helped.\n\n"
+    for row in reflection_reuse_rows[:50]:
+        reuse_doc += (
+            f"- reuse event #{row['id']}: reused reflection #{row['reused_reflection_id']} "
+            f"-> applying reflection #{row['applying_reflection_id']} "
+            f"({row['outcome']})"
+        )
+        if row.get("task"):
+            reuse_doc += f": {row['task']}"
+        reuse_doc += "\n"
+    write_vault_file(project.vault_dir / "Governance" / "Reflection Reuse.md", reuse_doc)
+
     misses_doc = header + "# Query Misses\n\n" + notice
     for row in query_miss_rows[:50]:
         miss_count = row.get("miss_count") or 1
@@ -352,7 +407,7 @@ def vault_index(args: argparse.Namespace) -> None:
     content += "- [[Governance/Merge Candidates]]\n"
     content += "- [[Governance/Low Confidence]]\n"
     content += "- [[Governance/Reflection Quality]]\n"
+    content += "- [[Governance/Experience Candidates]]\n"
+    content += "- [[Governance/Reflection Reuse]]\n"
     content += "- [[Governance/Query Misses]]\n"
     write_vault_file(project.vault_dir / "index.md", content)
-
-

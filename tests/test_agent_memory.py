@@ -34,6 +34,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
         self.assertEqual(reflection_quality_action(["missing_scope"]), "rewrite")
         self.assertEqual(network_limits()["max_depth"], 1)
         self.assertEqual(table_for_type("code-log"), "code_log_statements")
+        self.assertEqual(table_for_type("reflection-reuse"), "reflection_reuse_events")
         self.assertEqual(resolve_project(".", None).project_name, "agent-memory-new")
         self.assertEqual(slugify("Hello Agent Memory!", "fallback"), "hello-agent-memory")
         self.assertEqual(json_list('["profile", "avatar"]'), ["profile", "avatar"])
@@ -52,6 +53,34 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
         ]
 
         self.assertEqual([], missing)
+
+    def test_experience_phase_one_docs_define_candidate_protocol(self) -> None:
+        plan = (REPO_ROOT / "docs" / "experience-system-plan.md").read_text(encoding="utf-8")
+        reflect_skill = (REPO_ROOT / "skills" / "agent-memory-reflect" / "SKILL.md").read_text(encoding="utf-8")
+        query_skill = (REPO_ROOT / "skills" / "agent-memory-query" / "SKILL.md").read_text(encoding="utf-8")
+
+        for required in [
+            "Experience Candidate Loop",
+            "hidden_assumptions",
+            "negative_preconditions",
+            "verification_method",
+            "reuse_feedback",
+            "source_cases",
+            "skill_candidate",
+        ]:
+            self.assertIn(required, plan)
+
+        for required in [
+            "experience candidate",
+            "hidden_assumptions",
+            "verification_method",
+            "reuse_feedback",
+            "negative_preconditions",
+        ]:
+            self.assertIn(required, reflect_skill)
+
+        self.assertIn("experience candidates", query_skill)
+        self.assertIn("verify them against current source, logs, tests, and code wiki evidence", query_skill)
 
     def memory_home(self, project: Path) -> Path:
         return project.parent / f"memory-home-{project.name}"
@@ -504,6 +533,17 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                 "what_failed": [
                     "Searching only for blank screen was too broad.",
                 ],
+                "hidden_assumptions": [
+                    "The blank screen started after a successful route push.",
+                    "The destination page was expected to exist in page registration.",
+                ],
+                "negative_preconditions": [
+                    "Does not apply when the page never navigates.",
+                ],
+                "verification_method": "Confirm route registration, inspect router log, and reproduce navigation.",
+                "reuse_feedback": "candidate until reused on another route issue",
+                "source_cases": ["episode:profile-route-mismatch", "reflection:#3"],
+                "skill_candidate": "arkts-route-blank-screen-diagnosis",
                 "mistake": "The first query omitted the business page name.",
                 "lesson": "ArkTS blank-screen diagnosis should combine the business page name with route terms.",
                 "future_rule": "When a HarmonyOS page opens blank after navigation, query business page terms plus route/router terms first.",
@@ -527,6 +567,12 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(json.loads(reflection["context_used"])[0], "query: profile blank page route")
             self.assertEqual(json.loads(reflection["what_worked"])[1], "Check route edges before editing UI state.")
             self.assertEqual(json.loads(reflection["what_failed"])[0], "Searching only for blank screen was too broad.")
+            self.assertIn("successful route push", json.loads(reflection["hidden_assumptions"])[0])
+            self.assertIn("never navigates", json.loads(reflection["negative_preconditions"])[0])
+            self.assertIn("Confirm route registration", reflection["verification_method"])
+            self.assertEqual(reflection["reuse_feedback"], "candidate until reused on another route issue")
+            self.assertEqual(json.loads(reflection["source_cases"])[0], "episode:profile-route-mismatch")
+            self.assertEqual(reflection["skill_candidate"], "arkts-route-blank-screen-diagnosis")
 
     def test_search_matches_structured_reflection_payload_fields(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -583,6 +629,31 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(old_reflection["applied_count"], 1)
             self.assertEqual(old_reflection["last_outcome"], "helped")
             self.assertIsNotNone(old_reflection["last_applied_at"])
+
+    def test_reflect_records_reuse_feedback_events(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(project, "reflect", "--task", "route lesson", "--lesson", "Route bugs need route anchors.")
+            self.run_memory(project, "reflect", "--task", "log lesson", "--lesson", "Log bugs need log anchors.")
+
+            self.run_memory(
+                project,
+                "reflect",
+                "--task",
+                "combined diagnosis",
+                "--lesson",
+                "The route lesson partially helped and the log lesson also mattered.",
+                "--used-reflection-ids",
+                "1,2",
+                "--reflection-outcome",
+                "partial",
+            )
+
+            events = sorted(self.list_records(project, "reflection-reuse"), key=lambda row: row["reused_reflection_id"])
+            self.assertEqual([event["reused_reflection_id"] for event in events], [1, 2])
+            self.assertEqual([event["applying_reflection_id"] for event in events], [3, 3])
+            self.assertEqual([event["outcome"] for event in events], ["partial", "partial"])
+            self.assertEqual(events[0]["task"], "combined diagnosis")
 
     def test_reflect_review_reports_missing_actionability(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -651,6 +722,49 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
 
             self.assertTrue(any(action["action"] == "mark_stale" and action["id"] == 1 for action in actions))
 
+    def test_maintain_plan_promotes_complete_experience_candidates(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payload = {
+                "task_type": "diagnosis",
+                "outcome": "success",
+                "problem": "Settings page opens blank after route navigation.",
+                "task": "diagnose settings route blank screen",
+                "summary": "The route target was wrong.",
+                "reasoning_summary": "Route and log anchors narrowed the issue.",
+                "context_used": ["query: settings blank route", "log: router.pushUrl failed"],
+                "what_worked": ["Search page business term with route terms."],
+                "what_failed": ["Generic blank-screen search was broad."],
+                "hidden_assumptions": ["The blank screen occurred after navigation."],
+                "negative_preconditions": ["Does not apply to static layout visibility issues."],
+                "verification_method": "Check route registration, log output, and reproduce navigation.",
+                "reuse_feedback": "helped",
+                "source_cases": ["episode:settings-route-fix", "file: pages/Home.ets"],
+                "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                "lesson": "ArkTS route blank-screen diagnosis should query business page terms with route terms.",
+                "future_rule": "When a page blanks after navigation, query page business name plus router terms.",
+                "scope": "HarmonyOS ArkTS routing",
+                "evidence": "pages/Home.ets router.pushUrl",
+                "trigger_condition": "Page blanks after route navigation",
+                "anti_pattern": "Search generic blank-screen terms only",
+                "repair_action": "Query page business terms, router target, and related log template",
+                "applies_to": "ArkTS route target failures",
+                "does_not_apply_to": "Non-navigation rendering bugs",
+                "confidence": 0.9,
+            }
+            self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            actions = json.loads(result.stdout)["actions"]
+
+            action = next(
+                action for action in actions
+                if action["action"] == "promote_experience_candidate" and action["id"] == 1
+            )
+            self.assertEqual(action["skill_candidate"], "arkts-route-blank-screen-diagnosis")
+            self.assertIn("verification_method", action["candidate_fields"])
+            self.assertIsNone(action["command"])
+
     def test_maintain_promote_reflection_to_semantic_fact(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
@@ -697,6 +811,77 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             dashboard = self.project_memory_dir(project) / "vault" / "Governance" / "Reflection Quality.md"
             self.assertTrue(dashboard.exists())
             self.assertIn("missing_trigger_condition", dashboard.read_text(encoding="utf-8"))
+
+    def test_vault_export_writes_experience_candidates_dashboard(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payload = {
+                "task_type": "diagnosis",
+                "outcome": "success",
+                "problem": "Settings page opens blank after route navigation.",
+                "task": "diagnose settings route blank screen",
+                "summary": "The route target was wrong.",
+                "reasoning_summary": "Route and log anchors narrowed the issue.",
+                "context_used": ["query: settings blank route", "log: router.pushUrl failed"],
+                "what_worked": ["Search page business term with route terms."],
+                "what_failed": ["Generic blank-screen search was broad."],
+                "hidden_assumptions": ["The blank screen occurred after navigation."],
+                "negative_preconditions": ["Does not apply to static layout visibility issues."],
+                "verification_method": "Check route registration, log output, and reproduce navigation.",
+                "reuse_feedback": "helped",
+                "source_cases": ["episode:settings-route-fix", "file: pages/Home.ets"],
+                "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                "lesson": "ArkTS route blank-screen diagnosis should query business page terms with route terms.",
+                "future_rule": "When a page blanks after navigation, query page business name plus router terms.",
+                "scope": "HarmonyOS ArkTS routing",
+                "evidence": "pages/Home.ets router.pushUrl",
+                "trigger_condition": "Page blanks after route navigation",
+                "anti_pattern": "Search generic blank-screen terms only",
+                "repair_action": "Query page business terms, router target, and related log template",
+                "applies_to": "ArkTS route target failures",
+                "does_not_apply_to": "Non-navigation rendering bugs",
+                "confidence": 0.9,
+            }
+            self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            self.run_memory(project, "vault-export")
+
+            dashboard = self.project_memory_dir(project) / "vault" / "Governance" / "Experience Candidates.md"
+            index = self.project_memory_dir(project) / "vault" / "index.md"
+            self.assertTrue(dashboard.exists())
+            content = dashboard.read_text(encoding="utf-8")
+            self.assertIn("arkts-route-blank-screen-diagnosis", content)
+            self.assertIn("Check route registration", content)
+            self.assertIn("episode:settings-route-fix", content)
+            self.assertIn("[[Governance/Experience Candidates]]", index.read_text(encoding="utf-8"))
+
+    def test_vault_export_writes_reflection_reuse_dashboard(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(project, "reflect", "--task", "old diagnosis", "--lesson", "Route bugs need route anchors.")
+            self.run_memory(
+                project,
+                "reflect",
+                "--task",
+                "new diagnosis",
+                "--lesson",
+                "The old diagnosis partially helped.",
+                "--used-reflection-ids",
+                "1",
+                "--reflection-outcome",
+                "partial",
+            )
+
+            self.run_memory(project, "vault-export")
+
+            dashboard = self.project_memory_dir(project) / "vault" / "Governance" / "Reflection Reuse.md"
+            index = self.project_memory_dir(project) / "vault" / "index.md"
+            self.assertTrue(dashboard.exists())
+            content = dashboard.read_text(encoding="utf-8")
+            self.assertIn("reused reflection #1", content)
+            self.assertIn("applying reflection #2", content)
+            self.assertIn("partial", content)
+            self.assertIn("[[Governance/Reflection Reuse]]", index.read_text(encoding="utf-8"))
 
     def test_context_records_query_miss_when_all_result_sets_are_empty(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -784,6 +969,10 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
 
             action = next(action for action in actions if action["action"] == "review_query_miss" and action["id"] == 1)
             self.assertEqual(action["miss_count"], 1)
+            self.assertEqual(
+                action["suggested_fixes"],
+                ["learn_missing_scope", "add_business_terms", "rewrite_reflection", "ignore_noise"],
+            )
 
     def test_vault_export_writes_query_misses_dashboard(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

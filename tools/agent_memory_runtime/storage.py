@@ -175,6 +175,16 @@ def create_schema(conn: sqlite3.Connection) -> None:
           resolution TEXT
         );
 
+        CREATE TABLE IF NOT EXISTS reflection_reuse_events (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          reused_reflection_id INTEGER NOT NULL,
+          applying_reflection_id INTEGER NOT NULL,
+          outcome TEXT NOT NULL,
+          task TEXT,
+          created_at TEXT NOT NULL
+        );
+
         CREATE UNIQUE INDEX IF NOT EXISTS idx_code_files_project_file
         ON code_files(project_id, file_path);
 
@@ -189,6 +199,9 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_query_misses_project_normalized
         ON query_misses(project_id, source, normalized_query, status);
+
+        CREATE INDEX IF NOT EXISTS idx_reflection_reuse_project_reused
+        ON reflection_reuse_events(project_id, reused_reflection_id);
 
         CREATE INDEX IF NOT EXISTS idx_code_logs_project_file
         ON code_log_statements(project_id, file_path);

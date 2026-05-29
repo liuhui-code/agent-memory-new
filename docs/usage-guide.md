@@ -355,6 +355,19 @@ python tools/agent_memory.py reflect \
   --reflection-outcome helped
 ```
 
+Valid reuse outcomes are:
+
+```text
+helped
+partial
+misleading
+unused
+```
+
+The runtime updates the older reflection's aggregate reuse fields and writes
+auditable `reflection_reuse_events` rows. Vault export mirrors the history in
+`Governance/Reflection Reuse.md`.
+
 Review reflection quality:
 
 ```bash

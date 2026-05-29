@@ -48,11 +48,25 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 - `context_used`: JSON list of queries, files, logs, edges, or prior memories used.
 - `what_worked`: JSON list of useful actions.
 - `what_failed`: JSON list of failed or weak actions.
+- `hidden_assumptions`: JSON list of assumptions that made the lesson valid or risky.
+- `negative_preconditions`: JSON list of similar cases where the lesson should not transfer.
+- `verification_method`: concrete source, log, test, or reproduction check before reuse.
+- `reuse_feedback`: whether the candidate helped, partly helped, misled, was unused, or is still only a candidate.
+- `source_cases`: JSON list of episodes, reflections, files, logs, routes, resources, or commands behind the lesson.
+- `skill_candidate`: optional reusable process template name.
 - `trigger_condition`: when the Agent should remember the reflection.
 - `anti_pattern`: the mistake or weak pattern to avoid.
 - `repair_action`: the concrete next action.
 - `applies_to` and `does_not_apply_to`: applicability boundaries.
 - `last_applied_at`, `applied_count`, and `last_outcome`: reuse feedback from later tasks.
+
+`reflection_reuse_events` keeps the auditable reuse history behind those aggregate fields:
+
+- `reused_reflection_id`: older reflection that was used.
+- `applying_reflection_id`: new reflection that recorded the reuse feedback.
+- `outcome`: `helped`, `partial`, `misleading`, or `unused`.
+- `task`: task name from the applying reflection.
+- `created_at`: when feedback was recorded.
 
 `query_misses` track retrieval feedback:
 

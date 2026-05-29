@@ -140,6 +140,10 @@ Governance/
   Stale Memories.md
   Merge Candidates.md
   Low Confidence.md
+  Reflection Quality.md
+  Experience Candidates.md
+  Reflection Reuse.md
+  Query Misses.md
 ```
 
 These files are for review only. Edit memory through skills or runtime commands.

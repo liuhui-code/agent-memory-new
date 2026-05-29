@@ -222,6 +222,14 @@ def reflection_quality_issues(row: dict[str, Any]) -> list[str]:
         issues.append("missing_trigger_condition")
     if not row.get("repair_action"):
         issues.append("missing_repair_action")
+    if not row.get("hidden_assumptions"):
+        issues.append("missing_hidden_assumptions")
+    if not row.get("negative_preconditions"):
+        issues.append("missing_negative_preconditions")
+    if not row.get("verification_method"):
+        issues.append("missing_verification_method")
+    if not row.get("reuse_feedback"):
+        issues.append("missing_reuse_feedback")
     if is_generic_reflection_text(row.get("future_rule") or ""):
         issues.append("future_rule_too_generic")
     if is_generic_reflection_text(row.get("lesson") or ""):
@@ -264,6 +272,22 @@ def reflection_quality_action(issues: list[str]) -> str:
     if structural_issues:
         return "rewrite"
     return "observe"
+
+
+EXPERIENCE_CANDIDATE_FIELDS = [
+    "hidden_assumptions",
+    "negative_preconditions",
+    "verification_method",
+    "reuse_feedback",
+    "source_cases",
+]
+
+
+def is_complete_experience_candidate(row: dict[str, Any]) -> bool:
+    issues = set(reflection_quality_issues(row)) - {"never_applied"}
+    if issues:
+        return False
+    return all(row.get(field) for field in EXPERIENCE_CANDIDATE_FIELDS)
 
 
 def build_review_data(project: Project, limit: int) -> dict[str, Any]:
@@ -392,17 +416,34 @@ def maintain_plan(args: argparse.Namespace) -> None:
             )
 
     for row in review["unreviewed_reflections"]:
-        actions.append(
-            {
-                "action": "promote_or_mark_reviewed",
-                "type": "reflection",
-                "id": row["id"],
-                "reason": "unreviewed reflection may contain a durable lesson",
-                "risk": "medium",
-                "requires_confirmation": True,
-                "command": None,
-            }
-        )
+        if is_complete_experience_candidate(row):
+            actions.append(
+                {
+                    "action": "promote_experience_candidate",
+                    "type": "reflection",
+                    "id": row["id"],
+                    "reason": "reflection has enough structure to review as an experience candidate",
+                    "risk": "medium",
+                    "requires_confirmation": True,
+                    "command": None,
+                    "candidate_fields": EXPERIENCE_CANDIDATE_FIELDS,
+                    "skill_candidate": row.get("skill_candidate"),
+                    "verification_method": row.get("verification_method"),
+                    "source_cases": row.get("source_cases"),
+                }
+            )
+        else:
+            actions.append(
+                {
+                    "action": "promote_or_mark_reviewed",
+                    "type": "reflection",
+                    "id": row["id"],
+                    "reason": "unreviewed reflection may contain a durable lesson",
+                    "risk": "medium",
+                    "requires_confirmation": True,
+                    "command": None,
+                }
+            )
 
     for row in review["unreviewed_episodes"]:
         actions.append(
@@ -431,6 +472,12 @@ def maintain_plan(args: argparse.Namespace) -> None:
                 "risk": "low",
                 "requires_confirmation": False,
                 "command": None,
+                "suggested_fixes": [
+                    "learn_missing_scope",
+                    "add_business_terms",
+                    "rewrite_reflection",
+                    "ignore_noise",
+                ],
             }
         )
 
@@ -646,5 +693,3 @@ def maintain_promote(args: argparse.Namespace) -> None:
     else:
         payload["reflection_id"] = args.reflection_id
     output(payload, args.json)
-
-

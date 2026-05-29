@@ -254,6 +254,12 @@ def reflect(args: argparse.Namespace) -> None:
         "context_used": reflection_list_text(payload.get("context_used")),
         "what_worked": reflection_list_text(payload.get("what_worked")),
         "what_failed": reflection_list_text(payload.get("what_failed")),
+        "hidden_assumptions": reflection_list_text(payload.get("hidden_assumptions")),
+        "negative_preconditions": reflection_list_text(payload.get("negative_preconditions")),
+        "verification_method": reflection_value(args, payload, "verification_method"),
+        "reuse_feedback": reflection_value(args, payload, "reuse_feedback"),
+        "source_cases": reflection_list_text(payload.get("source_cases")),
+        "skill_candidate": reflection_value(args, payload, "skill_candidate"),
         "scope": reflection_value(args, payload, "scope"),
         "evidence": reflection_value(args, payload, "evidence"),
         "confidence": float(reflection_value(args, payload, "confidence") or args.confidence),
@@ -270,10 +276,12 @@ def reflect(args: argparse.Namespace) -> None:
             INSERT INTO reflections(
               project_id, task, summary, mistake, lesson, future_rule,
               task_type, outcome, problem, reasoning_summary, context_used,
-              what_worked, what_failed, scope, evidence, confidence, trigger_condition, anti_pattern,
+              what_worked, what_failed, hidden_assumptions, negative_preconditions,
+              verification_method, reuse_feedback, source_cases, skill_candidate,
+              scope, evidence, confidence, trigger_condition, anti_pattern,
               repair_action, applies_to, does_not_apply_to, created_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 project.project_id,
@@ -289,6 +297,12 @@ def reflect(args: argparse.Namespace) -> None:
                 data["context_used"],
                 data["what_worked"],
                 data["what_failed"],
+                data["hidden_assumptions"],
+                data["negative_preconditions"],
+                data["verification_method"],
+                data["reuse_feedback"],
+                data["source_cases"],
+                data["skill_candidate"],
                 data["scope"],
                 data["evidence"],
                 data["confidence"],
@@ -300,8 +314,10 @@ def reflect(args: argparse.Namespace) -> None:
                 data["created_at"],
             ),
         )
+        data["id"] = cur.lastrowid
         if args.used_reflection_ids:
             ids = parse_ids(args.used_reflection_ids)
+            outcome = args.reflection_outcome or "used"
             conn.execute(
                 f"""
                 UPDATE reflections
@@ -310,10 +326,27 @@ def reflect(args: argparse.Namespace) -> None:
                     last_outcome = ?
                 WHERE project_id = ? AND id IN ({','.join('?' for _ in ids)})
                 """,
-                [data["created_at"], args.reflection_outcome, project.project_id, *ids],
+                [data["created_at"], outcome, project.project_id, *ids],
             )
+            for reused_reflection_id in ids:
+                conn.execute(
+                    """
+                    INSERT INTO reflection_reuse_events(
+                      project_id, reused_reflection_id, applying_reflection_id,
+                      outcome, task, created_at
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        project.project_id,
+                        reused_reflection_id,
+                        data["id"],
+                        outcome,
+                        data["task"],
+                        data["created_at"],
+                    ),
+                )
         conn.commit()
-        data["id"] = cur.lastrowid
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_reflection.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n",
