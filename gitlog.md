@@ -24,6 +24,34 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-29 - Split query runtime module
+
+Files changed:
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/query.py`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Moved search/context collection, bounded memory edge retrieval, evidence chain building, usage recording, and query miss recording into `tools/agent_memory_runtime/query.py`.
+- Kept `search`, `context`, and `wiki-search` command handlers in `tools/agent_memory.py` while delegating query internals to the new module.
+- Added a module import regression check for `network_limits`.
+- Preserved the all-Python-file public fingerprint rule for the new module.
+
+Why:
+- Query logic was one of the largest cohesive blocks left in `tools/agent_memory.py`. Splitting it reduces the runtime entry point while preserving command behavior.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_runtime_modules_expose_project_and_text_helpers`
+- Result: fails before `tools/agent_memory_runtime/query.py` exists, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile install.py tools/agent_memory.py tools/agent_memory_runtime/__init__.py tools/agent_memory_runtime/cli.py tools/agent_memory_runtime/models.py tools/agent_memory_runtime/query.py tools/agent_memory_runtime/records.py tools/agent_memory_runtime/storage.py tools/agent_memory_runtime/text.py tests/test_agent_memory.py`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 56 tests passed.
+
+Rollback notes:
+- Move query/context/miss helper functions from `tools/agent_memory_runtime/query.py` back into `tools/agent_memory.py`, delete the query module, and remove the query module import assertion.
+
 ## 2026-05-29 - Split CLI parser and enforce Python file fingerprints
 
 Files changed:

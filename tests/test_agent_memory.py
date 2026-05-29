@@ -20,12 +20,14 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
     def test_runtime_modules_expose_project_and_text_helpers(self) -> None:
         from tools.agent_memory_runtime.cli import build_parser
         from tools.agent_memory_runtime.models import Project
+        from tools.agent_memory_runtime.query import network_limits
         from tools.agent_memory_runtime.records import table_for_type
         from tools.agent_memory_runtime.storage import resolve_project
         from tools.agent_memory_runtime.text import json_list, query_tokens
 
         self.assertEqual(Project.__name__, "Project")
         self.assertEqual(build_parser({}).prog, "agent_memory.py")
+        self.assertEqual(network_limits()["max_depth"], 1)
         self.assertEqual(table_for_type("code-log"), "code_log_statements")
         self.assertEqual(resolve_project(".", None).project_name, "agent-memory-new")
         self.assertEqual(json_list('["profile", "avatar"]'), ["profile", "avatar"])
