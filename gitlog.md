@@ -24,6 +24,36 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-29 - Split vault export runtime module
+
+Files changed:
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/vault.py`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Moved Obsidian vault initialization, Markdown rendering, vault export, generated governance dashboard export, and vault index generation into `tools/agent_memory_runtime/vault.py`.
+- Kept `tools/agent_memory.py` as the CLI entry point and command handler registry.
+- Added a module import regression check for `slugify`.
+- Preserved the all-Python-file public fingerprint rule for the new module.
+
+Why:
+- Vault Markdown generation was a large template-heavy block in `tools/agent_memory.py`. Splitting it makes the runtime entry point smaller and gives vault rendering its own module boundary.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_runtime_modules_expose_project_and_text_helpers`
+- Result: fails before `tools/agent_memory_runtime/vault.py` exists, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile install.py tools/agent_memory.py tools/agent_memory_runtime/__init__.py tools/agent_memory_runtime/cli.py tools/agent_memory_runtime/governance.py tools/agent_memory_runtime/models.py tools/agent_memory_runtime/query.py tools/agent_memory_runtime/records.py tools/agent_memory_runtime/storage.py tools/agent_memory_runtime/text.py tools/agent_memory_runtime/vault.py tests/test_agent_memory.py`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 56 tests passed.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+- Move vault helpers and command handlers from `tools/agent_memory_runtime/vault.py` back into `tools/agent_memory.py`, delete the vault module, and remove the vault module import assertion.
+
 ## 2026-05-29 - Split governance runtime module
 
 Files changed:

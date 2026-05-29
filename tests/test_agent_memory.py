@@ -25,6 +25,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
         from tools.agent_memory_runtime.records import table_for_type
         from tools.agent_memory_runtime.storage import resolve_project
         from tools.agent_memory_runtime.text import json_list, query_tokens
+        from tools.agent_memory_runtime.vault import slugify
 
         self.assertEqual(Project.__name__, "Project")
         self.assertEqual(build_parser({}).prog, "agent_memory.py")
@@ -32,6 +33,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
         self.assertEqual(network_limits()["max_depth"], 1)
         self.assertEqual(table_for_type("code-log"), "code_log_statements")
         self.assertEqual(resolve_project(".", None).project_name, "agent-memory-new")
+        self.assertEqual(slugify("Hello Agent Memory!", "fallback"), "hello-agent-memory")
         self.assertEqual(json_list('["profile", "avatar"]'), ["profile", "avatar"])
         self.assertIn("router", query_tokens("页面跳转后白屏"))
 
