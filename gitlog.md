@@ -24,6 +24,36 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-29 - Split code wiki runtime module
+
+Files changed:
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/code_wiki.py`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Moved code learning, codebase wiki indexing/search, parse stats, code symbol/log extraction, ArkTS/HarmonyOS parsing, memory edge rebuilding, and entry import resolution into `tools/agent_memory_runtime/code_wiki.py`.
+- Kept `tools/agent_memory.py` as the CLI entry point and command handler registry.
+- Added a module import regression check for `language_for`.
+- Preserved the all-Python-file public fingerprint rule for the new module.
+
+Why:
+- Code learning was the largest remaining cohesive domain block inside `tools/agent_memory.py`. Splitting it reduces the entry point to command orchestration and leaves code learning in a dedicated module.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_runtime_modules_expose_project_and_text_helpers`
+- Result: fails before `tools/agent_memory_runtime/code_wiki.py` exists, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile install.py tools/agent_memory.py tools/agent_memory_runtime/__init__.py tools/agent_memory_runtime/cli.py tools/agent_memory_runtime/code_wiki.py tools/agent_memory_runtime/governance.py tools/agent_memory_runtime/models.py tools/agent_memory_runtime/query.py tools/agent_memory_runtime/records.py tools/agent_memory_runtime/storage.py tools/agent_memory_runtime/text.py tools/agent_memory_runtime/vault.py tests/test_agent_memory.py`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 56 tests passed.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+- Move code learning and wiki helpers from `tools/agent_memory_runtime/code_wiki.py` back into `tools/agent_memory.py`, delete the code wiki module, and remove the code wiki module import assertion.
+
 ## 2026-05-29 - Split vault export runtime module
 
 Files changed:
