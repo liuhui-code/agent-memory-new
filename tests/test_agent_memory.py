@@ -19,6 +19,7 @@ PROJECT_FINGERPRINT = "sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3
 class AgentMemoryRuntimeTests(unittest.TestCase):
     def test_runtime_modules_expose_project_and_text_helpers(self) -> None:
         from tools.agent_memory_runtime.cli import build_parser
+        from tools.agent_memory_runtime.governance import reflection_quality_action
         from tools.agent_memory_runtime.models import Project
         from tools.agent_memory_runtime.query import network_limits
         from tools.agent_memory_runtime.records import table_for_type
@@ -27,6 +28,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
 
         self.assertEqual(Project.__name__, "Project")
         self.assertEqual(build_parser({}).prog, "agent_memory.py")
+        self.assertEqual(reflection_quality_action(["missing_scope"]), "rewrite")
         self.assertEqual(network_limits()["max_depth"], 1)
         self.assertEqual(table_for_type("code-log"), "code_log_statements")
         self.assertEqual(resolve_project(".", None).project_name, "agent-memory-new")

@@ -24,6 +24,36 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-29 - Split governance runtime module
+
+Files changed:
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Moved memory governance helpers and command handlers into `tools/agent_memory_runtime/governance.py`.
+- The moved code includes stale marking, duplicate detection, memory health, maintain review/plan/status/merge/promote, reflection quality review, and query miss review data.
+- Kept `tools/agent_memory.py` as the CLI entry point and command handler registry.
+- Added a module import regression check for `reflection_quality_action`.
+
+Why:
+- Governance was another large cohesive domain block inside `tools/agent_memory.py`. Splitting it isolates review/maintenance behavior from the runtime entry point.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_runtime_modules_expose_project_and_text_helpers`
+- Result: fails before `tools/agent_memory_runtime/governance.py` exists, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile install.py tools/agent_memory.py tools/agent_memory_runtime/__init__.py tools/agent_memory_runtime/cli.py tools/agent_memory_runtime/governance.py tools/agent_memory_runtime/models.py tools/agent_memory_runtime/query.py tools/agent_memory_runtime/records.py tools/agent_memory_runtime/storage.py tools/agent_memory_runtime/text.py tests/test_agent_memory.py`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 56 tests passed.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+- Move governance helpers and command handlers from `tools/agent_memory_runtime/governance.py` back into `tools/agent_memory.py`, delete the governance module, and remove the governance module import assertion.
+
 ## 2026-05-29 - Split query runtime module
 
 Files changed:
