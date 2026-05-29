@@ -1,3 +1,5 @@
+# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+
 import json
 import sqlite3
 import subprocess
@@ -11,18 +13,37 @@ from typing import Optional
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNTIME = REPO_ROOT / "tools" / "agent_memory.py"
+PROJECT_FINGERPRINT = "sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77"
 
 
 class AgentMemoryRuntimeTests(unittest.TestCase):
     def test_runtime_modules_expose_project_and_text_helpers(self) -> None:
+        from tools.agent_memory_runtime.cli import build_parser
         from tools.agent_memory_runtime.models import Project
+        from tools.agent_memory_runtime.records import table_for_type
         from tools.agent_memory_runtime.storage import resolve_project
         from tools.agent_memory_runtime.text import json_list, query_tokens
 
         self.assertEqual(Project.__name__, "Project")
+        self.assertEqual(build_parser({}).prog, "agent_memory.py")
+        self.assertEqual(table_for_type("code-log"), "code_log_statements")
         self.assertEqual(resolve_project(".", None).project_name, "agent-memory-new")
         self.assertEqual(json_list('["profile", "avatar"]'), ["profile", "avatar"])
         self.assertIn("router", query_tokens("页面跳转后白屏"))
+
+    def test_all_project_python_files_include_public_fingerprint(self) -> None:
+        python_files = [
+            path for path in REPO_ROOT.rglob("*.py")
+            if ".pycache" not in path.parts and ".agent-memory" not in path.parts
+        ]
+
+        missing = [
+            str(path.relative_to(REPO_ROOT))
+            for path in python_files
+            if PROJECT_FINGERPRINT not in path.read_text(encoding="utf-8")
+        ]
+
+        self.assertEqual([], missing)
 
     def memory_home(self, project: Path) -> Path:
         return project.parent / f"memory-home-{project.name}"

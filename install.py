@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
 """Install Agent Memory MVP into a local project."""
 
 from __future__ import annotations

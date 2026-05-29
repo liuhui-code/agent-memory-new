@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
 """Local Agent Memory runtime.
 
 This is the stable script API used by Agent Memory skills.
@@ -18,6 +19,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from agent_memory_runtime.cli import build_parser
 from agent_memory_runtime.models import (
     ACTIVE_STATUS,
     CODE_EXTENSIONS,
@@ -26,13 +28,19 @@ from agent_memory_runtime.models import (
     IGNORE_DIRS,
     NETWORK_EDGE_LIMIT,
     NETWORK_MAX_DEPTH,
-    NON_QUERY_STATUSES,
     PROJECT_FINGERPRINT,
     PROJECT_FINGERPRINT_SCHEME,
     Project,
     QUERY_ALLOWED_EDGE_RELATIONS,
     REQUIRED_TABLES,
     VALID_MEMORY_STATUSES,
+)
+from agent_memory_runtime.records import (
+    memory_warning,
+    output,
+    parse_ids,
+    row_dict,
+    table_for_type,
 )
 from agent_memory_runtime.storage import (
     connect,
@@ -165,22 +173,6 @@ def update(args: argparse.Namespace) -> None:
         add_episode(args, project)
     else:
         raise SystemExit(f"unsupported update type: {args.type}")
-
-
-def row_dict(row: sqlite3.Row) -> dict[str, Any]:
-    return {key: row[key] for key in row.keys()}
-
-
-def memory_warning(item: dict[str, Any]) -> str | None:
-    status = item.get("status") or ACTIVE_STATUS
-    if status in NON_QUERY_STATUSES:
-        return "This memory is not active. Verify before use."
-    confidence = item.get("confidence")
-    if isinstance(confidence, (int, float)) and confidence < 0.6:
-        return "This memory has low confidence. Verify against current source files."
-    if item.get("is_stale"):
-        return "This memory is stale. Verify against current source files."
-    return None
 
 
 def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, Any]]]:
@@ -607,16 +599,6 @@ def record_query_miss_if_empty(project: Project, source: str, query: str, data: 
         conn.commit()
 
 
-def output(data: Any, as_json: bool) -> None:
-    if as_json:
-        print(json.dumps(data, ensure_ascii=False, indent=2))
-    else:
-        if isinstance(data, dict):
-            print(json.dumps(data, ensure_ascii=False, indent=2))
-        else:
-            print(data)
-
-
 def search(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
@@ -774,21 +756,6 @@ def list_records(args: argparse.Namespace) -> None:
             (project.project_id, args.limit),
         ).fetchall()
     output([row_dict(row) for row in rows], args.json)
-
-
-def table_for_type(kind: str) -> str:
-    tables = {
-        "semantic": "semantic_facts",
-        "reflection": "reflections",
-        "episode": "episodes",
-        "code-file": "code_files",
-        "code-symbol": "code_symbols",
-        "code-log": "code_log_statements",
-        "memory-edge": "memory_edges",
-    }
-    if kind not in tables:
-        raise SystemExit(f"unsupported type: {kind}")
-    return tables[kind]
 
 
 def miss_list(args: argparse.Namespace) -> None:
@@ -1312,13 +1279,6 @@ def maintain_status(args: argparse.Namespace) -> None:
         )
         conn.commit()
     print(f"{args.type} #{args.id} status set to {args.status}")
-
-
-def parse_ids(raw: str) -> list[int]:
-    ids = [int(part.strip()) for part in raw.split(",") if part.strip()]
-    if not ids:
-        raise SystemExit("--ids must contain at least one id")
-    return ids
 
 
 def maintain_merge(args: argparse.Namespace) -> None:
@@ -2885,214 +2845,36 @@ def wiki_search(args: argparse.Namespace) -> None:
     output(data[:20], args.json)
 
 
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="agent_memory.py")
-    sub = parser.add_subparsers(dest="command", required=True)
-
-    def add_project(p: argparse.ArgumentParser) -> None:
-        p.add_argument("--project", default=".")
-        p.add_argument("--memory-home")
-
-    p = sub.add_parser("init")
-    add_project(p)
-    p.set_defaults(func=init_project)
-
-    p = sub.add_parser("doctor")
-    add_project(p)
-    p.set_defaults(func=doctor)
-
-    p = sub.add_parser("update")
-    add_project(p)
-    p.add_argument("--type", required=True, choices=["semantic", "episode"])
-    p.add_argument("--fact")
-    p.add_argument("--source", default="manual")
-    p.add_argument("--confidence", type=float, default=0.8)
-    p.add_argument("--category")
-    p.add_argument("--scope")
-    p.add_argument("--evidence")
-    p.add_argument("--task")
-    p.add_argument("--summary")
-    p.add_argument("--outcome")
-    p.add_argument("--files-touched")
-    p.add_argument("--commands-run")
-    p.add_argument("--importance", type=float, default=0.5)
-    p.set_defaults(func=update)
-
-    p = sub.add_parser("search")
-    add_project(p)
-    p.add_argument("--query", required=True)
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=search)
-
-    p = sub.add_parser("context")
-    add_project(p)
-    p.add_argument("--query", required=True)
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=context)
-
-    p = sub.add_parser("reflect")
-    add_project(p)
-    p.add_argument("--payload")
-    p.add_argument("--payload-file")
-    p.add_argument("--task")
-    p.add_argument("--summary")
-    p.add_argument("--mistake")
-    p.add_argument("--lesson")
-    p.add_argument("--future-rule")
-    p.add_argument("--scope")
-    p.add_argument("--evidence")
-    p.add_argument("--confidence", type=float, default=0.8)
-    p.add_argument("--trigger-condition")
-    p.add_argument("--anti-pattern")
-    p.add_argument("--repair-action")
-    p.add_argument("--applies-to")
-    p.add_argument("--does-not-apply-to")
-    p.add_argument("--used-reflection-ids")
-    p.add_argument("--reflection-outcome")
-    p.set_defaults(func=reflect)
-
-    p = sub.add_parser("reflect-review")
-    add_project(p)
-    p.add_argument("--limit", type=int, default=50)
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=reflect_review)
-
-    p = sub.add_parser("list")
-    add_project(p)
-    p.add_argument(
-        "--type",
-        required=True,
-        choices=["semantic", "reflection", "episode", "code-file", "code-symbol", "code-log", "memory-edge"],
-    )
-    p.add_argument("--limit", type=int, default=50)
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=list_records)
-
-    p = sub.add_parser("miss-list")
-    add_project(p)
-    p.add_argument("--status", choices=["open", "reviewed", "resolved", "ignored"])
-    p.add_argument("--limit", type=int, default=50)
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=miss_list)
-
-    p = sub.add_parser("miss-status")
-    add_project(p)
-    p.add_argument("--id", required=True, type=int)
-    p.add_argument("--status", required=True, choices=["open", "reviewed", "resolved", "ignored"])
-    p.add_argument("--resolution")
-    p.set_defaults(func=miss_status)
-
-    p = sub.add_parser("mark-stale")
-    add_project(p)
-    p.add_argument("--type", required=True, choices=["semantic", "reflection"])
-    p.add_argument("--id", required=True, type=int)
-    p.set_defaults(func=mark_stale)
-
-    p = sub.add_parser("maintain-health")
-    add_project(p)
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=maintain_health)
-
-    p = sub.add_parser("maintain-review")
-    add_project(p)
-    p.add_argument("--limit", type=int, default=20)
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=maintain_review)
-
-    p = sub.add_parser("maintain-plan")
-    add_project(p)
-    p.add_argument("--limit", type=int, default=20)
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=maintain_plan)
-
-    p = sub.add_parser("maintain-status")
-    add_project(p)
-    p.add_argument("--type", required=True, choices=["semantic", "reflection", "episode"])
-    p.add_argument("--id", required=True, type=int)
-    p.add_argument("--status", required=True, choices=sorted(VALID_MEMORY_STATUSES))
-    p.add_argument("--reason")
-    p.set_defaults(func=maintain_status)
-
-    p = sub.add_parser("maintain-merge")
-    add_project(p)
-    p.add_argument("--type", required=True, choices=["semantic", "reflection"])
-    p.add_argument("--ids", required=True)
-    p.add_argument("--fact")
-    p.add_argument("--lesson")
-    p.add_argument("--task")
-    p.add_argument("--summary")
-    p.add_argument("--future-rule")
-    p.add_argument("--source", default="maintain-merge")
-    p.add_argument("--confidence", type=float, default=0.85)
-    p.add_argument("--category")
-    p.add_argument("--scope")
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=maintain_merge)
-
-    p = sub.add_parser("maintain-promote")
-    add_project(p)
-    p.add_argument("--episode-id", type=int)
-    p.add_argument("--reflection-id", type=int)
-    p.add_argument("--fact", required=True)
-    p.add_argument("--confidence", type=float, default=0.85)
-    p.add_argument("--category")
-    p.add_argument("--scope")
-    p.add_argument("--evidence")
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=maintain_promote)
-
-    p = sub.add_parser("vault-init")
-    add_project(p)
-    p.set_defaults(func=vault_init)
-
-    p = sub.add_parser("vault-export")
-    add_project(p)
-    p.set_defaults(func=vault_export)
-
-    p = sub.add_parser("vault-index")
-    add_project(p)
-    p.set_defaults(func=vault_index)
-
-    p = sub.add_parser("wiki-index")
-    add_project(p)
-    p.add_argument("--source")
-    p.set_defaults(func=wiki_index)
-
-    p = sub.add_parser("wiki-search")
-    add_project(p)
-    p.add_argument("--query", required=True)
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=wiki_search)
-
-    p = sub.add_parser("learn-path")
-    add_project(p)
-    p.add_argument("--source")
-    p.add_argument("--path", required=True)
-    p.add_argument("--replace", action="store_true")
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=learn_path)
-
-    p = sub.add_parser("learn-entry")
-    add_project(p)
-    p.add_argument("--source")
-    p.add_argument("--entry", required=True)
-    p.add_argument("--depth", type=int, default=2)
-    p.add_argument("--replace", action="store_true")
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=learn_entry)
-
-    p = sub.add_parser("learn-business")
-    add_project(p)
-    p.add_argument("--source")
-    p.add_argument("--payload", required=True)
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=learn_business)
-
-    return parser
-
-
 def main(argv: list[str] | None = None) -> int:
-    parser = build_parser()
+    parser = build_parser(
+        {
+            "init_project": init_project,
+            "doctor": doctor,
+            "update": update,
+            "search": search,
+            "context": context,
+            "reflect": reflect,
+            "reflect_review": reflect_review,
+            "list_records": list_records,
+            "miss_list": miss_list,
+            "miss_status": miss_status,
+            "mark_stale": mark_stale,
+            "maintain_health": maintain_health,
+            "maintain_review": maintain_review,
+            "maintain_plan": maintain_plan,
+            "maintain_status": maintain_status,
+            "maintain_merge": maintain_merge,
+            "maintain_promote": maintain_promote,
+            "vault_init": vault_init,
+            "vault_export": vault_export,
+            "vault_index": vault_index,
+            "wiki_index": wiki_index,
+            "wiki_search": wiki_search,
+            "learn_path": learn_path,
+            "learn_entry": learn_entry,
+            "learn_business": learn_business,
+        }
+    )
     args = parser.parse_args(argv)
     args.func(args)
     return 0

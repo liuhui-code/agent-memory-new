@@ -24,6 +24,42 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-29 - Split CLI parser and enforce Python file fingerprints
+
+Files changed:
+- `install.py`
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/__init__.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/models.py`
+- `tools/agent_memory_runtime/records.py`
+- `tools/agent_memory_runtime/storage.py`
+- `tools/agent_memory_runtime/text.py`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Added the public project fingerprint comment to every Python file.
+- Added a regression test that fails if any project Python file lacks the public fingerprint hash.
+- Moved argparse parser construction from `tools/agent_memory.py` into `tools/agent_memory_runtime/cli.py`.
+- Moved record helpers for row conversion, output, table type resolution, memory warnings, and id parsing into `tools/agent_memory_runtime/records.py`.
+- Kept `tools/agent_memory.py` as the only user-facing runtime entry point and injected command handlers into the CLI builder.
+
+Why:
+- The project default rule is that every Python source file carries the public watermark fingerprint.
+- Splitting CLI construction continues reducing `tools/agent_memory.py` without changing runtime commands or skill-facing behavior.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_runtime_modules_expose_project_and_text_helpers tests.test_agent_memory.AgentMemoryRuntimeTests.test_all_project_python_files_include_public_fingerprint`
+- Result: fails before `cli.py` and fingerprint headers are added, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile install.py tools/agent_memory.py tools/agent_memory_runtime/__init__.py tools/agent_memory_runtime/cli.py tools/agent_memory_runtime/models.py tools/agent_memory_runtime/records.py tools/agent_memory_runtime/storage.py tools/agent_memory_runtime/text.py tests/test_agent_memory.py`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 56 tests passed.
+
+Rollback notes:
+- Move parser construction and record helpers back into `tools/agent_memory.py`, remove `tools/agent_memory_runtime/cli.py` and `tools/agent_memory_runtime/records.py`, and remove the fingerprint enforcement test if the project no longer wants watermark checks on every Python file.
+
 ## 2026-05-28 - Split runtime models, storage, and text helpers
 
 Files changed:
