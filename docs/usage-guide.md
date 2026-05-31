@@ -144,6 +144,31 @@ python tools/agent_memory.py learn-business --project . --payload "<json>" --jso
 
 This stores `business_summary` and `business_terms` directly on existing code file, symbol, and log records. Business terms should name real business objects such as profile, avatar, order status, device binding, user id, route names, resource keys, and log meanings.
 
+`learn-business --json` also returns semantic coverage feedback for the submitted scope:
+
+```json
+{
+  "semantic_stats": {
+    "files_total": 2,
+    "files_with_business_summary": 1,
+    "files_with_business_terms": 1,
+    "symbols_total": 2,
+    "symbols_with_business_summary": 1,
+    "symbols_with_business_terms": 1,
+    "logs_total": 2,
+    "logs_with_business_summary": 1,
+    "logs_with_business_terms": 1
+  },
+  "semantic_gaps": {
+    "files_missing_business_summary": ["pages/Empty.ets"],
+    "symbols_missing_business_terms": ["pages/ProfileDetail.ets::profileCache"],
+    "logs_missing_business_summary": ["pages/ProfileDetail.ets::load profile start"]
+  }
+}
+```
+
+Use `semantic_stats` to judge whether the learned scope has enough business meaning for query. Use `semantic_gaps` to decide what the Agent should read and enrich next.
+
 For the whole project:
 
 ```text

@@ -51,6 +51,22 @@ Payload shape:
 
 Use this structure when the user asks the Agent to understand a feature, page, module, or business flow. Include real file names, method names, fields, routes, resources, and logs. Business terms should include code naming and user-facing Chinese/English business wording when it can be inferred from the source. Do not invent business flows that are not supported by the code.
 
+Before writing `learn-business`, organize the target code with these checks:
+
+- File: what business area or page does this file own?
+- Symbol: what business action, state, field, or side effect does this method or symbol represent?
+- Log: what business event does this log represent, and what does it usually mean when it fails?
+- Terms: include real business objects, page names, route names, resource keys, method names, and Chinese/English wording a user would naturally ask for.
+
+`learn-business --json` now returns semantic quality feedback in addition to write counts:
+
+```text
+semantic_stats
+semantic_gaps
+```
+
+Use `semantic_stats` to judge coverage, and use `semantic_gaps` to find which files, symbols, or logs still need business meaning before relying on memory query results.
+
 ## Entry File
 
 When the user names an entry file:
@@ -132,7 +148,7 @@ Rules:
 - Default to incremental merge for partial learning.
 - Use `--replace` only for explicit reset/relearn requests.
 - After learning, query with `agent-memory-query` before editing.
-- Report parse feedback concisely: files indexed, symbols extracted, logs extracted, and edge total.
+- Report parse feedback concisely: files indexed, symbols extracted, logs extracted, edge total, and whether semantic coverage is still missing for important files, symbols, or logs.
 - Do not treat the wiki as a complete call graph.
 - Treat `code_log_matches` and `edge_matches` as diagnosis hints, not runtime traces.
 - Treat learned code context as evidence for future reflections and semantic facts.

@@ -16,6 +16,26 @@ from .records import memory_warning, row_dict
 from .storage import connect, now_iso
 from .text import code_search_terms, json_list, query_tokens, score_weighted_fields, tokenize
 
+SEARCH_RESULT_LIMITS = {
+    "semantic_facts": 20,
+    "reflections": 10,
+    "episodes": 10,
+    "wiki_matches": 20,
+    "code_log_matches": 20,
+    "edge_matches": 10,
+}
+
+CONTEXT_RESULT_LIMITS = {
+    "semantic_facts": 3,
+    "reflections": 3,
+    "episodes": 2,
+    "wiki_matches": 5,
+    "code_log_matches": 5,
+    "edge_matches": 10,
+}
+
+BATCHED_EDGE_TARGET_SIZE = 200
+
 
 def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, Any]]]:
     tokens = query_tokens(query)
@@ -255,36 +275,66 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
     return results
 
 
+def limited_matches(
+    matches: dict[str, list[dict[str, Any]]],
+    limits: dict[str, int],
+) -> dict[str, list[dict[str, Any]]]:
+    return {
+        key: value[: limits.get(key, len(value))]
+        for key, value in matches.items()
+    }
+
+
 def collect_related_edges(project: Project, targets: dict[str, set[int]]) -> list[dict[str, Any]]:
-    clauses: list[str] = []
-    values: list[Any] = [project.project_id]
-    for entity_type, ids in targets.items():
-        for entity_id in sorted(ids):
-            clauses.append("(source_type = ? AND source_id = ?)")
-            values.extend([entity_type, entity_id])
-            clauses.append("(target_type = ? AND target_id = ?)")
-            values.extend([entity_type, entity_id])
-    if not clauses:
-        return []
+    edge_map: dict[int, dict[str, Any]] = {}
+
+    def chunked(values: list[int], size: int) -> list[list[int]]:
+        return [values[index : index + size] for index in range(0, len(values), size)]
+
     with connect(project) as conn:
-        rows = conn.execute(
-            f"""
-            SELECT *
-            FROM memory_edges
-            WHERE project_id = ?
-              AND relation IN ({','.join('?' for _ in sorted(QUERY_ALLOWED_EDGE_RELATIONS))})
-              AND ({' OR '.join(clauses)})
-            ORDER BY confidence DESC, id DESC
-            LIMIT ?
-            """,
-            [
-                values[0],
-                *sorted(QUERY_ALLOWED_EDGE_RELATIONS),
-                *values[1:],
-                NETWORK_EDGE_LIMIT,
-            ],
-        ).fetchall()
-    return [row_dict(row) for row in rows]
+        for entity_type, ids in targets.items():
+            ordered_ids = sorted(ids)
+            if not ordered_ids:
+                continue
+            for id_batch in chunked(ordered_ids, BATCHED_EDGE_TARGET_SIZE):
+                placeholders = ",".join("?" for _ in id_batch)
+                params: list[Any] = [
+                    project.project_id,
+                    *sorted(QUERY_ALLOWED_EDGE_RELATIONS),
+                    entity_type,
+                    *id_batch,
+                ]
+                source_rows = conn.execute(
+                    f"""
+                    SELECT *
+                    FROM memory_edges
+                    WHERE project_id = ?
+                      AND relation IN ({','.join('?' for _ in sorted(QUERY_ALLOWED_EDGE_RELATIONS))})
+                      AND source_type = ?
+                      AND source_id IN ({placeholders})
+                    ORDER BY confidence DESC, id DESC
+                    LIMIT ?
+                    """,
+                    [*params, NETWORK_EDGE_LIMIT],
+                ).fetchall()
+                target_rows = conn.execute(
+                    f"""
+                    SELECT *
+                    FROM memory_edges
+                    WHERE project_id = ?
+                      AND relation IN ({','.join('?' for _ in sorted(QUERY_ALLOWED_EDGE_RELATIONS))})
+                      AND target_type = ?
+                      AND target_id IN ({placeholders})
+                    ORDER BY confidence DESC, id DESC
+                    LIMIT ?
+                    """,
+                    [*params, NETWORK_EDGE_LIMIT],
+                ).fetchall()
+                for row in [*source_rows, *target_rows]:
+                    edge_map[row["id"]] = row_dict(row)
+    edges = list(edge_map.values())
+    edges.sort(key=lambda item: (item.get("confidence", 0), item.get("id", 0)), reverse=True)
+    return edges[:NETWORK_EDGE_LIMIT]
 
 
 def network_limits() -> dict[str, Any]:
@@ -335,23 +385,31 @@ def build_evidence_chains(edges: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def limited_context(project: Project, query: str) -> dict[str, Any]:
     matches = collect_matches(project, query)
+    bounded = limited_matches(matches, CONTEXT_RESULT_LIMITS)
     context = {
         "project_id": project.project_id,
         "project_path": str(project.root),
         "query": query,
         "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
-        "semantic_facts": matches["semantic_facts"][:3],
-        "reflections": matches["reflections"][:3],
-        "episodes": matches["episodes"][:2],
-        "wiki_matches": matches["wiki_matches"][:5],
-        "code_log_matches": matches["code_log_matches"][:5],
-        "edge_matches": matches["edge_matches"][:10],
-        "evidence_chains": build_evidence_chains(matches["edge_matches"]),
+        "semantic_facts": bounded["semantic_facts"],
+        "reflections": bounded["reflections"],
+        "episodes": bounded["episodes"],
+        "wiki_matches": bounded["wiki_matches"],
+        "code_log_matches": bounded["code_log_matches"],
+        "edge_matches": bounded["edge_matches"],
+        "evidence_chains": build_evidence_chains(bounded["edge_matches"]),
         "network_limits": network_limits(),
     }
     record_context_use(project, context)
     record_query_miss_if_empty(project, "context", query, context)
     return context
+
+
+def limited_search(project: Project, query: str) -> dict[str, Any]:
+    matches = collect_matches(project, query)
+    bounded = limited_matches(matches, SEARCH_RESULT_LIMITS)
+    bounded["result_limits"] = SEARCH_RESULT_LIMITS.copy()
+    return bounded
 
 
 def record_context_use(project: Project, context_data: dict[str, Any]) -> None:

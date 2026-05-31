@@ -34,6 +34,8 @@ The runtime expands common symptom words into technical search terms. For Harmon
 python tools/agent_memory.py search --project . --query "<query>" --json
 ```
 
+`search` is bounded. It returns ranked subsets plus `result_limits` so large memory archives do not dump unbounded result sets back into the Agent.
+
 ## Wiki Search
 
 ```bash

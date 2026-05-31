@@ -16,7 +16,7 @@ from .models import CODE_EXTENSIONS, IGNORE_DIRS, Project
 from .query import collect_matches, record_query_miss_if_empty
 from .records import output, row_dict
 from .storage import connect, ensure_initialized, now_iso, resolve_project
-from .text import json_list_text, score_text, terms_from_text, unique_list
+from .text import json_list, json_list_text, score_text, terms_from_text, unique_list
 
 
 def should_skip_dir(path: Path) -> bool:
@@ -738,6 +738,80 @@ def parse_stats_summary(stats: dict[str, Any]) -> str:
     )
 
 
+def has_business_summary(value: Any) -> bool:
+    return bool(str(value or "").strip())
+
+
+def has_business_terms(value: Any) -> bool:
+    return bool(json_list(value))
+
+
+def semantic_quality_report(payload_files: list[dict[str, Any]]) -> dict[str, Any]:
+    stats = {
+        "files_total": 0,
+        "files_with_business_summary": 0,
+        "files_with_business_terms": 0,
+        "symbols_total": 0,
+        "symbols_with_business_summary": 0,
+        "symbols_with_business_terms": 0,
+        "logs_total": 0,
+        "logs_with_business_summary": 0,
+        "logs_with_business_terms": 0,
+    }
+    gaps = {
+        "files_missing_business_summary": [],
+        "files_missing_business_terms": [],
+        "symbols_missing_business_summary": [],
+        "symbols_missing_business_terms": [],
+        "logs_missing_business_summary": [],
+        "logs_missing_business_terms": [],
+    }
+    for file_item in payload_files:
+        if not isinstance(file_item, dict) or not file_item.get("file_path"):
+            continue
+        file_path = str(file_item["file_path"])
+        stats["files_total"] += 1
+        if has_business_summary(file_item.get("business_summary")):
+            stats["files_with_business_summary"] += 1
+        else:
+            gaps["files_missing_business_summary"].append(file_path)
+        if has_business_terms(file_item.get("business_terms")):
+            stats["files_with_business_terms"] += 1
+        else:
+            gaps["files_missing_business_terms"].append(file_path)
+
+        for symbol_item in file_item.get("symbols") or []:
+            if not isinstance(symbol_item, dict) or not symbol_item.get("symbol"):
+                continue
+            symbol_name = str(symbol_item["symbol"])
+            symbol_key = f"{file_path}::{symbol_name}"
+            stats["symbols_total"] += 1
+            if has_business_summary(symbol_item.get("business_summary")):
+                stats["symbols_with_business_summary"] += 1
+            else:
+                gaps["symbols_missing_business_summary"].append(symbol_key)
+            if has_business_terms(symbol_item.get("business_terms")):
+                stats["symbols_with_business_terms"] += 1
+            else:
+                gaps["symbols_missing_business_terms"].append(symbol_key)
+
+        for log_item in file_item.get("logs") or []:
+            if not isinstance(log_item, dict) or not log_item.get("message_template"):
+                continue
+            message_template = str(log_item["message_template"])
+            log_key = f"{file_path}::{message_template}"
+            stats["logs_total"] += 1
+            if has_business_summary(log_item.get("business_summary")):
+                stats["logs_with_business_summary"] += 1
+            else:
+                gaps["logs_missing_business_summary"].append(log_key)
+            if has_business_terms(log_item.get("business_terms")):
+                stats["logs_with_business_terms"] += 1
+            else:
+                gaps["logs_missing_business_terms"].append(log_key)
+    return {"semantic_stats": stats, "semantic_gaps": gaps}
+
+
 def learn_business(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
@@ -860,6 +934,12 @@ def learn_business(args: argparse.Namespace) -> None:
         "logs_written": logs_written,
         "memory_edges_total": edge_count,
     }
+    data.update(semantic_quality_report(payload["files"]))
+    project.runtime_dir.mkdir(parents=True, exist_ok=True)
+    (project.runtime_dir / "last_learn_business.json").write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
     output(data, args.json)
 
 
@@ -1090,5 +1170,4 @@ def wiki_search(args: argparse.Namespace) -> None:
         },
     )
     output(data[:20], args.json)
-
 

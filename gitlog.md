@@ -24,6 +24,108 @@ Rollback notes:
 - ...
 ```
 
+## 2026-05-31 - Add semantic coverage feedback to learn-business
+
+Files changed:
+- `tools/agent_memory_runtime/code_wiki.py`
+- `skills/agent-memory-learn/SKILL.md`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Added `semantic_stats` and `semantic_gaps` to `learn-business --json` output.
+- Counted file, symbol, and log business coverage for `business_summary` and `business_terms`.
+- Listed missing business meaning with stable anchors such as `file_path::symbol` and `file_path::message_template`.
+- Wrote the latest learn-business result to `runtime/last_learn_business.json`.
+- Updated learn/runtime/usage docs so Agents know to read code first, write structured business meaning, and inspect coverage gaps after learning.
+
+Why:
+- Query quality depends on whether learned code has usable business semantics, not just whether files and symbols were indexed. The new feedback gives the Agent a direct way to see what still needs semantic enrichment.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_learn_business_reports_semantic_stats_and_gaps`
+- Result: fails before `semantic_stats` exists, then passes.
+
+Rollback notes:
+- Remove `semantic_stats` and `semantic_gaps` from `learn-business`, stop writing `last_learn_business.json`, remove the new test, and revert the learn/runtime/usage doc updates.
+
+## 2026-05-31 - Surface semantic gap targets in maintain-plan
+
+Files changed:
+- `tools/agent_memory_runtime/governance.py`
+- `skills/agent-memory-maintain/SKILL.md`
+- `docs/guided-memory-review-workflow.md`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Added `semantic_gap_targets` to `maintain-plan` output so query-miss review can point at concrete files, symbols, and logs that still lack business summaries or business terms.
+- Added a standalone low-risk `add_business_terms` governance action when learned code memory has semantic gaps.
+- Updated maintain workflow docs so Agents use these targets as a narrow enrichment queue for `learn-business`.
+
+Why:
+- Governance should not just say "add business terms". It should tell the Agent exactly what to enrich, so query quality can improve without broad re-learning.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_includes_open_query_miss_actions`
+- Result: fails before `semantic_gap_targets` exists, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_adds_business_term_enrichment_action`
+- Result: fails before the standalone `add_business_terms` action exists, then passes.
+
+Rollback notes:
+- Remove `build_semantic_gap_targets`, remove `semantic_gap_targets` and the `add_business_terms` action from `maintain-plan`, and revert the maintain workflow docs and tests.
+
+## 2026-06-01 - Add learn-business payload templates to maintain-plan
+
+Files changed:
+- `tools/agent_memory_runtime/governance.py`
+- `skills/agent-memory-maintain/SKILL.md`
+- `docs/guided-memory-review-workflow.md`
+- `docs/templates/memory-query-answer-skill-template.md`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Added `learn_business_payload_template` and `command_template` to low-risk semantic enrichment actions in `maintain-plan`.
+- Built the template from existing code wiki rows so files, symbols, and logs are pre-anchored for targeted enrichment.
+- Updated maintain and query template docs so Agents reuse the provided template instead of inventing a new payload shape.
+
+Why:
+- The Agent should be able to move from governance output to a focused `learn-business` write with minimal manual reconstruction.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_adds_business_term_enrichment_action`
+- Result: fails before `command_template` and `learn_business_payload_template` exist, then passes.
+
+Rollback notes:
+- Remove `build_learn_business_payload_template`, remove `command_template` and `learn_business_payload_template` from maintain-plan actions, and revert the doc and test updates.
+
+## 2026-06-01 - Add semantic enrichment workflow steps to maintain-plan
+
+Files changed:
+- `tools/agent_memory_runtime/governance.py`
+- `skills/agent-memory-maintain/SKILL.md`
+- `docs/guided-memory-review-workflow.md`
+- `docs/templates/memory-query-answer-skill-template.md`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Added `workflow_steps` to semantic enrichment actions in `maintain-plan`.
+- Documented that local Agent CLI integrations can follow the returned steps directly when consuming `learn_business_payload_template`.
+
+Why:
+- The runtime should give the Agent not just data, but a stable execution order for targeted semantic enrichment.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_adds_business_term_enrichment_action`
+- Result: fails before `workflow_steps` exists, then passes.
+
+Rollback notes:
+- Remove `semantic_enrichment_workflow_steps`, remove `workflow_steps` from maintain-plan actions, and revert the related doc and test updates.
+
 ## 2026-05-29 - Start experience candidate loop
 
 Files changed:
@@ -90,6 +192,35 @@ Verification:
 
 Rollback notes:
 - Remove the added reflection columns from `GOVERNANCE_COLUMNS`, remove the extra reflection insert/query/review fields, remove the `reflection_reuse_events` table/listing/events, remove `promote_experience_candidate`, query miss `suggested_fixes`, `Experience Candidates.md`, and `Reflection Reuse.md` vault output, delete `docs/experience-system-plan.md`, and revert the skill/doc/test updates.
+
+## 2026-05-31 - Bound search output and force UTF-8 query output
+
+Files changed:
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/query.py`
+- `tests/test_agent_memory.py`
+- `skills/agent-memory-query/SKILL.md`
+- `docs/runtime.md`
+- `gitlog.md`
+
+What changed:
+- Added bounded `search` output with `result_limits` so large archives do not return unbounded match sets.
+- Kept `context` on the same shared limiting path to avoid drift between query commands.
+- Reconfigured runtime `stdout` and `stderr` to UTF-8 with replacement mode at startup to reduce terminal-side Chinese garbling.
+- Added regression tests for bounded `search` results and raw Chinese query output.
+
+Why:
+- Large result sets were causing downstream consumers to choke on oversized query payloads.
+- Chinese output should be stable even when the host terminal locale is not configured cleanly.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_search_limits_large_result_sets`
+- Result: fails before `search` is bounded, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_context_json_stdout_preserves_chinese_text`
+- Result: passes and preserves raw Chinese output.
+
+Rollback notes:
+- Remove `limited_search`, `SEARCH_RESULT_LIMITS`, UTF-8 stream reconfiguration in `main()`, and the related docs/tests.
 
 ## 2026-05-29 - Split code wiki runtime module
 

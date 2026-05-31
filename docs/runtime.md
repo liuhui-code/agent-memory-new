@@ -63,6 +63,7 @@ They may:
 - record a query miss when no result set has matches.
 - return learned code log statements and lightweight edges between files, symbols, and log statements.
 - return compact one-hop `evidence_chains` derived from allowed edge matches.
+- bound result sets before JSON output so large archives do not return unbounded payloads.
 
 They must not:
 
@@ -83,6 +84,8 @@ allowed_relations = contains, emits_log
 ```
 
 The runtime returns these limits in `network_limits` so skill callers know the context is intentionally bounded. Recursive reasoning belongs in the LLM skill layer: inspect the returned context, sharpen the query, and call `context` again.
+
+`search` is also bounded. It returns `result_limits` in the JSON payload so callers can see the current cap for each result set.
 
 # 3. Governance Path
 
@@ -160,6 +163,15 @@ python tools/agent_memory.py learn-business --project . --payload "<json>" --jso
 ```
 
 The payload contains files, symbols, and logs with `business_summary` and `business_terms`. Use it after the Agent has read the target source and organized the code's real business meaning. It does not create a separate business table; it enriches `code_files`, `code_symbols`, and `code_log_statements`.
+
+`learn-business --json` also returns semantic quality feedback for the submitted scope:
+
+```text
+semantic_stats
+semantic_gaps
+```
+
+`semantic_stats` reports coverage counts for file, symbol, and log business meaning. `semantic_gaps` lists the specific files, symbols, or logs that still lack `business_summary` or `business_terms`.
 
 They also extract code log statements and rebuild deterministic code-wiki edges:
 

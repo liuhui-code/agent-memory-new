@@ -62,6 +62,18 @@ ignore_noise
 
 Choose the smallest fix. A miss caused by missing code context should trigger `agent-memory-learn`; a miss caused by weak business meaning should trigger `learn-business`; a miss caused by absent experience should trigger `agent-memory-reflect`; irrelevant misses can be marked ignored.
 
+When `maintain-plan` returns `semantic_gap_targets`, treat them as the next enrichment queue. Feed those file, symbol, or log anchors back into `agent-memory-learn` and `learn-business` instead of re-learning broad directories.
+
+When `maintain-plan` returns `learn_business_payload_template`, edit that template in place and send it to:
+
+```bash
+python tools/agent_memory.py learn-business --project . --payload "<json>" --json
+```
+
+Prefer filling the template over inventing a new payload shape. It keeps file, symbol, and log anchors aligned with the existing code wiki rows.
+
+When `workflow_steps` is present, follow it in order. Treat it as the default local Agent CLI procedure for targeted semantic enrichment.
+
 ## Governance Actions
 
 Mark a record stale, archived, rejected, merged, or active:
@@ -147,4 +159,5 @@ Rules:
 - Treat `rewrite_reflection` and `mark_stale` actions from `maintain-plan` as confirmation-required reflection quality actions.
 - Treat `promote_experience_candidate` as a review signal, not an automatic promotion.
 - Treat `review_query_miss` actions as low-risk signals that may require learning a missing path, adding business terms, rewriting a reflection, or ignoring noise.
+- Treat `add_business_terms` actions as targeted enrichment work; prefer patching the listed semantic gaps over re-indexing large code scopes.
 - Vault export includes generated code log statement, memory edge, query miss, reflection quality, and experience candidate pages for review.

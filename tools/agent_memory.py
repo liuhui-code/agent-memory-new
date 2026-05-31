@@ -36,7 +36,7 @@ from agent_memory_runtime.models import (
     REQUIRED_TABLES,
 )
 from agent_memory_runtime.query import (
-    collect_matches,
+    limited_search,
     limited_context,
     record_query_miss_if_empty,
 )
@@ -178,7 +178,7 @@ def update(args: argparse.Namespace) -> None:
 def search(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    data = collect_matches(project, args.query)
+    data = limited_search(project, args.query)
     record_query_miss_if_empty(project, "search", args.query, data)
     output(data, args.json)
 
@@ -407,6 +407,11 @@ def miss_status(args: argparse.Namespace) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
+    for stream_name in ("stdout", "stderr"):
+        stream = getattr(sys, stream_name, None)
+        reconfigure = getattr(stream, "reconfigure", None)
+        if callable(reconfigure):
+            reconfigure(encoding="utf-8", errors="replace")
     parser = build_parser(
         {
             "init_project": init_project,

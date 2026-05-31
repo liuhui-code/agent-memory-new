@@ -962,6 +962,16 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
     def test_maintain_plan_includes_open_query_miss_actions(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
+            payload = {
+                "files": [
+                    {
+                        "file_path": "pages/ProfileDetail.ets",
+                        "symbols": [{"symbol": "profileCache", "symbol_type": "field"}],
+                        "logs": [{"message_template": "load profile start", "level": "info"}],
+                    }
+                ]
+            }
+            self.run_memory(project, "learn-business", "--payload", json.dumps(payload, ensure_ascii=False), "--json")
             self.run_memory(project, "context", "--query", "unanswered-question", "--json")
 
             result = self.run_memory(project, "maintain-plan", "--json")
@@ -972,6 +982,70 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(
                 action["suggested_fixes"],
                 ["learn_missing_scope", "add_business_terms", "rewrite_reflection", "ignore_noise"],
+            )
+            self.assertIn("pages/ProfileDetail.ets", action["semantic_gap_targets"]["files_missing_business_terms"])
+            self.assertIn(
+                "pages/ProfileDetail.ets::profileCache",
+                action["semantic_gap_targets"]["symbols_missing_business_terms"],
+            )
+            self.assertIn(
+                "pages/ProfileDetail.ets::load profile start",
+                action["semantic_gap_targets"]["logs_missing_business_summary"],
+            )
+
+    def test_maintain_plan_adds_business_term_enrichment_action(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payload = {
+                "files": [
+                    {
+                        "file_path": "pages/ProfileDetail.ets",
+                        "symbols": [{"symbol": "profileCache", "symbol_type": "field"}],
+                        "logs": [
+                            {
+                                "message_template": "load profile start",
+                                "function": "loadUserProfile",
+                                "level": "info",
+                                "logger": "hilog",
+                            }
+                        ],
+                    }
+                ]
+            }
+
+            self.run_memory(project, "learn-business", "--payload", json.dumps(payload, ensure_ascii=False), "--json")
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            actions = json.loads(result.stdout)["actions"]
+
+            action = next(action for action in actions if action["action"] == "add_business_terms")
+            self.assertEqual(action["type"], "code_memory")
+            self.assertFalse(action["requires_confirmation"])
+            self.assertIn("pages/ProfileDetail.ets", action["semantic_gap_targets"]["files_missing_business_summary"])
+            self.assertIn(
+                "pages/ProfileDetail.ets::profileCache",
+                action["semantic_gap_targets"]["symbols_missing_business_terms"],
+            )
+            self.assertEqual(
+                action["command_template"],
+                "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+            )
+            payload_template = action["learn_business_payload_template"]
+            self.assertEqual(payload_template["files"][0]["file_path"], "pages/ProfileDetail.ets")
+            self.assertEqual(payload_template["files"][0]["business_summary"], "")
+            self.assertEqual(payload_template["files"][0]["business_terms"], [])
+            self.assertEqual(payload_template["files"][0]["symbols"][0]["symbol"], "profileCache")
+            self.assertEqual(payload_template["files"][0]["symbols"][0]["symbol_type"], "field")
+            self.assertEqual(payload_template["files"][0]["logs"][0]["message_template"], "load profile start")
+            self.assertEqual(payload_template["files"][0]["logs"][0]["function"], "loadUserProfile")
+            self.assertEqual(
+                action["workflow_steps"],
+                [
+                    "Read the listed files, symbols, and logs in current source.",
+                    "Fill missing business_summary and business_terms in learn_business_payload_template.",
+                    "Write the completed payload with learn-business.",
+                    "Re-run query or maintain-plan to confirm the semantic gap is reduced.",
+                ],
             )
 
     def test_vault_export_writes_query_misses_dashboard(self) -> None:
@@ -1396,6 +1470,61 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertIn("Business: 个人信息详情页", content)
             self.assertIn("Terms: 个人信息, profile, 头像", content)
 
+    def test_learn_business_reports_semantic_stats_and_gaps(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payload = {
+                "files": [
+                    {
+                        "file_path": "pages/ProfileDetail.ets",
+                        "business_summary": "个人信息详情页，负责加载用户资料并展示头像。",
+                        "business_terms": ["个人信息", "profile", "头像"],
+                        "symbols": [
+                            {
+                                "symbol": "loadUserProfile",
+                                "symbol_type": "function",
+                                "business_summary": "加载用户资料的方法。",
+                                "business_terms": ["加载用户资料", "profile", "load profile"],
+                            },
+                            {
+                                "symbol": "profileCache",
+                                "symbol_type": "field",
+                            },
+                        ],
+                        "logs": [
+                            {
+                                "message_template": "load profile failed",
+                                "function": "loadUserProfile",
+                                "level": "error",
+                                "business_summary": "用户资料加载失败时输出的错误日志。",
+                                "business_terms": ["用户资料加载失败", "profile failed"],
+                            },
+                            {
+                                "message_template": "load profile start",
+                                "function": "loadUserProfile",
+                                "level": "info",
+                            },
+                        ],
+                    },
+                    {
+                        "file_path": "pages/Empty.ets",
+                    },
+                ]
+            }
+
+            result = self.run_memory(project, "learn-business", "--payload", json.dumps(payload, ensure_ascii=False), "--json")
+            data = json.loads(result.stdout)
+
+            self.assertEqual(data["semantic_stats"]["files_total"], 2)
+            self.assertEqual(data["semantic_stats"]["files_with_business_summary"], 1)
+            self.assertEqual(data["semantic_stats"]["symbols_total"], 2)
+            self.assertEqual(data["semantic_stats"]["symbols_with_business_terms"], 1)
+            self.assertEqual(data["semantic_stats"]["logs_total"], 2)
+            self.assertEqual(data["semantic_stats"]["logs_with_business_summary"], 1)
+            self.assertIn("pages/Empty.ets", data["semantic_gaps"]["files_missing_business_summary"])
+            self.assertIn("pages/ProfileDetail.ets::profileCache", data["semantic_gaps"]["symbols_missing_business_terms"])
+            self.assertIn("pages/ProfileDetail.ets::load profile start", data["semantic_gaps"]["logs_missing_business_summary"])
+
     def test_arkts_memory_edges_connect_imports_routes_and_resources(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
@@ -1574,6 +1703,38 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertLessEqual(len(payload["edge_matches"]), 10)
             self.assertTrue(all(edge["relation"] != "calls" for edge in payload["edge_matches"]))
 
+    def test_collect_related_edges_handles_more_than_thousand_targets(self) -> None:
+        from tools.agent_memory_runtime.query import collect_related_edges
+        from tools.agent_memory_runtime.storage import connect, ensure_initialized, resolve_project
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project_path = Path(temp_dir)
+            project = resolve_project(str(project_path), str(self.memory_home(project_path)))
+            ensure_initialized(project)
+
+            with connect(project) as conn:
+                for index in range(1200):
+                    conn.execute(
+                        """
+                        INSERT INTO memory_edges(
+                          project_id, source_type, source_id, relation, target_type,
+                          target_id, evidence, confidence, created_at
+                        )
+                        VALUES (?, 'code_symbol', ?, 'emits_log', 'code_log_statement', ?, 'synthetic', 0.9, '2026-01-01T00:00:00+00:00')
+                        """,
+                        (project.project_id, index + 1, index + 1),
+                    )
+                conn.commit()
+
+            targets = {
+                "code_file": set(),
+                "code_symbol": set(range(1, 1201)),
+                "code_log_statement": set(),
+            }
+            edges = collect_related_edges(project, targets)
+
+            self.assertLessEqual(len(edges), 10)
+
     def test_context_returns_one_hop_evidence_chains(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
@@ -1595,6 +1756,47 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(chain["reason"], "matched log statement emitted by symbol")
             self.assertEqual(chain["target_type"], "code_log_statement")
             self.assertIn("worker.py", chain["evidence"])
+
+    def test_search_limits_large_result_sets(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            for index in range(30):
+                self.run_memory(
+                    project,
+                    "update",
+                    "--type",
+                    "semantic",
+                    "--fact",
+                    f"Route failure fact {index}",
+                    "--source",
+                    "test",
+                )
+
+            result = self.run_memory(project, "search", "--query", "route failure", "--json")
+            payload = json.loads(result.stdout)
+
+            self.assertLessEqual(len(payload["semantic_facts"]), 20)
+            self.assertIn("result_limits", payload)
+            self.assertEqual(payload["result_limits"]["semantic_facts"], 20)
+
+    def test_context_json_stdout_preserves_chinese_text(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "update",
+                "--type",
+                "semantic",
+                "--fact",
+                "页面跳转后白屏需要先查路由",
+                "--source",
+                "test",
+            )
+
+            result = self.run_memory(project, "context", "--query", "页面跳转后白屏", "--json")
+
+            self.assertIn("页面跳转后白屏", result.stdout)
+            self.assertNotIn("\\u9875", result.stdout)
 
     def test_wiki_search_returns_code_log_matches(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

@@ -69,6 +69,19 @@ rewrite_reflection: add a missing experience candidate or improve a weak one.
 ignore_noise: mark a one-off or irrelevant miss ignored.
 ```
 
+If `maintain-plan` also returns `semantic_gap_targets`, use them as a concrete enrichment queue. Prefer filling the listed file, symbol, and log business meaning with `learn-business` before refreshing larger scopes.
+
+If `maintain-plan` returns `learn_business_payload_template`, use that JSON as the starting point for the next `learn-business` write. Fill only the missing summaries and terms, then write it back without broadening the learning scope.
+
+If `workflow_steps` is present on the action, use it as the execution checklist for the Agent:
+
+```text
+read current source
+fill missing business meaning in template
+write with learn-business
+re-run query or maintain-plan
+```
+
 ## Example Agent Response
 
 ```text

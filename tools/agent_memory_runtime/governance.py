@@ -336,6 +336,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
     review = build_review_data(project, args.limit)
     reflection_quality = build_reflect_review_data(project, args.limit)
     query_misses = build_query_miss_data(project, args.limit)
+    semantic_gap_targets = build_semantic_gap_targets(project)
+    learn_business_payload_template = build_learn_business_payload_template(project)
     actions: list[dict[str, Any]] = []
 
     for row in review["stale_memories"]:
@@ -478,6 +480,27 @@ def maintain_plan(args: argparse.Namespace) -> None:
                     "rewrite_reflection",
                     "ignore_noise",
                 ],
+                "semantic_gap_targets": semantic_gap_targets,
+                "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+                "learn_business_payload_template": learn_business_payload_template,
+                "workflow_steps": semantic_enrichment_workflow_steps(),
+            }
+        )
+
+    if any(semantic_gap_targets.values()):
+        actions.append(
+            {
+                "action": "add_business_terms",
+                "type": "code_memory",
+                "id": None,
+                "reason": "learned code records are missing business summaries or business terms",
+                "risk": "low",
+                "requires_confirmation": False,
+                "command": None,
+                "semantic_gap_targets": semantic_gap_targets,
+                "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+                "learn_business_payload_template": learn_business_payload_template,
+                "workflow_steps": semantic_enrichment_workflow_steps(),
             }
         )
 
@@ -511,6 +534,217 @@ def build_query_miss_data(project: Project, limit: int) -> list[dict[str, Any]]:
             (project.project_id, limit),
         ).fetchall()
     return [row_dict(row) for row in rows]
+
+
+def build_semantic_gap_targets(project: Project, limit_per_group: int = 5) -> dict[str, list[str]]:
+    with connect(project) as conn:
+        files_missing_business_summary = [
+            row["file_path"]
+            for row in conn.execute(
+                """
+                SELECT file_path
+                FROM code_files
+                WHERE project_id = ?
+                  AND (business_summary IS NULL OR TRIM(business_summary) = '')
+                ORDER BY file_path
+                LIMIT ?
+                """,
+                (project.project_id, limit_per_group),
+            ).fetchall()
+        ]
+        files_missing_business_terms = [
+            row["file_path"]
+            for row in conn.execute(
+                """
+                SELECT file_path
+                FROM code_files
+                WHERE project_id = ?
+                  AND (business_terms IS NULL OR business_terms = '' OR business_terms = '[]')
+                ORDER BY file_path
+                LIMIT ?
+                """,
+                (project.project_id, limit_per_group),
+            ).fetchall()
+        ]
+        symbols_missing_business_summary = [
+            f"{row['file_path']}::{row['symbol']}"
+            for row in conn.execute(
+                """
+                SELECT file_path, symbol
+                FROM code_symbols
+                WHERE project_id = ?
+                  AND (business_summary IS NULL OR TRIM(business_summary) = '')
+                ORDER BY file_path, symbol
+                LIMIT ?
+                """,
+                (project.project_id, limit_per_group),
+            ).fetchall()
+        ]
+        symbols_missing_business_terms = [
+            f"{row['file_path']}::{row['symbol']}"
+            for row in conn.execute(
+                """
+                SELECT file_path, symbol
+                FROM code_symbols
+                WHERE project_id = ?
+                  AND (business_terms IS NULL OR business_terms = '' OR business_terms = '[]')
+                ORDER BY file_path, symbol
+                LIMIT ?
+                """,
+                (project.project_id, limit_per_group),
+            ).fetchall()
+        ]
+        logs_missing_business_summary = [
+            f"{row['file_path']}::{row['message_template']}"
+            for row in conn.execute(
+                """
+                SELECT file_path, message_template
+                FROM code_log_statements
+                WHERE project_id = ?
+                  AND (business_summary IS NULL OR TRIM(business_summary) = '')
+                ORDER BY file_path, message_template
+                LIMIT ?
+                """,
+                (project.project_id, limit_per_group),
+            ).fetchall()
+        ]
+        logs_missing_business_terms = [
+            f"{row['file_path']}::{row['message_template']}"
+            for row in conn.execute(
+                """
+                SELECT file_path, message_template
+                FROM code_log_statements
+                WHERE project_id = ?
+                  AND (business_terms IS NULL OR business_terms = '' OR business_terms = '[]')
+                ORDER BY file_path, message_template
+                LIMIT ?
+                """,
+                (project.project_id, limit_per_group),
+            ).fetchall()
+        ]
+    return {
+        "files_missing_business_summary": files_missing_business_summary,
+        "files_missing_business_terms": files_missing_business_terms,
+        "symbols_missing_business_summary": symbols_missing_business_summary,
+        "symbols_missing_business_terms": symbols_missing_business_terms,
+        "logs_missing_business_summary": logs_missing_business_summary,
+        "logs_missing_business_terms": logs_missing_business_terms,
+    }
+
+
+def build_learn_business_payload_template(project: Project, limit_files: int = 5) -> dict[str, Any]:
+    with connect(project) as conn:
+        rows = conn.execute(
+            """
+            SELECT DISTINCT file_path
+            FROM (
+              SELECT file_path
+              FROM code_files
+              WHERE project_id = ?
+                AND (
+                  business_summary IS NULL OR TRIM(business_summary) = ''
+                  OR business_terms IS NULL OR business_terms = '' OR business_terms = '[]'
+                )
+              UNION
+              SELECT file_path
+              FROM code_symbols
+              WHERE project_id = ?
+                AND (
+                  business_summary IS NULL OR TRIM(business_summary) = ''
+                  OR business_terms IS NULL OR business_terms = '' OR business_terms = '[]'
+                )
+              UNION
+              SELECT file_path
+              FROM code_log_statements
+              WHERE project_id = ?
+                AND (
+                  business_summary IS NULL OR TRIM(business_summary) = ''
+                  OR business_terms IS NULL OR business_terms = '' OR business_terms = '[]'
+                )
+            )
+            ORDER BY file_path
+            LIMIT ?
+            """,
+            (project.project_id, project.project_id, project.project_id, limit_files),
+        ).fetchall()
+        file_paths = [row["file_path"] for row in rows]
+        files: list[dict[str, Any]] = []
+        for file_path in file_paths:
+            file_row = conn.execute(
+                """
+                SELECT file_path, summary, language, business_summary, business_terms
+                FROM code_files
+                WHERE project_id = ? AND file_path = ?
+                """,
+                (project.project_id, file_path),
+            ).fetchone()
+            file_item = {
+                "file_path": file_path,
+                "summary": file_row["summary"] if file_row else "",
+                "business_summary": "" if not file_row or not str(file_row["business_summary"] or "").strip() else "",
+                "business_terms": [],
+                "symbols": [],
+                "logs": [],
+            }
+            symbol_rows = conn.execute(
+                """
+                SELECT symbol, symbol_type, summary, business_summary, business_terms
+                FROM code_symbols
+                WHERE project_id = ? AND file_path = ?
+                  AND (
+                    business_summary IS NULL OR TRIM(business_summary) = ''
+                    OR business_terms IS NULL OR business_terms = '' OR business_terms = '[]'
+                  )
+                ORDER BY symbol
+                """,
+                (project.project_id, file_path),
+            ).fetchall()
+            for row in symbol_rows:
+                file_item["symbols"].append(
+                    {
+                        "symbol": row["symbol"],
+                        "symbol_type": row["symbol_type"],
+                        "summary": row["summary"],
+                        "business_summary": "",
+                        "business_terms": [],
+                    }
+                )
+            log_rows = conn.execute(
+                """
+                SELECT message_template, function, level, logger, raw_statement, business_summary, business_terms
+                FROM code_log_statements
+                WHERE project_id = ? AND file_path = ?
+                  AND (
+                    business_summary IS NULL OR TRIM(business_summary) = ''
+                    OR business_terms IS NULL OR business_terms = '' OR business_terms = '[]'
+                  )
+                ORDER BY message_template
+                """,
+                (project.project_id, file_path),
+            ).fetchall()
+            for row in log_rows:
+                file_item["logs"].append(
+                    {
+                        "message_template": row["message_template"],
+                        "function": row["function"],
+                        "level": row["level"],
+                        "logger": row["logger"],
+                        "raw_statement": row["raw_statement"],
+                        "business_summary": "",
+                        "business_terms": [],
+                    }
+                )
+            files.append(file_item)
+    return {"files": files}
+
+
+def semantic_enrichment_workflow_steps() -> list[str]:
+    return [
+        "Read the listed files, symbols, and logs in current source.",
+        "Fill missing business_summary and business_terms in learn_business_payload_template.",
+        "Write the completed payload with learn-business.",
+        "Re-run query or maintain-plan to confirm the semantic gap is reduced.",
+    ]
 
 
 def maintain_status(args: argparse.Namespace) -> None:
