@@ -74,6 +74,8 @@ Prefer filling the template over inventing a new payload shape. It keeps file, s
 
 When `workflow_steps` is present, follow it in order. Treat it as the default local Agent CLI procedure for targeted semantic enrichment.
 
+When `maintain-plan` returns `review_semantic_conflict`, do not replace stored summaries immediately. Read current source, decide which summary is grounded in the code, then prepare a reviewed replacement in a later governed step.
+
 ## Governance Actions
 
 Mark a record stale, archived, rejected, merged, or active:

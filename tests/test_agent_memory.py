@@ -1048,6 +1048,69 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                 ],
             )
 
+    def test_maintain_plan_surfaces_recent_semantic_conflicts(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps(
+                    {
+                        "files": [
+                            {
+                                "file_path": "pages/ProfileDetail.ets",
+                                "business_summary": "用户资料详情页",
+                                "symbols": [
+                                    {
+                                        "symbol": "profileCache",
+                                        "symbol_type": "field",
+                                        "business_summary": "资料缓存字段。",
+                                    }
+                                ],
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                "--json",
+            )
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps(
+                    {
+                        "files": [
+                            {
+                                "file_path": "pages/ProfileDetail.ets",
+                                "business_summary": "订单详情页",
+                                "symbols": [
+                                    {
+                                        "symbol": "profileCache",
+                                        "symbol_type": "field",
+                                        "business_summary": "订单缓存字段。",
+                                    }
+                                ],
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                "--json",
+            )
+
+            payload = json.loads(self.run_memory(project, "maintain-plan", "--json").stdout)
+            actions = payload["actions"]
+            conflict_actions = [action for action in actions if action["action"] == "review_semantic_conflict"]
+
+            self.assertEqual(payload["summary"]["semantic_conflicts"], 2)
+            self.assertEqual(len(conflict_actions), 2)
+            self.assertEqual(conflict_actions[0]["type"], "semantic_conflict")
+            self.assertEqual(conflict_actions[0]["source_command"], "learn-business")
+            self.assertIsNotNone(conflict_actions[0]["observed_at"])
+            self.assertIn(conflict_actions[0]["target"], {"pages/ProfileDetail.ets", "pages/ProfileDetail.ets::profileCache"})
+
     def test_vault_export_writes_query_misses_dashboard(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
@@ -1524,6 +1587,157 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertIn("pages/Empty.ets", data["semantic_gaps"]["files_missing_business_summary"])
             self.assertIn("pages/ProfileDetail.ets::profileCache", data["semantic_gaps"]["symbols_missing_business_terms"])
             self.assertIn("pages/ProfileDetail.ets::load profile start", data["semantic_gaps"]["logs_missing_business_summary"])
+            self.assertEqual(
+                data["semantic_followup"]["command_template"],
+                "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+            )
+            self.assertEqual(
+                data["semantic_followup"]["workflow_steps"],
+                [
+                    "Read the listed files, symbols, and logs in current source.",
+                    "Fill missing business_summary and business_terms in followup_payload_template.",
+                    "Write the completed payload with learn-business.",
+                    "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced.",
+                ],
+            )
+            followup = data["semantic_followup"]["followup_payload_template"]
+            self.assertEqual(followup["files"][0]["file_path"], "pages/ProfileDetail.ets")
+            self.assertEqual(followup["files"][0]["symbols"][0]["symbol"], "profileCache")
+            self.assertEqual(followup["files"][0]["logs"][0]["message_template"], "load profile start")
+            self.assertEqual(followup["files"][1]["file_path"], "pages/Empty.ets")
+
+    def test_learn_business_partial_update_keeps_unmentioned_symbols_and_logs(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            first_payload = {
+                "files": [
+                    {
+                        "file_path": "pages/ProfileDetail.ets",
+                        "business_summary": "个人信息详情页",
+                        "business_terms": ["个人信息", "profile"],
+                        "symbols": [
+                            {
+                                "symbol": "loadUserProfile",
+                                "symbol_type": "function",
+                                "business_summary": "加载用户资料的方法。",
+                                "business_terms": ["加载用户资料", "load profile"],
+                            },
+                            {
+                                "symbol": "profileCache",
+                                "symbol_type": "field",
+                                "business_summary": "资料缓存字段。",
+                                "business_terms": ["资料缓存", "profile cache"],
+                            },
+                        ],
+                        "logs": [
+                            {
+                                "message_template": "load profile failed",
+                                "function": "loadUserProfile",
+                                "level": "error",
+                                "business_summary": "资料加载失败日志。",
+                                "business_terms": ["资料加载失败", "profile failed"],
+                            },
+                            {
+                                "message_template": "load profile start",
+                                "function": "loadUserProfile",
+                                "level": "info",
+                                "business_summary": "资料加载开始日志。",
+                                "business_terms": ["资料加载开始", "profile start"],
+                            },
+                        ],
+                    }
+                ]
+            }
+            second_payload = {
+                "files": [
+                    {
+                        "file_path": "pages/ProfileDetail.ets",
+                        "symbols": [
+                            {
+                                "symbol": "profileCache",
+                                "symbol_type": "field",
+                                "business_terms": ["头像缓存", "avatar cache"],
+                            }
+                        ],
+                        "logs": [
+                            {
+                                "message_template": "load profile start",
+                                "function": "loadUserProfile",
+                                "level": "info",
+                                "business_terms": ["进入加载", "load entry"],
+                            }
+                        ],
+                    }
+                ]
+            }
+
+            self.run_memory(project, "learn-business", "--payload", json.dumps(first_payload, ensure_ascii=False), "--json")
+            self.run_memory(project, "learn-business", "--payload", json.dumps(second_payload, ensure_ascii=False), "--json")
+
+            symbols = sorted(self.list_records(project, "code-symbol"), key=lambda row: row["symbol"])
+            logs = sorted(self.list_records(project, "code-log"), key=lambda row: row["message_template"])
+
+            self.assertEqual([row["symbol"] for row in symbols], ["loadUserProfile", "profileCache"])
+            self.assertEqual([row["message_template"] for row in logs], ["load profile failed", "load profile start"])
+            profile_cache_terms = json.loads(next(row for row in symbols if row["symbol"] == "profileCache")["business_terms"])
+            self.assertIn("profile cache", profile_cache_terms)
+            self.assertIn("avatar cache", profile_cache_terms)
+            load_start_terms = json.loads(next(row for row in logs if row["message_template"] == "load profile start")["business_terms"])
+            self.assertIn("profile start", load_start_terms)
+            self.assertIn("load entry", load_start_terms)
+
+    def test_learn_business_preserves_existing_non_empty_summary_and_reports_conflict(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            first_payload = {
+                "files": [
+                    {
+                        "file_path": "pages/ProfileDetail.ets",
+                        "business_summary": "用户资料详情页",
+                        "business_terms": ["用户资料", "profile"],
+                        "symbols": [
+                            {
+                                "symbol": "profileCache",
+                                "symbol_type": "field",
+                                "business_summary": "资料缓存字段。",
+                                "business_terms": ["资料缓存", "profile cache"],
+                            }
+                        ],
+                    }
+                ]
+            }
+            conflicting_payload = {
+                "files": [
+                    {
+                        "file_path": "pages/ProfileDetail.ets",
+                        "business_summary": "订单详情页",
+                        "symbols": [
+                            {
+                                "symbol": "profileCache",
+                                "symbol_type": "field",
+                                "business_summary": "订单缓存字段。",
+                            }
+                        ],
+                    }
+                ]
+            }
+
+            self.run_memory(project, "learn-business", "--payload", json.dumps(first_payload, ensure_ascii=False), "--json")
+            result = self.run_memory(project, "learn-business", "--payload", json.dumps(conflicting_payload, ensure_ascii=False), "--json")
+            data = json.loads(result.stdout)
+
+            files = self.list_records(project, "code-file")
+            symbols = self.list_records(project, "code-symbol")
+            self.assertEqual(files[0]["business_summary"], "用户资料详情页")
+            self.assertEqual(symbols[0]["business_summary"], "资料缓存字段。")
+            self.assertEqual(
+                data["semantic_conflicts"][0]["target"],
+                "pages/ProfileDetail.ets",
+            )
+            self.assertEqual(
+                data["semantic_conflicts"][1]["target"],
+                "pages/ProfileDetail.ets::profileCache",
+            )
 
     def test_arkts_memory_edges_connect_imports_routes_and_resources(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -1629,6 +1843,16 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(stats["code_logs_total"], 1)
             self.assertEqual(stats["code_logs_by_level"]["error"], 1)
             self.assertGreaterEqual(stats["memory_edges_total"], 1)
+            followup = json.loads(result.stdout)["semantic_followup"]
+            self.assertEqual(
+                followup["command_template"],
+                "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+            )
+            self.assertEqual(followup["followup_payload_template"]["files"][0]["file_path"], "pages/Index.ets")
+            self.assertEqual(
+                followup["followup_payload_template"]["files"][0]["logs"][0]["message_template"],
+                "load failed",
+            )
 
     def test_learn_path_json_returns_parse_stats_for_harmonyos_config(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -1649,6 +1873,14 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(payload["parse_stats"]["files_indexed"], 1)
             self.assertEqual(payload["parse_stats"]["languages"]["HarmonyOS Config"], 1)
             self.assertEqual(payload["parse_stats"]["symbols_by_type"]["dependency"], 1)
+            self.assertEqual(
+                payload["semantic_followup"]["followup_payload_template"]["files"][0]["file_path"],
+                "entry/oh-package.json5",
+            )
+            self.assertEqual(
+                payload["semantic_followup"]["followup_payload_template"]["files"][0]["symbols"][0]["symbol"],
+                "@ohos/axios",
+            )
 
     def test_context_returns_code_log_and_related_edge_matches(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

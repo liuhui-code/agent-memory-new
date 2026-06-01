@@ -136,6 +136,8 @@ Learning also stores code log statements such as `print(...)`, `logger.error(...
 
 For HarmonyOS projects, learning also indexes `.json5` config files, ArkTS router targets, and `$r(...)` resource references as code wiki symbols. `learn-entry` can follow ArkTS router targets such as `router.pushUrl({ url: 'pages/Detail' })` to the related `.ets` page.
 
+`learn-entry --json` and `learn-path --json` can also return `semantic_followup` immediately after structural indexing. Use it to start the next `learn-business` pass on the exact files just learned, rather than waiting for a later maintenance review.
+
 For higher-quality business recall, the Agent should read the target files first, organize file/method/field/log business meaning, then write it with `learn-business`:
 
 ```bash
@@ -143,6 +145,13 @@ python tools/agent_memory.py learn-business --project . --payload "<json>" --jso
 ```
 
 This stores `business_summary` and `business_terms` directly on existing code file, symbol, and log records. Business terms should name real business objects such as profile, avatar, order status, device binding, user id, route names, resource keys, and log meanings.
+
+`learn-business` is merge-oriented by default:
+
+- it updates only the file, symbol, and log rows named in the payload
+- it merges new `business_terms` into existing terms
+- it keeps existing non-empty `business_summary` values unless the new value is identical
+- if a new non-empty summary disagrees with an existing non-empty summary, the runtime returns `semantic_conflicts` instead of overwriting it
 
 `learn-business --json` also returns semantic coverage feedback for the submitted scope:
 
@@ -168,6 +177,33 @@ This stores `business_summary` and `business_terms` directly on existing code fi
 ```
 
 Use `semantic_stats` to judge whether the learned scope has enough business meaning for query. Use `semantic_gaps` to decide what the Agent should read and enrich next.
+
+When gaps remain, `semantic_followup` provides a ready-made second-pass template:
+
+```json
+{
+  "semantic_followup": {
+    "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+    "workflow_steps": [
+      "Read the listed files, symbols, and logs in current source.",
+      "Fill missing business_summary and business_terms in followup_payload_template.",
+      "Write the completed payload with learn-business.",
+      "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+    ],
+    "followup_payload_template": {
+      "files": [
+        {
+          "file_path": "pages/ProfileDetail.ets",
+          "business_summary": "",
+          "business_terms": [],
+          "symbols": [{"symbol": "profileCache", "business_summary": "", "business_terms": []}],
+          "logs": [{"message_template": "load profile start", "business_summary": "", "business_terms": []}]
+        }
+      ]
+    }
+  }
+}
+```
 
 For the whole project:
 

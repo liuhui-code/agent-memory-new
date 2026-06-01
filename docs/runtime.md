@@ -164,14 +164,19 @@ python tools/agent_memory.py learn-business --project . --payload "<json>" --jso
 
 The payload contains files, symbols, and logs with `business_summary` and `business_terms`. Use it after the Agent has read the target source and organized the code's real business meaning. It does not create a separate business table; it enriches `code_files`, `code_symbols`, and `code_log_statements`.
 
+`learn-business` uses object-level merge semantics by default. It updates only the addressed file, symbol, and log rows; merges `business_terms`; preserves existing non-empty `business_summary` values; and reports `semantic_conflicts` instead of silently overwriting conflicting summaries.
+
 `learn-business --json` also returns semantic quality feedback for the submitted scope:
 
 ```text
 semantic_stats
 semantic_gaps
+semantic_followup
 ```
 
 `semantic_stats` reports coverage counts for file, symbol, and log business meaning. `semantic_gaps` lists the specific files, symbols, or logs that still lack `business_summary` or `business_terms`.
+When gaps remain, `semantic_followup` returns a `command_template`, `workflow_steps`, and `followup_payload_template` so the Agent can run a second targeted `learn-business` pass without reconstructing anchors.
+Recent `semantic_conflicts` also flow into `maintain-plan` as `review_semantic_conflict` actions for later governance.
 
 They also extract code log statements and rebuild deterministic code-wiki edges:
 
@@ -196,6 +201,7 @@ memory_edges_total
 ```
 
 Agents should use these counts to detect narrow or failed learning scopes before relying on the codebase wiki.
+When the learned files still lack business semantics, `learn-entry --json` and `learn-path --json` also include `semantic_followup` with a second-pass `learn-business` template scoped to the files just indexed.
 
 # 5. Reflection Quality Path
 

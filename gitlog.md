@@ -126,6 +126,107 @@ Verification:
 Rollback notes:
 - Remove `semantic_enrichment_workflow_steps`, remove `workflow_steps` from maintain-plan actions, and revert the related doc and test updates.
 
+## 2026-06-01 - Add learn-business follow-up templates
+
+Files changed:
+- `tools/agent_memory_runtime/code_wiki.py`
+- `skills/agent-memory-learn/SKILL.md`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Added `semantic_followup` to `learn-business --json` when semantic gaps remain.
+- Included a second-pass `followup_payload_template`, a stable `command_template`, and ordered `workflow_steps`.
+- Updated learn/runtime/usage docs so Agents can run targeted follow-up enrichment directly from learn output.
+
+Why:
+- Learn should be able to self-correct incomplete business semantics without requiring a separate maintain pass first.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_learn_business_reports_semantic_stats_and_gaps`
+- Result: fails before `semantic_followup` exists, then passes.
+
+Rollback notes:
+- Remove `semantic_followup_workflow_steps`, `semantic_followup_template`, and `semantic_followup` from `learn-business`, then revert the doc and test updates.
+
+## 2026-06-01 - Return semantic follow-up from learn-entry and learn-path
+
+Files changed:
+- `tools/agent_memory_runtime/code_wiki.py`
+- `skills/agent-memory-learn/SKILL.md`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Added `semantic_followup` to `learn-entry --json` and `learn-path --json` when the just-indexed files still lack business semantics.
+- Scoped the follow-up template to the files learned by the command, including missing symbol and log business fields.
+- Fixed path deduplication in the follow-up builder to preserve case-sensitive file paths.
+
+Why:
+- Structural learning should be able to hand off directly to semantic enrichment for the same files without requiring a separate maintain step.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_learn_entry_returns_parse_stats tests.test_agent_memory.AgentMemoryRuntimeTests.test_learn_path_json_returns_parse_stats_for_harmonyos_config`
+- Result: fails before `semantic_followup` exists, then passes.
+
+Rollback notes:
+- Remove `semantic_followup_from_db`, stop adding `semantic_followup` to `learn-entry` and `learn-path`, and revert the doc and test updates.
+
+## 2026-06-01 - Make learn-business partial updates safe
+
+Files changed:
+- `tools/agent_memory_runtime/code_wiki.py`
+- `skills/agent-memory-learn/SKILL.md`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Replaced file-level symbol/log deletion in `learn-business` with object-level merge updates.
+- Merged `business_terms` instead of replacing them.
+- Preserved existing non-empty `business_summary` values and returned `semantic_conflicts` when incoming non-empty summaries disagreed.
+
+Why:
+- Partial semantic enrichment must not delete unmentioned records or silently overwrite existing business meaning.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_learn_business_partial_update_keeps_unmentioned_symbols_and_logs tests.test_agent_memory.AgentMemoryRuntimeTests.test_learn_business_preserves_existing_non_empty_summary_and_reports_conflict`
+- Result: fails before object-level merge behavior exists, then passes.
+
+Rollback notes:
+- Restore file-level symbol/log rewrite behavior in `learn_business`, remove `semantic_conflicts`, and revert the doc and test updates.
+
+## 2026-06-01 - Surface semantic conflicts in maintain-plan
+
+Files changed:
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/code_wiki.py`
+- `skills/agent-memory-maintain/SKILL.md`
+- `docs/guided-memory-review-workflow.md`
+- `docs/runtime.md`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+- Added `source_command` and `observed_at` metadata to `semantic_conflicts` emitted by `learn-business`.
+- Added `review_semantic_conflict` actions and `summary.semantic_conflicts` to `maintain-plan` by reading the most recent learn-business runtime output.
+- Updated maintain/runtime docs so semantic conflicts are treated as review-only governance items.
+
+Why:
+- Repeated learning on the same project needs an explicit governance path for conflicting semantic summaries instead of burying conflicts in raw learn output.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_surfaces_recent_semantic_conflicts tests.test_agent_memory.AgentMemoryRuntimeTests.test_learn_business_preserves_existing_non_empty_summary_and_reports_conflict`
+- Result: fails before maintain-plan reads semantic conflicts, then passes.
+
+Rollback notes:
+- Remove conflict metadata from `learn_business`, remove `build_recent_semantic_conflicts` and `review_semantic_conflict` actions from `maintain-plan`, and revert the doc and test updates.
+
 ## 2026-05-29 - Start experience candidate loop
 
 Files changed:

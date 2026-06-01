@@ -82,6 +82,8 @@ write with learn-business
 re-run query or maintain-plan
 ```
 
+If `maintain-plan` returns `review_semantic_conflict`, treat it as a review-only action. The existing summary stayed in storage; the incoming summary was captured for comparison. Resolve it against current source before any future replacement step.
+
 ## Example Agent Response
 
 ```text

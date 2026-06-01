@@ -718,6 +718,9 @@ def learn_path(args: argparse.Namespace) -> None:
         "summary": summary,
         "parse_stats": stats,
     }
+    semantic_followup = semantic_followup_from_db(source_project, payload["files"])
+    if semantic_followup:
+        payload["semantic_followup"] = semantic_followup
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_learn_path.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
@@ -812,6 +815,195 @@ def semantic_quality_report(payload_files: list[dict[str, Any]]) -> dict[str, An
     return {"semantic_stats": stats, "semantic_gaps": gaps}
 
 
+def semantic_followup_workflow_steps() -> list[str]:
+    return [
+        "Read the listed files, symbols, and logs in current source.",
+        "Fill missing business_summary and business_terms in followup_payload_template.",
+        "Write the completed payload with learn-business.",
+        "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced.",
+    ]
+
+
+def semantic_followup_template(payload_files: list[dict[str, Any]]) -> dict[str, Any]:
+    files: list[dict[str, Any]] = []
+    for file_item in payload_files:
+        if not isinstance(file_item, dict) or not file_item.get("file_path"):
+            continue
+        file_path = str(file_item["file_path"])
+        file_output = {
+            "file_path": file_path,
+            "summary": file_item.get("summary") or "",
+            "business_summary": "" if not has_business_summary(file_item.get("business_summary")) else "",
+            "business_terms": [],
+            "symbols": [],
+            "logs": [],
+        }
+        for symbol_item in file_item.get("symbols") or []:
+            if not isinstance(symbol_item, dict) or not symbol_item.get("symbol"):
+                continue
+            if has_business_summary(symbol_item.get("business_summary")) and has_business_terms(symbol_item.get("business_terms")):
+                continue
+            file_output["symbols"].append(
+                {
+                    "symbol": str(symbol_item["symbol"]),
+                    "symbol_type": symbol_item.get("symbol_type"),
+                    "summary": symbol_item.get("summary") or "",
+                    "business_summary": "",
+                    "business_terms": [],
+                }
+            )
+        for log_item in file_item.get("logs") or []:
+            if not isinstance(log_item, dict) or not log_item.get("message_template"):
+                continue
+            if has_business_summary(log_item.get("business_summary")) and has_business_terms(log_item.get("business_terms")):
+                continue
+            file_output["logs"].append(
+                {
+                    "message_template": str(log_item["message_template"]),
+                    "function": log_item.get("function"),
+                    "level": log_item.get("level"),
+                    "logger": log_item.get("logger"),
+                    "raw_statement": log_item.get("raw_statement"),
+                    "business_summary": "",
+                    "business_terms": [],
+                }
+            )
+        if (
+            not has_business_summary(file_item.get("business_summary"))
+            or not has_business_terms(file_item.get("business_terms"))
+            or file_output["symbols"]
+            or file_output["logs"]
+        ):
+            files.append(file_output)
+    return {"files": files}
+
+
+def semantic_followup_from_db(project: Project, file_paths: list[str]) -> dict[str, Any] | None:
+    seen_paths: set[str] = set()
+    unique_paths: list[str] = []
+    for raw_path in file_paths:
+        path = str(raw_path or "").strip()
+        if not path or path in seen_paths:
+            continue
+        seen_paths.add(path)
+        unique_paths.append(path)
+    if not unique_paths:
+        return None
+    files: list[dict[str, Any]] = []
+    with connect(project) as conn:
+        for file_path in unique_paths:
+            file_row = conn.execute(
+                """
+                SELECT file_path, summary, business_summary, business_terms
+                FROM code_files
+                WHERE project_id = ? AND file_path = ?
+                """,
+                (project.project_id, file_path),
+            ).fetchone()
+            if not file_row:
+                continue
+            file_output = {
+                "file_path": file_path,
+                "summary": file_row["summary"] or "",
+                "business_summary": "",
+                "business_terms": [],
+                "symbols": [],
+                "logs": [],
+            }
+            file_missing = (
+                not has_business_summary(file_row["business_summary"])
+                or not has_business_terms(file_row["business_terms"])
+            )
+            symbol_rows = conn.execute(
+                """
+                SELECT symbol, symbol_type, summary, business_summary, business_terms
+                FROM code_symbols
+                WHERE project_id = ? AND file_path = ?
+                ORDER BY symbol
+                """,
+                (project.project_id, file_path),
+            ).fetchall()
+            for row in symbol_rows:
+                if has_business_summary(row["business_summary"]) and has_business_terms(row["business_terms"]):
+                    continue
+                file_output["symbols"].append(
+                    {
+                        "symbol": row["symbol"],
+                        "symbol_type": row["symbol_type"],
+                        "summary": row["summary"] or "",
+                        "business_summary": "",
+                        "business_terms": [],
+                    }
+                )
+            log_rows = conn.execute(
+                """
+                SELECT message_template, function, level, logger, raw_statement, business_summary, business_terms
+                FROM code_log_statements
+                WHERE project_id = ? AND file_path = ?
+                ORDER BY message_template
+                """,
+                (project.project_id, file_path),
+            ).fetchall()
+            for row in log_rows:
+                if has_business_summary(row["business_summary"]) and has_business_terms(row["business_terms"]):
+                    continue
+                file_output["logs"].append(
+                    {
+                        "message_template": row["message_template"],
+                        "function": row["function"],
+                        "level": row["level"],
+                        "logger": row["logger"],
+                        "raw_statement": row["raw_statement"],
+                        "business_summary": "",
+                        "business_terms": [],
+                    }
+                )
+            if file_missing or file_output["symbols"] or file_output["logs"]:
+                files.append(file_output)
+    if not files:
+        return None
+    return {
+        "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+        "workflow_steps": semantic_followup_workflow_steps(),
+        "followup_payload_template": {"files": files},
+    }
+
+
+def merge_business_terms(existing: Any, incoming: Any) -> str:
+    merged: list[str] = []
+    seen: set[str] = set()
+    for value in [*json_list(existing), *json_list(incoming)]:
+        stripped = str(value).strip()
+        normalized = stripped.lower()
+        if not stripped or normalized in seen:
+            continue
+        seen.add(normalized)
+        merged.append(stripped)
+    return json.dumps(merged, ensure_ascii=False)
+
+
+def merged_business_summary(existing: Any, incoming: Any, target: str, conflicts: list[dict[str, Any]]) -> str | None:
+    existing_text = str(existing or "").strip()
+    incoming_text = str(incoming or "").strip()
+    if not existing_text:
+        return incoming_text or None
+    if not incoming_text:
+        return existing_text
+    if existing_text == incoming_text:
+        return existing_text
+    conflicts.append(
+        {
+            "target": target,
+            "field": "business_summary",
+            "existing": existing_text,
+            "incoming": incoming_text,
+            "resolution": "manual_review_required",
+            "source_command": "learn-business",
+        }
+    )
+    return existing_text
+
+
 def learn_business(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
@@ -826,6 +1018,7 @@ def learn_business(args: argparse.Namespace) -> None:
     files_written = 0
     symbols_written = 0
     logs_written = 0
+    conflicts: list[dict[str, Any]] = []
     with connect(source_project) as conn:
         for file_item in payload["files"]:
             if not isinstance(file_item, dict) or not file_item.get("file_path"):
@@ -833,6 +1026,24 @@ def learn_business(args: argparse.Namespace) -> None:
             file_path = str(file_item["file_path"])
             language = file_item.get("language") or CODE_EXTENSIONS.get(Path(file_path).suffix.lower()) or "unknown"
             summary = file_item.get("summary") or f"{language} file"
+            existing_file = conn.execute(
+                """
+                SELECT file_path, summary, language, business_summary, business_terms
+                FROM code_files
+                WHERE project_id = ? AND file_path = ?
+                """,
+                (source_project.project_id, file_path),
+            ).fetchone()
+            file_business_summary = merged_business_summary(
+                existing_file["business_summary"] if existing_file else None,
+                file_item.get("business_summary"),
+                file_path,
+                conflicts,
+            )
+            file_business_terms = merge_business_terms(
+                existing_file["business_terms"] if existing_file else None,
+                file_item.get("business_terms"),
+            )
             conn.execute(
                 """
                 INSERT INTO code_files(
@@ -852,73 +1063,160 @@ def learn_business(args: argparse.Namespace) -> None:
                     file_path,
                     summary,
                     language,
-                    file_item.get("business_summary"),
-                    json_list_text(file_item.get("business_terms")),
+                    file_business_summary,
+                    file_business_terms,
                     ts,
                 ),
             )
             files_written += 1
-            conn.execute(
-                "DELETE FROM code_symbols WHERE project_id = ? AND file_path = ?",
-                (source_project.project_id, file_path),
-            )
-            conn.execute(
-                "DELETE FROM code_log_statements WHERE project_id = ? AND file_path = ?",
-                (source_project.project_id, file_path),
-            )
             for symbol_item in file_item.get("symbols") or []:
                 if not isinstance(symbol_item, dict) or not symbol_item.get("symbol"):
                     continue
                 symbol = str(symbol_item["symbol"])
                 symbol_type = symbol_item.get("symbol_type") or "symbol"
                 symbol_summary = symbol_item.get("summary") or summarize_symbol(file_path, symbol, symbol_type, language)
-                conn.execute(
+                existing_symbol = conn.execute(
                     """
-                    INSERT INTO code_symbols(
-                      project_id, file_path, symbol, symbol_type, summary, calls,
-                      business_summary, business_terms, updated_at
-                    )
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    SELECT *
+                    FROM code_symbols
+                    WHERE project_id = ? AND file_path = ? AND symbol = ? AND COALESCE(symbol_type, 'symbol') = ?
+                    ORDER BY id DESC
+                    LIMIT 1
                     """,
-                    (
-                        source_project.project_id,
-                        file_path,
-                        symbol,
-                        symbol_type,
-                        symbol_summary,
-                        symbol_item.get("calls") or "",
-                        symbol_item.get("business_summary"),
-                        json_list_text(symbol_item.get("business_terms")),
-                        ts,
-                    ),
+                    (source_project.project_id, file_path, symbol, symbol_type),
+                ).fetchone()
+                symbol_business_summary = merged_business_summary(
+                    existing_symbol["business_summary"] if existing_symbol else None,
+                    symbol_item.get("business_summary"),
+                    f"{file_path}::{symbol}",
+                    conflicts,
                 )
+                symbol_business_terms = merge_business_terms(
+                    existing_symbol["business_terms"] if existing_symbol else None,
+                    symbol_item.get("business_terms"),
+                )
+                if existing_symbol:
+                    conn.execute(
+                        """
+                        UPDATE code_symbols
+                        SET symbol_type = ?, summary = ?, calls = ?,
+                            business_summary = ?, business_terms = ?, updated_at = ?
+                        WHERE id = ?
+                        """,
+                        (
+                            symbol_type,
+                            symbol_summary,
+                            symbol_item.get("calls") or existing_symbol["calls"] or "",
+                            symbol_business_summary,
+                            symbol_business_terms,
+                            ts,
+                            existing_symbol["id"],
+                        ),
+                    )
+                else:
+                    conn.execute(
+                        """
+                        INSERT INTO code_symbols(
+                          project_id, file_path, symbol, symbol_type, summary, calls,
+                          business_summary, business_terms, updated_at
+                        )
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            source_project.project_id,
+                            file_path,
+                            symbol,
+                            symbol_type,
+                            symbol_summary,
+                            symbol_item.get("calls") or "",
+                            symbol_business_summary,
+                            symbol_business_terms,
+                            ts,
+                        ),
+                    )
                 symbols_written += 1
             for log_item in file_item.get("logs") or []:
                 if not isinstance(log_item, dict) or not log_item.get("message_template"):
                     continue
-                conn.execute(
+                message_template = str(log_item.get("message_template"))
+                existing_log = conn.execute(
                     """
-                    INSERT INTO code_log_statements(
-                      project_id, file_path, line, function, level, logger,
-                      message_template, raw_statement,
-                      business_summary, business_terms, updated_at
-                    )
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    SELECT *
+                    FROM code_log_statements
+                    WHERE project_id = ? AND file_path = ?
+                      AND message_template = ?
+                      AND COALESCE(function, '') = COALESCE(?, '')
+                      AND COALESCE(level, '') = COALESCE(?, '')
+                      AND COALESCE(logger, '') = COALESCE(?, '')
+                    ORDER BY id DESC
+                    LIMIT 1
                     """,
                     (
                         source_project.project_id,
                         file_path,
-                        log_item.get("line"),
+                        message_template,
                         log_item.get("function"),
                         log_item.get("level"),
                         log_item.get("logger"),
-                        log_item.get("message_template"),
-                        log_item.get("raw_statement"),
-                        log_item.get("business_summary"),
-                        json_list_text(log_item.get("business_terms")),
-                        ts,
                     ),
+                ).fetchone()
+                log_target = f"{file_path}::{message_template}"
+                log_business_summary = merged_business_summary(
+                    existing_log["business_summary"] if existing_log else None,
+                    log_item.get("business_summary"),
+                    log_target,
+                    conflicts,
                 )
+                log_business_terms = merge_business_terms(
+                    existing_log["business_terms"] if existing_log else None,
+                    log_item.get("business_terms"),
+                )
+                if existing_log:
+                    conn.execute(
+                        """
+                        UPDATE code_log_statements
+                        SET line = ?, function = ?, level = ?, logger = ?,
+                            message_template = ?, raw_statement = ?,
+                            business_summary = ?, business_terms = ?, updated_at = ?
+                        WHERE id = ?
+                        """,
+                        (
+                            log_item.get("line") if log_item.get("line") is not None else existing_log["line"],
+                            log_item.get("function") if log_item.get("function") is not None else existing_log["function"],
+                            log_item.get("level") if log_item.get("level") is not None else existing_log["level"],
+                            log_item.get("logger") if log_item.get("logger") is not None else existing_log["logger"],
+                            message_template,
+                            log_item.get("raw_statement") if log_item.get("raw_statement") is not None else existing_log["raw_statement"],
+                            log_business_summary,
+                            log_business_terms,
+                            ts,
+                            existing_log["id"],
+                        ),
+                    )
+                else:
+                    conn.execute(
+                        """
+                        INSERT INTO code_log_statements(
+                          project_id, file_path, line, function, level, logger,
+                          message_template, raw_statement,
+                          business_summary, business_terms, updated_at
+                        )
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            source_project.project_id,
+                            file_path,
+                            log_item.get("line"),
+                            log_item.get("function"),
+                            log_item.get("level"),
+                            log_item.get("logger"),
+                            message_template,
+                            log_item.get("raw_statement"),
+                            log_business_summary,
+                            log_business_terms,
+                            ts,
+                        ),
+                    )
                 logs_written += 1
         rebuild_code_memory_edges(conn, source_project)
         edge_count = conn.execute(
@@ -929,12 +1227,25 @@ def learn_business(args: argparse.Namespace) -> None:
     data = {
         "project_id": project.project_id,
         "source": str(source_project.root),
+        "source_command": "learn-business",
+        "observed_at": ts,
         "files_written": files_written,
         "symbols_written": symbols_written,
         "logs_written": logs_written,
         "memory_edges_total": edge_count,
     }
-    data.update(semantic_quality_report(payload["files"]))
+    if conflicts:
+        for conflict in conflicts:
+            conflict.setdefault("observed_at", ts)
+        data["semantic_conflicts"] = conflicts
+    semantic_quality = semantic_quality_report(payload["files"])
+    data.update(semantic_quality)
+    if any(semantic_quality["semantic_gaps"].values()):
+        data["semantic_followup"] = {
+            "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+            "workflow_steps": semantic_followup_workflow_steps(),
+            "followup_payload_template": semantic_followup_template(payload["files"]),
+        }
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_learn_business.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n",
@@ -974,6 +1285,9 @@ def learn_entry(args: argparse.Namespace) -> None:
         "count": len(rel_files),
         "parse_stats": stats,
     }
+    semantic_followup = semantic_followup_from_db(source_project, rel_files)
+    if semantic_followup:
+        payload["semantic_followup"] = semantic_followup
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_learn_entry.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
@@ -1170,4 +1484,3 @@ def wiki_search(args: argparse.Namespace) -> None:
         },
     )
     output(data[:20], args.json)
-

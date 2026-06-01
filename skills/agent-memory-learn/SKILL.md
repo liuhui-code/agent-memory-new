@@ -51,6 +51,13 @@ Payload shape:
 
 Use this structure when the user asks the Agent to understand a feature, page, module, or business flow. Include real file names, method names, fields, routes, resources, and logs. Business terms should include code naming and user-facing Chinese/English business wording when it can be inferred from the source. Do not invent business flows that are not supported by the code.
 
+`learn-business` now defaults to object-level merge behavior:
+
+- Update only the file, symbol, and log records named in the payload.
+- Merge `business_terms` with existing terms instead of replacing them.
+- Preserve existing non-empty `business_summary` values by default.
+- Return `semantic_conflicts` when an incoming non-empty summary disagrees with an existing non-empty summary.
+
 Before writing `learn-business`, organize the target code with these checks:
 
 - File: what business area or page does this file own?
@@ -63,9 +70,12 @@ Before writing `learn-business`, organize the target code with these checks:
 ```text
 semantic_stats
 semantic_gaps
+semantic_followup
 ```
 
 Use `semantic_stats` to judge coverage, and use `semantic_gaps` to find which files, symbols, or logs still need business meaning before relying on memory query results.
+
+When `semantic_followup` is present, use its `followup_payload_template` for the next `learn-business` write instead of inventing a new payload. Follow `workflow_steps` in order.
 
 ## Entry File
 
@@ -86,6 +96,7 @@ This merges the entry-related files into the existing codebase wiki by default. 
 Learning also extracts code log statements and rebuilds lightweight file/function/log edges. This happens automatically through the same command.
 
 Read the returned `parse_stats` field. If `files_indexed`, `symbols_total`, and `code_logs_total` are unexpectedly low, tell the user what scope was learned and suggest a narrower entry file or a broader directory.
+When `semantic_followup` is present, use it immediately as the next `learn-business` task for the learned files.
 
 Examples:
 
@@ -115,6 +126,7 @@ This merges the directory into the existing codebase wiki by default. Use `--rep
 Directory learning also refreshes log statement records for the learned files.
 
 Use `--json` when another Agent skill will consume the result. The output includes `parse_stats` with counts by language, symbol type, log level, and memory edge total.
+If the learned files still lack business meaning, the JSON also includes `semantic_followup` with a second-pass payload template.
 
 Examples:
 

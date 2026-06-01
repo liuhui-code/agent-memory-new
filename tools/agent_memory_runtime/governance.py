@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import sqlite3
+from pathlib import Path
 from typing import Any
 
 from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, VALID_MEMORY_STATUSES
@@ -336,6 +337,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     review = build_review_data(project, args.limit)
     reflection_quality = build_reflect_review_data(project, args.limit)
     query_misses = build_query_miss_data(project, args.limit)
+    semantic_conflicts = build_recent_semantic_conflicts(project, args.limit)
     semantic_gap_targets = build_semantic_gap_targets(project)
     learn_business_payload_template = build_learn_business_payload_template(project)
     actions: list[dict[str, Any]] = []
@@ -487,6 +489,25 @@ def maintain_plan(args: argparse.Namespace) -> None:
             }
         )
 
+    for conflict in semantic_conflicts:
+        actions.append(
+            {
+                "action": "review_semantic_conflict",
+                "type": "semantic_conflict",
+                "id": None,
+                "target": conflict["target"],
+                "field": conflict["field"],
+                "existing": conflict["existing"],
+                "incoming": conflict["incoming"],
+                "source_command": conflict["source_command"],
+                "observed_at": conflict["observed_at"],
+                "reason": "incoming semantic summary conflicts with existing stored summary",
+                "risk": "low",
+                "requires_confirmation": False,
+                "command": None,
+            }
+        )
+
     if any(semantic_gap_targets.values()):
         actions.append(
             {
@@ -515,6 +536,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "unreviewed_episodes": len(review["unreviewed_episodes"]),
             "reflection_quality_issues": len(reflection_quality["reflections"]),
             "open_query_misses": len(query_misses),
+            "semantic_conflicts": len(semantic_conflicts),
         },
         "actions": actions,
         "advisory_notice": "maintain-plan only proposes actions. Execute changes only after user confirmation.",
@@ -534,6 +556,35 @@ def build_query_miss_data(project: Project, limit: int) -> list[dict[str, Any]]:
             (project.project_id, limit),
         ).fetchall()
     return [row_dict(row) for row in rows]
+
+
+def build_recent_semantic_conflicts(project: Project, limit: int) -> list[dict[str, Any]]:
+    runtime_file = project.runtime_dir / "last_learn_business.json"
+    if not runtime_file.exists():
+        return []
+    try:
+        payload = json.loads(runtime_file.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    conflicts = payload.get("semantic_conflicts")
+    if not isinstance(conflicts, list):
+        return []
+    items: list[dict[str, Any]] = []
+    observed_at = payload.get("observed_at") or payload.get("generated_at")
+    for conflict in conflicts[:limit]:
+        if not isinstance(conflict, dict):
+            continue
+        items.append(
+            {
+                "target": conflict.get("target"),
+                "field": conflict.get("field"),
+                "existing": conflict.get("existing"),
+                "incoming": conflict.get("incoming"),
+                "source_command": conflict.get("source_command") or payload.get("source_command") or "learn-business",
+                "observed_at": conflict.get("observed_at") or observed_at,
+            }
+        )
+    return items
 
 
 def build_semantic_gap_targets(project: Project, limit_per_group: int = 5) -> dict[str, list[str]]:
