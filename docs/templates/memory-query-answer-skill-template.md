@@ -262,5 +262,14 @@ If `context`, `search`, or `wiki-search` returns no useful results:
 
 If later maintenance returns `semantic_gap_targets` or `learn_business_payload_template`, use those outputs to enrich the exact files, symbols, and logs that blocked retrieval instead of re-learning broad code scopes.
 If `workflow_steps` is present, follow that checklist directly so query misses turn into targeted semantic enrichment instead of a broad re-index.
+If maintenance returns `suggested_query_terms`, start the next recursive query from that list before inventing a new term set. It is the shortest path back into the current memory graph.
+If `followup_focus` is present, use it to choose the next recursive branch:
+
+- `route`: prefer route targets, router terms, page names
+- `resource`: prefer resource keys, `$r(...)`, media/string anchors
+- `log`: prefer log templates, logger families, failure text
+- `config`: prefer permissions, dependencies, abilities, and config files
+
 If `search` returns `truncated: true`, summarize the current batch first. Only continue with `--cursor <next_cursor>` when the current batch does not support a defensible answer yet.
+When building the next recursive query, prefer `suggested_followup_terms` from the current response, then add the most relevant `search_terms` and exact anchors from the strongest hit.
 ~~~

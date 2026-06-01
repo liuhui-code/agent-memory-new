@@ -82,6 +82,7 @@ Read `recommended_next_action` first. When it is `run_learn_business_now`, conti
 - `truncated`: whether the current batch was capped
 - `returned_counts` and `remaining_counts`: how much semantic work is visible now versus deferred
 - file-level `priority_score` and `priority_reasons`: why a file is ahead of other semantic work
+- `hint_terms` and `hint_context`: retrieval-oriented anchors the Agent should reuse when writing `business_terms` and `business_summary`
 
 ## Entry File
 
@@ -103,6 +104,7 @@ Learning also extracts code log statements and rebuilds lightweight file/functio
 
 Read the returned `parse_stats` field. If `files_indexed`, `symbols_total`, and `code_logs_total` are unexpectedly low, tell the user what scope was learned and suggest a narrower entry file or a broader directory.
 When `semantic_followup` is present, use it immediately as the next `learn-business` task for the learned files. If `truncated` is `true`, finish the visible batch first, then rerun learning or maintenance to fetch the next semantic batch.
+Use `hint_terms` as seed vocabulary for `business_terms`, and use `hint_context` as the raw code anchor list you should read before writing the second-pass semantic summary.
 
 Examples:
 

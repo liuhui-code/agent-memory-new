@@ -61,6 +61,9 @@ ignore_noise
 ```
 
 Choose the smallest fix. A miss caused by missing code context should trigger `agent-memory-learn`; a miss caused by weak business meaning should trigger `learn-business`; a miss caused by absent experience should trigger `agent-memory-reflect`; irrelevant misses can be marked ignored.
+When `suggested_query_terms` is present, use those terms first for the next recursive `search` or `context` call. They combine the miss wording with the current code-memory hint anchors.
+When `followup_focus` is present, treat it as the intended query-repair scene, such as `route`, `resource`, `log`, or `config`.
+When `query_workflow_steps` is present, follow them before broadening the learning scope.
 
 When `maintain-plan` returns `semantic_gap_targets`, treat them as the next enrichment queue. Feed those file, symbol, or log anchors back into `agent-memory-learn` and `learn-business` instead of re-learning broad directories.
 
@@ -71,6 +74,7 @@ python tools/agent_memory.py learn-business --project . --payload "<json>" --jso
 ```
 
 Prefer filling the template over inventing a new payload shape. It keeps file, symbol, and log anchors aligned with the existing code wiki rows.
+If the template includes `hint_terms` and `hint_context`, use them as the default retrieval anchors for the next `business_terms` and `business_summary` draft.
 
 When `workflow_steps` is present, follow it in order. Treat it as the default local Agent CLI procedure for targeted semantic enrichment.
 

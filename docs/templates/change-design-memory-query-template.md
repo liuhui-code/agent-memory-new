@@ -62,6 +62,18 @@ For each round:
    - `episodes`: related recent changes.
    - `wiki_matches`: files/symbols to inspect before planning.
    - `code_log_matches` and `edge_matches`: observability points that may need to stay stable or be updated with the change.
+   - `followup_focus`: the dominant retrieval scene for the next recursive branch.
+   - `suggested_followup_terms`: the first candidate anchors for the next planning query.
+
+   Use `followup_focus` like this:
+
+   ```text
+   route    -> bias navigation, page, router, route-target reasoning
+   resource -> bias resource keys, UI assets, string/media references
+   log      -> bias observability, logger, failure-text, emitted-log stability
+   config   -> bias permissions, dependencies, abilities, module/config files
+   empty    -> fall back to the strongest search_terms and exact anchors
+   ```
 
 4. Inspect relevant code/wiki:
 
@@ -76,6 +88,13 @@ For each round:
    - add risks
    - sharpen open questions
    - update files to inspect
+
+   Build the next design query in this order:
+
+   1. keep the original change goal
+   2. add `suggested_followup_terms`
+   3. add the most relevant risk or constraint phrase
+   4. if needed, add exact file/symbol/resource/log anchors
 
 6. Stop if a stopping condition is met.
 

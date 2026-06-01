@@ -14,7 +14,7 @@ from .models import (
 )
 from .records import memory_warning, row_dict
 from .storage import connect, now_iso
-from .text import code_search_terms, json_list, query_tokens, score_weighted_fields, tokenize
+from .text import code_search_terms, json_list, query_tokens, score_weighted_fields, tokenize, unique_list
 
 SEARCH_RESULT_LIMITS = {
     "semantic_facts": 20,
@@ -383,13 +383,151 @@ def build_evidence_chains(edges: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return chains
 
 
+def focus_from_query(query: str) -> str | None:
+    lowered = query.lower()
+    if any(trigger in lowered for trigger in ("跳转", "路由", "导航", "白屏", "空白页", "打不开")):
+        return "route"
+    if any(trigger in lowered for trigger in ("资源", "图片", "图标", "文案", "字符串", "显示不出来", "不显示", "找不到资源")):
+        return "resource"
+    if any(trigger in lowered for trigger in ("权限", "授权", "依赖", "配置", "ability", "module")):
+        return "config"
+    if any(trigger in lowered for trigger in ("日志", "报错", "错误", "异常", "失败", "崩溃", "打印", "定位")):
+        return "log"
+    return None
+
+
+def infer_followup_focus(query: str, data: dict[str, list[dict[str, Any]]]) -> str | None:
+    focus = focus_from_query(query)
+    if focus:
+        return focus
+    for row in data.get("wiki_matches", [])[:3]:
+        symbol_type = str(row.get("symbol_type") or "")
+        if symbol_type in {"route", "resource", "permission", "dependency", "ability"}:
+            return "config" if symbol_type in {"permission", "dependency", "ability"} else symbol_type
+    if data.get("code_log_matches"):
+        return "log"
+    return None
+
+
+def rank_followup_seed_terms(query: str, terms: list[str], limit: int = 12, focus: str | None = None) -> list[str]:
+    candidates: list[tuple[int, int, str]] = []
+    order = 0
+    focus = focus or focus_from_query(query)
+
+    def add(priority: int, value: str | None) -> None:
+        nonlocal order
+        if not value:
+            return
+        stripped = str(value).strip()
+        if not stripped:
+            return
+        candidates.append((priority, order, stripped))
+        order += 1
+
+    def classify_term_priority(term: str) -> int:
+        lowered = term.lower()
+        query_lowered = query.lower()
+        if focus == "route":
+            if lowered.startswith("pages/") and not lowered.endswith(".ets"):
+                return 130
+            if "router" in lowered or "route" in lowered:
+                return 125
+            if lowered.endswith(".ets"):
+                return 78
+            if "failed" in lowered or "error" in lowered or "log" in lowered:
+                return 68
+        if focus == "resource":
+            if lowered.startswith("app.") or "$r" in lowered or "resource" in lowered or "media" in lowered or "string" in lowered:
+                return 125
+            if lowered.startswith("pages/"):
+                return 68
+        if focus == "config":
+            if "权限" in query_lowered and "permission" in lowered:
+                return 132
+            if "依赖" in query_lowered and "dependency" in lowered:
+                return 132
+            if "ability" in query_lowered and "ability" in lowered:
+                return 132
+            if "permission" in lowered:
+                return 126
+            if "dependency" in lowered:
+                return 124
+            if "ability" in lowered:
+                return 118
+            if lowered.endswith(".json5"):
+                return 125
+            if lowered.startswith("pages/") or lowered.endswith(".ets"):
+                return 68
+        if focus == "log":
+            if "failed" in lowered or "error" in lowered or "warn" in lowered or "log" in lowered or "hilog" in lowered:
+                return 125
+            if lowered.startswith("pages/") or lowered.endswith(".ets"):
+                return 68
+        if lowered.startswith("pages/") or lowered.startswith("app.") or "$r" in lowered:
+            return 96
+        if "/" in lowered or "." in lowered:
+            return 92
+        if "failed" in lowered or "error" in lowered or "warn" in lowered or "log" in lowered:
+            return 88
+        if "route" in lowered or "router" in lowered or "resource" in lowered or "hilog" in lowered:
+            return 84
+        if "profile" in lowered or "load" in lowered or "user" in lowered:
+            return 78
+        return 70
+
+    for term in terms:
+        add(classify_term_priority(str(term)), str(term))
+
+    seen: set[str] = set()
+    ranked: list[str] = []
+    for _, _, value in sorted(candidates, key=lambda item: (-item[0], item[1])):
+        normalized = value.strip().lower()
+        if not normalized or normalized in seen:
+            continue
+        seen.add(normalized)
+        ranked.append(normalized)
+        if len(ranked) >= limit:
+            break
+    return ranked
+
+
+def suggested_followup_terms(query: str, data: dict[str, list[dict[str, Any]]], limit: int = 12) -> list[str]:
+    focus = infer_followup_focus(query, data)
+    terms: list[str] = []
+    for row in data.get("code_log_matches", [])[:5]:
+        if row.get("message_template"):
+            terms.append(str(row["message_template"]))
+        if row.get("function"):
+            terms.append(str(row["function"]))
+        if row.get("file_path"):
+            terms.append(str(row["file_path"]))
+        terms.extend(json_list(row.get("business_terms")))
+        terms.extend(row.get("search_terms") or [])
+
+    for row in data.get("wiki_matches", [])[:5]:
+        if row.get("symbol"):
+            terms.append(str(row["symbol"]))
+        if row.get("file_path"):
+            terms.append(str(row["file_path"]))
+        terms.extend(json_list(row.get("business_terms")))
+        terms.extend(row.get("search_terms") or [])
+
+    for row in data.get("semantic_facts", [])[:3]:
+        terms.extend(tokenize(str(row.get("fact") or "")))
+    for row in data.get("reflections", [])[:2]:
+        terms.extend(tokenize(" ".join(str(row.get(key) or "") for key in ("task", "problem", "lesson", "future_rule"))))
+    return rank_followup_seed_terms(query, terms, limit=limit, focus=focus)
+
+
 def limited_context(project: Project, query: str) -> dict[str, Any]:
     matches = collect_matches(project, query)
     bounded = limited_matches(matches, CONTEXT_RESULT_LIMITS)
+    followup_focus = infer_followup_focus(query, bounded)
     context = {
         "project_id": project.project_id,
         "project_path": str(project.root),
         "query": query,
+        "followup_focus": followup_focus,
         "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
         "semantic_facts": bounded["semantic_facts"],
         "reflections": bounded["reflections"],
@@ -398,6 +536,7 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "code_log_matches": bounded["code_log_matches"],
         "edge_matches": bounded["edge_matches"],
         "evidence_chains": build_evidence_chains(bounded["edge_matches"]),
+        "suggested_followup_terms": suggested_followup_terms(query, bounded),
         "network_limits": network_limits(),
     }
     record_context_use(project, context)
@@ -413,11 +552,12 @@ def limited_search(
     aggregate_limit: int | None = None,
 ) -> dict[str, Any]:
     matches = collect_matches(project, query)
-    return batched_search(matches, cursor=cursor, per_type_limit=per_type_limit, aggregate_limit=aggregate_limit)
+    return batched_search(matches, query=query, cursor=cursor, per_type_limit=per_type_limit, aggregate_limit=aggregate_limit)
 
 
 def batched_search(
     matches: dict[str, list[dict[str, Any]]],
+    query: str = "",
     cursor: int = 0,
     per_type_limit: int | None = None,
     aggregate_limit: int | None = None,
@@ -425,6 +565,7 @@ def batched_search(
     effective_per_type_limit = max(1, per_type_limit or max(SEARCH_RESULT_LIMITS.values()))
     effective_aggregate_limit = max(1, aggregate_limit or sum(SEARCH_RESULT_LIMITS.values()))
     safe_cursor = max(0, cursor)
+    followup_focus = infer_followup_focus(query, matches)
 
     candidates: list[dict[str, Any]] = []
     total_candidates_by_type: dict[str, int] = {}
@@ -451,10 +592,12 @@ def batched_search(
     payload["cursor"] = safe_cursor
     payload["per_type_limit"] = effective_per_type_limit
     payload["aggregate_limit"] = effective_aggregate_limit
+    payload["followup_focus"] = followup_focus
     payload["truncated"] = next_cursor is not None
     payload["next_cursor"] = next_cursor
     payload["total_candidates_by_type"] = total_candidates_by_type
     payload["returned_counts_by_type"] = returned_counts_by_type
+    payload["suggested_followup_terms"] = suggested_followup_terms(query, payload)
     return payload
 
 

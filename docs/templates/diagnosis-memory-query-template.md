@@ -69,6 +69,18 @@ For each round:
    - `wiki_matches` become inspection targets.
    - `code_log_matches` become possible observed-log anchors.
    - `edge_matches` connect matched logs to learned files and functions.
+   - `followup_focus` selects the next recursive branch.
+   - `suggested_followup_terms` provide the first candidate anchors for the next round.
+
+   Use `followup_focus` like this:
+
+   ```text
+   route    -> prefer route targets, router terms, page names
+   resource -> prefer resource keys, $r(...), media/string anchors
+   log      -> prefer log templates, logger families, failure text
+   config   -> prefer permissions, dependencies, abilities, config files
+   empty    -> fall back to the strongest search_terms and exact anchors
+   ```
 
 4. Inspect only the smallest useful target. If a log statement matched, refine the next target with the related file path, function name, and message template.
 
@@ -82,6 +94,13 @@ For each round:
    - rejected assumptions
    - hypothesis confidence
    - next query
+
+   Build the next query in this order:
+
+   1. keep the original problem wording
+   2. add `suggested_followup_terms`
+   3. if needed, add top-hit `search_terms`
+   4. if still needed, add exact file/symbol/log anchors
 
 6. Stop if one stopping condition is met.
 

@@ -208,6 +208,7 @@ When gaps remain, `semantic_followup` provides a ready-made second-pass template
 ```
 
 Use `priority_score` and `priority_reasons` on returned files to decide what to enrich first. If `truncated` is `true`, finish the visible batch, then rerun the learn or maintain flow to fetch the next semantic batch.
+Use `hint_terms` as the initial candidate vocabulary for `business_terms`, and read `hint_context` before writing the new `business_summary`. This keeps later natural-language query terms aligned with real file, symbol, resource, route, and log anchors.
 
 For the whole project:
 
@@ -244,6 +245,9 @@ python tools/agent_memory.py search --project . --query "<task>" --per-type-limi
 ```
 
 If `search` returns `truncated: true`, continue only with `next_cursor` when the current evidence is still incomplete.
+Use `suggested_followup_terms` from `context` or `search` as the first candidate set for the next recursive query. Add specific `search_terms` or exact anchors only after that.
+If `followup_focus` is present, use it to decide whether the next recursive step should bias route, resource, log, or config anchors.
+If `maintain-plan` returns `review_query_miss`, prefer its `suggested_query_terms` over inventing a fresh keyword set. Those terms combine the original miss wording with current code-memory hint anchors.
 
 If a query returns no semantic facts, reflections, episodes, or wiki matches, the runtime records a query miss automatically. The user does not need to maintain keywords.
 
@@ -297,6 +301,8 @@ learn-entry / learn-path
   -> if evidence is broad or truncated:
        run search with per-type and aggregate limits
        continue with --cursor <next_cursor> only when needed
+  -> if maintain-plan returns review_query_miss:
+       retry search with suggested_query_terms before broadening learn scope
   -> if maintain-plan returns semantic_gap_targets or review_semantic_conflict:
        enrich or review before broad re-indexing
 ```
@@ -311,6 +317,7 @@ python tools/agent_memory.py conflict-apply --project . --id "<id>" --resolution
 
 `conflict-apply` is exact-match only. If the target would affect multiple stored symbols or logs, the runtime stops and asks for manual cleanup first.
 If `maintain-plan` returns `apply_command_template` for a conflict, use that exact command after reviewing current source and confirming the incoming summary is correct.
+When `maintain-plan` returns `learn_business_payload_template` with `hint_terms` and `hint_context`, reuse those anchors directly instead of inventing new terminology for the enrichment pass.
 
 General memory-aware answering with logs:
   docs/templates/memory-query-answer-skill-template.md

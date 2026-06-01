@@ -8,10 +8,12 @@ import sqlite3
 from pathlib import Path
 from typing import Any
 
+from .code_wiki import semantic_followup_from_db
 from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, VALID_MEMORY_STATUSES
+from .query import collect_matches, infer_followup_focus, rank_followup_seed_terms, suggested_followup_terms
 from .records import output, parse_ids, row_dict, table_for_type
 from .storage import connect, ensure_initialized, now_iso, resolve_project
-from .text import tokenize
+from .text import tokenize, unique_list
 
 
 def mark_stale(args: argparse.Namespace) -> None:
@@ -463,6 +465,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
         )
 
     for row in query_misses:
+        followup_focus = build_followup_focus(project, row["query"])
+        suggested_query_terms = build_suggested_query_terms(project, row["query"], learn_business_payload_template)
         actions.append(
             {
                 "action": "review_query_miss",
@@ -482,6 +486,10 @@ def maintain_plan(args: argparse.Namespace) -> None:
                     "rewrite_reflection",
                     "ignore_noise",
                 ],
+                "followup_focus": followup_focus,
+                "suggested_query_terms": suggested_query_terms,
+                "query_command_template": "python tools/agent_memory.py search --project . --query '<query>' --json",
+                "query_workflow_steps": query_followup_workflow_steps(),
                 "semantic_gap_targets": semantic_gap_targets,
                 "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
                 "learn_business_payload_template": learn_business_payload_template,
@@ -501,6 +509,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
                 "incoming": conflict["incoming"],
                 "source_command": conflict["source_command"],
                 "observed_at": conflict["observed_at"],
+                "decision_note": conflict.get("decision_note"),
+                "replacement_source": conflict.get("replacement_source"),
                 "reason": "incoming semantic summary conflicts with existing stored summary",
                 "risk": "low",
                 "requires_confirmation": False,
@@ -564,7 +574,7 @@ def build_recent_semantic_conflicts(project: Project, limit: int) -> list[dict[s
         rows = conn.execute(
             """
             SELECT id, target, field, existing, incoming, source_command, observed_at
-                 , entity_type
+                 , entity_type, decision_note, replacement_source
             FROM semantic_conflicts
             WHERE project_id = ? AND status = 'open'
             ORDER BY observed_at DESC, id DESC
@@ -707,74 +717,52 @@ def build_learn_business_payload_template(project: Project, limit_files: int = 5
             (project.project_id, project.project_id, project.project_id, limit_files),
         ).fetchall()
         file_paths = [row["file_path"] for row in rows]
-        files: list[dict[str, Any]] = []
-        for file_path in file_paths:
-            file_row = conn.execute(
-                """
-                SELECT file_path, summary, language, business_summary, business_terms
-                FROM code_files
-                WHERE project_id = ? AND file_path = ?
-                """,
-                (project.project_id, file_path),
-            ).fetchone()
-            file_item = {
-                "file_path": file_path,
-                "summary": file_row["summary"] if file_row else "",
-                "business_summary": "" if not file_row or not str(file_row["business_summary"] or "").strip() else "",
-                "business_terms": [],
-                "symbols": [],
-                "logs": [],
-            }
-            symbol_rows = conn.execute(
-                """
-                SELECT symbol, symbol_type, summary, business_summary, business_terms
-                FROM code_symbols
-                WHERE project_id = ? AND file_path = ?
-                  AND (
-                    business_summary IS NULL OR TRIM(business_summary) = ''
-                    OR business_terms IS NULL OR business_terms = '' OR business_terms = '[]'
-                  )
-                ORDER BY symbol
-                """,
-                (project.project_id, file_path),
-            ).fetchall()
-            for row in symbol_rows:
-                file_item["symbols"].append(
-                    {
-                        "symbol": row["symbol"],
-                        "symbol_type": row["symbol_type"],
-                        "summary": row["summary"],
-                        "business_summary": "",
-                        "business_terms": [],
-                    }
-                )
-            log_rows = conn.execute(
-                """
-                SELECT message_template, function, level, logger, raw_statement, business_summary, business_terms
-                FROM code_log_statements
-                WHERE project_id = ? AND file_path = ?
-                  AND (
-                    business_summary IS NULL OR TRIM(business_summary) = ''
-                    OR business_terms IS NULL OR business_terms = '' OR business_terms = '[]'
-                  )
-                ORDER BY message_template
-                """,
-                (project.project_id, file_path),
-            ).fetchall()
-            for row in log_rows:
-                file_item["logs"].append(
-                    {
-                        "message_template": row["message_template"],
-                        "function": row["function"],
-                        "level": row["level"],
-                        "logger": row["logger"],
-                        "raw_statement": row["raw_statement"],
-                        "business_summary": "",
-                        "business_terms": [],
-                    }
-                )
-            files.append(file_item)
-    return {"files": files}
+    followup = semantic_followup_from_db(project, file_paths)
+    if not followup:
+        return {"files": []}
+    return followup["followup_payload_template"]
+
+
+def semantic_followup_hint_terms(payload_template: dict[str, Any], limit: int = 12) -> list[str]:
+    terms: list[str] = []
+    for file_item in payload_template.get("files", []):
+        if file_item.get("file_path"):
+            terms.append(str(file_item["file_path"]))
+        terms.extend(file_item.get("hint_terms") or [])
+        for symbol_item in file_item.get("symbols", []):
+            if symbol_item.get("symbol"):
+                terms.append(str(symbol_item["symbol"]))
+            terms.extend(symbol_item.get("hint_terms") or [])
+        for log_item in file_item.get("logs", []):
+            if log_item.get("message_template"):
+                terms.append(str(log_item["message_template"]))
+            if log_item.get("function"):
+                terms.append(str(log_item["function"]))
+            terms.extend(log_item.get("hint_terms") or [])
+    return unique_list(terms)[:limit]
+
+
+def build_followup_focus(project: Project, query: str) -> str | None:
+    matches = collect_matches(project, query)
+    return infer_followup_focus(query, matches)
+
+
+def build_suggested_query_terms(project: Project, query: str, payload_template: dict[str, Any], limit: int = 12) -> list[str]:
+    matches = collect_matches(project, query)
+    if any(matches.get(key) for key in ("wiki_matches", "code_log_matches", "semantic_facts", "reflections", "episodes")):
+        return suggested_followup_terms(query, matches, limit=limit)
+    query_terms = [token for token in tokenize(query) if len(token) > 1]
+    followup_terms = semantic_followup_hint_terms(payload_template, limit=limit)
+    return rank_followup_seed_terms(query, [*query_terms, *followup_terms], limit=limit)
+
+
+def query_followup_workflow_steps() -> list[str]:
+    return [
+        "Start from suggested_query_terms and keep the original user problem wording.",
+        "Prefer exact route, resource, log, file, and symbol anchors before generic keywords.",
+        "Run query or search again with the strongest 2-6 followup terms.",
+        "If retrieval is still weak, enrich the listed code records with learn-business before querying again.",
+    ]
 
 
 def semantic_enrichment_workflow_steps() -> list[str]:

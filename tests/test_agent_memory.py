@@ -983,6 +983,22 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                 action["suggested_fixes"],
                 ["learn_missing_scope", "add_business_terms", "rewrite_reflection", "ignore_noise"],
             )
+            self.assertIn("unanswered", action["suggested_query_terms"])
+            self.assertIn("pages/profiledetail.ets", action["suggested_query_terms"])
+            self.assertIn("profilecache", action["suggested_query_terms"])
+            self.assertEqual(
+                action["query_command_template"],
+                "python tools/agent_memory.py search --project . --query '<query>' --json",
+            )
+            self.assertEqual(
+                action["query_workflow_steps"],
+                [
+                    "Start from suggested_query_terms and keep the original user problem wording.",
+                    "Prefer exact route, resource, log, file, and symbol anchors before generic keywords.",
+                    "Run query or search again with the strongest 2-6 followup terms.",
+                    "If retrieval is still weak, enrich the listed code records with learn-business before querying again.",
+                ],
+            )
             self.assertIn("pages/ProfileDetail.ets", action["semantic_gap_targets"]["files_missing_business_terms"])
             self.assertIn(
                 "pages/ProfileDetail.ets::profileCache",
@@ -1034,10 +1050,14 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(payload_template["files"][0]["file_path"], "pages/ProfileDetail.ets")
             self.assertEqual(payload_template["files"][0]["business_summary"], "")
             self.assertEqual(payload_template["files"][0]["business_terms"], [])
+            self.assertIn("pages/ProfileDetail.ets", payload_template["files"][0]["hint_context"])
+            self.assertIn("profiledetail", payload_template["files"][0]["hint_terms"])
             self.assertEqual(payload_template["files"][0]["symbols"][0]["symbol"], "profileCache")
             self.assertEqual(payload_template["files"][0]["symbols"][0]["symbol_type"], "field")
+            self.assertIn("profilecache", payload_template["files"][0]["symbols"][0]["hint_terms"])
             self.assertEqual(payload_template["files"][0]["logs"][0]["message_template"], "load profile start")
             self.assertEqual(payload_template["files"][0]["logs"][0]["function"], "loadUserProfile")
+            self.assertIn("hilog", payload_template["files"][0]["logs"][0]["hint_terms"])
             self.assertEqual(
                 action["workflow_steps"],
                 [
@@ -1046,6 +1066,40 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                     "Write the completed payload with learn-business.",
                     "Re-run query or maintain-plan to confirm the semantic gap is reduced.",
                 ],
+            )
+
+    def test_maintain_plan_query_miss_prefers_route_scene_anchors(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(project, "context", "--query", "页面跳转后白屏但没有命中", "--json")
+            (project / "pages").mkdir()
+            (project / "pages" / "Index.ets").write_text(
+                "import router from '@ohos.router';\n"
+                "import hilog from '@ohos.hilog';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index {\n"
+                "  openDetail() {\n"
+                "    router.pushUrl({ url: 'pages/Detail' });\n"
+                "  }\n"
+                "  aboutToAppear() {\n"
+                "    hilog.error(0x0000, 'Index', 'account sync failed');\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages")
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            actions = json.loads(result.stdout)["actions"]
+            action = next(action for action in actions if action["action"] == "review_query_miss" and action["query"] == "页面跳转后白屏但没有命中")
+
+            self.assertEqual(action["followup_focus"], "route")
+            self.assertIn("pages/detail", action["suggested_query_terms"])
+            self.assertLess(
+                action["suggested_query_terms"].index("pages/detail"),
+                action["suggested_query_terms"].index("pages/index.ets"),
             )
 
     def test_maintain_plan_surfaces_recent_semantic_conflicts(self) -> None:
@@ -1668,6 +1722,12 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertTrue(matched)
             self.assertTrue(any(item.get("match_reasons") for item in matched))
             self.assertTrue(any("expanded_query" in reason for item in matched for reason in item["match_reasons"]))
+            self.assertEqual(data["followup_focus"], "route")
+            self.assertIn("pages/detail", data["suggested_followup_terms"][:3])
+            self.assertLess(
+                data["suggested_followup_terms"].index("pages/detail"),
+                data["suggested_followup_terms"].index("pages/index.ets"),
+            )
 
     def test_chinese_problem_query_expands_to_arkts_resource_and_log_context(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -1692,19 +1752,92 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
 
             resource_result = self.run_memory(project, "context", "--query", "图片资源显示不出来", "--json")
             resource_data = json.loads(resource_result.stdout)
+            self.assertEqual(resource_data["followup_focus"], "resource")
             self.assertTrue(
                 any(item.get("symbol") == "app.media.logo" for item in resource_data["wiki_matches"])
             )
             resource_match = next(item for item in resource_data["wiki_matches"] if item.get("symbol") == "app.media.logo")
             self.assertIn("resource", resource_match["search_terms"])
+            self.assertIn("app.media.logo", resource_data["suggested_followup_terms"])
+            self.assertIn("app.media.logo", resource_data["suggested_followup_terms"][:3])
+            self.assertLess(
+                resource_data["suggested_followup_terms"].index("app.media.logo"),
+                resource_data["suggested_followup_terms"].index("resource"),
+            )
 
             log_result = self.run_memory(project, "context", "--query", "加载用户资料失败日志", "--json")
             log_data = json.loads(log_result.stdout)
+            self.assertEqual(log_data["followup_focus"], "log")
             self.assertTrue(
                 any(item.get("message_template") == "load profile failed" for item in log_data["code_log_matches"])
             )
             log_match = next(item for item in log_data["code_log_matches"] if item.get("message_template") == "load profile failed")
             self.assertTrue(any("log" in reason for reason in log_match["match_reasons"]))
+            self.assertIn("load profile failed", log_data["suggested_followup_terms"])
+            self.assertIn("load profile failed", log_data["suggested_followup_terms"][:3])
+            self.assertLess(
+                log_data["suggested_followup_terms"].index("load profile failed"),
+                log_data["suggested_followup_terms"].index("app.media.logo"),
+            )
+
+    def test_chinese_problem_query_expands_to_harmonyos_config_context(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "entry" / "src" / "main").mkdir(parents=True)
+            (project / "entry" / "src" / "main" / "module.json5").write_text(
+                "{\n"
+                "  \"module\": {\n"
+                "    \"name\": \"entry\",\n"
+                "    \"abilities\": [{ \"name\": \"EntryAbility\" }],\n"
+                "    \"requestPermissions\": [{ \"name\": \"ohos.permission.INTERNET\" }]\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "entry")
+
+            result = self.run_memory(project, "context", "--query", "网络权限配置异常", "--json")
+            data = json.loads(result.stdout)
+            self.assertEqual(data["followup_focus"], "config")
+            self.assertTrue(
+                any(item.get("symbol") == "ohos.permission.INTERNET" for item in data["wiki_matches"])
+            )
+            self.assertIn("ohos.permission.internet", data["suggested_followup_terms"][:5])
+            self.assertLess(
+                data["suggested_followup_terms"].index("ohos.permission.internet"),
+                data["suggested_followup_terms"].index("entryability"),
+            )
+
+    def test_route_problem_prefers_route_anchor_over_unrelated_log_anchor(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Index.ets").write_text(
+                "import router from '@ohos.router';\n"
+                "import hilog from '@ohos.hilog';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct Index {\n"
+                "  openDetail() {\n"
+                "    router.pushUrl({ url: 'pages/Detail' });\n"
+                "  }\n"
+                "  aboutToAppear() {\n"
+                "    hilog.error(0x0000, 'Index', 'account sync failed');\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages")
+
+            result = self.run_memory(project, "context", "--query", "页面跳转后白屏", "--json")
+            data = json.loads(result.stdout)
+            self.assertIn("pages/detail", data["suggested_followup_terms"])
+            self.assertLess(
+                data["suggested_followup_terms"].index("pages/detail"),
+                data["suggested_followup_terms"].index("pages/index.ets"),
+            )
 
     def test_query_reranks_exact_file_path_above_expanded_summary_match(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -1916,8 +2049,14 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(followup["files"][0]["file_path"], "pages/ProfileDetail.ets")
             self.assertGreater(followup["files"][0]["priority_score"], followup["files"][1]["priority_score"])
             self.assertIn("missing_log_semantics", followup["files"][0]["priority_reasons"])
+            self.assertIn("pages/ProfileDetail.ets", followup["files"][0]["hint_context"])
+            self.assertIn("profiledetail", followup["files"][0]["hint_terms"])
             self.assertEqual(followup["files"][0]["symbols"][0]["symbol"], "profileCache")
+            self.assertIn("profilecache", followup["files"][0]["symbols"][0]["hint_terms"])
+            self.assertIn("field", followup["files"][0]["symbols"][0]["hint_context"])
             self.assertEqual(followup["files"][0]["logs"][0]["message_template"], "load profile start")
+            self.assertIn("load", followup["files"][0]["logs"][0]["hint_terms"])
+            self.assertIn("loadUserProfile", followup["files"][0]["logs"][0]["hint_context"])
             self.assertEqual(followup["files"][1]["file_path"], "pages/Empty.ets")
             self.assertIn("missing_file_business_summary", followup["files"][1]["priority_reasons"])
             self.assertIn("missing_file_business_terms", followup["files"][1]["priority_reasons"])
@@ -2199,6 +2338,13 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                 followup["followup_payload_template"]["files"][0]["logs"][0]["message_template"],
                 "load failed",
             )
+            self.assertIn("console", followup["followup_payload_template"]["files"][0]["logs"][0]["hint_terms"])
+            self.assertTrue(
+                any(
+                    "app.string.home_title" in symbol["hint_context"]
+                    for symbol in followup["followup_payload_template"]["files"][0]["symbols"]
+                )
+            )
 
     def test_learn_path_json_returns_parse_stats_for_harmonyos_config(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -2298,6 +2444,8 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(first["total_candidates_by_type"]["semantic_facts"], 6)
             self.assertEqual(first["returned_counts_by_type"]["semantic_facts"], 3)
             self.assertEqual(len(first["semantic_facts"]), 3)
+            self.assertIsNone(first["followup_focus"])
+            self.assertIn("profile", first["suggested_followup_terms"])
             self.assertEqual(second["returned_counts_by_type"]["semantic_facts"], 3)
             self.assertIsNone(second["next_cursor"])
             self.assertEqual(len(second["semantic_facts"]), 3)

@@ -111,6 +111,15 @@ Query miss commands manage feedback from failed retrievals. A miss is recorded o
 
 Query commands expand common natural-language problem descriptions into technical search terms before scoring rows. The expansion is deterministic and local. It helps symptom queries such as `页面跳转后白屏`, `图片资源显示不出来`, or `加载用户资料失败日志` match learned ArkTS route, resource, config, and log records without adding a vector database.
 
+When `maintain-plan` returns `review_query_miss`, it now also returns:
+
+- `suggested_query_terms`
+- `followup_focus`
+- `query_command_template`
+- `query_workflow_steps`
+
+These fields let the skill layer recurse back into `search` or `context` with stronger route, resource, log, file, and symbol anchors before widening the learning scope.
+
 # 3.5 Structured Reflection Path
 
 `agent-memory-reflect` should let the local Agent CLI organize a completed attempt before writing memory. For diagnosis, design, execution, and workflow attempts, prefer:
@@ -186,6 +195,7 @@ When gaps remain, `semantic_followup` returns:
 - `followup_payload_template`
 
 The follow-up template is priority-ordered and batch-limited so the Agent can enrich the highest-value files, symbols, and logs first without rebuilding anchors.
+Each follow-up file, symbol, and log item also includes `hint_terms` and `hint_context`. These are deterministic retrieval anchors derived from code names, summaries, routes, resources, logger families, and message templates. Agents should reuse them when drafting second-pass business semantics.
 
 Recent `semantic_conflicts` are stored durably in SQLite and also flow into `maintain-plan` as `review_semantic_conflict` actions for later governance.
 
@@ -251,5 +261,8 @@ The response includes:
 - `returned_counts_by_type`
 - `per_type_limit`
 - `aggregate_limit`
+- `suggested_followup_terms`
+- `followup_focus`
 
 Use `next_cursor` only when the current batch does not provide enough evidence. Query remains bounded by design.
+`suggested_followup_terms` are scene-aware. The runtime biases them toward exact route, resource, log, or config anchors based on the current problem wording and strongest matches before falling back to broader file-path or summary-derived terms.

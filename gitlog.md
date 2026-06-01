@@ -1468,3 +1468,14 @@ Rollback notes:
 - Tightened `conflict-apply` so symbol/log targets must resolve to exactly one row; ambiguous replacements now fail closed.
 - Added `apply_command_template` to `maintain-plan` conflict actions and split vault health conflict counts by file, symbol, and log entity types.
 - Added `decision_note` and `replacement_source` to semantic conflict closure/apply flows and vault export.
+- Added `hint_terms` and `hint_context` to semantic follow-up payloads so second-pass `learn-business` writes can stay aligned with query anchors.
+- Reused the same hint-bearing follow-up generation for `maintain-plan` semantic enrichment templates to keep miss repair and learn follow-up aligned.
+- Added `suggested_followup_terms` to query outputs so recursive query skills can tighten the next search without inventing anchors.
+- Added `suggested_query_terms`, `query_command_template`, and `query_workflow_steps` to `maintain-plan` query-miss actions so miss repair can recurse into query before broadening learn scope.
+- Updated maintain/runtime/usage templates to treat query-miss repair and semantic enrichment as one loop driven by the same code-memory anchors.
+- Tightened tests to check strong route/resource/log anchors appear at the front of recursive follow-up suggestions.
+- Re-ranked `suggested_followup_terms` so exact ArkTS route/resource anchors and matched log templates/functions are returned before broader file-path and summary-derived terms.
+- Made `suggested_followup_terms` scene-aware so route, resource, log, and HarmonyOS config queries bias their next-step anchors differently instead of sharing one flat priority order.
+- Reused the same scene-aware follow-up ranking inside `maintain-plan` query-miss repair and exposed `followup_focus` in query and maintain outputs so local Agent recursion can branch without re-inferring the scene.
+- Updated recursive query templates to branch directly on `followup_focus`, and added a regression check that plain semantic-fact search leaves `followup_focus` empty instead of inventing a scene.
+- Updated the diagnosis and change-design query templates so local Agent skills explicitly branch on `followup_focus` and compose the next query from `suggested_followup_terms` before broader anchors.

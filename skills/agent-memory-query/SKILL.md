@@ -55,6 +55,15 @@ python tools/agent_memory.py wiki-search --project . --query "<query>" --json
 When the query is an observed error, print, or console message, inspect `code_log_matches` and `edge_matches` from `context` or `search`. `wiki-search` may return matching log statements with `kind: "log_statement"`.
 
 Code and log matches include `search_terms` and `match_reasons`. Use `match_reasons` to explain why a record was retrieved, and use high-signal `search_terms` as anchors for a sharper follow-up query.
+`context` and `search` also return `suggested_followup_terms`. Use those first when forming the next recursive query; they are prioritized by the current retrieval scene:
+
+- route/navigation problems bias toward route targets and router anchors
+- resource/display problems bias toward resource keys and `$r(...)` anchors
+- log/error problems bias toward log templates and logger families
+- config/permission problems bias toward permissions, dependencies, abilities, and config files
+
+Only fall back to broader file or summary terms after those anchors.
+The runtime also returns `followup_focus` when it can classify the current scene. Treat it as the default branch selector for recursive query logic.
 
 `context` also includes `network_limits` and may include compact `evidence_chains`. Treat these chains as one-hop explanations, not complete graph paths.
 
@@ -90,6 +99,10 @@ Rules:
 - Do not run merge, promotion, duplicate detection, or vault export from this skill.
 - Do not manually maintain keyword lists for retrieval. Query misses are the feedback signal.
 - Start with the user's natural-language problem. If results are weak, issue a sharper follow-up using matched file paths, symbols, routes, resources, log templates, or edge evidence.
+- Prefer this order for the next recursive query:
+  1. `suggested_followup_terms`
+  2. top-hit `search_terms`
+  3. exact file/symbol/log anchors from the current result
 - When `search` is truncated, summarize the current batch first, then issue the next `search` call with `--cursor <next_cursor>` only if evidence is still incomplete.
 - For bug diagnosis, use the diagnosis template to query memory recursively as the problem frame changes.
 - For design/change planning, use the change design template to query memory recursively as the proposed plan changes.

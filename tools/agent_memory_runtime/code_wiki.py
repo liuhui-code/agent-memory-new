@@ -828,6 +828,20 @@ def semantic_followup_workflow_steps() -> list[str]:
     ]
 
 
+def followup_hint_terms(*values: Any) -> list[str]:
+    raw = " ".join(str(value or "") for value in values if str(value or "").strip())
+    return unique_list(terms_from_text(raw))
+
+
+def followup_hint_context(*values: Any) -> list[str]:
+    context: list[str] = []
+    for value in values:
+        text = str(value or "").strip()
+        if text:
+            context.append(text)
+    return context
+
+
 def followup_item_score(path: str, kind: str) -> tuple[int, list[str]]:
     score = 0
     reasons: list[str] = []
@@ -873,6 +887,18 @@ def prioritize_followup_file(
         enriched = dict(symbol)
         enriched["priority_score"] = item_score
         enriched["priority_reasons"] = item_reasons
+        enriched["hint_terms"] = followup_hint_terms(
+            file_output["file_path"],
+            symbol.get("symbol"),
+            symbol.get("symbol_type"),
+            symbol.get("summary"),
+        )
+        enriched["hint_context"] = followup_hint_context(
+            file_output["file_path"],
+            symbol.get("symbol"),
+            symbol.get("symbol_type"),
+            symbol.get("summary"),
+        )
         prioritized_symbols.append(enriched)
 
     prioritized_logs: list[dict[str, Any]] = []
@@ -887,6 +913,22 @@ def prioritize_followup_file(
         enriched = dict(log)
         enriched["priority_score"] = item_score
         enriched["priority_reasons"] = item_reasons
+        enriched["hint_terms"] = followup_hint_terms(
+            file_output["file_path"],
+            log.get("message_template"),
+            log.get("function"),
+            log.get("level"),
+            log.get("logger"),
+            log.get("raw_statement"),
+        )
+        enriched["hint_context"] = followup_hint_context(
+            file_output["file_path"],
+            log.get("message_template"),
+            log.get("function"),
+            log.get("level"),
+            log.get("logger"),
+            log.get("raw_statement"),
+        )
         prioritized_logs.append(enriched)
 
     prioritized_symbols.sort(
@@ -911,6 +953,18 @@ def prioritize_followup_file(
     enriched_file = dict(file_output)
     enriched_file["priority_score"] = score
     enriched_file["priority_reasons"] = reasons
+    enriched_file["hint_terms"] = followup_hint_terms(
+        file_output["file_path"],
+        file_output.get("summary"),
+        " ".join(symbol.get("symbol", "") for symbol in prioritized_symbols[:FOLLOWUP_SYMBOL_LIMIT]),
+        " ".join(log.get("message_template", "") for log in prioritized_logs[:FOLLOWUP_LOG_LIMIT]),
+    )
+    enriched_file["hint_context"] = followup_hint_context(
+        file_output["file_path"],
+        file_output.get("summary"),
+        " ".join(symbol.get("symbol", "") for symbol in prioritized_symbols[:FOLLOWUP_SYMBOL_LIMIT]),
+        " ".join(log.get("message_template", "") for log in prioritized_logs[:FOLLOWUP_LOG_LIMIT]),
+    )
     enriched_file["symbols"] = prioritized_symbols[:FOLLOWUP_SYMBOL_LIMIT]
     enriched_file["logs"] = prioritized_logs[:FOLLOWUP_LOG_LIMIT]
     enriched_file["truncated_counts"] = {
