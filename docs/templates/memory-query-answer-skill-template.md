@@ -262,4 +262,5 @@ If `context`, `search`, or `wiki-search` returns no useful results:
 
 If later maintenance returns `semantic_gap_targets` or `learn_business_payload_template`, use those outputs to enrich the exact files, symbols, and logs that blocked retrieval instead of re-learning broad code scopes.
 If `workflow_steps` is present, follow that checklist directly so query misses turn into targeted semantic enrichment instead of a broad re-index.
+If `search` returns `truncated: true`, summarize the current batch first. Only continue with `--cursor <next_cursor>` when the current batch does not support a defensible answer yet.
 ~~~

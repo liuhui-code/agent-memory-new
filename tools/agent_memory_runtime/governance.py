@@ -559,32 +559,18 @@ def build_query_miss_data(project: Project, limit: int) -> list[dict[str, Any]]:
 
 
 def build_recent_semantic_conflicts(project: Project, limit: int) -> list[dict[str, Any]]:
-    runtime_file = project.runtime_dir / "last_learn_business.json"
-    if not runtime_file.exists():
-        return []
-    try:
-        payload = json.loads(runtime_file.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return []
-    conflicts = payload.get("semantic_conflicts")
-    if not isinstance(conflicts, list):
-        return []
-    items: list[dict[str, Any]] = []
-    observed_at = payload.get("observed_at") or payload.get("generated_at")
-    for conflict in conflicts[:limit]:
-        if not isinstance(conflict, dict):
-            continue
-        items.append(
-            {
-                "target": conflict.get("target"),
-                "field": conflict.get("field"),
-                "existing": conflict.get("existing"),
-                "incoming": conflict.get("incoming"),
-                "source_command": conflict.get("source_command") or payload.get("source_command") or "learn-business",
-                "observed_at": conflict.get("observed_at") or observed_at,
-            }
-        )
-    return items
+    with connect(project) as conn:
+        rows = conn.execute(
+            """
+            SELECT target, field, existing, incoming, source_command, observed_at
+            FROM semantic_conflicts
+            WHERE project_id = ? AND status = 'open'
+            ORDER BY observed_at DESC, id DESC
+            LIMIT ?
+            """,
+            (project.project_id, limit),
+        ).fetchall()
+    return [row_dict(row) for row in rows]
 
 
 def build_semantic_gap_targets(project: Project, limit_per_group: int = 5) -> dict[str, list[str]]:

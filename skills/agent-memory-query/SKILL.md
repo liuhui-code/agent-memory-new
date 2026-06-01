@@ -32,9 +32,19 @@ The runtime expands common symptom words into technical search terms. For Harmon
 
 ```bash
 python tools/agent_memory.py search --project . --query "<query>" --json
+python tools/agent_memory.py search --project . --query "<query>" --per-type-limit 10 --aggregate-limit 8 --cursor 0 --json
 ```
 
-`search` is bounded. It returns ranked subsets plus `result_limits` so large memory archives do not dump unbounded result sets back into the Agent.
+`search` is batched and bounded. It returns ranked subsets plus:
+
+- `truncated`
+- `next_cursor`
+- `total_candidates_by_type`
+- `returned_counts_by_type`
+- `per_type_limit`
+- `aggregate_limit`
+
+Use `next_cursor` for another pass when the first batch is insufficient. Do not ask for unbounded output.
 
 ## Wiki Search
 
@@ -80,6 +90,7 @@ Rules:
 - Do not run merge, promotion, duplicate detection, or vault export from this skill.
 - Do not manually maintain keyword lists for retrieval. Query misses are the feedback signal.
 - Start with the user's natural-language problem. If results are weak, issue a sharper follow-up using matched file paths, symbols, routes, resources, log templates, or edge evidence.
+- When `search` is truncated, summarize the current batch first, then issue the next `search` call with `--cursor <next_cursor>` only if evidence is still incomplete.
 - For bug diagnosis, use the diagnosis template to query memory recursively as the problem frame changes.
 - For design/change planning, use the change design template to query memory recursively as the proposed plan changes.
 - If a log statement matches, use related edges to refine the next query with the file path, function name, and message template.

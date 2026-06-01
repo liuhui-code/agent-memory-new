@@ -76,6 +76,12 @@ semantic_followup
 Use `semantic_stats` to judge coverage, and use `semantic_gaps` to find which files, symbols, or logs still need business meaning before relying on memory query results.
 
 When `semantic_followup` is present, use its `followup_payload_template` for the next `learn-business` write instead of inventing a new payload. Follow `workflow_steps` in order.
+Read `recommended_next_action` first. When it is `run_learn_business_now`, continue with the returned template before broader re-indexing or querying.
+`semantic_followup` also carries:
+
+- `truncated`: whether the current batch was capped
+- `returned_counts` and `remaining_counts`: how much semantic work is visible now versus deferred
+- file-level `priority_score` and `priority_reasons`: why a file is ahead of other semantic work
 
 ## Entry File
 
@@ -96,7 +102,7 @@ This merges the entry-related files into the existing codebase wiki by default. 
 Learning also extracts code log statements and rebuilds lightweight file/function/log edges. This happens automatically through the same command.
 
 Read the returned `parse_stats` field. If `files_indexed`, `symbols_total`, and `code_logs_total` are unexpectedly low, tell the user what scope was learned and suggest a narrower entry file or a broader directory.
-When `semantic_followup` is present, use it immediately as the next `learn-business` task for the learned files.
+When `semantic_followup` is present, use it immediately as the next `learn-business` task for the learned files. If `truncated` is `true`, finish the visible batch first, then rerun learning or maintenance to fetch the next semantic batch.
 
 Examples:
 
@@ -126,7 +132,7 @@ This merges the directory into the existing codebase wiki by default. Use `--rep
 Directory learning also refreshes log statement records for the learned files.
 
 Use `--json` when another Agent skill will consume the result. The output includes `parse_stats` with counts by language, symbol type, log level, and memory edge total.
-If the learned files still lack business meaning, the JSON also includes `semantic_followup` with a second-pass payload template.
+If the learned files still lack business meaning, the JSON also includes `semantic_followup` with a second-pass payload template. Respect its priority ordering instead of enriching files in arbitrary directory order.
 
 Examples:
 

@@ -19,6 +19,7 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `code_log_statements`: log, print, and console statements extracted from learned source files.
 - `memory_edges`: lightweight relation edges between learned files, symbols, and log statements.
 - `query_misses`: failed retrieval attempts that may need later learning or reflection.
+- `semantic_conflicts`: durable review records for conflicting business summaries.
 
 `code_files`, `code_symbols`, and `code_log_statements` also store Agent-authored business semantics:
 
@@ -78,6 +79,15 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 - `last_seen_at`: most recent repeated miss timestamp.
 - `status`: `open`, `reviewed`, `resolved`, or `ignored`.
 - `resolution`: how the miss was handled.
+
+`semantic_conflicts` track durable business-summary review work:
+
+- `target`: file, symbol, or log anchor such as `pages/ProfileDetail.ets::profileCache`.
+- `field`: currently `business_summary`.
+- `existing` and `incoming`: the conflicting summaries.
+- `source_command`: usually `learn-business`.
+- `observed_at`: when the conflict was recorded.
+- `status`: currently `open` by default for review queues.
 
 ## Code Log Statement Network
 

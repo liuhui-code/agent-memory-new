@@ -20,6 +20,7 @@ REQUIRED_TABLES = {
     "memory_edges",
     "query_misses",
     "reflection_reuse_events",
+    "semantic_conflicts",
 }
 
 VAULT_DIRS = [

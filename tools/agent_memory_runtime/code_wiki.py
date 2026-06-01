@@ -18,6 +18,10 @@ from .records import output, row_dict
 from .storage import connect, ensure_initialized, now_iso, resolve_project
 from .text import json_list, json_list_text, score_text, terms_from_text, unique_list
 
+FOLLOWUP_FILE_LIMIT = 5
+FOLLOWUP_SYMBOL_LIMIT = 5
+FOLLOWUP_LOG_LIMIT = 5
+
 
 def should_skip_dir(path: Path) -> bool:
     return any(part in IGNORE_DIRS for part in path.parts)
@@ -824,6 +828,124 @@ def semantic_followup_workflow_steps() -> list[str]:
     ]
 
 
+def followup_item_score(path: str, kind: str) -> tuple[int, list[str]]:
+    score = 0
+    reasons: list[str] = []
+    lower_path = path.lower()
+    if kind == "file":
+        if lower_path.endswith(".ets"):
+            score += 8
+            reasons.append("arkts_page_or_module")
+        elif lower_path.endswith(".json5"):
+            score += 4
+            reasons.append("harmonyos_config")
+    elif kind == "log":
+        score += 24
+        reasons.append("missing_log_semantics")
+    elif kind == "symbol":
+        score += 12
+        reasons.append("missing_symbol_semantics")
+    return score, reasons
+
+
+def prioritize_followup_file(
+    file_output: dict[str, Any],
+    file_missing_summary: bool,
+    file_missing_terms: bool,
+) -> dict[str, Any]:
+    score, reasons = followup_item_score(file_output["file_path"], "file")
+    if file_missing_summary:
+        score += 6
+        reasons.append("missing_file_business_summary")
+    if file_missing_terms:
+        score += 6
+        reasons.append("missing_file_business_terms")
+
+    prioritized_symbols: list[dict[str, Any]] = []
+    for symbol in file_output["symbols"]:
+        item_score, item_reasons = followup_item_score(file_output["file_path"], "symbol")
+        if not has_business_summary(symbol.get("business_summary")):
+            item_score += 4
+            item_reasons.append("missing_symbol_business_summary")
+        if not has_business_terms(symbol.get("business_terms")):
+            item_score += 4
+            item_reasons.append("missing_symbol_business_terms")
+        enriched = dict(symbol)
+        enriched["priority_score"] = item_score
+        enriched["priority_reasons"] = item_reasons
+        prioritized_symbols.append(enriched)
+
+    prioritized_logs: list[dict[str, Any]] = []
+    for log in file_output["logs"]:
+        item_score, item_reasons = followup_item_score(file_output["file_path"], "log")
+        if not has_business_summary(log.get("business_summary")):
+            item_score += 4
+            item_reasons.append("missing_log_business_summary")
+        if not has_business_terms(log.get("business_terms")):
+            item_score += 4
+            item_reasons.append("missing_log_business_terms")
+        enriched = dict(log)
+        enriched["priority_score"] = item_score
+        enriched["priority_reasons"] = item_reasons
+        prioritized_logs.append(enriched)
+
+    prioritized_symbols.sort(
+        key=lambda item: (item["priority_score"], item.get("symbol_type") == "function", item["symbol"]),
+        reverse=True,
+    )
+    prioritized_logs.sort(
+        key=lambda item: (item["priority_score"], item.get("level") == "error", item["message_template"]),
+        reverse=True,
+    )
+
+    score += sum(item["priority_score"] for item in prioritized_symbols[:FOLLOWUP_SYMBOL_LIMIT])
+    score += sum(item["priority_score"] for item in prioritized_logs[:FOLLOWUP_LOG_LIMIT])
+    for item in prioritized_symbols[:FOLLOWUP_SYMBOL_LIMIT]:
+        for reason in item["priority_reasons"]:
+            if reason not in reasons:
+                reasons.append(reason)
+    for item in prioritized_logs[:FOLLOWUP_LOG_LIMIT]:
+        for reason in item["priority_reasons"]:
+            if reason not in reasons:
+                reasons.append(reason)
+    enriched_file = dict(file_output)
+    enriched_file["priority_score"] = score
+    enriched_file["priority_reasons"] = reasons
+    enriched_file["symbols"] = prioritized_symbols[:FOLLOWUP_SYMBOL_LIMIT]
+    enriched_file["logs"] = prioritized_logs[:FOLLOWUP_LOG_LIMIT]
+    enriched_file["truncated_counts"] = {
+        "symbols": max(0, len(prioritized_symbols) - len(enriched_file["symbols"])),
+        "logs": max(0, len(prioritized_logs) - len(enriched_file["logs"])),
+    }
+    return enriched_file
+
+
+def finalize_semantic_followup(files: list[dict[str, Any]]) -> dict[str, Any] | None:
+    if not files:
+        return None
+    files.sort(key=lambda item: (item["priority_score"], item["file_path"]), reverse=True)
+    truncated = len(files) > FOLLOWUP_FILE_LIMIT
+    visible_files = files[:FOLLOWUP_FILE_LIMIT]
+    remaining_files = max(0, len(files) - len(visible_files))
+    return {
+        "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+        "workflow_steps": semantic_followup_workflow_steps(),
+        "recommended_next_action": "run_learn_business_now",
+        "truncated": truncated,
+        "returned_counts": {
+            "files": len(visible_files),
+            "symbols": sum(len(file_item["symbols"]) for file_item in visible_files),
+            "logs": sum(len(file_item["logs"]) for file_item in visible_files),
+        },
+        "remaining_counts": {
+            "files": remaining_files,
+            "symbols": sum(file_item["truncated_counts"]["symbols"] for file_item in visible_files),
+            "logs": sum(file_item["truncated_counts"]["logs"] for file_item in visible_files),
+        },
+        "followup_payload_template": {"files": visible_files},
+    }
+
+
 def semantic_followup_template(payload_files: list[dict[str, Any]]) -> dict[str, Any]:
     files: list[dict[str, Any]] = []
     for file_item in payload_files:
@@ -874,7 +996,13 @@ def semantic_followup_template(payload_files: list[dict[str, Any]]) -> dict[str,
             or file_output["symbols"]
             or file_output["logs"]
         ):
-            files.append(file_output)
+            files.append(
+                prioritize_followup_file(
+                    file_output,
+                    not has_business_summary(file_item.get("business_summary")),
+                    not has_business_terms(file_item.get("business_terms")),
+                )
+            )
     return {"files": files}
 
 
@@ -959,14 +1087,8 @@ def semantic_followup_from_db(project: Project, file_paths: list[str]) -> dict[s
                     }
                 )
             if file_missing or file_output["symbols"] or file_output["logs"]:
-                files.append(file_output)
-    if not files:
-        return None
-    return {
-        "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
-        "workflow_steps": semantic_followup_workflow_steps(),
-        "followup_payload_template": {"files": files},
-    }
+                files.append(prioritize_followup_file(file_output, not has_business_summary(file_row["business_summary"]), not has_business_terms(file_row["business_terms"])))
+    return finalize_semantic_followup(files)
 
 
 def merge_business_terms(existing: Any, incoming: Any) -> str:
@@ -1223,6 +1345,26 @@ def learn_business(args: argparse.Namespace) -> None:
             "SELECT COUNT(*) AS count FROM memory_edges WHERE project_id = ?",
             (source_project.project_id,),
         ).fetchone()["count"]
+        for conflict in conflicts:
+            conn.execute(
+                """
+                INSERT INTO semantic_conflicts(
+                  project_id, target, field, existing, incoming, resolution,
+                  source_command, observed_at, status
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'open')
+                """,
+                (
+                    source_project.project_id,
+                    conflict.get("target"),
+                    conflict.get("field"),
+                    conflict.get("existing"),
+                    conflict.get("incoming"),
+                    conflict.get("resolution"),
+                    conflict.get("source_command") or "learn-business",
+                    ts,
+                ),
+            )
         conn.commit()
     data = {
         "project_id": project.project_id,
@@ -1241,11 +1383,10 @@ def learn_business(args: argparse.Namespace) -> None:
     semantic_quality = semantic_quality_report(payload["files"])
     data.update(semantic_quality)
     if any(semantic_quality["semantic_gaps"].values()):
-        data["semantic_followup"] = {
-            "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
-            "workflow_steps": semantic_followup_workflow_steps(),
-            "followup_payload_template": semantic_followup_template(payload["files"]),
-        }
+        template = semantic_followup_template(payload["files"])
+        followup = finalize_semantic_followup(template["files"])
+        if followup:
+            data["semantic_followup"] = followup
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_learn_business.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n",

@@ -74,7 +74,7 @@ Prefer filling the template over inventing a new payload shape. It keeps file, s
 
 When `workflow_steps` is present, follow it in order. Treat it as the default local Agent CLI procedure for targeted semantic enrichment.
 
-When `maintain-plan` returns `review_semantic_conflict`, do not replace stored summaries immediately. Read current source, decide which summary is grounded in the code, then prepare a reviewed replacement in a later governed step.
+When `maintain-plan` returns `review_semantic_conflict`, do not replace stored summaries immediately. These conflicts are now durable SQLite governance records and also appear in the vault review pages. Read current source, decide which summary is grounded in the code, then prepare a reviewed replacement in a later governed step.
 
 ## Governance Actions
 
@@ -162,4 +162,4 @@ Rules:
 - Treat `promote_experience_candidate` as a review signal, not an automatic promotion.
 - Treat `review_query_miss` actions as low-risk signals that may require learning a missing path, adding business terms, rewriting a reflection, or ignoring noise.
 - Treat `add_business_terms` actions as targeted enrichment work; prefer patching the listed semantic gaps over re-indexing large code scopes.
-- Vault export includes generated code log statement, memory edge, query miss, reflection quality, and experience candidate pages for review.
+- Vault export includes generated code log statement, memory edge, query miss, semantic conflict, reflection quality, and experience candidate pages for review.

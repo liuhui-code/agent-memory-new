@@ -1410,3 +1410,53 @@ Verification:
 
 Rollback notes:
 - Restore `resolve_memory_home()` fallback to `~/.agent-memory` and revert related docs/tests.
+
+## 2026-06-01 - Prioritized learn follow-up, durable semantic conflicts, and batched search
+
+Files changed:
+- `docs/superpowers/plans/2026-06-01-memory-runtime-next-phase.md`
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/code_wiki.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/models.py`
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/storage.py`
+- `tools/agent_memory_runtime/vault.py`
+- `tests/test_agent_memory.py`
+- `skills/agent-memory-learn/SKILL.md`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/guided-memory-review-workflow.md`
+- `docs/templates/memory-query-answer-skill-template.md`
+- `references/schema.md`
+- `gitlog.md`
+
+What changed:
+- Added a next-phase implementation plan under `docs/superpowers/plans/`.
+- Upgraded `semantic_followup` to return prioritized file work, capped batches, `recommended_next_action`, and explicit `truncated` / count metadata.
+- Added durable SQLite `semantic_conflicts` storage and switched `maintain-plan` conflict review off `runtime/last_learn_business.json`.
+- Exported semantic conflicts to a new vault governance page and linked it from the vault index.
+- Added batched aggregated `search` retrieval with `--cursor`, `--per-type-limit`, `--aggregate-limit`, `truncated`, `next_cursor`, and returned/total counts by type.
+- Updated learn/query/maintain docs so a local Agent CLI can consume the new follow-up, search, and governance outputs directly.
+
+Why:
+- Keep semantic enrichment focused on the highest-value file, symbol, and log gaps.
+- Preserve semantic conflict review state across sessions instead of losing it with runtime cache turnover.
+- Keep large-memory search bounded without forcing one-shot output dumps back into the Agent.
+- Make the runtime outputs concrete enough that another local Agent CLI can follow them without ad hoc conventions.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 72 tests passed.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile install.py tools/agent_memory.py tools/agent_memory_runtime/__init__.py tools/agent_memory_runtime/cli.py tools/agent_memory_runtime/code_wiki.py tools/agent_memory_runtime/governance.py tools/agent_memory_runtime/models.py tools/agent_memory_runtime/query.py tools/agent_memory_runtime/records.py tools/agent_memory_runtime/storage.py tools/agent_memory_runtime/text.py tools/agent_memory_runtime/vault.py tests/test_agent_memory.py`
+- Result: passed.
+- Command: `git diff --check`
+- Result: clean.
+
+Rollback notes:
+- Remove the `semantic_conflicts` table and its governance/vault consumers.
+- Revert `semantic_followup` priority/truncation metadata if the batch protocol proves too rigid.
+- Revert `search` cursor and aggregate metadata if downstream consumers require the old fixed-limit shape.

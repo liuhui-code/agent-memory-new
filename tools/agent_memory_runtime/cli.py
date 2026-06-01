@@ -48,6 +48,9 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p = sub.add_parser("search")
     add_project(p)
     p.add_argument("--query", required=True)
+    p.add_argument("--cursor", type=int, default=0)
+    p.add_argument("--per-type-limit", type=int)
+    p.add_argument("--aggregate-limit", type=int)
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("search"))
 

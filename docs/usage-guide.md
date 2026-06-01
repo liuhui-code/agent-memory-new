@@ -184,6 +184,8 @@ When gaps remain, `semantic_followup` provides a ready-made second-pass template
 {
   "semantic_followup": {
     "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+    "recommended_next_action": "run_learn_business_now",
+    "truncated": false,
     "workflow_steps": [
       "Read the listed files, symbols, and logs in current source.",
       "Fill missing business_summary and business_terms in followup_payload_template.",
@@ -204,6 +206,8 @@ When gaps remain, `semantic_followup` provides a ready-made second-pass template
   }
 }
 ```
+
+Use `priority_score` and `priority_reasons` on returned files to decide what to enrich first. If `truncated` is `true`, finish the visible batch, then rerun the learn or maintain flow to fetch the next semantic batch.
 
 For the whole project:
 
@@ -232,6 +236,14 @@ Expected skill path:
 agent-memory-query
   -> python tools/agent_memory.py context --project . --query "<task>" --json
 ```
+
+When broader retrieval is needed, use batched search:
+
+```bash
+python tools/agent_memory.py search --project . --query "<task>" --per-type-limit 10 --aggregate-limit 8 --cursor 0 --json
+```
+
+If `search` returns `truncated: true`, continue only with `next_cursor` when the current evidence is still incomplete.
 
 If a query returns no semantic facts, reflections, episodes, or wiki matches, the runtime records a query miss automatically. The user does not need to maintain keywords.
 
@@ -272,6 +284,22 @@ Bug diagnosis:
 
 Design or modification planning:
   docs/templates/change-design-memory-query-template.md
+
+Recommended local Agent CLI loop:
+
+```text
+learn-entry / learn-path
+  -> inspect parse_stats
+  -> if semantic_followup.recommended_next_action == run_learn_business_now:
+       fill followup_payload_template
+       run learn-business
+  -> run context
+  -> if evidence is broad or truncated:
+       run search with per-type and aggregate limits
+       continue with --cursor <next_cursor> only when needed
+  -> if maintain-plan returns semantic_gap_targets or review_semantic_conflict:
+       enrich or review before broad re-indexing
+```
 
 General memory-aware answering with logs:
   docs/templates/memory-query-answer-skill-template.md

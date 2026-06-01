@@ -1100,6 +1100,8 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                 "--json",
             )
 
+            runtime_file = self.project_memory_dir(project) / "runtime" / "last_learn_business.json"
+            runtime_file.unlink()
             payload = json.loads(self.run_memory(project, "maintain-plan", "--json").stdout)
             actions = payload["actions"]
             conflict_actions = [action for action in actions if action["action"] == "review_semantic_conflict"]
@@ -1110,6 +1112,55 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(conflict_actions[0]["source_command"], "learn-business")
             self.assertIsNotNone(conflict_actions[0]["observed_at"])
             self.assertIn(conflict_actions[0]["target"], {"pages/ProfileDetail.ets", "pages/ProfileDetail.ets::profileCache"})
+
+    def test_vault_export_writes_semantic_conflicts_dashboard(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps(
+                    {
+                        "files": [
+                            {
+                                "file_path": "pages/ProfileDetail.ets",
+                                "business_summary": "用户资料详情页",
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                "--json",
+            )
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps(
+                    {
+                        "files": [
+                            {
+                                "file_path": "pages/ProfileDetail.ets",
+                                "business_summary": "订单详情页",
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                "--json",
+            )
+
+            self.run_memory(project, "vault-export")
+            dashboard = self.project_memory_dir(project) / "vault" / "Governance" / "Semantic Conflicts.md"
+            index = self.project_memory_dir(project) / "vault" / "index.md"
+            content = dashboard.read_text(encoding="utf-8")
+            index_text = index.read_text(encoding="utf-8")
+
+            self.assertIn("pages/ProfileDetail.ets", content)
+            self.assertIn("用户资料详情页", content)
+            self.assertIn("订单详情页", content)
+            self.assertIn("[[Governance/Semantic Conflicts]]", index_text)
 
     def test_vault_export_writes_query_misses_dashboard(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -1539,6 +1590,9 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             payload = {
                 "files": [
                     {
+                        "file_path": "pages/Empty.ets",
+                    },
+                    {
                         "file_path": "pages/ProfileDetail.ets",
                         "business_summary": "个人信息详情页，负责加载用户资料并展示头像。",
                         "business_terms": ["个人信息", "profile", "头像"],
@@ -1569,9 +1623,6 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                             },
                         ],
                     },
-                    {
-                        "file_path": "pages/Empty.ets",
-                    },
                 ]
             }
 
@@ -1600,11 +1651,47 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                     "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced.",
                 ],
             )
+            self.assertEqual(data["semantic_followup"]["recommended_next_action"], "run_learn_business_now")
+            self.assertFalse(data["semantic_followup"]["truncated"])
             followup = data["semantic_followup"]["followup_payload_template"]
             self.assertEqual(followup["files"][0]["file_path"], "pages/ProfileDetail.ets")
+            self.assertGreater(followup["files"][0]["priority_score"], followup["files"][1]["priority_score"])
+            self.assertIn("missing_log_semantics", followup["files"][0]["priority_reasons"])
             self.assertEqual(followup["files"][0]["symbols"][0]["symbol"], "profileCache")
             self.assertEqual(followup["files"][0]["logs"][0]["message_template"], "load profile start")
             self.assertEqual(followup["files"][1]["file_path"], "pages/Empty.ets")
+            self.assertIn("missing_file_business_summary", followup["files"][1]["priority_reasons"])
+            self.assertIn("missing_file_business_terms", followup["files"][1]["priority_reasons"])
+
+    def test_learn_business_followup_truncates_to_priority_batch(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            files = []
+            for index in range(6):
+                files.append(
+                    {
+                        "file_path": f"pages/Page{index}.ets",
+                        "symbols": [
+                            {
+                                "symbol": f"loadPage{index}",
+                                "symbol_type": "function",
+                            }
+                        ],
+                    }
+                )
+            payload = {"files": files}
+
+            result = self.run_memory(project, "learn-business", "--payload", json.dumps(payload, ensure_ascii=False), "--json")
+            data = json.loads(result.stdout)
+
+            self.assertTrue(data["semantic_followup"]["truncated"])
+            self.assertEqual(data["semantic_followup"]["remaining_counts"]["files"], 1)
+            self.assertEqual(data["semantic_followup"]["returned_counts"]["files"], 5)
+            self.assertEqual(len(data["semantic_followup"]["followup_payload_template"]["files"]), 5)
+            self.assertEqual(
+                data["semantic_followup"]["recommended_next_action"],
+                "run_learn_business_now",
+            )
 
     def test_learn_business_partial_update_keeps_unmentioned_symbols_and_logs(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -1900,6 +1987,61 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertTrue(
                 any(edge["relation"] == "emits_log" for edge in payload["edge_matches"])
             )
+
+    def test_search_returns_batched_aggregate_metadata_and_cursor(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            for index in range(6):
+                self.run_memory(
+                    project,
+                    "update",
+                    "--type",
+                    "semantic",
+                    "--fact",
+                    f"profile timeout investigation note {index}",
+                    "--source",
+                    "test",
+                    "--confidence",
+                    "1.0",
+                )
+
+            first = json.loads(
+                self.run_memory(
+                    project,
+                    "search",
+                    "--query",
+                    "profile timeout",
+                    "--per-type-limit",
+                    "5",
+                    "--aggregate-limit",
+                    "3",
+                    "--json",
+                ).stdout
+            )
+            second = json.loads(
+                self.run_memory(
+                    project,
+                    "search",
+                    "--query",
+                    "profile timeout",
+                    "--per-type-limit",
+                    "5",
+                    "--aggregate-limit",
+                    "3",
+                    "--cursor",
+                    "3",
+                    "--json",
+                ).stdout
+            )
+
+            self.assertTrue(first["truncated"])
+            self.assertEqual(first["next_cursor"], 3)
+            self.assertEqual(first["total_candidates_by_type"]["semantic_facts"], 6)
+            self.assertEqual(first["returned_counts_by_type"]["semantic_facts"], 3)
+            self.assertEqual(len(first["semantic_facts"]), 3)
+            self.assertEqual(second["returned_counts_by_type"]["semantic_facts"], 3)
+            self.assertIsNone(second["next_cursor"])
+            self.assertEqual(len(second["semantic_facts"]), 3)
 
     def test_context_limits_network_edges_and_reports_limits(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

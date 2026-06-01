@@ -185,6 +185,20 @@ def create_schema(conn: sqlite3.Connection) -> None:
           created_at TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS semantic_conflicts (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          target TEXT NOT NULL,
+          field TEXT NOT NULL,
+          existing TEXT,
+          incoming TEXT,
+          resolution TEXT,
+          source_command TEXT NOT NULL,
+          observed_at TEXT NOT NULL,
+          status TEXT DEFAULT 'open',
+          reviewed_at TEXT
+        );
+
         CREATE UNIQUE INDEX IF NOT EXISTS idx_code_files_project_file
         ON code_files(project_id, file_path);
 
@@ -202,6 +216,9 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_reflection_reuse_project_reused
         ON reflection_reuse_events(project_id, reused_reflection_id);
+
+        CREATE INDEX IF NOT EXISTS idx_semantic_conflicts_project_status
+        ON semantic_conflicts(project_id, status, observed_at);
 
         CREATE INDEX IF NOT EXISTS idx_code_logs_project_file
         ON code_log_statements(project_id, file_path);

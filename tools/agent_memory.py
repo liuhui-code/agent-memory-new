@@ -178,7 +178,13 @@ def update(args: argparse.Namespace) -> None:
 def search(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    data = limited_search(project, args.query)
+    data = limited_search(
+        project,
+        args.query,
+        cursor=args.cursor,
+        per_type_limit=args.per_type_limit,
+        aggregate_limit=args.aggregate_limit,
+    )
     record_query_miss_if_empty(project, "search", args.query, data)
     output(data, args.json)
 

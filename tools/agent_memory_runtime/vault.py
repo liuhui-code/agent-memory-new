@@ -88,6 +88,10 @@ def vault_export(args: argparse.Namespace) -> None:
             "SELECT * FROM reflection_reuse_events WHERE project_id = ? ORDER BY id DESC",
             (project.project_id,),
         ).fetchall()
+        semantic_conflicts = conn.execute(
+            "SELECT * FROM semantic_conflicts WHERE project_id = ? ORDER BY observed_at DESC, id DESC",
+            (project.project_id,),
+        ).fetchall()
 
     for row in episodes:
         slug = slugify(row["task"], f"episode-{row['id']}")
@@ -218,7 +222,7 @@ def vault_export(args: argparse.Namespace) -> None:
     daily_content += f"- Exported at {now_iso()}\n"
     write_vault_file(daily, daily_content)
 
-    write_governance_dashboard(project, facts, reflections, episodes, query_misses, reflection_reuse_events)
+    write_governance_dashboard(project, facts, reflections, episodes, query_misses, reflection_reuse_events, semantic_conflicts)
     vault_index(args)
     print(f"vault exported to {project.vault_dir}")
 
@@ -230,12 +234,14 @@ def write_governance_dashboard(
     episodes: list[sqlite3.Row],
     query_misses: list[sqlite3.Row],
     reflection_reuse_events: list[sqlite3.Row],
+    semantic_conflicts: list[sqlite3.Row],
 ) -> None:
     fact_rows = [row_dict(row) for row in facts]
     reflection_rows = [row_dict(row) for row in reflections]
     episode_rows = [row_dict(row) for row in episodes]
     query_miss_rows = [row_dict(row) for row in query_misses]
     reflection_reuse_rows = [row_dict(row) for row in reflection_reuse_events]
+    semantic_conflict_rows = [row_dict(row) for row in semantic_conflicts]
     active_facts = [row for row in fact_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
     active_reflections = [row for row in reflection_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
     stale = [
@@ -264,6 +270,7 @@ def write_governance_dashboard(
     health += f"- Duplicate candidates: {len(duplicates)}\n"
     health += f"- Unreviewed reflections: {len(unreviewed_reflections)}\n"
     health += f"- Open query misses: {sum(1 for row in query_miss_rows if row.get('status') == 'open')}\n"
+    health += f"- Open semantic conflicts: {sum(1 for row in semantic_conflict_rows if row.get('status') == 'open')}\n"
     write_vault_file(project.vault_dir / "Governance" / "Health.md", health)
 
     review = header + "# Review Queue\n\n" + notice
@@ -357,6 +364,20 @@ def write_governance_dashboard(
         reuse_doc += "\n"
     write_vault_file(project.vault_dir / "Governance" / "Reflection Reuse.md", reuse_doc)
 
+    conflicts_doc = header + "# Semantic Conflicts\n\n" + notice
+    conflicts_doc += "These conflicts capture incompatible incoming business summaries that require source-grounded review before replacement.\n\n"
+    for row in semantic_conflict_rows[:50]:
+        conflicts_doc += f"## Conflict #{row['id']}: {row['target']}\n\n"
+        conflicts_doc += f"- Field: {row['field']}\n"
+        conflicts_doc += f"- Status: {row.get('status') or 'open'}\n"
+        conflicts_doc += f"- Source command: {row['source_command']}\n"
+        conflicts_doc += f"- Observed at: {row['observed_at']}\n"
+        if row.get("resolution"):
+            conflicts_doc += f"- Resolution: {row['resolution']}\n"
+        conflicts_doc += f"\n### Existing\n\n{row.get('existing') or ''}\n\n"
+        conflicts_doc += f"### Incoming\n\n{row.get('incoming') or ''}\n\n"
+    write_vault_file(project.vault_dir / "Governance" / "Semantic Conflicts.md", conflicts_doc)
+
     misses_doc = header + "# Query Misses\n\n" + notice
     for row in query_miss_rows[:50]:
         miss_count = row.get("miss_count") or 1
@@ -409,5 +430,6 @@ def vault_index(args: argparse.Namespace) -> None:
     content += "- [[Governance/Reflection Quality]]\n"
     content += "- [[Governance/Experience Candidates]]\n"
     content += "- [[Governance/Reflection Reuse]]\n"
+    content += "- [[Governance/Semantic Conflicts]]\n"
     content += "- [[Governance/Query Misses]]\n"
     write_vault_file(project.vault_dir / "index.md", content)

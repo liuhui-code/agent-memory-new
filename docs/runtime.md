@@ -175,8 +175,19 @@ semantic_followup
 ```
 
 `semantic_stats` reports coverage counts for file, symbol, and log business meaning. `semantic_gaps` lists the specific files, symbols, or logs that still lack `business_summary` or `business_terms`.
-When gaps remain, `semantic_followup` returns a `command_template`, `workflow_steps`, and `followup_payload_template` so the Agent can run a second targeted `learn-business` pass without reconstructing anchors.
-Recent `semantic_conflicts` also flow into `maintain-plan` as `review_semantic_conflict` actions for later governance.
+When gaps remain, `semantic_followup` returns:
+
+- `command_template`
+- `workflow_steps`
+- `recommended_next_action`
+- `truncated`
+- `returned_counts`
+- `remaining_counts`
+- `followup_payload_template`
+
+The follow-up template is priority-ordered and batch-limited so the Agent can enrich the highest-value files, symbols, and logs first without rebuilding anchors.
+
+Recent `semantic_conflicts` are stored durably in SQLite and also flow into `maintain-plan` as `review_semantic_conflict` actions for later governance.
 
 They also extract code log statements and rebuild deterministic code-wiki edges:
 
@@ -212,3 +223,22 @@ python tools/agent_memory.py reflect-review --project . --json
 ```
 
 `reflect-review` is read-only. It reports missing trigger conditions, missing repair actions, missing hidden assumptions, missing negative preconditions, missing verification methods, missing reuse feedback, vague rules, unused reflections, and misleading outcomes.
+
+# 6. Search Batching
+
+`search --json` supports batched aggregated retrieval:
+
+```bash
+python tools/agent_memory.py search --project . --query "<query>" --per-type-limit 10 --aggregate-limit 8 --cursor 0 --json
+```
+
+The response includes:
+
+- `truncated`
+- `next_cursor`
+- `total_candidates_by_type`
+- `returned_counts_by_type`
+- `per_type_limit`
+- `aggregate_limit`
+
+Use `next_cursor` only when the current batch does not provide enough evidence. Query remains bounded by design.

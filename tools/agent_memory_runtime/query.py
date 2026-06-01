@@ -405,11 +405,57 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
     return context
 
 
-def limited_search(project: Project, query: str) -> dict[str, Any]:
+def limited_search(
+    project: Project,
+    query: str,
+    cursor: int = 0,
+    per_type_limit: int | None = None,
+    aggregate_limit: int | None = None,
+) -> dict[str, Any]:
     matches = collect_matches(project, query)
-    bounded = limited_matches(matches, SEARCH_RESULT_LIMITS)
-    bounded["result_limits"] = SEARCH_RESULT_LIMITS.copy()
-    return bounded
+    return batched_search(matches, cursor=cursor, per_type_limit=per_type_limit, aggregate_limit=aggregate_limit)
+
+
+def batched_search(
+    matches: dict[str, list[dict[str, Any]]],
+    cursor: int = 0,
+    per_type_limit: int | None = None,
+    aggregate_limit: int | None = None,
+) -> dict[str, Any]:
+    effective_per_type_limit = max(1, per_type_limit or max(SEARCH_RESULT_LIMITS.values()))
+    effective_aggregate_limit = max(1, aggregate_limit or sum(SEARCH_RESULT_LIMITS.values()))
+    safe_cursor = max(0, cursor)
+
+    candidates: list[dict[str, Any]] = []
+    total_candidates_by_type: dict[str, int] = {}
+    for key, items in matches.items():
+        total_candidates_by_type[key] = len(items)
+        window_size = min(len(items), safe_cursor + effective_per_type_limit)
+        for item in items[:window_size]:
+            candidate = dict(item)
+            candidate["_match_type"] = key
+            candidates.append(candidate)
+
+    candidates.sort(key=lambda item: (item.get("score", 0), item.get("created_at", ""), item.get("id", 0)), reverse=True)
+    visible = candidates[safe_cursor : safe_cursor + effective_aggregate_limit]
+    next_cursor = safe_cursor + len(visible) if safe_cursor + len(visible) < len(candidates) else None
+
+    payload: dict[str, list[dict[str, Any]]] = {key: [] for key in matches}
+    returned_counts_by_type: dict[str, int] = {key: 0 for key in matches}
+    for item in visible:
+        item_type = str(item.pop("_match_type"))
+        returned_counts_by_type[item_type] += 1
+        payload[item_type].append(item)
+
+    payload["result_limits"] = SEARCH_RESULT_LIMITS.copy()
+    payload["cursor"] = safe_cursor
+    payload["per_type_limit"] = effective_per_type_limit
+    payload["aggregate_limit"] = effective_aggregate_limit
+    payload["truncated"] = next_cursor is not None
+    payload["next_cursor"] = next_cursor
+    payload["total_candidates_by_type"] = total_candidates_by_type
+    payload["returned_counts_by_type"] = returned_counts_by_type
+    return payload
 
 
 def record_context_use(project: Project, context_data: dict[str, Any]) -> None:
