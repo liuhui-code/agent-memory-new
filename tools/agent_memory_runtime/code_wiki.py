@@ -1104,7 +1104,13 @@ def merge_business_terms(existing: Any, incoming: Any) -> str:
     return json.dumps(merged, ensure_ascii=False)
 
 
-def merged_business_summary(existing: Any, incoming: Any, target: str, conflicts: list[dict[str, Any]]) -> str | None:
+def merged_business_summary(
+    existing: Any,
+    incoming: Any,
+    target: str,
+    entity_type: str,
+    conflicts: list[dict[str, Any]],
+) -> str | None:
     existing_text = str(existing or "").strip()
     incoming_text = str(incoming or "").strip()
     if not existing_text:
@@ -1115,6 +1121,7 @@ def merged_business_summary(existing: Any, incoming: Any, target: str, conflicts
         return existing_text
     conflicts.append(
         {
+            "entity_type": entity_type,
             "target": target,
             "field": "business_summary",
             "existing": existing_text,
@@ -1160,6 +1167,7 @@ def learn_business(args: argparse.Namespace) -> None:
                 existing_file["business_summary"] if existing_file else None,
                 file_item.get("business_summary"),
                 file_path,
+                "code_file",
                 conflicts,
             )
             file_business_terms = merge_business_terms(
@@ -1211,6 +1219,7 @@ def learn_business(args: argparse.Namespace) -> None:
                     existing_symbol["business_summary"] if existing_symbol else None,
                     symbol_item.get("business_summary"),
                     f"{file_path}::{symbol}",
+                    "code_symbol",
                     conflicts,
                 )
                 symbol_business_terms = merge_business_terms(
@@ -1287,6 +1296,7 @@ def learn_business(args: argparse.Namespace) -> None:
                     existing_log["business_summary"] if existing_log else None,
                     log_item.get("business_summary"),
                     log_target,
+                    "code_log_statement",
                     conflicts,
                 )
                 log_business_terms = merge_business_terms(
@@ -1349,13 +1359,14 @@ def learn_business(args: argparse.Namespace) -> None:
             conn.execute(
                 """
                 INSERT INTO semantic_conflicts(
-                  project_id, target, field, existing, incoming, resolution,
+                  project_id, entity_type, target, field, existing, incoming, resolution,
                   source_command, observed_at, status
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'open')
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'open')
                 """,
                 (
                     source_project.project_id,
+                    conflict.get("entity_type") or "code_file",
                     conflict.get("target"),
                     conflict.get("field"),
                     conflict.get("existing"),

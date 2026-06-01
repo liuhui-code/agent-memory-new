@@ -83,11 +83,16 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 `semantic_conflicts` track durable business-summary review work:
 
 - `target`: file, symbol, or log anchor such as `pages/ProfileDetail.ets::profileCache`.
+- `entity_type`: `code_file`, `code_symbol`, or `code_log_statement`.
 - `field`: currently `business_summary`.
 - `existing` and `incoming`: the conflicting summaries.
 - `source_command`: usually `learn-business`.
 - `observed_at`: when the conflict was recorded.
-- `status`: currently `open` by default for review queues.
+- `status`: `open`, `reviewed`, `resolved`, `ignored`, or `applied`.
+- `resolution`: short closure result.
+- `decision_note`: reviewer rationale grounded in current source.
+- `replacement_source`: source anchor behind the decision.
+- `reviewed_at`: closure timestamp.
 
 ## Code Log Statement Network
 

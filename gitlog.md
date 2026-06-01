@@ -1460,3 +1460,11 @@ Rollback notes:
 - Remove the `semantic_conflicts` table and its governance/vault consumers.
 - Revert `semantic_followup` priority/truncation metadata if the batch protocol proves too rigid.
 - Revert `search` cursor and aggregate metadata if downstream consumers require the old fixed-limit shape.
+
+### Follow-up
+
+- Added `semantic-conflict` listing and `conflict-status` to close reviewed conflict records with explicit resolution text.
+- Added `conflict-apply` to replace a target `business_summary` with the reviewed incoming summary and mark the conflict `applied`.
+- Tightened `conflict-apply` so symbol/log targets must resolve to exactly one row; ambiguous replacements now fail closed.
+- Added `apply_command_template` to `maintain-plan` conflict actions and split vault health conflict counts by file, symbol, and log entity types.
+- Added `decision_note` and `replacement_source` to semantic conflict closure/apply flows and vault export.

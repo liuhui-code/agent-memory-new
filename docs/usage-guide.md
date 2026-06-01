@@ -301,6 +301,17 @@ learn-entry / learn-path
        enrich or review before broad re-indexing
 ```
 
+To review durable semantic conflicts directly:
+
+```bash
+python tools/agent_memory.py list --project . --type semantic-conflict --json
+python tools/agent_memory.py conflict-status --project . --id "<id>" --status resolved --resolution "<decision>"
+python tools/agent_memory.py conflict-apply --project . --id "<id>" --resolution "<decision>" --decision-note "<evidence>" --replacement-source "<source anchor>"
+```
+
+`conflict-apply` is exact-match only. If the target would affect multiple stored symbols or logs, the runtime stops and asks for manual cleanup first.
+If `maintain-plan` returns `apply_command_template` for a conflict, use that exact command after reviewing current source and confirming the incoming summary is correct.
+
 General memory-aware answering with logs:
   docs/templates/memory-query-answer-skill-template.md
 ```

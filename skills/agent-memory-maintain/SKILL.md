@@ -75,6 +75,17 @@ Prefer filling the template over inventing a new payload shape. It keeps file, s
 When `workflow_steps` is present, follow it in order. Treat it as the default local Agent CLI procedure for targeted semantic enrichment.
 
 When `maintain-plan` returns `review_semantic_conflict`, do not replace stored summaries immediately. These conflicts are now durable SQLite governance records and also appear in the vault review pages. Read current source, decide which summary is grounded in the code, then prepare a reviewed replacement in a later governed step.
+When `apply_command_template` is present on a conflict action, use it only after that review is complete.
+
+List or close semantic conflicts with:
+
+```bash
+python tools/agent_memory.py list --project . --type semantic-conflict --json
+python tools/agent_memory.py conflict-status --project . --id "<id>" --status resolved --resolution "<why>"
+python tools/agent_memory.py conflict-apply --project . --id "<id>" --resolution "<why incoming summary is correct>" --decision-note "<evidence>" --replacement-source "<source anchor>"
+```
+
+Use `conflict-apply` only after checking current source and deciding the incoming summary is the right replacement. It applies the stored incoming summary to the target file, symbol, or log and marks the conflict `applied`. The runtime now requires the target to resolve to exactly one stored row; ambiguous symbol or log targets are rejected for manual cleanup first.
 
 ## Governance Actions
 

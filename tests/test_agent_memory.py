@@ -1112,6 +1112,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(conflict_actions[0]["source_command"], "learn-business")
             self.assertIsNotNone(conflict_actions[0]["observed_at"])
             self.assertIn(conflict_actions[0]["target"], {"pages/ProfileDetail.ets", "pages/ProfileDetail.ets::profileCache"})
+            self.assertIn("conflict-apply --project . --id", conflict_actions[0]["apply_command_template"])
 
     def test_vault_export_writes_semantic_conflicts_dashboard(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -1161,6 +1162,264 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertIn("用户资料详情页", content)
             self.assertIn("订单详情页", content)
             self.assertIn("[[Governance/Semantic Conflicts]]", index_text)
+
+    def test_vault_review_queue_lists_open_semantic_conflicts(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps({"files": [{"file_path": "pages/ProfileDetail.ets", "business_summary": "用户资料详情页"}]}, ensure_ascii=False),
+                "--json",
+            )
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps({"files": [{"file_path": "pages/ProfileDetail.ets", "business_summary": "订单详情页"}]}, ensure_ascii=False),
+                "--json",
+            )
+
+            self.run_memory(project, "vault-export")
+            review_queue = self.project_memory_dir(project) / "vault" / "Governance" / "Review Queue.md"
+            content = review_queue.read_text(encoding="utf-8")
+
+            self.assertIn("Open Semantic Conflicts", content)
+            self.assertIn("pages/ProfileDetail.ets", content)
+
+    def test_vault_health_breaks_open_semantic_conflicts_down_by_entity_type(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps(
+                    {
+                        "files": [
+                            {
+                                "file_path": "pages/ProfileDetail.ets",
+                                "business_summary": "用户资料详情页",
+                                "symbols": [
+                                    {
+                                        "symbol": "profileCache",
+                                        "symbol_type": "field",
+                                        "business_summary": "资料缓存字段。",
+                                    }
+                                ],
+                                "logs": [
+                                    {
+                                        "message_template": "load profile failed",
+                                        "function": "loadUserProfile",
+                                        "level": "error",
+                                        "business_summary": "资料加载失败日志。",
+                                    }
+                                ],
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                "--json",
+            )
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps(
+                    {
+                        "files": [
+                            {
+                                "file_path": "pages/ProfileDetail.ets",
+                                "business_summary": "订单详情页",
+                                "symbols": [
+                                    {
+                                        "symbol": "profileCache",
+                                        "symbol_type": "field",
+                                        "business_summary": "订单缓存字段。",
+                                    }
+                                ],
+                                "logs": [
+                                    {
+                                        "message_template": "load profile failed",
+                                        "function": "loadUserProfile",
+                                        "level": "error",
+                                        "business_summary": "订单失败日志。",
+                                    }
+                                ],
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                "--json",
+            )
+
+            self.run_memory(project, "vault-export")
+            health = self.project_memory_dir(project) / "vault" / "Governance" / "Health.md"
+            content = health.read_text(encoding="utf-8")
+
+            self.assertIn("- Open semantic conflicts: 3", content)
+            self.assertIn("- Open file semantic conflicts: 1", content)
+            self.assertIn("- Open symbol semantic conflicts: 1", content)
+            self.assertIn("- Open log semantic conflicts: 1", content)
+
+    def test_conflict_status_updates_semantic_conflict_review_state(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps({"files": [{"file_path": "pages/ProfileDetail.ets", "business_summary": "用户资料详情页"}]}, ensure_ascii=False),
+                "--json",
+            )
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps({"files": [{"file_path": "pages/ProfileDetail.ets", "business_summary": "订单详情页"}]}, ensure_ascii=False),
+                "--json",
+            )
+
+            conflicts_before = self.list_records(project, "semantic-conflict")
+            self.assertEqual(len(conflicts_before), 1)
+
+            self.run_memory(
+                project,
+                "conflict-status",
+                "--id",
+                str(conflicts_before[0]["id"]),
+                "--status",
+                "resolved",
+                "--resolution",
+                "confirmed existing summary against current source",
+                "--decision-note",
+                "Current ProfileDetail page still loads profile data, not order data.",
+                "--replacement-source",
+                "source:pages/ProfileDetail.ets",
+            )
+
+            conflicts_after = self.list_records(project, "semantic-conflict")
+            self.assertEqual(conflicts_after[0]["status"], "resolved")
+            self.assertEqual(conflicts_after[0]["resolution"], "confirmed existing summary against current source")
+            self.assertEqual(conflicts_after[0]["decision_note"], "Current ProfileDetail page still loads profile data, not order data.")
+            self.assertEqual(conflicts_after[0]["replacement_source"], "source:pages/ProfileDetail.ets")
+            self.assertTrue(conflicts_after[0]["reviewed_at"])
+
+            payload = json.loads(self.run_memory(project, "maintain-plan", "--json").stdout)
+            self.assertEqual(payload["summary"]["semantic_conflicts"], 0)
+
+    def test_conflict_apply_updates_summary_and_closes_conflict(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps({"files": [{"file_path": "pages/ProfileDetail.ets", "business_summary": "用户资料详情页"}]}, ensure_ascii=False),
+                "--json",
+            )
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps({"files": [{"file_path": "pages/ProfileDetail.ets", "business_summary": "订单详情页"}]}, ensure_ascii=False),
+                "--json",
+            )
+
+            conflict = self.list_records(project, "semantic-conflict")[0]
+
+            self.run_memory(
+                project,
+                "conflict-apply",
+                "--id",
+                str(conflict["id"]),
+                "--resolution",
+                "confirmed incoming summary against current source",
+                "--decision-note",
+                "Page responsibility changed from profile detail to order detail in current source.",
+                "--replacement-source",
+                "source:pages/ProfileDetail.ets",
+            )
+
+            file_row = self.list_records(project, "code-file")[0]
+            conflict_row = self.list_records(project, "semantic-conflict")[0]
+
+            self.assertEqual(file_row["business_summary"], "订单详情页")
+            self.assertEqual(conflict_row["status"], "applied")
+            self.assertEqual(conflict_row["resolution"], "confirmed incoming summary against current source")
+            self.assertEqual(conflict_row["decision_note"], "Page responsibility changed from profile detail to order detail in current source.")
+            self.assertEqual(conflict_row["replacement_source"], "source:pages/ProfileDetail.ets")
+            self.assertTrue(conflict_row["reviewed_at"])
+
+            payload = json.loads(self.run_memory(project, "maintain-plan", "--json").stdout)
+            self.assertEqual(payload["summary"]["semantic_conflicts"], 0)
+
+    def test_conflict_apply_rejects_non_unique_log_target(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            first_payload = {
+                "files": [
+                    {
+                        "file_path": "pages/ProfileDetail.ets",
+                        "logs": [
+                            {
+                                "message_template": "load profile failed",
+                                "function": "loadA",
+                                "level": "error",
+                                "business_summary": "资料加载失败日志 A",
+                            },
+                            {
+                                "message_template": "load profile failed",
+                                "function": "loadB",
+                                "level": "error",
+                                "business_summary": "资料加载失败日志 B",
+                            },
+                        ],
+                    }
+                ]
+            }
+            conflicting_payload = {
+                "files": [
+                    {
+                        "file_path": "pages/ProfileDetail.ets",
+                        "logs": [
+                            {
+                                "message_template": "load profile failed",
+                                "function": "loadA",
+                                "level": "error",
+                                "business_summary": "订单失败日志",
+                            }
+                        ],
+                    }
+                ]
+            }
+
+            self.run_memory(project, "learn-business", "--payload", json.dumps(first_payload, ensure_ascii=False), "--json")
+            self.run_memory(project, "learn-business", "--payload", json.dumps(conflicting_payload, ensure_ascii=False), "--json")
+
+            conflict = self.list_records(project, "semantic-conflict")[0]
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(RUNTIME),
+                    "conflict-apply",
+                    "--id",
+                    str(conflict["id"]),
+                    "--project",
+                    str(project),
+                    "--memory-home",
+                    str(self.memory_home(project)),
+                ],
+                cwd=REPO_ROOT,
+                text=True,
+                capture_output=True,
+            )
+
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("matched 2 rows", result.stderr)
 
     def test_vault_export_writes_query_misses_dashboard(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

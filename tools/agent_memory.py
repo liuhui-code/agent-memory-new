@@ -412,6 +412,117 @@ def miss_status(args: argparse.Namespace) -> None:
     print(f"query miss #{args.id} status set to {args.status}")
 
 
+def conflict_status(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    ensure_initialized(project)
+    ts = now_iso()
+    with connect(project) as conn:
+        conn.execute(
+            """
+            UPDATE semantic_conflicts
+            SET status = ?, resolution = ?, decision_note = ?, replacement_source = ?, reviewed_at = ?
+            WHERE project_id = ? AND id = ?
+            """,
+            (args.status, args.resolution, args.decision_note, args.replacement_source, ts, project.project_id, args.id),
+        )
+        conn.commit()
+    print(f"semantic conflict #{args.id} status set to {args.status}")
+
+
+def conflict_apply(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    ensure_initialized(project)
+    ts = now_iso()
+    with connect(project) as conn:
+        conflict = conn.execute(
+            """
+            SELECT *
+            FROM semantic_conflicts
+            WHERE project_id = ? AND id = ?
+            LIMIT 1
+            """,
+            (project.project_id, args.id),
+        ).fetchone()
+        if not conflict:
+            raise SystemExit(f"semantic conflict #{args.id} not found")
+        if not str(conflict["incoming"] or "").strip():
+            raise SystemExit("semantic conflict has no incoming summary to apply")
+        entity_type = conflict["entity_type"] or "code_file"
+        target = str(conflict["target"])
+        if entity_type == "code_file":
+            row = conn.execute(
+                """
+                SELECT id
+                FROM code_files
+                WHERE project_id = ? AND file_path = ?
+                """,
+                (project.project_id, target),
+            ).fetchall()
+            if len(row) != 1:
+                raise SystemExit(f"semantic conflict target matched {len(row)} rows, expected 1")
+            conn.execute(
+                """
+                UPDATE code_files
+                SET business_summary = ?, updated_at = ?
+                WHERE project_id = ? AND file_path = ?
+                """,
+                (conflict["incoming"], ts, project.project_id, target),
+            )
+        elif entity_type == "code_symbol":
+            file_path, _, symbol = target.partition("::")
+            rows = conn.execute(
+                """
+                SELECT id
+                FROM code_symbols
+                WHERE project_id = ? AND file_path = ? AND symbol = ?
+                """,
+                (project.project_id, file_path, symbol),
+            ).fetchall()
+            if len(rows) != 1:
+                raise SystemExit(f"semantic conflict target matched {len(rows)} rows, expected 1")
+            conn.execute(
+                """
+                UPDATE code_symbols
+                SET business_summary = ?, updated_at = ?
+                WHERE project_id = ? AND file_path = ? AND symbol = ?
+                """,
+                (conflict["incoming"], ts, project.project_id, file_path, symbol),
+            )
+        elif entity_type == "code_log_statement":
+            file_path, _, message_template = target.partition("::")
+            rows = conn.execute(
+                """
+                SELECT id
+                FROM code_log_statements
+                WHERE project_id = ? AND file_path = ? AND message_template = ?
+                """,
+                (project.project_id, file_path, message_template),
+            ).fetchall()
+            if len(rows) != 1:
+                raise SystemExit(f"semantic conflict target matched {len(rows)} rows, expected 1")
+            conn.execute(
+                """
+                UPDATE code_log_statements
+                SET business_summary = ?, updated_at = ?
+                WHERE project_id = ? AND file_path = ? AND message_template = ?
+                """,
+                (conflict["incoming"], ts, project.project_id, file_path, message_template),
+            )
+        else:
+            raise SystemExit(f"unsupported semantic conflict entity type: {entity_type}")
+        resolution = args.resolution or "applied incoming summary after review"
+        conn.execute(
+            """
+            UPDATE semantic_conflicts
+            SET status = 'applied', resolution = ?, decision_note = ?, replacement_source = ?, reviewed_at = ?
+            WHERE project_id = ? AND id = ?
+            """,
+            (resolution, args.decision_note, args.replacement_source, ts, project.project_id, args.id),
+        )
+        conn.commit()
+    print(f"semantic conflict #{args.id} applied")
+
+
 def main(argv: list[str] | None = None) -> int:
     for stream_name in ("stdout", "stderr"):
         stream = getattr(sys, stream_name, None)
@@ -430,6 +541,8 @@ def main(argv: list[str] | None = None) -> int:
             "list_records": list_records,
             "miss_list": miss_list,
             "miss_status": miss_status,
+            "conflict_status": conflict_status,
+            "conflict_apply": conflict_apply,
             "mark_stale": mark_stale,
             "maintain_health": maintain_health,
             "maintain_review": maintain_review,

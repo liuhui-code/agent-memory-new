@@ -242,6 +242,10 @@ def write_governance_dashboard(
     query_miss_rows = [row_dict(row) for row in query_misses]
     reflection_reuse_rows = [row_dict(row) for row in reflection_reuse_events]
     semantic_conflict_rows = [row_dict(row) for row in semantic_conflicts]
+    open_semantic_conflicts = [row for row in semantic_conflict_rows if row.get("status") == "open"]
+    open_file_conflicts = [row for row in open_semantic_conflicts if row.get("entity_type") == "code_file"]
+    open_symbol_conflicts = [row for row in open_semantic_conflicts if row.get("entity_type") == "code_symbol"]
+    open_log_conflicts = [row for row in open_semantic_conflicts if row.get("entity_type") == "code_log_statement"]
     active_facts = [row for row in fact_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
     active_reflections = [row for row in reflection_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
     stale = [
@@ -270,7 +274,10 @@ def write_governance_dashboard(
     health += f"- Duplicate candidates: {len(duplicates)}\n"
     health += f"- Unreviewed reflections: {len(unreviewed_reflections)}\n"
     health += f"- Open query misses: {sum(1 for row in query_miss_rows if row.get('status') == 'open')}\n"
-    health += f"- Open semantic conflicts: {sum(1 for row in semantic_conflict_rows if row.get('status') == 'open')}\n"
+    health += f"- Open semantic conflicts: {len(open_semantic_conflicts)}\n"
+    health += f"- Open file semantic conflicts: {len(open_file_conflicts)}\n"
+    health += f"- Open symbol semantic conflicts: {len(open_symbol_conflicts)}\n"
+    health += f"- Open log semantic conflicts: {len(open_log_conflicts)}\n"
     write_vault_file(project.vault_dir / "Governance" / "Health.md", health)
 
     review = header + "# Review Queue\n\n" + notice
@@ -281,6 +288,10 @@ def write_governance_dashboard(
     for row in episode_rows[:30]:
         if not row.get("reviewed_at") and (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS:
             review += f"- episode #{row['id']}: {row['task']}\n"
+    review += "\n## Open Semantic Conflicts\n\n"
+    for row in semantic_conflict_rows[:30]:
+        if row.get("status") == "open":
+            review += f"- conflict #{row['id']}: {row['target']}\n"
     write_vault_file(project.vault_dir / "Governance" / "Review Queue.md", review)
 
     stale_doc = header + "# Stale Memories\n\n" + notice
@@ -369,11 +380,16 @@ def write_governance_dashboard(
     for row in semantic_conflict_rows[:50]:
         conflicts_doc += f"## Conflict #{row['id']}: {row['target']}\n\n"
         conflicts_doc += f"- Field: {row['field']}\n"
+        conflicts_doc += f"- Entity type: {row.get('entity_type') or 'code_file'}\n"
         conflicts_doc += f"- Status: {row.get('status') or 'open'}\n"
         conflicts_doc += f"- Source command: {row['source_command']}\n"
         conflicts_doc += f"- Observed at: {row['observed_at']}\n"
         if row.get("resolution"):
             conflicts_doc += f"- Resolution: {row['resolution']}\n"
+        if row.get("decision_note"):
+            conflicts_doc += f"- Decision note: {row['decision_note']}\n"
+        if row.get("replacement_source"):
+            conflicts_doc += f"- Replacement source: {row['replacement_source']}\n"
         conflicts_doc += f"\n### Existing\n\n{row.get('existing') or ''}\n\n"
         conflicts_doc += f"### Incoming\n\n{row.get('incoming') or ''}\n\n"
     write_vault_file(project.vault_dir / "Governance" / "Semantic Conflicts.md", conflicts_doc)

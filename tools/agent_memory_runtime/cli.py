@@ -101,6 +101,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
             "code-log",
             "memory-edge",
             "reflection-reuse",
+            "semantic-conflict",
         ],
     )
     p.add_argument("--limit", type=int, default=50)
@@ -120,6 +121,23 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--status", required=True, choices=["open", "reviewed", "resolved", "ignored"])
     p.add_argument("--resolution")
     p.set_defaults(func=command("miss_status"))
+
+    p = sub.add_parser("conflict-status")
+    add_project(p)
+    p.add_argument("--id", required=True, type=int)
+    p.add_argument("--status", required=True, choices=["open", "reviewed", "resolved", "ignored", "applied"])
+    p.add_argument("--resolution")
+    p.add_argument("--decision-note")
+    p.add_argument("--replacement-source")
+    p.set_defaults(func=command("conflict_status"))
+
+    p = sub.add_parser("conflict-apply")
+    add_project(p)
+    p.add_argument("--id", required=True, type=int)
+    p.add_argument("--resolution")
+    p.add_argument("--decision-note")
+    p.add_argument("--replacement-source")
+    p.set_defaults(func=command("conflict_apply"))
 
     p = sub.add_parser("mark-stale")
     add_project(p)

@@ -505,6 +505,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
                 "risk": "low",
                 "requires_confirmation": False,
                 "command": None,
+                "apply_command_template": f"python tools/agent_memory.py conflict-apply --project . --id {conflict['id']} --resolution \"<decision>\"",
             }
         )
 
@@ -562,7 +563,8 @@ def build_recent_semantic_conflicts(project: Project, limit: int) -> list[dict[s
     with connect(project) as conn:
         rows = conn.execute(
             """
-            SELECT target, field, existing, incoming, source_command, observed_at
+            SELECT id, target, field, existing, incoming, source_command, observed_at
+                 , entity_type
             FROM semantic_conflicts
             WHERE project_id = ? AND status = 'open'
             ORDER BY observed_at DESC, id DESC

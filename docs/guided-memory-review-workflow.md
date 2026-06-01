@@ -84,6 +84,21 @@ re-run query or maintain-plan
 
 If `maintain-plan` returns `review_semantic_conflict`, treat it as a review-only action. The existing summary stayed in storage; the incoming summary was captured for comparison and persisted in SQLite governance state. Resolve it against current source before any future replacement step.
 
+After review, close the record explicitly:
+
+```bash
+python tools/agent_memory.py conflict-status --project . --id "<id>" --status resolved --resolution "<decision>"
+```
+
+If the incoming summary is the correct replacement, apply it through the governed path instead:
+
+```bash
+python tools/agent_memory.py conflict-apply --project . --id "<id>" --resolution "<decision>"
+```
+
+If the command rejects the target as ambiguous, fix the duplicated symbol/log identity first. Do not widen the update.
+Prefer adding `--decision-note` and `--replacement-source` so the reason for replacement stays attached to the conflict record.
+
 ## Example Agent Response
 
 ```text

@@ -188,11 +188,14 @@ def create_schema(conn: sqlite3.Connection) -> None:
         CREATE TABLE IF NOT EXISTS semantic_conflicts (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           project_id TEXT NOT NULL,
+          entity_type TEXT NOT NULL DEFAULT 'code_file',
           target TEXT NOT NULL,
           field TEXT NOT NULL,
           existing TEXT,
           incoming TEXT,
           resolution TEXT,
+          decision_note TEXT,
+          replacement_source TEXT,
           source_command TEXT NOT NULL,
           observed_at TEXT NOT NULL,
           status TEXT DEFAULT 'open',
@@ -262,6 +265,18 @@ def migrate_schema(conn: sqlite3.Connection) -> None:
     ):
         if name not in existing_query_miss_columns:
             conn.execute(f"ALTER TABLE query_misses ADD COLUMN {name} {definition}")
+    existing_conflict_columns = {
+        row["name"]
+        for row in conn.execute("PRAGMA table_info(semantic_conflicts)").fetchall()
+    }
+    if "entity_type" not in existing_conflict_columns:
+        conn.execute("ALTER TABLE semantic_conflicts ADD COLUMN entity_type TEXT NOT NULL DEFAULT 'code_file'")
+    for name, definition in (
+        ("decision_note", "TEXT"),
+        ("replacement_source", "TEXT"),
+    ):
+        if name not in existing_conflict_columns:
+            conn.execute(f"ALTER TABLE semantic_conflicts ADD COLUMN {name} {definition}")
     conn.execute(
         """
         UPDATE query_misses

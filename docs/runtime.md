@@ -189,6 +189,17 @@ The follow-up template is priority-ordered and batch-limited so the Agent can en
 
 Recent `semantic_conflicts` are stored durably in SQLite and also flow into `maintain-plan` as `review_semantic_conflict` actions for later governance.
 
+Conflict review can be managed with:
+
+```bash
+python tools/agent_memory.py list --project . --type semantic-conflict --json
+python tools/agent_memory.py conflict-status --project . --id 1 --status resolved --resolution "confirmed existing summary against current source"
+python tools/agent_memory.py conflict-apply --project . --id 1 --resolution "confirmed incoming summary against current source" --decision-note "current file responsibility changed" --replacement-source "source:pages/ProfileDetail.ets"
+```
+
+`conflict-apply` is the governed replacement path. It applies the stored incoming `business_summary` to the target file, symbol, or log row and closes the conflict with status `applied`. It also enforces exact single-row target matching; ambiguous symbol or log targets are rejected instead of applying a broad update.
+`maintain-plan` now includes `apply_command_template` on `review_semantic_conflict` actions so an Agent can carry the approved replacement step directly after review.
+
 They also extract code log statements and rebuild deterministic code-wiki edges:
 
 ```text
