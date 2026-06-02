@@ -415,6 +415,7 @@ Prefer structured reflection fields when possible:
 python tools/agent_memory.py reflect \
   --project . \
   --payload '{
+    "experience_type": "procedure_experience",
     "task_type": "diagnosis",
     "outcome": "success",
     "problem": "Profile page opens blank after navigation.",
@@ -424,12 +425,40 @@ python tools/agent_memory.py reflect \
     "context_used": ["query: profile blank page route", "file: pages/Home.ets", "log: router.pushUrl failed"],
     "what_worked": ["Search by business page name", "Check route edges"],
     "what_failed": ["Searching only generic blank-screen terms"],
+    "query_rounds": 3,
+    "trajectory_summary": "The first query was broad, the second locked onto route edges, and the third inspection confirmed the target page mismatch.",
+    "useful_followup_focus": "route",
+    "useful_followup_terms": ["profile", "router.pushUrl", "pages/ProfileDetail"],
+    "misleading_followup_terms": ["blank screen"],
+    "inspection_targets": ["pages/Home.ets", "pages/ProfileDetail.ets", "router.pushUrl failed"],
+    "final_verification_path": "Reproduce navigation -> inspect route registration -> confirm router target mismatch.",
+    "related_cases": ["case_profile_route_001"],
     "lesson": "ArkTS blank-screen diagnosis should combine business page names with route terms.",
     "future_rule": "When a HarmonyOS page opens blank after navigation, query business page terms plus route/router terms first.",
     "trigger_condition": "Page opens blank after route navigation",
     "repair_action": "Query memory with business page name, route terms, and related log template"
   }'
 ```
+
+Use `experience_type` only to classify the reflection:
+
+- `procedure_experience` for reusable diagnosis/query/repair/change-design workflows
+- `correction_experience` for semantic correction and learn-governance feedback
+
+This does not change the user-facing interface. The user still works through the same four skills.
+
+When the Agent has enough context, also record the compressed trace-case fields instead of a long transcript:
+
+- `query_rounds`
+- `trajectory_summary`
+- `useful_followup_focus`
+- `useful_followup_terms`
+- `misleading_followup_terms`
+- `inspection_targets`
+- `final_verification_path`
+- `related_cases`
+
+These help later experience review and future skill-pattern extraction without adding a fifth skill.
 
 Use the argument form for short manual notes:
 
@@ -475,6 +504,52 @@ The runtime updates the older reflection's aggregate reuse fields and writes
 auditable `reflection_reuse_events` rows. Vault export mirrors the history in
 `Governance/Reflection Reuse.md`.
 
+When repeated `procedure_experience` reflections cluster into the same `skill_candidate`,
+`maintain-plan --json` can return `review_skill_pattern_candidate`. After review, write
+the current draft into the repo with:
+
+```bash
+python tools/agent_memory.py maintain-skill-draft \
+  --project . \
+  --pattern-name "arkts-route-blank-screen-diagnosis" \
+  --json
+```
+
+This writes:
+
+```text
+docs/skill-candidates/arkts-route-blank-screen-diagnosis.md
+```
+
+The file is still a draft artifact. It does not create a formal skill under `skills/`.
+
+To write every currently clustered draft candidate in one pass:
+
+```bash
+python tools/agent_memory.py maintain-skill-draft \
+  --project . \
+  --pattern-name all \
+  --json
+```
+
+When a reviewed draft should become a candidate skill package:
+
+```bash
+python tools/agent_memory.py maintain-skill-package \
+  --project . \
+  --pattern-name "arkts-route-blank-screen-diagnosis" \
+  --json
+```
+
+This writes:
+
+```text
+skills/_candidates/arkts-route-blank-screen-diagnosis/SKILL.md
+```
+
+It is still a candidate package, not a formal installed skill.
+Promotion into `skills/<name>/` remains manual. Use `docs/skill-promotion-rules.md` as the review checklist before treating any candidate package as a real skill.
+
 Review reflection quality:
 
 ```bash
@@ -511,6 +586,9 @@ python tools/agent_memory.py reflect-review --project . --json
 python tools/agent_memory.py maintain-health --project . --json
 python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py maintain-plan --project . --json
+python tools/agent_memory.py maintain-skill-draft --project . --pattern-name "..." --json
+python tools/agent_memory.py maintain-skill-draft --project . --pattern-name all --json
+python tools/agent_memory.py maintain-skill-package --project . --pattern-name "..." --json
 python tools/agent_memory.py miss-list --project . --status open --json
 python tools/agent_memory.py miss-status --project . --id 1 --status ignored --resolution "not useful"
 python tools/agent_memory.py vault-export --project .

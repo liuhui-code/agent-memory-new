@@ -51,10 +51,21 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 - `what_failed`: JSON list of failed or weak actions.
 - `hidden_assumptions`: JSON list of assumptions that made the lesson valid or risky.
 - `negative_preconditions`: JSON list of similar cases where the lesson should not transfer.
+- `query_rounds`: how many query or inspection rounds the Agent needed before converging.
+- `trajectory_summary`: compressed summary of the successful and failed path through the task.
+- `useful_followup_focus`: the dominant recursive query scene, such as `route`, `resource`, `log`, or `config`.
+- `useful_followup_terms`: JSON list of the follow-up anchors that actually helped.
+- `misleading_followup_terms`: JSON list of weak or noisy anchors that wasted a round.
+- `inspection_targets`: JSON list of the files, logs, routes, resources, or symbols inspected on the way to the result.
+- `final_verification_path`: the final reproduction, source, log, or test path that confirmed the conclusion.
+- `related_cases`: JSON list of neighboring trace cases that should be reviewed together later.
 - `verification_method`: concrete source, log, test, or reproduction check before reuse.
 - `reuse_feedback`: whether the candidate helped, partly helped, misled, was unused, or is still only a candidate.
 - `source_cases`: JSON list of episodes, reflections, files, logs, routes, resources, or commands behind the lesson.
 - `skill_candidate`: optional reusable process template name.
+- `experience_type`: optional reflection classification:
+  - `procedure_experience`
+  - `correction_experience`
 - `trigger_condition`: when the Agent should remember the reflection.
 - `anti_pattern`: the mistake or weak pattern to avoid.
 - `repair_action`: the concrete next action.

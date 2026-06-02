@@ -27,6 +27,8 @@ from agent_memory_runtime.governance import (
     maintain_plan,
     maintain_promote,
     maintain_review,
+    maintain_skill_draft,
+    maintain_skill_package,
     maintain_status,
     mark_stale,
     reflect_review,
@@ -203,6 +205,8 @@ def context(args: argparse.Namespace) -> None:
 
 REFLECTION_PAYLOAD_TASK_TYPES = {"diagnosis", "design", "execution", "workflow"}
 REFLECTION_PAYLOAD_OUTCOMES = {"success", "failure", "partial"}
+REFLECTION_EXPERIENCE_TYPES = {"procedure_experience", "correction_experience"}
+REFLECTION_FOLLOWUP_FOCI = {"route", "resource", "log", "config"}
 
 
 def load_reflection_payload(args: argparse.Namespace) -> dict[str, Any]:
@@ -231,11 +235,29 @@ def load_reflection_payload(args: argparse.Namespace) -> dict[str, Any]:
     outcome = payload.get("outcome")
     if outcome and outcome not in REFLECTION_PAYLOAD_OUTCOMES:
         raise SystemExit("--payload outcome must be one of success, failure, partial")
+    experience_type = payload.get("experience_type")
+    if experience_type and experience_type not in REFLECTION_EXPERIENCE_TYPES:
+        raise SystemExit("--payload experience_type must be procedure_experience or correction_experience")
+    useful_followup_focus = payload.get("useful_followup_focus")
+    if useful_followup_focus and useful_followup_focus not in REFLECTION_FOLLOWUP_FOCI:
+        raise SystemExit("--payload useful_followup_focus must be route, resource, log, or config")
     return payload
 
 
 def reflection_value(args: argparse.Namespace, payload: dict[str, Any], key: str) -> Any:
     return payload.get(key) if key in payload else getattr(args, key, None)
+
+
+def reflection_int_value(payload: dict[str, Any], key: str) -> int | None:
+    value = payload.get(key)
+    if value is None or value == "":
+        return None
+    if isinstance(value, bool):
+        raise SystemExit(f"--payload {key} must be an integer")
+    try:
+        return int(value)
+    except (TypeError, ValueError) as exc:
+        raise SystemExit(f"--payload {key} must be an integer") from exc
 
 
 def reflect(args: argparse.Namespace) -> None:
@@ -253,6 +275,7 @@ def reflect(args: argparse.Namespace) -> None:
         "mistake": reflection_value(args, payload, "mistake"),
         "lesson": lesson,
         "future_rule": reflection_value(args, payload, "future_rule"),
+        "experience_type": reflection_value(args, payload, "experience_type"),
         "task_type": payload.get("task_type"),
         "outcome": payload.get("outcome"),
         "problem": payload.get("problem"),
@@ -262,6 +285,14 @@ def reflect(args: argparse.Namespace) -> None:
         "what_failed": reflection_list_text(payload.get("what_failed")),
         "hidden_assumptions": reflection_list_text(payload.get("hidden_assumptions")),
         "negative_preconditions": reflection_list_text(payload.get("negative_preconditions")),
+        "query_rounds": reflection_int_value(payload, "query_rounds"),
+        "trajectory_summary": payload.get("trajectory_summary"),
+        "useful_followup_focus": payload.get("useful_followup_focus"),
+        "useful_followup_terms": reflection_list_text(payload.get("useful_followup_terms")),
+        "misleading_followup_terms": reflection_list_text(payload.get("misleading_followup_terms")),
+        "inspection_targets": reflection_list_text(payload.get("inspection_targets")),
+        "final_verification_path": payload.get("final_verification_path"),
+        "related_cases": reflection_list_text(payload.get("related_cases")),
         "verification_method": reflection_value(args, payload, "verification_method"),
         "reuse_feedback": reflection_value(args, payload, "reuse_feedback"),
         "source_cases": reflection_list_text(payload.get("source_cases")),
@@ -281,13 +312,15 @@ def reflect(args: argparse.Namespace) -> None:
             """
             INSERT INTO reflections(
               project_id, task, summary, mistake, lesson, future_rule,
-              task_type, outcome, problem, reasoning_summary, context_used,
+              experience_type, task_type, outcome, problem, reasoning_summary, context_used,
               what_worked, what_failed, hidden_assumptions, negative_preconditions,
+              query_rounds, trajectory_summary, useful_followup_focus, useful_followup_terms,
+              misleading_followup_terms, inspection_targets, final_verification_path, related_cases,
               verification_method, reuse_feedback, source_cases, skill_candidate,
               scope, evidence, confidence, trigger_condition, anti_pattern,
               repair_action, applies_to, does_not_apply_to, created_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 project.project_id,
@@ -296,6 +329,7 @@ def reflect(args: argparse.Namespace) -> None:
                 data["mistake"],
                 data["lesson"],
                 data["future_rule"],
+                data["experience_type"],
                 data["task_type"],
                 data["outcome"],
                 data["problem"],
@@ -305,6 +339,14 @@ def reflect(args: argparse.Namespace) -> None:
                 data["what_failed"],
                 data["hidden_assumptions"],
                 data["negative_preconditions"],
+                data["query_rounds"],
+                data["trajectory_summary"],
+                data["useful_followup_focus"],
+                data["useful_followup_terms"],
+                data["misleading_followup_terms"],
+                data["inspection_targets"],
+                data["final_verification_path"],
+                data["related_cases"],
                 data["verification_method"],
                 data["reuse_feedback"],
                 data["source_cases"],
@@ -550,6 +592,8 @@ def main(argv: list[str] | None = None) -> int:
             "maintain_status": maintain_status,
             "maintain_merge": maintain_merge,
             "maintain_promote": maintain_promote,
+            "maintain_skill_draft": maintain_skill_draft,
+            "maintain_skill_package": maintain_skill_package,
             "vault_init": vault_init,
             "vault_export": vault_export,
             "vault_index": vault_index,

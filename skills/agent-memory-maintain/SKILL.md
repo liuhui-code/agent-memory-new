@@ -50,6 +50,46 @@ When the user asks to clean, organize, review, or govern memory:
 If an action has `command: null`, draft the needed replacement fact or lesson first, then ask for confirmation.
 
 When `maintain-plan` returns `promote_experience_candidate`, review the reflection as reusable experience. Check `candidate_fields`, `verification_method`, `source_cases`, and `skill_candidate`; do not promote it automatically.
+If the action also includes compressed trace-case fields such as `query_rounds`, `useful_followup_focus`, `useful_followup_terms`, `misleading_followup_terms`, `inspection_targets`, or `final_verification_path`, review them as evidence about how the Agent actually converged.
+When `maintain-plan` returns `review_skill_pattern_candidate`, treat it as a multi-case aggregation hint, not a ready-made skill. Review `supporting_reflection_ids`, `common_followup_focus`, `common_query_terms`, `supporting_cases`, and `verification_methods` before drafting any skill candidate.
+If `draft_path` and `draft_markdown` are present, use them as the proposed review artifact for `docs/skill-candidates/`. Review and edit the draft first; do not treat it as an approved skill.
+If `common_steps`, `common_stop_conditions`, `expected_outputs`, or `failure_modes` are present, treat them as the first pass at turning repeated experience into executable skill structure.
+After `vault-export`, the same grouped pattern appears in `Governance/Skill Pattern Candidates.md` for human review.
+When the pattern is ready to be written into the repo as a draft document, use:
+
+```bash
+python tools/agent_memory.py maintain-skill-draft \
+  --project . \
+  --pattern-name "<pattern-name>" \
+  --json
+```
+
+This writes only `docs/skill-candidates/<pattern-name>.md`. It still does not create or update a real skill under `skills/`.
+
+To write every currently clustered draft in one pass, use:
+
+```bash
+python tools/agent_memory.py maintain-skill-draft \
+  --project . \
+  --pattern-name all \
+  --json
+```
+
+When a reviewed draft should move into a candidate skill package, use:
+
+```bash
+python tools/agent_memory.py maintain-skill-package \
+  --project . \
+  --pattern-name "<pattern-name>" \
+  --json
+```
+
+This writes only `skills/_candidates/<pattern-name>/SKILL.md`. It still does not create or update a formal skill under `skills/<name>/`.
+Formal promotion into `skills/<name>/` remains manual for now. Follow `docs/skill-promotion-rules.md` before treating a candidate package as a real skill.
+When `experience_type` is present on a reflection action, keep the governance path aligned:
+
+- `procedure_experience` -> future skill candidate review path
+- `correction_experience` -> learn or semantic repair review path
 
 When `maintain-plan` returns `review_query_miss`, inspect `suggested_fixes`:
 

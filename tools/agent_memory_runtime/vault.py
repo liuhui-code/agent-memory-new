@@ -8,7 +8,12 @@ import sqlite3
 from datetime import datetime
 from pathlib import Path
 
-from .governance import duplicate_candidates, is_complete_experience_candidate, reflection_quality_issues
+from .governance import (
+    build_skill_pattern_candidates,
+    duplicate_candidates,
+    is_complete_experience_candidate,
+    reflection_quality_issues,
+)
 from .models import ACTIVE_STATUS, Project
 from .query import normalize_query_miss
 from .records import row_dict
@@ -362,6 +367,50 @@ def write_governance_dashboard(
         candidates_doc += "\n"
     write_vault_file(project.vault_dir / "Governance" / "Experience Candidates.md", candidates_doc)
 
+    skill_pattern_candidates = build_skill_pattern_candidates(active_reflections)
+    pattern_doc = header + "# Skill Pattern Candidates\n\n" + notice
+    pattern_doc += "These grouped procedure experiences point to the same candidate workflow. Review them before drafting a formal skill.\n\n"
+    for item in skill_pattern_candidates[:30]:
+        pattern_doc += f"## {item['pattern_name']}\n\n"
+        pattern_doc += f"- Draft path: `{item['draft_path']}`\n"
+        pattern_doc += f"- Supporting reflections: {', '.join(f'#{reflection_id}' for reflection_id in item['supporting_reflection_ids'])}\n"
+        pattern_doc += f"- Supporting count: {item['supporting_count']}\n"
+        if item.get("common_followup_focus"):
+            pattern_doc += f"- Common followup focus: {', '.join(item['common_followup_focus'])}\n"
+        if item.get("common_query_terms"):
+            pattern_doc += "- Common query terms:\n"
+            for term in item["common_query_terms"]:
+                pattern_doc += f"  - {term}\n"
+        if item.get("common_steps"):
+            pattern_doc += "- Common steps:\n"
+            for step in item["common_steps"]:
+                pattern_doc += f"  - {step}\n"
+        if item.get("common_stop_conditions"):
+            pattern_doc += "- Common stop conditions:\n"
+            for condition in item["common_stop_conditions"]:
+                pattern_doc += f"  - {condition}\n"
+        if item.get("expected_outputs"):
+            pattern_doc += "- Expected outputs:\n"
+            for output in item["expected_outputs"]:
+                pattern_doc += f"  - {output}\n"
+        if item.get("failure_modes"):
+            pattern_doc += "- Failure modes:\n"
+            for mode in item["failure_modes"]:
+                pattern_doc += f"  - {mode}\n"
+        if item.get("supporting_cases"):
+            pattern_doc += "- Supporting cases:\n"
+            for case in item["supporting_cases"]:
+                pattern_doc += f"  - {case}\n"
+        if item.get("verification_methods"):
+            pattern_doc += "- Verification methods:\n"
+            for method in item["verification_methods"]:
+                pattern_doc += f"  - {method}\n"
+        pattern_doc += "\n### Draft Preview\n\n"
+        pattern_doc += "```md\n"
+        pattern_doc += item["draft_markdown"].rstrip() + "\n"
+        pattern_doc += "```\n\n"
+    write_vault_file(project.vault_dir / "Governance" / "Skill Pattern Candidates.md", pattern_doc)
+
     reuse_doc = header + "# Reflection Reuse\n\n" + notice
     reuse_doc += "These events show when a later reflection reused an earlier reflection and whether it helped.\n\n"
     for row in reflection_reuse_rows[:50]:
@@ -445,6 +494,7 @@ def vault_index(args: argparse.Namespace) -> None:
     content += "- [[Governance/Low Confidence]]\n"
     content += "- [[Governance/Reflection Quality]]\n"
     content += "- [[Governance/Experience Candidates]]\n"
+    content += "- [[Governance/Skill Pattern Candidates]]\n"
     content += "- [[Governance/Reflection Reuse]]\n"
     content += "- [[Governance/Semantic Conflicts]]\n"
     content += "- [[Governance/Query Misses]]\n"

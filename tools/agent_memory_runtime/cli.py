@@ -68,6 +68,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--summary")
     p.add_argument("--mistake")
     p.add_argument("--lesson")
+    p.add_argument("--experience-type", choices=["procedure_experience", "correction_experience"])
     p.add_argument("--future-rule")
     p.add_argument("--scope")
     p.add_argument("--evidence")
@@ -197,6 +198,18 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--evidence")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("maintain_promote"))
+
+    p = sub.add_parser("maintain-skill-draft")
+    add_project(p)
+    p.add_argument("--pattern-name", required=True)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("maintain_skill_draft"))
+
+    p = sub.add_parser("maintain-skill-package")
+    add_project(p)
+    p.add_argument("--pattern-name", required=True)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("maintain_skill_package"))
 
     p = sub.add_parser("vault-init")
     add_project(p)

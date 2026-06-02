@@ -35,6 +35,7 @@ python tools/agent_memory.py maintain-promote ...
 - `verify`: low-confidence memory needs evidence.
 - `promote_or_mark_reviewed`: reflection may become a durable fact or be marked reviewed.
 - `promote_experience_candidate`: structured reflection has enough assumptions, boundaries, verification, and source cases to review as reusable experience.
+- `review_skill_pattern_candidate`: repeated procedure experiences point to the same reusable pattern and should be reviewed as a possible skill draft.
 - `promote_or_archive`: episode may become a durable fact or be archived.
 - `review_query_miss`: a previous query returned no memory or wiki results.
 - `rewrite_reflection`: reflection lacks enough trigger/action structure.
@@ -98,6 +99,67 @@ python tools/agent_memory.py conflict-apply --project . --id "<id>" --resolution
 
 If the command rejects the target as ambiguous, fix the duplicated symbol/log identity first. Do not widen the update.
 Prefer adding `--decision-note` and `--replacement-source` so the reason for replacement stays attached to the conflict record.
+
+If `maintain-plan` returns `review_skill_pattern_candidate`, use the grouped evidence before drafting any skill:
+
+- supporting reflection ids
+- common follow-up focus
+- common query terms
+- supporting cases
+- verification methods
+
+When present, `draft_path` and `draft_markdown` are the proposed Markdown artifact for `docs/skill-candidates/`. Review and revise that draft before creating or updating anything under `skills/`.
+
+After `vault-export`, the same grouped draft also appears in:
+
+```text
+Governance/Skill Pattern Candidates.md
+```
+
+Use that page for human review. The vault mirror is still generated output, not the source of truth.
+
+When the grouped draft is ready to become a repo artifact, write it explicitly:
+
+```bash
+python tools/agent_memory.py maintain-skill-draft \
+  --project . \
+  --pattern-name "<pattern-name>" \
+  --json
+```
+
+This is still a review-stage artifact under `docs/skill-candidates/`, not a formal installed skill.
+
+To export every current grouped draft after a review session, use:
+
+```bash
+python tools/agent_memory.py maintain-skill-draft \
+  --project . \
+  --pattern-name all \
+  --json
+```
+
+When one reviewed draft should be staged as a candidate skill package, use:
+
+```bash
+python tools/agent_memory.py maintain-skill-package \
+  --project . \
+  --pattern-name "<pattern-name>" \
+  --json
+```
+
+This writes only `skills/_candidates/<pattern-name>/SKILL.md`. Promotion into a real skill remains a separate human-reviewed step.
+
+See also:
+
+```text
+docs/skill-promotion-rules.md
+```
+
+That document defines the boundary between:
+
+- `docs/skill-candidates/`
+- `skills/_candidates/`
+- `skills/`
 
 ## Example Agent Response
 

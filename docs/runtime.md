@@ -101,6 +101,8 @@ python tools/agent_memory.py maintain-status --project . --type semantic --id 1 
 python tools/agent_memory.py maintain-merge --project . --type semantic --ids 1,2 --fact "..." --json
 python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact "..." --json
 python tools/agent_memory.py maintain-promote --project . --reflection-id 1 --fact "..." --json
+python tools/agent_memory.py maintain-skill-draft --project . --pattern-name "arkts-route-blank-screen-diagnosis" --json
+python tools/agent_memory.py maintain-skill-package --project . --pattern-name "arkts-route-blank-screen-diagnosis" --json
 ```
 
 Governance actions should preserve history. Prefer status transitions over destructive deletion.
@@ -133,6 +135,7 @@ The payload stores the Agent-authored task review in `reflections`:
 
 ```json
 {
+  "experience_type": "procedure_experience",
   "task_type": "diagnosis",
   "outcome": "success",
   "problem": "Profile page opens blank after navigation.",
@@ -144,6 +147,14 @@ The payload stores the Agent-authored task review in `reflections`:
   "what_failed": ["Searching only generic blank-screen terms"],
   "hidden_assumptions": ["The blank screen happened after route navigation."],
   "negative_preconditions": ["Do not apply when no navigation occurred."],
+  "query_rounds": 3,
+  "trajectory_summary": "The first query was broad, the second locked onto route edges, and the third inspection confirmed the target page mismatch.",
+  "useful_followup_focus": "route",
+  "useful_followup_terms": ["profile", "router.pushUrl", "pages/ProfileDetail"],
+  "misleading_followup_terms": ["blank screen"],
+  "inspection_targets": ["pages/Home.ets", "pages/ProfileDetail.ets", "router.pushUrl failed"],
+  "final_verification_path": "Reproduce navigation -> inspect route registration -> confirm router target mismatch.",
+  "related_cases": ["case_profile_route_001"],
   "verification_method": "Confirm route registration, inspect router logs, and reproduce navigation.",
   "reuse_feedback": "experience candidate until reused",
   "source_cases": ["episode:12", "reflection:7", "file: pages/Home.ets"],
@@ -155,7 +166,79 @@ The payload stores the Agent-authored task review in `reflections`:
 }
 ```
 
+`experience_type` is optional but now supported in the protocol layer:
+
+- `procedure_experience`: reusable diagnosis, query, repair, or change-design workflow
+- `correction_experience`: correction of learned business semantics or memory understanding
+
+This classification does not add a fifth skill. It only helps `maintain-plan` route experience candidates toward future skill-candidate review or toward learn/semantic-repair governance.
+
 These fields participate in `search` and `context`, so later issue-location or design skills can retrieve successful and failed attempts by problem description, business term, file, log, or prior query.
+
+The compressed trace-case fields are intentionally short and structured:
+
+- `query_rounds`
+- `trajectory_summary`
+- `useful_followup_focus`
+- `useful_followup_terms`
+- `misleading_followup_terms`
+- `inspection_targets`
+- `final_verification_path`
+- `related_cases`
+
+They are not a raw transcript. They exist so later `maintain-plan` runs can cluster reusable procedure paths and can separate noisy anchors from effective ones while keeping the user-facing interface at four skills.
+
+When at least two complete `procedure_experience` reflections point to the same `skill_candidate`, `maintain-plan` may also emit a `review_skill_pattern_candidate` action. This is still read-only governance output. It groups supporting reflection ids, shared follow-up focus, common query terms, supporting cases, and verification methods so a later reviewer can decide whether the repeated pattern is stable enough to draft as a skill candidate.
+
+The same action now also carries:
+
+- `draft_path`: suggested review document path such as `docs/skill-candidates/<pattern>.md`
+- `draft_markdown`: a first-pass Markdown draft built from the clustered cases
+- `common_stop_conditions`: clustered verification end states or stopping conditions
+- `common_steps`: first-pass execution steps inferred from repeated followup focus, anchors, and verification paths
+- `expected_outputs`: what a future skill should reliably hand back
+- `failure_modes`: recurring weak patterns, noisy anchors, or anti-patterns
+
+This does not write to the repo automatically. It gives the local Agent CLI or a human reviewer a stable draft artifact to inspect before creating any real skill.
+
+`vault-export` now mirrors these grouped candidates into `Governance/Skill Pattern Candidates.md`, including the proposed draft path and a Markdown preview. The vault remains a generated review mirror; it does not approve or install the skill.
+
+When a reviewer is ready to materialize the draft into the repo, use:
+
+```bash
+python tools/agent_memory.py maintain-skill-draft \
+  --project . \
+  --pattern-name "<pattern-name>" \
+  --json
+```
+
+This writes the current `draft_markdown` into `docs/skill-candidates/<pattern-name>.md`. It still does not touch the formal `skills/` directory.
+
+To materialize every current skill-pattern draft in one pass, use:
+
+```bash
+python tools/agent_memory.py maintain-skill-draft \
+  --project . \
+  --pattern-name all \
+  --json
+```
+
+When a reviewed draft should become a candidate skill package, use:
+
+```bash
+python tools/agent_memory.py maintain-skill-package \
+  --project . \
+  --pattern-name "<pattern-name>" \
+  --json
+```
+
+This writes:
+
+```text
+skills/_candidates/<pattern-name>/SKILL.md
+```
+
+It still does not create or update a formal skill under `skills/<name>/`.
 
 The extra experience-candidate fields do not create accepted experience by themselves.
 Future Agents must verify them against current source, logs, tests, and code wiki

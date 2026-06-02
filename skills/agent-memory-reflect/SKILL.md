@@ -15,6 +15,25 @@ A reflection is an experience candidate, not accepted experience. The Agent must
 the assumptions, invalid cases, verification method, source cases, and reuse feedback
 needed for future Agents to decide whether the lesson should transfer.
 
+When the task included multiple query rounds or inspection pivots, also capture the
+compressed trace-case fields instead of a long transcript:
+
+- `query_rounds`
+- `trajectory_summary`
+- `useful_followup_focus`
+- `useful_followup_terms`
+- `misleading_followup_terms`
+- `inspection_targets`
+- `final_verification_path`
+- `related_cases`
+
+When the reflection clearly belongs to one of these two future paths, include `experience_type`:
+
+- `procedure_experience`: reusable diagnosis, query, repair, or change-design workflow
+- `correction_experience`: correction of learned business semantics or memory understanding
+
+This does not add a fifth skill. It only helps `maintain-plan` route the reflection toward future skill-candidate review or toward learn/semantic-repair governance.
+
 ## Save Agent-Structured Reflection
 
 Prefer this JSON payload form when the Agent has enough context:
@@ -49,6 +68,26 @@ python tools/agent_memory.py reflect \
     "negative_preconditions": [
       "Do not apply when no route navigation occurred.",
       "Do not apply to pure layout visibility bugs."
+    ],
+    "query_rounds": 3,
+    "trajectory_summary": "The first query was broad, the second locked onto route edges, and the third inspection confirmed the target page mismatch.",
+    "useful_followup_focus": "route",
+    "useful_followup_terms": [
+      "profile",
+      "router.pushUrl",
+      "pages/ProfileDetail"
+    ],
+    "misleading_followup_terms": [
+      "blank screen"
+    ],
+    "inspection_targets": [
+      "entry/src/main/ets/pages/Home.ets",
+      "entry/src/main/ets/pages/ProfileDetail.ets",
+      "log: router.pushUrl failed"
+    ],
+    "final_verification_path": "Reproduce navigation -> inspect route registration -> confirm router target mismatch.",
+    "related_cases": [
+      "case_profile_route_001"
     ],
     "verification_method": "Confirm route registration, inspect router logs, and reproduce navigation.",
     "reuse_feedback": "experience candidate until reused on another route issue",

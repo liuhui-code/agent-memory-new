@@ -514,6 +514,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
             payload = {
+                "experience_type": "procedure_experience",
                 "task_type": "diagnosis",
                 "outcome": "success",
                 "problem": "Profile page shows a blank screen after navigation.",
@@ -540,6 +541,23 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                 "negative_preconditions": [
                     "Does not apply when the page never navigates.",
                 ],
+                "query_rounds": 3,
+                "trajectory_summary": "First query was broad, second query locked onto route edges, third inspection confirmed the target page mismatch.",
+                "useful_followup_focus": "route",
+                "useful_followup_terms": [
+                    "profile",
+                    "router.pushUrl",
+                    "pages/ProfileDetail",
+                ],
+                "misleading_followup_terms": [
+                    "blank screen",
+                ],
+                "inspection_targets": [
+                    "entry/src/main/ets/pages/Home.ets",
+                    "entry/src/main/resources/base/profile_pages.json",
+                ],
+                "final_verification_path": "Reproduce navigation -> inspect route registration -> confirm router target mismatch.",
+                "related_cases": ["case_profile_route_001"],
                 "verification_method": "Confirm route registration, inspect router log, and reproduce navigation.",
                 "reuse_feedback": "candidate until reused on another route issue",
                 "source_cases": ["episode:profile-route-mismatch", "reflection:#3"],
@@ -569,10 +587,19 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(json.loads(reflection["what_failed"])[0], "Searching only for blank screen was too broad.")
             self.assertIn("successful route push", json.loads(reflection["hidden_assumptions"])[0])
             self.assertIn("never navigates", json.loads(reflection["negative_preconditions"])[0])
+            self.assertEqual(reflection["query_rounds"], 3)
+            self.assertIn("second query locked onto route edges", reflection["trajectory_summary"])
+            self.assertEqual(reflection["useful_followup_focus"], "route")
+            self.assertEqual(json.loads(reflection["useful_followup_terms"])[1], "router.pushUrl")
+            self.assertEqual(json.loads(reflection["misleading_followup_terms"])[0], "blank screen")
+            self.assertIn("profile_pages.json", json.loads(reflection["inspection_targets"])[1])
+            self.assertIn("confirm router target mismatch", reflection["final_verification_path"])
+            self.assertEqual(json.loads(reflection["related_cases"])[0], "case_profile_route_001")
             self.assertIn("Confirm route registration", reflection["verification_method"])
             self.assertEqual(reflection["reuse_feedback"], "candidate until reused on another route issue")
             self.assertEqual(json.loads(reflection["source_cases"])[0], "episode:profile-route-mismatch")
             self.assertEqual(reflection["skill_candidate"], "arkts-route-blank-screen-diagnosis")
+            self.assertEqual(reflection["experience_type"], "procedure_experience")
 
     def test_search_matches_structured_reflection_payload_fields(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -726,6 +753,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
             payload = {
+                "experience_type": "procedure_experience",
                 "task_type": "diagnosis",
                 "outcome": "success",
                 "problem": "Settings page opens blank after route navigation.",
@@ -737,6 +765,14 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                 "what_failed": ["Generic blank-screen search was broad."],
                 "hidden_assumptions": ["The blank screen occurred after navigation."],
                 "negative_preconditions": ["Does not apply to static layout visibility issues."],
+                "query_rounds": 2,
+                "trajectory_summary": "Route anchors became useful after the second query round.",
+                "useful_followup_focus": "route",
+                "useful_followup_terms": ["settings", "router.pushUrl", "pages/Settings"],
+                "misleading_followup_terms": ["blank screen"],
+                "inspection_targets": ["pages/Home.ets", "pages/Settings.ets"],
+                "final_verification_path": "Check route registration and reproduce the navigation path.",
+                "related_cases": ["case_settings_route_001"],
                 "verification_method": "Check route registration, log output, and reproduce navigation.",
                 "reuse_feedback": "helped",
                 "source_cases": ["episode:settings-route-fix", "file: pages/Home.ets"],
@@ -762,8 +798,534 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                 if action["action"] == "promote_experience_candidate" and action["id"] == 1
             )
             self.assertEqual(action["skill_candidate"], "arkts-route-blank-screen-diagnosis")
+            self.assertEqual(action["experience_type"], "procedure_experience")
+            self.assertEqual(action["useful_followup_focus"], "route")
+            self.assertEqual(json.loads(action["useful_followup_terms"])[1], "router.pushUrl")
+            self.assertEqual(action["query_rounds"], 2)
             self.assertIn("verification_method", action["candidate_fields"])
             self.assertIsNone(action["command"])
+
+    def test_maintain_plan_routes_correction_experience_to_learning_governance(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payload = {
+                "experience_type": "correction_experience",
+                "task_type": "workflow",
+                "outcome": "success",
+                "problem": "Profile page file semantics were written as a service.",
+                "task": "correct profile file business meaning",
+                "summary": "Re-read the file and corrected the business responsibility.",
+                "reasoning_summary": "The file is a page entry, not a service layer module.",
+                "context_used": ["file: pages/Profile.ets"],
+                "what_worked": ["Compare route role and page build method."],
+                "what_failed": ["Trusting the first broad summary."],
+                "hidden_assumptions": ["The file is part of page navigation flow."],
+                "negative_preconditions": ["Does not apply to plain utility modules."],
+                "query_rounds": 2,
+                "trajectory_summary": "The second review step compared route usage with build composition and exposed the wrong page-vs-service summary.",
+                "useful_followup_focus": "route",
+                "useful_followup_terms": ["Profile", "build()", "route"],
+                "misleading_followup_terms": ["service"],
+                "inspection_targets": ["pages/Profile.ets"],
+                "final_verification_path": "Inspect build() ownership, route usage, and UI composition in the current file.",
+                "related_cases": ["case_profile_semantic_fix_001"],
+                "verification_method": "Check build method, route usage, and UI composition.",
+                "reuse_feedback": "candidate until reused",
+                "source_cases": ["file: pages/Profile.ets"],
+                "lesson": "Correct learned business semantics when page files were summarized as services.",
+                "future_rule": "When a file owns UI composition and route flow, classify it as page-facing business logic first.",
+                "scope": "learn-business semantic correction",
+                "evidence": "pages/Profile.ets build() and route usage",
+                "trigger_condition": "Learned business summary conflicts with current source role.",
+                "repair_action": "Rewrite the file business summary and terms from current source.",
+                "applies_to": "semantic correction during learn-business review",
+                "does_not_apply_to": "procedure diagnosis for runtime bugs",
+                "confidence": 0.9,
+            }
+            self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            actions = json.loads(result.stdout)["actions"]
+
+            action = next(
+                action for action in actions
+                if action["action"] == "review_correction_experience" and action["id"] == 1
+            )
+            self.assertEqual(action["experience_type"], "correction_experience")
+            self.assertEqual(action["governance_path"], "learn_semantic_repair")
+            self.assertEqual(action["useful_followup_focus"], "route")
+            self.assertIn("build()", json.loads(action["useful_followup_terms"])[1])
+
+    def test_maintain_plan_clusters_procedure_experiences_into_skill_pattern_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payloads = [
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Settings page opens blank after route navigation.",
+                    "task": "diagnose settings route blank screen",
+                    "summary": "The route target was wrong.",
+                    "reasoning_summary": "Route and log anchors narrowed the issue.",
+                    "context_used": ["query: settings blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Search page business term with route terms."],
+                    "what_failed": ["Generic blank-screen search was broad."],
+                    "hidden_assumptions": ["The blank screen occurred after navigation."],
+                    "negative_preconditions": ["Does not apply to static layout visibility issues."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "Route anchors became useful after the second query round.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["settings", "router.pushUrl", "pages/Settings"],
+                    "misleading_followup_terms": ["blank screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/Settings.ets"],
+                    "final_verification_path": "Check route registration and reproduce the navigation path.",
+                    "related_cases": ["case_settings_route_001"],
+                    "verification_method": "Check route registration, log output, and reproduce navigation.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:settings-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "ArkTS route blank-screen diagnosis should query business page terms with route terms.",
+                    "future_rule": "When a page blanks after navigation, query page business name plus router terms.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Search generic blank-screen terms only",
+                    "repair_action": "Query page business terms, router target, and related log template",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Profile page opens blank after route navigation.",
+                    "task": "diagnose profile route blank screen",
+                    "summary": "The profile route registration was mismatched.",
+                    "reasoning_summary": "Route anchors and router logs converged quickly.",
+                    "context_used": ["query: profile blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Combine business page name and route terms."],
+                    "what_failed": ["Starting from pure rendering terms."],
+                    "hidden_assumptions": ["Navigation reached the target route."],
+                    "negative_preconditions": ["Does not apply to local layout overflow."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "The second query round narrowed the issue to the route target registration.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["profile", "router.pushUrl", "pages/ProfileDetail"],
+                    "misleading_followup_terms": ["white screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/ProfileDetail.ets"],
+                    "final_verification_path": "Inspect route registration and replay the same navigation path.",
+                    "related_cases": ["case_profile_route_001"],
+                    "verification_method": "Check route registration, logs, and navigation replay.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:profile-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "HarmonyOS route blank-screen diagnosis should start from route anchors.",
+                    "future_rule": "When a page blanks after navigation, prefer route anchors before layout debugging.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Treat navigation blank screens as generic rendering bugs",
+                    "repair_action": "Query page business terms, route target, and router logs first",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+            ]
+            for payload in payloads:
+                self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            actions = json.loads(result.stdout)["actions"]
+
+            action = next(action for action in actions if action["action"] == "review_skill_pattern_candidate")
+            self.assertEqual(action["pattern_name"], "arkts-route-blank-screen-diagnosis")
+            self.assertEqual(action["experience_type"], "procedure_experience")
+            self.assertEqual(action["supporting_reflection_ids"], [1, 2])
+            self.assertEqual(action["supporting_count"], 2)
+            self.assertIn("route", action["common_followup_focus"])
+            self.assertIn("router.pushUrl", action["common_query_terms"])
+            self.assertIn("case_profile_route_001", action["supporting_cases"])
+            self.assertIn("query route anchors", action["common_steps"])
+            self.assertIn("inspect route target and page registration", action["common_steps"])
+            self.assertIn("Check route registration and reproduce the navigation path.", action["common_stop_conditions"])
+            self.assertIn("Search generic blank-screen terms only", action["failure_modes"])
+            self.assertIn("verification checklist", action["expected_outputs"])
+            self.assertEqual(action["draft_path"], "docs/skill-candidates/arkts-route-blank-screen-diagnosis.md")
+            self.assertIn("maintain-skill-draft", action["write_command_template"])
+            self.assertIn("maintain-skill-package", action["package_command_template"])
+            self.assertIn("# Skill Candidate: arkts-route-blank-screen-diagnosis", action["draft_markdown"])
+            self.assertIn("## Trigger Cluster", action["draft_markdown"])
+            self.assertIn("## Common Steps", action["draft_markdown"])
+            self.assertIn("## Common Stop Conditions", action["draft_markdown"])
+            self.assertIn("## Failure Modes", action["draft_markdown"])
+
+    def test_maintain_skill_draft_writes_markdown_file(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payloads = [
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Settings page opens blank after route navigation.",
+                    "task": "diagnose settings route blank screen",
+                    "summary": "The route target was wrong.",
+                    "reasoning_summary": "Route and log anchors narrowed the issue.",
+                    "context_used": ["query: settings blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Search page business term with route terms."],
+                    "what_failed": ["Generic blank-screen search was broad."],
+                    "hidden_assumptions": ["The blank screen occurred after navigation."],
+                    "negative_preconditions": ["Does not apply to static layout visibility issues."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "Route anchors became useful after the second query round.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["settings", "router.pushUrl", "pages/Settings"],
+                    "misleading_followup_terms": ["blank screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/Settings.ets"],
+                    "final_verification_path": "Check route registration and reproduce the navigation path.",
+                    "related_cases": ["case_settings_route_001"],
+                    "verification_method": "Check route registration, log output, and reproduce navigation.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:settings-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "ArkTS route blank-screen diagnosis should query business page terms with route terms.",
+                    "future_rule": "When a page blanks after navigation, query page business name plus router terms.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Search generic blank-screen terms only",
+                    "repair_action": "Query page business terms, router target, and related log template",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Profile page opens blank after route navigation.",
+                    "task": "diagnose profile route blank screen",
+                    "summary": "The profile route registration was mismatched.",
+                    "reasoning_summary": "Route anchors and router logs converged quickly.",
+                    "context_used": ["query: profile blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Combine business page name and route terms."],
+                    "what_failed": ["Starting from pure rendering terms."],
+                    "hidden_assumptions": ["Navigation reached the target route."],
+                    "negative_preconditions": ["Does not apply to local layout overflow."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "The second query round narrowed the issue to the route target registration.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["profile", "router.pushUrl", "pages/ProfileDetail"],
+                    "misleading_followup_terms": ["white screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/ProfileDetail.ets"],
+                    "final_verification_path": "Inspect route registration and replay the same navigation path.",
+                    "related_cases": ["case_profile_route_001"],
+                    "verification_method": "Check route registration, logs, and navigation replay.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:profile-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "HarmonyOS route blank-screen diagnosis should start from route anchors.",
+                    "future_rule": "When a page blanks after navigation, prefer route anchors before layout debugging.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Treat navigation blank screens as generic rendering bugs",
+                    "repair_action": "Query page business terms, route target, and router logs first",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+            ]
+            for payload in payloads:
+                self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            result = self.run_memory(
+                project,
+                "maintain-skill-draft",
+                "--pattern-name",
+                "arkts-route-blank-screen-diagnosis",
+                "--json",
+            )
+
+            payload = json.loads(result.stdout)
+            draft_path = project / "docs" / "skill-candidates" / "arkts-route-blank-screen-diagnosis.md"
+            self.assertTrue(draft_path.exists())
+            content = draft_path.read_text(encoding="utf-8")
+            self.assertEqual(Path(payload["path"]).resolve(), draft_path.resolve())
+            self.assertEqual(payload["pattern_name"], "arkts-route-blank-screen-diagnosis")
+            self.assertIn("## Common Steps", content)
+            self.assertIn("query route anchors", content)
+            self.assertIn("## Failure Modes", content)
+
+    def test_maintain_skill_draft_all_writes_all_candidate_files(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payloads = [
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Settings page opens blank after route navigation.",
+                    "task": "diagnose settings route blank screen",
+                    "summary": "The route target was wrong.",
+                    "reasoning_summary": "Route and log anchors narrowed the issue.",
+                    "context_used": ["query: settings blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Search page business term with route terms."],
+                    "what_failed": ["Generic blank-screen search was broad."],
+                    "hidden_assumptions": ["The blank screen occurred after navigation."],
+                    "negative_preconditions": ["Does not apply to static layout visibility issues."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "Route anchors became useful after the second query round.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["settings", "router.pushUrl", "pages/Settings"],
+                    "misleading_followup_terms": ["blank screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/Settings.ets"],
+                    "final_verification_path": "Check route registration and reproduce the navigation path.",
+                    "related_cases": ["case_settings_route_001"],
+                    "verification_method": "Check route registration, log output, and reproduce navigation.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:settings-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "ArkTS route blank-screen diagnosis should query business page terms with route terms.",
+                    "future_rule": "When a page blanks after navigation, query page business name plus router terms.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Search generic blank-screen terms only",
+                    "repair_action": "Query page business terms, router target, and related log template",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "design",
+                    "outcome": "success",
+                    "problem": "Product image resource does not render.",
+                    "task": "diagnose product image resource failure",
+                    "summary": "The resource key was mismatched.",
+                    "reasoning_summary": "Resource anchors and app.media lookups narrowed the issue.",
+                    "context_used": ["query: product image resource", "file: ProductCard.ets"],
+                    "what_worked": ["Search business image term with app.media anchors."],
+                    "what_failed": ["Searching only card component names."],
+                    "hidden_assumptions": ["The resource exists in the current module bundle."],
+                    "negative_preconditions": ["Does not apply to network image loading."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "The second query round narrowed the issue to the wrong resource key.",
+                    "useful_followup_focus": "resource",
+                    "useful_followup_terms": ["product image", "app.media", "$r"],
+                    "misleading_followup_terms": ["card"],
+                    "inspection_targets": ["pages/ProductCard.ets", "resources/base/media"],
+                    "final_verification_path": "Inspect resource key usage and compare with declared media entries.",
+                    "related_cases": ["case_product_resource_001"],
+                    "verification_method": "Check resource declarations and lookup sites.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:product-resource-fix"],
+                    "skill_candidate": "arkts-resource-missing-diagnosis",
+                    "lesson": "Resource failures should start from business noun plus app.media anchors.",
+                    "future_rule": "When a business image fails, query the resource anchors before UI component names.",
+                    "scope": "HarmonyOS ArkTS resource lookup",
+                    "evidence": "ProductCard.ets app.media reference",
+                    "trigger_condition": "Business image or icon resource does not render",
+                    "anti_pattern": "Search only component names",
+                    "repair_action": "Query business resource terms and compare with resource keys",
+                    "applies_to": "ArkTS resource lookup failures",
+                    "does_not_apply_to": "Remote image network failures",
+                    "confidence": 0.9,
+                },
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "design",
+                    "outcome": "success",
+                    "problem": "Product icon resource does not render.",
+                    "task": "diagnose product icon resource failure",
+                    "summary": "The icon resource key was mismatched.",
+                    "reasoning_summary": "Resource anchors and app.media lookups converged on the wrong key.",
+                    "context_used": ["query: product icon resource", "file: ProductCard.ets"],
+                    "what_worked": ["Search business icon term with app.media anchors."],
+                    "what_failed": ["Starting from component names only."],
+                    "hidden_assumptions": ["The icon resource is bundled locally."],
+                    "negative_preconditions": ["Does not apply to remote CDN icon failures."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "The second query round narrowed the issue to the wrong icon resource key.",
+                    "useful_followup_focus": "resource",
+                    "useful_followup_terms": ["product icon", "app.media", "$r"],
+                    "misleading_followup_terms": ["card"],
+                    "inspection_targets": ["pages/ProductCard.ets", "resources/base/media"],
+                    "final_verification_path": "Inspect icon resource key usage and compare with declared media entries.",
+                    "related_cases": ["case_product_resource_002"],
+                    "verification_method": "Check resource declarations and icon lookup sites.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:product-icon-resource-fix"],
+                    "skill_candidate": "arkts-resource-missing-diagnosis",
+                    "lesson": "Resource failures should start from business noun plus app.media anchors.",
+                    "future_rule": "When a business icon fails, query the resource anchors before UI component names.",
+                    "scope": "HarmonyOS ArkTS resource lookup",
+                    "evidence": "ProductCard.ets app.media reference",
+                    "trigger_condition": "Business icon resource does not render",
+                    "anti_pattern": "Search only component names",
+                    "repair_action": "Query business resource terms and compare with resource keys",
+                    "applies_to": "ArkTS resource lookup failures",
+                    "does_not_apply_to": "Remote image network failures",
+                    "confidence": 0.9,
+                },
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Profile page opens blank after route navigation.",
+                    "task": "diagnose profile route blank screen",
+                    "summary": "The profile route registration was mismatched.",
+                    "reasoning_summary": "Route anchors and router logs converged quickly.",
+                    "context_used": ["query: profile blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Combine business page name and route terms."],
+                    "what_failed": ["Starting from pure rendering terms."],
+                    "hidden_assumptions": ["Navigation reached the target route."],
+                    "negative_preconditions": ["Does not apply to local layout overflow."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "The second query round narrowed the issue to the route target registration.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["profile", "router.pushUrl", "pages/ProfileDetail"],
+                    "misleading_followup_terms": ["white screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/ProfileDetail.ets"],
+                    "final_verification_path": "Inspect route registration and replay the same navigation path.",
+                    "related_cases": ["case_profile_route_001"],
+                    "verification_method": "Check route registration, logs, and navigation replay.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:profile-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "HarmonyOS route blank-screen diagnosis should start from route anchors.",
+                    "future_rule": "When a page blanks after navigation, prefer route anchors before layout debugging.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Treat navigation blank screens as generic rendering bugs",
+                    "repair_action": "Query page business terms, route target, and router logs first",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+            ]
+            for payload in payloads:
+                self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            result = self.run_memory(
+                project,
+                "maintain-skill-draft",
+                "--pattern-name",
+                "all",
+                "--json",
+            )
+
+            payload = json.loads(result.stdout)
+            route_draft = project / "docs" / "skill-candidates" / "arkts-route-blank-screen-diagnosis.md"
+            resource_draft = project / "docs" / "skill-candidates" / "arkts-resource-missing-diagnosis.md"
+            self.assertTrue(route_draft.exists())
+            self.assertTrue(resource_draft.exists())
+            self.assertEqual(payload["written_count"], 2)
+            self.assertEqual(payload["pattern_names"], [
+                "arkts-resource-missing-diagnosis",
+                "arkts-route-blank-screen-diagnosis",
+            ])
+
+    def test_maintain_skill_package_writes_candidate_skill_file(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payloads = [
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Settings page opens blank after route navigation.",
+                    "task": "diagnose settings route blank screen",
+                    "summary": "The route target was wrong.",
+                    "reasoning_summary": "Route and log anchors narrowed the issue.",
+                    "context_used": ["query: settings blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Search page business term with route terms."],
+                    "what_failed": ["Generic blank-screen search was broad."],
+                    "hidden_assumptions": ["The blank screen occurred after navigation."],
+                    "negative_preconditions": ["Does not apply to static layout visibility issues."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "Route anchors became useful after the second query round.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["settings", "router.pushUrl", "pages/Settings"],
+                    "misleading_followup_terms": ["blank screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/Settings.ets"],
+                    "final_verification_path": "Check route registration and reproduce the navigation path.",
+                    "related_cases": ["case_settings_route_001"],
+                    "verification_method": "Check route registration, log output, and reproduce navigation.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:settings-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "ArkTS route blank-screen diagnosis should query business page terms with route terms.",
+                    "future_rule": "When a page blanks after navigation, query page business name plus router terms.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Search generic blank-screen terms only",
+                    "repair_action": "Query page business terms, router target, and related log template",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Profile page opens blank after route navigation.",
+                    "task": "diagnose profile route blank screen",
+                    "summary": "The profile route registration was mismatched.",
+                    "reasoning_summary": "Route anchors and router logs converged quickly.",
+                    "context_used": ["query: profile blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Combine business page name and route terms."],
+                    "what_failed": ["Starting from pure rendering terms."],
+                    "hidden_assumptions": ["Navigation reached the target route."],
+                    "negative_preconditions": ["Does not apply to local layout overflow."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "The second query round narrowed the issue to the route target registration.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["profile", "router.pushUrl", "pages/ProfileDetail"],
+                    "misleading_followup_terms": ["white screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/ProfileDetail.ets"],
+                    "final_verification_path": "Inspect route registration and replay the same navigation path.",
+                    "related_cases": ["case_profile_route_001"],
+                    "verification_method": "Check route registration, logs, and navigation replay.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:profile-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "HarmonyOS route blank-screen diagnosis should start from route anchors.",
+                    "future_rule": "When a page blanks after navigation, prefer route anchors before layout debugging.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Treat navigation blank screens as generic rendering bugs",
+                    "repair_action": "Query page business terms, route target, and router logs first",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+            ]
+            for payload in payloads:
+                self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            result = self.run_memory(
+                project,
+                "maintain-skill-package",
+                "--pattern-name",
+                "arkts-route-blank-screen-diagnosis",
+                "--json",
+            )
+
+            payload = json.loads(result.stdout)
+            package_path = project / "skills" / "_candidates" / "arkts-route-blank-screen-diagnosis" / "SKILL.md"
+            self.assertTrue(package_path.exists())
+            content = package_path.read_text(encoding="utf-8")
+            self.assertEqual(Path(payload["path"]).resolve(), package_path.resolve())
+            self.assertEqual(payload["pattern_name"], "arkts-route-blank-screen-diagnosis")
+            self.assertIn("Candidate package generated from repeated procedure_experience reflections.", content)
+            self.assertIn("## Common Steps", content)
 
     def test_maintain_promote_reflection_to_semantic_fact(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -882,6 +1444,98 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertIn("applying reflection #2", content)
             self.assertIn("partial", content)
             self.assertIn("[[Governance/Reflection Reuse]]", index.read_text(encoding="utf-8"))
+
+    def test_vault_export_writes_skill_pattern_candidates_dashboard(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payloads = [
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Settings page opens blank after route navigation.",
+                    "task": "diagnose settings route blank screen",
+                    "summary": "The route target was wrong.",
+                    "reasoning_summary": "Route and log anchors narrowed the issue.",
+                    "context_used": ["query: settings blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Search page business term with route terms."],
+                    "what_failed": ["Generic blank-screen search was broad."],
+                    "hidden_assumptions": ["The blank screen occurred after navigation."],
+                    "negative_preconditions": ["Does not apply to static layout visibility issues."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "Route anchors became useful after the second query round.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["settings", "router.pushUrl", "pages/Settings"],
+                    "misleading_followup_terms": ["blank screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/Settings.ets"],
+                    "final_verification_path": "Check route registration and reproduce the navigation path.",
+                    "related_cases": ["case_settings_route_001"],
+                    "verification_method": "Check route registration, log output, and reproduce navigation.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:settings-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "ArkTS route blank-screen diagnosis should query business page terms with route terms.",
+                    "future_rule": "When a page blanks after navigation, query page business name plus router terms.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Search generic blank-screen terms only",
+                    "repair_action": "Query page business terms, router target, and related log template",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Profile page opens blank after route navigation.",
+                    "task": "diagnose profile route blank screen",
+                    "summary": "The profile route registration was mismatched.",
+                    "reasoning_summary": "Route anchors and router logs converged quickly.",
+                    "context_used": ["query: profile blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Combine business page name and route terms."],
+                    "what_failed": ["Starting from pure rendering terms."],
+                    "hidden_assumptions": ["Navigation reached the target route."],
+                    "negative_preconditions": ["Does not apply to local layout overflow."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "The second query round narrowed the issue to the route target registration.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["profile", "router.pushUrl", "pages/ProfileDetail"],
+                    "misleading_followup_terms": ["white screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/ProfileDetail.ets"],
+                    "final_verification_path": "Inspect route registration and replay the same navigation path.",
+                    "related_cases": ["case_profile_route_001"],
+                    "verification_method": "Check route registration, logs, and navigation replay.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:profile-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "HarmonyOS route blank-screen diagnosis should start from route anchors.",
+                    "future_rule": "When a page blanks after navigation, prefer route anchors before layout debugging.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Treat navigation blank screens as generic rendering bugs",
+                    "repair_action": "Query page business terms, route target, and router logs first",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+            ]
+            for payload in payloads:
+                self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            self.run_memory(project, "vault-export")
+
+            dashboard = self.project_memory_dir(project) / "vault" / "Governance" / "Skill Pattern Candidates.md"
+            index = self.project_memory_dir(project) / "vault" / "index.md"
+            self.assertTrue(dashboard.exists())
+            content = dashboard.read_text(encoding="utf-8")
+            self.assertIn("arkts-route-blank-screen-diagnosis", content)
+            self.assertIn("docs/skill-candidates/arkts-route-blank-screen-diagnosis.md", content)
+            self.assertIn("router.pushUrl", content)
+            self.assertIn("supporting reflections", content.lower())
+            self.assertIn("[[Governance/Skill Pattern Candidates]]", index.read_text(encoding="utf-8"))
 
     def test_context_records_query_miss_when_all_result_sets_are_empty(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

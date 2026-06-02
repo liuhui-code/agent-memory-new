@@ -13,7 +13,7 @@ from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, VALID_MEMORY_STA
 from .query import collect_matches, infer_followup_focus, rank_followup_seed_terms, suggested_followup_terms
 from .records import output, parse_ids, row_dict, table_for_type
 from .storage import connect, ensure_initialized, now_iso, resolve_project
-from .text import tokenize, unique_list
+from .text import json_list, tokenize, unique_list
 
 
 def mark_stale(args: argparse.Namespace) -> None:
@@ -277,6 +277,11 @@ def reflection_quality_action(issues: list[str]) -> str:
     return "observe"
 
 
+def reflection_experience_type(row: dict[str, Any]) -> str | None:
+    experience_type = row.get("experience_type")
+    return str(experience_type) if experience_type else None
+
+
 EXPERIENCE_CANDIDATE_FIELDS = [
     "hidden_assumptions",
     "negative_preconditions",
@@ -284,6 +289,248 @@ EXPERIENCE_CANDIDATE_FIELDS = [
     "reuse_feedback",
     "source_cases",
 ]
+
+TRACE_CASE_FIELDS = [
+    "query_rounds",
+    "trajectory_summary",
+    "useful_followup_focus",
+    "useful_followup_terms",
+    "misleading_followup_terms",
+    "inspection_targets",
+    "final_verification_path",
+    "related_cases",
+]
+
+
+def stable_unique_strings(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for value in values:
+        stripped = value.strip()
+        normalized = stripped.lower()
+        if not stripped or normalized in seen:
+            continue
+        seen.add(normalized)
+        result.append(stripped)
+    return result
+
+
+def infer_common_steps(
+    followup_focuses: list[str],
+    query_terms: list[str],
+    verification_methods: list[str],
+    inspection_targets: list[str],
+) -> list[str]:
+    steps: list[str] = []
+    focus_set = {focus.lower() for focus in followup_focuses}
+    joined_terms = " ".join(query_terms).lower()
+    joined_targets = " ".join(inspection_targets).lower()
+    joined_verification = " ".join(verification_methods).lower()
+
+    if "route" in focus_set:
+        steps.append("query route anchors")
+        steps.append("inspect route target and page registration")
+        if "router" in joined_terms or "pushurl" in joined_terms or "log" in joined_verification:
+            steps.append("check related logs")
+        steps.append("verify route mismatch")
+    if "resource" in focus_set:
+        steps.append("query resource anchors")
+        steps.append("inspect resource usage and lookup sites")
+        steps.append("verify resource resolution")
+    if "log" in focus_set and "check related logs" not in steps:
+        steps.append("query log anchors")
+        steps.append("inspect matching log statements and nearby code")
+    if "config" in focus_set:
+        steps.append("query config anchors")
+        steps.append("inspect config, permission, and module declarations")
+        steps.append("verify config mismatch")
+
+    if not steps:
+        steps.append("query strongest anchors first")
+    if inspection_targets and not any("inspect" in step for step in steps):
+        steps.append("inspect shortlisted targets")
+    if joined_verification and not any(step.startswith("verify ") for step in steps):
+        steps.append("verify conclusion against source or reproduction path")
+    return stable_unique_strings(steps)
+
+
+def skill_candidate_draft_path(pattern_name: str) -> str:
+    return f"docs/skill-candidates/{pattern_name}.md"
+
+
+def skill_candidate_package_path(pattern_name: str) -> str:
+    return f"skills/_candidates/{pattern_name}/SKILL.md"
+
+
+def build_skill_candidate_markdown(candidate: dict[str, Any]) -> str:
+    lines = [
+        f"# Skill Candidate: {candidate['pattern_name']}",
+        "",
+        "## Summary",
+        "",
+        "Generated from repeated `procedure_experience` reflections. Review before turning this into a real skill.",
+        "",
+        "## Trigger Cluster",
+        "",
+    ]
+    for item in candidate.get("trigger_cluster", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Common Followup Focus", ""])
+    for item in candidate.get("common_followup_focus", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Common Query Terms", ""])
+    for item in candidate.get("common_query_terms", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Common Steps", ""])
+    for item in candidate.get("common_steps", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Common Stop Conditions", ""])
+    for item in candidate.get("common_stop_conditions", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Expected Outputs", ""])
+    for item in candidate.get("expected_outputs", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Failure Modes", ""])
+    for item in candidate.get("failure_modes", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Supporting Cases", ""])
+    for item in candidate.get("supporting_cases", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Verification Methods", ""])
+    for item in candidate.get("verification_methods", []):
+        lines.append(f"- {item}")
+    lines.extend(
+        [
+            "",
+            "## Supporting Reflections",
+            "",
+            ", ".join(f"#{reflection_id}" for reflection_id in candidate.get("supporting_reflection_ids", [])),
+            "",
+            "## Review Notes",
+            "",
+            "- Confirm the trigger is stable across cases.",
+            "- Remove noisy terms before turning this into a skill.",
+            "- Add stop conditions and expected outputs before promotion.",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def build_skill_candidate_package_markdown(candidate: dict[str, Any]) -> str:
+    lines = [
+        f"# Skill Candidate Package: {candidate['pattern_name']}",
+        "",
+        "Candidate package generated from repeated procedure_experience reflections.",
+        "This is still a reviewed candidate artifact, not a formal installed skill.",
+        "",
+        f"Source draft: `{candidate['draft_path']}`",
+        "",
+        candidate["draft_markdown"].rstrip(),
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def build_skill_pattern_candidates(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        if reflection_experience_type(row) == "correction_experience":
+            continue
+        if not is_complete_experience_candidate(row):
+            continue
+        pattern_name = str(row.get("skill_candidate") or "").strip()
+        if not pattern_name:
+            continue
+        groups.setdefault(pattern_name, []).append(row)
+
+    candidates: list[dict[str, Any]] = []
+    for pattern_name, grouped_rows in groups.items():
+        if len(grouped_rows) < 2:
+            continue
+        grouped_rows.sort(key=lambda item: int(item.get("id") or 0))
+        common_followup_focus = unique_list(
+            [str(row.get("useful_followup_focus") or "") for row in grouped_rows if row.get("useful_followup_focus")]
+        )
+        query_terms = stable_unique_strings(
+            [
+                term
+                for row in grouped_rows
+                for term in json_list(row.get("useful_followup_terms"))
+            ]
+        )
+        supporting_cases = stable_unique_strings(
+            [
+                case
+                for row in grouped_rows
+                for case in json_list(row.get("related_cases")) + json_list(row.get("source_cases"))
+            ]
+        )
+        trigger_cluster = stable_unique_strings(
+            [str(row.get("trigger_condition") or "") for row in grouped_rows if row.get("trigger_condition")]
+        )
+        verification_methods = stable_unique_strings(
+            [str(row.get("verification_method") or "") for row in grouped_rows if row.get("verification_method")]
+        )
+        stop_conditions = stable_unique_strings(
+            [str(row.get("final_verification_path") or "") for row in grouped_rows if row.get("final_verification_path")]
+        )
+        failure_modes = stable_unique_strings(
+            [
+                item
+                for row in grouped_rows
+                for item in (
+                    ([str(row.get("anti_pattern"))] if row.get("anti_pattern") else [])
+                    + json_list(row.get("what_failed"))
+                    + json_list(row.get("misleading_followup_terms"))
+                )
+            ]
+        )
+        expected_outputs: list[str] = []
+        if any(json_list(row.get("inspection_targets")) for row in grouped_rows):
+            expected_outputs.append("inspection target shortlist")
+        if verification_methods:
+            expected_outputs.append("verification checklist")
+        if common_followup_focus:
+            expected_outputs.extend(f"{focus} anchor shortlist" for focus in common_followup_focus)
+        expected_outputs = stable_unique_strings(expected_outputs)
+        inspection_targets = stable_unique_strings(
+            [
+                target
+                for row in grouped_rows
+                for target in json_list(row.get("inspection_targets"))
+            ]
+        )
+        common_steps = infer_common_steps(
+            common_followup_focus,
+            query_terms,
+            verification_methods,
+            inspection_targets,
+        )
+        candidates.append(
+            {
+                "pattern_name": pattern_name,
+                "experience_type": "procedure_experience",
+                "supporting_reflection_ids": [int(row["id"]) for row in grouped_rows],
+                "supporting_count": len(grouped_rows),
+                "common_followup_focus": common_followup_focus,
+                "common_query_terms": query_terms[:8],
+                "common_steps": common_steps[:8],
+                "common_stop_conditions": stop_conditions[:6],
+                "expected_outputs": expected_outputs[:6],
+                "failure_modes": failure_modes[:8],
+                "supporting_cases": supporting_cases[:10],
+                "trigger_cluster": trigger_cluster[:6],
+                "verification_methods": verification_methods[:4],
+                "draft_path": skill_candidate_draft_path(pattern_name),
+            }
+        )
+    for candidate in candidates:
+        candidate["draft_markdown"] = build_skill_candidate_markdown(candidate)
+    candidates.sort(
+        key=lambda item: (-int(item["supporting_count"]), item["pattern_name"])
+    )
+    return candidates
 
 
 def is_complete_experience_candidate(row: dict[str, Any]) -> bool:
@@ -331,6 +578,15 @@ def build_review_data(project: Project, limit: int) -> dict[str, Any]:
             + duplicate_candidates(reflection_active, "reflection", limit)
         )[:limit],
     }
+
+
+def active_reflection_rows(project: Project) -> list[dict[str, Any]]:
+    with connect(project) as conn:
+        reflection_rows = fetch_memory_rows(conn, project, "reflection", active_only=False)
+    return [
+        row for row in reflection_rows
+        if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")
+    ]
 
 
 def maintain_plan(args: argparse.Namespace) -> None:
@@ -422,28 +678,51 @@ def maintain_plan(args: argparse.Namespace) -> None:
             )
 
     for row in review["unreviewed_reflections"]:
+        experience_type = reflection_experience_type(row)
         if is_complete_experience_candidate(row):
-            actions.append(
-                {
-                    "action": "promote_experience_candidate",
-                    "type": "reflection",
-                    "id": row["id"],
-                    "reason": "reflection has enough structure to review as an experience candidate",
-                    "risk": "medium",
-                    "requires_confirmation": True,
-                    "command": None,
-                    "candidate_fields": EXPERIENCE_CANDIDATE_FIELDS,
-                    "skill_candidate": row.get("skill_candidate"),
-                    "verification_method": row.get("verification_method"),
-                    "source_cases": row.get("source_cases"),
-                }
-            )
+            if experience_type == "correction_experience":
+                actions.append(
+                    {
+                        "action": "review_correction_experience",
+                        "type": "reflection",
+                        "id": row["id"],
+                        "experience_type": experience_type,
+                        "governance_path": "learn_semantic_repair",
+                        "reason": "reflection is a semantic correction candidate for learn governance",
+                        "risk": "medium",
+                        "requires_confirmation": True,
+                        "command": None,
+                        "candidate_fields": EXPERIENCE_CANDIDATE_FIELDS,
+                        "verification_method": row.get("verification_method"),
+                        "source_cases": row.get("source_cases"),
+                        **{field: row.get(field) for field in TRACE_CASE_FIELDS},
+                    }
+                )
+            else:
+                actions.append(
+                    {
+                        "action": "promote_experience_candidate",
+                        "type": "reflection",
+                        "id": row["id"],
+                        "experience_type": experience_type or "procedure_experience",
+                        "reason": "reflection has enough structure to review as an experience candidate",
+                        "risk": "medium",
+                        "requires_confirmation": True,
+                        "command": None,
+                        "candidate_fields": EXPERIENCE_CANDIDATE_FIELDS,
+                        "skill_candidate": row.get("skill_candidate"),
+                        "verification_method": row.get("verification_method"),
+                        "source_cases": row.get("source_cases"),
+                        **{field: row.get(field) for field in TRACE_CASE_FIELDS},
+                    }
+                )
         else:
             actions.append(
                 {
                     "action": "promote_or_mark_reviewed",
                     "type": "reflection",
                     "id": row["id"],
+                    "experience_type": experience_type,
                     "reason": "unreviewed reflection may contain a durable lesson",
                     "risk": "medium",
                     "requires_confirmation": True,
@@ -461,6 +740,28 @@ def maintain_plan(args: argparse.Namespace) -> None:
                 "risk": "medium",
                 "requires_confirmation": True,
                 "command": None,
+            }
+        )
+
+    for candidate in build_skill_pattern_candidates(review["unreviewed_reflections"]):
+        actions.append(
+            {
+                "action": "review_skill_pattern_candidate",
+                "type": "skill_pattern",
+                "id": None,
+                "reason": "multiple procedure experiences point to the same reusable skill pattern",
+                "risk": "medium",
+                "requires_confirmation": True,
+                "command": None,
+                "write_command_template": (
+                    "python tools/agent_memory.py maintain-skill-draft "
+                    f"--project . --pattern-name {json.dumps(candidate['pattern_name'], ensure_ascii=False)} --json"
+                ),
+                "package_command_template": (
+                    "python tools/agent_memory.py maintain-skill-package "
+                    f"--project . --pattern-name {json.dumps(candidate['pattern_name'], ensure_ascii=False)} --json"
+                ),
+                **candidate,
             }
         )
 
@@ -548,6 +849,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "reflection_quality_issues": len(reflection_quality["reflections"]),
             "open_query_misses": len(query_misses),
             "semantic_conflicts": len(semantic_conflicts),
+            "skill_pattern_candidates": len(build_skill_pattern_candidates(review["unreviewed_reflections"])),
         },
         "actions": actions,
         "advisory_notice": "maintain-plan only proposes actions. Execute changes only after user confirmation.",
@@ -953,4 +1255,62 @@ def maintain_promote(args: argparse.Namespace) -> None:
         payload["episode_id"] = args.episode_id
     else:
         payload["reflection_id"] = args.reflection_id
+    output(payload, args.json)
+
+
+def maintain_skill_draft(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    ensure_initialized(project)
+    candidates = build_skill_pattern_candidates(active_reflection_rows(project))
+    if args.pattern_name == "all":
+        written: list[dict[str, Any]] = []
+        for candidate in candidates:
+            draft_path = project.root / candidate["draft_path"]
+            draft_path.parent.mkdir(parents=True, exist_ok=True)
+            draft_path.write_text(candidate["draft_markdown"].rstrip() + "\n", encoding="utf-8")
+            written.append(
+                {
+                    "pattern_name": candidate["pattern_name"],
+                    "path": str(draft_path),
+                }
+            )
+        payload = {
+            "written_count": len(written),
+            "pattern_names": [item["pattern_name"] for item in written],
+            "written": written,
+        }
+        output(payload, args.json)
+        return
+
+    candidate = next((item for item in candidates if item["pattern_name"] == args.pattern_name), None)
+    if not candidate:
+        raise SystemExit(f"skill pattern candidate not found: {args.pattern_name}")
+    draft_path = project.root / candidate["draft_path"]
+    draft_path.parent.mkdir(parents=True, exist_ok=True)
+    draft_path.write_text(candidate["draft_markdown"].rstrip() + "\n", encoding="utf-8")
+    payload = {
+        "pattern_name": candidate["pattern_name"],
+        "path": str(draft_path),
+        "supporting_reflection_ids": candidate["supporting_reflection_ids"],
+        "supporting_count": candidate["supporting_count"],
+    }
+    output(payload, args.json)
+
+
+def maintain_skill_package(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    ensure_initialized(project)
+    candidates = build_skill_pattern_candidates(active_reflection_rows(project))
+    candidate = next((item for item in candidates if item["pattern_name"] == args.pattern_name), None)
+    if not candidate:
+        raise SystemExit(f"skill pattern candidate not found: {args.pattern_name}")
+    package_path = project.root / skill_candidate_package_path(candidate["pattern_name"])
+    package_path.parent.mkdir(parents=True, exist_ok=True)
+    package_path.write_text(build_skill_candidate_package_markdown(candidate).rstrip() + "\n", encoding="utf-8")
+    payload = {
+        "pattern_name": candidate["pattern_name"],
+        "path": str(package_path),
+        "supporting_reflection_ids": candidate["supporting_reflection_ids"],
+        "supporting_count": candidate["supporting_count"],
+    }
     output(payload, args.json)
