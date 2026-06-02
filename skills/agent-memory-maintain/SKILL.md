@@ -63,6 +63,7 @@ When the user asks to clean, organize, review, or govern memory:
 4. Present grouped actions to the user by risk and type, including open query misses.
 5. Wait for confirmation before executing `maintain-status`, `maintain-merge`, or `maintain-promote`.
 6. After confirmed changes, run `vault-export`.
+7. Treat the vault as a bounded human-readable mirror on large archives. If a generated page says it is truncated, continue full inspection through runtime JSON or direct SQLite-backed commands rather than assuming the vault contains every row.
 
 If an action has `command: null`, draft the needed replacement fact or lesson first, then ask for confirmation.
 

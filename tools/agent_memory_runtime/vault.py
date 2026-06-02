@@ -23,6 +23,14 @@ from .records import row_dict
 from .storage import connect, ensure_dirs, ensure_initialized, now_iso, resolve_project
 from .text import json_list
 
+VAULT_EPISODE_EXPORT_LIMIT = 500
+VAULT_REFLECTION_EXPORT_LIMIT = 500
+VAULT_FACT_SUMMARY_LIMIT = 1000
+VAULT_FILE_SUMMARY_LIMIT = 1000
+VAULT_SYMBOL_SUMMARY_LIMIT = 1500
+VAULT_LOG_SUMMARY_LIMIT = 1500
+VAULT_EDGE_SUMMARY_LIMIT = 1500
+
 
 def slugify(text: str, fallback: str) -> str:
     slug = re.sub(r"[^\w\u4e00-\u9fff]+", "-", text.strip().lower()).strip("-")
@@ -53,6 +61,21 @@ def vault_init(args: argparse.Namespace) -> None:
 def write_vault_file(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
+
+
+def clear_markdown_files(path: Path) -> None:
+    path.mkdir(parents=True, exist_ok=True)
+    for markdown_file in path.glob("*.md"):
+        markdown_file.unlink()
+
+
+def truncation_notice(total_count: int, exported_count: int) -> str:
+    if exported_count >= total_count:
+        return ""
+    return (
+        f"> Truncated vault export: showing {exported_count} of {total_count} records. "
+        "Use the SQLite runtime for full machine-readable history.\n\n"
+    )
 
 
 def vault_export(args: argparse.Namespace) -> None:
@@ -101,7 +124,12 @@ def vault_export(args: argparse.Namespace) -> None:
             (project.project_id,),
         ).fetchall()
 
-    for row in episodes:
+    exported_episodes = episodes[:VAULT_EPISODE_EXPORT_LIMIT]
+    exported_reflections = reflections[:VAULT_REFLECTION_EXPORT_LIMIT]
+    clear_markdown_files(project.vault_dir / "Episodes")
+    clear_markdown_files(project.vault_dir / "Reflections")
+
+    for row in exported_episodes:
         slug = slugify(row["task"], f"episode-{row['id']}")
         content = frontmatter("episode", project, row["created_at"])
         content += f"# Episode: {row['task']}\n\n"
@@ -110,7 +138,7 @@ def vault_export(args: argparse.Namespace) -> None:
             content += f"## Outcome\n\n{row['outcome']}\n"
         write_vault_file(project.vault_dir / "Episodes" / f"{row['id']:04d}-{slug}.md", content)
 
-    for row in reflections:
+    for row in exported_reflections:
         slug = slugify(row["task"], f"reflection-{row['id']}")
         content = frontmatter("reflection", project, row["created_at"])
         content += f"# Reflection: {row['task']}\n\n"
@@ -166,7 +194,8 @@ def vault_export(args: argparse.Namespace) -> None:
 
     facts_content = frontmatter("semantic-facts", project, now_iso())
     facts_content += "# Semantic Facts\n\n"
-    for row in facts:
+    facts_content += truncation_notice(len(facts), min(len(facts), VAULT_FACT_SUMMARY_LIMIT))
+    for row in facts[:VAULT_FACT_SUMMARY_LIMIT]:
         status = row["status"] or ("stale" if row["is_stale"] else ACTIVE_STATUS)
         details = f"{row['source']}, status {status}, confidence {row['confidence']}"
         if row["scope"]:
@@ -176,7 +205,8 @@ def vault_export(args: argparse.Namespace) -> None:
 
     files_content = frontmatter("codebase-wiki", project, now_iso())
     files_content += "# Code Files\n\n"
-    for row in files:
+    files_content += truncation_notice(len(files), min(len(files), VAULT_FILE_SUMMARY_LIMIT))
+    for row in files[:VAULT_FILE_SUMMARY_LIMIT]:
         files_content += f"- `{row['file_path']}` ({row['language'] or 'unknown'}): {row['summary'] or ''}\n"
         if row["business_summary"]:
             files_content += f"  - Business: {row['business_summary']}\n"
@@ -187,7 +217,8 @@ def vault_export(args: argparse.Namespace) -> None:
 
     symbols_content = frontmatter("codebase-wiki", project, now_iso())
     symbols_content += "# Code Symbols\n\n"
-    for row in symbols:
+    symbols_content += truncation_notice(len(symbols), min(len(symbols), VAULT_SYMBOL_SUMMARY_LIMIT))
+    for row in symbols[:VAULT_SYMBOL_SUMMARY_LIMIT]:
         symbols_content += f"- `{row['file_path']}` :: `{row['symbol']}` ({row['symbol_type'] or 'symbol'})\n"
         if row["business_summary"]:
             symbols_content += f"  - Business: {row['business_summary']}\n"
@@ -198,7 +229,8 @@ def vault_export(args: argparse.Namespace) -> None:
 
     logs_content = frontmatter("codebase-wiki", project, now_iso())
     logs_content += "# Code Log Statements\n\n"
-    for row in logs:
+    logs_content += truncation_notice(len(logs), min(len(logs), VAULT_LOG_SUMMARY_LIMIT))
+    for row in logs[:VAULT_LOG_SUMMARY_LIMIT]:
         location = f"{row['file_path']}:{row['line']}" if row["line"] else row["file_path"]
         function = f" in `{row['function']}`" if row["function"] else ""
         logs_content += (
@@ -214,7 +246,8 @@ def vault_export(args: argparse.Namespace) -> None:
 
     edges_content = frontmatter("codebase-wiki", project, now_iso())
     edges_content += "# Memory Edges\n\n"
-    for row in edges:
+    edges_content += truncation_notice(len(edges), min(len(edges), VAULT_EDGE_SUMMARY_LIMIT))
+    for row in edges[:VAULT_EDGE_SUMMARY_LIMIT]:
         edges_content += (
             f"- {row['source_type']} #{row['source_id']} "
             f"--{row['relation']}--> {row['target_type']} #{row['target_id']}"

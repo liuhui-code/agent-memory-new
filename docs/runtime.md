@@ -240,6 +240,8 @@ These quality signals are advisory. They do not promote a skill automatically. T
 
 `vault-export` now mirrors these grouped candidates into `Governance/Skill Pattern Candidates.md`, including the proposed draft path, review statuses, reviewer metadata, preservation policy, anchor health, and a Markdown preview. The vault remains a generated review mirror; it does not approve or install the skill.
 
+For large archives, `vault-export` now defaults to bounded human-readable summaries for aggregate pages such as `Semantic Facts/project-facts.md`, `Codebase Wiki/files.md`, `symbols.md`, `log-statements.md`, and `memory-edges.md`, and only exports the most recent bounded set of per-record episode/reflection files. Generated pages include a truncation notice when the vault mirror is showing only a subset. SQLite remains the full machine-readable source of truth.
+
 # 3.6 Refresh And Retirement Path
 
 Structural learning commands now persist a refreshable learn manifest in `learn_scopes`:

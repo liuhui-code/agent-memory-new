@@ -676,6 +676,8 @@ python tools/agent_memory.py miss-status --project . --id 1 --status ignored --r
 python tools/agent_memory.py vault-export --project .
 ```
 
+When the memory archive grows large, `vault-export` keeps the Obsidian mirror review-friendly by truncating large aggregate pages and exporting only a bounded recent set of per-record episode/reflection notes. The generated Markdown will say when it is truncated; use the runtime and SQLite data as the complete source of truth.
+
 ## 7. Obsidian Review
 
 Export the vault:

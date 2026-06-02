@@ -1600,3 +1600,9 @@ Rollback notes:
 - Remove the FTS5 side indexes and triggers if we want to fall back to the old full-scan query behavior.
 - Restore full-project edge rebuilds if scoped edge invalidation proves too conservative or too complex to maintain.
 - Remove the bounded duplicate-review pool if exact all-history duplicate detection becomes more important than bounded maintain cost.
+
+### Follow-up
+
+- Changed `vault-export` to generate bounded human-readable summaries for large aggregate pages instead of trying to mirror every record into Markdown.
+- Limited per-record vault note export to a recent bounded set for episodes and reflections, while keeping SQLite as the complete source of truth.
+- Added truncation notices to generated vault pages so reviewers can tell when they are looking at a summarized mirror rather than the full archive.

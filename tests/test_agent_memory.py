@@ -2238,6 +2238,68 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertIn("[[Governance/Learned Scopes]]", index)
             self.assertIn("[[Governance/Refresh Drift]]", index)
 
+    def test_vault_export_truncates_large_record_sets_for_scale(self) -> None:
+        from tools.agent_memory_runtime.storage import connect, ensure_initialized, now_iso, resolve_project
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            runtime_project = resolve_project(str(project), str(self.memory_home(project)))
+            ensure_initialized(runtime_project)
+            with connect(runtime_project) as conn:
+                for index in range(520):
+                    ts = now_iso()
+                    conn.execute(
+                        """
+                        INSERT INTO episodes(
+                          project_id, task, summary, outcome, files_touched, commands_run,
+                          importance, created_at
+                        )
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            runtime_project.project_id,
+                            f"episode {index}",
+                            f"summary {index}",
+                            None,
+                            None,
+                            None,
+                            0.5,
+                            ts,
+                        ),
+                    )
+                for index in range(1050):
+                    ts = now_iso()
+                    conn.execute(
+                        """
+                        INSERT INTO semantic_facts(
+                          project_id, fact, source, confidence, category, scope, evidence,
+                          created_at, updated_at
+                        )
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            runtime_project.project_id,
+                            f"fact {index}",
+                            "test",
+                            0.8,
+                            None,
+                            None,
+                            None,
+                            ts,
+                            ts,
+                        ),
+                    )
+                conn.commit()
+
+            self.run_memory(project, "vault-export")
+
+            vault_dir = self.project_memory_dir(project) / "vault"
+            episodes_dir = vault_dir / "Episodes"
+            facts_page = (vault_dir / "Semantic Facts" / "project-facts.md").read_text(encoding="utf-8")
+
+            self.assertEqual(500, len(list(episodes_dir.glob("*.md"))))
+            self.assertIn("Truncated vault export: showing 1000 of 1050 records", facts_page)
+
     def test_context_records_query_miss_when_all_result_sets_are_empty(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
