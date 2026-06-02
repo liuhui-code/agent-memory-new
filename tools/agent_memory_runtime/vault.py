@@ -10,6 +10,8 @@ from pathlib import Path
 
 from .governance import (
     annotate_skill_pattern_artifacts,
+    build_recent_refresh_drifts,
+    build_scope_health_rows,
     build_skill_pattern_candidates,
     duplicate_candidates,
     is_complete_experience_candidate,
@@ -252,6 +254,8 @@ def write_governance_dashboard(
     open_file_conflicts = [row for row in open_semantic_conflicts if row.get("entity_type") == "code_file"]
     open_symbol_conflicts = [row for row in open_semantic_conflicts if row.get("entity_type") == "code_symbol"]
     open_log_conflicts = [row for row in open_semantic_conflicts if row.get("entity_type") == "code_log_statement"]
+    scope_health_rows = build_scope_health_rows(project)
+    refresh_drifts = build_recent_refresh_drifts(project, 50)
     active_facts = [row for row in fact_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
     active_reflections = [row for row in reflection_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
     stale = [
@@ -284,6 +288,9 @@ def write_governance_dashboard(
     health += f"- Open file semantic conflicts: {len(open_file_conflicts)}\n"
     health += f"- Open symbol semantic conflicts: {len(open_symbol_conflicts)}\n"
     health += f"- Open log semantic conflicts: {len(open_log_conflicts)}\n"
+    health += f"- Learn scopes: {len(scope_health_rows)}\n"
+    health += f"- Scope drift queues: {sum(1 for row in scope_health_rows if row.get('health_status') in {'drift', 'high_drift'})}\n"
+    health += f"- Missing-source scopes: {sum(1 for row in scope_health_rows if row.get('health_status') == 'missing_source')}\n"
     write_vault_file(project.vault_dir / "Governance" / "Health.md", health)
 
     review = header + "# Review Queue\n\n" + notice
@@ -298,6 +305,9 @@ def write_governance_dashboard(
     for row in semantic_conflict_rows[:30]:
         if row.get("status") == "open":
             review += f"- conflict #{row['id']}: {row['target']}\n"
+    review += "\n## Refresh Drift\n\n"
+    for row in refresh_drifts[:30]:
+        review += f"- scope #{row['scope_id']} ({row['scope_type']}): +{len(row['added_files'])} ~{len(row['changed_files'])} -{len(row['removed_files'])}\n"
     write_vault_file(project.vault_dir / "Governance" / "Review Queue.md", review)
 
     stale_doc = header + "# Stale Memories\n\n" + notice
@@ -370,7 +380,7 @@ def write_governance_dashboard(
 
     skill_pattern_candidates = [
         annotate_skill_pattern_artifacts(project.root, item)
-        for item in build_skill_pattern_candidates(active_reflections)
+        for item in build_skill_pattern_candidates(project, active_reflections)
     ]
     pattern_doc = header + "# Skill Pattern Candidates\n\n" + notice
     pattern_doc += "These grouped procedure experiences point to the same candidate workflow. Review them before drafting a formal skill.\n\n"
@@ -394,8 +404,16 @@ def write_governance_dashboard(
         pattern_doc += f"- Promotion checklist path: `{item['promotion_checklist_path']}`\n"
         pattern_doc += f"- Promotion readiness: `{item['promotion_readiness']}`\n"
         pattern_doc += f"- Quality score: `{item['quality_score']}`\n"
+        pattern_doc += f"- Helped reuse count: `{item['helped_reuse_count']}`\n"
+        pattern_doc += f"- Partial reuse count: `{item['partial_reuse_count']}`\n"
+        pattern_doc += f"- Misleading reuse count: `{item['misleading_reuse_count']}`\n"
+        pattern_doc += f"- Anchor health: `{item['anchor_health']}`\n"
         pattern_doc += f"- Supporting reflections: {', '.join(f'#{reflection_id}' for reflection_id in item['supporting_reflection_ids'])}\n"
         pattern_doc += f"- Supporting count: {item['supporting_count']}\n"
+        if item.get("missing_anchor_paths"):
+            pattern_doc += "- Missing anchors:\n"
+            for anchor in item["missing_anchor_paths"]:
+                pattern_doc += f"  - {anchor}\n"
         if item.get("common_followup_focus"):
             pattern_doc += f"- Common followup focus: {', '.join(item['common_followup_focus'])}\n"
         if item.get("common_query_terms"):
@@ -481,6 +499,58 @@ def write_governance_dashboard(
             misses_doc += f"  - resolution: {row['resolution']}\n"
     write_vault_file(project.vault_dir / "Governance" / "Query Misses.md", misses_doc)
 
+    scopes_doc = header + "# Learned Scopes\n\n" + notice
+    scopes_doc += "These are the persisted learn manifests used by `maintain-refresh-scope`.\n\n"
+    for row in scope_health_rows[:50]:
+        scopes_doc += f"## Scope #{row['id']} ({row['scope_type']})\n\n"
+        scopes_doc += f"- Health: `{row['health_status']}`\n"
+        scopes_doc += f"- Source root: `{row['source_root']}`\n"
+        if row.get("target_path"):
+            scopes_doc += f"- Target path: `{row['target_path']}`\n"
+        if row.get("entry_path"):
+            scopes_doc += f"- Entry path: `{row['entry_path']}`\n"
+        if row.get("depth") is not None:
+            scopes_doc += f"- Depth: `{row['depth']}`\n"
+        scopes_doc += f"- Mode: `{row['mode']}`\n"
+        scopes_doc += f"- File count: `{row['file_count']}`\n"
+        scopes_doc += f"- Last refreshed at: `{row.get('last_refreshed_at') or ''}`\n"
+        scopes_doc += f"- Drift count: `{row['drift_count']}`\n\n"
+    write_vault_file(project.vault_dir / "Governance" / "Learned Scopes.md", scopes_doc)
+
+    drift_doc = header + "# Refresh Drift\n\n" + notice
+    drift_doc += "These rows summarize recent learned-scope refreshes that changed current source structure.\n\n"
+    for row in refresh_drifts[:50]:
+        drift_doc += f"## Scope #{row['scope_id']} ({row['scope_type']})\n\n"
+        drift_doc += f"- Source root: `{row['source_root']}`\n"
+        drift_doc += f"- Last refreshed at: `{row.get('last_refreshed_at') or ''}`\n"
+        if row.get("target_path"):
+            drift_doc += f"- Target path: `{row['target_path']}`\n"
+        if row.get("entry_path"):
+            drift_doc += f"- Entry path: `{row['entry_path']}`\n"
+        drift_doc += f"- Added files: {len(row['added_files'])}\n"
+        drift_doc += f"- Changed files: {len(row['changed_files'])}\n"
+        drift_doc += f"- Removed files: {len(row['removed_files'])}\n"
+        drift_doc += f"- Unchanged files: {row.get('unchanged_count', 0)}\n"
+        if row["added_files"]:
+            drift_doc += "- Added:\n"
+            for item in row["added_files"]:
+                drift_doc += f"  - {item}\n"
+        if row["changed_files"]:
+            drift_doc += "- Changed:\n"
+            for item in row["changed_files"]:
+                drift_doc += f"  - {item}\n"
+        if row["removed_files"]:
+            drift_doc += "- Removed:\n"
+            for item in row["removed_files"]:
+                drift_doc += f"  - {item}\n"
+        targets = row.get("semantic_review_targets") or {}
+        if targets.get("file_paths"):
+            drift_doc += "- Semantic review targets:\n"
+            for item in targets["file_paths"]:
+                drift_doc += f"  - {item}\n"
+        drift_doc += "\n"
+    write_vault_file(project.vault_dir / "Governance" / "Refresh Drift.md", drift_doc)
+
     wiki_misses_doc = frontmatter("codebase-wiki", project, now_iso())
     wiki_misses_doc += "# Query Misses\n\n" + notice
     wiki_misses_doc += "These misses show where natural-language questions failed to retrieve learned code or memory context.\n\n"
@@ -524,6 +594,8 @@ def vault_index(args: argparse.Namespace) -> None:
     content += "- [[Governance/Reflection Quality]]\n"
     content += "- [[Governance/Experience Candidates]]\n"
     content += "- [[Governance/Skill Pattern Candidates]]\n"
+    content += "- [[Governance/Learned Scopes]]\n"
+    content += "- [[Governance/Refresh Drift]]\n"
     content += "- [[Governance/Reflection Reuse]]\n"
     content += "- [[Governance/Semantic Conflicts]]\n"
     content += "- [[Governance/Query Misses]]\n"

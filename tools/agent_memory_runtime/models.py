@@ -64,6 +64,15 @@ NETWORK_MAX_DEPTH = 1
 NETWORK_EDGE_LIMIT = 10
 EVIDENCE_CHAIN_LIMIT = 3
 QUERY_ALLOWED_EDGE_RELATIONS = {"contains", "emits_log", "imports", "routes_to", "uses_resource"}
+QUERY_FTS_RECALL_LIMITS = {
+    "semantic_facts": 120,
+    "reflections": 120,
+    "episodes": 80,
+    "code_files": 160,
+    "code_symbols": 220,
+    "code_log_statements": 180,
+}
+REVIEW_DUPLICATE_POOL_LIMIT = 2000
 
 CODE_BUSINESS_COLUMNS = {
     "code_files": [

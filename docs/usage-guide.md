@@ -413,6 +413,7 @@ After a refresh, `maintain-plan` may return:
 
 - `review_semantic_drift`
 - `mark_experience_stale_if_anchor_removed`
+- `review_skill_pattern_staleness`
 
 Use the first to drive focused `learn-business` repair. Use the second to review older reflections or experience candidates that still point at files removed from the refreshed scope.
 
@@ -669,6 +670,7 @@ python tools/agent_memory.py maintain-plan --project . --json
 python tools/agent_memory.py maintain-skill-draft --project . --pattern-name "..." --json
 python tools/agent_memory.py maintain-skill-draft --project . --pattern-name all --json
 python tools/agent_memory.py maintain-skill-package --project . --pattern-name "..." --json
+python tools/agent_memory.py maintain-skill-promotion-status --project . --pattern-name "..." --json
 python tools/agent_memory.py miss-list --project . --status open --json
 python tools/agent_memory.py miss-status --project . --id 1 --status ignored --resolution "not useful"
 python tools/agent_memory.py vault-export --project .

@@ -1552,3 +1552,51 @@ Rollback notes:
 - Added `review_semantic_drift` actions with targeted `learn_business_payload_template` output for changed or newly added files in refreshed scopes.
 - Added `mark_experience_stale_if_anchor_removed` advisory actions when active reflections still reference files removed during scope refresh.
 - Updated runtime, usage, and maintain-skill docs so refresh is now explicitly part of the maintain governance chain instead of a standalone maintenance command.
+- Added scope health aggregation so `maintain-health` reports learned-scope counts, drift counts, missing-source scopes, and a sorted scope-health summary.
+- Added vault dashboards for `Governance/Learned Scopes.md` and `Governance/Refresh Drift.md`, and linked them from the vault index and review queue.
+- Strengthened skill-pattern quality signals with reuse counts and anchor freshness (`helped_reuse_count`, `partial_reuse_count`, `misleading_reuse_count`, `anchor_health`, `missing_anchor_paths`).
+- Added `review_skill_pattern_staleness` so removed-file drift can warn when a clustered skill pattern still depends on stale anchors.
+- Added `maintain-skill-promotion-status` as a read-only final gate that reports promotion blockers, review metadata, checklist status, anchor freshness, and formal target path before any manual promotion.
+
+## 2026-06-02 - 500k-scale query/update hardening
+
+Files touched:
+
+- `tools/agent_memory_runtime/models.py`
+- `tools/agent_memory_runtime/storage.py`
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/code_wiki.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_agent_memory.py`
+- `gitlog.md`
+
+What changed:
+
+- Added SQLite FTS5 side indexes for `semantic_facts`, `reflections`, `episodes`, `code_files`, `code_symbols`, and `code_log_statements`, with trigger-based sync on insert/update/delete.
+- Changed query recall from whole-table row loading to SQLite candidate recall first, followed by the existing Python rerank logic.
+- Added a bounded SQL `LIKE` fallback for Chinese and low-hit scenes so route/resource/log/config queries still recall useful candidates when FTS tokenization is weak.
+- Added missing hot-path indexes for code-symbol, code-log, and status/staleness filtering paths.
+- Changed scoped `learn-path` / `learn-entry` refresh from full-project `memory_edges` rebuilds to affected-scope edge deletion and incremental edge rebuild.
+- Bounded duplicate-review work to a recent review pool instead of unbounded O(n²) comparison over all active memory rows.
+- Changed `maintain-health` and `maintain-review` to rely on SQL counts/filters and only load bounded active windows where pairwise review logic is still needed.
+
+Why:
+
+- Keep query latency from scaling linearly with total row volume as the memory archive approaches hundreds of thousands of rows.
+- Make local relearn and refresh cost proportional to the touched scope instead of proportional to all learned files and edges in the project.
+- Prevent maintain workflows from turning into large in-memory scans or quadratic comparisons as durable memory accumulates.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: `99 tests OK`.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passed.
+- Command: `git diff --check`
+- Result: clean.
+
+Rollback notes:
+
+- Remove the FTS5 side indexes and triggers if we want to fall back to the old full-scan query behavior.
+- Restore full-project edge rebuilds if scoped edge invalidation proves too conservative or too complex to maintain.
+- Remove the bounded duplicate-review pool if exact all-history duplicate detection becomes more important than bounded maintain cost.

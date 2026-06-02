@@ -502,6 +502,8 @@ def write_wiki_scope(
     )
     if retired:
         with connect(project) as conn:
+            retired_ids = scope_node_ids(conn, project.project_id, retired)
+            delete_edges_for_scope(conn, project.project_id, retired_ids)
             for file_path in retired:
                 conn.execute(
                     "DELETE FROM code_files WHERE project_id = ? AND file_path = ?",
@@ -515,8 +517,6 @@ def write_wiki_scope(
                     "DELETE FROM code_log_statements WHERE project_id = ? AND file_path = ?",
                     (project.project_id, file_path),
                 )
-            conn.execute("DELETE FROM memory_edges WHERE project_id = ?", (project.project_id,))
-            rebuild_code_memory_edges(conn, project)
             stats["memory_edges_total"] = conn.execute(
                 "SELECT COUNT(*) AS count FROM memory_edges WHERE project_id = ?",
                 (project.project_id,),
@@ -584,12 +584,16 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
         for log in logs:
             log_level_counts[str(log.get("level") or "log")] += 1
 
+    affected_file_paths = [rel_text for _, _, rel_text, _ in relative_files]
     with connect(project) as conn:
+        previous_scope_ids = scope_node_ids(conn, project.project_id, affected_file_paths)
         if replace:
             conn.execute("DELETE FROM code_files WHERE project_id = ?", (project.project_id,))
             conn.execute("DELETE FROM code_symbols WHERE project_id = ?", (project.project_id,))
             conn.execute("DELETE FROM code_log_statements WHERE project_id = ?", (project.project_id,))
+            conn.execute("DELETE FROM memory_edges WHERE project_id = ?", (project.project_id,))
         else:
+            delete_edges_for_scope(conn, project.project_id, previous_scope_ids)
             for _, _, rel_text, _ in relative_files:
                 conn.execute(
                     "DELETE FROM code_files WHERE project_id = ? AND file_path = ?",
@@ -603,7 +607,6 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                     "DELETE FROM code_log_statements WHERE project_id = ? AND file_path = ?",
                     (project.project_id, rel_text),
                 )
-        conn.execute("DELETE FROM memory_edges WHERE project_id = ?", (project.project_id,))
         for path, _rel, rel_text, language in relative_files:
             summary = summarize_file(path, language)
             conn.execute(
@@ -643,7 +646,7 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                         ts,
                     ),
                 )
-        rebuild_code_memory_edges(conn, project)
+        rebuild_code_memory_edges(conn, project, scope_file_paths=None if replace else affected_file_paths)
         memory_edges_total = conn.execute(
             "SELECT COUNT(*) AS count FROM memory_edges WHERE project_id = ?",
             (project.project_id,),
@@ -660,7 +663,73 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
     }
 
 
-def rebuild_code_memory_edges(conn: sqlite3.Connection, project: Project) -> None:
+def scope_node_ids(
+    conn: sqlite3.Connection,
+    project_id: str,
+    file_paths: list[str],
+) -> dict[str, set[int]]:
+    if not file_paths:
+        return {"code_file": set(), "code_symbol": set(), "code_log_statement": set()}
+    placeholders = ",".join("?" for _ in file_paths)
+    file_rows = conn.execute(
+        f"""
+        SELECT id
+        FROM code_files
+        WHERE project_id = ? AND file_path IN ({placeholders})
+        """,
+        (project_id, *file_paths),
+    ).fetchall()
+    symbol_rows = conn.execute(
+        f"""
+        SELECT id
+        FROM code_symbols
+        WHERE project_id = ? AND file_path IN ({placeholders})
+        """,
+        (project_id, *file_paths),
+    ).fetchall()
+    log_rows = conn.execute(
+        f"""
+        SELECT id
+        FROM code_log_statements
+        WHERE project_id = ? AND file_path IN ({placeholders})
+        """,
+        (project_id, *file_paths),
+    ).fetchall()
+    return {
+        "code_file": {int(row["id"]) for row in file_rows},
+        "code_symbol": {int(row["id"]) for row in symbol_rows},
+        "code_log_statement": {int(row["id"]) for row in log_rows},
+    }
+
+
+def delete_edges_for_scope(
+    conn: sqlite3.Connection,
+    project_id: str,
+    scoped_ids: dict[str, set[int]],
+) -> None:
+    for entity_type, ids in scoped_ids.items():
+        if not ids:
+            continue
+        placeholders = ",".join("?" for _ in ids)
+        conn.execute(
+            f"""
+            DELETE FROM memory_edges
+            WHERE project_id = ?
+              AND (
+                (source_type = ? AND source_id IN ({placeholders}))
+                OR
+                (target_type = ? AND target_id IN ({placeholders}))
+              )
+            """,
+            (project_id, entity_type, *ids, entity_type, *ids),
+        )
+
+
+def rebuild_code_memory_edges(
+    conn: sqlite3.Connection,
+    project: Project,
+    scope_file_paths: list[str] | None = None,
+) -> None:
     ts = now_iso()
     project_id = project.project_id
     files = conn.execute(
@@ -680,7 +749,11 @@ def rebuild_code_memory_edges(conn: sqlite3.Connection, project: Project) -> Non
         (row["file_path"], row["symbol"]): row["id"]
         for row in symbols
     }
-    for row in symbols:
+    scoped_paths = set(scope_file_paths or [])
+    scoped_symbols = [row for row in symbols if not scoped_paths or row["file_path"] in scoped_paths]
+    scoped_logs = [row for row in logs if not scoped_paths or row["file_path"] in scoped_paths]
+    scoped_files = [row for row in files if not scoped_paths or row["file_path"] in scoped_paths]
+    for row in scoped_symbols:
         file_id = file_ids.get(row["file_path"])
         if file_id:
             insert_memory_edge(
@@ -695,7 +768,7 @@ def rebuild_code_memory_edges(conn: sqlite3.Connection, project: Project) -> Non
                 0.9,
                 ts,
             )
-    for row in logs:
+    for row in scoped_logs:
         file_id = file_ids.get(row["file_path"])
         evidence = f"{row['file_path']}:{row['line']}" if row["line"] else row["file_path"]
         if file_id:
@@ -727,7 +800,7 @@ def rebuild_code_memory_edges(conn: sqlite3.Connection, project: Project) -> Non
                 ts,
             )
 
-    insert_arkts_knowledge_edges(conn, project, files, symbols, ts)
+    insert_arkts_knowledge_edges(conn, project, scoped_files, symbols, ts)
 
 
 def insert_arkts_knowledge_edges(

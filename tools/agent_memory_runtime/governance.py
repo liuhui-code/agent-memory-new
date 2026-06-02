@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from .code_wiki import semantic_followup_from_db
-from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, VALID_MEMORY_STATUSES
+from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE_POOL_LIMIT, VALID_MEMORY_STATUSES
 from .query import collect_matches, infer_followup_focus, rank_followup_seed_terms, suggested_followup_terms
 from .records import output, parse_ids, row_dict, table_for_type
 from .storage import connect, ensure_initialized, now_iso, resolve_project
@@ -50,7 +50,8 @@ def token_set(text: str) -> set[str]:
 
 def duplicate_candidates(rows: list[dict[str, Any]], kind: str, limit: int = 10) -> list[dict[str, Any]]:
     candidates: list[dict[str, Any]] = []
-    prepared = [(row, token_set(memory_text(row, kind))) for row in rows]
+    ordered_rows = sorted(rows, key=lambda item: int(item.get("id") or 0), reverse=True)[:REVIEW_DUPLICATE_POOL_LIMIT]
+    prepared = [(row, token_set(memory_text(row, kind))) for row in ordered_rows]
     for index, (left, left_tokens) in enumerate(prepared):
         if not left_tokens:
             continue
@@ -68,23 +69,35 @@ def duplicate_candidates(rows: list[dict[str, Any]], kind: str, limit: int = 10)
                         "similarity": round(similarity, 3),
                         "reason": "high token overlap",
                         "suggested_action": "review or merge",
+                        "review_pool_limited": len(rows) > REVIEW_DUPLICATE_POOL_LIMIT,
                     }
                 )
     candidates.sort(key=lambda item: item["similarity"], reverse=True)
     return candidates[:limit]
 
 
-def fetch_memory_rows(conn: sqlite3.Connection, project: Project, kind: str, active_only: bool = True) -> list[dict[str, Any]]:
+def fetch_memory_rows(
+    conn: sqlite3.Connection,
+    project: Project,
+    kind: str,
+    active_only: bool = True,
+    limit: int | None = None,
+) -> list[dict[str, Any]]:
     table = table_for_type(kind)
     status_filter = "AND COALESCE(status, 'active') = 'active'" if active_only else ""
     stale_filter = "AND COALESCE(is_stale, 0) = 0" if table in {"semantic_facts", "reflections"} and active_only else ""
+    limit_clause = "LIMIT ?" if limit is not None else ""
+    params: list[Any] = [project.project_id]
+    if limit is not None:
+        params.append(limit)
     rows = conn.execute(
         f"""
         SELECT * FROM {table}
         WHERE project_id = ? {status_filter} {stale_filter}
         ORDER BY id DESC
+        {limit_clause}
         """,
-        (project.project_id,),
+        params,
     ).fetchall()
     return [row_dict(row) for row in rows]
 
@@ -93,9 +106,61 @@ def maintain_health(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     with connect(project) as conn:
-        semantic_rows = fetch_memory_rows(conn, project, "semantic", active_only=False)
-        reflection_rows = fetch_memory_rows(conn, project, "reflection", active_only=False)
-        episode_rows = fetch_memory_rows(conn, project, "episode", active_only=False)
+        semantic_count = conn.execute(
+            "SELECT COUNT(*) AS count FROM semantic_facts WHERE project_id = ?",
+            (project.project_id,),
+        ).fetchone()["count"]
+        reflection_count = conn.execute(
+            "SELECT COUNT(*) AS count FROM reflections WHERE project_id = ?",
+            (project.project_id,),
+        ).fetchone()["count"]
+        episode_count = conn.execute(
+            "SELECT COUNT(*) AS count FROM episodes WHERE project_id = ?",
+            (project.project_id,),
+        ).fetchone()["count"]
+        stale_semantic_count = conn.execute(
+            """
+            SELECT COUNT(*) AS count
+            FROM semantic_facts
+            WHERE project_id = ? AND (COALESCE(is_stale, 0) = 1 OR COALESCE(status, 'active') = 'stale')
+            """,
+            (project.project_id,),
+        ).fetchone()["count"]
+        stale_reflection_count = conn.execute(
+            """
+            SELECT COUNT(*) AS count
+            FROM reflections
+            WHERE project_id = ? AND (COALESCE(is_stale, 0) = 1 OR COALESCE(status, 'active') = 'stale')
+            """,
+            (project.project_id,),
+        ).fetchone()["count"]
+        low_conf_semantic_count = conn.execute(
+            """
+            SELECT COUNT(*) AS count
+            FROM semantic_facts
+            WHERE project_id = ? AND COALESCE(confidence, 0.8) < 0.6
+            """,
+            (project.project_id,),
+        ).fetchone()["count"]
+        low_conf_reflection_count = conn.execute(
+            """
+            SELECT COUNT(*) AS count
+            FROM reflections
+            WHERE project_id = ? AND COALESCE(confidence, 0.8) < 0.6
+            """,
+            (project.project_id,),
+        ).fetchone()["count"]
+        unreviewed_reflections = conn.execute(
+            """
+            SELECT COUNT(*) AS count
+            FROM reflections
+            WHERE project_id = ?
+              AND reviewed_at IS NULL
+              AND COALESCE(status, 'active') = 'active'
+              AND COALESCE(is_stale, 0) = 0
+            """,
+            (project.project_id,),
+        ).fetchone()["count"]
         code_files_missing_business_terms = conn.execute(
             """
             SELECT COUNT(*) AS count
@@ -123,19 +188,17 @@ def maintain_health(args: argparse.Namespace) -> None:
             """,
             (project.project_id,),
         ).fetchone()["count"]
+        semantic_active_rows = fetch_memory_rows(conn, project, "semantic", active_only=True, limit=REVIEW_DUPLICATE_POOL_LIMIT)
+        reflection_active_rows = fetch_memory_rows(conn, project, "reflection", active_only=True, limit=REVIEW_DUPLICATE_POOL_LIMIT)
 
-    semantic_active = [row for row in semantic_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
-    reflection_active = [row for row in reflection_rows if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")]
-    duplicate_count = len(duplicate_candidates(semantic_active, "semantic")) + len(duplicate_candidates(reflection_active, "reflection"))
-    low_confidence_count = sum(1 for row in semantic_rows + reflection_rows if float(row.get("confidence") or 0.8) < 0.6)
-    stale_count = sum(1 for row in semantic_rows + reflection_rows if row.get("is_stale") or row.get("status") == "stale")
-    unreviewed_reflections = sum(
-        1
-        for row in reflection_rows
-        if not row.get("reviewed_at")
-        and (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS
-        and not row.get("is_stale")
-    )
+    scope_health_rows = build_scope_health_rows(project)
+    scope_missing_source = sum(1 for row in scope_health_rows if row["health_status"] == "missing_source")
+    scope_with_drift = sum(1 for row in scope_health_rows if row["health_status"] in {"drift", "high_drift"})
+    scope_high_drift = sum(1 for row in scope_health_rows if row["health_status"] == "high_drift")
+
+    duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
+    low_confidence_count = low_conf_semantic_count + low_conf_reflection_count
+    stale_count = stale_semantic_count + stale_reflection_count
 
     recommended_actions: list[str] = []
     if stale_count:
@@ -148,13 +211,17 @@ def maintain_health(args: argparse.Namespace) -> None:
         recommended_actions.append("Review reflections and promote durable lessons into semantic facts.")
     if code_files_missing_business_terms or code_symbols_missing_business_terms or code_logs_missing_business_terms:
         recommended_actions.append("Enrich learned code with business summaries and terms through agent-memory-learn.")
+    if scope_missing_source:
+        recommended_actions.append("Repair or retire learned scopes whose source roots no longer exist.")
+    if scope_with_drift:
+        recommended_actions.append("Review refreshed scope drift and rerun focused learn-business on changed files.")
 
     data = {
         "project_id": project.project_id,
         "counts": {
-            "semantic_facts": len(semantic_rows),
-            "reflections": len(reflection_rows),
-            "episodes": len(episode_rows),
+            "semantic_facts": semantic_count,
+            "reflections": reflection_count,
+            "episodes": episode_count,
             "stale": stale_count,
             "low_confidence": low_confidence_count,
             "duplicate_candidates": duplicate_count,
@@ -162,7 +229,12 @@ def maintain_health(args: argparse.Namespace) -> None:
             "code_files_missing_business_terms": code_files_missing_business_terms,
             "code_symbols_missing_business_terms": code_symbols_missing_business_terms,
             "code_logs_missing_business_terms": code_logs_missing_business_terms,
+            "learn_scopes": len(scope_health_rows),
+            "scope_missing_source": scope_missing_source,
+            "scope_with_drift": scope_with_drift,
+            "scope_high_drift": scope_high_drift,
         },
+        "scope_health": scope_health_rows[:10],
         "recommended_actions": recommended_actions,
     }
     output(data, args.json)
@@ -515,6 +587,14 @@ def evaluate_skill_pattern_quality(candidate: dict[str, Any], grouped_rows: list
         score -= 2
         reasons.append("has_misleading_reuse_signal")
 
+    anchor_health = candidate.get("anchor_health")
+    if anchor_health == "fresh":
+        score += 1
+        reasons.append("supporting_anchors_are_fresh")
+    elif anchor_health == "mixed":
+        reasons.append("some_supporting_anchors_are_missing")
+    elif anchor_health == "missing":
+        reasons.append("supporting_anchors_are_missing")
     if score >= 8:
         readiness = "promotion_candidate"
     elif score >= 5:
@@ -522,6 +602,99 @@ def evaluate_skill_pattern_quality(candidate: dict[str, Any], grouped_rows: list
     else:
         readiness = "needs_more_evidence"
     return score, readiness, reasons
+
+
+def supporting_anchor_health(project_root: Path, grouped_rows: list[dict[str, Any]]) -> dict[str, Any]:
+    anchors = stable_unique_strings(
+        [
+            path
+            for row in grouped_rows
+            for path in extract_path_like_values(
+                row.get("source_cases"),
+                row.get("inspection_targets"),
+                row.get("context_used"),
+                row.get("evidence"),
+                row.get("final_verification_path"),
+            )
+        ]
+    )
+    existing: list[str] = []
+    missing: list[str] = []
+    for anchor in anchors:
+        candidate = project_root / anchor
+        if candidate.exists():
+            existing.append(anchor)
+        else:
+            missing.append(anchor)
+    if not anchors:
+        status = "unknown"
+    elif not missing:
+        status = "fresh"
+    elif existing:
+        status = "mixed"
+    else:
+        status = "missing"
+    return {
+        "anchor_paths": anchors,
+        "existing_anchor_paths": existing,
+        "missing_anchor_paths": missing,
+        "anchor_health": status,
+    }
+
+
+def build_scope_health_rows(project: Project, limit: int = 50) -> list[dict[str, Any]]:
+    with connect(project) as conn:
+        rows = conn.execute(
+            """
+            SELECT *
+            FROM learn_scopes
+            WHERE project_id = ?
+            ORDER BY updated_at DESC, id DESC
+            LIMIT ?
+            """,
+            (project.project_id, limit),
+        ).fetchall()
+    scope_rows: list[dict[str, Any]] = []
+    for row in rows:
+        item = row_dict(row)
+        source_root = Path(item["source_root"]).expanduser()
+        source_exists = source_root.exists() and source_root.is_dir()
+        try:
+            refresh_summary = json.loads(item.get("last_refresh_summary") or "{}")
+        except json.JSONDecodeError:
+            refresh_summary = {}
+        added = refresh_summary.get("added_files") or []
+        changed = refresh_summary.get("changed_files") or []
+        removed = refresh_summary.get("removed_files") or []
+        drift_count = len(added) + len(changed) + len(removed)
+        if not source_exists:
+            health = "missing_source"
+        elif drift_count >= 5:
+            health = "high_drift"
+        elif drift_count >= 1:
+            health = "drift"
+        else:
+            health = "stable"
+        item.update(
+            {
+                "source_exists": source_exists,
+                "added_files": added,
+                "changed_files": changed,
+                "removed_files": removed,
+                "drift_count": drift_count,
+                "health_status": health,
+            }
+        )
+        scope_rows.append(item)
+    scope_rows.sort(
+        key=lambda row: (
+            {"missing_source": 3, "high_drift": 2, "drift": 1, "stable": 0}.get(row["health_status"], 0),
+            row["drift_count"],
+            row["id"],
+        ),
+        reverse=True,
+    )
+    return scope_rows
 
 
 def skill_candidate_draft_path(pattern_name: str) -> str:
@@ -718,6 +891,15 @@ def build_skill_candidate_markdown(candidate: dict[str, Any]) -> str:
     lines.extend(["", "## Quality Signals", ""])
     lines.append(f"- Readiness: `{candidate.get('promotion_readiness', 'needs_more_evidence')}`")
     lines.append(f"- Quality score: `{candidate.get('quality_score', 0)}`")
+    lines.append(f"- Helped reuse count: `{candidate.get('helped_reuse_count', 0)}`")
+    lines.append(f"- Partial reuse count: `{candidate.get('partial_reuse_count', 0)}`")
+    lines.append(f"- Misleading reuse count: `{candidate.get('misleading_reuse_count', 0)}`")
+    lines.append(f"- Anchor health: `{candidate.get('anchor_health', 'unknown')}`")
+    missing_anchors = candidate.get("missing_anchor_paths") or []
+    if missing_anchors:
+        lines.append("- Missing anchors:")
+        for item in missing_anchors:
+            lines.append(f"  - {item}")
     for item in candidate.get("quality_reasons", []):
         lines.append(f"- {item}")
     lines.extend(
@@ -784,6 +966,7 @@ def build_skill_promotion_checklist_markdown(candidate: dict[str, Any]) -> str:
         "",
         f"- [ ] Promotion readiness is acceptable (`{candidate.get('promotion_readiness', 'needs_more_evidence')}`).",
         f"- [ ] Quality score is acceptable for manual promotion review (`{candidate.get('quality_score', 0)}`).",
+        f"- [ ] Anchor health is acceptable (`{candidate.get('anchor_health', 'unknown')}`).",
         f"- [ ] Supporting reflections are still sufficient (`{candidate['supporting_count']}` currently).",
         "- [ ] Trigger conditions are stable and explicit.",
         "- [ ] Common steps are executable in order.",
@@ -811,7 +994,7 @@ def build_skill_promotion_checklist_markdown(candidate: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def build_skill_pattern_candidates(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def build_skill_pattern_candidates(project: Project, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     groups: dict[str, list[dict[str, Any]]] = {}
     for row in rows:
         if reflection_experience_type(row) == "correction_experience":
@@ -880,6 +1063,22 @@ def build_skill_pattern_candidates(rows: list[dict[str, Any]]) -> list[dict[str,
                 for target in json_list(row.get("inspection_targets"))
             ]
         )
+        helped_count = sum(
+            1
+            for row in grouped_rows
+            if row.get("last_outcome") == "helped" or row.get("reuse_feedback") == "helped"
+        )
+        partial_count = sum(
+            1
+            for row in grouped_rows
+            if row.get("last_outcome") == "partial" or row.get("reuse_feedback") == "partial"
+        )
+        misleading_count = sum(
+            1
+            for row in grouped_rows
+            if row.get("last_outcome") == "misleading" or row.get("reuse_feedback") == "misleading"
+        )
+        anchor_health = supporting_anchor_health(project.root, grouped_rows)
         common_steps = infer_common_steps(
             common_followup_focus,
             query_terms,
@@ -900,6 +1099,10 @@ def build_skill_pattern_candidates(rows: list[dict[str, Any]]) -> list[dict[str,
             "supporting_cases": supporting_cases[:10],
             "trigger_cluster": trigger_cluster[:6],
             "verification_methods": verification_methods[:4],
+            "helped_reuse_count": helped_count,
+            "partial_reuse_count": partial_count,
+            "misleading_reuse_count": misleading_count,
+            **anchor_health,
             "draft_path": skill_candidate_draft_path(pattern_name),
         }
         quality_score, promotion_readiness, quality_reasons = evaluate_skill_pattern_quality(candidate, grouped_rows)
@@ -924,37 +1127,76 @@ def is_complete_experience_candidate(row: dict[str, Any]) -> bool:
 
 def build_review_data(project: Project, limit: int) -> dict[str, Any]:
     with connect(project) as conn:
-        semantic_rows = fetch_memory_rows(conn, project, "semantic", active_only=False)
-        reflection_rows = fetch_memory_rows(conn, project, "reflection", active_only=False)
-        episode_rows = fetch_memory_rows(conn, project, "episode", active_only=False)
-
-    semantic_active = [
-        row for row in semantic_rows
-        if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")
-    ]
-    reflection_active = [
-        row for row in reflection_rows
-        if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")
-    ]
+        stale_semantic_rows = conn.execute(
+            """
+            SELECT * FROM semantic_facts
+            WHERE project_id = ?
+              AND (COALESCE(is_stale, 0) = 1 OR COALESCE(status, 'active') = 'stale')
+            ORDER BY id DESC
+            LIMIT ?
+            """,
+            (project.project_id, limit),
+        ).fetchall()
+        stale_reflection_rows = conn.execute(
+            """
+            SELECT * FROM reflections
+            WHERE project_id = ?
+              AND (COALESCE(is_stale, 0) = 1 OR COALESCE(status, 'active') = 'stale')
+            ORDER BY id DESC
+            LIMIT ?
+            """,
+            (project.project_id, limit),
+        ).fetchall()
+        low_conf_semantic_rows = conn.execute(
+            """
+            SELECT * FROM semantic_facts
+            WHERE project_id = ?
+              AND COALESCE(confidence, 0.8) < 0.6
+            ORDER BY id DESC
+            LIMIT ?
+            """,
+            (project.project_id, limit),
+        ).fetchall()
+        low_conf_reflection_rows = conn.execute(
+            """
+            SELECT * FROM reflections
+            WHERE project_id = ?
+              AND COALESCE(confidence, 0.8) < 0.6
+            ORDER BY id DESC
+            LIMIT ?
+            """,
+            (project.project_id, limit),
+        ).fetchall()
+        unreviewed_reflection_rows = conn.execute(
+            """
+            SELECT * FROM reflections
+            WHERE project_id = ?
+              AND reviewed_at IS NULL
+              AND COALESCE(status, 'active') = 'active'
+              AND COALESCE(is_stale, 0) = 0
+            ORDER BY id DESC
+            LIMIT ?
+            """,
+            (project.project_id, limit),
+        ).fetchall()
+        unreviewed_episode_rows = conn.execute(
+            """
+            SELECT * FROM episodes
+            WHERE project_id = ?
+              AND reviewed_at IS NULL
+              AND COALESCE(status, 'active') = 'active'
+            ORDER BY id DESC
+            LIMIT ?
+            """,
+            (project.project_id, limit),
+        ).fetchall()
+        semantic_active = fetch_memory_rows(conn, project, "semantic", active_only=True, limit=REVIEW_DUPLICATE_POOL_LIMIT)
+        reflection_active = fetch_memory_rows(conn, project, "reflection", active_only=True, limit=REVIEW_DUPLICATE_POOL_LIMIT)
     return {
-        "stale_memories": [
-            row for row in semantic_rows + reflection_rows
-            if row.get("is_stale") or row.get("status") == "stale"
-        ][:limit],
-        "low_confidence": [
-            row for row in semantic_rows + reflection_rows
-            if float(row.get("confidence") or 0.8) < 0.6
-        ][:limit],
-        "unreviewed_reflections": [
-            row for row in reflection_rows
-            if not row.get("reviewed_at")
-            and (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS
-            and not row.get("is_stale")
-        ][:limit],
-        "unreviewed_episodes": [
-            row for row in episode_rows
-            if not row.get("reviewed_at") and (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS
-        ][:limit],
+        "stale_memories": [row_dict(row) for row in list(stale_semantic_rows) + list(stale_reflection_rows)][:limit],
+        "low_confidence": [row_dict(row) for row in list(low_conf_semantic_rows) + list(low_conf_reflection_rows)][:limit],
+        "unreviewed_reflections": [row_dict(row) for row in unreviewed_reflection_rows],
+        "unreviewed_episodes": [row_dict(row) for row in unreviewed_episode_rows],
         "duplicate_candidates": (
             duplicate_candidates(semantic_active, "semantic", limit)
             + duplicate_candidates(reflection_active, "reflection", limit)
@@ -1133,7 +1375,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
             }
         )
 
-    for candidate in build_skill_pattern_candidates(review["unreviewed_reflections"]):
+    for candidate in build_skill_pattern_candidates(project, review["unreviewed_reflections"]):
         candidate = annotate_skill_pattern_artifacts(project.root, candidate)
         actions.append(
             {
@@ -1250,6 +1492,29 @@ def maintain_plan(args: argparse.Namespace) -> None:
                     "linked_reflection_ids": removed_reflection_ids,
                 }
             )
+            affected_patterns = stable_unique_strings(
+                [
+                    str(row.get("skill_candidate") or "")
+                    for row in review["unreviewed_reflections"]
+                    if int(row.get("id") or 0) in removed_reflection_ids and row.get("skill_candidate")
+                ]
+            )
+            for pattern_name in affected_patterns:
+                actions.append(
+                    {
+                        "action": "review_skill_pattern_staleness",
+                        "type": "skill_pattern",
+                        "id": None,
+                        "reason": "a clustered skill pattern depends on reflections anchored to removed files",
+                        "risk": "medium",
+                        "requires_confirmation": True,
+                        "command": None,
+                        "pattern_name": pattern_name,
+                        "scope_id": drift["scope_id"],
+                        "removed_files": drift.get("removed_files") or [],
+                        "linked_reflection_ids": removed_reflection_ids,
+                    }
+                )
 
     if any(semantic_gap_targets.values()):
         actions.append(
@@ -1281,7 +1546,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "open_query_misses": len(query_misses),
             "semantic_conflicts": len(semantic_conflicts),
             "refresh_drifts": len(refresh_drifts),
-            "skill_pattern_candidates": len(build_skill_pattern_candidates(review["unreviewed_reflections"])),
+            "skill_pattern_candidates": len(build_skill_pattern_candidates(project, review["unreviewed_reflections"])),
         },
         "actions": actions,
         "advisory_notice": "maintain-plan only proposes actions. Execute changes only after user confirmation.",
@@ -1771,7 +2036,7 @@ def maintain_promote(args: argparse.Namespace) -> None:
 def maintain_skill_draft(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    candidates = build_skill_pattern_candidates(active_reflection_rows(project))
+    candidates = build_skill_pattern_candidates(project, active_reflection_rows(project))
     if args.pattern_name == "all":
         written: list[dict[str, Any]] = []
         for candidate in candidates:
@@ -1846,7 +2111,7 @@ def maintain_skill_draft(args: argparse.Namespace) -> None:
 def maintain_skill_package(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    candidates = build_skill_pattern_candidates(active_reflection_rows(project))
+    candidates = build_skill_pattern_candidates(project, active_reflection_rows(project))
     candidate = next((item for item in candidates if item["pattern_name"] == args.pattern_name), None)
     if not candidate:
         raise SystemExit(f"skill pattern candidate not found: {args.pattern_name}")
@@ -1880,5 +2145,60 @@ def maintain_skill_package(args: argparse.Namespace) -> None:
         "existing_reviewer": write_result["existing_reviewer"],
         "promotion_checklist_write_action": checklist_write_result["write_action"],
         "promotion_checklist_warning": checklist_write_result["warning"],
+    }
+    output(payload, args.json)
+
+
+def maintain_skill_promotion_status(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    ensure_initialized(project)
+    candidates = build_skill_pattern_candidates(project, active_reflection_rows(project))
+    candidate = next((item for item in candidates if item["pattern_name"] == args.pattern_name), None)
+    if not candidate:
+        raise SystemExit(f"skill pattern candidate not found: {args.pattern_name}")
+    candidate = annotate_skill_pattern_artifacts(project.root, candidate)
+    draft_meta = read_frontmatter_metadata(project.root / candidate["draft_path"])
+    package_meta = read_frontmatter_metadata(project.root / candidate["package_path"])
+    formal_target = f"skills/{candidate['pattern_name']}/SKILL.md"
+    blockers: list[str] = []
+    if candidate["promotion_stage"] != "candidate_package":
+        blockers.append("candidate_package_not_written")
+    if candidate["promotion_checklist_status"] != "written":
+        blockers.append("promotion_checklist_missing")
+    if candidate.get("package_review_status") in {"", "pending_review"}:
+        blockers.append("package_review_not_completed")
+    if not candidate.get("package_reviewer"):
+        blockers.append("package_reviewer_missing")
+    if candidate.get("promotion_readiness") != "promotion_candidate":
+        blockers.append("promotion_readiness_not_high_enough")
+    if candidate.get("anchor_health") == "missing":
+        blockers.append("supporting_anchors_missing")
+    payload = {
+        "pattern_name": candidate["pattern_name"],
+        "formal_target": formal_target,
+        "promotion_stage": candidate["promotion_stage"],
+        "draft_path": candidate["draft_path"],
+        "draft_status": candidate["draft_status"],
+        "draft_review_status": candidate["draft_review_status"],
+        "draft_reviewer": candidate["draft_reviewer"],
+        "package_path": candidate["package_path"],
+        "package_status": candidate["package_status"],
+        "package_review_status": candidate["package_review_status"],
+        "package_reviewer": candidate["package_reviewer"],
+        "promotion_checklist_path": candidate["promotion_checklist_path"],
+        "promotion_checklist_status": candidate["promotion_checklist_status"],
+        "promotion_readiness": candidate["promotion_readiness"],
+        "quality_score": candidate["quality_score"],
+        "quality_reasons": candidate["quality_reasons"],
+        "helped_reuse_count": candidate["helped_reuse_count"],
+        "partial_reuse_count": candidate["partial_reuse_count"],
+        "misleading_reuse_count": candidate["misleading_reuse_count"],
+        "anchor_health": candidate["anchor_health"],
+        "missing_anchor_paths": candidate["missing_anchor_paths"],
+        "draft_frontmatter": draft_meta,
+        "package_frontmatter": package_meta,
+        "promotion_blockers": blockers,
+        "ready_for_manual_promotion": not blockers,
+        "review_guidance": candidate["review_guidance"],
     }
     output(payload, args.json)

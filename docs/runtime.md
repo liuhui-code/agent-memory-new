@@ -104,6 +104,7 @@ python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact 
 python tools/agent_memory.py maintain-promote --project . --reflection-id 1 --fact "..." --json
 python tools/agent_memory.py maintain-skill-draft --project . --pattern-name "arkts-route-blank-screen-diagnosis" --json
 python tools/agent_memory.py maintain-skill-package --project . --pattern-name "arkts-route-blank-screen-diagnosis" --json
+python tools/agent_memory.py maintain-skill-promotion-status --project . --pattern-name "arkts-route-blank-screen-diagnosis" --json
 ```
 
 Governance actions should preserve history. Prefer status transitions over destructive deletion.
@@ -225,6 +226,11 @@ The grouped candidate now also carries stage metadata:
 - `promotion_readiness`
 - `quality_score`
 - `quality_reasons`
+- `helped_reuse_count`
+- `partial_reuse_count`
+- `misleading_reuse_count`
+- `anchor_health`
+- `missing_anchor_paths`
 
 These quality signals are advisory. They do not promote a skill automatically. They help distinguish:
 
@@ -232,7 +238,7 @@ These quality signals are advisory. They do not promote a skill automatically. T
 - patterns worth human review
 - patterns that are strong enough to consider manual promotion
 
-`vault-export` now mirrors these grouped candidates into `Governance/Skill Pattern Candidates.md`, including the proposed draft path, review statuses, reviewer metadata, preservation policy, and a Markdown preview. The vault remains a generated review mirror; it does not approve or install the skill.
+`vault-export` now mirrors these grouped candidates into `Governance/Skill Pattern Candidates.md`, including the proposed draft path, review statuses, reviewer metadata, preservation policy, anchor health, and a Markdown preview. The vault remains a generated review mirror; it does not approve or install the skill.
 
 # 3.6 Refresh And Retirement Path
 
@@ -275,6 +281,7 @@ Use `semantic_review_targets` to decide whether the next step is:
 
 - `review_semantic_drift`
 - `mark_experience_stale_if_anchor_removed`
+- `review_skill_pattern_staleness`
 
 The first action keeps business semantics aligned with changed code. The second is advisory and confirmation-gated: it marks reflections whose anchors point at removed files as candidates for stale review rather than silently deleting them.
 
@@ -327,6 +334,16 @@ The candidate package also carries YAML frontmatter with `promotion_status: cand
 The same review metadata fields stay with the package so a reviewer can record status and notes without inventing a second format.
 If an existing candidate package already carries human review metadata, the runtime preserves it and returns the same non-overwrite warning instead of silently replacing the reviewed artifact.
 The generated `PROMOTION.md` is the manual execution template for the final human promotion step into `skills/<name>/SKILL.md`.
+For a read-only promotion gate check, use:
+
+```bash
+python tools/agent_memory.py maintain-skill-promotion-status \
+  --project . \
+  --pattern-name "<pattern-name>" \
+  --json
+```
+
+This does not promote the skill. It reports `promotion_blockers`, `ready_for_manual_promotion`, reviewer metadata, checklist status, anchor freshness, and the eventual formal target path.
 
 The extra experience-candidate fields do not create accepted experience by themselves.
 Future Agents must verify them against current source, logs, tests, and code wiki

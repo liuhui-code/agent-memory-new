@@ -140,6 +140,25 @@ skills/<name>/SKILL.md
 
 ## 3. Promotion 前提条件
 
+在人工复制 candidate package 进入正式 `skills/` 前，先跑一次只读检查：
+
+```bash
+python tools/agent_memory.py maintain-skill-promotion-status \
+  --project . \
+  --pattern-name "<pattern-name>" \
+  --json
+```
+
+这个命令不会做 promotion。它只会返回：
+
+- `promotion_blockers`
+- `ready_for_manual_promotion`
+- review metadata
+- checklist status
+- anchor freshness
+
+把它当作 formal promotion 前的最后一层 runtime 自检。
+
 一个 candidate package 想进入正式 `skills/`，至少应满足：
 
 ### 3.1 支撑案例数量

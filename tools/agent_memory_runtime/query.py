@@ -10,6 +10,7 @@ from .models import (
     NETWORK_EDGE_LIMIT,
     NETWORK_MAX_DEPTH,
     Project,
+    QUERY_FTS_RECALL_LIMITS,
     QUERY_ALLOWED_EDGE_RELATIONS,
 )
 from .records import memory_warning, row_dict
@@ -36,6 +37,128 @@ CONTEXT_RESULT_LIMITS = {
 
 BATCHED_EDGE_TARGET_SIZE = 200
 
+FTS_TABLES = {
+    "semantic_facts": "semantic_fact_fts",
+    "reflections": "reflection_fts",
+    "episodes": "episode_fts",
+    "code_files": "code_file_fts",
+    "code_symbols": "code_symbol_fts",
+    "code_log_statements": "code_log_fts",
+}
+
+LIKE_RECALL_COLUMNS = {
+    "semantic_facts": ("fact", "source", "category", "scope", "evidence"),
+    "reflections": ("task", "summary", "lesson", "future_rule", "problem", "reasoning_summary", "useful_followup_terms", "inspection_targets", "verification_method", "source_cases", "skill_candidate", "evidence"),
+    "episodes": ("task", "summary", "outcome", "files_touched", "commands_run"),
+    "code_files": ("file_path", "summary", "business_summary", "business_terms"),
+    "code_symbols": ("file_path", "symbol", "symbol_type", "summary", "business_summary", "business_terms"),
+    "code_log_statements": ("file_path", "function", "logger", "message_template", "raw_statement", "business_summary", "business_terms"),
+}
+
+FOCUS_PRIORITY_TERMS = {
+    "route": ["route", "routes", "router", "pushurl", "replaceurl", "navigation", "page", "pages", "pagestack"],
+    "resource": ["resource", "resources", "media", "image", "string", "app.media", "app.string", "$r"],
+    "config": ["permission", "permissions", "dependency", "dependencies", "ability", "module", "json5", "config"],
+    "log": ["log", "logger", "console", "hilog", "error", "warning", "exception", "failed", "failure", "debug"],
+}
+
+
+def fts_match_expression(query: str) -> str | None:
+    tokens = unique_list([token for token in query_tokens(query) if len(token) > 1])
+    if not tokens:
+        return None
+    quoted = ['"' + token.replace('"', '""') + '"' for token in tokens[:12]]
+    return " OR ".join(quoted)
+
+
+def recall_candidate_ids(
+    conn: Any,
+    project: Project,
+    table_name: str,
+    query: str,
+    limit: int,
+) -> list[int]:
+    match_expr = fts_match_expression(query)
+    ids: list[int] = []
+    if match_expr:
+        fts_table = FTS_TABLES[table_name]
+        rows = conn.execute(
+            f"""
+            SELECT rowid
+            FROM {fts_table}
+            WHERE {fts_table} MATCH ?
+              AND project_id = ?
+            ORDER BY bm25({fts_table})
+            LIMIT ?
+            """,
+            (match_expr, project.project_id, limit),
+        ).fetchall()
+        ids = [int(row["rowid"]) for row in rows]
+    if ids:
+        return ids
+    return like_recall_candidate_ids(conn, project, table_name, query, limit)
+
+
+def like_recall_candidate_ids(
+    conn: Any,
+    project: Project,
+    table_name: str,
+    query: str,
+    limit: int,
+) -> list[int]:
+    columns = LIKE_RECALL_COLUMNS[table_name]
+    original_tokens = tokenize(query)
+    expanded_tokens = [token for token in query_tokens(query) if token not in original_tokens]
+    focus = focus_from_query(query)
+    focus_terms = [term for term in FOCUS_PRIORITY_TERMS.get(focus or "", []) if term in expanded_tokens]
+    other_expanded_terms = [term for term in expanded_tokens if term not in focus_terms]
+    primary_original = original_tokens[:1]
+    secondary_original = original_tokens[1:]
+    terms = unique_list([*primary_original, *focus_terms, *secondary_original, *other_expanded_terms, query.strip()])
+    terms = [term for term in terms if len(term.strip()) > 1][:12]
+    if not terms:
+        return []
+    term_clauses: list[str] = []
+    params: list[Any] = [project.project_id]
+    for term in terms:
+        column_clauses = [f"COALESCE({column}, '') LIKE ?" for column in columns]
+        term_clauses.append("(" + " OR ".join(column_clauses) + ")")
+        params.extend([f"%{term.strip()}%"] * len(columns))
+    rows = conn.execute(
+        f"""
+        SELECT id
+        FROM {table_name}
+        WHERE project_id = ?
+          AND ({' OR '.join(term_clauses)})
+        ORDER BY id DESC
+        LIMIT ?
+        """,
+        (*params, limit),
+    ).fetchall()
+    return [int(row["id"]) for row in rows]
+
+
+def fetch_rows_by_ids(
+    conn: Any,
+    base_table: str,
+    project: Project,
+    ids: list[int],
+    extra_where: str = "",
+) -> list[Any]:
+    if not ids:
+        return []
+    placeholders = ",".join("?" for _ in ids)
+    return conn.execute(
+        f"""
+        SELECT *
+        FROM {base_table}
+        WHERE project_id = ?
+          AND id IN ({placeholders})
+          {extra_where}
+        """,
+        (project.project_id, *ids),
+    ).fetchall()
+
 
 def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, Any]]]:
     tokens = query_tokens(query)
@@ -50,56 +173,45 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
         "edge_matches": [],
     }
     with connect(project) as conn:
-        semantic = conn.execute(
-            """
-            SELECT *
-            FROM semantic_facts
-            WHERE project_id = ? AND COALESCE(is_stale, 0) = 0
-              AND COALESCE(status, 'active') = 'active'
-            """,
-            (project.project_id,),
-        ).fetchall()
-        reflections = conn.execute(
-            """
-            SELECT *
-            FROM reflections
-            WHERE project_id = ? AND COALESCE(is_stale, 0) = 0
-              AND COALESCE(status, 'active') = 'active'
-            """,
-            (project.project_id,),
-        ).fetchall()
-        episodes = conn.execute(
-            """
-            SELECT *
-            FROM episodes
-            WHERE project_id = ? AND COALESCE(status, 'active') = 'active'
-            """,
-            (project.project_id,),
-        ).fetchall()
-        files = conn.execute(
-            """
-            SELECT *
-            FROM code_files
-            WHERE project_id = ?
-            """,
-            (project.project_id,),
-        ).fetchall()
-        symbols = conn.execute(
-            """
-            SELECT *
-            FROM code_symbols
-            WHERE project_id = ?
-            """,
-            (project.project_id,),
-        ).fetchall()
-        logs = conn.execute(
-            """
-            SELECT *
-            FROM code_log_statements
-            WHERE project_id = ?
-            """,
-            (project.project_id,),
-        ).fetchall()
+        semantic = fetch_rows_by_ids(
+            conn,
+            "semantic_facts",
+            project,
+            recall_candidate_ids(conn, project, "semantic_facts", query, QUERY_FTS_RECALL_LIMITS["semantic_facts"]),
+            "AND COALESCE(is_stale, 0) = 0 AND COALESCE(status, 'active') = 'active'",
+        )
+        reflections = fetch_rows_by_ids(
+            conn,
+            "reflections",
+            project,
+            recall_candidate_ids(conn, project, "reflections", query, QUERY_FTS_RECALL_LIMITS["reflections"]),
+            "AND COALESCE(is_stale, 0) = 0 AND COALESCE(status, 'active') = 'active'",
+        )
+        episodes = fetch_rows_by_ids(
+            conn,
+            "episodes",
+            project,
+            recall_candidate_ids(conn, project, "episodes", query, QUERY_FTS_RECALL_LIMITS["episodes"]),
+            "AND COALESCE(status, 'active') = 'active'",
+        )
+        files = fetch_rows_by_ids(
+            conn,
+            "code_files",
+            project,
+            recall_candidate_ids(conn, project, "code_files", query, QUERY_FTS_RECALL_LIMITS["code_files"]),
+        )
+        symbols = fetch_rows_by_ids(
+            conn,
+            "code_symbols",
+            project,
+            recall_candidate_ids(conn, project, "code_symbols", query, QUERY_FTS_RECALL_LIMITS["code_symbols"]),
+        )
+        logs = fetch_rows_by_ids(
+            conn,
+            "code_log_statements",
+            project,
+            recall_candidate_ids(conn, project, "code_log_statements", query, QUERY_FTS_RECALL_LIMITS["code_log_statements"]),
+        )
 
     for row in semantic:
         score, reasons = score_weighted_fields(

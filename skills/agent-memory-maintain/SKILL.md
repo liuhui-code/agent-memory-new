@@ -38,7 +38,7 @@ python tools/agent_memory.py maintain-refresh-scope --project . --scope-id 3 --j
 ```
 
 Use this before broad `learn-path --replace` or `wiki-index` resets. It replays previously learned scopes from SQLite, refreshes current file/symbol/log/edge structure, retires removed-file structure, and returns `semantic_review_targets` so we can decide whether a focused `learn-business` pass is needed next.
-After refresh, run `maintain-plan --json` if you want the drift to be translated into review actions such as `review_semantic_drift` or `mark_experience_stale_if_anchor_removed`.
+After refresh, run `maintain-plan --json` if you want the drift to be translated into review actions such as `review_semantic_drift`, `mark_experience_stale_if_anchor_removed`, or `review_skill_pattern_staleness`.
 
 ## Review Queue
 
@@ -74,6 +74,7 @@ If `common_steps`, `common_stop_conditions`, `expected_outputs`, or `failure_mod
 If `draft_status`, `package_status`, or `promotion_stage` are present, use them as the current repo-state signal instead of inferring state from file paths alone.
 If `draft_review_status`, `package_review_status`, or `review_guidance` are present, use them to decide whether the next step is writing a draft, reviewing a draft, or reviewing a candidate package before any manual promotion.
 If `promotion_readiness`, `quality_score`, or `quality_reasons` are present, use them as the runtime's current evidence-strength signal for whether the pattern is only interesting, worth review, or close to manual promotion.
+If `helped_reuse_count`, `partial_reuse_count`, `misleading_reuse_count`, `anchor_health`, or `missing_anchor_paths` are present, use them to judge whether the pattern is still grounded in current code or is drifting away from its original anchors.
 These are reviewer aids, not permission to skip manual promotion checks.
 After `vault-export`, the same grouped pattern appears in `Governance/Skill Pattern Candidates.md` for human review.
 That vault page now also mirrors reviewer metadata and the non-overwrite policy for reviewed artifacts, so Obsidian review sees the same guardrails as runtime JSON.
@@ -115,6 +116,16 @@ The candidate package includes YAML frontmatter with `promotion_status: candidat
 Keep the same `review_status`, `reviewer`, and `review_notes` fields when the draft is promoted into `_candidates/`.
 If a candidate package already carries human review metadata, rerunning `maintain-skill-package` should preserve it. Read `write_action` and `warning` before assuming the runtime rewrote the file.
 Formal promotion into `skills/<name>/` remains manual for now. Follow `docs/skill-promotion-rules.md` before treating a candidate package as a real skill.
+For a read-only final gate, use:
+
+```bash
+python tools/agent_memory.py maintain-skill-promotion-status \
+  --project . \
+  --pattern-name "<pattern-name>" \
+  --json
+```
+
+Use its `promotion_blockers` output before attempting any manual copy into `skills/<name>/`.
 When `experience_type` is present on a reflection action, keep the governance path aligned:
 
 - `procedure_experience` -> future skill candidate review path

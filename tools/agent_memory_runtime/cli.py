@@ -212,6 +212,12 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("maintain_skill_package"))
 
+    p = sub.add_parser("maintain-skill-promotion-status")
+    add_project(p)
+    p.add_argument("--pattern-name", required=True)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("maintain_skill_promotion_status"))
+
     p = sub.add_parser("maintain-refresh-scope")
     add_project(p)
     p.add_argument("--scope-id", type=int)
