@@ -1491,3 +1491,64 @@ Rollback notes:
 - Added `maintain-skill-draft` so reviewed skill-pattern candidates can be written into `docs/skill-candidates/`, including an `all` mode to export every currently clustered draft in one pass without touching the formal `skills/` directory.
 - Added `maintain-skill-package` so a reviewed draft can be staged into `skills/_candidates/<pattern>/SKILL.md` as a candidate package while still keeping formal `skills/<name>/` promotion as a separate human-reviewed step.
 - Added `docs/skill-promotion-rules.md` to lock down the final manual promotion boundary between `docs/skill-candidates/`, `skills/_candidates/`, and formal `skills/`.
+- Added stable YAML frontmatter to generated `docs/skill-candidates/*.md` drafts so review metadata such as `artifact_type`, `promotion_status`, `supporting_reflection_ids`, `common_followup_focus`, and `supporting_cases` can be read without reparsing the Markdown body.
+- Added stable YAML frontmatter to generated `skills/_candidates/*/SKILL.md` packages so the candidate stage now records `promotion_status: candidate` and `source_draft` alongside the aggregated support metadata.
+- Updated runtime, usage, maintain-skill, and promotion-rule docs to treat draft/package frontmatter as part of the audited promotion chain instead of an incidental file-format detail.
+- Added explicit `draft_status`, `package_status`, `package_path`, and `promotion_stage` fields to skill-pattern candidate review outputs so maintain-plan and vault reviewers can see whether a pattern is only clustered, already written as a draft, or already staged as a candidate package.
+- Added minimal human-review metadata placeholders (`review_status`, `reviewer`, `review_notes`) to generated skill candidate drafts and candidate packages so review state can live inside the same artifact that later promotion consumes.
+- Made skill-pattern artifact status inspection read existing frontmatter back into runtime outputs (`draft_review_status`, `package_review_status`) and added `review_guidance` so maintain-plan and vault reviewers can see the next recommended human step.
+- Hardened `maintain-skill-draft` and `maintain-skill-package` so they preserve existing artifacts once human review metadata is present, returning `write_action` and `warning` instead of silently overwriting reviewed draft/package files.
+- Completed the first correction-experience governance loop by turning `review_correction_experience` into a real learn-repair bundle with `correction_targets`, `learning_rule_draft`, a targeted `learn_business_payload_template`, and correction-specific workflow steps.
+- Updated the vault skill-pattern dashboard to mirror reviewer metadata and the reviewed-artifact preservation policy, so Obsidian review now shows the same promotion guardrails as runtime JSON.
+- Added a generated `skills/_candidates/<pattern>/PROMOTION.md` manual checklist so candidate packages now ship with a concrete human promotion template instead of pointing only to a general rules document.
+- Added first-pass quality gates for skill patterns (`promotion_readiness`, `quality_score`, `quality_reasons`) so repeated procedure experiences now report whether they merely cluster, deserve review, or are close to manual promotion consideration.
+
+## 2026-06-02 - Add refreshable learn scopes and structural retirement
+
+Files changed:
+
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/code_wiki.py`
+- `tools/agent_memory_runtime/models.py`
+- `tools/agent_memory_runtime/records.py`
+- `tools/agent_memory_runtime/storage.py`
+- `tests/test_agent_memory.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/memory-refresh-and-retirement-plan.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `references/schema.md`
+- `gitlog.md`
+
+What changed:
+
+- Added durable SQLite `learn_scopes` manifests so `wiki-index`, `learn-path`, and `learn-entry` record refreshable learned scopes instead of leaving scope replay implicit.
+- Added `maintain-refresh-scope` as the low-risk codebase drift path for projects that keep changing.
+- Implemented scope replay from stored manifests, structural refresh for current files, and retirement of removed-file `code_files`, `code_symbols`, `code_log_statements`, and derived `memory_edges`.
+- Added semantic drift output (`semantic_review_targets`) so changed or newly added files can flow back into focused `learn-business` review instead of forcing broad relearns.
+- Added runtime, schema, usage, and maintain-skill documentation for project refresh and stale-structure retirement.
+
+Why:
+
+- Keep the code wiki aligned with the current codebase without wiping accumulated business semantics or experience review history.
+- Let maintain refresh only what was previously learned, instead of making the user restate scope boundaries every time the project updates.
+- Separate safe structural retirement from human-reviewed semantic or experience retirement.
+
+Verification:
+
+- Command: `python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_learn_path_records_persistent_learn_scope_manifest tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_refresh_scope_updates_structure_and_reports_drift`
+- Result: passed.
+
+Rollback notes:
+
+- Remove the `learn_scopes` table and `maintain-refresh-scope` command.
+- Remove manifest recording from `wiki-index`, `learn-path`, and `learn-entry`.
+- Revert the refresh/retirement docs if we decide to postpone project-drift handling.
+
+### Follow-up
+
+- Added `build_recent_refresh_drifts` so `maintain-plan` consumes recent learn-scope refresh summaries instead of leaving drift only in runtime JSON.
+- Added `review_semantic_drift` actions with targeted `learn_business_payload_template` output for changed or newly added files in refreshed scopes.
+- Added `mark_experience_stale_if_anchor_removed` advisory actions when active reflections still reference files removed during scope refresh.
+- Updated runtime, usage, and maintain-skill docs so refresh is now explicitly part of the maintain governance chain instead of a standalone maintenance command.

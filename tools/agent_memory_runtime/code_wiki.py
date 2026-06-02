@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 from dataclasses import replace
+import hashlib
 import json
 import os
 import re
@@ -323,6 +324,14 @@ def wiki_index(args: argparse.Namespace) -> None:
     source_project = project_for_learning_source(project, args.source)
     files = collect_project_files(source_project)
     stats = write_wiki_index(source_project, files, replace=True)
+    record_learn_scope(
+        project,
+        source_project.root,
+        "project",
+        "replace",
+        files,
+        target_path=".",
+    )
     print(f"wiki index updated ({parse_stats_summary(stats)})")
 
 
@@ -363,6 +372,184 @@ def collect_path_files(project: Project, target: Path) -> list[Path]:
             if language_for(path):
                 files_to_index.append(path)
     return files_to_index
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(8192), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def build_file_snapshot(project: Project, files: list[Path]) -> dict[str, str]:
+    snapshot: dict[str, str] = {}
+    for path in sorted({item.resolve() for item in files}):
+        try:
+            rel = str(path.relative_to(project.root))
+        except ValueError:
+            continue
+        if not path.exists() or not path.is_file():
+            continue
+        snapshot[rel] = file_sha256(path)
+    return snapshot
+
+
+def learn_scope_key(
+    scope_type: str,
+    source_root: Path,
+    target_path: str | None = None,
+    entry_path: str | None = None,
+    depth: int | None = None,
+) -> str:
+    raw = json.dumps(
+        {
+            "scope_type": scope_type,
+            "source_root": str(source_root),
+            "target_path": target_path or "",
+            "entry_path": entry_path or "",
+            "depth": depth,
+        },
+        sort_keys=True,
+        ensure_ascii=False,
+    )
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:24]
+
+
+def record_learn_scope(
+    project: Project,
+    source_root: Path,
+    scope_type: str,
+    mode: str,
+    files: list[Path],
+    *,
+    target_path: str | None = None,
+    entry_path: str | None = None,
+    depth: int | None = None,
+) -> int:
+    ts = now_iso()
+    snapshot = build_file_snapshot(project, files)
+    scope_key = learn_scope_key(
+        scope_type,
+        source_root,
+        target_path=target_path,
+        entry_path=entry_path,
+        depth=depth,
+    )
+    with connect(project) as conn:
+        conn.execute(
+            """
+            INSERT INTO learn_scopes(
+              project_id, scope_key, scope_type, source_root, target_path, entry_path,
+              depth, mode, file_snapshot, file_count, status, created_at, updated_at, last_refreshed_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, ?, ?)
+            ON CONFLICT(project_id, scope_key) DO UPDATE SET
+              scope_type=excluded.scope_type,
+              source_root=excluded.source_root,
+              target_path=excluded.target_path,
+              entry_path=excluded.entry_path,
+              depth=excluded.depth,
+              mode=excluded.mode,
+              file_snapshot=excluded.file_snapshot,
+              file_count=excluded.file_count,
+              status='active',
+              updated_at=excluded.updated_at,
+              last_refreshed_at=excluded.last_refreshed_at
+            """,
+            (
+                project.project_id,
+                scope_key,
+                scope_type,
+                str(source_root),
+                target_path,
+                entry_path,
+                depth,
+                mode,
+                json.dumps(snapshot, ensure_ascii=False, sort_keys=True),
+                len(snapshot),
+                ts,
+                ts,
+                ts,
+            ),
+        )
+        row = conn.execute(
+            """
+            SELECT id
+            FROM learn_scopes
+            WHERE project_id = ? AND scope_key = ?
+            """,
+            (project.project_id, scope_key),
+        ).fetchone()
+        conn.commit()
+    return int(row["id"])
+
+
+def write_wiki_scope(
+    project: Project,
+    files: list[Path],
+    *,
+    replace: bool = False,
+    retired_relative_files: list[str] | None = None,
+) -> dict[str, Any]:
+    stats = write_wiki_index(project, files, replace=replace)
+    retired = sorted(
+        {
+            str(item).strip()
+            for item in (retired_relative_files or [])
+            if str(item).strip()
+        }
+    )
+    if retired:
+        with connect(project) as conn:
+            for file_path in retired:
+                conn.execute(
+                    "DELETE FROM code_files WHERE project_id = ? AND file_path = ?",
+                    (project.project_id, file_path),
+                )
+                conn.execute(
+                    "DELETE FROM code_symbols WHERE project_id = ? AND file_path = ?",
+                    (project.project_id, file_path),
+                )
+                conn.execute(
+                    "DELETE FROM code_log_statements WHERE project_id = ? AND file_path = ?",
+                    (project.project_id, file_path),
+                )
+            conn.execute("DELETE FROM memory_edges WHERE project_id = ?", (project.project_id,))
+            rebuild_code_memory_edges(conn, project)
+            stats["memory_edges_total"] = conn.execute(
+                "SELECT COUNT(*) AS count FROM memory_edges WHERE project_id = ?",
+                (project.project_id,),
+            ).fetchone()["count"]
+            conn.commit()
+        stats["retired_files"] = retired
+    else:
+        stats["retired_files"] = []
+    return stats
+
+
+def load_learn_scopes(project: Project, scope_id: int | None = None) -> list[sqlite3.Row]:
+    with connect(project) as conn:
+        if scope_id is not None:
+            row = conn.execute(
+                """
+                SELECT *
+                FROM learn_scopes
+                WHERE project_id = ? AND id = ?
+                ORDER BY id
+                """,
+                (project.project_id, scope_id),
+            ).fetchone()
+            return [row] if row else []
+        return conn.execute(
+            """
+            SELECT *
+            FROM learn_scopes
+            WHERE project_id = ? AND status = 'active'
+            ORDER BY updated_at DESC, id DESC
+            """,
+            (project.project_id,),
+        ).fetchall()
 
 
 def write_wiki_index(project: Project, files: list[Path], replace: bool = False) -> dict[str, Any]:
@@ -709,13 +896,23 @@ def learn_path(args: argparse.Namespace) -> None:
     target = resolve_target(source_project, args.path)
     files = collect_path_files(source_project, target)
     stats = write_wiki_index(source_project, files, replace=args.replace)
+    rel_target = str(target.relative_to(source_project.root))
+    scope_id = record_learn_scope(
+        project,
+        source_project.root,
+        "path",
+        "replace" if args.replace else "merge",
+        files,
+        target_path=rel_target,
+    )
     task = f"Learn path {target.relative_to(source_project.root)} from {source_project.root}"
     mode = "replaced" if args.replace else "merged"
     summary = f"{mode.capitalize()} {len(files)} files from {target.relative_to(source_project.root)}"
     add_episode_from_values(project, task, summary, "learned")
     payload = {
         "source": str(source_project.root),
-        "path": str(target.relative_to(source_project.root)),
+        "path": rel_target,
+        "scope_id": scope_id,
         "mode": "replace" if args.replace else "merge",
         "files": [str(path.relative_to(source_project.root)) for path in sorted(files)],
         "count": len(files),
@@ -1472,6 +1669,179 @@ def add_episode_from_values(project: Project, task: str, summary: str, outcome: 
         conn.commit()
 
 
+def compare_scope_snapshots(
+    previous: dict[str, str],
+    current: dict[str, str],
+) -> tuple[list[str], list[str], list[str], int]:
+    previous_paths = set(previous)
+    current_paths = set(current)
+    added = sorted(current_paths - previous_paths)
+    removed = sorted(previous_paths - current_paths)
+    changed = sorted(
+        path for path in (previous_paths & current_paths) if previous.get(path) != current.get(path)
+    )
+    unchanged_count = sum(
+        1 for path in (previous_paths & current_paths) if previous.get(path) == current.get(path)
+    )
+    return added, removed, changed, unchanged_count
+
+
+def files_for_scope(source_project: Project, scope_row: sqlite3.Row) -> list[Path]:
+    scope_type = scope_row["scope_type"]
+    if scope_type == "project":
+        return collect_project_files(source_project)
+    if scope_type == "path":
+        target_path = str(scope_row["target_path"] or ".")
+        target = resolve_target(source_project, target_path)
+        return collect_path_files(source_project, target)
+    if scope_type == "entry":
+        entry_path = str(scope_row["entry_path"] or "").strip()
+        if not entry_path:
+            raise SystemExit(f"learn scope {scope_row['id']} is missing entry_path")
+        entry = resolve_target(source_project, entry_path)
+        if not entry.is_file():
+            raise SystemExit(f"learn scope entry no longer exists as file: {entry}")
+        depth = int(scope_row["depth"] or 2)
+        return collect_entry_related_files(source_project, entry, depth)
+    raise SystemExit(f"unsupported learn scope type: {scope_type}")
+
+
+def semantic_review_targets_from_drift(
+    added_files: list[str],
+    changed_files: list[str],
+    removed_files: list[str],
+) -> dict[str, Any]:
+    affected: list[str] = []
+    seen: set[str] = set()
+    for value in [*changed_files, *added_files, *removed_files]:
+        stripped = str(value).strip()
+        normalized = stripped.lower()
+        if not stripped or normalized in seen:
+            continue
+        seen.add(normalized)
+        affected.append(stripped)
+    return {
+        "drift_detected": bool(affected),
+        "refresh_semantic_scope": bool(changed_files or added_files),
+        "retire_removed_scope": bool(removed_files),
+        "file_paths": affected,
+    }
+
+
+def update_scope_refresh_record(
+    project: Project,
+    scope_row: sqlite3.Row,
+    current_snapshot: dict[str, str],
+    refresh_summary: dict[str, Any],
+) -> None:
+    ts = now_iso()
+    with connect(project) as conn:
+        conn.execute(
+            """
+            UPDATE learn_scopes
+            SET file_snapshot = ?, file_count = ?, updated_at = ?, last_refreshed_at = ?, last_refresh_summary = ?
+            WHERE project_id = ? AND id = ?
+            """,
+            (
+                json.dumps(current_snapshot, ensure_ascii=False, sort_keys=True),
+                len(current_snapshot),
+                ts,
+                ts,
+                json.dumps(refresh_summary, ensure_ascii=False, sort_keys=True),
+                project.project_id,
+                scope_row["id"],
+            ),
+        )
+        conn.commit()
+
+
+def maintain_refresh_scope(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    ensure_initialized(project)
+    scope_rows = load_learn_scopes(project, args.scope_id)
+    if args.scope_id is not None and not scope_rows:
+        raise SystemExit(f"learn scope not found: {args.scope_id}")
+
+    refreshed: list[dict[str, Any]] = []
+    for scope_row in scope_rows:
+        source_root = Path(scope_row["source_root"]).expanduser().resolve()
+        result: dict[str, Any] = {
+            "scope_id": scope_row["id"],
+            "scope_type": scope_row["scope_type"],
+            "source_root": str(source_root),
+            "target_path": scope_row["target_path"],
+            "entry_path": scope_row["entry_path"],
+            "depth": scope_row["depth"],
+            "mode": scope_row["mode"],
+        }
+        if not source_root.exists() or not source_root.is_dir():
+            result["status"] = "missing_source"
+            result["warning"] = f"source root no longer exists: {source_root}"
+            refreshed.append(result)
+            continue
+
+        source_project = replace(project, root=source_root, project_name=source_root.name)
+        files = files_for_scope(source_project, scope_row)
+        current_snapshot = build_file_snapshot(source_project, files)
+        previous_snapshot = json.loads(scope_row["file_snapshot"] or "{}")
+        added_files, removed_files, changed_files, unchanged_count = compare_scope_snapshots(
+            previous_snapshot,
+            current_snapshot,
+        )
+        stats = write_wiki_scope(
+            source_project,
+            files,
+            replace=False,
+            retired_relative_files=removed_files,
+        )
+        semantic_review_targets = semantic_review_targets_from_drift(
+            added_files,
+            changed_files,
+            removed_files,
+        )
+        refresh_summary = {
+            "status": "refreshed",
+            "added_files": added_files,
+            "changed_files": changed_files,
+            "removed_files": removed_files,
+            "unchanged_count": unchanged_count,
+            "semantic_review_targets": semantic_review_targets,
+        }
+        update_scope_refresh_record(project, scope_row, current_snapshot, refresh_summary)
+        summary = (
+            f"Refreshed learn scope {scope_row['id']} ({scope_row['scope_type']}) "
+            f"added={len(added_files)} changed={len(changed_files)} removed={len(removed_files)}"
+        )
+        add_episode_from_values(project, f"Refresh learn scope {scope_row['id']}", summary, "refreshed")
+        result.update(
+            {
+                "status": "refreshed",
+                "previous_file_count": len(previous_snapshot),
+                "current_file_count": len(current_snapshot),
+                "added_files": added_files,
+                "changed_files": changed_files,
+                "removed_files": removed_files,
+                "unchanged_count": unchanged_count,
+                "parse_stats": stats,
+                "semantic_review_targets": semantic_review_targets,
+            }
+        )
+        refreshed.append(result)
+
+    payload = {
+        "scope_count": len(scope_rows),
+        "refreshed_count": sum(1 for item in refreshed if item["status"] == "refreshed"),
+        "missing_source_count": sum(1 for item in refreshed if item["status"] == "missing_source"),
+        "scopes": refreshed,
+    }
+    project.runtime_dir.mkdir(parents=True, exist_ok=True)
+    (project.runtime_dir / "last_refresh_scope.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    output(payload, args.json)
+
+
 def learn_entry(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
@@ -1482,9 +1852,20 @@ def learn_entry(args: argparse.Namespace) -> None:
     files = collect_entry_related_files(source_project, entry, args.depth)
     stats = write_wiki_index(source_project, files, replace=args.replace)
     rel_files = [str(path.relative_to(source_project.root)) for path in sorted(files)]
+    rel_entry = str(entry.relative_to(source_project.root))
+    scope_id = record_learn_scope(
+        project,
+        source_project.root,
+        "entry",
+        "replace" if args.replace else "merge",
+        files,
+        entry_path=rel_entry,
+        depth=args.depth,
+    )
     payload = {
         "source": str(source_project.root),
-        "entry": str(entry.relative_to(source_project.root)),
+        "entry": rel_entry,
+        "scope_id": scope_id,
         "depth": args.depth,
         "mode": "replace" if args.replace else "merge",
         "files": rel_files,

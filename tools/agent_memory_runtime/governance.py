@@ -301,6 +301,8 @@ TRACE_CASE_FIELDS = [
     "related_cases",
 ]
 
+PATH_SUFFIXES = (".py", ".ts", ".tsx", ".js", ".jsx", ".ets", ".json5", ".json", ".md")
+
 
 def stable_unique_strings(values: list[str]) -> list[str]:
     seen: set[str] = set()
@@ -313,6 +315,116 @@ def stable_unique_strings(values: list[str]) -> list[str]:
         seen.add(normalized)
         result.append(stripped)
     return result
+
+
+def extract_path_like_values(*groups: Any) -> list[str]:
+    paths: list[str] = []
+    for group in groups:
+        if isinstance(group, str):
+            parsed = json_list(group)
+            candidates = [str(item) for item in parsed] if parsed else [group]
+        else:
+            candidates = [str(item) for item in json_list(group)]
+        for candidate in candidates:
+            text = candidate.strip()
+            if not text:
+                continue
+            if text.startswith(("file: ", "file:")):
+                text = text.split(":", 1)[1].strip()
+            if any(text.endswith(suffix) for suffix in PATH_SUFFIXES) and "/" in text:
+                paths.append(text)
+    return stable_unique_strings(paths)
+
+
+def build_correction_targets(row: dict[str, Any]) -> dict[str, Any]:
+    file_paths = extract_path_like_values(
+        row.get("source_cases"),
+        row.get("inspection_targets"),
+        row.get("context_used"),
+        row.get("evidence"),
+    )
+    return {
+        "file_paths": file_paths,
+        "inspection_targets": json_list(row.get("inspection_targets")),
+        "useful_terms": json_list(row.get("useful_followup_terms")),
+        "misleading_terms": json_list(row.get("misleading_followup_terms")),
+        "source_cases": json_list(row.get("source_cases")),
+    }
+
+
+def build_correction_learning_rule(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "target_memory_type": "code_wiki_business_semantics",
+        "correction_trigger": row.get("trigger_condition") or row.get("problem") or "",
+        "incorrect_understanding": stable_unique_strings(
+            [*(json_list(row.get("misleading_followup_terms"))), *(json_list(row.get("what_failed")))]
+        ),
+        "corrected_understanding": stable_unique_strings(
+            [
+                str(row.get("future_rule") or ""),
+                str(row.get("lesson") or ""),
+                *(json_list(row.get("what_worked"))),
+            ]
+        ),
+        "correction_reason": row.get("reasoning_summary") or row.get("summary") or "",
+        "source_evidence": stable_unique_strings(
+            [
+                str(row.get("evidence") or ""),
+                str(row.get("verification_method") or ""),
+                str(row.get("final_verification_path") or ""),
+            ]
+        ),
+        "repair_action": row.get("repair_action") or "",
+        "prevention_rule": row.get("future_rule") or "",
+    }
+
+
+def build_correction_learn_payload_template(project: Project, row: dict[str, Any]) -> dict[str, Any]:
+    targets = build_correction_targets(row)
+    file_paths = targets["file_paths"]
+    followup = semantic_followup_from_db(project, file_paths) if file_paths else None
+    if followup:
+        return followup["followup_payload_template"]
+
+    hint_terms = stable_unique_strings(
+        [
+            *targets["useful_terms"],
+            *targets["misleading_terms"],
+            str(row.get("problem") or ""),
+            str(row.get("trigger_condition") or ""),
+        ]
+    )
+    hint_context = stable_unique_strings(
+        [
+            str(row.get("reasoning_summary") or ""),
+            str(row.get("evidence") or ""),
+            str(row.get("verification_method") or ""),
+            *targets["inspection_targets"],
+        ]
+    )
+    return {
+        "files": [
+            {
+                "file_path": file_path,
+                "business_summary": "",
+                "business_terms": [],
+                "hint_terms": hint_terms[:12],
+                "hint_context": hint_context[:8],
+                "symbols": [],
+                "logs": [],
+            }
+            for file_path in file_paths
+        ]
+    }
+
+
+def correction_repair_workflow_steps() -> list[str]:
+    return [
+        "Read the affected file, symbol, or log targets in current source.",
+        "Compare the stored business meaning against the correction experience evidence and verification method.",
+        "Rewrite the learn-business payload for the affected records instead of re-learning a broad directory.",
+        "Re-run maintain-plan or query to confirm the semantic misunderstanding is reduced.",
+    ]
 
 
 def infer_common_steps(
@@ -354,6 +466,64 @@ def infer_common_steps(
     return stable_unique_strings(steps)
 
 
+def evaluate_skill_pattern_quality(candidate: dict[str, Any], grouped_rows: list[dict[str, Any]]) -> tuple[int, str, list[str]]:
+    score = 0
+    reasons: list[str] = []
+    supporting_count = int(candidate.get("supporting_count") or 0)
+    if supporting_count >= 3:
+        score += 3
+        reasons.append("has_three_or_more_supporting_reflections")
+    elif supporting_count >= 2:
+        score += 1
+        reasons.append("has_minimum_supporting_reflections")
+    else:
+        reasons.append("insufficient_supporting_reflections")
+
+    if candidate.get("common_steps"):
+        score += 2
+        reasons.append("has_common_steps")
+    else:
+        reasons.append("missing_common_steps")
+    if candidate.get("common_stop_conditions"):
+        score += 1
+        reasons.append("has_stop_conditions")
+    else:
+        reasons.append("missing_stop_conditions")
+    if candidate.get("expected_outputs"):
+        score += 1
+        reasons.append("has_expected_outputs")
+    else:
+        reasons.append("missing_expected_outputs")
+    if candidate.get("failure_modes"):
+        score += 1
+        reasons.append("has_failure_modes")
+    else:
+        reasons.append("missing_failure_modes")
+
+    helped = sum(1 for row in grouped_rows if row.get("last_outcome") == "helped")
+    partial = sum(1 for row in grouped_rows if row.get("last_outcome") == "partial")
+    misleading = sum(1 for row in grouped_rows if row.get("last_outcome") == "misleading")
+    if helped >= 1:
+        score += 2
+        reasons.append("has_helped_reuse_signal")
+    elif partial >= 1:
+        score += 1
+        reasons.append("has_partial_reuse_signal")
+    else:
+        reasons.append("missing_positive_reuse_signal")
+    if misleading >= 1:
+        score -= 2
+        reasons.append("has_misleading_reuse_signal")
+
+    if score >= 8:
+        readiness = "promotion_candidate"
+    elif score >= 5:
+        readiness = "review_candidate"
+    else:
+        readiness = "needs_more_evidence"
+    return score, readiness, reasons
+
+
 def skill_candidate_draft_path(pattern_name: str) -> str:
     return f"docs/skill-candidates/{pattern_name}.md"
 
@@ -362,8 +532,154 @@ def skill_candidate_package_path(pattern_name: str) -> str:
     return f"skills/_candidates/{pattern_name}/SKILL.md"
 
 
-def build_skill_candidate_markdown(candidate: dict[str, Any]) -> str:
+def skill_candidate_promotion_checklist_path(pattern_name: str) -> str:
+    return f"skills/_candidates/{pattern_name}/PROMOTION.md"
+
+
+def read_frontmatter_metadata(path: Path) -> dict[str, str]:
+    if not path.exists():
+        return {}
+    text = path.read_text(encoding="utf-8")
+    if not text.startswith("---\n"):
+        return {}
+    lines = text.splitlines()
+    metadata: dict[str, str] = {}
+    for line in lines[1:]:
+        if line == "---":
+            break
+        if ": " not in line:
+            continue
+        key, value = line.split(": ", 1)
+        metadata[key.strip()] = value.strip().strip('"')
+    return metadata
+
+
+def artifact_has_human_review(metadata: dict[str, str]) -> bool:
+    if not metadata:
+        return False
+    review_status = (metadata.get("review_status") or "").strip()
+    reviewer = (metadata.get("reviewer") or "").strip()
+    review_notes = (metadata.get("review_notes") or "").strip()
+    if reviewer:
+        return True
+    if review_notes not in {"", "[]"}:
+        return True
+    return bool(review_status and review_status != "pending_review")
+
+
+def guarded_write_artifact(path: Path, content: str) -> dict[str, Any]:
+    existing_meta = read_frontmatter_metadata(path)
+    if path.exists() and artifact_has_human_review(existing_meta):
+        return {
+            "write_action": "preserved_existing_reviewed_artifact",
+            "warning": "existing artifact has human review metadata; runtime did not overwrite it",
+            "existing_review_status": existing_meta.get("review_status", ""),
+            "existing_reviewer": existing_meta.get("reviewer", ""),
+        }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content.rstrip() + "\n", encoding="utf-8")
+    return {
+        "write_action": "wrote_artifact",
+        "warning": "",
+        "existing_review_status": existing_meta.get("review_status", ""),
+        "existing_reviewer": existing_meta.get("reviewer", ""),
+    }
+
+
+def build_review_guidance(candidate: dict[str, Any]) -> list[str]:
+    guidance = [
+        "Confirm reviewer, review status, and notes are updated in the artifact before formal promotion.",
+        "Verify common steps, stop conditions, and expected outputs against the supporting reflections.",
+    ]
+    if candidate.get("promotion_stage") == "clustered":
+        guidance.insert(0, "Write the draft artifact first, then begin human review.")
+    elif candidate.get("promotion_stage") == "draft":
+        guidance.insert(0, "Review the draft and record reviewer metadata before packaging it.")
+    elif candidate.get("promotion_stage") == "candidate_package":
+        guidance.insert(0, "Review the candidate package metadata and notes before considering manual promotion into skills/.")
+    return guidance
+
+
+def annotate_skill_pattern_artifacts(project_root: Path, candidate: dict[str, Any]) -> dict[str, Any]:
+    draft_path = candidate["draft_path"]
+    package_path = skill_candidate_package_path(candidate["pattern_name"])
+    promotion_checklist_path = skill_candidate_promotion_checklist_path(candidate["pattern_name"])
+    draft_file = project_root / draft_path
+    package_file = project_root / package_path
+    promotion_checklist_file = project_root / promotion_checklist_path
+    draft_exists = draft_file.exists()
+    package_exists = package_file.exists()
+    promotion_checklist_exists = promotion_checklist_file.exists()
+    draft_meta = read_frontmatter_metadata(draft_file)
+    package_meta = read_frontmatter_metadata(package_file)
+    if package_exists:
+        promotion_stage = "candidate_package"
+    elif draft_exists:
+        promotion_stage = "draft"
+    else:
+        promotion_stage = "clustered"
+    return {
+        **candidate,
+        "draft_status": "written" if draft_exists else "not_written",
+        "draft_review_status": draft_meta.get("review_status") or ("pending_review" if draft_exists else ""),
+        "draft_reviewer": draft_meta.get("reviewer", ""),
+        "package_path": package_path,
+        "package_status": "written" if package_exists else "not_written",
+        "package_review_status": package_meta.get("review_status") or ("pending_review" if package_exists else ""),
+        "package_reviewer": package_meta.get("reviewer", ""),
+        "promotion_checklist_path": promotion_checklist_path,
+        "promotion_checklist_status": "written" if promotion_checklist_exists else "not_written",
+        "promotion_stage": promotion_stage,
+        "review_guidance": build_review_guidance(
+            {
+                **candidate,
+                "promotion_stage": promotion_stage,
+            }
+        ),
+    }
+
+
+def format_frontmatter_sequence(values: list[Any]) -> str:
+    if not values:
+        return "[]"
+    items = ", ".join(json.dumps(value, ensure_ascii=False) for value in values)
+    return f"[{items}]"
+
+
+def build_skill_candidate_frontmatter(
+    candidate: dict[str, Any],
+    artifact_type: str,
+    promotion_status: str,
+    source_draft: str | None = None,
+) -> list[str]:
     lines = [
+        "---",
+        f"pattern_name: {json.dumps(candidate['pattern_name'], ensure_ascii=False)}",
+        f"artifact_type: {json.dumps(artifact_type, ensure_ascii=False)}",
+        f"promotion_status: {json.dumps(promotion_status, ensure_ascii=False)}",
+        'review_status: "pending_review"',
+        'reviewer: ""',
+        "review_notes: []",
+        f"experience_type: {json.dumps(candidate.get('experience_type') or 'procedure_experience', ensure_ascii=False)}",
+        f"supporting_count: {int(candidate.get('supporting_count') or 0)}",
+        f"supporting_reflection_ids: {format_frontmatter_sequence(candidate.get('supporting_reflection_ids', []))}",
+        f"common_followup_focus: {format_frontmatter_sequence(candidate.get('common_followup_focus', []))}",
+        f"supporting_cases: {format_frontmatter_sequence(candidate.get('supporting_cases', []))}",
+        f"verification_methods: {format_frontmatter_sequence(candidate.get('verification_methods', []))}",
+        f"source_runtime_command: {json.dumps('tools/agent_memory.py', ensure_ascii=False)}",
+    ]
+    if source_draft:
+        lines.append(f"source_draft: {json.dumps(source_draft, ensure_ascii=False)}")
+    lines.extend(["---", ""])
+    return lines
+
+
+def build_skill_candidate_markdown(candidate: dict[str, Any]) -> str:
+    lines = build_skill_candidate_frontmatter(
+        candidate,
+        artifact_type="skill_candidate_draft",
+        promotion_status="draft",
+    ) + [
         f"# Skill Candidate: {candidate['pattern_name']}",
         "",
         "## Summary",
@@ -399,6 +715,11 @@ def build_skill_candidate_markdown(candidate: dict[str, Any]) -> str:
     lines.extend(["", "## Verification Methods", ""])
     for item in candidate.get("verification_methods", []):
         lines.append(f"- {item}")
+    lines.extend(["", "## Quality Signals", ""])
+    lines.append(f"- Readiness: `{candidate.get('promotion_readiness', 'needs_more_evidence')}`")
+    lines.append(f"- Quality score: `{candidate.get('quality_score', 0)}`")
+    for item in candidate.get("quality_reasons", []):
+        lines.append(f"- {item}")
     lines.extend(
         [
             "",
@@ -408,6 +729,10 @@ def build_skill_candidate_markdown(candidate: dict[str, Any]) -> str:
             "",
             "## Review Notes",
             "",
+            "- Reviewer: ",
+            "- Review status: pending_review",
+            "- Review notes:",
+            "  - ",
             "- Confirm the trigger is stable across cases.",
             "- Remove noisy terms before turning this into a skill.",
             "- Add stop conditions and expected outputs before promotion.",
@@ -418,7 +743,12 @@ def build_skill_candidate_markdown(candidate: dict[str, Any]) -> str:
 
 
 def build_skill_candidate_package_markdown(candidate: dict[str, Any]) -> str:
-    lines = [
+    lines = build_skill_candidate_frontmatter(
+        candidate,
+        artifact_type="skill_candidate_package",
+        promotion_status="candidate",
+        source_draft=candidate["draft_path"],
+    ) + [
         f"# Skill Candidate Package: {candidate['pattern_name']}",
         "",
         "Candidate package generated from repeated procedure_experience reflections.",
@@ -429,6 +759,55 @@ def build_skill_candidate_package_markdown(candidate: dict[str, Any]) -> str:
         candidate["draft_markdown"].rstrip(),
         "",
     ]
+    return "\n".join(lines)
+
+
+def build_skill_promotion_checklist_markdown(candidate: dict[str, Any]) -> str:
+    lines = [
+        f"# Promotion Checklist: {candidate['pattern_name']}",
+        "",
+        "Use this checklist before manually promoting the candidate package into `skills/<name>/SKILL.md`.",
+        "",
+        "## Artifact Paths",
+        "",
+        f"- Draft: `{candidate['draft_path']}`",
+        f"- Candidate package: `{skill_candidate_package_path(candidate['pattern_name'])}`",
+        f"- Formal target: `skills/{candidate['pattern_name']}/SKILL.md`",
+        "",
+        "## Required Metadata",
+        "",
+        "- [ ] Candidate package `review_status` is no longer `pending_review`.",
+        "- [ ] Candidate package `reviewer` is filled.",
+        "- [ ] Candidate package `review_notes` explain remaining edits or approval basis.",
+        "",
+        "## Pattern Quality Checks",
+        "",
+        f"- [ ] Promotion readiness is acceptable (`{candidate.get('promotion_readiness', 'needs_more_evidence')}`).",
+        f"- [ ] Quality score is acceptable for manual promotion review (`{candidate.get('quality_score', 0)}`).",
+        f"- [ ] Supporting reflections are still sufficient (`{candidate['supporting_count']}` currently).",
+        "- [ ] Trigger conditions are stable and explicit.",
+        "- [ ] Common steps are executable in order.",
+        "- [ ] Stop conditions are concrete.",
+        "- [ ] Expected outputs are stable enough for reuse.",
+        "- [ ] Failure modes are explicit enough to avoid misuse.",
+        "",
+        "## Promotion Steps",
+        "",
+        "- [ ] Review `docs/skill-promotion-rules.md`.",
+        "- [ ] Copy or adapt the candidate package into `skills/<name>/SKILL.md` manually.",
+        "- [ ] Keep user-facing behavior inside the existing four-skill interface.",
+        "- [ ] Run the relevant runtime and workflow tests after promotion.",
+        "- [ ] Update docs or examples if the new formal skill changes the recommended workflow.",
+        "",
+        "## Source Context",
+        "",
+        f"- Supporting reflections: {', '.join(f'#{reflection_id}' for reflection_id in candidate.get('supporting_reflection_ids', []))}",
+    ]
+    if candidate.get("common_followup_focus"):
+        lines.append(f"- Common followup focus: {', '.join(candidate['common_followup_focus'])}")
+    if candidate.get("supporting_cases"):
+        lines.append(f"- Supporting cases: {', '.join(candidate['supporting_cases'])}")
+    lines.append("")
     return "\n".join(lines)
 
 
@@ -507,24 +886,27 @@ def build_skill_pattern_candidates(rows: list[dict[str, Any]]) -> list[dict[str,
             verification_methods,
             inspection_targets,
         )
-        candidates.append(
-            {
-                "pattern_name": pattern_name,
-                "experience_type": "procedure_experience",
-                "supporting_reflection_ids": [int(row["id"]) for row in grouped_rows],
-                "supporting_count": len(grouped_rows),
-                "common_followup_focus": common_followup_focus,
-                "common_query_terms": query_terms[:8],
-                "common_steps": common_steps[:8],
-                "common_stop_conditions": stop_conditions[:6],
-                "expected_outputs": expected_outputs[:6],
-                "failure_modes": failure_modes[:8],
-                "supporting_cases": supporting_cases[:10],
-                "trigger_cluster": trigger_cluster[:6],
-                "verification_methods": verification_methods[:4],
-                "draft_path": skill_candidate_draft_path(pattern_name),
-            }
-        )
+        candidate = {
+            "pattern_name": pattern_name,
+            "experience_type": "procedure_experience",
+            "supporting_reflection_ids": [int(row["id"]) for row in grouped_rows],
+            "supporting_count": len(grouped_rows),
+            "common_followup_focus": common_followup_focus,
+            "common_query_terms": query_terms[:8],
+            "common_steps": common_steps[:8],
+            "common_stop_conditions": stop_conditions[:6],
+            "expected_outputs": expected_outputs[:6],
+            "failure_modes": failure_modes[:8],
+            "supporting_cases": supporting_cases[:10],
+            "trigger_cluster": trigger_cluster[:6],
+            "verification_methods": verification_methods[:4],
+            "draft_path": skill_candidate_draft_path(pattern_name),
+        }
+        quality_score, promotion_readiness, quality_reasons = evaluate_skill_pattern_quality(candidate, grouped_rows)
+        candidate["quality_score"] = quality_score
+        candidate["promotion_readiness"] = promotion_readiness
+        candidate["quality_reasons"] = quality_reasons
+        candidates.append(candidate)
     for candidate in candidates:
         candidate["draft_markdown"] = build_skill_candidate_markdown(candidate)
     candidates.sort(
@@ -596,6 +978,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     reflection_quality = build_reflect_review_data(project, args.limit)
     query_misses = build_query_miss_data(project, args.limit)
     semantic_conflicts = build_recent_semantic_conflicts(project, args.limit)
+    refresh_drifts = build_recent_refresh_drifts(project, args.limit)
     semantic_gap_targets = build_semantic_gap_targets(project)
     learn_business_payload_template = build_learn_business_payload_template(project)
     actions: list[dict[str, Any]] = []
@@ -681,6 +1064,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
         experience_type = reflection_experience_type(row)
         if is_complete_experience_candidate(row):
             if experience_type == "correction_experience":
+                correction_targets = build_correction_targets(row)
+                correction_payload_template = build_correction_learn_payload_template(project, row)
                 actions.append(
                     {
                         "action": "review_correction_experience",
@@ -695,6 +1080,11 @@ def maintain_plan(args: argparse.Namespace) -> None:
                         "candidate_fields": EXPERIENCE_CANDIDATE_FIELDS,
                         "verification_method": row.get("verification_method"),
                         "source_cases": row.get("source_cases"),
+                        "correction_targets": correction_targets,
+                        "learning_rule_draft": build_correction_learning_rule(row),
+                        "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+                        "learn_business_payload_template": correction_payload_template,
+                        "workflow_steps": correction_repair_workflow_steps(),
                         **{field: row.get(field) for field in TRACE_CASE_FIELDS},
                     }
                 )
@@ -744,6 +1134,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         )
 
     for candidate in build_skill_pattern_candidates(review["unreviewed_reflections"]):
+        candidate = annotate_skill_pattern_artifacts(project.root, candidate)
         actions.append(
             {
                 "action": "review_skill_pattern_candidate",
@@ -820,6 +1211,46 @@ def maintain_plan(args: argparse.Namespace) -> None:
             }
         )
 
+    for drift in refresh_drifts:
+        drift_files = stable_unique_strings(
+            [
+                *(drift.get("added_files") or []),
+                *(drift.get("changed_files") or []),
+            ]
+        )
+        payload_template = build_learn_business_payload_template_for_paths(project, drift_files)
+        actions.append(
+            {
+                "action": "review_semantic_drift",
+                "type": "learn_scope",
+                "id": drift["scope_id"],
+                "reason": "refreshed learned scope changed and may need business-semantics review",
+                "risk": "low",
+                "requires_confirmation": False,
+                "command": None,
+                **drift,
+                "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+                "learn_business_payload_template": payload_template,
+                "workflow_steps": semantic_enrichment_workflow_steps(),
+            }
+        )
+        removed_reflection_ids = find_reflections_linked_to_paths(project, drift.get("removed_files") or [])
+        if removed_reflection_ids:
+            actions.append(
+                {
+                    "action": "mark_experience_stale_if_anchor_removed",
+                    "type": "reflection",
+                    "id": None,
+                    "reason": "one or more active reflections reference files removed from a refreshed learned scope",
+                    "risk": "medium",
+                    "requires_confirmation": True,
+                    "command": None,
+                    "scope_id": drift["scope_id"],
+                    "removed_files": drift.get("removed_files") or [],
+                    "linked_reflection_ids": removed_reflection_ids,
+                }
+            )
+
     if any(semantic_gap_targets.values()):
         actions.append(
             {
@@ -849,6 +1280,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "reflection_quality_issues": len(reflection_quality["reflections"]),
             "open_query_misses": len(query_misses),
             "semantic_conflicts": len(semantic_conflicts),
+            "refresh_drifts": len(refresh_drifts),
             "skill_pattern_candidates": len(build_skill_pattern_candidates(review["unreviewed_reflections"])),
         },
         "actions": actions,
@@ -885,6 +1317,55 @@ def build_recent_semantic_conflicts(project: Project, limit: int) -> list[dict[s
             (project.project_id, limit),
         ).fetchall()
     return [row_dict(row) for row in rows]
+
+
+def build_recent_refresh_drifts(project: Project, limit: int) -> list[dict[str, Any]]:
+    with connect(project) as conn:
+        rows = conn.execute(
+            """
+            SELECT id, scope_type, source_root, target_path, entry_path, depth, mode,
+                   last_refreshed_at, last_refresh_summary
+            FROM learn_scopes
+            WHERE project_id = ?
+              AND status = 'active'
+              AND last_refresh_summary IS NOT NULL
+              AND TRIM(last_refresh_summary) != ''
+            ORDER BY COALESCE(last_refreshed_at, updated_at) DESC, id DESC
+            LIMIT ?
+            """,
+            (project.project_id, limit),
+        ).fetchall()
+    drifts: list[dict[str, Any]] = []
+    for row in rows:
+        summary_raw = row["last_refresh_summary"] or ""
+        try:
+            summary = json.loads(summary_raw)
+        except json.JSONDecodeError:
+            continue
+        added_files = summary.get("added_files") or []
+        changed_files = summary.get("changed_files") or []
+        removed_files = summary.get("removed_files") or []
+        semantic_review_targets = summary.get("semantic_review_targets") or {}
+        if not (added_files or changed_files or removed_files or semantic_review_targets.get("drift_detected")):
+            continue
+        drifts.append(
+            {
+                "scope_id": row["id"],
+                "scope_type": row["scope_type"],
+                "source_root": row["source_root"],
+                "target_path": row["target_path"],
+                "entry_path": row["entry_path"],
+                "depth": row["depth"],
+                "mode": row["mode"],
+                "last_refreshed_at": row["last_refreshed_at"],
+                "added_files": added_files,
+                "changed_files": changed_files,
+                "removed_files": removed_files,
+                "unchanged_count": summary.get("unchanged_count", 0),
+                "semantic_review_targets": semantic_review_targets,
+            }
+        )
+    return drifts
 
 
 def build_semantic_gap_targets(project: Project, limit_per_group: int = 5) -> dict[str, list[str]]:
@@ -983,6 +1464,17 @@ def build_semantic_gap_targets(project: Project, limit_per_group: int = 5) -> di
     }
 
 
+def build_learn_business_payload_template_for_paths(
+    project: Project,
+    file_paths: list[str],
+) -> dict[str, Any]:
+    unique_paths = stable_unique_strings(file_paths)
+    followup = semantic_followup_from_db(project, unique_paths)
+    if not followup:
+        return {"files": []}
+    return followup["followup_payload_template"]
+
+
 def build_learn_business_payload_template(project: Project, limit_files: int = 5) -> dict[str, Any]:
     with connect(project) as conn:
         rows = conn.execute(
@@ -1019,10 +1511,7 @@ def build_learn_business_payload_template(project: Project, limit_files: int = 5
             (project.project_id, project.project_id, project.project_id, limit_files),
         ).fetchall()
         file_paths = [row["file_path"] for row in rows]
-    followup = semantic_followup_from_db(project, file_paths)
-    if not followup:
-        return {"files": []}
-    return followup["followup_payload_template"]
+    return build_learn_business_payload_template_for_paths(project, file_paths)
 
 
 def semantic_followup_hint_terms(payload_template: dict[str, Any], limit: int = 12) -> list[str]:
@@ -1074,6 +1563,27 @@ def semantic_enrichment_workflow_steps() -> list[str]:
         "Write the completed payload with learn-business.",
         "Re-run query or maintain-plan to confirm the semantic gap is reduced.",
     ]
+
+
+def find_reflections_linked_to_paths(project: Project, file_paths: list[str], limit: int = 8) -> list[int]:
+    if not file_paths:
+        return []
+    normalized_targets = {path.strip().lower() for path in file_paths if str(path).strip()}
+    linked: list[int] = []
+    for row in active_reflection_rows(project):
+        linked_paths = {
+            path.lower()
+            for path in extract_path_like_values(
+                row.get("source_cases"),
+                row.get("inspection_targets"),
+                row.get("context_used"),
+                row.get("evidence"),
+                row.get("final_verification_path"),
+            )
+        }
+        if linked_paths & normalized_targets:
+            linked.append(int(row["id"]))
+    return linked[:limit]
 
 
 def maintain_status(args: argparse.Namespace) -> None:
@@ -1266,12 +1776,30 @@ def maintain_skill_draft(args: argparse.Namespace) -> None:
         written: list[dict[str, Any]] = []
         for candidate in candidates:
             draft_path = project.root / candidate["draft_path"]
-            draft_path.parent.mkdir(parents=True, exist_ok=True)
-            draft_path.write_text(candidate["draft_markdown"].rstrip() + "\n", encoding="utf-8")
+            write_result = guarded_write_artifact(draft_path, candidate["draft_markdown"])
+            candidate = annotate_skill_pattern_artifacts(project.root, candidate)
             written.append(
                 {
                     "pattern_name": candidate["pattern_name"],
                     "path": str(draft_path),
+                    "draft_status": candidate["draft_status"],
+                    "draft_review_status": candidate["draft_review_status"],
+                    "draft_reviewer": candidate["draft_reviewer"],
+                    "package_path": candidate["package_path"],
+                    "package_status": candidate["package_status"],
+                    "package_review_status": candidate["package_review_status"],
+                    "package_reviewer": candidate["package_reviewer"],
+                    "promotion_checklist_path": candidate["promotion_checklist_path"],
+                    "promotion_checklist_status": candidate["promotion_checklist_status"],
+                    "promotion_stage": candidate["promotion_stage"],
+                    "promotion_readiness": candidate["promotion_readiness"],
+                    "quality_score": candidate["quality_score"],
+                    "quality_reasons": candidate["quality_reasons"],
+                    "review_guidance": candidate["review_guidance"],
+                    "write_action": write_result["write_action"],
+                    "warning": write_result["warning"],
+                    "existing_review_status": write_result["existing_review_status"],
+                    "existing_reviewer": write_result["existing_reviewer"],
                 }
             )
         payload = {
@@ -1286,13 +1814,31 @@ def maintain_skill_draft(args: argparse.Namespace) -> None:
     if not candidate:
         raise SystemExit(f"skill pattern candidate not found: {args.pattern_name}")
     draft_path = project.root / candidate["draft_path"]
-    draft_path.parent.mkdir(parents=True, exist_ok=True)
-    draft_path.write_text(candidate["draft_markdown"].rstrip() + "\n", encoding="utf-8")
+    write_result = guarded_write_artifact(draft_path, candidate["draft_markdown"])
+    candidate = annotate_skill_pattern_artifacts(project.root, candidate)
     payload = {
         "pattern_name": candidate["pattern_name"],
         "path": str(draft_path),
         "supporting_reflection_ids": candidate["supporting_reflection_ids"],
         "supporting_count": candidate["supporting_count"],
+        "draft_status": candidate["draft_status"],
+        "draft_review_status": candidate["draft_review_status"],
+        "draft_reviewer": candidate["draft_reviewer"],
+        "package_path": candidate["package_path"],
+        "package_status": candidate["package_status"],
+        "package_review_status": candidate["package_review_status"],
+        "package_reviewer": candidate["package_reviewer"],
+        "promotion_checklist_path": candidate["promotion_checklist_path"],
+        "promotion_checklist_status": candidate["promotion_checklist_status"],
+        "promotion_stage": candidate["promotion_stage"],
+        "promotion_readiness": candidate["promotion_readiness"],
+        "quality_score": candidate["quality_score"],
+        "quality_reasons": candidate["quality_reasons"],
+        "review_guidance": candidate["review_guidance"],
+        "write_action": write_result["write_action"],
+        "warning": write_result["warning"],
+        "existing_review_status": write_result["existing_review_status"],
+        "existing_reviewer": write_result["existing_reviewer"],
     }
     output(payload, args.json)
 
@@ -1305,12 +1851,34 @@ def maintain_skill_package(args: argparse.Namespace) -> None:
     if not candidate:
         raise SystemExit(f"skill pattern candidate not found: {args.pattern_name}")
     package_path = project.root / skill_candidate_package_path(candidate["pattern_name"])
-    package_path.parent.mkdir(parents=True, exist_ok=True)
-    package_path.write_text(build_skill_candidate_package_markdown(candidate).rstrip() + "\n", encoding="utf-8")
+    write_result = guarded_write_artifact(package_path, build_skill_candidate_package_markdown(candidate))
+    checklist_path = project.root / skill_candidate_promotion_checklist_path(candidate["pattern_name"])
+    checklist_write_result = guarded_write_artifact(checklist_path, build_skill_promotion_checklist_markdown(candidate))
+    candidate = annotate_skill_pattern_artifacts(project.root, candidate)
     payload = {
         "pattern_name": candidate["pattern_name"],
         "path": str(package_path),
         "supporting_reflection_ids": candidate["supporting_reflection_ids"],
         "supporting_count": candidate["supporting_count"],
+        "draft_status": candidate["draft_status"],
+        "draft_review_status": candidate["draft_review_status"],
+        "draft_reviewer": candidate["draft_reviewer"],
+        "package_path": candidate["package_path"],
+        "package_status": candidate["package_status"],
+        "package_review_status": candidate["package_review_status"],
+        "package_reviewer": candidate["package_reviewer"],
+        "promotion_checklist_path": candidate["promotion_checklist_path"],
+        "promotion_checklist_status": candidate["promotion_checklist_status"],
+        "promotion_stage": candidate["promotion_stage"],
+        "promotion_readiness": candidate["promotion_readiness"],
+        "quality_score": candidate["quality_score"],
+        "quality_reasons": candidate["quality_reasons"],
+        "review_guidance": candidate["review_guidance"],
+        "write_action": write_result["write_action"],
+        "warning": write_result["warning"],
+        "existing_review_status": write_result["existing_review_status"],
+        "existing_reviewer": write_result["existing_reviewer"],
+        "promotion_checklist_write_action": checklist_write_result["write_action"],
+        "promotion_checklist_warning": checklist_write_result["warning"],
     }
     output(payload, args.json)

@@ -95,6 +95,7 @@ Governance belongs to `agent-memory-maintain` and these runtime commands:
 python tools/agent_memory.py maintain-health --project . --json
 python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py maintain-plan --project . --json
+python tools/agent_memory.py maintain-refresh-scope --project . --json
 python tools/agent_memory.py miss-list --project . --status open --json
 python tools/agent_memory.py miss-status --project . --id 1 --status resolved --resolution "..."
 python tools/agent_memory.py maintain-status --project . --type semantic --id 1 --status stale --reason "..."
@@ -106,6 +107,8 @@ python tools/agent_memory.py maintain-skill-package --project . --pattern-name "
 ```
 
 Governance actions should preserve history. Prefer status transitions over destructive deletion.
+
+`maintain-refresh-scope` is the low-risk codebase drift path for projects that keep changing. It replays previously learned `wiki-index`, `learn-path`, and `learn-entry` scopes from the persisted `learn_scopes` manifest table, refreshes structural code-wiki rows, retires removed-file structure, and returns semantic drift targets without blindly overwriting business semantics or experiences.
 
 `maintain-plan` is read-only. It converts review signals into confirmable action candidates for the skill layer. It must not mutate SQLite.
 
@@ -173,6 +176,16 @@ The payload stores the Agent-authored task review in `reflections`:
 
 This classification does not add a fifth skill. It only helps `maintain-plan` route experience candidates toward future skill-candidate review or toward learn/semantic-repair governance.
 
+When `maintain-plan` returns `review_correction_experience`, it now carries a learn-governance repair bundle instead of only a type label:
+
+- `correction_targets`
+- `learning_rule_draft`
+- `learn_business_payload_template`
+- `workflow_steps`
+- `command_template`
+
+Use this bundle to repair the affected file, symbol, or log business semantics in place through `learn-business`, rather than widening the learning scope.
+
 These fields participate in `search` and `context`, so later issue-location or design skills can retrieve successful and failed attempts by problem description, business term, file, log, or prior query.
 
 The compressed trace-case fields are intentionally short and structured:
@@ -200,8 +213,70 @@ The same action now also carries:
 - `failure_modes`: recurring weak patterns, noisy anchors, or anti-patterns
 
 This does not write to the repo automatically. It gives the local Agent CLI or a human reviewer a stable draft artifact to inspect before creating any real skill.
+The grouped candidate now also carries stage metadata:
 
-`vault-export` now mirrors these grouped candidates into `Governance/Skill Pattern Candidates.md`, including the proposed draft path and a Markdown preview. The vault remains a generated review mirror; it does not approve or install the skill.
+- `draft_status`: `not_written` or `written`
+- `draft_review_status`
+- `package_path`
+- `package_status`: `not_written` or `written`
+- `package_review_status`
+- `promotion_stage`: `clustered`, `draft`, or `candidate_package`
+- `review_guidance`
+- `promotion_readiness`
+- `quality_score`
+- `quality_reasons`
+
+These quality signals are advisory. They do not promote a skill automatically. They help distinguish:
+
+- repeated but still weak patterns
+- patterns worth human review
+- patterns that are strong enough to consider manual promotion
+
+`vault-export` now mirrors these grouped candidates into `Governance/Skill Pattern Candidates.md`, including the proposed draft path, review statuses, reviewer metadata, preservation policy, and a Markdown preview. The vault remains a generated review mirror; it does not approve or install the skill.
+
+# 3.6 Refresh And Retirement Path
+
+Structural learning commands now persist a refreshable learn manifest in `learn_scopes`:
+
+- `wiki-index`
+- `learn-path`
+- `learn-entry`
+
+Each manifest stores the learned scope type, source root, target path or entry, depth, mode, and a file snapshot hash map. This lets `maintain` refresh previously learned scopes after the project evolves.
+
+Refresh command:
+
+```bash
+python tools/agent_memory.py maintain-refresh-scope --project . --json
+python tools/agent_memory.py maintain-refresh-scope --project . --scope-id 3 --json
+```
+
+Refresh output is intentionally low-risk:
+
+- `added_files`
+- `changed_files`
+- `removed_files`
+- `parse_stats`
+- `semantic_review_targets`
+
+Current MVP behavior:
+
+- current files in the scope are re-indexed
+- removed files in the scope have their structural `code_files`, `code_symbols`, `code_log_statements`, and derived edges retired from the code wiki
+- business semantics, reflections, and experiences are not silently deleted
+
+Use `semantic_review_targets` to decide whether the next step is:
+
+- focused `learn-business`
+- correction-experience repair
+- later stale review for experiences anchored to removed code
+
+`maintain-plan` now consumes recent refresh drift as well. When a refreshed scope changed, it may emit:
+
+- `review_semantic_drift`
+- `mark_experience_stale_if_anchor_removed`
+
+The first action keeps business semantics aligned with changed code. The second is advisory and confirmation-gated: it marks reflections whose anchors point at removed files as candidates for stale review rather than silently deleting them.
 
 When a reviewer is ready to materialize the draft into the repo, use:
 
@@ -213,6 +288,9 @@ python tools/agent_memory.py maintain-skill-draft \
 ```
 
 This writes the current `draft_markdown` into `docs/skill-candidates/<pattern-name>.md`. It still does not touch the formal `skills/` directory.
+The written draft now starts with stable YAML frontmatter such as `artifact_type`, `promotion_status`, `supporting_reflection_ids`, `common_followup_focus`, and `supporting_cases` so later review and promotion tooling can read it without reparsing the body text.
+It also reserves human review metadata in place: `review_status`, `reviewer`, and `review_notes`.
+If an existing draft already carries human review metadata such as a non-empty reviewer, non-empty review notes, or a `review_status` other than `pending_review`, the runtime preserves that artifact and returns `write_action: preserved_existing_reviewed_artifact` plus a warning instead of overwriting it.
 
 To materialize every current skill-pattern draft in one pass, use:
 
@@ -238,7 +316,17 @@ This writes:
 skills/_candidates/<pattern-name>/SKILL.md
 ```
 
+and also writes:
+
+```text
+skills/_candidates/<pattern-name>/PROMOTION.md
+```
+
 It still does not create or update a formal skill under `skills/<name>/`.
+The candidate package also carries YAML frontmatter with `promotion_status: candidate` and `source_draft`, so the review chain from draft -> candidate package stays auditable inside the repo.
+The same review metadata fields stay with the package so a reviewer can record status and notes without inventing a second format.
+If an existing candidate package already carries human review metadata, the runtime preserves it and returns the same non-overwrite warning instead of silently replacing the reviewed artifact.
+The generated `PROMOTION.md` is the manual execution template for the final human promotion step into `skills/<name>/SKILL.md`.
 
 The extra experience-candidate fields do not create accepted experience by themselves.
 Future Agents must verify them against current source, logs, tests, and code wiki

@@ -18,6 +18,7 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `code_symbols`: lightweight symbol-level wiki index.
 - `code_log_statements`: log, print, and console statements extracted from learned source files.
 - `memory_edges`: lightweight relation edges between learned files, symbols, and log statements.
+- `learn_scopes`: persistent manifests for previously learned entry, path, or whole-project scopes.
 - `query_misses`: failed retrieval attempts that may need later learning or reflection.
 - `semantic_conflicts`: durable review records for conflicting business summaries.
 
@@ -104,6 +105,21 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 - `decision_note`: reviewer rationale grounded in current source.
 - `replacement_source`: source anchor behind the decision.
 - `reviewed_at`: closure timestamp.
+
+`learn_scopes` track refreshable learn manifests:
+
+- `scope_key`: stable identity for a learned entry, path, or project scope.
+- `scope_type`: `project`, `path`, or `entry`.
+- `source_root`: source tree used when the scope was learned.
+- `target_path`: directory or file subtree for `path` or `project` scopes.
+- `entry_path`: entry file for `entry` scopes.
+- `depth`: import-follow depth for entry learning.
+- `mode`: `merge` or `replace`.
+- `file_snapshot`: JSON map of `file_path -> content_hash` from the last refresh.
+- `file_count`: number of indexed files in that snapshot.
+- `status`: currently `active`.
+- `last_refresh_summary`: JSON summary of added, changed, removed, and semantic drift targets.
+- `last_refreshed_at`: last successful scope refresh timestamp.
 
 ## Code Log Statement Network
 

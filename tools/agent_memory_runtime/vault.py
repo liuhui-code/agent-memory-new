@@ -9,6 +9,7 @@ from datetime import datetime
 from pathlib import Path
 
 from .governance import (
+    annotate_skill_pattern_artifacts,
     build_skill_pattern_candidates,
     duplicate_candidates,
     is_complete_experience_candidate,
@@ -367,12 +368,32 @@ def write_governance_dashboard(
         candidates_doc += "\n"
     write_vault_file(project.vault_dir / "Governance" / "Experience Candidates.md", candidates_doc)
 
-    skill_pattern_candidates = build_skill_pattern_candidates(active_reflections)
+    skill_pattern_candidates = [
+        annotate_skill_pattern_artifacts(project.root, item)
+        for item in build_skill_pattern_candidates(active_reflections)
+    ]
     pattern_doc = header + "# Skill Pattern Candidates\n\n" + notice
     pattern_doc += "These grouped procedure experiences point to the same candidate workflow. Review them before drafting a formal skill.\n\n"
+    pattern_doc += "Reviewed draft or candidate-package artifacts are preserved by the runtime when human review metadata is present.\n\n"
     for item in skill_pattern_candidates[:30]:
         pattern_doc += f"## {item['pattern_name']}\n\n"
+        pattern_doc += f"- Promotion stage: `{item['promotion_stage']}`\n"
+        pattern_doc += f"- Draft status: `{item['draft_status']}`\n"
+        if item.get("draft_review_status"):
+            pattern_doc += f"- Draft review status: `{item['draft_review_status']}`\n"
+        if item.get("draft_reviewer"):
+            pattern_doc += f"- Draft reviewer: `{item['draft_reviewer']}`\n"
         pattern_doc += f"- Draft path: `{item['draft_path']}`\n"
+        pattern_doc += f"- Package status: `{item['package_status']}`\n"
+        if item.get("package_review_status"):
+            pattern_doc += f"- Package review status: `{item['package_review_status']}`\n"
+        if item.get("package_reviewer"):
+            pattern_doc += f"- Package reviewer: `{item['package_reviewer']}`\n"
+        pattern_doc += f"- Package path: `{item['package_path']}`\n"
+        pattern_doc += f"- Promotion checklist status: `{item['promotion_checklist_status']}`\n"
+        pattern_doc += f"- Promotion checklist path: `{item['promotion_checklist_path']}`\n"
+        pattern_doc += f"- Promotion readiness: `{item['promotion_readiness']}`\n"
+        pattern_doc += f"- Quality score: `{item['quality_score']}`\n"
         pattern_doc += f"- Supporting reflections: {', '.join(f'#{reflection_id}' for reflection_id in item['supporting_reflection_ids'])}\n"
         pattern_doc += f"- Supporting count: {item['supporting_count']}\n"
         if item.get("common_followup_focus"):
@@ -405,6 +426,14 @@ def write_governance_dashboard(
             pattern_doc += "- Verification methods:\n"
             for method in item["verification_methods"]:
                 pattern_doc += f"  - {method}\n"
+        if item.get("review_guidance"):
+            pattern_doc += "- Review guidance:\n"
+            for step in item["review_guidance"]:
+                pattern_doc += f"  - {step}\n"
+        if item.get("quality_reasons"):
+            pattern_doc += "- Quality reasons:\n"
+            for step in item["quality_reasons"]:
+                pattern_doc += f"  - {step}\n"
         pattern_doc += "\n### Draft Preview\n\n"
         pattern_doc += "```md\n"
         pattern_doc += item["draft_markdown"].rstrip() + "\n"

@@ -160,6 +160,25 @@ def create_schema(conn: sqlite3.Connection) -> None:
           created_at TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS learn_scopes (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          scope_key TEXT NOT NULL,
+          scope_type TEXT NOT NULL,
+          source_root TEXT NOT NULL,
+          target_path TEXT,
+          entry_path TEXT,
+          depth INTEGER,
+          mode TEXT NOT NULL,
+          file_snapshot TEXT NOT NULL,
+          file_count INTEGER NOT NULL DEFAULT 0,
+          status TEXT NOT NULL DEFAULT 'active',
+          last_refresh_summary TEXT,
+          created_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL,
+          last_refreshed_at TEXT
+        );
+
         CREATE TABLE IF NOT EXISTS query_misses (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           project_id TEXT NOT NULL,
@@ -231,6 +250,9 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_memory_edges_project_target
         ON memory_edges(project_id, target_type, target_id);
+
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_learn_scopes_project_scope_key
+        ON learn_scopes(project_id, scope_key);
         """
     )
     migrate_schema(conn)
@@ -277,6 +299,17 @@ def migrate_schema(conn: sqlite3.Connection) -> None:
     ):
         if name not in existing_conflict_columns:
             conn.execute(f"ALTER TABLE semantic_conflicts ADD COLUMN {name} {definition}")
+    existing_scope_columns = {
+        row["name"]
+        for row in conn.execute("PRAGMA table_info(learn_scopes)").fetchall()
+    }
+    for name, definition in (
+        ("status", "TEXT NOT NULL DEFAULT 'active'"),
+        ("last_refresh_summary", "TEXT"),
+        ("last_refreshed_at", "TEXT"),
+    ):
+        if name not in existing_scope_columns:
+            conn.execute(f"ALTER TABLE learn_scopes ADD COLUMN {name} {definition}")
     conn.execute(
         """
         UPDATE query_misses

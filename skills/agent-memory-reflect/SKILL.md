@@ -32,6 +32,12 @@ When the reflection clearly belongs to one of these two future paths, include `e
 - `procedure_experience`: reusable diagnosis, query, repair, or change-design workflow
 - `correction_experience`: correction of learned business semantics or memory understanding
 
+When recording `correction_experience`, include enough evidence for later learn governance:
+
+- affected file, symbol, or log anchors in `source_cases` or `inspection_targets`
+- the misleading old understanding in `what_failed` or `misleading_followup_terms`
+- the corrected understanding in `lesson`, `future_rule`, and `repair_action`
+
 This does not add a fifth skill. It only helps `maintain-plan` route the reflection toward future skill-candidate review or toward learn/semantic-repair governance.
 
 ## Save Agent-Structured Reflection

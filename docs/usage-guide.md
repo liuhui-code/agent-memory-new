@@ -132,6 +132,8 @@ Partial learning is incremental by default. A second `learn-path` call adds or r
 python tools/agent_memory.py learn-path --project . --path skills --replace --json
 ```
 
+Each `wiki-index`, `learn-path`, and `learn-entry` run now also records a persistent learn-scope manifest in SQLite. That gives `agent-memory-maintain` a stable way to refresh those exact learned scopes later when the project changes, without asking the user to restate every path or entry file.
+
 Learning also stores code log statements such as `print(...)`, `logger.error(...)`, `console.warn(...)`, and ArkTS `hilog.info(...)`. These are connected to learned files and nearest detected functions through `memory_edges`.
 
 For HarmonyOS projects, learning also indexes `.json5` config files, ArkTS router targets, and `$r(...)` resource references as code wiki symbols. `learn-entry` can follow ArkTS router targets such as `router.pushUrl({ url: 'pages/Detail' })` to the related `.ets` page.
@@ -248,6 +250,7 @@ If `search` returns `truncated: true`, continue only with `next_cursor` when the
 Use `suggested_followup_terms` from `context` or `search` as the first candidate set for the next recursive query. Add specific `search_terms` or exact anchors only after that.
 If `followup_focus` is present, use it to decide whether the next recursive step should bias route, resource, log, or config anchors.
 If `maintain-plan` returns `review_query_miss`, prefer its `suggested_query_terms` over inventing a fresh keyword set. Those terms combine the original miss wording with current code-memory hint anchors.
+If `maintain-plan` returns `review_correction_experience`, use its `correction_targets`, `learning_rule_draft`, and `learn_business_payload_template` to repair the affected business semantics in place. Keep the repair scoped to the named file, symbol, or log records instead of broadening the learn scope first.
 
 If a query returns no semantic facts, reflections, episodes, or wiki matches, the runtime records a query miss automatically. The user does not need to maintain keywords.
 
@@ -377,6 +380,41 @@ python tools/agent_memory.py maintain-merge --project . --type semantic --ids 3,
 python tools/agent_memory.py maintain-promote --project . --episode-id 9 --fact "..."
 python tools/agent_memory.py miss-status --project . --id 7 --status resolved --resolution "learned relevant directory"
 ```
+
+Ask:
+
+```text
+Refresh what we already learned from the project, and retire stale structural code memory.
+```
+
+Expected skill path:
+
+```text
+agent-memory-maintain
+  -> python tools/agent_memory.py maintain-refresh-scope --project . --json
+```
+
+Optional narrow refresh:
+
+```bash
+python tools/agent_memory.py maintain-refresh-scope --project . --scope-id 3 --json
+```
+
+This is the low-risk update path for changing codebases:
+
+- replay previously learned scopes from `learn_scopes`
+- refresh current file, symbol, log, and edge structure
+- retire structural rows for files removed from that learned scope
+- return `semantic_review_targets` for added, changed, or removed files whose business meaning may now need review
+
+Use it before broad `--replace` re-learning when the project has evolved but you want to preserve accumulated business semantics and experience review history.
+
+After a refresh, `maintain-plan` may return:
+
+- `review_semantic_drift`
+- `mark_experience_stale_if_anchor_removed`
+
+Use the first to drive focused `learn-business` repair. Use the second to review older reflections or experience candidates that still point at files removed from the refreshed scope.
 
 `maintain-plan` is read-only. Actions with `command: null` need the Agent to draft a replacement fact or durable lesson before execution.
 
@@ -521,6 +559,17 @@ This writes:
 docs/skill-candidates/arkts-route-blank-screen-diagnosis.md
 ```
 
+The generated draft starts with YAML frontmatter so later review or promotion tooling can read:
+
+- `artifact_type: skill_candidate_draft`
+- `promotion_status: draft`
+- `review_status`
+- `reviewer`
+- `review_notes`
+- `supporting_reflection_ids`
+- `common_followup_focus`
+- `supporting_cases`
+
 The file is still a draft artifact. It does not create a formal skill under `skills/`.
 
 To write every currently clustered draft candidate in one pass:
@@ -545,10 +594,41 @@ This writes:
 
 ```text
 skills/_candidates/arkts-route-blank-screen-diagnosis/SKILL.md
+skills/_candidates/arkts-route-blank-screen-diagnosis/PROMOTION.md
 ```
+
+The candidate package also includes YAML frontmatter such as:
+
+- `artifact_type: skill_candidate_package`
+- `promotion_status: candidate`
+- `review_status`
+- `reviewer`
+- `review_notes`
+- `source_draft`
+
+`maintain-plan` and the vault review page also expose the stage directly:
+
+- `promotion_stage: clustered`
+- `promotion_stage: draft`
+- `promotion_stage: candidate_package`
+
+When the draft or candidate package already exists, runtime outputs also surface:
+
+- `draft_review_status`
+- `package_review_status`
+- `review_guidance`
+- `promotion_readiness`
+- `quality_score`
+- `quality_reasons`
+
+Treat these as confidence signals for reviewers, not as automatic promotion switches.
+
+If a draft or candidate package already has human review metadata such as a real reviewer or a non-`pending_review` status, rerunning the write command preserves that artifact and returns a warning instead of overwriting the review work.
+The vault `Governance/Skill Pattern Candidates.md` page mirrors the same stage, reviewer, and preservation-policy information so human review in Obsidian sees the same boundary conditions as the runtime JSON.
 
 It is still a candidate package, not a formal installed skill.
 Promotion into `skills/<name>/` remains manual. Use `docs/skill-promotion-rules.md` as the review checklist before treating any candidate package as a real skill.
+The generated `PROMOTION.md` next to the candidate package is the concrete manual execution template for that final step.
 
 Review reflection quality:
 

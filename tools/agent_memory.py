@@ -18,6 +18,7 @@ from agent_memory_runtime.code_wiki import (
     learn_business,
     learn_entry,
     learn_path,
+    maintain_refresh_scope,
     wiki_index,
     wiki_search,
 )
@@ -594,6 +595,7 @@ def main(argv: list[str] | None = None) -> int:
             "maintain_promote": maintain_promote,
             "maintain_skill_draft": maintain_skill_draft,
             "maintain_skill_package": maintain_skill_package,
+            "maintain_refresh_scope": maintain_refresh_scope,
             "vault_init": vault_init,
             "vault_export": vault_export,
             "vault_index": vault_index,

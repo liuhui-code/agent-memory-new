@@ -34,6 +34,7 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
         self.assertEqual(reflection_quality_action(["missing_scope"]), "rewrite")
         self.assertEqual(network_limits()["max_depth"], 1)
         self.assertEqual(table_for_type("code-log"), "code_log_statements")
+        self.assertEqual(table_for_type("learn-scope"), "learn_scopes")
         self.assertEqual(table_for_type("reflection-reuse"), "reflection_reuse_events")
         self.assertEqual(resolve_project(".", None).project_name, "agent-memory-new")
         self.assertEqual(slugify("Hello Agent Memory!", "fallback"), "hello-agent-memory")
@@ -332,6 +333,131 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.run_memory(project, "learn-path", "--path", "b", "--replace")
 
             self.assertEqual(self.list_code_files(project), {"b/two.py"})
+
+    def test_learn_path_records_persistent_learn_scope_manifest(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "src").mkdir()
+            (project / "src" / "app.py").write_text("def run():\n    return 1\n", encoding="utf-8")
+
+            result = self.run_memory(project, "learn-path", "--path", "src", "--json")
+
+            payload = json.loads(result.stdout)
+            scopes = self.list_records(project, "learn-scope")
+            self.assertEqual(payload["scope_id"], scopes[0]["id"])
+            self.assertEqual(scopes[0]["scope_type"], "path")
+            self.assertEqual(scopes[0]["target_path"], "src")
+            self.assertEqual(scopes[0]["mode"], "merge")
+            self.assertEqual(scopes[0]["file_count"], 1)
+            snapshot = json.loads(scopes[0]["file_snapshot"])
+            self.assertEqual(list(snapshot.keys()), ["src/app.py"])
+
+    def test_maintain_refresh_scope_updates_structure_and_reports_drift(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            pages = project / "pages"
+            pages.mkdir()
+            (pages / "A.ets").write_text(
+                "@Component\nstruct A { build() { console.error('old a'); } }\n",
+                encoding="utf-8",
+            )
+            (pages / "B.ets").write_text(
+                "@Component\nstruct B { build() { console.error('old b'); } }\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages", "--json")
+
+            (pages / "A.ets").write_text(
+                "@Component\nstruct A { build() { console.error('new a'); } }\n",
+                encoding="utf-8",
+            )
+            (pages / "B.ets").unlink()
+            (pages / "C.ets").write_text(
+                "@Component\nstruct C { build() { console.error('new c'); } }\n",
+                encoding="utf-8",
+            )
+
+            result = self.run_memory(project, "maintain-refresh-scope", "--json")
+
+            payload = json.loads(result.stdout)
+            self.assertEqual(payload["scope_count"], 1)
+            scope = payload["scopes"][0]
+            self.assertEqual(scope["status"], "refreshed")
+            self.assertEqual(scope["scope_type"], "path")
+            self.assertIn("pages/C.ets", scope["added_files"])
+            self.assertIn("pages/A.ets", scope["changed_files"])
+            self.assertIn("pages/B.ets", scope["removed_files"])
+            self.assertTrue(scope["semantic_review_targets"]["drift_detected"])
+            self.assertEqual(
+                set(scope["semantic_review_targets"]["file_paths"]),
+                {"pages/A.ets", "pages/B.ets", "pages/C.ets"},
+            )
+            self.assertEqual(self.list_code_files(project), {"pages/A.ets", "pages/C.ets"})
+
+    def test_maintain_plan_surfaces_recent_refresh_drift(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            pages = project / "pages"
+            pages.mkdir()
+            (pages / "A.ets").write_text("@Component\nstruct A { build() {} }\n", encoding="utf-8")
+            self.run_memory(project, "learn-path", "--path", "pages", "--json")
+            (pages / "A.ets").write_text(
+                "@Component\nstruct A { build() { console.error('updated'); } }\n",
+                encoding="utf-8",
+            )
+            self.run_memory(project, "maintain-refresh-scope", "--json")
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+
+            payload = json.loads(result.stdout)
+            self.assertEqual(payload["summary"]["refresh_drifts"], 1)
+            drift_actions = [action for action in payload["actions"] if action["action"] == "review_semantic_drift"]
+            self.assertEqual(len(drift_actions), 1)
+            self.assertEqual(drift_actions[0]["scope_type"], "path")
+            self.assertIn("pages/A.ets", drift_actions[0]["changed_files"])
+
+    def test_maintain_plan_flags_reflections_when_removed_file_anchor_disappears(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            pages = project / "pages"
+            pages.mkdir()
+            (pages / "A.ets").write_text("@Component\nstruct A { build() {} }\n", encoding="utf-8")
+            (pages / "B.ets").write_text("@Component\nstruct B { build() {} }\n", encoding="utf-8")
+            self.run_memory(project, "learn-path", "--path", "pages", "--json")
+            payload = {
+                "experience_type": "procedure_experience",
+                "task_type": "diagnosis",
+                "outcome": "success",
+                "task": "diagnose removed page issue",
+                "lesson": "Removed page anchors should be reviewed.",
+                "future_rule": "If a referenced page disappears, review old experience before reuse.",
+                "scope": "ArkTS page diagnosis",
+                "evidence": "pages/B.ets",
+                "trigger_condition": "Linked page file is removed",
+                "repair_action": "Review or stale related experience",
+                "hidden_assumptions": ["pages/B.ets still exists"],
+                "negative_preconditions": ["Do not apply when the file still exists"],
+                "verification_method": "Check the current code tree for the referenced file",
+                "reuse_feedback": "candidate",
+                "source_cases": ["file: pages/B.ets"],
+                "inspection_targets": ["pages/B.ets"],
+            }
+            self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+            (pages / "B.ets").unlink()
+            self.run_memory(project, "maintain-refresh-scope", "--json")
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+
+            payload = json.loads(result.stdout)
+            stale_actions = [
+                action
+                for action in payload["actions"]
+                if action["action"] == "mark_experience_stale_if_anchor_removed"
+            ]
+            self.assertEqual(len(stale_actions), 1)
+            self.assertIn("pages/B.ets", stale_actions[0]["removed_files"])
+            self.assertEqual(stale_actions[0]["linked_reflection_ids"], [1])
 
     def test_maintain_status_marks_semantic_stale_and_context_excludes_it(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -855,6 +981,15 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(action["governance_path"], "learn_semantic_repair")
             self.assertEqual(action["useful_followup_focus"], "route")
             self.assertIn("build()", json.loads(action["useful_followup_terms"])[1])
+            self.assertEqual(action["correction_targets"]["file_paths"], ["pages/Profile.ets"])
+            self.assertIn("service", action["correction_targets"]["misleading_terms"])
+            self.assertEqual(action["learning_rule_draft"]["target_memory_type"], "code_wiki_business_semantics")
+            self.assertIn("Learned business summary conflicts with current source role.", action["learning_rule_draft"]["correction_trigger"])
+            self.assertIn("Check build method, route usage, and UI composition.", action["learning_rule_draft"]["source_evidence"][1])
+            self.assertEqual(action["command_template"], "python tools/agent_memory.py learn-business --project . --payload '<json>' --json")
+            self.assertEqual(action["learn_business_payload_template"]["files"][0]["file_path"], "pages/Profile.ets")
+            self.assertIn("Profile", action["learn_business_payload_template"]["files"][0]["hint_terms"][0])
+            self.assertIn("Rewrite the learn-business payload for the affected records", action["workflow_steps"][2])
 
     def test_maintain_plan_clusters_procedure_experiences_into_skill_pattern_candidate(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -953,6 +1088,18 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertIn("Search generic blank-screen terms only", action["failure_modes"])
             self.assertIn("verification checklist", action["expected_outputs"])
             self.assertEqual(action["draft_path"], "docs/skill-candidates/arkts-route-blank-screen-diagnosis.md")
+            self.assertEqual(action["draft_status"], "not_written")
+            self.assertEqual(action["draft_review_status"], "")
+            self.assertEqual(action["package_path"], "skills/_candidates/arkts-route-blank-screen-diagnosis/SKILL.md")
+            self.assertEqual(action["package_status"], "not_written")
+            self.assertEqual(action["package_review_status"], "")
+            self.assertEqual(action["promotion_checklist_path"], "skills/_candidates/arkts-route-blank-screen-diagnosis/PROMOTION.md")
+            self.assertEqual(action["promotion_checklist_status"], "not_written")
+            self.assertEqual(action["promotion_stage"], "clustered")
+            self.assertEqual(action["promotion_readiness"], "review_candidate")
+            self.assertGreaterEqual(action["quality_score"], 5)
+            self.assertIn("has_minimum_supporting_reflections", action["quality_reasons"])
+            self.assertIn("Write the draft artifact first", action["review_guidance"][0])
             self.assertIn("maintain-skill-draft", action["write_command_template"])
             self.assertIn("maintain-skill-package", action["package_command_template"])
             self.assertIn("# Skill Candidate: arkts-route-blank-screen-diagnosis", action["draft_markdown"])
@@ -1055,6 +1202,22 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             content = draft_path.read_text(encoding="utf-8")
             self.assertEqual(Path(payload["path"]).resolve(), draft_path.resolve())
             self.assertEqual(payload["pattern_name"], "arkts-route-blank-screen-diagnosis")
+            self.assertEqual(payload["draft_status"], "written")
+            self.assertEqual(payload["draft_review_status"], "pending_review")
+            self.assertEqual(payload["package_status"], "not_written")
+            self.assertEqual(payload["package_review_status"], "")
+            self.assertEqual(payload["promotion_stage"], "draft")
+            self.assertEqual(payload["write_action"], "wrote_artifact")
+            self.assertEqual(payload["warning"], "")
+            self.assertIn("Review the draft and record reviewer metadata", payload["review_guidance"][0])
+            self.assertIn("artifact_type: \"skill_candidate_draft\"", content)
+            self.assertIn("promotion_status: \"draft\"", content)
+            self.assertIn("review_status: \"pending_review\"", content)
+            self.assertIn("reviewer: \"\"", content)
+            self.assertIn("review_notes: []", content)
+            self.assertIn("supporting_reflection_ids: [1, 2]", content)
+            self.assertIn("common_followup_focus: [\"route\"]", content)
+            self.assertIn("- Review status: pending_review", content)
             self.assertIn("## Common Steps", content)
             self.assertIn("query route anchors", content)
             self.assertIn("## Failure Modes", content)
@@ -1229,6 +1392,10 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
                 "arkts-resource-missing-diagnosis",
                 "arkts-route-blank-screen-diagnosis",
             ])
+            self.assertEqual(payload["written"][0]["draft_status"], "written")
+            self.assertEqual(payload["written"][0]["draft_review_status"], "pending_review")
+            self.assertEqual(payload["written"][0]["promotion_stage"], "draft")
+            self.assertEqual(payload["written"][0]["write_action"], "wrote_artifact")
 
     def test_maintain_skill_package_writes_candidate_skill_file(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -1320,12 +1487,263 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
 
             payload = json.loads(result.stdout)
             package_path = project / "skills" / "_candidates" / "arkts-route-blank-screen-diagnosis" / "SKILL.md"
+            checklist_path = project / "skills" / "_candidates" / "arkts-route-blank-screen-diagnosis" / "PROMOTION.md"
             self.assertTrue(package_path.exists())
+            self.assertTrue(checklist_path.exists())
             content = package_path.read_text(encoding="utf-8")
+            checklist = checklist_path.read_text(encoding="utf-8")
             self.assertEqual(Path(payload["path"]).resolve(), package_path.resolve())
             self.assertEqual(payload["pattern_name"], "arkts-route-blank-screen-diagnosis")
+            self.assertEqual(payload["draft_status"], "not_written")
+            self.assertEqual(payload["draft_review_status"], "")
+            self.assertEqual(payload["package_status"], "written")
+            self.assertEqual(payload["package_review_status"], "pending_review")
+            self.assertEqual(payload["promotion_checklist_status"], "written")
+            self.assertEqual(payload["promotion_stage"], "candidate_package")
+            self.assertEqual(payload["promotion_readiness"], "review_candidate")
+            self.assertEqual(payload["write_action"], "wrote_artifact")
+            self.assertEqual(payload["warning"], "")
+            self.assertIn("Review the candidate package metadata", payload["review_guidance"][0])
+            self.assertIn("artifact_type: \"skill_candidate_package\"", content)
+            self.assertIn("promotion_status: \"candidate\"", content)
+            self.assertIn("review_status: \"pending_review\"", content)
+            self.assertIn("review_notes: []", content)
+            self.assertIn("source_draft: \"docs/skill-candidates/arkts-route-blank-screen-diagnosis.md\"", content)
             self.assertIn("Candidate package generated from repeated procedure_experience reflections.", content)
             self.assertIn("## Common Steps", content)
+            self.assertIn("## Quality Signals", content)
+            self.assertIn("Readiness: `review_candidate`", content)
+            self.assertIn("# Promotion Checklist: arkts-route-blank-screen-diagnosis", checklist)
+            self.assertIn("Formal target: `skills/arkts-route-blank-screen-diagnosis/SKILL.md`", checklist)
+            self.assertIn("Promotion readiness is acceptable (`review_candidate`)", checklist)
+
+    def test_maintain_skill_draft_preserves_existing_reviewed_draft(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payloads = [
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Settings page opens blank after route navigation.",
+                    "task": "diagnose settings route blank screen",
+                    "summary": "The route target was wrong.",
+                    "reasoning_summary": "Route and log anchors narrowed the issue.",
+                    "context_used": ["query: settings blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Search page business term with route terms."],
+                    "what_failed": ["Generic blank-screen search was broad."],
+                    "hidden_assumptions": ["The blank screen occurred after navigation."],
+                    "negative_preconditions": ["Does not apply to static layout visibility issues."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "Route anchors became useful after the second query round.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["settings", "router.pushUrl", "pages/Settings"],
+                    "misleading_followup_terms": ["blank screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/Settings.ets"],
+                    "final_verification_path": "Check route registration and reproduce the navigation path.",
+                    "related_cases": ["case_settings_route_001"],
+                    "verification_method": "Check route registration, log output, and reproduce navigation.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:settings-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "ArkTS route blank-screen diagnosis should query business page terms with route terms.",
+                    "future_rule": "When a page blanks after navigation, query page business name plus router terms.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Search generic blank-screen terms only",
+                    "repair_action": "Query page business terms, router target, and related log template",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Profile page opens blank after route navigation.",
+                    "task": "diagnose profile route blank screen",
+                    "summary": "The profile route registration was mismatched.",
+                    "reasoning_summary": "Route anchors and router logs converged quickly.",
+                    "context_used": ["query: profile blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Combine business page name and route terms."],
+                    "what_failed": ["Starting from pure rendering terms."],
+                    "hidden_assumptions": ["Navigation reached the target route."],
+                    "negative_preconditions": ["Does not apply to local layout overflow."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "The second query round narrowed the issue to the route target registration.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["profile", "router.pushUrl", "pages/ProfileDetail"],
+                    "misleading_followup_terms": ["white screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/ProfileDetail.ets"],
+                    "final_verification_path": "Inspect route registration and replay the same navigation path.",
+                    "related_cases": ["case_profile_route_001"],
+                    "verification_method": "Check route registration, logs, and navigation replay.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:profile-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "HarmonyOS route blank-screen diagnosis should start from route anchors.",
+                    "future_rule": "When a page blanks after navigation, prefer route anchors before layout debugging.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Treat navigation blank screens as generic rendering bugs",
+                    "repair_action": "Query page business terms, route target, and router logs first",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+            ]
+            for payload in payloads:
+                self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            self.run_memory(
+                project,
+                "maintain-skill-draft",
+                "--pattern-name",
+                "arkts-route-blank-screen-diagnosis",
+                "--json",
+            )
+
+            draft_path = project / "docs" / "skill-candidates" / "arkts-route-blank-screen-diagnosis.md"
+            draft_path.write_text(
+                draft_path.read_text(encoding="utf-8")
+                .replace('review_status: "pending_review"', 'review_status: "approved"')
+                .replace('reviewer: ""', 'reviewer: "Alice"'),
+                encoding="utf-8",
+            )
+            preserved_content = draft_path.read_text(encoding="utf-8")
+
+            result = self.run_memory(
+                project,
+                "maintain-skill-draft",
+                "--pattern-name",
+                "arkts-route-blank-screen-diagnosis",
+                "--json",
+            )
+
+            payload = json.loads(result.stdout)
+            self.assertEqual(payload["write_action"], "preserved_existing_reviewed_artifact")
+            self.assertIn("did not overwrite", payload["warning"])
+            self.assertEqual(payload["existing_review_status"], "approved")
+            self.assertEqual(payload["existing_reviewer"], "Alice")
+            self.assertEqual(payload["draft_review_status"], "approved")
+            self.assertEqual(payload["draft_reviewer"], "Alice")
+            self.assertEqual(draft_path.read_text(encoding="utf-8"), preserved_content)
+
+    def test_maintain_skill_package_preserves_existing_reviewed_package(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payloads = [
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Settings page opens blank after route navigation.",
+                    "task": "diagnose settings route blank screen",
+                    "summary": "The route target was wrong.",
+                    "reasoning_summary": "Route and log anchors narrowed the issue.",
+                    "context_used": ["query: settings blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Search page business term with route terms."],
+                    "what_failed": ["Generic blank-screen search was broad."],
+                    "hidden_assumptions": ["The blank screen occurred after navigation."],
+                    "negative_preconditions": ["Does not apply to static layout visibility issues."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "Route anchors became useful after the second query round.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["settings", "router.pushUrl", "pages/Settings"],
+                    "misleading_followup_terms": ["blank screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/Settings.ets"],
+                    "final_verification_path": "Check route registration and reproduce the navigation path.",
+                    "related_cases": ["case_settings_route_001"],
+                    "verification_method": "Check route registration, log output, and reproduce navigation.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:settings-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "ArkTS route blank-screen diagnosis should query business page terms with route terms.",
+                    "future_rule": "When a page blanks after navigation, query page business name plus router terms.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Search generic blank-screen terms only",
+                    "repair_action": "Query page business terms, router target, and related log template",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "Profile page opens blank after route navigation.",
+                    "task": "diagnose profile route blank screen",
+                    "summary": "The profile route registration was mismatched.",
+                    "reasoning_summary": "Route anchors and router logs converged quickly.",
+                    "context_used": ["query: profile blank route", "log: router.pushUrl failed"],
+                    "what_worked": ["Combine business page name and route terms."],
+                    "what_failed": ["Starting from pure rendering terms."],
+                    "hidden_assumptions": ["Navigation reached the target route."],
+                    "negative_preconditions": ["Does not apply to local layout overflow."],
+                    "query_rounds": 2,
+                    "trajectory_summary": "The second query round narrowed the issue to the route target registration.",
+                    "useful_followup_focus": "route",
+                    "useful_followup_terms": ["profile", "router.pushUrl", "pages/ProfileDetail"],
+                    "misleading_followup_terms": ["white screen"],
+                    "inspection_targets": ["pages/Home.ets", "pages/ProfileDetail.ets"],
+                    "final_verification_path": "Inspect route registration and replay the same navigation path.",
+                    "related_cases": ["case_profile_route_001"],
+                    "verification_method": "Check route registration, logs, and navigation replay.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["episode:profile-route-fix"],
+                    "skill_candidate": "arkts-route-blank-screen-diagnosis",
+                    "lesson": "HarmonyOS route blank-screen diagnosis should start from route anchors.",
+                    "future_rule": "When a page blanks after navigation, prefer route anchors before layout debugging.",
+                    "scope": "HarmonyOS ArkTS routing",
+                    "evidence": "pages/Home.ets router.pushUrl",
+                    "trigger_condition": "Page blanks after route navigation",
+                    "anti_pattern": "Treat navigation blank screens as generic rendering bugs",
+                    "repair_action": "Query page business terms, route target, and router logs first",
+                    "applies_to": "ArkTS route target failures",
+                    "does_not_apply_to": "Non-navigation rendering bugs",
+                    "confidence": 0.9,
+                },
+            ]
+            for payload in payloads:
+                self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            self.run_memory(
+                project,
+                "maintain-skill-package",
+                "--pattern-name",
+                "arkts-route-blank-screen-diagnosis",
+                "--json",
+            )
+
+            package_path = project / "skills" / "_candidates" / "arkts-route-blank-screen-diagnosis" / "SKILL.md"
+            package_path.write_text(
+                package_path.read_text(encoding="utf-8")
+                .replace('review_status: "pending_review"', 'review_status: "approved"')
+                .replace('reviewer: ""', 'reviewer: "Bob"'),
+                encoding="utf-8",
+            )
+            preserved_content = package_path.read_text(encoding="utf-8")
+
+            result = self.run_memory(
+                project,
+                "maintain-skill-package",
+                "--pattern-name",
+                "arkts-route-blank-screen-diagnosis",
+                "--json",
+            )
+
+            payload = json.loads(result.stdout)
+            self.assertEqual(payload["write_action"], "preserved_existing_reviewed_artifact")
+            self.assertIn("did not overwrite", payload["warning"])
+            self.assertEqual(payload["existing_review_status"], "approved")
+            self.assertEqual(payload["existing_reviewer"], "Bob")
+            self.assertEqual(payload["package_review_status"], "approved")
+            self.assertEqual(payload["package_reviewer"], "Bob")
+            self.assertEqual(package_path.read_text(encoding="utf-8"), preserved_content)
 
     def test_maintain_promote_reflection_to_semantic_fact(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -1525,13 +1943,40 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             for payload in payloads:
                 self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
 
+            self.run_memory(
+                project,
+                "maintain-skill-package",
+                "--pattern-name",
+                "arkts-route-blank-screen-diagnosis",
+                "--json",
+            )
+            package_path = project / "skills" / "_candidates" / "arkts-route-blank-screen-diagnosis" / "SKILL.md"
+            package_path.write_text(
+                package_path.read_text(encoding="utf-8")
+                .replace('review_status: "pending_review"', 'review_status: "approved"')
+                .replace('reviewer: ""', 'reviewer: "Bob"'),
+                encoding="utf-8",
+            )
+
             self.run_memory(project, "vault-export")
 
             dashboard = self.project_memory_dir(project) / "vault" / "Governance" / "Skill Pattern Candidates.md"
             index = self.project_memory_dir(project) / "vault" / "index.md"
             self.assertTrue(dashboard.exists())
             content = dashboard.read_text(encoding="utf-8")
+            self.assertIn("Reviewed draft or candidate-package artifacts are preserved by the runtime", content)
             self.assertIn("arkts-route-blank-screen-diagnosis", content)
+            self.assertIn("Promotion stage: `candidate_package`", content)
+            self.assertIn("Draft status: `not_written`", content)
+            self.assertIn("Package status: `written`", content)
+            self.assertIn("Package review status: `approved`", content)
+            self.assertIn("Package reviewer: `Bob`", content)
+            self.assertIn("Promotion checklist status: `written`", content)
+            self.assertIn("Promotion checklist path: `skills/_candidates/arkts-route-blank-screen-diagnosis/PROMOTION.md`", content)
+            self.assertIn("Promotion readiness: `review_candidate`", content)
+            self.assertIn("Quality score: `", content)
+            self.assertIn("Review guidance:", content)
+            self.assertIn("Review the candidate package metadata", content)
             self.assertIn("docs/skill-candidates/arkts-route-blank-screen-diagnosis.md", content)
             self.assertIn("router.pushUrl", content)
             self.assertIn("supporting reflections", content.lower())

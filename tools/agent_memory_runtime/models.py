@@ -18,6 +18,7 @@ REQUIRED_TABLES = {
     "code_symbols",
     "code_log_statements",
     "memory_edges",
+    "learn_scopes",
     "query_misses",
     "reflection_reuse_events",
     "semantic_conflicts",

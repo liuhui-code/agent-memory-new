@@ -23,6 +23,23 @@ python tools/agent_memory.py doctor --project .
 python tools/agent_memory.py maintain-health --project . --json
 ```
 
+## Refresh Learned Scopes
+
+When the project source has changed and the learned code wiki may be stale:
+
+```bash
+python tools/agent_memory.py maintain-refresh-scope --project . --json
+```
+
+To refresh one previously learned scope only:
+
+```bash
+python tools/agent_memory.py maintain-refresh-scope --project . --scope-id 3 --json
+```
+
+Use this before broad `learn-path --replace` or `wiki-index` resets. It replays previously learned scopes from SQLite, refreshes current file/symbol/log/edge structure, retires removed-file structure, and returns `semantic_review_targets` so we can decide whether a focused `learn-business` pass is needed next.
+After refresh, run `maintain-plan --json` if you want the drift to be translated into review actions such as `review_semantic_drift` or `mark_experience_stale_if_anchor_removed`.
+
 ## Review Queue
 
 When the user asks to review, clean, govern, merge, or check memory quality:
@@ -54,7 +71,12 @@ If the action also includes compressed trace-case fields such as `query_rounds`,
 When `maintain-plan` returns `review_skill_pattern_candidate`, treat it as a multi-case aggregation hint, not a ready-made skill. Review `supporting_reflection_ids`, `common_followup_focus`, `common_query_terms`, `supporting_cases`, and `verification_methods` before drafting any skill candidate.
 If `draft_path` and `draft_markdown` are present, use them as the proposed review artifact for `docs/skill-candidates/`. Review and edit the draft first; do not treat it as an approved skill.
 If `common_steps`, `common_stop_conditions`, `expected_outputs`, or `failure_modes` are present, treat them as the first pass at turning repeated experience into executable skill structure.
+If `draft_status`, `package_status`, or `promotion_stage` are present, use them as the current repo-state signal instead of inferring state from file paths alone.
+If `draft_review_status`, `package_review_status`, or `review_guidance` are present, use them to decide whether the next step is writing a draft, reviewing a draft, or reviewing a candidate package before any manual promotion.
+If `promotion_readiness`, `quality_score`, or `quality_reasons` are present, use them as the runtime's current evidence-strength signal for whether the pattern is only interesting, worth review, or close to manual promotion.
+These are reviewer aids, not permission to skip manual promotion checks.
 After `vault-export`, the same grouped pattern appears in `Governance/Skill Pattern Candidates.md` for human review.
+That vault page now also mirrors reviewer metadata and the non-overwrite policy for reviewed artifacts, so Obsidian review sees the same guardrails as runtime JSON.
 When the pattern is ready to be written into the repo as a draft document, use:
 
 ```bash
@@ -65,6 +87,9 @@ python tools/agent_memory.py maintain-skill-draft \
 ```
 
 This writes only `docs/skill-candidates/<pattern-name>.md`. It still does not create or update a real skill under `skills/`.
+The generated draft includes YAML frontmatter with review metadata such as `artifact_type`, `promotion_status`, `supporting_reflection_ids`, and `common_followup_focus`.
+Keep `review_status`, `reviewer`, and `review_notes` in that frontmatter/body pair up to date during human review instead of inventing an external checklist.
+If a draft already carries human review metadata, rerunning `maintain-skill-draft` should preserve it. Read `write_action` and `warning` before assuming the runtime rewrote the file.
 
 To write every currently clustered draft in one pass, use:
 
@@ -85,11 +110,24 @@ python tools/agent_memory.py maintain-skill-package \
 ```
 
 This writes only `skills/_candidates/<pattern-name>/SKILL.md`. It still does not create or update a formal skill under `skills/<name>/`.
+It also writes `skills/_candidates/<pattern-name>/PROMOTION.md` as the manual promotion checklist for the final human step.
+The candidate package includes YAML frontmatter with `promotion_status: candidate` and `source_draft` so reviewers can trace where it came from.
+Keep the same `review_status`, `reviewer`, and `review_notes` fields when the draft is promoted into `_candidates/`.
+If a candidate package already carries human review metadata, rerunning `maintain-skill-package` should preserve it. Read `write_action` and `warning` before assuming the runtime rewrote the file.
 Formal promotion into `skills/<name>/` remains manual for now. Follow `docs/skill-promotion-rules.md` before treating a candidate package as a real skill.
 When `experience_type` is present on a reflection action, keep the governance path aligned:
 
 - `procedure_experience` -> future skill candidate review path
 - `correction_experience` -> learn or semantic repair review path
+
+For `review_correction_experience`, prefer the structured repair bundle over ad hoc rewriting:
+
+- `correction_targets`
+- `learning_rule_draft`
+- `learn_business_payload_template`
+- `workflow_steps`
+
+Use these to patch the affected business semantics through `learn-business` at the narrowest possible scope.
 
 When `maintain-plan` returns `review_query_miss`, inspect `suggested_fixes`:
 

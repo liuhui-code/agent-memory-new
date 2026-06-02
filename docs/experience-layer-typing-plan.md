@@ -454,6 +454,14 @@ apply_learning_rule
 ignore
 ```
 
+对当前 runtime 的直接要求应是：
+
+- `review_correction_experience` 不只返回类型标签
+- 应直接返回 `correction_targets`
+- 应返回 `learning_rule_draft`
+- 应返回面向受影响 records 的 `learn_business_payload_template`
+- 应返回修复用 `workflow_steps`
+
 这样 maintain 才不会把所有经验候选都当成同一种东西。
 
 ---

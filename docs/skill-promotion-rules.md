@@ -47,6 +47,14 @@ formal skill promotion
 
 正式 promotion 必须是单独的人工确认动作。
 
+当前 runtime 还会给每个 skill pattern 附带：
+
+- `promotion_readiness`
+- `quality_score`
+- `quality_reasons`
+
+这些不是自动 promotion 开关，而是人工审查时的质量信号。
+
 ---
 
 ## 2. 三个层级
@@ -70,6 +78,15 @@ docs/skill-candidates/<name>.md
 - 允许存在不稳定表述
 - 不要求格式完全像正式 skill
 - 主要承担“整理经验簇”的作用
+- 应带稳定 frontmatter，至少标明：
+  - `artifact_type: skill_candidate_draft`
+  - `promotion_status: draft`
+  - `review_status`
+  - `reviewer`
+  - `review_notes`
+  - `supporting_reflection_ids`
+  - `common_followup_focus`
+  - `supporting_cases`
 
 ### 2.2 Candidate Package
 
@@ -77,6 +94,7 @@ docs/skill-candidates/<name>.md
 
 ```text
 skills/_candidates/<name>/SKILL.md
+skills/_candidates/<name>/PROMOTION.md
 ```
 
 用途：
@@ -90,6 +108,14 @@ skills/_candidates/<name>/SKILL.md
 - 结构应接近正式 skill
 - 允许存在“待补验证”的部分
 - 不能直接当成稳定能力宣传
+- 应带稳定 frontmatter，至少标明：
+  - `artifact_type: skill_candidate_package`
+  - `promotion_status: candidate`
+  - `review_status`
+  - `reviewer`
+  - `review_notes`
+  - `source_draft`
+  - `supporting_reflection_ids`
 
 ### 2.3 Formal Skill
 
