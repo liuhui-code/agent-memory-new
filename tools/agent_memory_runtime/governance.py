@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import sqlite3
+import re
 from pathlib import Path
 from typing import Any
 
@@ -994,6 +995,263 @@ def build_skill_promotion_checklist_markdown(candidate: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def incident_strategy_draft_path(strategy_name: str) -> str:
+    return f"docs/incident-strategies/{strategy_name}.md"
+
+
+def incident_strategy_frontmatter(candidate: dict[str, Any]) -> list[str]:
+    return [
+        "---",
+        f"strategy_name: {json.dumps(candidate['strategy_name'], ensure_ascii=False)}",
+        f"artifact_type: {json.dumps('incident_strategy_draft', ensure_ascii=False)}",
+        f"promotion_status: {json.dumps('draft', ensure_ascii=False)}",
+        'review_status: "pending_review"',
+        'reviewer: ""',
+        "review_notes: []",
+        f"experience_type: {json.dumps('procedure_experience', ensure_ascii=False)}",
+        f"supporting_count: {int(candidate.get('supporting_count') or 0)}",
+        f"supporting_reflection_ids: {format_frontmatter_sequence(candidate.get('supporting_reflection_ids', []))}",
+        f"common_followup_focus: {format_frontmatter_sequence(candidate.get('common_followup_focus', []))}",
+        f"supporting_cases: {format_frontmatter_sequence(candidate.get('supporting_cases', []))}",
+        f"source_runtime_command: {json.dumps('tools/agent_memory.py', ensure_ascii=False)}",
+        "---",
+        "",
+    ]
+
+
+def build_incident_strategy_markdown(candidate: dict[str, Any]) -> str:
+    lines = incident_strategy_frontmatter(candidate) + [
+        f"# Incident Strategy: {candidate['strategy_name']}",
+        "",
+        "## Summary",
+        "",
+        "Generated from repeated runtime-log-backed procedure experiences. Review before turning this into a broader diagnostic policy or formal skill.",
+        "",
+        "## Goal Symptoms",
+        "",
+    ]
+    for item in candidate.get("goal_symptoms", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Common Log Events", ""])
+    for item in candidate.get("common_log_events", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Common Followup Focus", ""])
+    for item in candidate.get("common_followup_focus", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Recommended Steps", ""])
+    for item in candidate.get("recommended_steps", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Verification Paths", ""])
+    for item in candidate.get("verification_paths", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Misleading Signals", ""])
+    for item in candidate.get("misleading_signals", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Log Design Feedback", ""])
+    for item in candidate.get("log_design_feedback", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Supporting Cases", ""])
+    for item in candidate.get("supporting_cases", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Quality Signals", ""])
+    lines.append(f"- Readiness: `{candidate.get('promotion_readiness', 'needs_more_evidence')}`")
+    lines.append(f"- Quality score: `{candidate.get('quality_score', 0)}`")
+    for item in candidate.get("quality_reasons", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Review Notes", "", "- Reviewer: ", "- Review status: pending_review", "- Review notes:", "  - ", ""])
+    return "\n".join(lines)
+
+
+def is_runtime_log_backed_procedure(row: dict[str, Any]) -> bool:
+    if reflection_experience_type(row) != "procedure_experience":
+        return False
+    if str(row.get("useful_followup_focus") or "") == "log":
+        return True
+    source_cases = [str(item).lower() for item in json_list(row.get("source_cases"))]
+    return any(item.startswith("runtime_log:") or item.startswith("session:") for item in source_cases)
+
+
+def slug_words(text: str) -> list[str]:
+    normalized = text.lower()
+    normalized = normalized.replace("资料", "profile").replace("个人中心", "profile").replace("登录", "login")
+    return [token for token in re.findall(r"[a-z0-9]+", normalized) if token]
+
+
+def classify_incident_domain(text: str) -> str:
+    lowered = text.lower()
+    if any(token in lowered for token in ("session invalid", "401", "auth", "login", "token", "session")):
+        return "auth-session"
+    if any(token in lowered for token in ("route", "router", "pushurl", "navigation")):
+        return "route"
+    if any(token in lowered for token in ("resource", "$r", "media", "image")):
+        return "resource"
+    if any(token in lowered for token in ("permission", "config", "module", "ability")):
+        return "config"
+    return "runtime"
+
+
+def classify_incident_goal(text: str) -> str:
+    lowered = text.lower()
+    if any(token in lowered for token in ("profile", "资料", "个人中心")) and any(token in lowered for token in ("blank", "空白", "没数据", "no data")):
+        return "profile-blank"
+    if any(token in lowered for token in ("blank", "空白", "white screen")):
+        return "blank-screen"
+    if any(token in lowered for token in ("permission", "权限")):
+        return "permission"
+    if any(token in lowered for token in ("retry", "重试", "network", "网络")):
+        return "network-retry"
+    return "incident"
+
+
+def incident_strategy_name(row: dict[str, Any]) -> str:
+    text = " ".join(
+        [
+            str(row.get("problem") or ""),
+            " ".join(json_list(row.get("useful_followup_terms"))),
+            " ".join(json_list(row.get("source_cases"))),
+        ]
+    )
+    return f"log-{classify_incident_domain(text)}-{classify_incident_goal(text)}-diagnosis"
+
+
+def evaluate_incident_strategy_quality(candidate: dict[str, Any]) -> tuple[int, str, list[str]]:
+    score = 0
+    reasons: list[str] = []
+    if int(candidate.get("supporting_count") or 0) >= 2:
+        score += 2
+        reasons.append("has_repeated_runtime_incidents")
+    if candidate.get("common_log_events"):
+        score += 2
+        reasons.append("has_common_log_events")
+    if candidate.get("recommended_steps"):
+        score += 2
+        reasons.append("has_recommended_steps")
+    if candidate.get("verification_paths"):
+        score += 1
+        reasons.append("has_verification_paths")
+    if candidate.get("misleading_signals"):
+        score += 1
+        reasons.append("captures_misleading_signals")
+    helped = int(candidate.get("helped_reuse_count") or 0)
+    if helped >= 1:
+        score += 2
+        reasons.append("has_helped_reuse_signal")
+    if int(candidate.get("misleading_reuse_count") or 0) >= 1:
+        score -= 1
+        reasons.append("has_misleading_reuse_signal")
+    readiness = "promotion_candidate" if score >= 7 else "review_candidate" if score >= 4 else "needs_more_evidence"
+    return score, readiness, reasons
+
+
+def build_incident_strategy_candidates(project: Project, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        if not is_runtime_log_backed_procedure(row):
+            continue
+        if not is_complete_experience_candidate(row):
+            continue
+        name = incident_strategy_name(row)
+        groups.setdefault(name, []).append(row)
+
+    candidates: list[dict[str, Any]] = []
+    for strategy_name, grouped_rows in groups.items():
+        if len(grouped_rows) < 2:
+            continue
+        grouped_rows.sort(key=lambda item: int(item.get("id") or 0))
+        common_followup_focus = unique_list(
+            [str(row.get("useful_followup_focus") or "") for row in grouped_rows if row.get("useful_followup_focus")]
+        )
+        goal_symptoms = stable_unique_strings(
+            [str(row.get("problem") or "") for row in grouped_rows if row.get("problem")]
+        )[:6]
+        common_log_events = stable_unique_strings(
+            [
+                term
+                for row in grouped_rows
+                for term in json_list(row.get("useful_followup_terms"))
+                if len(term.strip()) > 1
+            ]
+        )[:10]
+        recommended_steps = stable_unique_strings(
+            [
+                step
+                for row in grouped_rows
+                for step in json_list(row.get("what_worked"))
+            ]
+        )[:8]
+        verification_paths = stable_unique_strings(
+            [
+                str(row.get("final_verification_path") or "")
+                for row in grouped_rows
+                if str(row.get("final_verification_path") or "").strip()
+            ]
+        )[:6]
+        misleading_signals = stable_unique_strings(
+            [
+                signal
+                for row in grouped_rows
+                for signal in json_list(row.get("what_failed")) + json_list(row.get("misleading_followup_terms"))
+            ]
+        )[:8]
+        supporting_cases = stable_unique_strings(
+            [
+                case
+                for row in grouped_rows
+                for case in json_list(row.get("related_cases")) + json_list(row.get("source_cases"))
+            ]
+        )[:10]
+        log_design_feedback = stable_unique_strings(
+            [
+                "Add decision checkpoints around auth/session or fallback branches.",
+                "Prefer request_id/session_id correlation in runtime logs.",
+            ]
+        )
+        helped_count = sum(
+            1
+            for row in grouped_rows
+            if row.get("last_outcome") == "helped" or row.get("reuse_feedback") == "helped"
+        )
+        partial_count = sum(
+            1
+            for row in grouped_rows
+            if row.get("last_outcome") == "partial" or row.get("reuse_feedback") == "partial"
+        )
+        misleading_count = sum(
+            1
+            for row in grouped_rows
+            if row.get("last_outcome") == "misleading" or row.get("reuse_feedback") == "misleading"
+        )
+        candidate = {
+            "strategy_name": strategy_name,
+            "experience_type": "procedure_experience",
+            "supporting_reflection_ids": [int(row["id"]) for row in grouped_rows],
+            "supporting_count": len(grouped_rows),
+            "common_followup_focus": common_followup_focus,
+            "goal_symptoms": goal_symptoms,
+            "common_log_events": common_log_events,
+            "recommended_steps": recommended_steps,
+            "verification_paths": verification_paths,
+            "misleading_signals": misleading_signals,
+            "supporting_cases": supporting_cases,
+            "log_design_feedback": log_design_feedback,
+            "helped_reuse_count": helped_count,
+            "partial_reuse_count": partial_count,
+            "misleading_reuse_count": misleading_count,
+            "draft_path": incident_strategy_draft_path(strategy_name),
+            "related_skill_candidates": stable_unique_strings(
+                [str(row.get("skill_candidate") or "") for row in grouped_rows if str(row.get("skill_candidate") or "").strip()]
+            )[:4],
+        }
+        quality_score, promotion_readiness, quality_reasons = evaluate_incident_strategy_quality(candidate)
+        candidate["quality_score"] = quality_score
+        candidate["promotion_readiness"] = promotion_readiness
+        candidate["quality_reasons"] = quality_reasons
+        candidate["draft_markdown"] = build_incident_strategy_markdown(candidate)
+        candidates.append(candidate)
+    candidates.sort(key=lambda item: (-int(item["supporting_count"]), item["strategy_name"]))
+    return candidates
+
+
 def build_skill_pattern_candidates(project: Project, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     groups: dict[str, list[dict[str, Any]]] = {}
     for row in rows:
@@ -1393,6 +1651,24 @@ def maintain_plan(args: argparse.Namespace) -> None:
                 "package_command_template": (
                     "python tools/agent_memory.py maintain-skill-package "
                     f"--project . --pattern-name {json.dumps(candidate['pattern_name'], ensure_ascii=False)} --json"
+                ),
+                **candidate,
+            }
+        )
+
+    for candidate in build_incident_strategy_candidates(project, review["unreviewed_reflections"]):
+        actions.append(
+            {
+                "action": "review_incident_strategy_candidate",
+                "type": "incident_strategy",
+                "id": None,
+                "reason": "multiple runtime-log-backed procedure experiences point to the same incident diagnosis strategy",
+                "risk": "medium",
+                "requires_confirmation": True,
+                "command": None,
+                "write_command_template": (
+                    "python tools/agent_memory.py maintain-incident-strategy-draft "
+                    f"--project . --strategy-name {json.dumps(candidate['strategy_name'], ensure_ascii=False)} --json"
                 ),
                 **candidate,
             }
@@ -2200,5 +2476,31 @@ def maintain_skill_promotion_status(args: argparse.Namespace) -> None:
         "promotion_blockers": blockers,
         "ready_for_manual_promotion": not blockers,
         "review_guidance": candidate["review_guidance"],
+    }
+    output(payload, args.json)
+
+
+def maintain_incident_strategy_draft(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    ensure_initialized(project)
+    candidates = build_incident_strategy_candidates(project, active_reflection_rows(project))
+    candidate = next((item for item in candidates if item["strategy_name"] == args.strategy_name), None)
+    if not candidate:
+        raise SystemExit(f"incident strategy candidate not found: {args.strategy_name}")
+    draft_path = project.root / candidate["draft_path"]
+    write_result = guarded_write_artifact(draft_path, candidate["draft_markdown"])
+    payload = {
+        "strategy_name": candidate["strategy_name"],
+        "path": str(draft_path),
+        "supporting_reflection_ids": candidate["supporting_reflection_ids"],
+        "supporting_count": candidate["supporting_count"],
+        "draft_status": "written" if draft_path.exists() else "not_written",
+        "promotion_readiness": candidate["promotion_readiness"],
+        "quality_score": candidate["quality_score"],
+        "quality_reasons": candidate["quality_reasons"],
+        "write_action": write_result["write_action"],
+        "warning": write_result["warning"],
+        "existing_review_status": write_result["existing_review_status"],
+        "existing_reviewer": write_result["existing_reviewer"],
     }
     output(payload, args.json)

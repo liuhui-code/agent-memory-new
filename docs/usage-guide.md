@@ -290,9 +290,12 @@ This command reuses current code/log memory, normalizes raw lines into lightweig
 
 - `session_candidates`
 - `runtime_episode_candidate`
+- `log_improvement_suggestions`
 - `reflect_payload_template`
 
-Use `reflect_payload_template` as the starting point when you want to turn temporary runtime-log evidence into a structured reflection or experience candidate. It is designed for diagnosis sessions, not for long-term raw-log archival.
+Use `runtime_episode_candidate.candidate_chain` and `chain_confidence` when you need a compact explanation of how the incident unfolded.
+Use `log_improvement_suggestions` when the current logs were just barely enough; they point at a few high-value start, branch, or correlation logs worth adding to the source code later.
+Use `reflect_payload_template` as the starting point when you want to turn temporary runtime-log evidence into a structured reflection or experience candidate. It is designed for diagnosis sessions, not for long-term raw-log archival. When the query is correcting an earlier diagnosis, the template may already switch to `correction_experience` and include `old_hypothesis`.
 
 Ask:
 
@@ -599,6 +602,34 @@ The generated draft starts with YAML frontmatter so later review or promotion to
 
 The file is still a draft artifact. It does not create a formal skill under `skills/`.
 
+When repeated runtime-log-backed diagnosis reflections describe the same incident workflow,
+`maintain-plan --json` can also return `review_incident_strategy_candidate`. After review, write
+the grouped diagnosis policy into the repo with:
+
+```bash
+python tools/agent_memory.py maintain-incident-strategy-draft \
+  --project . \
+  --strategy-name "log-auth-session-profile-blank-diagnosis" \
+  --json
+```
+
+This writes:
+
+```text
+docs/incident-strategies/log-auth-session-profile-blank-diagnosis.md
+```
+
+These drafts are for reusable incident-diagnosis strategies:
+
+- goal symptoms
+- common log events
+- recommended steps
+- verification paths
+- misleading signals
+- log design feedback
+
+Treat them as the bridge between repeated runtime incidents and later skill evolution, not as formal installed skills.
+
 To write every currently clustered draft candidate in one pass:
 
 ```bash
@@ -652,6 +683,7 @@ Treat these as confidence signals for reviewers, not as automatic promotion swit
 
 If a draft or candidate package already has human review metadata such as a real reviewer or a non-`pending_review` status, rerunning the write command preserves that artifact and returns a warning instead of overwriting the review work.
 The vault `Governance/Skill Pattern Candidates.md` page mirrors the same stage, reviewer, and preservation-policy information so human review in Obsidian sees the same boundary conditions as the runtime JSON.
+The vault `Governance/Incident Strategy Candidates.md` page mirrors grouped runtime-log-backed diagnosis strategies so reviewers can inspect recurring incident patterns without reopening raw logs.
 
 It is still a candidate package, not a formal installed skill.
 Promotion into `skills/<name>/` remains manual. Use `docs/skill-promotion-rules.md` as the review checklist before treating any candidate package as a real skill.
@@ -695,6 +727,7 @@ python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py maintain-plan --project . --json
 python tools/agent_memory.py maintain-skill-draft --project . --pattern-name "..." --json
 python tools/agent_memory.py maintain-skill-draft --project . --pattern-name all --json
+python tools/agent_memory.py maintain-incident-strategy-draft --project . --strategy-name "..." --json
 python tools/agent_memory.py maintain-skill-package --project . --pattern-name "..." --json
 python tools/agent_memory.py maintain-skill-promotion-status --project . --pattern-name "..." --json
 python tools/agent_memory.py miss-list --project . --status open --json

@@ -98,9 +98,12 @@ This command does not ingest raw logs into SQLite. It:
 
 - reuses the current query fast path to build a `log_search_plan`
 - normalizes raw log lines into lightweight events
+- extracts lightweight runtime fields such as `error_code`, `route`, `request_id`, `session_id`, and `request_path` when they are present
 - scores those events against code-log anchors and query hints
 - returns bounded evidence slices, `session_candidates`, and a `runtime_episode_candidate`
-- prepares a `reflect_payload_template` so the diagnosis can be compressed directly into a structured reflection or experience candidate
+- includes a lightweight `candidate_chain` and `chain_confidence` inside the runtime episode so downstream reflection can preserve the rough failure sequence
+- returns `log_improvement_suggestions` when the current evidence suggests a few missing high-value branch, start, or correlation logs
+- prepares a `reflect_payload_template` so the diagnosis can be compressed directly into a structured reflection or experience candidate, including correction-oriented fields such as `old_hypothesis` when the query indicates a diagnosis correction
 
 The raw log file stays outside SQLite. The runtime only writes the last structured analysis snapshot to `runtime/last_runtime_log_analysis.json`.
 
@@ -120,6 +123,7 @@ python tools/agent_memory.py maintain-merge --project . --type semantic --ids 1,
 python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact "..." --json
 python tools/agent_memory.py maintain-promote --project . --reflection-id 1 --fact "..." --json
 python tools/agent_memory.py maintain-skill-draft --project . --pattern-name "arkts-route-blank-screen-diagnosis" --json
+python tools/agent_memory.py maintain-incident-strategy-draft --project . --strategy-name "log-auth-session-profile-blank-diagnosis" --json
 python tools/agent_memory.py maintain-skill-package --project . --pattern-name "arkts-route-blank-screen-diagnosis" --json
 python tools/agent_memory.py maintain-skill-promotion-status --project . --pattern-name "arkts-route-blank-screen-diagnosis" --json
 ```
@@ -142,6 +146,17 @@ When `maintain-plan` returns `review_query_miss`, it now also returns:
 - `query_workflow_steps`
 
 These fields let the skill layer recurse back into `search` or `context` with stronger route, resource, log, file, and symbol anchors before widening the learning scope.
+
+When repeated runtime-log-backed `procedure_experience` reflections describe the same diagnosis flow, `maintain-plan` may also emit `review_incident_strategy_candidate`. This is the Goal-Oriented Incident Diagnosis strategy-library path. It groups:
+
+- `goal_symptoms`
+- `common_log_events`
+- `recommended_steps`
+- `verification_paths`
+- `misleading_signals`
+- `log_design_feedback`
+
+and exposes a read-only `write_command_template` for drafting the grouped strategy into `docs/incident-strategies/`.
 
 # 3.5 Structured Reflection Path
 
@@ -256,6 +271,8 @@ These quality signals are advisory. They do not promote a skill automatically. T
 - patterns that are strong enough to consider manual promotion
 
 `vault-export` now mirrors these grouped candidates into `Governance/Skill Pattern Candidates.md`, including the proposed draft path, review statuses, reviewer metadata, preservation policy, anchor health, and a Markdown preview. The vault remains a generated review mirror; it does not approve or install the skill.
+
+Runtime-log-backed incident strategies are mirrored separately in `Governance/Incident Strategy Candidates.md`. They are intended as reusable diagnosis policies that can later inform skill evolution, but they start as reviewable strategy drafts rather than formal skills.
 
 For large archives, `vault-export` now defaults to bounded human-readable summaries for aggregate pages such as `Semantic Facts/project-facts.md`, `Codebase Wiki/files.md`, `symbols.md`, `log-statements.md`, and `memory-edges.md`, and only exports the most recent bounded set of per-record episode/reflection files. Generated pages include a truncation notice when the vault mirror is showing only a subset. SQLite remains the full machine-readable source of truth.
 

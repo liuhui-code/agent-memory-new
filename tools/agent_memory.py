@@ -24,6 +24,7 @@ from agent_memory_runtime.code_wiki import (
 )
 from agent_memory_runtime.governance import (
     maintain_health,
+    maintain_incident_strategy_draft,
     maintain_merge,
     maintain_plan,
     maintain_promote,
@@ -619,6 +620,7 @@ def main(argv: list[str] | None = None) -> int:
             "maintain_merge": maintain_merge,
             "maintain_promote": maintain_promote,
             "maintain_skill_draft": maintain_skill_draft,
+            "maintain_incident_strategy_draft": maintain_incident_strategy_draft,
             "maintain_skill_package": maintain_skill_package,
             "maintain_skill_promotion_status": maintain_skill_promotion_status,
             "maintain_refresh_scope": maintain_refresh_scope,

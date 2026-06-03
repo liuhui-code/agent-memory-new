@@ -129,6 +129,32 @@ python tools/agent_memory.py maintain-skill-draft \
 
 This is still a review-stage artifact under `docs/skill-candidates/`, not a formal installed skill.
 
+If `maintain-plan` returns `review_incident_strategy_candidate`, use the grouped runtime-incident evidence before drafting any diagnosis strategy:
+
+- goal symptoms
+- common log events
+- recommended steps
+- verification paths
+- misleading signals
+- log design feedback
+
+After `vault-export`, the same grouped draft also appears in:
+
+```text
+Governance/Incident Strategy Candidates.md
+```
+
+When the grouped incident strategy is ready to become a repo artifact, write it explicitly:
+
+```bash
+python tools/agent_memory.py maintain-incident-strategy-draft \
+  --project . \
+  --strategy-name "<strategy-name>" \
+  --json
+```
+
+This is still a review-stage artifact under `docs/incident-strategies/`, not a formal installed skill.
+
 To export every current grouped draft after a review session, use:
 
 ```bash

@@ -79,6 +79,18 @@ If `helped_reuse_count`, `partial_reuse_count`, `misleading_reuse_count`, `ancho
 These are reviewer aids, not permission to skip manual promotion checks.
 After `vault-export`, the same grouped pattern appears in `Governance/Skill Pattern Candidates.md` for human review.
 That vault page now also mirrors reviewer metadata and the non-overwrite policy for reviewed artifacts, so Obsidian review sees the same guardrails as runtime JSON.
+When `maintain-plan` returns `review_incident_strategy_candidate`, treat it as a runtime-incident diagnosis policy candidate rather than a formal skill. Review `goal_symptoms`, `common_log_events`, `recommended_steps`, `verification_paths`, `misleading_signals`, and `log_design_feedback` before drafting it.
+After `vault-export`, the same grouped incident strategy appears in `Governance/Incident Strategy Candidates.md`.
+When the grouped runtime-incident strategy is ready to be drafted into the repo, use:
+
+```bash
+python tools/agent_memory.py maintain-incident-strategy-draft \
+  --project . \
+  --strategy-name "<strategy-name>" \
+  --json
+```
+
+This writes only `docs/incident-strategies/<strategy-name>.md`. It does not create or promote a formal skill.
 When the pattern is ready to be written into the repo as a draft document, use:
 
 ```bash

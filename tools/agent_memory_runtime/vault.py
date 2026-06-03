@@ -10,6 +10,7 @@ from pathlib import Path
 
 from .governance import (
     annotate_skill_pattern_artifacts,
+    build_incident_strategy_candidates,
     build_recent_refresh_drifts,
     build_scope_health_rows,
     build_skill_pattern_candidates,
@@ -491,6 +492,48 @@ def write_governance_dashboard(
         pattern_doc += "```\n\n"
     write_vault_file(project.vault_dir / "Governance" / "Skill Pattern Candidates.md", pattern_doc)
 
+    incident_strategy_candidates = build_incident_strategy_candidates(project, active_reflections)
+    incident_doc = header + "# Incident Strategy Candidates\n\n" + notice
+    incident_doc += "These grouped runtime-log-backed procedure experiences describe reusable incident diagnosis strategies. Review them before turning them into a broader policy or a formal skill.\n\n"
+    for item in incident_strategy_candidates[:30]:
+        incident_doc += f"## {item['strategy_name']}\n\n"
+        incident_doc += f"- Draft path: `{item['draft_path']}`\n"
+        incident_doc += f"- Promotion readiness: `{item['promotion_readiness']}`\n"
+        incident_doc += f"- Quality score: `{item['quality_score']}`\n"
+        incident_doc += f"- Supporting reflections: {', '.join(f'#{reflection_id}' for reflection_id in item['supporting_reflection_ids'])}\n"
+        incident_doc += f"- Supporting count: {item['supporting_count']}\n"
+        if item.get("common_followup_focus"):
+            incident_doc += f"- Common followup focus: {', '.join(item['common_followup_focus'])}\n"
+        if item.get("goal_symptoms"):
+            incident_doc += "- Goal symptoms:\n"
+            for symptom in item["goal_symptoms"]:
+                incident_doc += f"  - {symptom}\n"
+        if item.get("common_log_events"):
+            incident_doc += "- Common log events:\n"
+            for event in item["common_log_events"]:
+                incident_doc += f"  - {event}\n"
+        if item.get("recommended_steps"):
+            incident_doc += "- Recommended steps:\n"
+            for step in item["recommended_steps"]:
+                incident_doc += f"  - {step}\n"
+        if item.get("verification_paths"):
+            incident_doc += "- Verification paths:\n"
+            for path in item["verification_paths"]:
+                incident_doc += f"  - {path}\n"
+        if item.get("misleading_signals"):
+            incident_doc += "- Misleading signals:\n"
+            for signal in item["misleading_signals"]:
+                incident_doc += f"  - {signal}\n"
+        if item.get("log_design_feedback"):
+            incident_doc += "- Log design feedback:\n"
+            for feedback in item["log_design_feedback"]:
+                incident_doc += f"  - {feedback}\n"
+        incident_doc += f"- Draft command: `python tools/agent_memory.py maintain-incident-strategy-draft --project . --strategy-name {item['strategy_name']} --json`\n"
+        incident_doc += "\n### Draft Preview\n\n```md\n"
+        incident_doc += item["draft_markdown"].rstrip() + "\n"
+        incident_doc += "```\n\n"
+    write_vault_file(project.vault_dir / "Governance" / "Incident Strategy Candidates.md", incident_doc)
+
     reuse_doc = header + "# Reflection Reuse\n\n" + notice
     reuse_doc += "These events show when a later reflection reused an earlier reflection and whether it helped.\n\n"
     for row in reflection_reuse_rows[:50]:
@@ -627,6 +670,7 @@ def vault_index(args: argparse.Namespace) -> None:
     content += "- [[Governance/Reflection Quality]]\n"
     content += "- [[Governance/Experience Candidates]]\n"
     content += "- [[Governance/Skill Pattern Candidates]]\n"
+    content += "- [[Governance/Incident Strategy Candidates]]\n"
     content += "- [[Governance/Learned Scopes]]\n"
     content += "- [[Governance/Refresh Drift]]\n"
     content += "- [[Governance/Reflection Reuse]]\n"

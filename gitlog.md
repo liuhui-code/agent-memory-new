@@ -1650,3 +1650,75 @@ Rollback notes:
 - Changed `learn-business` so log semantics merge into the existing code-log records instead of creating a separate log-knowledge store.
 - Upgraded `log_search_plan` to consume those new log semantics and expose `process_hints` plus stronger root-cause-oriented search terms.
 - Added lightweight `session_candidates` and `reflect_payload_template` to `analyze-runtime-log`, so temporary runtime-log evidence can flow directly into `reflect` without persisting raw logs.
+
+## 2026-06-03 - Runtime log evidence deepening
+
+Files touched:
+
+- `tools/agent_memory_runtime/runtime_logs.py`
+- `tests/test_agent_memory.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Strengthened runtime log parsing so temporary evidence extraction now recognizes optional `pid`/`tid` prefixes and lightweight structured fields such as `error_code`, `route`, `request_id`, `session_id`, `reason`, and `request_path`.
+- Added a compact `candidate_chain` plus `chain_confidence` to `runtime_episode_candidate`, giving diagnosis and reflection code a bounded failure-sequence summary without introducing a full causal-graph subsystem.
+- Made `reflect_payload_template` more correction-aware by adding `old_hypothesis` and non-empty `what_failed` guidance when the query is clearly revising an earlier diagnosis.
+- Added `log_improvement_suggestions` so the runtime can recommend a few high-value start, branch, or correlation logs when the temporary evidence was usable but fragile.
+
+Why:
+
+- Improve the quality of LLM-facing runtime evidence without persisting raw logs.
+- Make log-driven diagnosis results more reusable as `procedure_experience` or `correction_experience`.
+- Turn brittle temporary log analysis into actionable feedback for improving future source-code logging.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_analyze_runtime_log_extracts_structured_fields_and_chain tests.test_agent_memory.AgentMemoryRuntimeTests.test_analyze_runtime_log_can_recommend_correction_experience`
+- Result: passed.
+
+Rollback notes:
+
+- Revert `runtime_logs.py` to the lighter parser if the extra runtime field extraction proves too format-specific.
+- Remove `candidate_chain`, `chain_confidence`, and `log_improvement_suggestions` if we decide to keep runtime log analysis strictly slice-based.
+
+## 2026-06-03 - Goal-oriented incident diagnosis strategy library
+
+Files touched:
+
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/vault.py`
+- `tests/test_agent_memory.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/guided-memory-review-workflow.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a new governance path that clusters repeated runtime-log-backed `procedure_experience` reflections into `review_incident_strategy_candidate` actions.
+- Added `maintain-incident-strategy-draft`, which writes reviewed strategy drafts into `docs/incident-strategies/<strategy>.md`.
+- Added `Governance/Incident Strategy Candidates.md` to the vault mirror so recurring incident diagnosis strategies can be reviewed without reopening raw logs.
+- Framed these strategy drafts as reusable diagnosis policies that sit between repeated incidents and later skill evolution, without adding a fifth user-facing skill.
+
+Why:
+
+- Turn repeated runtime-log diagnosis work into reusable Goal-Oriented Incident Diagnosis strategies.
+- Keep the output reviewable and lightweight before any future promotion into broader skill artifacts.
+- Reuse the existing maintain / reflect / vault governance loop instead of inventing a separate log platform.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_clusters_runtime_incidents_into_strategy_candidate tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_incident_strategy_draft_writes_markdown_file tests.test_agent_memory.AgentMemoryRuntimeTests.test_vault_export_writes_incident_strategy_candidates_dashboard`
+- Result: passed.
+
+Rollback notes:
+
+- Remove `maintain-incident-strategy-draft` and the `review_incident_strategy_candidate` action if we decide to keep runtime-log governance limited to skill patterns only.
+- Remove `Governance/Incident Strategy Candidates.md` from the vault mirror if the extra review surface becomes too noisy.

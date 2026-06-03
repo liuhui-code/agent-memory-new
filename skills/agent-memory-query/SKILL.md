@@ -80,6 +80,8 @@ python tools/agent_memory.py analyze-runtime-log --project . --query "<query>" -
 ```
 
 Treat the returned `slices`, `session_candidates`, and `runtime_episode_candidate` as diagnosis evidence. If the log evidence is good enough to keep, start from `reflect_payload_template` rather than rewriting a reflection payload from scratch. Do not treat the raw log file itself as long-term memory.
+When present, use `runtime_episode_candidate.candidate_chain` as the compact incident narrative and `chain_confidence` as a lightweight confidence hint rather than inferring a full causal graph yourself.
+If `log_improvement_suggestions` is present, treat it as follow-up engineering guidance for adding a few high-value start, branch, or correlation logs. Keep those suggestions narrow and tied to the matched code-log anchors.
 
 `context` also includes `network_limits` and may include compact `evidence_chains`. Treat these chains as one-hop explanations, not complete graph paths.
 
