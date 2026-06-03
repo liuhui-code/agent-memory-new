@@ -147,6 +147,12 @@ def create_schema(conn: sqlite3.Connection) -> None:
           raw_statement TEXT,
           business_summary TEXT,
           business_terms TEXT,
+          business_event TEXT,
+          trigger_stage TEXT,
+          symptom_terms TEXT,
+          likely_causes TEXT,
+          process_hint TEXT,
+          neighbor_terms TEXT,
           updated_at TEXT NOT NULL
         );
 
@@ -458,7 +464,13 @@ def create_search_schema(conn: sqlite3.Connection) -> None:
           message_template,
           raw_statement,
           business_summary,
-          business_terms
+          business_terms,
+          business_event,
+          trigger_stage,
+          symptom_terms,
+          likely_causes,
+          process_hint,
+          neighbor_terms
         );
         """
     )
@@ -535,16 +547,16 @@ def create_search_triggers(conn: sqlite3.Connection) -> None:
         END;
 
         CREATE TRIGGER IF NOT EXISTS code_log_fts_ai AFTER INSERT ON code_log_statements BEGIN
-          INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms)
-          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.function, ''), COALESCE(new.level, ''), COALESCE(new.logger, ''), COALESCE(new.message_template, ''), COALESCE(new.raw_statement, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''));
+          INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms, business_event, trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms)
+          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.function, ''), COALESCE(new.level, ''), COALESCE(new.logger, ''), COALESCE(new.message_template, ''), COALESCE(new.raw_statement, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''), COALESCE(new.business_event, ''), COALESCE(new.trigger_stage, ''), COALESCE(new.symptom_terms, ''), COALESCE(new.likely_causes, ''), COALESCE(new.process_hint, ''), COALESCE(new.neighbor_terms, ''));
         END;
         CREATE TRIGGER IF NOT EXISTS code_log_fts_ad AFTER DELETE ON code_log_statements BEGIN
           DELETE FROM code_log_fts WHERE rowid = old.id;
         END;
         CREATE TRIGGER IF NOT EXISTS code_log_fts_au AFTER UPDATE ON code_log_statements BEGIN
           DELETE FROM code_log_fts WHERE rowid = old.id;
-          INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms)
-          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.function, ''), COALESCE(new.level, ''), COALESCE(new.logger, ''), COALESCE(new.message_template, ''), COALESCE(new.raw_statement, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''));
+          INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms, business_event, trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms)
+          VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.function, ''), COALESCE(new.level, ''), COALESCE(new.logger, ''), COALESCE(new.message_template, ''), COALESCE(new.raw_statement, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''), COALESCE(new.business_event, ''), COALESCE(new.trigger_stage, ''), COALESCE(new.symptom_terms, ''), COALESCE(new.likely_causes, ''), COALESCE(new.process_hint, ''), COALESCE(new.neighbor_terms, ''));
         END;
         """
     )
@@ -598,8 +610,8 @@ def rebuild_search_indexes(conn: sqlite3.Connection) -> None:
     )
     conn.execute(
         """
-        INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms)
-        SELECT id, project_id, COALESCE(file_path, ''), COALESCE(function, ''), COALESCE(level, ''), COALESCE(logger, ''), COALESCE(message_template, ''), COALESCE(raw_statement, ''), COALESCE(business_summary, ''), COALESCE(business_terms, '')
+        INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms, business_event, trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms)
+        SELECT id, project_id, COALESCE(file_path, ''), COALESCE(function, ''), COALESCE(level, ''), COALESCE(logger, ''), COALESCE(message_template, ''), COALESCE(raw_statement, ''), COALESCE(business_summary, ''), COALESCE(business_terms, ''), COALESCE(business_event, ''), COALESCE(trigger_stage, ''), COALESCE(symptom_terms, ''), COALESCE(likely_causes, ''), COALESCE(process_hint, ''), COALESCE(neighbor_terms, '')
         FROM code_log_statements
         """
     )

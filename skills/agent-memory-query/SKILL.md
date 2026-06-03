@@ -64,6 +64,22 @@ Code and log matches include `search_terms` and `match_reasons`. Use `match_reas
 
 Only fall back to broader file or summary terms after those anchors.
 The runtime also returns `followup_focus` when it can classify the current scene. Treat it as the default branch selector for recursive query logic.
+When the issue likely needs runtime log evidence, also read `log_search_plan`. It converts the current problem into bounded log-analysis hints:
+
+- `candidate_log_events`
+- `search_terms`
+- `logger_hints`
+- `function_hints`
+- `file_hints`
+- `recommended_order`
+
+If the user provides a temporary raw log file, use the same skill to call:
+
+```bash
+python tools/agent_memory.py analyze-runtime-log --project . --query "<query>" --log-file "<path>" --json
+```
+
+Treat the returned `slices`, `session_candidates`, and `runtime_episode_candidate` as diagnosis evidence. If the log evidence is good enough to keep, start from `reflect_payload_template` rather than rewriting a reflection payload from scratch. Do not treat the raw log file itself as long-term memory.
 
 `context` also includes `network_limits` and may include compact `evidence_chains`. Treat these chains as one-hop explanations, not complete graph paths.
 

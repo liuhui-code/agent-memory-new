@@ -86,6 +86,12 @@ CODE_BUSINESS_COLUMNS = {
     "code_log_statements": [
         ("business_summary", "TEXT"),
         ("business_terms", "TEXT"),
+        ("business_event", "TEXT"),
+        ("trigger_stage", "TEXT"),
+        ("symptom_terms", "TEXT"),
+        ("likely_causes", "TEXT"),
+        ("process_hint", "TEXT"),
+        ("neighbor_terms", "TEXT"),
     ],
 }
 

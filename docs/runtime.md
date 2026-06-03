@@ -63,6 +63,7 @@ They may:
 - record a query miss when no result set has matches.
 - return learned code log statements and lightweight edges between files, symbols, and log statements.
 - return compact one-hop `evidence_chains` derived from allowed edge matches.
+- return a bounded `log_search_plan` that turns user problem language into log-oriented anchors, logger hints, and candidate log events.
 - bound result sets before JSON output so large archives do not return unbounded payloads.
 
 They must not:
@@ -86,6 +87,22 @@ allowed_relations = contains, emits_log
 The runtime returns these limits in `network_limits` so skill callers know the context is intentionally bounded. Recursive reasoning belongs in the LLM skill layer: inspect the returned context, sharpen the query, and call `context` again.
 
 `search` is also bounded. It returns `result_limits` in the JSON payload so callers can see the current cap for each result set.
+
+For temporary runtime logs, the runtime also exposes a bounded analysis command:
+
+```bash
+python tools/agent_memory.py analyze-runtime-log --project . --query "<query>" --log-file /path/to/runtime.log --json
+```
+
+This command does not ingest raw logs into SQLite. It:
+
+- reuses the current query fast path to build a `log_search_plan`
+- normalizes raw log lines into lightweight events
+- scores those events against code-log anchors and query hints
+- returns bounded evidence slices, `session_candidates`, and a `runtime_episode_candidate`
+- prepares a `reflect_payload_template` so the diagnosis can be compressed directly into a structured reflection or experience candidate
+
+The raw log file stays outside SQLite. The runtime only writes the last structured analysis snapshot to `runtime/last_runtime_log_analysis.json`.
 
 # 3. Governance Path
 

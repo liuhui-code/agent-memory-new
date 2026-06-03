@@ -133,6 +133,12 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 - `logger`: logger family such as `print`, `logging`, `logger`, `console`, `hilog`, `debugPrint`, or `NSLog`.
 - `message_template`: first string literal or compact argument text.
 - `raw_statement`: the original single-line statement.
+- `business_event`: optional normalized event name such as `profile_load_failed`.
+- `trigger_stage`: optional stage hint such as `profile_page_about_to_appear`.
+- `symptom_terms`: user-facing symptom vocabulary linked to the log.
+- `likely_causes`: likely root-cause hints linked to the log.
+- `process_hint`: common process or ability hint associated with the log.
+- `neighbor_terms`: nearby start/retry/fallback log phrases that usually appear around the same flow.
 
 `memory_edges` currently stores deterministic code-wiki edges:
 

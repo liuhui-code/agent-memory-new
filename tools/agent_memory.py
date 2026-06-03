@@ -50,6 +50,7 @@ from agent_memory_runtime.records import (
     row_dict,
     table_for_type,
 )
+from agent_memory_runtime.runtime_logs import analyze_runtime_log
 from agent_memory_runtime.storage import (
     connect,
     create_schema,
@@ -199,6 +200,28 @@ def context(args: argparse.Namespace) -> None:
     data = limited_context(project, args.query)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    output(data, args.json)
+
+
+def analyze_runtime_log_command(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    ensure_initialized(project)
+    log_file = Path(args.log_file).expanduser().resolve()
+    if not log_file.exists():
+        raise SystemExit(f"log file not found: {log_file}")
+    data = analyze_runtime_log(
+        project,
+        args.query,
+        log_file,
+        before=args.before_lines,
+        after=args.after_lines,
+        slice_limit=args.slice_limit,
+    )
+    project.runtime_dir.mkdir(parents=True, exist_ok=True)
+    (project.runtime_dir / "last_runtime_log_analysis.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
@@ -580,6 +603,7 @@ def main(argv: list[str] | None = None) -> int:
             "update": update,
             "search": search,
             "context": context,
+            "analyze_runtime_log_command": analyze_runtime_log_command,
             "reflect": reflect,
             "reflect_review": reflect_review,
             "list_records": list_records,

@@ -1606,3 +1606,47 @@ Rollback notes:
 - Changed `vault-export` to generate bounded human-readable summaries for large aggregate pages instead of trying to mirror every record into Markdown.
 - Limited per-record vault note export to a recent bounded set for episodes and reflections, while keeping SQLite as the complete source of truth.
 - Added truncation notices to generated vault pages so reviewers can tell when they are looking at a summarized mirror rather than the full archive.
+
+## 2026-06-03 - Goal-oriented temporary runtime log analysis
+
+Files touched:
+
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/runtime_logs.py`
+- `tests/test_agent_memory.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added `log_search_plan` to `context` and `search` so problem-oriented queries now return candidate code-log events, search terms, logger/tag hints, file/function hints, and an inspection order.
+- Added `analyze-runtime-log` as a bounded diagnosis command that keeps raw user logs temporary, normalizes them into lightweight runtime events, scores them against current code-log memory, and returns scored slices plus a `runtime_episode_candidate`.
+- Wrote runtime analysis snapshots only to `runtime/last_runtime_log_analysis.json` instead of persisting raw log lines into SQLite.
+- Updated query documentation and skill guidance so agents can bridge from user problem descriptions to code-log anchors, then to temporary runtime-log evidence.
+
+Why:
+
+- Let the memory system use existing code-log knowledge to guide diagnosis of real user-provided runtime logs without turning temporary raw logs into long-term memory.
+- Give LLMs bounded, code-linked evidence slices instead of requiring them to inspect large raw log dumps directly.
+- Keep the current four-skill model intact while adding a practical first step toward Goal-Oriented Log Analysis.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_context_includes_goal_oriented_log_search_plan tests.test_agent_memory.AgentMemoryRuntimeTests.test_analyze_runtime_log_builds_bounded_slices_and_episode_candidate`
+- Result: passed.
+
+Rollback notes:
+
+- Remove `log_search_plan` from query payloads and delete `analyze-runtime-log` plus `runtime_logs.py`.
+- Revert the usage/query skill docs if we decide not to support temporary raw-log analysis yet.
+
+### Follow-up
+
+- Extended `code_log_statements` semantics with `business_event`, `trigger_stage`, `symptom_terms`, `likely_causes`, `process_hint`, and `neighbor_terms`, while keeping the same table and FTS path.
+- Changed `learn-business` so log semantics merge into the existing code-log records instead of creating a separate log-knowledge store.
+- Upgraded `log_search_plan` to consume those new log semantics and expose `process_hints` plus stronger root-cause-oriented search terms.
+- Added lightweight `session_candidates` and `reflect_payload_template` to `analyze-runtime-log`, so temporary runtime-log evidence can flow directly into `reflect` without persisting raw logs.

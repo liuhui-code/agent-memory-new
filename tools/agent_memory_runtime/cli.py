@@ -60,6 +60,16 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("context"))
 
+    p = sub.add_parser("analyze-runtime-log")
+    add_project(p)
+    p.add_argument("--query", required=True)
+    p.add_argument("--log-file", required=True)
+    p.add_argument("--before-lines", type=int, default=2)
+    p.add_argument("--after-lines", type=int, default=2)
+    p.add_argument("--slice-limit", type=int, default=5)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("analyze_runtime_log_command"))
+
     p = sub.add_parser("reflect")
     add_project(p)
     p.add_argument("--payload")

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 
 from .models import (
@@ -52,7 +53,7 @@ LIKE_RECALL_COLUMNS = {
     "episodes": ("task", "summary", "outcome", "files_touched", "commands_run"),
     "code_files": ("file_path", "summary", "business_summary", "business_terms"),
     "code_symbols": ("file_path", "symbol", "symbol_type", "summary", "business_summary", "business_terms"),
-    "code_log_statements": ("file_path", "function", "logger", "message_template", "raw_statement", "business_summary", "business_terms"),
+    "code_log_statements": ("file_path", "function", "logger", "message_template", "raw_statement", "business_summary", "business_terms", "business_event", "trigger_stage", "symptom_terms", "likely_causes", "process_hint", "neighbor_terms"),
 }
 
 FOCUS_PRIORITY_TERMS = {
@@ -347,7 +348,13 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             expanded_terms,
             [
                 ("business_terms", " ".join(json_list(row["business_terms"])), 5.0),
+                ("symptom_terms", " ".join(json_list(row["symptom_terms"])), 5.0),
+                ("likely_causes", " ".join(json_list(row["likely_causes"])), 4.0),
                 ("business_summary", row["business_summary"] or "", 3.0),
+                ("business_event", row["business_event"] or "", 4.0),
+                ("trigger_stage", row["trigger_stage"] or "", 2.5),
+                ("process_hint", row["process_hint"] or "", 2.5),
+                ("neighbor_terms", " ".join(json_list(row["neighbor_terms"])), 2.0),
                 ("log_message", row["message_template"], 3.0),
                 ("log_context", " ".join(str(row[key] or "") for key in ("file_path", "function", "level", "logger", "raw_statement")), 1.2),
                 ("search_terms", " ".join(search_terms), 1.0),
@@ -356,6 +363,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
                 ("exact_log_message", row["message_template"], 12.0),
                 ("exact_file_path", row["file_path"], 4.0),
                 ("exact_function", row["function"] or "", 5.0),
+                ("exact_business_event", row["business_event"] or "", 7.0),
             ],
         )
         if score:
@@ -573,6 +581,8 @@ def rank_followup_seed_terms(query: str, terms: list[str], limit: int = 12, focu
         if focus == "log":
             if "failed" in lowered or "error" in lowered or "warn" in lowered or "log" in lowered or "hilog" in lowered:
                 return 125
+            if "session" in lowered or "invalid" in lowered or "401" in lowered or "permission denied" in lowered:
+                return 118
             if lowered.startswith("pages/") or lowered.endswith(".ets"):
                 return 68
         if lowered.startswith("pages/") or lowered.startswith("app.") or "$r" in lowered:
@@ -631,6 +641,122 @@ def suggested_followup_terms(query: str, data: dict[str, list[dict[str, Any]]], 
     return rank_followup_seed_terms(query, terms, limit=limit, focus=focus)
 
 
+def string_literals(text: str) -> list[str]:
+    return [match.group(2) for match in re.finditer(r"""(['"])(.*?)(?<!\\)\1""", str(text or ""))]
+
+
+def unique_preserved(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    result: list[str] = []
+    for value in values:
+        stripped = str(value).strip()
+        normalized = stripped.lower()
+        if not stripped or normalized in seen:
+            continue
+        seen.add(normalized)
+        result.append(stripped)
+    return result
+
+
+def log_logger_hints(row: dict[str, Any]) -> list[str]:
+    hints: list[str] = []
+    logger = str(row.get("logger") or "")
+    function = str(row.get("function") or "")
+    raw_statement = str(row.get("raw_statement") or "")
+    if logger:
+        hints.append(logger)
+    if function:
+        hints.append(function)
+    literals = string_literals(raw_statement)
+    if logger == "hilog" and len(literals) >= 2:
+        hints.append(literals[0])
+    elif literals:
+        hints.append(literals[0])
+    return unique_preserved(hints)
+
+
+def build_log_search_plan(query: str, data: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
+    focus = infer_followup_focus(query, data)
+    top_logs = data.get("code_log_matches", [])[:5]
+    search_terms = rank_followup_seed_terms(
+        query,
+        [
+            *suggested_followup_terms(query, data, limit=14),
+            *[str(row.get("message_template") or "") for row in top_logs],
+            *[str(row.get("business_summary") or "") for row in top_logs],
+            *[str(row.get("business_event") or "") for row in top_logs],
+            *[str(row.get("trigger_stage") or "") for row in top_logs],
+            *[term for row in top_logs for term in json_list(row.get("symptom_terms"))],
+            *[term for row in top_logs for term in json_list(row.get("likely_causes"))],
+            *[str(row.get("process_hint") or "") for row in top_logs],
+            *[term for row in top_logs for term in json_list(row.get("neighbor_terms"))],
+        ],
+        limit=14,
+        focus=focus or "log",
+    )
+    logger_hints: list[str] = []
+    function_hints: list[str] = []
+    file_hints: list[str] = []
+    candidate_log_events: list[dict[str, Any]] = []
+    for row in top_logs:
+        logger_hints.extend(log_logger_hints(row))
+        if row.get("function"):
+            function_hints.append(str(row["function"]))
+        if row.get("file_path"):
+            file_hints.append(str(row["file_path"]))
+        candidate_log_events.append(
+            {
+                "message_template": str(row.get("message_template") or ""),
+                "business_summary": str(row.get("business_summary") or ""),
+                "business_terms": json_list(row.get("business_terms")),
+                "business_event": str(row.get("business_event") or ""),
+                "trigger_stage": str(row.get("trigger_stage") or ""),
+                "symptom_terms": json_list(row.get("symptom_terms")),
+                "likely_causes": json_list(row.get("likely_causes")),
+                "process_hint": str(row.get("process_hint") or ""),
+                "neighbor_terms": json_list(row.get("neighbor_terms")),
+                "file_path": str(row.get("file_path") or ""),
+                "function": str(row.get("function") or ""),
+                "logger": str(row.get("logger") or ""),
+            }
+        )
+    recommended_order = [
+        "search failure/error logs for the target event first",
+        "search preceding start/request/info logs around the same page or function",
+        "compare neighboring logs that share the same logger, page, process, or business object",
+    ]
+    if focus == "route":
+        recommended_order = [
+            "search route jump failure logs and target page names first",
+            "search neighboring router start/info logs for the same page transition",
+            "compare related page registration or route target anchors in code memory",
+        ]
+    elif focus == "resource":
+        recommended_order = [
+            "search resource resolve or missing-resource logs first",
+            "search preceding page/build/image logs around the same component",
+            "compare resource keys and related code anchors before expanding scope",
+        ]
+    elif focus == "config":
+        recommended_order = [
+            "search permission/dependency/config failure logs first",
+            "search neighboring ability/module startup logs for the same process",
+            "compare config anchors and related code/wiki evidence before widening the search",
+        ]
+    return {
+        "focus": focus or "log",
+        "candidate_log_events": candidate_log_events,
+        "search_terms": search_terms,
+        "logger_hints": unique_preserved(logger_hints),
+        "function_hints": unique_preserved(function_hints),
+        "file_hints": unique_preserved(file_hints),
+        "process_hints": unique_preserved(
+            [str(item.get("process_hint") or "") for item in candidate_log_events if str(item.get("process_hint") or "").strip()]
+        ),
+        "recommended_order": recommended_order,
+    }
+
+
 def limited_context(project: Project, query: str) -> dict[str, Any]:
     matches = collect_matches(project, query)
     bounded = limited_matches(matches, CONTEXT_RESULT_LIMITS)
@@ -649,6 +775,7 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "edge_matches": bounded["edge_matches"],
         "evidence_chains": build_evidence_chains(bounded["edge_matches"]),
         "suggested_followup_terms": suggested_followup_terms(query, bounded),
+        "log_search_plan": build_log_search_plan(query, bounded),
         "network_limits": network_limits(),
     }
     record_context_use(project, context)
@@ -710,6 +837,7 @@ def batched_search(
     payload["total_candidates_by_type"] = total_candidates_by_type
     payload["returned_counts_by_type"] = returned_counts_by_type
     payload["suggested_followup_terms"] = suggested_followup_terms(query, payload)
+    payload["log_search_plan"] = build_log_search_plan(query, payload)
     return payload
 
 

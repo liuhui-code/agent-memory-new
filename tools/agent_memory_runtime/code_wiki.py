@@ -1190,6 +1190,12 @@ def prioritize_followup_file(
             log.get("level"),
             log.get("logger"),
             log.get("raw_statement"),
+            log.get("business_event"),
+            log.get("trigger_stage"),
+            " ".join(json_list(log.get("symptom_terms"))),
+            " ".join(json_list(log.get("likely_causes"))),
+            log.get("process_hint"),
+            " ".join(json_list(log.get("neighbor_terms"))),
         )
         enriched["hint_context"] = followup_hint_context(
             file_output["file_path"],
@@ -1198,6 +1204,12 @@ def prioritize_followup_file(
             log.get("level"),
             log.get("logger"),
             log.get("raw_statement"),
+            log.get("business_event"),
+            log.get("trigger_stage"),
+            " ".join(json_list(log.get("symptom_terms"))),
+            " ".join(json_list(log.get("likely_causes"))),
+            log.get("process_hint"),
+            " ".join(json_list(log.get("neighbor_terms"))),
         )
         prioritized_logs.append(enriched)
 
@@ -1310,6 +1322,12 @@ def semantic_followup_template(payload_files: list[dict[str, Any]]) -> dict[str,
                     "level": log_item.get("level"),
                     "logger": log_item.get("logger"),
                     "raw_statement": log_item.get("raw_statement"),
+                    "business_event": log_item.get("business_event"),
+                    "trigger_stage": log_item.get("trigger_stage"),
+                    "symptom_terms": log_item.get("symptom_terms") or [],
+                    "likely_causes": log_item.get("likely_causes") or [],
+                    "process_hint": log_item.get("process_hint"),
+                    "neighbor_terms": log_item.get("neighbor_terms") or [],
                     "business_summary": "",
                     "business_terms": [],
                 }
@@ -1389,7 +1407,8 @@ def semantic_followup_from_db(project: Project, file_paths: list[str]) -> dict[s
                 )
             log_rows = conn.execute(
                 """
-                SELECT message_template, function, level, logger, raw_statement, business_summary, business_terms
+                SELECT message_template, function, level, logger, raw_statement, business_summary, business_terms,
+                       business_event, trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms
                 FROM code_log_statements
                 WHERE project_id = ? AND file_path = ?
                 ORDER BY message_template
@@ -1400,15 +1419,21 @@ def semantic_followup_from_db(project: Project, file_paths: list[str]) -> dict[s
                 if has_business_summary(row["business_summary"]) and has_business_terms(row["business_terms"]):
                     continue
                 file_output["logs"].append(
-                    {
-                        "message_template": row["message_template"],
-                        "function": row["function"],
-                        "level": row["level"],
-                        "logger": row["logger"],
-                        "raw_statement": row["raw_statement"],
-                        "business_summary": "",
-                        "business_terms": [],
-                    }
+                {
+                    "message_template": row["message_template"],
+                    "function": row["function"],
+                    "level": row["level"],
+                    "logger": row["logger"],
+                    "raw_statement": row["raw_statement"],
+                    "business_event": row["business_event"],
+                    "trigger_stage": row["trigger_stage"],
+                    "symptom_terms": json_list(row["symptom_terms"]),
+                    "likely_causes": json_list(row["likely_causes"]),
+                    "process_hint": row["process_hint"],
+                    "neighbor_terms": json_list(row["neighbor_terms"]),
+                    "business_summary": "",
+                    "business_terms": [],
+                }
                 )
             if file_missing or file_output["symbols"] or file_output["logs"]:
                 files.append(prioritize_followup_file(file_output, not has_business_summary(file_row["business_summary"]), not has_business_terms(file_row["business_terms"])))
@@ -1426,6 +1451,14 @@ def merge_business_terms(existing: Any, incoming: Any) -> str:
         seen.add(normalized)
         merged.append(stripped)
     return json.dumps(merged, ensure_ascii=False)
+
+
+def merged_optional_text(existing: Any, incoming: Any) -> str | None:
+    incoming_text = str(incoming or "").strip()
+    if incoming_text:
+        return incoming_text
+    existing_text = str(existing or "").strip()
+    return existing_text or None
 
 
 def merged_business_summary(
@@ -1627,13 +1660,39 @@ def learn_business(args: argparse.Namespace) -> None:
                     existing_log["business_terms"] if existing_log else None,
                     log_item.get("business_terms"),
                 )
+                log_business_event = merged_optional_text(
+                    existing_log["business_event"] if existing_log else None,
+                    log_item.get("business_event"),
+                )
+                log_trigger_stage = merged_optional_text(
+                    existing_log["trigger_stage"] if existing_log else None,
+                    log_item.get("trigger_stage"),
+                )
+                log_symptom_terms = merge_business_terms(
+                    existing_log["symptom_terms"] if existing_log else None,
+                    log_item.get("symptom_terms"),
+                )
+                log_likely_causes = merge_business_terms(
+                    existing_log["likely_causes"] if existing_log else None,
+                    log_item.get("likely_causes"),
+                )
+                log_process_hint = merged_optional_text(
+                    existing_log["process_hint"] if existing_log else None,
+                    log_item.get("process_hint"),
+                )
+                log_neighbor_terms = merge_business_terms(
+                    existing_log["neighbor_terms"] if existing_log else None,
+                    log_item.get("neighbor_terms"),
+                )
                 if existing_log:
                     conn.execute(
                         """
                         UPDATE code_log_statements
                         SET line = ?, function = ?, level = ?, logger = ?,
                             message_template = ?, raw_statement = ?,
-                            business_summary = ?, business_terms = ?, updated_at = ?
+                            business_summary = ?, business_terms = ?, business_event = ?,
+                            trigger_stage = ?, symptom_terms = ?, likely_causes = ?,
+                            process_hint = ?, neighbor_terms = ?, updated_at = ?
                         WHERE id = ?
                         """,
                         (
@@ -1645,6 +1704,12 @@ def learn_business(args: argparse.Namespace) -> None:
                             log_item.get("raw_statement") if log_item.get("raw_statement") is not None else existing_log["raw_statement"],
                             log_business_summary,
                             log_business_terms,
+                            log_business_event,
+                            log_trigger_stage,
+                            log_symptom_terms,
+                            log_likely_causes,
+                            log_process_hint,
+                            log_neighbor_terms,
                             ts,
                             existing_log["id"],
                         ),
@@ -1655,9 +1720,10 @@ def learn_business(args: argparse.Namespace) -> None:
                         INSERT INTO code_log_statements(
                           project_id, file_path, line, function, level, logger,
                           message_template, raw_statement,
-                          business_summary, business_terms, updated_at
+                          business_summary, business_terms, business_event, trigger_stage,
+                          symptom_terms, likely_causes, process_hint, neighbor_terms, updated_at
                         )
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
                         (
                             source_project.project_id,
@@ -1670,6 +1736,12 @@ def learn_business(args: argparse.Namespace) -> None:
                             log_item.get("raw_statement"),
                             log_business_summary,
                             log_business_terms,
+                            log_business_event,
+                            log_trigger_stage,
+                            log_symptom_terms,
+                            log_likely_causes,
+                            log_process_hint,
+                            log_neighbor_terms,
                             ts,
                         ),
                     )

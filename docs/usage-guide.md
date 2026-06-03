@@ -249,6 +249,14 @@ python tools/agent_memory.py search --project . --query "<task>" --per-type-limi
 If `search` returns `truncated: true`, continue only with `next_cursor` when the current evidence is still incomplete.
 Use `suggested_followup_terms` from `context` or `search` as the first candidate set for the next recursive query. Add specific `search_terms` or exact anchors only after that.
 If `followup_focus` is present, use it to decide whether the next recursive step should bias route, resource, log, or config anchors.
+Use `log_search_plan` when the user reports a symptom that likely needs runtime log evidence. It turns the natural-language problem into:
+
+- candidate code-log events
+- high-signal search terms
+- logger/tag hints
+- file/function hints
+- a recommended log inspection order
+
 If `maintain-plan` returns `review_query_miss`, prefer its `suggested_query_terms` over inventing a fresh keyword set. Those terms combine the original miss wording with current code-memory hint anchors.
 If `maintain-plan` returns `review_correction_experience`, use its `correction_targets`, `learning_rule_draft`, and `learn_business_payload_template` to repair the affected business semantics in place. Keep the repair scoped to the named file, symbol, or log records instead of broadening the learn scope first.
 
@@ -267,6 +275,24 @@ This is deterministic keyword expansion, not a vector database. If the first res
 Code and log matches include `search_terms` and `match_reasons`. `search_terms` expose the generated anchors used for retrieval. `match_reasons` explain whether a row matched by exact file path, exact symbol, log text, expanded query terms, or broader summary text.
 
 When diagnosing an error message or observed output, query the message text directly. `context` may return `code_log_matches` and `edge_matches` that point to the likely file and function.
+
+If the user also provides a temporary runtime log file, keep that raw file out of long-term memory and analyze it as bounded evidence:
+
+```bash
+python tools/agent_memory.py analyze-runtime-log \
+  --project . \
+  --query "个人资料页空白，怀疑登录态异常" \
+  --log-file ./profile-runtime.log \
+  --json
+```
+
+This command reuses current code/log memory, normalizes raw lines into lightweight events, and returns only a few scored slices plus:
+
+- `session_candidates`
+- `runtime_episode_candidate`
+- `reflect_payload_template`
+
+Use `reflect_payload_template` as the starting point when you want to turn temporary runtime-log evidence into a structured reflection or experience candidate. It is designed for diagnosis sessions, not for long-term raw-log archival.
 
 Ask:
 
