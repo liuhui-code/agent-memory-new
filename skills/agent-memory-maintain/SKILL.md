@@ -81,6 +81,8 @@ After `vault-export`, the same grouped pattern appears in `Governance/Skill Patt
 That vault page now also mirrors reviewer metadata and the non-overwrite policy for reviewed artifacts, so Obsidian review sees the same guardrails as runtime JSON.
 When `maintain-plan` returns `review_incident_strategy_candidate`, treat it as a runtime-incident diagnosis policy candidate rather than a formal skill. Review `goal_symptoms`, `common_log_events`, `recommended_steps`, `verification_paths`, `misleading_signals`, and `log_design_feedback` before drafting it.
 After `vault-export`, the same grouped incident strategy appears in `Governance/Incident Strategy Candidates.md`.
+
+When `maintain-plan` returns `review_log_design_gap`, keep the follow-up narrow. Use `goal_area`, `high_value_log_anchor_targets`, and `suggested_log_kinds` to patch one or two high-value logs in the affected code path. Prefer start markers, decision checkpoints, or request/session correlation fields over broad logging expansion.
 When the grouped runtime-incident strategy is ready to be drafted into the repo, use:
 
 ```bash

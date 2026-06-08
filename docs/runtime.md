@@ -103,7 +103,7 @@ This command does not ingest raw logs into SQLite. It:
 - returns bounded evidence slices, `session_candidates`, and a `runtime_episode_candidate`
 - includes a lightweight `candidate_chain` and `chain_confidence` inside the runtime episode so downstream reflection can preserve the rough failure sequence
 - returns `log_improvement_suggestions` when the current evidence suggests a few missing high-value branch, start, or correlation logs
-- prepares a `reflect_payload_template` so the diagnosis can be compressed directly into a structured reflection or experience candidate, including correction-oriented fields such as `old_hypothesis` when the query indicates a diagnosis correction
+- prepares a `reflect_payload_template` so the diagnosis can be compressed directly into a structured reflection or experience candidate, including correction-oriented fields such as `old_hypothesis`, bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action`
 
 The raw log file stays outside SQLite. The runtime only writes the last structured analysis snapshot to `runtime/last_runtime_log_analysis.json`.
 
@@ -273,6 +273,16 @@ These quality signals are advisory. They do not promote a skill automatically. T
 `vault-export` now mirrors these grouped candidates into `Governance/Skill Pattern Candidates.md`, including the proposed draft path, review statuses, reviewer metadata, preservation policy, anchor health, and a Markdown preview. The vault remains a generated review mirror; it does not approve or install the skill.
 
 Runtime-log-backed incident strategies are mirrored separately in `Governance/Incident Strategy Candidates.md`. They are intended as reusable diagnosis policies that can later inform skill evolution, but they start as reviewable strategy drafts rather than formal skills.
+
+When repeated runtime-log-backed diagnosis reflections expose the same logging weakness, `maintain-plan` may also emit `review_log_design_gap`. This is a lightweight log-governance action, not a new storage subsystem. It groups:
+
+- `goal_area`
+- `goal_symptoms`
+- `high_value_log_anchor_targets`
+- `suggested_log_kinds`
+- `log_design_feedback`
+
+Use it to guide a few high-value start, branch, or correlation logs in the source code without broadening memory scope or persisting more runtime history.
 
 For large archives, `vault-export` now defaults to bounded human-readable summaries for aggregate pages such as `Semantic Facts/project-facts.md`, `Codebase Wiki/files.md`, `symbols.md`, `log-statements.md`, and `memory-edges.md`, and only exports the most recent bounded set of per-record episode/reflection files. Generated pages include a truncation notice when the vault mirror is showing only a subset. SQLite remains the full machine-readable source of truth.
 

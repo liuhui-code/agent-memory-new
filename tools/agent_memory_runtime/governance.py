@@ -1143,6 +1143,29 @@ def evaluate_incident_strategy_quality(candidate: dict[str, Any]) -> tuple[int, 
     return score, readiness, reasons
 
 
+def incident_goal_area(strategy_name: str) -> str:
+    area = str(strategy_name or "").strip().lower()
+    if area.startswith("log-"):
+        area = area[4:]
+    if area.endswith("-diagnosis"):
+        area = area[: -len("-diagnosis")]
+    return area.replace("-", "_")
+
+
+def infer_log_design_kinds(feedback: list[str]) -> list[str]:
+    kinds: list[str] = []
+    lowered = " ".join(str(item).lower() for item in feedback)
+    if "decision checkpoint" in lowered or "decision checkpoints" in lowered:
+        kinds.append("decision_checkpoint")
+    if "request_id" in lowered or "session_id" in lowered or "correlation" in lowered:
+        kinds.append("request_correlation")
+    if "start marker" in lowered or "start log" in lowered:
+        kinds.append("start_marker")
+    if not kinds:
+        kinds.append("anchor_alignment")
+    return stable_unique_strings(kinds)
+
+
 def build_incident_strategy_candidates(project: Project, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     groups: dict[str, list[dict[str, Any]]] = {}
     for row in rows:
@@ -1249,6 +1272,59 @@ def build_incident_strategy_candidates(project: Project, rows: list[dict[str, An
         candidate["draft_markdown"] = build_incident_strategy_markdown(candidate)
         candidates.append(candidate)
     candidates.sort(key=lambda item: (-int(item["supporting_count"]), item["strategy_name"]))
+    return candidates
+
+
+def build_log_design_gap_candidates(project: Project, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        if not is_runtime_log_backed_procedure(row):
+            continue
+        goal_area = incident_goal_area(incident_strategy_name(row))
+        groups.setdefault(goal_area, []).append(row)
+
+    candidates: list[dict[str, Any]] = []
+    for goal_area, grouped_rows in groups.items():
+        if len(grouped_rows) < 2:
+            continue
+        grouped_rows.sort(key=lambda item: int(item.get("id") or 0))
+        feedback = stable_unique_strings(
+            [
+                "Add decision checkpoints around auth/session or fallback branches.",
+                "Prefer request_id/session_id correlation in runtime logs.",
+                *[
+                    str(row.get("repair_action") or "")
+                    for row in grouped_rows
+                    if "runtime slice" in str(row.get("repair_action") or "").lower()
+                ],
+            ]
+        )[:6]
+        candidates.append(
+            {
+                "strategy_name": incident_strategy_name(grouped_rows[-1]),
+                "goal_area": goal_area,
+                "goal_symptoms": stable_unique_strings([str(row.get("problem") or "") for row in grouped_rows if str(row.get("problem") or "").strip()])[:6],
+                "supporting_reflection_ids": [int(row["id"]) for row in grouped_rows],
+                "supporting_count": len(grouped_rows),
+                "high_value_log_anchor_targets": stable_unique_strings(
+                    [
+                        *[
+                            term
+                            for row in grouped_rows
+                            for term in json_list(row.get("useful_followup_terms"))
+                        ],
+                        *[
+                            target
+                            for row in grouped_rows
+                            for target in json_list(row.get("inspection_targets"))
+                        ],
+                    ]
+                )[:8],
+                "suggested_log_kinds": infer_log_design_kinds(feedback),
+                "log_design_feedback": feedback,
+            }
+        )
+    candidates.sort(key=lambda item: (-int(item["supporting_count"]), item["goal_area"]))
     return candidates
 
 
@@ -1670,6 +1746,20 @@ def maintain_plan(args: argparse.Namespace) -> None:
                     "python tools/agent_memory.py maintain-incident-strategy-draft "
                     f"--project . --strategy-name {json.dumps(candidate['strategy_name'], ensure_ascii=False)} --json"
                 ),
+                **candidate,
+            }
+        )
+
+    for candidate in build_log_design_gap_candidates(project, review["unreviewed_reflections"]):
+        actions.append(
+            {
+                "action": "review_log_design_gap",
+                "type": "log_design",
+                "id": None,
+                "reason": "repeated runtime-log-backed diagnosis points to a narrow log design gap worth fixing",
+                "risk": "low",
+                "requires_confirmation": False,
+                "command": None,
                 **candidate,
             }
         )

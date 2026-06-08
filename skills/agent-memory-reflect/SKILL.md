@@ -38,6 +38,7 @@ When recording `correction_experience`, include enough evidence for later learn 
 - the misleading old understanding in `what_failed` or `misleading_followup_terms`
 - the corrected understanding in `lesson`, `future_rule`, and `repair_action`
 - if the input came from temporary runtime-log analysis, carry over `runtime_episode_candidate` evidence through `context_used`, `trajectory_summary`, `final_verification_path`, and `old_hypothesis` when present
+- keep bounded runtime evidence in the reflection instead of raw logs: prefer `evidence`, `misleading_followup_terms`, and `repair_action` from `reflect_payload_template`
 
 This does not add a fifth skill. It only helps `maintain-plan` route the reflection toward future skill-candidate review or toward learn/semantic-repair governance.
 

@@ -1342,6 +1342,89 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertIn("maintain-incident-strategy-draft", action["write_command_template"])
             self.assertIn("# Incident Strategy: log-auth-session-profile-blank-diagnosis", action["draft_markdown"])
 
+    def test_maintain_plan_surfaces_log_design_gap_review(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payloads = [
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "个人资料页空白，登录态异常。",
+                    "task": "diagnose profile blank via runtime logs",
+                    "summary": "Runtime logs showed profile failure and invalid session.",
+                    "reasoning_summary": "Runtime evidence was compressed into matched events, bounded slices, and a lightweight candidate chain before diagnosis.",
+                    "context_used": ["query: 个人资料页空白，登录态异常", "log_event: load profile failed", "slice: 10:21:10 -> 10:21:13"],
+                    "what_worked": [
+                        "Use code-log memory to build a log_search_plan first.",
+                        "Inspect bounded runtime log slices instead of scanning the full raw log.",
+                        "Use the dominant event combination session invalid + load profile failed to narrow the diagnosis path.",
+                    ],
+                    "what_failed": ["Earlier diagnosis leaned toward a route/navigation cause."],
+                    "hidden_assumptions": ["The failure happened after profile loading began."],
+                    "negative_preconditions": ["Does not apply when no auth/session evidence is present."],
+                    "query_rounds": 1,
+                    "trajectory_summary": "profile_load_started -> profile_load_failed -> session_invalid -> navigate_login",
+                    "useful_followup_focus": "log",
+                    "useful_followup_terms": ["load profile failed", "session invalid", "401", "ProfilePage"],
+                    "misleading_followup_terms": ["blank screen", "route issue"],
+                    "inspection_targets": ["pages/Profile.ets", "ProfilePage", "load profile failed"],
+                    "final_verification_path": "Confirm 401 and session invalid in the dominant runtime slice, then inspect the profile load path.",
+                    "verification_method": "Confirm the dominant runtime slice against profile code-log anchors and reproduce the login-to-profile path.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["runtime_log:profile_blank_auth", "session:session_001", "episode:profile-auth-incident"],
+                    "lesson": "For profile blank incidents, check runtime auth/session evidence before route debugging.",
+                    "future_rule": "When profile pages load blank, start with auth/session log anchors and only then inspect route paths.",
+                    "evidence": "candidate_chain: profile_load_started -> profile_load_failed -> session_invalid; top_slice: 10:21:10 -> 10:21:13",
+                    "repair_action": "Inspect the dominant runtime slice first, then confirm auth/session handling in source files.",
+                },
+                {
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "outcome": "success",
+                    "problem": "登录后个人中心没数据，怀疑 session 失效。",
+                    "task": "diagnose personal-center no-data via runtime logs",
+                    "summary": "Runtime logs again pointed to auth/session failure before any route issue.",
+                    "reasoning_summary": "Runtime evidence was compressed into matched events, bounded slices, and a lightweight candidate chain before diagnosis.",
+                    "context_used": ["query: 登录后个人中心没数据，怀疑 session 失效", "log_event: session invalid", "slice: 11:02:14 -> 11:02:18"],
+                    "what_worked": [
+                        "Use code-log memory to build a log_search_plan first.",
+                        "Inspect bounded runtime log slices instead of scanning the full raw log.",
+                        "Use the dominant event combination session invalid + load profile failed to narrow the diagnosis path.",
+                    ],
+                    "what_failed": ["Earlier diagnosis leaned toward a route/navigation cause."],
+                    "hidden_assumptions": ["The page had already entered the profile fetch flow."],
+                    "negative_preconditions": ["Does not apply when there is no profile request or session evidence."],
+                    "query_rounds": 1,
+                    "trajectory_summary": "profile_load_started -> profile_load_failed -> session_invalid -> navigate_login",
+                    "useful_followup_focus": "log",
+                    "useful_followup_terms": ["session invalid", "load profile failed", "401", "SessionManager"],
+                    "misleading_followup_terms": ["route blank", "layout issue"],
+                    "inspection_targets": ["pages/Profile.ets", "SessionManager", "load profile failed"],
+                    "final_verification_path": "Confirm session invalid and failed profile load in the dominant runtime slice, then inspect the auth/session handling path.",
+                    "verification_method": "Confirm the dominant runtime slice against auth/session code-log anchors and reproduce the login-to-profile path.",
+                    "reuse_feedback": "helped",
+                    "source_cases": ["runtime_log:profile_blank_auth", "session:session_002", "episode:profile-auth-incident-2"],
+                    "lesson": "For personal-center no-data incidents, auth/session logs are often stronger than route hypotheses.",
+                    "future_rule": "When profile pages have no data after login, prioritize auth/session log anchors before route inspection.",
+                    "evidence": "candidate_chain: profile_load_started -> profile_load_failed -> session_invalid; top_slice: 11:02:14 -> 11:02:18",
+                    "repair_action": "Inspect the dominant runtime slice first, then confirm auth/session handling in source files.",
+                },
+            ]
+            for payload in payloads:
+                self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            actions = json.loads(result.stdout)["actions"]
+
+            action = next(action for action in actions if action["action"] == "review_log_design_gap")
+            self.assertEqual(action["type"], "log_design")
+            self.assertEqual(action["goal_area"], "auth_session_profile_blank")
+            self.assertIn("decision_checkpoint", action["suggested_log_kinds"])
+            self.assertIn("request_correlation", action["suggested_log_kinds"])
+            self.assertIn("session invalid", " ".join(action["high_value_log_anchor_targets"]))
+            self.assertTrue(action["log_design_feedback"])
+
     def test_maintain_incident_strategy_draft_writes_markdown_file(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
@@ -3801,6 +3884,101 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertTrue(reflect_payload["what_failed"])
             self.assertIn("old_hypothesis", reflect_payload)
             self.assertIn("runtime evidence", reflect_payload["reasoning_summary"].lower())
+            self.assertIn("route", " ".join(reflect_payload["misleading_followup_terms"]).lower())
+            self.assertIn("candidate_chain", reflect_payload["evidence"])
+            self.assertIn("dominant runtime slice", reflect_payload["repair_action"].lower())
+
+    def test_analyze_runtime_log_reflect_template_carries_runtime_evidence_feedback(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Profile.ets").write_text(
+                "import hilog from '@ohos.hilog';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct ProfilePage {\n"
+                "  aboutToAppear() {\n"
+                "    hilog.info(0x0000, 'ProfilePage', 'load profile start');\n"
+                "    hilog.error(0x0000, 'ProfilePage', 'load profile failed');\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages")
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps(
+                    {
+                        "files": [
+                            {
+                                "file_path": "pages/Profile.ets",
+                                "logs": [
+                                    {
+                                        "message_template": "load profile start",
+                                        "function": "aboutToAppear",
+                                        "level": "info",
+                                        "logger": "hilog",
+                                        "business_summary": "用户资料加载开始日志。",
+                                        "business_terms": ["资料加载开始"],
+                                        "business_event": "profile_load_started",
+                                        "trigger_stage": "profile_page_about_to_appear",
+                                        "symptom_terms": ["页面进入后开始加载"],
+                                        "likely_causes": [],
+                                        "process_hint": "EntryAbility",
+                                        "neighbor_terms": ["load profile failed", "session invalid"],
+                                    },
+                                    {
+                                        "message_template": "load profile failed",
+                                        "function": "aboutToAppear",
+                                        "level": "error",
+                                        "logger": "hilog",
+                                        "business_summary": "用户资料加载失败日志。",
+                                        "business_terms": ["用户资料加载失败", "资料页空白", "session invalid"],
+                                        "business_event": "profile_load_failed",
+                                        "trigger_stage": "profile_page_about_to_appear",
+                                        "symptom_terms": ["资料页空白", "登录后没数据"],
+                                        "likely_causes": ["session invalid", "401"],
+                                        "process_hint": "EntryAbility",
+                                        "neighbor_terms": ["load profile start", "session invalid", "navigate login"],
+                                    }
+                                ],
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                "--json",
+            )
+
+            runtime_log = project / "profile-feedback.log"
+            runtime_log.write_text(
+                "2026-06-03T10:21:10.100Z pid=2001 tid=3002 EntryAbility I ProfilePage: load profile start route=pages/Profile request_id=req-1 session_id=sess-9\n"
+                "2026-06-03T10:21:13.200Z pid=2001 tid=3002 EntryAbility E ProfilePage: load profile failed code=401 reason=session_invalid request_id=req-1 session_id=sess-9\n"
+                "2026-06-03T10:21:13.300Z pid=2001 tid=3002 EntryAbility W SessionManager: session invalid session_id=sess-9\n",
+                encoding="utf-8",
+            )
+
+            result = self.run_memory(
+                project,
+                "analyze-runtime-log",
+                "--query",
+                "个人资料页空白，怀疑登录态异常",
+                "--log-file",
+                str(runtime_log),
+                "--json",
+            )
+            data = json.loads(result.stdout)
+            reflect_payload = data["reflect_payload_template"]
+
+            self.assertEqual(reflect_payload["experience_type"], "procedure_experience")
+            self.assertIn("candidate_chain", reflect_payload["evidence"])
+            self.assertIn("top_slice", reflect_payload["evidence"])
+            self.assertIn("dominant runtime slice", reflect_payload["repair_action"].lower())
+            self.assertIn("session invalid", " ".join(reflect_payload["what_worked"]).lower())
+            self.assertIsInstance(reflect_payload["misleading_followup_terms"], list)
 
     def test_log_semantic_fields_enrich_log_search_plan(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

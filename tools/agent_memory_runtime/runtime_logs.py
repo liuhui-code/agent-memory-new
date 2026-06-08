@@ -466,6 +466,51 @@ def build_log_improvement_suggestions(
     return suggestions[:3]
 
 
+def infer_misleading_followup_terms(
+    query: str,
+    log_search_plan: dict[str, Any],
+    matched_events: list[dict[str, Any]],
+) -> list[str]:
+    matched_text = " ".join(runtime_event_search_text(event) for event in matched_events)
+    candidates = unique_list(
+        [
+            *[str(item) for item in log_search_plan.get("search_terms") or []],
+            *[str(item) for item in log_search_plan.get("logger_hints") or []],
+            *[str(item) for item in log_search_plan.get("function_hints") or []],
+            *tokenize(query),
+        ]
+    )
+    misleading: list[str] = []
+    for item in candidates:
+        text = str(item).strip()
+        lowered = text.lower()
+        if len(lowered) <= 1:
+            continue
+        if lowered not in matched_text:
+            misleading.append(text)
+    return unique_list(misleading)[:6]
+
+
+def build_runtime_reflection_evidence(
+    top_slice: dict[str, Any],
+    top_session: dict[str, Any],
+    runtime_episode_candidate: dict[str, Any],
+    matched_events: list[dict[str, Any]],
+) -> str:
+    candidate_chain = " -> ".join(str(item) for item in runtime_episode_candidate.get("candidate_chain") or [])
+    top_slice_range = str(top_slice.get("time_range") or "")
+    top_session_summary = str(top_session.get("summary") or "")
+    key_events = ", ".join(
+        unique_list([str(event.get("event_type") or "") for event in matched_events[:4] if str(event.get("event_type") or "").strip()])[:4]
+    )
+    return (
+        f"candidate_chain: {candidate_chain or 'n/a'}; "
+        f"top_slice: {top_slice_range or 'n/a'}; "
+        f"top_session: {top_session_summary or 'n/a'}; "
+        f"key_events: {key_events or 'n/a'}"
+    )
+
+
 def build_reflect_payload_template(
     query: str,
     context: dict[str, Any],
@@ -479,12 +524,15 @@ def build_reflect_payload_template(
     top_session = session_candidates[0] if session_candidates else {}
     followup_focus = str(context.get("followup_focus") or log_search_plan.get("focus") or "log")
     dominant_signals = runtime_episode_candidate.get("dominant_signals") or []
+    candidate_chain = runtime_episode_candidate.get("candidate_chain") or []
     useful_terms = unique_list(
         [
+            *[str(event.get("message") or "") for event in matched_events[:3] if str(event.get("message") or "").strip()],
             *[str(item) for item in dominant_signals],
             *[term for event in matched_events[:3] for term in event.get("matched_terms") or []],
         ]
     )[:10]
+    misleading_terms = infer_misleading_followup_terms(query, log_search_plan, matched_events)
     inspection_targets = unique_list(
         [
             *[str(item) for item in log_search_plan.get("file_hints") or []],
@@ -506,6 +554,11 @@ def build_reflect_payload_template(
             old_hypothesis,
             "The earlier hypothesis did not fit the dominant runtime evidence.",
         ]
+    evidence = build_runtime_reflection_evidence(top_slice, top_session, runtime_episode_candidate, matched_events)
+    repair_action = (
+        "Inspect the dominant runtime slice first, then confirm the matched code-log anchors and related source files. "
+        "If the evidence holds, keep future diagnosis anchored on the same runtime signals."
+    )
     return {
         "task_type": "diagnosis",
         "experience_type": experience_type,
@@ -517,12 +570,14 @@ def build_reflect_payload_template(
         "what_worked": [
             "Use code-log memory to build a log_search_plan first.",
             "Inspect bounded runtime log slices instead of scanning the full raw log.",
+            f"Use the dominant runtime signals: {', '.join(str(item) for item in useful_terms[:4]) or 'bounded runtime signals'}",
         ],
         "what_failed": what_failed,
         "query_rounds": 1,
         "trajectory_summary": top_session.get("summary") or runtime_episode_candidate.get("summary"),
         "useful_followup_focus": followup_focus,
         "useful_followup_terms": useful_terms,
+        "misleading_followup_terms": misleading_terms,
         "inspection_targets": inspection_targets,
         "final_verification_path": top_slice.get("time_range") or top_session.get("time_range") or runtime_episode_candidate.get("summary"),
         "verification_method": "Confirm the dominant runtime slice against code-log anchors and related source files.",
@@ -530,6 +585,8 @@ def build_reflect_payload_template(
             f"runtime_log:{runtime_episode_candidate.get('query')}",
             *[f"session:{item.get('session_id')}" for item in session_candidates[:2]],
         ],
+        "evidence": evidence,
+        "repair_action": repair_action,
         "old_hypothesis": old_hypothesis,
     }
 

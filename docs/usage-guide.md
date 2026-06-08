@@ -295,7 +295,7 @@ This command reuses current code/log memory, normalizes raw lines into lightweig
 
 Use `runtime_episode_candidate.candidate_chain` and `chain_confidence` when you need a compact explanation of how the incident unfolded.
 Use `log_improvement_suggestions` when the current logs were just barely enough; they point at a few high-value start, branch, or correlation logs worth adding to the source code later.
-Use `reflect_payload_template` as the starting point when you want to turn temporary runtime-log evidence into a structured reflection or experience candidate. It is designed for diagnosis sessions, not for long-term raw-log archival. When the query is correcting an earlier diagnosis, the template may already switch to `correction_experience` and include `old_hypothesis`.
+Use `reflect_payload_template` as the starting point when you want to turn temporary runtime-log evidence into a structured reflection or experience candidate. It is designed for diagnosis sessions, not for long-term raw-log archival. The template now also carries bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action`. When the query is correcting an earlier diagnosis, the template may already switch to `correction_experience` and include `old_hypothesis`.
 
 Ask:
 
@@ -684,6 +684,13 @@ Treat these as confidence signals for reviewers, not as automatic promotion swit
 If a draft or candidate package already has human review metadata such as a real reviewer or a non-`pending_review` status, rerunning the write command preserves that artifact and returns a warning instead of overwriting the review work.
 The vault `Governance/Skill Pattern Candidates.md` page mirrors the same stage, reviewer, and preservation-policy information so human review in Obsidian sees the same boundary conditions as the runtime JSON.
 The vault `Governance/Incident Strategy Candidates.md` page mirrors grouped runtime-log-backed diagnosis strategies so reviewers can inspect recurring incident patterns without reopening raw logs.
+
+`maintain-plan --json` may also return `review_log_design_gap` when repeated runtime-log-backed diagnosis reflections point to the same missing log design signals. Treat it as a narrow code-quality review action:
+
+- inspect `goal_area` and `goal_symptoms`
+- use `high_value_log_anchor_targets` as the first patch targets
+- use `suggested_log_kinds` to decide whether the code needs a start marker, decision checkpoint, or request/session correlation field
+- keep the patch small and tied to the matched code-log anchors
 
 It is still a candidate package, not a formal installed skill.
 Promotion into `skills/<name>/` remains manual. Use `docs/skill-promotion-rules.md` as the review checklist before treating any candidate package as a real skill.

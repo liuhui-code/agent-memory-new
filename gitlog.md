@@ -1722,3 +1722,39 @@ Rollback notes:
 
 - Remove `maintain-incident-strategy-draft` and the `review_incident_strategy_candidate` action if we decide to keep runtime-log governance limited to skill patterns only.
 - Remove `Governance/Incident Strategy Candidates.md` from the vault mirror if the extra review surface becomes too noisy.
+
+## 2026-06-07 - Log feedback loop and log design governance
+
+Files touched:
+
+- `tools/agent_memory_runtime/runtime_logs.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_agent_memory.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `skills/agent-memory-reflect/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Deepened `reflect_payload_template` for runtime-log diagnosis by carrying bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action` instead of only summary text.
+- Made the runtime evidence feedback more human-readable by prioritizing dominant matched log messages in `what_worked`, so repeated diagnosis cases preserve the signals that actually helped.
+- Added `review_log_design_gap` to `maintain-plan` as a narrow governance action for repeated runtime-log-backed diagnosis flows that point to the same logging weakness.
+- Kept the new log-design review lightweight: it groups `goal_area`, `goal_symptoms`, `high_value_log_anchor_targets`, `suggested_log_kinds`, and `log_design_feedback` without persisting raw runtime history.
+
+Why:
+
+- Improve the quality of `procedure_experience` and `correction_experience` generated from temporary runtime-log evidence.
+- Turn repeated diagnosis pain points into actionable logging improvements without adding a heavier runtime-incident storage layer.
+- Preserve the current “raw logs are temporary, reflections are durable” boundary while making the durable layer more useful.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_analyze_runtime_log_can_recommend_correction_experience tests.test_agent_memory.AgentMemoryRuntimeTests.test_analyze_runtime_log_reflect_template_carries_runtime_evidence_feedback tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_surfaces_log_design_gap_review`
+- Result: passed.
+
+Rollback notes:
+
+- Revert the new `reflect_payload_template` fields if we decide runtime-log reflections should stay summary-only.
+- Remove `review_log_design_gap` if log-design review should remain an informal suggestion rather than a first-class maintain action.
