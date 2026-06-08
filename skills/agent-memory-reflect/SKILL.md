@@ -48,6 +48,21 @@ For runtime-log-backed diagnosis, also keep the feedback loop explicit:
 
 That lets `reflect-review`, `maintain-plan`, recurring incident fingerprints, and incident strategy candidates reuse the same bounded runtime evidence without storing raw logs.
 
+When recent work already ran `context`, `search`, `analyze-runtime-log`, or `maintain-plan`, the runtime keeps a bounded `runtime/last_usage_sample.json`. You can lean on that sample instead of retyping everything. A minimal reflection payload can still inherit missing structured fields such as:
+
+- `task_type`
+- `problem`
+- `query_rounds`
+- `useful_followup_focus`
+- `useful_followup_terms`
+- `misleading_followup_terms`
+- `inspection_targets`
+- `trajectory_summary`
+- `evidence`
+- `repair_action`
+
+Explicit payload values still win. The usage sample is only a runtime-side helper and is closed after the reflection is written.
+
 This does not add a fifth skill. It only helps `maintain-plan` route the reflection toward future skill-candidate review or toward learn/semantic-repair governance.
 
 ## Save Agent-Structured Reflection

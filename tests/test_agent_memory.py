@@ -145,6 +145,9 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
         result = self.run_memory(project, "miss-list", "--json", memory_home=memory_home)
         return json.loads(result.stdout)
 
+    def usage_sample_path(self, project: Path) -> Path:
+        return self.project_memory_dir(project) / "runtime" / "last_usage_sample.json"
+
     def test_init_uses_configured_global_memory_home_without_project_local_state(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -3989,6 +3992,168 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertIn("log_improvement_suggestions", data)
             self.assertTrue(data["log_improvement_suggestions"])
             self.assertIn("decision checkpoints", data["log_improvement_suggestions"][0]["why"])
+
+    def test_usage_sample_auto_records_query_runtime_and_governance_steps(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Profile.ets").write_text(
+                "import hilog from '@ohos.hilog';\n"
+                "@Component\n"
+                "struct ProfilePage {\n"
+                "  aboutToAppear() {\n"
+                "    hilog.info(0x0000, 'ProfilePage', 'load profile start');\n"
+                "    hilog.error(0x0000, 'ProfilePage', 'load profile failed');\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            self.run_memory(project, "learn-path", "--path", "pages")
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps(
+                    {
+                        "files": [
+                            {
+                                "file_path": "pages/Profile.ets",
+                                "logs": [
+                                    {
+                                        "message_template": "load profile failed",
+                                        "function": "aboutToAppear",
+                                        "level": "error",
+                                        "logger": "hilog",
+                                        "business_summary": "用户资料加载失败日志。",
+                                        "business_terms": ["资料页空白", "load profile failed", "session invalid"],
+                                    }
+                                ],
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                "--json",
+            )
+
+            self.run_memory(project, "context", "--query", "个人资料页空白，怀疑登录态异常", "--json")
+            runtime_log = project / "runtime.log"
+            runtime_log.write_text(
+                "06-03 10:21:10.100 EntryAbility I ProfilePage: load profile start\n"
+                "06-03 10:21:13.200 EntryAbility E ProfilePage: load profile failed code=401\n"
+                "06-03 10:21:13.300 EntryAbility W SessionManager: session invalid\n",
+                encoding="utf-8",
+            )
+            self.run_memory(
+                project,
+                "analyze-runtime-log",
+                "--query",
+                "个人资料页空白，怀疑登录态异常",
+                "--log-file",
+                str(runtime_log),
+                "--json",
+            )
+            self.run_memory(project, "maintain-plan", "--json")
+
+            sample = json.loads(self.usage_sample_path(project).read_text(encoding="utf-8"))
+            self.assertIn("context", sample["commands"])
+            self.assertIn("analyze-runtime-log", sample["commands"])
+            self.assertIn("maintain-plan", sample["commands"])
+            self.assertGreaterEqual(sample["query_rounds"], 1)
+            self.assertIn("log", sample["followup_focuses"])
+            self.assertTrue(sample["runtime_log"]["used"])
+            self.assertGreaterEqual(sample["runtime_log"]["matched_event_count"], 1)
+            self.assertTrue(sample["governance"]["used"])
+            self.assertIn("commands:", sample["auto_summary"])
+            self.assertIn("dominant runtime signals", sample["auto_summary"])
+
+    def test_reflect_auto_merges_recent_usage_sample(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Profile.ets").write_text(
+                "import hilog from '@ohos.hilog';\n"
+                "@Component\n"
+                "struct ProfilePage {\n"
+                "  aboutToAppear() {\n"
+                "    hilog.info(0x0000, 'ProfilePage', 'load profile start');\n"
+                "    hilog.error(0x0000, 'ProfilePage', 'load profile failed');\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            self.run_memory(project, "learn-path", "--path", "pages")
+            self.run_memory(
+                project,
+                "learn-business",
+                "--payload",
+                json.dumps(
+                    {
+                        "files": [
+                            {
+                                "file_path": "pages/Profile.ets",
+                                "logs": [
+                                    {
+                                        "message_template": "load profile failed",
+                                        "function": "aboutToAppear",
+                                        "level": "error",
+                                        "logger": "hilog",
+                                        "business_summary": "用户资料加载失败日志。",
+                                        "business_terms": ["资料页空白", "load profile failed", "session invalid"],
+                                        "business_event": "profile_load_failed",
+                                        "trigger_stage": "profile_page_about_to_appear",
+                                        "symptom_terms": ["资料页空白"],
+                                        "likely_causes": ["session invalid", "401"],
+                                        "process_hint": "EntryAbility",
+                                        "neighbor_terms": ["load profile start", "session invalid"],
+                                    }
+                                ],
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                "--json",
+            )
+            runtime_log = project / "runtime.log"
+            runtime_log.write_text(
+                "06-03 10:21:10.100 EntryAbility I ProfilePage: load profile start\n"
+                "06-03 10:21:13.200 EntryAbility E ProfilePage: load profile failed code=401 reason=session_invalid\n"
+                "06-03 10:21:13.300 EntryAbility W SessionManager: session invalid\n",
+                encoding="utf-8",
+            )
+            self.run_memory(
+                project,
+                "analyze-runtime-log",
+                "--query",
+                "个人资料页空白，怀疑登录态异常",
+                "--log-file",
+                str(runtime_log),
+                "--json",
+            )
+
+            self.run_memory(
+                project,
+                "reflect",
+                "--task",
+                "诊断个人资料页空白",
+                "--lesson",
+                "先看 runtime log 的 dominant slice，再回到代码日志锚点确认。",
+            )
+
+            reflections = self.list_records(project, "reflection")
+            latest = reflections[0]
+            self.assertEqual(latest["task_type"], "diagnosis")
+            self.assertEqual(latest["experience_type"], "procedure_experience")
+            self.assertGreaterEqual(latest["query_rounds"], 1)
+            self.assertEqual(latest["useful_followup_focus"], "log")
+            self.assertIn("session invalid", json.loads(latest["useful_followup_terms"]))
+            self.assertIn("candidate_chain", latest["evidence"])
+            self.assertTrue(latest["repair_action"])
+
+            sample = json.loads(self.usage_sample_path(project).read_text(encoding="utf-8"))
+            self.assertTrue(sample["reflection_written"])
+            self.assertTrue(sample["closed_at"])
 
     def test_analyze_runtime_log_can_recommend_correction_experience(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

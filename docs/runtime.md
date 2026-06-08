@@ -106,6 +106,17 @@ This command does not ingest raw logs into SQLite. It:
 - prepares a `reflect_payload_template` so the diagnosis can be compressed directly into a structured reflection or experience candidate, including correction-oriented fields such as `old_hypothesis`, bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action`
 
 The raw log file stays outside SQLite. The runtime only writes the last structured analysis snapshot to `runtime/last_runtime_log_analysis.json`.
+It also keeps a runtime-only rolling summary in `runtime/last_usage_sample.json`. This usage sample is not a new database table. It stores bounded facts such as:
+
+- which commands were used
+- how many query rounds happened
+- latest followup focus
+- suggested terms
+- dominant runtime signals
+- candidate chain
+- governance lanes touched by `maintain-plan`
+
+`reflect` now auto-merges that runtime usage sample when structured fields are missing from the provided payload. Explicit payload fields still win. The sample is then closed after the reflection is written so the next unrelated task starts from a fresh usage sample.
 
 # 3. Governance Path
 

@@ -15,6 +15,7 @@ from .query import collect_matches, infer_followup_focus, rank_followup_seed_ter
 from .records import output, parse_ids, row_dict, table_for_type
 from .storage import connect, ensure_initialized, now_iso, resolve_project
 from .text import json_list, tokenize, unique_list
+from .usage_samples import record_governance_usage
 
 
 def mark_stale(args: argparse.Namespace) -> None:
@@ -2207,6 +2208,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "actions": actions,
         "advisory_notice": "maintain-plan only proposes actions. Execute changes only after user confirmation.",
     }
+    record_governance_usage(project, "maintain-plan", data)
     output(data, args.json)
 
 

@@ -1796,3 +1796,45 @@ Rollback notes:
 
 - Remove recurring incident fingerprint drafting if we decide repeated runtime incidents should stay only inside incident strategies.
 - Drop `runtime_feedback_summary` from `reflect-review` if the extra runtime evidence summary proves too noisy for review workflows.
+
+## 2026-06-08 - Automatic runtime usage summaries for reflection
+
+Files touched:
+
+- `tools/agent_memory_runtime/usage_samples.py`
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_agent_memory.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-reflect/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a runtime-only `last_usage_sample.json` helper that collects bounded usage facts from `context`, `search`, `analyze-runtime-log`, and `maintain-plan`.
+- Kept the usage sample out of SQLite: it stores only recent command flow, query rounds, followup focus, suggested terms, dominant runtime signals, candidate chain, and governance lanes.
+- Made `reflect` auto-merge missing structured fields from the latest usage sample and any bounded `reflect_payload_template` captured during runtime-log analysis.
+- Closed the usage sample after writing a reflection so a later unrelated task starts from a fresh runtime summary instead of inheriting stale context.
+
+Why:
+
+- Reduce manual reflection overhead during real usage without creating a heavier telemetry table.
+- Preserve the “automatic facts, minimal human judgment” approach by capturing process data automatically and letting the user decide final quality feedback separately.
+- Keep rollback and storage cost low by confining the summary to runtime files instead of long-term database rows.
+
+Verification:
+
+- Command: `python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_usage_sample_auto_records_query_runtime_and_governance_steps tests.test_agent_memory.AgentMemoryRuntimeTests.test_reflect_auto_merges_recent_usage_sample`
+- Result: passed.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: `115 tests OK`.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passed.
+- Command: `git diff --check`
+- Result: clean.
+
+Rollback notes:
+
+- Remove `usage_samples.py` and the runtime-file auto-merge path if we decide reflection authorship should remain fully manual.
+- Keep the existing `last_context.json`, `last_runtime_log_analysis.json`, and `last_reflection.json` snapshots even if the rolling usage sample is removed.

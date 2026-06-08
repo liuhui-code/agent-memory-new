@@ -67,6 +67,14 @@ from agent_memory_runtime.storage import (
 from agent_memory_runtime.text import (
     reflection_list_text,
 )
+from agent_memory_runtime.usage_samples import (
+    load_usage_sample,
+    mark_usage_sample_reflected,
+    merge_usage_sample_into_reflection_payload,
+    record_governance_usage,
+    record_query_usage,
+    record_runtime_log_usage,
+)
 from agent_memory_runtime.vault import (
     vault_export,
     vault_index,
@@ -192,6 +200,7 @@ def search(args: argparse.Namespace) -> None:
         per_type_limit=args.per_type_limit,
         aggregate_limit=args.aggregate_limit,
     )
+    record_query_usage(project, "search", args.query, data)
     record_query_miss_if_empty(project, "search", args.query, data)
     output(data, args.json)
 
@@ -200,6 +209,7 @@ def context(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     data = limited_context(project, args.query)
+    record_query_usage(project, "context", args.query, data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n",
@@ -222,6 +232,7 @@ def analyze_runtime_log_command(args: argparse.Namespace) -> None:
         after=args.after_lines,
         slice_limit=args.slice_limit,
     )
+    record_runtime_log_usage(project, args.query, str(log_file), data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_runtime_log_analysis.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n",
@@ -291,6 +302,8 @@ def reflect(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     payload = load_reflection_payload(args)
+    usage_sample = load_usage_sample(project)
+    payload = merge_usage_sample_into_reflection_payload(payload, usage_sample)
     task = reflection_value(args, payload, "task")
     lesson = reflection_value(args, payload, "lesson")
     if not task or not lesson:
@@ -427,6 +440,7 @@ def reflect(args: argparse.Namespace) -> None:
         json.dumps(data, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+    mark_usage_sample_reflected(project, data["id"])
     print(f"reflection #{data['id']} written")
 
 
