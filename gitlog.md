@@ -1838,3 +1838,35 @@ Rollback notes:
 
 - Remove `usage_samples.py` and the runtime-file auto-merge path if we decide reflection authorship should remain fully manual.
 - Keep the existing `last_context.json`, `last_runtime_log_analysis.json`, and `last_reflection.json` snapshots even if the rolling usage sample is removed.
+
+## 2026-06-08 - README rewrite for product framing
+
+Files touched:
+
+- `README.md`
+- `docs/assets/agent-memory-overview.png`
+- `gitlog.md`
+
+What changed:
+
+- Rewrote the README front section to explain the weakness of current coding agents, why a local memory system is needed, and what concrete problems this project solves.
+- Added a lightweight project feature illustration instead of a complex architecture-only diagram.
+- Added concise sections for memory design, experience design, governance, and the four user-facing skills while keeping quick start and command references in place.
+
+Why:
+
+- Make the repository easier to understand for first-time readers.
+- Shift the README from an internal runtime summary toward a clearer product and system introduction.
+- Highlight the project-specific strengths: code-aware memory, goal-oriented log diagnosis, experience and skill evolution, and governed refresh/drift review.
+
+Verification:
+
+- Checked the updated README structure locally.
+- Kept the image path repository-relative so it can render in GitHub and local markdown viewers.
+- Command: `git diff --check`
+- Result: clean.
+
+Rollback notes:
+
+- Restore the previous README if we want a more runtime-command-heavy homepage.
+- Replace the generated illustration with a text-only overview if image maintenance becomes undesirable.
