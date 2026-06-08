@@ -196,6 +196,9 @@ def maintain_health(args: argparse.Namespace) -> None:
     scope_missing_source = sum(1 for row in scope_health_rows if row["health_status"] == "missing_source")
     scope_with_drift = sum(1 for row in scope_health_rows if row["health_status"] in {"drift", "high_drift"})
     scope_high_drift = sum(1 for row in scope_health_rows if row["health_status"] == "high_drift")
+    incident_strategy_candidates = build_incident_strategy_candidates(project, reflection_active_rows)
+    recurring_incident_fingerprints = build_recurring_incident_fingerprint_candidates(project, reflection_active_rows)
+    log_design_gaps = build_log_design_gap_candidates(project, reflection_active_rows)
 
     duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
     low_confidence_count = low_conf_semantic_count + low_conf_reflection_count
@@ -234,8 +237,22 @@ def maintain_health(args: argparse.Namespace) -> None:
             "scope_missing_source": scope_missing_source,
             "scope_with_drift": scope_with_drift,
             "scope_high_drift": scope_high_drift,
+            "incident_strategy_candidates": len(incident_strategy_candidates),
+            "recurring_incident_fingerprints": len(recurring_incident_fingerprints),
+            "log_design_gaps": len(log_design_gaps),
         },
         "scope_health": scope_health_rows[:10],
+        "governance_summary": {
+            "learn_semantic_repair": {
+                "scope_with_drift": scope_with_drift,
+                "scope_high_drift": scope_high_drift,
+            },
+            "incident_diagnosis": {
+                "incident_strategy_candidates": len(incident_strategy_candidates),
+                "recurring_incident_fingerprints": len(recurring_incident_fingerprints),
+                "log_design_gaps": len(log_design_gaps),
+            },
+        },
         "recommended_actions": recommended_actions,
     }
     output(data, args.json)
@@ -281,6 +298,7 @@ def build_reflect_review_data(project: Project, limit: int) -> dict[str, Any]:
                     "issues": issues,
                     "suggested_action": action,
                     "reason": reflection_quality_reason(issues),
+                    "runtime_feedback_summary": runtime_feedback_summary(item),
                 }
             )
     return {"project_id": project.project_id, "reflections": items}
@@ -314,6 +332,7 @@ def reflection_quality_issues(row: dict[str, Any]) -> list[str]:
         issues.append("never_applied")
     if row.get("last_outcome") == "misleading":
         issues.append("misleading_outcome")
+    issues.extend(runtime_feedback_issues(row))
     return issues
 
 
@@ -353,6 +372,51 @@ def reflection_quality_action(issues: list[str]) -> str:
 def reflection_experience_type(row: dict[str, Any]) -> str | None:
     experience_type = row.get("experience_type")
     return str(experience_type) if experience_type else None
+
+
+def runtime_feedback_summary(row: dict[str, Any]) -> dict[str, list[str]]:
+    effective_signals = stable_unique_strings(
+        [
+            *json_list(row.get("useful_followup_terms")),
+            *[
+                str(row.get("problem") or "").strip(),
+                str(row.get("trajectory_summary") or "").strip(),
+            ],
+        ]
+    )[:6]
+    misleading_signals = stable_unique_strings(
+        [
+            *json_list(row.get("misleading_followup_terms")),
+            *json_list(row.get("what_failed")),
+        ]
+    )[:5]
+    verification_checkpoints = stable_unique_strings(
+        [
+            str(row.get("final_verification_path") or "").strip(),
+            str(row.get("verification_method") or "").strip(),
+            str(row.get("repair_action") or "").strip(),
+        ]
+    )[:4]
+    return {
+        "effective_signals": effective_signals,
+        "misleading_signals": misleading_signals,
+        "verification_checkpoints": verification_checkpoints,
+    }
+
+
+def runtime_feedback_issues(row: dict[str, Any]) -> list[str]:
+    if not is_runtime_log_backed_procedure(row) and reflection_experience_type(row) != "correction_experience":
+        return []
+    issues: list[str] = []
+    if not json_list(row.get("useful_followup_terms")):
+        issues.append("missing_runtime_effective_signals")
+    if not json_list(row.get("inspection_targets")):
+        issues.append("missing_runtime_inspection_targets")
+    if not str(row.get("final_verification_path") or "").strip():
+        issues.append("missing_runtime_verification_path")
+    if reflection_experience_type(row) == "correction_experience" and not json_list(row.get("misleading_followup_terms")):
+        issues.append("missing_runtime_misleading_signals")
+    return issues
 
 
 EXPERIENCE_CANDIDATE_FIELDS = [
@@ -1114,6 +1178,86 @@ def incident_strategy_name(row: dict[str, Any]) -> str:
     return f"log-{classify_incident_domain(text)}-{classify_incident_goal(text)}-diagnosis"
 
 
+def recurring_incident_fingerprint_name(goal_area: str, common_log_events: list[str]) -> str:
+    suffix = "-".join(slug_words(" ".join(common_log_events[:3]))[:6]) or "generic"
+    return f"incident-{goal_area.replace('_', '-')}-{suffix}"
+
+
+def recurring_incident_fingerprint_draft_path(fingerprint_name: str) -> str:
+    return f"docs/incident-fingerprints/{fingerprint_name}.md"
+
+
+def evaluate_incident_fingerprint_quality(candidate: dict[str, Any]) -> tuple[int, str, list[str]]:
+    score = 0
+    reasons: list[str] = []
+    supporting_count = int(candidate.get("supporting_count") or 0)
+    if supporting_count >= 3:
+        score += 3
+        reasons.append("has_three_or_more_supporting_incidents")
+    elif supporting_count >= 2:
+        score += 2
+        reasons.append("has_repeated_supporting_incidents")
+    if candidate.get("common_log_events"):
+        score += 2
+        reasons.append("has_common_log_events")
+    if candidate.get("dominant_failure_signals"):
+        score += 1
+        reasons.append("has_dominant_failure_signals")
+    if candidate.get("misleading_signals"):
+        score += 1
+        reasons.append("captures_misleading_signals")
+    helped = int(candidate.get("helped_reuse_count") or 0)
+    misleading = int(candidate.get("misleading_reuse_count") or 0)
+    if helped >= 1:
+        score += 1
+        reasons.append("has_helped_reuse_signal")
+    if misleading >= 1:
+        score -= 1
+        reasons.append("has_misleading_reuse_signal")
+    readiness = "promotion_candidate" if score >= 7 else "review_candidate" if score >= 4 else "needs_more_evidence"
+    return score, readiness, reasons
+
+
+def build_recurring_incident_fingerprint_markdown(candidate: dict[str, Any]) -> str:
+    lines = [
+        "---",
+        f"artifact_type: {json.dumps('recurring_incident_fingerprint', ensure_ascii=False)}",
+        f"promotion_status: {json.dumps('draft', ensure_ascii=False)}",
+        f"supporting_reflection_ids: {json.dumps(candidate.get('supporting_reflection_ids') or [], ensure_ascii=False)}",
+        "---",
+        "",
+        f"# Recurring Incident Fingerprint: {candidate['fingerprint_name']}",
+        "",
+        "## Goal Area",
+        "",
+        f"- `{candidate['goal_area']}`",
+        "",
+        "## Goal Symptoms",
+        "",
+    ]
+    for item in candidate.get("goal_symptoms", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Common Log Events", ""])
+    for item in candidate.get("common_log_events", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Dominant Failure Signals", ""])
+    for item in candidate.get("dominant_failure_signals", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Misleading Signals", ""])
+    for item in candidate.get("misleading_signals", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Supporting Cases", ""])
+    for item in candidate.get("supporting_cases", []):
+        lines.append(f"- {item}")
+    lines.extend(["", "## Quality Signals", ""])
+    lines.append(f"- Readiness: `{candidate.get('promotion_readiness', 'needs_more_evidence')}`")
+    lines.append(f"- Quality score: `{candidate.get('quality_score', 0)}`")
+    for item in candidate.get("quality_reasons", []):
+        lines.append(f"- {item}")
+    lines.append("")
+    return "\n".join(lines)
+
+
 def evaluate_incident_strategy_quality(candidate: dict[str, Any]) -> tuple[int, str, list[str]]:
     score = 0
     reasons: list[str] = []
@@ -1272,6 +1416,96 @@ def build_incident_strategy_candidates(project: Project, rows: list[dict[str, An
         candidate["draft_markdown"] = build_incident_strategy_markdown(candidate)
         candidates.append(candidate)
     candidates.sort(key=lambda item: (-int(item["supporting_count"]), item["strategy_name"]))
+    return candidates
+
+
+def build_recurring_incident_fingerprint_candidates(project: Project, rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        if not is_runtime_log_backed_procedure(row):
+            continue
+        goal_area = incident_goal_area(incident_strategy_name(row))
+        common_terms = stable_unique_strings(json_list(row.get("useful_followup_terms")))[:3]
+        fingerprint_name = recurring_incident_fingerprint_name(goal_area, common_terms)
+        groups.setdefault(fingerprint_name, []).append(row)
+
+    candidates: list[dict[str, Any]] = []
+    for fingerprint_name, grouped_rows in groups.items():
+        if len(grouped_rows) < 2:
+            continue
+        grouped_rows.sort(key=lambda item: int(item.get("id") or 0))
+        goal_symptoms = stable_unique_strings(
+            [str(row.get("problem") or "") for row in grouped_rows if str(row.get("problem") or "").strip()]
+        )[:6]
+        common_log_events = stable_unique_strings(
+            [
+                term
+                for row in grouped_rows
+                for term in json_list(row.get("useful_followup_terms"))
+                if len(term.strip()) > 1
+            ]
+        )[:10]
+        misleading_signals = stable_unique_strings(
+            [
+                signal
+                for row in grouped_rows
+                for signal in json_list(row.get("misleading_followup_terms")) + json_list(row.get("what_failed"))
+            ]
+        )[:8]
+        supporting_cases = stable_unique_strings(
+            [
+                case
+                for row in grouped_rows
+                for case in json_list(row.get("source_cases")) + json_list(row.get("related_cases"))
+            ]
+        )[:10]
+        dominant_failure_signals = stable_unique_strings(
+            [
+                *common_log_events[:4],
+                *[
+                    str(row.get("final_verification_path") or "")
+                    for row in grouped_rows
+                    if str(row.get("final_verification_path") or "").strip()
+                ],
+            ]
+        )[:6]
+        helped_count = sum(
+            1
+            for row in grouped_rows
+            if row.get("last_outcome") == "helped" or row.get("reuse_feedback") == "helped"
+        )
+        partial_count = sum(
+            1
+            for row in grouped_rows
+            if row.get("last_outcome") == "partial" or row.get("reuse_feedback") == "partial"
+        )
+        misleading_count = sum(
+            1
+            for row in grouped_rows
+            if row.get("last_outcome") == "misleading" or row.get("reuse_feedback") == "misleading"
+        )
+        candidate = {
+            "fingerprint_name": fingerprint_name,
+            "goal_area": incident_goal_area(incident_strategy_name(grouped_rows[-1])),
+            "supporting_reflection_ids": [int(row["id"]) for row in grouped_rows],
+            "supporting_count": len(grouped_rows),
+            "goal_symptoms": goal_symptoms,
+            "common_log_events": common_log_events,
+            "dominant_failure_signals": dominant_failure_signals,
+            "misleading_signals": misleading_signals,
+            "supporting_cases": supporting_cases,
+            "helped_reuse_count": helped_count,
+            "partial_reuse_count": partial_count,
+            "misleading_reuse_count": misleading_count,
+            "draft_path": recurring_incident_fingerprint_draft_path(fingerprint_name),
+        }
+        quality_score, promotion_readiness, quality_reasons = evaluate_incident_fingerprint_quality(candidate)
+        candidate["quality_score"] = quality_score
+        candidate["promotion_readiness"] = promotion_readiness
+        candidate["quality_reasons"] = quality_reasons
+        candidate["draft_markdown"] = build_recurring_incident_fingerprint_markdown(candidate)
+        candidates.append(candidate)
+    candidates.sort(key=lambda item: (-int(item["supporting_count"]), item["fingerprint_name"]))
     return candidates
 
 
@@ -1557,6 +1791,13 @@ def maintain_plan(args: argparse.Namespace) -> None:
     refresh_drifts = build_recent_refresh_drifts(project, args.limit)
     semantic_gap_targets = build_semantic_gap_targets(project)
     learn_business_payload_template = build_learn_business_payload_template(project)
+    correction_rows = [
+        row
+        for row in review["unreviewed_reflections"]
+        if reflection_experience_type(row) == "correction_experience" and is_complete_experience_candidate(row)
+    ]
+    incident_strategy_candidates = build_incident_strategy_candidates(project, review["unreviewed_reflections"])
+    recurring_incident_fingerprint_candidates = build_recurring_incident_fingerprint_candidates(project, review["unreviewed_reflections"])
     actions: list[dict[str, Any]] = []
 
     for row in review["stale_memories"]:
@@ -1645,6 +1886,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
                 actions.append(
                     {
                         "action": "review_correction_experience",
+                        "governance_lane": "learn_semantic_repair",
                         "type": "reflection",
                         "id": row["id"],
                         "experience_type": experience_type,
@@ -1661,6 +1903,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
                         "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
                         "learn_business_payload_template": correction_payload_template,
                         "workflow_steps": correction_repair_workflow_steps(),
+                        "runtime_feedback_summary": runtime_feedback_summary(row),
                         **{field: row.get(field) for field in TRACE_CASE_FIELDS},
                     }
                 )
@@ -1668,6 +1911,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
                 actions.append(
                     {
                         "action": "promote_experience_candidate",
+                        "governance_lane": "skill_evolution",
                         "type": "reflection",
                         "id": row["id"],
                         "experience_type": experience_type or "procedure_experience",
@@ -1679,6 +1923,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
                         "skill_candidate": row.get("skill_candidate"),
                         "verification_method": row.get("verification_method"),
                         "source_cases": row.get("source_cases"),
+                        "runtime_feedback_summary": runtime_feedback_summary(row),
                         **{field: row.get(field) for field in TRACE_CASE_FIELDS},
                     }
                 )
@@ -1714,6 +1959,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         actions.append(
             {
                 "action": "review_skill_pattern_candidate",
+                "governance_lane": "skill_evolution",
                 "type": "skill_pattern",
                 "id": None,
                 "reason": "multiple procedure experiences point to the same reusable skill pattern",
@@ -1732,10 +1978,11 @@ def maintain_plan(args: argparse.Namespace) -> None:
             }
         )
 
-    for candidate in build_incident_strategy_candidates(project, review["unreviewed_reflections"]):
+    for candidate in incident_strategy_candidates:
         actions.append(
             {
                 "action": "review_incident_strategy_candidate",
+                "governance_lane": "skill_evolution",
                 "type": "incident_strategy",
                 "id": None,
                 "reason": "multiple runtime-log-backed procedure experiences point to the same incident diagnosis strategy",
@@ -1750,10 +1997,30 @@ def maintain_plan(args: argparse.Namespace) -> None:
             }
         )
 
+    for candidate in recurring_incident_fingerprint_candidates:
+        actions.append(
+            {
+                "action": "review_recurring_incident_fingerprint",
+                "governance_lane": "incident_recurrence",
+                "type": "incident_fingerprint",
+                "id": None,
+                "reason": "multiple runtime-log-backed reflections share the same lightweight incident fingerprint",
+                "risk": "low",
+                "requires_confirmation": False,
+                "command": None,
+                "write_command_template": (
+                    "python tools/agent_memory.py maintain-incident-fingerprint-draft "
+                    f"--project . --fingerprint-name {json.dumps(candidate['fingerprint_name'], ensure_ascii=False)} --json"
+                ),
+                **candidate,
+            }
+        )
+
     for candidate in build_log_design_gap_candidates(project, review["unreviewed_reflections"]):
         actions.append(
             {
                 "action": "review_log_design_gap",
+                "governance_lane": "log_diagnosis",
                 "type": "log_design",
                 "id": None,
                 "reason": "repeated runtime-log-backed diagnosis points to a narrow log design gap worth fixing",
@@ -1770,6 +2037,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         actions.append(
             {
                 "action": "review_query_miss",
+                "governance_lane": "log_diagnosis",
                 "type": "query_miss",
                 "id": row["id"],
                 "query": row["query"],
@@ -1801,6 +2069,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         actions.append(
             {
                 "action": "review_semantic_conflict",
+                "governance_lane": "semantic_conflict",
                 "type": "semantic_conflict",
                 "id": None,
                 "target": conflict["target"],
@@ -1830,6 +2099,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         actions.append(
             {
                 "action": "review_semantic_drift",
+                "governance_lane": "learn_semantic_repair",
                 "type": "learn_scope",
                 "id": drift["scope_id"],
                 "reason": "refreshed learned scope changed and may need business-semantics review",
@@ -1845,9 +2115,10 @@ def maintain_plan(args: argparse.Namespace) -> None:
         removed_reflection_ids = find_reflections_linked_to_paths(project, drift.get("removed_files") or [])
         if removed_reflection_ids:
             actions.append(
-                {
-                    "action": "mark_experience_stale_if_anchor_removed",
-                    "type": "reflection",
+                    {
+                        "action": "mark_experience_stale_if_anchor_removed",
+                        "governance_lane": "experience_staleness",
+                        "type": "reflection",
                     "id": None,
                     "reason": "one or more active reflections reference files removed from a refreshed learned scope",
                     "risk": "medium",
@@ -1869,6 +2140,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
                 actions.append(
                     {
                         "action": "review_skill_pattern_staleness",
+                        "governance_lane": "experience_staleness",
                         "type": "skill_pattern",
                         "id": None,
                         "reason": "a clustered skill pattern depends on reflections anchored to removed files",
@@ -1886,6 +2158,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         actions.append(
             {
                 "action": "add_business_terms",
+                "governance_lane": "learn_semantic_repair",
                 "type": "code_memory",
                 "id": None,
                 "reason": "learned code records are missing business summaries or business terms",
@@ -1898,6 +2171,19 @@ def maintain_plan(args: argparse.Namespace) -> None:
                 "workflow_steps": semantic_enrichment_workflow_steps(),
             }
         )
+
+    for action in actions:
+        action.setdefault("governance_lane", infer_governance_lane(action))
+
+    learn_governance_summary = build_learn_governance_summary(correction_rows, refresh_drifts)
+    governance_summary = {
+        "counts_by_lane": count_actions_by_lane(actions),
+        "incident_strategy_candidates": len(incident_strategy_candidates),
+        "recurring_incident_fingerprints": len(recurring_incident_fingerprint_candidates),
+        "log_design_gaps": len([action for action in actions if action.get("action") == "review_log_design_gap"]),
+        "correction_repairs": learn_governance_summary["correction_repairs"],
+        "semantic_drift_reviews": learn_governance_summary["semantic_drift_reviews"],
+    }
 
     data = {
         "project_id": project.project_id,
@@ -1913,7 +2199,11 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "semantic_conflicts": len(semantic_conflicts),
             "refresh_drifts": len(refresh_drifts),
             "skill_pattern_candidates": len(build_skill_pattern_candidates(project, review["unreviewed_reflections"])),
+            "incident_strategy_candidates": len(incident_strategy_candidates),
+            "recurring_incident_fingerprints": len(recurring_incident_fingerprint_candidates),
         },
+        "governance_summary": governance_summary,
+        "learn_governance_summary": learn_governance_summary,
         "actions": actions,
         "advisory_notice": "maintain-plan only proposes actions. Execute changes only after user confirmation.",
     }
@@ -1997,6 +2287,62 @@ def build_recent_refresh_drifts(project: Project, limit: int) -> list[dict[str, 
             }
         )
     return drifts
+
+
+def build_learn_governance_summary(
+    correction_rows: list[dict[str, Any]],
+    refresh_drifts: list[dict[str, Any]],
+) -> dict[str, Any]:
+    top_affected_paths = stable_unique_strings(
+        [
+            *[
+                path
+                for row in correction_rows
+                for path in build_correction_targets(row).get("file_paths", [])
+            ],
+            *[
+                path
+                for drift in refresh_drifts
+                for path in [
+                    *(drift.get("added_files") or []),
+                    *(drift.get("changed_files") or []),
+                    *(drift.get("removed_files") or []),
+                ]
+            ],
+        ]
+    )[:10]
+    return {
+        "correction_repairs": len(correction_rows),
+        "semantic_drift_reviews": len(refresh_drifts),
+        "top_affected_paths": top_affected_paths,
+    }
+
+
+def count_actions_by_lane(actions: list[dict[str, Any]]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for action in actions:
+        lane = str(action.get("governance_lane") or "general")
+        counts[lane] = counts.get(lane, 0) + 1
+    return counts
+
+
+def infer_governance_lane(action: dict[str, Any]) -> str:
+    action_name = str(action.get("action") or "")
+    if action_name in {"review_correction_experience", "review_semantic_drift", "add_business_terms"}:
+        return "learn_semantic_repair"
+    if action_name in {"review_skill_pattern_candidate", "review_incident_strategy_candidate"}:
+        return "skill_evolution"
+    if action_name in {"review_log_design_gap", "review_query_miss"}:
+        return "log_diagnosis"
+    if action_name in {"review_recurring_incident_fingerprint"}:
+        return "incident_recurrence"
+    if action_name in {"mark_experience_stale_if_anchor_removed", "review_skill_pattern_staleness"}:
+        return "experience_staleness"
+    if action_name in {"archive", "review", "verify", "rewrite_reflection", "promote_or_mark_reviewed", "promote_or_archive"}:
+        return "memory_hygiene"
+    if action_name in {"review_semantic_conflict"}:
+        return "semantic_conflict"
+    return "general"
 
 
 def build_semantic_gap_targets(project: Project, limit_per_group: int = 5) -> dict[str, list[str]]:
@@ -2581,6 +2927,32 @@ def maintain_incident_strategy_draft(args: argparse.Namespace) -> None:
     write_result = guarded_write_artifact(draft_path, candidate["draft_markdown"])
     payload = {
         "strategy_name": candidate["strategy_name"],
+        "path": str(draft_path),
+        "supporting_reflection_ids": candidate["supporting_reflection_ids"],
+        "supporting_count": candidate["supporting_count"],
+        "draft_status": "written" if draft_path.exists() else "not_written",
+        "promotion_readiness": candidate["promotion_readiness"],
+        "quality_score": candidate["quality_score"],
+        "quality_reasons": candidate["quality_reasons"],
+        "write_action": write_result["write_action"],
+        "warning": write_result["warning"],
+        "existing_review_status": write_result["existing_review_status"],
+        "existing_reviewer": write_result["existing_reviewer"],
+    }
+    output(payload, args.json)
+
+
+def maintain_incident_fingerprint_draft(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    ensure_initialized(project)
+    candidates = build_recurring_incident_fingerprint_candidates(project, active_reflection_rows(project))
+    candidate = next((item for item in candidates if item["fingerprint_name"] == args.fingerprint_name), None)
+    if not candidate:
+        raise SystemExit(f"incident fingerprint candidate not found: {args.fingerprint_name}")
+    draft_path = project.root / candidate["draft_path"]
+    write_result = guarded_write_artifact(draft_path, candidate["draft_markdown"])
+    payload = {
+        "fingerprint_name": candidate["fingerprint_name"],
         "path": str(draft_path),
         "supporting_reflection_ids": candidate["supporting_reflection_ids"],
         "supporting_count": candidate["supporting_count"],

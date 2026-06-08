@@ -1425,6 +1425,185 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertIn("session invalid", " ".join(action["high_value_log_anchor_targets"]))
             self.assertTrue(action["log_design_feedback"])
 
+    def test_reflect_review_surfaces_runtime_feedback_summary(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payload = {
+                "task": "Diagnose profile blank with runtime evidence",
+                "lesson": "Auth/session runtime signals should outrank broad page hypotheses.",
+                "summary": "Runtime diagnosis for profile blank.",
+                "future_rule": "Check runtime auth/session signals before escalating to route investigation.",
+                "experience_type": "correction_experience",
+                "task_type": "diagnosis",
+                "problem": "个人资料页空白，怀疑登录态异常",
+                "scope": "pages/Profile.ets",
+                "evidence": "candidate_chain: profile_load_failed -> session_invalid",
+                "trigger_condition": "Profile page is blank after login.",
+                "verification_method": "Confirm the dominant runtime slice against the code-log anchors.",
+                "reuse_feedback": "partial",
+                "useful_followup_focus": "log",
+                "useful_followup_terms": ["load profile failed", "session invalid", "401"],
+                "misleading_followup_terms": ["route blank", "layout issue"],
+                "inspection_targets": ["pages/Profile.ets", "ProfileService.loadProfile"],
+                "final_verification_path": "06-03 10:21:13.200 -> 06-03 10:21:13.300",
+                "what_failed": [
+                    "Earlier diagnosis leaned toward a route/navigation cause.",
+                    "The route hypothesis did not fit the dominant runtime evidence.",
+                ],
+                "repair_action": "Inspect the dominant runtime slice first, then confirm the auth/session code path.",
+                "source_cases": ["runtime_log:profile blank", "session:session_001"],
+            }
+            self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            result = self.run_memory(project, "reflect-review", "--json")
+            data = json.loads(result.stdout)
+
+            self.assertEqual(len(data["reflections"]), 1)
+            item = data["reflections"][0]
+            self.assertIn("runtime_feedback_summary", item)
+            self.assertIn("load profile failed", " ".join(item["runtime_feedback_summary"]["effective_signals"]).lower())
+            self.assertIn("route", " ".join(item["runtime_feedback_summary"]["misleading_signals"]).lower())
+            self.assertIn("06-03 10:21:13.200", " ".join(item["runtime_feedback_summary"]["verification_checkpoints"]))
+
+    def test_maintain_plan_includes_learn_and_governance_summaries(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            (project / "pages").mkdir()
+            (project / "pages" / "Profile.ets").write_text(
+                "import hilog from '@ohos.hilog';\n"
+                "@Entry\n"
+                "@Component\n"
+                "struct ProfilePage {\n"
+                "  aboutToAppear() {\n"
+                "    hilog.error(0x0000, 'ProfilePage', 'load profile failed');\n"
+                "  }\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages", "--json")
+            self.run_memory(
+                project,
+                "reflect",
+                "--payload",
+                json.dumps(
+                    {
+                        "task": "Correct profile diagnosis after runtime evidence",
+                        "lesson": "Session invalid should redirect diagnosis toward auth handling.",
+                        "future_rule": "Prefer auth/session repair before route fixes when runtime evidence shows session invalid.",
+                        "experience_type": "correction_experience",
+                        "task_type": "diagnosis",
+                        "problem": "个人资料页空白，怀疑登录态异常",
+                        "scope": "pages/Profile.ets",
+                        "evidence": "candidate_chain: profile_load_failed -> session_invalid",
+                        "trigger_condition": "Profile page is blank after login.",
+                        "verification_method": "Confirm runtime failure slice against code-log anchors.",
+                        "reuse_feedback": "partial",
+                        "useful_followup_focus": "log",
+                        "useful_followup_terms": ["load profile failed", "session invalid", "401"],
+                        "misleading_followup_terms": ["route blank"],
+                        "inspection_targets": ["pages/Profile.ets"],
+                        "final_verification_path": "pages/Profile.ets",
+                        "what_failed": ["Earlier diagnosis leaned toward a route/navigation cause."],
+                        "repair_action": "Inspect the auth/session code path first.",
+                        "source_cases": ["runtime_log:profile blank"],
+                        "hidden_assumptions": ["The page blank state was caused by routing."],
+                        "negative_preconditions": ["Do not apply when runtime logs show route target missing."],
+                    },
+                    ensure_ascii=False,
+                ),
+            )
+            (project / "pages" / "Profile.ets").unlink()
+            self.run_memory(project, "maintain-refresh-scope", "--json")
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            data = json.loads(result.stdout)
+
+            self.assertIn("governance_summary", data)
+            self.assertIn("learn_governance_summary", data)
+            self.assertGreaterEqual(data["learn_governance_summary"]["correction_repairs"], 1)
+            self.assertGreaterEqual(data["learn_governance_summary"]["semantic_drift_reviews"], 1)
+            self.assertIn("pages/Profile.ets", data["learn_governance_summary"]["top_affected_paths"])
+            self.assertGreaterEqual(data["governance_summary"]["counts_by_lane"]["learn_semantic_repair"], 1)
+            self.assertTrue(any(action["action"] == "review_semantic_drift" for action in data["actions"]))
+            self.assertTrue(any(action["action"] == "review_correction_experience" for action in data["actions"]))
+
+    def test_maintain_plan_surfaces_recurring_incident_fingerprint_and_can_write_draft(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            payloads = [
+                {
+                    "task": "Diagnose profile blank after login",
+                    "lesson": "Repeated auth/session runtime signals indicate the same incident family.",
+                    "future_rule": "Check auth/session signals before route fixes.",
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "problem": "个人资料页空白，怀疑登录态异常",
+                    "scope": "pages/Profile.ets",
+                    "evidence": "candidate_chain: profile_load_failed -> session_invalid",
+                    "trigger_condition": "Profile page is blank after login.",
+                    "verification_method": "Confirm runtime slice against code-log anchors.",
+                    "reuse_feedback": "helped",
+                    "useful_followup_focus": "log",
+                    "useful_followup_terms": ["load profile failed", "session invalid", "401"],
+                    "misleading_followup_terms": ["route blank"],
+                    "inspection_targets": ["pages/Profile.ets", "ProfileService.loadProfile"],
+                    "final_verification_path": "pages/Profile.ets",
+                    "repair_action": "Inspect auth/session logs before route debugging.",
+                    "what_worked": ["Check session invalid after profile load failed."],
+                    "source_cases": ["runtime_log:profile blank", "session:session_001"],
+                    "hidden_assumptions": ["The page blank state is not always a route issue."],
+                    "negative_preconditions": ["Do not apply when route target missing is explicit."],
+                },
+                {
+                    "task": "Diagnose profile blank after token expiry",
+                    "lesson": "The same auth/session incident fingerprint recurs after token expiry.",
+                    "future_rule": "Check auth/session signals before route fixes.",
+                    "experience_type": "procedure_experience",
+                    "task_type": "diagnosis",
+                    "problem": "个人资料页空白，登录后没有数据",
+                    "scope": "pages/Profile.ets",
+                    "evidence": "candidate_chain: profile_load_failed -> session_invalid -> 401",
+                    "trigger_condition": "Profile page is blank after token expiry.",
+                    "verification_method": "Confirm runtime slice against code-log anchors.",
+                    "reuse_feedback": "helped",
+                    "useful_followup_focus": "log",
+                    "useful_followup_terms": ["load profile failed", "session invalid", "401"],
+                    "misleading_followup_terms": ["layout issue"],
+                    "inspection_targets": ["pages/Profile.ets", "SessionManager.validate"],
+                    "final_verification_path": "pages/Profile.ets",
+                    "repair_action": "Inspect auth/session logs before UI rendering hypotheses.",
+                    "what_worked": ["Check session invalid after profile load failed."],
+                    "source_cases": ["runtime_log:profile blank", "session:session_002"],
+                    "hidden_assumptions": ["The page blank state is not always a route issue."],
+                    "negative_preconditions": ["Do not apply when API returns valid profile data."],
+                },
+            ]
+            for payload in payloads:
+                self.run_memory(project, "reflect", "--payload", json.dumps(payload, ensure_ascii=False))
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            data = json.loads(result.stdout)
+            action = next(item for item in data["actions"] if item["action"] == "review_recurring_incident_fingerprint")
+
+            self.assertEqual(action["type"], "incident_fingerprint")
+            self.assertEqual(action["governance_lane"], "incident_recurrence")
+            self.assertIn("session invalid", " ".join(action["common_log_events"]).lower())
+            self.assertEqual(action["supporting_count"], 2)
+            self.assertIn("maintain-incident-fingerprint-draft", action["write_command_template"])
+
+            write_result = self.run_memory(
+                project,
+                "maintain-incident-fingerprint-draft",
+                "--fingerprint-name",
+                action["fingerprint_name"],
+                "--json",
+            )
+            written = json.loads(write_result.stdout)
+            self.assertEqual(written["fingerprint_name"], action["fingerprint_name"])
+            self.assertTrue(Path(written["path"]).exists())
+            self.assertEqual(written["supporting_count"], 2)
+
     def test_maintain_incident_strategy_draft_writes_markdown_file(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)

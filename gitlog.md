@@ -1758,3 +1758,41 @@ Rollback notes:
 
 - Revert the new `reflect_payload_template` fields if we decide runtime-log reflections should stay summary-only.
 - Remove `review_log_design_gap` if log-design review should remain an informal suggestion rather than a first-class maintain action.
+
+## 2026-06-08 - Governance summaries and recurring incident fingerprints
+
+Files touched:
+
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/vault.py`
+- `tests/test_agent_memory.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `skills/agent-memory-reflect/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added `runtime_feedback_summary` to `reflect-review` so runtime-log-backed reflections expose effective signals, misleading signals, and verification checkpoints without storing raw logs.
+- Added `governance_summary` and `learn_governance_summary` to `maintain-plan`, grouping work by governance lane and keeping correction/drift follow-up narrow.
+- Added lightweight recurring incident fingerprint candidates plus `maintain-incident-fingerprint-draft`, which writes bounded review drafts into `docs/incident-fingerprints/`.
+- Added `Governance/Recurring Incident Fingerprints.md` to the vault mirror.
+
+Why:
+
+- Strengthen the reflection/experience feedback loop without introducing a larger runtime-history layer.
+- Make learn correction and semantic drift follow-up more systematic and easier for maintain to route.
+- Preserve repeated runtime incident signatures as compact summaries before any heavier incident-clustering work.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_reflect_review_surfaces_runtime_feedback_summary tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_includes_learn_and_governance_summaries tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_surfaces_recurring_incident_fingerprint_and_can_write_draft`
+- Result: passed.
+
+Rollback notes:
+
+- Remove recurring incident fingerprint drafting if we decide repeated runtime incidents should stay only inside incident strategies.
+- Drop `runtime_feedback_summary` from `reflect-review` if the extra runtime evidence summary proves too noisy for review workflows.

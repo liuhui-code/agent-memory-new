@@ -40,6 +40,14 @@ When recording `correction_experience`, include enough evidence for later learn 
 - if the input came from temporary runtime-log analysis, carry over `runtime_episode_candidate` evidence through `context_used`, `trajectory_summary`, `final_verification_path`, and `old_hypothesis` when present
 - keep bounded runtime evidence in the reflection instead of raw logs: prefer `evidence`, `misleading_followup_terms`, and `repair_action` from `reflect_payload_template`
 
+For runtime-log-backed diagnosis, also keep the feedback loop explicit:
+
+- preserve the strongest runtime signals in `useful_followup_terms`
+- preserve misleading or disproven directions in `misleading_followup_terms`
+- preserve the closing verification path in `final_verification_path`
+
+That lets `reflect-review`, `maintain-plan`, recurring incident fingerprints, and incident strategy candidates reuse the same bounded runtime evidence without storing raw logs.
+
 This does not add a fifth skill. It only helps `maintain-plan` route the reflection toward future skill-candidate review or toward learn/semantic-repair governance.
 
 ## Save Agent-Structured Reflection

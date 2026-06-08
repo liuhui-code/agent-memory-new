@@ -228,6 +228,12 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("maintain_incident_strategy_draft"))
 
+    p = sub.add_parser("maintain-incident-fingerprint-draft")
+    add_project(p)
+    p.add_argument("--fingerprint-name", required=True)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("maintain_incident_fingerprint_draft"))
+
     p = sub.add_parser("maintain-skill-promotion-status")
     add_project(p)
     p.add_argument("--pattern-name", required=True)

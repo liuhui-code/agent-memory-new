@@ -124,6 +124,7 @@ python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact 
 python tools/agent_memory.py maintain-promote --project . --reflection-id 1 --fact "..." --json
 python tools/agent_memory.py maintain-skill-draft --project . --pattern-name "arkts-route-blank-screen-diagnosis" --json
 python tools/agent_memory.py maintain-incident-strategy-draft --project . --strategy-name "log-auth-session-profile-blank-diagnosis" --json
+python tools/agent_memory.py maintain-incident-fingerprint-draft --project . --fingerprint-name "incident-auth-session-profile-blank-load-profile-failed-session-invalid-401" --json
 python tools/agent_memory.py maintain-skill-package --project . --pattern-name "arkts-route-blank-screen-diagnosis" --json
 python tools/agent_memory.py maintain-skill-promotion-status --project . --pattern-name "arkts-route-blank-screen-diagnosis" --json
 ```
@@ -157,6 +158,27 @@ When repeated runtime-log-backed `procedure_experience` reflections describe the
 - `log_design_feedback`
 
 and exposes a read-only `write_command_template` for drafting the grouped strategy into `docs/incident-strategies/`.
+
+When repeated runtime-log-backed reflections share the same narrow failure signature, `maintain-plan` may also emit `review_recurring_incident_fingerprint`. This is the lightweight recurring-incident path. It groups:
+
+- `goal_symptoms`
+- `common_log_events`
+- `dominant_failure_signals`
+- `misleading_signals`
+
+and exposes a read-only `write_command_template` for drafting the grouped fingerprint into `docs/incident-fingerprints/`.
+
+`maintain-plan` now also returns:
+
+- `governance_summary`
+- `learn_governance_summary`
+
+`governance_summary` groups pending work by governance lane, including `learn_semantic_repair`, `skill_evolution`, `log_diagnosis`, and `incident_recurrence`.
+`learn_governance_summary` keeps learn-side follow-up focused with:
+
+- `correction_repairs`
+- `semantic_drift_reviews`
+- `top_affected_paths`
 
 # 3.5 Structured Reflection Path
 
@@ -478,6 +500,14 @@ python tools/agent_memory.py reflect-review --project . --json
 ```
 
 `reflect-review` is read-only. It reports missing trigger conditions, missing repair actions, missing hidden assumptions, missing negative preconditions, missing verification methods, missing reuse feedback, vague rules, unused reflections, and misleading outcomes.
+
+For runtime-log-backed reflections, `reflect-review` also includes `runtime_feedback_summary`:
+
+- `effective_signals`
+- `misleading_signals`
+- `verification_checkpoints`
+
+Use that summary to decide whether a diagnosis was compressed into reusable runtime evidence or still needs rewriting before promotion.
 
 # 6. Search Batching
 

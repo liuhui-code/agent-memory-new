@@ -296,6 +296,13 @@ This command reuses current code/log memory, normalizes raw lines into lightweig
 Use `runtime_episode_candidate.candidate_chain` and `chain_confidence` when you need a compact explanation of how the incident unfolded.
 Use `log_improvement_suggestions` when the current logs were just barely enough; they point at a few high-value start, branch, or correlation logs worth adding to the source code later.
 Use `reflect_payload_template` as the starting point when you want to turn temporary runtime-log evidence into a structured reflection or experience candidate. It is designed for diagnosis sessions, not for long-term raw-log archival. The template now also carries bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action`. When the query is correcting an earlier diagnosis, the template may already switch to `correction_experience` and include `old_hypothesis`.
+After repeated runtime-log-backed diagnosis, `maintain-plan --json` may also return:
+
+- `review_incident_strategy_candidate`
+- `review_recurring_incident_fingerprint`
+- `review_log_design_gap`
+
+Use the incident-strategy path when the diagnosis flow itself is becoming reusable. Use the recurring-fingerprint path when you mainly need a compact summary of repeated signals without storing more runtime history. Use the log-design-gap path when the evidence shows a narrow logging weakness worth fixing in source.
 
 Ask:
 

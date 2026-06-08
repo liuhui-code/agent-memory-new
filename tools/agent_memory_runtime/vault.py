@@ -11,6 +11,7 @@ from pathlib import Path
 from .governance import (
     annotate_skill_pattern_artifacts,
     build_incident_strategy_candidates,
+    build_recurring_incident_fingerprint_candidates,
     build_recent_refresh_drifts,
     build_scope_health_rows,
     build_skill_pattern_candidates,
@@ -534,6 +535,38 @@ def write_governance_dashboard(
         incident_doc += "```\n\n"
     write_vault_file(project.vault_dir / "Governance" / "Incident Strategy Candidates.md", incident_doc)
 
+    recurring_fingerprints = build_recurring_incident_fingerprint_candidates(project, active_reflections)
+    fingerprint_doc = header + "# Recurring Incident Fingerprints\n\n" + notice
+    fingerprint_doc += "These grouped runtime-log-backed reflections describe repeated incident fingerprints without preserving raw runtime history.\n\n"
+    for item in recurring_fingerprints[:30]:
+        fingerprint_doc += f"## {item['fingerprint_name']}\n\n"
+        fingerprint_doc += f"- Draft path: `{item['draft_path']}`\n"
+        fingerprint_doc += f"- Promotion readiness: `{item['promotion_readiness']}`\n"
+        fingerprint_doc += f"- Quality score: `{item['quality_score']}`\n"
+        fingerprint_doc += f"- Supporting reflections: {', '.join(f'#{reflection_id}' for reflection_id in item['supporting_reflection_ids'])}\n"
+        fingerprint_doc += f"- Supporting count: {item['supporting_count']}\n"
+        if item.get("goal_symptoms"):
+            fingerprint_doc += "- Goal symptoms:\n"
+            for symptom in item["goal_symptoms"]:
+                fingerprint_doc += f"  - {symptom}\n"
+        if item.get("common_log_events"):
+            fingerprint_doc += "- Common log events:\n"
+            for event in item["common_log_events"]:
+                fingerprint_doc += f"  - {event}\n"
+        if item.get("dominant_failure_signals"):
+            fingerprint_doc += "- Dominant failure signals:\n"
+            for signal in item["dominant_failure_signals"]:
+                fingerprint_doc += f"  - {signal}\n"
+        if item.get("misleading_signals"):
+            fingerprint_doc += "- Misleading signals:\n"
+            for signal in item["misleading_signals"]:
+                fingerprint_doc += f"  - {signal}\n"
+        fingerprint_doc += f"- Draft command: `python tools/agent_memory.py maintain-incident-fingerprint-draft --project . --fingerprint-name {item['fingerprint_name']} --json`\n"
+        fingerprint_doc += "\n### Draft Preview\n\n```md\n"
+        fingerprint_doc += item["draft_markdown"].rstrip() + "\n"
+        fingerprint_doc += "```\n\n"
+    write_vault_file(project.vault_dir / "Governance" / "Recurring Incident Fingerprints.md", fingerprint_doc)
+
     reuse_doc = header + "# Reflection Reuse\n\n" + notice
     reuse_doc += "These events show when a later reflection reused an earlier reflection and whether it helped.\n\n"
     for row in reflection_reuse_rows[:50]:
@@ -671,6 +704,7 @@ def vault_index(args: argparse.Namespace) -> None:
     content += "- [[Governance/Experience Candidates]]\n"
     content += "- [[Governance/Skill Pattern Candidates]]\n"
     content += "- [[Governance/Incident Strategy Candidates]]\n"
+    content += "- [[Governance/Recurring Incident Fingerprints]]\n"
     content += "- [[Governance/Learned Scopes]]\n"
     content += "- [[Governance/Refresh Drift]]\n"
     content += "- [[Governance/Reflection Reuse]]\n"

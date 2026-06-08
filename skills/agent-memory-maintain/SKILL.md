@@ -82,7 +82,10 @@ That vault page now also mirrors reviewer metadata and the non-overwrite policy 
 When `maintain-plan` returns `review_incident_strategy_candidate`, treat it as a runtime-incident diagnosis policy candidate rather than a formal skill. Review `goal_symptoms`, `common_log_events`, `recommended_steps`, `verification_paths`, `misleading_signals`, and `log_design_feedback` before drafting it.
 After `vault-export`, the same grouped incident strategy appears in `Governance/Incident Strategy Candidates.md`.
 
+When `maintain-plan` returns `review_recurring_incident_fingerprint`, keep it lightweight. Review `goal_area`, `common_log_events`, `dominant_failure_signals`, and `misleading_signals` first, then decide whether the repeated signature is worth drafting into `docs/incident-fingerprints/`. This is for preserving repeated incident shape, not for building a full runtime history store.
+
 When `maintain-plan` returns `review_log_design_gap`, keep the follow-up narrow. Use `goal_area`, `high_value_log_anchor_targets`, and `suggested_log_kinds` to patch one or two high-value logs in the affected code path. Prefer start markers, decision checkpoints, or request/session correlation fields over broad logging expansion.
+When `governance_summary` or `learn_governance_summary` is present, choose the smallest governance lane that removes the current bottleneck. Prefer `learn_semantic_repair` before `skill_evolution` whenever drift or correction is concentrated in a few files.
 When the grouped runtime-incident strategy is ready to be drafted into the repo, use:
 
 ```bash
