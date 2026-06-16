@@ -114,6 +114,7 @@ review_query_miss
 promote_experience_candidate
 review_semantic_patch
 review_retrieval_interference
+review_experience_conflict
 mark_stale
 merge_duplicate_fact
 ```
@@ -123,6 +124,7 @@ For phase one:
 - `promote_experience_candidate` means a structured reflection is ready for human or Agent review as reusable experience. It does not create a new experience table row.
 - `review_semantic_patch` means a structured reflection proposes a code-business semantic correction. Apply it through focused `learn-business` only after checking the anchor against current source.
 - `review_retrieval_interference` means a reflection has misleading reuse or over-retrieval risk and needs lower confidence, a tighter trigger, or stale marking.
+- `review_experience_conflict` means a newer experience changes guidance for the same trigger/scope or proposes a different semantic patch for the same anchor. Review which record should stay active before query relies on both.
 - `review_query_miss` includes `suggested_fixes`: `learn_missing_scope`, `add_business_terms`, `rewrite_reflection`, and `ignore_noise`.
 - Reflection reuse writes `reflection_reuse_events` with `helped`, `partial`, `misleading`, or `unused` outcomes.
 - Runtime quality review still asks the Agent and user to decide before mutation.

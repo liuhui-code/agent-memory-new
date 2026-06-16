@@ -693,6 +693,134 @@ def build_retrieval_interference_candidates(rows: list[dict[str, Any]], limit: i
     return candidates[:limit]
 
 
+def normalized_text(value: Any) -> str:
+    return " ".join(str(value or "").strip().lower().split())
+
+
+def token_overlap_ratio(left: str, right: str) -> float:
+    left_tokens = token_set(left)
+    right_tokens = token_set(right)
+    if not left_tokens or not right_tokens:
+        return 0.0
+    overlap = len(left_tokens & right_tokens)
+    union = len(left_tokens | right_tokens)
+    return overlap / union if union else 0.0
+
+
+def shared_reflection_context(left: dict[str, Any], right: dict[str, Any]) -> dict[str, Any]:
+    shared_scope = normalized_text(left.get("scope")) and normalized_text(left.get("scope")) == normalized_text(right.get("scope"))
+    shared_trigger = normalized_text(left.get("trigger_condition")) and normalized_text(left.get("trigger_condition")) == normalized_text(right.get("trigger_condition"))
+    shared_inspection_targets = stable_unique_strings(
+        [
+            target
+            for target in json_list(left.get("inspection_targets"))
+            if normalized_text(target) in {normalized_text(value) for value in json_list(right.get("inspection_targets"))}
+        ]
+    )
+    return {
+        "shared_scope": bool(shared_scope),
+        "shared_trigger": bool(shared_trigger),
+        "shared_inspection_targets": shared_inspection_targets,
+        "scope_overlap": token_overlap_ratio(str(left.get("scope") or ""), str(right.get("scope") or "")),
+        "trigger_overlap": token_overlap_ratio(str(left.get("trigger_condition") or ""), str(right.get("trigger_condition") or "")),
+    }
+
+
+def build_experience_conflict_candidates(rows: list[dict[str, Any]], limit: int = 10) -> list[dict[str, Any]]:
+    candidates: list[dict[str, Any]] = []
+    ordered_rows = sorted(rows, key=lambda item: int(item.get("id") or 0))
+    for index, older in enumerate(ordered_rows):
+        older_type = reflection_experience_type(older)
+        if older_type not in {"procedure_experience", "correction_experience", "semantic_patch_experience"}:
+            continue
+        for newer in ordered_rows[index + 1 :]:
+            newer_type = reflection_experience_type(newer)
+            if newer_type != older_type:
+                continue
+            if older_type == "semantic_patch_experience":
+                if normalized_text(older.get("anchor_key")) != normalized_text(newer.get("anchor_key")):
+                    continue
+                if normalized_text(older.get("semantic_field")) != normalized_text(newer.get("semantic_field")):
+                    continue
+                older_value = normalized_text(older.get("proposed_value"))
+                newer_value = normalized_text(newer.get("proposed_value"))
+                if not older_value or not newer_value or older_value == newer_value:
+                    continue
+                candidates.append(
+                    {
+                        "action": "review_experience_conflict",
+                        "governance_lane": "experience_conflict",
+                        "type": "reflection",
+                        "id": None,
+                        "experience_type": older_type,
+                        "conflict_kind": "semantic_patch_conflict",
+                        "older_reflection_id": int(older["id"]),
+                        "newer_reflection_id": int(newer["id"]),
+                        "anchor_type": older.get("anchor_type"),
+                        "anchor_key": older.get("anchor_key"),
+                        "semantic_field": older.get("semantic_field"),
+                        "older_proposed_value": older.get("proposed_value"),
+                        "newer_proposed_value": newer.get("proposed_value"),
+                        "reason": "newer semantic patch proposes a different value for the same anchor and field",
+                        "risk": "medium",
+                        "requires_confirmation": True,
+                        "command": None,
+                        "suggested_actions": [
+                            "review which semantic summary matches current source and logs",
+                            "mark one patch superseded after verification",
+                            "record any remaining ambiguity in semantic_conflicts",
+                        ],
+                    }
+                )
+                continue
+
+            context = shared_reflection_context(older, newer)
+            if not context["shared_trigger"] and context["trigger_overlap"] < 0.8:
+                continue
+            if not context["shared_scope"] and context["scope_overlap"] < 0.5:
+                continue
+            older_rule = normalized_text(older.get("future_rule"))
+            newer_rule = normalized_text(newer.get("future_rule"))
+            older_action = normalized_text(older.get("repair_action"))
+            newer_action = normalized_text(newer.get("repair_action"))
+            if not older_action or not newer_action:
+                continue
+            if older_rule == newer_rule and older_action == newer_action:
+                continue
+            if token_overlap_ratio(str(older.get("repair_action") or ""), str(newer.get("repair_action") or "")) >= 0.75:
+                continue
+            candidates.append(
+                {
+                    "action": "review_experience_conflict",
+                    "governance_lane": "experience_conflict",
+                    "type": "reflection",
+                    "id": None,
+                    "experience_type": older_type,
+                    "conflict_kind": "procedure_rule_conflict" if older_type == "procedure_experience" else "correction_rule_conflict",
+                    "older_reflection_id": int(older["id"]),
+                    "newer_reflection_id": int(newer["id"]),
+                    "shared_trigger_condition": older.get("trigger_condition") or newer.get("trigger_condition"),
+                    "shared_scope_value": older.get("scope") or newer.get("scope"),
+                    "shared_inspection_targets": context["shared_inspection_targets"],
+                    "older_future_rule": older.get("future_rule"),
+                    "newer_future_rule": newer.get("future_rule"),
+                    "older_repair_action": older.get("repair_action"),
+                    "newer_repair_action": newer.get("repair_action"),
+                    "reason": "newer experience changes the recommended workflow for a similar trigger and scope",
+                    "risk": "medium",
+                    "requires_confirmation": True,
+                    "command": None,
+                    "suggested_actions": [
+                        "review which trigger boundaries are still valid",
+                        "tighten negative_preconditions or does_not_apply_to",
+                        "mark the outdated guidance stale if the newer rule is confirmed",
+                    ],
+                }
+            )
+    candidates.sort(key=lambda item: (item["newer_reflection_id"], item["older_reflection_id"]), reverse=True)
+    return candidates[:limit]
+
+
 def infer_common_steps(
     followup_focuses: list[str],
     query_terms: list[str],
@@ -1933,6 +2061,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     incident_strategy_candidates = build_incident_strategy_candidates(project, review["unreviewed_reflections"])
     recurring_incident_fingerprint_candidates = build_recurring_incident_fingerprint_candidates(project, review["unreviewed_reflections"])
     retrieval_interference_candidates = build_retrieval_interference_candidates(active_reflection_rows(project), args.limit)
+    experience_conflict_candidates = build_experience_conflict_candidates(active_reflection_rows(project), args.limit)
     actions: list[dict[str, Any]] = []
 
     for row in review["stale_memories"]:
@@ -2093,6 +2222,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
             )
 
     actions.extend(retrieval_interference_candidates)
+    actions.extend(experience_conflict_candidates)
 
     for candidate in build_skill_pattern_candidates(project, review["unreviewed_reflections"]):
         candidate = annotate_skill_pattern_artifacts(project.root, candidate)
@@ -2325,6 +2455,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "semantic_drift_reviews": learn_governance_summary["semantic_drift_reviews"],
         "semantic_patch_reviews": len(semantic_patch_rows),
         "retrieval_interference_reviews": len(retrieval_interference_candidates),
+        "experience_conflict_reviews": len(experience_conflict_candidates),
     }
 
     data = {
@@ -2345,6 +2476,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "recurring_incident_fingerprints": len(recurring_incident_fingerprint_candidates),
             "semantic_patch_reviews": len(semantic_patch_rows),
             "retrieval_interference_reviews": len(retrieval_interference_candidates),
+            "experience_conflict_reviews": len(experience_conflict_candidates),
         },
         "governance_summary": governance_summary,
         "learn_governance_summary": learn_governance_summary,
@@ -2481,6 +2613,8 @@ def infer_governance_lane(action: dict[str, Any]) -> str:
         return "log_diagnosis"
     if action_name in {"review_recurring_incident_fingerprint"}:
         return "incident_recurrence"
+    if action_name in {"review_experience_conflict"}:
+        return "experience_conflict"
     if action_name in {"mark_experience_stale_if_anchor_removed", "review_skill_pattern_staleness"}:
         return "experience_staleness"
     if action_name in {"archive", "review", "verify", "rewrite_reflection", "promote_or_mark_reviewed", "promote_or_archive"}:

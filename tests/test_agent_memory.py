@@ -1325,6 +1325,124 @@ class AgentMemoryRuntimeTests(unittest.TestCase):
             self.assertEqual(payload["governance_summary"]["semantic_patch_reviews"], 1)
             self.assertEqual(payload["governance_summary"]["retrieval_interference_reviews"], 1)
 
+    def test_maintain_plan_surfaces_new_old_procedure_experience_conflict(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            old_payload = {
+                "experience_type": "procedure_experience",
+                "task_type": "diagnosis",
+                "outcome": "success",
+                "task": "diagnose profile blank screen",
+                "lesson": "Start with route anchors for post-navigation blank screens.",
+                "future_rule": "When a page blanks after navigation, inspect route target registration first.",
+                "trigger_condition": "Page blanks after navigation.",
+                "repair_action": "Check route registration and router target before auth investigation.",
+                "verification_method": "Reproduce navigation and inspect route target.",
+                "inspection_targets": ["pages/Profile.ets", "router_map.json"],
+                "scope": "HarmonyOS route diagnosis",
+                "evidence": "router.pushUrl call and route registry",
+                "hidden_assumptions": ["The failure starts after navigation."],
+                "negative_preconditions": ["Does not apply when auth/session logs already fail before route change."],
+                "reuse_feedback": "candidate until reused",
+                "source_cases": ["episode:profile-route-fix"],
+            }
+            new_payload = {
+                "experience_type": "procedure_experience",
+                "task_type": "diagnosis",
+                "outcome": "success",
+                "task": "diagnose profile blank screen with auth evidence",
+                "lesson": "Auth/session evidence should override route-first diagnosis for the same symptom.",
+                "future_rule": "When a page blanks after navigation and session invalid logs appear, check auth/session first.",
+                "trigger_condition": "Page blanks after navigation.",
+                "repair_action": "Check session invalid logs and auth state before route registration.",
+                "verification_method": "Confirm session invalid logs exist in the runtime slice.",
+                "inspection_targets": ["pages/Profile.ets", "router_map.json", "hilog: session invalid"],
+                "scope": "HarmonyOS route diagnosis",
+                "evidence": "session invalid log and auth state handling",
+                "hidden_assumptions": ["The symptom still appears after navigation."],
+                "negative_preconditions": ["Does not apply when there is no auth/session runtime evidence."],
+                "reuse_feedback": "candidate until reused",
+                "source_cases": ["episode:profile-auth-fix"],
+            }
+            self.run_memory(project, "reflect", "--payload", json.dumps(old_payload, ensure_ascii=False))
+            self.run_memory(project, "reflect", "--payload", json.dumps(new_payload, ensure_ascii=False))
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            payload = json.loads(result.stdout)
+            actions = payload["actions"]
+
+            conflict_action = next(action for action in actions if action["action"] == "review_experience_conflict")
+            self.assertEqual(conflict_action["conflict_kind"], "procedure_rule_conflict")
+            self.assertEqual(conflict_action["older_reflection_id"], 1)
+            self.assertEqual(conflict_action["newer_reflection_id"], 2)
+            self.assertEqual(conflict_action["experience_type"], "procedure_experience")
+            self.assertIn("Page blanks after navigation.", conflict_action["shared_trigger_condition"])
+            self.assertIn("route registration", conflict_action["older_repair_action"])
+            self.assertIn("session invalid logs", conflict_action["newer_repair_action"])
+            self.assertIn("review which trigger boundaries are still valid", conflict_action["suggested_actions"][0])
+            self.assertEqual(payload["summary"]["experience_conflict_reviews"], 1)
+            self.assertEqual(payload["governance_summary"]["experience_conflict_reviews"], 1)
+
+    def test_maintain_plan_surfaces_new_old_semantic_patch_conflict(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            old_patch = {
+                "experience_type": "semantic_patch_experience",
+                "task_type": "workflow",
+                "outcome": "success",
+                "task": "patch profile load semantics",
+                "lesson": "Profile load semantics should mention route hydration.",
+                "anchor_type": "code_symbol",
+                "anchor_key": "pages/Profile.ets::loadProfile",
+                "semantic_field": "business_summary",
+                "existing_value": "loads profile page UI",
+                "proposed_value": "loads profile data and hydrates route-bound page state",
+                "patch_reason": "Initial review focused on route hydration before render.",
+                "verification_method": "Inspect loadProfile caller and route state handling.",
+                "trigger_condition": "Business summary omits route hydration.",
+                "repair_action": "Patch business_summary through learn-business.",
+                "evidence": "pages/Profile.ets loadProfile",
+                "confidence": 0.82,
+            }
+            new_patch = {
+                "experience_type": "semantic_patch_experience",
+                "task_type": "workflow",
+                "outcome": "success",
+                "task": "patch profile load semantics again",
+                "lesson": "Profile load semantics should mention session validation instead of route hydration.",
+                "anchor_type": "code_symbol",
+                "anchor_key": "pages/Profile.ets::loadProfile",
+                "semantic_field": "business_summary",
+                "existing_value": "loads profile page UI",
+                "proposed_value": "loads profile data and validates session state before rendering",
+                "patch_reason": "Later runtime review showed session validation is the decisive business step.",
+                "verification_method": "Inspect loadProfile and session invalid log path.",
+                "trigger_condition": "Business summary omits session validation.",
+                "repair_action": "Patch business_summary through learn-business.",
+                "evidence": "pages/Profile.ets loadProfile plus session invalid log",
+                "confidence": 0.91,
+            }
+            self.run_memory(project, "reflect", "--payload", json.dumps(old_patch, ensure_ascii=False))
+            self.run_memory(project, "reflect", "--payload", json.dumps(new_patch, ensure_ascii=False))
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            payload = json.loads(result.stdout)
+            actions = payload["actions"]
+
+            conflict_action = next(
+                action
+                for action in actions
+                if action["action"] == "review_experience_conflict"
+                and action["conflict_kind"] == "semantic_patch_conflict"
+            )
+            self.assertEqual(conflict_action["older_reflection_id"], 1)
+            self.assertEqual(conflict_action["newer_reflection_id"], 2)
+            self.assertEqual(conflict_action["anchor_key"], "pages/Profile.ets::loadProfile")
+            self.assertEqual(conflict_action["semantic_field"], "business_summary")
+            self.assertIn("hydrates route-bound page state", conflict_action["older_proposed_value"])
+            self.assertIn("validates session state", conflict_action["newer_proposed_value"])
+            self.assertEqual(payload["summary"]["experience_conflict_reviews"], 1)
+
     def test_maintain_plan_clusters_procedure_experiences_into_skill_pattern_candidate(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)

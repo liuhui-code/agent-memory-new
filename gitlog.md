@@ -1947,3 +1947,37 @@ Verification:
 Rollback notes:
 
 - Remove the example block if we later move semantic patch authoring into a separate helper command.
+
+## 2026-06-16 - Detect conflicting old and new experiences
+
+Files touched:
+
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_agent_memory.py`
+- `docs/experience-system-plan.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `docs/runtime.md`
+- `gitlog.md`
+
+What changed:
+
+- Added `review_experience_conflict` candidates to `maintain-plan` for two cases:
+  - newer `procedure_experience` / `correction_experience` records that change workflow guidance for the same trigger and scope
+  - multiple `semantic_patch_experience` records that target the same anchor and semantic field with different proposed values
+- Added `summary.experience_conflict_reviews` and `governance_summary.experience_conflict_reviews`.
+- Added regression tests for both procedure-guidance conflicts and semantic-patch conflicts.
+- Documented how maintain should handle these review-only conflict actions.
+
+Why:
+
+- Experience typing and retrieval firewall reduced cross-lane interference, but active old and new experience records could still coexist and quietly disagree.
+- The maintain step needs an explicit queue for “same problem, different answer” so the conflict is resolved before query relies on both.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_surfaces_new_old_procedure_experience_conflict tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_surfaces_new_old_semantic_patch_conflict`
+- Result: passed.
+
+Rollback notes:
+
+- Remove `build_experience_conflict_candidates`, drop `review_experience_conflict` from `maintain-plan`, and revert the targeted doc and test updates if this review lane proves too noisy.

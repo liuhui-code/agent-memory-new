@@ -254,6 +254,13 @@ For code business-semantic repair, `reflect` writes the correction candidate int
 
 Then run `maintain-plan --json`, review `review_semantic_patch`, and apply the returned `learn_business_payload_template` through `learn-business` when current source confirms the patch.
 
+`maintain-plan` may also return `review_experience_conflict` when newer reflections disagree with older active guidance. This currently covers:
+
+- `procedure_experience` or `correction_experience` records with the same trigger/scope but materially different `repair_action` or `future_rule`
+- `semantic_patch_experience` records that target the same `anchor_key` + `semantic_field` with different `proposed_value`
+
+This is review-only governance output. Use it to decide whether the older record should be marked stale, whether trigger boundaries need tightening, or whether the losing semantic patch should be marked superseded.
+
 When `maintain-plan` returns `review_correction_experience`, it now carries a learn-governance repair bundle instead of only a type label:
 
 - `correction_targets`

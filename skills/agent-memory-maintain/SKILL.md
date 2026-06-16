@@ -89,6 +89,7 @@ When `governance_summary` or `learn_governance_summary` is present, choose the s
 When `maintain-plan` returns `review_semantic_patch`, treat it as an anchored code-business semantic repair. Check `anchor_type`, `anchor_key`, `semantic_field`, `existing_value`, `proposed_value`, and `patch_reason` against current source before applying the generated `learn_business_payload_template`.
 When the current target field is non-empty and different from the proposed value, route the decision through semantic conflict review instead of overwriting silently.
 When `maintain-plan` returns `review_retrieval_interference`, inspect whether the reflection was over-retrieved, previously misleading, or missing narrow trigger boundaries. Prefer lowering confidence, tightening `trigger_condition` / `does_not_apply_to`, or marking it stale before allowing it back into the main query lane.
+When `maintain-plan` returns `review_experience_conflict`, compare the older and newer guidance before leaving both active. For procedure or correction conflicts, tighten the trigger boundary and stale the outdated rule if the newer one wins. For semantic patch conflicts, verify the anchor in current source and mark the losing patch superseded or route the difference into `semantic_conflicts`.
 When the grouped runtime-incident strategy is ready to be drafted into the repo, use:
 
 ```bash
