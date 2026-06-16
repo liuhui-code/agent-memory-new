@@ -239,8 +239,20 @@ The payload stores the Agent-authored task review in `reflections`:
 
 - `procedure_experience`: reusable diagnosis, query, repair, or change-design workflow
 - `correction_experience`: correction of learned business semantics or memory understanding
+- `semantic_patch_experience`: anchored code business-semantic correction or enrichment
 
 This classification does not add a fifth skill. It only helps `maintain-plan` route experience candidates toward future skill-candidate review or toward learn/semantic-repair governance.
+
+For code business-semantic repair, `reflect` writes the correction candidate into `reflections`, not directly into `code_files`, `code_symbols`, or `code_log_statements`. Use `semantic_patch_experience` with:
+
+- `anchor_type`
+- `anchor_key`
+- `semantic_field`
+- `existing_value`
+- `proposed_value`
+- `patch_reason`
+
+Then run `maintain-plan --json`, review `review_semantic_patch`, and apply the returned `learn_business_payload_template` through `learn-business` when current source confirms the patch.
 
 When `maintain-plan` returns `review_correction_experience`, it now carries a learn-governance repair bundle instead of only a type label:
 

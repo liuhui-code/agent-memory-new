@@ -556,6 +556,96 @@ def build_correction_learn_payload_template(project: Project, row: dict[str, Any
     }
 
 
+def build_semantic_patch_review_action(row: dict[str, Any]) -> dict[str, Any]:
+    anchor_type = str(row.get("anchor_type") or "")
+    anchor_key = str(row.get("anchor_key") or "")
+    semantic_field = str(row.get("semantic_field") or "")
+    proposed_value = str(row.get("proposed_value") or "")
+    return {
+        "action": "review_semantic_patch",
+        "governance_lane": "learn_semantic_repair",
+        "type": "reflection",
+        "id": row["id"],
+        "experience_type": "semantic_patch_experience",
+        "reason": "reflection proposes a code business semantic patch tied to a concrete anchor",
+        "risk": "medium",
+        "requires_confirmation": True,
+        "command": None,
+        "anchor_type": anchor_type,
+        "anchor_key": anchor_key,
+        "semantic_field": semantic_field,
+        "existing_value": row.get("existing_value"),
+        "proposed_value": proposed_value,
+        "patch_reason": row.get("patch_reason") or row.get("reasoning_summary") or row.get("summary"),
+        "confidence": row.get("confidence"),
+        "apply_policy": {
+            "empty_target_field": "apply as a learn-business semantic enrichment",
+            "different_existing_value": "record or review through semantic_conflicts before replacing",
+            "missing_anchor": "keep review-only and refresh the learned code scope first",
+        },
+        "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+        "learn_business_payload_template": build_semantic_patch_payload_template(row),
+        "workflow_steps": [
+            "Read the anchored current source record before applying the patch.",
+            "Compare existing business semantics with the proposed value and patch reason.",
+            "Apply through learn-business when the patch is supported by current source.",
+            "Use semantic_conflicts review if the current value is different and non-empty.",
+        ],
+    }
+
+
+def build_semantic_patch_payload_template(row: dict[str, Any]) -> dict[str, Any]:
+    anchor_type = str(row.get("anchor_type") or "")
+    anchor_key = str(row.get("anchor_key") or "")
+    semantic_field = str(row.get("semantic_field") or "")
+    proposed_value = str(row.get("proposed_value") or "")
+    file_path = anchor_key.split("::", 1)[0] if "::" in anchor_key else anchor_key
+    file_payload: dict[str, Any] = {
+        "file_path": file_path,
+        "business_summary": "",
+        "business_terms": [],
+        "hint_terms": stable_unique_strings(
+            [
+                proposed_value,
+                str(row.get("patch_reason") or ""),
+                str(row.get("problem") or ""),
+                *json_list(row.get("useful_followup_terms")),
+            ]
+        )[:12],
+        "hint_context": stable_unique_strings(
+            [
+                str(row.get("evidence") or ""),
+                str(row.get("verification_method") or ""),
+                str(row.get("patch_reason") or row.get("reasoning_summary") or ""),
+            ]
+        )[:8],
+        "symbols": [],
+        "logs": [],
+    }
+    if anchor_type == "code_file" and semantic_field == "business_summary":
+        file_payload["business_summary"] = proposed_value
+    elif anchor_type == "code_file" and semantic_field == "business_terms":
+        file_payload["business_terms"] = [proposed_value]
+    elif anchor_type == "code_symbol":
+        symbol = anchor_key.split("::", 1)[1] if "::" in anchor_key else anchor_key
+        file_payload["symbols"].append(
+            {
+                "symbol": symbol,
+                "business_summary": proposed_value if semantic_field == "business_summary" else "",
+                "business_terms": [proposed_value] if semantic_field == "business_terms" else [],
+            }
+        )
+    elif anchor_type == "code_log_statement":
+        message_template = anchor_key.split("::", 1)[1] if "::" in anchor_key else anchor_key
+        file_payload["logs"].append(
+            {
+                "message_template": message_template,
+                semantic_field: proposed_value,
+            }
+        )
+    return {"files": [file_payload]}
+
+
 def correction_repair_workflow_steps() -> list[str]:
     return [
         "Read the affected file, symbol, or log targets in current source.",
@@ -563,6 +653,44 @@ def correction_repair_workflow_steps() -> list[str]:
         "Rewrite the learn-business payload for the affected records instead of re-learning a broad directory.",
         "Re-run maintain-plan or query to confirm the semantic misunderstanding is reduced.",
     ]
+
+
+def build_retrieval_interference_candidates(rows: list[dict[str, Any]], limit: int = 10) -> list[dict[str, Any]]:
+    candidates: list[dict[str, Any]] = []
+    for row in rows:
+        experience_type = reflection_experience_type(row)
+        if not experience_type:
+            continue
+        last_outcome = str(row.get("last_outcome") or "")
+        use_count = int(row.get("use_count") or 0)
+        misleading_score = float(row.get("misleading_score") or 0.0)
+        if last_outcome != "misleading" and misleading_score < 0.6 and use_count < 3:
+            continue
+        candidates.append(
+            {
+                "action": "review_retrieval_interference",
+                "governance_lane": "retrieval_interference",
+                "type": "reflection",
+                "id": row["id"],
+                "experience_type": experience_type,
+                "reason": "reflection may be over-retrieved or has evidence of misleading reuse",
+                "risk": "medium",
+                "requires_confirmation": True,
+                "command": None,
+                "last_outcome": last_outcome,
+                "use_count": use_count,
+                "misleading_score": misleading_score,
+                "suggested_actions": [
+                    "lower confidence",
+                    "mark stale if the misleading signal is confirmed",
+                    "tighten trigger_condition",
+                    "tighten does_not_apply_to",
+                    "move correction content into guardrail-only usage",
+                ],
+            }
+        )
+    candidates.sort(key=lambda item: (item["last_outcome"] == "misleading", item["misleading_score"], item["use_count"]), reverse=True)
+    return candidates[:limit]
 
 
 def infer_common_steps(
@@ -1797,8 +1925,14 @@ def maintain_plan(args: argparse.Namespace) -> None:
         for row in review["unreviewed_reflections"]
         if reflection_experience_type(row) == "correction_experience" and is_complete_experience_candidate(row)
     ]
+    semantic_patch_rows = [
+        row
+        for row in review["unreviewed_reflections"]
+        if reflection_experience_type(row) == "semantic_patch_experience"
+    ]
     incident_strategy_candidates = build_incident_strategy_candidates(project, review["unreviewed_reflections"])
     recurring_incident_fingerprint_candidates = build_recurring_incident_fingerprint_candidates(project, review["unreviewed_reflections"])
+    retrieval_interference_candidates = build_retrieval_interference_candidates(active_reflection_rows(project), args.limit)
     actions: list[dict[str, Any]] = []
 
     for row in review["stale_memories"]:
@@ -1880,6 +2014,9 @@ def maintain_plan(args: argparse.Namespace) -> None:
 
     for row in review["unreviewed_reflections"]:
         experience_type = reflection_experience_type(row)
+        if experience_type == "semantic_patch_experience":
+            actions.append(build_semantic_patch_review_action(row))
+            continue
         if is_complete_experience_candidate(row):
             if experience_type == "correction_experience":
                 correction_targets = build_correction_targets(row)
@@ -1953,7 +2090,9 @@ def maintain_plan(args: argparse.Namespace) -> None:
                 "requires_confirmation": True,
                 "command": None,
             }
-        )
+            )
+
+    actions.extend(retrieval_interference_candidates)
 
     for candidate in build_skill_pattern_candidates(project, review["unreviewed_reflections"]):
         candidate = annotate_skill_pattern_artifacts(project.root, candidate)
@@ -2184,6 +2323,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "log_design_gaps": len([action for action in actions if action.get("action") == "review_log_design_gap"]),
         "correction_repairs": learn_governance_summary["correction_repairs"],
         "semantic_drift_reviews": learn_governance_summary["semantic_drift_reviews"],
+        "semantic_patch_reviews": len(semantic_patch_rows),
+        "retrieval_interference_reviews": len(retrieval_interference_candidates),
     }
 
     data = {
@@ -2202,6 +2343,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "skill_pattern_candidates": len(build_skill_pattern_candidates(project, review["unreviewed_reflections"])),
             "incident_strategy_candidates": len(incident_strategy_candidates),
             "recurring_incident_fingerprints": len(recurring_incident_fingerprint_candidates),
+            "semantic_patch_reviews": len(semantic_patch_rows),
+            "retrieval_interference_reviews": len(retrieval_interference_candidates),
         },
         "governance_summary": governance_summary,
         "learn_governance_summary": learn_governance_summary,

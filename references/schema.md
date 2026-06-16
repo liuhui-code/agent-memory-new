@@ -67,10 +67,15 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 - `experience_type`: optional reflection classification:
   - `procedure_experience`
   - `correction_experience`
+  - `semantic_patch_experience`
 - `trigger_condition`: when the Agent should remember the reflection.
 - `anti_pattern`: the mistake or weak pattern to avoid.
 - `repair_action`: the concrete next action.
 - `applies_to` and `does_not_apply_to`: applicability boundaries.
+- `anchor_type` and `anchor_key`: concrete code anchor for `semantic_patch_experience`; `anchor_type` is `code_file`, `code_symbol`, `code_log_statement`, or `memory_edge`.
+- `semantic_field`: the code-business semantic field being patched, such as `business_summary`, `business_terms`, `business_event`, `trigger_stage`, `symptom_terms`, `likely_causes`, `process_hint`, or `neighbor_terms`.
+- `existing_value`, `proposed_value`, and `patch_reason`: review data for a business semantic correction.
+- `applies_to_current_code`, `superseded_by`, and `misleading_score`: lifecycle and interference signals used by query and maintain.
 - `last_applied_at`, `applied_count`, and `last_outcome`: reuse feedback from later tasks.
 
 `reflection_reuse_events` keeps the auditable reuse history behind those aggregate fields:

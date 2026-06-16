@@ -18,6 +18,7 @@ Experience Layer
 ```
 
 Memory is compressed fact. Experience is a higher abstraction produced from facts, context, hidden assumptions, failed paths, and reasoning.
+Business semantic patches are a separate experience subtype: they correct or enrich the code wiki's business meaning for a concrete file, symbol, log statement, or edge. They are not task procedures.
 
 ## Design Principles
 
@@ -66,6 +67,14 @@ Required meaning:
 - `source_cases`: episode, reflection, file, log, route, or command evidence supporting the candidate.
 - `skill_candidate`: optional process template name when the candidate looks reusable.
 
+`experience_type` now separates three lanes:
+
+- `procedure_experience`: a reusable task or diagnosis workflow that may later cluster into a skill candidate.
+- `correction_experience`: a guardrail that prevents repeated wrong assumptions or misleading retrieval directions.
+- `semantic_patch_experience`: a business-semantic patch tied to `anchor_type`, `anchor_key`, `semantic_field`, and `proposed_value`.
+
+`semantic_patch_experience` is applied through learn/maintain governance, not as a normal how-to memory. Query may show it as `semantic_patch_notes` when the current problem touches the same code anchor or business meaning.
+
 The first phase updates:
 
 - `reflections` schema through migration columns.
@@ -80,15 +89,19 @@ The first phase updates:
 Query should use memory as an investigation map:
 
 ```text
-experience candidates / high-quality reflections
+memory_intent and retrieval_lanes
+  -> procedure experiences when the intent can reuse a workflow
+  -> correction guards when the task needs warning or diagnosis
   -> semantic facts
   -> code wiki and business semantics
+  -> semantic_patch_notes for anchored business meaning repair
   -> code log matches
   -> bounded memory_edges
   -> episodes
 ```
 
 The Agent must verify experience candidates against current source, logs, tests, and code wiki evidence before using them as conclusions.
+Correction experiences should normally act as warnings. Semantic patches should normally improve or repair anchored code business semantics instead of becoming the main answer.
 
 ## Maintain Direction
 
@@ -99,6 +112,8 @@ rewrite_reflection
 add_business_terms
 review_query_miss
 promote_experience_candidate
+review_semantic_patch
+review_retrieval_interference
 mark_stale
 merge_duplicate_fact
 ```
@@ -106,6 +121,8 @@ merge_duplicate_fact
 For phase one:
 
 - `promote_experience_candidate` means a structured reflection is ready for human or Agent review as reusable experience. It does not create a new experience table row.
+- `review_semantic_patch` means a structured reflection proposes a code-business semantic correction. Apply it through focused `learn-business` only after checking the anchor against current source.
+- `review_retrieval_interference` means a reflection has misleading reuse or over-retrieval risk and needs lower confidence, a tighter trigger, or stale marking.
 - `review_query_miss` includes `suggested_fixes`: `learn_missing_scope`, `add_business_terms`, `rewrite_reflection`, and `ignore_noise`.
 - Reflection reuse writes `reflection_reuse_events` with `helped`, `partial`, `misleading`, or `unused` outcomes.
 - Runtime quality review still asks the Agent and user to decide before mutation.

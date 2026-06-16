@@ -58,6 +58,8 @@ Use this structure when the user asks the Agent to understand a feature, page, m
 - Preserve existing non-empty `business_summary` values by default.
 - Return `semantic_conflicts` when an incoming non-empty summary disagrees with an existing non-empty summary.
 
+When `agent-memory-maintain` surfaces a `review_semantic_patch` action, apply it through this same `learn-business` command after checking current source. Use the action's `anchor_type`, `anchor_key`, `semantic_field`, `proposed_value`, and `learn_business_payload_template` instead of broad re-learning. If the target already has a different non-empty meaning, keep the conflict in review rather than forcing an overwrite.
+
 Before writing `learn-business`, organize the target code with these checks:
 
 - File: what business area or page does this file own?

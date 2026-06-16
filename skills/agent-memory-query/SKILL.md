@@ -85,6 +85,18 @@ If `log_improvement_suggestions` is present, treat it as follow-up engineering g
 
 `context` also includes `network_limits` and may include compact `evidence_chains`. Treat these chains as one-hop explanations, not complete graph paths.
 
+`context` and `search` also include memory firewall metadata:
+
+- `memory_intent`: the runtime's current query intent, such as `procedure_reuse`, `correction_guard`, `semantic_lookup`, `incident_diagnosis`, `code_current`, or `general_context`
+- `retrieval_lanes`: counts and policy for main reflections, correction guards, semantic patches, and blocked memories
+- `memory_brief`: compact counts for what entered or was blocked from context
+- `correction_guards`: warning-only experiences that should prevent repeated mistakes but should not become the main task direction by default
+- `semantic_patch_notes`: anchored business-semantic corrections for code files, symbols, logs, or edges
+- `blocked_memory_notes`: records kept out of the main context because their type or trigger did not match the query intent
+- `conflict_notes`: matching unresolved semantic conflicts
+
+Read these fields before relying on `reflections`. A recent reflection with weak intent match should not steer the task.
+
 If `context`, `search`, or `wiki-search` returns no results, the runtime records a query miss automatically. Do not add manual keywords just to improve retrieval; let maintain review real misses later.
 
 ## Use Order
@@ -92,9 +104,12 @@ If `context`, `search`, or `wiki-search` returns no results, the runtime records
 Use returned data in this order:
 
 ```text
-experience candidates / high-quality reflections
+memory_intent and retrieval_lanes
+  -> reusable procedure experiences when the intent matches
+  -> correction_guards as warnings
   -> semantic facts
   -> code wiki and business semantics
+  -> semantic_patch_notes for anchored business meaning repair
   -> code log matches
   -> bounded memory_edges and evidence_chains
   -> episodes
@@ -112,6 +127,9 @@ Rules:
 - Avoid injecting stale or low-confidence memories as facts.
 - Prefer reflections that include a clear trigger condition and repair action.
 - Prefer experience candidates that also include hidden assumptions, negative preconditions, verification method, reuse feedback, and source cases.
+- Treat `correction_experience` as guardrail context unless the user is explicitly asking about a mistake, conflict, failure, or misleading prior memory.
+- Treat `semantic_patch_experience` as a code-business semantic repair note. Use it to inspect or update the anchored code wiki record, not as a general procedure.
+- Do not let recency override `memory_intent`, `status`, `confidence`, or `blocked_memory_notes`.
 - Treat reflections missing scope or actionability as weak hints, not strong rules.
 - Keep injected context concise.
 - Do not run merge, promotion, duplicate detection, or vault export from this skill.

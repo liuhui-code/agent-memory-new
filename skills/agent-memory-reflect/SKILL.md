@@ -27,18 +27,31 @@ compressed trace-case fields instead of a long transcript:
 - `final_verification_path`
 - `related_cases`
 
-When the reflection clearly belongs to one of these two future paths, include `experience_type`:
+When the reflection clearly belongs to a future governance path, include `experience_type`:
 
 - `procedure_experience`: reusable diagnosis, query, repair, or change-design workflow
-- `correction_experience`: correction of learned business semantics or memory understanding
+- `correction_experience`: guardrail for a wrong assumption, misleading memory, or failed retrieval direction
+- `semantic_patch_experience`: anchored correction or enrichment of code business semantics
 
-When recording `correction_experience`, include enough evidence for later learn governance:
+When recording `procedure_experience`, include `trigger_condition`, `repair_action`, and `verification_method`. This keeps reusable workflows from becoming broad advice.
+
+When recording `correction_experience`, include enough evidence for later guardrail governance:
 
 - affected file, symbol, or log anchors in `source_cases` or `inspection_targets`
 - the misleading old understanding in `what_failed` or `misleading_followup_terms`
 - the corrected understanding in `lesson`, `future_rule`, and `repair_action`
+- `negative_preconditions`, so query can avoid applying the correction to similar-but-wrong cases
 - if the input came from temporary runtime-log analysis, carry over `runtime_episode_candidate` evidence through `context_used`, `trajectory_summary`, `final_verification_path`, and `old_hypothesis` when present
 - keep bounded runtime evidence in the reflection instead of raw logs: prefer `evidence`, `misleading_followup_terms`, and `repair_action` from `reflect_payload_template`
+
+When recording `semantic_patch_experience`, bind it to a concrete code-memory anchor:
+
+- `anchor_type`: `code_file`, `code_symbol`, `code_log_statement`, or `memory_edge`
+- `anchor_key`: file path, `file::symbol`, or `file::log template`
+- `semantic_field`: `business_summary`, `business_terms`, `business_event`, `trigger_stage`, `symptom_terms`, `likely_causes`, `process_hint`, or `neighbor_terms`
+- `existing_value`, `proposed_value`, and `patch_reason`
+
+Semantic patches are not normal task procedures. They should be reviewed through `agent-memory-maintain` and applied through focused `learn-business` when current source supports the patch.
 
 For runtime-log-backed diagnosis, also keep the feedback loop explicit:
 
@@ -148,6 +161,41 @@ For large payloads, write JSON to a temporary file and call:
 ```bash
 python tools/agent_memory.py reflect --project . --payload-file "<review.json>"
 ```
+
+When the work mainly corrected code business semantics, prefer a focused `semantic_patch_experience`:
+
+```bash
+python tools/agent_memory.py reflect \
+  --project . \
+  --payload '{
+    "experience_type": "semantic_patch_experience",
+    "task_type": "workflow",
+    "outcome": "success",
+    "task": "correct profile load semantics",
+    "summary": "Corrected the learned business meaning for loadProfile.",
+    "lesson": "loadProfile should include session validation in its business meaning.",
+    "anchor_type": "code_symbol",
+    "anchor_key": "pages/Profile.ets::loadProfile",
+    "semantic_field": "business_summary",
+    "existing_value": "loads profile page UI",
+    "proposed_value": "loads profile data and validates session state before rendering",
+    "patch_reason": "Caller flow and runtime logs show session validation happens before render.",
+    "verification_method": "Inspect caller, related log statement, and session handling code.",
+    "trigger_condition": "Learned business meaning conflicts with current source.",
+    "repair_action": "Apply the semantic patch through learn-business after source review.",
+    "evidence": "pages/Profile.ets loadProfile + session invalid log",
+    "confidence": 0.88,
+    "applies_to_current_code": true
+  }'
+```
+
+After writing this reflection:
+
+1. Run `python tools/agent_memory.py maintain-plan --project . --json`
+2. Review the `review_semantic_patch` action
+3. Apply the returned `learn_business_payload_template` through `learn-business` if current source supports the patch
+
+`reflect` does not overwrite `code_files`, `code_symbols`, or `code_log_statements` by itself. It stores the semantic correction candidate first, then maintain and learn governance decide whether to apply it.
 
 Valid `task_type` values:
 

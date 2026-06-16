@@ -49,7 +49,26 @@ FTS_TABLES = {
 
 LIKE_RECALL_COLUMNS = {
     "semantic_facts": ("fact", "source", "category", "scope", "evidence"),
-    "reflections": ("task", "summary", "lesson", "future_rule", "problem", "reasoning_summary", "useful_followup_terms", "inspection_targets", "verification_method", "source_cases", "skill_candidate", "evidence"),
+    "reflections": (
+        "task",
+        "summary",
+        "lesson",
+        "future_rule",
+        "problem",
+        "reasoning_summary",
+        "useful_followup_terms",
+        "inspection_targets",
+        "verification_method",
+        "source_cases",
+        "skill_candidate",
+        "evidence",
+        "anchor_type",
+        "anchor_key",
+        "semantic_field",
+        "existing_value",
+        "proposed_value",
+        "patch_reason",
+    ),
     "episodes": ("task", "summary", "outcome", "files_touched", "commands_run"),
     "code_files": ("file_path", "summary", "business_summary", "business_terms"),
     "code_symbols": ("file_path", "symbol", "symbol_type", "summary", "business_summary", "business_terms"),
@@ -61,6 +80,22 @@ FOCUS_PRIORITY_TERMS = {
     "resource": ["resource", "resources", "media", "image", "string", "app.media", "app.string", "$r"],
     "config": ["permission", "permissions", "dependency", "dependencies", "ability", "module", "json5", "config"],
     "log": ["log", "logger", "console", "hilog", "error", "warning", "exception", "failed", "failure", "debug"],
+}
+
+MEMORY_INTENTS = {
+    "code_current",
+    "procedure_reuse",
+    "correction_guard",
+    "semantic_lookup",
+    "incident_diagnosis",
+    "general_context",
+}
+
+REFLECTION_LANE_LIMITS = {
+    "correction_guards": 4,
+    "semantic_patch_notes": 6,
+    "blocked_memory_notes": 8,
+    "conflict_notes": 5,
 }
 
 
@@ -393,6 +428,276 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
     for key in results:
         results[key].sort(key=lambda item: (item.get("score", 0), item.get("created_at", "")), reverse=True)
     return results
+
+
+def infer_memory_intent(query: str) -> str:
+    lowered = query.lower()
+    if any(token in lowered for token in ("日志", "报错", "错误", "异常", "失败", "崩溃", "incident", "log", "traceback", "exception")):
+        return "incident_diagnosis"
+    if any(token in lowered for token in ("业务语义", "业务含义", "语义", "semantic", "business meaning", "business_summary", "business_terms", "补充", "纠正")):
+        return "semantic_lookup"
+    if any(token in lowered for token in ("误导", "错误经验", "纠错", "冲突", "不要", "避免", "correction", "wrong", "misleading")):
+        return "correction_guard"
+    if any(token in lowered for token in ("如何", "怎么", "步骤", "流程", "方案", "procedure", "playbook", "workflow", "how to")):
+        return "procedure_reuse"
+    if any(token in lowered for token in ("代码", "函数", "文件", "调用", "当前", "source", "code", "function", "file")):
+        return "code_current"
+    return "general_context"
+
+
+def text_for_reflection_gate(item: dict[str, Any]) -> str:
+    fields = [
+        "task",
+        "summary",
+        "mistake",
+        "lesson",
+        "future_rule",
+        "problem",
+        "reasoning_summary",
+        "context_used",
+        "what_worked",
+        "what_failed",
+        "hidden_assumptions",
+        "negative_preconditions",
+        "useful_followup_terms",
+        "misleading_followup_terms",
+        "inspection_targets",
+        "final_verification_path",
+        "related_cases",
+        "verification_method",
+        "reuse_feedback",
+        "source_cases",
+        "skill_candidate",
+        "scope",
+        "evidence",
+        "trigger_condition",
+        "anti_pattern",
+        "repair_action",
+        "applies_to",
+        "does_not_apply_to",
+        "anchor_type",
+        "anchor_key",
+        "semantic_field",
+        "existing_value",
+        "proposed_value",
+        "patch_reason",
+    ]
+    return " ".join(str(item.get(field) or "") for field in fields)
+
+
+def token_overlap_score(query: str, text: str) -> float:
+    query_set = {token for token in query_tokens(query) if len(token) > 1}
+    text_set = {token for token in query_tokens(text) if len(token) > 1}
+    if not query_set or not text_set:
+        return 0.0
+    return len(query_set & text_set) / max(1, len(query_set))
+
+
+def reflection_memory_lane(item: dict[str, Any]) -> str:
+    experience_type = str(item.get("experience_type") or "")
+    if experience_type == "procedure_experience":
+        return "reusable_procedure"
+    if experience_type == "correction_experience":
+        return "correction_guard"
+    if experience_type == "semantic_patch_experience":
+        return "semantic_patch"
+    return "historical_reflection"
+
+
+def reflection_gate_decision(query: str, intent: str, item: dict[str, Any]) -> dict[str, Any]:
+    lane = reflection_memory_lane(item)
+    text = text_for_reflection_gate(item)
+    overlap = token_overlap_score(query, text)
+    base_score = float(item.get("score") or 0)
+    confidence = float(item.get("confidence") or 0.8)
+    score = min(100.0, base_score * 4.0 + overlap * 40.0 + confidence * 10.0)
+    reasons: list[str] = []
+
+    if overlap:
+        reasons.append("query_terms_overlap_reflection")
+    if confidence >= 0.8:
+        reasons.append("confidence_ok")
+    if item.get("verification_method"):
+        score += 8
+        reasons.append("has_verification_method")
+    if item.get("source_cases"):
+        score += 6
+        reasons.append("has_source_cases")
+    if item.get("last_outcome") == "misleading":
+        score -= 35
+        reasons.append("previously_misleading")
+    if float(item.get("misleading_score") or 0.0) > 0:
+        score -= min(25, float(item.get("misleading_score") or 0.0) * 25)
+        reasons.append("explicit_misleading_score")
+
+    if lane == "reusable_procedure":
+        allowed = intent in {"procedure_reuse", "general_context", "incident_diagnosis"}
+        if allowed:
+            score += 18
+            reasons.append("procedure_lane_matches_intent")
+        else:
+            score -= 20
+            reasons.append("procedure_lane_not_primary_for_intent")
+    elif lane == "correction_guard":
+        allowed = intent in {"correction_guard", "incident_diagnosis", "semantic_lookup"}
+        if allowed:
+            score += 12
+            reasons.append("correction_guard_matches_intent")
+        else:
+            reasons.append("correction_guard_kept_out_of_main_context")
+    elif lane == "semantic_patch":
+        allowed = intent in {"semantic_lookup", "code_current", "general_context"}
+        if allowed:
+            score += 15
+            reasons.append("semantic_patch_matches_intent")
+        else:
+            reasons.append("semantic_patch_not_a_task_procedure")
+    else:
+        allowed = True
+        reasons.append("legacy_reflection_allowed")
+
+    return {
+        "lane": lane,
+        "allowed": allowed,
+        "score": round(max(0.0, score), 2),
+        "reasons": reasons,
+    }
+
+
+def blocked_memory_note(item: dict[str, Any], decision: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "id": item.get("id"),
+        "experience_type": item.get("experience_type"),
+        "memory_lane": decision["lane"],
+        "gate_score": decision["score"],
+        "reason": "; ".join(decision["reasons"]) or "blocked by memory query firewall",
+    }
+
+
+def semantic_patch_note(item: dict[str, Any], decision: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "id": item.get("id"),
+        "anchor_type": item.get("anchor_type"),
+        "anchor_key": item.get("anchor_key"),
+        "semantic_field": item.get("semantic_field"),
+        "existing_value": item.get("existing_value"),
+        "proposed_value": item.get("proposed_value"),
+        "patch_reason": item.get("patch_reason") or item.get("reasoning_summary"),
+        "confidence": item.get("confidence"),
+        "gate_score": decision["score"],
+        "gate_reasons": decision["reasons"],
+    }
+
+
+def query_matches_anchor(query: str, item: dict[str, Any]) -> bool:
+    anchor = " ".join(str(item.get(key) or "") for key in ("anchor_key", "semantic_field", "proposed_value"))
+    return token_overlap_score(query, anchor) > 0
+
+
+def gate_matches_by_intent(
+    project: Project,
+    query: str,
+    matches: dict[str, list[dict[str, Any]]],
+) -> dict[str, Any]:
+    intent = infer_memory_intent(query)
+    gated_matches: dict[str, list[dict[str, Any]]] = {
+        key: [dict(item) for item in value]
+        for key, value in matches.items()
+    }
+    main_reflections: list[dict[str, Any]] = []
+    correction_guards: list[dict[str, Any]] = []
+    semantic_patch_notes: list[dict[str, Any]] = []
+    blocked_notes: list[dict[str, Any]] = []
+    lane_counts: dict[str, int] = {
+        "main_reflections": 0,
+        "correction_guards": 0,
+        "semantic_patch_notes": 0,
+        "blocked_memory_notes": 0,
+    }
+
+    for item in gated_matches.get("reflections", []):
+        decision = reflection_gate_decision(query, intent, item)
+        item["memory_lane"] = decision["lane"]
+        item["gate_score"] = decision["score"]
+        item["gate_reasons"] = decision["reasons"]
+        if decision["lane"] == "semantic_patch":
+            if decision["allowed"] or query_matches_anchor(query, item):
+                semantic_patch_notes.append(semantic_patch_note(item, decision))
+                lane_counts["semantic_patch_notes"] += 1
+            else:
+                blocked_notes.append(blocked_memory_note(item, decision))
+                lane_counts["blocked_memory_notes"] += 1
+            continue
+        if decision["lane"] == "correction_guard":
+            if decision["allowed"] and decision["score"] >= 20:
+                correction_guards.append(item)
+                lane_counts["correction_guards"] += 1
+            else:
+                blocked_notes.append(blocked_memory_note(item, decision))
+                lane_counts["blocked_memory_notes"] += 1
+            continue
+        if decision["allowed"] and decision["score"] >= 15:
+            main_reflections.append(item)
+            lane_counts["main_reflections"] += 1
+        else:
+            blocked_notes.append(blocked_memory_note(item, decision))
+            lane_counts["blocked_memory_notes"] += 1
+
+    main_reflections.sort(key=lambda item: (item.get("gate_score", 0), item.get("score", 0), item.get("id", 0)), reverse=True)
+    correction_guards.sort(key=lambda item: (item.get("gate_score", 0), item.get("score", 0), item.get("id", 0)), reverse=True)
+    semantic_patch_notes.sort(key=lambda item: (item.get("gate_score", 0), item.get("id", 0)), reverse=True)
+    gated_matches["reflections"] = main_reflections
+    conflict_notes = matching_conflict_notes(project, query, REFLECTION_LANE_LIMITS["conflict_notes"])
+    return {
+        "matches": gated_matches,
+        "memory_intent": intent,
+        "retrieval_lanes": {
+            "counts": lane_counts,
+            "policy": {
+                "procedure_experience": "main context only when the query intent can reuse a procedure",
+                "correction_experience": "guardrail lane; not injected as the main task direction by default",
+                "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics",
+            },
+        },
+        "memory_brief": {
+            "intent": intent,
+            "main_reflection_count": len(main_reflections),
+            "correction_guard_count": len(correction_guards),
+            "semantic_patch_count": len(semantic_patch_notes),
+            "blocked_count": len(blocked_notes),
+            "conflict_count": len(conflict_notes),
+        },
+        "correction_guards": correction_guards[: REFLECTION_LANE_LIMITS["correction_guards"]],
+        "semantic_patch_notes": semantic_patch_notes[: REFLECTION_LANE_LIMITS["semantic_patch_notes"]],
+        "blocked_memory_notes": blocked_notes[: REFLECTION_LANE_LIMITS["blocked_memory_notes"]],
+        "conflict_notes": conflict_notes,
+    }
+
+
+def matching_conflict_notes(project: Project, query: str, limit: int) -> list[dict[str, Any]]:
+    tokens = {token for token in query_tokens(query) if len(token) > 1}
+    if not tokens:
+        return []
+    notes: list[dict[str, Any]] = []
+    with connect(project) as conn:
+        rows = conn.execute(
+            """
+            SELECT id, entity_type, target, field, existing, incoming, decision_note, replacement_source, observed_at
+            FROM semantic_conflicts
+            WHERE project_id = ? AND status = 'open'
+            ORDER BY observed_at DESC, id DESC
+            LIMIT 50
+            """,
+            (project.project_id,),
+        ).fetchall()
+    for row in rows:
+        item = row_dict(row)
+        text = " ".join(str(item.get(key) or "") for key in ("entity_type", "target", "field", "existing", "incoming", "decision_note"))
+        if {token for token in query_tokens(text) if len(token) > 1} & tokens:
+            notes.append(item)
+            if len(notes) >= limit:
+                break
+    return notes
 
 
 def limited_matches(
@@ -759,12 +1064,16 @@ def build_log_search_plan(query: str, data: dict[str, list[dict[str, Any]]]) -> 
 
 def limited_context(project: Project, query: str) -> dict[str, Any]:
     matches = collect_matches(project, query)
-    bounded = limited_matches(matches, CONTEXT_RESULT_LIMITS)
+    gated = gate_matches_by_intent(project, query, matches)
+    bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS)
     followup_focus = infer_followup_focus(query, bounded)
     context = {
         "project_id": project.project_id,
         "project_path": str(project.root),
         "query": query,
+        "memory_intent": gated["memory_intent"],
+        "retrieval_lanes": gated["retrieval_lanes"],
+        "memory_brief": gated["memory_brief"],
         "followup_focus": followup_focus,
         "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
         "semantic_facts": bounded["semantic_facts"],
@@ -773,6 +1082,10 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "wiki_matches": bounded["wiki_matches"],
         "code_log_matches": bounded["code_log_matches"],
         "edge_matches": bounded["edge_matches"],
+        "correction_guards": gated["correction_guards"],
+        "semantic_patch_notes": gated["semantic_patch_notes"],
+        "blocked_memory_notes": gated["blocked_memory_notes"],
+        "conflict_notes": gated["conflict_notes"],
         "evidence_chains": build_evidence_chains(bounded["edge_matches"]),
         "suggested_followup_terms": suggested_followup_terms(query, bounded),
         "log_search_plan": build_log_search_plan(query, bounded),
@@ -791,7 +1104,16 @@ def limited_search(
     aggregate_limit: int | None = None,
 ) -> dict[str, Any]:
     matches = collect_matches(project, query)
-    return batched_search(matches, query=query, cursor=cursor, per_type_limit=per_type_limit, aggregate_limit=aggregate_limit)
+    gated = gate_matches_by_intent(project, query, matches)
+    payload = batched_search(gated["matches"], query=query, cursor=cursor, per_type_limit=per_type_limit, aggregate_limit=aggregate_limit)
+    payload["memory_intent"] = gated["memory_intent"]
+    payload["retrieval_lanes"] = gated["retrieval_lanes"]
+    payload["memory_brief"] = gated["memory_brief"]
+    payload["correction_guards"] = gated["correction_guards"]
+    payload["semantic_patch_notes"] = gated["semantic_patch_notes"]
+    payload["blocked_memory_notes"] = gated["blocked_memory_notes"]
+    payload["conflict_notes"] = gated["conflict_notes"]
+    return payload
 
 
 def batched_search(

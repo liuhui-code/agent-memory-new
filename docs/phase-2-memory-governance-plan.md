@@ -119,6 +119,15 @@ anti_pattern
 repair_action
 applies_to
 does_not_apply_to
+anchor_type
+anchor_key
+semantic_field
+existing_value
+proposed_value
+patch_reason
+applies_to_current_code
+superseded_by
+misleading_score
 ```
 
 The important motion is:
@@ -128,6 +137,14 @@ episode -> reflection -> semantic fact -> future rule
 ```
 
 This keeps the system aligned with the project idea that intelligence improves through recursive organization.
+
+Reflection experience types are governed separately:
+
+- `procedure_experience` can become a reusable skill pattern only after multiple verified cases.
+- `correction_experience` acts as a guardrail and should not become the main query direction by default.
+- `semantic_patch_experience` patches code business semantics through anchored learn governance instead of normal experience recall.
+
+`maintain-plan` may return `review_semantic_patch`, `review_correction_experience`, or `review_retrieval_interference` when these lanes need review.
 
 ## Obsidian Mirror
 
@@ -152,6 +169,7 @@ These files are for review only. Edit memory through skills or runtime commands.
 
 - Existing databases migrate without manual reset.
 - Query output includes governance metadata and advisory notice.
+- Query output includes `memory_intent`, `retrieval_lanes`, `memory_brief`, `correction_guards`, `semantic_patch_notes`, and `blocked_memory_notes`.
 - Maintain commands can health-check, review, mark status, merge, and promote.
 - Vault export writes governance dashboard pages.
 - Skill docs preserve the four-skill interface.

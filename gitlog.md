@@ -1870,3 +1870,80 @@ Rollback notes:
 
 - Restore the previous README if we want a more runtime-command-heavy homepage.
 - Replace the generated illustration with a text-only overview if image maintenance becomes undesirable.
+
+## 2026-06-16 - Memory query firewall for experience interference
+
+Files touched:
+
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/models.py`
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_agent_memory.py`
+- `references/schema.md`
+- `docs/experience-system-plan.md`
+- `docs/phase-2-memory-governance-plan.md`
+- `skills/agent-memory-learn/SKILL.md`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `skills/agent-memory-reflect/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added `semantic_patch_experience` as a third reflection experience type for anchored code business-semantic corrections.
+- Added reflection fields for semantic patches and retrieval interference governance: `anchor_type`, `anchor_key`, `semantic_field`, `existing_value`, `proposed_value`, `patch_reason`, `applies_to_current_code`, `superseded_by`, and `misleading_score`.
+- Added reflection payload validation so procedure, correction, and semantic patch experiences carry the minimum structure needed for safe reuse.
+- Added query intent routing and a memory query firewall that separates main reflections, correction guards, semantic patch notes, blocked memories, and matching semantic conflicts.
+- Extended `maintain-plan` with `review_semantic_patch` and `review_retrieval_interference` actions.
+- Updated skill and design docs so the four-skill interface stays fixed while internal experience governance becomes type-aware.
+
+Why:
+
+- Prevent recent weakly related experiences from steering unrelated queries.
+- Keep correction experiences as guardrails instead of letting them become the main execution path.
+- Let business-semantic corrections repair code wiki meaning through focused `learn-business` review rather than normal experience recall.
+
+Verification:
+
+- Command: `python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests.test_reflect_payload_writes_semantic_patch_experience tests.test_agent_memory.AgentMemoryRuntimeTests.test_reflect_rejects_semantic_patch_without_anchor tests.test_agent_memory.AgentMemoryRuntimeTests.test_context_firewall_separates_experience_lanes tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_plan_surfaces_semantic_patch_and_retrieval_interference_reviews`
+- Result: passed.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: `119 tests OK`.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passed.
+- Command: `git diff --check`
+- Result: clean.
+
+Rollback notes:
+
+- Remove `semantic_patch_experience` validation and fields if code-business semantic repair should stay solely in `learn-business`.
+- Remove the memory query firewall output fields if downstream agents need the previous flat reflection retrieval behavior.
+
+## 2026-06-16 - Semantic patch reflection examples
+
+Files touched:
+
+- `skills/agent-memory-reflect/SKILL.md`
+- `docs/runtime.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a copy-paste `semantic_patch_experience` payload example to the reflect skill docs.
+- Documented that `reflect` stores semantic patch corrections in `reflections` first and that maintain and `learn-business` apply them later.
+- Added the follow-up flow: `reflect` -> `maintain-plan` -> `review_semantic_patch` -> `learn-business`.
+
+Why:
+
+- The new semantic patch lane was implemented, but the docs still made users infer the payload shape from field names alone.
+- This closes the gap between the runtime behavior and the operator guidance.
+
+Verification:
+
+- Command: `git diff --check`
+- Result: clean.
+
+Rollback notes:
+
+- Remove the example block if we later move semantic patch authoring into a separate helper command.

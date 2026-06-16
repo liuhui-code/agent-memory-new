@@ -86,6 +86,9 @@ When `maintain-plan` returns `review_recurring_incident_fingerprint`, keep it li
 
 When `maintain-plan` returns `review_log_design_gap`, keep the follow-up narrow. Use `goal_area`, `high_value_log_anchor_targets`, and `suggested_log_kinds` to patch one or two high-value logs in the affected code path. Prefer start markers, decision checkpoints, or request/session correlation fields over broad logging expansion.
 When `governance_summary` or `learn_governance_summary` is present, choose the smallest governance lane that removes the current bottleneck. Prefer `learn_semantic_repair` before `skill_evolution` whenever drift or correction is concentrated in a few files.
+When `maintain-plan` returns `review_semantic_patch`, treat it as an anchored code-business semantic repair. Check `anchor_type`, `anchor_key`, `semantic_field`, `existing_value`, `proposed_value`, and `patch_reason` against current source before applying the generated `learn_business_payload_template`.
+When the current target field is non-empty and different from the proposed value, route the decision through semantic conflict review instead of overwriting silently.
+When `maintain-plan` returns `review_retrieval_interference`, inspect whether the reflection was over-retrieved, previously misleading, or missing narrow trigger boundaries. Prefer lowering confidence, tightening `trigger_condition` / `does_not_apply_to`, or marking it stale before allowing it back into the main query lane.
 When the grouped runtime-incident strategy is ready to be drafted into the repo, use:
 
 ```bash

@@ -243,8 +243,92 @@ def analyze_runtime_log_command(args: argparse.Namespace) -> None:
 
 REFLECTION_PAYLOAD_TASK_TYPES = {"diagnosis", "design", "execution", "workflow"}
 REFLECTION_PAYLOAD_OUTCOMES = {"success", "failure", "partial"}
-REFLECTION_EXPERIENCE_TYPES = {"procedure_experience", "correction_experience"}
+REFLECTION_EXPERIENCE_TYPES = {
+    "procedure_experience",
+    "correction_experience",
+    "semantic_patch_experience",
+}
 REFLECTION_FOLLOWUP_FOCI = {"route", "resource", "log", "config"}
+SEMANTIC_PATCH_ANCHOR_TYPES = {"code_file", "code_symbol", "code_log_statement", "memory_edge"}
+SEMANTIC_PATCH_FIELDS = {
+    "business_summary",
+    "business_terms",
+    "business_event",
+    "trigger_stage",
+    "symptom_terms",
+    "likely_causes",
+    "process_hint",
+    "neighbor_terms",
+}
+
+
+def payload_has_value(payload: dict[str, Any], key: str) -> bool:
+    value = payload.get(key)
+    if isinstance(value, list):
+        return bool(value)
+    return bool(str(value or "").strip())
+
+
+def validate_reflection_payload_shape(payload: dict[str, Any]) -> None:
+    experience_type = payload.get("experience_type")
+    if not experience_type:
+        return
+    if experience_type == "procedure_experience":
+        missing = [
+            key
+            for key in ("repair_action", "verification_method")
+            if not payload_has_value(payload, key)
+        ]
+        has_trigger_evidence = any(
+            payload_has_value(payload, key)
+            for key in ("trigger_condition", "useful_followup_focus", "source_cases", "context_used")
+        )
+        if not has_trigger_evidence:
+            missing.append("trigger_condition or useful_followup_focus or source_cases")
+        if missing:
+            raise SystemExit(
+                "--payload procedure_experience requires "
+                + ", ".join(missing)
+            )
+    elif experience_type == "correction_experience":
+        missing = [
+            key
+            for key in ("trigger_condition", "repair_action")
+            if not payload_has_value(payload, key)
+        ]
+        has_misleading_signal = any(
+            payload_has_value(payload, key)
+            for key in ("anti_pattern", "misleading_followup_terms", "what_failed")
+        )
+        if missing or not has_misleading_signal:
+            details = missing
+            if not has_misleading_signal:
+                details = [*details, "anti_pattern or misleading_followup_terms or what_failed"]
+            raise SystemExit(
+                "--payload correction_experience requires "
+                + ", ".join(details)
+            )
+    elif experience_type == "semantic_patch_experience":
+        missing = [
+            key
+            for key in ("anchor_type", "anchor_key", "semantic_field", "proposed_value")
+            if not payload_has_value(payload, key)
+        ]
+        if missing:
+            raise SystemExit(
+                "--payload semantic_patch_experience requires "
+                + ", ".join(missing)
+            )
+        anchor_type = str(payload.get("anchor_type") or "")
+        if anchor_type not in SEMANTIC_PATCH_ANCHOR_TYPES:
+            raise SystemExit(
+                "--payload anchor_type must be code_file, code_symbol, code_log_statement, or memory_edge"
+            )
+        semantic_field = str(payload.get("semantic_field") or "")
+        if semantic_field not in SEMANTIC_PATCH_FIELDS:
+            raise SystemExit(
+                "--payload semantic_field must be a supported business semantic field"
+            )
 
 
 def load_reflection_payload(args: argparse.Namespace) -> dict[str, Any]:
@@ -275,10 +359,13 @@ def load_reflection_payload(args: argparse.Namespace) -> dict[str, Any]:
         raise SystemExit("--payload outcome must be one of success, failure, partial")
     experience_type = payload.get("experience_type")
     if experience_type and experience_type not in REFLECTION_EXPERIENCE_TYPES:
-        raise SystemExit("--payload experience_type must be procedure_experience or correction_experience")
+        raise SystemExit(
+            "--payload experience_type must be procedure_experience, correction_experience, or semantic_patch_experience"
+        )
     useful_followup_focus = payload.get("useful_followup_focus")
     if useful_followup_focus and useful_followup_focus not in REFLECTION_FOLLOWUP_FOCI:
         raise SystemExit("--payload useful_followup_focus must be route, resource, log, or config")
+    validate_reflection_payload_shape(payload)
     return payload
 
 
@@ -345,6 +432,15 @@ def reflect(args: argparse.Namespace) -> None:
         "repair_action": reflection_value(args, payload, "repair_action"),
         "applies_to": reflection_value(args, payload, "applies_to"),
         "does_not_apply_to": reflection_value(args, payload, "does_not_apply_to"),
+        "anchor_type": reflection_value(args, payload, "anchor_type"),
+        "anchor_key": reflection_value(args, payload, "anchor_key"),
+        "semantic_field": reflection_value(args, payload, "semantic_field"),
+        "existing_value": reflection_value(args, payload, "existing_value"),
+        "proposed_value": reflection_value(args, payload, "proposed_value"),
+        "patch_reason": reflection_value(args, payload, "patch_reason"),
+        "applies_to_current_code": 1 if reflection_value(args, payload, "applies_to_current_code") else 0,
+        "superseded_by": reflection_int_value(payload, "superseded_by"),
+        "misleading_score": float(reflection_value(args, payload, "misleading_score") or 0.0),
         "created_at": now_iso(),
     }
     with connect(project) as conn:
@@ -358,9 +454,12 @@ def reflect(args: argparse.Namespace) -> None:
               misleading_followup_terms, inspection_targets, final_verification_path, related_cases,
               verification_method, reuse_feedback, source_cases, skill_candidate,
               scope, evidence, confidence, trigger_condition, anti_pattern,
-              repair_action, applies_to, does_not_apply_to, created_at
+              repair_action, applies_to, does_not_apply_to,
+              anchor_type, anchor_key, semantic_field, existing_value, proposed_value,
+              patch_reason, applies_to_current_code, superseded_by, misleading_score,
+              created_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 project.project_id,
@@ -399,6 +498,15 @@ def reflect(args: argparse.Namespace) -> None:
                 data["repair_action"],
                 data["applies_to"],
                 data["does_not_apply_to"],
+                data["anchor_type"],
+                data["anchor_key"],
+                data["semantic_field"],
+                data["existing_value"],
+                data["proposed_value"],
+                data["patch_reason"],
+                data["applies_to_current_code"],
+                data["superseded_by"],
+                data["misleading_score"],
                 data["created_at"],
             ),
         )
