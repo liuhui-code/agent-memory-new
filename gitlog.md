@@ -1981,3 +1981,65 @@ Verification:
 Rollback notes:
 
 - Remove `build_experience_conflict_candidates`, drop `review_experience_conflict` from `maintain-plan`, and revert the targeted doc and test updates if this review lane proves too noisy.
+
+## 2026-06-22 - Add execution-discipline memory note
+
+Files touched:
+
+- `memory.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a new project-local `memory.md` note that records execution mistakes observed during ArkLine verification work.
+- Captured the main failure modes:
+  - running heavyweight verification too early
+  - parallelizing lock-competing commands
+  - running Rust tests before dependent generated worker artifacts were definitely rebuilt
+- Recorded concrete operating rules for future sessions, including a preferred verification order and explicit anti-patterns to avoid.
+
+Why:
+
+- These mistakes did not reflect one broken feature; they reflected poor verification discipline.
+- A local memory note makes the lesson reusable and reduces the chance of repeating "looks hung" execution patterns in later work.
+
+Verification:
+
+- Command: `ls -la memory.md`
+- Result: file created.
+
+Rollback notes:
+
+- Remove `memory.md` if the project later centralizes this kind of execution guidance into the SQLite-backed memory runtime or a dedicated docs location.
+
+## 2026-06-24 - Add Chinese README focused on ArkTS and lightweight retrieval
+
+Files touched:
+
+- `README.md`
+- `README.zh-CN.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a top-level Chinese README entry link in `README.md`.
+- Added `README.zh-CN.md` as a concise Chinese overview for local readers.
+- Focused the Chinese copy on:
+  - ArkTS / HarmonyOS usage
+  - SQLite + FTS5 lightweight retrieval
+  - code log extraction and lightweight code graph via `memory_edges`
+  - reduced token cost through bounded context and structured memory
+
+Why:
+
+- The existing README already explained the system in English, but it did not quickly signal the project's practical strengths for Chinese readers.
+- This version makes the current positioning clearer: ArkTS-oriented, lightweight, log-aware, and designed to reduce repeated retrieval and token waste.
+
+Verification:
+
+- Command: `git diff --check`
+- Result: pending
+
+Rollback notes:
+
+- Remove `README.zh-CN.md` and the README link if the project later consolidates documentation back into a single-language README.

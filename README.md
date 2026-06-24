@@ -1,5 +1,7 @@
 # Agent Memory MVP
 
+[中文说明](README.zh-CN.md)
+
 Agent Memory is a local memory, reflection, governance, and incident-diagnosis runtime for coding agents.
 
 It gives an agent a stable way to remember project facts, code context, diagnosis trails, runtime incident evidence, and reusable lessons without requiring a vector database, daemon, graph database, or agent-specific wrapper.
