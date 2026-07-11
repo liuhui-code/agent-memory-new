@@ -16,6 +16,7 @@ from .models import (
 )
 from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT, INCIDENT_TRACE_SEARCH_LIMIT
 from .incident_trace_query import collect_incident_trace_matches
+from .memory_calibration import calibrate_payload
 from .quality_scoring import score_reflection_quality, score_semantic_quality
 from .records import memory_warning, row_dict
 from .retrieval_feedback import collect_feedback_penalties
@@ -1134,6 +1135,7 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "log_search_plan": build_log_search_plan(query, bounded),
         "network_limits": network_limits(),
     }
+    calibrate_payload(context)
     record_context_use(project, context)
     record_query_miss_if_empty(project, "context", query, context)
     return context
@@ -1156,6 +1158,7 @@ def limited_search(
     payload["semantic_patch_notes"] = gated["semantic_patch_notes"]
     payload["blocked_memory_notes"] = gated["blocked_memory_notes"]
     payload["conflict_notes"] = gated["conflict_notes"]
+    calibrate_payload(payload)
     return payload
 
 

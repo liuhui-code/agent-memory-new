@@ -175,6 +175,8 @@ If an otherwise high-value reflection lacks a grounded chain, `maintain-plan` ma
 
 `context` and `search` also attach quality hints to semantic and reflection matches. Reflection matches use `quality_score` inside the existing memory-lane gate to produce `rerank_score`; this lets verified, evidence-backed experience outrank broad or misleading experience after the intent gate has already decided the record belongs in the main lane. The rerank is deliberately soft: it does not make stale, blocked, correction-only, or semantic-patch-only records bypass their lane rules.
 
+`context` and `search` also return `memory_use_policy` and per-record calibration fields. `trust_level` labels a returned row as `source_truth`, `verified_experience`, `usable_hint`, `weak_hint`, `possibly_stale`, or `conflict_warning`. `trust_reasons` and `retrieval_explanation` explain the score using existing evidence: match reasons, gate reasons, quality, feedback penalty, status, confidence, source cases, and verification method. Calibration is answer-time guidance only; it does not change stored memory.
+
 Retrieval changes can be checked with a local golden-query eval:
 
 ```bash

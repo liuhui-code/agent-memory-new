@@ -97,6 +97,15 @@ If `log_improvement_suggestions` is present, treat it as follow-up engineering g
 
 Read these fields before relying on `reflections`. A recent reflection with weak intent match should not steer the task.
 
+`context` and `search` also include `memory_use_policy`, and calibrated result rows may include:
+
+- `trust_level`: `source_truth`, `verified_experience`, `usable_hint`, `weak_hint`, `possibly_stale`, or `conflict_warning`
+- `trust_score`: bounded 0-1 advisory confidence
+- `trust_reasons`: compact reasons behind the trust level
+- `retrieval_explanation`: match, gate, quality, feedback, status, and confidence details
+
+Use `trust_level` before injecting memory into an answer. Treat `source_truth` as inspectable code/log/wiki evidence, `verified_experience` as a reusable but still advisory procedure, `usable_hint` as a lead, `weak_hint` as a next-inspection hint only, and `possibly_stale` or `conflict_warning` as cautionary context.
+
 If `context`, `search`, or `wiki-search` returns no results, the runtime records a query miss automatically. Do not add manual keywords just to improve retrieval; let maintain review real misses later.
 
 ## Use Order
@@ -105,6 +114,7 @@ Use returned data in this order:
 
 ```text
 memory_intent and retrieval_lanes
+  -> memory_use_policy and per-record trust_level
   -> reusable procedure experiences when the intent matches
   -> correction_guards as warnings
   -> semantic facts

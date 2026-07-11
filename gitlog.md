@@ -2464,3 +2464,46 @@ Verification:
 Rollback notes:
 
 - Remove `build_runtime_performance_actions`, drop runtime performance action wiring from maintain-plan, and revert docs/tests if the SLO signal becomes noisy.
+
+## 2026-07-11 - Add memory calibration layer
+
+Files touched:
+
+- `docs/superpowers/specs/2026-07-11-memory-calibration-layer-design.md`
+- `docs/superpowers/plans/2026-07-11-memory-calibration-layer.md`
+- `tools/agent_memory_runtime/memory_calibration.py`
+- `tools/agent_memory_runtime/query.py`
+- `tests/test_memory_calibration.py`
+- `skills/agent-memory-query/SKILL.md`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a design and implementation plan for answer-time memory calibration.
+- Added per-record `trust_level`, `trust_score`, `trust_reasons`, and `retrieval_explanation` annotations to query results.
+- Added top-level `memory_use_policy` to `context` and `search` output.
+- Updated query skill guidance to use trust levels before injecting memory into answers.
+
+Why:
+
+- Retrieval relevance alone is not enough; Agents need to know whether a record is evidence, verified experience, a weak hint, stale context, or a conflict warning.
+- Calibration reduces interference from recent but weakly related memories without adding a new storage system.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_memory_calibration`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_memory_calibration tests.test_retrieval_feedback tests.test_quality_performance_scoring tests.test_retrieval_eval`
+- Result: 19 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace`
+- Result: 131 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove `memory_calibration.py`, drop `calibrate_payload` calls, and revert docs/tests if trust labels become noisy.
