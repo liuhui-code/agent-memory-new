@@ -279,6 +279,17 @@ The system does not only consume logs. It can also point out where the codebase 
 
 This helps future diagnosis quality improve over time.
 
+### 6. Quality And Signal Gates
+
+The runtime now exposes measurable gates for the main quality loops:
+
+- retrieval gates: expected hit rate, exact anchor rank, blocked bad matches, and experience noise rate
+- trust gates: expected trust rate and blocked overtrust rate
+- log signal gates: good signal rate and low signal event rate
+- graph signal review: weak anchors, missing business semantics, missing log signal fields, and focused repair targets
+
+These gates are local JSON checks. They do not mutate memory. Their job is to catch regressions before a ranking, learning, graph, log, or calibration change makes Agents noisier.
+
 ## The Four Skills
 
 The user-facing interface stays intentionally small:

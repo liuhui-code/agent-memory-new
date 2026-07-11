@@ -689,7 +689,7 @@ git commit -m "Add retrieval and diagnosis quality gates"
 - Modify: `README.md`
 - Modify: `gitlog.md`
 
-- [ ] **Step 1: Update learn skill**
+- [x] **Step 1: Update learn skill**
 
 Add guidance:
 
@@ -697,7 +697,7 @@ Add guidance:
 - Prefer targeted `learn-business` enrichment over broad re-learning.
 - Preserve existing business semantics unless explicitly correcting them.
 
-- [ ] **Step 2: Update query skill**
+- [x] **Step 2: Update query skill**
 
 Add guidance:
 
@@ -706,7 +706,7 @@ Add guidance:
 - Use `trust_reasons`, `query_risk_flags`, `experience_maturity`, and `counter_evidence` before applying experience.
 - Use code/log/edge anchors as inspection targets, not as proof.
 
-- [ ] **Step 3: Update reflect skill**
+- [x] **Step 3: Update reflect skill**
 
 Add guidance:
 
@@ -714,7 +714,7 @@ Add guidance:
 - Include counter-evidence and negative preconditions.
 - Use runtime usage summaries as input but require explicit final judgment.
 
-- [ ] **Step 4: Update maintain skill**
+- [x] **Step 4: Update maintain skill**
 
 Add guidance:
 
@@ -725,7 +725,7 @@ Add guidance:
   4. log signal review
   5. merge/stale/archive actions
 
-- [ ] **Step 5: Verify docs**
+- [x] **Step 5: Verify docs**
 
 Run:
 
@@ -735,7 +735,7 @@ rg -n "experience_maturity|counter_evidence|log_signal|graph_signal" skills docs
 git diff --check
 ```
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add skills docs README.md gitlog.md

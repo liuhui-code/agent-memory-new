@@ -64,11 +64,14 @@ When the user asks to clean, organize, review, or govern memory:
 
 1. Run `doctor`.
 2. Run `maintain-health --json`.
-3. Run `maintain-plan --json`.
-4. Present grouped actions to the user by risk and type, including open query misses.
-5. Wait for confirmation before executing `maintain-status`, `maintain-merge`, or `maintain-promote`.
-6. After confirmed changes, run `vault-export`.
-7. Treat the vault as a bounded human-readable mirror on large archives. If a generated page says it is truncated, continue full inspection through runtime JSON or direct SQLite-backed commands rather than assuming the vault contains every row.
+3. Inspect `graph_quality`, then `graph_signal_quality`, then `runtime_performance`.
+4. If golden cases exist and the task touched ranking, query, graph, or log behavior, run `eval-retrieval`, `eval-calibration`, or `eval-log-signal`.
+5. Run `maintain-plan --json`.
+6. Review maturity, counter-evidence, weak evidence chains, log signal, stale, merge, and archive actions in that order.
+7. Present grouped actions to the user by risk and type, including open query misses.
+8. Wait for confirmation before executing `maintain-status`, `maintain-merge`, or `maintain-promote`.
+9. After confirmed changes, run `vault-export`.
+10. Treat the vault as a bounded human-readable mirror on large archives. If a generated page says it is truncated, continue full inspection through runtime JSON or direct SQLite-backed commands rather than assuming the vault contains every row.
 
 If an action has `command: null`, draft the needed replacement fact or lesson first, then ask for confirmation.
 

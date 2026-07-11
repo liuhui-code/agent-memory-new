@@ -2942,3 +2942,35 @@ Verification:
 Rollback notes:
 
 - Remove `eval-log-signal`, remove retrieval eval top/noise metrics, and revert tests/docs if the additional gates are too strict.
+
+## 2026-07-11 - Update skills for quality-guided memory use
+
+Files touched:
+
+- `skills/agent-memory-learn/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `README.md`
+- `docs/superpowers/plans/2026-07-11-experience-quality-and-graph-signal-roadmap.md`
+- `gitlog.md`
+
+What changed:
+
+- Updated learn skill guidance to inspect semantic, graph, and graph-signal quality after learning.
+- Updated maintain workflow order to run health, signal review, eval gates, maintain-plan, and then confirmed mutations.
+- Added README summary of retrieval, trust, log signal, and graph signal gates.
+
+Why:
+
+- The four public skills need to consume the new quality signals consistently without adding a fifth user-facing skill.
+- Operators need a clear order for quality checks so maintenance stays narrow and evidence-driven.
+
+Verification:
+
+- Command: `rg -n "experience_maturity|counter_evidence|log_signal|graph_signal" skills docs README.md`
+- Result: matches expected skill and documentation guidance.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Revert these docs/skill edits if the operator workflow needs a different ordering.

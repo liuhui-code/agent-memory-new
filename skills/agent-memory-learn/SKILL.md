@@ -86,6 +86,14 @@ Read `recommended_next_action` first. When it is `run_learn_business_now`, conti
 - file-level `priority_score` and `priority_reasons`: why a file is ahead of other semantic work
 - `hint_terms` and `hint_context`: retrieval-oriented anchors the Agent should reuse when writing `business_terms` and `business_summary`
 
+After learning, inspect quality before broad querying:
+
+1. Read `parse_stats`, `semantic_stats`, `semantic_gaps`, and `semantic_followup`.
+2. Prefer the returned `learn-business` payload template over broad relearning.
+3. Preserve existing non-empty business semantics unless the task is explicitly a correction.
+4. Run `maintain-health --json` when learning changed a meaningful scope, then inspect `graph_quality` and `graph_signal_quality`.
+5. If `graph_signal_quality.top_repair_targets` points to weak code logs, enrich the exact log business fields or source logging fields before adding unrelated memory.
+
 ## Entry File
 
 When the user names an entry file:
