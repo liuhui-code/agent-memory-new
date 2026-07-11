@@ -37,6 +37,10 @@ from agent_memory_runtime.governance import (
     mark_stale,
     reflect_review,
 )
+from agent_memory_runtime.incident_trace import (
+    incident_trace_command,
+    incident_trace_status,
+)
 from agent_memory_runtime.models import (
     Project,
     REQUIRED_TABLES,
@@ -733,6 +737,8 @@ def main(argv: list[str] | None = None) -> int:
             "list_records": list_records,
             "miss_list": miss_list,
             "miss_status": miss_status,
+            "incident_trace_command": incident_trace_command,
+            "incident_trace_status": incident_trace_status,
             "conflict_status": conflict_status,
             "conflict_apply": conflict_apply,
             "mark_stale": mark_stale,

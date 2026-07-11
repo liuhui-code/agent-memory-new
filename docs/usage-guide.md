@@ -791,3 +791,17 @@ agent-memory-maintain performs heavier review, merge, stale, promote, and export
 ```
 
 Do not run duplicate detection, promotion, or vault dashboard generation on every query.
+
+## 10. ArkTS Incident Trace
+
+When the user provides a symptom plus temporary runtime logs, store only a compact trace:
+
+```bash
+python tools/agent_memory.py incident-trace \
+  --project . \
+  --symptom "页面跳转后白屏" \
+  --log-text "router.pushUrl failed for ProfileDetail" \
+  --json
+```
+
+`incident-trace` records the ArkTS scene, short log excerpt, dominant events, matched code log anchors, and candidate chain. It does not store the full raw log stream. Later `context` or `search` calls may return `incident_trace_matches`; maintain can review resolved traces and suggest a reflection payload with `source_cases: ["incident_trace:<id>"]`.

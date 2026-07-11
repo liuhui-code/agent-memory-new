@@ -521,6 +521,17 @@ memory_edges_total
 Agents should use these counts to detect narrow or failed learning scopes before relying on the codebase wiki.
 When the learned files still lack business semantics, `learn-entry --json` and `learn-path --json` also include `semantic_followup` with a second-pass `learn-business` template scoped to the files just indexed.
 
+# 4.5 ArkTS Incident Trace Path
+
+Use `incident-trace` when the user provides a symptom and temporary runtime log evidence:
+
+```bash
+python tools/agent_memory.py incident-trace --project . --symptom "页面跳转后白屏" --log-text "router.pushUrl failed for ProfileDetail" --json
+python tools/agent_memory.py incident-trace --project . --symptom "页面跳转后白屏" --log-file /tmp/runtime.log --json
+```
+
+The command stores only compact trace fields. It does not persist the full raw log stream. Query commands may return `incident_trace_matches`, and `maintain-plan` may return `promote_incident_trace_to_reflection` or `review_log_anchor_gap`.
+
 # 5. Reflection Quality Path
 
 Reflection quality belongs to `agent-memory-reflect` and is reviewed through:

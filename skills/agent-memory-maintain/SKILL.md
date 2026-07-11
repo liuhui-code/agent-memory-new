@@ -258,6 +258,13 @@ python tools/agent_memory.py miss-status \
 
 Open misses are merged by normalized query text. Use `miss_count` and `last_seen_at` to prioritize recurring retrieval gaps before one-off misses.
 
+Incident trace review actions can appear in `maintain-plan`:
+
+- `promote_incident_trace_to_reflection`: a resolved trace has code anchors and can be reviewed as a diagnosis reflection.
+- `review_log_anchor_gap`: a trace contains runtime log evidence but did not match learned code log anchors.
+
+Do not promote a trace automatically. Check current source and logs, then run `agent-memory-reflect` with the returned `reflection_payload_template` if the trace is reusable.
+
 ## Refresh Indexes
 
 ```bash
@@ -288,4 +295,4 @@ Rules:
 - Treat `promote_experience_candidate` as a review signal, not an automatic promotion.
 - Treat `review_query_miss` actions as low-risk signals that may require learning a missing path, adding business terms, rewriting a reflection, or ignoring noise.
 - Treat `add_business_terms` actions as targeted enrichment work; prefer patching the listed semantic gaps over re-indexing large code scopes.
-- Vault export includes generated code log statement, memory edge, query miss, semantic conflict, reflection quality, and experience candidate pages for review.
+- Vault export includes generated code log statement, memory edge, incident trace, query miss, semantic conflict, reflection quality, and experience candidate pages for review.

@@ -158,6 +158,19 @@ The ArkTS edges connect learned pages/components to imported project files, rout
 
 Query commands do not recursively traverse `memory_edges`. The fast path only returns allowed one-hop relations, currently `contains`, `emits_log`, `imports`, `routes_to`, and `uses_resource`, with hard output limits. Heavier network health checks belong to maintain commands.
 
+`incident_traces` store compact ArkTS incident summaries produced from a symptom plus bounded runtime log text:
+
+- `trace_key`: stable dedupe key from symptom, scene, dominant log event, and top code anchor.
+- `status`: `open`, `diagnosed`, `resolved`, `stale`, or `ignored`.
+- `symptom`: user-facing issue description.
+- `arkts_scene`: `route`, `resource`, `network`, `permission`, `ability`, `state`, or `unknown`.
+- `entry_log_text`: short bounded log excerpt, never the full raw log stream.
+- `dominant_log_events`: JSON list of compact log events.
+- `suspected_chain`: JSON list of candidate diagnosis chain steps.
+- `resolution`: reviewed fix or closure summary.
+
+`incident_trace_links` connect a trace to code memory anchors such as `code_log_statement`, `code_file`, `code_symbol`, or `memory_edge`. Relations include `matched_log`, `followup_target`, `suspected_cause`, and later reviewed variants.
+
 ## Staleness
 
 `semantic_facts` and `reflections` include `is_stale` for backwards compatibility. New governance commands also set `status = 'stale'`. Stale records are excluded from `context` by default.

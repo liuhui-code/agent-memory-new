@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from .code_wiki import semantic_followup_from_db
+from .incident_trace_governance import build_incident_trace_actions
 from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE_POOL_LIMIT, VALID_MEMORY_STATUSES
 from .query import collect_matches, infer_followup_focus, rank_followup_seed_terms, suggested_followup_terms
 from .records import output, parse_ids, row_dict, table_for_type
@@ -2062,6 +2063,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     recurring_incident_fingerprint_candidates = build_recurring_incident_fingerprint_candidates(project, review["unreviewed_reflections"])
     retrieval_interference_candidates = build_retrieval_interference_candidates(active_reflection_rows(project), args.limit)
     experience_conflict_candidates = build_experience_conflict_candidates(active_reflection_rows(project), args.limit)
+    incident_trace_actions = build_incident_trace_actions(project, args.limit)
     actions: list[dict[str, Any]] = []
 
     for row in review["stale_memories"]:
@@ -2223,6 +2225,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
 
     actions.extend(retrieval_interference_candidates)
     actions.extend(experience_conflict_candidates)
+    actions.extend(incident_trace_actions)
 
     for candidate in build_skill_pattern_candidates(project, review["unreviewed_reflections"]):
         candidate = annotate_skill_pattern_artifacts(project.root, candidate)
@@ -2456,6 +2459,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "semantic_patch_reviews": len(semantic_patch_rows),
         "retrieval_interference_reviews": len(retrieval_interference_candidates),
         "experience_conflict_reviews": len(experience_conflict_candidates),
+        "incident_trace_reviews": len(incident_trace_actions),
     }
 
     data = {
@@ -2477,6 +2481,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "semantic_patch_reviews": len(semantic_patch_rows),
             "retrieval_interference_reviews": len(retrieval_interference_candidates),
             "experience_conflict_reviews": len(experience_conflict_candidates),
+            "incident_trace_reviews": len(incident_trace_actions),
         },
         "governance_summary": governance_summary,
         "learn_governance_summary": learn_governance_summary,

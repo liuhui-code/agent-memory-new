@@ -2038,8 +2038,94 @@ Why:
 Verification:
 
 - Command: `git diff --check`
-- Result: pending
+- Result: passes after implementation and documentation updates.
 
 Rollback notes:
 
 - Remove `README.zh-CN.md` and the README link if the project later consolidates documentation back into a single-language README.
+
+## 2026-07-11 - Plan ArkTS incident trace implementation
+
+Files touched:
+
+- `docs/superpowers/plans/2026-07-11-arkts-incident-trace.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a detailed implementation plan for a small ArkTS Incident Trace layer.
+- The plan keeps the existing four-skill interface and `tools/agent_memory.py` runtime boundary.
+- It defines a lightweight SQLite schema for `incident_traces` and `incident_trace_links`.
+- It splits implementation across focused files so new incident trace modules and tests stay under 500 lines.
+- It includes staged TDD tasks for schema, trace building, CLI commands, query integration, maintain governance, vault export, docs, and verification.
+
+Why:
+
+- The project already has code log anchors, memory edges, runtime-log-backed reflections, incident strategy candidates, and recurring fingerprints.
+- The missing layer is a compact incident trace that preserves useful diagnosis evidence without storing raw user log streams.
+- The plan gives future implementers a bounded path that supports long-term evolution without turning the runtime into a heavy log platform.
+
+Verification:
+
+- Command: `git diff --check`
+- Result: pending
+
+Rollback notes:
+
+- Remove the plan document if ArkTS incident trace work is deferred or replaced by a broader incident diagnosis design.
+
+## 2026-07-11 - Implement ArkTS incident traces
+
+Files touched:
+
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/storage.py`
+- `tools/agent_memory_runtime/records.py`
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/vault.py`
+- `tools/agent_memory_runtime/incident_trace_models.py`
+- `tools/agent_memory_runtime/incident_trace_schema.py`
+- `tools/agent_memory_runtime/incident_trace_builder.py`
+- `tools/agent_memory_runtime/incident_trace.py`
+- `tools/agent_memory_runtime/incident_trace_query.py`
+- `tools/agent_memory_runtime/incident_trace_governance.py`
+- `tests/test_incident_trace.py`
+- `references/schema.md`
+- `docs/code-log-statement-network.md`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `skills/agent-memory-reflect/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added `incident_traces` and `incident_trace_links` with FTS support.
+- Added `incident-trace` and `incident-trace-status` runtime commands.
+- Added deterministic ArkTS scene classification and compact trace draft building from symptom plus bounded log text.
+- Added `incident_trace_matches` to query/context output.
+- Added maintain-plan trace actions for promotion review and log-anchor gaps.
+- Added vault pages for incident traces and trace review.
+
+Why:
+
+- ArkTS issue diagnosis often starts from user symptoms and temporary runtime logs.
+- The runtime now preserves useful diagnosis evidence without storing full raw logs or adding a fifth skill.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_incident_trace`
+- Result: 10 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests`
+- Result: 121 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+- Command: `wc -l tools/agent_memory_runtime/incident_trace*.py tests/test_incident_trace.py`
+- Result: all new incident trace implementation and test files stay below 500 lines.
+
+Rollback notes:
+
+- Remove incident trace modules, schema hook, CLI registration, query lane, maintain actions, vault pages, and docs if trace storage proves too noisy.

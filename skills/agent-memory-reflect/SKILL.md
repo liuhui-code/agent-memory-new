@@ -289,6 +289,7 @@ Rules:
 - Include `negative_preconditions` so similar-looking but different problems do not inherit the wrong rule.
 - Include `verification_method` so future Agents know how to check the candidate against current source, logs, tests, or code wiki evidence.
 - Include `source_cases` with episode ids, reflection ids, files, logs, routes, resources, or commands that support the candidate.
+- When a diagnosis came from an ArkTS incident trace, include `incident_trace:<id>` in `source_cases`.
 - Include `reuse_feedback` when a previous reflection or candidate helped, partly helped, misled, or was unused.
 - Include `skill_candidate` when the reflection looks like a reusable process template, but do not generate a new skill automatically.
 - Do not store secrets, credentials, or private tokens.

@@ -114,6 +114,8 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
             "learn-scope",
             "reflection-reuse",
             "semantic-conflict",
+            "incident-trace",
+            "incident-trace-link",
         ],
     )
     p.add_argument("--limit", type=int, default=50)
@@ -133,6 +135,22 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--status", required=True, choices=["open", "reviewed", "resolved", "ignored"])
     p.add_argument("--resolution")
     p.set_defaults(func=command("miss_status"))
+
+    p = sub.add_parser("incident-trace")
+    add_project(p)
+    p.add_argument("--symptom", required=True)
+    p.add_argument("--log-text")
+    p.add_argument("--log-file")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("incident_trace_command"))
+
+    p = sub.add_parser("incident-trace-status")
+    add_project(p)
+    p.add_argument("--id", required=True, type=int)
+    p.add_argument("--status", required=True, choices=["open", "diagnosed", "resolved", "stale", "ignored"])
+    p.add_argument("--resolution")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("incident_trace_status"))
 
     p = sub.add_parser("conflict-status")
     add_project(p)

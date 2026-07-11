@@ -111,6 +111,7 @@ memory_intent and retrieval_lanes
   -> code wiki and business semantics
   -> semantic_patch_notes for anchored business meaning repair
   -> code log matches
+  -> incident_trace_matches for prior compact ArkTS diagnosis traces
   -> bounded memory_edges and evidence_chains
   -> episodes
 ```
@@ -143,4 +144,5 @@ Rules:
 - For bug diagnosis, use the diagnosis template to query memory recursively as the problem frame changes.
 - For design/change planning, use the change design template to query memory recursively as the proposed plan changes.
 - If a log statement matches, use related edges to refine the next query with the file path, function name, and message template.
+- If `incident_trace_matches` appears, treat it as prior diagnosis evidence. Verify its linked code/log anchors against current source before following the suspected chain.
 - Do not ask the runtime for unbounded graph traversal. Recursive investigation should happen by issuing a sharper follow-up query.

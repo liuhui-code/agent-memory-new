@@ -76,11 +76,29 @@ For ArkTS, the same bounded network also connects learned `.ets` files through p
 
 If no result set matches, query miss recording still works normally.
 
+## ArkTS Incident Traces
+
+`incident-trace` compresses a temporary symptom and runtime log excerpt into `incident_traces` and `incident_trace_links`:
+
+```bash
+python tools/agent_memory.py incident-trace \
+  --project . \
+  --symptom "页面跳转后白屏" \
+  --log-text "router.pushUrl failed for ProfileDetail" \
+  --json
+```
+
+The command does not persist full raw logs. It stores a short `entry_log_text`, dominant log events, the ArkTS scene, matched code log anchors, and a compact candidate chain.
+
+`context` and `search` can then return `incident_trace_matches` beside `code_log_matches` and `edge_matches`.
+
 ## Obsidian Mirror
 
 `vault-export` writes:
 
 - `Codebase Wiki/log-statements.md`
 - `Codebase Wiki/memory-edges.md`
+- `Codebase Wiki/incident-traces.md`
+- `Governance/Incident Trace Review.md`
 
 These files are generated mirrors. Edit memory through the runtime and skills, not by editing vault files.

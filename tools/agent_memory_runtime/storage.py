@@ -9,6 +9,7 @@ import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .incident_trace_schema import create_incident_trace_schema
 from .models import (
     CODE_BUSINESS_COLUMNS,
     GOVERNANCE_COLUMNS,
@@ -282,6 +283,7 @@ def create_schema(conn: sqlite3.Connection) -> None:
         ON learn_scopes(project_id, scope_key);
         """
     )
+    create_incident_trace_schema(conn)
     migrate_schema(conn)
     create_post_migration_indexes(conn)
     create_search_schema(conn)

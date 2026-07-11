@@ -125,6 +125,10 @@ def vault_export(args: argparse.Namespace) -> None:
             "SELECT * FROM semantic_conflicts WHERE project_id = ? ORDER BY observed_at DESC, id DESC",
             (project.project_id,),
         ).fetchall()
+        incident_traces = conn.execute(
+            "SELECT * FROM incident_traces WHERE project_id = ? ORDER BY updated_at DESC, id DESC",
+            (project.project_id,),
+        ).fetchall()
 
     exported_episodes = episodes[:VAULT_EPISODE_EXPORT_LIMIT]
     exported_reflections = reflections[:VAULT_REFLECTION_EXPORT_LIMIT]
@@ -266,8 +270,32 @@ def vault_export(args: argparse.Namespace) -> None:
     write_vault_file(daily, daily_content)
 
     write_governance_dashboard(project, facts, reflections, episodes, query_misses, reflection_reuse_events, semantic_conflicts)
+    write_incident_trace_vault_pages(project, incident_traces)
     vault_index(args)
     print(f"vault exported to {project.vault_dir}")
+
+
+def write_incident_trace_vault_pages(project: Project, incident_traces: list[sqlite3.Row]) -> None:
+    header = frontmatter("codebase-wiki", project, now_iso())
+    notice = "This file is generated. Edit memory through agent-memory-maintain or runtime commands.\n\n"
+    rows = [row_dict(row) for row in incident_traces]
+    wiki_doc = header + "# Incident Traces\n\n" + notice
+    wiki_doc += "These are compact ArkTS incident summaries. Raw runtime logs are not persisted here.\n\n"
+    for row in rows[:50]:
+        wiki_doc += f"- trace #{row['id']} ({row['status']}, {row['arkts_scene']}): {row['symptom']}\n"
+        if row.get("normalized_error"):
+            wiki_doc += f"  - event: {row['normalized_error']}\n"
+        if row.get("resolution"):
+            wiki_doc += f"  - resolution: {row['resolution']}\n"
+    write_vault_file(project.vault_dir / "Codebase Wiki" / "incident-traces.md", wiki_doc)
+
+    review_doc = frontmatter("governance", project, now_iso()) + "# Incident Trace Review\n\n" + notice
+    for row in rows[:50]:
+        if row.get("status") in {"stale", "ignored"}:
+            continue
+        review_doc += f"- trace #{row['id']} ({row['status']}, {row['arkts_scene']}): {row['symptom']}\n"
+        review_doc += "  - review: resolve, ignore, mark stale, or promote to reflection after source verification\n"
+    write_vault_file(project.vault_dir / "Governance" / "Incident Trace Review.md", review_doc)
 
 
 def write_governance_dashboard(
@@ -693,6 +721,7 @@ def vault_index(args: argparse.Namespace) -> None:
     content += "- [[Codebase Wiki/symbols]]\n"
     content += "- [[Codebase Wiki/log-statements]]\n"
     content += "- [[Codebase Wiki/memory-edges]]\n"
+    content += "- [[Codebase Wiki/incident-traces]]\n"
     content += "- [[Codebase Wiki/query-misses]]\n"
     content += "\n## Governance\n\n"
     content += "- [[Governance/Health]]\n"
@@ -704,6 +733,7 @@ def vault_index(args: argparse.Namespace) -> None:
     content += "- [[Governance/Experience Candidates]]\n"
     content += "- [[Governance/Skill Pattern Candidates]]\n"
     content += "- [[Governance/Incident Strategy Candidates]]\n"
+    content += "- [[Governance/Incident Trace Review]]\n"
     content += "- [[Governance/Recurring Incident Fingerprints]]\n"
     content += "- [[Governance/Learned Scopes]]\n"
     content += "- [[Governance/Refresh Drift]]\n"

@@ -14,6 +14,8 @@ from .models import (
     QUERY_FTS_RECALL_LIMITS,
     QUERY_ALLOWED_EDGE_RELATIONS,
 )
+from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT, INCIDENT_TRACE_SEARCH_LIMIT
+from .incident_trace_query import collect_incident_trace_matches
 from .records import memory_warning, row_dict
 from .storage import connect, now_iso
 from .text import code_search_terms, json_list, query_tokens, score_weighted_fields, tokenize, unique_list
@@ -25,6 +27,7 @@ SEARCH_RESULT_LIMITS = {
     "wiki_matches": 20,
     "code_log_matches": 20,
     "edge_matches": 10,
+    "incident_trace_matches": 10,
 }
 
 CONTEXT_RESULT_LIMITS = {
@@ -34,6 +37,7 @@ CONTEXT_RESULT_LIMITS = {
     "wiki_matches": 5,
     "code_log_matches": 5,
     "edge_matches": 10,
+    "incident_trace_matches": 5,
 }
 
 BATCHED_EDGE_TARGET_SIZE = 200
@@ -207,6 +211,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
         "wiki_matches": [],
         "code_log_matches": [],
         "edge_matches": [],
+        "incident_trace_matches": [],
     }
     with connect(project) as conn:
         semantic = fetch_rows_by_ids(
@@ -248,6 +253,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             project,
             recall_candidate_ids(conn, project, "code_log_statements", query, QUERY_FTS_RECALL_LIMITS["code_log_statements"]),
         )
+    results["incident_trace_matches"] = collect_incident_trace_matches(project, query, INCIDENT_TRACE_SEARCH_LIMIT)
 
     for row in semantic:
         score, reasons = score_weighted_fields(
@@ -1082,6 +1088,7 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "wiki_matches": bounded["wiki_matches"],
         "code_log_matches": bounded["code_log_matches"],
         "edge_matches": bounded["edge_matches"],
+        "incident_trace_matches": bounded["incident_trace_matches"][:INCIDENT_TRACE_QUERY_LIMIT],
         "correction_guards": gated["correction_guards"],
         "semantic_patch_notes": gated["semantic_patch_notes"],
         "blocked_memory_notes": gated["blocked_memory_notes"],
