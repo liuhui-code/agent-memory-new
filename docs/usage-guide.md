@@ -305,6 +305,11 @@ The runtime also keeps bounded performance samples in `runtime/performance_sampl
 - high-value records are better candidates for reuse, promotion review, or future skill-pattern clustering;
 - a high score does not override current source code, current user instructions, or explicit conflict signals.
 Query outputs may also include `quality_score`, `quality_band`, `quality_reasons`, and `rerank_score` on semantic and reflection matches. Prefer higher-quality matches when several records point in the same direction, but still obey `memory_intent`, `correction_guards`, `semantic_patch_notes`, `blocked_memory_notes`, and current source code.
+`maintain-plan --json` may turn those scores into two confirmable actions:
+
+- `review_low_quality_memory`: inspect the record, then choose a narrow fix such as source verification, trigger tightening, confidence lowering, stale marking, or merge review.
+- `review_high_value_experience`: prioritize the experience for reuse, skill-pattern review, semantic-repair review, or promotion review. Do not promote it automatically.
+
 After repeated runtime-log-backed diagnosis, `maintain-plan --json` may also return:
 
 - `review_incident_strategy_candidate`

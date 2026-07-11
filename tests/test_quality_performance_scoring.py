@@ -179,3 +179,57 @@ class QualityPerformanceScoringTests(unittest.TestCase):
         self.assertEqual(data["reflections"][0]["id"], 2)
         self.assertGreater(data["reflections"][0]["quality_score"], data["reflections"][1]["quality_score"])
         self.assertGreater(data["reflections"][0]["rerank_score"], data["reflections"][1]["rerank_score"])
+
+    def test_maintain_plan_adds_low_quality_memory_review_action(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            self.run_memory(
+                project,
+                "update",
+                "--type",
+                "semantic",
+                "--fact",
+                "Old unverified ArkTS route guess",
+                "--source",
+                "unknown",
+                "--confidence",
+                "0.1",
+            )
+            result = self.run_memory(project, "maintain-plan", "--json")
+            data = json.loads(result.stdout)
+
+        actions = [action for action in data["actions"] if action["action"] == "review_low_quality_memory"]
+        self.assertEqual(1, len(actions))
+        self.assertEqual("semantic", actions[0]["type"])
+        self.assertEqual(1, actions[0]["id"])
+        self.assertIn("mark_stale", actions[0]["suggested_actions"])
+        self.assertEqual(1, data["governance_summary"]["low_quality_memory_reviews"])
+
+    def test_maintain_plan_adds_high_value_experience_review_action(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            payload = {
+                "experience_type": "procedure_experience",
+                "task": "Diagnose ArkTS route blank screen",
+                "summary": "Route target mismatch was found through incident trace.",
+                "lesson": "When ArkTS navigation opens a blank page, inspect router.pushUrl target and page registration first.",
+                "trigger_condition": "ArkTS route blank screen",
+                "repair_action": "inspect router.pushUrl target",
+                "verification_method": "ran targeted route test",
+                "source_cases": ["incident_trace:1"],
+                "reuse_feedback": "reused successfully",
+                "confidence": 0.9,
+            }
+
+            self.run_memory(project, "reflect", "--payload", json.dumps(payload))
+            result = self.run_memory(project, "maintain-plan", "--json")
+            data = json.loads(result.stdout)
+
+        actions = [action for action in data["actions"] if action["action"] == "review_high_value_experience"]
+        self.assertEqual(1, len(actions))
+        self.assertEqual("reflection", actions[0]["type"])
+        self.assertEqual("procedure_experience", actions[0]["experience_type"])
+        self.assertIn("review_for_skill_pattern", actions[0]["suggested_actions"])
+        self.assertEqual(1, data["governance_summary"]["high_value_experience_reviews"])

@@ -2211,3 +2211,45 @@ Verification:
 Rollback notes:
 
 - Remove quality fields and `rerank_score` from `query.py`, revert the query skill/runtime docs, and keep scoring limited to maintain outputs if query reranking proves too opinionated.
+
+## 2026-07-11 - Add quality-driven maintain actions
+
+Files touched:
+
+- `docs/superpowers/plans/2026-07-11-quality-governance-actions.md`
+- `tools/agent_memory_runtime/quality_scoring.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_quality_performance_scoring.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a bounded implementation plan for quality-score-driven governance actions.
+- Added `review_low_quality_memory` actions for low-quality semantic, reflection, and incident trace records.
+- Added `review_high_value_experience` actions for high-quality reflection/experience records.
+- Added maintain-plan summary counters for low-quality memory reviews and high-value experience reviews.
+- Treated `manual` and `unknown` semantic fact sources as weak evidence unless an explicit evidence field is present.
+
+Why:
+
+- Quality scoring should drive review order and governance decisions, not just appear as passive metadata.
+- Weak memory needs an explicit path toward verification, confidence reduction, stale marking, or merge review.
+- Strong experience needs a clear path toward reuse, skill-pattern review, or semantic-repair review without automatic promotion.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_performance_scoring.QualityPerformanceScoringTests.test_maintain_plan_adds_low_quality_memory_review_action tests.test_quality_performance_scoring.QualityPerformanceScoringTests.test_maintain_plan_adds_high_value_experience_review_action`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_performance_scoring`
+- Result: 8 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace`
+- Result: 131 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+
+Rollback notes:
+
+- Remove `build_quality_governance_actions`, drop the maintain-plan counters, revert the scoring evidence tweak, and remove the action docs/tests if these actions become noisy.

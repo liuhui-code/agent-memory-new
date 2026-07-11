@@ -154,6 +154,13 @@ Governance actions should preserve history. Prefer status transitions over destr
 
 The score is deterministic. It combines retrieval relevance, evidence strength, freshness, conflict safety, reuse success, and governance completeness. It is an advisory governance signal, not an automatic promotion or deletion decision.
 
+Quality scores now feed two read-only governance actions:
+
+- `review_low_quality_memory`: emitted when a semantic fact, reflection, or incident trace falls below the quality threshold. Suggested follow-ups include source verification, confidence lowering, stale marking, duplicate merge review, or tighter trigger conditions.
+- `review_high_value_experience`: emitted when a reflection/experience has enough evidence, freshness, and reuse signal to deserve prioritized review. Procedure experiences route toward skill-evolution review; correction and semantic-patch experiences route toward learn-semantic-repair review.
+
+Both actions require confirmation. They are review priorities, not automatic mutations.
+
 `context` and `search` also attach quality hints to semantic and reflection matches. Reflection matches use `quality_score` inside the existing memory-lane gate to produce `rerank_score`; this lets verified, evidence-backed experience outrank broad or misleading experience after the intent gate has already decided the record belongs in the main lane. The rerank is deliberately soft: it does not make stale, blocked, correction-only, or semantic-patch-only records bypass their lane rules.
 
 `maintain-health --json` includes `runtime_performance`, a summary built from bounded samples in `runtime/performance_samples.jsonl`. Samples track operation name, elapsed milliseconds, result counts, token estimate, database size, status, and a performance score. This is runtime telemetry for local maintenance only; it is not a durable memory record and should be treated as disposable.

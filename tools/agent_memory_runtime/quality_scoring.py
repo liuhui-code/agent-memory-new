@@ -87,16 +87,18 @@ def reflection_reasons(
 def score_semantic_quality(row: dict[str, Any]) -> dict[str, Any]:
     is_stale = boolish(row.get("is_stale")) or str(row.get("status") or "active") == "stale"
     confidence = confidence_value(row)
+    source = str(row.get("source") or "").strip().lower()
+    grounded_source = bool(source and source not in {"manual", "unknown"})
     parts = {
         "retrieval_relevance": 0.75 if value_present(row, "category") or value_present(row, "scope") else 0.55,
-        "evidence_strength": min(1.0, 0.45 + (0.25 if value_present(row, "source") else 0) + (0.25 if value_present(row, "evidence") else 0)),
+        "evidence_strength": min(1.0, 0.25 + (0.25 if grounded_source else 0) + (0.3 if value_present(row, "evidence") else 0)),
         "freshness": 0.2 if is_stale else confidence,
         "conflict_safety": 0.85,
         "reuse_success": 0.5,
-        "governance_completeness": min(1.0, 0.45 + (0.25 if value_present(row, "scope") else 0) + (0.2 if value_present(row, "fact") else 0)),
+        "governance_completeness": min(1.0, 0.4 + (0.25 if value_present(row, "scope") else 0) + (0.2 if value_present(row, "fact") else 0)),
     }
     score = weighted_score(parts, QUALITY_WEIGHTS)
-    reasons = ["has source"] if value_present(row, "source") else ["missing source detail"]
+    reasons = ["has grounded source"] if grounded_source else ["missing grounded source"]
     if value_present(row, "evidence"):
         reasons.append("has evidence")
     return quality_payload("semantic", row, score, parts, reasons)
@@ -139,6 +141,9 @@ def quality_payload(
         "score_parts": {key: clamp_score(value) for key, value in parts.items()},
         "reasons": reasons,
         "recommended_action": recommended_action(score, row),
+        "experience_type": row.get("experience_type"),
+        "confidence": row.get("confidence"),
+        "status": row.get("status") or "active",
     }
 
 

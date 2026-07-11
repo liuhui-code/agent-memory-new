@@ -2091,6 +2091,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         quality_reflection_rows,
         fetch_incident_trace_quality_rows(project, args.limit),
     )
+    quality_governance_actions = build_quality_governance_actions(quality_report)
     actions: list[dict[str, Any]] = []
 
     for row in review["stale_memories"]:
@@ -2253,6 +2254,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(retrieval_interference_candidates)
     actions.extend(experience_conflict_candidates)
     actions.extend(incident_trace_actions)
+    actions.extend(quality_governance_actions)
 
     for candidate in build_skill_pattern_candidates(project, review["unreviewed_reflections"]):
         candidate = annotate_skill_pattern_artifacts(project.root, candidate)
@@ -2487,6 +2489,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "retrieval_interference_reviews": len(retrieval_interference_candidates),
         "experience_conflict_reviews": len(experience_conflict_candidates),
         "incident_trace_reviews": len(incident_trace_actions),
+        "low_quality_memory_reviews": len([action for action in quality_governance_actions if action.get("action") == "review_low_quality_memory"]),
+        "high_value_experience_reviews": len([action for action in quality_governance_actions if action.get("action") == "review_high_value_experience"]),
     }
 
     data = {
@@ -2552,6 +2556,93 @@ def fetch_incident_trace_quality_rows(project: Project, limit: int) -> list[dict
             (project.project_id, limit),
         ).fetchall()
     return [row_dict(row) for row in rows]
+
+
+def build_quality_governance_actions(quality_report: dict[str, Any]) -> list[dict[str, Any]]:
+    actions: list[dict[str, Any]] = []
+    seen: set[tuple[str, str, int]] = set()
+    for item in quality_report.get("low_quality_records", []):
+        record_type = normalize_quality_record_type(item.get("record_type"))
+        record_id = int(item.get("record_id") or 0)
+        if not record_id:
+            continue
+        key = ("review_low_quality_memory", record_type, record_id)
+        if key in seen:
+            continue
+        seen.add(key)
+        actions.append(
+            {
+                "action": "review_low_quality_memory",
+                "governance_lane": "memory_quality",
+                "type": record_type,
+                "id": record_id,
+                "reason": "quality score is below the review threshold",
+                "risk": "medium",
+                "requires_confirmation": True,
+                "command": None,
+                "quality_score": item.get("quality_score"),
+                "quality_band": item.get("quality_band"),
+                "quality_reasons": item.get("reasons") or [],
+                "recommended_action": item.get("recommended_action"),
+                "suggested_actions": low_quality_suggested_actions(record_type),
+            }
+        )
+    for item in quality_report.get("high_value_records", []):
+        if item.get("record_type") != "reflection":
+            continue
+        record_id = int(item.get("record_id") or 0)
+        if not record_id:
+            continue
+        key = ("review_high_value_experience", "reflection", record_id)
+        if key in seen:
+            continue
+        seen.add(key)
+        experience_type = item.get("experience_type") or "procedure_experience"
+        actions.append(
+            {
+                "action": "review_high_value_experience",
+                "governance_lane": high_value_governance_lane(str(experience_type)),
+                "type": "reflection",
+                "id": record_id,
+                "experience_type": experience_type,
+                "reason": "experience has high quality score and is worth prioritized review",
+                "risk": "low",
+                "requires_confirmation": True,
+                "command": None,
+                "quality_score": item.get("quality_score"),
+                "quality_band": item.get("quality_band"),
+                "quality_reasons": item.get("reasons") or [],
+                "suggested_actions": high_value_suggested_actions(str(experience_type)),
+            }
+        )
+    return actions
+
+
+def normalize_quality_record_type(record_type: Any) -> str:
+    if record_type == "incident_trace":
+        return "incident-trace"
+    return str(record_type or "memory")
+
+
+def low_quality_suggested_actions(record_type: str) -> list[str]:
+    actions = ["verify_against_source", "lower_confidence", "mark_stale", "merge_duplicate"]
+    if record_type == "reflection":
+        actions.insert(1, "tighten_trigger_condition")
+    if record_type == "incident-trace":
+        actions.insert(1, "review_trace_evidence")
+    return actions
+
+
+def high_value_governance_lane(experience_type: str) -> str:
+    if experience_type in {"correction_experience", "semantic_patch_experience"}:
+        return "learn_semantic_repair"
+    return "skill_evolution"
+
+
+def high_value_suggested_actions(experience_type: str) -> list[str]:
+    if experience_type in {"correction_experience", "semantic_patch_experience"}:
+        return ["reuse_as_guardrail", "review_for_semantic_repair", "keep_active"]
+    return ["reuse_as_primary_context", "review_for_skill_pattern", "review_for_promotion", "keep_active"]
 
 
 def build_query_miss_data(project: Project, limit: int) -> list[dict[str, Any]]:
