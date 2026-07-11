@@ -2253,3 +2253,45 @@ Verification:
 Rollback notes:
 
 - Remove `build_quality_governance_actions`, drop the maintain-plan counters, revert the scoring evidence tweak, and remove the action docs/tests if these actions become noisy.
+
+## 2026-07-11 - Add retrieval golden-set evaluation
+
+Files touched:
+
+- `docs/superpowers/plans/2026-07-11-memory-retrieval-eval.md`
+- `tools/agent_memory_runtime/retrieval_eval.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory.py`
+- `tests/test_retrieval_eval.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added an executable plan for a lightweight golden-query retrieval eval workflow.
+- Added `eval-retrieval --cases <file> --json`.
+- The eval command reads JSON cases, runs the same `context` path Agents consume, and reports expected hits, missed anchors, blocked bad matches, and unexpected bad matches.
+- Added deterministic match specs by result type, id, text, and optional field.
+
+Why:
+
+- Retrieval quality, experience reranking, code graph extraction, and log graph extraction need a stable regression check before further tuning.
+- Golden cases make weak-related or misleading memory interference measurable instead of anecdotal.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_retrieval_eval`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_retrieval_eval tests.test_quality_performance_scoring`
+- Result: 10 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace`
+- Result: 131 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+
+Rollback notes:
+
+- Remove `retrieval_eval.py`, the `eval-retrieval` CLI wiring, tests, and docs if golden-set evaluation proves too rigid for early iteration.

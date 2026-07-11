@@ -60,6 +60,12 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("context"))
 
+    p = sub.add_parser("eval-retrieval")
+    add_project(p)
+    p.add_argument("--cases", required=True)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("eval_retrieval_command"))
+
     p = sub.add_parser("analyze-runtime-log")
     add_project(p)
     p.add_argument("--query", required=True)

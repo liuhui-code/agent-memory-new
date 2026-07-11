@@ -310,6 +310,14 @@ Query outputs may also include `quality_score`, `quality_band`, `quality_reasons
 - `review_low_quality_memory`: inspect the record, then choose a narrow fix such as source verification, trigger tightening, confidence lowering, stale marking, or merge review.
 - `review_high_value_experience`: prioritize the experience for reuse, skill-pattern review, semantic-repair review, or promotion review. Do not promote it automatically.
 
+Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
+
+```bash
+python tools/agent_memory.py eval-retrieval --project . --cases docs/eval/golden-retrieval.json --json
+```
+
+The eval command reads JSON cases and uses the normal `context` path. `expected` entries define anchors that should appear; `must_not_include` entries define records that should stay out of the named result lane. A failing case is a regression signal for review, not an automatic memory mutation.
+
 After repeated runtime-log-backed diagnosis, `maintain-plan --json` may also return:
 
 - `review_incident_strategy_candidate`

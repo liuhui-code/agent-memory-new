@@ -147,4 +147,5 @@ Rules:
 - If `incident_trace_matches` appears, treat it as prior diagnosis evidence. Verify its linked code/log anchors against current source before following the suspected chain.
 - If maintain output has marked a record low quality, stale, misleading, or conflicting, do not use recency alone to inject it into the main answer. Prefer high-quality, current, evidence-backed records when available.
 - When query/context returns `quality_score` or `rerank_score`, use it only after checking the lane. A high-quality correction guard is still a guardrail, not the main task procedure, unless the query intent is about a correction, conflict, or failure.
+- When evaluating retrieval changes, use `python tools/agent_memory.py eval-retrieval --project . --cases <golden-cases.json> --json` if a golden case file exists. Treat failures as regression evidence to inspect, not as automatic permission to rewrite memory.
 - Do not ask the runtime for unbounded graph traversal. Recursive investigation should happen by issuing a sharper follow-up query.
