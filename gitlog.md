@@ -2857,3 +2857,45 @@ Verification:
 Rollback notes:
 
 - Remove `log_signal_quality.py`, stop enriching runtime events and code log matches with signal fields, and revert related tests/docs if the signal scoring proves too noisy.
+
+## 2026-07-11 - Add graph signal quality governance
+
+Files touched:
+
+- `tools/agent_memory_runtime/graph_quality.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_graph_quality.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `docs/superpowers/plans/2026-07-11-experience-quality-and-graph-signal-roadmap.md`
+- `gitlog.md`
+
+What changed:
+
+- Added `graph_signal_quality` to maintain-health and maintain-plan outputs.
+- Scored whether learned graph anchors are useful for retrieval and diagnosis, not only whether they are structurally connected.
+- Added concrete `top_repair_targets` for weak code-log and symbol anchors.
+- Added `review_graph_signal_quality` maintain-plan action with narrow suggested repairs.
+
+Why:
+
+- A graph can be structurally healthy while still failing to guide diagnosis if anchors lack business semantics or diagnostic log fields.
+- Maintenance should tell the Agent exactly which log or symbol to enrich instead of recommending broad relearning.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_graph_quality`
+- Result: 4 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_graph_quality tests.test_quality_performance_scoring tests.test_log_signal_quality tests.test_retrieval_feedback`
+- Result: 23 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace`
+- Result: 131 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove graph signal helpers/action wiring and revert tests/docs if the extra maintain-plan action becomes noisy.

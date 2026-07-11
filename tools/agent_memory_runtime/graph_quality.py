@@ -4,8 +4,10 @@ from __future__ import annotations
 
 from typing import Any
 
+from .log_signal_quality import score_log_signal
 from .models import Project
 from .storage import connect
+from .text import json_list
 
 
 LOW_CONFIDENCE_EDGE_THRESHOLD = 0.5
@@ -152,3 +154,122 @@ def build_graph_quality_actions(graph_quality: dict[str, Any]) -> list[dict[str,
             ],
         }
     ]
+
+
+def build_graph_signal_quality(project: Project, limit: int = 10) -> dict[str, Any]:
+    graph = build_graph_quality(project)
+    with connect(project) as conn:
+        symbol_rows = [
+            dict(row)
+            for row in conn.execute(
+                """
+                SELECT id, file_path, symbol, summary, business_summary, business_terms
+                FROM code_symbols
+                WHERE project_id = ?
+                ORDER BY id
+                LIMIT ?
+                """,
+                (project.project_id, limit * 3),
+            ).fetchall()
+        ]
+        log_rows = [
+            dict(row)
+            for row in conn.execute(
+                """
+                SELECT id, file_path, line, function, level, logger, message_template,
+                       raw_statement, business_summary, business_terms, business_event,
+                       trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms
+                FROM code_log_statements
+                WHERE project_id = ?
+                ORDER BY id
+                LIMIT ?
+                """,
+                (project.project_id, limit * 3),
+            ).fetchall()
+        ]
+
+    targets: list[dict[str, Any]] = []
+    missing_business = 0
+    missing_log_signal_fields = 0
+
+    for row in log_rows:
+        signal = score_log_signal(row)
+        if not has_business_semantics(row):
+            missing_business += 1
+        if signal["log_signal_band"] != "good":
+            missing_log_signal_fields += len(signal["missing_signals"])
+            targets.append(
+                {
+                    "target_type": "code_log_statement",
+                    "target_id": row["id"],
+                    "file_path": row.get("file_path"),
+                    "function_name": row.get("function"),
+                    "message_template": row.get("message_template"),
+                    "reason": "log statement has weak diagnostic signal",
+                    "log_signal_score": signal["log_signal_score"],
+                    "missing_signals": signal["missing_signals"],
+                    "suggested_fields": signal["suggested_log_fields"],
+                }
+            )
+
+    for row in symbol_rows:
+        if has_business_semantics(row):
+            continue
+        missing_business += 1
+        targets.append(
+            {
+                "target_type": "code_symbol",
+                "target_id": row["id"],
+                "file_path": row.get("file_path"),
+                "function_name": row.get("symbol"),
+                "reason": "symbol lacks business summary or business terms",
+                "suggested_fields": ["business_summary", "business_terms"],
+            }
+        )
+
+    weak_anchor_count = int(graph.get("orphan_code_symbols") or 0) + int(graph.get("orphan_code_logs") or 0)
+    weak_anchor_count += len([target for target in targets if target["target_type"] == "code_log_statement"])
+    targets.sort(key=lambda item: (0 if item["target_type"] == "code_log_statement" else 1, item.get("target_id") or 0))
+    return {
+        "weak_anchor_count": weak_anchor_count,
+        "missing_business_semantics": missing_business,
+        "missing_log_signal_fields": missing_log_signal_fields,
+        "top_repair_targets": targets[:limit],
+        "health_status": graph_signal_health_status(weak_anchor_count, missing_business, missing_log_signal_fields),
+    }
+
+
+def build_graph_signal_quality_actions(graph_signal_quality: dict[str, Any]) -> list[dict[str, Any]]:
+    if graph_signal_quality.get("health_status") == "ok" or not graph_signal_quality.get("top_repair_targets"):
+        return []
+    return [
+        {
+            "action": "review_graph_signal_quality",
+            "governance_lane": "graph_quality",
+            "type": "graph_signal_quality",
+            "id": None,
+            "reason": "code/log graph has weak diagnostic anchors or missing business/log signal fields",
+            "risk": "low",
+            "requires_confirmation": False,
+            "command": None,
+            "graph_signal_quality": graph_signal_quality,
+            "suggested_actions": [
+                "enrich_business_semantics",
+                "add_request_or_session_correlation_to_logs",
+                "add_route_resource_reason_or_result_fields",
+                "rerun_focused_learn_business",
+            ],
+        }
+    ]
+
+
+def graph_signal_health_status(weak_anchor_count: int, missing_business: int, missing_log_signal_fields: int) -> str:
+    if weak_anchor_count == 0 and missing_business == 0 and missing_log_signal_fields == 0:
+        return "ok"
+    if weak_anchor_count > 5 or missing_log_signal_fields > 20:
+        return "poor"
+    return "watch"
+
+
+def has_business_semantics(row: dict[str, Any]) -> bool:
+    return bool(str(row.get("business_summary") or "").strip() or json_list(row.get("business_terms")))

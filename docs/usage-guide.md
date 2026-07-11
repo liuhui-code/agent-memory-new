@@ -325,6 +325,8 @@ When reflections cite incident traces in `source_cases`, for example `incident_t
 
 `maintain-health --json` reports `graph_quality`. If it shows orphan code logs, orphan symbols, stale edges, or poor anchor coverage, prefer a focused `learn-entry` or `learn-path` refresh around the affected source scope before broad re-learning. `review_graph_quality` in `maintain-plan` is a review prompt, not an automatic graph repair.
 
+`maintain-health --json` also reports `graph_signal_quality`. Structural graph health tells you whether anchors and edges exist; signal quality tells you whether those anchors carry enough business/log meaning to help the next Agent. Use `top_repair_targets` as a focused queue for `learn-business` enrichment or source logging improvements.
+
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 
 ```bash

@@ -527,7 +527,7 @@ git commit -m "Add log signal quality scoring"
 - Modify: `tools/agent_memory_runtime/governance.py`
 - Test: `tests/test_graph_quality.py`
 
-- [ ] **Step 1: Add graph signal tests**
+- [x] **Step 1: Add graph signal tests**
 
 Test cases:
 
@@ -541,7 +541,7 @@ Run:
 PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_graph_quality
 ```
 
-- [ ] **Step 2: Implement anchor usefulness scoring**
+- [x] **Step 2: Implement anchor usefulness scoring**
 
 Compute:
 
@@ -563,13 +563,13 @@ Suggested repair target shape:
 }
 ```
 
-- [ ] **Step 3: Add maintain action**
+- [x] **Step 3: Add maintain action**
 
 Add `review_graph_signal_quality` only when targets are concrete.
 
 Do not emit broad actions like "improve graph".
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 Run:
 
@@ -577,7 +577,7 @@ Run:
 PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_graph_quality tests.test_quality_performance_scoring tests.test_retrieval_feedback
 ```
 
-- [ ] **Step 5: Docs and commit**
+- [x] **Step 5: Docs and commit**
 
 Update:
 

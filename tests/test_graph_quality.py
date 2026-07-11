@@ -118,3 +118,37 @@ class GraphQualityTests(unittest.TestCase):
         self.assertEqual(1, len(actions))
         self.assertEqual("graph_quality", actions[0]["type"])
         self.assertEqual(1, data["governance_summary"]["graph_quality_reviews"])
+
+    def test_maintain_health_reports_graph_signal_quality_targets(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            self.run_memory(project, "init")
+            self.seed_graph_quality_fixture(project)
+
+            result = self.run_memory(project, "maintain-health", "--json")
+            data = json.loads(result.stdout)
+
+        signal = data["graph_signal_quality"]
+        self.assertGreaterEqual(signal["weak_anchor_count"], 1)
+        self.assertGreaterEqual(signal["missing_business_semantics"], 1)
+        self.assertGreaterEqual(signal["missing_log_signal_fields"], 1)
+        self.assertTrue(signal["top_repair_targets"])
+        self.assertEqual("code_log_statement", signal["top_repair_targets"][0]["target_type"])
+        self.assertIn("suggested_fields", signal["top_repair_targets"][0])
+
+    def test_maintain_plan_reviews_graph_signal_quality(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            self.run_memory(project, "init")
+            self.seed_graph_quality_fixture(project)
+
+            result = self.run_memory(project, "maintain-plan", "--json")
+            data = json.loads(result.stdout)
+
+        actions = [action for action in data["actions"] if action["action"] == "review_graph_signal_quality"]
+        self.assertEqual(1, len(actions))
+        self.assertEqual("graph_signal_quality", actions[0]["type"])
+        self.assertTrue(actions[0]["graph_signal_quality"]["top_repair_targets"])
+        self.assertEqual(1, data["governance_summary"]["graph_signal_quality_reviews"])

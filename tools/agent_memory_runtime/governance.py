@@ -11,7 +11,12 @@ from typing import Any
 
 from .code_wiki import semantic_followup_from_db
 from .evidence_chain_quality import build_evidence_chain_summary, enrich_reflections_with_evidence_chains
-from .graph_quality import build_graph_quality, build_graph_quality_actions
+from .graph_quality import (
+    build_graph_quality,
+    build_graph_quality_actions,
+    build_graph_signal_quality,
+    build_graph_signal_quality_actions,
+)
 from .incident_trace_governance import build_incident_trace_actions
 from .experience_maturity import score_experience_maturity
 from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE_POOL_LIMIT, VALID_MEMORY_STATUSES
@@ -216,6 +221,7 @@ def maintain_health(args: argparse.Namespace) -> None:
     recurring_incident_fingerprints = build_recurring_incident_fingerprint_candidates(project, reflection_active_rows)
     log_design_gaps = build_log_design_gap_candidates(project, reflection_active_rows)
     graph_quality = build_graph_quality(project)
+    graph_signal_quality = build_graph_signal_quality(project)
 
     duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
     low_confidence_count = low_conf_semantic_count + low_conf_reflection_count
@@ -238,6 +244,8 @@ def maintain_health(args: argparse.Namespace) -> None:
         recommended_actions.append("Review refreshed scope drift and rerun focused learn-business on changed files.")
     if graph_quality["health_status"] != "ok":
         recommended_actions.append("Review code/log graph quality and refresh stale or orphan anchors.")
+    if graph_signal_quality["health_status"] != "ok":
+        recommended_actions.append("Review graph signal quality and enrich weak code/log anchors.")
 
     data = {
         "project_id": project.project_id,
@@ -273,6 +281,7 @@ def maintain_health(args: argparse.Namespace) -> None:
             },
         },
         "graph_quality": graph_quality,
+        "graph_signal_quality": graph_signal_quality,
         "runtime_performance": build_runtime_performance_summary(project),
         "recommended_actions": recommended_actions,
     }
@@ -2096,6 +2105,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
     incident_trace_actions = build_incident_trace_actions(project, args.limit)
     graph_quality = build_graph_quality(project)
     graph_quality_actions = build_graph_quality_actions(graph_quality)
+    graph_signal_quality = build_graph_signal_quality(project)
+    graph_signal_quality_actions = build_graph_signal_quality_actions(graph_signal_quality)
     runtime_performance = build_runtime_performance_summary(project)
     runtime_performance_actions = build_runtime_performance_actions(runtime_performance)
     retrieval_feedback_rows = fetch_open_retrieval_feedback(project, args.limit)
@@ -2277,6 +2288,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(weak_evidence_chain_actions)
     actions.extend(maturity_governance_actions)
     actions.extend(graph_quality_actions)
+    actions.extend(graph_signal_quality_actions)
     actions.extend(runtime_performance_actions)
     actions.extend(retrieval_feedback_actions)
     actions.extend(calibration_feedback_actions)
@@ -2521,6 +2533,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "missing_counter_evidence_reviews": len([action for action in maturity_governance_actions if action.get("action") == "review_missing_counter_evidence"]),
         "maturity_regression_reviews": len([action for action in maturity_governance_actions if action.get("action") == "review_maturity_regression"]),
         "graph_quality_reviews": len(graph_quality_actions),
+        "graph_signal_quality_reviews": len(graph_signal_quality_actions),
         "runtime_performance_reviews": len(runtime_performance_actions),
         "retrieval_feedback_reviews": len(retrieval_feedback_actions),
         "overtrusted_memory_reviews": len([action for action in calibration_feedback_actions if action.get("action") == "review_overtrusted_memory"]),
@@ -2551,6 +2564,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "governance_summary": governance_summary,
         "learn_governance_summary": learn_governance_summary,
         "graph_quality": graph_quality,
+        "graph_signal_quality": graph_signal_quality,
         "runtime_performance": runtime_performance,
         "retrieval_feedback_summary": {
             "open_feedback": len(retrieval_feedback_rows),
