@@ -101,6 +101,7 @@ This command does not ingest raw logs into SQLite. It:
 - extracts lightweight runtime fields such as `error_code`, `route`, `request_id`, `session_id`, and `request_path` when they are present
 - scores those events against code-log anchors and query hints
 - returns bounded evidence slices, `session_candidates`, and a `runtime_episode_candidate`
+- returns `log_signal_summary` and `low_signal_events` so Agents can see whether the temporary runtime evidence has enough timestamp, process, logger, stage, reason, correlation, and route/resource fields for diagnosis
 - includes a lightweight `candidate_chain` and `chain_confidence` inside the runtime episode so downstream reflection can preserve the rough failure sequence
 - returns `log_improvement_suggestions` when the current evidence suggests a few missing high-value branch, start, or correlation logs
 - prepares a `reflect_payload_template` so the diagnosis can be compressed directly into a structured reflection or experience candidate, including correction-oriented fields such as `old_hypothesis`, bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action`
@@ -174,6 +175,8 @@ If an otherwise high-value reflection lacks a grounded chain, `maintain-plan` ma
 `maintain-health --json` also returns `graph_quality` for the learned code/log graph. It reports code files, symbols, log statements, memory edges, orphan symbols/logs, stale edges, low-confidence edges, and symbol/log anchor coverage. `maintain-plan --json` may emit `review_graph_quality` when graph health is `watch` or `poor`. This is a read-only signal to refresh a focused learned scope or inspect stale/orphan anchors; it is not recursive graph traversal.
 
 `context` and `search` also attach quality hints to semantic and reflection matches. Reflection matches use `quality_score` inside the existing memory-lane gate to produce `rerank_score`; this lets verified, evidence-backed experience outrank broad or misleading experience after the intent gate has already decided the record belongs in the main lane. The rerank is deliberately soft: it does not make stale, blocked, correction-only, or semantic-patch-only records bypass their lane rules.
+
+Code log matches include `log_signal_score`, `log_signal_band`, `present_signals`, `missing_signals`, and `suggested_log_fields`. These fields estimate whether a learned log statement is diagnostic enough to anchor future runtime-log analysis. They are derived at query time from existing code-log metadata and message templates; they do not mutate learned code records.
 
 Reflection matches also include `experience_maturity`, `experience_maturity_score`, `maturity_reasons`, and `counter_evidence`. Maturity levels are derived at query time: `raw_observation`, `structured_candidate`, `verified_case`, `reused_pattern`, `skill_candidate`, or `deprecated_pattern`. Trust calibration consumes these fields, but they remain advisory and do not mutate stored reflections.
 

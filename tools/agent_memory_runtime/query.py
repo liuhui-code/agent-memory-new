@@ -17,6 +17,7 @@ from .models import (
 from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT, INCIDENT_TRACE_SEARCH_LIMIT
 from .incident_trace_query import collect_incident_trace_matches
 from .experience_maturity import score_experience_maturity
+from .log_signal_quality import score_log_signal
 from .memory_calibration import calibrate_payload
 from .quality_scoring import score_reflection_quality, score_semantic_quality
 from .records import memory_warning, row_dict
@@ -436,6 +437,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             item["search_terms"] = search_terms
             item["business_terms"] = json_list(row["business_terms"])
             item["match_reasons"] = reasons
+            item.update(score_log_signal(item))
             results["code_log_matches"].append(item)
 
     edge_targets: dict[str, set[int]] = {

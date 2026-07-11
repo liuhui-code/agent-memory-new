@@ -8,6 +8,7 @@ from typing import Any
 
 from .models import Project
 from .query import limited_context
+from .log_signal_quality import build_log_signal_summary, enrich_log_signal, low_signal_events
 from .text import tokenize, unique_list
 
 MAX_MATCHED_EVENTS = 20
@@ -603,9 +604,10 @@ def analyze_runtime_log(
     normalized_events = [normalize_runtime_log_line(line, index) for index, line in enumerate(raw_lines, start=1) if line.strip()]
     context = limited_context(project, query)
     log_search_plan = context.get("log_search_plan") or {}
+    signal_events = [enrich_log_signal(event) for event in normalized_events]
     scored_events = [
         score_runtime_event(event, query, log_search_plan)
-        for event in normalized_events
+        for event in signal_events
     ]
     matched_events = [event for event in scored_events if int(event.get("score") or 0) > 0]
     matched_events.sort(key=lambda item: (int(item.get("score") or 0), -int(item.get("line_number") or 0)), reverse=True)
@@ -625,6 +627,8 @@ def analyze_runtime_log(
         "log_file": str(log_file),
         "log_search_plan": log_search_plan,
         "normalized_event_count": len(normalized_events),
+        "log_signal_summary": build_log_signal_summary(signal_events),
+        "low_signal_events": low_signal_events(signal_events),
         "matched_events": bounded_events,
         "slices": slices,
         "session_candidates": session_candidates,

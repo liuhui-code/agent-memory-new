@@ -2814,3 +2814,46 @@ Verification:
 Rollback notes:
 
 - Remove the `skill_candidate` validation for correction experience and revert the Phase 2 tests/docs if correction records need to temporarily carry promotion hints.
+
+## 2026-07-11 - Add log signal quality scoring
+
+Files touched:
+
+- `tools/agent_memory_runtime/log_signal_quality.py`
+- `tools/agent_memory_runtime/runtime_logs.py`
+- `tools/agent_memory_runtime/query.py`
+- `tests/test_log_signal_quality.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `docs/superpowers/plans/2026-07-11-experience-quality-and-graph-signal-roadmap.md`
+- `gitlog.md`
+
+What changed:
+
+- Added deterministic log signal scoring for runtime events and learned code log matches.
+- Added `log_signal_score`, `log_signal_band`, `present_signals`, `missing_signals`, and `suggested_log_fields`.
+- Added `log_signal_summary` and `low_signal_events` to `analyze-runtime-log` output without persisting raw runtime logs to SQLite.
+- Enriched `code_log_matches` from `context` and `search` with log signal quality fields.
+
+Why:
+
+- Goal-oriented incident diagnosis needs to distinguish useful log evidence from generic matching text.
+- Low-signal logs should become narrow logging improvement guidance instead of misleading the Agent into over-reading weak evidence.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_log_signal_quality`
+- Result: 5 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_log_signal_quality tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace`
+- Result: 141 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_query_quality tests.test_experience_maturity tests.test_memory_calibration tests.test_calibration_feedback`
+- Result: 19 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove `log_signal_quality.py`, stop enriching runtime events and code log matches with signal fields, and revert related tests/docs if the signal scoring proves too noisy.

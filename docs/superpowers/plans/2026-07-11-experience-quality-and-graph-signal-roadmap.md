@@ -431,7 +431,7 @@ git commit -m "Clarify experience recording shapes"
 - Modify: `tools/agent_memory_runtime/query.py`
 - Test: `tests/test_log_signal_quality.py`
 
-- [ ] **Step 1: Add unit tests for log signal scoring**
+- [x] **Step 1: Add unit tests for log signal scoring**
 
 Test cases:
 
@@ -448,7 +448,7 @@ PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_log_signal_quality
 
 Expected before implementation: fail because module does not exist.
 
-- [ ] **Step 2: Implement `score_log_signal`**
+- [x] **Step 2: Implement `score_log_signal`**
 
 Required public function:
 
@@ -475,7 +475,7 @@ Band thresholds:
 - `watch`: `>= 0.55 and < 0.75`
 - `poor`: `< 0.55`
 
-- [ ] **Step 3: Attach to `analyze-runtime-log`**
+- [x] **Step 3: Attach to `analyze-runtime-log`**
 
 Output additions:
 
@@ -486,11 +486,11 @@ Output additions:
 
 Raw logs must still not be persisted to SQLite.
 
-- [ ] **Step 4: Attach to code log matches**
+- [x] **Step 4: Attach to code log matches**
 
 For `context/search` output, enrich `code_log_matches` with log signal fields derived from learned code-log metadata and message templates.
 
-- [ ] **Step 5: Verify**
+- [x] **Step 5: Verify**
 
 Run:
 
@@ -498,7 +498,7 @@ Run:
 PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_log_signal_quality tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace
 ```
 
-- [ ] **Step 6: Docs and commit**
+- [x] **Step 6: Docs and commit**
 
 Update:
 

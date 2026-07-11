@@ -55,6 +55,7 @@ python tools/agent_memory.py wiki-search --project . --query "<query>" --json
 When the query is an observed error, print, or console message, inspect `code_log_matches` and `edge_matches` from `context` or `search`. `wiki-search` may return matching log statements with `kind: "log_statement"`.
 
 Code and log matches include `search_terms` and `match_reasons`. Use `match_reasons` to explain why a record was retrieved, and use high-signal `search_terms` as anchors for a sharper follow-up query.
+Code log matches may include `log_signal_score`, `log_signal_band`, `missing_signals`, and `suggested_log_fields`. Prefer high-signal logs as diagnosis anchors. Treat low-signal logs as evidence gaps, not as source truth.
 `context` and `search` also return `suggested_followup_terms`. Use those first when forming the next recursive query; they are prioritized by the current retrieval scene:
 
 - route/navigation problems bias toward route targets and router anchors
@@ -80,6 +81,7 @@ python tools/agent_memory.py analyze-runtime-log --project . --query "<query>" -
 ```
 
 Treat the returned `slices`, `session_candidates`, and `runtime_episode_candidate` as diagnosis evidence. If the log evidence is good enough to keep, start from `reflect_payload_template` rather than rewriting a reflection payload from scratch. Do not treat the raw log file itself as long-term memory.
+Also inspect `log_signal_summary` and `low_signal_events`. Poor signal events are useful clues only after current source/log inspection; use their `suggested_log_fields` as narrow follow-up engineering guidance.
 When present, use `runtime_episode_candidate.candidate_chain` as the compact incident narrative and `chain_confidence` as a lightweight confidence hint rather than inferring a full causal graph yourself.
 If `log_improvement_suggestions` is present, treat it as follow-up engineering guidance for adding a few high-value start, branch, or correlation logs. Keep those suggestions narrow and tied to the matched code-log anchors.
 

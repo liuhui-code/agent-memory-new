@@ -274,6 +274,8 @@ This is deterministic keyword expansion, not a vector database. If the first res
 
 Code and log matches include `search_terms` and `match_reasons`. `search_terms` expose the generated anchors used for retrieval. `match_reasons` explain whether a row matched by exact file path, exact symbol, log text, expanded query terms, or broader summary text.
 
+Code log matches may also include `log_signal_score`, `log_signal_band`, `missing_signals`, and `suggested_log_fields`. Prefer stronger-signal logs as anchors for recursive diagnosis. Treat low-signal logs as evidence gaps, not as source truth.
+
 When diagnosing an error message or observed output, query the message text directly. `context` may return `code_log_matches` and `edge_matches` that point to the likely file and function.
 
 If the user also provides a temporary runtime log file, keep that raw file out of long-term memory and analyze it as bounded evidence:
@@ -295,6 +297,7 @@ This command reuses current code/log memory, normalizes raw lines into lightweig
 
 Use `runtime_episode_candidate.candidate_chain` and `chain_confidence` when you need a compact explanation of how the incident unfolded.
 Use `log_improvement_suggestions` when the current logs were just barely enough; they point at a few high-value start, branch, or correlation logs worth adding to the source code later.
+Use `log_signal_summary` and `low_signal_events` to judge whether matched runtime evidence has enough fields for diagnosis. A poor signal event may still match the query, but it lacks fields such as `request_id`, `session_id`, `route`, `resource`, `reason`, `error_code`, or `result`; use `suggested_log_fields` as narrow logging-improvement guidance.
 Use `reflect_payload_template` as the starting point when you want to turn temporary runtime-log evidence into a structured reflection or experience candidate. It is designed for diagnosis sessions, not for long-term raw-log archival. The template now also carries bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action`. When the query is correcting an earlier diagnosis, the template may already switch to `correction_experience` and include `old_hypothesis`.
 The runtime also keeps a rolling `runtime/last_usage_sample.json` during `context`, `search`, `analyze-runtime-log`, and `maintain-plan`. This is a bounded runtime-side summary, not a new long-term database row. A later `reflect` call can reuse it automatically to fill missing fields such as `task_type`, `problem`, `query_rounds`, `useful_followup_focus`, `useful_followup_terms`, `misleading_followup_terms`, `inspection_targets`, `evidence`, and `repair_action`.
 The runtime also keeps bounded performance samples in `runtime/performance_samples.jsonl`. `maintain-health --json` and `maintain-plan --json` summarize those samples as `runtime_performance` so Agents can see whether `maintain-plan`, `context`, or other operations are becoming slow, token-heavy, or storage-heavy. Do not treat this JSONL file as project knowledge; it is local operational telemetry. If `review_runtime_performance_budget` appears, prefer tightening query limits, reviewing noisy memory records, refreshing stale context, or splitting expensive maintenance work before adding heavier indexing.
