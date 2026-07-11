@@ -231,6 +231,22 @@ def create_schema(conn: sqlite3.Connection) -> None:
           reviewed_at TEXT
         );
 
+        CREATE TABLE IF NOT EXISTS retrieval_feedback (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          query TEXT NOT NULL,
+          normalized_query TEXT NOT NULL,
+          record_type TEXT NOT NULL,
+          record_id INTEGER NOT NULL,
+          reason TEXT NOT NULL,
+          replacement_type TEXT,
+          replacement_id INTEGER,
+          note TEXT,
+          status TEXT NOT NULL DEFAULT 'open',
+          created_at TEXT NOT NULL,
+          reviewed_at TEXT
+        );
+
         CREATE UNIQUE INDEX IF NOT EXISTS idx_code_files_project_file
         ON code_files(project_id, file_path);
 
@@ -263,6 +279,12 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_semantic_conflicts_project_status
         ON semantic_conflicts(project_id, status, observed_at);
+
+        CREATE INDEX IF NOT EXISTS idx_retrieval_feedback_project_record
+        ON retrieval_feedback(project_id, record_type, record_id, status);
+
+        CREATE INDEX IF NOT EXISTS idx_retrieval_feedback_project_status
+        ON retrieval_feedback(project_id, status, created_at);
 
         CREATE INDEX IF NOT EXISTS idx_code_logs_project_file
         ON code_log_statements(project_id, file_path);
@@ -346,6 +368,25 @@ def migrate_schema(conn: sqlite3.Connection) -> None:
         UPDATE query_misses
         SET normalized_query = LOWER(TRIM(query))
         WHERE normalized_query IS NULL OR normalized_query = ''
+        """
+    )
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS retrieval_feedback (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          query TEXT NOT NULL,
+          normalized_query TEXT NOT NULL,
+          record_type TEXT NOT NULL,
+          record_id INTEGER NOT NULL,
+          reason TEXT NOT NULL,
+          replacement_type TEXT,
+          replacement_id INTEGER,
+          note TEXT,
+          status TEXT NOT NULL DEFAULT 'open',
+          created_at TEXT NOT NULL,
+          reviewed_at TEXT
+        )
         """
     )
     conn.execute(

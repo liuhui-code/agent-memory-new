@@ -2377,3 +2377,49 @@ Verification:
 Rollback notes:
 
 - Remove `graph_quality.py`, drop graph quality output/action integration, and revert docs/tests if the health signal becomes noisy.
+
+## 2026-07-11 - Add retrieval feedback loop
+
+Files touched:
+
+- `docs/superpowers/plans/2026-07-11-retrieval-feedback-loop.md`
+- `tools/agent_memory_runtime/retrieval_feedback.py`
+- `tools/agent_memory_runtime/storage.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory.py`
+- `tests/test_retrieval_feedback.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a plan for targeted negative retrieval feedback.
+- Added `retrieval_feedback` SQLite storage and `retrieval-feedback` CLI command.
+- Added query-similarity feedback penalties for semantic facts and reflections.
+- Added `feedback_penalty`, `feedback_reasons`, and `feedback_ids` to penalized query results.
+- Added `review_retrieval_feedback` maintain-plan action and summary output.
+
+Why:
+
+- Weak-related or misleading records should be down-ranked for similar future queries without deleting useful memory globally.
+- Feedback makes retrieval interference measurable and governable.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_retrieval_feedback`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_retrieval_feedback tests.test_graph_quality tests.test_quality_performance_scoring tests.test_retrieval_eval`
+- Result: 17 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace`
+- Result: 131 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+
+Rollback notes:
+
+- Remove `retrieval_feedback.py`, schema/table wiring, CLI command, query penalties, maintain actions, tests, and docs if query-specific feedback becomes noisy.

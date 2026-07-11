@@ -322,6 +322,20 @@ python tools/agent_memory.py eval-retrieval --project . --cases docs/eval/golden
 
 The eval command reads JSON cases and uses the normal `context` path. `expected` entries define anchors that should appear; `must_not_include` entries define records that should stay out of the named result lane. A failing case is a regression signal for review, not an automatic memory mutation.
 
+When a result is clearly distracting for a specific query, record retrieval feedback instead of deleting the memory:
+
+```bash
+python tools/agent_memory.py retrieval-feedback \
+  --project . \
+  --query "<query>" \
+  --type reflection \
+  --id 12 \
+  --reason weak_related \
+  --json
+```
+
+Valid reasons are `weak_related`, `stale`, `wrong_domain`, `too_broad`, and `misleading`. Future similar queries apply a bounded penalty to that record and expose `feedback_penalty`. `maintain-plan` surfaces `review_retrieval_feedback` so the record can later be tightened, lowered in confidence, marked stale, merged, or left alone if the feedback is not reproducible.
+
 After repeated runtime-log-backed diagnosis, `maintain-plan --json` may also return:
 
 - `review_incident_strategy_candidate`

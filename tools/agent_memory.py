@@ -63,6 +63,7 @@ from agent_memory_runtime.records import (
     table_for_type,
 )
 from agent_memory_runtime.retrieval_eval import eval_retrieval_command
+from agent_memory_runtime.retrieval_feedback import retrieval_feedback_command
 from agent_memory_runtime.runtime_logs import analyze_runtime_log
 from agent_memory_runtime.storage import (
     connect,
@@ -766,6 +767,7 @@ def main(argv: list[str] | None = None) -> int:
             "search": search,
             "context": context,
             "eval_retrieval_command": eval_retrieval_command,
+            "retrieval_feedback_command": retrieval_feedback_command,
             "analyze_runtime_log_command": analyze_runtime_log_command,
             "reflect": reflect,
             "reflect_review": reflect_review,

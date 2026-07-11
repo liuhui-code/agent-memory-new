@@ -183,6 +183,20 @@ python tools/agent_memory.py eval-retrieval --project . --cases docs/eval/golden
 
 The cases file is JSON, not durable memory. Each case has a `query`, optional `name`, `expected` match specs, and `must_not_include` match specs. The command runs the same `context` path that Agents consume and reports expected hit rate, blocked-bad rate, missed anchors, and unexpected bad matches. It is intended for regression testing query quality before changing ranking, scoring, learn semantics, code graph, or log graph behavior.
 
+When a retrieved semantic fact or reflection is weakly related, stale, too broad, wrong-domain, or misleading for a specific query, record targeted negative feedback:
+
+```bash
+python tools/agent_memory.py retrieval-feedback \
+  --project . \
+  --query "ArkTS route blank screen" \
+  --type reflection \
+  --id 2 \
+  --reason weak_related \
+  --json
+```
+
+Open feedback applies a bounded query-similarity penalty to matching future `context` and `search` results. Results include `feedback_penalty`, `feedback_reasons`, and `feedback_ids` when a penalty applies. `maintain-plan` may emit `review_retrieval_feedback`; this prompts review, confidence tightening, stale marking, or supersession, but does not mutate memory automatically.
+
 `maintain-health --json` includes `runtime_performance`, a summary built from bounded samples in `runtime/performance_samples.jsonl`. Samples track operation name, elapsed milliseconds, result counts, token estimate, database size, status, and a performance score. This is runtime telemetry for local maintenance only; it is not a durable memory record and should be treated as disposable.
 
 Query miss commands manage feedback from failed retrievals. A miss is recorded only when `context`, `search`, or `wiki-search` has zero matches. Repeated open misses with the same source and normalized query are merged into one row with `miss_count` and `last_seen_at`, so maintenance can focus on recurring retrieval gaps instead of duplicate rows.

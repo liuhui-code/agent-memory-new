@@ -18,6 +18,7 @@ from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT, INCIDENT_TRACE_SE
 from .incident_trace_query import collect_incident_trace_matches
 from .quality_scoring import score_reflection_quality, score_semantic_quality
 from .records import memory_warning, row_dict
+from .retrieval_feedback import collect_feedback_penalties
 from .storage import connect, now_iso
 from .text import code_search_terms, json_list, query_tokens, score_weighted_fields, tokenize, unique_list
 
@@ -255,6 +256,8 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             recall_candidate_ids(conn, project, "code_log_statements", query, QUERY_FTS_RECALL_LIMITS["code_log_statements"]),
         )
     results["incident_trace_matches"] = collect_incident_trace_matches(project, query, INCIDENT_TRACE_SEARCH_LIMIT)
+    semantic_feedback = collect_feedback_penalties(project, query, "semantic")
+    reflection_feedback = collect_feedback_penalties(project, query, "reflection")
 
     for row in semantic:
         score, reasons = score_weighted_fields(
@@ -271,7 +274,8 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             item["quality_score"] = quality["quality_score"]
             item["quality_band"] = quality["quality_band"]
             item["quality_reasons"] = quality["reasons"]
-            item["rerank_score"] = round(item["score"] + item["quality_score"] * 3.0, 3)
+            apply_feedback_penalty(item, semantic_feedback)
+            item["rerank_score"] = round(item["score"] + item["quality_score"] * 3.0 - item.get("feedback_penalty", 0.0), 3)
             item["match_reasons"] = reasons
             item["warning"] = memory_warning(item)
             results["semantic_facts"].append(item)
@@ -317,6 +321,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             item["quality_score"] = quality["quality_score"]
             item["quality_band"] = quality["quality_band"]
             item["quality_reasons"] = quality["reasons"]
+            apply_feedback_penalty(item, reflection_feedback)
             item["match_reasons"] = reasons
             item["warning"] = memory_warning(item)
             results["reflections"].append(item)
@@ -546,6 +551,10 @@ def reflection_gate_decision(query: str, intent: str, item: dict[str, Any]) -> d
     if float(item.get("misleading_score") or 0.0) > 0:
         score -= min(25, float(item.get("misleading_score") or 0.0) * 25)
         reasons.append("explicit_misleading_score")
+    feedback_penalty = float(item.get("feedback_penalty") or 0.0)
+    if feedback_penalty:
+        score -= feedback_penalty
+        reasons.append("retrieval_feedback_penalty")
     if quality_score >= 0.75:
         reasons.append("quality_score_high")
     elif quality_score < 0.45:
@@ -659,7 +668,7 @@ def gate_matches_by_intent(
                 lane_counts["blocked_memory_notes"] += 1
             continue
         if decision["allowed"] and decision["score"] >= 15:
-            item["rerank_score"] = round(decision["score"] + float(item.get("quality_score") or 0.0) * 10.0, 3)
+            item["rerank_score"] = round(decision["score"] + float(item.get("quality_score") or 0.0) * 10.0 - float(item.get("feedback_penalty") or 0.0), 3)
             main_reflections.append(item)
             lane_counts["main_reflections"] += 1
         else:
@@ -721,6 +730,16 @@ def matching_conflict_notes(project: Project, query: str, limit: int) -> list[di
             if len(notes) >= limit:
                 break
     return notes
+
+
+def apply_feedback_penalty(item: dict[str, Any], penalties: dict[int, dict[str, Any]]) -> None:
+    feedback = penalties.get(int(item.get("id") or 0))
+    if not feedback:
+        item["feedback_penalty"] = 0.0
+        return
+    item["feedback_penalty"] = feedback["penalty"]
+    item["feedback_reasons"] = unique_list([str(reason) for reason in feedback.get("reasons", [])])
+    item["feedback_ids"] = feedback.get("feedback_ids", [])
 
 
 def limited_matches(

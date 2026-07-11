@@ -24,6 +24,7 @@ from .performance_scoring import (
 from .quality_scoring import build_quality_report
 from .query import collect_matches, infer_followup_focus, rank_followup_seed_terms, suggested_followup_terms
 from .records import output, parse_ids, row_dict, table_for_type
+from .retrieval_feedback import fetch_open_retrieval_feedback
 from .storage import connect, ensure_initialized, now_iso, resolve_project
 from .text import json_list, tokenize, unique_list
 from .usage_samples import record_governance_usage
@@ -2093,6 +2094,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
     incident_trace_actions = build_incident_trace_actions(project, args.limit)
     graph_quality = build_graph_quality(project)
     graph_quality_actions = build_graph_quality_actions(graph_quality)
+    retrieval_feedback_rows = fetch_open_retrieval_feedback(project, args.limit)
+    retrieval_feedback_actions = build_retrieval_feedback_actions(retrieval_feedback_rows)
     quality_semantic_rows, quality_reflection_rows = fetch_quality_memory_rows(project, args.limit)
     quality_reflection_rows = enrich_reflections_with_evidence_chains(project, quality_reflection_rows)
     quality_report = build_quality_report(
@@ -2267,6 +2270,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(quality_governance_actions)
     actions.extend(weak_evidence_chain_actions)
     actions.extend(graph_quality_actions)
+    actions.extend(retrieval_feedback_actions)
 
     for candidate in build_skill_pattern_candidates(project, review["unreviewed_reflections"]):
         candidate = annotate_skill_pattern_artifacts(project.root, candidate)
@@ -2505,6 +2509,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "high_value_experience_reviews": len([action for action in quality_governance_actions if action.get("action") == "review_high_value_experience"]),
         "weak_evidence_chain_reviews": len(weak_evidence_chain_actions),
         "graph_quality_reviews": len(graph_quality_actions),
+        "retrieval_feedback_reviews": len(retrieval_feedback_actions),
     }
 
     data = {
@@ -2531,6 +2536,10 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "governance_summary": governance_summary,
         "learn_governance_summary": learn_governance_summary,
         "graph_quality": graph_quality,
+        "retrieval_feedback_summary": {
+            "open_feedback": len(retrieval_feedback_rows),
+            "review_actions": len(retrieval_feedback_actions),
+        },
         "quality_summary": quality_report["summary"],
         "evidence_chain_summary": build_evidence_chain_summary(quality_reflection_rows),
         "low_quality_records": quality_report["low_quality_records"],
@@ -2688,6 +2697,36 @@ def build_weak_evidence_chain_actions(quality_report: dict[str, Any]) -> list[di
                     "verify_against_incident_trace",
                     "add_code_or_log_anchor",
                     "keep_as_unanchored_experience",
+                ],
+            }
+        )
+    return actions
+
+
+def build_retrieval_feedback_actions(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    actions: list[dict[str, Any]] = []
+    for row in rows:
+        actions.append(
+            {
+                "action": "review_retrieval_feedback",
+                "governance_lane": "memory_quality",
+                "type": row.get("record_type"),
+                "id": row.get("record_id"),
+                "feedback_id": row.get("id"),
+                "query": row.get("query"),
+                "reason": "retrieval feedback says this record was unhelpful for the query",
+                "reason_code": row.get("reason"),
+                "replacement_type": row.get("replacement_type"),
+                "replacement_id": row.get("replacement_id"),
+                "risk": "low",
+                "requires_confirmation": False,
+                "command": None,
+                "suggested_actions": [
+                    "tighten_trigger_condition",
+                    "lower_confidence",
+                    "mark_stale_if_confirmed",
+                    "merge_or_supersede_if_replacement_is_better",
+                    "ignore_feedback_if_not_reproducible",
                 ],
             }
         )

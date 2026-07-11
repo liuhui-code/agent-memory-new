@@ -66,6 +66,18 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("eval_retrieval_command"))
 
+    p = sub.add_parser("retrieval-feedback")
+    add_project(p)
+    p.add_argument("--query", required=True)
+    p.add_argument("--type", required=True, choices=["semantic", "reflection"])
+    p.add_argument("--id", required=True, type=int)
+    p.add_argument("--reason", required=True, choices=["weak_related", "stale", "wrong_domain", "too_broad", "misleading"])
+    p.add_argument("--replacement-type", choices=["semantic", "reflection"])
+    p.add_argument("--replacement-id", type=int)
+    p.add_argument("--note")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("retrieval_feedback_command"))
+
     p = sub.add_parser("analyze-runtime-log")
     add_project(p)
     p.add_argument("--query", required=True)
