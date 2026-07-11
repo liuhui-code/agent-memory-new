@@ -173,6 +173,35 @@ class ExperienceMaturityTests(unittest.TestCase):
         self.assertIn("counter_evidence", by_id[1])
         self.assertGreater(by_id[1]["trust_score"], by_id[2]["trust_score"])
 
+    def test_maintain_plan_reviews_missing_counter_evidence_for_verified_experience(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            payload = {
+                "experience_type": "procedure_experience",
+                "task": "ArkTS route blank screen diagnosis",
+                "summary": "Verified route target mismatch diagnosis.",
+                "lesson": "For ArkTS route blank screen, inspect router.pushUrl target and page registration first.",
+                "scope": "ArkTS route diagnosis",
+                "trigger_condition": "ArkTS route blank screen",
+                "repair_action": "inspect router.pushUrl target",
+                "verification_method": "ran route navigation test",
+                "source_cases": ["incident_trace:7"],
+                "confidence": 0.95,
+            }
+
+            self.run_memory(project, "reflect", "--payload", json.dumps(payload))
+            result = self.run_memory(project, "maintain-plan", "--json")
+            data = json.loads(result.stdout)
+
+        actions = [action for action in data["actions"] if action["action"] == "review_missing_counter_evidence"]
+        self.assertEqual(1, len(actions))
+        self.assertEqual("reflection", actions[0]["type"])
+        self.assertEqual(1, actions[0]["id"])
+        self.assertEqual("memory_quality", actions[0]["governance_lane"])
+        self.assertIn("negative_preconditions", actions[0]["missing_counter_evidence_fields"])
+        self.assertEqual(1, data["governance_summary"]["missing_counter_evidence_reviews"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -13,6 +13,7 @@ from .code_wiki import semantic_followup_from_db
 from .evidence_chain_quality import build_evidence_chain_summary, enrich_reflections_with_evidence_chains
 from .graph_quality import build_graph_quality, build_graph_quality_actions
 from .incident_trace_governance import build_incident_trace_actions
+from .experience_maturity import score_experience_maturity
 from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE_POOL_LIMIT, VALID_MEMORY_STATUSES
 from .performance_scoring import (
     append_performance_sample,
@@ -2109,6 +2110,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     )
     quality_governance_actions = build_quality_governance_actions(quality_report)
     weak_evidence_chain_actions = build_weak_evidence_chain_actions(quality_report)
+    maturity_governance_actions = build_experience_maturity_actions(quality_reflection_rows)
     actions: list[dict[str, Any]] = []
 
     for row in review["stale_memories"]:
@@ -2273,6 +2275,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(incident_trace_actions)
     actions.extend(quality_governance_actions)
     actions.extend(weak_evidence_chain_actions)
+    actions.extend(maturity_governance_actions)
     actions.extend(graph_quality_actions)
     actions.extend(runtime_performance_actions)
     actions.extend(retrieval_feedback_actions)
@@ -2514,6 +2517,9 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "low_quality_memory_reviews": len([action for action in quality_governance_actions if action.get("action") == "review_low_quality_memory"]),
         "high_value_experience_reviews": len([action for action in quality_governance_actions if action.get("action") == "review_high_value_experience"]),
         "weak_evidence_chain_reviews": len(weak_evidence_chain_actions),
+        "immature_experience_reviews": len([action for action in maturity_governance_actions if action.get("action") == "review_immature_experience"]),
+        "missing_counter_evidence_reviews": len([action for action in maturity_governance_actions if action.get("action") == "review_missing_counter_evidence"]),
+        "maturity_regression_reviews": len([action for action in maturity_governance_actions if action.get("action") == "review_maturity_regression"]),
         "graph_quality_reviews": len(graph_quality_actions),
         "runtime_performance_reviews": len(runtime_performance_actions),
         "retrieval_feedback_reviews": len(retrieval_feedback_actions),
@@ -2710,6 +2716,81 @@ def build_weak_evidence_chain_actions(quality_report: dict[str, Any]) -> list[di
                 ],
             }
         )
+    return actions
+
+
+def build_experience_maturity_actions(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    actions: list[dict[str, Any]] = []
+    for row in rows:
+        item = dict(row)
+        item.update(score_experience_maturity(item))
+        level = item.get("experience_maturity")
+        counter = item.get("counter_evidence") if isinstance(item.get("counter_evidence"), dict) else {}
+        if level == "raw_observation" and float(item.get("confidence") or 0.0) >= 0.8:
+            actions.append(
+                {
+                    "action": "review_immature_experience",
+                    "governance_lane": "memory_quality",
+                    "type": "reflection",
+                    "id": item.get("id"),
+                    "experience_maturity": level,
+                    "experience_maturity_score": item.get("experience_maturity_score"),
+                    "reason": "high-confidence reflection is still a raw observation",
+                    "risk": "medium",
+                    "requires_confirmation": False,
+                    "command": None,
+                    "suggested_actions": [
+                        "add_trigger_condition",
+                        "add_repair_action",
+                        "add_verification_method",
+                        "lower_confidence_until_structured",
+                    ],
+                }
+            )
+        if level in {"structured_candidate", "verified_case", "reused_pattern", "skill_candidate"} and not counter.get("has_counter_evidence"):
+            actions.append(
+                {
+                    "action": "review_missing_counter_evidence",
+                    "governance_lane": "memory_quality",
+                    "type": "reflection",
+                    "id": item.get("id"),
+                    "experience_maturity": level,
+                    "experience_maturity_score": item.get("experience_maturity_score"),
+                    "reason": "mature experience is missing counter-evidence or does-not-apply conditions",
+                    "risk": "low",
+                    "requires_confirmation": False,
+                    "command": None,
+                    "missing_counter_evidence_fields": counter.get("missing_fields") or [],
+                    "suggested_actions": [
+                        "add_negative_preconditions",
+                        "add_does_not_apply_to",
+                        "add_counter_example",
+                        "lower_confidence_until_verified",
+                        "keep_if_context_specific",
+                    ],
+                }
+            )
+        if level == "deprecated_pattern" and (item.get("skill_candidate") or int(item.get("applied_count") or 0) > 0):
+            actions.append(
+                {
+                    "action": "review_maturity_regression",
+                    "governance_lane": "memory_quality",
+                    "type": "reflection",
+                    "id": item.get("id"),
+                    "experience_maturity": level,
+                    "experience_maturity_score": item.get("experience_maturity_score"),
+                    "reason": "previously reusable experience now has deprecated or misleading signals",
+                    "risk": "medium",
+                    "requires_confirmation": False,
+                    "command": None,
+                    "suggested_actions": [
+                        "mark_stale_if_confirmed",
+                        "split_valid_and_invalid_conditions",
+                        "write_correction_experience",
+                        "remove_skill_candidate_until_reverified",
+                    ],
+                }
+            )
     return actions
 
 

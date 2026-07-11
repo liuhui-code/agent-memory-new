@@ -177,6 +177,8 @@ If an otherwise high-value reflection lacks a grounded chain, `maintain-plan` ma
 
 Reflection matches also include `experience_maturity`, `experience_maturity_score`, `maturity_reasons`, and `counter_evidence`. Maturity levels are derived at query time: `raw_observation`, `structured_candidate`, `verified_case`, `reused_pattern`, `skill_candidate`, or `deprecated_pattern`. Trust calibration consumes these fields, but they remain advisory and do not mutate stored reflections.
 
+`maintain-plan --json` may emit `review_immature_experience`, `review_missing_counter_evidence`, or `review_maturity_regression`. These actions ask reviewers to add trigger/repair structure, record negative preconditions or does-not-apply cases, or rewrite/deprecate experiences whose maturity regressed after misleading feedback. They do not update reflections automatically.
+
 `context` and `search` also return `memory_use_policy` and per-record calibration fields. `trust_level` labels a returned row as `source_truth`, `verified_experience`, `usable_hint`, `weak_hint`, `possibly_stale`, or `conflict_warning`. `trust_reasons` and `retrieval_explanation` explain the score using existing evidence: match reasons, gate reasons, quality, feedback penalty, status, confidence, source cases, and verification method. Calibration is answer-time guidance only; it does not change stored memory.
 
 Retrieval changes can be checked with a local golden-query eval:

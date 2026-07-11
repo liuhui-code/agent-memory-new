@@ -2670,3 +2670,44 @@ Verification:
 Rollback notes:
 
 - Remove `experience_maturity.py`, remove query/calibration maturity fields, and revert tests/docs if the derived maturity labels become noisy.
+
+## 2026-07-11 - Add counter-evidence governance
+
+Files touched:
+
+- `tools/agent_memory_runtime/experience_maturity.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_experience_maturity.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Fixed empty JSON-list counter-evidence detection.
+- Added `review_missing_counter_evidence` maintain-plan action for mature experiences that lack negative applicability boundaries.
+- Added `review_immature_experience` and `review_maturity_regression` action builders for high-confidence raw observations and deprecated reusable experiences.
+- Added governance summary counters for maturity review actions.
+
+Why:
+
+- Mature-looking experiences should not become reusable rules until the system knows where they do not apply.
+- Regressed or misleading reusable experiences need review before they can influence future skill evolution.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_maturity`
+- Result: 9 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_maturity tests.test_quality_performance_scoring tests.test_memory_calibration tests.test_calibration_feedback`
+- Result: 25 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace tests.test_retrieval_eval tests.test_retrieval_feedback tests.test_calibration_eval`
+- Result: 138 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove maturity governance action wiring and counters, and revert docs/tests if counter-evidence review becomes noisy.

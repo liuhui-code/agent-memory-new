@@ -307,10 +307,12 @@ The runtime also keeps bounded performance samples in `runtime/performance_sampl
 Query outputs may also include `quality_score`, `quality_band`, `quality_reasons`, and `rerank_score` on semantic and reflection matches. Prefer higher-quality matches when several records point in the same direction, but still obey `memory_intent`, `correction_guards`, `semantic_patch_notes`, `blocked_memory_notes`, and current source code.
 Reflection rows may include `experience_maturity`, `experience_maturity_score`, `maturity_reasons`, and `counter_evidence`. Treat `raw_observation` as a hint only, prefer `verified_case` and `reused_pattern` when evidence agrees, and treat `deprecated_pattern` as warning or counter-evidence. If a high-value procedure lacks counter-evidence, verify where it does not apply before using it as a rule.
 Query outputs also include `memory_use_policy`, and rows may include `trust_level`, `trust_score`, `trust_reasons`, and `retrieval_explanation`. Use `source_truth` and `verified_experience` before ordinary hints. Treat `weak_hint` as a lead for the next inspection, not a conclusion. Treat `possibly_stale` and `conflict_warning` as caution signals even when the record matched the query.
-`maintain-plan --json` may turn those scores into two confirmable actions:
+`maintain-plan --json` may turn those scores into confirmable actions:
 
 - `review_low_quality_memory`: inspect the record, then choose a narrow fix such as source verification, trigger tightening, confidence lowering, stale marking, or merge review.
 - `review_high_value_experience`: prioritize the experience for reuse, skill-pattern review, semantic-repair review, or promotion review. Do not promote it automatically.
+- `review_missing_counter_evidence`: add negative preconditions, does-not-apply cases, or counter examples before treating the experience as a rule.
+- `review_immature_experience` and `review_maturity_regression`: add missing structure or deprecate/rewrite experience that became misleading.
 
 When reflections cite incident traces in `source_cases`, for example `incident_trace:7`, `maintain-plan` can also report evidence-chain fields. Prefer experiences with strong evidence chains when several records are otherwise similar. If `review_weak_evidence_chain` appears, keep the experience usable but verify whether it should be linked to an incident trace, code log, symbol, or file anchor.
 

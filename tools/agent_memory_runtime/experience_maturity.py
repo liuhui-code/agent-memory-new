@@ -181,7 +181,8 @@ def maturity_payload(
 def has_field_value(value: Any) -> bool:
     if json_list(value):
         return True
-    return bool(str(value or "").strip())
+    text = str(value or "").strip()
+    return bool(text and text not in {"[]", "{}"})
 
 
 def int_value(value: Any) -> int:
