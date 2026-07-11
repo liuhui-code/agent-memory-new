@@ -2974,3 +2974,38 @@ Verification:
 Rollback notes:
 
 - Revert these docs/skill edits if the operator workflow needs a different ordering.
+
+## 2026-07-11 - Complete experience and graph signal quality roadmap
+
+Files touched:
+
+- `docs/superpowers/plans/2026-07-11-experience-quality-and-graph-signal-roadmap.md`
+- `gitlog.md`
+
+What changed:
+
+- Marked the final roadmap verification phase complete.
+- Recorded final regression, compile, formatting, skill count, and runtime entrypoint evidence.
+
+Why:
+
+- The roadmap is now implemented through all planned phases and needs a durable local completion record.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_maturity tests.test_experience_query_quality tests.test_log_signal_quality tests.test_graph_quality`
+- Result: 24 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace tests.test_retrieval_eval tests.test_retrieval_feedback tests.test_calibration_eval tests.test_quality_performance_scoring`
+- Result: 150 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+- Command: `git diff --check`
+- Result: passes.
+- Command: `ls -1 skills`
+- Result: exactly `agent-memory-learn`, `agent-memory-maintain`, `agent-memory-query`, and `agent-memory-reflect`.
+- Command: `rg -n "argparse|subparsers|add_parser" tools/agent_memory.py tools/agent_memory_runtime/cli.py`
+- Result: parser wiring remains under `tools/agent_memory.py` and `tools/agent_memory_runtime/cli.py`; no new user-facing skill was added.
+
+Rollback notes:
+
+- Revert the roadmap completion marker and this gitlog entry only if the final verification evidence needs to be rerun.

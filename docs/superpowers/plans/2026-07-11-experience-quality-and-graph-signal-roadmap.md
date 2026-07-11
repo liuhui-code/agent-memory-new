@@ -748,31 +748,31 @@ git commit -m "Update skills for quality-guided memory use"
 
 **Goal:** Verify the full roadmap does not break the stable runtime entry point or main workflows.
 
-- [ ] **Step 1: Run focused suites**
+- [x] **Step 1: Run focused suites**
 
 ```bash
 PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_maturity tests.test_experience_query_quality tests.test_log_signal_quality tests.test_graph_quality
 ```
 
-- [ ] **Step 2: Run main regression**
+- [x] **Step 2: Run main regression**
 
 ```bash
 PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace tests.test_retrieval_eval tests.test_retrieval_feedback tests.test_calibration_eval tests.test_quality_performance_scoring
 ```
 
-- [ ] **Step 3: Compile runtime modules**
+- [x] **Step 3: Compile runtime modules**
 
 ```bash
 PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py
 ```
 
-- [ ] **Step 4: Check formatting whitespace**
+- [x] **Step 4: Check formatting whitespace**
 
 ```bash
 git diff --check
 ```
 
-- [ ] **Step 5: Inspect runtime entry point**
+- [x] **Step 5: Inspect runtime entry point**
 
 Confirm no new user-facing skill was added and `tools/agent_memory.py` remains the only runtime entry point.
 
@@ -781,7 +781,7 @@ ls -1 skills
 rg -n "argparse|subparsers|add_parser" tools/agent_memory.py tools/agent_memory_runtime/cli.py
 ```
 
-- [ ] **Step 6: Final commit or push**
+- [x] **Step 6: Final commit or push**
 
 Commit any remaining docs or verification updates:
 
