@@ -185,6 +185,14 @@ python tools/agent_memory.py eval-retrieval --project . --cases docs/eval/golden
 
 The cases file is JSON, not durable memory. Each case has a `query`, optional `name`, `expected` match specs, and `must_not_include` match specs. The command runs the same `context` path that Agents consume and reports expected hit rate, blocked-bad rate, missed anchors, and unexpected bad matches. It is intended for regression testing query quality before changing ranking, scoring, learn semantics, code graph, or log graph behavior.
 
+Trust calibration can be checked with:
+
+```bash
+python tools/agent_memory.py eval-calibration --project . --cases docs/eval/golden-calibration.json --json
+```
+
+Calibration cases use `expected_trust` specs for rows that should have a target `trust_level` or minimum `trust_score`, and `must_not_trust` specs for rows that must not be treated as strong evidence. The command reports expected trust rate, blocked-overtrust rate, missed expected trust, and unexpected trusted matches.
+
 When a retrieved semantic fact or reflection is weakly related, stale, too broad, wrong-domain, or misleading for a specific query, record targeted negative feedback:
 
 ```bash

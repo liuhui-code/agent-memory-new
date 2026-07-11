@@ -2554,3 +2554,46 @@ Verification:
 Rollback notes:
 
 - Remove calibration feedback reason handling, query fields, trust-score integration, governance actions, docs, and tests if the feedback loop becomes noisy.
+
+## 2026-07-11 - Add calibration evaluation suite
+
+Files touched:
+
+- `docs/superpowers/plans/2026-07-11-calibration-evaluation-suite.md`
+- `tools/agent_memory_runtime/calibration_eval.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory.py`
+- `tests/test_calibration_eval.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added `eval-calibration --cases <file> --json`.
+- Added JSON calibration cases with `expected_trust` and `must_not_trust` specs.
+- Added expected trust rate and blocked-overtrust rate reporting.
+- Documented when to run calibration evaluation.
+
+Why:
+
+- Trust labels and calibration feedback need a stable regression suite before ranking, feedback, or policy changes.
+- The suite turns "memory did not interfere" into a measurable local quality gate.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_calibration_eval`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_calibration_eval tests.test_calibration_feedback tests.test_memory_calibration tests.test_retrieval_eval tests.test_retrieval_feedback`
+- Result: 12 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_performance_scoring tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace`
+- Result: 142 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove `calibration_eval.py`, CLI wiring, docs, and tests if the evaluation model proves too rigid.

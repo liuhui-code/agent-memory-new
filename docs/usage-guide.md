@@ -323,6 +323,14 @@ python tools/agent_memory.py eval-retrieval --project . --cases docs/eval/golden
 
 The eval command reads JSON cases and uses the normal `context` path. `expected` entries define anchors that should appear; `must_not_include` entries define records that should stay out of the named result lane. A failing case is a regression signal for review, not an automatic memory mutation.
 
+Before changing trust calibration, feedback handling, or answer-time memory policy, run calibration evaluation if a case file exists:
+
+```bash
+python tools/agent_memory.py eval-calibration --project . --cases docs/eval/golden-calibration.json --json
+```
+
+`expected_trust` entries define records that should carry a target trust level or minimum trust score. `must_not_trust` entries define records that must not be treated as strong evidence. A failure means inspect the calibration model, feedback records, or case expectations before changing stored memory.
+
 When a result is clearly distracting for a specific query, record retrieval feedback instead of deleting the memory:
 
 ```bash
