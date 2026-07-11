@@ -336,6 +336,8 @@ def validate_reflection_payload_shape(payload: dict[str, Any]) -> None:
             for key in ("trigger_condition", "repair_action")
             if not payload_has_value(payload, key)
         ]
+        if payload_has_value(payload, "skill_candidate"):
+            raise SystemExit("--payload correction_experience cannot set skill_candidate")
         has_misleading_signal = any(
             payload_has_value(payload, key)
             for key in ("anti_pattern", "misleading_followup_terms", "what_failed")

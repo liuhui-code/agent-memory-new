@@ -346,7 +346,7 @@ git commit -m "Harden experience query trust"
 - Modify: `tools/agent_memory_runtime/usage_capture.py` if automatic summary data is used
 - Test: `tests/test_agent_memory.py` or `tests/test_experience_query_quality.py`
 
-- [ ] **Step 1: Add reflect shape tests**
+- [x] **Step 1: Add reflect shape tests**
 
 Create tests for:
 
@@ -366,7 +366,7 @@ Run:
 PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests
 ```
 
-- [ ] **Step 2: Refine reflect payload contract**
+- [x] **Step 2: Refine reflect payload contract**
 
 Minimum procedure fields:
 
@@ -394,7 +394,7 @@ Minimum correction fields:
 }
 ```
 
-- [ ] **Step 3: Update skill instructions**
+- [x] **Step 3: Update skill instructions**
 
 In `agent-memory-reflect`, instruct Agents:
 
@@ -403,7 +403,7 @@ In `agent-memory-reflect`, instruct Agents:
 - Always include where the lesson does not apply when the lesson could affect future query direction.
 - Use automatic usage summaries as raw material, not as final truth.
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 Run:
 
@@ -411,7 +411,7 @@ Run:
 PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_experience_maturity
 ```
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add tools/agent_memory_runtime skills/agent-memory-reflect/SKILL.md tests gitlog.md

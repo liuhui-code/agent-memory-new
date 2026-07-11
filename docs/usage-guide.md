@@ -309,6 +309,8 @@ Reflection rows may include `experience_maturity`, `experience_maturity_score`, 
 Query outputs also include `memory_use_policy`, and rows may include `trust_level`, `trust_score`, `trust_reasons`, `retrieval_explanation`, `query_risk_flags`, `trust_cap`, and `trust_cap_reasons`. Use `source_truth` and `verified_experience` before ordinary hints. Treat `weak_hint` as a lead for the next inspection, not a conclusion. Treat `possibly_stale` and `conflict_warning` as caution signals even when the record matched the query.
 
 Read `query_risk_flags` before using a reflection as task direction. `misleading_experience`, `deprecated_experience`, and `inactive_or_stale_experience` are hard warnings. `missing_counter_evidence` means the procedure may be useful but still lacks negative applicability boundaries; verify current source, logs, and tests before using it as a rule. `semantic_correction_guidance` means the row should repair or constrain interpretation, not become a generic procedure.
+
+When recording experience, keep procedure and correction records distinct. Use `procedure_experience` for reusable diagnosis or repair workflows, and include trigger, repair, verification, and negative preconditions. Use `correction_experience` for wrong business/code semantics or misleading prior memory, and include the old misleading pattern plus the corrected action. Do not attach `skill_candidate` to correction experience; it should be reviewed as semantic repair or guardrail evidence instead.
 `maintain-plan --json` may turn those scores into confirmable actions:
 
 - `review_low_quality_memory`: inspect the record, then choose a narrow fix such as source verification, trigger tightening, confidence lowering, stale marking, or merge review.

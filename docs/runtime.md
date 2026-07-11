@@ -183,6 +183,8 @@ Reflection matches also include `experience_maturity`, `experience_maturity_scor
 
 Reflection and correction-guard rows may also include `query_risk_flags`, `trust_cap`, and `trust_cap_reasons`. These fields explain why an otherwise high-scoring experience was bounded or should be used only as cautionary context. Hard risks such as stale status, deprecated maturity, and misleading outcomes cap trust even when confidence or quality is high. Softer risks such as missing counter-evidence on a verified procedure keep a risk flag; positive calibration feedback can raise trust, but the Agent still must verify where the procedure does not apply before treating it as a rule.
 
+`reflect --payload` keeps reusable procedure experience and correction experience separate. `procedure_experience` requires a repair action, verification method, and a trigger anchor such as `trigger_condition`, `useful_followup_focus`, `source_cases`, or `context_used`. `correction_experience` requires `trigger_condition`, `repair_action`, and a misleading signal such as `anti_pattern`, `misleading_followup_terms`, or `what_failed`. A correction experience cannot set `skill_candidate`; single-case semantic or business corrections route to guardrail and semantic-repair governance, not direct skill evolution.
+
 Retrieval changes can be checked with a local golden-query eval:
 
 ```bash

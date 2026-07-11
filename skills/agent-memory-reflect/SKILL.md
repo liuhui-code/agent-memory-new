@@ -44,6 +44,8 @@ When recording `correction_experience`, include enough evidence for later guardr
 - if the input came from temporary runtime-log analysis, carry over `runtime_episode_candidate` evidence through `context_used`, `trajectory_summary`, `final_verification_path`, and `old_hypothesis` when present
 - keep bounded runtime evidence in the reflection instead of raw logs: prefer `evidence`, `misleading_followup_terms`, and `repair_action` from `reflect_payload_template`
 
+Do not set `skill_candidate` on `correction_experience`. A correction may later improve a skill or code semantic record, but a single correction should first become guardrail or semantic-repair evidence. Only `procedure_experience` should carry a `skill_candidate`, and only when the workflow has verification and reuse support.
+
 When recording `semantic_patch_experience`, bind it to a concrete code-memory anchor:
 
 - `anchor_type`: `code_file`, `code_symbol`, `code_log_statement`, or `memory_edge`

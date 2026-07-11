@@ -2778,3 +2778,39 @@ Verification:
 Rollback notes:
 
 - Remove `experience_query_quality.py`, remove query-risk fields from calibration output, and revert the new tests/docs if trust caps prove too strict.
+
+## 2026-07-11 - Clarify experience recording shapes
+
+Files touched:
+
+- `tools/agent_memory.py`
+- `tests/test_experience_query_quality.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-reflect/SKILL.md`
+- `docs/superpowers/plans/2026-07-11-experience-quality-and-graph-signal-roadmap.md`
+- `gitlog.md`
+
+What changed:
+
+- Added regression coverage that procedure experience and correction experience preserve distinct runtime fields.
+- Added validation that rejects `skill_candidate` on `correction_experience`.
+- Documented that correction experience should route to guardrail or semantic-repair governance instead of direct skill evolution.
+
+Why:
+
+- Skill candidates should emerge from verified and reused procedure patterns, not from a single business-semantic correction.
+- Keeping correction records distinct prevents semantic repair notes from becoming broad task procedures.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_query_quality`
+- Result: 5 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_maturity tests.test_memory_calibration tests.test_calibration_feedback`
+- Result: 14 tests pass.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove the `skill_candidate` validation for correction experience and revert the Phase 2 tests/docs if correction records need to temporarily carry promotion hints.

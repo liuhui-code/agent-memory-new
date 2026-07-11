@@ -121,6 +121,84 @@ class ExperienceQueryQualityTests(unittest.TestCase):
         self.assertIn("missing_counter_evidence", broad["query_risk_flags"])
         self.assertGreaterEqual(correction["trust_score"], broad["trust_score"])
 
+    def test_reflect_records_procedure_and_correction_shapes_distinctly(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            procedure_payload = {
+                "experience_type": "procedure_experience",
+                "task": "ArkTS route diagnosis procedure",
+                "summary": "Diagnosed route mismatch through route table and router log anchors.",
+                "lesson": "Use route target, page registration, and router failure logs together.",
+                "trigger_condition": "page opens blank after router.pushUrl",
+                "repair_action": "inspect route target and page registration",
+                "verification_method": "reran navigation smoke test",
+                "source_cases": ["incident_trace:21"],
+                "negative_preconditions": ["does not apply to pure layout visibility bugs"],
+                "confidence": 0.9,
+            }
+            correction_payload = {
+                "experience_type": "correction_experience",
+                "task": "Correct Profile route business meaning",
+                "summary": "Profile route maps to ProfilePage in current source.",
+                "lesson": "Do not reuse the older UserPage mapping for pages/Profile.",
+                "trigger_condition": "memory says pages/Profile maps to UserPage",
+                "repair_action": "treat ProfilePage registration as the current source truth",
+                "anti_pattern": "applying old route mapping without checking current source",
+                "verification_method": "inspected current route table",
+                "source_cases": ["file: entry/src/main/resources/base/profile/main_pages.json"],
+                "does_not_apply_to": "unrelated resource loading failures",
+                "confidence": 0.86,
+            }
+
+            self.run_memory(project, "reflect", "--payload", json.dumps(procedure_payload))
+            self.run_memory(project, "reflect", "--payload", json.dumps(correction_payload))
+            rows = json.loads(self.run_memory(project, "list", "--type", "reflection", "--json").stdout)
+
+        by_type = {row["experience_type"]: row for row in rows}
+        self.assertEqual("inspect route target and page registration", by_type["procedure_experience"]["repair_action"])
+        self.assertIn("pure layout", by_type["procedure_experience"]["negative_preconditions"])
+        self.assertEqual("applying old route mapping without checking current source", by_type["correction_experience"]["anti_pattern"])
+        self.assertEqual("unrelated resource loading failures", by_type["correction_experience"]["does_not_apply_to"])
+        self.assertIsNone(by_type["correction_experience"]["skill_candidate"])
+
+    def test_correction_experience_rejects_skill_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            payload = {
+                "experience_type": "correction_experience",
+                "task": "Correct stale Profile route memory",
+                "summary": "Profile route maps to ProfilePage.",
+                "lesson": "Use current source route registration.",
+                "trigger_condition": "old route memory conflicts with source",
+                "repair_action": "trust current route registration",
+                "anti_pattern": "promoting a single correction into a skill",
+                "skill_candidate": "arkts-route-correction-skill",
+            }
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(RUNTIME),
+                    "reflect",
+                    "--payload",
+                    json.dumps(payload),
+                    "--project",
+                    str(project),
+                    "--memory-home",
+                    str(self.memory_home(project)),
+                ],
+                cwd=REPO_ROOT,
+                text=True,
+                capture_output=True,
+                check=False,
+                env=os.environ.copy(),
+            )
+
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("correction_experience cannot set skill_candidate", result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
