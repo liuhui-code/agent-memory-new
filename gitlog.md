@@ -2423,3 +2423,44 @@ Verification:
 Rollback notes:
 
 - Remove `retrieval_feedback.py`, schema/table wiring, CLI command, query penalties, maintain actions, tests, and docs if query-specific feedback becomes noisy.
+
+## 2026-07-11 - Add runtime SLO governance
+
+Files touched:
+
+- `docs/superpowers/plans/2026-07-11-runtime-slo-governance.md`
+- `tools/agent_memory_runtime/performance_scoring.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_quality_performance_scoring.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a plan for runtime SLO and token-budget governance.
+- Added per-operation target latency and token-budget fields to `runtime_performance`.
+- Added `review_runtime_performance_budget` maintain-plan actions for latency, token, status, or performance-band breaches.
+- Added `runtime_performance_reviews` to governance summary output.
+
+Why:
+
+- Performance samples were visible in health output, but maintain-plan could not yet turn budget breaches into reviewable maintenance work.
+- Local memory systems need lightweight SLO signals before large archives make query and maintain paths expensive.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_performance_scoring.QualityPerformanceScoringTests.test_maintain_plan_reviews_runtime_performance_budget`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_performance_scoring tests.test_retrieval_feedback tests.test_graph_quality tests.test_retrieval_eval`
+- Result: 18 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace`
+- Result: 131 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove `build_runtime_performance_actions`, drop runtime performance action wiring from maintain-plan, and revert docs/tests if the SLO signal becomes noisy.

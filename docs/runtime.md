@@ -199,6 +199,8 @@ Open feedback applies a bounded query-similarity penalty to matching future `con
 
 `maintain-health --json` includes `runtime_performance`, a summary built from bounded samples in `runtime/performance_samples.jsonl`. Samples track operation name, elapsed milliseconds, result counts, token estimate, database size, status, and a performance score. This is runtime telemetry for local maintenance only; it is not a durable memory record and should be treated as disposable.
 
+`maintain-plan --json` also includes `runtime_performance` and may emit `review_runtime_performance_budget` when an operation breaches local latency targets, token budget, non-ok status, or a poor/watch performance band. This action is a maintenance prompt to tighten limits, review noisy memory, refresh stale context, or split expensive maintenance work. It does not automatically delete telemetry or mutate memory.
+
 Query miss commands manage feedback from failed retrievals. A miss is recorded only when `context`, `search`, or `wiki-search` has zero matches. Repeated open misses with the same source and normalized query are merged into one row with `miss_count` and `last_seen_at`, so maintenance can focus on recurring retrieval gaps instead of duplicate rows.
 
 Query commands expand common natural-language problem descriptions into technical search terms before scoring rows. The expansion is deterministic and local. It helps symptom queries such as `页面跳转后白屏`, `图片资源显示不出来`, or `加载用户资料失败日志` match learned ArkTS route, resource, config, and log records without adding a vector database.

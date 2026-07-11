@@ -17,6 +17,7 @@ from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE
 from .performance_scoring import (
     append_performance_sample,
     build_performance_sample,
+    build_runtime_performance_actions,
     build_runtime_performance_summary,
     estimate_payload_tokens,
     monotonic_ms,
@@ -2094,6 +2095,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
     incident_trace_actions = build_incident_trace_actions(project, args.limit)
     graph_quality = build_graph_quality(project)
     graph_quality_actions = build_graph_quality_actions(graph_quality)
+    runtime_performance = build_runtime_performance_summary(project)
+    runtime_performance_actions = build_runtime_performance_actions(runtime_performance)
     retrieval_feedback_rows = fetch_open_retrieval_feedback(project, args.limit)
     retrieval_feedback_actions = build_retrieval_feedback_actions(retrieval_feedback_rows)
     quality_semantic_rows, quality_reflection_rows = fetch_quality_memory_rows(project, args.limit)
@@ -2270,6 +2273,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(quality_governance_actions)
     actions.extend(weak_evidence_chain_actions)
     actions.extend(graph_quality_actions)
+    actions.extend(runtime_performance_actions)
     actions.extend(retrieval_feedback_actions)
 
     for candidate in build_skill_pattern_candidates(project, review["unreviewed_reflections"]):
@@ -2509,6 +2513,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "high_value_experience_reviews": len([action for action in quality_governance_actions if action.get("action") == "review_high_value_experience"]),
         "weak_evidence_chain_reviews": len(weak_evidence_chain_actions),
         "graph_quality_reviews": len(graph_quality_actions),
+        "runtime_performance_reviews": len(runtime_performance_actions),
         "retrieval_feedback_reviews": len(retrieval_feedback_actions),
     }
 
@@ -2536,6 +2541,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "governance_summary": governance_summary,
         "learn_governance_summary": learn_governance_summary,
         "graph_quality": graph_quality,
+        "runtime_performance": runtime_performance,
         "retrieval_feedback_summary": {
             "open_feedback": len(retrieval_feedback_rows),
             "review_actions": len(retrieval_feedback_actions),

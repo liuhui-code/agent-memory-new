@@ -142,6 +142,39 @@ class QualityPerformanceScoringTests(unittest.TestCase):
         self.assertIn("context", data["runtime_performance"]["operations"])
         self.assertIn("maintain-plan", data["runtime_performance"]["operations"])
 
+    def test_maintain_plan_reviews_runtime_performance_budget(self) -> None:
+        from tools.agent_memory_runtime.performance_scoring import append_performance_sample, build_performance_sample
+        from tools.agent_memory_runtime.storage import ensure_dirs, resolve_project
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project_root = Path(temp_dir) / "app"
+            project_root.mkdir()
+            self.run_memory(project_root, "init")
+            project = resolve_project(str(project_root), str(self.memory_home(project_root)))
+            ensure_dirs(project)
+            append_performance_sample(
+                project,
+                build_performance_sample(
+                    project,
+                    operation="context",
+                    elapsed_ms=2400.0,
+                    result_counts={"semantic_facts": 80, "reflections": 60},
+                    token_estimate=3600,
+                    status="ok",
+                ),
+            )
+
+            result = self.run_memory(project_root, "maintain-plan", "--json")
+            data = json.loads(result.stdout)
+
+        actions = [action for action in data["actions"] if action["action"] == "review_runtime_performance_budget"]
+        self.assertEqual(1, len(actions))
+        self.assertEqual("context", actions[0]["operation"])
+        self.assertEqual("runtime_performance", actions[0]["type"])
+        self.assertGreater(actions[0]["p95_elapsed_ms"], actions[0]["target_p95_ms"])
+        self.assertGreater(data["runtime_performance"]["sample_count"], 0)
+        self.assertEqual(1, data["governance_summary"]["runtime_performance_reviews"])
+
     def test_context_reranks_reflections_by_quality_signal(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir) / "app"
