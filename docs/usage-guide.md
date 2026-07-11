@@ -310,6 +310,8 @@ Query outputs may also include `quality_score`, `quality_band`, `quality_reasons
 - `review_low_quality_memory`: inspect the record, then choose a narrow fix such as source verification, trigger tightening, confidence lowering, stale marking, or merge review.
 - `review_high_value_experience`: prioritize the experience for reuse, skill-pattern review, semantic-repair review, or promotion review. Do not promote it automatically.
 
+When reflections cite incident traces in `source_cases`, for example `incident_trace:7`, `maintain-plan` can also report evidence-chain fields. Prefer experiences with strong evidence chains when several records are otherwise similar. If `review_weak_evidence_chain` appears, keep the experience usable but verify whether it should be linked to an incident trace, code log, symbol, or file anchor.
+
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 
 ```bash

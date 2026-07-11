@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from .code_wiki import semantic_followup_from_db
+from .evidence_chain_quality import build_evidence_chain_summary, enrich_reflections_with_evidence_chains
 from .incident_trace_governance import build_incident_trace_actions
 from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE_POOL_LIMIT, VALID_MEMORY_STATUSES
 from .performance_scoring import (
@@ -2086,12 +2087,14 @@ def maintain_plan(args: argparse.Namespace) -> None:
     experience_conflict_candidates = build_experience_conflict_candidates(active_reflection_rows(project), args.limit)
     incident_trace_actions = build_incident_trace_actions(project, args.limit)
     quality_semantic_rows, quality_reflection_rows = fetch_quality_memory_rows(project, args.limit)
+    quality_reflection_rows = enrich_reflections_with_evidence_chains(project, quality_reflection_rows)
     quality_report = build_quality_report(
         quality_semantic_rows,
         quality_reflection_rows,
         fetch_incident_trace_quality_rows(project, args.limit),
     )
     quality_governance_actions = build_quality_governance_actions(quality_report)
+    weak_evidence_chain_actions = build_weak_evidence_chain_actions(quality_report)
     actions: list[dict[str, Any]] = []
 
     for row in review["stale_memories"]:
@@ -2255,6 +2258,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(experience_conflict_candidates)
     actions.extend(incident_trace_actions)
     actions.extend(quality_governance_actions)
+    actions.extend(weak_evidence_chain_actions)
 
     for candidate in build_skill_pattern_candidates(project, review["unreviewed_reflections"]):
         candidate = annotate_skill_pattern_artifacts(project.root, candidate)
@@ -2491,6 +2495,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "incident_trace_reviews": len(incident_trace_actions),
         "low_quality_memory_reviews": len([action for action in quality_governance_actions if action.get("action") == "review_low_quality_memory"]),
         "high_value_experience_reviews": len([action for action in quality_governance_actions if action.get("action") == "review_high_value_experience"]),
+        "weak_evidence_chain_reviews": len(weak_evidence_chain_actions),
     }
 
     data = {
@@ -2517,6 +2522,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "governance_summary": governance_summary,
         "learn_governance_summary": learn_governance_summary,
         "quality_summary": quality_report["summary"],
+        "evidence_chain_summary": build_evidence_chain_summary(quality_reflection_rows),
         "low_quality_records": quality_report["low_quality_records"],
         "high_value_records": quality_report["high_value_records"],
         "actions": actions,
@@ -2643,6 +2649,39 @@ def high_value_suggested_actions(experience_type: str) -> list[str]:
     if experience_type in {"correction_experience", "semantic_patch_experience"}:
         return ["reuse_as_guardrail", "review_for_semantic_repair", "keep_active"]
     return ["reuse_as_primary_context", "review_for_skill_pattern", "review_for_promotion", "keep_active"]
+
+
+def build_weak_evidence_chain_actions(quality_report: dict[str, Any]) -> list[dict[str, Any]]:
+    actions: list[dict[str, Any]] = []
+    for item in quality_report.get("high_value_records", []):
+        if item.get("record_type") != "reflection":
+            continue
+        score = item.get("evidence_chain_score")
+        if score is None or float(score or 0.0) >= 0.6:
+            continue
+        actions.append(
+            {
+                "action": "review_weak_evidence_chain",
+                "governance_lane": "memory_quality",
+                "type": "reflection",
+                "id": item.get("record_id"),
+                "experience_type": item.get("experience_type") or "procedure_experience",
+                "reason": "high-value experience lacks a grounded source-case evidence chain",
+                "risk": "low",
+                "requires_confirmation": False,
+                "command": None,
+                "quality_score": item.get("quality_score"),
+                "evidence_chain_score": score,
+                "evidence_chain_reasons": item.get("evidence_chain_reasons") or [],
+                "suggested_actions": [
+                    "link_source_case",
+                    "verify_against_incident_trace",
+                    "add_code_or_log_anchor",
+                    "keep_as_unanchored_experience",
+                ],
+            }
+        )
+    return actions
 
 
 def build_query_miss_data(project: Project, limit: int) -> list[dict[str, Any]]:

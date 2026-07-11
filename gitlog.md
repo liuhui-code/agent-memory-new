@@ -2295,3 +2295,45 @@ Verification:
 Rollback notes:
 
 - Remove `retrieval_eval.py`, the `eval-retrieval` CLI wiring, tests, and docs if golden-set evaluation proves too rigid for early iteration.
+
+## 2026-07-11 - Add evidence chain quality scoring
+
+Files touched:
+
+- `docs/superpowers/plans/2026-07-11-evidence-chain-quality.md`
+- `tools/agent_memory_runtime/evidence_chain_quality.py`
+- `tools/agent_memory_runtime/quality_scoring.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_quality_performance_scoring.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added an implementation plan for evidence-chain quality.
+- Added reflection evidence-chain enrichment from `source_cases` entries such as `incident_trace:<id>`.
+- Resolved incident trace ids to `incident_traces` and `incident_trace_links` to compute `evidence_chain_score`.
+- Added evidence-chain fields to quality scored records and maintain-plan output.
+- Added `evidence_chain_summary` and `review_weak_evidence_chain` maintain action.
+
+Why:
+
+- Experience quality should distinguish field-complete advice from advice grounded in incident traces and code/log anchors.
+- Weak evidence chains should trigger focused review without automatically discarding useful experience.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_performance_scoring.QualityPerformanceScoringTests.test_quality_report_rewards_resolved_incident_trace_evidence_chain tests.test_quality_performance_scoring.QualityPerformanceScoringTests.test_maintain_plan_reviews_weak_evidence_chain_for_high_value_experience`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_performance_scoring tests.test_retrieval_eval`
+- Result: 12 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace`
+- Result: 131 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+
+Rollback notes:
+
+- Remove `evidence_chain_quality.py`, drop evidence-chain fields and weak-chain actions from maintain-plan, and revert the scoring/docs/tests if this creates noisy review output.

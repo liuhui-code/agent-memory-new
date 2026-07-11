@@ -161,6 +161,16 @@ Quality scores now feed two read-only governance actions:
 
 Both actions require confirmation. They are review priorities, not automatic mutations.
 
+Reflection quality also includes an optional evidence-chain score when `source_cases` contains incident trace anchors such as `incident_trace:7`. `maintain-plan` resolves those anchors to `incident_traces` and `incident_trace_links`, then returns:
+
+- `evidence_chain_score`
+- `evidence_chain_reasons`
+- `evidence_chain_trace_ids`
+- `evidence_chain_anchor_count`
+- `evidence_chain_summary`
+
+If an otherwise high-value reflection lacks a grounded chain, `maintain-plan` may emit `review_weak_evidence_chain`. This action is a prompt to link a source case, verify against an incident trace, or add code/log anchors. It does not mean the experience is wrong.
+
 `context` and `search` also attach quality hints to semantic and reflection matches. Reflection matches use `quality_score` inside the existing memory-lane gate to produce `rerank_score`; this lets verified, evidence-backed experience outrank broad or misleading experience after the intent gate has already decided the record belongs in the main lane. The rerank is deliberately soft: it does not make stale, blocked, correction-only, or semantic-patch-only records bypass their lane rules.
 
 Retrieval changes can be checked with a local golden-query eval:

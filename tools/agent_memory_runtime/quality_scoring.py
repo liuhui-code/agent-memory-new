@@ -40,6 +40,8 @@ def score_reflection_quality(row: dict[str, Any]) -> dict[str, Any]:
     has_evidence = any(value_present(row, key) for key in ("evidence", "verification_method", "source_cases"))
     has_procedure_fields = all(value_present(row, key) for key in ("trigger_condition", "repair_action"))
     has_semantic_anchor = all(value_present(row, key) for key in ("anchor_type", "anchor_key", "semantic_field"))
+    evidence_chain_score = row.get("evidence_chain_score")
+    evidence_chain_bonus = 0.0 if evidence_chain_score is None else min(0.25, float(evidence_chain_score or 0.0) * 0.25)
     confidence = confidence_value(row)
     misleading = misleading_value(row)
     is_stale = boolish(row.get("is_stale")) or str(row.get("status") or "active") == "stale"
@@ -50,7 +52,7 @@ def score_reflection_quality(row: dict[str, Any]) -> dict[str, Any]:
 
     parts = {
         "retrieval_relevance": 0.85 if value_present(row, "experience_type") else 0.55,
-        "evidence_strength": min(1.0, 0.35 + (0.3 if has_evidence else 0) + (0.2 if source_cases else 0) + (0.2 if has_semantic_anchor else 0)),
+        "evidence_strength": min(1.0, 0.25 + (0.25 if has_evidence else 0) + (0.15 if source_cases else 0) + (0.15 if has_semantic_anchor else 0) + evidence_chain_bonus),
         "freshness": 0.2 if is_stale else confidence,
         "conflict_safety": clamp_score(1.0 - misleading - (0.25 if value_present(row, "superseded_by") else 0.0)),
         "reuse_success": reuse_success,
@@ -77,6 +79,8 @@ def reflection_reasons(
         reasons.append("has trigger_condition and repair_action")
     if has_semantic_anchor:
         reasons.append("has semantic anchor")
+    if row.get("evidence_chain_score") is not None:
+        reasons.extend(json_list(row.get("evidence_chain_reasons")))
     if parts["conflict_safety"] < 0.6:
         reasons.append("conflict or misleading risk")
     if parts["freshness"] < 0.5:
@@ -144,6 +148,10 @@ def quality_payload(
         "experience_type": row.get("experience_type"),
         "confidence": row.get("confidence"),
         "status": row.get("status") or "active",
+        "evidence_chain_score": row.get("evidence_chain_score"),
+        "evidence_chain_reasons": json_list(row.get("evidence_chain_reasons")),
+        "evidence_chain_trace_ids": row.get("evidence_chain_trace_ids") or [],
+        "evidence_chain_anchor_count": row.get("evidence_chain_anchor_count") or 0,
     }
 
 

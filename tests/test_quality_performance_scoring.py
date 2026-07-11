@@ -2,6 +2,7 @@
 
 import json
 import os
+import sqlite3
 import subprocess
 import sys
 import tempfile
@@ -54,7 +55,7 @@ class QualityPerformanceScoringTests(unittest.TestCase):
 
         self.assertGreaterEqual(score["quality_score"], 0.75)
         self.assertIn(score["quality_band"], {"good", "excellent"})
-        self.assertGreater(score["score_parts"]["evidence_strength"], 0.8)
+        self.assertGreater(score["score_parts"]["evidence_strength"], 0.6)
         self.assertEqual(score["recommended_action"], "keep_active")
 
     def test_quality_scoring_penalizes_misleading_stale_experience(self) -> None:
@@ -233,3 +234,91 @@ class QualityPerformanceScoringTests(unittest.TestCase):
         self.assertEqual("procedure_experience", actions[0]["experience_type"])
         self.assertIn("review_for_skill_pattern", actions[0]["suggested_actions"])
         self.assertEqual(1, data["governance_summary"]["high_value_experience_reviews"])
+
+    def test_quality_report_rewards_resolved_incident_trace_evidence_chain(self) -> None:
+        from tools.agent_memory_runtime.evidence_chain_quality import enrich_reflections_with_evidence_chains
+        from tools.agent_memory_runtime.quality_scoring import build_quality_report
+        from tools.agent_memory_runtime.storage import connect, ensure_dirs, resolve_project
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project_root = Path(temp_dir) / "app"
+            project_root.mkdir()
+            project = resolve_project(str(project_root), str(self.memory_home(project_root)))
+            ensure_dirs(project)
+            self.run_memory(project_root, "init")
+            with connect(project) as conn:
+                trace_id = self.insert_trace_with_link(conn, project.project_id, "resolved")
+            reflection = {
+                "id": 1,
+                "experience_type": "procedure_experience",
+                "confidence": 0.9,
+                "status": "active",
+                "verification_method": "ran route test",
+                "source_cases": json.dumps([f"incident_trace:{trace_id}"]),
+                "trigger_condition": "ArkTS route blank screen",
+                "repair_action": "inspect router.pushUrl target",
+                "reuse_feedback": "reused successfully",
+                "lesson": "Route diagnosis follows incident trace anchors.",
+            }
+
+            enriched = enrich_reflections_with_evidence_chains(project, [reflection])
+            report = build_quality_report([], enriched, [])
+
+        scored = report["high_value_records"][0]
+        self.assertEqual(1.0, scored["evidence_chain_score"])
+        self.assertIn("resolved incident trace with linked anchors", scored["evidence_chain_reasons"])
+
+    def test_maintain_plan_reviews_weak_evidence_chain_for_high_value_experience(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            payload = {
+                "experience_type": "procedure_experience",
+                "task": "Diagnose ArkTS route blank screen",
+                "summary": "Good-looking route diagnosis without durable source case.",
+                "lesson": "Inspect router.pushUrl target and page registration first.",
+                "trigger_condition": "ArkTS route blank screen",
+                "repair_action": "inspect router.pushUrl target",
+                "verification_method": "ran targeted route test",
+                "source_cases": ["ad_hoc_note:1"],
+                "reuse_feedback": "reused successfully",
+                "confidence": 0.9,
+            }
+
+            self.run_memory(project, "reflect", "--payload", json.dumps(payload))
+            result = self.run_memory(project, "maintain-plan", "--json")
+            data = json.loads(result.stdout)
+
+        actions = [action for action in data["actions"] if action["action"] == "review_weak_evidence_chain"]
+        self.assertEqual(1, len(actions))
+        self.assertEqual(1, actions[0]["id"])
+        self.assertLess(actions[0]["evidence_chain_score"], 0.6)
+        self.assertEqual(1, data["governance_summary"]["weak_evidence_chain_reviews"])
+        self.assertEqual(1, data["evidence_chain_summary"]["weak_reflections"])
+
+    def insert_trace_with_link(self, conn: sqlite3.Connection, project_id: str, status: str) -> int:
+        cur = conn.execute(
+            """
+            INSERT INTO incident_traces(
+              project_id, trace_key, status, symptom, arkts_scene, diagnosis_summary,
+              suspected_chain, resolution, confidence, created_at, updated_at
+            )
+            VALUES (?, 'trace-test', ?, 'ArkTS route blank screen', 'route', 'route target mismatch',
+                    '["router.pushUrl", "pages/Profile"]', 'fixed route target', 0.9,
+                    '2026-07-11T00:00:00Z', '2026-07-11T00:00:00Z')
+            """,
+            (project_id, status),
+        )
+        trace_id = int(cur.lastrowid)
+        conn.execute(
+            """
+            INSERT INTO incident_trace_links(
+              project_id, trace_id, target_type, target_id, target_key, relation, score, evidence, created_at
+            )
+            VALUES (?, ?, 'code_log_statement', 42, 'pages/Profile.ets::router.pushUrl',
+                    'matched_log', 0.9, 'matched route log', '2026-07-11T00:00:00Z')
+            """,
+            (project_id, trace_id),
+        )
+        conn.commit()
+        return trace_id
