@@ -312,6 +312,8 @@ Query outputs may also include `quality_score`, `quality_band`, `quality_reasons
 
 When reflections cite incident traces in `source_cases`, for example `incident_trace:7`, `maintain-plan` can also report evidence-chain fields. Prefer experiences with strong evidence chains when several records are otherwise similar. If `review_weak_evidence_chain` appears, keep the experience usable but verify whether it should be linked to an incident trace, code log, symbol, or file anchor.
 
+`maintain-health --json` reports `graph_quality`. If it shows orphan code logs, orphan symbols, stale edges, or poor anchor coverage, prefer a focused `learn-entry` or `learn-path` refresh around the affected source scope before broad re-learning. `review_graph_quality` in `maintain-plan` is a review prompt, not an automatic graph repair.
+
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 
 ```bash

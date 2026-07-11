@@ -11,6 +11,7 @@ from typing import Any
 
 from .code_wiki import semantic_followup_from_db
 from .evidence_chain_quality import build_evidence_chain_summary, enrich_reflections_with_evidence_chains
+from .graph_quality import build_graph_quality, build_graph_quality_actions
 from .incident_trace_governance import build_incident_trace_actions
 from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE_POOL_LIMIT, VALID_MEMORY_STATUSES
 from .performance_scoring import (
@@ -211,6 +212,7 @@ def maintain_health(args: argparse.Namespace) -> None:
     incident_strategy_candidates = build_incident_strategy_candidates(project, reflection_active_rows)
     recurring_incident_fingerprints = build_recurring_incident_fingerprint_candidates(project, reflection_active_rows)
     log_design_gaps = build_log_design_gap_candidates(project, reflection_active_rows)
+    graph_quality = build_graph_quality(project)
 
     duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
     low_confidence_count = low_conf_semantic_count + low_conf_reflection_count
@@ -231,6 +233,8 @@ def maintain_health(args: argparse.Namespace) -> None:
         recommended_actions.append("Repair or retire learned scopes whose source roots no longer exist.")
     if scope_with_drift:
         recommended_actions.append("Review refreshed scope drift and rerun focused learn-business on changed files.")
+    if graph_quality["health_status"] != "ok":
+        recommended_actions.append("Review code/log graph quality and refresh stale or orphan anchors.")
 
     data = {
         "project_id": project.project_id,
@@ -265,6 +269,7 @@ def maintain_health(args: argparse.Namespace) -> None:
                 "log_design_gaps": len(log_design_gaps),
             },
         },
+        "graph_quality": graph_quality,
         "runtime_performance": build_runtime_performance_summary(project),
         "recommended_actions": recommended_actions,
     }
@@ -2086,6 +2091,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
     retrieval_interference_candidates = build_retrieval_interference_candidates(active_reflection_rows(project), args.limit)
     experience_conflict_candidates = build_experience_conflict_candidates(active_reflection_rows(project), args.limit)
     incident_trace_actions = build_incident_trace_actions(project, args.limit)
+    graph_quality = build_graph_quality(project)
+    graph_quality_actions = build_graph_quality_actions(graph_quality)
     quality_semantic_rows, quality_reflection_rows = fetch_quality_memory_rows(project, args.limit)
     quality_reflection_rows = enrich_reflections_with_evidence_chains(project, quality_reflection_rows)
     quality_report = build_quality_report(
@@ -2259,6 +2266,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(incident_trace_actions)
     actions.extend(quality_governance_actions)
     actions.extend(weak_evidence_chain_actions)
+    actions.extend(graph_quality_actions)
 
     for candidate in build_skill_pattern_candidates(project, review["unreviewed_reflections"]):
         candidate = annotate_skill_pattern_artifacts(project.root, candidate)
@@ -2496,6 +2504,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "low_quality_memory_reviews": len([action for action in quality_governance_actions if action.get("action") == "review_low_quality_memory"]),
         "high_value_experience_reviews": len([action for action in quality_governance_actions if action.get("action") == "review_high_value_experience"]),
         "weak_evidence_chain_reviews": len(weak_evidence_chain_actions),
+        "graph_quality_reviews": len(graph_quality_actions),
     }
 
     data = {
@@ -2521,6 +2530,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         },
         "governance_summary": governance_summary,
         "learn_governance_summary": learn_governance_summary,
+        "graph_quality": graph_quality,
         "quality_summary": quality_report["summary"],
         "evidence_chain_summary": build_evidence_chain_summary(quality_reflection_rows),
         "low_quality_records": quality_report["low_quality_records"],

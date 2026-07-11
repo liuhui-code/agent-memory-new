@@ -54,6 +54,7 @@ python tools/agent_memory.py maintain-plan --project . --json
 Use `maintain-plan` to propose grouped actions before changing records.
 
 When `maintain-health --json` returns `runtime_performance`, use it to spot operational pressure before broad maintenance work. High p95 latency, poor performance bands, or repeated non-ok statuses mean the next maintenance pass should stay narrow and may need archive/compact review before adding more data.
+When `maintain-health --json` returns `graph_quality`, inspect `health_status`, `orphan_code_logs`, `orphan_code_symbols`, `stale_edges`, and anchor coverage before broad query tuning. If `maintain-plan` returns `review_graph_quality`, prefer a focused learn refresh or edge rebuild around affected source paths instead of adding more unrelated memory.
 When reviewing retrieval quality after ranking, scoring, learn-business, code graph, or log graph changes, run `eval-retrieval --cases <golden-cases.json> --json` if a golden query file exists. Use missed expected anchors and unexpected bad matches to choose the smallest follow-up: enrich business terms, tighten an experience trigger, mark stale memory, or add a new golden case.
 
 ## Guided Review Workflow

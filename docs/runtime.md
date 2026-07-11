@@ -171,6 +171,8 @@ Reflection quality also includes an optional evidence-chain score when `source_c
 
 If an otherwise high-value reflection lacks a grounded chain, `maintain-plan` may emit `review_weak_evidence_chain`. This action is a prompt to link a source case, verify against an incident trace, or add code/log anchors. It does not mean the experience is wrong.
 
+`maintain-health --json` also returns `graph_quality` for the learned code/log graph. It reports code files, symbols, log statements, memory edges, orphan symbols/logs, stale edges, low-confidence edges, and symbol/log anchor coverage. `maintain-plan --json` may emit `review_graph_quality` when graph health is `watch` or `poor`. This is a read-only signal to refresh a focused learned scope or inspect stale/orphan anchors; it is not recursive graph traversal.
+
 `context` and `search` also attach quality hints to semantic and reflection matches. Reflection matches use `quality_score` inside the existing memory-lane gate to produce `rerank_score`; this lets verified, evidence-backed experience outrank broad or misleading experience after the intent gate has already decided the record belongs in the main lane. The rerank is deliberately soft: it does not make stale, blocked, correction-only, or semantic-patch-only records bypass their lane rules.
 
 Retrieval changes can be checked with a local golden-query eval:

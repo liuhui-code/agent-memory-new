@@ -2337,3 +2337,43 @@ Verification:
 Rollback notes:
 
 - Remove `evidence_chain_quality.py`, drop evidence-chain fields and weak-chain actions from maintain-plan, and revert the scoring/docs/tests if this creates noisy review output.
+
+## 2026-07-11 - Add graph quality health checks
+
+Files touched:
+
+- `docs/superpowers/plans/2026-07-11-graph-quality-health.md`
+- `tools/agent_memory_runtime/graph_quality.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_graph_quality.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a plan for lightweight code/log graph health metrics.
+- Added `graph_quality` to `maintain-health` and `maintain-plan`.
+- Added metrics for orphan code symbols, orphan code logs, stale edges, low-confidence edges, and symbol/log anchor coverage.
+- Added `review_graph_quality` maintain-plan action when graph health is not ok.
+
+Why:
+
+- Query quality depends on whether learned code/log anchors are connected and current, not just whether rows exist.
+- Graph health should flag stale or orphan anchors before Agents rely on weak code/log evidence.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_graph_quality`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_graph_quality tests.test_quality_performance_scoring tests.test_retrieval_eval`
+- Result: 14 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace`
+- Result: 131 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+
+Rollback notes:
+
+- Remove `graph_quality.py`, drop graph quality output/action integration, and revert docs/tests if the health signal becomes noisy.
