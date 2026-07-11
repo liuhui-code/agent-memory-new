@@ -69,6 +69,7 @@ def compute_trust_score(group: str, item: dict[str, Any]) -> tuple[float, list[s
     feedback_penalty = safe_float(item.get("feedback_penalty"), 0.0)
     calibration_bonus = safe_float(item.get("calibration_feedback_bonus"), 0.0)
     calibration_penalty = safe_float(item.get("calibration_feedback_penalty"), 0.0)
+    maturity = str(item.get("experience_maturity") or "")
 
     score += (confidence - 0.5) * 0.35
     reasons.append(f"confidence={round(confidence, 3)}")
@@ -87,6 +88,20 @@ def compute_trust_score(group: str, item: dict[str, Any]) -> tuple[float, list[s
     if group in {"wiki_matches", "code_log_matches", "edge_matches", "incident_trace_matches"}:
         score += 0.12
         reasons.append("source-like code/log evidence")
+    if maturity in {"verified_case", "reused_pattern", "skill_candidate"}:
+        score += {"verified_case": 0.08, "reused_pattern": 0.12, "skill_candidate": 0.16}[maturity]
+        reasons.append(f"experience_maturity={maturity}")
+    elif maturity == "raw_observation":
+        score -= 0.10
+        reasons.append("experience_maturity=raw_observation")
+    elif maturity == "deprecated_pattern":
+        score -= 0.30
+        reasons.append("experience_maturity=deprecated_pattern")
+    if group == "reflections" and maturity in {"verified_case", "reused_pattern", "skill_candidate"}:
+        counter_evidence = item.get("counter_evidence") if isinstance(item.get("counter_evidence"), dict) else {}
+        if not counter_evidence.get("has_counter_evidence"):
+            score -= 0.06
+            reasons.append("missing counter_evidence")
     if item.get("status") in {"stale", "archived", "merged", "rejected"} or truthy(item.get("is_stale")):
         score -= 0.35
         reasons.append("stale or inactive status")
@@ -140,6 +155,8 @@ def build_retrieval_explanation(group: str, item: dict[str, Any]) -> dict[str, A
         "gate_reasons": json_list(item.get("gate_reasons")),
         "quality_score": item.get("quality_score"),
         "quality_band": item.get("quality_band"),
+        "experience_maturity": item.get("experience_maturity"),
+        "experience_maturity_score": item.get("experience_maturity_score"),
         "feedback_penalty": item.get("feedback_penalty", 0.0),
         "feedback_reasons": json_list(item.get("feedback_reasons")),
         "calibration_feedback_bonus": item.get("calibration_feedback_bonus", 0.0),

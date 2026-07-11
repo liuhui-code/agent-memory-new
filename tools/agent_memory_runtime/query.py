@@ -16,6 +16,7 @@ from .models import (
 )
 from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT, INCIDENT_TRACE_SEARCH_LIMIT
 from .incident_trace_query import collect_incident_trace_matches
+from .experience_maturity import score_experience_maturity
 from .memory_calibration import calibrate_payload
 from .quality_scoring import score_reflection_quality, score_semantic_quality
 from .records import memory_warning, row_dict
@@ -327,6 +328,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             item["quality_reasons"] = quality["reasons"]
             apply_feedback_penalty(item, reflection_feedback)
             apply_calibration_feedback(item, reflection_calibration_feedback)
+            item.update(score_experience_maturity(item))
             item["match_reasons"] = reasons
             item["warning"] = memory_warning(item)
             results["reflections"].append(item)

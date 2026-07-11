@@ -2597,3 +2597,76 @@ Verification:
 Rollback notes:
 
 - Remove `calibration_eval.py`, CLI wiring, docs, and tests if the evaluation model proves too rigid.
+
+## 2026-07-11 - Plan experience maturity and log signal quality
+
+Files touched:
+
+- `docs/superpowers/plans/2026-07-11-experience-maturity-and-log-signal-quality.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a detailed staged implementation plan for Experience Maturity Level + Counter Evidence.
+- Added a detailed staged implementation plan for Log Signal Quality + Log Design Gap.
+- Included target files, phased tasks, test strategy, maintain-plan action design, skill updates, verification matrix, and rollback strategy.
+
+Why:
+
+- Experience quality needs maturity and counter-evidence signals before records can safely evolve toward reusable skills.
+- Log diagnosis quality needs explicit signal scoring and design-gap governance so runtime logs help locate issues faster without preserving raw logs.
+
+Verification:
+
+- Command: `rg -n "TBD|TODO|implement later|fill in|placeholder|Similar to" docs/superpowers/plans/2026-07-11-experience-maturity-and-log-signal-quality.md`
+- Result: no matches.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove the plan document and this gitlog entry if the project chooses a different next-stage direction.
+
+## 2026-07-11 - Add experience maturity scoring
+
+Files touched:
+
+- `tools/agent_memory_runtime/experience_maturity.py`
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/memory_calibration.py`
+- `tests/test_experience_maturity.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added derived experience maturity levels for reflection query results.
+- Added counter-evidence summaries from `negative_preconditions`, `does_not_apply_to`, `what_failed`, `anti_pattern`, and `misleading_followup_terms`.
+- Attached maturity fields to `context` and `search` reflection results.
+- Updated trust calibration to consume maturity and counter-evidence signals.
+
+Why:
+
+- Experience records need a maturity signal before Agents treat them as reusable procedures or future skill candidates.
+- Counter-evidence helps prevent broad experiences from becoming over-trusted rules.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_maturity`
+- Result: 8 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_maturity tests.test_memory_calibration tests.test_calibration_feedback tests.test_calibration_eval`
+- Result: 15 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_maturity tests.test_memory_calibration tests.test_calibration_feedback tests.test_calibration_eval tests.test_quality_performance_scoring`
+- Result: 26 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace tests.test_retrieval_eval tests.test_retrieval_feedback`
+- Result: 136 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove `experience_maturity.py`, remove query/calibration maturity fields, and revert tests/docs if the derived maturity labels become noisy.

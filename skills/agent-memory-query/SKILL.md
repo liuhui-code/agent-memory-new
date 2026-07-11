@@ -99,11 +99,14 @@ Read these fields before relying on `reflections`. A recent reflection with weak
 
 `context` and `search` also include `memory_use_policy`, and calibrated result rows may include:
 
+- `experience_maturity`: `raw_observation`, `structured_candidate`, `verified_case`, `reused_pattern`, `skill_candidate`, or `deprecated_pattern`
+- `counter_evidence`: whether the experience records negative preconditions or cases where it does not apply
 - `trust_level`: `source_truth`, `verified_experience`, `usable_hint`, `weak_hint`, `possibly_stale`, or `conflict_warning`
 - `trust_score`: bounded 0-1 advisory confidence
 - `trust_reasons`: compact reasons behind the trust level
 - `retrieval_explanation`: match, gate, quality, feedback, status, and confidence details
 
+Use `experience_maturity` before applying a reflection as a reusable rule. Treat `raw_observation` as a weak hint, `verified_case` as a case-backed procedure, `reused_pattern` as stronger reusable guidance, `skill_candidate` as promotion material, and `deprecated_pattern` as warning or counter-evidence.
 Use `trust_level` before injecting memory into an answer. Treat `source_truth` as inspectable code/log/wiki evidence, `verified_experience` as a reusable but still advisory procedure, `usable_hint` as a lead, `weak_hint` as a next-inspection hint only, and `possibly_stale` or `conflict_warning` as cautionary context.
 If a memory result's trust label was wrong for the actual task outcome, record calibration feedback with `retrieval-feedback`: use `verified_useful` or `useful` when a low/medium-trust result proved valuable, `undertrusted` when the runtime should trust it more next time, and `overtrusted` when a strong-looking result misled the task. This adjusts future answer-time trust for similar queries without rewriting the memory record.
 
