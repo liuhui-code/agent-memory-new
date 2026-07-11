@@ -2129,3 +2129,48 @@ Verification:
 Rollback notes:
 
 - Remove incident trace modules, schema hook, CLI registration, query lane, maintain actions, vault pages, and docs if trace storage proves too noisy.
+
+## 2026-07-11 - Add quality and performance scoring plan
+
+Files touched:
+
+- `docs/superpowers/plans/2026-07-11-quality-performance-scoring.md`
+- `tools/agent_memory_runtime/scoring_models.py`
+- `tools/agent_memory_runtime/quality_scoring.py`
+- `tools/agent_memory_runtime/performance_scoring.py`
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_quality_performance_scoring.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `references/schema.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `skills/agent-memory-query/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a detailed implementation plan for deterministic quality and performance scoring.
+- Added explainable quality scoring for semantic facts, reflections/experiences, and incident traces.
+- Added bounded JSONL runtime performance samples with p50/p95 health summaries.
+- Exposed `quality_summary`, `low_quality_records`, and `high_value_records` in `maintain-plan`.
+- Exposed `runtime_performance` in `maintain-health`.
+- Recorded lightweight performance samples for `context`, `search`, `maintain-plan`, and `maintain-health`.
+
+Why:
+
+- Memory retrieval needs a visible quality signal so weakly related or stale experiences do not dominate Agent context.
+- Maintenance needs lightweight performance signals before large archives make query, maintain, or export work expensive.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_performance_scoring`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace`
+- Result: 131 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+
+Rollback notes:
+
+- Remove the scoring modules, maintain output fields, performance sample writes, tests, and doc updates if the scoring layer becomes noisy.

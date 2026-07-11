@@ -53,6 +53,8 @@ python tools/agent_memory.py maintain-plan --project . --json
 
 Use `maintain-plan` to propose grouped actions before changing records.
 
+When `maintain-health --json` returns `runtime_performance`, use it to spot operational pressure before broad maintenance work. High p95 latency, poor performance bands, or repeated non-ok statuses mean the next maintenance pass should stay narrow and may need archive/compact review before adding more data.
+
 ## Guided Review Workflow
 
 When the user asks to clean, organize, review, or govern memory:
@@ -68,6 +70,7 @@ When the user asks to clean, organize, review, or govern memory:
 If an action has `command: null`, draft the needed replacement fact or lesson first, then ask for confirmation.
 
 When `maintain-plan` returns `promote_experience_candidate`, review the reflection as reusable experience. Check `candidate_fields`, `verification_method`, `source_cases`, and `skill_candidate`; do not promote it automatically.
+When `maintain-plan` returns `quality_summary`, `low_quality_records`, or `high_value_records`, treat them as ranking aids for review order. Low-quality records need verification, tightening, stale marking, or merge review. High-value records can be reused or reviewed for promotion, but the score does not override current source code or explicit conflict/stale signals.
 If the action also includes compressed trace-case fields such as `query_rounds`, `useful_followup_focus`, `useful_followup_terms`, `misleading_followup_terms`, `inspection_targets`, or `final_verification_path`, review them as evidence about how the Agent actually converged.
 When `maintain-plan` returns `review_skill_pattern_candidate`, treat it as a multi-case aggregation hint, not a ready-made skill. Review `supporting_reflection_ids`, `common_followup_focus`, `common_query_terms`, `supporting_cases`, and `verification_methods` before drafting any skill candidate.
 If `draft_path` and `draft_markdown` are present, use them as the proposed review artifact for `docs/skill-candidates/`. Review and edit the draft first; do not treat it as an approved skill.

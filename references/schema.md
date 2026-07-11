@@ -189,3 +189,21 @@ episode/reflection -> promoted semantic fact
 ```
 
 Query commands consume governance metadata. Maintain commands create, review, merge, stale, archive, reject, or promote memory records.
+
+## Scoring And Runtime Performance
+
+Quality scores are computed at runtime from existing rows. They are not a separate source-of-truth table. `maintain-plan --json` may include:
+
+- `quality_summary`
+- `low_quality_records`
+- `high_value_records`
+
+Each scored item includes `quality_score`, `quality_band`, `score_parts`, `reasons`, and `recommended_action`. The score is advisory and explainable; maintain commands still require confirmation before mutating memory.
+
+Runtime performance samples are stored as bounded JSONL in:
+
+```text
+<project-memory-dir>/runtime/performance_samples.jsonl
+```
+
+These samples are operational telemetry, not memory. `maintain-health --json` summarizes them as `runtime_performance` with operation sample counts, p50/p95 elapsed time, average performance score, and latest status.

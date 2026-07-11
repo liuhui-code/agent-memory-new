@@ -12,6 +12,14 @@ from typing import Any
 from .code_wiki import semantic_followup_from_db
 from .incident_trace_governance import build_incident_trace_actions
 from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE_POOL_LIMIT, VALID_MEMORY_STATUSES
+from .performance_scoring import (
+    append_performance_sample,
+    build_performance_sample,
+    build_runtime_performance_summary,
+    estimate_payload_tokens,
+    monotonic_ms,
+)
+from .quality_scoring import build_quality_report
 from .query import collect_matches, infer_followup_focus, rank_followup_seed_terms, suggested_followup_terms
 from .records import output, parse_ids, row_dict, table_for_type
 from .storage import connect, ensure_initialized, now_iso, resolve_project
@@ -106,6 +114,7 @@ def fetch_memory_rows(
 
 
 def maintain_health(args: argparse.Namespace) -> None:
+    started_ms = monotonic_ms()
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     with connect(project) as conn:
@@ -255,8 +264,19 @@ def maintain_health(args: argparse.Namespace) -> None:
                 "log_design_gaps": len(log_design_gaps),
             },
         },
+        "runtime_performance": build_runtime_performance_summary(project),
         "recommended_actions": recommended_actions,
     }
+    append_performance_sample(
+        project,
+        build_performance_sample(
+            project,
+            "maintain-health",
+            monotonic_ms() - started_ms,
+            data["counts"],
+            estimate_payload_tokens(data),
+        ),
+    )
     output(data, args.json)
 
 
@@ -2040,6 +2060,7 @@ def active_reflection_rows(project: Project) -> list[dict[str, Any]]:
 
 
 def maintain_plan(args: argparse.Namespace) -> None:
+    started_ms = monotonic_ms()
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     review = build_review_data(project, args.limit)
@@ -2064,6 +2085,12 @@ def maintain_plan(args: argparse.Namespace) -> None:
     retrieval_interference_candidates = build_retrieval_interference_candidates(active_reflection_rows(project), args.limit)
     experience_conflict_candidates = build_experience_conflict_candidates(active_reflection_rows(project), args.limit)
     incident_trace_actions = build_incident_trace_actions(project, args.limit)
+    quality_semantic_rows, quality_reflection_rows = fetch_quality_memory_rows(project, args.limit)
+    quality_report = build_quality_report(
+        quality_semantic_rows,
+        quality_reflection_rows,
+        fetch_incident_trace_quality_rows(project, args.limit),
+    )
     actions: list[dict[str, Any]] = []
 
     for row in review["stale_memories"]:
@@ -2485,11 +2512,46 @@ def maintain_plan(args: argparse.Namespace) -> None:
         },
         "governance_summary": governance_summary,
         "learn_governance_summary": learn_governance_summary,
+        "quality_summary": quality_report["summary"],
+        "low_quality_records": quality_report["low_quality_records"],
+        "high_value_records": quality_report["high_value_records"],
         "actions": actions,
         "advisory_notice": "maintain-plan only proposes actions. Execute changes only after user confirmation.",
     }
     record_governance_usage(project, "maintain-plan", data)
+    append_performance_sample(
+        project,
+        build_performance_sample(
+            project,
+            "maintain-plan",
+            monotonic_ms() - started_ms,
+            data["summary"],
+            estimate_payload_tokens(data),
+        ),
+    )
     output(data, args.json)
+
+
+def fetch_quality_memory_rows(project: Project, limit: int) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    with connect(project) as conn:
+        semantic_rows = fetch_memory_rows(conn, project, "semantic", active_only=False, limit=limit)
+        reflection_rows = fetch_memory_rows(conn, project, "reflection", active_only=False, limit=limit)
+    return semantic_rows, reflection_rows
+
+
+def fetch_incident_trace_quality_rows(project: Project, limit: int) -> list[dict[str, Any]]:
+    with connect(project) as conn:
+        rows = conn.execute(
+            """
+            SELECT *
+            FROM incident_traces
+            WHERE project_id = ?
+            ORDER BY updated_at DESC, id DESC
+            LIMIT ?
+            """,
+            (project.project_id, limit),
+        ).fetchall()
+    return [row_dict(row) for row in rows]
 
 
 def build_query_miss_data(project: Project, limit: int) -> list[dict[str, Any]]:

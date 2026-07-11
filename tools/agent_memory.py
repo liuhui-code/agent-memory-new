@@ -45,6 +45,12 @@ from agent_memory_runtime.models import (
     Project,
     REQUIRED_TABLES,
 )
+from agent_memory_runtime.performance_scoring import (
+    append_performance_sample,
+    build_performance_sample,
+    estimate_payload_tokens,
+    monotonic_ms,
+)
 from agent_memory_runtime.query import (
     limited_search,
     limited_context,
@@ -195,6 +201,7 @@ def update(args: argparse.Namespace) -> None:
 
 
 def search(args: argparse.Namespace) -> None:
+    started_ms = monotonic_ms()
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     data = limited_search(
@@ -206,10 +213,12 @@ def search(args: argparse.Namespace) -> None:
     )
     record_query_usage(project, "search", args.query, data)
     record_query_miss_if_empty(project, "search", args.query, data)
+    append_query_performance_sample(project, "search", started_ms, data)
     output(data, args.json)
 
 
 def context(args: argparse.Namespace) -> None:
+    started_ms = monotonic_ms()
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     data = limited_context(project, args.query)
@@ -219,7 +228,31 @@ def context(args: argparse.Namespace) -> None:
         json.dumps(data, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+    append_query_performance_sample(project, "context", started_ms, data)
     output(data, args.json)
+
+
+def append_query_performance_sample(project: Project, operation: str, started_ms: float, data: dict[str, Any]) -> None:
+    append_performance_sample(
+        project,
+        build_performance_sample(
+            project,
+            operation,
+            monotonic_ms() - started_ms,
+            result_counts(data),
+            estimate_payload_tokens(data),
+        ),
+    )
+
+
+def result_counts(data: dict[str, Any]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for key, value in data.items():
+        if isinstance(value, list):
+            counts[key] = len(value)
+        elif isinstance(value, dict) and key == "result_counts":
+            counts.update({str(name): int(count or 0) for name, count in value.items()})
+    return counts
 
 
 def analyze_runtime_log_command(args: argparse.Namespace) -> None:
