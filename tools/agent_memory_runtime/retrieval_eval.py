@@ -15,6 +15,8 @@ from .storage import ensure_initialized, resolve_project
 
 PASS_EXPECTED_HIT_RATE = 0.8
 PASS_BLOCKED_BAD_RATE = 1.0
+PASS_EXPECTED_TOP_HIT_RATE = 0.8
+PASS_MAX_EXPERIENCE_NOISE_RATE = 0.2
 
 
 def eval_retrieval_command(args: argparse.Namespace) -> None:
@@ -43,9 +45,30 @@ def evaluate_retrieval_cases(project: Project, cases: list[dict[str, Any]]) -> d
     expected_hits = sum(result["expected_hits"] for result in case_results)
     bad_total = sum(result["must_not_include_total"] for result in case_results)
     bad_blocked = sum(result["blocked_bad_matches"] for result in case_results)
+    expected_top_total = sum(result["expected_top_total"] for result in case_results)
+    expected_top_hits = sum(result["expected_top_hits"] for result in case_results)
+    noise_total = sum(result["noise_total"] for result in case_results)
+    noise_hits = sum(result["unexpected_noise_count"] for result in case_results)
     expected_hit_rate = ratio(expected_hits, expected_total)
     blocked_bad_rate = ratio(bad_blocked, bad_total)
-    quality_gate = "pass" if expected_hit_rate >= PASS_EXPECTED_HIT_RATE and blocked_bad_rate >= PASS_BLOCKED_BAD_RATE else "fail"
+    expected_top_hit_rate = ratio(expected_top_hits, expected_top_total)
+    experience_noise_rate = ratio(noise_hits, noise_total) if noise_total else 0.0
+    exact_anchor_ranks = [
+        rank
+        for result in case_results
+        for rank in result.get("expected_top_ranks", [])
+        if rank is not None
+    ]
+    quality_gate = (
+        "pass"
+        if (
+            expected_hit_rate >= PASS_EXPECTED_HIT_RATE
+            and blocked_bad_rate >= PASS_BLOCKED_BAD_RATE
+            and expected_top_hit_rate >= PASS_EXPECTED_TOP_HIT_RATE
+            and experience_noise_rate <= PASS_MAX_EXPERIENCE_NOISE_RATE
+        )
+        else "fail"
+    )
     return {
         "project_id": project.project_id,
         "quality_gate": quality_gate,
@@ -57,11 +80,20 @@ def evaluate_retrieval_cases(project: Project, cases: list[dict[str, Any]]) -> d
             "must_not_include_total": bad_total,
             "blocked_bad_matches": bad_blocked,
             "blocked_bad_rate": blocked_bad_rate,
+            "expected_top_total": expected_top_total,
+            "expected_top_hits": expected_top_hits,
+            "expected_top_hit_rate": expected_top_hit_rate,
+            "exact_anchor_rank": min(exact_anchor_ranks) if exact_anchor_ranks else None,
+            "noise_total": noise_total,
+            "unexpected_noise_count": noise_hits,
+            "experience_noise_rate": experience_noise_rate,
         },
         "cases": case_results,
         "thresholds": {
             "expected_hit_rate": PASS_EXPECTED_HIT_RATE,
             "blocked_bad_rate": PASS_BLOCKED_BAD_RATE,
+            "expected_top_hit_rate": PASS_EXPECTED_TOP_HIT_RATE,
+            "max_experience_noise_rate": PASS_MAX_EXPERIENCE_NOISE_RATE,
         },
     }
 
@@ -73,8 +105,15 @@ def evaluate_retrieval_case(project: Project, case: dict[str, Any]) -> dict[str,
     context = limited_context(project, query)
     expected = list_specs(case.get("expected"))
     must_not_include = list_specs(case.get("must_not_include"))
+    expected_top = list_specs(case.get("expected_top"))
+    noise = list_specs(case.get("noise"))
     missed_expected = [spec for spec in expected if not match_spec(context, spec)]
     unexpected_bad = [spec for spec in must_not_include if match_spec(context, spec)]
+    top_ranks = [match_rank(context, spec) for spec in expected_top]
+    missed_expected_top = [
+        spec for spec, rank in zip(expected_top, top_ranks) if rank != 1
+    ]
+    unexpected_noise = [spec for spec in noise if match_high_trust_noise(context, spec)]
     return {
         "name": case.get("name") or query,
         "query": query,
@@ -83,8 +122,15 @@ def evaluate_retrieval_case(project: Project, case: dict[str, Any]) -> dict[str,
         "expected_hits": len(expected) - len(missed_expected),
         "must_not_include_total": len(must_not_include),
         "blocked_bad_matches": len(must_not_include) - len(unexpected_bad),
+        "expected_top_total": len(expected_top),
+        "expected_top_hits": len(expected_top) - len(missed_expected_top),
+        "expected_top_ranks": top_ranks,
+        "noise_total": len(noise),
+        "unexpected_noise_count": len(unexpected_noise),
         "missed_expected": missed_expected,
         "unexpected_bad_matches": unexpected_bad,
+        "missed_expected_top": missed_expected_top,
+        "unexpected_noise_matches": unexpected_noise,
         "result_counts": {
             key: len(value)
             for key, value in context.items()
@@ -109,6 +155,30 @@ def match_spec(context: dict[str, Any], spec: dict[str, Any]) -> bool:
     if not isinstance(values, list):
         return False
     return any(candidate_matches(item, spec) for item in values if isinstance(item, dict))
+
+
+def match_rank(context: dict[str, Any], spec: dict[str, Any]) -> int | None:
+    result_type = str(spec.get("type") or "")
+    values = context.get(result_type)
+    if not isinstance(values, list):
+        return None
+    for index, item in enumerate(values, start=1):
+        if isinstance(item, dict) and candidate_matches(item, spec):
+            return index
+    return None
+
+
+def match_high_trust_noise(context: dict[str, Any], spec: dict[str, Any]) -> bool:
+    result_type = str(spec.get("type") or "")
+    values = context.get(result_type)
+    if not isinstance(values, list):
+        return False
+    for item in values:
+        if not isinstance(item, dict) or not candidate_matches(item, spec):
+            continue
+        if float(item.get("trust_score") or 0.0) >= float(spec.get("min_trust_score") or 0.75):
+            return True
+    return False
 
 
 def candidate_matches(item: dict[str, Any], spec: dict[str, Any]) -> bool:

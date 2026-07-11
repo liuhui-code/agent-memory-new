@@ -2899,3 +2899,46 @@ Verification:
 Rollback notes:
 
 - Remove graph signal helpers/action wiring and revert tests/docs if the extra maintain-plan action becomes noisy.
+
+## 2026-07-11 - Add retrieval and diagnosis quality gates
+
+Files touched:
+
+- `tools/agent_memory_runtime/retrieval_eval.py`
+- `tools/agent_memory_runtime/log_signal_eval.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory.py`
+- `tests/test_retrieval_eval.py`
+- `tests/test_log_signal_quality.py`
+- `tests/test_calibration_eval.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-11-experience-quality-and-graph-signal-roadmap.md`
+- `gitlog.md`
+
+What changed:
+
+- Extended `eval-retrieval` with `expected_top`, exact anchor rank, expected-top hit rate, `noise`, and experience noise rate.
+- Added `eval-log-signal` for temporary log-line quality gates.
+- Added log signal eval metrics: good signal rate and low signal event rate.
+- Updated calibration eval fixture data so verified procedure experience includes counter-evidence under the current trust model.
+
+Why:
+
+- Query improvements need regression gates that catch exact-anchor demotion and high-trust experience noise.
+- Log diagnosis improvements need a small measurable gate before changing parsers, scoring, or runtime-log output.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_retrieval_eval`
+- Result: 3 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_log_signal_quality tests.test_retrieval_eval tests.test_calibration_eval`
+- Result: 11 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove `eval-log-signal`, remove retrieval eval top/noise metrics, and revert tests/docs if the additional gates are too strict.

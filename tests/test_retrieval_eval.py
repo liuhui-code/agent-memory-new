@@ -139,3 +139,58 @@ class RetrievalEvalTests(unittest.TestCase):
         self.assertEqual("fail", data["quality_gate"])
         self.assertEqual(0.0, data["summary"]["expected_hit_rate"])
         self.assertEqual(1, len(data["cases"][0]["missed_expected"]))
+
+    def test_eval_retrieval_reports_top_anchor_rank_and_experience_noise(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            project.mkdir()
+            exact_payload = {
+                "experience_type": "procedure_experience",
+                "task": "ArkTS Profile route blank screen",
+                "summary": "Profile route mismatch verified.",
+                "lesson": "Inspect pages/Profile route registration first.",
+                "trigger_condition": "ArkTS Profile route blank screen",
+                "repair_action": "inspect pages/Profile route registration",
+                "verification_method": "ran navigation test",
+                "source_cases": ["incident_trace:31"],
+                "negative_preconditions": ["does not apply to image resource failures"],
+                "confidence": 0.92,
+            }
+            noisy_payload = {
+                "experience_type": "procedure_experience",
+                "task": "Generic blank screen cleanup habit",
+                "summary": "Clean build cache for every blank screen.",
+                "lesson": "Clean build cache first.",
+                "trigger_condition": "blank screen",
+                "repair_action": "clean build cache",
+                "verification_method": "old one-off run",
+                "source_cases": ["old_case:1"],
+                "confidence": 0.95,
+            }
+            self.run_memory(project, "reflect", "--payload", json.dumps(exact_payload))
+            self.run_memory(project, "reflect", "--payload", json.dumps(noisy_payload))
+            case_file = self.write_cases(
+                root,
+                [
+                    {
+                        "name": "exact-profile-route-first",
+                        "query": "ArkTS Profile route blank screen 报错如何定位",
+                        "expected_top": [
+                            {"type": "reflections", "id": 1},
+                        ],
+                        "noise": [
+                            {"type": "reflections", "id": 2},
+                        ],
+                    }
+                ],
+            )
+
+            result = self.run_memory(project, "eval-retrieval", "--cases", str(case_file), "--json")
+            data = json.loads(result.stdout)
+
+        self.assertEqual("pass", data["quality_gate"])
+        self.assertEqual(1, data["summary"]["exact_anchor_rank"])
+        self.assertEqual(0.0, data["summary"]["experience_noise_rate"])
+        self.assertEqual([1], data["cases"][0]["expected_top_ranks"])
+        self.assertEqual([], data["cases"][0]["unexpected_noise_matches"])

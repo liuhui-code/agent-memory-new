@@ -137,6 +137,39 @@ class LogSignalQualityTests(unittest.TestCase):
         self.assertIn("log_signal_band", log_match)
         self.assertIn("missing_signals", log_match)
 
+    def test_eval_log_signal_reports_good_and_low_signal_rates(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            cases = Path(temp_dir) / "log-signal-cases.json"
+            cases.write_text(
+                json.dumps(
+                    [
+                        {
+                            "name": "profile-route-runtime",
+                            "logs": [
+                                "07-11 12:00:00.100 EntryAbility E Router: [Route] stage=failed route=pages/Profile request_id=req-1 session_id=sess-1 reason=target_missing code=404 result=failed",
+                                "failed",
+                            ],
+                            "min_good_rate": 0.5,
+                            "max_low_signal_rate": 0.5,
+                        }
+                    ],
+                    ensure_ascii=False,
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+
+            result = self.run_memory(project, "eval-log-signal", "--cases", str(cases), "--json")
+            data = json.loads(result.stdout)
+
+        self.assertEqual("pass", data["quality_gate"])
+        self.assertEqual(0.5, data["summary"]["log_signal_good_rate"])
+        self.assertEqual(0.5, data["summary"]["low_signal_event_rate"])
+        self.assertEqual("good", data["cases"][0]["events"][0]["log_signal_band"])
+        self.assertEqual("poor", data["cases"][0]["events"][1]["log_signal_band"])
+
 
 if __name__ == "__main__":
     unittest.main()

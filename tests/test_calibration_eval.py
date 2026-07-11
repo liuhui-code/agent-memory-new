@@ -50,6 +50,7 @@ class CalibrationEvalTests(unittest.TestCase):
             "repair_action": "inspect router.pushUrl target",
             "verification_method": "ran route navigation test",
             "source_cases": ["incident_trace:7"],
+            "negative_preconditions": ["does not apply when route target and page registration are already verified"],
             "reuse_feedback": "reused successfully",
             "confidence": 0.95,
         }

@@ -609,7 +609,7 @@ git commit -m "Add graph signal quality governance"
 - Test: `tests/test_calibration_eval.py`
 - Test: `tests/test_log_signal_quality.py`
 
-- [ ] **Step 1: Add golden cases**
+- [x] **Step 1: Add golden cases**
 
 Create fixtures or inline tests for:
 
@@ -618,7 +618,7 @@ Create fixtures or inline tests for:
 - correction experience should appear as semantic repair guidance.
 - runtime log with route/resource/request fields should produce higher diagnosis confidence than generic logs.
 
-- [ ] **Step 2: Add metrics**
+- [x] **Step 2: Add metrics**
 
 Minimum metrics:
 
@@ -640,7 +640,7 @@ Gate example:
 }
 ```
 
-- [ ] **Step 3: Wire eval command only if needed**
+- [x] **Step 3: Wire eval command only if needed**
 
 Prefer extending existing eval commands before adding new commands.
 
@@ -650,7 +650,7 @@ Acceptable command if the current eval modules cannot express log signal:
 python tools/agent_memory.py eval-log-signal --project . --json
 ```
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 Run:
 
@@ -658,7 +658,7 @@ Run:
 PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_retrieval_eval tests.test_calibration_eval tests.test_log_signal_quality
 ```
 
-- [ ] **Step 5: Docs and commit**
+- [x] **Step 5: Docs and commit**
 
 Update:
 

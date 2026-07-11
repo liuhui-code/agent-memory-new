@@ -333,7 +333,7 @@ Before changing retrieval ranking, quality scoring, learn-business semantics, co
 python tools/agent_memory.py eval-retrieval --project . --cases docs/eval/golden-retrieval.json --json
 ```
 
-The eval command reads JSON cases and uses the normal `context` path. `expected` entries define anchors that should appear; `must_not_include` entries define records that should stay out of the named result lane. A failing case is a regression signal for review, not an automatic memory mutation.
+The eval command reads JSON cases and uses the normal `context` path. `expected` entries define anchors that should appear; `must_not_include` entries define records that should stay out of the named result lane. Use `expected_top` when an exact code/log/experience anchor must be first in its result lane. Use `noise` to measure high-trust distracting experience that still leaks into results. A failing case is a regression signal for review, not an automatic memory mutation.
 
 Before changing trust calibration, feedback handling, or answer-time memory policy, run calibration evaluation if a case file exists:
 
@@ -342,6 +342,14 @@ python tools/agent_memory.py eval-calibration --project . --cases docs/eval/gold
 ```
 
 `expected_trust` entries define records that should carry a target trust level or minimum trust score. `must_not_trust` entries define records that must not be treated as strong evidence. A failure means inspect the calibration model, feedback records, or case expectations before changing stored memory.
+
+Before changing log parsing, log signal scoring, or runtime-log diagnosis output, run log signal evaluation if a case file exists:
+
+```bash
+python tools/agent_memory.py eval-log-signal --project . --cases docs/eval/golden-log-signal.json --json
+```
+
+Each case contains short temporary `logs` plus optional `min_good_rate` and `max_low_signal_rate`. The command reports `log_signal_good_rate` and `low_signal_event_rate`; it does not persist the raw log lines.
 
 When a result is clearly distracting for a specific query, record retrieval feedback instead of deleting the memory:
 

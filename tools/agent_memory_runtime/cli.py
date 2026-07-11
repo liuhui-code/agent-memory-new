@@ -72,6 +72,12 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("eval_calibration_command"))
 
+    p = sub.add_parser("eval-log-signal")
+    add_project(p)
+    p.add_argument("--cases", required=True)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("eval_log_signal_command"))
+
     p = sub.add_parser("retrieval-feedback")
     add_project(p)
     p.add_argument("--query", required=True)

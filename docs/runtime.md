@@ -196,7 +196,7 @@ Retrieval changes can be checked with a local golden-query eval:
 python tools/agent_memory.py eval-retrieval --project . --cases docs/eval/golden-retrieval.json --json
 ```
 
-The cases file is JSON, not durable memory. Each case has a `query`, optional `name`, `expected` match specs, and `must_not_include` match specs. The command runs the same `context` path that Agents consume and reports expected hit rate, blocked-bad rate, missed anchors, and unexpected bad matches. It is intended for regression testing query quality before changing ranking, scoring, learn semantics, code graph, or log graph behavior.
+The cases file is JSON, not durable memory. Each case has a `query`, optional `name`, `expected` match specs, `must_not_include` match specs, optional `expected_top` specs, and optional `noise` specs. The command runs the same `context` path that Agents consume and reports expected hit rate, blocked-bad rate, exact anchor rank, expected-top hit rate, experience noise rate, missed anchors, and unexpected bad matches. It is intended for regression testing query quality before changing ranking, scoring, learn semantics, code graph, or log graph behavior.
 
 Trust calibration can be checked with:
 
@@ -205,6 +205,14 @@ python tools/agent_memory.py eval-calibration --project . --cases docs/eval/gold
 ```
 
 Calibration cases use `expected_trust` specs for rows that should have a target `trust_level` or minimum `trust_score`, and `must_not_trust` specs for rows that must not be treated as strong evidence. The command reports expected trust rate, blocked-overtrust rate, missed expected trust, and unexpected trusted matches.
+
+Log signal quality can be checked with:
+
+```bash
+python tools/agent_memory.py eval-log-signal --project . --cases docs/eval/golden-log-signal.json --json
+```
+
+Log signal cases are temporary evaluation fixtures. Each case contains `logs`, optional `min_good_rate`, and optional `max_low_signal_rate`. The command normalizes each line, scores diagnostic fields, and reports `log_signal_good_rate` plus `low_signal_event_rate`. It does not store raw logs in SQLite.
 
 When a retrieved semantic fact or reflection is weakly related, stale, too broad, wrong-domain, or misleading for a specific query, record targeted negative feedback:
 
