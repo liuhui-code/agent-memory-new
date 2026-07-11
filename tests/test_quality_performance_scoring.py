@@ -140,3 +140,42 @@ class QualityPerformanceScoringTests(unittest.TestCase):
         self.assertGreaterEqual(data["runtime_performance"]["sample_count"], 1)
         self.assertIn("context", data["runtime_performance"]["operations"])
         self.assertIn("maintain-plan", data["runtime_performance"]["operations"])
+
+    def test_context_reranks_reflections_by_quality_signal(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            weak_payload = {
+                "experience_type": "procedure_experience",
+                "task": "ArkTS route blank screen",
+                "summary": "Old broad advice for route blank screen.",
+                "lesson": "Try broad route checks.",
+                "trigger_condition": "ArkTS route blank screen",
+                "repair_action": "try broad route checks",
+                "verification_method": "not verified on current source",
+                "source_cases": ["old_case:1"],
+                "reuse_feedback": "misleading",
+                "confidence": 0.4,
+                "misleading_score": 0.5,
+            }
+            strong_payload = {
+                "experience_type": "procedure_experience",
+                "task": "ArkTS route blank screen diagnosis",
+                "summary": "Verified route target mismatch diagnosis.",
+                "lesson": "For ArkTS route blank screen, inspect router.pushUrl target and page registration first.",
+                "trigger_condition": "ArkTS route blank screen",
+                "repair_action": "inspect router.pushUrl target",
+                "verification_method": "ran route navigation test",
+                "source_cases": ["incident_trace:7"],
+                "reuse_feedback": "reused successfully",
+                "confidence": 0.95,
+            }
+
+            self.run_memory(project, "reflect", "--payload", json.dumps(weak_payload))
+            self.run_memory(project, "reflect", "--payload", json.dumps(strong_payload))
+            result = self.run_memory(project, "context", "--query", "ArkTS route blank screen 如何定位", "--json")
+            data = json.loads(result.stdout)
+
+        self.assertEqual(data["reflections"][0]["id"], 2)
+        self.assertGreater(data["reflections"][0]["quality_score"], data["reflections"][1]["quality_score"])
+        self.assertGreater(data["reflections"][0]["rerank_score"], data["reflections"][1]["rerank_score"])

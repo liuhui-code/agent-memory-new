@@ -154,6 +154,8 @@ Governance actions should preserve history. Prefer status transitions over destr
 
 The score is deterministic. It combines retrieval relevance, evidence strength, freshness, conflict safety, reuse success, and governance completeness. It is an advisory governance signal, not an automatic promotion or deletion decision.
 
+`context` and `search` also attach quality hints to semantic and reflection matches. Reflection matches use `quality_score` inside the existing memory-lane gate to produce `rerank_score`; this lets verified, evidence-backed experience outrank broad or misleading experience after the intent gate has already decided the record belongs in the main lane. The rerank is deliberately soft: it does not make stale, blocked, correction-only, or semantic-patch-only records bypass their lane rules.
+
 `maintain-health --json` includes `runtime_performance`, a summary built from bounded samples in `runtime/performance_samples.jsonl`. Samples track operation name, elapsed milliseconds, result counts, token estimate, database size, status, and a performance score. This is runtime telemetry for local maintenance only; it is not a durable memory record and should be treated as disposable.
 
 Query miss commands manage feedback from failed retrievals. A miss is recorded only when `context`, `search`, or `wiki-search` has zero matches. Repeated open misses with the same source and normalized query are merged into one row with `miss_count` and `last_seen_at`, so maintenance can focus on recurring retrieval gaps instead of duplicate rows.

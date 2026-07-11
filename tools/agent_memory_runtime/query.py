@@ -16,6 +16,7 @@ from .models import (
 )
 from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT, INCIDENT_TRACE_SEARCH_LIMIT
 from .incident_trace_query import collect_incident_trace_matches
+from .quality_scoring import score_reflection_quality, score_semantic_quality
 from .records import memory_warning, row_dict
 from .storage import connect, now_iso
 from .text import code_search_terms, json_list, query_tokens, score_weighted_fields, tokenize, unique_list
@@ -265,7 +266,12 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
         )
         if score:
             item = row_dict(row)
+            quality = score_semantic_quality(item)
             item["score"] = score + float(row["confidence"] or 0)
+            item["quality_score"] = quality["quality_score"]
+            item["quality_band"] = quality["quality_band"]
+            item["quality_reasons"] = quality["reasons"]
+            item["rerank_score"] = round(item["score"] + item["quality_score"] * 3.0, 3)
             item["match_reasons"] = reasons
             item["warning"] = memory_warning(item)
             results["semantic_facts"].append(item)
@@ -306,7 +312,11 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
         )
         if score:
             item = row_dict(row)
+            quality = score_reflection_quality(item)
             item["score"] = score
+            item["quality_score"] = quality["quality_score"]
+            item["quality_band"] = quality["quality_band"]
+            item["quality_reasons"] = quality["reasons"]
             item["match_reasons"] = reasons
             item["warning"] = memory_warning(item)
             results["reflections"].append(item)
@@ -432,7 +442,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
         results["edge_matches"] = collect_related_edges(project, edge_targets)
 
     for key in results:
-        results[key].sort(key=lambda item: (item.get("score", 0), item.get("created_at", "")), reverse=True)
+        results[key].sort(key=lambda item: (item.get("rerank_score", item.get("score", 0)), item.get("created_at", "")), reverse=True)
     return results
 
 
@@ -515,8 +525,9 @@ def reflection_gate_decision(query: str, intent: str, item: dict[str, Any]) -> d
     text = text_for_reflection_gate(item)
     overlap = token_overlap_score(query, text)
     base_score = float(item.get("score") or 0)
+    quality_score = float(item.get("quality_score") or 0.5)
     confidence = float(item.get("confidence") or 0.8)
-    score = min(100.0, base_score * 4.0 + overlap * 40.0 + confidence * 10.0)
+    score = min(100.0, base_score * 4.0 + overlap * 40.0 + confidence * 10.0 + quality_score * 15.0)
     reasons: list[str] = []
 
     if overlap:
@@ -535,6 +546,11 @@ def reflection_gate_decision(query: str, intent: str, item: dict[str, Any]) -> d
     if float(item.get("misleading_score") or 0.0) > 0:
         score -= min(25, float(item.get("misleading_score") or 0.0) * 25)
         reasons.append("explicit_misleading_score")
+    if quality_score >= 0.75:
+        reasons.append("quality_score_high")
+    elif quality_score < 0.45:
+        score -= 12
+        reasons.append("quality_score_low")
 
     if lane == "reusable_procedure":
         allowed = intent in {"procedure_reuse", "general_context", "incident_diagnosis"}
@@ -643,6 +659,7 @@ def gate_matches_by_intent(
                 lane_counts["blocked_memory_notes"] += 1
             continue
         if decision["allowed"] and decision["score"] >= 15:
+            item["rerank_score"] = round(decision["score"] + float(item.get("quality_score") or 0.0) * 10.0, 3)
             main_reflections.append(item)
             lane_counts["main_reflections"] += 1
         else:

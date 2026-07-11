@@ -2174,3 +2174,40 @@ Verification:
 Rollback notes:
 
 - Remove the scoring modules, maintain output fields, performance sample writes, tests, and doc updates if the scoring layer becomes noisy.
+
+## 2026-07-11 - Use quality score for memory reranking
+
+Files touched:
+
+- `tools/agent_memory_runtime/query.py`
+- `tests/test_quality_performance_scoring.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added `quality_score`, `quality_band`, and `quality_reasons` to semantic and reflection query matches.
+- Added a soft `rerank_score` for main-lane reflections after the existing memory-intent gate.
+- Added regression coverage showing a verified, evidence-backed ArkTS route diagnosis outranks broad misleading advice for the same query.
+
+Why:
+
+- Recency or shallow lexical overlap should not let weak experience dominate the Agent's direction when stronger verified experience exists.
+- The rerank stays behind the lane firewall so correction guards and semantic patches do not bypass their intended roles.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_performance_scoring.QualityPerformanceScoringTests.test_context_reranks_reflections_by_quality_signal`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_performance_scoring`
+- Result: 6 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace`
+- Result: 131 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+
+Rollback notes:
+
+- Remove quality fields and `rerank_score` from `query.py`, revert the query skill/runtime docs, and keep scoring limited to maintain outputs if query reranking proves too opinionated.
