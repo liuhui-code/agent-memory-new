@@ -19,7 +19,7 @@ from .incident_trace_query import collect_incident_trace_matches
 from .memory_calibration import calibrate_payload
 from .quality_scoring import score_reflection_quality, score_semantic_quality
 from .records import memory_warning, row_dict
-from .retrieval_feedback import collect_feedback_penalties
+from .retrieval_feedback import collect_calibration_feedback, collect_feedback_penalties
 from .storage import connect, now_iso
 from .text import code_search_terms, json_list, query_tokens, score_weighted_fields, tokenize, unique_list
 
@@ -259,6 +259,8 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
     results["incident_trace_matches"] = collect_incident_trace_matches(project, query, INCIDENT_TRACE_SEARCH_LIMIT)
     semantic_feedback = collect_feedback_penalties(project, query, "semantic")
     reflection_feedback = collect_feedback_penalties(project, query, "reflection")
+    semantic_calibration_feedback = collect_calibration_feedback(project, query, "semantic")
+    reflection_calibration_feedback = collect_calibration_feedback(project, query, "reflection")
 
     for row in semantic:
         score, reasons = score_weighted_fields(
@@ -276,6 +278,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             item["quality_band"] = quality["quality_band"]
             item["quality_reasons"] = quality["reasons"]
             apply_feedback_penalty(item, semantic_feedback)
+            apply_calibration_feedback(item, semantic_calibration_feedback)
             item["rerank_score"] = round(item["score"] + item["quality_score"] * 3.0 - item.get("feedback_penalty", 0.0), 3)
             item["match_reasons"] = reasons
             item["warning"] = memory_warning(item)
@@ -323,6 +326,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             item["quality_band"] = quality["quality_band"]
             item["quality_reasons"] = quality["reasons"]
             apply_feedback_penalty(item, reflection_feedback)
+            apply_calibration_feedback(item, reflection_calibration_feedback)
             item["match_reasons"] = reasons
             item["warning"] = memory_warning(item)
             results["reflections"].append(item)
@@ -741,6 +745,18 @@ def apply_feedback_penalty(item: dict[str, Any], penalties: dict[int, dict[str, 
     item["feedback_penalty"] = feedback["penalty"]
     item["feedback_reasons"] = unique_list([str(reason) for reason in feedback.get("reasons", [])])
     item["feedback_ids"] = feedback.get("feedback_ids", [])
+
+
+def apply_calibration_feedback(item: dict[str, Any], feedback_rows: dict[int, dict[str, Any]]) -> None:
+    feedback = feedback_rows.get(int(item.get("id") or 0))
+    if not feedback:
+        item["calibration_feedback_bonus"] = 0.0
+        item["calibration_feedback_penalty"] = 0.0
+        return
+    item["calibration_feedback_bonus"] = feedback.get("bonus", 0.0)
+    item["calibration_feedback_penalty"] = feedback.get("penalty", 0.0)
+    item["calibration_feedback_reasons"] = unique_list([str(reason) for reason in feedback.get("reasons", [])])
+    item["calibration_feedback_ids"] = feedback.get("feedback_ids", [])
 
 
 def limited_matches(

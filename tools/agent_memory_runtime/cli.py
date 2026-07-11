@@ -71,7 +71,21 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--query", required=True)
     p.add_argument("--type", required=True, choices=["semantic", "reflection"])
     p.add_argument("--id", required=True, type=int)
-    p.add_argument("--reason", required=True, choices=["weak_related", "stale", "wrong_domain", "too_broad", "misleading"])
+    p.add_argument(
+        "--reason",
+        required=True,
+        choices=[
+            "weak_related",
+            "stale",
+            "wrong_domain",
+            "too_broad",
+            "misleading",
+            "useful",
+            "verified_useful",
+            "undertrusted",
+            "overtrusted",
+        ],
+    )
     p.add_argument("--replacement-type", choices=["semantic", "reflection"])
     p.add_argument("--replacement-id", type=int)
     p.add_argument("--note")

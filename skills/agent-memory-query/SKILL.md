@@ -105,6 +105,7 @@ Read these fields before relying on `reflections`. A recent reflection with weak
 - `retrieval_explanation`: match, gate, quality, feedback, status, and confidence details
 
 Use `trust_level` before injecting memory into an answer. Treat `source_truth` as inspectable code/log/wiki evidence, `verified_experience` as a reusable but still advisory procedure, `usable_hint` as a lead, `weak_hint` as a next-inspection hint only, and `possibly_stale` or `conflict_warning` as cautionary context.
+If a memory result's trust label was wrong for the actual task outcome, record calibration feedback with `retrieval-feedback`: use `verified_useful` or `useful` when a low/medium-trust result proved valuable, `undertrusted` when the runtime should trust it more next time, and `overtrusted` when a strong-looking result misled the task. This adjusts future answer-time trust for similar queries without rewriting the memory record.
 
 If `context`, `search`, or `wiki-search` returns no results, the runtime records a query miss automatically. Do not add manual keywords just to improve retrieval; let maintain review real misses later.
 

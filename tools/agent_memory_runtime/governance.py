@@ -2099,6 +2099,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     runtime_performance_actions = build_runtime_performance_actions(runtime_performance)
     retrieval_feedback_rows = fetch_open_retrieval_feedback(project, args.limit)
     retrieval_feedback_actions = build_retrieval_feedback_actions(retrieval_feedback_rows)
+    calibration_feedback_actions = build_calibration_feedback_actions(retrieval_feedback_rows)
     quality_semantic_rows, quality_reflection_rows = fetch_quality_memory_rows(project, args.limit)
     quality_reflection_rows = enrich_reflections_with_evidence_chains(project, quality_reflection_rows)
     quality_report = build_quality_report(
@@ -2275,6 +2276,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(graph_quality_actions)
     actions.extend(runtime_performance_actions)
     actions.extend(retrieval_feedback_actions)
+    actions.extend(calibration_feedback_actions)
 
     for candidate in build_skill_pattern_candidates(project, review["unreviewed_reflections"]):
         candidate = annotate_skill_pattern_artifacts(project.root, candidate)
@@ -2515,6 +2517,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "graph_quality_reviews": len(graph_quality_actions),
         "runtime_performance_reviews": len(runtime_performance_actions),
         "retrieval_feedback_reviews": len(retrieval_feedback_actions),
+        "overtrusted_memory_reviews": len([action for action in calibration_feedback_actions if action.get("action") == "review_overtrusted_memory"]),
+        "undertrusted_memory_reviews": len([action for action in calibration_feedback_actions if action.get("action") == "review_undertrusted_memory"]),
     }
 
     data = {
@@ -2712,6 +2716,8 @@ def build_weak_evidence_chain_actions(quality_report: dict[str, Any]) -> list[di
 def build_retrieval_feedback_actions(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     actions: list[dict[str, Any]] = []
     for row in rows:
+        if row.get("reason") in {"useful", "verified_useful", "undertrusted", "overtrusted"}:
+            continue
         actions.append(
             {
                 "action": "review_retrieval_feedback",
@@ -2736,6 +2742,58 @@ def build_retrieval_feedback_actions(rows: list[dict[str, Any]]) -> list[dict[st
                 ],
             }
         )
+    return actions
+
+
+def build_calibration_feedback_actions(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    actions: list[dict[str, Any]] = []
+    for row in rows:
+        reason = str(row.get("reason") or "")
+        if reason == "overtrusted":
+            actions.append(
+                {
+                    "action": "review_overtrusted_memory",
+                    "governance_lane": "memory_quality",
+                    "type": row.get("record_type"),
+                    "id": row.get("record_id"),
+                    "feedback_id": row.get("id"),
+                    "query": row.get("query"),
+                    "reason": "calibration feedback says this record was trusted too strongly for the query",
+                    "reason_code": reason,
+                    "risk": "medium",
+                    "requires_confirmation": False,
+                    "command": None,
+                    "suggested_actions": [
+                        "tighten_trigger_condition",
+                        "lower_confidence_if_confirmed",
+                        "add_negative_precondition",
+                        "mark_stale_if_current_code_disagrees",
+                        "ignore_feedback_if_not_reproducible",
+                    ],
+                }
+            )
+        elif reason == "undertrusted":
+            actions.append(
+                {
+                    "action": "review_undertrusted_memory",
+                    "governance_lane": "memory_quality",
+                    "type": row.get("record_type"),
+                    "id": row.get("record_id"),
+                    "feedback_id": row.get("id"),
+                    "query": row.get("query"),
+                    "reason": "calibration feedback says this record was more useful than its trust label implied",
+                    "reason_code": reason,
+                    "risk": "low",
+                    "requires_confirmation": False,
+                    "command": None,
+                    "suggested_actions": [
+                        "add_verification_evidence",
+                        "raise_confidence_if_confirmed",
+                        "link_source_case",
+                        "keep_feedback_only_if_single_observation",
+                    ],
+                }
+            )
     return actions
 
 

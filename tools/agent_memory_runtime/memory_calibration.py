@@ -67,6 +67,8 @@ def compute_trust_score(group: str, item: dict[str, Any]) -> tuple[float, list[s
     confidence = safe_float(item.get("confidence"), 0.65)
     quality_score = safe_float(item.get("quality_score"), None)
     feedback_penalty = safe_float(item.get("feedback_penalty"), 0.0)
+    calibration_bonus = safe_float(item.get("calibration_feedback_bonus"), 0.0)
+    calibration_penalty = safe_float(item.get("calibration_feedback_penalty"), 0.0)
 
     score += (confidence - 0.5) * 0.35
     reasons.append(f"confidence={round(confidence, 3)}")
@@ -91,6 +93,12 @@ def compute_trust_score(group: str, item: dict[str, Any]) -> tuple[float, list[s
     if feedback_penalty:
         score -= min(0.35, feedback_penalty / 100.0)
         reasons.append("feedback penalty applied")
+    if calibration_bonus:
+        score += min(0.3, calibration_bonus)
+        reasons.append("calibration feedback bonus applied")
+    if calibration_penalty:
+        score -= min(0.3, calibration_penalty)
+        reasons.append("calibration feedback penalty applied")
     if safe_float(item.get("misleading_score"), 0.0) > 0:
         score -= min(0.25, safe_float(item.get("misleading_score"), 0.0) * 0.25)
         reasons.append("misleading signal present")
@@ -134,6 +142,9 @@ def build_retrieval_explanation(group: str, item: dict[str, Any]) -> dict[str, A
         "quality_band": item.get("quality_band"),
         "feedback_penalty": item.get("feedback_penalty", 0.0),
         "feedback_reasons": json_list(item.get("feedback_reasons")),
+        "calibration_feedback_bonus": item.get("calibration_feedback_bonus", 0.0),
+        "calibration_feedback_penalty": item.get("calibration_feedback_penalty", 0.0),
+        "calibration_feedback_reasons": json_list(item.get("calibration_feedback_reasons")),
         "status": item.get("status"),
         "confidence": item.get("confidence"),
     }

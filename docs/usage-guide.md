@@ -335,7 +335,7 @@ python tools/agent_memory.py retrieval-feedback \
   --json
 ```
 
-Valid reasons are `weak_related`, `stale`, `wrong_domain`, `too_broad`, and `misleading`. Future similar queries apply a bounded penalty to that record and expose `feedback_penalty`. `maintain-plan` surfaces `review_retrieval_feedback` so the record can later be tightened, lowered in confidence, marked stale, merged, or left alone if the feedback is not reproducible.
+Valid retrieval reasons are `weak_related`, `stale`, `wrong_domain`, `too_broad`, and `misleading`. Calibration reasons are `useful`, `verified_useful`, `undertrusted`, and `overtrusted`. Future similar queries apply bounded penalties or bonuses to that record and expose `feedback_penalty` plus `calibration_feedback_*` fields. `maintain-plan` surfaces `review_retrieval_feedback`, `review_overtrusted_memory`, or `review_undertrusted_memory` so the record can later be tightened, lowered in confidence, strengthened with evidence, marked stale, merged, or left alone if the feedback is not reproducible.
 
 After repeated runtime-log-backed diagnosis, `maintain-plan --json` may also return:
 

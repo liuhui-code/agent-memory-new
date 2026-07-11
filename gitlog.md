@@ -2507,3 +2507,50 @@ Verification:
 Rollback notes:
 
 - Remove `memory_calibration.py`, drop `calibrate_payload` calls, and revert docs/tests if trust labels become noisy.
+
+## 2026-07-11 - Add calibration feedback loop
+
+Files touched:
+
+- `docs/superpowers/specs/2026-07-11-calibration-feedback-loop-design.md`
+- `docs/superpowers/plans/2026-07-11-calibration-feedback-loop.md`
+- `tools/agent_memory_runtime/retrieval_feedback.py`
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/memory_calibration.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tests/test_calibration_feedback.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a design and implementation plan for calibration feedback.
+- Added feedback reasons: `useful`, `verified_useful`, `undertrusted`, and `overtrusted`.
+- Added query-time `calibration_feedback_bonus`, `calibration_feedback_penalty`, `calibration_feedback_reasons`, and `calibration_feedback_ids`.
+- Updated trust scoring to consume calibration feedback.
+- Added `review_overtrusted_memory` and `review_undertrusted_memory` maintain-plan actions.
+
+Why:
+
+- Static trust labels need real usage feedback to become more reliable.
+- Positive and negative calibration feedback should adjust answer-time trust without automatically mutating stored memory.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_calibration_feedback`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_calibration_feedback tests.test_memory_calibration tests.test_retrieval_feedback tests.test_quality_performance_scoring`
+- Result: 19 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_agent_memory.AgentMemoryRuntimeTests tests.test_incident_trace tests.test_retrieval_eval`
+- Result: 133 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py`
+- Result: passes.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove calibration feedback reason handling, query fields, trust-score integration, governance actions, docs, and tests if the feedback loop becomes noisy.
