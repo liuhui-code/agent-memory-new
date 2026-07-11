@@ -104,10 +104,14 @@ Read these fields before relying on `reflections`. A recent reflection with weak
 - `trust_level`: `source_truth`, `verified_experience`, `usable_hint`, `weak_hint`, `possibly_stale`, or `conflict_warning`
 - `trust_score`: bounded 0-1 advisory confidence
 - `trust_reasons`: compact reasons behind the trust level
+- `query_risk_flags`: caution flags such as `missing_counter_evidence`, `misleading_experience`, `deprecated_experience`, or `semantic_correction_guidance`
+- `trust_cap`: the maximum trust score applied because of hard or soft risk signals
+- `trust_cap_reasons`: why the cap or risk flag was applied
 - `retrieval_explanation`: match, gate, quality, feedback, status, and confidence details
 
 Use `experience_maturity` before applying a reflection as a reusable rule. Treat `raw_observation` as a weak hint, `verified_case` as a case-backed procedure, `reused_pattern` as stronger reusable guidance, `skill_candidate` as promotion material, and `deprecated_pattern` as warning or counter-evidence.
 Use `trust_level` before injecting memory into an answer. Treat `source_truth` as inspectable code/log/wiki evidence, `verified_experience` as a reusable but still advisory procedure, `usable_hint` as a lead, `weak_hint` as a next-inspection hint only, and `possibly_stale` or `conflict_warning` as cautionary context.
+Use `query_risk_flags` before following a high-scoring experience. `missing_counter_evidence` means the procedure still lacks clear boundaries; `misleading_experience` and `deprecated_experience` should be used as warnings, not instructions; `semantic_correction_guidance` should repair the interpretation of code/business meaning rather than steer the whole task as a procedure.
 If a memory result's trust label was wrong for the actual task outcome, record calibration feedback with `retrieval-feedback`: use `verified_useful` or `useful` when a low/medium-trust result proved valuable, `undertrusted` when the runtime should trust it more next time, and `overtrusted` when a strong-looking result misled the task. This adjusts future answer-time trust for similar queries without rewriting the memory record.
 
 If `context`, `search`, or `wiki-search` returns no results, the runtime records a query miss automatically. Do not add manual keywords just to improve retrieval; let maintain review real misses later.

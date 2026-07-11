@@ -2711,3 +2711,70 @@ Verification:
 Rollback notes:
 
 - Remove maturity governance action wiring and counters, and revert docs/tests if counter-evidence review becomes noisy.
+
+## 2026-07-11 - Plan experience quality and graph signal roadmap
+
+Files touched:
+
+- `docs/superpowers/plans/2026-07-11-experience-quality-and-graph-signal-roadmap.md`
+- `gitlog.md`
+
+What changed:
+
+- Added a detailed executable roadmap for the combined `1 + 5` direction.
+- Split the work into experience query hardening, procedure/correction recording shape, log signal quality, graph signal governance, evaluation gates, skill guidance, and final regression phases.
+- Defined expected data contracts for experience trust fields, log signal fields, and graph signal quality fields.
+- Included concrete files, test commands, acceptance criteria, commit points, and rollback strategy for staged execution.
+
+Why:
+
+- The next improvements need to reduce experience interference while also making code/log graph anchors more useful for diagnosis.
+- A staged document lets later implementation proceed without re-opening the design discussion each time.
+
+Verification:
+
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove the roadmap document and this gitlog entry if the project chooses a different execution sequence for `1 + 5`.
+
+## 2026-07-11 - Harden experience query trust
+
+Files touched:
+
+- `tools/agent_memory_runtime/experience_query_quality.py`
+- `tools/agent_memory_runtime/memory_calibration.py`
+- `tests/test_experience_query_quality.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `docs/superpowers/plans/2026-07-11-experience-quality-and-graph-signal-roadmap.md`
+- `gitlog.md`
+
+What changed:
+
+- Added query-facing experience trust explanations with `query_risk_flags`, `trust_cap`, and `trust_cap_reasons`.
+- Capped stale, misleading, deprecated, and raw-observation experiences so confidence or quality cannot make them dominate query direction.
+- Added a soft cap and risk flag for verified procedure experiences that still lack counter-evidence.
+- Allowed positive calibration feedback to raise trust past the missing-counter-evidence soft cap while preserving the risk flag.
+- Added regression tests for misleading experience caps, missing counter-evidence flags, and correction-guard guidance versus broad procedure experience.
+
+Why:
+
+- Recent or broadly related experience can interfere with the user's actual query unless trust explains risk and applies hard bounds for misleading or stale records.
+- Procedure experience without negative applicability boundaries should remain useful but visibly risky.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_query_quality`
+- Result: 3 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_query_quality tests.test_experience_maturity tests.test_memory_calibration tests.test_calibration_feedback`
+- Result: 17 tests pass.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+
+- Remove `experience_query_quality.py`, remove query-risk fields from calibration output, and revert the new tests/docs if trust caps prove too strict.

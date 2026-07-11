@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from .experience_query_quality import explain_experience_trust
 from .text import json_list, unique_list
 
 
@@ -54,6 +55,14 @@ def calibrate_result_group(group: str, rows: list[dict[str, Any]]) -> list[dict[
 def calibrate_record(group: str, row: dict[str, Any]) -> dict[str, Any]:
     item = dict(row)
     trust_score, reasons = compute_trust_score(group, item)
+    query_quality = explain_experience_trust(item) if group in {"reflections", "correction_guards"} else {}
+    trust_cap = query_quality.get("trust_cap")
+    if trust_cap is not None and trust_score > trust_cap:
+        trust_score = trust_cap
+    reasons = unique_list(reasons + query_quality.get("trust_cap_reasons", []))
+    item["query_risk_flags"] = query_quality.get("query_risk_flags", [])
+    item["trust_cap"] = trust_cap
+    item["trust_cap_reasons"] = query_quality.get("trust_cap_reasons", [])
     item["trust_score"] = round(max(0.0, min(1.0, trust_score)), 3)
     item["trust_level"] = trust_level_for(group, item, item["trust_score"])
     item["trust_reasons"] = reasons
@@ -162,6 +171,9 @@ def build_retrieval_explanation(group: str, item: dict[str, Any]) -> dict[str, A
         "calibration_feedback_bonus": item.get("calibration_feedback_bonus", 0.0),
         "calibration_feedback_penalty": item.get("calibration_feedback_penalty", 0.0),
         "calibration_feedback_reasons": json_list(item.get("calibration_feedback_reasons")),
+        "query_risk_flags": json_list(item.get("query_risk_flags")),
+        "trust_cap": item.get("trust_cap"),
+        "trust_cap_reasons": json_list(item.get("trust_cap_reasons")),
         "status": item.get("status"),
         "confidence": item.get("confidence"),
     }
