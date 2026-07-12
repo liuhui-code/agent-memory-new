@@ -184,6 +184,8 @@ If an otherwise high-value reflection lacks a grounded chain, `maintain-plan` ma
 
 `maintain-plan --json` also returns `action_budget`. It annotates every proposed action with `priority_score` and `priority_reasons`, then exposes a bounded `top_actions` list plus counts by lane and risk. This is a read-only review budget for large archives: it helps the Agent inspect the highest-impact actions first, but it does not execute, delete, archive, or reorder query results.
 
+Use `maintain-plan --compact --json` when token budget matters. Compact mode preserves `summary`, governance summaries, `action_budget`, compact top actions, and a `health_overview`, while omitting heavyweight record lists and full action payloads. It is output-only: governance scoring and SQLite reads stay the same, but the JSON sent to the Agent is much smaller.
+
 `context` and `search` also attach quality hints to semantic and reflection matches. Reflection matches use `quality_score` inside the existing memory-lane gate to produce `rerank_score`; this lets verified, evidence-backed experience outrank broad or misleading experience after the intent gate has already decided the record belongs in the main lane. The rerank is deliberately soft: it does not make stale, blocked, correction-only, or semantic-patch-only records bypass their lane rules.
 
 When a retrieved semantic fact or reflection was actually useful, ignored, misleading, or superseded during a task, record that outcome:

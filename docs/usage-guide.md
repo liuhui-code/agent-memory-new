@@ -334,6 +334,14 @@ When reflections cite incident traces in `source_cases`, for example `incident_t
 
 `maintain-plan --json` also reports `action_budget`. Use `top_actions` as the first bounded review batch when many governance signals exist, then inspect the underlying action before changing memory. `priority_score` is explainable and advisory; current source code, explicit user feedback, stale/conflict signals, and confirmation requirements still win.
 
+For large archives or low-token sessions, start with:
+
+```bash
+python tools/agent_memory.py maintain-plan --project . --compact --json
+```
+
+Compact mode returns `action_budget`, `health_overview`, and compact top actions first. If the selected action needs templates, record details, or full graph/memory context, rerun normal `maintain-plan --json`.
+
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 
 ```bash

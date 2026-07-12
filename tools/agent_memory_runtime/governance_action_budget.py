@@ -73,6 +73,58 @@ def build_governance_action_budget(
     }
 
 
+def compact_maintain_plan_payload(data: dict[str, Any]) -> dict[str, Any]:
+    action_budget = data.get("action_budget") or {}
+    memory_tiers = data.get("memory_tiers") or {}
+    active_learning_queue = data.get("active_learning_queue") or {}
+    graph_quality = data.get("graph_quality") or {}
+    graph_signal_quality = data.get("graph_signal_quality") or {}
+    runtime_performance = data.get("runtime_performance") or {}
+    quality_summary = data.get("quality_summary") or {}
+    evidence_chain_summary = data.get("evidence_chain_summary") or {}
+    experience_usage = data.get("experience_usage") or {}
+    retrieval_feedback_summary = data.get("retrieval_feedback_summary") or {}
+
+    return {
+        "project_id": data.get("project_id"),
+        "project_path": data.get("project_path"),
+        "compact": True,
+        "summary": data.get("summary") or {},
+        "governance_summary": data.get("governance_summary") or {},
+        "learn_governance_summary": data.get("learn_governance_summary") or {},
+        "action_budget": action_budget,
+        "health_overview": {
+            "graph_health_status": graph_quality.get("health_status"),
+            "graph_signal_status": graph_signal_quality.get("health_status"),
+            "graph_signal_repair_target_count": len(graph_signal_quality.get("top_repair_targets") or []),
+            "runtime_performance_operations": sorted((runtime_performance.get("operations") or {}).keys()),
+            "experience_usage_event_count": experience_usage.get("event_count", 0),
+            "memory_tier_counts": memory_tiers.get("counts") or {},
+            "active_learning_queue_count": active_learning_queue.get("queue_count", 0),
+            "retrieval_feedback_open": retrieval_feedback_summary.get("open_feedback", 0),
+            "low_quality_record_count": quality_summary.get("low_quality_count", 0),
+            "high_value_record_count": quality_summary.get("high_value_count", 0),
+            "evidence_chain_summary": evidence_chain_summary,
+        },
+        "actions": action_budget.get("top_actions") or [],
+        "omitted_sections": [
+            "graph_quality",
+            "graph_signal_quality",
+            "runtime_performance",
+            "experience_usage",
+            "memory_tiers",
+            "active_learning_queue",
+            "retrieval_feedback_summary",
+            "quality_summary",
+            "evidence_chain_summary",
+            "low_quality_records",
+            "high_value_records",
+            "full_actions",
+        ],
+        "advisory_notice": data.get("advisory_notice"),
+    }
+
+
 def score_governance_action(action: dict[str, Any]) -> tuple[float, list[str]]:
     reasons: list[str] = []
     score = 0.05

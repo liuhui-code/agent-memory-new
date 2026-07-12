@@ -98,6 +98,26 @@ class GovernanceActionBudgetTests(unittest.TestCase):
         )
         self.assertEqual(budget, data["governance_summary"]["action_budget"])
 
+    def test_maintain_plan_compact_returns_budget_first_payload(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            self.run_memory(project, "init")
+            self.seed_actions(project)
+
+            result = self.run_memory(project, "maintain-plan", "--compact", "--json")
+            data = json.loads(result.stdout)
+
+        self.assertTrue(data["compact"])
+        self.assertIn("action_budget", data)
+        self.assertIn("health_overview", data)
+        self.assertEqual(data["actions"], data["action_budget"]["top_actions"])
+        self.assertLessEqual(len(data["actions"]), data["action_budget"]["top_limit"])
+        self.assertIn("memory_tier_counts", data["health_overview"])
+        self.assertIn("active_learning_queue_count", data["health_overview"])
+        self.assertNotIn("low_quality_records", data)
+        self.assertNotIn("high_value_records", data)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -18,7 +18,11 @@ from .graph_quality import (
     build_graph_signal_quality,
     build_graph_signal_quality_actions,
 )
-from .governance_action_budget import annotate_governance_action_priorities, build_governance_action_budget
+from .governance_action_budget import (
+    annotate_governance_action_priorities,
+    build_governance_action_budget,
+    compact_maintain_plan_payload,
+)
 from .incident_trace_governance import build_incident_trace_actions
 from .experience_maturity import score_experience_maturity
 from .experience_usage import build_experience_usage_actions, fetch_experience_usage_summary
@@ -2638,6 +2642,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "actions": actions,
         "advisory_notice": "maintain-plan only proposes actions. Execute changes only after user confirmation.",
     }
+    if getattr(args, "compact", False):
+        data = compact_maintain_plan_payload(data)
     record_governance_usage(project, "maintain-plan", data)
     append_performance_sample(
         project,

@@ -24,6 +24,35 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add compact maintain-plan output
+
+Files changed:
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/governance_action_budget.py`
+- `tests/test_governance_action_budget.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-maintain-plan-compact-output.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `maintain-plan --compact --json`.
+- Compact mode keeps `summary`, governance summaries, `action_budget`, compact top actions, and `health_overview`.
+- Compact mode omits heavyweight full action payloads, quality record lists, graph details, memory tier details, and active-learning details.
+
+Why:
+- Large archives need a token-saving way to choose the first governance lane before loading full review templates and record details.
+- This keeps the optimization output-only and avoids new persistent queues or heavier infrastructure.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_governance_action_budget`
+- Result: passes.
+
+Rollback notes:
+- Remove the `--compact` parser flag, `compact_maintain_plan_payload`, compact test, and related docs if compact output proves confusing.
+
 ## 2026-07-12 - Add governance action budget
 
 Files changed:

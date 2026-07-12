@@ -60,6 +60,7 @@ When `graph_signal_quality` is present, use `top_repair_targets` before broad re
 When `active_learning_queue` is present, use it as the first triage view. It ranks query misses, weak graph/log anchors, experience usage outcomes, and low-quality records into one bounded queue. Do not mutate memory from the queue alone; follow the concrete underlying action for the selected item.
 When `memory_tiers` is present, use it as the archive-pressure view. Hot and warm records stay query-eligible through existing rules; cold and archive-candidate records need review before stale marking, merging, confidence lowering, or archival. Do not delete memory only because it appears in a tier.
 When `action_budget` is present, use `top_actions` as the first review batch. The budget is a token-saving triage view, not an execution plan. Always open the underlying action and respect `requires_confirmation`, current source code, conflict state, and user feedback before changing memory.
+When token budget is tight or the archive is large, run `maintain-plan --compact --json` first. Use compact mode to choose a review lane, then rerun full `maintain-plan --json` only when you need templates, detailed records, or full action payloads.
 When reviewing retrieval quality after ranking, scoring, learn-business, code graph, or log graph changes, run `eval-retrieval --cases <golden-cases.json> --json` if a golden query file exists. Use missed expected anchors and unexpected bad matches to choose the smallest follow-up: enrich business terms, tighten an experience trigger, mark stale memory, or add a new golden case.
 When reviewing answer grounding after query, graph, log, or experience changes, run `eval-evidence-attribution --cases <golden-evidence-attribution.json> --json` if a case file exists. Use unsupported claims to decide whether the problem is weak retrieval, missing code/log anchors, or an answer that overstates the evidence.
 
@@ -71,7 +72,7 @@ When the user asks to clean, organize, review, or govern memory:
 2. Run `maintain-health --json`.
 3. Inspect `graph_quality`, then `graph_signal_quality`, then `runtime_performance`.
 4. If golden cases exist and the task touched ranking, query, graph, or log behavior, run `eval-retrieval`, `eval-calibration`, or `eval-log-signal`.
-5. Run `maintain-plan --json`.
+5. Run `maintain-plan --compact --json` first on large archives or low-token sessions; otherwise run `maintain-plan --json`.
 6. If `action_budget.top_actions` exists, use it to choose the first bounded review batch.
 7. Review maturity, counter-evidence, weak evidence chains, log signal, active-learning, memory-tier, stale, merge, and archive actions in that order.
 8. Present grouped actions to the user by risk and type, including open query misses.
