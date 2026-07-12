@@ -24,6 +24,33 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add quality gate automation hints
+
+Files changed:
+- `docs/superpowers/plans/2026-07-12-quality-gate-automation.md`
+- `tools/agent_memory_runtime/quality_gate_eval.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tests/test_quality_gate_eval.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added per-gate `next_command_template` to `eval-quality` output.
+- Added `passed_gate_names`, `failed_gate_names`, and `skipped_gate_names` to the aggregate summary.
+- Added `eval-quality --fail-on-fail` for scripts that need exit code 1 after a failing JSON report.
+
+Why:
+- The aggregate quality gate should be easy to automate and easy to drill into when a specific gate fails.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_gate_eval`
+- Result: passes.
+
+Rollback notes:
+- Remove the flag, summary name lists, command templates, tests, and docs if aggregate output becomes too verbose.
+
 ## 2026-07-12 - Add golden eval case seed pack
 
 Files changed:

@@ -28,6 +28,8 @@ def eval_quality_command(args: argparse.Namespace) -> None:
         strict=bool(getattr(args, "strict", False)),
     )
     output(data, args.json)
+    if bool(getattr(args, "fail_on_fail", False)) and data.get("quality_gate") == "fail":
+        raise SystemExit(1)
 
 
 def run_retrieval(project: Project, path: Path) -> dict[str, Any]:
@@ -53,17 +55,23 @@ def run_evidence_attribution(project: Project, path: Path) -> dict[str, Any]:
     return evaluate_evidence_attribution(project, load_evidence_cases(path))
 
 
-GATES: list[tuple[str, str, GateRunner]] = [
-    ("retrieval", "golden-retrieval.json", run_retrieval),
-    ("calibration", "golden-calibration.json", run_calibration),
-    ("governance", "golden-governance.json", run_governance),
-    ("log_signal", "golden-log-signal.json", run_log_signal),
-    ("evidence_attribution", "golden-evidence-attribution.json", run_evidence_attribution),
+GATES: list[tuple[str, str, str, GateRunner]] = [
+    ("retrieval", "golden-retrieval.json", "eval-retrieval", run_retrieval),
+    ("calibration", "golden-calibration.json", "eval-calibration", run_calibration),
+    ("governance", "golden-governance.json", "eval-governance", run_governance),
+    ("log_signal", "golden-log-signal.json", "eval-log-signal", run_log_signal),
+    ("evidence_attribution", "golden-evidence-attribution.json", "eval-evidence-attribution", run_evidence_attribution),
 ]
 
 
 def evaluate_quality_gates(project: Project, cases_dir: Path, strict: bool = False) -> dict[str, Any]:
-    gates = [evaluate_gate(project, cases_dir, name, filename, runner) for name, filename, runner in GATES]
+    gates = [
+        evaluate_gate(project, cases_dir, name, filename, command_name, runner)
+        for name, filename, command_name, runner in GATES
+    ]
+    passed_names = [str(gate["name"]) for gate in gates if gate["status"] == "pass"]
+    failed_names = [str(gate["name"]) for gate in gates if gate["status"] == "fail"]
+    skipped_names = [str(gate["name"]) for gate in gates if gate["status"] == "skipped"]
     passed = len([gate for gate in gates if gate["status"] == "pass"])
     failed = len([gate for gate in gates if gate["status"] == "fail"])
     skipped = len([gate for gate in gates if gate["status"] == "skipped"])
@@ -75,6 +83,9 @@ def evaluate_quality_gates(project: Project, cases_dir: Path, strict: bool = Fal
         "passed_gates": passed,
         "failed_gates": failed,
         "skipped_gates": skipped,
+        "passed_gate_names": passed_names,
+        "failed_gate_names": failed_names,
+        "skipped_gate_names": skipped_names,
     }
     if no_cases_failure:
         summary["failure_reason"] = "no_case_files"
@@ -89,9 +100,20 @@ def evaluate_quality_gates(project: Project, cases_dir: Path, strict: bool = Fal
     }
 
 
-def evaluate_gate(project: Project, cases_dir: Path, name: str, filename: str, runner: GateRunner) -> dict[str, Any]:
+def evaluate_gate(
+    project: Project,
+    cases_dir: Path,
+    name: str,
+    filename: str,
+    command_name: str,
+    runner: GateRunner,
+) -> dict[str, Any]:
     path = cases_dir / filename
-    base = {"name": name, "case_file": str(path)}
+    base = {
+        "name": name,
+        "case_file": str(path),
+        "next_command_template": f"python tools/agent_memory.py {command_name} --project . --cases {path} --json",
+    }
     if not path.exists():
         return {**base, "status": "skipped", "reason": "case file not found"}
     try:

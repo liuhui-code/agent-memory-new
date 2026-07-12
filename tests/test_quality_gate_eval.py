@@ -87,8 +87,11 @@ class QualityGateEvalTests(unittest.TestCase):
         self.assertEqual(2, data["summary"]["gate_count"])
         self.assertEqual(2, data["summary"]["passed_gates"])
         self.assertEqual(3, data["summary"]["skipped_gates"])
+        self.assertEqual(["retrieval", "log_signal"], data["summary"]["passed_gate_names"])
+        self.assertEqual([], data["summary"]["failed_gate_names"])
         calibration = next(gate for gate in data["gates"] if gate["name"] == "calibration")
         self.assertEqual("skipped", calibration["status"])
+        self.assertIn("eval-calibration", calibration["next_command_template"])
 
     def test_eval_quality_fails_when_available_gate_fails(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -116,8 +119,10 @@ class QualityGateEvalTests(unittest.TestCase):
 
         self.assertEqual("fail", data["quality_gate"])
         self.assertEqual(1, data["summary"]["failed_gates"])
+        self.assertEqual(["log_signal"], data["summary"]["failed_gate_names"])
         log_gate = next(gate for gate in data["gates"] if gate["name"] == "log_signal")
         self.assertEqual("fail", log_gate["status"])
+        self.assertIn("eval-log-signal", log_gate["next_command_template"])
 
     def test_eval_quality_strict_fails_when_no_cases_exist(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -132,6 +137,47 @@ class QualityGateEvalTests(unittest.TestCase):
 
         self.assertEqual("fail", data["quality_gate"])
         self.assertEqual("no_case_files", data["summary"]["failure_reason"])
+
+    def test_eval_quality_fail_on_fail_returns_nonzero_with_json_output(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            cases_dir = root / "eval"
+            project.mkdir()
+            cases_dir.mkdir()
+            (cases_dir / "golden-log-signal.json").write_text(
+                json.dumps(
+                    [
+                        {
+                            "name": "bad-log",
+                            "logs": ["failed"],
+                            "min_good_rate": 1.0,
+                            "max_low_signal_rate": 0.0,
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            command = [
+                sys.executable,
+                str(RUNTIME),
+                "eval-quality",
+                "--cases-dir",
+                str(cases_dir),
+                "--fail-on-fail",
+                "--json",
+                "--project",
+                str(project),
+                "--memory-home",
+                str(self.memory_home(project)),
+            ]
+
+            result = subprocess.run(command, cwd=REPO_ROOT, text=True, capture_output=True, env=os.environ.copy())
+            data = json.loads(result.stdout)
+
+        self.assertEqual(1, result.returncode)
+        self.assertEqual("fail", data["quality_gate"])
+        self.assertEqual(["log_signal"], data["summary"]["failed_gate_names"])
 
 
 if __name__ == "__main__":
