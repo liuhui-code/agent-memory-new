@@ -178,6 +178,8 @@ If an otherwise high-value reflection lacks a grounded chain, `maintain-plan` ma
 
 `maintain-health --json` also returns `graph_signal_quality`. This layer scores whether graph anchors are useful for retrieval and diagnosis, not only whether edges exist. It reports weak anchors, missing business semantics, missing log signal fields, and concrete `top_repair_targets`. `maintain-plan --json` may emit `review_graph_signal_quality` when repair targets are available. Suggested repairs should stay narrow: enrich business terms, add request/session correlation, or add route/resource/reason/result fields to the specific log or symbol target.
 
+`maintain-health --json` and `maintain-plan --json` also return `active_learning_queue`. This queue is computed on demand from existing signals: open query misses, graph-signal repair targets, experience usage outcomes, and low-quality memory records. It ranks what to improve next but does not mutate memory. `maintain-plan` may emit `review_active_learning_queue` actions that point back to the concrete underlying target.
+
 `context` and `search` also attach quality hints to semantic and reflection matches. Reflection matches use `quality_score` inside the existing memory-lane gate to produce `rerank_score`; this lets verified, evidence-backed experience outrank broad or misleading experience after the intent gate has already decided the record belongs in the main lane. The rerank is deliberately soft: it does not make stale, blocked, correction-only, or semantic-patch-only records bypass their lane rules.
 
 When a retrieved semantic fact or reflection was actually useful, ignored, misleading, or superseded during a task, record that outcome:

@@ -9,6 +9,7 @@ import re
 from pathlib import Path
 from typing import Any
 
+from .active_learning_queue import build_active_learning_actions, build_active_learning_queue
 from .code_wiki import semantic_followup_from_db
 from .evidence_chain_quality import build_evidence_chain_summary, enrich_reflections_with_evidence_chains
 from .graph_quality import (
@@ -224,6 +225,18 @@ def maintain_health(args: argparse.Namespace) -> None:
     graph_quality = build_graph_quality(project)
     graph_signal_quality = build_graph_signal_quality(project)
     experience_usage = fetch_experience_usage_summary(project)
+    health_quality_report = build_quality_report(
+        semantic_active_rows[:10],
+        enrich_reflections_with_evidence_chains(project, reflection_active_rows[:10]),
+        fetch_incident_trace_quality_rows(project, 10),
+    )
+    active_learning_queue = build_active_learning_queue(
+        project,
+        graph_signal_quality=graph_signal_quality,
+        experience_usage=experience_usage,
+        quality_report=health_quality_report,
+        limit=5,
+    )
 
     duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
     low_confidence_count = low_conf_semantic_count + low_conf_reflection_count
@@ -250,6 +263,8 @@ def maintain_health(args: argparse.Namespace) -> None:
         recommended_actions.append("Review graph signal quality and enrich weak code/log anchors.")
     if experience_usage["misleading_records"]:
         recommended_actions.append("Review experience usage outcomes and tighten misleading memories.")
+    if active_learning_queue["queue_count"]:
+        recommended_actions.append("Use the active learning queue to handle the highest-priority miss, weak graph anchor, or experience outcome first.")
 
     data = {
         "project_id": project.project_id,
@@ -291,6 +306,7 @@ def maintain_health(args: argparse.Namespace) -> None:
             "misleading_records": experience_usage["misleading_records"],
             "helpful_records": experience_usage["helpful_records"],
         },
+        "active_learning_queue": active_learning_queue,
         "runtime_performance": build_runtime_performance_summary(project),
         "recommended_actions": recommended_actions,
     }
@@ -2133,6 +2149,14 @@ def maintain_plan(args: argparse.Namespace) -> None:
     quality_governance_actions = build_quality_governance_actions(quality_report)
     weak_evidence_chain_actions = build_weak_evidence_chain_actions(quality_report)
     maturity_governance_actions = build_experience_maturity_actions(quality_reflection_rows)
+    active_learning_queue = build_active_learning_queue(
+        project,
+        graph_signal_quality=graph_signal_quality,
+        experience_usage=experience_usage,
+        quality_report=quality_report,
+        limit=args.limit,
+    )
+    active_learning_actions = build_active_learning_actions(active_learning_queue)
     actions: list[dict[str, Any]] = []
 
     for row in review["stale_memories"]:
@@ -2302,6 +2326,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(graph_signal_quality_actions)
     actions.extend(runtime_performance_actions)
     actions.extend(experience_usage_actions)
+    actions.extend(active_learning_actions)
     actions.extend(retrieval_feedback_actions)
     actions.extend(calibration_feedback_actions)
 
@@ -2548,6 +2573,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "graph_signal_quality_reviews": len(graph_signal_quality_actions),
         "runtime_performance_reviews": len(runtime_performance_actions),
         "experience_usage_reviews": len(experience_usage_actions),
+        "active_learning_queue_items": len(active_learning_actions),
         "retrieval_feedback_reviews": len(retrieval_feedback_actions),
         "overtrusted_memory_reviews": len([action for action in calibration_feedback_actions if action.get("action") == "review_overtrusted_memory"]),
         "undertrusted_memory_reviews": len([action for action in calibration_feedback_actions if action.get("action") == "review_undertrusted_memory"]),
@@ -2585,6 +2611,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "helpful_records": experience_usage["helpful_records"],
             "review_actions": len(experience_usage_actions),
         },
+        "active_learning_queue": active_learning_queue,
         "retrieval_feedback_summary": {
             "open_feedback": len(retrieval_feedback_rows),
             "review_actions": len(retrieval_feedback_actions),

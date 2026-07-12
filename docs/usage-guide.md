@@ -328,6 +328,8 @@ When reflections cite incident traces in `source_cases`, for example `incident_t
 
 `maintain-health --json` also reports `graph_signal_quality`. Structural graph health tells you whether anchors and edges exist; signal quality tells you whether those anchors carry enough business/log meaning to help the next Agent. Use `top_repair_targets` as a focused queue for `learn-business` enrichment or source logging improvements.
 
+`maintain-health --json` and `maintain-plan --json` also report `active_learning_queue`. Use it as the first triage view when many governance signals exist. It ranks open query misses, weak graph/log anchors, misleading or helpful experience usage, and low-quality memories into a single bounded queue. The queue is read-only; follow the underlying action type before changing memory.
+
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 
 ```bash

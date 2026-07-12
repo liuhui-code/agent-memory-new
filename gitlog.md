@@ -24,6 +24,34 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add active learning governance queue
+
+Files changed:
+- `tools/agent_memory_runtime/active_learning_queue.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_active_learning_queue.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-active-learning-governance-queue.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added a read-only `active_learning_queue` summary to `maintain-health` and `maintain-plan`.
+- Ranked open query misses, weak graph/log anchors, experience usage outcomes, and low-quality memory records into one bounded queue.
+- Added `review_active_learning_queue` actions that point to the underlying target without mutating memory.
+- Updated docs and maintain skill guidance for consuming the queue.
+
+Why:
+- As memory grows, maintain output can contain many independent signals. The queue gives Agents a compact prioritization layer so optimization work starts with the highest expected payoff.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_active_learning_queue`
+- Result: fails before `active_learning_queue` exists, then passes.
+
+Rollback notes:
+- Remove `active_learning_queue.py`, remove queue integration from `governance.py`, delete the focused test and plan doc, and revert the docs/skill/gitlog updates.
+
 ## 2026-07-12 - Add experience evidence log closed loop
 
 Files changed:
