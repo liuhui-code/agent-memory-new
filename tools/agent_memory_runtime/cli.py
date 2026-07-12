@@ -72,11 +72,23 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("eval_calibration_command"))
 
+    p = sub.add_parser("eval-experience-evidence")
+    add_project(p)
+    p.add_argument("--cases", required=True)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("eval_experience_evidence_command"))
+
     p = sub.add_parser("eval-log-signal")
     add_project(p)
     p.add_argument("--cases", required=True)
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("eval_log_signal_command"))
+
+    p = sub.add_parser("eval-graph-signal")
+    add_project(p)
+    p.add_argument("--cases", required=True)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("eval_graph_signal_command"))
 
     p = sub.add_parser("eval-evidence-attribution")
     add_project(p)
@@ -94,6 +106,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     add_project(p)
     p.add_argument("--cases-dir", default="docs/eval")
     p.add_argument("--gate", action="append")
+    p.add_argument("--list-gates", action="store_true")
     p.add_argument("--strict", action="store_true")
     p.add_argument("--fail-on-fail", action="store_true")
     p.add_argument("--json", action="store_true")

@@ -105,6 +105,10 @@ class MemoryCalibrationTests(unittest.TestCase):
         self.assertIn("trust_level", first)
         self.assertIn("trust_reasons", first)
         self.assertIn("retrieval_explanation", first)
+        self.assertIn("experience_evidence_profile", first)
+        self.assertTrue(first["experience_evidence_profile"]["has_evidence"])
+        self.assertEqual("verified", first["experience_evidence_profile"]["verification_status"])
+        self.assertIn("experience_evidence_profile", first["retrieval_explanation"])
         self.assertIn(first["trust_level"], {"verified_experience", "usable_hint"})
 
 

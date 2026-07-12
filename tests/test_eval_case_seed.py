@@ -45,13 +45,15 @@ class EvalCaseSeedTests(unittest.TestCase):
             data = json.loads(result.stdout)
 
             self.assertEqual(str(target), data["target"])
-            self.assertEqual(6, len(data["written"]))
+            self.assertEqual(8, len(data["written"]))
             self.assertTrue((target / "README.md").exists())
             for name in [
                 "golden-retrieval.json",
                 "golden-calibration.json",
+                "golden-experience-evidence.json",
                 "golden-governance.json",
                 "golden-log-signal.json",
+                "golden-graph-signal.json",
                 "golden-evidence-attribution.json",
             ]:
                 content = json.loads((target / name).read_text(encoding="utf-8"))

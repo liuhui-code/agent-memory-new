@@ -51,6 +51,9 @@ def seed_files() -> dict[str, str]:
                 {
                     "name": "arkts-route-anchor",
                     "query": "ArkTS profile page blank screen route diagnosis",
+                    "expected_memory_intent": "incident_diagnosis",
+                    "required_preferred_lanes": ["code_log_matches", "incident_trace_matches"],
+                    "max_blocked_memory_notes": 2,
                     "expected": [
                         {
                             "type": "code_symbols",
@@ -95,6 +98,23 @@ def seed_files() -> dict[str, str]:
                 }
             ]
         ),
+        "golden-experience-evidence.json": json_seed(
+            [
+                {
+                    "name": "verified-route-procedure-profile",
+                    "match": {
+                        "text": "router.pushUrl"
+                    },
+                    "min_profile_score": 0.75,
+                    "expected_verification_status": "verified",
+                    "required_true": [
+                        "has_evidence",
+                        "has_applicability",
+                        "has_counter_evidence"
+                    ],
+                }
+            ]
+        ),
         "golden-governance.json": json_seed(
             [
                 {
@@ -124,6 +144,22 @@ def seed_files() -> dict[str, str]:
                     ],
                     "min_good_rate": 0.5,
                     "max_low_signal_rate": 0.5,
+                }
+            ]
+        ),
+        "golden-graph-signal.json": json_seed(
+            [
+                {
+                    "name": "graph-signal-coverage",
+                    "min_coverage_score": 0.6,
+                    "allowed_coverage_statuses": ["ok", "watch"],
+                    "max_repair_targets": 10,
+                    "required_repair_targets": [
+                        {
+                            "target_type": "code_log_statement",
+                            "text": "profile",
+                        }
+                    ],
                 }
             ]
         ),

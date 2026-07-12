@@ -86,12 +86,28 @@ class QualityGateEvalTests(unittest.TestCase):
         self.assertEqual("pass", data["quality_gate"])
         self.assertEqual(2, data["summary"]["gate_count"])
         self.assertEqual(2, data["summary"]["passed_gates"])
-        self.assertEqual(3, data["summary"]["skipped_gates"])
+        self.assertEqual(5, data["summary"]["skipped_gates"])
         self.assertEqual(["retrieval", "log_signal"], data["summary"]["passed_gate_names"])
         self.assertEqual([], data["summary"]["failed_gate_names"])
         calibration = next(gate for gate in data["gates"] if gate["name"] == "calibration")
         self.assertEqual("skipped", calibration["status"])
         self.assertIn("eval-calibration", calibration["next_command_template"])
+
+    def test_eval_quality_lists_registered_gates_without_running_cases(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            cases_dir = root / "eval"
+            project.mkdir()
+
+            result = self.run_memory(project, "eval-quality", "--cases-dir", str(cases_dir), "--list-gates", "--json")
+            data = json.loads(result.stdout)
+
+        self.assertEqual(7, data["gate_count"])
+        self.assertIn("retrieval", data["gate_names"])
+        self.assertIn("experience_evidence", data["gate_names"])
+        self.assertIn("graph_signal", data["gate_names"])
+        self.assertTrue(any("eval-quality" in gate["aggregate_template"] for gate in data["gates"]))
 
     def test_eval_quality_fails_when_available_gate_fails(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -349,6 +365,100 @@ class QualityGateEvalTests(unittest.TestCase):
         self.assertEqual(0, data["summary"]["passed_gates"])
         self.assertEqual(1, data["summary"]["failed_gates"])
         self.assertEqual(0, data["summary"]["skipped_gates"])
+
+    def test_eval_quality_can_run_graph_signal_gate(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            cases_dir = root / "eval"
+            project.mkdir()
+            cases_dir.mkdir()
+            pages = project / "pages"
+            pages.mkdir()
+            (pages / "Profile.ets").write_text(
+                "export function loadProfile() {\n"
+                "  console.error('profile failed');\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            (cases_dir / "golden-graph-signal.json").write_text(
+                json.dumps(
+                    [
+                        {
+                            "name": "weak-profile-log-target",
+                            "min_coverage_score": 0.0,
+                            "allowed_coverage_statuses": ["watch", "poor"],
+                            "max_repair_targets": 5,
+                            "required_repair_targets": [
+                                {"target_type": "code_log_statement", "text": "profile failed"}
+                            ],
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages")
+            result = self.run_memory(project, "eval-quality", "--cases-dir", str(cases_dir), "--gate", "graph_signal", "--json")
+            data = json.loads(result.stdout)
+
+        self.assertEqual("pass", data["quality_gate"])
+        self.assertEqual(["graph_signal"], data["selected_gate_names"])
+        self.assertEqual(["graph_signal"], [gate["name"] for gate in data["gates"]])
+        self.assertEqual(1, data["summary"]["passed_gates"])
+        self.assertEqual(0, data["summary"]["failed_gates"])
+
+    def test_eval_quality_can_run_experience_evidence_gate(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            cases_dir = root / "eval"
+            project.mkdir()
+            cases_dir.mkdir()
+            payload = {
+                "experience_type": "procedure_experience",
+                "task": "ArkTS route blank screen diagnosis",
+                "summary": "Route target mismatch diagnosis.",
+                "lesson": "Inspect router.pushUrl target and page registration first.",
+                "trigger_condition": "ArkTS route blank screen",
+                "repair_action": "inspect router.pushUrl target",
+                "verification_method": "ran route navigation test",
+                "source_cases": ["incident_trace:7"],
+                "negative_preconditions": ["does not apply to pure resource failures"],
+                "confidence": 0.9,
+            }
+            (cases_dir / "golden-experience-evidence.json").write_text(
+                json.dumps(
+                    [
+                        {
+                            "name": "complete-route-procedure",
+                            "match": {"text": "router.pushUrl"},
+                            "min_profile_score": 1.0,
+                            "expected_verification_status": "verified",
+                            "required_true": ["has_evidence", "has_applicability", "has_counter_evidence"],
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "reflect", "--payload", json.dumps(payload))
+            result = self.run_memory(
+                project,
+                "eval-quality",
+                "--cases-dir",
+                str(cases_dir),
+                "--gate",
+                "experience_evidence",
+                "--json",
+            )
+            data = json.loads(result.stdout)
+
+        self.assertEqual("pass", data["quality_gate"])
+        self.assertEqual(["experience_evidence"], data["selected_gate_names"])
+        self.assertEqual(["experience_evidence"], [gate["name"] for gate in data["gates"]])
+        self.assertEqual(1, data["summary"]["passed_gates"])
+        self.assertEqual(0, data["summary"]["failed_gates"])
 
 
 if __name__ == "__main__":

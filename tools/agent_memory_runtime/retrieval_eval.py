@@ -17,6 +17,8 @@ PASS_EXPECTED_HIT_RATE = 0.8
 PASS_BLOCKED_BAD_RATE = 1.0
 PASS_EXPECTED_TOP_HIT_RATE = 0.8
 PASS_MAX_EXPERIENCE_NOISE_RATE = 0.2
+PASS_INTENT_MATCH_RATE = 1.0
+PASS_LANE_MATCH_RATE = 1.0
 
 
 def eval_retrieval_command(args: argparse.Namespace) -> None:
@@ -49,10 +51,19 @@ def evaluate_retrieval_cases(project: Project, cases: list[dict[str, Any]]) -> d
     expected_top_hits = sum(result["expected_top_hits"] for result in case_results)
     noise_total = sum(result["noise_total"] for result in case_results)
     noise_hits = sum(result["unexpected_noise_count"] for result in case_results)
+    intent_total = sum(result["intent_total"] for result in case_results)
+    intent_hits = sum(result["intent_hits"] for result in case_results)
+    lane_total = sum(result["required_lane_total"] for result in case_results)
+    lane_hits = sum(result["required_lane_hits"] for result in case_results)
+    blocked_budget_total = sum(result["blocked_budget_total"] for result in case_results)
+    blocked_budget_hits = sum(result["blocked_budget_hits"] for result in case_results)
     expected_hit_rate = ratio(expected_hits, expected_total)
     blocked_bad_rate = ratio(bad_blocked, bad_total)
     expected_top_hit_rate = ratio(expected_top_hits, expected_top_total)
     experience_noise_rate = ratio(noise_hits, noise_total) if noise_total else 0.0
+    intent_match_rate = ratio(intent_hits, intent_total)
+    required_lane_match_rate = ratio(lane_hits, lane_total)
+    blocked_budget_rate = ratio(blocked_budget_hits, blocked_budget_total)
     exact_anchor_ranks = [
         rank
         for result in case_results
@@ -66,6 +77,9 @@ def evaluate_retrieval_cases(project: Project, cases: list[dict[str, Any]]) -> d
             and blocked_bad_rate >= PASS_BLOCKED_BAD_RATE
             and expected_top_hit_rate >= PASS_EXPECTED_TOP_HIT_RATE
             and experience_noise_rate <= PASS_MAX_EXPERIENCE_NOISE_RATE
+            and intent_match_rate >= PASS_INTENT_MATCH_RATE
+            and required_lane_match_rate >= PASS_LANE_MATCH_RATE
+            and blocked_budget_rate >= 1.0
         )
         else "fail"
     )
@@ -87,6 +101,15 @@ def evaluate_retrieval_cases(project: Project, cases: list[dict[str, Any]]) -> d
             "noise_total": noise_total,
             "unexpected_noise_count": noise_hits,
             "experience_noise_rate": experience_noise_rate,
+            "intent_total": intent_total,
+            "intent_hits": intent_hits,
+            "intent_match_rate": intent_match_rate,
+            "required_lane_total": lane_total,
+            "required_lane_hits": lane_hits,
+            "required_lane_match_rate": required_lane_match_rate,
+            "blocked_budget_total": blocked_budget_total,
+            "blocked_budget_hits": blocked_budget_hits,
+            "blocked_budget_rate": blocked_budget_rate,
         },
         "cases": case_results,
         "thresholds": {
@@ -94,6 +117,9 @@ def evaluate_retrieval_cases(project: Project, cases: list[dict[str, Any]]) -> d
             "blocked_bad_rate": PASS_BLOCKED_BAD_RATE,
             "expected_top_hit_rate": PASS_EXPECTED_TOP_HIT_RATE,
             "max_experience_noise_rate": PASS_MAX_EXPERIENCE_NOISE_RATE,
+            "intent_match_rate": PASS_INTENT_MATCH_RATE,
+            "required_lane_match_rate": PASS_LANE_MATCH_RATE,
+            "blocked_budget_rate": 1.0,
         },
     }
 
@@ -114,10 +140,29 @@ def evaluate_retrieval_case(project: Project, case: dict[str, Any]) -> dict[str,
         spec for spec, rank in zip(expected_top, top_ranks) if rank != 1
     ]
     unexpected_noise = [spec for spec in noise if match_high_trust_noise(context, spec)]
+    expected_intent = str(case.get("expected_memory_intent") or "").strip()
+    intent_hit = not expected_intent or context.get("memory_intent") == expected_intent
+    required_lanes = [str(item) for item in case.get("required_preferred_lanes") or [] if str(item).strip()]
+    preferred_lanes = preferred_lanes_from_context(context)
+    missing_required_lanes = [lane for lane in required_lanes if lane not in preferred_lanes]
+    max_blocked = case.get("max_blocked_memory_notes")
+    blocked_count = len(context.get("blocked_memory_notes") or [])
+    blocked_budget_hit = max_blocked is None or blocked_count <= int(max_blocked)
     return {
         "name": case.get("name") or query,
         "query": query,
         "memory_intent": context.get("memory_intent"),
+        "expected_memory_intent": expected_intent or None,
+        "intent_total": 1 if expected_intent else 0,
+        "intent_hits": 1 if expected_intent and intent_hit else 0,
+        "required_lane_total": len(required_lanes),
+        "required_lane_hits": len(required_lanes) - len(missing_required_lanes),
+        "required_preferred_lanes": required_lanes,
+        "missing_required_preferred_lanes": missing_required_lanes,
+        "blocked_memory_note_count": blocked_count,
+        "max_blocked_memory_notes": max_blocked,
+        "blocked_budget_total": 1 if max_blocked is not None else 0,
+        "blocked_budget_hits": 1 if max_blocked is not None and blocked_budget_hit else 0,
         "expected_total": len(expected),
         "expected_hits": len(expected) - len(missed_expected),
         "must_not_include_total": len(must_not_include),
@@ -137,6 +182,16 @@ def evaluate_retrieval_case(project: Project, case: dict[str, Any]) -> dict[str,
             if isinstance(value, list)
         },
     }
+
+
+def preferred_lanes_from_context(context: dict[str, Any]) -> list[str]:
+    lanes = context.get("retrieval_lanes")
+    if not isinstance(lanes, dict):
+        return []
+    intent_profile = lanes.get("intent_profile")
+    if not isinstance(intent_profile, dict):
+        return []
+    return [str(item) for item in intent_profile.get("preferred_lanes") or []]
 
 
 def list_specs(value: Any) -> list[dict[str, Any]]:

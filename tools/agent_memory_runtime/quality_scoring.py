@@ -60,7 +60,57 @@ def score_reflection_quality(row: dict[str, Any]) -> dict[str, Any]:
     }
     score = weighted_score(parts, QUALITY_WEIGHTS)
     reasons = reflection_reasons(row, parts, source_cases, has_procedure_fields, has_semantic_anchor)
-    return quality_payload("reflection", row, score, parts, reasons)
+    payload = quality_payload("reflection", row, score, parts, reasons)
+    payload["experience_evidence_profile"] = experience_evidence_profile(row)
+    return payload
+
+
+def experience_evidence_profile(row: dict[str, Any]) -> dict[str, Any]:
+    source_cases = json_list(row.get("source_cases"))
+    negative_preconditions = json_list(row.get("negative_preconditions"))
+    applies_to = json_list(row.get("applies_to")) or ([str(row.get("applies_to"))] if str(row.get("applies_to") or "").strip() else [])
+    does_not_apply_to = json_list(row.get("does_not_apply_to")) or (
+        [str(row.get("does_not_apply_to"))] if str(row.get("does_not_apply_to") or "").strip() else []
+    )
+    counter_fields = []
+    if negative_preconditions:
+        counter_fields.append("negative_preconditions")
+    if does_not_apply_to:
+        counter_fields.append("does_not_apply_to")
+    if row.get("anti_pattern"):
+        counter_fields.append("anti_pattern")
+    has_explicit_evidence = any(value_present(row, key) for key in ("evidence", "verification_method", "source_cases"))
+    has_applicability = bool(row.get("trigger_condition") or row.get("scope") or applies_to)
+    has_counter_evidence = bool(counter_fields)
+    missing_fields = []
+    if not has_explicit_evidence:
+        missing_fields.append("evidence")
+    if not has_applicability:
+        missing_fields.append("applicability")
+    if not has_counter_evidence:
+        missing_fields.append("counter_evidence")
+    if not row.get("verification_method"):
+        missing_fields.append("verification_method")
+    return {
+        "claim": str(row.get("future_rule") or row.get("lesson") or row.get("summary") or "").strip(),
+        "has_evidence": has_explicit_evidence,
+        "evidence_fields": [
+            key
+            for key in ("evidence", "verification_method", "source_cases")
+            if value_present(row, key)
+        ],
+        "source_case_count": len(source_cases),
+        "has_applicability": has_applicability,
+        "applicability_fields": [
+            key
+            for key in ("trigger_condition", "scope", "applies_to")
+            if value_present(row, key)
+        ],
+        "has_counter_evidence": has_counter_evidence,
+        "counter_evidence_fields": counter_fields,
+        "verification_status": "verified" if row.get("verification_method") else "unverified",
+        "missing_fields": missing_fields,
+    }
 
 
 def reflection_reasons(

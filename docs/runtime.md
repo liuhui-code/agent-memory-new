@@ -178,7 +178,7 @@ If an otherwise high-value reflection lacks a grounded chain, `maintain-plan` ma
 
 `maintain-health --json` also returns `graph_quality` for the learned code/log graph. It reports code files, symbols, log statements, memory edges, orphan symbols/logs, stale edges, low-confidence edges, and symbol/log anchor coverage. `maintain-plan --json` may emit `review_graph_quality` when graph health is `watch` or `poor`. This is a read-only signal to refresh a focused learned scope or inspect stale/orphan anchors; it is not recursive graph traversal.
 
-`maintain-health --json` also returns `graph_signal_quality`. This layer scores whether graph anchors are useful for retrieval and diagnosis, not only whether edges exist. It reports weak anchors, missing business semantics, missing log signal fields, and concrete `top_repair_targets`. `maintain-plan --json` may emit `review_graph_signal_quality` when repair targets are available. Suggested repairs should stay narrow: enrich business terms, add request/session correlation, or add route/resource/reason/result fields to the specific log or symbol target.
+`maintain-health --json` also returns `graph_signal_quality`. This layer scores whether graph anchors are useful for retrieval and diagnosis, not only whether edges exist. It reports weak anchors, missing business semantics, missing log signal fields, concrete `top_repair_targets`, and a compact `coverage_scorecard`. The scorecard separates business semantic coverage, log diagnostic coverage, and symbol/log anchor coverage so an Agent can decide whether to enrich code meaning, improve log fields, or refresh graph edges. `maintain-plan --json` may emit `review_graph_signal_quality` when repair targets are available. Suggested repairs should stay narrow: enrich business terms, add request/session correlation, or add route/resource/reason/result fields to the specific log or symbol target.
 `maintain-plan --json` may also emit `review_log_observability_gap` in the `log_diagnosis` lane when learned log statements are missing diagnosis fields. This action is derived from existing graph signal quality and does not persist raw runtime logs.
 
 `maintain-health --json` and `maintain-plan --json` also return `active_learning_queue`. This queue is computed on demand from existing signals: open query misses, graph-signal repair targets, experience usage outcomes, and low-quality memory records. It ranks what to improve next but does not mutate memory. `maintain-plan` may emit `review_active_learning_queue` actions that point back to the concrete underlying target.
@@ -212,9 +212,9 @@ Reflection matches also include `experience_maturity`, `experience_maturity_scor
 
 `maintain-plan --json` may emit `review_immature_experience`, `review_missing_counter_evidence`, or `review_maturity_regression`. These actions ask reviewers to add trigger/repair structure, record negative preconditions or does-not-apply cases, or rewrite/deprecate experiences whose maturity regressed after misleading feedback. They do not update reflections automatically.
 
-`context` and `search` also return `memory_use_policy` and per-record calibration fields. `trust_level` labels a returned row as `source_truth`, `verified_experience`, `usable_hint`, `weak_hint`, `possibly_stale`, or `conflict_warning`. `trust_reasons` and `retrieval_explanation` explain the score using existing evidence: match reasons, gate reasons, quality, feedback penalty, status, confidence, source cases, verification method, experience maturity, and counter-evidence. Calibration is answer-time guidance only; it does not change stored memory.
+`context` and `search` also return `memory_use_policy` and per-record calibration fields. `trust_level` labels a returned row as `source_truth`, `verified_experience`, `usable_hint`, `weak_hint`, `possibly_stale`, or `conflict_warning`. `trust_reasons` and `retrieval_explanation` explain the score using existing evidence: match reasons, gate reasons, quality, feedback penalty, status, confidence, source cases, verification method, experience maturity, and counter-evidence. Reflection rows also include `experience_evidence_profile`, a compact claim/evidence/applicability/counter-evidence/verification summary derived from existing fields. Calibration is answer-time guidance only; it does not change stored memory.
 
-Reflection and correction-guard rows may also include `query_risk_flags`, `trust_cap`, and `trust_cap_reasons`. These fields explain why an otherwise high-scoring experience was bounded or should be used only as cautionary context. Hard risks such as stale status, deprecated maturity, and misleading outcomes cap trust even when confidence or quality is high. Softer risks such as missing counter-evidence on a verified procedure keep a risk flag; positive calibration feedback can raise trust, but the Agent still must verify where the procedure does not apply before treating it as a rule.
+Reflection and correction-guard rows may also include `query_risk_flags`, `trust_cap`, `trust_cap_reasons`, `intent_alignment`, `interference_penalty`, and `interference_reasons`. These fields explain why an otherwise high-scoring experience was bounded or should be used only as cautionary context. Hard risks such as stale status, deprecated maturity, and misleading outcomes cap trust even when confidence or quality is high. Softer risks such as missing counter-evidence on a verified procedure keep a risk flag; positive calibration feedback can raise trust, but the Agent still must verify where the procedure does not apply before treating it as a rule. For current-code queries, broad procedure memories are penalized so source-like code/wiki/log anchors remain primary.
 
 `reflect --payload` keeps reusable procedure experience and correction experience separate. `procedure_experience` requires a repair action, verification method, and a trigger anchor such as `trigger_condition`, `useful_followup_focus`, `source_cases`, or `context_used`. `correction_experience` requires `trigger_condition`, `repair_action`, and a misleading signal such as `anti_pattern`, `misleading_followup_terms`, or `what_failed`. A correction experience cannot set `skill_candidate`; single-case semantic or business corrections route to guardrail and semantic-repair governance, not direct skill evolution.
 
@@ -225,6 +225,7 @@ python tools/agent_memory.py eval-quality --project . --cases-dir docs/eval --js
 ```
 
 `eval-quality` looks for known golden case files in the cases directory, skips missing files by default, and returns one combined `quality_gate`. Use `--gate log_signal` to run only a selected gate, and repeat `--gate` for a small subset. Use `--strict` for CI-like checks where an empty cases directory should fail. Use `--fail-on-fail` when scripts should receive exit code 1 after a failing JSON report. When the combined gate fails, inspect each failed gate's `next_command_template` and rerun that specific eval for full case detail.
+Use `eval-quality --list-gates --json` to inspect registered gate names, case files, and rerun commands without executing cases or writing the latest quality gate snapshot.
 Each run also writes `runtime/last_quality_gate.json`. The output includes `quality_gate_delta`, a previous-run comparison with `newly_failed_gates`, `resolved_failed_gates`, and `status_change`. `maintain-health --json` exposes a compact `last_quality_gate` view from that file and recommends review when the latest gate failed. `maintain-plan --json` may emit `review_quality_gate_failure` in the `quality_gate` lane so the failure enters normal action budgeting. Treat the snapshot as disposable runtime telemetry, not durable memory.
 
 To bootstrap editable examples without activating them as the default gate, run:
@@ -241,7 +242,7 @@ Retrieval changes can be checked with a local golden-query eval:
 python tools/agent_memory.py eval-retrieval --project . --cases docs/eval/golden-retrieval.json --json
 ```
 
-The cases file is JSON, not durable memory. Each case has a `query`, optional `name`, `expected` match specs, `must_not_include` match specs, optional `expected_top` specs, and optional `noise` specs. The command runs the same `context` path that Agents consume and reports expected hit rate, blocked-bad rate, exact anchor rank, expected-top hit rate, experience noise rate, missed anchors, and unexpected bad matches. It is intended for regression testing query quality before changing ranking, scoring, learn semantics, code graph, or log graph behavior.
+The cases file is JSON, not durable memory. Each case has a `query`, optional `name`, `expected` match specs, `must_not_include` match specs, optional `expected_top` specs, optional `noise` specs, optional `expected_memory_intent`, optional `required_preferred_lanes`, and optional `max_blocked_memory_notes`. The command runs the same `context` path that Agents consume and reports expected hit rate, blocked-bad rate, exact anchor rank, expected-top hit rate, experience noise rate, intent match rate, required lane match rate, blocked budget rate, missed anchors, and unexpected bad matches. It is intended for regression testing query quality before changing ranking, scoring, learn semantics, code graph, or log graph behavior.
 
 Trust calibration can be checked with:
 
@@ -250,6 +251,14 @@ python tools/agent_memory.py eval-calibration --project . --cases docs/eval/gold
 ```
 
 Calibration cases use `expected_trust` specs for rows that should have a target `trust_level` or minimum `trust_score`, and `must_not_trust` specs for rows that must not be treated as strong evidence. The command reports expected trust rate, blocked-overtrust rate, missed expected trust, and unexpected trusted matches.
+
+Experience evidence quality can be checked with:
+
+```bash
+python tools/agent_memory.py eval-experience-evidence --project . --cases docs/eval/golden-experience-evidence.json --json
+```
+
+Experience evidence cases are temporary evaluation fixtures. Each case can match an active reflection by id or text, then check `min_profile_score`, `expected_verification_status`, and `required_true` fields such as `has_evidence`, `has_applicability`, or `has_counter_evidence`. The command evaluates the derived `experience_evidence_profile` directly from stored reflections, so it catches weak experience records independently of query ranking.
 
 Governance action behavior can be checked with:
 
@@ -266,6 +275,14 @@ python tools/agent_memory.py eval-log-signal --project . --cases docs/eval/golde
 ```
 
 Log signal cases are temporary evaluation fixtures. Each case contains `logs`, optional `min_good_rate`, and optional `max_low_signal_rate`. The command normalizes each line, scores diagnostic fields, and reports `log_signal_good_rate` plus `low_signal_event_rate`. It does not store raw logs in SQLite.
+
+Code/log graph signal quality can be checked with:
+
+```bash
+python tools/agent_memory.py eval-graph-signal --project . --cases docs/eval/golden-graph-signal.json --json
+```
+
+Graph signal cases are temporary evaluation fixtures. Each case can set `min_coverage_score`, `allowed_coverage_statuses`, `max_repair_targets`, and `required_repair_targets`. The command reads the current `graph_signal_quality.coverage_scorecard` and `top_repair_targets`, then reports whether business semantic coverage, log diagnostic coverage, anchor coverage, and expected repair targets still match the golden expectations.
 
 Answer grounding can be checked with:
 

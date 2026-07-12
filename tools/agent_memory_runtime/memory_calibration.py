@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from .experience_query_quality import explain_experience_trust
+from .quality_scoring import experience_evidence_profile
 from .text import json_list, unique_list
 
 
@@ -54,6 +55,8 @@ def calibrate_result_group(group: str, rows: list[dict[str, Any]]) -> list[dict[
 
 def calibrate_record(group: str, row: dict[str, Any]) -> dict[str, Any]:
     item = dict(row)
+    if group in {"reflections", "correction_guards"} and not isinstance(item.get("experience_evidence_profile"), dict):
+        item["experience_evidence_profile"] = experience_evidence_profile(item)
     trust_score, reasons = compute_trust_score(group, item)
     query_quality = explain_experience_trust(item) if group in {"reflections", "correction_guards"} else {}
     trust_cap = query_quality.get("trust_cap")
@@ -172,10 +175,14 @@ def build_retrieval_explanation(group: str, item: dict[str, Any]) -> dict[str, A
         "calibration_feedback_penalty": item.get("calibration_feedback_penalty", 0.0),
         "calibration_feedback_reasons": json_list(item.get("calibration_feedback_reasons")),
         "query_risk_flags": json_list(item.get("query_risk_flags")),
+        "intent_alignment": item.get("intent_alignment"),
+        "interference_penalty": item.get("interference_penalty", 0.0),
+        "interference_reasons": json_list(item.get("interference_reasons")),
         "trust_cap": item.get("trust_cap"),
         "trust_cap_reasons": json_list(item.get("trust_cap_reasons")),
         "status": item.get("status"),
         "confidence": item.get("confidence"),
+        "experience_evidence_profile": item.get("experience_evidence_profile"),
     }
 
 

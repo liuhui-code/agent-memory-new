@@ -121,6 +121,42 @@ class ExperienceQueryQualityTests(unittest.TestCase):
         self.assertIn("missing_counter_evidence", broad["query_risk_flags"])
         self.assertGreaterEqual(correction["trust_score"], broad["trust_score"])
 
+    def test_code_current_query_blocks_broad_procedure_interference(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            pages = project / "pages"
+            pages.mkdir()
+            (pages / "Profile.ets").write_text(
+                "export function loadProfile() {\n"
+                "  console.error('load profile failed');\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            broad_payload = {
+                "experience_type": "procedure_experience",
+                "task": "Profile blank screen broad old workflow",
+                "summary": "Broad Profile issue workflow from an older project.",
+                "lesson": "For Profile issues, clean cache first.",
+                "trigger_condition": "Profile issue",
+                "repair_action": "clean cache",
+                "verification_method": "worked once in old project",
+                "source_cases": ["incident_trace:old-profile"],
+                "confidence": 0.95,
+            }
+
+            self.run_memory(project, "learn-path", "--path", "pages")
+            self.run_memory(project, "reflect", "--payload", json.dumps(broad_payload))
+            result = self.run_memory(project, "context", "--query", "当前代码 Profile loadProfile 函数", "--json")
+            data = json.loads(result.stdout)
+
+        self.assertEqual("code_current", data["memory_intent"])
+        self.assertIn("wiki_matches", data["retrieval_lanes"]["intent_profile"]["preferred_lanes"])
+        self.assertGreaterEqual(len(data["wiki_matches"]), 1)
+        self.assertEqual([], data["reflections"])
+        self.assertEqual(1, data["memory_brief"]["blocked_count"])
+        self.assertIn("code_current_query_prefers_source_anchors", data["blocked_memory_notes"][0]["reason"])
+
     def test_reflect_records_procedure_and_correction_shapes_distinctly(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir) / "app"

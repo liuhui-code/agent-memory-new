@@ -93,6 +93,7 @@ If `log_improvement_suggestions` is present, treat it as follow-up engineering g
 
 - `memory_intent`: the runtime's current query intent, such as `procedure_reuse`, `correction_guard`, `semantic_lookup`, `incident_diagnosis`, `code_current`, or `general_context`
 - `retrieval_lanes`: counts and policy for main reflections, correction guards, semantic patches, and blocked memories
+- `retrieval_lanes.intent_profile`: preferred evidence lanes and interference policy for the current query
 - `memory_brief`: compact counts for what entered or was blocked from context
 - `correction_guards`: warning-only experiences that should prevent repeated mistakes but should not become the main task direction by default
 - `semantic_patch_notes`: anchored business-semantic corrections for code files, symbols, logs, or edges
@@ -109,6 +110,8 @@ Read these fields before relying on `reflections`. A recent reflection with weak
 - `trust_score`: bounded 0-1 advisory confidence
 - `trust_reasons`: compact reasons behind the trust level
 - `query_risk_flags`: caution flags such as `missing_counter_evidence`, `misleading_experience`, `deprecated_experience`, or `semantic_correction_guidance`
+- `experience_evidence_profile`: claim, evidence, applicability, counter-evidence, and verification status derived from the reflection fields
+- `intent_alignment`, `interference_penalty`, and `interference_reasons`: why an experience did or did not fit the current query intent
 - `trust_cap`: the maximum trust score applied because of hard or soft risk signals
 - `trust_cap_reasons`: why the cap or risk flag was applied
 - `retrieval_explanation`: match, gate, quality, feedback, status, and confidence details

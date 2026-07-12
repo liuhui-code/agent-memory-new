@@ -159,6 +159,7 @@ def build_graph_quality_actions(graph_quality: dict[str, Any]) -> list[dict[str,
 def build_graph_signal_quality(project: Project, limit: int = 10) -> dict[str, Any]:
     graph = build_graph_quality(project)
     with connect(project) as conn:
+        business_counts = business_semantic_counts(conn, project)
         symbol_rows = [
             dict(row)
             for row in conn.execute(
@@ -230,12 +231,25 @@ def build_graph_signal_quality(project: Project, limit: int = 10) -> dict[str, A
     weak_anchor_count = int(graph.get("orphan_code_symbols") or 0) + int(graph.get("orphan_code_logs") or 0)
     weak_anchor_count += len([target for target in targets if target["target_type"] == "code_log_statement"])
     targets.sort(key=lambda item: (0 if item["target_type"] == "code_log_statement" else 1, item.get("target_id") or 0))
+    coverage_scorecard = build_coverage_scorecard(
+        graph,
+        business_counts,
+        sampled_symbols=symbol_rows,
+        sampled_logs=log_rows,
+        repair_targets=targets,
+    )
     return {
         "weak_anchor_count": weak_anchor_count,
         "missing_business_semantics": missing_business,
         "missing_log_signal_fields": missing_log_signal_fields,
+        "coverage_scorecard": coverage_scorecard,
         "top_repair_targets": targets[:limit],
-        "health_status": graph_signal_health_status(weak_anchor_count, missing_business, missing_log_signal_fields),
+        "health_status": graph_signal_health_status(
+            weak_anchor_count,
+            missing_business,
+            missing_log_signal_fields,
+            coverage_scorecard.get("coverage_score", 1.0),
+        ),
     }
 
 
@@ -301,10 +315,94 @@ def build_log_observability_gap_actions(graph_signal_quality: dict[str, Any]) ->
     ]
 
 
-def graph_signal_health_status(weak_anchor_count: int, missing_business: int, missing_log_signal_fields: int) -> str:
+def business_semantic_counts(conn: Any, project: Project) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for table, prefix in (
+        ("code_files", "files"),
+        ("code_symbols", "symbols"),
+        ("code_log_statements", "logs"),
+    ):
+        row = conn.execute(
+            f"""
+            SELECT
+              COUNT(*) AS total,
+              SUM(CASE WHEN COALESCE(business_summary, '') = '' THEN 1 ELSE 0 END) AS missing_summary,
+              SUM(CASE WHEN business_terms IS NULL OR business_terms = '' OR business_terms = '[]' THEN 1 ELSE 0 END) AS missing_terms
+            FROM {table}
+            WHERE project_id = ?
+            """,
+            (project.project_id,),
+        ).fetchone()
+        counts[f"{prefix}_total"] = int(row["total"] or 0)
+        counts[f"{prefix}_missing_summary"] = int(row["missing_summary"] or 0)
+        counts[f"{prefix}_missing_terms"] = int(row["missing_terms"] or 0)
+    return counts
+
+
+def build_coverage_scorecard(
+    graph: dict[str, Any],
+    business_counts: dict[str, int],
+    sampled_symbols: list[dict[str, Any]],
+    sampled_logs: list[dict[str, Any]],
+    repair_targets: list[dict[str, Any]],
+) -> dict[str, Any]:
+    business_total = (
+        business_counts.get("files_total", 0)
+        + business_counts.get("symbols_total", 0)
+        + business_counts.get("logs_total", 0)
+    )
+    missing_business = sum(
+        int(business_counts.get(key, 0))
+        for prefix in ("files", "symbols", "logs")
+        for key in (f"{prefix}_missing_summary", f"{prefix}_missing_terms")
+    )
+    business_slots = business_total * 2
+    business_coverage = 1.0 if business_slots == 0 else round(max(0.0, 1.0 - missing_business / business_slots), 3)
+    sampled_log_scores = [score_log_signal(row)["log_signal_score"] for row in sampled_logs]
+    log_diagnostic_coverage = (
+        1.0
+        if not sampled_log_scores
+        else round(sum(float(score) for score in sampled_log_scores) / len(sampled_log_scores), 3)
+    )
+    anchor_coverage = round(
+        (
+            float(graph.get("symbol_anchor_coverage") or 1.0)
+            + float(graph.get("log_anchor_coverage") or 1.0)
+        )
+        / 2,
+        3,
+    )
+    coverage_score = round((business_coverage * 0.4) + (log_diagnostic_coverage * 0.35) + (anchor_coverage * 0.25), 3)
+    return {
+        "coverage_score": coverage_score,
+        "coverage_status": coverage_status(coverage_score),
+        "business_semantic_coverage": business_coverage,
+        "log_diagnostic_coverage": log_diagnostic_coverage,
+        "anchor_coverage": anchor_coverage,
+        "counts": business_counts,
+        "sampled_symbol_count": len(sampled_symbols),
+        "sampled_log_statement_count": len(sampled_logs),
+        "weak_repair_target_count": len(repair_targets),
+    }
+
+
+def coverage_status(score: float) -> str:
+    if score >= 0.82:
+        return "ok"
+    if score >= 0.62:
+        return "watch"
+    return "poor"
+
+
+def graph_signal_health_status(
+    weak_anchor_count: int,
+    missing_business: int,
+    missing_log_signal_fields: int,
+    coverage_score: float = 1.0,
+) -> str:
     if weak_anchor_count == 0 and missing_business == 0 and missing_log_signal_fields == 0:
         return "ok"
-    if weak_anchor_count > 5 or missing_log_signal_fields > 20:
+    if weak_anchor_count > 5 or missing_log_signal_fields > 20 or coverage_score < 0.62:
         return "poor"
     return "watch"
 

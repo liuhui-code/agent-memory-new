@@ -24,6 +24,52 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Improve experience query and graph quality
+
+Files changed:
+- `docs/superpowers/plans/2026-07-12-experience-query-graph-quality.md`
+- `tools/agent_memory_runtime/quality_scoring.py`
+- `tools/agent_memory_runtime/memory_calibration.py`
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/graph_quality.py`
+- `tools/agent_memory_runtime/retrieval_eval.py`
+- `tools/agent_memory_runtime/eval_case_seed.py`
+- `tools/agent_memory_runtime/graph_signal_eval.py`
+- `tools/agent_memory_runtime/experience_evidence_eval.py`
+- `tools/agent_memory_runtime/quality_gate_eval.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory.py`
+- `tests/test_memory_calibration.py`
+- `tests/test_experience_query_quality.py`
+- `tests/test_quality_performance_scoring.py`
+- `tests/test_retrieval_eval.py`
+- `tests/test_graph_signal_eval.py`
+- `tests/test_experience_evidence_eval.py`
+- `tests/test_quality_gate_eval.py`
+- `docs/runtime.md`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added a derived `experience_evidence_profile` for reflection evidence, applicability, counter-evidence, and verification status.
+- Added query intent profile metadata plus intent alignment and interference penalties for reflection retrieval.
+- Added `graph_signal_quality.coverage_scorecard` with business semantic coverage, log diagnostic coverage, anchor coverage, and combined coverage score.
+- Extended retrieval eval cases with `expected_memory_intent`, `required_preferred_lanes`, and `max_blocked_memory_notes` so query interference behavior can be regression-tested.
+- Added `eval-graph-signal` and the `graph_signal` aggregate quality gate for code/log graph coverage regression.
+- Added `eval-experience-evidence` and the `experience_evidence` aggregate quality gate for reflection evidence-profile regression.
+- Added `eval-quality --list-gates` to inspect registered gates without executing cases or mutating the latest quality snapshot.
+
+Why:
+- Experience, query, code graph, and log graph quality need explainable signals before adding heavier retrieval infrastructure.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_memory_calibration tests.test_experience_query_quality tests.test_quality_performance_scoring tests.test_retrieval_eval tests.test_eval_case_seed tests.test_graph_signal_eval tests.test_experience_evidence_eval tests.test_quality_gate_eval`
+- Result: passes.
+
+Rollback notes:
+- Remove the derived profile, intent penalty fields, coverage scorecard, tests, and docs if the extra explanation payload becomes too noisy.
+
 ## 2026-07-12 - Add quality gate filter
 
 Files changed:

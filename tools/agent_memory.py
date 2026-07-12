@@ -48,7 +48,9 @@ from agent_memory_runtime.models import (
 from agent_memory_runtime.calibration_eval import eval_calibration_command
 from agent_memory_runtime.eval_case_seed import eval_seed_cases_command
 from agent_memory_runtime.evidence_attribution import eval_evidence_attribution_command
+from agent_memory_runtime.experience_evidence_eval import eval_experience_evidence_command
 from agent_memory_runtime.governance_eval import eval_governance_command
+from agent_memory_runtime.graph_signal_eval import eval_graph_signal_command
 from agent_memory_runtime.experience_usage import experience_usage_command
 from agent_memory_runtime.log_signal_eval import eval_log_signal_command
 from agent_memory_runtime.quality_gate_eval import eval_quality_command
@@ -777,7 +779,9 @@ def main(argv: list[str] | None = None) -> int:
             "context": context,
             "eval_retrieval_command": eval_retrieval_command,
             "eval_calibration_command": eval_calibration_command,
+            "eval_experience_evidence_command": eval_experience_evidence_command,
             "eval_log_signal_command": eval_log_signal_command,
+            "eval_graph_signal_command": eval_graph_signal_command,
             "eval_evidence_attribution_command": eval_evidence_attribution_command,
             "eval_governance_command": eval_governance_command,
             "eval_quality_command": eval_quality_command,

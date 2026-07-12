@@ -9,7 +9,9 @@ from typing import Any, Callable
 
 from .calibration_eval import evaluate_calibration_cases, load_calibration_cases
 from .evidence_attribution import evaluate_evidence_attribution, load_cases as load_evidence_cases
+from .experience_evidence_eval import evaluate_experience_evidence_cases, load_experience_evidence_cases
 from .governance_eval import collect_eval_governance_actions, evaluate_governance_cases, load_governance_cases
+from .graph_signal_eval import evaluate_graph_signal_cases, load_graph_signal_cases
 from .log_signal_eval import evaluate_log_signal_cases, load_log_signal_cases
 from .models import Project
 from .records import output
@@ -24,6 +26,9 @@ QUALITY_GATE_SAMPLE_FILE = "last_quality_gate.json"
 def eval_quality_command(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
+    if bool(getattr(args, "list_gates", False)):
+        output(list_quality_gates(Path(args.cases_dir)), args.json)
+        return
     previous = load_quality_gate_snapshot(project)
     data = evaluate_quality_gates(
         project,
@@ -46,6 +51,10 @@ def run_calibration(project: Project, path: Path) -> dict[str, Any]:
     return evaluate_calibration_cases(project, load_calibration_cases(path))
 
 
+def run_experience_evidence(project: Project, path: Path) -> dict[str, Any]:
+    return evaluate_experience_evidence_cases(project, load_experience_evidence_cases(path))
+
+
 def run_governance(project: Project, path: Path) -> dict[str, Any]:
     actions = collect_eval_governance_actions(project)
     return evaluate_governance_cases(project.project_id, load_governance_cases(path), actions)
@@ -57,6 +66,10 @@ def run_log_signal(project: Project, path: Path) -> dict[str, Any]:
     return data
 
 
+def run_graph_signal(project: Project, path: Path) -> dict[str, Any]:
+    return evaluate_graph_signal_cases(project, load_graph_signal_cases(path))
+
+
 def run_evidence_attribution(project: Project, path: Path) -> dict[str, Any]:
     return evaluate_evidence_attribution(project, load_evidence_cases(path))
 
@@ -64,11 +77,32 @@ def run_evidence_attribution(project: Project, path: Path) -> dict[str, Any]:
 GATES: list[tuple[str, str, str, GateRunner]] = [
     ("retrieval", "golden-retrieval.json", "eval-retrieval", run_retrieval),
     ("calibration", "golden-calibration.json", "eval-calibration", run_calibration),
+    ("experience_evidence", "golden-experience-evidence.json", "eval-experience-evidence", run_experience_evidence),
     ("governance", "golden-governance.json", "eval-governance", run_governance),
     ("log_signal", "golden-log-signal.json", "eval-log-signal", run_log_signal),
+    ("graph_signal", "golden-graph-signal.json", "eval-graph-signal", run_graph_signal),
     ("evidence_attribution", "golden-evidence-attribution.json", "eval-evidence-attribution", run_evidence_attribution),
 ]
 GATE_NAMES = [name for name, _, _, _ in GATES]
+
+
+def list_quality_gates(cases_dir: Path) -> dict[str, Any]:
+    gates = [
+        {
+            "name": name,
+            "case_file": str(cases_dir / filename),
+            "command": command_name,
+            "command_template": f"python tools/agent_memory.py {command_name} --project . --cases {cases_dir / filename} --json",
+            "aggregate_template": f"python tools/agent_memory.py eval-quality --project . --cases-dir {cases_dir} --gate {name} --json",
+        }
+        for name, filename, command_name, _ in GATES
+    ]
+    return {
+        "gate_count": len(gates),
+        "gate_names": [gate["name"] for gate in gates],
+        "cases_dir": str(cases_dir),
+        "gates": gates,
+    }
 
 
 def evaluate_quality_gates(

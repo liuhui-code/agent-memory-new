@@ -194,3 +194,54 @@ class RetrievalEvalTests(unittest.TestCase):
         self.assertEqual(0.0, data["summary"]["experience_noise_rate"])
         self.assertEqual([1], data["cases"][0]["expected_top_ranks"])
         self.assertEqual([], data["cases"][0]["unexpected_noise_matches"])
+
+    def test_eval_retrieval_checks_intent_lanes_and_blocked_budget(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            project.mkdir()
+            pages = project / "pages"
+            pages.mkdir()
+            (pages / "Profile.ets").write_text(
+                "export function loadProfile() {\n"
+                "  console.error('load profile failed');\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            broad_payload = {
+                "experience_type": "procedure_experience",
+                "task": "Profile broad workflow",
+                "summary": "Old broad Profile workflow.",
+                "lesson": "Clean cache first for Profile issues.",
+                "trigger_condition": "Profile issue",
+                "repair_action": "clean cache",
+                "verification_method": "old one-off run",
+                "source_cases": ["old_case:profile"],
+                "confidence": 0.95,
+            }
+            self.run_memory(project, "learn-path", "--path", "pages")
+            self.run_memory(project, "reflect", "--payload", json.dumps(broad_payload))
+            case_file = self.write_cases(
+                root,
+                [
+                    {
+                        "name": "code-current-profile-intent",
+                        "query": "当前代码 Profile loadProfile 函数",
+                        "expected_memory_intent": "code_current",
+                        "required_preferred_lanes": ["wiki_matches", "code_log_matches"],
+                        "max_blocked_memory_notes": 1,
+                        "expected": [
+                            {"type": "wiki_matches", "text": "loadProfile"},
+                        ],
+                    }
+                ],
+            )
+
+            result = self.run_memory(project, "eval-retrieval", "--cases", str(case_file), "--json")
+            data = json.loads(result.stdout)
+
+        self.assertEqual("pass", data["quality_gate"])
+        self.assertEqual(1.0, data["summary"]["intent_match_rate"])
+        self.assertEqual(1.0, data["summary"]["required_lane_match_rate"])
+        self.assertEqual(1.0, data["summary"]["blocked_budget_rate"])
+        self.assertEqual("code_current", data["cases"][0]["memory_intent"])

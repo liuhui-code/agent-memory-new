@@ -329,6 +329,31 @@ class QualityPerformanceScoringTests(unittest.TestCase):
         self.assertEqual(1, data["governance_summary"]["weak_evidence_chain_reviews"])
         self.assertEqual(1, data["evidence_chain_summary"]["weak_reflections"])
 
+    def test_graph_signal_quality_includes_coverage_scorecard(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            pages = project / "pages"
+            pages.mkdir()
+            (pages / "Profile.ets").write_text(
+                "export function loadProfile() {\n"
+                "  console.error('failed');\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "pages")
+            result = self.run_memory(project, "maintain-health", "--json")
+            data = json.loads(result.stdout)
+
+        scorecard = data["graph_signal_quality"]["coverage_scorecard"]
+        self.assertIn(scorecard["coverage_status"], {"watch", "poor"})
+        self.assertLess(scorecard["coverage_score"], 0.82)
+        self.assertIn("business_semantic_coverage", scorecard)
+        self.assertIn("log_diagnostic_coverage", scorecard)
+        self.assertGreaterEqual(data["graph_signal_quality"]["weak_anchor_count"], 1)
+        self.assertGreaterEqual(len(data["graph_signal_quality"]["top_repair_targets"]), 1)
+
     def insert_trace_with_link(self, conn: sqlite3.Connection, project_id: str, status: str) -> int:
         cur = conn.execute(
             """
