@@ -210,6 +210,9 @@ class GovernanceActionBudgetTests(unittest.TestCase):
         self.assertIn("memory_tiers", lane_names)
         self.assertIn("log_diagnosis", lane_names)
         self.assertTrue(all("max_priority_score" in lane for lane in recommended_lanes))
+        self.assertTrue(all("next_command_template" in lane for lane in recommended_lanes))
+        memory_tier_lane = next(lane for lane in recommended_lanes if lane["governance_lane"] == "memory_tiers")
+        self.assertIn("--action-lane memory_tiers", memory_tier_lane["next_command_template"])
         self.assertGreaterEqual(
             recommended_lanes[0]["max_priority_score"],
             recommended_lanes[-1]["max_priority_score"],

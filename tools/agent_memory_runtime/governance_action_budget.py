@@ -243,6 +243,7 @@ def recommended_lanes(actions: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "action_count": len(lane_actions),
                 "max_priority_score": round(max(scores), 3) if scores else 0.0,
                 "average_priority_score": round(sum(scores) / len(scores), 3) if scores else 0.0,
+                "next_command_template": next_command_templates(DEFAULT_TOP_LIMIT, lane)["compact_same_limit"],
                 "top_action": compact_action(top_action, 1),
             }
         )

@@ -340,7 +340,7 @@ For large archives or low-token sessions, start with:
 python tools/agent_memory.py maintain-plan --project . --compact --action-limit 3 --json
 ```
 
-Compact mode returns `action_budget`, `health_overview`, and compact top actions first. Use `recommended_lanes` to choose a governance path, use `review_key` and `source_hint` to identify the selected action, then use `next_command_templates.full_plan` if you need templates, record details, or full graph/memory context. Use `--action-limit 1` for an extremely small first pass, or `--action-limit 3` to review a short batch.
+Compact mode returns `action_budget`, `health_overview`, and compact top actions first. Use `recommended_lanes` to choose a governance path, then use the lane's `next_command_template` for a focused compact rerun. Use `review_key` and `source_hint` to identify the selected action, then use `next_command_templates.full_plan` if you need templates, record details, or full graph/memory context. Use `--action-limit 1` for an extremely small first pass, or `--action-limit 3` to review a short batch.
 
 If you already know the governance lane for this pass, add `--action-lane memory_tiers`, `--action-lane log_diagnosis`, or another lane from `action_budget.counts_by_lane`. The lane filter affects only the budgeted top-action batch; normal maintain-plan still computes the underlying review signals. If `lane_filter_status` is `no_matches`, use `available_lanes` instead of assuming there is no maintenance work.
 

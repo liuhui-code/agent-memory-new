@@ -24,6 +24,32 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add governance lane command templates
+
+Files changed:
+- `tools/agent_memory_runtime/governance_action_budget.py`
+- `tests/test_governance_action_budget.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-governance-lane-command-templates.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `recommended_lanes[*].next_command_template`.
+- The template points to a compact maintain-plan rerun focused on that lane.
+- Documented that this is navigation metadata, not automatic execution.
+
+Why:
+- Lane recommendations are more useful when the Agent can jump directly into the focused lane view without manually reconstructing command flags.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_governance_action_budget`
+- Result: passes.
+
+Rollback notes:
+- Remove lane command template output, tests, and docs if this makes compact output too verbose.
+
 ## 2026-07-12 - Add governance lane recommendations
 
 Files changed:
