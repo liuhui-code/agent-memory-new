@@ -148,6 +148,29 @@ class GovernanceActionBudgetTests(unittest.TestCase):
         self.assertIn("full_plan", data["action_budget"]["next_command_templates"])
         self.assertIn("compact_same_limit", data["action_budget"]["next_command_templates"])
 
+    def test_maintain_plan_action_lane_filters_budget_top_actions(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            self.run_memory(project, "init")
+            self.seed_actions(project)
+
+            result = self.run_memory(
+                project,
+                "maintain-plan",
+                "--compact",
+                "--action-lane",
+                "memory_tiers",
+                "--json",
+            )
+            data = json.loads(result.stdout)
+
+        budget = data["action_budget"]
+        self.assertEqual("memory_tiers", budget["selected_lane"])
+        self.assertGreaterEqual(budget["total_actions"], budget["candidate_actions"])
+        self.assertTrue(budget["top_actions"])
+        self.assertTrue(all(action["governance_lane"] == "memory_tiers" for action in budget["top_actions"]))
+
 
 if __name__ == "__main__":
     unittest.main()

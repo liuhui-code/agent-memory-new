@@ -342,6 +342,8 @@ python tools/agent_memory.py maintain-plan --project . --compact --action-limit 
 
 Compact mode returns `action_budget`, `health_overview`, and compact top actions first. Use `review_key` and `source_hint` to identify the selected action, then use `next_command_templates.full_plan` if you need templates, record details, or full graph/memory context. Use `--action-limit 1` for an extremely small first pass, or `--action-limit 3` to review a short batch.
 
+If you already know the governance lane for this pass, add `--action-lane memory_tiers`, `--action-lane log_diagnosis`, or another lane from `action_budget.counts_by_lane`. The lane filter affects only the budgeted top-action batch; normal maintain-plan still computes the underlying review signals.
+
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 
 ```bash

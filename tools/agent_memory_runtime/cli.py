@@ -251,6 +251,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     add_project(p)
     p.add_argument("--limit", type=int, default=20)
     p.add_argument("--action-limit", type=int, default=10)
+    p.add_argument("--action-lane")
     p.add_argument("--compact", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("maintain_plan"))

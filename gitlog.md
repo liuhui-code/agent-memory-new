@@ -24,6 +24,36 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add governance action lane filter
+
+Files changed:
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/governance_action_budget.py`
+- `tests/test_governance_action_budget.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-governance-action-lane-filter.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `maintain-plan --action-lane <lane>`.
+- Filtered only `action_budget.top_actions` by governance lane while preserving full action generation and lane counts.
+- Added `selected_lane` and `candidate_actions` to the action budget.
+- Kept next command templates lane-aware.
+
+Why:
+- Large archives are easier to maintain when an Agent can review one governance lane at a time without losing visibility into other lanes.
+- This keeps the optimization output-only and avoids new queues, tables, or scoring changes.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_governance_action_budget`
+- Result: passes.
+
+Rollback notes:
+- Remove the parser flag, lane filtering, budget fields, tests, and docs if lane filtering proves confusing.
+
 ## 2026-07-12 - Add governance budget navigation
 
 Files changed:

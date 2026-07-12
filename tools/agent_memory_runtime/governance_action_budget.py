@@ -52,9 +52,16 @@ def annotate_governance_action_priorities(actions: list[dict[str, Any]]) -> list
 def build_governance_action_budget(
     actions: list[dict[str, Any]],
     limit: int = DEFAULT_TOP_LIMIT,
+    lane: str | None = None,
 ) -> dict[str, Any]:
+    selected_lane = (lane or "").strip() or None
+    candidate_actions = [
+        action
+        for action in actions
+        if selected_lane is None or str(action.get("governance_lane") or "") == selected_lane
+    ]
     sorted_actions = sorted(
-        actions,
+        candidate_actions,
         key=lambda item: (
             float(item.get("priority_score") or 0.0),
             1 if item.get("requires_confirmation") else 0,
@@ -65,11 +72,13 @@ def build_governance_action_budget(
     )
     return {
         "total_actions": len(actions),
+        "candidate_actions": len(candidate_actions),
+        "selected_lane": selected_lane,
         "requires_confirmation": sum(1 for action in actions if action.get("requires_confirmation")),
         "counts_by_lane": count_by(actions, "governance_lane"),
         "counts_by_risk": count_by(actions, "risk"),
         "top_limit": limit,
-        "next_command_templates": next_command_templates(limit),
+        "next_command_templates": next_command_templates(limit, selected_lane),
         "top_actions": [compact_action(action, index + 1) for index, action in enumerate(sorted_actions[:limit])],
     }
 
@@ -250,10 +259,11 @@ def safe_key_part(value: Any) -> str:
     return "_".join(part for part in safe.split("_") if part) or "unknown"
 
 
-def next_command_templates(limit: int) -> dict[str, str]:
+def next_command_templates(limit: int, lane: str | None = None) -> dict[str, str]:
     bounded_limit = max(1, int(limit or DEFAULT_TOP_LIMIT))
+    lane_arg = f" --action-lane {lane}" if lane else ""
     return {
-        "compact_same_limit": f"python tools/agent_memory.py maintain-plan --project . --compact --action-limit {bounded_limit} --json",
-        "compact_smaller": "python tools/agent_memory.py maintain-plan --project . --compact --action-limit 1 --json",
-        "full_plan": "python tools/agent_memory.py maintain-plan --project . --json",
+        "compact_same_limit": f"python tools/agent_memory.py maintain-plan --project . --compact --action-limit {bounded_limit}{lane_arg} --json",
+        "compact_smaller": f"python tools/agent_memory.py maintain-plan --project . --compact --action-limit 1{lane_arg} --json",
+        "full_plan": f"python tools/agent_memory.py maintain-plan --project .{lane_arg} --json",
     }
