@@ -19,6 +19,7 @@ from .graph_quality import (
 )
 from .incident_trace_governance import build_incident_trace_actions
 from .experience_maturity import score_experience_maturity
+from .experience_usage import build_experience_usage_actions, fetch_experience_usage_summary
 from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE_POOL_LIMIT, VALID_MEMORY_STATUSES
 from .performance_scoring import (
     append_performance_sample,
@@ -222,6 +223,7 @@ def maintain_health(args: argparse.Namespace) -> None:
     log_design_gaps = build_log_design_gap_candidates(project, reflection_active_rows)
     graph_quality = build_graph_quality(project)
     graph_signal_quality = build_graph_signal_quality(project)
+    experience_usage = fetch_experience_usage_summary(project)
 
     duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
     low_confidence_count = low_conf_semantic_count + low_conf_reflection_count
@@ -246,6 +248,8 @@ def maintain_health(args: argparse.Namespace) -> None:
         recommended_actions.append("Review code/log graph quality and refresh stale or orphan anchors.")
     if graph_signal_quality["health_status"] != "ok":
         recommended_actions.append("Review graph signal quality and enrich weak code/log anchors.")
+    if experience_usage["misleading_records"]:
+        recommended_actions.append("Review experience usage outcomes and tighten misleading memories.")
 
     data = {
         "project_id": project.project_id,
@@ -282,6 +286,11 @@ def maintain_health(args: argparse.Namespace) -> None:
         },
         "graph_quality": graph_quality,
         "graph_signal_quality": graph_signal_quality,
+        "experience_usage": {
+            "event_count": experience_usage["event_count"],
+            "misleading_records": experience_usage["misleading_records"],
+            "helpful_records": experience_usage["helpful_records"],
+        },
         "runtime_performance": build_runtime_performance_summary(project),
         "recommended_actions": recommended_actions,
     }
@@ -2109,6 +2118,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
     graph_signal_quality_actions = build_graph_signal_quality_actions(graph_signal_quality)
     runtime_performance = build_runtime_performance_summary(project)
     runtime_performance_actions = build_runtime_performance_actions(runtime_performance)
+    experience_usage = fetch_experience_usage_summary(project, args.limit)
+    experience_usage_actions = build_experience_usage_actions(experience_usage)
     retrieval_feedback_rows = fetch_open_retrieval_feedback(project, args.limit)
     retrieval_feedback_actions = build_retrieval_feedback_actions(retrieval_feedback_rows)
     calibration_feedback_actions = build_calibration_feedback_actions(retrieval_feedback_rows)
@@ -2290,6 +2301,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(graph_quality_actions)
     actions.extend(graph_signal_quality_actions)
     actions.extend(runtime_performance_actions)
+    actions.extend(experience_usage_actions)
     actions.extend(retrieval_feedback_actions)
     actions.extend(calibration_feedback_actions)
 
@@ -2535,6 +2547,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "graph_quality_reviews": len(graph_quality_actions),
         "graph_signal_quality_reviews": len(graph_signal_quality_actions),
         "runtime_performance_reviews": len(runtime_performance_actions),
+        "experience_usage_reviews": len(experience_usage_actions),
         "retrieval_feedback_reviews": len(retrieval_feedback_actions),
         "overtrusted_memory_reviews": len([action for action in calibration_feedback_actions if action.get("action") == "review_overtrusted_memory"]),
         "undertrusted_memory_reviews": len([action for action in calibration_feedback_actions if action.get("action") == "review_undertrusted_memory"]),
@@ -2566,6 +2579,12 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "graph_quality": graph_quality,
         "graph_signal_quality": graph_signal_quality,
         "runtime_performance": runtime_performance,
+        "experience_usage": {
+            "event_count": experience_usage["event_count"],
+            "misleading_records": experience_usage["misleading_records"],
+            "helpful_records": experience_usage["helpful_records"],
+            "review_actions": len(experience_usage_actions),
+        },
         "retrieval_feedback_summary": {
             "open_feedback": len(retrieval_feedback_rows),
             "review_actions": len(retrieval_feedback_actions),

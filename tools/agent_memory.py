@@ -46,6 +46,8 @@ from agent_memory_runtime.models import (
     REQUIRED_TABLES,
 )
 from agent_memory_runtime.calibration_eval import eval_calibration_command
+from agent_memory_runtime.evidence_attribution import eval_evidence_attribution_command
+from agent_memory_runtime.experience_usage import experience_usage_command
 from agent_memory_runtime.log_signal_eval import eval_log_signal_command
 from agent_memory_runtime.performance_scoring import (
     append_performance_sample,
@@ -773,7 +775,9 @@ def main(argv: list[str] | None = None) -> int:
             "eval_retrieval_command": eval_retrieval_command,
             "eval_calibration_command": eval_calibration_command,
             "eval_log_signal_command": eval_log_signal_command,
+            "eval_evidence_attribution_command": eval_evidence_attribution_command,
             "retrieval_feedback_command": retrieval_feedback_command,
+            "experience_usage_command": experience_usage_command,
             "analyze_runtime_log_command": analyze_runtime_log_command,
             "reflect": reflect,
             "reflect_review": reflect_review,

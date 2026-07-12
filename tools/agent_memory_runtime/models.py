@@ -21,6 +21,7 @@ REQUIRED_TABLES = {
     "learn_scopes",
     "query_misses",
     "reflection_reuse_events",
+    "experience_usage_events",
     "semantic_conflicts",
 }
 

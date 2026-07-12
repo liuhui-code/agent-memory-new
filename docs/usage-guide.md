@@ -298,6 +298,7 @@ This command reuses current code/log memory, normalizes raw lines into lightweig
 Use `runtime_episode_candidate.candidate_chain` and `chain_confidence` when you need a compact explanation of how the incident unfolded.
 Use `log_improvement_suggestions` when the current logs were just barely enough; they point at a few high-value start, branch, or correlation logs worth adding to the source code later.
 Use `log_signal_summary` and `low_signal_events` to judge whether matched runtime evidence has enough fields for diagnosis. A poor signal event may still match the query, but it lacks fields such as `request_id`, `session_id`, `route`, `resource`, `reason`, `error_code`, or `result`; use `suggested_log_fields` as narrow logging-improvement guidance.
+When matched events include `otel_lite`, prefer those structured fields for the LLM-facing summary: severity, logger, event name, request id, session id, error code, reason, route, and resource. Use raw excerpts only when the structured fields are insufficient.
 Use `reflect_payload_template` as the starting point when you want to turn temporary runtime-log evidence into a structured reflection or experience candidate. It is designed for diagnosis sessions, not for long-term raw-log archival. The template now also carries bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action`. When the query is correcting an earlier diagnosis, the template may already switch to `correction_experience` and include `old_hypothesis`.
 The runtime also keeps a rolling `runtime/last_usage_sample.json` during `context`, `search`, `analyze-runtime-log`, and `maintain-plan`. This is a bounded runtime-side summary, not a new long-term database row. A later `reflect` call can reuse it automatically to fill missing fields such as `task_type`, `problem`, `query_rounds`, `useful_followup_focus`, `useful_followup_terms`, `misleading_followup_terms`, `inspection_targets`, `evidence`, and `repair_action`.
 The runtime also keeps bounded performance samples in `runtime/performance_samples.jsonl`. `maintain-health --json` and `maintain-plan --json` summarize those samples as `runtime_performance` so Agents can see whether `maintain-plan`, `context`, or other operations are becoming slow, token-heavy, or storage-heavy. Do not treat this JSONL file as project knowledge; it is local operational telemetry. If `review_runtime_performance_budget` appears, prefer tightening query limits, reviewing noisy memory records, refreshing stale context, or splitting expensive maintenance work before adding heavier indexing.
@@ -351,6 +352,14 @@ python tools/agent_memory.py eval-log-signal --project . --cases docs/eval/golde
 
 Each case contains short temporary `logs` plus optional `min_good_rate` and `max_low_signal_rate`. The command reports `log_signal_good_rate` and `low_signal_event_rate`; it does not persist the raw log lines.
 
+Before changing answer composition, evidence ranking, code graph, log graph, or experience quality behavior, run evidence attribution evaluation if a case file exists:
+
+```bash
+python tools/agent_memory.py eval-evidence-attribution --project . --cases docs/eval/golden-evidence-attribution.json --json
+```
+
+Each case contains a query and answer claims. The command uses the normal `context` path and reports grounded, weak, and unsupported claims. Treat unsupported claims as a signal to improve retrieval anchors, log/code semantics, or answer framing.
+
 When a result is clearly distracting for a specific query, record retrieval feedback instead of deleting the memory:
 
 ```bash
@@ -364,6 +373,21 @@ python tools/agent_memory.py retrieval-feedback \
 ```
 
 Valid retrieval reasons are `weak_related`, `stale`, `wrong_domain`, `too_broad`, and `misleading`. Calibration reasons are `useful`, `verified_useful`, `undertrusted`, and `overtrusted`. Future similar queries apply bounded penalties or bonuses to that record and expose `feedback_penalty` plus `calibration_feedback_*` fields. `maintain-plan` surfaces `review_retrieval_feedback`, `review_overtrusted_memory`, or `review_undertrusted_memory` so the record can later be tightened, lowered in confidence, strengthened with evidence, marked stale, merged, or left alone if the feedback is not reproducible.
+
+After the Agent actually uses a returned semantic fact or reflection, record the task outcome when it is clearly helpful, ignored, misleading, or superseded:
+
+```bash
+python tools/agent_memory.py experience-usage \
+  --project . \
+  --query "<query that retrieved the memory>" \
+  --type reflection \
+  --id 12 \
+  --outcome helpful \
+  --note "<short outcome note>" \
+  --json
+```
+
+This is the lightweight closed loop for experience quality. Future similar queries expose `usage_feedback_bonus`, `usage_feedback_penalty`, and `usage_feedback_reasons`, so useful experience can rise slightly and misleading experience can stop steering the main task.
 
 After repeated runtime-log-backed diagnosis, `maintain-plan --json` may also return:
 

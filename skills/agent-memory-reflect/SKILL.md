@@ -60,6 +60,7 @@ For runtime-log-backed diagnosis, also keep the feedback loop explicit:
 - preserve the strongest runtime signals in `useful_followup_terms`
 - preserve misleading or disproven directions in `misleading_followup_terms`
 - preserve the closing verification path in `final_verification_path`
+- if `analyze-runtime-log` returned `otel_lite`, use those structured severity/logger/event/request/session/error fields in `evidence` or `context_used` instead of copying large raw log excerpts
 
 That lets `reflect-review`, `maintain-plan`, recurring incident fingerprints, and incident strategy candidates reuse the same bounded runtime evidence without storing raw logs.
 
@@ -79,6 +80,14 @@ When recent work already ran `context`, `search`, `analyze-runtime-log`, or `mai
 Explicit payload values still win. The usage sample is only a runtime-side helper and is closed after the reflection is written.
 
 This does not add a fifth skill. It only helps `maintain-plan` route the reflection toward future skill-candidate review or toward learn/semantic-repair governance.
+
+If the task used an existing semantic fact or reflection, record the usage outcome after reflection when the result clearly helped or misled the task:
+
+```bash
+python tools/agent_memory.py experience-usage --project . --query "<query>" --type reflection --id "<id>" --outcome helpful --json
+```
+
+Use `helpful` for records that materially improved the task, `ignored` for records that were retrieved but not useful, `misleading` for records that pulled the Agent toward a wrong path, and `superseded` when a newer or current-source-backed record replaced the old guidance.
 
 ## Save Agent-Structured Reflection
 

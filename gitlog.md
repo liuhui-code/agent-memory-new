@@ -24,6 +24,51 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add experience evidence log closed loop
+
+Files changed:
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/storage.py`
+- `tools/agent_memory_runtime/models.py`
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/runtime_logs.py`
+- `tools/agent_memory_runtime/log_signal_quality.py`
+- `tools/agent_memory_runtime/experience_usage.py`
+- `tools/agent_memory_runtime/evidence_attribution.py`
+- `tools/agent_memory_runtime/otel_lite.py`
+- `tests/test_experience_usage.py`
+- `tests/test_evidence_attribution.py`
+- `tests/test_otel_lite.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-experience-evidence-log-closed-loop.md`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `skills/agent-memory-reflect/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `experience-usage` to record whether retrieved semantic/reflection records were used, helpful, ignored, misleading, or superseded.
+- Added query-time `usage_feedback_bonus`, `usage_feedback_penalty`, and usage reasons for future similar queries.
+- Added `maintain-health` and `maintain-plan` visibility for misleading/helpful usage outcomes.
+- Added `eval-evidence-attribution` to check whether answer claims are grounded in returned context.
+- Added OTel-lite event projection to runtime log analysis output and log signal scoring.
+- Updated docs and skills while keeping the fixed four user-facing skills.
+
+Why:
+- Experience quality needs a closed loop after retrieval. This lets the system learn which memories actually helped or misled tasks, while keeping raw temporary logs out of durable storage and giving LLMs structured evidence fields that save tokens.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_usage tests.test_evidence_attribution tests.test_otel_lite`
+- Result: fails before new commands/modules exist, then passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_log_signal_quality tests.test_retrieval_feedback tests.test_experience_query_quality tests.test_retrieval_eval tests.test_calibration_eval`
+- Result: passes.
+
+Rollback notes:
+- Remove the three new runtime modules and tests, remove CLI command wiring, remove the `experience_usage_events` table from new schema creation, and revert query/governance/runtime-log/docs/skill changes.
+
 ## 2026-05-31 - Add semantic coverage feedback to learn-business
 
 Files changed:

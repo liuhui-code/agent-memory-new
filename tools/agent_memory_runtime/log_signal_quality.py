@@ -97,22 +97,25 @@ def low_signal_events(events: list[dict[str, Any]], limit: int = 5) -> list[dict
 
 def signal_presence(event: dict[str, Any], text: str) -> dict[str, bool]:
     event_type = str(event.get("event_type") or "")
+    otel = event.get("otel_lite") if isinstance(event.get("otel_lite"), dict) else {}
+    otel_attributes = otel.get("attributes", {}) if isinstance(otel.get("attributes"), dict) else {}
+    otel_resource = otel.get("resource", {}) if isinstance(otel.get("resource"), dict) else {}
     route_or_resource = any(
         has_value(event.get(key))
         for key in ("route", "resource_key", "resource", "request_path", "file_path", "anchor_key")
-    )
+    ) or any(has_value(otel_attributes.get(key)) for key in ("app.route", "app.resource", "url.path", "code.file.path"))
     return {
-        "timestamp": has_value(event.get("timestamp")),
-        "process": has_value(event.get("process")) or has_value(event.get("process_hint")),
-        "level": has_value(event.get("level")),
-        "logger": has_value(event.get("logger")),
-        "event_type": has_value(event_type) and event_type != "generic_runtime_event",
+        "timestamp": has_value(event.get("timestamp")) or has_value(otel.get("timestamp")),
+        "process": has_value(event.get("process")) or has_value(event.get("process_hint")) or has_value(otel_resource.get("process.name")),
+        "level": has_value(event.get("level")) or has_value(otel.get("severity_text")),
+        "logger": has_value(event.get("logger")) or has_value(otel_attributes.get("logger.name")),
+        "event_type": (has_value(event_type) and event_type != "generic_runtime_event") or has_value(otel_attributes.get("event.name")),
         "stage": has_value(event.get("trigger_stage")) or bool(STAGE_PATTERN.search(text)) or contains_any(text, (" start", " started", " begin", " failed", " success")),
-        "business_event": has_value(event.get("business_event")) or bracketed_event(text) or (has_value(event_type) and event_type != "generic_runtime_event"),
-        "error_code": has_value(event.get("error_code")) or " code=" in text.lower(),
-        "reason": has_value(event.get("reason")) or " reason=" in text.lower(),
+        "business_event": has_value(event.get("business_event")) or bracketed_event(text) or (has_value(event_type) and event_type != "generic_runtime_event") or has_value(otel_attributes.get("event.name")),
+        "error_code": has_value(event.get("error_code")) or has_value(otel_attributes.get("error.code")) or " code=" in text.lower(),
+        "reason": has_value(event.get("reason")) or has_value(otel_attributes.get("error.reason")) or " reason=" in text.lower(),
         "route_or_resource": route_or_resource,
-        "request_or_session_id": has_value(event.get("request_id")) or has_value(event.get("session_id")) or "request_id=" in text.lower() or "session_id=" in text.lower(),
+        "request_or_session_id": has_value(event.get("request_id")) or has_value(event.get("session_id")) or has_value(otel_attributes.get("request.id")) or has_value(otel_attributes.get("session.id")) or "request_id=" in text.lower() or "session_id=" in text.lower(),
         "entity_id_or_key": route_or_resource or bool(ENTITY_PATTERN.search(text)),
         "action_result": bool(RESULT_PATTERN.search(text)) or contains_any(text, (" failed", " success", " succeeded", " started", " completed")),
         "neighbor_context": has_value(event.get("neighbor_terms")) or has_value(event.get("function")) or has_value(event.get("raw_statement")),

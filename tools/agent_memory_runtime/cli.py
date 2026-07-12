@@ -78,6 +78,12 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("eval_log_signal_command"))
 
+    p = sub.add_parser("eval-evidence-attribution")
+    add_project(p)
+    p.add_argument("--cases", required=True)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("eval_evidence_attribution_command"))
+
     p = sub.add_parser("retrieval-feedback")
     add_project(p)
     p.add_argument("--query", required=True)
@@ -103,6 +109,17 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--note")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("retrieval_feedback_command"))
+
+    p = sub.add_parser("experience-usage")
+    add_project(p)
+    p.add_argument("--query", required=True)
+    p.add_argument("--type", required=True, choices=["semantic", "reflection"])
+    p.add_argument("--id", required=True, type=int)
+    p.add_argument("--outcome", required=True, choices=["used", "helpful", "ignored", "misleading", "superseded"])
+    p.add_argument("--note")
+    p.add_argument("--evidence")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("experience_usage_command"))
 
     p = sub.add_parser("analyze-runtime-log")
     add_project(p)

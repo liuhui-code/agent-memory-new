@@ -102,11 +102,13 @@ This command does not ingest raw logs into SQLite. It:
 - scores those events against code-log anchors and query hints
 - returns bounded evidence slices, `session_candidates`, and a `runtime_episode_candidate`
 - returns `log_signal_summary` and `low_signal_events` so Agents can see whether the temporary runtime evidence has enough timestamp, process, logger, stage, reason, correlation, and route/resource fields for diagnosis
+- attaches a bounded `otel_lite` projection to matched runtime events so Agents can read stable severity, logger, event, request, session, error, reason, route, and resource fields before falling back to raw excerpts
 - includes a lightweight `candidate_chain` and `chain_confidence` inside the runtime episode so downstream reflection can preserve the rough failure sequence
 - returns `log_improvement_suggestions` when the current evidence suggests a few missing high-value branch, start, or correlation logs
 - prepares a `reflect_payload_template` so the diagnosis can be compressed directly into a structured reflection or experience candidate, including correction-oriented fields such as `old_hypothesis`, bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action`
 
 The raw log file stays outside SQLite. The runtime only writes the last structured analysis snapshot to `runtime/last_runtime_log_analysis.json`.
+The `otel_lite` projection is an output adapter, not a new dependency or durable raw-log store. It uses familiar OpenTelemetry-style field names where useful while keeping the MVP local and lightweight.
 It also keeps a runtime-only rolling summary in `runtime/last_usage_sample.json`. This usage sample is not a new database table. It stores bounded facts such as:
 
 - which commands were used
@@ -178,6 +180,21 @@ If an otherwise high-value reflection lacks a grounded chain, `maintain-plan` ma
 
 `context` and `search` also attach quality hints to semantic and reflection matches. Reflection matches use `quality_score` inside the existing memory-lane gate to produce `rerank_score`; this lets verified, evidence-backed experience outrank broad or misleading experience after the intent gate has already decided the record belongs in the main lane. The rerank is deliberately soft: it does not make stale, blocked, correction-only, or semantic-patch-only records bypass their lane rules.
 
+When a retrieved semantic fact or reflection was actually useful, ignored, misleading, or superseded during a task, record that outcome:
+
+```bash
+python tools/agent_memory.py experience-usage \
+  --project . \
+  --query "<task query>" \
+  --type reflection \
+  --id 12 \
+  --outcome misleading \
+  --note "why this record hurt or helped" \
+  --json
+```
+
+`experience-usage` stores bounded outcome events in SQLite. Future similar queries receive `usage_feedback_bonus`, `usage_feedback_penalty`, `usage_feedback_reasons`, and `usage_feedback_ids` on matching semantic or reflection rows. This is separate from `retrieval-feedback`: retrieval feedback says whether a returned record was relevant to a query; experience usage says what happened after the Agent tried to use it. `maintain-health` summarizes helpful and misleading usage, and `maintain-plan` may emit `review_experience_usage` for misleading or superseded records.
+
 Code log matches include `log_signal_score`, `log_signal_band`, `present_signals`, `missing_signals`, and `suggested_log_fields`. These fields estimate whether a learned log statement is diagnostic enough to anchor future runtime-log analysis. They are derived at query time from existing code-log metadata and message templates; they do not mutate learned code records.
 
 Reflection matches also include `experience_maturity`, `experience_maturity_score`, `maturity_reasons`, and `counter_evidence`. Maturity levels are derived at query time: `raw_observation`, `structured_candidate`, `verified_case`, `reused_pattern`, `skill_candidate`, or `deprecated_pattern`. Trust calibration consumes these fields, but they remain advisory and do not mutate stored reflections.
@@ -213,6 +230,14 @@ python tools/agent_memory.py eval-log-signal --project . --cases docs/eval/golde
 ```
 
 Log signal cases are temporary evaluation fixtures. Each case contains `logs`, optional `min_good_rate`, and optional `max_low_signal_rate`. The command normalizes each line, scores diagnostic fields, and reports `log_signal_good_rate` plus `low_signal_event_rate`. It does not store raw logs in SQLite.
+
+Answer grounding can be checked with:
+
+```bash
+python tools/agent_memory.py eval-evidence-attribution --project . --cases docs/eval/golden-evidence-attribution.json --json
+```
+
+Evidence attribution cases are temporary evaluation fixtures. Each case contains a query, answer claims, and grounding thresholds. The command runs the normal `context` path, compares each claim with returned semantic facts, reflections, code wiki records, code logs, edges, and incident traces, then reports grounded, weak, and unsupported claims. Use this after changing query, graph, log, or reflection quality logic to catch answers that sound plausible but are not supported by retrieved context.
 
 When a retrieved semantic fact or reflection is weakly related, stale, too broad, wrong-domain, or misleading for a specific query, record targeted negative feedback:
 

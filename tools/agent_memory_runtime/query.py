@@ -17,6 +17,7 @@ from .models import (
 from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT, INCIDENT_TRACE_SEARCH_LIMIT
 from .incident_trace_query import collect_incident_trace_matches
 from .experience_maturity import score_experience_maturity
+from .experience_usage import apply_usage_adjustment, collect_usage_adjustments
 from .log_signal_quality import score_log_signal
 from .memory_calibration import calibrate_payload
 from .quality_scoring import score_reflection_quality, score_semantic_quality
@@ -261,6 +262,8 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
     results["incident_trace_matches"] = collect_incident_trace_matches(project, query, INCIDENT_TRACE_SEARCH_LIMIT)
     semantic_feedback = collect_feedback_penalties(project, query, "semantic")
     reflection_feedback = collect_feedback_penalties(project, query, "reflection")
+    semantic_usage = collect_usage_adjustments(project, query, "semantic")
+    reflection_usage = collect_usage_adjustments(project, query, "reflection")
     semantic_calibration_feedback = collect_calibration_feedback(project, query, "semantic")
     reflection_calibration_feedback = collect_calibration_feedback(project, query, "reflection")
 
@@ -280,8 +283,16 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             item["quality_band"] = quality["quality_band"]
             item["quality_reasons"] = quality["reasons"]
             apply_feedback_penalty(item, semantic_feedback)
+            apply_usage_adjustment(item, semantic_usage)
             apply_calibration_feedback(item, semantic_calibration_feedback)
-            item["rerank_score"] = round(item["score"] + item["quality_score"] * 3.0 - item.get("feedback_penalty", 0.0), 3)
+            item["rerank_score"] = round(
+                item["score"]
+                + item["quality_score"] * 3.0
+                + float(item.get("usage_feedback_bonus") or 0.0) * 30.0
+                - float(item.get("usage_feedback_penalty") or 0.0) * 40.0
+                - item.get("feedback_penalty", 0.0),
+                3,
+            )
             item["match_reasons"] = reasons
             item["warning"] = memory_warning(item)
             results["semantic_facts"].append(item)
@@ -328,6 +339,7 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             item["quality_band"] = quality["quality_band"]
             item["quality_reasons"] = quality["reasons"]
             apply_feedback_penalty(item, reflection_feedback)
+            apply_usage_adjustment(item, reflection_usage)
             apply_calibration_feedback(item, reflection_calibration_feedback)
             item.update(score_experience_maturity(item))
             item["match_reasons"] = reasons
@@ -564,6 +576,14 @@ def reflection_gate_decision(query: str, intent: str, item: dict[str, Any]) -> d
     if feedback_penalty:
         score -= feedback_penalty
         reasons.append("retrieval_feedback_penalty")
+    usage_bonus = float(item.get("usage_feedback_bonus") or 0.0)
+    usage_penalty = float(item.get("usage_feedback_penalty") or 0.0)
+    if usage_bonus:
+        score += usage_bonus * 30.0
+        reasons.append("positive_usage_feedback")
+    if usage_penalty:
+        score -= usage_penalty * 40.0
+        reasons.append("negative_usage_feedback")
     if quality_score >= 0.75:
         reasons.append("quality_score_high")
     elif quality_score < 0.45:
@@ -677,7 +697,14 @@ def gate_matches_by_intent(
                 lane_counts["blocked_memory_notes"] += 1
             continue
         if decision["allowed"] and decision["score"] >= 15:
-            item["rerank_score"] = round(decision["score"] + float(item.get("quality_score") or 0.0) * 10.0 - float(item.get("feedback_penalty") or 0.0), 3)
+            item["rerank_score"] = round(
+                decision["score"]
+                + float(item.get("quality_score") or 0.0) * 10.0
+                + float(item.get("usage_feedback_bonus") or 0.0) * 30.0
+                - float(item.get("usage_feedback_penalty") or 0.0) * 40.0
+                - float(item.get("feedback_penalty") or 0.0),
+                3,
+            )
             main_reflections.append(item)
             lane_counts["main_reflections"] += 1
         else:

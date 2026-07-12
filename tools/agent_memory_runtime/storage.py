@@ -214,6 +214,19 @@ def create_schema(conn: sqlite3.Connection) -> None:
           created_at TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS experience_usage_events (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          query TEXT NOT NULL,
+          normalized_query TEXT NOT NULL,
+          record_type TEXT NOT NULL,
+          record_id INTEGER NOT NULL,
+          outcome TEXT NOT NULL,
+          note TEXT,
+          evidence TEXT,
+          created_at TEXT NOT NULL
+        );
+
         CREATE TABLE IF NOT EXISTS semantic_conflicts (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           project_id TEXT NOT NULL,
@@ -276,6 +289,12 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_reflection_reuse_project_reused
         ON reflection_reuse_events(project_id, reused_reflection_id);
+
+        CREATE INDEX IF NOT EXISTS idx_experience_usage_project_record
+        ON experience_usage_events(project_id, record_type, record_id, created_at);
+
+        CREATE INDEX IF NOT EXISTS idx_experience_usage_project_query
+        ON experience_usage_events(project_id, normalized_query, outcome, created_at);
 
         CREATE INDEX IF NOT EXISTS idx_semantic_conflicts_project_status
         ON semantic_conflicts(project_id, status, observed_at);

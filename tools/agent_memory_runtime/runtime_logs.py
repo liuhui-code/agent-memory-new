@@ -9,6 +9,7 @@ from typing import Any
 from .models import Project
 from .query import limited_context
 from .log_signal_quality import build_log_signal_summary, enrich_log_signal, low_signal_events
+from .otel_lite import attach_otel_lite
 from .text import tokenize, unique_list
 
 MAX_MATCHED_EVENTS = 20
@@ -606,7 +607,7 @@ def analyze_runtime_log(
     log_search_plan = context.get("log_search_plan") or {}
     signal_events = [enrich_log_signal(event) for event in normalized_events]
     scored_events = [
-        score_runtime_event(event, query, log_search_plan)
+        attach_otel_lite(score_runtime_event(event, query, log_search_plan))
         for event in signal_events
     ]
     matched_events = [event for event in scored_events if int(event.get("score") or 0) > 0]
