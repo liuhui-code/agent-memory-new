@@ -171,6 +171,30 @@ class GovernanceActionBudgetTests(unittest.TestCase):
         self.assertTrue(budget["top_actions"])
         self.assertTrue(all(action["governance_lane"] == "memory_tiers" for action in budget["top_actions"]))
 
+    def test_maintain_plan_action_lane_reports_no_match_hint(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            self.run_memory(project, "init")
+            self.seed_actions(project)
+
+            result = self.run_memory(
+                project,
+                "maintain-plan",
+                "--compact",
+                "--action-lane",
+                "typo_lane",
+                "--json",
+            )
+            data = json.loads(result.stdout)
+
+        budget = data["action_budget"]
+        self.assertEqual("typo_lane", budget["selected_lane"])
+        self.assertEqual("no_matches", budget["lane_filter_status"])
+        self.assertEqual([], budget["top_actions"])
+        self.assertIn("memory_tiers", budget["available_lanes"])
+        self.assertIn("log_diagnosis", budget["available_lanes"])
+
 
 if __name__ == "__main__":
     unittest.main()

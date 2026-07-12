@@ -55,6 +55,7 @@ def build_governance_action_budget(
     lane: str | None = None,
 ) -> dict[str, Any]:
     selected_lane = (lane or "").strip() or None
+    lane_counts = count_by(actions, "governance_lane")
     candidate_actions = [
         action
         for action in actions
@@ -74,8 +75,10 @@ def build_governance_action_budget(
         "total_actions": len(actions),
         "candidate_actions": len(candidate_actions),
         "selected_lane": selected_lane,
+        "lane_filter_status": lane_filter_status(selected_lane, candidate_actions),
+        "available_lanes": list(lane_counts.keys()),
         "requires_confirmation": sum(1 for action in actions if action.get("requires_confirmation")),
-        "counts_by_lane": count_by(actions, "governance_lane"),
+        "counts_by_lane": lane_counts,
         "counts_by_risk": count_by(actions, "risk"),
         "top_limit": limit,
         "next_command_templates": next_command_templates(limit, selected_lane),
@@ -206,6 +209,14 @@ def count_by(actions: list[dict[str, Any]], key: str) -> dict[str, int]:
         value = str(action.get(key) or "unknown")
         counts[value] = counts.get(value, 0) + 1
     return dict(sorted(counts.items()))
+
+
+def lane_filter_status(selected_lane: str | None, candidate_actions: list[dict[str, Any]]) -> str:
+    if selected_lane is None:
+        return "all_lanes"
+    if candidate_actions:
+        return "matched"
+    return "no_matches"
 
 
 def compact_action(action: dict[str, Any], rank: int) -> dict[str, Any]:

@@ -24,6 +24,33 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add governance lane filter hints
+
+Files changed:
+- `tools/agent_memory_runtime/governance_action_budget.py`
+- `tests/test_governance_action_budget.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-governance-lane-filter-hints.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `lane_filter_status` to `action_budget`.
+- Added `available_lanes` to `action_budget`.
+- Documented that unknown lanes should be corrected from available lane hints rather than treated as no maintenance work.
+
+Why:
+- A mistyped `--action-lane` should not silently look like an empty maintenance plan.
+- Low-token compact workflows need enough guidance to recover from lane-selection mistakes.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_governance_action_budget`
+- Result: passes.
+
+Rollback notes:
+- Remove lane hint fields, tests, and docs if the extra metadata is unnecessary.
+
 ## 2026-07-12 - Add governance action lane filter
 
 Files changed:
