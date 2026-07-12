@@ -118,6 +118,20 @@ class GovernanceActionBudgetTests(unittest.TestCase):
         self.assertNotIn("low_quality_records", data)
         self.assertNotIn("high_value_records", data)
 
+    def test_maintain_plan_action_limit_controls_budget_batch_size(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            self.run_memory(project, "init")
+            self.seed_actions(project)
+
+            result = self.run_memory(project, "maintain-plan", "--compact", "--action-limit", "1", "--json")
+            data = json.loads(result.stdout)
+
+        self.assertEqual(1, data["action_budget"]["top_limit"])
+        self.assertEqual(1, len(data["action_budget"]["top_actions"]))
+        self.assertEqual(1, len(data["actions"]))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -2564,7 +2564,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
     for action in actions:
         action.setdefault("governance_lane", infer_governance_lane(action))
     annotate_governance_action_priorities(actions)
-    action_budget = build_governance_action_budget(actions)
+    action_limit = max(1, int(getattr(args, "action_limit", 10) or 10))
+    action_budget = build_governance_action_budget(actions, limit=action_limit)
 
     learn_governance_summary = build_learn_governance_summary(correction_rows, refresh_drifts)
     governance_summary = {

@@ -337,10 +337,10 @@ When reflections cite incident traces in `source_cases`, for example `incident_t
 For large archives or low-token sessions, start with:
 
 ```bash
-python tools/agent_memory.py maintain-plan --project . --compact --json
+python tools/agent_memory.py maintain-plan --project . --compact --action-limit 3 --json
 ```
 
-Compact mode returns `action_budget`, `health_overview`, and compact top actions first. If the selected action needs templates, record details, or full graph/memory context, rerun normal `maintain-plan --json`.
+Compact mode returns `action_budget`, `health_overview`, and compact top actions first. Use `--action-limit 1` for an extremely small first pass, or `--action-limit 3` to review a short batch. If the selected action needs templates, record details, or full graph/memory context, rerun normal `maintain-plan --json`.
 
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 

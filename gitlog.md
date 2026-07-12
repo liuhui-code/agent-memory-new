@@ -24,6 +24,33 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add governance action limit
+
+Files changed:
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_governance_action_budget.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-governance-action-limit.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `maintain-plan --action-limit N`.
+- Wired the limit into `action_budget.top_actions` for both full and compact maintain-plan output.
+- Documented small-batch review patterns for large archives and low-token sessions.
+
+Why:
+- Fixed-size top-action batches are still too large for some low-token maintenance sessions. A tunable output budget lets Agents inspect one or a few top actions without changing governance scoring or SQLite reads.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_governance_action_budget`
+- Result: passes.
+
+Rollback notes:
+- Remove the parser flag, action-budget limit wiring, test, and docs if the extra knob proves unnecessary.
+
 ## 2026-07-12 - Add compact maintain-plan output
 
 Files changed:
