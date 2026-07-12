@@ -97,6 +97,13 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("eval_quality_command"))
 
+    p = sub.add_parser("eval-seed-cases")
+    add_project(p)
+    p.add_argument("--target", default="docs/eval/examples")
+    p.add_argument("--force", action="store_true")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("eval_seed_cases_command"))
+
     p = sub.add_parser("retrieval-feedback")
     add_project(p)
     p.add_argument("--query", required=True)

@@ -355,6 +355,14 @@ python tools/agent_memory.py eval-quality --project . --cases-dir docs/eval --js
 
 The command skips missing golden files by default and combines all available gates into one pass/fail result. Use `--strict` in CI-like checks when an empty cases directory should fail. If it fails, inspect the failing gate name and rerun that specific eval command below for full case detail.
 
+To create editable examples, seed a non-active examples directory first:
+
+```bash
+python tools/agent_memory.py eval-seed-cases --project . --target docs/eval/examples --json
+```
+
+Do not treat generated examples as passing project gates. Read current `context` output, replace example ids/text with real anchors, then either copy edited files into `docs/eval` or run `eval-quality --cases-dir docs/eval/examples`.
+
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 
 ```bash

@@ -24,6 +24,34 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add golden eval case seed pack
+
+Files changed:
+- `docs/superpowers/plans/2026-07-12-golden-case-seed-pack.md`
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/eval_case_seed.py`
+- `tests/test_eval_case_seed.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `eval-seed-cases --target docs/eval/examples --json`.
+- The command writes editable golden eval examples for retrieval, calibration, governance, log-signal, and evidence-attribution gates.
+- Existing files are skipped unless `--force` is provided.
+
+Why:
+- `eval-quality` is more useful when projects can bootstrap case files, but unedited examples should not live in the default active gate directory.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_eval_case_seed`
+- Result: passes.
+
+Rollback notes:
+- Remove the seed command, template module, test, and docs if examples are better maintained only as static documentation.
+
 ## 2026-07-12 - Add quality gate orchestrator
 
 Files changed:

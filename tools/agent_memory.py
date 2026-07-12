@@ -46,6 +46,7 @@ from agent_memory_runtime.models import (
     REQUIRED_TABLES,
 )
 from agent_memory_runtime.calibration_eval import eval_calibration_command
+from agent_memory_runtime.eval_case_seed import eval_seed_cases_command
 from agent_memory_runtime.evidence_attribution import eval_evidence_attribution_command
 from agent_memory_runtime.governance_eval import eval_governance_command
 from agent_memory_runtime.experience_usage import experience_usage_command
@@ -780,6 +781,7 @@ def main(argv: list[str] | None = None) -> int:
             "eval_evidence_attribution_command": eval_evidence_attribution_command,
             "eval_governance_command": eval_governance_command,
             "eval_quality_command": eval_quality_command,
+            "eval_seed_cases_command": eval_seed_cases_command,
             "retrieval_feedback_command": retrieval_feedback_command,
             "experience_usage_command": experience_usage_command,
             "analyze_runtime_log_command": analyze_runtime_log_command,

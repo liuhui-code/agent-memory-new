@@ -226,6 +226,14 @@ python tools/agent_memory.py eval-quality --project . --cases-dir docs/eval --js
 
 `eval-quality` looks for known golden case files in the cases directory, skips missing files by default, and returns one combined `quality_gate`. Use `--strict` for CI-like checks where an empty cases directory should fail. When the combined gate fails, rerun the specific failing eval command below for full case detail.
 
+To bootstrap editable examples without activating them as the default gate, run:
+
+```bash
+python tools/agent_memory.py eval-seed-cases --project . --target docs/eval/examples --json
+```
+
+The seed command writes example JSON files and a README under `docs/eval/examples` by default. Edit anchors to match the current project's memory before copying files into `docs/eval` or before running `eval-quality --cases-dir docs/eval/examples`.
+
 Retrieval changes can be checked with a local golden-query eval:
 
 ```bash
