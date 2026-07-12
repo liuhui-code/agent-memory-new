@@ -182,6 +182,8 @@ If an otherwise high-value reflection lacks a grounded chain, `maintain-plan` ma
 
 `maintain-health --json` and `maintain-plan --json` also return `memory_tiers`. This is a read-only hot/warm/cold/archive-candidate view across semantic facts, reflections, and episodes. It uses bounded recent scans, status, usage count, last-used time, confidence, and quality score to show which records are actively useful, merely retained, low-confidence and unused, or already stale/archived candidates. `maintain-plan` may emit `review_memory_tier` actions for cold and archive-candidate records; these actions are review prompts only and do not change retrieval behavior by themselves.
 
+`maintain-plan --json` also returns `action_budget`. It annotates every proposed action with `priority_score` and `priority_reasons`, then exposes a bounded `top_actions` list plus counts by lane and risk. This is a read-only review budget for large archives: it helps the Agent inspect the highest-impact actions first, but it does not execute, delete, archive, or reorder query results.
+
 `context` and `search` also attach quality hints to semantic and reflection matches. Reflection matches use `quality_score` inside the existing memory-lane gate to produce `rerank_score`; this lets verified, evidence-backed experience outrank broad or misleading experience after the intent gate has already decided the record belongs in the main lane. The rerank is deliberately soft: it does not make stale, blocked, correction-only, or semantic-patch-only records bypass their lane rules.
 
 When a retrieved semantic fact or reflection was actually useful, ignored, misleading, or superseded during a task, record that outcome:

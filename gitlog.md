@@ -24,6 +24,34 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add governance action budget
+
+Files changed:
+- `tools/agent_memory_runtime/governance_action_budget.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_governance_action_budget.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-governance-action-budget.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added a read-only `action_budget` summary to `maintain-plan`.
+- Annotated every maintain action with deterministic `priority_score` and `priority_reasons`.
+- Added bounded `top_actions`, counts by lane, and counts by risk so large governance plans can be reviewed in smaller batches.
+- Documented that the budget is advisory and does not execute or mutate memory.
+
+Why:
+- As memory grows, `maintain-plan` can produce many valid review actions. A compact budget helps Agents spend tokens on the highest-impact actions first without adding persistent schedulers or heavier infrastructure.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_governance_action_budget`
+- Result: passes.
+
+Rollback notes:
+- Remove `tools/agent_memory_runtime/governance_action_budget.py`, drop action-budget wiring from `governance.py`, and revert the docs/tests if the priority view becomes noisy.
+
 ## 2026-07-12 - Add memory tier governance
 
 Files changed:

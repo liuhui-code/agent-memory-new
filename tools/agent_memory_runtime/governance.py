@@ -18,6 +18,7 @@ from .graph_quality import (
     build_graph_signal_quality,
     build_graph_signal_quality_actions,
 )
+from .governance_action_budget import annotate_governance_action_priorities, build_governance_action_budget
 from .incident_trace_governance import build_incident_trace_actions
 from .experience_maturity import score_experience_maturity
 from .experience_usage import build_experience_usage_actions, fetch_experience_usage_summary
@@ -2558,9 +2559,12 @@ def maintain_plan(args: argparse.Namespace) -> None:
 
     for action in actions:
         action.setdefault("governance_lane", infer_governance_lane(action))
+    annotate_governance_action_priorities(actions)
+    action_budget = build_governance_action_budget(actions)
 
     learn_governance_summary = build_learn_governance_summary(correction_rows, refresh_drifts)
     governance_summary = {
+        "action_budget": action_budget,
         "counts_by_lane": count_actions_by_lane(actions),
         "incident_strategy_candidates": len(incident_strategy_candidates),
         "recurring_incident_fingerprints": len(recurring_incident_fingerprint_candidates),
@@ -2622,6 +2626,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         },
         "memory_tiers": memory_tiers,
         "active_learning_queue": active_learning_queue,
+        "action_budget": action_budget,
         "retrieval_feedback_summary": {
             "open_feedback": len(retrieval_feedback_rows),
             "review_actions": len(retrieval_feedback_actions),

@@ -332,6 +332,8 @@ When reflections cite incident traces in `source_cases`, for example `incident_t
 
 `maintain-health --json` and `maintain-plan --json` also report `memory_tiers`. Use it to separate active memories from retained-but-unused records before adding heavier retrieval infrastructure. `hot` records have recent use or repeated reuse, `warm` records remain available, `cold` records are low-confidence or low-quality and unused, and `archive_candidate` records already carry stale/archived/rejected/merged signals. `review_memory_tier` actions should lead to confirmation-based tightening, stale marking, merge review, or archive review; they should not trigger automatic deletion.
 
+`maintain-plan --json` also reports `action_budget`. Use `top_actions` as the first bounded review batch when many governance signals exist, then inspect the underlying action before changing memory. `priority_score` is explainable and advisory; current source code, explicit user feedback, stale/conflict signals, and confirmation requirements still win.
+
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 
 ```bash
