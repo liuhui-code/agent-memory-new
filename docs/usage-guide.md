@@ -330,6 +330,8 @@ When reflections cite incident traces in `source_cases`, for example `incident_t
 
 `maintain-health --json` and `maintain-plan --json` also report `active_learning_queue`. Use it as the first triage view when many governance signals exist. It ranks open query misses, weak graph/log anchors, misleading or helpful experience usage, and low-quality memories into a single bounded queue. The queue is read-only; follow the underlying action type before changing memory.
 
+`maintain-health --json` and `maintain-plan --json` also report `memory_tiers`. Use it to separate active memories from retained-but-unused records before adding heavier retrieval infrastructure. `hot` records have recent use or repeated reuse, `warm` records remain available, `cold` records are low-confidence or low-quality and unused, and `archive_candidate` records already carry stale/archived/rejected/merged signals. `review_memory_tier` actions should lead to confirmation-based tightening, stale marking, merge review, or archive review; they should not trigger automatic deletion.
+
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 
 ```bash

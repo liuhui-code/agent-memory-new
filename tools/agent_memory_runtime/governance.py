@@ -21,6 +21,7 @@ from .graph_quality import (
 from .incident_trace_governance import build_incident_trace_actions
 from .experience_maturity import score_experience_maturity
 from .experience_usage import build_experience_usage_actions, fetch_experience_usage_summary
+from .memory_tiers import build_memory_tier_actions, build_memory_tiers
 from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE_POOL_LIMIT, VALID_MEMORY_STATUSES
 from .performance_scoring import (
     append_performance_sample,
@@ -225,6 +226,7 @@ def maintain_health(args: argparse.Namespace) -> None:
     graph_quality = build_graph_quality(project)
     graph_signal_quality = build_graph_signal_quality(project)
     experience_usage = fetch_experience_usage_summary(project)
+    memory_tiers = build_memory_tiers(project)
     health_quality_report = build_quality_report(
         semantic_active_rows[:10],
         enrich_reflections_with_evidence_chains(project, reflection_active_rows[:10]),
@@ -265,6 +267,8 @@ def maintain_health(args: argparse.Namespace) -> None:
         recommended_actions.append("Review experience usage outcomes and tighten misleading memories.")
     if active_learning_queue["queue_count"]:
         recommended_actions.append("Use the active learning queue to handle the highest-priority miss, weak graph anchor, or experience outcome first.")
+    if memory_tiers["review_targets"]:
+        recommended_actions.append("Review cold or archive-candidate memories before adding heavier retrieval infrastructure.")
 
     data = {
         "project_id": project.project_id,
@@ -307,6 +311,7 @@ def maintain_health(args: argparse.Namespace) -> None:
             "helpful_records": experience_usage["helpful_records"],
         },
         "active_learning_queue": active_learning_queue,
+        "memory_tiers": memory_tiers,
         "runtime_performance": build_runtime_performance_summary(project),
         "recommended_actions": recommended_actions,
     }
@@ -2136,6 +2141,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
     runtime_performance_actions = build_runtime_performance_actions(runtime_performance)
     experience_usage = fetch_experience_usage_summary(project, args.limit)
     experience_usage_actions = build_experience_usage_actions(experience_usage)
+    memory_tiers = build_memory_tiers(project, args.limit)
+    memory_tier_actions = build_memory_tier_actions(memory_tiers)
     retrieval_feedback_rows = fetch_open_retrieval_feedback(project, args.limit)
     retrieval_feedback_actions = build_retrieval_feedback_actions(retrieval_feedback_rows)
     calibration_feedback_actions = build_calibration_feedback_actions(retrieval_feedback_rows)
@@ -2326,6 +2333,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(graph_signal_quality_actions)
     actions.extend(runtime_performance_actions)
     actions.extend(experience_usage_actions)
+    actions.extend(memory_tier_actions)
     actions.extend(active_learning_actions)
     actions.extend(retrieval_feedback_actions)
     actions.extend(calibration_feedback_actions)
@@ -2573,6 +2581,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "graph_signal_quality_reviews": len(graph_signal_quality_actions),
         "runtime_performance_reviews": len(runtime_performance_actions),
         "experience_usage_reviews": len(experience_usage_actions),
+        "memory_tier_reviews": len(memory_tier_actions),
         "active_learning_queue_items": len(active_learning_actions),
         "retrieval_feedback_reviews": len(retrieval_feedback_actions),
         "overtrusted_memory_reviews": len([action for action in calibration_feedback_actions if action.get("action") == "review_overtrusted_memory"]),
@@ -2611,6 +2620,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "helpful_records": experience_usage["helpful_records"],
             "review_actions": len(experience_usage_actions),
         },
+        "memory_tiers": memory_tiers,
         "active_learning_queue": active_learning_queue,
         "retrieval_feedback_summary": {
             "open_feedback": len(retrieval_feedback_rows),

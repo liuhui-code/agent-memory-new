@@ -180,6 +180,8 @@ If an otherwise high-value reflection lacks a grounded chain, `maintain-plan` ma
 
 `maintain-health --json` and `maintain-plan --json` also return `active_learning_queue`. This queue is computed on demand from existing signals: open query misses, graph-signal repair targets, experience usage outcomes, and low-quality memory records. It ranks what to improve next but does not mutate memory. `maintain-plan` may emit `review_active_learning_queue` actions that point back to the concrete underlying target.
 
+`maintain-health --json` and `maintain-plan --json` also return `memory_tiers`. This is a read-only hot/warm/cold/archive-candidate view across semantic facts, reflections, and episodes. It uses bounded recent scans, status, usage count, last-used time, confidence, and quality score to show which records are actively useful, merely retained, low-confidence and unused, or already stale/archived candidates. `maintain-plan` may emit `review_memory_tier` actions for cold and archive-candidate records; these actions are review prompts only and do not change retrieval behavior by themselves.
+
 `context` and `search` also attach quality hints to semantic and reflection matches. Reflection matches use `quality_score` inside the existing memory-lane gate to produce `rerank_score`; this lets verified, evidence-backed experience outrank broad or misleading experience after the intent gate has already decided the record belongs in the main lane. The rerank is deliberately soft: it does not make stale, blocked, correction-only, or semantic-patch-only records bypass their lane rules.
 
 When a retrieved semantic fact or reflection was actually useful, ignored, misleading, or superseded during a task, record that outcome:

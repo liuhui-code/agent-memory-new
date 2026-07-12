@@ -24,6 +24,35 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add memory tier governance
+
+Files changed:
+- `tools/agent_memory_runtime/memory_tiers.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_memory_tiers.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-memory-tier-governance.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added a read-only `memory_tiers` summary to `maintain-health` and `maintain-plan`.
+- Classified recent semantic facts, reflections, and episodes into `hot`, `warm`, `cold`, and `archive_candidate` tiers using status, usage, freshness, confidence, and quality signals.
+- Added `review_memory_tier` maintain-plan actions for cold and archive-candidate records.
+- Documented the tier view as archive-pressure governance, not automatic deletion or ranking mutation.
+
+Why:
+- Large memory archives need a bounded way to separate active useful memory from stale, low-confidence, or unused records before adding heavier retrieval infrastructure.
+- Maintenance should review archive pressure explicitly while keeping the four user-facing skills unchanged.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_memory_tiers`
+- Result: passes.
+
+Rollback notes:
+- Remove `tools/agent_memory_runtime/memory_tiers.py`, drop memory-tier wiring from `governance.py`, and revert the tier docs/tests if the signal is too noisy.
+
 ## 2026-07-12 - Add active learning governance queue
 
 Files changed:
