@@ -24,11 +24,13 @@ QUALITY_GATE_SAMPLE_FILE = "last_quality_gate.json"
 def eval_quality_command(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
+    previous = load_quality_gate_snapshot(project)
     data = evaluate_quality_gates(
         project,
         Path(args.cases_dir),
         strict=bool(getattr(args, "strict", False)),
     )
+    data["quality_gate_delta"] = build_quality_gate_delta(previous, data)
     save_quality_gate_snapshot(project, data)
     output(data, args.json)
     if bool(getattr(args, "fail_on_fail", False)) and data.get("quality_gate") == "fail":
@@ -210,3 +212,40 @@ def build_quality_gate_failure_actions(snapshot: dict[str, Any]) -> list[dict[st
             ],
         }
     ]
+
+
+def build_quality_gate_delta(previous: dict[str, Any], current: dict[str, Any]) -> dict[str, Any]:
+    previous_gate = str(previous.get("quality_gate") or "") if previous else ""
+    current_gate = str(current.get("quality_gate") or "")
+    previous_failed = failed_gate_names(previous)
+    current_failed = failed_gate_names(current)
+    newly_failed = sorted(set(current_failed) - set(previous_failed))
+    resolved_failed = sorted(set(previous_failed) - set(current_failed))
+    unchanged_failed = sorted(set(previous_failed) & set(current_failed))
+    return {
+        "previous_quality_gate": previous_gate or None,
+        "current_quality_gate": current_gate or None,
+        "status_change": quality_gate_status_change(previous_gate, current_gate),
+        "newly_failed_gates": newly_failed,
+        "resolved_failed_gates": resolved_failed,
+        "unchanged_failed_gates": unchanged_failed,
+    }
+
+
+def failed_gate_names(data: dict[str, Any]) -> list[str]:
+    summary = data.get("summary") or {}
+    return [str(item) for item in summary.get("failed_gate_names") or [] if str(item).strip()]
+
+
+def quality_gate_status_change(previous: str, current: str) -> str:
+    if not previous:
+        return "no_previous"
+    if previous == "fail" and current == "pass":
+        return "resolved_failure"
+    if previous == "pass" and current == "fail":
+        return "new_failure"
+    if previous == "fail" and current == "fail":
+        return "still_failing"
+    if previous == "pass" and current == "pass":
+        return "still_passing"
+    return "changed"

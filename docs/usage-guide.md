@@ -354,7 +354,7 @@ Before changing retrieval, calibration, governance, log, evidence, or graph beha
 python tools/agent_memory.py eval-quality --project . --cases-dir docs/eval --json
 ```
 
-The command skips missing golden files by default and combines all available gates into one pass/fail result. Use `--strict` in CI-like checks when an empty cases directory should fail. Use `--fail-on-fail` when a script should exit 1 after emitting the failing JSON report. If it fails, inspect `summary.failed_gate_names` and the failed gate's `next_command_template`, then rerun that specific eval for full case detail.
+The command skips missing golden files by default and combines all available gates into one pass/fail result. Use `--strict` in CI-like checks when an empty cases directory should fail. Use `--fail-on-fail` when a script should exit 1 after emitting the failing JSON report. Read `quality_gate_delta` to see whether the latest run introduced new failures or resolved previous failures. If it fails, inspect `summary.failed_gate_names` and the failed gate's `next_command_template`, then rerun that specific eval for full case detail.
 If `maintain-plan --json` returns `review_quality_gate_failure`, treat it as a review prompt for the latest runtime quality snapshot. Rerun the listed `next_command_templates` before changing memory or updating golden cases.
 
 To create editable examples, seed a non-active examples directory first:

@@ -240,6 +240,52 @@ class QualityGateEvalTests(unittest.TestCase):
         self.assertTrue(any("eval-log-signal" in item for item in actions[0]["next_command_templates"]))
         self.assertEqual(1, plan["governance_summary"]["quality_gate_failure_reviews"])
 
+    def test_eval_quality_reports_delta_from_previous_snapshot(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            cases_dir = root / "eval"
+            project.mkdir()
+            cases_dir.mkdir()
+            case_file = cases_dir / "golden-log-signal.json"
+            case_file.write_text(
+                json.dumps(
+                    [
+                        {
+                            "name": "bad-log",
+                            "logs": ["failed"],
+                            "min_good_rate": 1.0,
+                            "max_low_signal_rate": 0.0,
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            self.run_memory(project, "eval-quality", "--cases-dir", str(cases_dir), "--json")
+            case_file.write_text(
+                json.dumps(
+                    [
+                        {
+                            "name": "good-log",
+                            "logs": [
+                                "07-11 12:00:00.100 EntryAbility E Router: event=route_failed route=pages/Profile request_id=req-1 reason=target_missing result=failed"
+                            ],
+                            "min_good_rate": 1.0,
+                            "max_low_signal_rate": 0.0,
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            result = self.run_memory(project, "eval-quality", "--cases-dir", str(cases_dir), "--json")
+            data = json.loads(result.stdout)
+
+        self.assertEqual("pass", data["quality_gate"])
+        self.assertEqual("fail", data["quality_gate_delta"]["previous_quality_gate"])
+        self.assertEqual("resolved_failure", data["quality_gate_delta"]["status_change"])
+        self.assertEqual(["log_signal"], data["quality_gate_delta"]["resolved_failed_gates"])
+
 
 if __name__ == "__main__":
     unittest.main()

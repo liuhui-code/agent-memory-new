@@ -24,6 +24,31 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add quality gate delta summary
+
+Files changed:
+- `docs/superpowers/plans/2026-07-12-quality-gate-delta.md`
+- `tools/agent_memory_runtime/quality_gate_eval.py`
+- `tests/test_quality_gate_eval.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- `eval-quality` now compares the current run with the previous runtime snapshot.
+- Added `quality_gate_delta` with previous/current gate status, status change, newly failed gates, resolved gates, and unchanged failed gates.
+
+Why:
+- Agents need to know whether a quality gate failure is new, still failing, or just resolved without keeping a long-term history table.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_gate_eval`
+- Result: passes.
+
+Rollback notes:
+- Remove delta computation, tests, and docs if previous-run comparison becomes noisy.
+
 ## 2026-07-12 - Add quality gate governance action
 
 Files changed:
