@@ -195,6 +195,26 @@ class GovernanceActionBudgetTests(unittest.TestCase):
         self.assertIn("memory_tiers", budget["available_lanes"])
         self.assertIn("log_diagnosis", budget["available_lanes"])
 
+    def test_maintain_plan_recommends_lanes_by_priority(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            self.run_memory(project, "init")
+            self.seed_actions(project)
+
+            result = self.run_memory(project, "maintain-plan", "--compact", "--json")
+            data = json.loads(result.stdout)
+
+        recommended_lanes = data["action_budget"]["recommended_lanes"]
+        lane_names = [lane["governance_lane"] for lane in recommended_lanes]
+        self.assertIn("memory_tiers", lane_names)
+        self.assertIn("log_diagnosis", lane_names)
+        self.assertTrue(all("max_priority_score" in lane for lane in recommended_lanes))
+        self.assertGreaterEqual(
+            recommended_lanes[0]["max_priority_score"],
+            recommended_lanes[-1]["max_priority_score"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

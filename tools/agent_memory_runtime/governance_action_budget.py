@@ -77,6 +77,7 @@ def build_governance_action_budget(
         "selected_lane": selected_lane,
         "lane_filter_status": lane_filter_status(selected_lane, candidate_actions),
         "available_lanes": list(lane_counts.keys()),
+        "recommended_lanes": recommended_lanes(actions),
         "requires_confirmation": sum(1 for action in actions if action.get("requires_confirmation")),
         "counts_by_lane": lane_counts,
         "counts_by_risk": count_by(actions, "risk"),
@@ -217,6 +218,44 @@ def lane_filter_status(selected_lane: str | None, candidate_actions: list[dict[s
     if candidate_actions:
         return "matched"
     return "no_matches"
+
+
+def recommended_lanes(actions: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for action in actions:
+        lane = str(action.get("governance_lane") or "unknown")
+        grouped.setdefault(lane, []).append(action)
+
+    recommendations: list[dict[str, Any]] = []
+    for lane, lane_actions in grouped.items():
+        scores = [float(action.get("priority_score") or 0.0) for action in lane_actions]
+        top_action = max(
+            lane_actions,
+            key=lambda action: (
+                float(action.get("priority_score") or 0.0),
+                1 if action.get("requires_confirmation") else 0,
+                str(action.get("action") or ""),
+            ),
+        )
+        recommendations.append(
+            {
+                "governance_lane": lane,
+                "action_count": len(lane_actions),
+                "max_priority_score": round(max(scores), 3) if scores else 0.0,
+                "average_priority_score": round(sum(scores) / len(scores), 3) if scores else 0.0,
+                "top_action": compact_action(top_action, 1),
+            }
+        )
+
+    return sorted(
+        recommendations,
+        key=lambda lane: (
+            float(lane.get("max_priority_score") or 0.0),
+            int(lane.get("action_count") or 0),
+            str(lane.get("governance_lane") or ""),
+        ),
+        reverse=True,
+    )
 
 
 def compact_action(action: dict[str, Any], rank: int) -> dict[str, Any]:

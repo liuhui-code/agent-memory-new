@@ -24,6 +24,32 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add governance lane recommendations
+
+Files changed:
+- `tools/agent_memory_runtime/governance_action_budget.py`
+- `tests/test_governance_action_budget.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-governance-lane-recommendations.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `recommended_lanes` to `action_budget`.
+- Each lane recommendation includes action count, max priority, average priority, and a compact top action.
+- Documented that lane recommendations help choose a governance path before loading full action details.
+
+Why:
+- Large maintain plans often need a lane-level choice before an action-level choice. Counts alone are not enough when one lane has fewer but higher-priority actions.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_governance_action_budget`
+- Result: passes.
+
+Rollback notes:
+- Remove lane recommendation aggregation, tests, and docs if the extra metadata is noisy.
+
 ## 2026-07-12 - Add governance lane filter hints
 
 Files changed:
