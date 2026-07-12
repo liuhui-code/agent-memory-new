@@ -64,6 +64,7 @@ They may:
 - return learned code log statements and lightweight edges between files, symbols, and log statements.
 - return compact one-hop `evidence_chains` derived from allowed edge matches.
 - return a bounded `log_search_plan` that turns user problem language into log-oriented anchors, logger hints, and candidate log events.
+- return a compact `query_audit` that explains result counts and why top records matched, reranked, passed gates, or were penalized.
 - bound result sets before JSON output so large archives do not return unbounded payloads.
 
 They must not:
@@ -87,6 +88,7 @@ allowed_relations = contains, emits_log
 The runtime returns these limits in `network_limits` so skill callers know the context is intentionally bounded. Recursive reasoning belongs in the LLM skill layer: inspect the returned context, sharpen the query, and call `context` again.
 
 `search` is also bounded. It returns `result_limits` in the JSON payload so callers can see the current cap for each result set.
+`context` and `search` also return `query_audit`. This is an LLM-facing debug trail, not a ranking input. Use it to spot broad matches, stale or low-trust experience, feedback penalties, and missing query anchors before changing stored memory.
 
 For temporary runtime logs, the runtime also exposes a bounded analysis command:
 
@@ -177,6 +179,7 @@ If an otherwise high-value reflection lacks a grounded chain, `maintain-plan` ma
 `maintain-health --json` also returns `graph_quality` for the learned code/log graph. It reports code files, symbols, log statements, memory edges, orphan symbols/logs, stale edges, low-confidence edges, and symbol/log anchor coverage. `maintain-plan --json` may emit `review_graph_quality` when graph health is `watch` or `poor`. This is a read-only signal to refresh a focused learned scope or inspect stale/orphan anchors; it is not recursive graph traversal.
 
 `maintain-health --json` also returns `graph_signal_quality`. This layer scores whether graph anchors are useful for retrieval and diagnosis, not only whether edges exist. It reports weak anchors, missing business semantics, missing log signal fields, and concrete `top_repair_targets`. `maintain-plan --json` may emit `review_graph_signal_quality` when repair targets are available. Suggested repairs should stay narrow: enrich business terms, add request/session correlation, or add route/resource/reason/result fields to the specific log or symbol target.
+`maintain-plan --json` may also emit `review_log_observability_gap` in the `log_diagnosis` lane when learned log statements are missing diagnosis fields. This action is derived from existing graph signal quality and does not persist raw runtime logs.
 
 `maintain-health --json` and `maintain-plan --json` also return `active_learning_queue`. This queue is computed on demand from existing signals: open query misses, graph-signal repair targets, experience usage outcomes, and low-quality memory records. It ranks what to improve next but does not mutate memory. `maintain-plan` may emit `review_active_learning_queue` actions that point back to the concrete underlying target.
 
@@ -201,7 +204,7 @@ python tools/agent_memory.py experience-usage \
   --json
 ```
 
-`experience-usage` stores bounded outcome events in SQLite. Future similar queries receive `usage_feedback_bonus`, `usage_feedback_penalty`, `usage_feedback_reasons`, and `usage_feedback_ids` on matching semantic or reflection rows. This is separate from `retrieval-feedback`: retrieval feedback says whether a returned record was relevant to a query; experience usage says what happened after the Agent tried to use it. `maintain-health` summarizes helpful and misleading usage, and `maintain-plan` may emit `review_experience_usage` for misleading or superseded records.
+`experience-usage` stores bounded outcome events in SQLite. Future similar queries receive `usage_feedback_bonus`, `usage_feedback_penalty`, `usage_feedback_reasons`, and `usage_feedback_ids` on matching semantic or reflection rows. This is separate from `retrieval-feedback`: retrieval feedback says whether a returned record was relevant to a query; experience usage says what happened after the Agent tried to use it. `maintain-health` summarizes helpful, misleading, total, success, failure, success-rate, misleading-rate, and effectiveness-band fields, and `maintain-plan` may emit `review_experience_usage` for misleading or superseded records.
 
 Code log matches include `log_signal_score`, `log_signal_band`, `present_signals`, `missing_signals`, and `suggested_log_fields`. These fields estimate whether a learned log statement is diagnostic enough to anchor future runtime-log analysis. They are derived at query time from existing code-log metadata and message templates; they do not mutate learned code records.
 
@@ -230,6 +233,14 @@ python tools/agent_memory.py eval-calibration --project . --cases docs/eval/gold
 ```
 
 Calibration cases use `expected_trust` specs for rows that should have a target `trust_level` or minimum `trust_score`, and `must_not_trust` specs for rows that must not be treated as strong evidence. The command reports expected trust rate, blocked-overtrust rate, missed expected trust, and unexpected trusted matches.
+
+Governance action behavior can be checked with:
+
+```bash
+python tools/agent_memory.py eval-governance --project . --cases docs/eval/golden-governance.json --json
+```
+
+Governance cases are read-only fixtures. Each case can define `expected_actions` and `must_not_actions` using action fields such as `action`, `governance_lane`, `type`, or `id`. The command reports expected-action hit rate and blocked-bad-action rate so archive, active-learning, and review-lane changes do not silently alter maintenance behavior.
 
 Log signal quality can be checked with:
 
@@ -623,9 +634,11 @@ They also extract code log statements and rebuild deterministic code-wiki edges:
 code_file --contains--> code_symbol
 code_file --contains--> code_log_statement
 code_symbol --emits_log--> code_log_statement
+code_file --defines_state--> code_symbol
 ```
 
 This supports memory-aware diagnosis without adding a separate user-facing skill. An Agent can query an observed log or console message, receive `code_log_matches`, inspect `edge_matches`, then recursively query again with the related file/function names.
+For ArkTS files, learning also extracts component state symbols such as `@State`, `@Prop`, `@Link`, and `@Provide` as `state` code symbols. The `defines_state` edge makes local UI state visible to route, resource, and log-oriented diagnosis without adding a separate graph database.
 
 Learning commands return parse feedback. `learn-entry --json` and `learn-path --json` include `parse_stats`:
 

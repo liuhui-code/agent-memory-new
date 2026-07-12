@@ -186,6 +186,7 @@ def fetch_experience_usage_summary(project: Project, limit: int = 10) -> dict[st
         record["dominant_outcome"] = max(outcomes.items(), key=lambda pair: (pair[1], pair[0]))[0]
         record["negative_count"] = sum(outcomes.get(name, 0) for name in NEGATIVE_USAGE_PENALTIES)
         record["positive_count"] = sum(outcomes.get(name, 0) for name in POSITIVE_USAGE_BONUSES)
+        record.update(effectiveness_metrics(outcomes))
     records.sort(key=lambda item: (item["negative_count"], item["last_seen_at"] or ""), reverse=True)
     return {
         "event_count": int(total),
@@ -213,6 +214,14 @@ def build_experience_usage_actions(summary: dict[str, Any]) -> list[dict[str, An
                 "command": None,
                 "dominant_outcome": record.get("dominant_outcome"),
                 "outcomes": outcomes,
+                "effectiveness": {
+                    "total_count": record.get("total_count"),
+                    "success_count": record.get("success_count"),
+                    "failure_count": record.get("failure_count"),
+                    "success_rate": record.get("success_rate"),
+                    "misleading_rate": record.get("misleading_rate"),
+                    "effectiveness_band": record.get("effectiveness_band"),
+                },
                 "suggested_actions": [
                     "tighten trigger or scope",
                     "lower confidence",
@@ -222,3 +231,27 @@ def build_experience_usage_actions(summary: dict[str, Any]) -> list[dict[str, An
             }
         )
     return actions
+
+
+def effectiveness_metrics(outcomes: dict[str, int]) -> dict[str, Any]:
+    total = sum(int(value or 0) for value in outcomes.values())
+    success = sum(int(outcomes.get(name, 0) or 0) for name in POSITIVE_USAGE_BONUSES)
+    failure = sum(int(outcomes.get(name, 0) or 0) for name in NEGATIVE_USAGE_PENALTIES)
+    success_rate = round(success / total, 3) if total else 0.0
+    misleading_rate = round(int(outcomes.get("misleading", 0) or 0) / total, 3) if total else 0.0
+    if failure and success:
+        band = "mixed"
+    elif success_rate >= 0.67:
+        band = "strong"
+    elif failure:
+        band = "weak"
+    else:
+        band = "unknown"
+    return {
+        "total_count": total,
+        "success_count": success,
+        "failure_count": failure,
+        "success_rate": success_rate,
+        "misleading_rate": misleading_rate,
+        "effectiveness_band": band,
+    }

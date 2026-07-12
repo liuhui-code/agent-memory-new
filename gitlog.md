@@ -24,6 +24,42 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add quality closed-loop signals
+
+Files changed:
+- `docs/superpowers/plans/2026-07-12-experience-query-graph-log-quality-closed-loop.md`
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/experience_usage.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/governance_eval.py`
+- `tools/agent_memory_runtime/code_wiki.py`
+- `tools/agent_memory_runtime/graph_quality.py`
+- `tools/agent_memory_runtime/log_signal_quality.py`
+- `tests/test_quality_closed_loop.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+
+What changed:
+- Added `query_audit` to `context` and `search` for compact retrieval explanations.
+- Added experience usage effectiveness metrics and maintain-health records.
+- Added read-only `eval-governance` golden action evaluation.
+- Added ArkTS state symbol extraction plus `defines_state` graph edges.
+- Added log `observability_gaps` and a maintain-plan `review_log_observability_gap` action.
+
+Why:
+- Retrieval, experience reuse, graph learning, and log diagnosis need inspectable quality loops before further scale-up.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_closed_loop`
+- Result: passes.
+
+Rollback notes:
+- Remove the new eval command, query audit fields, effectiveness fields, graph/log additions, tests, and docs if the quality payloads become too noisy.
+
 ## 2026-07-12 - Add governance lane command templates
 
 Files changed:

@@ -137,6 +137,7 @@ Each `wiki-index`, `learn-path`, and `learn-entry` run now also records a persis
 Learning also stores code log statements such as `print(...)`, `logger.error(...)`, `console.warn(...)`, and ArkTS `hilog.info(...)`. These are connected to learned files and nearest detected functions through `memory_edges`.
 
 For HarmonyOS projects, learning also indexes `.json5` config files, ArkTS router targets, and `$r(...)` resource references as code wiki symbols. `learn-entry` can follow ArkTS router targets such as `router.pushUrl({ url: 'pages/Detail' })` to the related `.ets` page.
+It also indexes ArkTS component state such as `@State`, `@Prop`, `@Link`, and `@Provide` as `state` symbols and connects the file with `defines_state` edges. Use these anchors when symptoms mention stale UI state, blank pages after state changes, or state-driven rendering problems.
 
 `learn-entry --json` and `learn-path --json` can also return `semantic_followup` immediately after structural indexing. Use it to start the next `learn-business` pass on the exact files just learned, rather than waiting for a later maintenance review.
 
@@ -273,6 +274,7 @@ The runtime also performs lightweight query expansion before matching. It maps c
 This is deterministic keyword expansion, not a vector database. If the first result is broad, the Agent should query again with matched anchors such as file paths, route names, resources, log templates, or function names.
 
 Code and log matches include `search_terms` and `match_reasons`. `search_terms` expose the generated anchors used for retrieval. `match_reasons` explain whether a row matched by exact file path, exact symbol, log text, expanded query terms, or broader summary text.
+`context` and `search` also return `query_audit`. Use it when the top result looks suspicious: it summarizes result counts and exposes top-match explanations such as rerank score, quality score, trust level, feedback penalty, match reasons, gate reasons, and retrieval explanation. Treat it as diagnosis for the retrieval path, not as user-facing answer content.
 
 Code log matches may also include `log_signal_score`, `log_signal_band`, `missing_signals`, and `suggested_log_fields`. Prefer stronger-signal logs as anchors for recursive diagnosis. Treat low-signal logs as evidence gaps, not as source truth.
 
@@ -297,7 +299,7 @@ This command reuses current code/log memory, normalizes raw lines into lightweig
 
 Use `runtime_episode_candidate.candidate_chain` and `chain_confidence` when you need a compact explanation of how the incident unfolded.
 Use `log_improvement_suggestions` when the current logs were just barely enough; they point at a few high-value start, branch, or correlation logs worth adding to the source code later.
-Use `log_signal_summary` and `low_signal_events` to judge whether matched runtime evidence has enough fields for diagnosis. A poor signal event may still match the query, but it lacks fields such as `request_id`, `session_id`, `route`, `resource`, `reason`, `error_code`, or `result`; use `suggested_log_fields` as narrow logging-improvement guidance.
+Use `log_signal_summary` and `low_signal_events` to judge whether matched runtime evidence has enough fields for diagnosis. A poor signal event may still match the query, but it lacks fields such as `request_id`, `session_id`, `route`, `resource`, `reason`, `error_code`, or `result`; use `suggested_log_fields` and `observability_gaps` as narrow logging-improvement guidance.
 When matched events include `otel_lite`, prefer those structured fields for the LLM-facing summary: severity, logger, event name, request id, session id, error code, reason, route, and resource. Use raw excerpts only when the structured fields are insufficient.
 Use `reflect_payload_template` as the starting point when you want to turn temporary runtime-log evidence into a structured reflection or experience candidate. It is designed for diagnosis sessions, not for long-term raw-log archival. The template now also carries bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action`. When the query is correcting an earlier diagnosis, the template may already switch to `correction_experience` and include `old_hypothesis`.
 The runtime also keeps a rolling `runtime/last_usage_sample.json` during `context`, `search`, `analyze-runtime-log`, and `maintain-plan`. This is a bounded runtime-side summary, not a new long-term database row. A later `reflect` call can reuse it automatically to fill missing fields such as `task_type`, `problem`, `query_rounds`, `useful_followup_focus`, `useful_followup_terms`, `misleading_followup_terms`, `inspection_targets`, `evidence`, and `repair_action`.
@@ -327,6 +329,7 @@ When reflections cite incident traces in `source_cases`, for example `incident_t
 `maintain-health --json` reports `graph_quality`. If it shows orphan code logs, orphan symbols, stale edges, or poor anchor coverage, prefer a focused `learn-entry` or `learn-path` refresh around the affected source scope before broad re-learning. `review_graph_quality` in `maintain-plan` is a review prompt, not an automatic graph repair.
 
 `maintain-health --json` also reports `graph_signal_quality`. Structural graph health tells you whether anchors and edges exist; signal quality tells you whether those anchors carry enough business/log meaning to help the next Agent. Use `top_repair_targets` as a focused queue for `learn-business` enrichment or source logging improvements.
+If `maintain-plan --json` returns `review_log_observability_gap`, stay in the `log_diagnosis` lane and patch only the listed log anchors. Prefer correlation ids, route/resource, reason/error-code, stage, and result fields before adding broad logging.
 
 `maintain-health --json` and `maintain-plan --json` also report `active_learning_queue`. Use it as the first triage view when many governance signals exist. It ranks open query misses, weak graph/log anchors, misleading or helpful experience usage, and low-quality memories into a single bounded queue. The queue is read-only; follow the underlying action type before changing memory.
 
@@ -359,6 +362,14 @@ python tools/agent_memory.py eval-calibration --project . --cases docs/eval/gold
 ```
 
 `expected_trust` entries define records that should carry a target trust level or minimum trust score. `must_not_trust` entries define records that must not be treated as strong evidence. A failure means inspect the calibration model, feedback records, or case expectations before changing stored memory.
+
+Before changing maintain action builders, archive tiers, active learning, or governance lanes, run governance evaluation if a case file exists:
+
+```bash
+python tools/agent_memory.py eval-governance --project . --cases docs/eval/golden-governance.json --json
+```
+
+Each case can define `expected_actions` and `must_not_actions`. A failure means the maintenance review behavior changed; inspect the action builder or update the golden case deliberately.
 
 Before changing log parsing, log signal scoring, or runtime-log diagnosis output, run log signal evaluation if a case file exists:
 

@@ -42,6 +42,7 @@ def score_log_signal(event: dict[str, Any]) -> dict[str, Any]:
         "present_signals": present_signals,
         "missing_signals": missing_signals,
         "suggested_log_fields": suggested_log_fields(missing_signals),
+        "observability_gaps": observability_gaps(missing_signals),
     }
 
 
@@ -75,6 +76,10 @@ def build_log_signal_summary(events: list[dict[str, Any]]) -> dict[str, Any]:
             {"signal": signal, "count": count}
             for signal, count in sorted(missing_counts.items(), key=lambda item: (-item[1], item[0]))[:8]
         ],
+        "observability_gaps": [
+            {"gap": gap, "count": count}
+            for gap, count in sorted(observability_gap_counts(scored).items(), key=lambda item: (-item[1], item[0]))[:8]
+        ],
     }
 
 
@@ -90,9 +95,34 @@ def low_signal_events(events: list[dict[str, Any]], limit: int = 5) -> list[dict
             "log_signal_band": event.get("log_signal_band"),
             "missing_signals": event.get("missing_signals") or [],
             "suggested_log_fields": event.get("suggested_log_fields") or [],
+            "observability_gaps": event.get("observability_gaps") or [],
         }
         for event in low[:limit]
     ]
+
+
+def observability_gaps(missing_signals: list[str]) -> list[str]:
+    mapping = {
+        "timestamp": "missing_time",
+        "process": "missing_process",
+        "level": "missing_severity",
+        "logger": "missing_logger",
+        "event_type": "missing_event_name",
+        "stage": "missing_stage",
+        "reason": "missing_reason",
+        "route_or_resource": "missing_route_or_resource",
+        "request_or_session_id": "missing_correlation",
+        "action_result": "missing_result",
+    }
+    return unique_list([mapping[signal] for signal in missing_signals if signal in mapping])
+
+
+def observability_gap_counts(events: list[dict[str, Any]]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for event in events:
+        for gap in event.get("observability_gaps") or []:
+            counts[str(gap)] = counts.get(str(gap), 0) + 1
+    return counts
 
 
 def signal_presence(event: dict[str, Any], text: str) -> dict[str, bool]:

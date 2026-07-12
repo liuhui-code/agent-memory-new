@@ -17,6 +17,7 @@ from .graph_quality import (
     build_graph_quality_actions,
     build_graph_signal_quality,
     build_graph_signal_quality_actions,
+    build_log_observability_gap_actions,
 )
 from .governance_action_budget import (
     annotate_governance_action_priorities,
@@ -314,6 +315,7 @@ def maintain_health(args: argparse.Namespace) -> None:
             "event_count": experience_usage["event_count"],
             "misleading_records": experience_usage["misleading_records"],
             "helpful_records": experience_usage["helpful_records"],
+            "records": experience_usage["records"],
         },
         "active_learning_queue": active_learning_queue,
         "memory_tiers": memory_tiers,
@@ -2142,6 +2144,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     graph_quality_actions = build_graph_quality_actions(graph_quality)
     graph_signal_quality = build_graph_signal_quality(project)
     graph_signal_quality_actions = build_graph_signal_quality_actions(graph_signal_quality)
+    log_observability_gap_actions = build_log_observability_gap_actions(graph_signal_quality)
     runtime_performance = build_runtime_performance_summary(project)
     runtime_performance_actions = build_runtime_performance_actions(runtime_performance)
     experience_usage = fetch_experience_usage_summary(project, args.limit)
@@ -2336,6 +2339,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(maturity_governance_actions)
     actions.extend(graph_quality_actions)
     actions.extend(graph_signal_quality_actions)
+    actions.extend(log_observability_gap_actions)
     actions.extend(runtime_performance_actions)
     actions.extend(experience_usage_actions)
     actions.extend(memory_tier_actions)
@@ -2592,6 +2596,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "maturity_regression_reviews": len([action for action in maturity_governance_actions if action.get("action") == "review_maturity_regression"]),
         "graph_quality_reviews": len(graph_quality_actions),
         "graph_signal_quality_reviews": len(graph_signal_quality_actions),
+        "log_observability_gap_reviews": len(log_observability_gap_actions),
         "runtime_performance_reviews": len(runtime_performance_actions),
         "experience_usage_reviews": len(experience_usage_actions),
         "memory_tier_reviews": len(memory_tier_actions),
@@ -3086,7 +3091,7 @@ def infer_governance_lane(action: dict[str, Any]) -> str:
         return "learn_semantic_repair"
     if action_name in {"review_skill_pattern_candidate", "review_incident_strategy_candidate"}:
         return "skill_evolution"
-    if action_name in {"review_log_design_gap", "review_query_miss"}:
+    if action_name in {"review_log_design_gap", "review_log_observability_gap", "review_query_miss"}:
         return "log_diagnosis"
     if action_name in {"review_recurring_incident_fingerprint"}:
         return "incident_recurrence"

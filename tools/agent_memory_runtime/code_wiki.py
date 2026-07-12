@@ -143,6 +143,8 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
 
 def extract_arkts_reference_symbols(text: str) -> list[tuple[str, str]]:
     symbols: list[tuple[str, str]] = []
+    for match in re.finditer(r"@(State|Prop|Link|Provide)\s+([A-Za-z_][A-Za-z0-9_]*)", text):
+        symbols.append((match.group(2), "state"))
     for match in re.finditer(
         r"\brouter\.(?:pushUrl|replaceUrl)\s*\(\s*\{[^}]*\burl\s*:\s*['\"]([^'\"]+)['\"]",
         text,
@@ -874,6 +876,24 @@ def insert_arkts_knowledge_edges(
                     "code_symbol",
                     symbol_id,
                     f"{source_rel} uses {resource}",
+                    0.8,
+                    ts,
+                )
+
+        for state_name, kind in extract_arkts_reference_symbols(text):
+            if kind != "state":
+                continue
+            symbol_id = symbol_ids.get((source_rel, state_name, "state"))
+            if symbol_id:
+                insert_memory_edge(
+                    conn,
+                    project.project_id,
+                    "code_file",
+                    source_id,
+                    "defines_state",
+                    "code_symbol",
+                    symbol_id,
+                    f"{source_rel} defines state {state_name}",
                     0.8,
                     ts,
                 )

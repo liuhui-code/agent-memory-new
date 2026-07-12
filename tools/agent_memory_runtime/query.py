@@ -1183,6 +1183,7 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "network_limits": network_limits(),
     }
     calibrate_payload(context)
+    context["query_audit"] = build_query_audit(context)
     record_context_use(project, context)
     record_query_miss_if_empty(project, "context", query, context)
     return context
@@ -1206,7 +1207,64 @@ def limited_search(
     payload["blocked_memory_notes"] = gated["blocked_memory_notes"]
     payload["conflict_notes"] = gated["conflict_notes"]
     calibrate_payload(payload)
+    payload["query_audit"] = build_query_audit(payload)
     return payload
+
+
+def build_query_audit(payload: dict[str, Any]) -> dict[str, Any]:
+    result_keys = [
+        "semantic_facts",
+        "reflections",
+        "episodes",
+        "wiki_matches",
+        "code_log_matches",
+        "edge_matches",
+        "incident_trace_matches",
+    ]
+    result_counts = {
+        key: len(payload.get(key) or [])
+        for key in result_keys
+        if isinstance(payload.get(key), list)
+    }
+    top_explanations: dict[str, list[dict[str, Any]]] = {}
+    for key in result_keys:
+        values = payload.get(key)
+        if not isinstance(values, list):
+            continue
+        explanations = [compact_query_explanation(key, item) for item in values if isinstance(item, dict)]
+        explanations.sort(
+            key=lambda item: (
+                float(item.get("rerank_score") or item.get("score") or 0.0),
+                float(item.get("trust_score") or 0.0),
+                int(item.get("id") or 0),
+            ),
+            reverse=True,
+        )
+        top_explanations[key] = explanations[:3]
+    return {
+        "result_counts": result_counts,
+        "top_explanations": top_explanations,
+        "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+    }
+
+
+def compact_query_explanation(result_type: str, item: dict[str, Any]) -> dict[str, Any]:
+    explanation = item.get("retrieval_explanation") if isinstance(item.get("retrieval_explanation"), dict) else {}
+    return {
+        "type": result_type,
+        "id": item.get("id"),
+        "score": item.get("score"),
+        "rerank_score": item.get("rerank_score"),
+        "quality_score": item.get("quality_score"),
+        "trust_score": item.get("trust_score"),
+        "trust_level": item.get("trust_level"),
+        "feedback_penalty": item.get("feedback_penalty", 0.0),
+        "usage_feedback_bonus": item.get("usage_feedback_bonus", 0.0),
+        "usage_feedback_penalty": item.get("usage_feedback_penalty", 0.0),
+        "match_reasons": item.get("match_reasons") or explanation.get("match_reasons") or [],
+        "gate_reasons": item.get("gate_reasons") or explanation.get("gate_reasons") or [],
+        "retrieval_explanation": explanation,
+    }
 
 
 def batched_search(

@@ -263,6 +263,44 @@ def build_graph_signal_quality_actions(graph_signal_quality: dict[str, Any]) -> 
     ]
 
 
+def build_log_observability_gap_actions(graph_signal_quality: dict[str, Any]) -> list[dict[str, Any]]:
+    targets = [
+        target
+        for target in graph_signal_quality.get("top_repair_targets") or []
+        if target.get("target_type") == "code_log_statement" and target.get("missing_signals")
+    ]
+    if not targets:
+        return []
+
+    missing_counts: dict[str, int] = {}
+    for target in targets:
+        for signal in target.get("missing_signals") or []:
+            key = str(signal)
+            missing_counts[key] = missing_counts.get(key, 0) + 1
+
+    return [
+        {
+            "action": "review_log_observability_gap",
+            "governance_lane": "log_diagnosis",
+            "type": "log_observability",
+            "id": None,
+            "reason": "learned code logs are missing fields that make incident diagnosis harder",
+            "risk": "low",
+            "requires_confirmation": False,
+            "command": None,
+            "gap_count": len(targets),
+            "missing_signal_counts": dict(sorted(missing_counts.items(), key=lambda item: (-item[1], item[0]))),
+            "top_targets": targets[:5],
+            "suggested_actions": [
+                "add_request_or_session_correlation_to_logs",
+                "add_route_resource_reason_or_result_fields",
+                "use_stable_event_names_for_start_branch_result_logs",
+                "rerun_focused_learn_after_log_changes",
+            ],
+        }
+    ]
+
+
 def graph_signal_health_status(weak_anchor_count: int, missing_business: int, missing_log_signal_fields: int) -> str:
     if weak_anchor_count == 0 and missing_business == 0 and missing_log_signal_fields == 0:
         return "ok"
