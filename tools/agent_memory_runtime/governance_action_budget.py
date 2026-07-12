@@ -69,6 +69,7 @@ def build_governance_action_budget(
         "counts_by_lane": count_by(actions, "governance_lane"),
         "counts_by_risk": count_by(actions, "risk"),
         "top_limit": limit,
+        "next_command_templates": next_command_templates(limit),
         "top_actions": [compact_action(action, index + 1) for index, action in enumerate(sorted_actions[:limit])],
     }
 
@@ -201,6 +202,7 @@ def count_by(actions: list[dict[str, Any]], key: str) -> dict[str, int]:
 def compact_action(action: dict[str, Any], rank: int) -> dict[str, Any]:
     return {
         "rank": rank,
+        "review_key": review_key(action, rank),
         "action": action.get("action"),
         "governance_lane": action.get("governance_lane"),
         "type": action.get("type"),
@@ -209,5 +211,49 @@ def compact_action(action: dict[str, Any], rank: int) -> dict[str, Any]:
         "requires_confirmation": bool(action.get("requires_confirmation")),
         "priority_score": action.get("priority_score"),
         "priority_reasons": action.get("priority_reasons") or [],
+        "source_hint": source_hint(action),
         "reason": action.get("reason"),
+    }
+
+
+def review_key(action: dict[str, Any], rank: int) -> str:
+    action_name = safe_key_part(action.get("action") or "action")
+    action_type = safe_key_part(action.get("type") or action.get("governance_lane") or "target")
+    action_id = action.get("id")
+    if action_id is None:
+        action_id = action.get("target_id")
+    if action_id is None:
+        memory_tier = action.get("memory_tier")
+        if isinstance(memory_tier, dict):
+            action_id = memory_tier.get("target_id")
+    identifier = safe_key_part(action_id if action_id is not None else f"rank_{rank}")
+    return f"{action_name}:{action_type}:{identifier}"
+
+
+def source_hint(action: dict[str, Any]) -> str:
+    parts = [
+        str(action.get("governance_lane") or "unknown_lane"),
+        str(action.get("action") or "unknown_action"),
+    ]
+    if action.get("type"):
+        parts.append(f"type={action.get('type')}")
+    if action.get("id") is not None:
+        parts.append(f"id={action.get('id')}")
+    if action.get("reason"):
+        parts.append(str(action.get("reason")))
+    return " | ".join(parts)
+
+
+def safe_key_part(value: Any) -> str:
+    text = str(value or "").strip().lower()
+    safe = "".join(char if char.isalnum() else "_" for char in text)
+    return "_".join(part for part in safe.split("_") if part) or "unknown"
+
+
+def next_command_templates(limit: int) -> dict[str, str]:
+    bounded_limit = max(1, int(limit or DEFAULT_TOP_LIMIT))
+    return {
+        "compact_same_limit": f"python tools/agent_memory.py maintain-plan --project . --compact --action-limit {bounded_limit} --json",
+        "compact_smaller": "python tools/agent_memory.py maintain-plan --project . --compact --action-limit 1 --json",
+        "full_plan": "python tools/agent_memory.py maintain-plan --project . --json",
     }

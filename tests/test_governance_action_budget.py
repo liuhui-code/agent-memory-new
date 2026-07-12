@@ -132,6 +132,22 @@ class GovernanceActionBudgetTests(unittest.TestCase):
         self.assertEqual(1, len(data["action_budget"]["top_actions"]))
         self.assertEqual(1, len(data["actions"]))
 
+    def test_compact_top_actions_include_review_navigation(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            self.run_memory(project, "init")
+            self.seed_actions(project)
+
+            result = self.run_memory(project, "maintain-plan", "--compact", "--action-limit", "1", "--json")
+            data = json.loads(result.stdout)
+
+        top_action = data["action_budget"]["top_actions"][0]
+        self.assertRegex(top_action["review_key"], r"^[a-z_]+:[a-z_]+:")
+        self.assertTrue(top_action["source_hint"])
+        self.assertIn("full_plan", data["action_budget"]["next_command_templates"])
+        self.assertIn("compact_same_limit", data["action_budget"]["next_command_templates"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -24,6 +24,33 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add governance budget navigation
+
+Files changed:
+- `tools/agent_memory_runtime/governance_action_budget.py`
+- `tests/test_governance_action_budget.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-governance-budget-navigation.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added stable `review_key` values to compact `action_budget.top_actions`.
+- Added `source_hint` to compact top actions so low-token outputs still show where the action came from.
+- Added `next_command_templates` to the action budget for compact reruns and full maintain-plan review.
+
+Why:
+- Compact action budgets should be navigable without forcing the Agent to infer how to continue from sparse action summaries.
+- This keeps the large-archive flow token-light while preserving the confirmation-first maintenance model.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_governance_action_budget`
+- Result: passes.
+
+Rollback notes:
+- Remove `review_key`, `source_hint`, `next_command_templates`, the navigation test, and docs if the extra metadata adds noise.
+
 ## 2026-07-12 - Add governance action limit
 
 Files changed:

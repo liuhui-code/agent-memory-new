@@ -340,7 +340,7 @@ For large archives or low-token sessions, start with:
 python tools/agent_memory.py maintain-plan --project . --compact --action-limit 3 --json
 ```
 
-Compact mode returns `action_budget`, `health_overview`, and compact top actions first. Use `--action-limit 1` for an extremely small first pass, or `--action-limit 3` to review a short batch. If the selected action needs templates, record details, or full graph/memory context, rerun normal `maintain-plan --json`.
+Compact mode returns `action_budget`, `health_overview`, and compact top actions first. Use `review_key` and `source_hint` to identify the selected action, then use `next_command_templates.full_plan` if you need templates, record details, or full graph/memory context. Use `--action-limit 1` for an extremely small first pass, or `--action-limit 3` to review a short batch.
 
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 
