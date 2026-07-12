@@ -50,6 +50,7 @@ from agent_memory_runtime.evidence_attribution import eval_evidence_attribution_
 from agent_memory_runtime.governance_eval import eval_governance_command
 from agent_memory_runtime.experience_usage import experience_usage_command
 from agent_memory_runtime.log_signal_eval import eval_log_signal_command
+from agent_memory_runtime.quality_gate_eval import eval_quality_command
 from agent_memory_runtime.performance_scoring import (
     append_performance_sample,
     build_performance_sample,
@@ -778,6 +779,7 @@ def main(argv: list[str] | None = None) -> int:
             "eval_log_signal_command": eval_log_signal_command,
             "eval_evidence_attribution_command": eval_evidence_attribution_command,
             "eval_governance_command": eval_governance_command,
+            "eval_quality_command": eval_quality_command,
             "retrieval_feedback_command": retrieval_feedback_command,
             "experience_usage_command": experience_usage_command,
             "analyze_runtime_log_command": analyze_runtime_log_command,

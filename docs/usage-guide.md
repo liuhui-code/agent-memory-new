@@ -347,6 +347,14 @@ Compact mode returns `action_budget`, `health_overview`, and compact top actions
 
 If you already know the governance lane for this pass, add `--action-lane memory_tiers`, `--action-lane log_diagnosis`, or another lane from `action_budget.counts_by_lane`. The lane filter affects only the budgeted top-action batch; normal maintain-plan still computes the underlying review signals. If `lane_filter_status` is `no_matches`, use `available_lanes` instead of assuming there is no maintenance work.
 
+Before changing retrieval, calibration, governance, log, evidence, or graph behavior, prefer the one-command quality gate when a cases directory exists:
+
+```bash
+python tools/agent_memory.py eval-quality --project . --cases-dir docs/eval --json
+```
+
+The command skips missing golden files by default and combines all available gates into one pass/fail result. Use `--strict` in CI-like checks when an empty cases directory should fail. If it fails, inspect the failing gate name and rerun that specific eval command below for full case detail.
+
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 
 ```bash

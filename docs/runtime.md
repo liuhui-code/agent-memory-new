@@ -218,6 +218,14 @@ Reflection and correction-guard rows may also include `query_risk_flags`, `trust
 
 `reflect --payload` keeps reusable procedure experience and correction experience separate. `procedure_experience` requires a repair action, verification method, and a trigger anchor such as `trigger_condition`, `useful_followup_focus`, `source_cases`, or `context_used`. `correction_experience` requires `trigger_condition`, `repair_action`, and a misleading signal such as `anti_pattern`, `misleading_followup_terms`, or `what_failed`. A correction experience cannot set `skill_candidate`; single-case semantic or business corrections route to guardrail and semantic-repair governance, not direct skill evolution.
 
+All available golden evaluations can be checked with one local quality gate:
+
+```bash
+python tools/agent_memory.py eval-quality --project . --cases-dir docs/eval --json
+```
+
+`eval-quality` looks for known golden case files in the cases directory, skips missing files by default, and returns one combined `quality_gate`. Use `--strict` for CI-like checks where an empty cases directory should fail. When the combined gate fails, rerun the specific failing eval command below for full case detail.
+
 Retrieval changes can be checked with a local golden-query eval:
 
 ```bash

@@ -24,6 +24,34 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add quality gate orchestrator
+
+Files changed:
+- `docs/superpowers/plans/2026-07-12-quality-gate-orchestrator.md`
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/quality_gate_eval.py`
+- `tests/test_quality_gate_eval.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `eval-quality --cases-dir <dir> --json` as a unified read-only quality gate.
+- The command discovers known golden case files, skips missing files by default, and aggregates pass/fail status across retrieval, calibration, governance, log-signal, and evidence-attribution gates.
+- Added `--strict` for CI-like checks where an empty cases directory should fail.
+
+Why:
+- Existing eval commands were useful but scattered. A single orchestrator makes quality checks easier before changing retrieval, experience, governance, code graph, or log diagnosis behavior.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_gate_eval`
+- Result: passes.
+
+Rollback notes:
+- Remove the `eval-quality` parser entry, `quality_gate_eval.py`, tests, and docs if the aggregate gate becomes noisy or redundant.
+
 ## 2026-07-12 - Add quality closed-loop signals
 
 Files changed:
