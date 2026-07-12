@@ -38,7 +38,7 @@ from .performance_scoring import (
     monotonic_ms,
 )
 from .quality_scoring import build_quality_report
-from .quality_gate_eval import load_quality_gate_snapshot
+from .quality_gate_eval import build_quality_gate_failure_actions, load_quality_gate_snapshot
 from .query import collect_matches, infer_followup_focus, rank_followup_seed_terms, suggested_followup_terms
 from .records import output, parse_ids, row_dict, table_for_type
 from .retrieval_feedback import fetch_open_retrieval_feedback
@@ -2151,6 +2151,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
     graph_signal_quality = build_graph_signal_quality(project)
     graph_signal_quality_actions = build_graph_signal_quality_actions(graph_signal_quality)
     log_observability_gap_actions = build_log_observability_gap_actions(graph_signal_quality)
+    last_quality_gate = load_quality_gate_snapshot(project)
+    quality_gate_actions = build_quality_gate_failure_actions(last_quality_gate)
     runtime_performance = build_runtime_performance_summary(project)
     runtime_performance_actions = build_runtime_performance_actions(runtime_performance)
     experience_usage = fetch_experience_usage_summary(project, args.limit)
@@ -2346,6 +2348,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(graph_quality_actions)
     actions.extend(graph_signal_quality_actions)
     actions.extend(log_observability_gap_actions)
+    actions.extend(quality_gate_actions)
     actions.extend(runtime_performance_actions)
     actions.extend(experience_usage_actions)
     actions.extend(memory_tier_actions)
@@ -2603,6 +2606,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "graph_quality_reviews": len(graph_quality_actions),
         "graph_signal_quality_reviews": len(graph_signal_quality_actions),
         "log_observability_gap_reviews": len(log_observability_gap_actions),
+        "quality_gate_failure_reviews": len(quality_gate_actions),
         "runtime_performance_reviews": len(runtime_performance_actions),
         "experience_usage_reviews": len(experience_usage_actions),
         "memory_tier_reviews": len(memory_tier_actions),
@@ -2637,6 +2641,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "learn_governance_summary": learn_governance_summary,
         "graph_quality": graph_quality,
         "graph_signal_quality": graph_signal_quality,
+        "last_quality_gate": last_quality_gate,
         "runtime_performance": runtime_performance,
         "experience_usage": {
             "event_count": experience_usage["event_count"],
@@ -3099,6 +3104,8 @@ def infer_governance_lane(action: dict[str, Any]) -> str:
         return "skill_evolution"
     if action_name in {"review_log_design_gap", "review_log_observability_gap", "review_query_miss"}:
         return "log_diagnosis"
+    if action_name in {"review_quality_gate_failure"}:
+        return "quality_gate"
     if action_name in {"review_recurring_incident_fingerprint"}:
         return "incident_recurrence"
     if action_name in {"review_experience_conflict"}:

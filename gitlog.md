@@ -24,6 +24,34 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add quality gate governance action
+
+Files changed:
+- `docs/superpowers/plans/2026-07-12-quality-gate-governance-action.md`
+- `tools/agent_memory_runtime/quality_gate_eval.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/governance_action_budget.py`
+- `tests/test_quality_gate_eval.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added `review_quality_gate_failure` actions from the latest failed quality gate snapshot.
+- Added the `quality_gate` governance lane to action budgeting.
+- `maintain-plan` now includes `last_quality_gate` and a quality gate failure review counter.
+
+Why:
+- A failed aggregate quality gate should enter the same review workflow as memory, graph, log, and runtime performance issues.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_gate_eval`
+- Result: passes.
+
+Rollback notes:
+- Remove the action builder, maintain-plan integration, lane weights, tests, and docs if quality gate failures should remain health-only.
+
 ## 2026-07-12 - Expose latest quality gate health
 
 Files changed:

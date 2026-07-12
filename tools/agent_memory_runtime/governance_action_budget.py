@@ -19,6 +19,7 @@ LANE_WEIGHT = {
     "experience_conflict": 0.18,
     "experience_staleness": 0.18,
     "memory_quality": 0.16,
+    "quality_gate": 0.16,
     "retrieval_feedback": 0.15,
     "experience_usage": 0.15,
     "runtime_performance": 0.14,
@@ -34,6 +35,7 @@ ACTION_WEIGHT = {
     "review_retrieval_interference": 0.18,
     "review_semantic_patch": 0.18,
     "review_runtime_performance_budget": 0.16,
+    "review_quality_gate_failure": 0.16,
     "review_experience_usage": 0.15,
     "review_active_learning_queue": 0.14,
     "review_memory_tier": 0.12,
@@ -98,6 +100,7 @@ def compact_maintain_plan_payload(data: dict[str, Any]) -> dict[str, Any]:
     evidence_chain_summary = data.get("evidence_chain_summary") or {}
     experience_usage = data.get("experience_usage") or {}
     retrieval_feedback_summary = data.get("retrieval_feedback_summary") or {}
+    last_quality_gate = data.get("last_quality_gate") or {}
 
     return {
         "project_id": data.get("project_id"),
@@ -116,6 +119,7 @@ def compact_maintain_plan_payload(data: dict[str, Any]) -> dict[str, Any]:
             "memory_tier_counts": memory_tiers.get("counts") or {},
             "active_learning_queue_count": active_learning_queue.get("queue_count", 0),
             "retrieval_feedback_open": retrieval_feedback_summary.get("open_feedback", 0),
+            "last_quality_gate_status": last_quality_gate.get("quality_gate"),
             "low_quality_record_count": quality_summary.get("low_quality_count", 0),
             "high_value_record_count": quality_summary.get("high_value_count", 0),
             "evidence_chain_summary": evidence_chain_summary,
@@ -129,6 +133,7 @@ def compact_maintain_plan_payload(data: dict[str, Any]) -> dict[str, Any]:
             "memory_tiers",
             "active_learning_queue",
             "retrieval_feedback_summary",
+            "last_quality_gate",
             "quality_summary",
             "evidence_chain_summary",
             "low_quality_records",

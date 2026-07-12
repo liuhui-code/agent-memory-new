@@ -178,3 +178,35 @@ def compact_quality_gate_snapshot(data: dict[str, Any]) -> dict[str, Any]:
         "strict": bool(data.get("strict")),
         "gates": gates,
     }
+
+
+def build_quality_gate_failure_actions(snapshot: dict[str, Any]) -> list[dict[str, Any]]:
+    if snapshot.get("quality_gate") != "fail":
+        return []
+    summary = snapshot.get("summary") or {}
+    failed_gate_names = [str(item) for item in summary.get("failed_gate_names") or [] if str(item).strip()]
+    next_command_templates = [
+        str(gate.get("next_command_template") or "")
+        for gate in snapshot.get("gates") or []
+        if gate.get("status") == "fail" and str(gate.get("next_command_template") or "").strip()
+    ]
+    return [
+        {
+            "action": "review_quality_gate_failure",
+            "governance_lane": "quality_gate",
+            "type": "quality_gate",
+            "id": None,
+            "reason": "latest aggregate quality gate failed",
+            "risk": "medium",
+            "requires_confirmation": False,
+            "command": None,
+            "failed_gate_names": failed_gate_names,
+            "next_command_templates": next_command_templates,
+            "last_quality_gate": snapshot,
+            "suggested_actions": [
+                "rerun_failed_eval_gate",
+                "inspect_missed_or_unexpected_case",
+                "fix_runtime_behavior_or_update_golden_case_deliberately",
+            ],
+        }
+    ]

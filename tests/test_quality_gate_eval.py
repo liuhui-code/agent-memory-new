@@ -209,6 +209,37 @@ class QualityGateEvalTests(unittest.TestCase):
             any("quality gate" in action.lower() for action in health["recommended_actions"])
         )
 
+    def test_maintain_plan_reviews_latest_quality_gate_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            cases_dir = root / "eval"
+            project.mkdir()
+            cases_dir.mkdir()
+            (cases_dir / "golden-log-signal.json").write_text(
+                json.dumps(
+                    [
+                        {
+                            "name": "bad-log",
+                            "logs": ["failed"],
+                            "min_good_rate": 1.0,
+                            "max_low_signal_rate": 0.0,
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "eval-quality", "--cases-dir", str(cases_dir), "--json")
+            plan = json.loads(self.run_memory(project, "maintain-plan", "--json").stdout)
+
+        actions = [action for action in plan["actions"] if action["action"] == "review_quality_gate_failure"]
+        self.assertEqual(1, len(actions))
+        self.assertEqual("quality_gate", actions[0]["governance_lane"])
+        self.assertEqual(["log_signal"], actions[0]["failed_gate_names"])
+        self.assertTrue(any("eval-log-signal" in item for item in actions[0]["next_command_templates"]))
+        self.assertEqual(1, plan["governance_summary"]["quality_gate_failure_reviews"])
+
 
 if __name__ == "__main__":
     unittest.main()
