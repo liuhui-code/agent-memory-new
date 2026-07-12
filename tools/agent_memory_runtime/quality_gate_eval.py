@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 from typing import Any, Callable
 
@@ -17,6 +18,7 @@ from .storage import ensure_initialized, resolve_project
 
 
 GateRunner = Callable[[Project, Path], dict[str, Any]]
+QUALITY_GATE_SAMPLE_FILE = "last_quality_gate.json"
 
 
 def eval_quality_command(args: argparse.Namespace) -> None:
@@ -27,6 +29,7 @@ def eval_quality_command(args: argparse.Namespace) -> None:
         Path(args.cases_dir),
         strict=bool(getattr(args, "strict", False)),
     )
+    save_quality_gate_snapshot(project, data)
     output(data, args.json)
     if bool(getattr(args, "fail_on_fail", False)) and data.get("quality_gate") == "fail":
         raise SystemExit(1)
@@ -129,4 +132,49 @@ def evaluate_gate(
         "summary": summary,
         "thresholds": data.get("thresholds") or {},
         "case_count": int(summary.get("case_count") or 0),
+    }
+
+
+def quality_gate_snapshot_path(project: Project) -> Path:
+    return project.runtime_dir / QUALITY_GATE_SAMPLE_FILE
+
+
+def save_quality_gate_snapshot(project: Project, data: dict[str, Any]) -> None:
+    project.runtime_dir.mkdir(parents=True, exist_ok=True)
+    quality_gate_snapshot_path(project).write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+def load_quality_gate_snapshot(project: Project) -> dict[str, Any]:
+    path = quality_gate_snapshot_path(project)
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    return compact_quality_gate_snapshot(data)
+
+
+def compact_quality_gate_snapshot(data: dict[str, Any]) -> dict[str, Any]:
+    gates = [
+        {
+            "name": gate.get("name"),
+            "status": gate.get("status"),
+            "case_file": gate.get("case_file"),
+            "next_command_template": gate.get("next_command_template"),
+        }
+        for gate in data.get("gates") or []
+        if isinstance(gate, dict)
+    ]
+    return {
+        "quality_gate": data.get("quality_gate"),
+        "summary": data.get("summary") or {},
+        "cases_dir": data.get("cases_dir"),
+        "strict": bool(data.get("strict")),
+        "gates": gates,
     }

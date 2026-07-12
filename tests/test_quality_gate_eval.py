@@ -179,6 +179,36 @@ class QualityGateEvalTests(unittest.TestCase):
         self.assertEqual("fail", data["quality_gate"])
         self.assertEqual(["log_signal"], data["summary"]["failed_gate_names"])
 
+    def test_maintain_health_reports_latest_quality_gate_snapshot(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            cases_dir = root / "eval"
+            project.mkdir()
+            cases_dir.mkdir()
+            (cases_dir / "golden-log-signal.json").write_text(
+                json.dumps(
+                    [
+                        {
+                            "name": "bad-log",
+                            "logs": ["failed"],
+                            "min_good_rate": 1.0,
+                            "max_low_signal_rate": 0.0,
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "eval-quality", "--cases-dir", str(cases_dir), "--json")
+            health = json.loads(self.run_memory(project, "maintain-health", "--json").stdout)
+
+        self.assertEqual("fail", health["last_quality_gate"]["quality_gate"])
+        self.assertEqual(["log_signal"], health["last_quality_gate"]["summary"]["failed_gate_names"])
+        self.assertTrue(
+            any("quality gate" in action.lower() for action in health["recommended_actions"])
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

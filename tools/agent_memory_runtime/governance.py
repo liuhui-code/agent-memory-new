@@ -38,6 +38,7 @@ from .performance_scoring import (
     monotonic_ms,
 )
 from .quality_scoring import build_quality_report
+from .quality_gate_eval import load_quality_gate_snapshot
 from .query import collect_matches, infer_followup_focus, rank_followup_seed_terms, suggested_followup_terms
 from .records import output, parse_ids, row_dict, table_for_type
 from .retrieval_feedback import fetch_open_retrieval_feedback
@@ -245,6 +246,7 @@ def maintain_health(args: argparse.Namespace) -> None:
         quality_report=health_quality_report,
         limit=5,
     )
+    last_quality_gate = load_quality_gate_snapshot(project)
 
     duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
     low_confidence_count = low_conf_semantic_count + low_conf_reflection_count
@@ -275,6 +277,9 @@ def maintain_health(args: argparse.Namespace) -> None:
         recommended_actions.append("Use the active learning queue to handle the highest-priority miss, weak graph anchor, or experience outcome first.")
     if memory_tiers["review_targets"]:
         recommended_actions.append("Review cold or archive-candidate memories before adding heavier retrieval infrastructure.")
+    if last_quality_gate.get("quality_gate") == "fail":
+        failed = ", ".join(str(item) for item in (last_quality_gate.get("summary") or {}).get("failed_gate_names") or [])
+        recommended_actions.append(f"Review latest quality gate failure{f': {failed}' if failed else ''}.")
 
     data = {
         "project_id": project.project_id,
@@ -319,6 +324,7 @@ def maintain_health(args: argparse.Namespace) -> None:
         },
         "active_learning_queue": active_learning_queue,
         "memory_tiers": memory_tiers,
+        "last_quality_gate": last_quality_gate,
         "runtime_performance": build_runtime_performance_summary(project),
         "recommended_actions": recommended_actions,
     }

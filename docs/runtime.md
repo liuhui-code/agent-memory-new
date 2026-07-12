@@ -225,6 +225,7 @@ python tools/agent_memory.py eval-quality --project . --cases-dir docs/eval --js
 ```
 
 `eval-quality` looks for known golden case files in the cases directory, skips missing files by default, and returns one combined `quality_gate`. Use `--strict` for CI-like checks where an empty cases directory should fail. Use `--fail-on-fail` when scripts should receive exit code 1 after a failing JSON report. When the combined gate fails, inspect each failed gate's `next_command_template` and rerun that specific eval for full case detail.
+Each run also writes `runtime/last_quality_gate.json`. `maintain-health --json` exposes a compact `last_quality_gate` view from that file and recommends review when the latest gate failed. Treat it as disposable runtime telemetry, not durable memory.
 
 To bootstrap editable examples without activating them as the default gate, run:
 

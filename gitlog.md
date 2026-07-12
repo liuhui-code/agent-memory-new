@@ -24,6 +24,33 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Expose latest quality gate health
+
+Files changed:
+- `docs/superpowers/plans/2026-07-12-quality-gate-snapshot.md`
+- `tools/agent_memory_runtime/quality_gate_eval.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tests/test_quality_gate_eval.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- `eval-quality` now writes `runtime/last_quality_gate.json`.
+- `maintain-health --json` exposes a compact `last_quality_gate` snapshot.
+- Failed latest quality gates add a targeted recommended action.
+
+Why:
+- Maintenance should see recent quality gate status without requiring SQLite writes or long-term memory records.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_gate_eval`
+- Result: passes.
+
+Rollback notes:
+- Remove snapshot helpers, maintain-health field, recommendation, tests, and docs if runtime snapshots become noisy.
+
 ## 2026-07-12 - Add quality gate automation hints
 
 Files changed:
