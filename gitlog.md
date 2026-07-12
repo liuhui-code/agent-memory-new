@@ -24,6 +24,33 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-12 - Add quality gate filter
+
+Files changed:
+- `docs/superpowers/plans/2026-07-12-quality-gate-filter.md`
+- `tools/agent_memory_runtime/quality_gate_eval.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tests/test_quality_gate_eval.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `gitlog.md`
+
+What changed:
+- Added repeatable `eval-quality --gate <name>` filtering.
+- Aggregate summary now includes `selected_gate_names`.
+- Delta comparisons filter previous failures to selected gates, avoiding false resolved-failure signals during partial runs.
+
+Why:
+- Agents and scripts often need to rerun one quality lane without running the full aggregate gate.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_gate_eval`
+- Result: passes.
+
+Rollback notes:
+- Remove the CLI flag, gate filtering, test, and docs if aggregate-only evaluation is preferred.
+
 ## 2026-07-12 - Add quality gate delta summary
 
 Files changed:

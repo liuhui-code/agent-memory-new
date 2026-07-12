@@ -93,6 +93,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p = sub.add_parser("eval-quality")
     add_project(p)
     p.add_argument("--cases-dir", default="docs/eval")
+    p.add_argument("--gate", action="append")
     p.add_argument("--strict", action="store_true")
     p.add_argument("--fail-on-fail", action="store_true")
     p.add_argument("--json", action="store_true")

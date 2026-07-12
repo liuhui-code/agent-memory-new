@@ -286,6 +286,70 @@ class QualityGateEvalTests(unittest.TestCase):
         self.assertEqual("resolved_failure", data["quality_gate_delta"]["status_change"])
         self.assertEqual(["log_signal"], data["quality_gate_delta"]["resolved_failed_gates"])
 
+    def test_eval_quality_can_run_selected_gate_only(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            cases_dir = root / "eval"
+            project.mkdir()
+            cases_dir.mkdir()
+            self.run_memory(
+                project,
+                "update",
+                "--type",
+                "semantic",
+                "--fact",
+                "ArkTS route diagnosis checks router.pushUrl.",
+                "--source",
+                "test",
+            )
+            (cases_dir / "golden-retrieval.json").write_text(
+                json.dumps(
+                    [
+                        {
+                            "name": "route-anchor",
+                            "query": "ArkTS route diagnosis",
+                            "expected": [{"type": "semantic_facts", "text": "router.pushUrl"}],
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            (cases_dir / "golden-log-signal.json").write_text(
+                json.dumps(
+                    [
+                        {
+                            "name": "bad-log",
+                            "logs": ["failed"],
+                            "min_good_rate": 1.0,
+                            "max_low_signal_rate": 0.0,
+                        }
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            result = self.run_memory(
+                project,
+                "eval-quality",
+                "--cases-dir",
+                str(cases_dir),
+                "--gate",
+                "log_signal",
+                "--gate",
+                "log_signal",
+                "--json",
+            )
+            data = json.loads(result.stdout)
+
+        self.assertEqual(["log_signal"], data["selected_gate_names"])
+        self.assertEqual(["log_signal"], data["summary"]["selected_gate_names"])
+        self.assertEqual(["log_signal"], [gate["name"] for gate in data["gates"]])
+        self.assertEqual(1, data["summary"]["gate_count"])
+        self.assertEqual(0, data["summary"]["passed_gates"])
+        self.assertEqual(1, data["summary"]["failed_gates"])
+        self.assertEqual(0, data["summary"]["skipped_gates"])
+
 
 if __name__ == "__main__":
     unittest.main()

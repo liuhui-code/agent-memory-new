@@ -29,6 +29,7 @@ def eval_quality_command(args: argparse.Namespace) -> None:
         project,
         Path(args.cases_dir),
         strict=bool(getattr(args, "strict", False)),
+        gates=selected_gate_names(getattr(args, "gate", None)),
     )
     data["quality_gate_delta"] = build_quality_gate_delta(previous, data)
     save_quality_gate_snapshot(project, data)
@@ -67,19 +68,28 @@ GATES: list[tuple[str, str, str, GateRunner]] = [
     ("log_signal", "golden-log-signal.json", "eval-log-signal", run_log_signal),
     ("evidence_attribution", "golden-evidence-attribution.json", "eval-evidence-attribution", run_evidence_attribution),
 ]
+GATE_NAMES = [name for name, _, _, _ in GATES]
 
 
-def evaluate_quality_gates(project: Project, cases_dir: Path, strict: bool = False) -> dict[str, Any]:
-    gates = [
+def evaluate_quality_gates(
+    project: Project,
+    cases_dir: Path,
+    strict: bool = False,
+    gates: list[str] | None = None,
+) -> dict[str, Any]:
+    selected_names = gates or GATE_NAMES
+    selected = set(selected_names)
+    gate_results = [
         evaluate_gate(project, cases_dir, name, filename, command_name, runner)
         for name, filename, command_name, runner in GATES
+        if name in selected
     ]
-    passed_names = [str(gate["name"]) for gate in gates if gate["status"] == "pass"]
-    failed_names = [str(gate["name"]) for gate in gates if gate["status"] == "fail"]
-    skipped_names = [str(gate["name"]) for gate in gates if gate["status"] == "skipped"]
-    passed = len([gate for gate in gates if gate["status"] == "pass"])
-    failed = len([gate for gate in gates if gate["status"] == "fail"])
-    skipped = len([gate for gate in gates if gate["status"] == "skipped"])
+    passed_names = [str(gate["name"]) for gate in gate_results if gate["status"] == "pass"]
+    failed_names = [str(gate["name"]) for gate in gate_results if gate["status"] == "fail"]
+    skipped_names = [str(gate["name"]) for gate in gate_results if gate["status"] == "skipped"]
+    passed = len([gate for gate in gate_results if gate["status"] == "pass"])
+    failed = len([gate for gate in gate_results if gate["status"] == "fail"])
+    skipped = len([gate for gate in gate_results if gate["status"] == "skipped"])
     executed = passed + failed
     no_cases_failure = strict and executed == 0
     quality_gate = "fail" if failed or no_cases_failure else "pass"
@@ -88,6 +98,7 @@ def evaluate_quality_gates(project: Project, cases_dir: Path, strict: bool = Fal
         "passed_gates": passed,
         "failed_gates": failed,
         "skipped_gates": skipped,
+        "selected_gate_names": selected_names,
         "passed_gate_names": passed_names,
         "failed_gate_names": failed_names,
         "skipped_gate_names": skipped_names,
@@ -99,10 +110,25 @@ def evaluate_quality_gates(project: Project, cases_dir: Path, strict: bool = Fal
         "project_path": str(project.root),
         "quality_gate": quality_gate,
         "summary": summary,
-        "gates": gates,
+        "gates": gate_results,
         "cases_dir": str(cases_dir),
+        "selected_gate_names": selected_names,
         "strict": strict,
     }
+
+
+def selected_gate_names(values: Any) -> list[str] | None:
+    if not values:
+        return None
+    names = [str(value).strip() for value in values if str(value).strip()]
+    unknown = [name for name in names if name not in GATE_NAMES]
+    if unknown:
+        raise SystemExit(f"unknown quality gate: {', '.join(unknown)}; valid gates: {', '.join(GATE_NAMES)}")
+    selected: list[str] = []
+    for name in names:
+        if name not in selected:
+            selected.append(name)
+    return selected
 
 
 def evaluate_gate(
@@ -217,7 +243,8 @@ def build_quality_gate_failure_actions(snapshot: dict[str, Any]) -> list[dict[st
 def build_quality_gate_delta(previous: dict[str, Any], current: dict[str, Any]) -> dict[str, Any]:
     previous_gate = str(previous.get("quality_gate") or "") if previous else ""
     current_gate = str(current.get("quality_gate") or "")
-    previous_failed = failed_gate_names(previous)
+    selected = [str(item) for item in current.get("selected_gate_names") or [] if str(item).strip()]
+    previous_failed = failed_gate_names(previous, selected)
     current_failed = failed_gate_names(current)
     newly_failed = sorted(set(current_failed) - set(previous_failed))
     resolved_failed = sorted(set(previous_failed) - set(current_failed))
@@ -232,9 +259,13 @@ def build_quality_gate_delta(previous: dict[str, Any], current: dict[str, Any]) 
     }
 
 
-def failed_gate_names(data: dict[str, Any]) -> list[str]:
+def failed_gate_names(data: dict[str, Any], selected: list[str] | None = None) -> list[str]:
     summary = data.get("summary") or {}
-    return [str(item) for item in summary.get("failed_gate_names") or [] if str(item).strip()]
+    names = [str(item) for item in summary.get("failed_gate_names") or [] if str(item).strip()]
+    if selected:
+        allowed = set(selected)
+        return [name for name in names if name in allowed]
+    return names
 
 
 def quality_gate_status_change(previous: str, current: str) -> str:
