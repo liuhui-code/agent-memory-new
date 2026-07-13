@@ -24,6 +24,232 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-13 - Add semantic drift evidence to refresh conflicts
+
+Files changed:
+- `tools/agent_memory_runtime/semantic_refresh.py`
+- `tools/agent_memory_runtime/code_wiki.py`
+- `tests/test_refresh_scope.py`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-six-strategic-iterations.md`
+- `gitlog.md`
+
+What changed:
+- Added refresh-time structural semantic snapshots for changed files.
+- `maintain-refresh-scope` semantic conflicts now include summary drift and log-template additions/removals in `incoming`.
+- Extended refresh-scope tests to verify the durable conflict carries log drift evidence.
+
+Why:
+- A changed file with preserved business semantics should tell the Agent what changed, not merely that a review is required.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_refresh_scope`
+- Result: passes.
+
+Rollback notes:
+- Remove `load_refresh_semantic_snapshot`, revert `record_refresh_semantic_conflicts` to generic text, and drop the drift-evidence assertions/docs if conflict text should remain minimal.
+
+## 2026-07-13 - Add edge rebuild metrics for scope refresh
+
+Files changed:
+- `tools/agent_memory_runtime/graph_refresh_metrics.py`
+- `tools/agent_memory_runtime/code_wiki.py`
+- `tests/test_refresh_scope.py`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-six-strategic-iterations.md`
+- `gitlog.md`
+
+What changed:
+- Added scoped graph refresh metrics for file, symbol, log, and memory edge rebuilds.
+- `parse_stats.edge_rebuild` now reports scoped files, before/after node counts, relation counts, deleted/inserted estimates, and edge delta.
+- Extended refresh-scope tests to verify changed-only refresh reports only changed and added files in the edge rebuild scope.
+
+Why:
+- Incremental refresh needs explainable graph work before it can be judged against performance and large-scale governance budgets.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_refresh_scope`
+- Result: passes.
+
+Rollback notes:
+- Remove `graph_refresh_metrics.py`, the thin `code_wiki.py` metric calls, and the edge metric assertions/docs if refresh output should stay minimal.
+
+## 2026-07-13 - Preserve business semantics during changed refresh
+
+Files changed:
+- `tools/agent_memory_runtime/semantic_refresh.py`
+- `tools/agent_memory_runtime/code_wiki.py`
+- `tests/test_refresh_scope.py`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-six-strategic-iterations.md`
+- `gitlog.md`
+
+What changed:
+- Added refresh-time snapshots for exact-match file, symbol, and log business semantics.
+- Restored preserved `business_summary` and `business_terms` after merge-mode structural refresh.
+- Added `maintain-refresh-scope` semantic conflict rows for changed files that still carry an existing business summary.
+
+Why:
+- Incremental project refresh should not silently erase accumulated business semantics, but preserved semantics on changed source must remain reviewable.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_refresh_scope`
+- Result: passes.
+
+Rollback notes:
+- Remove `semantic_refresh.py`, the thin `code_wiki.py` calls, and the refresh-scope test/docs if changed-file refresh should drop business semantics instead.
+
+## 2026-07-13 - Add changed-only learned scope refresh
+
+Files changed:
+- `tools/agent_memory_runtime/code_wiki.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tests/test_refresh_scope.py`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-six-strategic-iterations.md`
+- `gitlog.md`
+
+What changed:
+- Added `maintain-refresh-scope --changed-only`.
+- Changed-only refresh compares the persisted learn-scope file snapshot with current source, re-indexes only added or changed files, and retires removed structural anchors.
+- Refresh output now includes `changed_only` and `refreshed_files`.
+
+Why:
+- Frequently updated learned projects should refresh code/log graph anchors without broad re-learning or unnecessary unchanged-file parsing.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_refresh_scope tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_refresh_scope_updates_structure_and_reports_drift tests.test_agent_memory.AgentMemoryRuntimeTests.test_maintain_health_reports_scope_health_counts`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory_runtime/code_wiki.py tools/agent_memory_runtime/cli.py tests/test_refresh_scope.py`
+- Result: passes.
+
+Rollback notes:
+- Remove the `--changed-only` CLI flag, changed-only refresh branch, test, and docs if all refreshes should continue to replay full learned scopes.
+
+## 2026-07-13 - Add quality gate history and recurring failure review
+
+Files changed:
+- `tools/agent_memory_runtime/quality_gate_eval.py`
+- `tools/agent_memory_runtime/eval_case_drafts.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory.py`
+- `tests/test_quality_gate_eval.py`
+- `tests/test_quality_gate_history.py`
+- `tests/test_eval_case_drafts.py`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-six-strategic-iterations.md`
+- `gitlog.md`
+
+What changed:
+- Added `runtime/quality_gate_history.jsonl` as a bounded runtime-only history stream for `eval-quality` runs.
+- Added `eval-quality --history` and `--history --gate <name>` to inspect recent quality trends and recurring failed gates.
+- Added `review_recurring_quality_gate_failure` to `maintain-plan` so repeated failures become a prioritized governance action.
+- Added `eval-draft-cases` to generate review-only retrieval, log-signal, and evidence-attribution draft cases from runtime signals.
+
+Why:
+- Query, evidence, graph, and log quality changes need trend visibility, not only the latest snapshot.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_quality_gate_eval tests.test_quality_gate_history`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_eval_case_drafts tests.test_eval_case_seed`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory_runtime/quality_gate_eval.py tools/agent_memory_runtime/governance.py tools/agent_memory_runtime/cli.py tests/test_quality_gate_history.py`
+- Result: passes.
+
+Rollback notes:
+- Remove quality history JSONL helpers, `--history` CLI arguments, recurring failure actions, draft case generation, tests, and docs if quality trends and draft cases should remain external to the runtime.
+
+## 2026-07-12 - Add query anti-interference intent v2
+
+Files changed:
+- `tools/agent_memory_runtime/query.py`
+- `tools/agent_memory_runtime/retrieval_eval.py`
+- `tests/test_experience_query_quality.py`
+- `tests/test_retrieval_eval.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-12-six-strategic-iterations.md`
+- `gitlog.md`
+
+What changed:
+- Added compatible `memory_intent_v2` routing for code location, code business semantics, runtime log diagnosis, semantic correction, memory maintenance, procedure reuse, and general context.
+- Added per-intent main reflection budgets and exposed them through `retrieval_lanes.lane_budgets`.
+- Strengthened broad procedure-experience penalties for code/source queries, business-semantics queries, semantic-correction queries, missing negative preconditions, and low-overlap non-procedure queries.
+- Added source-case quality profiling and trust caps for weak historical or non-source-like `source_cases`.
+- Extended retrieval eval support and tests with `expected_memory_intent_v2`, `max_reflection_count`, and `must_not_trust`.
+
+Why:
+- Experience records should help without pulling source-oriented or semantic-correction queries into broad historical procedure advice.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_experience_query_quality tests.test_retrieval_eval tests.test_agent_memory`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_memory_calibration tests.test_retrieval_eval tests.test_experience_query_quality`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory_runtime/query.py tools/agent_memory_runtime/retrieval_eval.py`
+- Result: passes.
+
+Rollback notes:
+- Revert the v2 intent aliasing, lane budgets, retrieval eval field, and related tests/docs if downstream consumers require only the legacy coarse `memory_intent`.
+
+## 2026-07-12 - Add automatic task trace reflection loop
+
+Files changed:
+- `tools/agent_memory_runtime/usage_samples.py`
+- `tools/agent_memory_runtime/task_trace_governance.py`
+- `tools/agent_memory_runtime/governance.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory.py`
+- `tests/test_auto_reflection_summary.py`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `skills/agent-memory-reflect/SKILL.md`
+- `docs/superpowers/plans/2026-07-12-six-strategic-iterations.md`
+- `gitlog.md`
+
+What changed:
+- Added `runtime/last_task_trace.json` as a bounded runtime projection from recent query, log, and governance usage.
+- Added `reflect --from-last-task` and `reflect --json` so Agents can turn the latest trace into a normal reflection with less retyping.
+- Added `maintain-plan` detection for unreflected task traces, with lifecycle fields that suppress the action after reflection closure.
+- Added `auto_summary_quality`, `reflection_payload_placeholders`, and `review_low_evidence_auto_summary` so weak generated summaries are reviewed before becoming durable reflections.
+- Documented the automatic task trace flow and marked Phase 1 minimal loop implemented in the strategic plan.
+
+Why:
+- The memory system needs lower-friction experience capture before strategy and skill evolution can reliably use accumulated experience.
+
+Verification:
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_auto_reflection_summary`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory_runtime/usage_samples.py tools/agent_memory_runtime/task_trace_governance.py tools/agent_memory_runtime/governance.py tools/agent_memory_runtime/cli.py tools/agent_memory.py`
+- Result: passes.
+
+Rollback notes:
+- Remove task trace generation, task trace governance, `--from-last-task`, JSON reflect output, tests, and docs if automatic reflection candidates become noisy.
+
+## 2026-07-12 - Add six strategic iterations plan
+
+Files changed:
+- `docs/superpowers/plans/2026-07-12-six-strategic-iterations.md`
+- `gitlog.md`
+
+What changed:
+- Added a staged execution plan for automatic recording, query anti-interference, strategy-to-skill candidates, incremental graph refresh, quality dashboarding, and large-scale governance.
+- Each phase includes implementation slices, acceptance criteria, tests, risks, and cross-phase invariants.
+
+Why:
+- The next major work should stay ordered around feedback loops, correctness, measurable quality, and scale without adding user-facing skills.
+
+Verification:
+- Command: `wc -l docs/superpowers/plans/2026-07-12-six-strategic-iterations.md`
+- Result: plan document exists and is bounded.
+- Command: `git diff --check`
+- Result: passes.
+
+Rollback notes:
+- Remove the plan document and this log entry if the roadmap is replaced by a different execution order.
+
 ## 2026-07-12 - Improve experience query and graph quality
 
 Files changed:

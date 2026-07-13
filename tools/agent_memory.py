@@ -46,6 +46,7 @@ from agent_memory_runtime.models import (
     REQUIRED_TABLES,
 )
 from agent_memory_runtime.calibration_eval import eval_calibration_command
+from agent_memory_runtime.eval_case_drafts import eval_draft_cases_command
 from agent_memory_runtime.eval_case_seed import eval_seed_cases_command
 from agent_memory_runtime.evidence_attribution import eval_evidence_attribution_command
 from agent_memory_runtime.experience_evidence_eval import eval_experience_evidence_command
@@ -90,6 +91,7 @@ from agent_memory_runtime.text import (
 )
 from agent_memory_runtime.usage_samples import (
     load_usage_sample,
+    load_task_trace,
     mark_usage_sample_reflected,
     merge_usage_sample_into_reflection_payload,
     record_governance_usage,
@@ -439,6 +441,10 @@ def reflect(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     payload = load_reflection_payload(args)
+    if bool(getattr(args, "from_last_task", False)):
+        trace_template = (load_task_trace(project).get("reflection_payload_template") or {})
+        if isinstance(trace_template, dict):
+            payload = {**trace_template, **payload}
     usage_sample = load_usage_sample(project)
     payload = merge_usage_sample_into_reflection_payload(payload, usage_sample)
     task = reflection_value(args, payload, "task")
@@ -599,7 +605,10 @@ def reflect(args: argparse.Namespace) -> None:
         encoding="utf-8",
     )
     mark_usage_sample_reflected(project, data["id"])
-    print(f"reflection #{data['id']} written")
+    if bool(getattr(args, "json", False)):
+        output(data, True)
+    else:
+        print(f"reflection #{data['id']} written")
 
 
 def list_records(args: argparse.Namespace) -> None:
@@ -785,6 +794,7 @@ def main(argv: list[str] | None = None) -> int:
             "eval_evidence_attribution_command": eval_evidence_attribution_command,
             "eval_governance_command": eval_governance_command,
             "eval_quality_command": eval_quality_command,
+            "eval_draft_cases_command": eval_draft_cases_command,
             "eval_seed_cases_command": eval_seed_cases_command,
             "retrieval_feedback_command": retrieval_feedback_command,
             "experience_usage_command": experience_usage_command,

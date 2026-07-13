@@ -303,6 +303,7 @@ Use `log_signal_summary` and `low_signal_events` to judge whether matched runtim
 When matched events include `otel_lite`, prefer those structured fields for the LLM-facing summary: severity, logger, event name, request id, session id, error code, reason, route, and resource. Use raw excerpts only when the structured fields are insufficient.
 Use `reflect_payload_template` as the starting point when you want to turn temporary runtime-log evidence into a structured reflection or experience candidate. It is designed for diagnosis sessions, not for long-term raw-log archival. The template now also carries bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action`. When the query is correcting an earlier diagnosis, the template may already switch to `correction_experience` and include `old_hypothesis`.
 The runtime also keeps a rolling `runtime/last_usage_sample.json` during `context`, `search`, `analyze-runtime-log`, and `maintain-plan`. This is a bounded runtime-side summary, not a new long-term database row. A later `reflect` call can reuse it automatically to fill missing fields such as `task_type`, `problem`, `query_rounds`, `useful_followup_focus`, `useful_followup_terms`, `misleading_followup_terms`, `inspection_targets`, `evidence`, and `repair_action`.
+The runtime also writes `runtime/last_task_trace.json`, a compact candidate trace assembled from the same bounded signals. Use `reflect --from-last-task --task "<task>" --lesson "<lesson>" --json` when you want to turn the latest task trace into a normal reflection without retyping context anchors and evidence. Explicit payload fields still override the trace template. The trace also carries `auto_summary_quality` and `reflection_payload_placeholders`; if `maintain-plan` reports `review_low_evidence_auto_summary`, fill verification, repair, or counter-evidence fields before writing the reflection, or discard the trace if it is too weak.
 The runtime also keeps bounded performance samples in `runtime/performance_samples.jsonl`. `maintain-health --json` and `maintain-plan --json` summarize those samples as `runtime_performance` so Agents can see whether `maintain-plan`, `context`, or other operations are becoming slow, token-heavy, or storage-heavy. Do not treat this JSONL file as project knowledge; it is local operational telemetry. If `review_runtime_performance_budget` appears, prefer tightening query limits, reviewing noisy memory records, refreshing stale context, or splitting expensive maintenance work before adding heavier indexing.
 `eval-quality` writes the latest aggregate result to `runtime/last_quality_gate.json`. `maintain-health --json` reports this as `last_quality_gate`; use it to notice a recent failed gate, then follow the failed gate's `next_command_template`.
 
@@ -311,9 +312,11 @@ The runtime also keeps bounded performance samples in `runtime/performance_sampl
 - low-quality records should be verified, tightened, marked stale, or merged;
 - high-value records are better candidates for reuse, promotion review, or future skill-pattern clustering;
 - a high score does not override current source code, current user instructions, or explicit conflict signals.
-Query outputs may also include `quality_score`, `quality_band`, `quality_reasons`, and `rerank_score` on semantic and reflection matches. Prefer higher-quality matches when several records point in the same direction, but still obey `memory_intent`, `correction_guards`, `semantic_patch_notes`, `blocked_memory_notes`, and current source code.
+Query outputs may also include `quality_score`, `quality_band`, `quality_reasons`, and `rerank_score` on semantic and reflection matches. Prefer higher-quality matches when several records point in the same direction, but still obey `memory_intent`, `memory_intent_v2`, `retrieval_lanes.lane_budgets`, `correction_guards`, `semantic_patch_notes`, `blocked_memory_notes`, and current source code.
+`memory_intent_v2` is the finer routing signal. For example, `code_location` strongly prefers wiki/code-log/edge anchors and has a zero main-reflection budget; `code_business_semantics` prefers semantic patches and business summaries; `runtime_log_diagnosis` allows a small number of verified reusable procedures after log/incident anchors. The older `memory_intent` remains for compatibility.
 Reflection rows may include `experience_maturity`, `experience_maturity_score`, `maturity_reasons`, and `counter_evidence`. Treat `raw_observation` as a hint only, prefer `verified_case` and `reused_pattern` when evidence agrees, and treat `deprecated_pattern` as warning or counter-evidence. If a high-value procedure lacks counter-evidence, verify where it does not apply before using it as a rule.
 Query outputs also include `memory_use_policy`, and rows may include `trust_level`, `trust_score`, `trust_reasons`, `retrieval_explanation`, `query_risk_flags`, `trust_cap`, and `trust_cap_reasons`. Use `source_truth` and `verified_experience` before ordinary hints. Treat `weak_hint` as a lead for the next inspection, not a conclusion. Treat `possibly_stale` and `conflict_warning` as caution signals even when the record matched the query.
+Reflection rows may also include `source_case_quality`. Source-like cases such as `file:`, `code:`, `incident_trace:`, `runtime_log:`, `test:`, `commit:`, or `pr:` can support higher trust. Weak historical cases such as `old_case:`, `manual:`, `memory:`, `note:`, `unknown`, `one_off:`, or unrecognized free-form cases cap trust so the record remains a hint instead of verified guidance.
 
 Read `query_risk_flags` before using a reflection as task direction. `misleading_experience`, `deprecated_experience`, and `inactive_or_stale_experience` are hard warnings. `missing_counter_evidence` means the procedure may be useful but still lacks negative applicability boundaries; verify current source, logs, and tests before using it as a rule. `semantic_correction_guidance` means the row should repair or constrain interpretation, not become a generic procedure.
 
@@ -355,7 +358,7 @@ python tools/agent_memory.py eval-quality --project . --cases-dir docs/eval --js
 ```
 
 The command skips missing golden files by default and combines all available gates into one pass/fail result. Use `--gate log_signal` to run only one gate, or repeat `--gate` for a small subset. Use `--strict` in CI-like checks when an empty cases directory should fail. Use `--fail-on-fail` when a script should exit 1 after emitting the failing JSON report. Read `quality_gate_delta` to see whether the latest run introduced new failures or resolved previous failures. If it fails, inspect `summary.failed_gate_names` and the failed gate's `next_command_template`, then rerun that specific eval for full case detail.
-If `maintain-plan --json` returns `review_quality_gate_failure`, treat it as a review prompt for the latest runtime quality snapshot. Rerun the listed `next_command_templates` before changing memory or updating golden cases.
+Each run appends a compact runtime-only record to `runtime/quality_gate_history.jsonl`. Use `eval-quality --history --json` to inspect recent trend, or add `--gate log_signal` to filter one gate. If `maintain-plan --json` returns `review_quality_gate_failure`, treat it as a prompt for the latest runtime snapshot. If it returns `review_recurring_quality_gate_failure`, stop broad feature work and rerun the listed recurring gate commands before changing memory or updating golden cases.
 
 To create editable examples, seed a non-active examples directory first:
 
@@ -364,6 +367,14 @@ python tools/agent_memory.py eval-seed-cases --project . --target docs/eval/exam
 ```
 
 Do not treat generated examples as passing project gates. Read current `context` output, replace example ids/text with real anchors, then either copy edited files into `docs/eval` or run `eval-quality --cases-dir docs/eval/examples`.
+
+To draft cases from runtime signals, use a separate draft directory:
+
+```bash
+python tools/agent_memory.py eval-draft-cases --project . --target docs/eval/drafts --json
+```
+
+Draft generation can use open query misses, the latest `last_runtime_log_analysis.json` low-signal events, and weak evidence fields in `last_task_trace.json`. The output files use `.draft.json` names and are review-only. Replace TODO anchors or claims before moving any draft into `docs/eval`.
 
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 
@@ -574,22 +585,34 @@ Optional narrow refresh:
 python tools/agent_memory.py maintain-refresh-scope --project . --scope-id 3 --json
 ```
 
+For frequent project updates, prefer changed-only refresh:
+
+```bash
+python tools/agent_memory.py maintain-refresh-scope --project . --changed-only --json
+```
+
+`--changed-only` compares the persisted learn-scope file snapshot with current source, re-indexes only added or changed files, retires removed structural anchors, and leaves unchanged file/wiki rows alone.
+
 This is the low-risk update path for changing codebases:
 
 - replay previously learned scopes from `learn_scopes`
 - refresh current file, symbol, log, and edge structure
 - retire structural rows for files removed from that learned scope
 - return `semantic_review_targets` for added, changed, or removed files whose business meaning may now need review
+- preserve exact-match `business_summary` and `business_terms` on refreshed file, symbol, and log anchors; changed files with preserved business summaries also create open `semantic_conflicts` so the old meaning is reviewed instead of treated as silently current
+- include refresh drift evidence in `semantic_conflicts.incoming`, such as summary changes and log templates added or removed, so the review can focus on the actual changed behavior
+- return `parse_stats.edge_rebuild` with scoped files, before/after node counts, relation counts, and edge delta so Agents can see whether the refresh rebuilt only the intended graph slice
 
 Use it before broad `--replace` re-learning when the project has evolved but you want to preserve accumulated business semantics and experience review history.
 
 After a refresh, `maintain-plan` may return:
 
 - `review_semantic_drift`
+- `review_semantic_conflict`
 - `mark_experience_stale_if_anchor_removed`
 - `review_skill_pattern_staleness`
 
-Use the first to drive focused `learn-business` repair. Use the second to review older reflections or experience candidates that still point at files removed from the refreshed scope.
+Use the first to drive focused `learn-business` repair. Use `review_semantic_conflict` to decide whether the preserved business summary is still true for the changed source. Use the removed-anchor actions to review older reflections or experience candidates that still point at files removed from the refreshed scope.
 
 `maintain-plan` is read-only. Actions with `command: null` need the Agent to draft a replacement fact or durable lesson before execution.
 

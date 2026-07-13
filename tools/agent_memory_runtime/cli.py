@@ -106,6 +106,8 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     add_project(p)
     p.add_argument("--cases-dir", default="docs/eval")
     p.add_argument("--gate", action="append")
+    p.add_argument("--history", action="store_true")
+    p.add_argument("--history-limit", type=int, default=20)
     p.add_argument("--list-gates", action="store_true")
     p.add_argument("--strict", action="store_true")
     p.add_argument("--fail-on-fail", action="store_true")
@@ -118,6 +120,14 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--force", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("eval_seed_cases_command"))
+
+    p = sub.add_parser("eval-draft-cases")
+    add_project(p)
+    p.add_argument("--target", default="docs/eval/drafts")
+    p.add_argument("--limit", type=int, default=5)
+    p.add_argument("--force", action="store_true")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("eval_draft_cases_command"))
 
     p = sub.add_parser("retrieval-feedback")
     add_project(p)
@@ -170,6 +180,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     add_project(p)
     p.add_argument("--payload")
     p.add_argument("--payload-file")
+    p.add_argument("--from-last-task", action="store_true")
     p.add_argument("--task")
     p.add_argument("--summary")
     p.add_argument("--mistake")
@@ -186,6 +197,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--does-not-apply-to")
     p.add_argument("--used-reflection-ids")
     p.add_argument("--reflection-outcome", choices=["helped", "partial", "misleading", "unused"])
+    p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("reflect"))
 
     p = sub.add_parser("reflect-review")
@@ -360,6 +372,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p = sub.add_parser("maintain-refresh-scope")
     add_project(p)
     p.add_argument("--scope-id", type=int)
+    p.add_argument("--changed-only", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("maintain_refresh_scope"))
 

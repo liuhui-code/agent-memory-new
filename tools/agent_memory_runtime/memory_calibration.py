@@ -60,6 +60,19 @@ def calibrate_record(group: str, row: dict[str, Any]) -> dict[str, Any]:
     trust_score, reasons = compute_trust_score(group, item)
     query_quality = explain_experience_trust(item) if group in {"reflections", "correction_guards"} else {}
     trust_cap = query_quality.get("trust_cap")
+    if group in {"reflections", "correction_guards"}:
+        source_case_quality = source_case_quality_profile(item)
+        item["source_case_quality"] = source_case_quality
+        source_case_cap = source_case_trust_cap(source_case_quality)
+        if source_case_cap is not None and (trust_cap is None or source_case_cap < trust_cap):
+            trust_cap = source_case_cap
+            query_quality["trust_cap_reasons"] = unique_list(
+                list(query_quality.get("trust_cap_reasons", [])) + ["source_cases are old, manual, unknown, or non-source-like"]
+            )
+        if source_case_quality["weak_source_cases"]:
+            reasons.append("weak source_cases")
+        if source_case_quality["source_like_cases"]:
+            reasons.append("source-like source_cases")
     if trust_cap is not None and trust_score > trust_cap:
         trust_score = trust_cap
     reasons = unique_list(reasons + query_quality.get("trust_cap_reasons", []))
@@ -94,9 +107,13 @@ def compute_trust_score(group: str, item: dict[str, Any]) -> tuple[float, list[s
     if item.get("verification_method"):
         score += 0.14
         reasons.append("verified by verification_method")
-    if json_list(item.get("source_cases")):
+    source_case_quality = source_case_quality_profile(item)
+    if source_case_quality["source_like_cases"]:
         score += 0.10
-        reasons.append("has source_cases")
+        reasons.append("has source-like source_cases")
+    elif source_case_quality["weak_source_cases"]:
+        score += 0.03
+        reasons.append("has weak source_cases")
     if group in {"wiki_matches", "code_log_matches", "edge_matches", "incident_trace_matches"}:
         score += 0.12
         reasons.append("source-like code/log evidence")
@@ -183,6 +200,7 @@ def build_retrieval_explanation(group: str, item: dict[str, Any]) -> dict[str, A
         "status": item.get("status"),
         "confidence": item.get("confidence"),
         "experience_evidence_profile": item.get("experience_evidence_profile"),
+        "source_case_quality": item.get("source_case_quality"),
     }
 
 
@@ -193,6 +211,41 @@ def has_explicit_evidence(item: dict[str, Any]) -> bool:
         return True
     source = str(item.get("source") or "").strip().lower()
     return source not in {"", "manual", "unknown"}
+
+
+def source_case_quality_profile(item: dict[str, Any]) -> dict[str, Any]:
+    cases = [str(case).strip() for case in json_list(item.get("source_cases")) if str(case).strip()]
+    source_like_prefixes = (
+        "file:",
+        "code:",
+        "symbol:",
+        "log:",
+        "code_log:",
+        "incident_trace:",
+        "runtime_log:",
+        "test:",
+        "commit:",
+        "pr:",
+    )
+    weak_prefixes = ("old_case:", "manual:", "memory:", "note:", "unknown", "one_off:", "legacy:")
+    source_like = [case for case in cases if case.lower().startswith(source_like_prefixes)]
+    weak = [case for case in cases if case.lower().startswith(weak_prefixes)]
+    non_source_like = [case for case in cases if case not in source_like and case not in weak]
+    return {
+        "source_case_count": len(cases),
+        "source_like_cases": source_like,
+        "weak_source_cases": [*weak, *non_source_like],
+        "has_source_like_case": bool(source_like),
+        "all_cases_weak": bool(cases) and not source_like,
+    }
+
+
+def source_case_trust_cap(profile: dict[str, Any]) -> float | None:
+    if not profile.get("source_case_count"):
+        return None
+    if profile.get("all_cases_weak"):
+        return 0.68
+    return None
 
 
 def truthy(value: Any) -> bool:

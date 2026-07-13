@@ -65,6 +65,7 @@ They may:
 - return compact one-hop `evidence_chains` derived from allowed edge matches.
 - return a bounded `log_search_plan` that turns user problem language into log-oriented anchors, logger hints, and candidate log events.
 - return a compact `query_audit` that explains result counts and why top records matched, reranked, passed gates, or were penalized.
+- return `memory_intent_v2` alongside the compatible `memory_intent`, plus `retrieval_lanes.lane_budgets`, so Agents can see whether the query is code-location, business-semantics, runtime-log diagnosis, procedure reuse, semantic correction, maintenance, or general context.
 - bound result sets before JSON output so large archives do not return unbounded payloads.
 
 They must not:
@@ -122,6 +123,14 @@ It also keeps a runtime-only rolling summary in `runtime/last_usage_sample.json`
 - governance lanes touched by `maintain-plan`
 
 `reflect` now auto-merges that runtime usage sample when structured fields are missing from the provided payload. Explicit payload fields still win. The sample is then closed after the reflection is written so the next unrelated task starts from a fresh usage sample.
+
+The same bounded usage sample also writes `runtime/last_task_trace.json`. This is a runtime-only projection that gathers recent queries, command sequence, context anchors, runtime-log signals, governance lanes, candidate evidence, a `reflection_payload_template`, and an `auto_summary_quality` profile. Use:
+
+```bash
+python tools/agent_memory.py reflect --project . --from-last-task --task "<task>" --lesson "<lesson>" --json
+```
+
+`--from-last-task` starts from the trace template, then lets explicit payload or command arguments override it. It does not create a fifth skill, does not persist raw logs, and still writes through the normal `reflect` path. If `maintain-plan` returns `review_low_evidence_auto_summary`, inspect `auto_summary_quality` and `reflection_payload_placeholders` before reflecting; placeholder text is review guidance, not durable memory content.
 
 # 3. Governance Path
 
@@ -242,7 +251,7 @@ Retrieval changes can be checked with a local golden-query eval:
 python tools/agent_memory.py eval-retrieval --project . --cases docs/eval/golden-retrieval.json --json
 ```
 
-The cases file is JSON, not durable memory. Each case has a `query`, optional `name`, `expected` match specs, `must_not_include` match specs, optional `expected_top` specs, optional `noise` specs, optional `expected_memory_intent`, optional `required_preferred_lanes`, and optional `max_blocked_memory_notes`. The command runs the same `context` path that Agents consume and reports expected hit rate, blocked-bad rate, exact anchor rank, expected-top hit rate, experience noise rate, intent match rate, required lane match rate, blocked budget rate, missed anchors, and unexpected bad matches. It is intended for regression testing query quality before changing ranking, scoring, learn semantics, code graph, or log graph behavior.
+The cases file is JSON, not durable memory. Each case has a `query`, optional `name`, `expected` match specs, `must_not_include` match specs, optional `expected_top` specs, optional `noise` specs, optional `expected_memory_intent`, optional `expected_memory_intent_v2`, optional `required_preferred_lanes`, optional `max_blocked_memory_notes`, optional `max_reflection_count`, and optional `must_not_trust` specs. The command runs the same `context` path that Agents consume and reports expected hit rate, blocked-bad rate, exact anchor rank, expected-top hit rate, experience noise rate, intent match rate, required lane match rate, blocked budget rate, reflection count rate, trust-block rate, missed anchors, and unexpected bad matches. It is intended for regression testing query quality before changing ranking, scoring, learn semantics, code graph, or log graph behavior.
 
 Trust calibration can be checked with:
 

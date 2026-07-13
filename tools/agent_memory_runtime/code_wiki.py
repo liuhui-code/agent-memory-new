@@ -13,9 +13,16 @@ import sqlite3
 from pathlib import Path
 from typing import Any
 
+from .graph_refresh_metrics import edge_rebuild_metrics, scoped_edge_summary
 from .models import CODE_EXTENSIONS, IGNORE_DIRS, Project
 from .query import collect_matches, record_query_miss_if_empty
 from .records import output, row_dict
+from .semantic_refresh import (
+    load_business_semantics,
+    load_refresh_semantic_snapshot,
+    record_refresh_semantic_conflicts,
+    restore_business_semantics,
+)
 from .storage import connect, ensure_initialized, now_iso, resolve_project
 from .text import json_list, json_list_text, score_text, terms_from_text, unique_list
 
@@ -589,6 +596,12 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
     affected_file_paths = [rel_text for _, _, rel_text, _ in relative_files]
     with connect(project) as conn:
         previous_scope_ids = scope_node_ids(conn, project.project_id, affected_file_paths)
+        edges_before = scoped_edge_summary(conn, project.project_id, previous_scope_ids)
+        business_snapshot = (
+            load_business_semantics(conn, project.project_id, affected_file_paths)
+            if not replace
+            else {"code_files": {}, "code_symbols": {}, "code_log_statements": {}}
+        )
         if replace:
             conn.execute("DELETE FROM code_files WHERE project_id = ?", (project.project_id,))
             conn.execute("DELETE FROM code_symbols WHERE project_id = ?", (project.project_id,))
@@ -648,7 +661,10 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                         ts,
                     ),
                 )
+        business_semantics_restored = restore_business_semantics(conn, project.project_id, business_snapshot)
         rebuild_code_memory_edges(conn, project, scope_file_paths=None if replace else affected_file_paths)
+        refreshed_scope_ids = scope_node_ids(conn, project.project_id, affected_file_paths)
+        edges_after = scoped_edge_summary(conn, project.project_id, refreshed_scope_ids)
         memory_edges_total = conn.execute(
             "SELECT COUNT(*) AS count FROM memory_edges WHERE project_id = ?",
             (project.project_id,),
@@ -661,6 +677,13 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
         "symbols_by_type": dict(sorted(symbol_type_counts.items())),
         "code_logs_total": sum(log_level_counts.values()),
         "code_logs_by_level": dict(sorted(log_level_counts.items())),
+        "business_semantics_restored": business_semantics_restored,
+        "edge_rebuild": edge_rebuild_metrics(
+            scope_file_paths=affected_file_paths,
+            before=edges_before,
+            after=edges_after,
+            replace=replace,
+        ),
         "memory_edges_total": memory_edges_total,
     }
 
@@ -1953,16 +1976,40 @@ def maintain_refresh_scope(args: argparse.Namespace) -> None:
             previous_snapshot,
             current_snapshot,
         )
-        stats = write_wiki_scope(
-            source_project,
-            files,
-            replace=False,
-            retired_relative_files=removed_files,
-        )
+        changed_only = bool(getattr(args, "changed_only", False))
+        files_to_refresh = files
+        if changed_only:
+            changed_set = set(added_files) | set(changed_files)
+            files_to_refresh = [
+                path
+                for path in files
+                if str(path.relative_to(source_project.root)) in changed_set
+            ]
+        semantic_drift_before = load_refresh_semantic_snapshot(source_project, changed_files)
+        if files_to_refresh or removed_files or not changed_only:
+            stats = write_wiki_scope(
+                source_project,
+                files_to_refresh,
+                replace=False,
+                retired_relative_files=removed_files,
+            )
+        else:
+            stats = {
+                "files_indexed": 0,
+                "symbols_indexed": 0,
+                "code_logs_indexed": 0,
+                "memory_edges_total": 0,
+                "retired_files": [],
+            }
         semantic_review_targets = semantic_review_targets_from_drift(
             added_files,
             changed_files,
             removed_files,
+        )
+        semantic_conflicts = record_refresh_semantic_conflicts(
+            source_project,
+            changed_files,
+            semantic_drift_before,
         )
         refresh_summary = {
             "status": "refreshed",
@@ -1971,6 +2018,9 @@ def maintain_refresh_scope(args: argparse.Namespace) -> None:
             "removed_files": removed_files,
             "unchanged_count": unchanged_count,
             "semantic_review_targets": semantic_review_targets,
+            "semantic_conflicts": semantic_conflicts,
+            "changed_only": changed_only,
+            "refreshed_files": sorted([*added_files, *changed_files]) if changed_only else sorted(current_snapshot),
         }
         update_scope_refresh_record(project, scope_row, current_snapshot, refresh_summary)
         summary = (
@@ -1989,6 +2039,9 @@ def maintain_refresh_scope(args: argparse.Namespace) -> None:
                 "unchanged_count": unchanged_count,
                 "parse_stats": stats,
                 "semantic_review_targets": semantic_review_targets,
+                "semantic_conflicts": semantic_conflicts,
+                "changed_only": changed_only,
+                "refreshed_files": refresh_summary["refreshed_files"],
             }
         )
         refreshed.append(result)

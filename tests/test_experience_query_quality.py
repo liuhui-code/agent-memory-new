@@ -151,11 +151,58 @@ class ExperienceQueryQualityTests(unittest.TestCase):
             data = json.loads(result.stdout)
 
         self.assertEqual("code_current", data["memory_intent"])
+        self.assertEqual("code_location", data["memory_intent_v2"])
         self.assertIn("wiki_matches", data["retrieval_lanes"]["intent_profile"]["preferred_lanes"])
+        self.assertEqual(0, data["retrieval_lanes"]["lane_budgets"]["main_reflections"])
         self.assertGreaterEqual(len(data["wiki_matches"]), 1)
         self.assertEqual([], data["reflections"])
         self.assertEqual(1, data["memory_brief"]["blocked_count"])
         self.assertIn("code_current_query_prefers_source_anchors", data["blocked_memory_notes"][0]["reason"])
+
+    def test_business_semantics_query_prefers_semantic_patch_over_broad_procedure(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            semantic_patch_payload = {
+                "experience_type": "semantic_patch_experience",
+                "task": "Correct Profile business summary",
+                "summary": "loadProfile reads the current account profile state.",
+                "lesson": "Profile loadProfile business meaning is account profile loading.",
+                "trigger_condition": "Profile loadProfile business semantics lookup",
+                "repair_action": "use current loadProfile summary as business semantics",
+                "verification_method": "inspected current Profile.ets",
+                "source_cases": ["file:pages/Profile.ets"],
+                "anchor_type": "code_symbol",
+                "anchor_key": "pages/Profile.ets::loadProfile",
+                "semantic_field": "business_summary",
+                "proposed_value": "loads account profile state",
+                "patch_reason": "source inspection",
+                "confidence": 0.9,
+            }
+            broad_payload = {
+                "experience_type": "procedure_experience",
+                "task": "Profile broad workflow",
+                "summary": "Old Profile workflow.",
+                "lesson": "Clean cache first for Profile issues.",
+                "trigger_condition": "Profile issue",
+                "repair_action": "clean cache",
+                "verification_method": "old one-off run",
+                "source_cases": ["old_case:profile"],
+                "confidence": 0.95,
+            }
+
+            self.run_memory(project, "reflect", "--payload", json.dumps(semantic_patch_payload))
+            self.run_memory(project, "reflect", "--payload", json.dumps(broad_payload))
+            result = self.run_memory(project, "context", "--query", "Profile loadProfile 业务语义", "--json")
+            data = json.loads(result.stdout)
+
+        self.assertEqual("semantic_lookup", data["memory_intent"])
+        self.assertEqual("code_business_semantics", data["memory_intent_v2"])
+        self.assertIn("semantic_patch", data["retrieval_lanes"]["intent_profile"]["preferred_lanes"])
+        self.assertEqual([], data["reflections"])
+        self.assertEqual(1, len(data["semantic_patch_notes"]))
+        self.assertEqual("business_summary", data["semantic_patch_notes"][0]["semantic_field"])
+        self.assertIn("code_business_semantics_prefers_semantic_anchors", data["blocked_memory_notes"][0]["reason"])
 
     def test_reflect_records_procedure_and_correction_shapes_distinctly(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

@@ -38,11 +38,17 @@ from .performance_scoring import (
     monotonic_ms,
 )
 from .quality_scoring import build_quality_report
-from .quality_gate_eval import build_quality_gate_failure_actions, load_quality_gate_snapshot
+from .quality_gate_eval import (
+    build_quality_gate_failure_actions,
+    build_recurring_quality_gate_failure_actions,
+    load_quality_gate_history_report,
+    load_quality_gate_snapshot,
+)
 from .query import collect_matches, infer_followup_focus, rank_followup_seed_terms, suggested_followup_terms
 from .records import output, parse_ids, row_dict, table_for_type
 from .retrieval_feedback import fetch_open_retrieval_feedback
 from .storage import connect, ensure_initialized, now_iso, resolve_project
+from .task_trace_governance import build_task_trace_actions
 from .text import json_list, tokenize, unique_list
 from .usage_samples import record_governance_usage
 
@@ -2153,12 +2159,15 @@ def maintain_plan(args: argparse.Namespace) -> None:
     log_observability_gap_actions = build_log_observability_gap_actions(graph_signal_quality)
     last_quality_gate = load_quality_gate_snapshot(project)
     quality_gate_actions = build_quality_gate_failure_actions(last_quality_gate)
+    quality_gate_history = load_quality_gate_history_report(project, limit=20)
+    recurring_quality_gate_actions = build_recurring_quality_gate_failure_actions(quality_gate_history)
     runtime_performance = build_runtime_performance_summary(project)
     runtime_performance_actions = build_runtime_performance_actions(runtime_performance)
     experience_usage = fetch_experience_usage_summary(project, args.limit)
     experience_usage_actions = build_experience_usage_actions(experience_usage)
     memory_tiers = build_memory_tiers(project, args.limit)
     memory_tier_actions = build_memory_tier_actions(memory_tiers)
+    task_trace_actions = build_task_trace_actions(project)
     retrieval_feedback_rows = fetch_open_retrieval_feedback(project, args.limit)
     retrieval_feedback_actions = build_retrieval_feedback_actions(retrieval_feedback_rows)
     calibration_feedback_actions = build_calibration_feedback_actions(retrieval_feedback_rows)
@@ -2349,9 +2358,11 @@ def maintain_plan(args: argparse.Namespace) -> None:
     actions.extend(graph_signal_quality_actions)
     actions.extend(log_observability_gap_actions)
     actions.extend(quality_gate_actions)
+    actions.extend(recurring_quality_gate_actions)
     actions.extend(runtime_performance_actions)
     actions.extend(experience_usage_actions)
     actions.extend(memory_tier_actions)
+    actions.extend(task_trace_actions)
     actions.extend(active_learning_actions)
     actions.extend(retrieval_feedback_actions)
     actions.extend(calibration_feedback_actions)
@@ -2607,9 +2618,16 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "graph_signal_quality_reviews": len(graph_signal_quality_actions),
         "log_observability_gap_reviews": len(log_observability_gap_actions),
         "quality_gate_failure_reviews": len(quality_gate_actions),
+        "recurring_quality_gate_failure_reviews": len(recurring_quality_gate_actions),
         "runtime_performance_reviews": len(runtime_performance_actions),
         "experience_usage_reviews": len(experience_usage_actions),
         "memory_tier_reviews": len(memory_tier_actions),
+        "unreflected_task_trace_reviews": len(
+            [action for action in task_trace_actions if action.get("action") == "review_unreflected_task_trace"]
+        ),
+        "low_evidence_auto_summary_reviews": len(
+            [action for action in task_trace_actions if action.get("action") == "review_low_evidence_auto_summary"]
+        ),
         "active_learning_queue_items": len(active_learning_actions),
         "retrieval_feedback_reviews": len(retrieval_feedback_actions),
         "overtrusted_memory_reviews": len([action for action in calibration_feedback_actions if action.get("action") == "review_overtrusted_memory"]),

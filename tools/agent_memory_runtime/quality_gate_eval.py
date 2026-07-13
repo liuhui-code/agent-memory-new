@@ -16,11 +16,12 @@ from .log_signal_eval import evaluate_log_signal_cases, load_log_signal_cases
 from .models import Project
 from .records import output
 from .retrieval_eval import evaluate_retrieval_cases, load_eval_cases
-from .storage import ensure_initialized, resolve_project
+from .storage import ensure_initialized, now_iso, resolve_project
 
 
 GateRunner = Callable[[Project, Path], dict[str, Any]]
 QUALITY_GATE_SAMPLE_FILE = "last_quality_gate.json"
+QUALITY_GATE_HISTORY_FILE = "quality_gate_history.jsonl"
 
 
 def eval_quality_command(args: argparse.Namespace) -> None:
@@ -28,6 +29,14 @@ def eval_quality_command(args: argparse.Namespace) -> None:
     ensure_initialized(project)
     if bool(getattr(args, "list_gates", False)):
         output(list_quality_gates(Path(args.cases_dir)), args.json)
+        return
+    if bool(getattr(args, "history", False)):
+        data = load_quality_gate_history_report(
+            project,
+            limit=int(getattr(args, "history_limit", 20) or 20),
+            gates=selected_gate_names(getattr(args, "gate", None)),
+        )
+        output(data, args.json)
         return
     previous = load_quality_gate_snapshot(project)
     data = evaluate_quality_gates(
@@ -38,6 +47,7 @@ def eval_quality_command(args: argparse.Namespace) -> None:
     )
     data["quality_gate_delta"] = build_quality_gate_delta(previous, data)
     save_quality_gate_snapshot(project, data)
+    append_quality_gate_history(project, data)
     output(data, args.json)
     if bool(getattr(args, "fail_on_fail", False)) and data.get("quality_gate") == "fail":
         raise SystemExit(1)
@@ -201,12 +211,130 @@ def quality_gate_snapshot_path(project: Project) -> Path:
     return project.runtime_dir / QUALITY_GATE_SAMPLE_FILE
 
 
+def quality_gate_history_path(project: Project) -> Path:
+    return project.runtime_dir / QUALITY_GATE_HISTORY_FILE
+
+
 def save_quality_gate_snapshot(project: Project, data: dict[str, Any]) -> None:
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     quality_gate_snapshot_path(project).write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+
+
+def append_quality_gate_history(project: Project, data: dict[str, Any]) -> None:
+    project.runtime_dir.mkdir(parents=True, exist_ok=True)
+    record = compact_quality_gate_history_record(data)
+    with quality_gate_history_path(project).open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
+
+
+def compact_quality_gate_history_record(data: dict[str, Any]) -> dict[str, Any]:
+    summary = data.get("summary") or {}
+    gates = [
+        {
+            "name": gate.get("name"),
+            "status": gate.get("status"),
+            "case_count": gate.get("case_count"),
+            "next_command_template": gate.get("next_command_template"),
+        }
+        for gate in data.get("gates") or []
+        if isinstance(gate, dict)
+    ]
+    return {
+        "timestamp": now_iso(),
+        "project_id": data.get("project_id"),
+        "quality_gate": data.get("quality_gate"),
+        "cases_dir": data.get("cases_dir"),
+        "selected_gate_names": list(data.get("selected_gate_names") or []),
+        "summary": {
+            "gate_count": summary.get("gate_count", 0),
+            "passed_gates": summary.get("passed_gates", 0),
+            "failed_gates": summary.get("failed_gates", 0),
+            "skipped_gates": summary.get("skipped_gates", 0),
+            "failed_gate_names": list(summary.get("failed_gate_names") or []),
+            "passed_gate_names": list(summary.get("passed_gate_names") or []),
+        },
+        "gates": gates,
+    }
+
+
+def load_quality_gate_history_report(project: Project, limit: int = 20, gates: list[str] | None = None) -> dict[str, Any]:
+    records = load_quality_gate_history(project, limit=limit, gates=gates)
+    return {
+        "project_id": project.project_id,
+        "history_file": str(quality_gate_history_path(project)),
+        "limit": limit,
+        "gate_filter": gates or [],
+        "summary": summarize_quality_gate_history(records),
+        "history": records,
+    }
+
+
+def load_quality_gate_history(project: Project, limit: int = 20, gates: list[str] | None = None) -> list[dict[str, Any]]:
+    path = quality_gate_history_path(project)
+    if not path.exists():
+        return []
+    records: list[dict[str, Any]] = []
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return []
+    for line in lines:
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(record, dict):
+            continue
+        filtered = filter_history_record(record, gates)
+        if filtered:
+            records.append(filtered)
+    return records[-max(1, limit) :]
+
+
+def filter_history_record(record: dict[str, Any], gates: list[str] | None) -> dict[str, Any] | None:
+    if not gates:
+        return record
+    allowed = set(gates)
+    gate_rows = [gate for gate in record.get("gates") or [] if isinstance(gate, dict) and gate.get("name") in allowed]
+    if not gate_rows:
+        return None
+    failed_names = [str(gate.get("name")) for gate in gate_rows if gate.get("status") == "fail"]
+    passed_names = [str(gate.get("name")) for gate in gate_rows if gate.get("status") == "pass"]
+    summary = dict(record.get("summary") or {})
+    summary.update(
+        {
+            "gate_count": len([gate for gate in gate_rows if gate.get("status") in {"pass", "fail"}]),
+            "passed_gates": len(passed_names),
+            "failed_gates": len(failed_names),
+            "skipped_gates": len([gate for gate in gate_rows if gate.get("status") == "skipped"]),
+            "failed_gate_names": failed_names,
+            "passed_gate_names": passed_names,
+        }
+    )
+    quality_gate = "fail" if failed_names else "pass"
+    return {**record, "quality_gate": quality_gate, "summary": summary, "gates": gate_rows}
+
+
+def summarize_quality_gate_history(records: list[dict[str, Any]]) -> dict[str, Any]:
+    failed_counts: dict[str, int] = {}
+    latest_failed: list[str] = []
+    for record in records:
+        failed = [str(name) for name in (record.get("summary") or {}).get("failed_gate_names") or []]
+        latest_failed = failed
+        for name in failed:
+            failed_counts[name] = failed_counts.get(name, 0) + 1
+    recurring = sorted([name for name, count in failed_counts.items() if count >= 2])
+    return {
+        "run_count": len(records),
+        "failed_run_count": len([record for record in records if record.get("quality_gate") == "fail"]),
+        "latest_quality_gate": records[-1].get("quality_gate") if records else None,
+        "latest_failed_gate_names": latest_failed,
+        "failed_gate_counts": failed_counts,
+        "recurring_failed_gate_names": recurring,
+    }
 
 
 def load_quality_gate_snapshot(project: Project) -> dict[str, Any]:
@@ -272,6 +400,50 @@ def build_quality_gate_failure_actions(snapshot: dict[str, Any]) -> list[dict[st
             ],
         }
     ]
+
+
+def build_recurring_quality_gate_failure_actions(history_report: dict[str, Any]) -> list[dict[str, Any]]:
+    summary = history_report.get("summary") or {}
+    recurring = [str(name) for name in summary.get("recurring_failed_gate_names") or [] if str(name).strip()]
+    if not recurring:
+        return []
+    latest_commands = latest_failed_gate_commands(history_report.get("history") or [], recurring)
+    return [
+        {
+            "action": "review_recurring_quality_gate_failure",
+            "governance_lane": "quality_gate",
+            "type": "quality_gate_history",
+            "id": None,
+            "reason": "one or more quality gates failed repeatedly in recent eval-quality history",
+            "risk": "high",
+            "requires_confirmation": False,
+            "command": None,
+            "recurring_failed_gate_names": recurring,
+            "failed_gate_counts": summary.get("failed_gate_counts") or {},
+            "next_command_templates": latest_commands,
+            "history_summary": summary,
+            "suggested_actions": [
+                "rerun_recurring_failed_gate",
+                "inspect_recent_failures_before_new_feature_work",
+                "fix_runtime_behavior_or_update_golden_case_deliberately",
+            ],
+        }
+    ]
+
+
+def latest_failed_gate_commands(records: list[dict[str, Any]], names: list[str]) -> list[str]:
+    wanted = set(names)
+    commands: list[str] = []
+    for record in reversed(records):
+        for gate in record.get("gates") or []:
+            if not isinstance(gate, dict):
+                continue
+            command = str(gate.get("next_command_template") or "")
+            if gate.get("name") in wanted and gate.get("status") == "fail" and command and command not in commands:
+                commands.append(command)
+        if len(commands) >= len(wanted):
+            break
+    return commands
 
 
 def build_quality_gate_delta(previous: dict[str, Any], current: dict[str, Any]) -> dict[str, Any]:

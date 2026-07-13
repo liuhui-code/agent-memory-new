@@ -228,8 +228,10 @@ class RetrievalEvalTests(unittest.TestCase):
                         "name": "code-current-profile-intent",
                         "query": "当前代码 Profile loadProfile 函数",
                         "expected_memory_intent": "code_current",
+                        "expected_memory_intent_v2": "code_location",
                         "required_preferred_lanes": ["wiki_matches", "code_log_matches"],
                         "max_blocked_memory_notes": 1,
+                        "max_reflection_count": 0,
                         "expected": [
                             {"type": "wiki_matches", "text": "loadProfile"},
                         ],
@@ -244,4 +246,49 @@ class RetrievalEvalTests(unittest.TestCase):
         self.assertEqual(1.0, data["summary"]["intent_match_rate"])
         self.assertEqual(1.0, data["summary"]["required_lane_match_rate"])
         self.assertEqual(1.0, data["summary"]["blocked_budget_rate"])
+        self.assertEqual(1.0, data["summary"]["reflection_count_rate"])
         self.assertEqual("code_current", data["cases"][0]["memory_intent"])
+        self.assertEqual("code_location", data["cases"][0]["memory_intent_v2"])
+
+    def test_eval_retrieval_checks_must_not_trust_weak_source_cases(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "app"
+            project.mkdir()
+            weak_payload = {
+                "experience_type": "procedure_experience",
+                "task": "Profile legacy cache workflow",
+                "summary": "Old Profile workflow from another project.",
+                "lesson": "Clean cache first for Profile issues.",
+                "trigger_condition": "Profile issue",
+                "repair_action": "clean cache",
+                "verification_method": "old manual run",
+                "source_cases": ["old_case:profile-cache"],
+                "confidence": 0.98,
+            }
+            self.run_memory(project, "reflect", "--payload", json.dumps(weak_payload))
+            case_file = self.write_cases(
+                root,
+                [
+                    {
+                        "name": "weak-source-case-not-trusted",
+                        "query": "Profile issue workflow 怎么处理",
+                        "expected_memory_intent_v2": "procedure_reuse",
+                        "must_not_trust": [
+                            {
+                                "type": "reflections",
+                                "id": 1,
+                                "max_trust_score": 0.7,
+                                "forbidden_trust_levels": ["verified_experience"],
+                            }
+                        ],
+                    }
+                ],
+            )
+
+            result = self.run_memory(project, "eval-retrieval", "--cases", str(case_file), "--json")
+            data = json.loads(result.stdout)
+
+        self.assertEqual("pass", data["quality_gate"])
+        self.assertEqual(1.0, data["summary"]["must_not_trust_rate"])
+        self.assertEqual([], data["cases"][0]["unexpected_trusted_matches"])

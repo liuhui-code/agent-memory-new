@@ -94,11 +94,24 @@ FOCUS_PRIORITY_TERMS = {
 
 MEMORY_INTENTS = {
     "code_current",
+    "code_location",
+    "code_business_semantics",
+    "runtime_log_diagnosis",
     "procedure_reuse",
     "correction_guard",
+    "semantic_correction",
     "semantic_lookup",
+    "memory_maintenance",
     "incident_diagnosis",
     "general_context",
+}
+
+MEMORY_INTENT_ALIASES = {
+    "code_location": "code_current",
+    "code_business_semantics": "semantic_lookup",
+    "runtime_log_diagnosis": "incident_diagnosis",
+    "semantic_correction": "correction_guard",
+    "memory_maintenance": "general_context",
 }
 
 REFLECTION_LANE_LIMITS = {
@@ -106,6 +119,16 @@ REFLECTION_LANE_LIMITS = {
     "semantic_patch_notes": 6,
     "blocked_memory_notes": 8,
     "conflict_notes": 5,
+}
+
+MAIN_REFLECTION_BUDGETS = {
+    "code_location": 0,
+    "code_business_semantics": 1,
+    "runtime_log_diagnosis": 2,
+    "procedure_reuse": 3,
+    "semantic_correction": 0,
+    "memory_maintenance": 0,
+    "general_context": 2,
 }
 
 
@@ -474,39 +497,62 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
 
 
 def infer_memory_intent(query: str) -> str:
+    return legacy_memory_intent(infer_memory_intent_v2(query))
+
+
+def legacy_memory_intent(intent_v2: str) -> str:
+    return MEMORY_INTENT_ALIASES.get(intent_v2, intent_v2)
+
+
+def infer_memory_intent_v2(query: str) -> str:
     lowered = query.lower()
-    if any(token in lowered for token in ("日志", "报错", "错误", "异常", "失败", "崩溃", "incident", "log", "traceback", "exception")):
-        return "incident_diagnosis"
-    if any(token in lowered for token in ("业务语义", "业务含义", "语义", "semantic", "business meaning", "business_summary", "business_terms", "补充", "纠正")):
-        return "semantic_lookup"
     if any(token in lowered for token in ("误导", "错误经验", "纠错", "冲突", "不要", "避免", "correction", "wrong", "misleading")):
-        return "correction_guard"
+        return "semantic_correction"
+    if any(token in lowered for token in ("maintain", "治理", "维护", "淘汰", "刷新", "合并", "stale", "archive", "refresh")):
+        return "memory_maintenance"
+    if any(token in lowered for token in ("日志", "报错", "错误", "异常", "失败", "崩溃", "incident", "log", "traceback", "exception")):
+        return "runtime_log_diagnosis"
+    if any(token in lowered for token in ("业务语义", "业务含义", "语义", "semantic", "business meaning", "business_summary", "business_terms", "补充")):
+        return "code_business_semantics"
     if any(token in lowered for token in ("如何", "怎么", "步骤", "流程", "方案", "procedure", "playbook", "workflow", "how to")):
         return "procedure_reuse"
-    if any(token in lowered for token in ("代码", "函数", "文件", "调用", "当前", "source", "code", "function", "file")):
-        return "code_current"
+    if any(token in lowered for token in ("代码", "函数", "文件", "调用", "当前", "source", "code", "function", "file", "在哪里", "位置", "path")):
+        return "code_location"
     return "general_context"
 
 
 def query_intent_profile(query: str) -> dict[str, Any]:
-    intent = infer_memory_intent(query)
+    intent_v2 = infer_memory_intent_v2(query)
+    intent = legacy_memory_intent(intent_v2)
     preferred: dict[str, list[str]] = {
         "code_current": ["wiki_matches", "code_log_matches", "edge_matches", "semantic_patch"],
+        "code_location": ["wiki_matches", "code_log_matches", "edge_matches"],
+        "code_business_semantics": ["wiki_matches", "semantic_patch", "semantic_facts", "correction_guard"],
+        "runtime_log_diagnosis": ["code_log_matches", "incident_trace_matches", "edge_matches", "reusable_procedure", "correction_guard"],
         "incident_diagnosis": ["code_log_matches", "incident_trace_matches", "edge_matches", "reusable_procedure", "correction_guard"],
         "semantic_lookup": ["wiki_matches", "semantic_facts", "semantic_patch", "correction_guard"],
+        "semantic_correction": ["correction_guard", "semantic_patch", "semantic_facts", "wiki_matches"],
         "correction_guard": ["correction_guard", "semantic_patch", "semantic_facts"],
         "procedure_reuse": ["reusable_procedure", "incident_trace_matches", "semantic_facts"],
+        "memory_maintenance": ["blocked_memory_notes", "semantic_patch", "correction_guard", "semantic_facts"],
         "general_context": ["semantic_facts", "wiki_matches", "reusable_procedure", "historical_reflection"],
     }
     return {
         "intent": intent,
-        "preferred_lanes": preferred.get(intent, preferred["general_context"]),
+        "intent_v2": intent_v2,
+        "legacy_intent": intent,
+        "preferred_lanes": preferred.get(intent_v2, preferred.get(intent, preferred["general_context"])),
         "interference_policy": {
             "code_current": "prefer current code/wiki/log anchors over broad procedure memories",
+            "code_location": "prefer current code/wiki/log anchors and block broad procedure memories",
+            "code_business_semantics": "prefer current business semantics, semantic patches, and correction guards",
+            "runtime_log_diagnosis": "prefer logs, incident traces, and verified procedures with source cases",
             "incident_diagnosis": "prefer logs, incident traces, and verified procedures with source cases",
             "semantic_lookup": "prefer current business semantics and semantic patch guardrails",
+            "semantic_correction": "prefer correction guardrails and semantic patches; keep procedure advice out of main context",
             "procedure_reuse": "prefer verified reusable procedure experience",
-        }.get(intent, "prefer source-backed and high-quality memories"),
+            "memory_maintenance": "prefer governance notes and records needing review",
+        }.get(intent_v2, "prefer source-backed and high-quality memories"),
     }
 
 
@@ -569,7 +615,8 @@ def reflection_memory_lane(item: dict[str, Any]) -> str:
     return "historical_reflection"
 
 
-def reflection_gate_decision(query: str, intent: str, item: dict[str, Any]) -> dict[str, Any]:
+def reflection_gate_decision(query: str, intent: str, item: dict[str, Any], intent_v2: str | None = None) -> dict[str, Any]:
+    intent_v2 = intent_v2 or intent
     lane = reflection_memory_lane(item)
     text = text_for_reflection_gate(item)
     overlap = token_overlap_score(query, text)
@@ -616,7 +663,7 @@ def reflection_gate_decision(query: str, intent: str, item: dict[str, Any]) -> d
         reasons.append("quality_score_low")
 
     if lane == "reusable_procedure":
-        allowed = intent in {"procedure_reuse", "general_context", "incident_diagnosis"}
+        allowed = intent_v2 in {"procedure_reuse", "general_context", "runtime_log_diagnosis"} or intent in {"procedure_reuse", "general_context", "incident_diagnosis"}
         if allowed:
             score += 18
             reasons.append("procedure_lane_matches_intent")
@@ -624,14 +671,14 @@ def reflection_gate_decision(query: str, intent: str, item: dict[str, Any]) -> d
             interference_penalty += 20
             reasons.append("procedure_lane_not_primary_for_intent")
     elif lane == "correction_guard":
-        allowed = intent in {"correction_guard", "incident_diagnosis", "semantic_lookup"}
+        allowed = intent_v2 in {"semantic_correction", "runtime_log_diagnosis", "code_business_semantics"} or intent in {"correction_guard", "incident_diagnosis", "semantic_lookup"}
         if allowed:
             score += 12
             reasons.append("correction_guard_matches_intent")
         else:
             reasons.append("correction_guard_kept_out_of_main_context")
     elif lane == "semantic_patch":
-        allowed = intent in {"semantic_lookup", "code_current", "general_context"}
+        allowed = intent_v2 in {"code_business_semantics", "code_location", "semantic_correction", "memory_maintenance"} or intent in {"semantic_lookup", "code_current", "general_context"}
         if allowed:
             score += 15
             reasons.append("semantic_patch_matches_intent")
@@ -641,16 +688,29 @@ def reflection_gate_decision(query: str, intent: str, item: dict[str, Any]) -> d
         allowed = True
         reasons.append("legacy_reflection_allowed")
 
-    if intent == "code_current" and lane in {"reusable_procedure", "historical_reflection"}:
+    if intent_v2 == "code_location" and lane in {"reusable_procedure", "historical_reflection"}:
+        interference_penalty += 28
+        interference_reasons.append("code_location_query_prefers_source_anchors")
+        interference_reasons.append("code_current_query_prefers_source_anchors")
+    elif intent == "code_current" and lane in {"reusable_procedure", "historical_reflection"}:
         interference_penalty += 18
         interference_reasons.append("code_current_query_prefers_source_anchors")
-    if intent == "semantic_lookup" and lane == "reusable_procedure":
+    if intent_v2 == "code_business_semantics" and lane == "reusable_procedure":
+        interference_penalty += 18
+        interference_reasons.append("code_business_semantics_prefers_semantic_anchors")
+    elif intent == "semantic_lookup" and lane == "reusable_procedure":
         interference_penalty += 12
         interference_reasons.append("semantic_lookup_query_prefers_semantic_patch_or_code_wiki")
+    if intent_v2 == "semantic_correction" and lane == "reusable_procedure":
+        interference_penalty += 24
+        interference_reasons.append("semantic_correction_keeps_procedures_out_of_main_context")
     if intent == "procedure_reuse" and lane in {"semantic_patch", "correction_guard"}:
         interference_penalty += 8
         interference_reasons.append("procedure_query_keeps_corrections_as_guardrails")
-    if overlap < 0.25 and lane == "reusable_procedure" and intent != "procedure_reuse":
+    if lane == "reusable_procedure" and not item.get("negative_preconditions") and intent_v2 != "procedure_reuse":
+        interference_penalty += 12
+        interference_reasons.append("procedure_missing_negative_preconditions_for_non_procedure_query")
+    if overlap < 0.25 and lane == "reusable_procedure" and intent_v2 != "procedure_reuse":
         interference_penalty += 10
         interference_reasons.append("low_query_overlap_for_reusable_procedure")
     if interference_penalty:
@@ -705,7 +765,8 @@ def gate_matches_by_intent(
     query: str,
     matches: dict[str, list[dict[str, Any]]],
 ) -> dict[str, Any]:
-    intent = infer_memory_intent(query)
+    intent_v2 = infer_memory_intent_v2(query)
+    intent = legacy_memory_intent(intent_v2)
     gated_matches: dict[str, list[dict[str, Any]]] = {
         key: [dict(item) for item in value]
         for key, value in matches.items()
@@ -722,7 +783,7 @@ def gate_matches_by_intent(
     }
 
     for item in gated_matches.get("reflections", []):
-        decision = reflection_gate_decision(query, intent, item)
+        decision = reflection_gate_decision(query, intent, item, intent_v2)
         item["memory_lane"] = decision["lane"]
         item["gate_score"] = decision["score"]
         item["gate_reasons"] = decision["reasons"]
@@ -761,6 +822,23 @@ def gate_matches_by_intent(
             lane_counts["blocked_memory_notes"] += 1
 
     main_reflections.sort(key=lambda item: (item.get("gate_score", 0), item.get("score", 0), item.get("id", 0)), reverse=True)
+    main_reflection_budget = MAIN_REFLECTION_BUDGETS.get(intent_v2, MAIN_REFLECTION_BUDGETS["general_context"])
+    overflow_reflections = main_reflections[main_reflection_budget:]
+    if overflow_reflections:
+        for item in overflow_reflections:
+            blocked_notes.append(
+                {
+                    "id": item.get("id"),
+                    "experience_type": item.get("experience_type"),
+                    "memory_lane": item.get("memory_lane"),
+                    "gate_score": item.get("gate_score"),
+                    "intent_alignment": "budget_overflow",
+                    "interference_penalty": item.get("interference_penalty", 0.0),
+                    "reason": f"main reflection lane budget for {intent_v2} is {main_reflection_budget}",
+                }
+            )
+        lane_counts["blocked_memory_notes"] += len(overflow_reflections)
+        main_reflections = main_reflections[:main_reflection_budget]
     correction_guards.sort(key=lambda item: (item.get("gate_score", 0), item.get("score", 0), item.get("id", 0)), reverse=True)
     semantic_patch_notes.sort(key=lambda item: (item.get("gate_score", 0), item.get("id", 0)), reverse=True)
     gated_matches["reflections"] = main_reflections
@@ -769,9 +847,16 @@ def gate_matches_by_intent(
     return {
         "matches": gated_matches,
         "memory_intent": intent,
+        "memory_intent_v2": intent_v2,
         "retrieval_lanes": {
             "counts": lane_counts,
             "intent_profile": intent_profile,
+            "lane_budgets": {
+                "main_reflections": main_reflection_budget,
+                "correction_guards": REFLECTION_LANE_LIMITS["correction_guards"],
+                "semantic_patch_notes": REFLECTION_LANE_LIMITS["semantic_patch_notes"],
+                "blocked_memory_notes": REFLECTION_LANE_LIMITS["blocked_memory_notes"],
+            },
             "policy": {
                 "procedure_experience": "main context only when the query intent can reuse a procedure",
                 "correction_experience": "guardrail lane; not injected as the main task direction by default",
@@ -780,6 +865,7 @@ def gate_matches_by_intent(
         },
         "memory_brief": {
             "intent": intent,
+            "intent_v2": intent_v2,
             "main_reflection_count": len(main_reflections),
             "correction_guard_count": len(correction_guards),
             "semantic_patch_count": len(semantic_patch_notes),
@@ -1213,6 +1299,7 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "project_path": str(project.root),
         "query": query,
         "memory_intent": gated["memory_intent"],
+        "memory_intent_v2": gated["memory_intent_v2"],
         "retrieval_lanes": gated["retrieval_lanes"],
         "memory_brief": gated["memory_brief"],
         "followup_focus": followup_focus,
@@ -1251,6 +1338,7 @@ def limited_search(
     gated = gate_matches_by_intent(project, query, matches)
     payload = batched_search(gated["matches"], query=query, cursor=cursor, per_type_limit=per_type_limit, aggregate_limit=aggregate_limit)
     payload["memory_intent"] = gated["memory_intent"]
+    payload["memory_intent_v2"] = gated["memory_intent_v2"]
     payload["retrieval_lanes"] = gated["retrieval_lanes"]
     payload["memory_brief"] = gated["memory_brief"]
     payload["correction_guards"] = gated["correction_guards"]

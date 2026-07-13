@@ -57,6 +57,10 @@ def evaluate_retrieval_cases(project: Project, cases: list[dict[str, Any]]) -> d
     lane_hits = sum(result["required_lane_hits"] for result in case_results)
     blocked_budget_total = sum(result["blocked_budget_total"] for result in case_results)
     blocked_budget_hits = sum(result["blocked_budget_hits"] for result in case_results)
+    reflection_count_total = sum(result["reflection_count_total"] for result in case_results)
+    reflection_count_hits = sum(result["reflection_count_hits"] for result in case_results)
+    must_not_trust_total = sum(result["must_not_trust_total"] for result in case_results)
+    unexpected_trusted = sum(result["unexpected_trusted_count"] for result in case_results)
     expected_hit_rate = ratio(expected_hits, expected_total)
     blocked_bad_rate = ratio(bad_blocked, bad_total)
     expected_top_hit_rate = ratio(expected_top_hits, expected_top_total)
@@ -64,6 +68,8 @@ def evaluate_retrieval_cases(project: Project, cases: list[dict[str, Any]]) -> d
     intent_match_rate = ratio(intent_hits, intent_total)
     required_lane_match_rate = ratio(lane_hits, lane_total)
     blocked_budget_rate = ratio(blocked_budget_hits, blocked_budget_total)
+    reflection_count_rate = ratio(reflection_count_hits, reflection_count_total)
+    must_not_trust_rate = ratio(must_not_trust_total - unexpected_trusted, must_not_trust_total)
     exact_anchor_ranks = [
         rank
         for result in case_results
@@ -80,6 +86,8 @@ def evaluate_retrieval_cases(project: Project, cases: list[dict[str, Any]]) -> d
             and intent_match_rate >= PASS_INTENT_MATCH_RATE
             and required_lane_match_rate >= PASS_LANE_MATCH_RATE
             and blocked_budget_rate >= 1.0
+            and reflection_count_rate >= 1.0
+            and must_not_trust_rate >= 1.0
         )
         else "fail"
     )
@@ -110,6 +118,12 @@ def evaluate_retrieval_cases(project: Project, cases: list[dict[str, Any]]) -> d
             "blocked_budget_total": blocked_budget_total,
             "blocked_budget_hits": blocked_budget_hits,
             "blocked_budget_rate": blocked_budget_rate,
+            "reflection_count_total": reflection_count_total,
+            "reflection_count_hits": reflection_count_hits,
+            "reflection_count_rate": reflection_count_rate,
+            "must_not_trust_total": must_not_trust_total,
+            "unexpected_trusted_count": unexpected_trusted,
+            "must_not_trust_rate": must_not_trust_rate,
         },
         "cases": case_results,
         "thresholds": {
@@ -120,6 +134,8 @@ def evaluate_retrieval_cases(project: Project, cases: list[dict[str, Any]]) -> d
             "intent_match_rate": PASS_INTENT_MATCH_RATE,
             "required_lane_match_rate": PASS_LANE_MATCH_RATE,
             "blocked_budget_rate": 1.0,
+            "reflection_count_rate": 1.0,
+            "must_not_trust_rate": 1.0,
         },
     }
 
@@ -133,6 +149,7 @@ def evaluate_retrieval_case(project: Project, case: dict[str, Any]) -> dict[str,
     must_not_include = list_specs(case.get("must_not_include"))
     expected_top = list_specs(case.get("expected_top"))
     noise = list_specs(case.get("noise"))
+    must_not_trust = list_specs(case.get("must_not_trust"))
     missed_expected = [spec for spec in expected if not match_spec(context, spec)]
     unexpected_bad = [spec for spec in must_not_include if match_spec(context, spec)]
     top_ranks = [match_rank(context, spec) for spec in expected_top]
@@ -140,21 +157,29 @@ def evaluate_retrieval_case(project: Project, case: dict[str, Any]) -> dict[str,
         spec for spec, rank in zip(expected_top, top_ranks) if rank != 1
     ]
     unexpected_noise = [spec for spec in noise if match_high_trust_noise(context, spec)]
+    unexpected_trusted = [spec for spec in must_not_trust if match_trusted_spec(context, spec)]
     expected_intent = str(case.get("expected_memory_intent") or "").strip()
+    expected_intent_v2 = str(case.get("expected_memory_intent_v2") or "").strip()
     intent_hit = not expected_intent or context.get("memory_intent") == expected_intent
+    intent_v2_hit = not expected_intent_v2 or context.get("memory_intent_v2") == expected_intent_v2
     required_lanes = [str(item) for item in case.get("required_preferred_lanes") or [] if str(item).strip()]
     preferred_lanes = preferred_lanes_from_context(context)
     missing_required_lanes = [lane for lane in required_lanes if lane not in preferred_lanes]
     max_blocked = case.get("max_blocked_memory_notes")
     blocked_count = len(context.get("blocked_memory_notes") or [])
     blocked_budget_hit = max_blocked is None or blocked_count <= int(max_blocked)
+    max_reflections = case.get("max_reflection_count")
+    reflection_count = len(context.get("reflections") or [])
+    reflection_count_hit = max_reflections is None or reflection_count <= int(max_reflections)
     return {
         "name": case.get("name") or query,
         "query": query,
         "memory_intent": context.get("memory_intent"),
+        "memory_intent_v2": context.get("memory_intent_v2"),
         "expected_memory_intent": expected_intent or None,
-        "intent_total": 1 if expected_intent else 0,
-        "intent_hits": 1 if expected_intent and intent_hit else 0,
+        "expected_memory_intent_v2": expected_intent_v2 or None,
+        "intent_total": int(bool(expected_intent)) + int(bool(expected_intent_v2)),
+        "intent_hits": int(bool(expected_intent and intent_hit)) + int(bool(expected_intent_v2 and intent_v2_hit)),
         "required_lane_total": len(required_lanes),
         "required_lane_hits": len(required_lanes) - len(missing_required_lanes),
         "required_preferred_lanes": required_lanes,
@@ -163,6 +188,10 @@ def evaluate_retrieval_case(project: Project, case: dict[str, Any]) -> dict[str,
         "max_blocked_memory_notes": max_blocked,
         "blocked_budget_total": 1 if max_blocked is not None else 0,
         "blocked_budget_hits": 1 if max_blocked is not None and blocked_budget_hit else 0,
+        "reflection_count": reflection_count,
+        "max_reflection_count": max_reflections,
+        "reflection_count_total": 1 if max_reflections is not None else 0,
+        "reflection_count_hits": 1 if max_reflections is not None and reflection_count_hit else 0,
         "expected_total": len(expected),
         "expected_hits": len(expected) - len(missed_expected),
         "must_not_include_total": len(must_not_include),
@@ -172,10 +201,13 @@ def evaluate_retrieval_case(project: Project, case: dict[str, Any]) -> dict[str,
         "expected_top_ranks": top_ranks,
         "noise_total": len(noise),
         "unexpected_noise_count": len(unexpected_noise),
+        "must_not_trust_total": len(must_not_trust),
+        "unexpected_trusted_count": len(unexpected_trusted),
         "missed_expected": missed_expected,
         "unexpected_bad_matches": unexpected_bad,
         "missed_expected_top": missed_expected_top,
         "unexpected_noise_matches": unexpected_noise,
+        "unexpected_trusted_matches": unexpected_trusted,
         "result_counts": {
             key: len(value)
             for key, value in context.items()
@@ -232,6 +264,23 @@ def match_high_trust_noise(context: dict[str, Any], spec: dict[str, Any]) -> boo
         if not isinstance(item, dict) or not candidate_matches(item, spec):
             continue
         if float(item.get("trust_score") or 0.0) >= float(spec.get("min_trust_score") or 0.75):
+            return True
+    return False
+
+
+def match_trusted_spec(context: dict[str, Any], spec: dict[str, Any]) -> bool:
+    result_type = str(spec.get("type") or "")
+    values = context.get(result_type)
+    if not isinstance(values, list):
+        return False
+    max_trust_score = float(spec.get("max_trust_score") or 0.7)
+    forbidden_levels = set(str(level) for level in spec.get("forbidden_trust_levels") or ["verified_experience", "source_truth"])
+    for item in values:
+        if not isinstance(item, dict) or not candidate_matches(item, spec):
+            continue
+        if float(item.get("trust_score") or 0.0) > max_trust_score:
+            return True
+        if str(item.get("trust_level") or "") in forbidden_levels:
             return True
     return False
 

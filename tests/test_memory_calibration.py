@@ -76,6 +76,28 @@ class MemoryCalibrationTests(unittest.TestCase):
         self.assertIn("stale", " ".join(calibrated["trust_reasons"]))
         self.assertIn("feedback penalty", " ".join(calibrated["trust_reasons"]))
 
+    def test_weak_source_cases_cap_verified_reflection_trust(self) -> None:
+        from tools.agent_memory_runtime.memory_calibration import calibrate_record
+
+        item = {
+            "id": 3,
+            "experience_type": "procedure_experience",
+            "memory_lane": "reusable_procedure",
+            "confidence": 0.97,
+            "quality_score": 0.92,
+            "verification_method": "old manual run",
+            "source_cases": ["old_case:profile-cache"],
+            "gate_reasons": ["procedure_lane_matches_intent"],
+        }
+
+        calibrated = calibrate_record("reflections", item)
+
+        self.assertLessEqual(calibrated["trust_score"], 0.68)
+        self.assertNotEqual("verified_experience", calibrated["trust_level"])
+        self.assertIn("weak source_cases", " ".join(calibrated["trust_reasons"]))
+        self.assertIn("source_cases are old", " ".join(calibrated["trust_cap_reasons"]))
+        self.assertTrue(calibrated["source_case_quality"]["all_cases_weak"])
+
     def test_context_output_includes_memory_policy_and_calibrated_rows(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir) / "app"
