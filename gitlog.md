@@ -24,6 +24,38 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-13 - Enforce Python file line limit
+
+Files changed:
+- `tools/check_line_limits.py`
+- `tools/agent_memory.py`
+- `tools/agent_memory_runtime/*.py`
+- `tests/test_agent_memory.py`
+- `tests/agent_memory_test_base.py`
+- `tests/test_agent_memory_part_*.py`
+- `docs/superpowers/plans/2026-07-13-python-file-line-limit-remediation.md`
+- `gitlog.md`
+
+What changed:
+- Added a repository-local Python line-limit checker for `install.py`, `tools/**/*.py`, and `tests/**/*.py`.
+- Split large runtime modules into focused facades and helper modules across query, code wiki, governance, storage, vault, runtime logs, and CLI entry handling.
+- Split the oversized runtime test suite into numbered part files with shared test helpers.
+- Preserved the four user-facing skills and the stable `tools/agent_memory.py` CLI entry point.
+
+Why:
+- Keep every Python code file under 500 lines so future agent edits remain reviewable, locally bounded, and easier to evolve.
+
+Verification:
+- Command: `python3 tools/check_line_limits.py`
+- Result: passes, all Python files are <= 500 lines.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py tests/*.py install.py`
+- Result: passes.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest discover tests`
+- Result: passes, 237 tests.
+
+Rollback notes:
+- Revert the facade/helper module splits and restore the previous monolithic files if compatibility requires a single-file layout; keep `tools/check_line_limits.py` only if the line-limit gate should remain.
+
 ## 2026-07-13 - Add semantic drift evidence to refresh conflicts
 
 Files changed:
