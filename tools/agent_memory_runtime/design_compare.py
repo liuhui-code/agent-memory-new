@@ -123,6 +123,7 @@ def candidate_summary(
         "testability_gap": has_finding(evaluation, "missing_test_anchor"),
         "observability_gap": has_finding(evaluation, "missing_observability_anchor"),
         "dimensions": evaluation["dimensions"],
+        "historical_risk": evaluation["historical_risk"],
     }
 
 
@@ -136,8 +137,15 @@ def ranking_key(item: dict[str, Any]) -> tuple[Any, ...]:
         item["warnings"],
         item["uncertainty_count"],
         item["change_size"],
+        historical_risk_rank(item["historical_risk"]),
         item["candidate_id"],
     )
+
+
+def historical_risk_rank(value: dict[str, Any]) -> float:
+    if value.get("status") != "advisory":
+        return 0.0
+    return float(value.get("historical_risk_rate") or 0.0)
 
 
 def decision_reasons(winner: dict[str, Any], others: list[dict[str, Any]]) -> list[str]:
@@ -186,6 +194,7 @@ def comparison_evaluation(evaluation: dict[str, Any]) -> dict[str, Any]:
         "constraint_coverage",
         "coverage_summary",
         "dimensions",
+        "historical_risk",
         "architecture_summary",
         "audit",
     )

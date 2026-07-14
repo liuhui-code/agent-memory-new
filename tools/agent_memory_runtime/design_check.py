@@ -11,6 +11,7 @@ from typing import Any
 
 from .architecture_slice import DEPENDENCY_RELATIONS, infer_layer, unique_paths
 from .design_change_plan import build_change_plan
+from .design_calibration import calibration_profile, design_features
 from .design_coverage import evaluate_coverage
 from .design_dimensions import evaluate_dimensions
 from .design_fitness import evaluate_rules
@@ -174,6 +175,10 @@ def check_design_proposal(
     warnings = [item for item in findings if item["severity"] == "warning"]
     status = "blocked" if errors else "review" if warnings else "clean"
     dimensions = evaluate_dimensions(proposal, architecture, coverage, findings)
+    features = design_features(proposal, {"errors": errors, "warnings": warnings})
+    historical_risk = calibration_profile(
+        project, features["archetype"], features["change_size_bucket"],
+    )
     return {
         "schema_version": evaluation_schema(proposal, contract),
         "candidate_id": proposal["id"],
@@ -192,6 +197,8 @@ def check_design_proposal(
         "constraint_coverage": coverage["constraints"],
         "coverage_summary": coverage["summary"],
         "dimensions": dimensions,
+        "calibration_features": features,
+        "historical_risk": historical_risk,
         "change_plan": build_change_plan(proposal, architecture, revision),
         "architecture_summary": {
             "entry_points": architecture["entry_points"],

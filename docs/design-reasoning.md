@@ -49,19 +49,19 @@ Bounded evaluator providers report evidence coverage, compatibility, ownership, 
 
 `design-compare` reuses one baseline across candidates and returns a `design-decision/v1`, decisive reasons, sensitivity points, tradeoff points, and the selected `change-plan/v1`. Ranking is hard-gated and lexicographic/Pareto-oriented; a scalar score never overrides a violation.
 
-`change-plan/v1` topologically orders implementation, known-consumer review, tests, and observability obligations. Every step has a stable id, target, dependencies, expected Delta, and verification obligations. Plans are bounded to 200 steps and are not persisted.
+`change-plan/v1` derives dependencies from current/proposed graph edges and target-specific coverage references. Independent implementation steps remain parallel; consumer review and verification depend only on the Delta they inspect. Every step has a stable id, target, dependencies, expected Delta, and verification obligations. Plans are bounded to 200 steps and are not persisted.
 
-`design-progress` reconstructs that plan during implementation from the current Git Delta and existing test evidence. Steps are `completed`, `ready`, `pending`, or `blocked`; only dependency-satisfied incomplete steps become next actions. Planned added files are detected in the working tree even before Git tracks them and are reported as an evidence gap. `--completed-step` is restricted to consumer-review and observability obligations that require explicit human acknowledgement; it cannot override implementation or failed-test evidence.
+`design-progress` reconstructs that plan during implementation from the current Git Delta and existing test evidence. Steps are `completed`, `in_progress`, `ready`, `pending`, or `blocked`. An untracked ArkTS/TypeScript file is only complete when its expected class/component/function is parsed; an empty or structurally wrong file remains `in_progress`. `--completed-step` is restricted to consumer-review and observability obligations that require explicit human acknowledgement.
 
 ## Verification and Calibration
 
 `design-verify` compares planned and actual files, symbols, exported API signatures, source relation Delta, learned-graph alignment, baseline/current revisions, test evidence, and scenario obligations. With `--base` or `--diff-file`, changed hunks are mapped to fresh ArkTS/TypeScript semantic spans automatically. Source relation Delta describes the current implementation change; learned-graph alignment separately checks the last indexed repository model.
 
-`test-evidence/v1` records command, status, exit code, compact summary, and verified obligations. Repeatable `--test-report` inputs accept JUnit XML, generic `test-report/v1`, pytest-json-report, and Jest JSON. The runtime parses existing reports but never executes test commands. Failed evidence cannot satisfy an obligation. Legacy `--executed-tests` remains accepted as caller-reported execution.
+`test-evidence/v1` records command, status, exit code, compact summary, and verified obligations. Repeatable `--test-report` inputs accept JUnit XML, generic `test-report/v1`, `compiler-report/v1`, pytest-json-report, and Jest JSON. Optional `--verification-run verification-run.json` binds reports to the current Git head plus source/report SHA-256 digests. Stale bound evidence is retained for audit but cannot satisfy an obligation. Legacy unbound evidence remains explicit caller evidence. The runtime parses reports but never executes tests.
 
 Verification emits bounded replan triggers for missing/unplanned files, symbol drift, graph mismatch, revision drift, failed tests, and unmet v2 scenarios.
 
-`design-outcome` is the only persistence path. It stores compact recall, unplanned-change ratio, scenario verification rate, failed-test count, replan count, and outcome. It never stores source, diffs, proposals, test logs, reasoning, or rules. At most 1,000 outcomes are retained per project, and `maintain-health` exposes calibration-only aggregates.
+`design-outcome` is the only persistence path. It stores compact metrics plus archetype, change-size bucket, risk/API/graph-Delta counts, and outcome. It never stores source, diffs, proposals, test logs, reasoning, or rules. A matching profile requires five reviewed outcomes before it becomes advisory; it can only break a tie after hard gates and all current-evidence dimensions. At most 1,000 outcomes are retained per project.
 
 ## Commands
 
@@ -78,7 +78,7 @@ python tools/agent_memory.py design-compare --project . \
 
 python tools/agent_memory.py design-progress --project . \
   --proposal selected.json --contract contract.json --base HEAD \
-  --test-report build/test-results.xml --json
+  --test-report build/test-results.xml --verification-run verification-run.json --json
 
 python tools/agent_memory.py design-verify --project . \
   --proposal selected.json --contract contract.json --base HEAD~1 \

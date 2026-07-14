@@ -37,6 +37,7 @@ def add_design_parsers(sub: Any, add_project: Callable[[Any], None], command: Ca
     progress.add_argument("--executed-tests", action="append")
     progress.add_argument("--test-evidence")
     progress.add_argument("--test-report", action="append")
+    progress.add_argument("--verification-run")
     progress.add_argument("--completed-step", action="append")
     progress.set_defaults(func=command("design_progress_command"))
 
@@ -50,6 +51,7 @@ def add_design_parsers(sub: Any, add_project: Callable[[Any], None], command: Ca
     verify.add_argument("--actual-symbols", action="append")
     verify.add_argument("--test-evidence")
     verify.add_argument("--test-report", action="append")
+    verify.add_argument("--verification-run")
     verify.set_defaults(func=command("design_verify_command"))
 
     evaluate = sub.add_parser("eval-design")

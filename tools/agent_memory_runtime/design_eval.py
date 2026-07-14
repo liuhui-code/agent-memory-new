@@ -15,6 +15,15 @@ from .records import output
 from .storage import ensure_initialized, resolve_project
 
 
+CONTRACT_FINDING_CODES = {
+    "contract_id_mismatch",
+    "uncovered_contract_constraint",
+    "unknown_constraint_coverage",
+    "unknown_quality_coverage",
+}
+MIN_EVAL_CASES = 10
+
+
 def eval_design_command(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
@@ -36,26 +45,39 @@ def evaluate_case_pack(project: Any, pack: dict[str, Any]) -> dict[str, Any]:
     preference_cases = [item for item in results if item["preference_expected"]]
     preference_matches = sum(1 for item in preference_cases if item["preference_matched"])
     verified = [item for item in results if item["planned_file_recall"] is not None]
+    contract_samples = sum(item["proposal_count"] for item in results)
+    contract_valid = sum(item["contract_valid_count"] for item in results)
     proposal_count = sum(item["proposal_count"] for item in results)
     assumption_count = sum(item["assumption_count"] for item in results)
     coverage_items = sum(item["coverage_item_count"] for item in results)
     supported_items = sum(item["supported_coverage_count"] for item in results)
     ready_plans = sum(item["ready_plan_count"] for item in results)
+    quality_gate = evaluation_quality_gate(
+        len(results), finding_expected, len(preference_cases), len(verified)
+    )
     return {
         "schema_version": "design-eval-result/v1",
         "status": "pass" if passed == len(results) else "fail",
         "metrics": {
             "case_pass_rate": round(passed / len(results), 4),
-            "finding_recall": round(finding_matched / finding_expected, 4) if finding_expected else 1.0,
-            "candidate_preference_accuracy": round(preference_matches / len(preference_cases), 4) if preference_cases else 1.0,
-            "contract_validity_rate": 1.0,
-            "planned_file_recall": round(sum(item["planned_file_recall"] for item in verified) / len(verified), 4) if verified else 1.0,
+            "finding_recall": sampled_rate(finding_matched, finding_expected),
+            "candidate_preference_accuracy": sampled_rate(preference_matches, len(preference_cases)),
+            "contract_validity_rate": sampled_rate(contract_valid, contract_samples),
+            "planned_file_recall": sampled_average([item["planned_file_recall"] for item in verified]),
             "unsupported_assumption_rate": round(assumption_count / proposal_count, 4) if proposal_count else 0.0,
-            "supported_coverage_rate": round(supported_items / coverage_items, 4) if coverage_items else 1.0,
+            "supported_coverage_rate": sampled_rate(supported_items, coverage_items),
             "change_plan_ready_rate": round(ready_plans / proposal_count, 4) if proposal_count else 1.0,
             "input_payload_bytes": len(json.dumps(pack, ensure_ascii=False).encode("utf-8")),
             "case_count": len(results),
         },
+        "metric_coverage": {
+            "finding_recall": metric_coverage(finding_expected),
+            "supported_coverage_rate": metric_coverage(coverage_items),
+            "candidate_preference_accuracy": metric_coverage(len(preference_cases)),
+            "contract_validity_rate": metric_coverage(contract_samples),
+            "planned_file_recall": metric_coverage(len(verified)),
+        },
+        "quality_gate": quality_gate,
         "cases": results,
         "audit": {"persisted": False, "llm_used": False},
     }
@@ -140,6 +162,9 @@ def evaluate_case(project: Any, value: Any, index: int) -> dict[str, Any]:
             for item in evaluations.values()
         ),
         "ready_plan_count": sum(1 for item in evaluations.values() if item["change_plan"]["status"] == "ready"),
+        "contract_valid_count": sum(
+            1 for item in evaluations.values() if not (finding_codes(item) & CONTRACT_FINDING_CODES)
+        ),
     }
 
 
@@ -147,3 +172,37 @@ def finding_codes(evaluation: dict[str, Any] | None) -> set[str]:
     if not evaluation:
         return set()
     return {item["code"] for item in evaluation["errors"] + evaluation["warnings"]}
+
+
+def sampled_rate(matches: int, sample_count: int) -> float | None:
+    return round(matches / sample_count, 4) if sample_count else None
+
+
+def sampled_average(values: list[float]) -> float | None:
+    return round(sum(values) / len(values), 4) if values else None
+
+
+def metric_coverage(sample_count: int) -> dict[str, Any]:
+    return {
+        "sample_count": sample_count,
+        "status": "evaluated" if sample_count else "not_evaluated",
+    }
+
+
+def evaluation_quality_gate(
+    case_count: int,
+    finding_samples: int,
+    preference_samples: int,
+    verification_samples: int,
+) -> dict[str, Any]:
+    checks = {
+        "minimum_cases": case_count >= MIN_EVAL_CASES,
+        "finding_cases": finding_samples > 0,
+        "candidate_preference_cases": preference_samples > 0,
+        "verification_cases": verification_samples > 0,
+    }
+    return {
+        "status": "pass" if all(checks.values()) else "insufficient",
+        "checks": checks,
+        "minimum_case_count": MIN_EVAL_CASES,
+    }

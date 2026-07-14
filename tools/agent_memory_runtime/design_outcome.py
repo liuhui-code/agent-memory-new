@@ -30,6 +30,8 @@ def design_outcome_command(args: argparse.Namespace) -> None:
 def record_design_outcome(project: Project, verification: dict[str, Any], outcome: str) -> dict[str, Any]:
     if not str(verification.get("schema_version") or "").startswith("design-verification/v"):
         raise SystemExit("design outcome requires a design verification payload")
+    if outcome not in {"success", "partial", "failure"}:
+        raise SystemExit("unsupported design outcome")
     metrics = verification.get("metrics") or {}
     if not isinstance(metrics, dict):
         raise SystemExit("design verification metrics must be an object")
@@ -38,6 +40,7 @@ def record_design_outcome(project: Project, verification: dict[str, Any], outcom
     triggers = (verification.get("verification") or {}).get("replan_triggers") or []
     if not isinstance(triggers, list):
         raise SystemExit("design verification replan triggers must be a list")
+    features = calibration_features(verification.get("calibration_features"))
     with connect(project) as conn:
         cursor = conn.execute(
             """
@@ -45,8 +48,10 @@ def record_design_outcome(project: Project, verification: dict[str, Any], outcom
               project_id, candidate_id, contract_id, verification_status, outcome,
               baseline_revision, current_revision,
               planned_file_recall, unplanned_file_ratio, planned_symbol_recall,
-              scenario_verification_rate, failed_test_count, replan_count, created_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+              scenario_verification_rate, failed_test_count, replan_count,
+              archetype, change_size_bucket, risk_count, api_change_count,
+              graph_delta_count, created_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 project.project_id,
@@ -62,6 +67,11 @@ def record_design_outcome(project: Project, verification: dict[str, Any], outcom
                 values["scenario_verification_rate"],
                 max(0, failed_tests),
                 len(triggers),
+                features["archetype"],
+                features["change_size_bucket"],
+                features["risk_count"],
+                features["api_change_count"],
+                features["graph_delta_count"],
                 now_iso(),
             ),
         )
@@ -102,6 +112,13 @@ def outcome_payload(row: dict[str, Any]) -> dict[str, Any]:
         "metrics": {field: float(row[field] or 0.0) for field in METRIC_FIELDS},
         "failed_test_count": int(row["failed_test_count"] or 0),
         "replan_count": int(row["replan_count"] or 0),
+        "calibration_features": {
+            "archetype": row["archetype"],
+            "change_size_bucket": row["change_size_bucket"],
+            "risk_count": int(row["risk_count"] or 0),
+            "api_change_count": int(row["api_change_count"] or 0),
+            "graph_delta_count": int(row["graph_delta_count"] or 0),
+        },
         "created_at": row["created_at"],
     }
 
@@ -121,6 +138,16 @@ def design_calibration_summary(project: Project) -> dict[str, Any]:
             """,
             (project.project_id,),
         ).fetchone()
+        active_profiles = conn.execute(
+            """
+            SELECT COUNT(*) FROM (
+              SELECT archetype, change_size_bucket
+              FROM design_outcomes WHERE project_id = ?
+              GROUP BY archetype, change_size_bucket HAVING COUNT(*) >= 5
+            )
+            """,
+            (project.project_id,),
+        ).fetchone()[0]
     result = row_dict(row)
     return {
         "outcome_count": int(result.get("outcome_count") or 0),
@@ -130,6 +157,7 @@ def design_calibration_summary(project: Project) -> dict[str, Any]:
         "average_scenario_verification_rate": rounded(result.get("average_scenario_verification_rate")),
         "failed_test_count": int(result.get("failed_test_count") or 0),
         "replan_count": int(result.get("replan_count") or 0),
+        "active_profile_count": int(active_profiles or 0),
         "authority": "calibration_only",
         "can_create_hard_rules": False,
     }
@@ -137,3 +165,25 @@ def design_calibration_summary(project: Project) -> dict[str, Any]:
 
 def rounded(value: Any) -> float:
     return round(float(value or 0.0), 4)
+
+
+def calibration_features(value: Any) -> dict[str, Any]:
+    raw = value if isinstance(value, dict) else {}
+    archetype = str(raw.get("archetype") or "general")[:80]
+    bucket = str(raw.get("change_size_bucket") or "small")
+    if bucket not in {"small", "medium", "large"}:
+        bucket = "small"
+    return {
+        "archetype": archetype,
+        "change_size_bucket": bucket,
+        "risk_count": bounded_count(raw.get("risk_count")),
+        "api_change_count": bounded_count(raw.get("api_change_count")),
+        "graph_delta_count": bounded_count(raw.get("graph_delta_count")),
+    }
+
+
+def bounded_count(value: Any) -> int:
+    try:
+        return max(0, min(int(value or 0), 100_000))
+    except (TypeError, ValueError) as exc:
+        raise SystemExit("invalid design calibration count") from exc

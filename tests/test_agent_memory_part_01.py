@@ -36,7 +36,9 @@ class AgentMemoryRuntimePart01Tests(AgentMemoryTestBase):
     def test_all_project_python_files_include_public_fingerprint(self) -> None:
         python_files = [
             path for path in REPO_ROOT.rglob("*.py")
-            if ".pycache" not in path.parts and ".agent-memory" not in path.parts
+            if ".pycache" not in path.parts
+            and ".agent-memory" not in path.parts
+            and "node_modules" not in path.parts
         ]
 
         missing = [

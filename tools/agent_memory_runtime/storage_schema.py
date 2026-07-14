@@ -162,6 +162,11 @@ def create_schema(conn: sqlite3.Connection) -> None:
           scenario_verification_rate REAL NOT NULL DEFAULT 0,
           failed_test_count INTEGER NOT NULL DEFAULT 0,
           replan_count INTEGER NOT NULL DEFAULT 0,
+          archetype TEXT NOT NULL DEFAULT 'general',
+          change_size_bucket TEXT NOT NULL DEFAULT 'small',
+          risk_count INTEGER NOT NULL DEFAULT 0,
+          api_change_count INTEGER NOT NULL DEFAULT 0,
+          graph_delta_count INTEGER NOT NULL DEFAULT 0,
           created_at TEXT NOT NULL
         );
 

@@ -11,7 +11,9 @@ from .design_protocol import load_contract, load_intent, load_rules
 from .design_source_delta import collect_source_delta
 from .design_verification_evidence import failed_test_count, load_test_evidence, verified_refs
 from .impact_scope import resolve_changed_files
+from .models import Project
 from .records import output
+from .semantic_ecma import parse_file
 from .storage import ensure_initialized, resolve_project
 
 
@@ -28,10 +30,15 @@ def design_progress_command(args: argparse.Namespace) -> None:
     rules = load_rules(args.rules)
     evaluation = check_design_proposal(project, proposal, contract, rules, intent=intent)
     actual_files = resolve_changed_files(project, args.base, args.files, args.diff_file, allow_empty=True)
-    working_additions = present_added_files(project.root, evaluation["change_plan"]["steps"])
+    working_additions, addition_evidence = inspect_added_files(
+        project, evaluation["change_plan"]["steps"],
+    )
     actual_files = sorted(set(actual_files) | set(working_additions))
     source_delta = collect_source_delta(project, args.base, args.diff_file)
-    test_evidence = load_test_evidence(args.test_evidence, args.executed_tests, args.test_report)
+    test_evidence = load_test_evidence(
+        args.test_evidence, args.executed_tests, args.test_report,
+        args.verification_run, project.root,
+    )
     payload = build_design_progress(
         project.project_id,
         proposal,
@@ -41,6 +48,7 @@ def design_progress_command(args: argparse.Namespace) -> None:
         test_evidence,
         args.completed_step,
         working_additions,
+        addition_evidence,
     )
     output(payload, args.json)
 
@@ -53,22 +61,27 @@ def build_design_progress(
     source_delta: dict[str, Any],
     test_evidence: dict[str, Any],
     manual_steps: list[str] | None,
-    working_additions: list[str] | None = None,
+    working_additions: dict[str, str] | None = None,
+    addition_evidence: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     plan = evaluation["change_plan"]
     manual = normalize_manual_steps(manual_steps, plan["steps"])
     verified = verified_refs(test_evidence)
     changed_files = set(actual_files)
     changed_symbols = set(source_delta["changed_symbols"])
-    working_additions = working_additions or []
+    working_additions = working_additions or {}
     blockers = progress_blockers(evaluation, plan, test_evidence)
     steps = []
     completed_ids: set[str] = set()
     for step in plan["steps"]:
-        evidence = completion_evidence(step, manual, changed_files, changed_symbols, verified)
+        evidence = completion_evidence(
+            step, manual, changed_files, changed_symbols, verified, working_additions,
+        )
         if evidence:
             status = "completed"
             completed_ids.add(step["id"])
+        elif step["operation"] == "add" and working_additions.get(step["file_path"]) == "partial":
+            status = "in_progress"
         elif blockers:
             status = "blocked"
         elif all(dependency in completed_ids for dependency in step["depends_on"]):
@@ -93,6 +106,7 @@ def build_design_progress(
         "actual_symbols": sorted(changed_symbols),
         "source_delta": source_delta,
         "test_evidence": test_evidence["tests"],
+        "working_tree_semantic_evidence": addition_evidence or [],
         "evidence_gaps": [
             *source_delta["evidence_gaps"],
             *({"kind": "untracked_planned_file", "path": path} for path in working_additions),
@@ -125,9 +139,13 @@ def manually_completable(step: dict[str, Any]) -> bool:
     return step["operation"] == "review_consumer" or step["target"].startswith("observe:")
 
 
-def present_added_files(root: Path, steps: list[dict[str, Any]]) -> list[str]:
-    project_root = root.resolve()
-    result = []
+def inspect_added_files(
+    project: Project,
+    steps: list[dict[str, Any]],
+) -> tuple[dict[str, str], list[dict[str, Any]]]:
+    project_root = project.root.resolve()
+    result: dict[str, str] = {}
+    evidence: list[dict[str, Any]] = []
     for step in steps:
         path = str(step["file_path"])
         if step["operation"] != "add" or not path:
@@ -138,8 +156,39 @@ def present_added_files(root: Path, steps: list[dict[str, Any]]) -> list[str]:
         except ValueError as exc:
             raise SystemExit("planned added file resolves outside the project") from exc
         if source.is_file():
-            result.append(path)
-    return result
+            state, facts = added_file_evidence(project, source, str(step["target"]))
+            result[path] = state
+            evidence.extend(facts)
+    return result, evidence[:200]
+
+
+def added_file_evidence(
+    project: Project,
+    source: Path,
+    target: str,
+) -> tuple[str, list[dict[str, Any]]]:
+    language = {".ets": ("ArkTS", True), ".ts": ("TypeScript", False), ".tsx": ("TypeScript", False)}.get(source.suffix.lower())
+    if not language:
+        return ("complete" if source.stat().st_size else "partial"), []
+    parsed = parse_file(project, source, language[0], language[1])
+    expected_name = target.split(":", 1)[-1].rsplit(".", 1)[-1]
+    state = "complete" if any(entity.name == expected_name for entity in parsed.entities) else "partial"
+    facts = [{
+        "path": parsed.path,
+        "kind": "entity",
+        "name": entity.name,
+        "qualified_name": entity.qualified_name,
+        "entity_kind": entity.kind,
+        "exported": entity.exported,
+    } for entity in parsed.entities[:50]]
+    facts.extend({
+        "path": parsed.path,
+        "kind": "relation",
+        "relation": relation.relation,
+        "source_key": relation.source_key,
+        "target": relation.target_qualified_name or relation.target_name or relation.target_key,
+    } for relation in parsed.relations[:50])
+    return state, facts
 
 
 def completion_evidence(
@@ -148,15 +197,18 @@ def completion_evidence(
     changed_files: set[str],
     changed_symbols: set[str],
     verified: set[str],
+    working_additions: dict[str, str],
 ) -> list[str]:
     if step["id"] in manual:
         return ["explicit_review"]
     target = str(step["target"])
     if step["operation"] in {"add", "modify"}:
+        if step["operation"] == "add" and working_additions.get(step["file_path"]) != "complete":
+            return []
         if target.startswith("symbol:") and target in changed_symbols:
             return ["git_symbol"]
         if step["file_path"] and step["file_path"] in changed_files:
-            return ["git_file"]
+            return ["working_tree_semantic_node"] if step["operation"] == "add" else ["git_file"]
     if target.startswith("test:") and target[5:] in verified:
         return ["passed_test_evidence"]
     if target.startswith("observe:") and target[8:] in verified:
@@ -177,8 +229,10 @@ def progress_blockers(
         blockers.append({"code": "change_plan_cycle", "source": "change_plan", "message": "Change plan contains a cycle."})
     if failed_test_count(test_evidence):
         blockers.append({"code": "test_failure", "source": "test_evidence", "message": "At least one supplied test failed."})
+    if test_evidence.get("provenance", {}).get("status") == "stale":
+        blockers.append({"code": "stale_test_evidence", "source": "test_evidence", "message": "Supplied test evidence does not match the current revision or file digests."})
     return blockers[:50]
 
 
 def status_names() -> tuple[str, ...]:
-    return "completed", "ready", "pending", "blocked"
+    return "completed", "in_progress", "ready", "pending", "blocked"

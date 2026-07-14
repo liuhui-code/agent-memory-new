@@ -6,6 +6,8 @@ import json
 import sqlite3
 import tempfile
 import hashlib
+import shutil
+import unittest
 from pathlib import Path
 
 from tests.agent_memory_test_base import AgentMemoryTestBase, REPO_ROOT
@@ -25,6 +27,8 @@ from tools.agent_memory_runtime.impact_scope import _unique_links
 
 
 PROVIDER = REPO_ROOT / "tests" / "fixtures" / "exact_semantic_provider.py"
+ARKANALYZER_PROVIDER = REPO_ROOT / "providers" / "arkts-arkanalyzer" / "provider.mjs"
+ARKANALYZER_INSTALLED = (REPO_ROOT / "providers" / "arkts-arkanalyzer" / "node_modules" / "arkanalyzer").exists()
 
 
 class SemanticProviderTests(AgentMemoryTestBase):
@@ -231,6 +235,25 @@ export class Demo {
 
         self.assertEqual(1, len(links))
         self.assertEqual("exact", links[0]["evidence_class"])
+
+    @unittest.skipUnless(shutil.which("node") and ARKANALYZER_INSTALLED, "optional ArkAnalyzer provider is not installed")
+    def test_production_arkanalyzer_provider_contract_smoke(self) -> None:
+        root = REPO_ROOT / "tests" / "fixtures" / "arkanalyzer-smoke"
+        source = root / "Profile.ets"
+        project = resolve_project(str(root), str(self.memory_home(root)))
+        ARKANALYZER_PROVIDER.chmod(0o755)
+
+        batch, metadata = run_external_provider(
+            project,
+            "ArkTS",
+            [source],
+            {"AGENT_MEMORY_SEMANTIC_PROVIDER_ARKTS": str(ARKANALYZER_PROVIDER)},
+        )
+
+        self.assertEqual("arkts-arkanalyzer", metadata["provider_id"])
+        self.assertIn("ProfileService.load", {item.qualified_name for item in batch.entities})
+        self.assertIn("calls", {item.relation for item in batch.relations})
+        self.assertTrue(all(item.evidence_class == "exact" for item in batch.entities + batch.relations))
 
 
 if __name__ == "__main__":

@@ -208,8 +208,11 @@ export class ProfileService {
         payload = json.loads(result.stdout)
 
         self.assertEqual("pass", payload["status"])
-        self.assertEqual(9, payload["metrics"]["case_count"])
+        self.assertEqual(11, payload["metrics"]["case_count"])
         self.assertEqual(1.0, payload["metrics"]["finding_recall"])
+        self.assertEqual("pass", payload["quality_gate"]["status"])
+        self.assertEqual(1, payload["metric_coverage"]["candidate_preference_accuracy"]["sample_count"])
+        self.assertEqual(1, payload["metric_coverage"]["planned_file_recall"]["sample_count"])
 
 
 if __name__ == "__main__":

@@ -119,6 +119,46 @@
         "constraint_coverage": [], "quality_coverage": [], "verification": {"tests": [], "observability": []}
       }],
       "expected_findings": {"log-risk": ["missing_observability_anchor"]}
+    },
+    {
+      "id": "arkts-minimal-change-preference",
+      "contract": {"id": "preference", "goal": "Refine profile page behavior", "constraints": [], "quality_scenarios": []},
+      "proposals": [
+        {
+          "id": "focused-change", "contract_id": "preference", "goal": "Refine profile page behavior",
+          "anchors": ["file:pages/ProfilePage.ets"], "add_nodes": [],
+          "modify_nodes": ["file:pages/ProfilePage.ets"], "add_edges": [], "remove_edges": [],
+          "assumptions": [], "invariants": ["ProfileService API remains stable"],
+          "constraint_coverage": [], "quality_coverage": [],
+          "verification": {"tests": [], "observability": []}
+        },
+        {
+          "id": "broad-change", "contract_id": "preference", "goal": "Refine profile page behavior",
+          "anchors": ["file:pages/ProfilePage.ets"], "add_nodes": [],
+          "modify_nodes": ["file:pages/ProfilePage.ets", "file:service/ProfileService.ets"],
+          "add_edges": [], "remove_edges": [], "assumptions": [],
+          "invariants": ["ProfileService API remains stable"], "constraint_coverage": [],
+          "quality_coverage": [], "verification": {"tests": [], "observability": []}
+        }
+      ],
+      "expected_findings": {},
+      "expected_recommended": "focused-change"
+    },
+    {
+      "id": "arkts-plan-to-diff-alignment",
+      "contract": {"id": "verification", "goal": "Update profile page behavior", "constraints": [], "quality_scenarios": []},
+      "proposals": [{
+        "id": "aligned-change", "contract_id": "verification", "goal": "Update profile page behavior",
+        "anchors": ["file:pages/ProfilePage.ets"], "add_nodes": [],
+        "modify_nodes": ["file:pages/ProfilePage.ets"], "add_edges": [], "remove_edges": [],
+        "assumptions": [], "invariants": ["Profile page remains the state owner"],
+        "constraint_coverage": [], "quality_coverage": [],
+        "verification": {"tests": [], "observability": []}
+      }],
+      "expected_findings": {},
+      "actual_files": ["pages/ProfilePage.ets"],
+      "executed_tests": [],
+      "expected_verify_status": "aligned"
     }
   ]
 }

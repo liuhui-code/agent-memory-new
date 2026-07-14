@@ -73,8 +73,8 @@ python tools/agent_memory.py evidence-context --project . --goal design --query 
 python tools/agent_memory.py design-prepare --project . --intent intent.json --contract contract.json --json
 python tools/agent_memory.py design-check --project . --intent intent.json --proposal proposal.json --json
 python tools/agent_memory.py design-compare --project . --intent intent.json --proposal a.json --proposal b.json --contract contract.json --json
-python tools/agent_memory.py design-progress --project . --proposal proposal.json --base HEAD --test-report build/test-results.xml --json
-python tools/agent_memory.py design-verify --project . --proposal proposal.json --base HEAD~1 --test-report build/test-results.xml --json
+python tools/agent_memory.py design-progress --project . --proposal proposal.json --base HEAD --test-report build/test-results.xml --verification-run verification-run.json --json
+python tools/agent_memory.py design-verify --project . --proposal proposal.json --base HEAD~1 --test-report build/test-results.xml --verification-run verification-run.json --json
 python tools/agent_memory.py design-outcome --project . --verification verification.json --outcome success --json
 python tools/agent_memory.py eval-design --project . --cases docs/eval/design-cases.json --json
 python tools/agent_memory.py eval-semantic --project . --cases docs/eval/semantic-cases.json --mode static --json

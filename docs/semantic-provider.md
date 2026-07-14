@@ -1,6 +1,6 @@
 # External Semantic Provider
 
-The external semantic-provider protocol lets a compiler, language server, or SCIP bridge produce exact semantic evidence without becoming a dependency of Agent Memory.
+The external semantic-provider protocol lets a compiler, language server, or SCIP bridge produce exact semantic evidence without becoming a core dependency. This repository includes an optional ArkAnalyzer implementation in `providers/arkts-arkanalyzer`.
 
 ## Configure
 
@@ -12,6 +12,8 @@ python tools/agent_memory.py learn-path --project . --path entry/src/main/ets --
 ```
 
 The value is one executable, not a shell command. Arguments, pipes, redirects, and project-local configuration are not evaluated. Put toolchain arguments in a separately reviewed wrapper executable when required.
+
+For the included provider, run `pnpm install` in `providers/arkts-arkanalyzer` and point the variable at its executable `provider.mjs`. It builds a real ArkAnalyzer Scene and runs type inference; dependency or analyzer failure exits nonzero and triggers the documented static fallback.
 
 Normal learning uses `auto` mode:
 

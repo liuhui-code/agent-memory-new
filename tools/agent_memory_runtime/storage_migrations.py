@@ -208,6 +208,11 @@ def create_design_outcomes_table(conn: sqlite3.Connection) -> None:
           scenario_verification_rate REAL NOT NULL DEFAULT 0,
           failed_test_count INTEGER NOT NULL DEFAULT 0,
           replan_count INTEGER NOT NULL DEFAULT 0,
+          archetype TEXT NOT NULL DEFAULT 'general',
+          change_size_bucket TEXT NOT NULL DEFAULT 'small',
+          risk_count INTEGER NOT NULL DEFAULT 0,
+          api_change_count INTEGER NOT NULL DEFAULT 0,
+          graph_delta_count INTEGER NOT NULL DEFAULT 0,
           created_at TEXT NOT NULL
         )
         """
@@ -219,6 +224,16 @@ def migrate_design_outcome_columns(conn: sqlite3.Connection) -> None:
     for name in ("baseline_revision", "current_revision"):
         if name not in existing:
             conn.execute(f"ALTER TABLE design_outcomes ADD COLUMN {name} INTEGER NOT NULL DEFAULT 0")
+    existing = {row["name"] for row in conn.execute("PRAGMA table_info(design_outcomes)").fetchall()}
+    for name, definition in (
+        ("archetype", "TEXT NOT NULL DEFAULT 'general'"),
+        ("change_size_bucket", "TEXT NOT NULL DEFAULT 'small'"),
+        ("risk_count", "INTEGER NOT NULL DEFAULT 0"),
+        ("api_change_count", "INTEGER NOT NULL DEFAULT 0"),
+        ("graph_delta_count", "INTEGER NOT NULL DEFAULT 0"),
+    ):
+        if name not in existing:
+            conn.execute(f"ALTER TABLE design_outcomes ADD COLUMN {name} {definition}")
 
 
 def migrate_incident_semantic_columns(conn: sqlite3.Connection) -> None:
@@ -248,6 +263,9 @@ def create_post_migration_indexes(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_design_outcomes_project_created
         ON design_outcomes(project_id, created_at DESC);
+
+        CREATE INDEX IF NOT EXISTS idx_design_outcomes_project_profile
+        ON design_outcomes(project_id, archetype, change_size_bucket, id DESC);
 
         CREATE INDEX IF NOT EXISTS idx_code_symbols_project_key
         ON code_symbols(project_id, symbol_key);

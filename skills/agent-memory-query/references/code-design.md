@@ -12,16 +12,16 @@ Use this protocol for feature design, refactoring, interface changes, state flow
 6. Generate the smallest viable candidate first; add alternatives only for a material structural or behavioral tradeoff.
 7. Express each serious candidate as `design-delta/v2`, binding scenario claims to Delta, repository, and verification references.
 8. Run `design-check`; when alternatives exist, run `design-compare` and preserve its decision, sensitivities, tradeoffs, and selected plan.
-9. Implement in `change_plan.steps` order; use `design-progress` to select dependency-ready steps and replan when a blocker fires.
-10. Run `design-verify` against the implementation base and existing machine-readable test reports; inspect automatic symbol, API, and source-graph Delta evidence, then explicitly record only the compact reviewed outcome.
+9. Implement dependency-ready `change_plan.steps`; independent steps may proceed together. Treat `in_progress` added files as incomplete until the expected semantic declaration exists.
+10. Run `design-verify` against the implementation base and existing machine-readable test/compiler reports. Bind high-trust reports with `verification-run/v1`; stale bound evidence cannot verify an obligation. Record only the compact reviewed outcome.
 
 ```bash
 python tools/agent_memory.py evidence-context --project . --goal design --query "<design goal>" --json
 python tools/agent_memory.py design-prepare --project . --intent "<intent.json>" --contract "<contract.json>" --json
 python tools/agent_memory.py design-check --project . --intent "<intent.json>" --proposal "<proposal.json>" --contract "<contract.json>" --json
 python tools/agent_memory.py design-compare --project . --intent "<intent.json>" --proposal "<a.json>" --proposal "<b.json>" --contract "<contract.json>" --json
-python tools/agent_memory.py design-progress --project . --proposal "<selected.json>" --base HEAD --test-report "<junit-or-json-report>" --json
-python tools/agent_memory.py design-verify --project . --proposal "<selected.json>" --base HEAD~1 --test-report "<junit-or-json-report>" --json
+python tools/agent_memory.py design-progress --project . --proposal "<selected.json>" --base HEAD --test-report "<junit-or-json-report>" --verification-run "<verification-run.json>" --json
+python tools/agent_memory.py design-verify --project . --proposal "<selected.json>" --base HEAD~1 --test-report "<junit-or-json-report>" --verification-run "<verification-run.json>" --json
 python tools/agent_memory.py design-outcome --project . --verification "<verification.json>" --outcome success --json
 ```
 

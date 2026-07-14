@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import subprocess
 import tempfile
 from pathlib import Path
@@ -120,6 +121,48 @@ class DesignProgressTests(AgentMemoryTestBase):
         self.assertIn("baseline_revision_mismatch", codes)
         self.assertIn("test_failure", codes)
         self.assertGreater(payload["counts"]["blocked"], 0)
+
+    def test_empty_added_file_is_in_progress_until_declared_node_exists(self) -> None:
+        (self.project / "data/ProfileCache.ets").write_text("", encoding="utf-8")
+        result = self.run_memory(
+            self.project, "design-progress",
+            "--proposal", str(self.write_json("empty-addition.json", self.proposal())),
+            "--base", "HEAD", "--json",
+        )
+        payload = json.loads(result.stdout)
+        cache_step = next(item for item in payload["steps"] if item["target"] == "new:ProfileCache")
+
+        self.assertEqual("in_progress", cache_step["status"])
+        self.assertEqual([], cache_step["completion_evidence"])
+        self.assertEqual([], payload["working_tree_semantic_evidence"])
+
+    def test_stale_verification_run_cannot_complete_test_step(self) -> None:
+        report = self.write_json("bound-report.json", {
+            "schema_version": "test-report/v1",
+            "tests": [{
+                "command": "profile cache test", "status": "passed", "exit_code": 0,
+                "summary": "passed", "verifies": ["profile cache test"],
+            }],
+        })
+        report_digest = hashlib.sha256(report.read_bytes()).hexdigest()
+        run = self.write_json("verification-run.json", {
+            "schema_version": "verification-run/v1",
+            "head_revision": "0" * 40,
+            "source_digests": {},
+            "report_digests": {"bound-report.json": report_digest},
+        })
+        result = self.run_memory(
+            self.project, "design-progress",
+            "--proposal", str(self.write_json("stale-evidence.json", self.proposal())),
+            "--base", "HEAD", "--test-report", str(report),
+            "--verification-run", str(run), "--json",
+        )
+        payload = json.loads(result.stdout)
+        test_step = next(item for item in payload["steps"] if item["target"] == "test:profile cache test")
+
+        self.assertEqual("blocked", payload["status"])
+        self.assertEqual([], test_step["completion_evidence"])
+        self.assertIn("stale_test_evidence", {item["code"] for item in payload["blockers"]})
 
 
 if __name__ == "__main__":

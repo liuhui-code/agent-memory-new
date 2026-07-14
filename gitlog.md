@@ -24,6 +24,30 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-14 - Harden repository-grounded design quality
+
+Files changed:
+- Design evaluation, Change Plan, progress, verification, calibration, storage, CLI, and tests.
+- Optional `providers/arkts-arkanalyzer` package and exact capability cases.
+- README, Agent, Query Skill reference, runtime, usage, Provider, design, and execution-plan documentation.
+
+What changed:
+- Replaced empty-sample perfect design metrics with `null` plus explicit metric coverage, calculated contract validity, added positive preference/verification cases, and enforced evaluation coverage readiness.
+- Replaced fallback serial Change Plans with graph/coverage-derived dependencies so independent implementation steps remain parallel.
+- Added optional `verification-run/v1` Git/source/report provenance, stale-evidence rejection, and `compiler-report/v1` ingestion.
+- Required proposal-declared ArkTS/TypeScript entities before added files complete; partial files remain `in_progress` and expose bounded working-tree semantic evidence.
+- Added a real optional ArkAnalyzer Scene/type Provider for exact definitions, calls, inheritance, interfaces, and ArkTS state ownership with explicit static fallback.
+- Added compact design archetype/change-size/risk/API/graph calibration. Historical risk remains inactive before five matching reviewed outcomes and is only a final tie-break after current evidence.
+
+Verification:
+- All 333 tests passed when run in isolated module batches; focused design, progress, Provider, and quality-hardening suites also passed.
+- Python compilation, JSON validation, Node syntax, CLI help, diff check, exactly four public Skills, and the 500-line Python gate passed.
+- ArkAnalyzer external evaluation: 3/3 cases passed with relation recall 1.0, forbidden-edge rate 0.0, and resolution rate 1.0.
+- On the 6,995-ArkTS-file sample: evaluation 560.98 ms, planning 446.55 ms, verification 546.25 ms, and progress 622.91 ms median. Calibration lookup measured 2.509 ms median and 3.449 ms p95.
+
+Rollback notes:
+- Unset `AGENT_MEMORY_SEMANTIC_PROVIDER_ARKTS` to return to static semantics. Removing provenance, semantic progress completion, calibration columns, and evaluation/DAG hardening does not require deleting source or raw logs; added outcome columns are compact and backward-compatible.
+
 ## 2026-07-14 - Add design implementation progress checkpoints
 
 Files changed:

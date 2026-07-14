@@ -1,0 +1,44 @@
+{
+  "schema_version": "semantic-eval-cases/v1",
+  "cases": [
+    {
+      "id": "arkanalyzer-resolved-local-call",
+      "language": "ArkTS",
+      "minimum_evidence_class": "exact",
+      "files": {
+        "service/ProfileService.ets": "export class ProfileService {\n  load(): string {\n    return this.normalize('Ada')\n  }\n  normalize(value: string): string {\n    return value\n  }\n}"
+      },
+      "expected": [
+        {"source": "ProfileService.load", "relation": "calls", "target": "ProfileService.normalize"}
+      ],
+      "forbidden": [
+        {"source": "ProfileService.load", "relation": "calls", "target": "ProfileService.missing"}
+      ]
+    },
+    {
+      "id": "arkanalyzer-inheritance",
+      "language": "ArkTS",
+      "minimum_evidence_class": "exact",
+      "files": {
+        "model/Repository.ets": "export interface Repository {}\nexport class BaseRepository {}\nexport class ProfileRepository extends BaseRepository implements Repository {}"
+      },
+      "expected": [
+        {"source": "ProfileRepository", "relation": "extends", "target": "BaseRepository"},
+        {"source": "ProfileRepository", "relation": "implements", "target": "Repository"}
+      ],
+      "forbidden": []
+    },
+    {
+      "id": "arkanalyzer-state-decorator",
+      "language": "ArkTS",
+      "minimum_evidence_class": "exact",
+      "files": {
+        "pages/ProfilePage.ets": "@Entry\n@Component\nstruct ProfilePage {\n  @State profileName: string = ''\n  build() {}\n}"
+      },
+      "expected": [
+        {"source": "ProfilePage", "relation": "owns_state", "target": "ProfilePage.profileName"}
+      ],
+      "forbidden": []
+    }
+  ]
+}

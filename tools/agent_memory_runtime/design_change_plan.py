@@ -10,7 +10,7 @@ MAX_PLAN_STEPS = 200
 def build_change_plan(proposal: dict[str, Any], architecture: dict[str, Any], revision: int) -> dict[str, Any]:
     targets = target_rows(proposal, architecture)
     steps = [build_step(index + 1, target, proposal) for index, target in enumerate(sorted(targets, key=target_key))]
-    attach_dependencies(steps, architecture)
+    attach_dependencies(steps, architecture, proposal)
     cycles = find_cycles(steps)
     return {
         "schema_version": "change-plan/v1",
@@ -113,19 +113,39 @@ def expected_delta(target: str, proposal: dict[str, Any]) -> dict[str, Any]:
     return {"node": target, "edges": edges[:20]}
 
 
-def attach_dependencies(steps: list[dict[str, Any]], architecture: dict[str, Any]) -> None:
+def attach_dependencies(
+    steps: list[dict[str, Any]],
+    architecture: dict[str, Any],
+    proposal: dict[str, Any],
+) -> None:
     step_by_target = {step["target"]: step for step in steps}
-    for edge in architecture["edges"]:
+    implementation = {
+        step["target"]: step for step in steps if step["operation"] in {"add", "modify"}
+    }
+    for edge in [*architecture["edges"], *proposal["add_edges"]]:
         source = step_by_target.get(edge["source"])
-        target = step_by_target.get(edge["target"])
-        if source and target and target["order"] < source["order"]:
+        target = implementation.get(edge["target"])
+        if source and target and source["id"] != target["id"]:
             source["depends_on"].append(target["id"])
-    previous: str | None = None
+    evidence_dependencies = verification_dependencies(proposal)
     for step in steps:
-        if previous and not step["depends_on"]:
-            step["depends_on"].append(previous)
+        if step["operation"] == "verify":
+            reference = step["target"].split(":", 1)[1]
+            targets = evidence_dependencies.get(reference, set())
+            dependencies = [implementation[target]["id"] for target in targets if target in implementation]
+            if not dependencies:
+                dependencies = [item["id"] for item in implementation.values()]
+            step["depends_on"].extend(dependencies)
         step["depends_on"] = sorted(set(step["depends_on"]))
-        previous = step["id"]
+
+
+def verification_dependencies(proposal: dict[str, Any]) -> dict[str, set[str]]:
+    dependencies: dict[str, set[str]] = {}
+    for evidence in proposal.get("coverage_evidence", []):
+        delta_refs = set(evidence.get("delta_refs", []))
+        for reference in evidence.get("verification_refs", []):
+            dependencies.setdefault(reference, set()).update(delta_refs)
+    return dependencies
 
 
 def find_cycles(steps: list[dict[str, Any]]) -> list[list[str]]:

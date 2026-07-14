@@ -8,6 +8,7 @@ from typing import Any
 
 from .architecture_slice import build_architecture_slice, unique_paths
 from .design_check import check_design_proposal, load_proposal, path_from_node_id, proposal_paths
+from .design_calibration import design_features
 from .design_coverage import evaluate_coverage
 from .design_protocol import DELTA_SCHEMA_V2, apply_intent_to_contract, load_contract, load_intent, load_rules
 from .design_source_delta import collect_source_delta
@@ -43,6 +44,8 @@ def design_verify_command(args: argparse.Namespace) -> None:
         getattr(args, "test_evidence", None),
         args.executed_tests or [],
         getattr(args, "test_report", None),
+        getattr(args, "verification_run", None),
+        project.root,
     )
     symbols = normalize_symbol_values(getattr(args, "actual_symbols", None))
     automatic_symbols = not symbols and bool(source_delta["changed_symbols"])
@@ -127,6 +130,8 @@ def verify_design(
         triggers.append("baseline_revision_changed")
     if failed_tests:
         triggers.append("structured_test_failed")
+    if test_evidence.get("provenance", {}).get("status") == "stale":
+        triggers.append("stale_test_evidence")
     if actual_symbols and missing_symbols:
         triggers.append("planned_symbols_missing")
     if unplanned_api_changes(source_delta, planned_set, set(planned_symbols)):
@@ -138,6 +143,7 @@ def verify_design(
     ):
         triggers.append("quality_scenario_not_verified")
     status = "replan" if triggers else "aligned"
+    calibration_features = design_features(proposal, evaluation, source_delta)
     return {
         "schema_version": "design-verification/v2" if proposal["schema_version"] == DELTA_SCHEMA_V2 else "design-verification/v1",
         "project_id": project.project_id,
@@ -146,6 +152,7 @@ def verify_design(
         "baseline_revision": baseline_revision,
         "current_revision": current_revision,
         "status": status,
+        "calibration_features": calibration_features,
         "planned_files": planned,
         "actual_files": actual,
         "matched_files": matched,
@@ -168,6 +175,7 @@ def verify_design(
             "declared_tests": required_tests,
             "executed_tests": executed_tests,
             "test_evidence": test_evidence["tests"],
+            "evidence_provenance": test_evidence.get("provenance"),
             "changed_test_files": test_paths,
             "declared_observability": proposal["verification"]["observability"],
             "replan_triggers": triggers,

@@ -8,6 +8,7 @@ from typing import Any
 from xml.etree import ElementTree
 
 from .design_protocol import load_json_object, string_list, string_value
+from .design_evidence_provenance import load_verification_provenance
 from .text import unique_list
 
 
@@ -22,10 +23,13 @@ def load_test_evidence(
     path: str | None,
     legacy_commands: list[str] | None,
     report_paths: list[str] | None = None,
+    verification_run: str | None = None,
+    project_root: Path | None = None,
 ) -> dict[str, Any]:
     legacy = unique_list(legacy_commands or [])
     normalized = load_structured_evidence(path) if path else []
     reports = unique_list(report_paths or [])
+    provenance = load_verification_provenance(verification_run, project_root, reports)
     if len(reports) > MAX_REPORTS:
         raise SystemExit(f"test reports must contain at most {MAX_REPORTS} paths")
     report_tests = [test for report in reports for test in load_test_report(report)]
@@ -37,6 +41,7 @@ def load_test_evidence(
         "schema_version": "test-evidence/v1",
         "tests": dedupe_tests(normalized),
         "source": evidence_source(bool(path), bool(reports), bool(legacy)),
+        "provenance": provenance,
     }
 
 
@@ -109,12 +114,35 @@ def load_json_report(value: Any, path: str) -> list[dict[str, Any]]:
         tests = value.get("tests", [])
         validate_report_tests(tests, path)
         return [normalize_test(item, index) for index, item in enumerate(tests)]
+    if value.get("schema_version") == "compiler-report/v1":
+        return compiler_tests(value, path)
     if isinstance(value.get("tests"), list):
         validate_report_tests(value["tests"], path)
         return [pytest_test(item, index, path) for index, item in enumerate(value["tests"])]
     if isinstance(value.get("testResults"), list):
         return jest_tests(value["testResults"], path)
     raise SystemExit(f"unsupported test report schema: {path}")
+
+
+def compiler_tests(value: dict[str, Any], path: str) -> list[dict[str, Any]]:
+    diagnostics = value.get("diagnostics", [])
+    if not isinstance(diagnostics, list) or len(diagnostics) > MAX_TESTS:
+        raise SystemExit(f"compiler report {path} diagnostics must be a bounded list")
+    errors = []
+    for index, diagnostic in enumerate(diagnostics):
+        if not isinstance(diagnostic, dict):
+            raise SystemExit(f"compiler report {path} diagnostics[{index}] must be an object")
+        if str(diagnostic.get("severity", "error")).lower() == "error":
+            errors.append(diagnostic)
+    command = str(value.get("command") or "arkts compiler")
+    verifies = value.get("verifies", [command])
+    if not isinstance(verifies, list) or not all(isinstance(item, str) for item in verifies):
+        raise SystemExit(f"compiler report {path} verifies must be a string list")
+    summary = "; ".join(
+        f"{item.get('file', '')}:{item.get('line', '')} {item.get('message', 'compiler error')}"
+        for item in errors[:5]
+    )
+    return [report_test(command, "failed" if errors else "passed", summary, verifies)]
 
 
 def pytest_test(value: Any, index: int, path: str) -> dict[str, Any]:
@@ -227,6 +255,8 @@ def legacy_test(command: str) -> dict[str, Any]:
 
 
 def verified_refs(evidence: dict[str, Any]) -> set[str]:
+    if evidence.get("provenance", {}).get("status") == "stale":
+        return set()
     refs: set[str] = set()
     for test in evidence["tests"]:
         if test["status"] != "passed" or test["exit_code"] != 0:
