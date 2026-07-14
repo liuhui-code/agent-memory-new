@@ -24,6 +24,76 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-14 - Add design implementation progress checkpoints
+
+Files changed:
+- Design progress runtime/CLI, shared changed-file resolver, tests, Query design reference, and design documentation.
+
+What changed:
+- Added read-only `design-progress` and ephemeral `design-progress/v1` reconstruction over the selected `change-plan/v1`.
+- Classified steps as completed, ready, pending, or blocked from Git file/symbol Delta, passed test evidence, DAG dependencies, and design gates.
+- Recognized proposal-declared untracked added files with project-root path constraints and explicit evidence gaps.
+- Allowed bounded manual completion only for consumer-review and observability steps; implementation and test steps still require automatic evidence.
+- Allowed an empty working tree only for progress reconstruction while preserving strict empty-change behavior for Impact and final verification.
+
+Why:
+- The prior workflow jumped from a static change plan directly to final verification and could not tell the Agent which implementation step was currently safe to execute.
+
+Verification:
+- Focused progress, design, repository, evolution, and impact suites: 35 tests passed.
+- Final full suite: 324 tests passed in 263.530 seconds.
+- On the 6,995-ArkTS-file OpenHarmony sample repository, five CLI progress reconstructions had 645.41 ms median latency; the cold maximum was 1.612 seconds.
+- Compilation, CLI help, diff check, fixed four-Skill count, and 500-line Python gate passed.
+
+Rollback notes:
+- Removing `design-progress` restores the prior static-plan/final-verify flow. The optional resolver flag defaults to the previous strict behavior, and no database rollback is required.
+
+## 2026-07-14 - Add pre-candidate design workbench
+
+Files changed:
+- Design preparation runtime/CLI, proposal revision gate, design tests, Query design reference, and design documentation.
+
+What changed:
+- Added read-only `design-prepare` and runtime-only `design-workbench/v1` before candidate authoring.
+- Added a bounded repository anchor catalog, relation vocabulary, synthesis brief, authoring readiness gaps, and fitness-rule context.
+- Added an unclaimed `design-delta/v2` template with empty modifications, coverage claims, and verification claims.
+- Bound prepared candidates to `baseline_revision`; `design-check` and comparison now hard-fail stale prepared candidates while preserving unbound legacy candidates.
+
+Why:
+- The prior flow exposed synthesis evidence only after a proposal existed, forcing the Agent to design before receiving the complete repository and constraint brief.
+
+Verification:
+- Focused design, repository-model, evolution, and exact-provider suites: 37 tests passed.
+- Final full suite: 322 tests passed in 269.719 seconds.
+- On the 6,995-ArkTS-file OpenHarmony sample repository, five CLI workbench builds had 527.02 ms median latency; the cold maximum was 1.567 seconds.
+- Compilation, diff check, fixed four-Skill count, and 500-line Python gate passed.
+
+Rollback notes:
+- Removing `design-prepare` restores the prior direct author/check flow. Existing proposals without `baseline_revision` remain valid, and no database rollback is required.
+
+## 2026-07-14 - Automate design verification evidence
+
+Files changed:
+- Design verification, source Delta, semantic parser, CLI, tests, and design protocol documentation.
+
+What changed:
+- Added bounded Git hunk mapping to fresh ArkTS/TypeScript symbols with learned-span fallback.
+- Added exported API additions/removals/signature changes and source relation Delta, kept separate from learned-graph alignment.
+- Added repeatable JUnit XML, generic/pytest JSON, and Jest report ingestion without executing test commands.
+- Added replan triggers for unplanned exported API changes and supported source-relation mismatches.
+- Kept source, diff bodies, reports, and verification output out of persistent memory.
+
+Why:
+- Caller-supplied file, symbol, and test claims left the design control loop unable to verify implementation drift automatically.
+
+Verification:
+- Final full suite: 321 tests passed in 251.901 seconds; all 11 design-control-loop tests passed independently.
+- Compilation, diff check, fixed four-Skill count, and 500-line Python gate passed.
+- On the 6,995-ArkTS-file OpenHarmony sample repository, seven bounded source-evidence collections had 17.17 ms median and 31.37 ms maximum latency; the end-to-end fixture including repository and memory setup completed in 1.11 seconds.
+
+Rollback notes:
+- Existing explicit files, symbols, `test-evidence/v1`, and legacy executed-test inputs remain compatible. Removing automatic evidence leaves the prior verification path intact.
+
 ## 2026-07-14 - Add repository-grounded design control loop
 
 Files changed:

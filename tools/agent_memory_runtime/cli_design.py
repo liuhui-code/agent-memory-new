@@ -6,6 +6,14 @@ from typing import Any, Callable
 
 
 def add_design_parsers(sub: Any, add_project: Callable[[Any], None], command: Callable[[str], Any]) -> None:
+    prepare = sub.add_parser("design-prepare")
+    add_project(prepare)
+    prepare.add_argument("--intent", required=True)
+    prepare.add_argument("--contract")
+    prepare.add_argument("--rules")
+    prepare.add_argument("--json", action="store_true")
+    prepare.set_defaults(func=command("design_prepare_command"))
+
     check = sub.add_parser("design-check")
     add_project(check)
     add_common_inputs(check)
@@ -20,6 +28,18 @@ def add_design_parsers(sub: Any, add_project: Callable[[Any], None], command: Ca
     compare.add_argument("--json", action="store_true")
     compare.set_defaults(func=command("design_compare_command"))
 
+    progress = sub.add_parser("design-progress")
+    add_project(progress)
+    add_common_inputs(progress)
+    progress.add_argument("--base", default="HEAD~1")
+    progress.add_argument("--files", action="append")
+    progress.add_argument("--diff-file")
+    progress.add_argument("--executed-tests", action="append")
+    progress.add_argument("--test-evidence")
+    progress.add_argument("--test-report", action="append")
+    progress.add_argument("--completed-step", action="append")
+    progress.set_defaults(func=command("design_progress_command"))
+
     verify = sub.add_parser("design-verify")
     add_project(verify)
     add_common_inputs(verify)
@@ -29,6 +49,7 @@ def add_design_parsers(sub: Any, add_project: Callable[[Any], None], command: Ca
     verify.add_argument("--executed-tests", action="append")
     verify.add_argument("--actual-symbols", action="append")
     verify.add_argument("--test-evidence")
+    verify.add_argument("--test-report", action="append")
     verify.set_defaults(func=command("design_verify_command"))
 
     evaluate = sub.add_parser("eval-design")

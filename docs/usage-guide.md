@@ -265,16 +265,18 @@ Read current code evidence first, then `repository_model.snapshot`, its topology
 Express a serious candidate as a Delta Graph and check it:
 
 ```bash
+python tools/agent_memory.py design-prepare --project . --intent intent.json --contract contract.json --json
 python tools/agent_memory.py design-check --project . --intent intent.json --proposal proposal.json --contract contract.json --json
 python tools/agent_memory.py design-compare --project . --intent intent.json --proposal a.json --proposal b.json --contract contract.json --json
-python tools/agent_memory.py design-verify --project . --proposal selected.json --base HEAD~1 --test-evidence test-evidence.json --json
+python tools/agent_memory.py design-progress --project . --proposal selected.json --base HEAD --test-report build/test-results.xml --json
+python tools/agent_memory.py design-verify --project . --proposal selected.json --base HEAD~1 --test-report build/test-results.xml --json
 python tools/agent_memory.py design-outcome --project . --verification verification.json --outcome success --json
 python tools/agent_memory.py eval-design --project . --cases docs/eval/design-cases.json --json
 ```
 
-Use `design-intent/v1` for goal/scope/exclusions and `design-contract/v2` plus `design-delta/v2` when coverage must be evidence-backed. `claimed` means the candidate only names a scenario; `supported` requires valid Delta and repository references; `verified` requires successful structured verification. Use a version-controlled `design-rules/v1` file for explicit architecture rules. Historical memory and calibration may identify risk, but neither can satisfy a contract, establish a current edge, select a candidate, or create a hard rule.
+Use `design-intent/v1` for goal/scope/exclusions, then run `design-prepare` before writing candidates. Its template intentionally contains no modifications or coverage claims; fill it from current evidence and general design reasoning. Use `design-contract/v2` plus `design-delta/v2` when coverage must be evidence-backed. `claimed` means the candidate only names a scenario; `supported` requires valid Delta and repository references; `verified` requires successful structured verification. `design-verify` derives changed symbols, exported API changes, and source relation Delta from Git for ArkTS/TypeScript. Repeat `--test-report` for JUnit XML, generic/pytest JSON, or Jest JSON; reports must already exist because the runtime does not execute tests. Use a version-controlled `design-rules/v1` file for explicit architecture rules. Historical memory and calibration may identify risk, but neither can satisfy a contract, establish a current edge, select a candidate, or create a hard rule.
 
-`blocked` contains structural errors that should change the proposal. `review` contains warnings, unsupported claims, or unknown anchors requiring judgment. `clean` means bounded checks found no issue; it does not prove correctness. Use `change_plan.steps` as the dependency-ordered implementation and verification plan. `design-verify` remains read-only; record a compact outcome only after reviewing its report. The Query Skill loads `references/code-design.md` only for design intent, so ordinary query and diagnosis tasks do not carry this protocol.
+`blocked` contains structural errors that should change the proposal. `review` contains warnings, unsupported claims, or unknown anchors requiring judgment. `clean` means bounded checks found no issue; it does not prove correctness. Use `change_plan.steps` as the dependency-ordered implementation and verification plan. Run `design-progress` during editing; consume only its `next_steps`, and use `--completed-step` only for the returned human review/observability steps. `design-verify` remains the final read-only check; record a compact outcome only after reviewing its report. The Query Skill loads `references/code-design.md` only for design intent, so ordinary query and diagnosis tasks do not carry this protocol.
 
 For a Git change or an explicit file set:
 

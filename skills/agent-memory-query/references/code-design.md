@@ -6,20 +6,22 @@ Use this protocol for feature design, refactoring, interface changes, state flow
 
 1. Clarify the goal, exclusions, hard constraints, and measurable acceptance criteria.
 2. Express scope, exclusions, acceptance criteria, constraints, and open questions as `design-intent/v1` for substantial work.
-3. Run design evidence retrieval and inspect the revision-bound `repository_model`; do not let candidate anchors define the baseline.
-4. Reconstruct topology, ownership, behavior, data, failure, runtime, and change views.
+3. Run design evidence retrieval, then `design-prepare`; inspect its revision-bound workbench and resolve blocking authoring gaps before proposing a candidate.
+4. Reconstruct topology, ownership, behavior, data, failure, runtime, and change views from the candidate-independent baseline.
 5. Identify stable boundaries and the smallest credible extension points.
 6. Generate the smallest viable candidate first; add alternatives only for a material structural or behavioral tradeoff.
 7. Express each serious candidate as `design-delta/v2`, binding scenario claims to Delta, repository, and verification references.
 8. Run `design-check`; when alternatives exist, run `design-compare` and preserve its decision, sensitivities, tradeoffs, and selected plan.
-9. Implement in `change_plan.steps` order and replan when a trigger fires.
-10. Run `design-verify` with structured test/symbol evidence, then explicitly record only the compact reviewed outcome.
+9. Implement in `change_plan.steps` order; use `design-progress` to select dependency-ready steps and replan when a blocker fires.
+10. Run `design-verify` against the implementation base and existing machine-readable test reports; inspect automatic symbol, API, and source-graph Delta evidence, then explicitly record only the compact reviewed outcome.
 
 ```bash
 python tools/agent_memory.py evidence-context --project . --goal design --query "<design goal>" --json
+python tools/agent_memory.py design-prepare --project . --intent "<intent.json>" --contract "<contract.json>" --json
 python tools/agent_memory.py design-check --project . --intent "<intent.json>" --proposal "<proposal.json>" --contract "<contract.json>" --json
 python tools/agent_memory.py design-compare --project . --intent "<intent.json>" --proposal "<a.json>" --proposal "<b.json>" --contract "<contract.json>" --json
-python tools/agent_memory.py design-verify --project . --proposal "<selected.json>" --base HEAD~1 --test-evidence "<test-evidence.json>" --json
+python tools/agent_memory.py design-progress --project . --proposal "<selected.json>" --base HEAD --test-report "<junit-or-json-report>" --json
+python tools/agent_memory.py design-verify --project . --proposal "<selected.json>" --base HEAD~1 --test-report "<junit-or-json-report>" --json
 python tools/agent_memory.py design-outcome --project . --verification "<verification.json>" --outcome success --json
 ```
 

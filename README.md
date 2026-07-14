@@ -357,11 +357,13 @@ Design against the current repository rather than historical patterns:
 ```bash
 python tools/agent_memory.py evidence-context --project . --goal design \
   --query "design profile caching without moving persistence into the page" --json
+python tools/agent_memory.py design-prepare --project . \
+  --intent intent.json --contract contract.json --json
 python tools/agent_memory.py design-check --project . \
   --intent intent.json --proposal proposal.json --contract contract.json --json
 ```
 
-Design retrieval attaches `repository-model/v2`, a revision-bound baseline with topology, ownership, behavior, data, failure, runtime, and change views. Candidate paths broaden this baseline but cannot define it. V2 contracts and Deltas bind quality claims to current repository, Delta, and verification evidence. `design-compare` returns sensitivity/tradeoff points and a bounded Change Plan DAG; `design-verify` checks files, optional symbols, graph revision, structured tests, and scenario obligations. These paths remain deterministic and read-only. A separate `design-outcome` command can explicitly store only compact reviewed calibration metrics. See [Repository-Grounded Design Control Loop](docs/design-reasoning.md).
+Design retrieval attaches `repository-model/v2`, a revision-bound baseline with topology, ownership, behavior, data, failure, runtime, and change views. `design-prepare` exposes that baseline before candidate authoring through a bounded workbench and unclaimed v2 template, so candidate paths cannot define their own evidence boundary. V2 contracts and Deltas bind quality claims to current repository, Delta, and verification evidence. `design-compare` returns sensitivity/tradeoff points and a bounded Change Plan DAG; `design-progress` reconstructs completed/ready/pending/blocked steps during editing; `design-verify` performs the final automatic symbol, exported API, source-graph, learned-graph, and test evidence check. These paths remain deterministic and read-only. A separate `design-outcome` command can explicitly store only compact reviewed calibration metrics. See [Repository-Grounded Design Control Loop](docs/design-reasoning.md).
 
 The Query Skill uses progressive disclosure: its main `SKILL.md` is a thin intent router, while code understanding, diagnosis, impact, evidence policy, and code design live in one-level `references/` files loaded only when relevant. The public interface remains four skills.
 

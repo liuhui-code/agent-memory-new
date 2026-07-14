@@ -250,19 +250,23 @@ Repository design reasoning uses caller-owned or disposable JSON:
 - `design-intent/v1`: goal, scope, exclusions, acceptance criteria, constraints, and questions.
 - `repository-snapshot/v2`: graph revision, freshness, counts, truncation, and gaps.
 - `repository-model/v2`: bounded topology, ownership, behavior, data, failure, runtime, and change views.
+- `design-workbench/v1`: revision-bound pre-candidate repository model, synthesis brief, anchor catalog, authoring gaps, rules, and unclaimed Delta template.
 - `design-contract/v1`: goal, hard constraints, and measurable quality scenarios.
 - `design-contract/v2`: v1 plus intent linkage and evidence requirements.
 - `design-delta/v1`: candidate nodes/edges, assumptions, invariants, coverage, tests, and observability.
-- `design-delta/v2`: v1 plus evidence references for claimed coverage.
+- `design-delta/v2`: v1 plus evidence references for claimed coverage and optional preparation `baseline_revision` binding.
 - `design-rules/v1`: explicit `forbid_edge`, `require_edge`, and `single_owner` rules.
 - `design-evaluation/v1`: errors, warnings, quality coverage, architecture summary, and audit.
 - `design-evaluation/v2`: revision-bound model, coverage states, dimensions, synthesis brief, and change plan.
 - `design-comparison/v1`: hard-gated candidate dimensions, recommendation, and tradeoffs.
 - `design-decision/v1`: selected/rejected candidates, reasons, and tradeoffs.
 - `change-plan/v1`: bounded dependency-ordered edits and verification obligations.
+- `design-progress/v1`: ephemeral implementation step states, next-ready actions, blockers, Git/source Delta, test evidence, and evidence gaps.
 - `design-verification/v1`: planned/actual file drift, graph alignment, tests, and replan triggers.
 - `design-verification/v2`: v1 plus symbol drift, structured tests, scenario verification, and revisions.
 - `test-evidence/v1`: command, status, exit code, compact summary, and verified obligations.
+- `test-report/v1`: generic machine-readable test report accepted alongside JUnit XML, pytest-json-report, and Jest JSON.
+- `design-source-delta/v1`: runtime-only Git-bound changed symbols, exported API signature changes, source relation Delta, digests, provenance, and evidence gaps; source and diff bodies are excluded.
 - `design-outcome/v1`: compact persisted calibration result.
 
-All artifacts except `design-outcome/v1` are ephemeral. `design_outcomes` stores only candidate/contract ids, baseline/current graph revisions, status/outcome, four bounded metrics, failed-test count, replan count, and timestamp. It never stores proposals, source, diffs, test logs, or reasoning; retention is capped at 1,000 rows per project. SQLite remains authoritative for current learned repository facts and compact governed outcomes.
+All artifacts except `design-outcome/v1` are ephemeral. Workbenches, candidate templates, and progress checkpoints are caller-owned or disposable and never enter SQLite. `design_outcomes` stores only candidate/contract ids, baseline/current graph revisions, status/outcome, four bounded metrics, failed-test count, replan count, and timestamp. It never stores proposals, progress, source, diffs, test logs, or reasoning; retention is capped at 1,000 rows per project. SQLite remains authoritative for current learned repository facts and compact governed outcomes.

@@ -95,6 +95,16 @@ def bounded_gaps(gaps: list[dict[str, str]]) -> list[dict[str, str]]:
 
 def parse_file(project: Project, path: Path, language: str, state_annotations: bool) -> ParsedFile:
     text = path.read_text(encoding="utf-8", errors="ignore")
+    return parse_source(project, path, text, language, state_annotations)
+
+
+def parse_source(
+    project: Project,
+    path: Path,
+    text: str,
+    language: str,
+    state_annotations: bool,
+) -> ParsedFile:
     rel_path = path.relative_to(project.root).as_posix()
     lines = text.splitlines()
     entities: list[SemanticEntity] = []

@@ -50,6 +50,7 @@ def resolve_changed_files(
     base: str,
     file_values: list[str] | None,
     diff_file: str | None,
+    allow_empty: bool = False,
 ) -> list[str]:
     paths: list[str] = []
     for value in file_values or []:
@@ -70,7 +71,7 @@ def resolve_changed_files(
     normalized = unique_preserved_paths(
         [normalize_project_path(project, path) for path in paths if path.strip()]
     )
-    if not normalized:
+    if not normalized and not allow_empty:
         raise SystemExit("no changed files found; pass --files, --diff-file, or a different --base")
     return normalized
 

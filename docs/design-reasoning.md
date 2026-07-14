@@ -39,6 +39,10 @@ The model exposes bounded topology, ownership, behavior, data, failure, runtime,
 
 Legacy string coverage remains `claimed`; it cannot outrank supported evidence.
 
+## Preparation
+
+`design-prepare` runs before candidate authoring. Given `design-intent/v1`, an optional contract, and optional fitness rules, it builds one candidate-independent `design-workbench/v1` bound to the current graph revision. The workbench contains the bounded repository model, synthesis brief, valid anchor catalog, relation vocabulary, authoring gaps, and an unclaimed `design-delta/v2` template. Empty Delta and verification references are deliberate: the runtime supplies evidence but does not invent a design or claim coverage for the Agent. The template carries `baseline_revision`; later checks hard-fail if the learned graph changed while the candidate was being authored.
+
 ## Evaluation and Planning
 
 Bounded evaluator providers report evidence coverage, compatibility, ownership, dependency direction, failure flow, testability, uncertainty, and change cost. Existing structural gates and explicit project fitness rules remain authoritative. A hard violation always blocks a candidate.
@@ -47,9 +51,13 @@ Bounded evaluator providers report evidence coverage, compatibility, ownership, 
 
 `change-plan/v1` topologically orders implementation, known-consumer review, tests, and observability obligations. Every step has a stable id, target, dependencies, expected Delta, and verification obligations. Plans are bounded to 200 steps and are not persisted.
 
+`design-progress` reconstructs that plan during implementation from the current Git Delta and existing test evidence. Steps are `completed`, `ready`, `pending`, or `blocked`; only dependency-satisfied incomplete steps become next actions. Planned added files are detected in the working tree even before Git tracks them and are reported as an evidence gap. `--completed-step` is restricted to consumer-review and observability obligations that require explicit human acknowledgement; it cannot override implementation or failed-test evidence.
+
 ## Verification and Calibration
 
-`design-verify` compares planned and actual files, optional actual symbols, current graph alignment, baseline/current revisions, structured tests, and scenario obligations. `test-evidence/v1` records command, status, exit code, compact summary, and verified obligations. Failed evidence cannot satisfy an obligation. Legacy `--executed-tests` remains accepted as caller-reported execution.
+`design-verify` compares planned and actual files, symbols, exported API signatures, source relation Delta, learned-graph alignment, baseline/current revisions, test evidence, and scenario obligations. With `--base` or `--diff-file`, changed hunks are mapped to fresh ArkTS/TypeScript semantic spans automatically. Source relation Delta describes the current implementation change; learned-graph alignment separately checks the last indexed repository model.
+
+`test-evidence/v1` records command, status, exit code, compact summary, and verified obligations. Repeatable `--test-report` inputs accept JUnit XML, generic `test-report/v1`, pytest-json-report, and Jest JSON. The runtime parses existing reports but never executes test commands. Failed evidence cannot satisfy an obligation. Legacy `--executed-tests` remains accepted as caller-reported execution.
 
 Verification emits bounded replan triggers for missing/unplanned files, symbol drift, graph mismatch, revision drift, failed tests, and unmet v2 scenarios.
 
@@ -58,6 +66,9 @@ Verification emits bounded replan triggers for missing/unplanned files, symbol d
 ## Commands
 
 ```bash
+python tools/agent_memory.py design-prepare --project . \
+  --intent intent.json --contract contract.json --rules design-rules.json --json
+
 python tools/agent_memory.py design-check --project . \
   --intent intent.json --proposal candidate.json --contract contract.json --rules design-rules.json --json
 
@@ -65,9 +76,13 @@ python tools/agent_memory.py design-compare --project . \
   --intent intent.json --proposal candidate-a.json --proposal candidate-b.json \
   --contract contract.json --rules design-rules.json --json
 
+python tools/agent_memory.py design-progress --project . \
+  --proposal selected.json --contract contract.json --base HEAD \
+  --test-report build/test-results.xml --json
+
 python tools/agent_memory.py design-verify --project . \
   --proposal selected.json --contract contract.json --base HEAD~1 \
-  --actual-symbols "symbol:src/Profile.ets::load" --test-evidence test-evidence.json --json
+  --test-report build/test-results.xml --test-report reports/pytest.json --json
 
 python tools/agent_memory.py design-outcome --project . \
   --verification verification.json --outcome success --json

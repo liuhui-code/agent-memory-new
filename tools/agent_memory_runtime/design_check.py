@@ -67,6 +67,11 @@ def validate_proposal(value: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(goal, str) or not goal.strip():
         raise SystemExit("design proposal requires a non-empty goal")
     proposal = dict(value)
+    baseline_revision = proposal.get("baseline_revision")
+    if baseline_revision is not None and (
+        isinstance(baseline_revision, bool) or not isinstance(baseline_revision, int) or baseline_revision < 0
+    ):
+        raise SystemExit("design proposal baseline_revision must be a non-negative integer")
     for field in REQUIRED_LISTS:
         current = proposal.get(field, [])
         if not isinstance(current, list):
@@ -136,6 +141,7 @@ def check_design_proposal(
     paths = unique_paths([*proposal_paths(proposal), *intent["scope"]])
     repository_model = repository_model or build_repository_model(project, intent["goal"], paths)
     architecture = architecture or architecture_from_model(repository_model)
+    revision = int(repository_model["snapshot"]["graph_revision"])
     current_nodes = {node["id"]: node for node in architecture["nodes"]}
     added_nodes = {node["id"]: added_node_payload(node) for node in proposal["add_nodes"]}
     nodes = {**current_nodes, **added_nodes}
@@ -144,6 +150,13 @@ def check_design_proposal(
     effective_edges = [edge for edge in current_edges if edge_key(edge) not in removed]
     effective_edges.extend(edge_shape(edge) for edge in proposal["add_edges"])
     findings: list[dict[str, Any]] = []
+    if proposal.get("baseline_revision") is not None and proposal["baseline_revision"] != revision:
+        findings.append(finding(
+            "error",
+            "baseline_revision_mismatch",
+            "Candidate was authored against a different repository graph revision.",
+            [proposal["baseline_revision"], revision],
+        ))
     findings.extend(unknown_anchor_findings(proposal, nodes))
     findings.extend(cycle_findings(effective_edges, proposal["add_edges"]))
     findings.extend(state_owner_findings(effective_edges))
@@ -161,7 +174,6 @@ def check_design_proposal(
     warnings = [item for item in findings if item["severity"] == "warning"]
     status = "blocked" if errors else "review" if warnings else "clean"
     dimensions = evaluate_dimensions(proposal, architecture, coverage, findings)
-    revision = int(repository_model["snapshot"]["graph_revision"])
     return {
         "schema_version": evaluation_schema(proposal, contract),
         "candidate_id": proposal["id"],
