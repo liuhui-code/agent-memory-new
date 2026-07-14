@@ -11,6 +11,7 @@ from .code_wiki_extractors import extract_arkts_reference_symbols
 from .code_wiki_design_edges import insert_design_edges
 from .code_wiki_imports import relative_project_path, resolve_arkts_router_targets, resolve_js_imports
 from .models import Project
+from .graph_quality_snapshot import bump_graph_revision
 from .semantic_index import persist_semantic_index
 from .storage import now_iso
 
@@ -193,12 +194,14 @@ def rebuild_code_memory_edges(
     insert_arkts_knowledge_edges(conn, project, scoped_files, files, symbols, ts)
     insert_design_edges(conn, project, scoped_files, files, symbols, ts)
     annotate_extracted_edges(conn, project, previous_edge_id, revision, ts)
-    return persist_semantic_index(
+    semantic_stats = persist_semantic_index(
         conn,
         project,
         [str(row["file_path"]) for row in scoped_files],
         revision,
     )
+    bump_graph_revision(conn, project_id)
+    return semantic_stats
 
 
 def load_scoped_rows(

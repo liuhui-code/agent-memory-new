@@ -5,6 +5,12 @@ from __future__ import annotations
 from typing import Any
 
 from .log_signal_quality import score_log_signal
+from .graph_quality_snapshot import (
+    load_graph_quality_snapshot,
+    load_graph_revision,
+    snapshot_metadata,
+    store_graph_quality_snapshot,
+)
 from .models import Project
 from .storage import connect
 from .text import json_list
@@ -13,19 +19,30 @@ from .text import json_list
 LOW_CONFIDENCE_EDGE_THRESHOLD = 0.5
 
 
-def build_graph_quality(project: Project) -> dict[str, Any]:
+def build_graph_quality(project: Project, force_verify: bool = False) -> dict[str, Any]:
     with connect(project) as conn:
-        code_files = count_table(conn, project, "code_files")
-        code_symbols = count_table(conn, project, "code_symbols")
-        code_logs = count_table(conn, project, "code_log_statements")
-        connected_symbols = connected_count(conn, project, "code_symbol", "code_symbols")
-        connected_logs = connected_count(conn, project, "code_log_statement", "code_log_statements")
-        orphan_symbols = max(0, code_symbols - connected_symbols)
-        orphan_logs = max(0, code_logs - connected_logs)
-        stale_edges = count_stale_edges_with_connection(conn, project)
-        edge_governance = edge_governance_summary(conn, project)
-        memory_edges = edge_governance["total"]
-        low_confidence_edges = edge_governance["low_confidence"]
+        graph_revision = load_graph_revision(conn, project.project_id)
+        cached = load_graph_quality_snapshot(project, graph_revision)
+        if not force_verify and cached is not None:
+            return snapshot_metadata(cached, graph_revision, "hit")
+        quality = compute_graph_quality(conn, project)
+    store_graph_quality_snapshot(project, graph_revision, quality)
+    status = "verified" if force_verify else "recomputed"
+    return snapshot_metadata(quality, graph_revision, status)
+
+
+def compute_graph_quality(conn: Any, project: Project) -> dict[str, Any]:
+    code_files = count_table(conn, project, "code_files")
+    code_symbols = count_table(conn, project, "code_symbols")
+    code_logs = count_table(conn, project, "code_log_statements")
+    connected_symbols = connected_count(conn, project, "code_symbol", "code_symbols")
+    connected_logs = connected_count(conn, project, "code_log_statement", "code_log_statements")
+    orphan_symbols = max(0, code_symbols - connected_symbols)
+    orphan_logs = max(0, code_logs - connected_logs)
+    stale_edges = count_stale_edges_with_connection(conn, project)
+    edge_governance = edge_governance_summary(conn, project)
+    memory_edges = edge_governance["total"]
+    low_confidence_edges = edge_governance["low_confidence"]
 
     symbol_coverage = coverage(connected_symbols, code_symbols)
     log_coverage = coverage(connected_logs, code_logs)

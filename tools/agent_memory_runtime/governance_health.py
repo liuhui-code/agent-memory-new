@@ -179,8 +179,11 @@ def maintain_health(args: argparse.Namespace) -> None:
     incident_strategy_candidates = build_incident_strategy_candidates(project, reflection_active_rows)
     recurring_incident_fingerprints = build_recurring_incident_fingerprint_candidates(project, reflection_active_rows)
     log_design_gaps = build_log_design_gap_candidates(project, reflection_active_rows)
-    graph_quality = build_graph_quality(project)
-    graph_signal_quality = build_graph_signal_quality(project)
+    graph_quality = build_graph_quality(
+        project,
+        force_verify=bool(getattr(args, "verify_graph_quality", False)),
+    )
+    graph_signal_quality = build_graph_signal_quality(project, graph_quality=graph_quality)
     experience_usage = fetch_experience_usage_summary(project)
     memory_tiers = build_memory_tiers(project)
     health_quality_report = build_quality_report(

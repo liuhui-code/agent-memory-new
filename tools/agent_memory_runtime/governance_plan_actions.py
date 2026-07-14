@@ -15,7 +15,6 @@ from .governance_corrections import (
     build_semantic_patch_review_action,
     correction_repair_workflow_steps,
 )
-from .governance_incidents import build_log_design_gap_candidates
 from .governance_learn_actions import (
     build_learn_business_payload_template_for_paths,
     build_query_followup,
@@ -66,10 +65,15 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
     weak_evidence_chain_actions = ctx["weak_evidence_chain_actions"]
     maturity_governance_actions = ctx["maturity_governance_actions"]
     skill_pattern_candidates = ctx["skill_pattern_candidates"]
+    log_design_candidates = ctx.get("log_design_candidates") or []
+    selected_lane = str(ctx.get("selected_lane") or "")
+
+    def lane_enabled(lane: str) -> bool:
+        return not selected_lane or selected_lane == lane
 
     actions: list[dict[str, Any]] = []
 
-    for row in review["stale_memories"]:
+    for row in review["stale_memories"] if lane_enabled("memory_hygiene") else []:
         kind = "semantic" if "fact" in row else "reflection"
         reason = row.get("stale_reason") or "stale memory should be archived, refreshed, or merged"
         actions.append(
@@ -88,7 +92,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    for candidate in review["duplicate_candidates"]:
+    for candidate in review["duplicate_candidates"] if lane_enabled("memory_hygiene") else []:
         actions.append(
             {
                 "action": "review",
@@ -101,7 +105,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    for row in review["low_confidence"]:
+    for row in review["low_confidence"] if lane_enabled("memory_hygiene") else []:
         kind = "semantic" if "fact" in row else "reflection"
         actions.append(
             {
@@ -115,7 +119,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    for item in reflection_quality["reflections"]:
+    for item in reflection_quality["reflections"] if lane_enabled("memory_hygiene") else []:
         if item["suggested_action"] == "mark_stale":
             reason = item["reason"]
             actions.append(
@@ -148,6 +152,15 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
 
     for row in review["unreviewed_reflections"]:
         experience_type = reflection_experience_type(row)
+        row_lane = (
+            "learn_semantic_repair"
+            if experience_type in {"semantic_patch_experience", "correction_experience"}
+            else "skill_evolution"
+            if is_complete_experience_candidate(row)
+            else "memory_hygiene"
+        )
+        if not lane_enabled(row_lane):
+            continue
         if experience_type == "semantic_patch_experience":
             actions.append(build_semantic_patch_review_action(row))
             continue
@@ -213,7 +226,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
                 }
             )
 
-    for row in review["unreviewed_episodes"]:
+    for row in review["unreviewed_episodes"] if lane_enabled("memory_hygiene") else []:
         actions.append(
             {
                 "action": "promote_or_archive",
@@ -246,7 +259,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
     actions.extend(retrieval_feedback_actions)
     actions.extend(calibration_feedback_actions)
 
-    for candidate in skill_pattern_candidates:
+    for candidate in skill_pattern_candidates if lane_enabled("skill_evolution") else []:
         candidate = annotate_skill_pattern_artifacts(project.root, candidate)
         actions.append(
             {
@@ -270,7 +283,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    for candidate in incident_strategy_candidates:
+    for candidate in incident_strategy_candidates if lane_enabled("skill_evolution") else []:
         actions.append(
             {
                 "action": "review_incident_strategy_candidate",
@@ -289,7 +302,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    for candidate in recurring_incident_fingerprint_candidates:
+    for candidate in recurring_incident_fingerprint_candidates if lane_enabled("incident_recurrence") else []:
         actions.append(
             {
                 "action": "review_recurring_incident_fingerprint",
@@ -308,7 +321,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    for candidate in build_log_design_gap_candidates(project, review["unreviewed_reflections"]):
+    for candidate in log_design_candidates if lane_enabled("log_diagnosis") else []:
         actions.append(
             {
                 "action": "review_log_design_gap",
@@ -323,7 +336,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    for row in query_misses:
+    for row in query_misses if lane_enabled("log_diagnosis") else []:
         followup_focus, suggested_query_terms = build_query_followup(
             project, row["query"], learn_business_payload_template
         )
@@ -358,7 +371,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
             }
         )
 
-    for conflict in semantic_conflicts:
+    for conflict in semantic_conflicts if lane_enabled("semantic_conflict") else []:
         actions.append(
             {
                 "action": "review_semantic_conflict",
@@ -388,9 +401,9 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
                 *(drift.get("changed_files") or []),
             ]
         )
-        payload_template = build_learn_business_payload_template_for_paths(project, drift_files)
-        actions.append(
-            {
+        if lane_enabled("learn_semantic_repair"):
+            payload_template = build_learn_business_payload_template_for_paths(project, drift_files)
+            actions.append({
                 "action": "review_semantic_drift",
                 "governance_lane": "learn_semantic_repair",
                 "type": "learn_scope",
@@ -403,9 +416,12 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
                 "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
                 "learn_business_payload_template": payload_template,
                 "workflow_steps": semantic_enrichment_workflow_steps(),
-            }
+            })
+        removed_reflection_ids = (
+            find_reflections_linked_to_paths(project, drift.get("removed_files") or [])
+            if lane_enabled("experience_staleness")
+            else []
         )
-        removed_reflection_ids = find_reflections_linked_to_paths(project, drift.get("removed_files") or [])
         if removed_reflection_ids:
             actions.append(
                     {
@@ -447,7 +463,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
                     }
                 )
 
-    if any(semantic_gap_targets.values()):
+    if lane_enabled("learn_semantic_repair") and any(semantic_gap_targets.values()):
         actions.append(
             {
                 "action": "add_business_terms",
@@ -467,4 +483,9 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
 
     for action in actions:
         action.setdefault("governance_lane", infer_governance_lane(action))
+    if selected_lane:
+        actions = [
+            action for action in actions
+            if str(action.get("governance_lane") or "") == selected_lane
+        ]
     return actions

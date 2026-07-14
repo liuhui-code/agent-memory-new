@@ -94,6 +94,8 @@ python tools/agent_memory.py list --project . --type memory-edge --json
 python tools/agent_memory.py maintain-health --project . --json
 python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py maintain-plan --project . --json
+python tools/agent_memory.py maintain-plan --project . --compact --action-lane graph_quality --json
+python tools/agent_memory.py maintain-plan --project . --verify-graph-quality --json
 python tools/agent_memory.py maintain-rebuild-derived --project . --target graph --json
 python tools/agent_memory.py miss-list --project . --status open --json
 python tools/agent_memory.py miss-status --project . --id 1 --status resolved --resolution "..."

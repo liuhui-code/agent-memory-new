@@ -404,7 +404,9 @@ python tools/agent_memory.py maintain-plan --project . --compact --action-limit 
 
 Compact mode returns `action_budget`, `health_overview`, and compact top actions first. Use `recommended_lanes` to choose a governance path, then use the lane's `next_command_template` for a focused compact rerun. Use `review_key` and `source_hint` to identify the selected action, then use `next_command_templates.full_plan` if you need templates, record details, or full graph/memory context. Use `--action-limit 1` for an extremely small first pass, or `--action-limit 3` to review a short batch.
 
-If you already know the governance lane for this pass, add `--action-lane memory_tiers`, `--action-lane log_diagnosis`, or another lane from `action_budget.counts_by_lane`. The lane filter affects only the budgeted top-action batch; normal maintain-plan still computes the underlying review signals. If `lane_filter_status` is `no_matches`, use `available_lanes` instead of assuming there is no maintenance work.
+If you already know the governance lane for this pass, add `--action-lane memory_tiers`, `--action-lane log_diagnosis`, or another lane from `action_budget.counts_by_lane`. Known lanes now execute only their declared dependencies. Check `execution_scope.computed_groups` and remember that focused summaries are lane-local rather than full-archive health. Unknown lane names intentionally fall back to a full plan so `available_lanes` can correct the selection.
+
+Graph quality uses a revision-bound runtime snapshot. Run `maintain-health --verify-graph-quality --json` or add `--verify-graph-quality` to `maintain-plan` when auditing possible cache corruption; normal learning invalidates the snapshot automatically.
 
 Before changing retrieval, calibration, governance, log, evidence, or graph behavior, prefer the one-command quality gate when a cases directory exists:
 

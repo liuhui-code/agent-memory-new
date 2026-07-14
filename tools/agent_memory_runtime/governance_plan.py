@@ -67,11 +67,17 @@ from .governance_review import build_reflect_review_data, reflection_experience_
 from .governance_review_data import active_reflection_rows, build_review_data
 from .governance_skill_candidates import build_skill_pattern_candidates, is_complete_experience_candidate
 from .governance_utils import count_actions_by_lane
+from .governance_lane_plan import build_focused_maintain_plan, selected_known_lane
 
 def maintain_plan(args: argparse.Namespace) -> None:
     started_ms = monotonic_ms()
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
+    focused_lane = selected_known_lane(args)
+    if focused_lane:
+        data = build_focused_maintain_plan(project, args, focused_lane)
+        finish_maintain_plan(project, args, data, started_ms)
+        return
     review = build_review_data(project, args.limit)
     reflection_quality = build_reflect_review_data(project, args.limit)
     query_misses = build_query_miss_data(project, args.limit)
@@ -97,7 +103,10 @@ def maintain_plan(args: argparse.Namespace) -> None:
     incident_trace_actions = build_incident_trace_actions(project, args.limit)
     impact_feedback = impact_feedback_summary(project)
     evidence_runtime = evidence_runtime_summary(project)
-    graph_quality = build_graph_quality(project)
+    graph_quality = build_graph_quality(
+        project,
+        force_verify=bool(getattr(args, "verify_graph_quality", False)),
+    )
     graph_quality_actions = build_graph_quality_actions(graph_quality)
     graph_signal_quality = build_graph_signal_quality(project, graph_quality=graph_quality)
     graph_signal_quality_actions = build_graph_signal_quality_actions(graph_signal_quality)
@@ -137,6 +146,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     )
     active_learning_actions = build_active_learning_actions(active_learning_queue)
     skill_pattern_candidates = build_skill_pattern_candidates(project, review["unreviewed_reflections"])
+    log_design_candidates = build_log_design_gap_candidates(project, review["unreviewed_reflections"])
     actions = build_maintain_plan_actions(locals())
     annotate_governance_action_priorities(actions)
     action_limit = max(1, int(getattr(args, "action_limit", 10) or 10))
@@ -190,6 +200,12 @@ def maintain_plan(args: argparse.Namespace) -> None:
     data = {
         "project_id": project.project_id,
         "project_path": str(project.root),
+        "execution_scope": {
+            "mode": "full_fallback" if getattr(args, "action_lane", None) else "full",
+            "selected_lane": getattr(args, "action_lane", None),
+            "computed_groups": ["all"],
+            "full_archive_summary": True,
+        },
         "summary": {
             "stale": len(review["stale_memories"]),
             "duplicate_candidates": len(review["duplicate_candidates"]),
@@ -237,6 +253,15 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "actions": actions,
         "advisory_notice": "maintain-plan only proposes actions. Execute changes only after user confirmation.",
     }
+    finish_maintain_plan(project, args, data, started_ms)
+
+
+def finish_maintain_plan(
+    project: Project,
+    args: argparse.Namespace,
+    data: dict[str, Any],
+    started_ms: float,
+) -> None:
     if getattr(args, "compact", False):
         data = compact_maintain_plan_payload(data)
     record_governance_usage(project, "maintain-plan", data)

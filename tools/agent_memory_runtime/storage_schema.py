@@ -126,6 +126,12 @@ def create_schema(conn: sqlite3.Connection) -> None:
           created_at TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS graph_runtime_state (
+          project_id TEXT PRIMARY KEY,
+          graph_revision INTEGER NOT NULL DEFAULT 0,
+          updated_at TEXT NOT NULL
+        );
+
         CREATE TABLE IF NOT EXISTS impact_feedback (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           project_id TEXT NOT NULL,

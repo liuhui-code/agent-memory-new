@@ -338,6 +338,8 @@ Rules:
 - `agent-memory-query` should stay fast; run heavier governance through this maintain skill.
 - Do not auto-delete memory. Prefer stale, merge, archive, or reject status changes.
 - `maintain-plan` is read-only. It proposes actions; it does not mutate memory.
+- Prefer `maintain-plan --compact --action-lane <lane> --json` after a Lane is known. Check `execution_scope`: focused summaries cover only the selected Lane.
+- Use `--verify-graph-quality` only for an explicit graph audit; normal learn and rebuild commands invalidate the revision-bound runtime snapshot automatically.
 - Merge only when the replacement fact is more precise than all source facts.
 - Promote only durable lessons, not task logs.
 - Treat `rewrite_reflection` and `mark_stale` actions from `maintain-plan` as confirmation-required reflection quality actions.

@@ -18,6 +18,7 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `code_symbols`: lightweight symbol-level wiki index.
 - `code_log_statements`: log, print, and console statements extracted from learned source files.
 - `memory_edges`: lightweight relation edges between learned files, symbols, and log statements.
+- `graph_runtime_state`: graph revision used to invalidate runtime graph-quality snapshots.
 - `impact_feedback`: compact change/test outcome summaries used to improve later test recommendations.
 - `learn_scopes`: persistent manifests for previously learned entry, path, or whole-project scopes.
 - `query_misses`: failed retrieval attempts that may need later learning or reflection.
@@ -183,6 +184,8 @@ Each edge also carries governance metadata:
 - `last_verified_at`: last focused learn/rebuild verification time
 
 Normal query and impact traversal require `valid_to IS NULL`. Legacy rows are backfilled with `extractor_version: legacy`, `evidence_kind: legacy`, and timestamps derived from `created_at`.
+
+`graph_runtime_state` stores only `project_id`, a monotonically increasing `graph_revision`, and `updated_at`. The central graph rebuild increments this row in the same SQLite transaction as edge changes. Graph-quality payloads are disposable operational cache files under `runtime/graph_quality_snapshot.json`; they are accepted only when their project id and graph revision match SQLite. Maintenance reads therefore do not mutate SQLite, and deleting the runtime snapshot only causes a safe recomputation.
 
 Repository-grounded design uses runtime-only `architecture_slice` and Delta Graph JSON. Neither generated architecture slices nor design proposals are stored as SQLite records.
 

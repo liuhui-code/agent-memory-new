@@ -24,6 +24,40 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-14 - Add lazy governance lanes and graph-quality snapshots
+
+Files changed:
+- `tools/agent_memory_runtime/governance_lane_plan.py`
+- `tools/agent_memory_runtime/governance_plan.py`
+- `tools/agent_memory_runtime/governance_plan_actions.py`
+- `tools/agent_memory_runtime/governance_action_budget.py`
+- `tools/agent_memory_runtime/graph_quality.py`
+- `tools/agent_memory_runtime/graph_quality_snapshot.py`
+- `tools/agent_memory_runtime/code_wiki_edges.py`
+- `tools/agent_memory_runtime/storage_schema.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/governance_health.py`
+- `tests/test_lazy_governance_snapshot.py`
+- Runtime, schema, usage, Agent, Maintain Skill, and execution-plan documentation.
+
+What changed:
+- Added dependency-driven focused execution for 18 known governance lanes while preserving complete-plan and unknown-lane fallback behavior.
+- Added `execution_scope` metadata so focused zero counts cannot be mistaken for full-archive health.
+- Added transactional graph revision invalidation in SQLite and a revision-bound runtime graph-quality snapshot.
+- Added `--verify-graph-quality` for explicit fresh graph audits without mutating memory or graph rows.
+- Added Lane guards that prevent unrelated correction, query-miss, and refresh-drift loaders from running during focused plans.
+
+Why:
+- A selected Lane previously paid for every governance report, and graph quality repeatedly scanned the full graph even when no learned structure changed.
+
+Verification:
+- Public CLI coverage passes for all 18 known lanes, unknown-lane fallback, snapshot hit, graph invalidation, and forced verification.
+- Full suite: 310 tests passed in 368.818 seconds.
+- On the 312 MiB benchmark archive: warm full plan 0.86 seconds / 167 SQLite execute calls; `memory_tiers` focused 0.41 seconds / 33 calls; cached `graph_quality` focused 0.49 seconds / 39 calls.
+
+Rollback notes:
+- Remove the focused planner branch to restore output-only Lane filtering. Removing `graph_runtime_state` is unnecessary; deleting `runtime/graph_quality_snapshot.json` safely forces recomputation.
+
 ## 2026-07-14 - Remove redundant loop queries and repeated computation
 
 Files changed:

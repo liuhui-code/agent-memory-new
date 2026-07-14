@@ -106,6 +106,7 @@ def compact_maintain_plan_payload(data: dict[str, Any]) -> dict[str, Any]:
         "project_id": data.get("project_id"),
         "project_path": data.get("project_path"),
         "compact": True,
+        "execution_scope": data.get("execution_scope") or {},
         "summary": data.get("summary") or {},
         "governance_summary": data.get("governance_summary") or {},
         "learn_governance_summary": data.get("learn_governance_summary") or {},
