@@ -18,47 +18,39 @@ def collect_related_edges(project: Project, targets: dict[str, set[int]]) -> lis
         return [values[index : index + size] for index in range(0, len(values), size)]
 
     with connect(project) as conn:
+        allowed_relations = sorted(QUERY_ALLOWED_EDGE_RELATIONS)
+        relation_placeholders = ",".join("?" for _ in allowed_relations)
         for entity_type, ids in targets.items():
             ordered_ids = sorted(ids)
             if not ordered_ids:
                 continue
             for id_batch in chunked(ordered_ids, BATCHED_EDGE_TARGET_SIZE):
                 placeholders = ",".join("?" for _ in id_batch)
-                params: list[Any] = [
-                    project.project_id,
-                    *sorted(QUERY_ALLOWED_EDGE_RELATIONS),
-                    entity_type,
-                    *id_batch,
-                ]
-                source_rows = conn.execute(
+                rows = conn.execute(
                     f"""
                     SELECT *
                     FROM memory_edges
                     WHERE project_id = ?
                       AND valid_to IS NULL
-                      AND relation IN ({','.join('?' for _ in sorted(QUERY_ALLOWED_EDGE_RELATIONS))})
-                      AND source_type = ?
-                      AND source_id IN ({placeholders})
+                      AND relation IN ({relation_placeholders})
+                      AND (
+                        (source_type = ? AND source_id IN ({placeholders}))
+                        OR (target_type = ? AND target_id IN ({placeholders}))
+                      )
                     ORDER BY confidence DESC, id DESC
                     LIMIT ?
                     """,
-                    [*params, NETWORK_EDGE_LIMIT],
+                    [
+                        project.project_id,
+                        *allowed_relations,
+                        entity_type,
+                        *id_batch,
+                        entity_type,
+                        *id_batch,
+                        NETWORK_EDGE_LIMIT,
+                    ],
                 ).fetchall()
-                target_rows = conn.execute(
-                    f"""
-                    SELECT *
-                    FROM memory_edges
-                    WHERE project_id = ?
-                      AND valid_to IS NULL
-                      AND relation IN ({','.join('?' for _ in sorted(QUERY_ALLOWED_EDGE_RELATIONS))})
-                      AND target_type = ?
-                      AND target_id IN ({placeholders})
-                    ORDER BY confidence DESC, id DESC
-                    LIMIT ?
-                    """,
-                    [*params, NETWORK_EDGE_LIMIT],
-                ).fetchall()
-                for row in [*source_rows, *target_rows]:
+                for row in rows:
                     edge_map[row["id"]] = row_dict(row)
     edges = list(edge_map.values())
     edges.sort(key=lambda item: (item.get("confidence", 0), item.get("id", 0)), reverse=True)

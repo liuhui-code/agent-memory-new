@@ -8,6 +8,7 @@ from typing import Any
 
 from .models import VALID_MEMORY_STATUSES
 from .cli_design import add_design_parsers
+from .cli_semantic import add_semantic_parsers
 
 
 def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
@@ -97,6 +98,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.set_defaults(func=command("impact_feedback_command"))
 
     add_design_parsers(sub, add_project, command)
+    add_semantic_parsers(sub, add_project, command)
 
     p = sub.add_parser("eval-retrieval")
     add_project(p)
@@ -414,6 +416,13 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--changed-only", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("maintain_refresh_scope"))
+
+    p = sub.add_parser("maintain-rebuild-derived")
+    add_project(p)
+    p.add_argument("--source")
+    p.add_argument("--target", choices=["search", "graph", "all"], default="all")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("maintain_rebuild_derived"))
 
     p = sub.add_parser("vault-init")
     add_project(p)

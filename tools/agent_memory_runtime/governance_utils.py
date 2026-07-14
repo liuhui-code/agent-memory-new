@@ -102,14 +102,16 @@ def duplicate_candidates(rows: list[dict[str, Any]], kind: str, limit: int = 10)
     candidates: list[dict[str, Any]] = []
     ordered_rows = sorted(rows, key=lambda item: int(item.get("id") or 0), reverse=True)[:REVIEW_DUPLICATE_POOL_LIMIT]
     prepared = [(row, token_set(memory_text(row, kind))) for row in ordered_rows]
+    postings: dict[str, list[int]] = {}
+    for index, (_row, tokens) in enumerate(prepared):
+        for token in tokens:
+            postings.setdefault(token, []).append(index)
     for index, (left, left_tokens) in enumerate(prepared):
         if not left_tokens:
             continue
-        for right, right_tokens in prepared[index + 1 :]:
-            if not right_tokens:
-                continue
-            overlap = len(left_tokens & right_tokens)
-            union = len(left_tokens | right_tokens)
+        for right_index, overlap in overlap_candidates_for(index, left_tokens, postings).items():
+            right, right_tokens = prepared[right_index]
+            union = len(left_tokens) + len(right_tokens) - overlap
             similarity = overlap / union if union else 0.0
             if similarity >= 0.55:
                 candidates.append(
@@ -124,6 +126,20 @@ def duplicate_candidates(rows: list[dict[str, Any]], kind: str, limit: int = 10)
                 )
     candidates.sort(key=lambda item: item["similarity"], reverse=True)
     return candidates[:limit]
+
+
+def overlap_candidates_for(
+    left_index: int,
+    left_tokens: set[str],
+    postings: dict[str, list[int]],
+) -> dict[int, int]:
+    overlaps: dict[int, int] = {}
+    for token in left_tokens:
+        for right_index in postings.get(token, []):
+            if right_index <= left_index:
+                continue
+            overlaps[right_index] = overlaps.get(right_index, 0) + 1
+    return overlaps
 
 
 
@@ -205,18 +221,21 @@ def token_overlap_ratio(left: str, right: str) -> float:
 
 
 def shared_reflection_context(left: dict[str, Any], right: dict[str, Any]) -> dict[str, Any]:
-    shared_scope = normalized_text(left.get("scope")) and normalized_text(left.get("scope")) == normalized_text(right.get("scope"))
-    shared_trigger = normalized_text(left.get("trigger_condition")) and normalized_text(left.get("trigger_condition")) == normalized_text(right.get("trigger_condition"))
+    left_scope = normalized_text(left.get("scope"))
+    right_scope = normalized_text(right.get("scope"))
+    left_trigger = normalized_text(left.get("trigger_condition"))
+    right_trigger = normalized_text(right.get("trigger_condition"))
+    right_targets = {normalized_text(value) for value in json_list(right.get("inspection_targets"))}
     shared_inspection_targets = stable_unique_strings(
         [
             target
             for target in json_list(left.get("inspection_targets"))
-            if normalized_text(target) in {normalized_text(value) for value in json_list(right.get("inspection_targets"))}
+            if normalized_text(target) in right_targets
         ]
     )
     return {
-        "shared_scope": bool(shared_scope),
-        "shared_trigger": bool(shared_trigger),
+        "shared_scope": bool(left_scope and left_scope == right_scope),
+        "shared_trigger": bool(left_trigger and left_trigger == right_trigger),
         "shared_inspection_targets": shared_inspection_targets,
         "scope_overlap": token_overlap_ratio(str(left.get("scope") or ""), str(right.get("scope") or "")),
         "trigger_overlap": token_overlap_ratio(str(left.get("trigger_condition") or ""), str(right.get("trigger_condition") or "")),

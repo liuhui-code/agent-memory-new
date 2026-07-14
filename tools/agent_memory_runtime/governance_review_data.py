@@ -28,7 +28,7 @@ from .incident_trace_governance import build_incident_trace_actions
 from .experience_maturity import score_experience_maturity
 from .experience_usage import build_experience_usage_actions, fetch_experience_usage_summary
 from .memory_tiers import build_memory_tier_actions, build_memory_tiers
-from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE_POOL_LIMIT, VALID_MEMORY_STATUSES
+from .models import GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE_POOL_LIMIT, VALID_MEMORY_STATUSES
 from .performance_scoring import (
     append_performance_sample,
     build_performance_sample,
@@ -196,10 +196,6 @@ def build_review_data(project: Project, limit: int) -> dict[str, Any]:
 
 
 
-def active_reflection_rows(project: Project) -> list[dict[str, Any]]:
+def active_reflection_rows(project: Project, limit: int | None = None) -> list[dict[str, Any]]:
     with connect(project) as conn:
-        reflection_rows = fetch_memory_rows(conn, project, "reflection", active_only=False)
-    return [
-        row for row in reflection_rows
-        if (row.get("status") or ACTIVE_STATUS) == ACTIVE_STATUS and not row.get("is_stale")
-    ]
+        return fetch_memory_rows(conn, project, "reflection", active_only=True, limit=limit)

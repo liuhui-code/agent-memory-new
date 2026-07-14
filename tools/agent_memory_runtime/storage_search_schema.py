@@ -4,7 +4,18 @@ from __future__ import annotations
 
 import sqlite3
 
+SEARCH_SCHEMA_VERSION = "fts-v1"
+
+
 def create_search_schema(conn: sqlite3.Connection) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS runtime_schema_versions(
+          component TEXT PRIMARY KEY,
+          version TEXT NOT NULL
+        )
+        """
+    )
     conn.executescript(
         """
         CREATE VIRTUAL TABLE IF NOT EXISTS semantic_fact_fts USING fts5(
@@ -96,7 +107,8 @@ def create_search_schema(conn: sqlite3.Connection) -> None:
         """
     )
     create_search_triggers(conn)
-    rebuild_search_indexes(conn)
+    if search_schema_version(conn) != SEARCH_SCHEMA_VERSION:
+        rebuild_search_indexes(conn)
 
 
 
@@ -238,3 +250,18 @@ def rebuild_search_indexes(conn: sqlite3.Connection) -> None:
         FROM code_log_statements
         """
     )
+    conn.execute(
+        """
+        INSERT INTO runtime_schema_versions(component, version)
+        VALUES ('search', ?)
+        ON CONFLICT(component) DO UPDATE SET version = excluded.version
+        """,
+        (SEARCH_SCHEMA_VERSION,),
+    )
+
+
+def search_schema_version(conn: sqlite3.Connection) -> str | None:
+    row = conn.execute(
+        "SELECT version FROM runtime_schema_versions WHERE component = 'search'"
+    ).fetchone()
+    return str(row["version"]) if row else None

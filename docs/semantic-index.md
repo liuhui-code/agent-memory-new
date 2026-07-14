@@ -56,3 +56,5 @@ Partial learning captures existing reverse dependents before replacing symbol ro
 ## Evolution
 
 An exact es2panda, language-server, or SCIP provider can be added later by implementing `LanguageAdapter`, declaring capabilities/toolchain version, emitting source digests, and passing the same conformance suite. Registration is the only core change; graph, storage, design, impact, and Incident logic remain language-neutral.
+
+The process-level provider contract is now available through `semantic-provider-request/v1` and `semantic-provider-result/v1`. Normal learning selects it in `auto` mode when the language environment variable is configured, otherwise it retains the built-in adapter. Details are in `docs/semantic-provider.md`.

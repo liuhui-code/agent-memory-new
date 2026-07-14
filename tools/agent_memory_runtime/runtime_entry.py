@@ -27,6 +27,7 @@ from .design_check import design_check_command
 from .design_compare import design_compare_command
 from .design_eval import eval_design_command
 from .design_verify import design_verify_command
+from .derived_rebuild import maintain_rebuild_derived
 from .evidence_attribution import eval_evidence_attribution_command
 from .experience_evidence_eval import eval_experience_evidence_command
 from .experience_usage import experience_usage_command
@@ -55,6 +56,7 @@ from .quality_gate_eval import eval_quality_command
 from .reflection_commands import reflect
 from .retrieval_eval import eval_retrieval_command
 from .retrieval_feedback import retrieval_feedback_command
+from .semantic_eval import eval_semantic_command
 from .vault import vault_export, vault_index, vault_init
 
 
@@ -69,6 +71,7 @@ def command_handlers() -> dict[str, object]:
         "design_check_command": design_check_command,
         "design_compare_command": design_compare_command,
         "eval_design_command": eval_design_command,
+        "eval_semantic_command": eval_semantic_command,
         "design_verify_command": design_verify_command,
         "impact_scope_command": impact_scope_command,
         "impact_feedback_command": impact_feedback_command,
@@ -107,6 +110,7 @@ def command_handlers() -> dict[str, object]:
         "maintain_skill_package": maintain_skill_package,
         "maintain_skill_promotion_status": maintain_skill_promotion_status,
         "maintain_refresh_scope": maintain_refresh_scope,
+        "maintain_rebuild_derived": maintain_rebuild_derived,
         "vault_init": vault_init,
         "vault_export": vault_export,
         "vault_index": vault_index,

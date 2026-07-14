@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from .models import Project
-from .semantic_models import SemanticBatch, SemanticEntity, SemanticRelation, source_digest, symbol_key
+from .semantic_models import MAX_GAPS, SemanticBatch, SemanticEntity, SemanticRelation, source_digest, symbol_key
 
 
 CONTAINER_RE = re.compile(
@@ -62,6 +62,13 @@ class ParsedFile:
     gaps: list[dict[str, str]]
 
 
+@dataclass(frozen=True)
+class ParsedFileContext:
+    fields_by_owner: dict[str, dict[str, str]]
+    state_names_by_owner: dict[str, tuple[str, ...]]
+    imported_paths: dict[str, str | None]
+
+
 def index_ecma_files(
     project: Project,
     files: list[Path],
@@ -77,9 +84,13 @@ def index_ecma_files(
         source_digests={item.path: item.digest for item in parsed},
         entities=[entity for item in parsed for entity in item.entities],
         relations=[relation for item in parsed for relation in item.relations],
-        gaps=[gap for item in parsed for gap in item.gaps],
+        gaps=bounded_gaps([gap for item in parsed for gap in item.gaps]),
     )
     return batch.validate()
+
+
+def bounded_gaps(gaps: list[dict[str, str]]) -> list[dict[str, str]]:
+    return gaps[:MAX_GAPS]
 
 
 def parse_file(project: Project, path: Path, language: str, state_annotations: bool) -> ParsedFile:
@@ -104,6 +115,7 @@ def parse_file(project: Project, path: Path, language: str, state_annotations: b
     imports = parse_imports(project, path, text, language)
     by_qualified = {entity.qualified_name: entity for entity in entities}
     by_name = unique_entity_names(entities)
+    context = build_file_context(lines, containers, entities, imports)
     for entity in entities:
         if entity.exported:
             relations.append(relation(f"file:{rel_path}", "exposes_api", entity.key, entity.start_line, 0.95, "exported symbol"))
@@ -114,7 +126,7 @@ def parse_file(project: Project, path: Path, language: str, state_annotations: b
             detail=f"imports {name} as {alias}",
         ))
     for block in callables:
-        relations.extend(callable_relations(lines, block, containers, by_qualified, by_name, imports, gaps))
+        relations.extend(callable_relations(lines, block, context, by_qualified, by_name, gaps))
     return ParsedFile(
         path=rel_path,
         text=text,
@@ -185,9 +197,12 @@ def parse_top_level_functions(
 ) -> list[CallableBlock]:
     result: list[CallableBlock] = []
     index = 0
+    container_index = 0
     while index < len(lines):
-        if any(item.start <= index <= item.end for item in containers):
-            index += 1
+        while container_index < len(containers) and containers[container_index].end < index:
+            container_index += 1
+        if container_index < len(containers) and containers[container_index].start <= index:
+            index = containers[container_index].end + 1
             continue
         match = FUNCTION_RE.match(lines[index])
         if not match:
@@ -230,17 +245,15 @@ def inheritance_relations(container: Container, methods: list[CallableBlock]) ->
 def callable_relations(
     lines: list[str],
     block: CallableBlock,
-    containers: list[Container],
+    context: ParsedFileContext,
     by_qualified: dict[str, SemanticEntity],
     by_name: dict[str, SemanticEntity],
-    imports: list[tuple[str, str, str | None]],
     gaps: list[dict[str, str]],
 ) -> list[SemanticRelation]:
     result: list[SemanticRelation] = []
     body = "\n".join(lines[block.start:block.end + 1])
-    owner = next((item for item in containers if item.name == block.owner), None)
-    fields = container_fields(lines, owner) if owner else {}
-    imported_paths = {alias: path for _name, alias, path in imports}
+    fields = context.fields_by_owner.get(block.owner or "", {})
+    imported_paths = context.imported_paths
     local_prefix = f"{block.owner}." if block.owner else ""
     for name in set(re.findall(r"\bthis\.([A-Za-z_$][\w$]*)\s*\(", body)):
         target = by_qualified.get(local_prefix + name)
@@ -257,8 +270,7 @@ def callable_relations(
             line=block.start + 1, confidence=0.9, detail=f"typed field call through {field_name}",
         ))
     if block.owner:
-        state_names = [name for name, entity in by_name.items() if entity.kind == "state" and entity.qualified_name.startswith(local_prefix)]
-        for name in state_names:
+        for name in context.state_names_by_owner.get(block.owner, ()):
             target = by_qualified.get(local_prefix + name)
             if not target:
                 continue
@@ -294,6 +306,29 @@ def callable_relations(
             line=block.start + 1, confidence=0.9, detail=f"typed awaited call through {field_name}",
         ))
     return result
+
+
+def build_file_context(
+    lines: list[str],
+    containers: list[Container],
+    entities: list[SemanticEntity],
+    imports: list[tuple[str, str, str | None]],
+) -> ParsedFileContext:
+    fields_by_owner = {
+        container.name: container_fields(lines, container)
+        for container in containers
+    }
+    state_names: dict[str, list[str]] = {}
+    for entity in entities:
+        if entity.kind != "state" or "." not in entity.qualified_name:
+            continue
+        owner, _separator, _name = entity.qualified_name.partition(".")
+        state_names.setdefault(owner, []).append(entity.name)
+    return ParsedFileContext(
+        fields_by_owner=fields_by_owner,
+        state_names_by_owner={owner: tuple(names) for owner, names in state_names.items()},
+        imported_paths={alias: path for _name, alias, path in imports},
+    )
 
 
 def parse_imports(project: Project, path: Path, text: str, language: str) -> list[tuple[str, str, str | None]]:

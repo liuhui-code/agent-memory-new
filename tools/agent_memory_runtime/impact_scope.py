@@ -11,6 +11,7 @@ from typing import Any
 
 from .evidence_collectors import collect_evidence_candidates, normalize_evidence
 from .evidence_fusion import build_evidence_chains, evidence_gaps, evidence_tiers, fuse_evidence
+from .design_evidence import EVIDENCE_RANK, evidence_class
 from .goal_planner import build_goal_plan
 from .impact_feedback import impact_feedback_summary, recommend_tests
 from .models import Project
@@ -295,19 +296,33 @@ def classify_impact_edges(
 
 
 def _impact_link(edge: dict[str, Any], source: str | None, target: str | None) -> dict[str, Any]:
+    precision = evidence_class(
+        str(edge.get("evidence_kind") or "legacy"),
+        str(edge.get("extractor_version") or "legacy"),
+    )
     return {
         "source": source,
         "relation": edge.get("relation"),
         "target": target,
         "confidence": edge.get("confidence"),
         "evidence": edge.get("evidence"),
+        "evidence_class": precision,
+        "extractor_version": edge.get("extractor_version"),
     }
 
 
 def _unique_links(links: list[dict[str, Any]]) -> list[dict[str, Any]]:
     seen: set[tuple[Any, ...]] = set()
     result: list[dict[str, Any]] = []
-    for link in links:
+    ordered = sorted(
+        links,
+        key=lambda item: (
+            -EVIDENCE_RANK.get(str(item.get("evidence_class") or "inferred"), 0),
+            -float(item.get("confidence") or 0.0),
+            str(item.get("source") or ""),
+        ),
+    )
+    for link in ordered:
         key = (link["source"], link["relation"], link["target"])
         if key not in seen:
             result.append(link)

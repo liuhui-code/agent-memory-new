@@ -24,6 +24,83 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-14 - Remove redundant loop queries and repeated computation
+
+Files changed:
+- `tools/agent_memory_runtime/semantic_ecma.py`
+- `tools/agent_memory_runtime/retrieval_feedback.py`
+- `tools/agent_memory_runtime/experience_usage.py`
+- `tools/agent_memory_runtime/query_collect.py`
+- `tools/agent_memory_runtime/query_edges.py`
+- `tools/agent_memory_runtime/governance_corrections.py`
+- `tools/agent_memory_runtime/governance_review_data.py`
+- `tools/agent_memory_runtime/governance_utils.py`
+- `tools/agent_memory_runtime/governance_learn_actions.py`
+- `tools/agent_memory_runtime/governance_plan.py`
+- `tools/agent_memory_runtime/governance_plan_actions.py`
+- `tools/agent_memory_runtime/graph_quality.py`
+- `tools/agent_memory_runtime/storage_migrations.py`
+- `tests/test_graph_query_performance.py`
+- `docs/superpowers/plans/2026-07-14-loop-query-computation-optimization.md`
+
+What changed:
+- Precomputed per-file ArkTS fields, state names, imports, and container intervals instead of rescanning them for every callable.
+- Batched retrieval feedback and usage reads across semantic/reflection types and derived feedback adjustments in one pass.
+- Combined inbound/outbound edge retrieval per batch and added matching recent-feedback indexes.
+- Bounded active reflection governance, precomputed conflict text/tokens, blocked disjoint conflict pairs with inverted indexes, and replaced duplicate-record Cartesian comparisons with overlap postings.
+- Reused active reflections, skill pattern candidates, action counts, graph quality, query-miss search results, and graph aggregate counts.
+- Replaced a three-table missing-business-semantics UNION with bounded per-table reads and an equivalent sorted merge.
+
+Why:
+- Profiling showed repeated file scans, repeated database connections, duplicate graph-quality builds, and quadratic governance comparisons that grow poorly as memory approaches 500,000 rows.
+
+Verification:
+- Final full suite: 306 tests passed in 349.807 seconds.
+- Large 312 MiB corpus: warm search completed in 0.52 seconds.
+- Profiled maintain-plan SQLite execute calls fell from 235 to 178.
+- All Python files remain under 500 lines; compilation, four-Skill count, CLI help, and diff checks pass.
+
+Rollback notes:
+- Revert the parsing context, feedback batch helpers, edge query merge, governance blocking indexes, and graph snapshot reuse independently. The two added SQLite indexes are non-destructive and may remain.
+
+## 2026-07-14 - Bound code graph and query performance at large scale
+
+Files changed:
+- `tools/agent_memory_runtime/storage_search_schema.py`
+- `tools/agent_memory_runtime/storage_migrations.py`
+- `tools/agent_memory_runtime/code_wiki_design_edges.py`
+- `tools/agent_memory_runtime/code_wiki_edges.py`
+- `tools/agent_memory_runtime/code_wiki_indexing.py`
+- `tools/agent_memory_runtime/semantic_index.py`
+- `tools/agent_memory_runtime/semantic_models.py`
+- `tools/agent_memory_runtime/derived_rebuild.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/runtime_entry.py`
+- `tests/test_graph_query_performance.py`
+- Runtime, schema, Agent, Maintain Skill, and execution-plan documentation.
+
+What changed:
+- Version-gated FTS and edge-metadata migrations so normal CLI startup no longer rebuilds FTS or rewrites every graph edge.
+- Replaced global basename-based `tested_by` inference with code-only, explicit-test, module-local, ambiguity-safe matching.
+- Added `maintain-rebuild-derived` to repair FTS or source-derived graph rows while preserving code business semantics and durable memory.
+- Scoped partial graph symbol/log reads, bounded reverse-dependent lookup, batched code row and containment/log edge writes, and range-bounded edge metadata annotation.
+- Batched semantic adapter files and relation persistence, and bounded gap diagnostics without dropping valid semantic batches.
+- Added graph amplification and relation-dominance audits.
+
+Why:
+- Real OpenHarmony pressure testing exposed repeated full-index work, cross-module test-edge pollution, and project-size-dependent partial refresh costs above 500,000 graph rows.
+
+Verification:
+- `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest discover -s tests -p 'test_*.py'`: 298 tests passed in 192.128 seconds.
+- Full Python compilation, `python3 tools/check_line_limits.py`, four-Skill count, CLI help, and `git diff --check`: passed.
+- OpenHarmony full index: 16,300 files, 84,227 symbols, 18,240 logs, 202,298 edges in 132.50-137.74 seconds.
+- OpenHarmony miss query: 0.66 seconds; hit query: 1.89 seconds; 33-line partial refresh: 1.99 seconds.
+- Safe graph rebuild preserved business and durable-memory checks and completed semantic indexing without adapter errors.
+- SQLite `VACUUM` reduced the repaired benchmark database from 752 MiB to 312-328 MiB.
+
+Rollback notes:
+- Revert the version gates, derived rebuild command, scoped/batched writers, and module-local test matcher together. Existing SQLite rows remain readable; no destructive schema rollback is required.
+
 ## 2026-07-13 - Enforce Python file line limit
 
 Files changed:
@@ -4099,3 +4176,43 @@ Verification:
 Rollback notes:
 
 - Disable semantic adapter invocation and remove compact Incident `causal_chain` consumption. Existing file-level edges, code/log records, FTS5 queries, string candidate chains, design checks, impact analysis, and four Skills remain usable. Added nullable columns require no destructive rollback.
+
+## 2026-07-15 - Add ArkTS exact semantic-provider infrastructure
+
+Files added or extended:
+
+- `tools/agent_memory_runtime/semantic_provider_protocol.py`
+- `tools/agent_memory_runtime/semantic_provider_process.py`
+- `tools/agent_memory_runtime/semantic_runtime.py`
+- `tools/agent_memory_runtime/semantic_provider_metrics.py`
+- `tools/agent_memory_runtime/semantic_eval.py`
+- `tools/agent_memory_runtime/cli_semantic.py`
+- Existing semantic indexing, Impact, Incident, governance, CLI, documentation, and Skill files.
+- `tests/fixtures/exact_semantic_provider.py`
+- `tests/test_semantic_provider.py`
+- `tests/test_semantic_eval.py`
+- `docs/eval/semantic-cases.json`
+- `docs/semantic-provider.md`
+- `docs/superpowers/plans/2026-07-15-arkts-exact-semantic-provider.md`
+
+What changed:
+
+- Added versioned `semantic-provider-request/v1` and `semantic-provider-result/v1` process contracts around the existing `semantic-index/v1` batch.
+- Added explicit environment-only provider discovery, no-shell invocation, timeout, accepted-output limits, correlation, digest/path/identity validation, and classified failure handling.
+- Added ArkTS `auto` selection: a valid configured provider emits exact evidence; absent or failed providers fall back to the built-in static adapter with visible parse feedback.
+- Preserved exact-over-static duplicate authority and source-version edge lifecycle behavior.
+- Ranked Impact and Incident semantic candidates by evidence precision before confidence while retaining `possible` causal roles for code-only paths.
+- Added bounded runtime provider telemetry, `maintain-health` summary, and a read-only repeated-fallback Maintain action without adding SQLite growth.
+- Added `eval-semantic` with temporary golden fixtures, expected/forbidden relation checks, resolution and growth metrics, and selected-vs-static disagreement reporting.
+- Documented the production bridge contract. The checked-in executable is explicitly a protocol test double, not an es2panda implementation.
+
+Verification:
+
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest tests.test_semantic_provider tests.test_semantic_eval tests.test_semantic_index tests.test_evidence_fabric tests.test_evidence_fabric_hardening tests.test_incident_trace tests.test_graph_quality tests.test_quality_performance_scoring tests.test_agent_memory_part_13 tests.test_agent_memory_part_14`: 84 focused tests passed.
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest discover -s tests -p 'test_*.py'`: 291 tests passed in 194.499 seconds, including exact cross-scope symbol-key binding.
+- `python tools/agent_memory.py eval-semantic --project . --cases docs/eval/semantic-cases.json --mode static --json`: three cases passed; expected relation recall 1.0, forbidden-edge rate 0.0, and raw relation resolution rate 0.9524.
+- Full Python compilation, JSON validation, line-limit check, four-Skill check, CLI help, and diff check passed.
+
+Rollback notes:
+
+- Unset `AGENT_MEMORY_SEMANTIC_PROVIDER_ARKTS` to return immediately to static-only learning. Removing provider selection, telemetry, evaluation, and exact-priority ordering requires no destructive SQLite rollback; existing exact edges remain ordinary versioned memory edges until the next focused refresh.

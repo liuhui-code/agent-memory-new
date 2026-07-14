@@ -39,6 +39,7 @@ from .performance_scoring import (
     estimate_payload_tokens,
     monotonic_ms,
 )
+from .semantic_provider_metrics import semantic_provider_health
 from .quality_scoring import build_quality_report
 from .quality_gate_eval import (
     build_quality_gate_failure_actions,
@@ -197,6 +198,7 @@ def maintain_health(args: argparse.Namespace) -> None:
     last_quality_gate = load_quality_gate_snapshot(project)
     impact_feedback = impact_feedback_summary(project)
     evidence_runtime = evidence_runtime_summary(project)
+    provider_health = semantic_provider_health(project)
 
     duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
     low_confidence_count = low_conf_semantic_count + low_conf_reflection_count
@@ -230,6 +232,8 @@ def maintain_health(args: argparse.Namespace) -> None:
     if last_quality_gate.get("quality_gate") == "fail":
         failed = ", ".join(str(item) for item in (last_quality_gate.get("summary") or {}).get("failed_gate_names") or [])
         recommended_actions.append(f"Review latest quality gate failure{f': {failed}' if failed else ''}.")
+    if int(provider_health.get("fallbacks") or 0) >= 2:
+        recommended_actions.append("Review repeated semantic-provider fallback reasons before trusting static-only graph coverage.")
 
     data = {
         "project_id": project.project_id,
@@ -278,6 +282,7 @@ def maintain_health(args: argparse.Namespace) -> None:
         "impact_feedback": impact_feedback,
         "evidence_runtime": evidence_runtime,
         "runtime_performance": build_runtime_performance_summary(project),
+        "semantic_provider": provider_health,
         "recommended_actions": recommended_actions,
     }
     append_performance_sample(

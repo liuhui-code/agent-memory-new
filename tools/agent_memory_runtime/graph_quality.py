@@ -18,23 +18,14 @@ def build_graph_quality(project: Project) -> dict[str, Any]:
         code_files = count_table(conn, project, "code_files")
         code_symbols = count_table(conn, project, "code_symbols")
         code_logs = count_table(conn, project, "code_log_statements")
-        memory_edges = count_table(conn, project, "memory_edges")
         connected_symbols = connected_count(conn, project, "code_symbol", "code_symbols")
         connected_logs = connected_count(conn, project, "code_log_statement", "code_log_statements")
         orphan_symbols = max(0, code_symbols - connected_symbols)
         orphan_logs = max(0, code_logs - connected_logs)
-        stale_edges = count_stale_edges(project)
-        low_confidence_edges = conn.execute(
-            """
-            SELECT COUNT(*) AS count
-            FROM memory_edges
-            WHERE project_id = ?
-              AND valid_to IS NULL
-              AND COALESCE(confidence, 0.8) < ?
-            """,
-            (project.project_id, LOW_CONFIDENCE_EDGE_THRESHOLD),
-        ).fetchone()["count"]
+        stale_edges = count_stale_edges_with_connection(conn, project)
         edge_governance = edge_governance_summary(conn, project)
+        memory_edges = edge_governance["total"]
+        low_confidence_edges = edge_governance["low_confidence"]
 
     symbol_coverage = coverage(connected_symbols, code_symbols)
     log_coverage = coverage(connected_logs, code_logs)
@@ -65,12 +56,17 @@ def edge_governance_summary(conn: Any, project: Project) -> dict[str, Any]:
                SUM(CASE WHEN valid_to IS NULL THEN 1 ELSE 0 END) AS active,
                SUM(CASE WHEN source_revision IS NULL OR source_revision = '' THEN 1 ELSE 0 END) AS missing_revision,
                SUM(CASE WHEN extractor_version = 'legacy' THEN 1 ELSE 0 END) AS legacy,
-               SUM(CASE WHEN last_verified_at IS NULL THEN 1 ELSE 0 END) AS unverified
+               SUM(CASE WHEN last_verified_at IS NULL THEN 1 ELSE 0 END) AS unverified,
+               SUM(CASE WHEN valid_to IS NULL AND COALESCE(confidence, 0.8) < ?
+                        THEN 1 ELSE 0 END) AS low_confidence
         FROM memory_edges WHERE project_id = ?
         """,
-        (project.project_id,),
+        (LOW_CONFIDENCE_EDGE_THRESHOLD, project.project_id),
     ).fetchone()
-    return {key: int(row[key] or 0) for key in ("total", "active", "missing_revision", "legacy", "unverified")}
+    return {
+        key: int(row[key] or 0)
+        for key in ("total", "active", "missing_revision", "legacy", "unverified", "low_confidence")
+    }
 
 
 def connected_count(conn: Any, project: Project, entity_type: str, table: str) -> int:
@@ -102,40 +98,33 @@ def coverage(connected: int, total: int) -> float:
 
 
 def count_stale_edges(project: Project) -> int:
-    stale = 0
-    for side in ("source", "target"):
-        stale += count_stale_edges_for_side(project, side)
-    return stale
-
-
-def count_stale_edges_for_side(project: Project, side: str) -> int:
-    id_column = f"{side}_id"
-    type_column = f"{side}_type"
-    total = 0
     with connect(project) as conn:
+        return count_stale_edges_with_connection(conn, project)
+
+
+def count_stale_edges_with_connection(conn: Any, project: Project) -> int:
+    total = 0
+    for side in ("source", "target"):
         for entity_type, table in (
             ("code_file", "code_files"),
             ("code_symbol", "code_symbols"),
             ("code_log_statement", "code_log_statements"),
         ):
-            total += int(
-                conn.execute(
-                    f"""
-                    SELECT COUNT(*) AS count
-                    FROM memory_edges e
-                    WHERE e.project_id = ?
-                      AND e.valid_to IS NULL
-                      AND e.{type_column} = ?
-                      AND NOT EXISTS (
-                        SELECT 1
-                        FROM {table} t
-                        WHERE t.project_id = e.project_id
-                          AND t.id = e.{id_column}
-                      )
-                    """,
-                    (project.project_id, entity_type),
-                ).fetchone()["count"]
-            )
+            row = conn.execute(
+                f"""
+                SELECT COUNT(*) AS count
+                FROM memory_edges e
+                WHERE e.project_id = ?
+                  AND e.valid_to IS NULL
+                  AND e.{side}_type = ?
+                  AND NOT EXISTS (
+                    SELECT 1 FROM {table} t
+                    WHERE t.project_id = e.project_id AND t.id = e.{side}_id
+                  )
+                """,
+                (project.project_id, entity_type),
+            ).fetchone()
+            total += int(row["count"] or 0)
     return total
 
 
@@ -175,8 +164,12 @@ def build_graph_quality_actions(graph_quality: dict[str, Any]) -> list[dict[str,
     ]
 
 
-def build_graph_signal_quality(project: Project, limit: int = 10) -> dict[str, Any]:
-    graph = build_graph_quality(project)
+def build_graph_signal_quality(
+    project: Project,
+    limit: int = 10,
+    graph_quality: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    graph = graph_quality or build_graph_quality(project)
     with connect(project) as conn:
         business_counts = business_semantic_counts(conn, project)
         symbol_rows = [

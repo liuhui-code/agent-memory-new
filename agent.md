@@ -74,6 +74,7 @@ python tools/agent_memory.py design-check --project . --proposal proposal.json -
 python tools/agent_memory.py design-compare --project . --proposal a.json --proposal b.json --contract contract.json --json
 python tools/agent_memory.py design-verify --project . --proposal proposal.json --base HEAD~1 --json
 python tools/agent_memory.py eval-design --project . --cases docs/eval/design-cases.json --json
+python tools/agent_memory.py eval-semantic --project . --cases docs/eval/semantic-cases.json --mode static --json
 python tools/agent_memory.py impact-scope --project . --base HEAD~1 --json
 python tools/agent_memory.py impact-feedback --project . --outcome pass --executed-tests "tests/test_profile.py" --json
 python tools/agent_memory.py search --project . --query "..." --json
@@ -93,6 +94,7 @@ python tools/agent_memory.py list --project . --type memory-edge --json
 python tools/agent_memory.py maintain-health --project . --json
 python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py maintain-plan --project . --json
+python tools/agent_memory.py maintain-rebuild-derived --project . --target graph --json
 python tools/agent_memory.py miss-list --project . --status open --json
 python tools/agent_memory.py miss-status --project . --id 1 --status resolved --resolution "..."
 python tools/agent_memory.py maintain-status --project . --type semantic --id 1 --status stale --reason "..."

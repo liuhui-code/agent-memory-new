@@ -40,6 +40,15 @@ python tools/agent_memory.py maintain-refresh-scope --project . --scope-id 3 --j
 Use this before broad `learn-path --replace` or `wiki-index` resets. It replays previously learned scopes from SQLite, refreshes current file/symbol/log/edge structure, retires removed-file structure, and returns `semantic_review_targets` so we can decide whether a focused `learn-business` pass is needed next.
 After refresh, run `maintain-plan --json` if you want the drift to be translated into review actions such as `review_semantic_drift`, `mark_experience_stale_if_anchor_removed`, or `review_skill_pattern_staleness`.
 
+When FTS content or generated code/log edges are damaged, repair only derived data:
+
+```bash
+python tools/agent_memory.py maintain-rebuild-derived --project . --target search --json
+python tools/agent_memory.py maintain-rebuild-derived --project . --target graph --json
+```
+
+For an external learned tree, pass its original `--source`. Check `preserved`, relation counts, edge amplification, relation dominance, semantic adapter errors, and provider runs before accepting the rebuilt graph. Do not use `wiki-index --replace` merely to repair derived indexes.
+
 ## Review Queue
 
 When the user asks to review, clean, govern, merge, or check memory quality:
@@ -70,6 +79,8 @@ When a project has no golden cases yet, use `eval-seed-cases --target docs/eval/
 When reviewing retrieval quality after ranking, scoring, learn-business, code graph, or log graph changes, run `eval-retrieval --cases <golden-cases.json> --json` if a golden query file exists. Use missed expected anchors and unexpected bad matches to choose the smallest follow-up: enrich business terms, tighten an experience trigger, mark stale memory, or add a new golden case.
 When reviewing experience recording quality after reflect, calibration, or maturity changes, run `eval-experience-evidence --cases <golden-experience-evidence.json> --json` if a case file exists. Use missing profile fields to decide whether the reflection needs evidence, applicability, counter-evidence, or verification details.
 When reviewing graph signal coverage after code graph, log graph, learn-business, or log design changes, run `eval-graph-signal --cases <golden-graph-signal.json> --json` if a case file exists. Use missing required repair targets or coverage score failures to decide whether to enrich business terms, improve log diagnostic fields, or refresh graph edges.
+
+When `semantic_provider` shows repeated fallback or `maintain-plan` returns `review_semantic_provider_failures`, inspect the bounded failure reasons and run `eval-semantic` with an approved provider. Do not install or invoke an unreviewed executable from project configuration.
 When reviewing governance action behavior after archive, active-learning, or maintain-lane changes, run `eval-governance --cases <golden-governance.json> --json` if a golden governance file exists. Use missing expected actions or unexpected blocked actions as regression evidence.
 When reviewing answer grounding after query, graph, log, or experience changes, run `eval-evidence-attribution --cases <golden-evidence-attribution.json> --json` if a case file exists. Use unsupported claims to decide whether the problem is weak retrieval, missing code/log anchors, or an answer that overstates the evidence.
 

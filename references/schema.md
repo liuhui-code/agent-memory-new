@@ -22,11 +22,16 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `learn_scopes`: persistent manifests for previously learned entry, path, or whole-project scopes.
 - `query_misses`: failed retrieval attempts that may need later learning or reflection.
 - `semantic_conflicts`: durable review records for conflicting business summaries.
+- `runtime_schema_versions`: component migration versions for FTS and derived edge metadata.
 
 `code_files`, `code_symbols`, and `code_log_statements` also store Agent-authored business semantics:
 
 - `business_summary`: concise business meaning of the file, method, field, route, resource, or log.
 - `business_terms`: JSON array of searchable business terms grounded in code names, fields, routes, resources, logs, or UI wording.
+
+FTS5 tables are generated search indexes maintained incrementally by SQLite triggers. Their schema version is stored in `runtime_schema_versions`; they are rebuilt only on first creation, version migration, or explicit `maintain-rebuild-derived --target search`. They are not a second source of truth.
+
+`memory_edges` are generated from current code rows and source files. `maintain-rebuild-derived --target graph` may replace these derived rows while preserving code business fields and durable memory tables. Its graph audit reports relation counts, edges per node, and dominant-relation share so accidental edge amplification can be detected before the graph is trusted.
 
 ## Governance Fields
 
@@ -164,6 +169,8 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 The ArkTS edges connect learned pages/components to imported project files, router target pages, `$r(...)` resources, state, component composition, services, events, Ability configuration, and naming-matched tests. Ambiguous symbol targets are skipped. These edges are intentionally lightweight and are not a complete call graph.
 
 `code_symbols` also carries nullable `semantic-index/v1` metadata: `symbol_key`, `qualified_name`, `signature`, `start_line`, `end_line`, `semantic_adapter`, `source_digest`, and `evidence_class`. ArkTS and TypeScript adapters may persist symbol-level `calls`, `reads_state`, `writes_state`, `implements`, `extends`, `overrides`, `registers_callback`, `exposes_api`, `consumes_api`, and `awaits` edges. The built-in adapters emit static evidence; exact compiler-derived evidence is reserved for future adapters.
+
+External provider run metrics are not SQLite memory records. Configured-provider attempts are mirrored to bounded `runtime/semantic_provider_runs.jsonl` operational telemetry with at most 200 compact rows. Raw ASTs, provider stdout, source content, and compiler diagnostics are not persisted.
 
 Query commands do not recursively traverse `memory_edges`. The fast path only returns allowed one-hop relations, currently `contains`, `emits_log`, `imports`, `routes_to`, and `uses_resource`, with hard output limits. Heavier network health checks belong to maintain commands.
 

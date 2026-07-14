@@ -17,16 +17,15 @@ from .governance_corrections import (
 )
 from .governance_incidents import build_log_design_gap_candidates
 from .governance_learn_actions import (
-    build_followup_focus,
     build_learn_business_payload_template_for_paths,
-    build_suggested_query_terms,
+    build_query_followup,
     find_reflections_linked_to_paths,
     query_followup_workflow_steps,
     semantic_enrichment_workflow_steps,
 )
 from .governance_review import reflection_experience_type, runtime_feedback_summary
 from .governance_skill_artifacts import annotate_skill_pattern_artifacts
-from .governance_skill_candidates import build_skill_pattern_candidates, is_complete_experience_candidate
+from .governance_skill_candidates import is_complete_experience_candidate
 from .governance_utils import (
     EXPERIENCE_CANDIDATE_FIELDS,
     TRACE_CASE_FIELDS,
@@ -56,6 +55,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
     quality_gate_actions = ctx["quality_gate_actions"]
     recurring_quality_gate_actions = ctx["recurring_quality_gate_actions"]
     runtime_performance_actions = ctx["runtime_performance_actions"]
+    semantic_provider_actions = ctx["semantic_provider_actions"]
     experience_usage_actions = ctx["experience_usage_actions"]
     memory_tier_actions = ctx["memory_tier_actions"]
     task_trace_actions = ctx["task_trace_actions"]
@@ -65,6 +65,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
     quality_governance_actions = ctx["quality_governance_actions"]
     weak_evidence_chain_actions = ctx["weak_evidence_chain_actions"]
     maturity_governance_actions = ctx["maturity_governance_actions"]
+    skill_pattern_candidates = ctx["skill_pattern_candidates"]
 
     actions: list[dict[str, Any]] = []
 
@@ -237,6 +238,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
     actions.extend(quality_gate_actions)
     actions.extend(recurring_quality_gate_actions)
     actions.extend(runtime_performance_actions)
+    actions.extend(semantic_provider_actions)
     actions.extend(experience_usage_actions)
     actions.extend(memory_tier_actions)
     actions.extend(task_trace_actions)
@@ -244,7 +246,7 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
     actions.extend(retrieval_feedback_actions)
     actions.extend(calibration_feedback_actions)
 
-    for candidate in build_skill_pattern_candidates(project, review["unreviewed_reflections"]):
+    for candidate in skill_pattern_candidates:
         candidate = annotate_skill_pattern_artifacts(project.root, candidate)
         actions.append(
             {
@@ -322,8 +324,9 @@ def build_maintain_plan_actions(ctx: dict[str, Any]) -> list[dict[str, Any]]:
         )
 
     for row in query_misses:
-        followup_focus = build_followup_focus(project, row["query"])
-        suggested_query_terms = build_suggested_query_terms(project, row["query"], learn_business_payload_template)
+        followup_focus, suggested_query_terms = build_query_followup(
+            project, row["query"], learn_business_payload_template
+        )
         actions.append(
             {
                 "action": "review_query_miss",

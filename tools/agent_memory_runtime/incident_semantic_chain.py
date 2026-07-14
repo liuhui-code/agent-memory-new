@@ -102,7 +102,14 @@ def traverse_semantic_edges(conn: Any, project: Project, start_id: int) -> list[
               AND relation IN ({relation_placeholders})
               AND source_type = 'code_symbol' AND target_type = 'code_symbol'
               AND (source_id IN ({placeholders}) OR (relation = 'calls' AND target_id IN ({placeholders})))
-            ORDER BY confidence DESC, id DESC LIMIT ?
+            ORDER BY
+              CASE
+                WHEN evidence_kind LIKE 'exact_semantic_%' OR evidence_kind LIKE 'compiler_%' THEN 4
+                WHEN evidence_kind LIKE 'static_semantic_%' OR evidence_kind LIKE 'static_%' THEN 3
+                WHEN evidence_kind LIKE '%heuristic%' THEN 2
+                ELSE 1
+              END DESC,
+              confidence DESC, id DESC LIMIT ?
             """,
             (project.project_id, *relations, *frontier, *frontier, MAX_CHAIN_EDGES - len(selected)),
         ).fetchall()

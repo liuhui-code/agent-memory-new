@@ -6,6 +6,8 @@ import sqlite3
 
 from .models import CODE_BUSINESS_COLUMNS, CODE_SEMANTIC_COLUMNS, GOVERNANCE_COLUMNS
 
+EDGE_METADATA_SCHEMA_VERSION = "edge-metadata-v1"
+
 def migrate_schema(conn: sqlite3.Connection) -> None:
     for table, columns in GOVERNANCE_COLUMNS.items():
         existing = {
@@ -117,7 +119,16 @@ def migrate_schema(conn: sqlite3.Connection) -> None:
 
 
 def migrate_memory_edge_metadata(conn: sqlite3.Connection) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS runtime_schema_versions(
+          component TEXT PRIMARY KEY,
+          version TEXT NOT NULL
+        )
+        """
+    )
     existing = {row["name"] for row in conn.execute("PRAGMA table_info(memory_edges)").fetchall()}
+    changed = False
     for name, definition in (
         ("source_revision", "TEXT"),
         ("extractor_version", "TEXT NOT NULL DEFAULT 'legacy'"),
@@ -128,6 +139,12 @@ def migrate_memory_edge_metadata(conn: sqlite3.Connection) -> None:
     ):
         if name not in existing:
             conn.execute(f"ALTER TABLE memory_edges ADD COLUMN {name} {definition}")
+            changed = True
+    version = conn.execute(
+        "SELECT version FROM runtime_schema_versions WHERE component = 'edge_metadata'"
+    ).fetchone()
+    if not changed and version and str(version["version"]) == EDGE_METADATA_SCHEMA_VERSION:
+        return
     conn.execute(
         """
         UPDATE memory_edges
@@ -135,7 +152,18 @@ def migrate_memory_edge_metadata(conn: sqlite3.Connection) -> None:
             evidence_kind = COALESCE(NULLIF(evidence_kind, ''), 'legacy'),
             valid_from = COALESCE(valid_from, created_at),
             last_verified_at = COALESCE(last_verified_at, created_at)
+        WHERE extractor_version IS NULL OR extractor_version = ''
+           OR evidence_kind IS NULL OR evidence_kind = ''
+           OR valid_from IS NULL OR last_verified_at IS NULL
         """
+    )
+    conn.execute(
+        """
+        INSERT INTO runtime_schema_versions(component, version)
+        VALUES ('edge_metadata', ?)
+        ON CONFLICT(component) DO UPDATE SET version = excluded.version
+        """,
+        (EDGE_METADATA_SCHEMA_VERSION,),
     )
 
 
@@ -190,5 +218,11 @@ def create_post_migration_indexes(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_code_symbols_project_qualified
         ON code_symbols(project_id, file_path, qualified_name);
+
+        CREATE INDEX IF NOT EXISTS idx_retrieval_feedback_project_type_recent
+        ON retrieval_feedback(project_id, record_type, status, created_at DESC, id DESC);
+
+        CREATE INDEX IF NOT EXISTS idx_experience_usage_project_type_recent
+        ON experience_usage_events(project_id, record_type, created_at DESC, id DESC);
         """
     )

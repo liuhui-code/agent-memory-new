@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 from dataclasses import asdict, dataclass, field
 from typing import Any
 
@@ -133,8 +134,9 @@ def validate_relation(relation: SemanticRelation, local_keys: set[str]) -> None:
         raise ValueError("semantic relation requires source key and relation")
     if not relation.target_key and not relation.target_name and not relation.target_qualified_name:
         raise ValueError("semantic relation requires a target key or lookup hint")
-    if relation.target_key and relation.target_key.startswith("symbol:") and relation.target_key not in local_keys:
-        raise ValueError(f"semantic relation references unknown local key: {relation.target_key}")
+    if relation.target_key and relation.target_key.startswith("symbol:"):
+        if relation.target_key not in local_keys and not re.fullmatch(r"symbol:[0-9a-f]{24}", relation.target_key):
+            raise ValueError(f"semantic relation has an invalid external symbol key: {relation.target_key}")
     if relation.evidence_class not in EVIDENCE_CLASSES or not 0.0 <= relation.confidence <= 1.0:
         raise ValueError("semantic relation has invalid evidence class or confidence")
 

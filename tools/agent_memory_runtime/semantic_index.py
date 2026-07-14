@@ -9,8 +9,9 @@ from pathlib import Path
 from typing import Any
 
 from .models import Project
-from .semantic_adapters import adapter_for
 from .semantic_models import SemanticBatch, SemanticEntity, SemanticRelation
+from .semantic_provider_metrics import append_provider_metric
+from .semantic_runtime import run_semantic_adapter
 from .storage import now_iso
 
 
@@ -19,6 +20,7 @@ SEMANTIC_RELATIONS = {
     "registers_callback", "exposes_api", "consumes_api", "awaits",
 }
 SQL_CHUNK_SIZE = 400
+SEMANTIC_FILE_BATCH_SIZE = 1000
 
 
 def persist_semantic_index(
@@ -30,20 +32,23 @@ def persist_semantic_index(
     rows = rows_for_scope(conn, project, scope_file_paths)
     grouped: dict[str, list[Path]] = defaultdict(list)
     for row in rows:
-        adapter = adapter_for(str(row["language"]))
+        language = str(row["language"])
         path = project.root / str(row["file_path"])
-        if adapter and path.is_file():
-            grouped[str(row["language"])].append(path)
+        if language in {"ArkTS", "TypeScript"} and path.is_file():
+            grouped[language].append(path)
     batches: list[SemanticBatch] = []
+    provider_runs: list[dict[str, Any]] = []
     errors: list[dict[str, str]] = []
     for language, files in sorted(grouped.items()):
-        adapter = adapter_for(language)
-        if not adapter:
-            continue
-        try:
-            batches.append(adapter.index(project, files))
-        except (OSError, UnicodeError, ValueError) as exc:
-            errors.append({"language": language, "error": str(exc)[:240]})
+        for batch_index, file_batch in enumerate(semantic_file_batches(files), start=1):
+            try:
+                selection = run_semantic_adapter(project, language, file_batch)
+                batches.append(selection.batch)
+                telemetry = {**selection.telemetry, "batch": batch_index, "batch_files": len(file_batch)}
+                provider_runs.append(telemetry)
+                append_provider_metric(project, telemetry)
+            except (OSError, UnicodeError, ValueError) as exc:
+                errors.append({"language": language, "batch": str(batch_index), "error": str(exc)[:240]})
     emitted = 0
     unresolved = 0
     for batch in batches:
@@ -53,10 +58,7 @@ def persist_semantic_index(
         unresolved += counts["unresolved"]
     return {
         "schema_version": "semantic-index/v1",
-        "adapters": [
-            {"id": batch.adapter_id, "version": batch.adapter_version, "language": batch.language}
-            for batch in batches
-        ],
+        "adapters": unique_adapters(batches),
         "capabilities": sorted({capability for batch in batches for capability in batch.capabilities}),
         "files_indexed": sum(len(batch.source_digests) for batch in batches),
         "entities": sum(len(batch.entities) for batch in batches),
@@ -65,7 +67,27 @@ def persist_semantic_index(
         "unresolved_relations": unresolved,
         "gaps": [gap for batch in batches for gap in batch.gaps][:100],
         "adapter_errors": errors,
+        "provider_runs": provider_runs,
     }
+
+
+def semantic_file_batches(files: list[Path]) -> list[list[Path]]:
+    ordered = sorted(set(files))
+    return [
+        ordered[index:index + SEMANTIC_FILE_BATCH_SIZE]
+        for index in range(0, len(ordered), SEMANTIC_FILE_BATCH_SIZE)
+    ]
+
+
+def unique_adapters(batches: list[SemanticBatch]) -> list[dict[str, str]]:
+    adapters = {
+        (batch.adapter_id, batch.adapter_version, batch.language)
+        for batch in batches
+    }
+    return [
+        {"id": adapter_id, "version": version, "language": language}
+        for adapter_id, version, language in sorted(adapters)
+    ]
 
 
 def rows_for_scope(conn: sqlite3.Connection, project: Project, paths: list[str]) -> list[sqlite3.Row]:
@@ -134,9 +156,9 @@ def persist_batch_relations(
 ) -> dict[str, int]:
     lookup = load_endpoint_lookup(conn, project, batch)
     emitted_keys: set[tuple[str, int, str, str, int]] = set()
-    emitted = 0
     unresolved = 0
     timestamp = now_iso()
+    resolved: list[tuple[SemanticRelation, tuple[str, int, str, str, int]]] = []
     for item in batch.relations:
         source = resolve_source(item.source_key, lookup)
         target = resolve_target(item, lookup)
@@ -147,8 +169,17 @@ def persist_batch_relations(
         if key in emitted_keys:
             continue
         emitted_keys.add(key)
-        if not supersede_weaker_edge(conn, project.project_id, key, item.evidence_class, timestamp):
+        resolved.append((item, key))
+    existing = load_existing_edges(conn, project.project_id, resolved)
+    edge_ids_to_close: set[int] = set()
+    insert_rows: list[tuple[Any, ...]] = []
+    for item, key in resolved:
+        source = (key[0], key[1])
+        target = (key[3], key[4])
+        current_rows = existing.get(key, [])
+        if has_stronger_edge(current_rows, item.evidence_class):
             continue
+        edge_ids_to_close.update(weaker_edge_ids(current_rows, item.evidence_class))
         evidence = json.dumps(
             {
                 "schema_version": "semantic-evidence/v1",
@@ -162,23 +193,77 @@ def persist_batch_relations(
             ensure_ascii=False,
             sort_keys=True,
         )
-        conn.execute(
-            """
-            INSERT INTO memory_edges(
-              project_id, source_type, source_id, relation, target_type, target_id,
-              evidence, confidence, source_revision, extractor_version, valid_from,
-              valid_to, evidence_kind, last_verified_at, created_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?, ?)
-            """,
+        insert_rows.append(
             (
                 project.project_id, source[0], source[1], item.relation, target[0], target[1],
                 evidence, item.confidence, revision,
                 f"semantic-index:v1/{batch.adapter_id}@{batch.adapter_version}", timestamp,
                 f"{item.evidence_class}_semantic_{item.relation}", timestamp, timestamp,
-            ),
+            )
         )
-        emitted += 1
-    return {"emitted": emitted, "unresolved": unresolved}
+    conn.executemany(
+        "UPDATE memory_edges SET valid_to = ? WHERE id = ?",
+        [(timestamp, edge_id) for edge_id in sorted(edge_ids_to_close)],
+    )
+    conn.executemany(
+        """
+        INSERT INTO memory_edges(
+          project_id, source_type, source_id, relation, target_type, target_id,
+          evidence, confidence, source_revision, extractor_version, valid_from,
+          valid_to, evidence_kind, last_verified_at, created_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?, ?)
+        """,
+        insert_rows,
+    )
+    return {"emitted": len(insert_rows), "unresolved": unresolved}
+
+
+def load_existing_edges(
+    conn: sqlite3.Connection,
+    project_id: str,
+    resolved: list[tuple[SemanticRelation, tuple[str, int, str, str, int]]],
+) -> dict[tuple[str, int, str, str, int], list[sqlite3.Row]]:
+    source_ids: dict[str, set[int]] = defaultdict(set)
+    for _item, key in resolved:
+        source_ids[key[0]].add(key[1])
+    grouped: dict[tuple[str, int, str, str, int], list[sqlite3.Row]] = defaultdict(list)
+    for source_type, ids in source_ids.items():
+        for chunk in chunks(sorted(ids)):
+            rows = conn.execute(
+                f"""
+                SELECT id, source_type, source_id, relation, target_type, target_id, evidence_kind
+                FROM memory_edges
+                WHERE project_id = ? AND valid_to IS NULL AND source_type = ?
+                  AND source_id IN ({','.join('?' for _ in chunk)})
+                """,
+                (project_id, source_type, *chunk),
+            ).fetchall()
+            for row in rows:
+                key = (
+                    str(row["source_type"]), int(row["source_id"]), str(row["relation"]),
+                    str(row["target_type"]), int(row["target_id"]),
+                )
+                grouped[key].append(row)
+    return grouped
+
+
+def evidence_rank(evidence_kind: str) -> int:
+    return {"exact": 4, "static": 3, "heuristic": 2, "inferred": 1}.get(
+        evidence_kind.split("_", 1)[0], 0
+    )
+
+
+def has_stronger_edge(rows: list[sqlite3.Row], evidence_class: str) -> bool:
+    return any(evidence_rank(str(row["evidence_kind"] or "legacy")) > evidence_rank(evidence_class) for row in rows)
+
+
+def weaker_edge_ids(rows: list[sqlite3.Row], evidence_class: str) -> list[int]:
+    rank = evidence_rank(evidence_class)
+    return [
+        int(row["id"])
+        for row in rows
+        if evidence_rank(str(row["evidence_kind"] or "legacy")) <= rank
+    ]
 
 
 def load_endpoint_lookup(conn: sqlite3.Connection, project: Project, batch: SemanticBatch) -> dict[str, Any]:
@@ -186,7 +271,8 @@ def load_endpoint_lookup(conn: sqlite3.Connection, project: Project, batch: Sema
     paths.update(item.target_file_path for item in batch.relations if item.target_file_path)
     names = {item.target_name for item in batch.relations if item.target_name}
     qualified = {item.target_qualified_name for item in batch.relations if item.target_qualified_name}
-    symbols = load_candidate_symbols(conn, project, sorted(paths), sorted(names), sorted(qualified))
+    keys = {item.target_key for item in batch.relations if item.target_key}
+    symbols = load_candidate_symbols(conn, project, sorted(paths), sorted(names), sorted(qualified), sorted(keys))
     files = load_candidate_files(conn, project, sorted(paths))
     by_key = unique_rows(symbols, "symbol_key")
     by_name = unique_rows(symbols, "symbol")
@@ -210,9 +296,12 @@ def load_candidate_symbols(
     paths: list[str],
     names: list[str],
     qualified: list[str],
+    keys: list[str],
 ) -> list[sqlite3.Row]:
     selected: dict[int, sqlite3.Row] = {}
-    for field, items in (("file_path", paths), ("symbol", names), ("qualified_name", qualified)):
+    for field, items in (
+        ("file_path", paths), ("symbol", names), ("qualified_name", qualified), ("symbol_key", keys),
+    ):
         for chunk in chunks(items):
             rows = conn.execute(
                 f"SELECT * FROM code_symbols WHERE project_id = ? AND {field} IN ({','.join('?' for _ in chunk)})",

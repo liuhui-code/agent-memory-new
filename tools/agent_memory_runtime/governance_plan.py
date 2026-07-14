@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
 import sqlite3
 import re
@@ -40,6 +41,7 @@ from .performance_scoring import (
     monotonic_ms,
 )
 from .quality_scoring import build_quality_report
+from .semantic_provider_metrics import build_semantic_provider_actions, semantic_provider_health
 from .quality_gate_eval import (
     build_quality_gate_failure_actions,
     build_recurring_quality_gate_failure_actions,
@@ -89,14 +91,15 @@ def maintain_plan(args: argparse.Namespace) -> None:
     ]
     incident_strategy_candidates = build_incident_strategy_candidates(project, review["unreviewed_reflections"])
     recurring_incident_fingerprint_candidates = build_recurring_incident_fingerprint_candidates(project, review["unreviewed_reflections"])
-    retrieval_interference_candidates = build_retrieval_interference_candidates(active_reflection_rows(project), args.limit)
-    experience_conflict_candidates = build_experience_conflict_candidates(active_reflection_rows(project), args.limit)
+    active_reflections = active_reflection_rows(project, limit=REVIEW_DUPLICATE_POOL_LIMIT)
+    retrieval_interference_candidates = build_retrieval_interference_candidates(active_reflections, args.limit)
+    experience_conflict_candidates = build_experience_conflict_candidates(active_reflections, args.limit)
     incident_trace_actions = build_incident_trace_actions(project, args.limit)
     impact_feedback = impact_feedback_summary(project)
     evidence_runtime = evidence_runtime_summary(project)
     graph_quality = build_graph_quality(project)
     graph_quality_actions = build_graph_quality_actions(graph_quality)
-    graph_signal_quality = build_graph_signal_quality(project)
+    graph_signal_quality = build_graph_signal_quality(project, graph_quality=graph_quality)
     graph_signal_quality_actions = build_graph_signal_quality_actions(graph_signal_quality)
     log_observability_gap_actions = build_log_observability_gap_actions(graph_signal_quality)
     last_quality_gate = load_quality_gate_snapshot(project)
@@ -105,6 +108,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
     recurring_quality_gate_actions = build_recurring_quality_gate_failure_actions(quality_gate_history)
     runtime_performance = build_runtime_performance_summary(project)
     runtime_performance_actions = build_runtime_performance_actions(runtime_performance)
+    provider_health = semantic_provider_health(project)
+    semantic_provider_actions = build_semantic_provider_actions(provider_health)
     experience_usage = fetch_experience_usage_summary(project, args.limit)
     experience_usage_actions = build_experience_usage_actions(experience_usage)
     memory_tiers = build_memory_tiers(project, args.limit)
@@ -131,6 +136,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         limit=args.limit,
     )
     active_learning_actions = build_active_learning_actions(active_learning_queue)
+    skill_pattern_candidates = build_skill_pattern_candidates(project, review["unreviewed_reflections"])
     actions = build_maintain_plan_actions(locals())
     annotate_governance_action_priorities(actions)
     action_limit = max(1, int(getattr(args, "action_limit", 10) or 10))
@@ -141,42 +147,44 @@ def maintain_plan(args: argparse.Namespace) -> None:
     )
 
     learn_governance_summary = build_learn_governance_summary(correction_rows, refresh_drifts)
+    action_counts = Counter(str(action.get("action") or "") for action in actions)
+    quality_action_counts = Counter(str(action.get("action") or "") for action in quality_governance_actions)
+    maturity_action_counts = Counter(str(action.get("action") or "") for action in maturity_governance_actions)
+    task_trace_action_counts = Counter(str(action.get("action") or "") for action in task_trace_actions)
+    calibration_action_counts = Counter(str(action.get("action") or "") for action in calibration_feedback_actions)
     governance_summary = {
         "action_budget": action_budget,
         "counts_by_lane": count_actions_by_lane(actions),
         "incident_strategy_candidates": len(incident_strategy_candidates),
         "recurring_incident_fingerprints": len(recurring_incident_fingerprint_candidates),
-        "log_design_gaps": len([action for action in actions if action.get("action") == "review_log_design_gap"]),
+        "log_design_gaps": action_counts["review_log_design_gap"],
         "correction_repairs": learn_governance_summary["correction_repairs"],
         "semantic_drift_reviews": learn_governance_summary["semantic_drift_reviews"],
         "semantic_patch_reviews": len(semantic_patch_rows),
         "retrieval_interference_reviews": len(retrieval_interference_candidates),
         "experience_conflict_reviews": len(experience_conflict_candidates),
         "incident_trace_reviews": len(incident_trace_actions),
-        "low_quality_memory_reviews": len([action for action in quality_governance_actions if action.get("action") == "review_low_quality_memory"]),
-        "high_value_experience_reviews": len([action for action in quality_governance_actions if action.get("action") == "review_high_value_experience"]),
+        "low_quality_memory_reviews": quality_action_counts["review_low_quality_memory"],
+        "high_value_experience_reviews": quality_action_counts["review_high_value_experience"],
         "weak_evidence_chain_reviews": len(weak_evidence_chain_actions),
-        "immature_experience_reviews": len([action for action in maturity_governance_actions if action.get("action") == "review_immature_experience"]),
-        "missing_counter_evidence_reviews": len([action for action in maturity_governance_actions if action.get("action") == "review_missing_counter_evidence"]),
-        "maturity_regression_reviews": len([action for action in maturity_governance_actions if action.get("action") == "review_maturity_regression"]),
+        "immature_experience_reviews": maturity_action_counts["review_immature_experience"],
+        "missing_counter_evidence_reviews": maturity_action_counts["review_missing_counter_evidence"],
+        "maturity_regression_reviews": maturity_action_counts["review_maturity_regression"],
         "graph_quality_reviews": len(graph_quality_actions),
         "graph_signal_quality_reviews": len(graph_signal_quality_actions),
         "log_observability_gap_reviews": len(log_observability_gap_actions),
         "quality_gate_failure_reviews": len(quality_gate_actions),
         "recurring_quality_gate_failure_reviews": len(recurring_quality_gate_actions),
         "runtime_performance_reviews": len(runtime_performance_actions),
+        "semantic_provider_reviews": len(semantic_provider_actions),
         "experience_usage_reviews": len(experience_usage_actions),
         "memory_tier_reviews": len(memory_tier_actions),
-        "unreflected_task_trace_reviews": len(
-            [action for action in task_trace_actions if action.get("action") == "review_unreflected_task_trace"]
-        ),
-        "low_evidence_auto_summary_reviews": len(
-            [action for action in task_trace_actions if action.get("action") == "review_low_evidence_auto_summary"]
-        ),
+        "unreflected_task_trace_reviews": task_trace_action_counts["review_unreflected_task_trace"],
+        "low_evidence_auto_summary_reviews": task_trace_action_counts["review_low_evidence_auto_summary"],
         "active_learning_queue_items": len(active_learning_actions),
         "retrieval_feedback_reviews": len(retrieval_feedback_actions),
-        "overtrusted_memory_reviews": len([action for action in calibration_feedback_actions if action.get("action") == "review_overtrusted_memory"]),
-        "undertrusted_memory_reviews": len([action for action in calibration_feedback_actions if action.get("action") == "review_undertrusted_memory"]),
+        "overtrusted_memory_reviews": calibration_action_counts["review_overtrusted_memory"],
+        "undertrusted_memory_reviews": calibration_action_counts["review_undertrusted_memory"],
     }
 
     data = {
@@ -192,7 +200,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "open_query_misses": len(query_misses),
             "semantic_conflicts": len(semantic_conflicts),
             "refresh_drifts": len(refresh_drifts),
-            "skill_pattern_candidates": len(build_skill_pattern_candidates(project, review["unreviewed_reflections"])),
+            "skill_pattern_candidates": len(skill_pattern_candidates),
             "incident_strategy_candidates": len(incident_strategy_candidates),
             "recurring_incident_fingerprints": len(recurring_incident_fingerprint_candidates),
             "semantic_patch_reviews": len(semantic_patch_rows),
@@ -208,6 +216,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "evidence_runtime": evidence_runtime,
         "last_quality_gate": last_quality_gate,
         "runtime_performance": runtime_performance,
+        "semantic_provider": provider_health,
         "experience_usage": {
             "event_count": experience_usage["event_count"],
             "misleading_records": experience_usage["misleading_records"],

@@ -161,6 +161,7 @@ python tools/agent_memory.py maintain-health --project . --json
 python tools/agent_memory.py maintain-review --project . --json
 python tools/agent_memory.py maintain-plan --project . --json
 python tools/agent_memory.py maintain-refresh-scope --project . --json
+python tools/agent_memory.py maintain-rebuild-derived --project . --target graph --json
 python tools/agent_memory.py miss-list --project . --status open --json
 python tools/agent_memory.py miss-status --project . --id 1 --status resolved --resolution "..."
 python tools/agent_memory.py maintain-status --project . --type semantic --id 1 --status stale --reason "..."
@@ -177,6 +178,10 @@ python tools/agent_memory.py maintain-skill-promotion-status --project . --patte
 Governance actions should preserve history. Prefer status transitions over destructive deletion.
 
 `maintain-refresh-scope` is the low-risk codebase drift path for projects that keep changing. It replays previously learned `wiki-index`, `learn-path`, and `learn-entry` scopes from the persisted `learn_scopes` manifest table, refreshes structural code-wiki rows, retires removed-file structure, and returns semantic drift targets without blindly overwriting business semantics or experiences.
+
+`maintain-rebuild-derived` repairs generated indexes without replacing learned code rows. Use `--target search` to rebuild FTS5 content, `--target graph` to rebuild source-derived code/log edges, or `--target all` for both. Graph repair preserves business summaries, business terms, semantic facts, reflections, and episodes, and returns before/after relation counts, edge amplification, relation dominance, semantic adapter results, and preservation checks. Pass the original `--source` when an archive learned an external source tree. This command is safer than `wiki-index --replace` when only derived data is damaged.
+
+FTS tables and edge-metadata migrations are version-gated. Normal commands rely on SQLite triggers for incremental FTS maintenance and do not rebuild or rewrite the complete index at startup. A version change performs one migration pass; explicit search repair remains available through `maintain-rebuild-derived`.
 
 `maintain-plan` is read-only. It converts review signals into confirmable action candidates for the skill layer. It must not mutate SQLite.
 
@@ -703,6 +708,8 @@ code_file --defines_state--> code_symbol
 This supports memory-aware diagnosis without adding a separate user-facing skill. An Agent can query an observed log or console message, receive `code_log_matches`, inspect `edge_matches`, then recursively query again with the related file/function names.
 For ArkTS files, learning also extracts component state symbols such as `@State`, `@Prop`, `@Link`, and `@Provide` as `state` code symbols. The `defines_state` edge makes local UI state visible to route, resource, and log-oriented diagnosis without adding a separate graph database.
 
+`tested_by` is intentionally conservative. Only code files with explicit test directory segments or test/spec filename conventions are candidates. Production and test files must share the nearest package/module root, configuration files never participate, and ambiguous production matches are skipped. This prevents repeated filenames in monorepos from creating cross-module test edges.
+
 Learning commands return parse feedback. `learn-entry --json` and `learn-path --json` include `parse_stats`:
 
 ```text
@@ -735,6 +742,10 @@ The command stores only compact trace fields. It does not persist the full raw l
 ArkTS and TypeScript learning automatically emits validated `semantic-index/v1` batches. The runtime enriches `code_symbols` with stable key, qualified name, signature, span, adapter, source digest, and evidence class, then persists resolved semantic relations as versioned `memory_edges`. Partial learning also refreshes existing reverse dependents so replacing a target symbol does not silently lose incoming calls.
 
 Built-in adapters are lightweight static analyzers and therefore emit `static`, never `exact`. Future compiler, language-server, or SCIP providers must use the same `LanguageAdapter` boundary. Full details and limits are in `docs/semantic-index.md`.
+
+An external provider is enabled only through `AGENT_MEMORY_SEMANTIC_PROVIDER_<LANGUAGE>`, currently most relevant as `AGENT_MEMORY_SEMANTIC_PROVIDER_ARKTS`. It receives `semantic-provider-request/v1` on stdin and must return a correlated `semantic-provider-result/v1` containing an exact batch. The runtime invokes one executable without a shell, enforces timeout/output acceptance limits, validates digests and paths, and falls back to static analysis during normal learning. `maintain-health` exposes `semantic_provider`; repeated fallback produces a read-only `review_semantic_provider_failures` action in `maintain-plan`.
+
+Use `eval-semantic --cases docs/eval/semantic-cases.json --mode static|auto|external --json` for a temporary, non-persistent quality comparison. See `docs/semantic-provider.md` for the full protocol.
 
 # 5. Reflection Quality Path
 

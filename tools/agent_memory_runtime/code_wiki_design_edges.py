@@ -234,18 +234,29 @@ def insert_test_edges(
     timestamp: str,
     emitted: set[tuple[str, int, str, str, int]],
 ) -> None:
-    tests = [row for row in all_files if is_test_path(str(row["file_path"]))]
-    production = [row for row in all_files if not is_test_path(str(row["file_path"]))]
+    code_rows = [row for row in all_files if is_code_language(str(row["language"] or ""))]
+    tests = [row for row in code_rows if is_test_path(str(row["file_path"]))]
+    production = [row for row in code_rows if not is_test_path(str(row["file_path"]))]
     scoped_paths = {str(row["file_path"]) for row in scoped_files}
-    tests_by_key: dict[str, list[sqlite3.Row]] = {}
+    module_markers = module_marker_paths(all_files)
+    tests_by_key: dict[tuple[str, str], list[sqlite3.Row]] = {}
     for test in tests:
-        tests_by_key.setdefault(normalized_stem(str(test["file_path"])), []).append(test)
+        path = str(test["file_path"])
+        key = (module_root(path, module_markers), normalized_stem(path))
+        tests_by_key.setdefault(key, []).append(test)
+    production_by_key: dict[tuple[str, str], list[sqlite3.Row]] = {}
     for source in production:
         source_path = str(source["file_path"])
-        source_key = normalized_stem(source_path)
-        for test in tests_by_key.get(source_key, []):
+        key = (module_root(source_path, module_markers), normalized_stem(source_path))
+        production_by_key.setdefault(key, []).append(source)
+    for key, sources in production_by_key.items():
+        if len(sources) != 1 or len(key[1]) < 3:
+            continue
+        source = sources[0]
+        source_path = str(source["file_path"])
+        for test in tests_by_key.get(key, []):
             test_path = str(test["file_path"])
-            if len(source_key) < 3 or (source_path not in scoped_paths and test_path not in scoped_paths):
+            if source_path not in scoped_paths and test_path not in scoped_paths:
                 continue
             insert_edge(
                 conn, project.project_id, "code_file", int(source["id"]), "tested_by",
@@ -256,12 +267,38 @@ def insert_test_edges(
 
 def normalized_stem(path: str) -> str:
     stem = Path(path).stem.lower()
-    return re.sub(r"(?:test|tests|spec|specs)$", "", stem)
+    return re.sub(r"(?:[._-]?(?:test|tests|spec|specs))$", "", stem)
 
 
 def is_test_path(path: str) -> bool:
-    lowered = path.lower()
-    return "test" in lowered or "spec" in lowered
+    parts = {part.lower() for part in Path(path).parts[:-1]}
+    if parts & {"test", "tests", "ohostest", "unittest", "uitest"}:
+        return True
+    stem = Path(path).stem
+    return bool(re.search(r"(?:^|[._-])(?:test|spec)s?$|(?:test|spec)s?$", stem, re.IGNORECASE))
+
+
+def is_code_language(language: str) -> bool:
+    return language in {"ArkTS", "TypeScript", "JavaScript", "Python", "Dart", "Swift"}
+
+
+def module_marker_paths(rows: list[sqlite3.Row]) -> set[str]:
+    markers = {"oh-package.json5", "build-profile.json5", "package.json", "pyproject.toml"}
+    roots = {
+        Path(str(row["file_path"])).parent.as_posix()
+        for row in rows
+        if Path(str(row["file_path"])).name.lower() in markers
+    }
+    return {"" if root == "." else root for root in roots}
+
+
+def module_root(path: str, markers: set[str]) -> str:
+    candidate = Path(path).parent
+    for parent in (candidate, *candidate.parents):
+        normalized = "" if parent == Path(".") else parent.as_posix()
+        if normalized in markers:
+            return normalized
+    return ""
 
 
 def unique_target(rows: list[sqlite3.Row]) -> sqlite3.Row | None:

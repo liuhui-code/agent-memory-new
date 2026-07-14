@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from .experience_maturity import score_experience_maturity
-from .experience_usage import apply_usage_adjustment, collect_usage_adjustments
+from .experience_usage import apply_usage_adjustment, collect_usage_adjustments_by_type
 from .incident_trace_models import INCIDENT_TRACE_SEARCH_LIMIT
 from .incident_trace_query import collect_incident_trace_matches
 from .log_signal_quality import score_log_signal
@@ -14,7 +14,7 @@ from .quality_scoring import score_reflection_quality, score_semantic_quality
 from .query_edges import collect_related_edges
 from .query_followups import FOCUS_PRIORITY_TERMS, focus_from_query
 from .records import memory_warning, row_dict
-from .retrieval_feedback import collect_calibration_feedback, collect_feedback_penalties
+from .retrieval_feedback import collect_feedback_adjustments
 from .storage import connect
 from .text import code_search_terms, json_list, query_tokens, score_weighted_fields, tokenize, unique_list
 
@@ -236,12 +236,14 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             recall_candidate_ids(conn, project, "code_log_statements", query, QUERY_FTS_RECALL_LIMITS["code_log_statements"]),
         )
     results["incident_trace_matches"] = collect_incident_trace_matches(project, query, INCIDENT_TRACE_SEARCH_LIMIT)
-    semantic_feedback = collect_feedback_penalties(project, query, "semantic")
-    reflection_feedback = collect_feedback_penalties(project, query, "reflection")
-    semantic_usage = collect_usage_adjustments(project, query, "semantic")
-    reflection_usage = collect_usage_adjustments(project, query, "reflection")
-    semantic_calibration_feedback = collect_calibration_feedback(project, query, "semantic")
-    reflection_calibration_feedback = collect_calibration_feedback(project, query, "reflection")
+    feedback, calibration = collect_feedback_adjustments(project, query)
+    usage = collect_usage_adjustments_by_type(project, query)
+    semantic_feedback = feedback["semantic"]
+    reflection_feedback = feedback["reflection"]
+    semantic_usage = usage["semantic"]
+    reflection_usage = usage["reflection"]
+    semantic_calibration_feedback = calibration["semantic"]
+    reflection_calibration_feedback = calibration["reflection"]
 
     for row in semantic:
         score, reasons = score_weighted_fields(

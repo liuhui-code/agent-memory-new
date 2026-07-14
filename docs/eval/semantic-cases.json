@@ -1,0 +1,54 @@
+{
+  "schema_version": "semantic-eval-cases/v1",
+  "cases": [
+    {
+      "id": "arkts-state-call-callback-async-api",
+      "language": "ArkTS",
+      "minimum_evidence_class": "static",
+      "files": {
+        "service/ProfileService.ets": "export class ProfileService {\n  async load(): Promise<void> {}\n}",
+        "pages/ProfilePage.ets": "import { ProfileService } from '../service/ProfileService'\n@Component\nstruct ProfilePage {\n  @State profileName: string = ''\n  private service: ProfileService = new ProfileService()\n  handleSave(): void {\n    this.profileName = this.profileName + '!'\n  }\n  async refresh(): Promise<void> {\n    this.handleSave()\n    await this.service.load()\n  }\n  build() {\n    Button('Save').onClick(this.handleSave)\n  }\n}"
+      },
+      "expected": [
+        {"source": "ProfilePage.handleSave", "relation": "writes_state", "target": "ProfilePage.profileName"},
+        {"source": "ProfilePage.handleSave", "relation": "reads_state", "target": "ProfilePage.profileName"},
+        {"source": "ProfilePage.refresh", "relation": "calls", "target": "ProfilePage.handleSave"},
+        {"source": "ProfilePage.refresh", "relation": "calls", "target": "ProfileService.load"},
+        {"source": "ProfilePage.refresh", "relation": "awaits", "target": "ProfileService.load"},
+        {"source": "ProfilePage.build", "relation": "registers_callback", "target": "ProfilePage.handleSave"},
+        {"source": "file:pages/ProfilePage.ets", "relation": "consumes_api", "target": "ProfileService"},
+        {"source": "file:service/ProfileService.ets", "relation": "exposes_api", "target": "ProfileService"}
+      ],
+      "forbidden": [
+        {"source": "ProfilePage.refresh", "relation": "calls", "target": "ProfilePage.missing"}
+      ]
+    },
+    {
+      "id": "arkts-inheritance-implementation-override",
+      "language": "ArkTS",
+      "minimum_evidence_class": "static",
+      "files": {
+        "model/Repository.ets": "export interface Repository {}\nexport class BaseRepository {\n  save(): void {}\n}\nexport class ProfileRepository extends BaseRepository implements Repository {\n  override save(): void {}\n}"
+      },
+      "expected": [
+        {"source": "ProfileRepository", "relation": "extends", "target": "BaseRepository"},
+        {"source": "ProfileRepository", "relation": "implements", "target": "Repository"},
+        {"source": "ProfileRepository.save", "relation": "overrides", "target": "BaseRepository.save"}
+      ],
+      "forbidden": []
+    },
+    {
+      "id": "typescript-shared-contract",
+      "language": "TypeScript",
+      "minimum_evidence_class": "static",
+      "files": {
+        "src/TaskRunner.ts": "export class TaskRunner {\n  helper(): void {}\n  run(): void {\n    this.helper()\n  }\n}"
+      },
+      "expected": [
+        {"source": "TaskRunner.run", "relation": "calls", "target": "TaskRunner.helper"},
+        {"source": "file:src/TaskRunner.ts", "relation": "exposes_api", "target": "TaskRunner"}
+      ],
+      "forbidden": []
+    }
+  ]
+}

@@ -101,81 +101,88 @@ def normalize_feedback_query(query: str) -> str:
 
 
 def collect_feedback_penalties(project: Project, query: str, record_type: str) -> dict[int, dict[str, Any]]:
+    penalties, _calibration = collect_feedback_adjustments(project, query, (record_type,))
+    return penalties[record_type]
+
+
+def collect_feedback_adjustments(
+    project: Project,
+    query: str,
+    record_types: tuple[str, ...] = ("semantic", "reflection"),
+) -> tuple[dict[str, dict[int, dict[str, Any]]], dict[str, dict[int, dict[str, Any]]]]:
     query_terms = {token for token in query_tokens(query) if len(token) > 1}
-    if not query_terms:
-        return {}
-    penalties: dict[int, dict[str, Any]] = {}
+    selected_types = tuple(record_type for record_type in record_types if record_type in FEEDBACK_RECORD_TYPES)
+    penalties: dict[str, dict[int, dict[str, Any]]] = {record_type: {} for record_type in selected_types}
+    calibration: dict[str, dict[int, dict[str, Any]]] = {record_type: {} for record_type in selected_types}
+    if not query_terms or not selected_types:
+        return penalties, calibration
+    placeholders = ",".join("?" for _ in selected_types)
     with connect(project) as conn:
         rows = conn.execute(
-            """
-            SELECT *
-            FROM retrieval_feedback
-            WHERE project_id = ?
-              AND record_type = ?
-              AND status = 'open'
-            ORDER BY created_at DESC, id DESC
-            LIMIT 100
+            f"""
+            SELECT * FROM (
+              SELECT *, ROW_NUMBER() OVER (
+                PARTITION BY record_type ORDER BY created_at DESC, id DESC
+              ) AS type_rank
+              FROM retrieval_feedback
+              WHERE project_id = ?
+                AND record_type IN ({placeholders})
+                AND status = 'open'
+            )
+            WHERE type_rank <= 100
+            ORDER BY record_type, type_rank
             """,
-            (project.project_id, record_type),
+            (project.project_id, *selected_types),
         ).fetchall()
     for row in rows:
         item = row_dict(row)
         overlap = feedback_query_overlap(query_terms, str(item.get("query") or ""))
         if overlap <= 0:
             continue
+        record_type = str(item["record_type"])
         record_id = int(item["record_id"])
-        penalty = FEEDBACK_PENALTIES.get(str(item.get("reason")), 12.0) * overlap
-        if str(item.get("reason")) in POSITIVE_CALIBRATION_REASONS:
+        reason = str(item.get("reason") or "")
+        penalty = FEEDBACK_PENALTIES.get(reason, 12.0) * overlap
+        if reason in POSITIVE_CALIBRATION_REASONS:
             penalty = 0.0
-        existing = penalties.get(record_id, {"penalty": 0.0, "reasons": [], "feedback_ids": []})
+        existing = penalties[record_type].get(
+            record_id, {"penalty": 0.0, "reasons": [], "feedback_ids": []}
+        )
         existing["penalty"] += penalty
-        existing["reasons"].append(item.get("reason"))
+        existing["reasons"].append(reason)
         existing["feedback_ids"].append(item.get("id"))
-        penalties[record_id] = existing
-    for value in penalties.values():
-        value["penalty"] = round(min(40.0, float(value["penalty"])), 3)
-    return penalties
+        penalties[record_type][record_id] = existing
+        if reason in FEEDBACK_REASONS:
+            calibrated = calibration[record_type].get(
+                record_id,
+                {"bonus": 0.0, "penalty": 0.0, "reasons": [], "feedback_ids": []},
+            )
+            calibrated["bonus"] += CALIBRATION_BONUSES.get(reason, 0.0) * overlap
+            calibrated["penalty"] += CALIBRATION_PENALTIES.get(reason, 0.0) * overlap
+            calibrated["reasons"].append(reason)
+            calibrated["feedback_ids"].append(item.get("id"))
+            calibration[record_type][record_id] = calibrated
+    finalize_feedback_adjustments(penalties, calibration)
+    return penalties, calibration
+
+
+def finalize_feedback_adjustments(
+    penalties: dict[str, dict[int, dict[str, Any]]],
+    calibration: dict[str, dict[int, dict[str, Any]]],
+) -> None:
+    for typed_penalties in penalties.values():
+        for value in typed_penalties.values():
+            value["penalty"] = round(min(40.0, float(value["penalty"])), 3)
+    for typed_calibration in calibration.values():
+        for value in typed_calibration.values():
+            value["bonus"] = round(min(0.3, float(value["bonus"])), 3)
+            value["penalty"] = round(min(0.3, float(value["penalty"])), 3)
+            value["reasons"] = list(dict.fromkeys(value["reasons"]))
 
 
 def collect_calibration_feedback(project: Project, query: str, record_type: str) -> dict[int, dict[str, Any]]:
-    query_terms = {token for token in query_tokens(query) if len(token) > 1}
-    if not query_terms:
-        return {}
-    feedback: dict[int, dict[str, Any]] = {}
-    with connect(project) as conn:
-        rows = conn.execute(
-            """
-            SELECT *
-            FROM retrieval_feedback
-            WHERE project_id = ?
-              AND record_type = ?
-              AND status = 'open'
-            ORDER BY created_at DESC, id DESC
-            LIMIT 100
-            """,
-            (project.project_id, record_type),
-        ).fetchall()
-    for row in rows:
-        item = row_dict(row)
-        reason = str(item.get("reason") or "")
-        overlap = feedback_query_overlap(query_terms, str(item.get("query") or ""))
-        if overlap <= 0 or reason not in FEEDBACK_REASONS:
-            continue
-        record_id = int(item["record_id"])
-        existing = feedback.get(
-            record_id,
-            {"bonus": 0.0, "penalty": 0.0, "reasons": [], "feedback_ids": []},
-        )
-        existing["bonus"] += CALIBRATION_BONUSES.get(reason, 0.0) * overlap
-        existing["penalty"] += CALIBRATION_PENALTIES.get(reason, 0.0) * overlap
-        existing["reasons"].append(reason)
-        existing["feedback_ids"].append(item.get("id"))
-        feedback[record_id] = existing
-    for value in feedback.values():
-        value["bonus"] = round(min(0.3, float(value["bonus"])), 3)
-        value["penalty"] = round(min(0.3, float(value["penalty"])), 3)
-        value["reasons"] = list(dict.fromkeys(value["reasons"]))
-    return feedback
+    _penalties, calibration = collect_feedback_adjustments(project, query, (record_type,))
+    return calibration[record_type]
 
 
 def feedback_query_overlap(query_terms: set[str], feedback_query: str) -> float:

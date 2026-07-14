@@ -339,6 +339,8 @@ python tools/agent_memory.py learn-path --project . --source /path/to/app --path
 
 Learning returns `parse_stats` with file, language, symbol, log, edge, and `semantic_index` coverage counts. It also records log-like statements in code, such as `logger.error(...)`, `console.warn(...)`, ArkTS `hilog.info(...)`, and `print(...)`, then connects them to the learned file and nearest detected function. ArkTS and TypeScript adapters add bounded symbol-level calls, state flow, callbacks, inheritance, API boundaries, and async relations through the language-neutral `semantic-index/v1` contract. For HarmonyOS projects, learning also indexes `.json5` module/package config, ArkTS router targets, and `$r(...)` resource references. See [Semantic Index](docs/semantic-index.md).
 
+An optional external ArkTS compiler/LSP/SCIP bridge can emit validated `exact` batches. Configure it only through `AGENT_MEMORY_SEMANTIC_PROVIDER_ARKTS`; provider failure is visible in parse feedback and falls back to the built-in static adapter. Use `eval-semantic` to compare exact and static relation sets before relying on a provider. See [External Semantic Provider](docs/semantic-provider.md).
+
 Query memory:
 
 ```bash

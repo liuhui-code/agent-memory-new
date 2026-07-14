@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import sqlite3
 import subprocess
 from typing import Any
@@ -97,15 +98,19 @@ def dependent_file_paths_for_scope(
         if not ids:
             continue
         for chunk in sql_chunks(sorted(ids)):
+            remaining = limit - sum(len(values) for values in sources.values())
+            if remaining <= 0:
+                break
             rows = conn.execute(
                 f"""
                 SELECT source_type, source_id FROM memory_edges
                 WHERE project_id = ? AND valid_to IS NULL
                   AND target_type = ? AND target_id IN ({','.join('?' for _ in chunk)})
                   AND source_type IN ('code_file', 'code_symbol', 'code_log_statement')
+                ORDER BY source_type, source_id
                 LIMIT ?
                 """,
-                (project_id, target_type, *chunk, limit),
+                (project_id, target_type, *chunk, remaining),
             ).fetchall()
             for row in rows:
                 sources[str(row["source_type"])].add(int(row["source_id"]))
@@ -139,86 +144,125 @@ def rebuild_code_memory_edges(
 ) -> dict[str, Any]:
     ts = now_iso()
     project_id = project.project_id
+    revision = source_revision(project)
+    previous_edge_id = int(
+        conn.execute("SELECT COALESCE(MAX(id), 0) AS id FROM memory_edges").fetchone()["id"]
+    )
     files = conn.execute(
         "SELECT id, file_path, language FROM code_files WHERE project_id = ?",
         (project_id,),
     ).fetchall()
-    symbols = conn.execute(
-        "SELECT id, file_path, symbol, symbol_type FROM code_symbols WHERE project_id = ?",
-        (project_id,),
-    ).fetchall()
-    logs = conn.execute(
-        "SELECT id, file_path, function, line FROM code_log_statements WHERE project_id = ?",
-        (project_id,),
-    ).fetchall()
+    scoped_paths = set(scope_file_paths or [])
+    scoped_files = [row for row in files if not scoped_paths or row["file_path"] in scoped_paths]
+    symbols = load_rebuild_symbols(conn, project, scoped_files, scoped_paths)
+    logs = load_scoped_rows(
+        conn,
+        "code_log_statements",
+        "id, file_path, function, line",
+        project_id,
+        scoped_paths,
+    )
     file_ids = {row["file_path"]: row["id"] for row in files}
     symbol_ids = {
         (row["file_path"], row["symbol"]): row["id"]
         for row in symbols
     }
-    scoped_paths = set(scope_file_paths or [])
     scoped_symbols = [row for row in symbols if not scoped_paths or row["file_path"] in scoped_paths]
-    scoped_logs = [row for row in logs if not scoped_paths or row["file_path"] in scoped_paths]
-    scoped_files = [row for row in files if not scoped_paths or row["file_path"] in scoped_paths]
+    edge_rows: list[tuple[Any, ...]] = []
     for row in scoped_symbols:
         file_id = file_ids.get(row["file_path"])
         if file_id:
-            insert_memory_edge(
-                conn,
-                project_id,
-                "code_file",
-                file_id,
-                "contains",
-                "code_symbol",
-                row["id"],
-                row["file_path"],
-                0.9,
-                ts,
+            edge_rows.append(
+                (project_id, "code_file", file_id, "contains", "code_symbol", row["id"], row["file_path"], 0.9, ts)
             )
-    for row in scoped_logs:
+    for row in logs:
         file_id = file_ids.get(row["file_path"])
         evidence = f"{row['file_path']}:{row['line']}" if row["line"] else row["file_path"]
         if file_id:
-            insert_memory_edge(
-                conn,
-                project_id,
-                "code_file",
-                file_id,
-                "contains",
-                "code_log_statement",
-                row["id"],
-                evidence,
-                0.9,
-                ts,
+            edge_rows.append(
+                (project_id, "code_file", file_id, "contains", "code_log_statement", row["id"], evidence, 0.9, ts)
             )
         function_name = row["function"]
         symbol_id = symbol_ids.get((row["file_path"], function_name)) if function_name else None
         if symbol_id:
-            insert_memory_edge(
-                conn,
-                project_id,
-                "code_symbol",
-                symbol_id,
-                "emits_log",
-                "code_log_statement",
-                row["id"],
-                evidence,
-                0.8,
-                ts,
+            edge_rows.append(
+                (project_id, "code_symbol", symbol_id, "emits_log", "code_log_statement", row["id"], evidence, 0.8, ts)
             )
+    insert_memory_edges(conn, edge_rows)
 
     insert_arkts_knowledge_edges(conn, project, scoped_files, files, symbols, ts)
     insert_design_edges(conn, project, scoped_files, files, symbols, ts)
-    annotate_extracted_edges(conn, project, ts)
+    annotate_extracted_edges(conn, project, previous_edge_id, revision, ts)
     return persist_semantic_index(
         conn,
         project,
         [str(row["file_path"]) for row in scoped_files],
-        source_revision(project),
+        revision,
     )
 
 
-def annotate_extracted_edges(conn: sqlite3.Connection, project: Project, timestamp: str) -> None:
+def load_scoped_rows(
+    conn: sqlite3.Connection,
+    table: str,
+    columns: str,
+    project_id: str,
+    scoped_paths: set[str],
+) -> list[sqlite3.Row]:
+    if not scoped_paths:
+        return conn.execute(f"SELECT {columns} FROM {table} WHERE project_id = ?", (project_id,)).fetchall()
+    rows: list[sqlite3.Row] = []
+    for chunk in sql_chunks(sorted(scoped_paths)):
+        rows.extend(
+            conn.execute(
+                f"SELECT {columns} FROM {table} WHERE project_id = ? AND file_path IN ({','.join('?' for _ in chunk)})",
+                (project_id, *chunk),
+            ).fetchall()
+        )
+    return rows
+
+
+def load_rebuild_symbols(
+    conn: sqlite3.Connection,
+    project: Project,
+    scoped_files: list[sqlite3.Row],
+    scoped_paths: set[str],
+) -> list[sqlite3.Row]:
+    columns = "id, file_path, symbol, symbol_type"
+    if not scoped_paths:
+        return load_scoped_rows(conn, "code_symbols", columns, project.project_id, set())
+    selected = {
+        int(row["id"]): row
+        for row in load_scoped_rows(conn, "code_symbols", columns, project.project_id, scoped_paths)
+    }
+    for chunk in sql_chunks(sorted(referenced_symbol_names(project, scoped_files))):
+        rows = conn.execute(
+            f"SELECT {columns} FROM code_symbols WHERE project_id = ? AND symbol IN ({','.join('?' for _ in chunk)})",
+            (project.project_id, *chunk),
+        ).fetchall()
+        selected.update({int(row["id"]): row for row in rows})
+    return [selected[key] for key in sorted(selected)]
+
+
+def referenced_symbol_names(project: Project, files: list[sqlite3.Row]) -> set[str]:
+    names: set[str] = set()
+    for row in files:
+        if row["language"] != "ArkTS":
+            continue
+        try:
+            text = (project.root / str(row["file_path"])).read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+        names.update(re.findall(r"[A-Za-z_$][A-Za-z0-9_$]*", text))
+    return names
+
+
+def annotate_extracted_edges(
+    conn: sqlite3.Connection,
+    project: Project,
+    previous_edge_id: int,
+    revision: str,
+    timestamp: str,
+) -> None:
     conn.execute(
         """
         UPDATE memory_edges
@@ -250,9 +294,9 @@ def annotate_extracted_edges(conn: sqlite3.Connection, project: Project, timesta
               ELSE 'static_structure'
             END,
             last_verified_at = ?
-        WHERE project_id = ? AND created_at = ?
+        WHERE project_id = ? AND id > ? AND extractor_version = 'legacy'
         """,
-        (source_revision(project), EDGE_EXTRACTOR_VERSION, timestamp, project.project_id, timestamp),
+        (revision, EDGE_EXTRACTOR_VERSION, timestamp, project.project_id, previous_edge_id),
     )
 
 
@@ -384,4 +428,18 @@ def insert_memory_edge(
             confidence,
             created_at,
         ),
+    )
+
+
+def insert_memory_edges(conn: sqlite3.Connection, rows: list[tuple[Any, ...]]) -> None:
+    if not rows:
+        return
+    conn.executemany(
+        """
+        INSERT INTO memory_edges(
+          project_id, source_type, source_id, relation, target_type,
+          target_id, evidence, confidence, created_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        rows,
     )

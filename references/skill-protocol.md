@@ -30,4 +30,6 @@ Design architecture edges may include `calls`, `reads_state`, `writes_state`, `e
 
 Learn commands may populate those relations through the language-neutral `semantic-index/v1` adapter contract. Query and Maintain Skills consume normalized SQLite records and must not import language-specific parsing code. Incident causal roles (`observed`, `supports`, `possible`, `inferred`) do not replace edge precision classes.
 
+Exact providers use the process-level `semantic-provider-request/v1` / `semantic-provider-result/v1` contract. Skills must not create shell commands from provider configuration or claim that an external provider is installed. `eval-semantic` is the read-only comparison path; normal learning falls back to static and reports the reason.
+
 `design-check`, `design-compare`, `design-verify`, and `eval-design` are read-only. They do not persist contracts, proposals, raw diffs, comparisons, verification results, or generated reasoning. Learned experience cannot establish current architecture or create a hard rule.

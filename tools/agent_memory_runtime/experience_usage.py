@@ -88,30 +88,45 @@ def normalize_usage_query(query: str) -> str:
 
 
 def collect_usage_adjustments(project: Project, query: str, record_type: str) -> dict[int, dict[str, Any]]:
+    return collect_usage_adjustments_by_type(project, query, (record_type,))[record_type]
+
+
+def collect_usage_adjustments_by_type(
+    project: Project,
+    query: str,
+    record_types: tuple[str, ...] = ("semantic", "reflection"),
+) -> dict[str, dict[int, dict[str, Any]]]:
     query_terms = {token for token in query_tokens(query) if len(token) > 1}
-    if not query_terms:
-        return {}
-    adjustments: dict[int, dict[str, Any]] = {}
+    selected_types = tuple(record_type for record_type in record_types if record_type in USAGE_RECORD_TYPES)
+    adjustments: dict[str, dict[int, dict[str, Any]]] = {record_type: {} for record_type in selected_types}
+    if not query_terms or not selected_types:
+        return adjustments
+    placeholders = ",".join("?" for _ in selected_types)
     with connect(project) as conn:
         rows = conn.execute(
-            """
-            SELECT *
-            FROM experience_usage_events
-            WHERE project_id = ?
-              AND record_type = ?
-            ORDER BY created_at DESC, id DESC
-            LIMIT 200
+            f"""
+            SELECT * FROM (
+              SELECT *, ROW_NUMBER() OVER (
+                PARTITION BY record_type ORDER BY created_at DESC, id DESC
+              ) AS type_rank
+              FROM experience_usage_events
+              WHERE project_id = ?
+                AND record_type IN ({placeholders})
+            )
+            WHERE type_rank <= 200
+            ORDER BY record_type, type_rank
             """,
-            (project.project_id, record_type),
+            (project.project_id, *selected_types),
         ).fetchall()
     for row in rows:
         item = row_dict(row)
         overlap = usage_query_overlap(query_terms, str(item.get("query") or ""))
         if overlap <= 0:
             continue
+        record_type = str(item["record_type"])
         record_id = int(item["record_id"])
         outcome = str(item.get("outcome") or "")
-        existing = adjustments.get(
+        existing = adjustments[record_type].get(
             record_id,
             {"bonus": 0.0, "penalty": 0.0, "reasons": [], "usage_ids": []},
         )
@@ -119,11 +134,12 @@ def collect_usage_adjustments(project: Project, query: str, record_type: str) ->
         existing["penalty"] += NEGATIVE_USAGE_PENALTIES.get(outcome, 0.0) * overlap
         existing["reasons"].append(outcome)
         existing["usage_ids"].append(item.get("id"))
-        adjustments[record_id] = existing
-    for value in adjustments.values():
-        value["bonus"] = round(min(0.18, float(value["bonus"])), 3)
-        value["penalty"] = round(min(0.35, float(value["penalty"])), 3)
-        value["reasons"] = unique_list([str(reason) for reason in value["reasons"]])
+        adjustments[record_type][record_id] = existing
+    for typed_adjustments in adjustments.values():
+        for value in typed_adjustments.values():
+            value["bonus"] = round(min(0.18, float(value["bonus"])), 3)
+            value["penalty"] = round(min(0.35, float(value["penalty"])), 3)
+            value["reasons"] = unique_list([str(reason) for reason in value["reasons"]])
     return adjustments
 
 

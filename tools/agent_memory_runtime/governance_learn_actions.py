@@ -280,41 +280,24 @@ def build_learn_business_payload_template_for_paths(
 
 
 def build_learn_business_payload_template(project: Project, limit_files: int = 5) -> dict[str, Any]:
+    candidates: set[str] = set()
     with connect(project) as conn:
-        rows = conn.execute(
-            """
-            SELECT DISTINCT file_path
-            FROM (
-              SELECT file_path
-              FROM code_files
-              WHERE project_id = ?
-                AND (
-                  business_summary IS NULL OR TRIM(business_summary) = ''
-                  OR business_terms IS NULL OR business_terms = '' OR business_terms = '[]'
-                )
-              UNION
-              SELECT file_path
-              FROM code_symbols
-              WHERE project_id = ?
-                AND (
-                  business_summary IS NULL OR TRIM(business_summary) = ''
-                  OR business_terms IS NULL OR business_terms = '' OR business_terms = '[]'
-                )
-              UNION
-              SELECT file_path
-              FROM code_log_statements
-              WHERE project_id = ?
-                AND (
-                  business_summary IS NULL OR TRIM(business_summary) = ''
-                  OR business_terms IS NULL OR business_terms = '' OR business_terms = '[]'
-                )
-            )
-            ORDER BY file_path
-            LIMIT ?
-            """,
-            (project.project_id, project.project_id, project.project_id, limit_files),
-        ).fetchall()
-        file_paths = [row["file_path"] for row in rows]
+        for table in ("code_files", "code_symbols", "code_log_statements"):
+            rows = conn.execute(
+                f"""
+                SELECT DISTINCT file_path FROM {table}
+                WHERE project_id = ?
+                  AND (
+                    business_summary IS NULL OR TRIM(business_summary) = ''
+                    OR business_terms IS NULL OR business_terms = '' OR business_terms = '[]'
+                  )
+                ORDER BY file_path
+                LIMIT ?
+                """,
+                (project.project_id, limit_files),
+            ).fetchall()
+            candidates.update(str(row["file_path"]) for row in rows)
+    file_paths = sorted(candidates)[:limit_files]
     return build_learn_business_payload_template_for_paths(project, file_paths)
 
 
@@ -340,18 +323,29 @@ def semantic_followup_hint_terms(payload_template: dict[str, Any], limit: int = 
 
 
 def build_followup_focus(project: Project, query: str) -> str | None:
-    matches = collect_matches(project, query)
-    return infer_followup_focus(query, matches)
+    focus, _terms = build_query_followup(project, query, {})
+    return focus
 
 
 
 def build_suggested_query_terms(project: Project, query: str, payload_template: dict[str, Any], limit: int = 12) -> list[str]:
+    _focus, terms = build_query_followup(project, query, payload_template, limit)
+    return terms
+
+
+def build_query_followup(
+    project: Project,
+    query: str,
+    payload_template: dict[str, Any],
+    limit: int = 12,
+) -> tuple[str | None, list[str]]:
     matches = collect_matches(project, query)
+    focus = infer_followup_focus(query, matches)
     if any(matches.get(key) for key in ("wiki_matches", "code_log_matches", "semantic_facts", "reflections", "episodes")):
-        return suggested_followup_terms(query, matches, limit=limit)
+        return focus, suggested_followup_terms(query, matches, limit=limit)
     query_terms = [token for token in tokenize(query) if len(token) > 1]
     followup_terms = semantic_followup_hint_terms(payload_template, limit=limit)
-    return rank_followup_seed_terms(query, [*query_terms, *followup_terms], limit=limit)
+    return focus, rank_followup_seed_terms(query, [*query_terms, *followup_terms], limit=limit)
 
 
 

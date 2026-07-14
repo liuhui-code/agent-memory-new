@@ -14,6 +14,7 @@ from .code_wiki_edges import (
     dependent_file_paths_for_scope,
     rebuild_code_memory_edges,
     scope_node_ids,
+    sql_chunks,
 )
 from .code_wiki_extractors import extract_log_statements, extract_symbols, language_for, should_skip_dir, summarize_file, summarize_symbol
 from .graph_refresh_metrics import edge_rebuild_metrics, scoped_edge_summary
@@ -258,46 +259,25 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
         else:
             rebuild_scope_ids = scope_node_ids(conn, project.project_id, rebuild_paths)
             delete_edges_for_scope(conn, project.project_id, rebuild_scope_ids)
-            for _, _, rel_text, _ in relative_files:
-                conn.execute(
-                    "DELETE FROM code_files WHERE project_id = ? AND file_path = ?",
-                    (project.project_id, rel_text),
-                )
-                conn.execute(
-                    "DELETE FROM code_symbols WHERE project_id = ? AND file_path = ?",
-                    (project.project_id, rel_text),
-                )
-                conn.execute(
-                    "DELETE FROM code_log_statements WHERE project_id = ? AND file_path = ?",
-                    (project.project_id, rel_text),
-                )
+            for table in ("code_files", "code_symbols", "code_log_statements"):
+                for chunk in sql_chunks(affected_file_paths):
+                    conn.execute(
+                        f"DELETE FROM {table} WHERE project_id = ? AND file_path IN ({','.join('?' for _ in chunk)})",
+                        (project.project_id, *chunk),
+                    )
+        file_rows: list[tuple[Any, ...]] = []
+        symbol_rows: list[tuple[Any, ...]] = []
+        log_rows: list[tuple[Any, ...]] = []
         for path, _rel, rel_text, language in relative_files:
             summary = summarize_file(path, language)
-            conn.execute(
-                """
-                INSERT INTO code_files(project_id, file_path, summary, language, updated_at)
-                VALUES (?, ?, ?, ?, ?)
-                """,
-                (project.project_id, rel_text, summary, language, ts),
-            )
+            file_rows.append((project.project_id, rel_text, summary, language, ts))
             for symbol, symbol_type in symbols_by_file.get(rel_text, []):
                 summary = summarize_symbol(rel_text, symbol, symbol_type, language)
-                conn.execute(
-                    """
-                    INSERT INTO code_symbols(project_id, file_path, symbol, symbol_type, summary, calls, updated_at)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (project.project_id, rel_text, symbol, symbol_type, summary, "", ts),
+                symbol_rows.append(
+                    (project.project_id, rel_text, symbol, symbol_type, summary, "", ts)
                 )
             for log in logs_by_file.get(rel_text, []):
-                conn.execute(
-                    """
-                    INSERT INTO code_log_statements(
-                      project_id, file_path, line, function, level, logger,
-                      message_template, raw_statement, updated_at
-                    )
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                    """,
+                log_rows.append(
                     (
                         project.project_id,
                         rel_text,
@@ -308,8 +288,28 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                         log.get("message_template") or "",
                         log.get("raw_statement"),
                         ts,
-                    ),
+                    )
                 )
+        conn.executemany(
+            "INSERT INTO code_files(project_id, file_path, summary, language, updated_at) VALUES (?, ?, ?, ?, ?)",
+            file_rows,
+        )
+        conn.executemany(
+            """
+            INSERT INTO code_symbols(project_id, file_path, symbol, symbol_type, summary, calls, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            symbol_rows,
+        )
+        conn.executemany(
+            """
+            INSERT INTO code_log_statements(
+              project_id, file_path, line, function, level, logger,
+              message_template, raw_statement, updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            log_rows,
+        )
         business_semantics_restored = restore_business_semantics(conn, project.project_id, business_snapshot)
         semantic_stats = rebuild_code_memory_edges(
             conn,
