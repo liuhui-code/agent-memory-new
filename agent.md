@@ -27,6 +27,7 @@ The MVP must support:
 6. Provide four user-facing skills that call the runtime script.
 7. Provide an installer and a doctor command.
 8. Extract code log statements during code learning and connect them to files/functions through lightweight edges.
+9. Enrich ArkTS and TypeScript symbols through a language-neutral, bounded semantic adapter contract.
 
 The MVP must not depend on:
 
@@ -55,6 +56,7 @@ Responsibilities:
 - Obsidian Markdown is a read-only human review mirror.
 - `--project` selects the memory archive and query context. `--source` on learning commands can point at any external source tree to learn into that archive.
 - Natural language plus skills is the intended user interface; direct CLI usage is the backend and debugging interface.
+- `semantic-index/v1` adapters run only during learning; normalized symbol metadata and edges remain in SQLite for language-neutral design, impact, and Incident consumers.
 
 ## Runtime Commands
 
@@ -66,6 +68,14 @@ python tools/agent_memory.py doctor --project .
 python tools/agent_memory.py update --project . --type semantic --fact "..."
 python tools/agent_memory.py update --project . --type episode --task "..." --summary "..."
 python tools/agent_memory.py context --project . --query "..." --json
+python tools/agent_memory.py evidence-context --project . --query "..." --json
+python tools/agent_memory.py evidence-context --project . --goal design --query "..." --json
+python tools/agent_memory.py design-check --project . --proposal proposal.json --json
+python tools/agent_memory.py design-compare --project . --proposal a.json --proposal b.json --contract contract.json --json
+python tools/agent_memory.py design-verify --project . --proposal proposal.json --base HEAD~1 --json
+python tools/agent_memory.py eval-design --project . --cases docs/eval/design-cases.json --json
+python tools/agent_memory.py impact-scope --project . --base HEAD~1 --json
+python tools/agent_memory.py impact-feedback --project . --outcome pass --executed-tests "tests/test_profile.py" --json
 python tools/agent_memory.py search --project . --query "..." --json
 python tools/agent_memory.py reflect --project . --task "..." --summary "..." --lesson "..."
 python tools/agent_memory.py reflect-review --project . --json

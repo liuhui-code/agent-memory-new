@@ -18,6 +18,7 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `code_symbols`: lightweight symbol-level wiki index.
 - `code_log_statements`: log, print, and console statements extracted from learned source files.
 - `memory_edges`: lightweight relation edges between learned files, symbols, and log statements.
+- `impact_feedback`: compact change/test outcome summaries used to improve later test recommendations.
 - `learn_scopes`: persistent manifests for previously learned entry, path, or whole-project scopes.
 - `query_misses`: failed retrieval attempts that may need later learning or reflection.
 - `semantic_conflicts`: durable review records for conflicting business summaries.
@@ -153,10 +154,32 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 - `code_file --imports--> code_file`
 - `code_file --routes_to--> code_file`
 - `code_file --uses_resource--> code_symbol`
+- `code_file --defines_state--> code_symbol`
+- `code_file --renders_component--> code_symbol`
+- `code_file --uses_service--> code_symbol`
+- `code_file --dispatches_event/handles_event--> code_symbol`
+- `code_file --configured_by--> code_file`
+- `code_file --tested_by--> code_file`
 
-The ArkTS edges connect learned pages/components to imported project files, router target pages, and `$r(...)` resource references. These edges are intentionally lightweight. They help diagnosis and design queries move from a symptom or page name to related files, functions, routes, and resources, but they are not a complete call graph.
+The ArkTS edges connect learned pages/components to imported project files, router target pages, `$r(...)` resources, state, component composition, services, events, Ability configuration, and naming-matched tests. Ambiguous symbol targets are skipped. These edges are intentionally lightweight and are not a complete call graph.
+
+`code_symbols` also carries nullable `semantic-index/v1` metadata: `symbol_key`, `qualified_name`, `signature`, `start_line`, `end_line`, `semantic_adapter`, `source_digest`, and `evidence_class`. ArkTS and TypeScript adapters may persist symbol-level `calls`, `reads_state`, `writes_state`, `implements`, `extends`, `overrides`, `registers_callback`, `exposes_api`, `consumes_api`, and `awaits` edges. The built-in adapters emit static evidence; exact compiler-derived evidence is reserved for future adapters.
 
 Query commands do not recursively traverse `memory_edges`. The fast path only returns allowed one-hop relations, currently `contains`, `emits_log`, `imports`, `routes_to`, and `uses_resource`, with hard output limits. Heavier network health checks belong to maintain commands.
+
+Each edge also carries governance metadata:
+
+- `source_revision`: Git revision when available, otherwise `unversioned`
+- `extractor_version`: producer version such as `code-wiki:v4`
+- `valid_from` / `valid_to`: query eligibility interval
+- `evidence_kind`: static import, route, resource, state, containment, or code-observability evidence
+- `last_verified_at`: last focused learn/rebuild verification time
+
+Normal query and impact traversal require `valid_to IS NULL`. Legacy rows are backfilled with `extractor_version: legacy`, `evidence_kind: legacy`, and timestamps derived from `created_at`.
+
+Repository-grounded design uses runtime-only `architecture_slice` and Delta Graph JSON. Neither generated architecture slices nor design proposals are stored as SQLite records.
+
+`impact_feedback` stores JSON arrays for changed files and recommended/executed/failed/flaky tests plus missed targets, outcome, note, change fingerprint, and timestamp. It never stores source diffs or test output.
 
 `incident_traces` store compact ArkTS incident summaries produced from a symptom plus bounded runtime log text:
 
@@ -167,9 +190,10 @@ Query commands do not recursively traverse `memory_edges`. The fast path only re
 - `entry_log_text`: short bounded log excerpt, never the full raw log stream.
 - `dominant_log_events`: JSON list of compact log events.
 - `suspected_chain`: JSON list of candidate diagnosis chain steps.
+- `causal_chain`: compact JSON chains whose steps separate causal role from evidence precision.
 - `resolution`: reviewed fix or closure summary.
 
-`incident_trace_links` connect a trace to code memory anchors such as `code_log_statement`, `code_file`, `code_symbol`, or `memory_edge`. Relations include `matched_log`, `followup_target`, `suspected_cause`, and later reviewed variants.
+`incident_trace_links` connect a trace to code memory anchors such as `code_log_statement`, `code_file`, `code_symbol`, or `memory_edge`. Relations include `matched_log`, `semantic_candidate`, `followup_target`, `suspected_cause`, and later reviewed variants.
 
 ## Staleness
 
@@ -207,3 +231,16 @@ Runtime performance samples are stored as bounded JSONL in:
 ```
 
 These samples are operational telemetry, not memory. `maintain-health --json` summarizes them as `runtime_performance` with operation sample counts, p50/p95 elapsed time, average performance score, and latest status.
+
+## Runtime-Only Design Schemas
+
+Repository design reasoning does not add SQLite tables. It uses caller-owned JSON:
+
+- `design-contract/v1`: goal, hard constraints, and measurable quality scenarios.
+- `design-delta/v1`: candidate nodes/edges, assumptions, invariants, coverage, tests, and observability.
+- `design-rules/v1`: explicit `forbid_edge`, `require_edge`, and `single_owner` rules.
+- `design-evaluation/v1`: errors, warnings, quality coverage, architecture summary, and audit.
+- `design-comparison/v1`: hard-gated candidate dimensions, recommendation, and tradeoffs.
+- `design-verification/v1`: planned/actual file drift, graph alignment, tests, and replan triggers.
+
+These artifacts are ephemeral. SQLite remains the source of truth only for current learned code/log/edge facts and governed memory.

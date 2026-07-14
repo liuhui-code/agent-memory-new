@@ -22,6 +22,7 @@ def create_incident_trace_schema(conn: sqlite3.Connection) -> None:
           dominant_log_events TEXT,
           diagnosis_summary TEXT,
           suspected_chain TEXT,
+          causal_chain TEXT,
           root_cause_hypothesis TEXT,
           resolution TEXT,
           confidence REAL DEFAULT 0.7,
@@ -106,4 +107,3 @@ def create_incident_trace_schema(conn: sqlite3.Connection) -> None:
         END;
         """
     )
-

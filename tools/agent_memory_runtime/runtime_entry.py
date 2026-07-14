@@ -22,6 +22,11 @@ from .command_handlers import (
 )
 from .eval_case_drafts import eval_draft_cases_command
 from .eval_case_seed import eval_seed_cases_command
+from .evidence_context import evidence_context_command
+from .design_check import design_check_command
+from .design_compare import design_compare_command
+from .design_eval import eval_design_command
+from .design_verify import design_verify_command
 from .evidence_attribution import eval_evidence_attribution_command
 from .experience_evidence_eval import eval_experience_evidence_command
 from .experience_usage import experience_usage_command
@@ -42,6 +47,8 @@ from .governance import (
 )
 from .governance_eval import eval_governance_command
 from .graph_signal_eval import eval_graph_signal_command
+from .impact_scope import impact_scope_command
+from .impact_feedback import impact_feedback_command
 from .incident_trace import incident_trace_command, incident_trace_status
 from .log_signal_eval import eval_log_signal_command
 from .quality_gate_eval import eval_quality_command
@@ -58,6 +65,13 @@ def command_handlers() -> dict[str, object]:
         "update": update,
         "search": search,
         "context": context,
+        "evidence_context_command": evidence_context_command,
+        "design_check_command": design_check_command,
+        "design_compare_command": design_compare_command,
+        "eval_design_command": eval_design_command,
+        "design_verify_command": design_verify_command,
+        "impact_scope_command": impact_scope_command,
+        "impact_feedback_command": impact_feedback_command,
         "eval_retrieval_command": eval_retrieval_command,
         "eval_calibration_command": eval_calibration_command,
         "eval_experience_evidence_command": eval_experience_evidence_command,

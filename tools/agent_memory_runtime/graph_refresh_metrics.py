@@ -27,7 +27,7 @@ def _edge_rows_for_side(
         f"""
         SELECT id, relation
         FROM memory_edges
-        WHERE project_id = ? AND {type_column} = ? AND {id_column} IN ({placeholders})
+        WHERE project_id = ? AND valid_to IS NULL AND {type_column} = ? AND {id_column} IN ({placeholders})
         """,
         (project_id, entity_type, *sorted(ids)),
     ).fetchall()

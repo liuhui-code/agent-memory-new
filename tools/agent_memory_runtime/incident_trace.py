@@ -28,6 +28,7 @@ def read_incident_log_text(args: argparse.Namespace) -> str:
 def write_incident_trace(project: Any, draft: dict[str, Any]) -> dict[str, Any]:
     ts = now_iso()
     dominant_events = json.dumps(draft.get("dominant_log_events") or [], ensure_ascii=False)
+    causal_chain = json.dumps(draft.get("causal_chain") or [], ensure_ascii=False)
     with connect(project) as conn:
         existing = conn.execute(
             """
@@ -43,7 +44,8 @@ def write_incident_trace(project: Any, draft: dict[str, Any]) -> dict[str, Any]:
                 """
                 UPDATE incident_traces
                 SET symptom = ?, arkts_scene = ?, entry_log_text = ?, normalized_error = ?,
-                    dominant_log_events = ?, suspected_chain = ?, confidence = ?, updated_at = ?
+                    dominant_log_events = ?, suspected_chain = ?, causal_chain = ?,
+                    confidence = ?, updated_at = ?
                 WHERE project_id = ? AND id = ?
                 """,
                 (
@@ -53,6 +55,7 @@ def write_incident_trace(project: Any, draft: dict[str, Any]) -> dict[str, Any]:
                     draft.get("normalized_error"),
                     dominant_events,
                     draft.get("suspected_chain"),
+                    causal_chain,
                     0.7,
                     ts,
                     project.project_id,
@@ -64,10 +67,10 @@ def write_incident_trace(project: Any, draft: dict[str, Any]) -> dict[str, Any]:
                 """
                 INSERT INTO incident_traces(
                   project_id, trace_key, status, symptom, arkts_scene, entry_log_text,
-                  normalized_error, dominant_log_events, suspected_chain,
+                  normalized_error, dominant_log_events, suspected_chain, causal_chain,
                   confidence, source, created_at, updated_at
                 )
-                VALUES (?, ?, 'open', ?, ?, ?, ?, ?, ?, ?, 'incident-trace', ?, ?)
+                VALUES (?, ?, 'open', ?, ?, ?, ?, ?, ?, ?, ?, 'incident-trace', ?, ?)
                 """,
                 (
                     project.project_id,
@@ -78,6 +81,7 @@ def write_incident_trace(project: Any, draft: dict[str, Any]) -> dict[str, Any]:
                     draft.get("normalized_error"),
                     dominant_events,
                     draft.get("suspected_chain"),
+                    causal_chain,
                     0.7,
                     ts,
                     ts,
@@ -119,6 +123,8 @@ def write_incident_trace(project: Any, draft: dict[str, Any]) -> dict[str, Any]:
     data["matched_code_logs"] = draft.get("matched_code_logs") or []
     data["linked_targets"] = draft.get("linked_targets") or []
     data["candidate_chain"] = draft.get("candidate_chain") or []
+    data["causal_chain"] = draft.get("causal_chain") or []
+    data["causal_chain_gaps"] = draft.get("causal_chain_gaps") or []
     data["inspection_targets"] = draft.get("inspection_targets") or []
     data["suggested_followup_query"] = draft.get("suggested_followup_query") or ""
     data["scene_reasons"] = draft.get("scene_reasons") or []
@@ -158,4 +164,3 @@ def incident_trace_status(args: argparse.Namespace) -> None:
     if not row:
         raise SystemExit(f"incident trace #{args.id} not found")
     output(row_dict(row), args.json)
-

@@ -13,7 +13,10 @@ DEFAULT_SLICE_AFTER = 2
 DEFAULT_SLICE_LIMIT = 5
 SESSION_EVENT_GAP = 10
 MAX_CHAIN_SIGNALS = 8
-KEY_VALUE_PATTERN = re.compile(r"\b(?P<key>route|resource|request_id|session_id|code|error_code|reason|page|module)=(?P<value>[^\s]+)")
+KEY_VALUE_PATTERN = re.compile(
+    r"\b(?P<key>route|resource|request_id|session_id|trace_id|span_id|trace_flags|event_name|"
+    r"code|error_code|reason|result|page|module|ability)=(?P<value>[^\s]+)"
+)
 REQUEST_PATH_PATTERN = re.compile(r"(?P<path>/[A-Za-z0-9_./-]+)")
 
 RUNTIME_LOG_PATTERNS = [
@@ -112,23 +115,16 @@ def normalize_runtime_log_line(line: str, line_number: int) -> dict[str, Any]:
             groups = match.groupdict()
             message = (groups.get("message") or "").strip()
             extracted_fields = extract_runtime_fields(stripped)
-            return {
-                "line_number": line_number,
-                "timestamp": groups.get("timestamp"),
-                "process": groups.get("process") or "",
-                "level": normalize_level(groups.get("level") or "info"),
-                "logger": (groups.get("logger") or "").strip(),
-                "message": message,
-                "event_type": infer_event_type(message, extracted_fields),
-                "error_code": extracted_fields.get("error_code", ""),
-                "route": extracted_fields.get("route", ""),
-                "resource_key": extracted_fields.get("resource", ""),
-                "request_id": extracted_fields.get("request_id", ""),
-                "session_id": extracted_fields.get("session_id", ""),
-                "reason": extracted_fields.get("reason", ""),
-                "request_path": extracted_fields.get("request_path", ""),
-                "raw_line": stripped,
-            }
+            return normalized_event(
+                line_number,
+                groups.get("timestamp"),
+                groups.get("process") or "",
+                normalize_level(groups.get("level") or "info"),
+                (groups.get("logger") or "").strip(),
+                message,
+                stripped,
+                extracted_fields,
+            )
     logger = ""
     message = stripped
     if ":" in stripped:
@@ -137,22 +133,52 @@ def normalize_runtime_log_line(line: str, line_number: int) -> dict[str, Any]:
         logger = prefix_tokens[-1] if prefix_tokens else ""
         message = suffix.strip()
     extracted_fields = extract_runtime_fields(stripped)
+    return normalized_event(
+        line_number,
+        None,
+        "",
+        "",
+        logger,
+        message,
+        stripped,
+        extracted_fields,
+    )
+
+
+def normalized_event(
+    line_number: int,
+    timestamp: Any,
+    process: str,
+    level: str,
+    logger: str,
+    message: str,
+    raw_line: str,
+    fields: dict[str, str],
+) -> dict[str, Any]:
     return {
         "line_number": line_number,
-        "timestamp": None,
-        "process": "",
-        "level": "",
+        "timestamp": timestamp,
+        "observed_timestamp": timestamp,
+        "process": process,
+        "level": level,
         "logger": logger,
         "message": message,
-        "event_type": infer_event_type(message, extracted_fields),
-        "error_code": extracted_fields.get("error_code", ""),
-        "route": extracted_fields.get("route", ""),
-        "resource_key": extracted_fields.get("resource", ""),
-        "request_id": extracted_fields.get("request_id", ""),
-        "session_id": extracted_fields.get("session_id", ""),
-        "reason": extracted_fields.get("reason", ""),
-        "request_path": extracted_fields.get("request_path", ""),
-        "raw_line": stripped,
+        "event_type": fields.get("event_name") or infer_event_type(message, fields),
+        "event_name": fields.get("event_name") or infer_event_type(message, fields),
+        "trace_id": fields.get("trace_id", ""),
+        "span_id": fields.get("span_id", ""),
+        "trace_flags": fields.get("trace_flags", ""),
+        "error_code": fields.get("error_code", ""),
+        "route": fields.get("route", ""),
+        "resource_key": fields.get("resource", ""),
+        "request_id": fields.get("request_id", ""),
+        "session_id": fields.get("session_id", ""),
+        "reason": fields.get("reason", ""),
+        "result": fields.get("result", ""),
+        "module": fields.get("module", ""),
+        "ability": fields.get("ability", ""),
+        "request_path": fields.get("request_path", ""),
+        "raw_line": raw_line,
     }
 
 
@@ -160,7 +186,11 @@ def normalize_runtime_log_line(line: str, line_number: int) -> dict[str, Any]:
 def runtime_event_search_text(event: dict[str, Any]) -> str:
     return " ".join(
         str(event.get(key) or "")
-        for key in ("process", "level", "logger", "message", "raw_line", "event_type", "route", "resource_key", "request_id", "session_id", "error_code", "reason", "request_path")
+        for key in (
+            "process", "level", "logger", "message", "raw_line", "event_name", "route",
+            "resource_key", "request_id", "session_id", "trace_id", "span_id", "error_code",
+            "reason", "result", "module", "ability", "request_path",
+        )
     ).lower()
 
 

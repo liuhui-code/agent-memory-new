@@ -9,7 +9,12 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from .code_wiki_edges import delete_edges_for_scope, rebuild_code_memory_edges, scope_node_ids
+from .code_wiki_edges import (
+    delete_edges_for_scope,
+    dependent_file_paths_for_scope,
+    rebuild_code_memory_edges,
+    scope_node_ids,
+)
 from .code_wiki_extractors import extract_log_statements, extract_symbols, language_for, should_skip_dir, summarize_file, summarize_symbol
 from .graph_refresh_metrics import edge_rebuild_metrics, scoped_edge_summary
 from .models import Project
@@ -236,6 +241,10 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
     with connect(project) as conn:
         previous_scope_ids = scope_node_ids(conn, project.project_id, affected_file_paths)
         edges_before = scoped_edge_summary(conn, project.project_id, previous_scope_ids)
+        reverse_dependents = (
+            [] if replace else dependent_file_paths_for_scope(conn, project.project_id, previous_scope_ids)
+        )
+        rebuild_paths = sorted(set(affected_file_paths) | set(reverse_dependents))
         business_snapshot = (
             load_business_semantics(conn, project.project_id, affected_file_paths)
             if not replace
@@ -247,7 +256,8 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
             conn.execute("DELETE FROM code_log_statements WHERE project_id = ?", (project.project_id,))
             conn.execute("DELETE FROM memory_edges WHERE project_id = ?", (project.project_id,))
         else:
-            delete_edges_for_scope(conn, project.project_id, previous_scope_ids)
+            rebuild_scope_ids = scope_node_ids(conn, project.project_id, rebuild_paths)
+            delete_edges_for_scope(conn, project.project_id, rebuild_scope_ids)
             for _, _, rel_text, _ in relative_files:
                 conn.execute(
                     "DELETE FROM code_files WHERE project_id = ? AND file_path = ?",
@@ -301,7 +311,11 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                     ),
                 )
         business_semantics_restored = restore_business_semantics(conn, project.project_id, business_snapshot)
-        rebuild_code_memory_edges(conn, project, scope_file_paths=None if replace else affected_file_paths)
+        semantic_stats = rebuild_code_memory_edges(
+            conn,
+            project,
+            scope_file_paths=None if replace else rebuild_paths,
+        )
         refreshed_scope_ids = scope_node_ids(conn, project.project_id, affected_file_paths)
         edges_after = scoped_edge_summary(conn, project.project_id, refreshed_scope_ids)
         memory_edges_total = conn.execute(
@@ -317,6 +331,8 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
         "code_logs_total": sum(log_level_counts.values()),
         "code_logs_by_level": dict(sorted(log_level_counts.items())),
         "business_semantics_restored": business_semantics_restored,
+        "semantic_index": semantic_stats,
+        "reverse_dependents_reindexed": reverse_dependents,
         "edge_rebuild": edge_rebuild_metrics(
             scope_file_paths=affected_file_paths,
             before=edges_before,

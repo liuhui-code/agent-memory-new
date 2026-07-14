@@ -144,8 +144,9 @@ function openProfile() {
             self.assertEqual(payload["arkts_scene"], "route")
             self.assertLessEqual(len(payload["entry_log_text"]), 2000)
             self.assertEqual(len(traces), 1)
-            self.assertEqual(len(links), 1)
-            self.assertEqual(links[0]["relation"], "matched_log")
+            self.assertTrue(any(link["relation"] == "matched_log" for link in links))
+            self.assertTrue(any(link["relation"] == "semantic_candidate" for link in links))
+            self.assertTrue(payload["causal_chain"])
 
     def test_incident_trace_status_updates_resolution(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

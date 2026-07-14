@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import sqlite3
 
-from .models import CODE_BUSINESS_COLUMNS, GOVERNANCE_COLUMNS
+from .models import CODE_BUSINESS_COLUMNS, CODE_SEMANTIC_COLUMNS, GOVERNANCE_COLUMNS
 
 def migrate_schema(conn: sqlite3.Connection) -> None:
     for table, columns in GOVERNANCE_COLUMNS.items():
@@ -20,6 +20,11 @@ def migrate_schema(conn: sqlite3.Connection) -> None:
             row["name"]
             for row in conn.execute(f"PRAGMA table_info({table})").fetchall()
         }
+        for name, definition in columns:
+            if name not in existing:
+                conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {definition}")
+    for table, columns in CODE_SEMANTIC_COLUMNS.items():
+        existing = {row["name"] for row in conn.execute(f"PRAGMA table_info({table})").fetchall()}
         for name, definition in columns:
             if name not in existing:
                 conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {definition}")
@@ -106,6 +111,59 @@ def migrate_schema(conn: sqlite3.Connection) -> None:
               AND COALESCE(status, 'active') = 'active'
             """
         )
+    migrate_memory_edge_metadata(conn)
+    migrate_incident_semantic_columns(conn)
+    create_impact_feedback_table(conn)
+
+
+def migrate_memory_edge_metadata(conn: sqlite3.Connection) -> None:
+    existing = {row["name"] for row in conn.execute("PRAGMA table_info(memory_edges)").fetchall()}
+    for name, definition in (
+        ("source_revision", "TEXT"),
+        ("extractor_version", "TEXT NOT NULL DEFAULT 'legacy'"),
+        ("valid_from", "TEXT"),
+        ("valid_to", "TEXT"),
+        ("evidence_kind", "TEXT NOT NULL DEFAULT 'legacy'"),
+        ("last_verified_at", "TEXT"),
+    ):
+        if name not in existing:
+            conn.execute(f"ALTER TABLE memory_edges ADD COLUMN {name} {definition}")
+    conn.execute(
+        """
+        UPDATE memory_edges
+        SET extractor_version = COALESCE(NULLIF(extractor_version, ''), 'legacy'),
+            evidence_kind = COALESCE(NULLIF(evidence_kind, ''), 'legacy'),
+            valid_from = COALESCE(valid_from, created_at),
+            last_verified_at = COALESCE(last_verified_at, created_at)
+        """
+    )
+
+
+def create_impact_feedback_table(conn: sqlite3.Connection) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS impact_feedback (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          change_fingerprint TEXT NOT NULL,
+          changed_files TEXT NOT NULL,
+          recommended_tests TEXT,
+          executed_tests TEXT,
+          outcome TEXT NOT NULL,
+          failed_tests TEXT,
+          flaky_tests TEXT,
+          missed_targets TEXT,
+          note TEXT,
+          created_at TEXT NOT NULL
+        )
+        """
+    )
+
+
+def migrate_incident_semantic_columns(conn: sqlite3.Connection) -> None:
+    existing = {row["name"] for row in conn.execute("PRAGMA table_info(incident_traces)").fetchall()}
+    if "causal_chain" not in existing:
+        conn.execute("ALTER TABLE incident_traces ADD COLUMN causal_chain TEXT")
 
 
 
@@ -117,5 +175,20 @@ def create_post_migration_indexes(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_reflections_project_status_stale
         ON reflections(project_id, status, is_stale);
+
+        CREATE INDEX IF NOT EXISTS idx_memory_edges_project_valid_source
+        ON memory_edges(project_id, valid_to, source_type, source_id);
+
+        CREATE INDEX IF NOT EXISTS idx_memory_edges_project_valid_target
+        ON memory_edges(project_id, valid_to, target_type, target_id);
+
+        CREATE INDEX IF NOT EXISTS idx_impact_feedback_project_change
+        ON impact_feedback(project_id, change_fingerprint, created_at);
+
+        CREATE INDEX IF NOT EXISTS idx_code_symbols_project_key
+        ON code_symbols(project_id, symbol_key);
+
+        CREATE INDEX IF NOT EXISTS idx_code_symbols_project_qualified
+        ON code_symbols(project_id, file_path, qualified_name);
         """
     )

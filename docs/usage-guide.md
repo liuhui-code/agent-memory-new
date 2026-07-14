@@ -241,6 +241,61 @@ agent-memory-query
   -> python tools/agent_memory.py context --project . --query "<task>" --json
 ```
 
+For diagnosis or any task that needs code, logs, incidents, and experience to agree, use the coordinated context:
+
+```bash
+python tools/agent_memory.py evidence-context --project . --query "<goal or symptom>" --json
+```
+
+Read `goal_plan`, then `evidence.direct`, `evidence.supporting`, and `evidence.advisory` in that order. `score_components` and `penalties` explain the cross-domain rerank. `evidence_chains` show bounded shared anchors; `evidence_gaps` say what still needs source learning, temporary logs, or verification. Learned code and code-log rows are anchors for current inspection, not proof that the source is unchanged.
+
+Read `goal_plan.query_scope`, `goal_plan.subqueries`, and `retrieval_metadata.query_execution` when retrieval is surprising. `rounds` shows how much new evidence each subquery added; `stop_reason` explains whether retrieval stopped because coverage was sufficient, novelty was low, no evidence was new, or the hard limit was reached. Use `--scope global` only for architecture, distribution, recurring-theme, or whole-project questions.
+
+Each coordinated chain includes `causal_evidence`. Treat `association` as a lead only, `supported` as evidence with a structural/runtime mechanism, `verified` as resolution-backed evidence, and `rejected` as explicit counter-evidence. Never present association as root cause.
+
+For repository-grounded code design, use the design goal before proposing abstractions:
+
+```bash
+python tools/agent_memory.py evidence-context --project . \
+  --goal design --query "design profile caching around ProfileService" --json
+```
+
+Read current code evidence first, then `architecture_slice.entry_points`, `boundaries`, `state_owners`, `extension_points`, `public_consumers`, `test_anchors`, `observability_anchors`, and `evidence_gaps`. The slice is bounded to two hops. Missing edges mean incomplete evidence, not no dependency.
+
+Express a serious candidate as a Delta Graph and check it:
+
+```bash
+python tools/agent_memory.py design-check --project . --proposal proposal.json --json
+python tools/agent_memory.py design-compare --project . --proposal a.json --proposal b.json --contract contract.json --json
+python tools/agent_memory.py design-verify --project . --proposal selected.json --base HEAD~1 --executed-tests "<test command>" --json
+python tools/agent_memory.py eval-design --project . --cases docs/eval/design-cases.json --json
+```
+
+Use `design-contract/v1` when a design has hard constraints or competing quality attributes. Use a version-controlled `design-rules/v1` file for explicit project architecture rules. Historical memory may identify a risk to inspect, but it cannot satisfy a contract, establish a current edge, select a candidate, or create a hard rule. See `docs/design-reasoning.md` for schemas, evidence classes, comparison order, and verification behavior.
+
+`blocked` contains structural errors that should change the proposal. `review` contains warnings or unknown anchors that need explicit engineering judgment. `clean` means the bounded checks found no issue; it does not prove the design or implementation correct. The runtime does not store the proposal. The Query Skill loads `references/code-design.md` only for design intent, so ordinary query and diagnosis tasks do not carry the design protocol.
+
+For a Git change or an explicit file set:
+
+```bash
+python tools/agent_memory.py impact-scope --project . --base HEAD~1 --query "<change intent>" --json
+python tools/agent_memory.py impact-scope --project . --files src/a.ets --files src/b.ets --json
+```
+
+Use `impact_summary.reverse_dependents` for likely callers/consumers, `outgoing_dependencies` for touched downstream nodes, and `verification_checklist` for the first focused checks. The graph remains one hop. Experience and prior incidents can raise attention but cannot turn an unverified hypothesis into a direct impact.
+
+After tests run, record only the compact outcome:
+
+```bash
+python tools/agent_memory.py impact-feedback --project . \
+  --outcome fail \
+  --executed-tests tests/ProfileServiceTest.ets \
+  --failed-tests tests/ProfileServiceTest.ets \
+  --json
+```
+
+Without `--files`, the command uses `runtime/last_impact_scope.json`. Add `--flaky-tests` for nondeterministic failures and `--missed-targets` when impact analysis omitted a later-discovered target. This feedback adjusts later test recommendations but remains historical evidence, not direct proof.
+
 When broader retrieval is needed, use batched search:
 
 ```bash
@@ -261,7 +316,7 @@ Use `log_search_plan` when the user reports a symptom that likely needs runtime 
 If `maintain-plan` returns `review_query_miss`, prefer its `suggested_query_terms` over inventing a fresh keyword set. Those terms combine the original miss wording with current code-memory hint anchors.
 If `maintain-plan` returns `review_correction_experience`, use its `correction_targets`, `learning_rule_draft`, and `learn_business_payload_template` to repair the affected business semantics in place. Keep the repair scoped to the named file, symbol, or log records instead of broadening the learn scope first.
 
-If a query returns no semantic facts, reflections, episodes, or wiki matches, the runtime records a query miss automatically. The user does not need to maintain keywords.
+If a query returns no semantic facts, reflections, episodes, or wiki matches, the runtime records a query miss automatically. This also applies to `evidence-context`. The user does not need to maintain keywords.
 
 The runtime also performs lightweight query expansion before matching. It maps common symptom words to technical terms, especially for HarmonyOS/ArkTS work. For example:
 

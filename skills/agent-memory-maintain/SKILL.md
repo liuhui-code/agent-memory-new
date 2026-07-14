@@ -75,6 +75,10 @@ When reviewing answer grounding after query, graph, log, or experience changes, 
 
 ## Guided Review Workflow
 
+When `evidence-context` or `impact-scope` reports `missing_code_anchor`, `missing_dependency_edge`, or `unlearned_changed_file`, refresh only the named scope before broad relearning. Retrieval interference remains governed through existing `retrieval-feedback`; temporary raw user logs and full evidence payloads must not be copied into SQLite.
+
+Inspect `graph_quality.edge_governance`, `evidence_runtime`, and `impact_feedback`. Legacy/unverified edges need a focused learn refresh. Repeated `association` chains need runtime correlation, structural mechanism, counter-evidence, or verification before promotion. Impact feedback with missed or flaky cases should tighten test recommendations, not automatically raise memory confidence.
+
 When the user asks to clean, organize, review, or govern memory:
 
 1. Run `doctor`.

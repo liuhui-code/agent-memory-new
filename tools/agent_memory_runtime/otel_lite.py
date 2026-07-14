@@ -30,11 +30,19 @@ def runtime_event_to_otel_lite(event: dict[str, Any]) -> dict[str, Any]:
             "url.path": event.get("request_path"),
             "app.route": event.get("route"),
             "app.resource": event.get("resource_key"),
+            "app.result": event.get("result"),
+            "app.module": event.get("module"),
+            "app.ability": event.get("ability"),
         }
     )
     return {
         "time_unix_nano": None,
         "timestamp": event.get("timestamp"),
+        "observed_timestamp": event.get("observed_timestamp"),
+        "event_name": event.get("event_name") or event.get("event_type"),
+        "trace_id": event.get("trace_id"),
+        "span_id": event.get("span_id"),
+        "trace_flags": event.get("trace_flags"),
         "severity_text": severity_text(event.get("level")),
         "severity_number": severity_number(event.get("level")),
         "body": event.get("message") or event.get("raw_line") or "",

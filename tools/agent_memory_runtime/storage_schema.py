@@ -75,6 +75,14 @@ def create_schema(conn: sqlite3.Connection) -> None:
           calls TEXT,
           business_summary TEXT,
           business_terms TEXT,
+          symbol_key TEXT,
+          qualified_name TEXT,
+          signature TEXT,
+          start_line INTEGER,
+          end_line INTEGER,
+          semantic_adapter TEXT,
+          source_digest TEXT,
+          evidence_class TEXT,
           updated_at TEXT NOT NULL
         );
 
@@ -109,6 +117,27 @@ def create_schema(conn: sqlite3.Connection) -> None:
           target_id INTEGER NOT NULL,
           evidence TEXT,
           confidence REAL DEFAULT 0.8,
+          source_revision TEXT,
+          extractor_version TEXT NOT NULL DEFAULT 'legacy',
+          valid_from TEXT,
+          valid_to TEXT,
+          evidence_kind TEXT NOT NULL DEFAULT 'legacy',
+          last_verified_at TEXT,
+          created_at TEXT NOT NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS impact_feedback (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          change_fingerprint TEXT NOT NULL,
+          changed_files TEXT NOT NULL,
+          recommended_tests TEXT,
+          executed_tests TEXT,
+          outcome TEXT NOT NULL,
+          failed_tests TEXT,
+          flaky_tests TEXT,
+          missed_targets TEXT,
+          note TEXT,
           created_at TEXT NOT NULL
         );
 
@@ -261,6 +290,15 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_memory_edges_project_target
         ON memory_edges(project_id, target_type, target_id);
+
+        CREATE INDEX IF NOT EXISTS idx_memory_edges_project_valid_source
+        ON memory_edges(project_id, valid_to, source_type, source_id);
+
+        CREATE INDEX IF NOT EXISTS idx_memory_edges_project_valid_target
+        ON memory_edges(project_id, valid_to, target_type, target_id);
+
+        CREATE INDEX IF NOT EXISTS idx_impact_feedback_project_change
+        ON impact_feedback(project_id, change_fingerprint, created_at);
 
         CREATE UNIQUE INDEX IF NOT EXISTS idx_learn_scopes_project_scope_key
         ON learn_scopes(project_id, scope_key);

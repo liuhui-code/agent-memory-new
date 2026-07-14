@@ -1,0 +1,124 @@
+{
+  "schema_version": "design-eval-cases/v1",
+  "cases": [
+    {
+      "id": "arkts-state-single-owner",
+      "contract": {"id": "state", "goal": "Keep ArkTS state ownership singular", "constraints": [], "quality_scenarios": []},
+      "proposals": [{
+        "id": "state-risk", "goal": "Keep ArkTS state ownership singular", "anchors": [],
+        "add_nodes": [
+          {"id": "new:PageA", "kind": "component", "file_path": "pages/PageA.ets"},
+          {"id": "new:PageB", "kind": "component", "file_path": "pages/PageB.ets"},
+          {"id": "new:sharedState", "kind": "state", "file_path": "state/Shared.ets"}
+        ],
+        "modify_nodes": [],
+        "add_edges": [
+          {"source": "new:PageA", "relation": "owns_state", "target": "new:sharedState"},
+          {"source": "new:PageB", "relation": "owns_state", "target": "new:sharedState"}
+        ],
+        "remove_edges": [], "assumptions": [], "invariants": ["one owner"],
+        "constraint_coverage": [], "quality_coverage": [], "verification": {"tests": [], "observability": []}
+      }],
+      "expected_findings": {"state-risk": ["multiple_state_owners"]}
+    },
+    {
+      "id": "arkts-service-boundary",
+      "contract": {"id": "boundary", "goal": "Preserve service dependency direction", "constraints": [], "quality_scenarios": []},
+      "proposals": [{
+        "id": "boundary-risk", "goal": "Preserve service dependency direction", "anchors": [],
+        "add_nodes": [
+          {"id": "new:ProfileService", "kind": "service", "file_path": "service/ProfileService.ets"},
+          {"id": "new:ProfilePage", "kind": "page", "file_path": "pages/ProfilePage.ets"}
+        ],
+        "modify_nodes": [],
+        "add_edges": [{"source": "new:ProfileService", "relation": "imports", "target": "new:ProfilePage"}],
+        "remove_edges": [], "assumptions": [], "invariants": ["UI depends on service"],
+        "constraint_coverage": [], "quality_coverage": [], "verification": {"tests": [], "observability": []}
+      }],
+      "expected_findings": {"boundary-risk": ["reverse_boundary_dependency"]}
+    },
+    {
+      "id": "arkts-public-api-compatibility",
+      "contract": {"id": "api", "goal": "Change a public ArkTS API", "constraints": ["preserve existing callers"], "quality_scenarios": []},
+      "proposals": [{
+        "id": "api-risk", "goal": "Change a public ArkTS API", "anchors": [], "add_nodes": [],
+        "modify_nodes": ["file:service/ProfileService.ets"], "add_edges": [], "remove_edges": [],
+        "assumptions": [], "invariants": ["callers compile"], "constraint_coverage": [], "quality_coverage": [],
+        "verification": {"tests": [], "observability": []}
+      }],
+      "expected_findings": {"api-risk": ["uncovered_contract_constraint"]}
+    },
+    {
+      "id": "arkts-route-config-coupling",
+      "contract": {"id": "route", "goal": "Add a configured route", "constraints": [], "quality_scenarios": []},
+      "rules": [{"id": "page-config", "kind": "require_edge", "severity": "error", "source_kind": "page", "relation": "configured_by", "target_kind": "config"}],
+      "proposals": [{
+        "id": "route-risk", "goal": "Add a configured route", "anchors": [],
+        "add_nodes": [{"id": "new:DetailPage", "kind": "page", "file_path": "pages/DetailPage.ets"}],
+        "modify_nodes": [], "add_edges": [], "remove_edges": [], "assumptions": [], "invariants": ["route resolves"],
+        "constraint_coverage": [], "quality_coverage": [], "verification": {"tests": [], "observability": []}
+      }],
+      "expected_findings": {"route-risk": ["rule:page-config"]}
+    },
+    {
+      "id": "arkts-async-observability",
+      "contract": {"id": "async", "goal": "Add an async service boundary", "constraints": [], "quality_scenarios": []},
+      "proposals": [{
+        "id": "async-risk", "goal": "Add an async service boundary", "anchors": [],
+        "add_nodes": [{"id": "new:AsyncService", "kind": "service", "file_path": "service/AsyncService.ets"}],
+        "modify_nodes": [], "add_edges": [], "remove_edges": [], "assumptions": [], "invariants": ["errors are visible"],
+        "constraint_coverage": [], "quality_coverage": [], "verification": {"tests": [], "observability": []}
+      }],
+      "expected_findings": {"async-risk": ["missing_observability_anchor"]}
+    },
+    {
+      "id": "arkts-persistence-migration",
+      "contract": {"id": "migration", "goal": "Change persisted profile shape", "constraints": ["provide backward-compatible migration"], "quality_scenarios": []},
+      "proposals": [{
+        "id": "migration-risk", "goal": "Change persisted profile shape", "anchors": [],
+        "add_nodes": [{"id": "new:ProfileStore", "kind": "storage", "file_path": "data/ProfileStore.ets"}],
+        "modify_nodes": [], "add_edges": [], "remove_edges": [], "assumptions": [], "invariants": ["old data opens"],
+        "constraint_coverage": [], "quality_coverage": [], "verification": {"tests": [], "observability": []}
+      }],
+      "expected_findings": {"migration-risk": ["uncovered_contract_constraint"]}
+    },
+    {
+      "id": "arkts-callback-registration",
+      "contract": {"id": "callback", "goal": "Wire a component callback", "constraints": [], "quality_scenarios": []},
+      "rules": [{"id": "callback-edge", "kind": "require_edge", "severity": "error", "source_kind": "component", "relation": "registers_callback", "target_kind": "function"}],
+      "proposals": [{
+        "id": "callback-risk", "goal": "Wire a component callback", "anchors": [],
+        "add_nodes": [
+          {"id": "new:ActionPanel", "kind": "component", "file_path": "components/ActionPanel.ets"},
+          {"id": "new:onSave", "kind": "function", "file_path": "components/ActionPanel.ets"}
+        ],
+        "modify_nodes": [], "add_edges": [], "remove_edges": [], "assumptions": [], "invariants": ["callback fires once"],
+        "constraint_coverage": [], "quality_coverage": [], "verification": {"tests": [], "observability": []}
+      }],
+      "expected_findings": {"callback-risk": ["rule:callback-edge"]}
+    },
+    {
+      "id": "arkts-focused-test",
+      "contract": {"id": "test", "goal": "Add a tested service", "constraints": [], "quality_scenarios": []},
+      "rules": [{"id": "service-test", "kind": "require_edge", "severity": "error", "source_kind": "service", "relation": "tested_by", "target_kind": "test"}],
+      "proposals": [{
+        "id": "test-risk", "goal": "Add a tested service", "anchors": [],
+        "add_nodes": [{"id": "new:SearchService", "kind": "service", "file_path": "service/SearchService.ets"}],
+        "modify_nodes": [], "add_edges": [], "remove_edges": [], "assumptions": [], "invariants": ["search remains deterministic"],
+        "constraint_coverage": [], "quality_coverage": [], "verification": {"tests": [], "observability": []}
+      }],
+      "expected_findings": {"test-risk": ["rule:service-test"]}
+    },
+    {
+      "id": "arkts-log-anchor",
+      "contract": {"id": "log", "goal": "Add a diagnosable repository", "constraints": [], "quality_scenarios": []},
+      "proposals": [{
+        "id": "log-risk", "goal": "Add a diagnosable repository", "anchors": [],
+        "add_nodes": [{"id": "new:ProfileRepository", "kind": "repository", "file_path": "data/ProfileRepository.ets"}],
+        "modify_nodes": [], "add_edges": [], "remove_edges": [], "assumptions": [], "invariants": ["failures are diagnosable"],
+        "constraint_coverage": [], "quality_coverage": [], "verification": {"tests": [], "observability": []}
+      }],
+      "expected_findings": {"log-risk": ["missing_observability_anchor"]}
+    }
+  ]
+}

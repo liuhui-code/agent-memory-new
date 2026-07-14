@@ -49,6 +49,7 @@ def table_for_type(kind: str) -> str:
         "semantic-conflict": "semantic_conflicts",
         "incident-trace": "incident_traces",
         "incident-trace-link": "incident_trace_links",
+        "impact-feedback": "impact_feedback",
     }
     if kind not in tables:
         raise SystemExit(f"unsupported type: {kind}")

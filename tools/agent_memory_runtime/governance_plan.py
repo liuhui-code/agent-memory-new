@@ -12,6 +12,7 @@ from typing import Any
 from .active_learning_queue import build_active_learning_actions, build_active_learning_queue
 from .code_wiki import semantic_followup_from_db
 from .evidence_chain_quality import build_evidence_chain_summary, enrich_reflections_with_evidence_chains
+from .evidence_runtime_governance import evidence_runtime_summary
 from .graph_quality import (
     build_graph_quality,
     build_graph_quality_actions,
@@ -25,6 +26,7 @@ from .governance_action_budget import (
     compact_maintain_plan_payload,
 )
 from .incident_trace_governance import build_incident_trace_actions
+from .impact_feedback import impact_feedback_summary
 from .experience_maturity import score_experience_maturity
 from .experience_usage import build_experience_usage_actions, fetch_experience_usage_summary
 from .memory_tiers import build_memory_tier_actions, build_memory_tiers
@@ -90,6 +92,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
     retrieval_interference_candidates = build_retrieval_interference_candidates(active_reflection_rows(project), args.limit)
     experience_conflict_candidates = build_experience_conflict_candidates(active_reflection_rows(project), args.limit)
     incident_trace_actions = build_incident_trace_actions(project, args.limit)
+    impact_feedback = impact_feedback_summary(project)
+    evidence_runtime = evidence_runtime_summary(project)
     graph_quality = build_graph_quality(project)
     graph_quality_actions = build_graph_quality_actions(graph_quality)
     graph_signal_quality = build_graph_signal_quality(project)
@@ -200,6 +204,8 @@ def maintain_plan(args: argparse.Namespace) -> None:
         "learn_governance_summary": learn_governance_summary,
         "graph_quality": graph_quality,
         "graph_signal_quality": graph_signal_quality,
+        "impact_feedback": impact_feedback,
+        "evidence_runtime": evidence_runtime,
         "last_quality_gate": last_quality_gate,
         "runtime_performance": runtime_performance,
         "experience_usage": {

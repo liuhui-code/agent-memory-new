@@ -8,6 +8,11 @@ import re
 from typing import Any
 
 from .incident_trace_models import INCIDENT_LOG_TEXT_LIMIT
+from .incident_semantic_chain import (
+    semantic_causal_chains,
+    semantic_chain_links,
+    semantic_chain_strings,
+)
 from .models import Project
 from .query import recall_candidate_ids
 from .records import row_dict
@@ -143,6 +148,10 @@ def build_incident_trace_draft(project: Project, symptom: str, log_text: str) ->
     events = dominant_log_events(compact_log)
     search_query = " ".join(unique_list([symptom, scene, *events]))
     matched_logs = fetch_code_logs(project, search_query)
+    causal_chain = semantic_causal_chains(project, matched_logs)
+    legacy_chain = candidate_chain_from_logs(matched_logs)
+    candidate_chain = unique_list([*legacy_chain, *semantic_chain_strings(causal_chain)])
+    linked_targets = [*linked_targets_from_logs(matched_logs), *semantic_chain_links(causal_chain, matched_logs)]
     top_anchor = ""
     if matched_logs:
         top_anchor = f"{matched_logs[0].get('file_path')}::{matched_logs[0].get('message_template')}"
@@ -163,10 +172,11 @@ def build_incident_trace_draft(project: Project, symptom: str, log_text: str) ->
         "normalized_error": events[0] if events else compact_log[:160],
         "dominant_log_events": events,
         "matched_code_logs": matched_logs[:5],
-        "linked_targets": linked_targets_from_logs(matched_logs),
-        "candidate_chain": candidate_chain_from_logs(matched_logs),
+        "linked_targets": linked_targets,
+        "candidate_chain": candidate_chain,
+        "causal_chain": causal_chain,
+        "causal_chain_gaps": [gap for chain in causal_chain for gap in chain.get("gaps", [])],
         "inspection_targets": unique_list([str(log.get("file_path") or "") for log in matched_logs[:5]]),
         "suggested_followup_query": " ".join(suggested_terms),
-        "suspected_chain": json.dumps(candidate_chain_from_logs(matched_logs), ensure_ascii=False),
+        "suspected_chain": json.dumps(candidate_chain, ensure_ascii=False),
     }
-

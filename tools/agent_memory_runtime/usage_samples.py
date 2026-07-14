@@ -39,6 +39,8 @@ def _empty_usage_sample(project: Project) -> dict[str, Any]:
         "suggested_followup_terms": [],
         "context_used": [],
         "matched_anchor_counts": {},
+        "query_execution": {},
+        "causal_levels": [],
         "runtime_log": {
             "used": False,
             "matched_event_count": 0,
@@ -139,6 +141,8 @@ def build_task_trace(project: Project, sample: dict[str, Any]) -> dict[str, Any]
         "query_rounds": int(sample.get("query_rounds") or 0),
         "context_used": sample.get("context_used") or [],
         "matched_anchor_counts": sample.get("matched_anchor_counts") or {},
+        "query_execution": sample.get("query_execution") or {},
+        "causal_levels": sample.get("causal_levels") or [],
         "candidate_evidence": candidate_evidence,
         "runtime_log": {
             "used": bool(runtime_log.get("used")),
@@ -282,6 +286,9 @@ def record_query_usage(project: Project, command_name: str, query: str, data: di
             }
         )
     sample["matched_anchor_counts"] = matched_counts
+    if isinstance(data.get("query_execution"), dict):
+        sample["query_execution"] = dict(data.get("query_execution") or {})
+    _append_unique(sample, "causal_levels", [str(value) for value in data.get("causal_levels") or []])
     _append_context_used(sample, f"{command_name}: {query}")
     save_usage_sample(project, sample)
     return sample

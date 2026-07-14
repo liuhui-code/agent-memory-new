@@ -337,13 +337,48 @@ python tools/agent_memory.py learn-entry --project . --source /path/to/app --ent
 python tools/agent_memory.py learn-path --project . --source /path/to/app --path entry/src/main/ets --json
 ```
 
-Learning returns `parse_stats` with file, language, symbol, log, and edge counts. It also records log-like statements in code, such as `logger.error(...)`, `console.warn(...)`, ArkTS `hilog.info(...)`, and `print(...)`, then connects them to the learned file and nearest detected function. For HarmonyOS projects, it also indexes `.json5` module/package config, ArkTS router targets, and `$r(...)` resource references.
+Learning returns `parse_stats` with file, language, symbol, log, edge, and `semantic_index` coverage counts. It also records log-like statements in code, such as `logger.error(...)`, `console.warn(...)`, ArkTS `hilog.info(...)`, and `print(...)`, then connects them to the learned file and nearest detected function. ArkTS and TypeScript adapters add bounded symbol-level calls, state flow, callbacks, inheritance, API boundaries, and async relations through the language-neutral `semantic-index/v1` contract. For HarmonyOS projects, learning also indexes `.json5` module/package config, ArkTS router targets, and `$r(...)` resource references. See [Semantic Index](docs/semantic-index.md).
 
 Query memory:
 
 ```bash
 python tools/agent_memory.py context --project . --query "memory governance workflow" --json
+python tools/agent_memory.py evidence-context --project . --query "个人中心空白，profile load failed" --json
 ```
+
+`evidence-context` coordinates the existing FTS5 query, code graph, code-log graph, incident traces, and experience memory into one goal-aware result. It separates direct code/log anchors, supporting incident evidence, and advisory historical experience, exposes score factors and evidence gaps, and keeps all graph traversal bounded.
+
+It also routes concrete questions to local retrieval and architecture/recurring-theme questions to bounded global aggregates. Retrieval uses at most three deterministic subqueries, stops when cross-lane coverage is sufficient or no new evidence appears, and limits duplicate experience/file patterns before building the final context.
+
+Design against the current repository rather than historical patterns:
+
+```bash
+python tools/agent_memory.py evidence-context --project . --goal design \
+  --query "design profile caching without moving persistence into the page" --json
+python tools/agent_memory.py design-check --project . --proposal proposal.json --json
+```
+
+Design retrieval attaches a bounded `architecture_slice` with current entry points, typed relationships, evidence classes, boundaries, state owners, consumers, tests, observability anchors, and explicit coverage gaps. Versioned `DesignContract` and `DesignDelta` inputs let `design-check` evaluate hard constraints and quality scenarios. `design-compare` hard-gates and compares alternatives; `design-verify` checks planned changes against the actual diff, tests, and refreshed graph. The runtime remains deterministic, calls no LLM, and persists none of these artifacts. See [Repository-Grounded Design Reasoning](docs/design-reasoning.md).
+
+The Query Skill uses progressive disclosure: its main `SKILL.md` is a thin intent router, while code understanding, diagnosis, impact, evidence policy, and code design live in one-level `references/` files loaded only when relevant. The public interface remains four skills.
+
+Assess a change before editing or review:
+
+```bash
+python tools/agent_memory.py impact-scope --project . --base HEAD~1 --query "profile loading change" --json
+```
+
+`impact-scope` maps changed files to learned symbols and logs, one-hop file- and symbol-level reverse dependencies, related incidents, and experience. Unlearned files are reported as coverage gaps; they are never silently treated as low risk.
+
+Record the compact test outcome so later similar changes can improve test selection:
+
+```bash
+python tools/agent_memory.py impact-feedback --project . --outcome fail \
+  --executed-tests tests/ProfileServiceTest.ets \
+  --failed-tests tests/ProfileServiceTest.ets --json
+```
+
+The feedback row contains changed/test path summaries only. Source diffs and test output are not stored.
 
 For diagnosis, query an observed log or output string directly:
 
@@ -388,7 +423,7 @@ Normal usage should go through four skills:
 | Skill | Purpose | Typical commands |
 |---|---|---|
 | `agent-memory-learn` | Add project code context to memory | `learn-entry`, `learn-path`, `wiki-index` |
-| `agent-memory-query` | Retrieve project memory and wiki context | `context`, `search`, `wiki-search` |
+| `agent-memory-query` | Retrieve and coordinate memory, code, log, and impact evidence | `context`, `evidence-context`, `impact-scope`, `search` |
 | `agent-memory-maintain` | Initialize, check, review, govern, and export memory | `doctor`, `maintain-plan`, `vault-export` |
 | `agent-memory-reflect` | Save lessons, facts, and reflection feedback | `reflect`, `reflect-review`, `update` |
 
@@ -408,6 +443,9 @@ python tools/agent_memory.py wiki-index --project .
 python tools/agent_memory.py wiki-index --project . --source "<external-project>"
 
 python tools/agent_memory.py context --project . --query "..." --json
+python tools/agent_memory.py evidence-context --project . --query "..." --json
+python tools/agent_memory.py impact-scope --project . --base HEAD~1 --query "..." --json
+python tools/agent_memory.py impact-feedback --project . --outcome pass --executed-tests "..." --json
 python tools/agent_memory.py search --project . --query "..." --json
 python tools/agent_memory.py wiki-search --project . --query "..." --json
 
@@ -442,7 +480,7 @@ python tools/agent_memory.py vault-export --project .
 - `docs/query-miss-feedback-loop.md`: query miss feedback loop.
 - `docs/code-log-statement-network.md`: code log statement extraction and memory edges.
 - `docs/templates/diagnosis-memory-query-template.md`: recursive diagnosis template.
-- `docs/templates/change-design-memory-query-template.md`: recursive change-design template.
+- `docs/templates/change-design-memory-query-template.md`: repository-grounded design and Delta Graph template.
 - `docs/templates/memory-query-answer-skill-template.md`: copyable skill template for query, logs, recursive search, and final answers.
 - `gitlog.md`: local development log and rollback notes.
 

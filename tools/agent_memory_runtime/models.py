@@ -23,6 +23,7 @@ REQUIRED_TABLES = {
     "reflection_reuse_events",
     "experience_usage_events",
     "semantic_conflicts",
+    "impact_feedback",
 }
 
 VAULT_DIRS = [
@@ -93,6 +94,19 @@ CODE_BUSINESS_COLUMNS = {
         ("likely_causes", "TEXT"),
         ("process_hint", "TEXT"),
         ("neighbor_terms", "TEXT"),
+    ],
+}
+
+CODE_SEMANTIC_COLUMNS = {
+    "code_symbols": [
+        ("symbol_key", "TEXT"),
+        ("qualified_name", "TEXT"),
+        ("signature", "TEXT"),
+        ("start_line", "INTEGER"),
+        ("end_line", "INTEGER"),
+        ("semantic_adapter", "TEXT"),
+        ("source_digest", "TEXT"),
+        ("evidence_class", "TEXT"),
     ],
 }
 

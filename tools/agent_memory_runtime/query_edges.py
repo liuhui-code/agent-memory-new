@@ -35,6 +35,7 @@ def collect_related_edges(project: Project, targets: dict[str, set[int]]) -> lis
                     SELECT *
                     FROM memory_edges
                     WHERE project_id = ?
+                      AND valid_to IS NULL
                       AND relation IN ({','.join('?' for _ in sorted(QUERY_ALLOWED_EDGE_RELATIONS))})
                       AND source_type = ?
                       AND source_id IN ({placeholders})
@@ -48,6 +49,7 @@ def collect_related_edges(project: Project, targets: dict[str, set[int]]) -> lis
                     SELECT *
                     FROM memory_edges
                     WHERE project_id = ?
+                      AND valid_to IS NULL
                       AND relation IN ({','.join('?' for _ in sorted(QUERY_ALLOWED_EDGE_RELATIONS))})
                       AND target_type = ?
                       AND target_id IN ({placeholders})

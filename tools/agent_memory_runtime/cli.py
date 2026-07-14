@@ -7,6 +7,7 @@ from collections.abc import Mapping
 from typing import Any
 
 from .models import VALID_MEMORY_STATUSES
+from .cli_design import add_design_parsers
 
 
 def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
@@ -59,6 +60,43 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--query", required=True)
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("context"))
+
+    p = sub.add_parser("evidence-context")
+    add_project(p)
+    p.add_argument("--query", required=True)
+    p.add_argument(
+        "--goal",
+        choices=["design", "diagnosis", "change_impact", "code_understanding", "experience_reuse", "governance"],
+    )
+    p.add_argument("--scope", choices=["auto", "local", "global"], default="auto")
+    p.add_argument("--max-items", type=int, default=20)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("evidence_context_command"))
+
+    p = sub.add_parser("impact-scope")
+    add_project(p)
+    p.add_argument("--query")
+    p.add_argument("--base", default="HEAD~1")
+    p.add_argument("--files", action="append")
+    p.add_argument("--diff-file")
+    p.add_argument("--max-items", type=int, default=25)
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("impact_scope_command"))
+
+    p = sub.add_parser("impact-feedback")
+    add_project(p)
+    p.add_argument("--files", action="append")
+    p.add_argument("--recommended-tests", action="append")
+    p.add_argument("--executed-tests", action="append")
+    p.add_argument("--outcome", required=True, choices=["pass", "fail", "partial", "unknown"])
+    p.add_argument("--failed-tests", action="append")
+    p.add_argument("--flaky-tests", action="append")
+    p.add_argument("--missed-targets", action="append")
+    p.add_argument("--note")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=command("impact_feedback_command"))
+
+    add_design_parsers(sub, add_project, command)
 
     p = sub.add_parser("eval-retrieval")
     add_project(p)
@@ -224,6 +262,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
             "semantic-conflict",
             "incident-trace",
             "incident-trace-link",
+            "impact-feedback",
         ],
     )
     p.add_argument("--limit", type=int, default=50)

@@ -85,16 +85,19 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
         patterns = [(r"^\s*def\s+([A-Za-z_]\w*)\s*\(", "function"), (r"^\s*class\s+([A-Za-z_]\w*)", "class")]
     elif language in {"TypeScript", "JavaScript"}:
         patterns = [
-            (r"^\s*function\s+([A-Za-z_$][\w$]*)\s*\(", "function"),
-            (r"^\s*class\s+([A-Za-z_$][\w$]*)", "class"),
+            (r"^\s*(?:export\s+)?(?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(", "function"),
+            (r"^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)", "class"),
+            (r"^\s*(?:export\s+)?interface\s+([A-Za-z_$][\w$]*)", "interface"),
             (r"^\s*const\s+([A-Za-z_$][\w$]*)\s*=", "const"),
+            (r"^\s*(?:(?:private|public|protected|override|async|static)\s+)*([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{", "function"),
         ]
     elif language == "ArkTS":
         patterns = [
             (r"^\s*(?:export\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(", "function"),
             (r"^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)", "class"),
+            (r"^\s*(?:export\s+)?interface\s+([A-Za-z_$][\w$]*)", "interface"),
             (r"^\s*(?:export\s+)?struct\s+([A-Za-z_$][\w$]*)", "component"),
-            (r"^\s*(?:private\s+|public\s+|protected\s+)?([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{", "function"),
+            (r"^\s*(?:(?:private|public|protected|override|async|static)\s+)*([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{", "function"),
         ]
     elif language == "Dart":
         patterns = [
@@ -132,8 +135,10 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
 
 def extract_arkts_reference_symbols(text: str) -> list[tuple[str, str]]:
     symbols: list[tuple[str, str]] = []
-    for match in re.finditer(r"@(State|Prop|Link|Provide)\s+([A-Za-z_][A-Za-z0-9_]*)", text):
+    for match in re.finditer(r"@(State|Prop|Link|Provide|Consume|ObjectLink|Local|Param)\s+([A-Za-z_][A-Za-z0-9_]*)", text):
         symbols.append((match.group(2), "state"))
+    for match in re.finditer(r"@Event\s+([A-Za-z_][A-Za-z0-9_]*)", text):
+        symbols.append((match.group(1), "event"))
     for match in re.finditer(
         r"\brouter\.(?:pushUrl|replaceUrl)\s*\(\s*\{[^}]*\burl\s*:\s*['\"]([^'\"]+)['\"]",
         text,

@@ -3861,3 +3861,241 @@ Verification:
 Rollback notes:
 
 - Revert the roadmap completion marker and this gitlog entry only if the final verification evidence needs to be rerun.
+# 2026-07-13 - Add goal-oriented evidence coordination and change impact analysis
+
+Files touched:
+
+- `tools/agent_memory_runtime/evidence_models.py`
+- `tools/agent_memory_runtime/goal_planner.py`
+- `tools/agent_memory_runtime/evidence_collectors.py`
+- `tools/agent_memory_runtime/evidence_fusion.py`
+- `tools/agent_memory_runtime/evidence_context.py`
+- `tools/agent_memory_runtime/impact_scope.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/runtime_entry.py`
+- `tests/test_evidence_fabric.py`
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-maintain/SKILL.md`
+- `README.md`
+- `agent.md`
+- `docs/runtime.md`
+- `docs/usage-guide.md`
+- `docs/superpowers/plans/2026-07-13-goal-oriented-evidence-fabric.md`
+- `gitlog.md`
+
+What changed:
+
+- Added deterministic goal planning and a unified evidence contract over semantic facts, reflections, episodes, code anchors, code logs, memory edges, and incident traces.
+- Added bounded cross-source fusion with per-lane score normalization, authority/trust/graph/freshness factors, explicit penalties, evidence tiers, chains, gaps, and audit output.
+- Added `evidence-context` for compact LLM-ready coordinated retrieval.
+- Added `impact-scope` for Git diff, explicit file, and unified-diff input; it reports direct changed anchors, one-hop reverse dependents, outgoing dependencies, related memory, risk, coverage gaps, and verification targets.
+- Reused runtime usage/performance samples, query misses, retrieval feedback, and task traces. No new durable result table or raw-log persistence was added.
+- Kept the public surface at four skills and updated query/maintain guidance.
+
+Why:
+
+- Independent query, code graph, log graph, causal trace, and experience scores can conflict or amplify weak historical memory.
+- Agents need one goal-aware evidence view where current change/code/log anchors remain primary and experience is corroborating advice.
+- Change review needs a deterministic, bounded impact scope before an LLM chooses files, tests, or runtime signals to inspect.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_evidence_fabric`
+- Result: 5 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_evidence_fabric tests.test_agent_memory_part_03 tests.test_incident_trace tests.test_retrieval_feedback tests.test_memory_calibration`
+- Result: 31 tests pass.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest discover tests`
+- Result: 242 tests pass in 154.981 seconds on the final implementation state.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py tests/*.py install.py`
+- Result: passes.
+- Command: `python3 tools/check_line_limits.py`
+- Result: all Python files are at or below 500 lines.
+- Command: `git diff --check`
+- Result: passes.
+- Command: `find skills -mindepth 1 -maxdepth 1 -type d | sort`
+- Result: exactly the four public Agent Memory skills remain.
+
+Rollback notes:
+
+- Remove the two CLI commands and evidence coordination modules. Existing search, context, learning, incident trace, governance, and the four public skills remain independently usable.
+
+## 2026-07-13 - Harden the goal-oriented evidence fabric
+
+Files touched:
+
+- `tools/agent_memory_runtime/evidence_*.py`
+- `tools/agent_memory_runtime/goal_planner.py`
+- `tools/agent_memory_runtime/impact_*.py`
+- `tools/agent_memory_runtime/code_wiki_edges.py`
+- `tools/agent_memory_runtime/runtime_log_*.py`
+- `tools/agent_memory_runtime/otel_lite.py`
+- `tools/agent_memory_runtime/storage_*.py`
+- `tools/agent_memory_runtime/governance_*.py`
+- `tests/test_evidence_fabric_hardening.py`
+- `README.md`, `agent.md`, `docs/`, `references/schema.md`, and query/maintain skills
+
+What changed:
+
+- Added bounded local/global query decomposition, stable-id novelty stopping, source/location/pattern diversity, and lightweight global aggregates.
+- Added current code-edge provenance, active-edge filtering, migration-safe defaults, and graph governance signals without retaining unbounded edge history.
+- Added OTel-lite trace/span/event/result normalization for temporary logs and four causal evidence levels with explicit signals and counter-evidence.
+- Added compact impact-test feedback and one-hop graph-aware test recommendations; raw diffs and test logs are not persisted.
+- Added evidence-runtime and impact-feedback governance summaries while preserving SQLite, the single runtime entry point, and four public skills.
+
+Why:
+
+- Query, code graph, runtime logs, causal chains, and impact analysis need coordinated evidence controls so weak or repeated experience cannot redirect diagnosis.
+- The runtime needs better recall and verification feedback without adding a vector store, graph database, daemon, raw-log archive, or unbounded database growth.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_evidence_fabric_hardening tests.test_evidence_fabric tests.test_incident_trace tests.test_otel_lite tests.test_log_signal_quality tests.test_graph_quality tests.test_memory_calibration tests.test_auto_reflection_summary`
+- Result: 46 tests passed before the final graph-neighbor test was added; the hardening module then passed all 11 focused tests.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest discover tests`
+- Result: 253 tests passed in 172.145 seconds on the final implementation state.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py tests/*.py install.py`
+- Result: passed.
+- Command: `python3 tools/check_line_limits.py`
+- Result: all Python files are at or below 500 lines.
+- Command: `find skills -mindepth 1 -maxdepth 1 -type d -print | sort`
+- Result: exactly the four public Agent Memory skills remain.
+- Command: `python3 tools/agent_memory.py --help`
+- Result: `evidence-context`, `impact-scope`, and `impact-feedback` are available through the single runtime entry point.
+
+Rollback notes:
+
+- Remove adaptive query execution and impact feedback handlers/table, then fall back to the prior single-query Evidence Fabric. Existing memory and current graph data remain usable.
+
+## 2026-07-14 - Add repository-grounded design reasoning
+
+Files touched:
+
+- `skills/agent-memory-query/SKILL.md`
+- `skills/agent-memory-query/references/*.md`
+- `tools/agent_memory_runtime/architecture_slice.py`
+- `tools/agent_memory_runtime/code_wiki_design_edges.py`
+- `tools/agent_memory_runtime/design_check.py`
+- `tools/agent_memory_runtime/goal_planner.py`
+- `tools/agent_memory_runtime/evidence_context.py`
+- `tools/agent_memory_runtime/evidence_query_execution.py`
+- `tools/agent_memory_runtime/code_wiki_edges.py`
+- `tools/agent_memory_runtime/code_wiki_extractors.py`
+- `tools/agent_memory_runtime/cli.py`
+- `tools/agent_memory_runtime/runtime_entry.py`
+- `tests/test_repository_design.py`
+- `README.md`, `agent.md`, `docs/`, `references/`, and `gitlog.md`
+
+What changed:
+
+- Reduced the Query Skill from 206 lines to a thin progressive-disclosure router and moved intent-specific behavior into five one-level reference protocols.
+- Added a current-code-first `design` goal. Code and active graph evidence have full source weight while historical reflection remains low-weight advisory context.
+- Added bounded architecture slices with depth 2, 80-node, and 160-edge limits, including boundaries, state owners, extension points, consumers, tests, observability, provenance, and explicit gaps.
+- Added conservative ArkTS design edges for component composition, service use, event dispatch/binding, Ability configuration, and naming-matched tests using the existing versioned `memory_edges` table.
+- Added `design-check` for deterministic Delta Graph validation: shape/path checks, introduced cycles, multiple state owners, boundary reversals, UI/data bypasses, consumer review, test/observability gaps, and unknown anchors.
+- Kept design generation in the Agent protocol. The runtime does not call an LLM or persist proposals, architecture slices, generated answers, or chain-of-thought.
+
+Why:
+
+- Code design should use general software-design reasoning grounded in current repository structure, not retrieve a past project pattern and apply it as the main answer.
+- The Query Skill had become dense enough that diagnosis, impact, trust, evaluation, and future design rules would interfere and consume context together.
+
+Verification:
+
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_repository_design`
+- Result: 7 design, protocol, ArkTS graph, architecture-slice, validation, and Delta Graph tests passed.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest tests.test_repository_design tests.test_evidence_fabric_hardening tests.test_evidence_fabric tests.test_agent_memory_part_13 tests.test_agent_memory_part_14 tests.test_quality_closed_loop tests.test_graph_quality`
+- Result: 51 focused tests passed before final compatibility and scope refinements; all affected cases are included in the final full suite.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m unittest discover tests`
+- Result: 260 tests passed in 199.864 seconds on the final implementation state.
+- Command: `PYTHONPYCACHEPREFIX=.pycache python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py tests/*.py install.py`
+- Result: passed.
+- Command: `python3 tools/check_line_limits.py`
+- Result: all Python files are at or below 500 lines.
+- Command: `find skills -mindepth 1 -maxdepth 1 -type d -print | sort`
+- Result: exactly the four public Agent Memory skills remain.
+- Command: `python3 tools/agent_memory.py design-check --help`
+- Result: the new check is available through the single stable runtime entry point.
+- Command: `git diff --check`
+- Result: passed.
+
+Rollback notes:
+
+- Remove the design goal, architecture slice, ArkTS design-edge helper, and `design-check`; restore the previous Query Skill body. Existing memory, query, diagnosis, impact, and four public skills remain usable.
+
+## 2026-07-14 - Complete long-term design reasoning evolution
+
+Files added or extended:
+
+- `tools/agent_memory_runtime/design_protocol.py`
+- `tools/agent_memory_runtime/design_fitness.py`
+- `tools/agent_memory_runtime/design_compare.py`
+- `tools/agent_memory_runtime/design_verify.py`
+- `tools/agent_memory_runtime/design_eval.py`
+- `tools/agent_memory_runtime/design_evidence.py`
+- `tools/agent_memory_runtime/cli_design.py`
+- `docs/design-reasoning.md`
+- `docs/eval/design-cases.json`
+- `tests/test_design_evolution.py`
+- Existing design graph, runtime entry, Query Skill reference, README, runtime, usage, schema, protocol, and plan documentation.
+
+What changed:
+
+- Added versioned `design-contract/v1`, `design-delta/v1`, `design-rules/v1`, and `design-evaluation/v1` protocols while retaining legacy proposal compatibility.
+- Added deterministic project fitness rules for forbidden edges, required edges, and single ownership. Explicit project rules remain caller-owned and cannot be promoted from experience automatically.
+- Added `design-compare` with shared architecture-slice reuse, hard-gate-first ranking, quality coverage, uncertainty, change-size dimensions, deterministic reasons, and tradeoffs.
+- Added `design-verify` for planned/actual file drift, explicit executed tests, learned-graph alignment, proposal fitness rechecks, and replan triggers.
+- Added ArkTS calls, state reads/writes, API exposure/consumption, callbacks, implements, and conservative overrides. Architecture edges now expose evidence class and extractor provenance; extractor version is `code-wiki:v4`.
+- Added `eval-design` and nine deterministic ArkTS seed cases covering state, service boundaries, API compatibility, routes/config, async observability, migration, callbacks, tests, and logs.
+- Preserved the four public Skills, stable runtime entry, SQLite schema, bounded graph traversal, read-only design artifacts, and 500-line Python limit.
+
+Verification:
+
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest tests.test_repository_design tests.test_design_evolution tests.test_evidence_fabric tests.test_evidence_fabric_hardening tests.test_agent_memory_part_13 tests.test_agent_memory_part_14 tests.test_quality_closed_loop tests.test_graph_quality`: 58 tests passed.
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest discover tests`: 266 tests passed in 127.040 seconds.
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py tests/*.py install.py`: passed.
+- `python3 tools/check_line_limits.py`: all Python files are at or below 500 lines.
+- `python3 tools/agent_memory.py --help`: design check, compare, verify, and evaluation commands are available through the single runtime entry.
+- Four-skill directory check, JSON validation, and `git diff --check`: passed.
+
+Rollback notes:
+
+- Remove compare, verify, evaluation, protocol, fitness, and evidence-class modules to return to the prior single-proposal design checker. No SQLite migration or stored-memory rollback is required.
+
+## 2026-07-15 - Add language-neutral semantic indexing and Incident causal candidates
+
+Files added or extended:
+
+- `tools/agent_memory_runtime/semantic_models.py`
+- `tools/agent_memory_runtime/semantic_adapters.py`
+- `tools/agent_memory_runtime/semantic_ecma.py`
+- `tools/agent_memory_runtime/semantic_index.py`
+- `tools/agent_memory_runtime/incident_semantic_chain.py`
+- Existing code learning, graph, impact, architecture, Incident, storage, documentation, and Skill protocol files.
+- `tests/test_semantic_index.py`
+- `docs/semantic-index.md`
+- `docs/superpowers/plans/2026-07-15-semantic-index-code-graph-causal-chain.md`
+
+What changed:
+
+- Added validated, bounded `semantic-index/v1` batches and a language-neutral `LanguageAdapter` registry.
+- Added ArkTS and TypeScript static adapters for definitions, calls, state flow, inheritance, callbacks, API boundaries, and await relationships.
+- Enriched `code_symbols` with stable identity, qualified name, signature, source span, adapter provenance, source digest, and evidence class.
+- Persisted resolved semantic relations as versioned SQLite `memory_edges`; stronger exact evidence blocks weaker duplicate writes.
+- Expanded narrow relearning to capture and rebuild reverse dependents before symbol ids are replaced.
+- Added fixed-size SQLite query chunks for semantic binding and reverse-dependent refresh scopes.
+- Included symbol-level relationships in bounded architecture slices and change-impact analysis.
+- Added compact Incident causal chains from observed log to enclosing symbol and semantic candidates. Causal role is kept separate from evidence precision, and raw log streams or chain-of-thought are not stored.
+- Preserved the stable CLI, SQLite source of truth, four public Skills, FTS5 fast path, and file-level graph fallback.
+
+Verification:
+
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest discover -s tests -p 'test_*.py'`: 276 tests passed in 147.981 seconds.
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m py_compile tools/agent_memory.py tools/agent_memory_runtime/*.py tests/*.py install.py`: passed.
+- `python3 tools/check_line_limits.py`: all Python files are at or below 500 lines.
+- Four-Skill directory check: exactly four public Agent Memory skills remain.
+- `python3 tools/agent_memory.py --help`: all functionality remains behind the single stable runtime entry.
+- `git diff --check`: passed.
+
+Rollback notes:
+
+- Disable semantic adapter invocation and remove compact Incident `causal_chain` consumption. Existing file-level edges, code/log records, FTS5 queries, string candidate chains, design checks, impact analysis, and four Skills remain usable. Added nullable columns require no destructive rollback.

@@ -1,153 +1,69 @@
-# Change Design Skill + Memory Query Template
+# Repository-Grounded Change Design Template
 
-Use this template inside a design or modification-planning skill when the Agent needs to propose a safe change.
-
-The goal is to recursively refine the change plan by querying memory after each new design frame, not to query once and write a patch.
-
-## Principle
+This compatibility template now points to the installed Query Skill's focused design protocol:
 
 ```text
-Understand requested change
-  -> query memory for constraints
-  -> inspect relevant code/wiki
-  -> draft change frame
-  -> query memory again using the draft's risks and touched areas
-  -> refine plan
-  -> stop when risks and affected areas are explicit
+skills/agent-memory-query/references/code-design.md
 ```
 
-Memory is a source of constraints, prior decisions, and known failure modes. It is not proof that a design is correct.
+The design workflow is grounded in current code and typed graph relationships. Historical memory supplies warnings or business-semantic corrections only.
 
-## Change Design State
+## Workflow
 
-Maintain this state:
+```text
+Clarify goal and constraints
+  -> retrieve design evidence
+  -> inspect bounded architecture slice
+  -> reconstruct current responsibilities and dependency direction
+  -> generate candidate delta graphs
+  -> run deterministic design checks
+  -> compare tradeoffs
+  -> recommend the smallest verifiable design
+```
+
+## Retrieve Current Architecture
+
+```bash
+python tools/agent_memory.py evidence-context \
+  --project . \
+  --goal design \
+  --query "<design goal and current anchor>" \
+  --json
+```
+
+Read current code evidence before `architecture_slice`. Treat missing anchors or edges as coverage gaps. Do not infer an absent dependency from an incomplete learned scope.
+
+## Check A Candidate
+
+Express the intended structural change as nodes and typed edges, not as source code or hidden reasoning:
 
 ```json
 {
-  "change_goal": "",
-  "affected_areas": [],
-  "known_constraints": [],
-  "open_design_questions": [],
-  "candidate_approaches": [],
-  "risks": [],
-  "memory_queries": [],
-  "files_to_inspect": []
+  "goal": "",
+  "anchors": [],
+  "add_nodes": [],
+  "modify_nodes": [],
+  "add_edges": [],
+  "remove_edges": [],
+  "assumptions": [],
+  "invariants": []
 }
 ```
 
-## Recursive Query Loop
-
-Run at most 4 rounds.
-
-For each round:
-
-1. Compress current design state into a sharper query.
-
-   Good query shape:
-
-   ```text
-   <feature/module> <intended change> <risk/constraint> <affected symbol>
-   ```
-
-2. Query memory:
-
-   ```bash
-   python tools/agent_memory.py context --project . --query "<design query>" --json
-   ```
-
-3. Interpret memory:
-
-   - `semantic_facts`: stable project rules and user preferences.
-   - `reflections`: previous mistakes and design cautions.
-   - `episodes`: related recent changes.
-   - `wiki_matches`: files/symbols to inspect before planning.
-   - `code_log_matches` and `edge_matches`: observability points that may need to stay stable or be updated with the change.
-   - `followup_focus`: the dominant retrieval scene for the next recursive branch.
-   - `suggested_followup_terms`: the first candidate anchors for the next planning query.
-
-   Use `followup_focus` like this:
-
-   ```text
-   route    -> bias navigation, page, router, route-target reasoning
-   resource -> bias resource keys, UI assets, string/media references
-   log      -> bias observability, logger, failure-text, emitted-log stability
-   config   -> bias permissions, dependencies, abilities, module/config files
-   empty    -> fall back to the strongest search_terms and exact anchors
-   ```
-
-4. Inspect relevant code/wiki:
-
-   ```bash
-   python tools/agent_memory.py wiki-search --project . --query "<affected module or symbol>" --json
-   ```
-
-5. Refine the design state:
-
-   - add affected areas
-   - remove invalid approaches
-   - add risks
-   - sharpen open questions
-   - update files to inspect
-
-   Build the next design query in this order:
-
-   1. keep the original change goal
-   2. add `suggested_followup_terms`
-   3. add the most relevant risk or constraint phrase
-   4. if needed, add exact file/symbol/resource/log anchors
-
-6. Stop if a stopping condition is met.
-
-## Stopping Conditions
-
-Stop recursive memory querying when any condition is true:
-
-- A minimal safe approach is clear.
-- The next query repeats the previous query without new information.
-- A blocking design question requires the user.
-- 4 rounds have run.
-- Risks and affected areas are explicit enough to write an implementation plan.
-
-## Output Shape For Design Skill
-
-Before implementation, report:
-
-```text
-Design goal:
-- ...
-
-Memory constraints:
-- ...
-
-Affected areas:
-- ...
-
-Candidate approaches:
-- Recommended: ...
-- Alternative: ...
-
-Risks:
-- ...
-
-Verification plan:
-- ...
-```
-
-## Reflection After Change
-
-After implementation and verification:
-
 ```bash
-python tools/agent_memory.py reflect \
-  --project . \
-  --task "<change task>" \
-  --summary "<what changed>" \
-  --lesson "<durable design lesson>" \
-  --future-rule "<next-time rule>"
+python tools/agent_memory.py design-check --project . --proposal proposal.json --json
 ```
 
-Then:
+Revise blocked candidates. Explain warnings that remain acceptable. A generic pattern name is not a sufficient design rationale.
 
-```bash
-python tools/agent_memory.py vault-export --project .
-```
+## Output
+
+- Goal, exclusions, and acceptance criteria
+- Current architecture facts and evidence gaps
+- Constraints and invariants
+- Candidate designs and real tradeoffs
+- Recommended Delta Graph
+- Deterministic check findings
+- Affected areas and verification plan
+
+Do not persist the proposal as experience merely because it was generated. Reflect only after implementation and verification reveal a durable lesson.

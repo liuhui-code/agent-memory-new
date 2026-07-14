@@ -67,11 +67,12 @@ def collect_incident_trace_matches(project: Project, query: str, limit: int) -> 
                     OR COALESCE(entry_log_text, '') LIKE ?
                     OR COALESCE(dominant_log_events, '') LIKE ?
                     OR COALESCE(suspected_chain, '') LIKE ?
+                    OR COALESCE(causal_chain, '') LIKE ?
                   )
                 ORDER BY updated_at DESC, id DESC
                 LIMIT ?
                 """,
-                (project.project_id, like, like, like, like, limit * 3),
+                (project.project_id, like, like, like, like, like, limit * 3),
             ).fetchall()
         matches: list[dict[str, Any]] = []
         for row in rows:
@@ -86,6 +87,7 @@ def collect_incident_trace_matches(project: Project, query: str, limit: int) -> 
                     "dominant_log_events",
                     "diagnosis_summary",
                     "suspected_chain",
+                    "causal_chain",
                     "root_cause_hypothesis",
                     "resolution",
                 )
@@ -104,6 +106,7 @@ def collect_incident_trace_matches(project: Project, query: str, limit: int) -> 
             item["match_reasons"] = reasons
             item["dominant_log_events"] = json.loads(row["dominant_log_events"] or "[]")
             item["candidate_chain"] = json.loads(row["suspected_chain"] or "[]")
+            item["causal_chain"] = json.loads(row["causal_chain"] or "[]")
             item["links"] = trace_links(conn, project, int(row["id"]))
             matches.append(item)
     matches.sort(key=lambda item: (item.get("score", 0), item.get("updated_at", ""), item.get("id", 0)), reverse=True)

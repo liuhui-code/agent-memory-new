@@ -12,6 +12,7 @@ from typing import Any
 from .active_learning_queue import build_active_learning_actions, build_active_learning_queue
 from .code_wiki import semantic_followup_from_db
 from .evidence_chain_quality import build_evidence_chain_summary, enrich_reflections_with_evidence_chains
+from .evidence_runtime_governance import evidence_runtime_summary
 from .graph_quality import (
     build_graph_quality,
     build_graph_quality_actions,
@@ -25,6 +26,7 @@ from .governance_action_budget import (
     compact_maintain_plan_payload,
 )
 from .incident_trace_governance import build_incident_trace_actions
+from .impact_feedback import impact_feedback_summary
 from .experience_maturity import score_experience_maturity
 from .experience_usage import build_experience_usage_actions, fetch_experience_usage_summary
 from .memory_tiers import build_memory_tier_actions, build_memory_tiers
@@ -193,6 +195,8 @@ def maintain_health(args: argparse.Namespace) -> None:
         limit=5,
     )
     last_quality_gate = load_quality_gate_snapshot(project)
+    impact_feedback = impact_feedback_summary(project)
+    evidence_runtime = evidence_runtime_summary(project)
 
     duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
     low_confidence_count = low_conf_semantic_count + low_conf_reflection_count
@@ -271,6 +275,8 @@ def maintain_health(args: argparse.Namespace) -> None:
         "active_learning_queue": active_learning_queue,
         "memory_tiers": memory_tiers,
         "last_quality_gate": last_quality_gate,
+        "impact_feedback": impact_feedback,
+        "evidence_runtime": evidence_runtime,
         "runtime_performance": build_runtime_performance_summary(project),
         "recommended_actions": recommended_actions,
     }

@@ -69,8 +69,9 @@ def build_session_candidates(matched_events: list[dict[str, Any]]) -> list[dict[
     for event in ordered[1:]:
         previous = current[-1]
         same_process = str(event.get("process") or "") == str(previous.get("process") or "")
+        correlated = shared_correlation(event, previous)
         close_lines = int(event.get("line_number") or 0) - int(previous.get("line_number") or 0) <= SESSION_EVENT_GAP
-        if same_process and close_lines:
+        if correlated or (same_process and close_lines):
             current.append(event)
         else:
             sessions.append(current)
@@ -84,6 +85,8 @@ def build_session_candidates(matched_events: list[dict[str, Any]]) -> list[dict[
         event_types = unique_list([str(event.get("event_type") or "") for event in events if str(event.get("event_type") or "").strip()])[:8]
         shared_request_ids = unique_list([str(event.get("request_id") or "") for event in events if str(event.get("request_id") or "").strip()])[:4]
         shared_session_ids = unique_list([str(event.get("session_id") or "") for event in events if str(event.get("session_id") or "").strip()])[:4]
+        trace_ids = unique_list([str(event.get("trace_id") or "") for event in events if str(event.get("trace_id") or "").strip()])[:4]
+        span_ids = unique_list([str(event.get("span_id") or "") for event in events if str(event.get("span_id") or "").strip()])[:4]
         timestamps = [str(event.get("timestamp") or "") for event in events if event.get("timestamp")]
         candidates.append(
             {
@@ -96,11 +99,21 @@ def build_session_candidates(matched_events: list[dict[str, Any]]) -> list[dict[
                 "event_types": event_types,
                 "request_ids": shared_request_ids,
                 "session_ids": shared_session_ids,
+                "trace_ids": trace_ids,
+                "span_ids": span_ids,
                 "dominant_terms": dominant_terms,
                 "summary": "; ".join(dominant_terms[:4]) or "runtime session candidate",
             }
         )
     return candidates
+
+
+def shared_correlation(left: dict[str, Any], right: dict[str, Any]) -> bool:
+    for key in ("trace_id", "request_id", "session_id"):
+        left_value = str(left.get(key) or "").strip()
+        if left_value and left_value == str(right.get(key) or "").strip():
+            return True
+    return False
 
 
 
