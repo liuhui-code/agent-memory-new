@@ -24,6 +24,27 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-14 - Add user-facing design capability guide
+
+Files changed:
+- `docs/design-usage-guide.md`
+- `README.md`
+
+What changed:
+- Added a Chinese end-to-end guide for natural-language use through the fixed Query Skill and direct CLI use for inspection or CI.
+- Documented intent, contract, candidate Delta, optional project rules, Change Plan progress, compiler/test evidence, revision binding, final verification, and reviewed Outcome calibration.
+- Added copy-ready ArkTS examples, result-state handling, Agent behavior boundaries, a minimal workflow, and common questions.
+
+Why:
+- The design control loop was implemented and internally documented, but users lacked one operational guide that explained how to invoke and interpret it without learning a fifth Skill.
+
+Verification:
+- Markdown links, command names, schema versions, and examples were checked against the current CLI and runtime protocol.
+- `git diff --check` passed.
+
+Rollback notes:
+- Remove the guide and README link; runtime behavior and stored data are unchanged.
+
 ## 2026-07-14 - Harden repository-grounded design quality
 
 Files changed:
