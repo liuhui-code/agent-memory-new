@@ -9,7 +9,7 @@ from typing import Any, Iterable
 from .models import Project
 from .design_evidence import EVIDENCE_RANK, evidence_class
 from .storage import connect
-from .text import query_tokens, unique_list
+from .text import query_tokens
 
 
 ARCHITECTURE_TYPES = {"code_file", "code_symbol", "code_log_statement"}
@@ -39,6 +39,12 @@ def build_architecture_slice(
     with connect(project) as conn:
         anchor_rows = find_anchor_files(conn, project, paths, query)
         anchor_keys = {("code_file", int(row["id"])) for row in anchor_rows}
+        query_terms = [term for term in query_tokens(query) if len(term) > 2][:6]
+        baseline_keys = {
+            ("code_file", int(row["id"]))
+            for row in anchor_rows
+            if row_matches_terms(row, query_terms)
+        }
         seen = set(anchor_keys)
         frontier = set(anchor_keys)
         edge_rows: dict[int, dict[str, Any]] = {}
@@ -66,9 +72,14 @@ def build_architecture_slice(
     stable_edges = stable_edge_payloads(edge_rows.values(), node_map, limits["max_edges"])
     nodes = sorted(node_map.values(), key=lambda item: (item["layer"], item["id"]))
     anchor_ids = [node_map[key]["id"] for key in anchor_keys if key in node_map]
+    explicit_ids = {f"file:{path}" for path in paths}
+    scope_entries = sorted(set(anchor_ids) & explicit_ids)
+    baseline_entries = sorted(node_map[key]["id"] for key in baseline_keys if key in node_map)
     relations = Counter(edge["relation"] for edge in stable_edges)
     return {
         "entry_points": anchor_ids,
+        "baseline_entry_points": baseline_entries,
+        "scope_entry_points": scope_entries,
         "nodes": nodes,
         "edges": stable_edges,
         "boundaries": boundary_summary(nodes, stable_edges),
@@ -103,28 +114,42 @@ def evidence_paths(items: Iterable[Any]) -> list[str]:
 
 
 def unique_paths(paths: list[str]) -> list[str]:
-    return unique_list([str(path).strip().replace("\\", "/") for path in paths if str(path).strip()])[:12]
+    result: list[str] = []
+    seen: set[str] = set()
+    for path in paths:
+        normalized = str(path).strip().replace("\\", "/")
+        key = normalized.casefold()
+        if not normalized or key in seen:
+            continue
+        seen.add(key)
+        result.append(normalized)
+    return result[:12]
+
+
+def row_matches_terms(row: dict[str, Any], terms: list[str]) -> bool:
+    text = " ".join(str(row.get(field) or "") for field in ("file_path", "business_summary", "business_terms")).lower()
+    return bool(terms) and any(term.lower() in text for term in terms)
 
 
 def find_anchor_files(conn: Any, project: Project, paths: list[str], query: str) -> list[dict[str, Any]]:
-    rows: list[Any] = []
+    rows: dict[int, dict[str, Any]] = {}
     if paths:
         placeholders = ",".join("?" for _ in paths)
-        rows = conn.execute(
+        matches = conn.execute(
             f"SELECT * FROM code_files WHERE project_id = ? AND file_path IN ({placeholders}) LIMIT 12",
             (project.project_id, *paths),
         ).fetchall()
-    if rows:
-        return [dict(row) for row in rows]
+        rows.update((int(row["id"]), dict(row)) for row in matches)
     terms = [term for term in query_tokens(query) if len(term) > 2][:6]
     if not terms:
-        return []
+        return list(rows.values())
     clauses = " OR ".join("LOWER(file_path || ' ' || COALESCE(business_summary, '') || ' ' || COALESCE(business_terms, '')) LIKE ?" for _ in terms)
-    rows = conn.execute(
+    matches = conn.execute(
         f"SELECT * FROM code_files WHERE project_id = ? AND ({clauses}) ORDER BY updated_at DESC LIMIT 8",
         (project.project_id, *(f"%{term.lower()}%" for term in terms)),
     ).fetchall()
-    return [dict(row) for row in rows]
+    rows.update((int(row["id"]), dict(row)) for row in matches)
+    return list(rows.values())[:12]
 
 
 def edges_for_frontier(
@@ -221,6 +246,7 @@ def node_payload(key: tuple[str, int], row: dict[str, Any]) -> dict[str, Any]:
         } if entity_type == "code_symbol" else None,
         "semantic_adapter": row.get("semantic_adapter"),
         "evidence_class": row.get("evidence_class"),
+        "updated_at": row.get("updated_at"),
     }
 
 

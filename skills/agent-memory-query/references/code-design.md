@@ -5,20 +5,22 @@ Use this protocol for feature design, refactoring, interface changes, state flow
 ## Workflow
 
 1. Clarify the goal, exclusions, hard constraints, and measurable acceptance criteria.
-2. Run design evidence retrieval and inspect `architecture_slice`.
-3. Reconstruct current responsibilities, dependency direction, state ownership, public consumers, tests, and observability.
-4. Identify stable boundaries and the smallest credible extension points.
-5. Generate two or three materially different candidate designs only when a real tradeoff exists.
-6. Express each serious candidate as a Delta Graph.
-7. Express hard constraints and measurable quality attributes as `design-contract/v1` when the choice is non-trivial.
-8. Run `design-check`; when alternatives exist, run `design-compare` and preserve explicit tradeoffs.
-9. Recommend the smallest viable design, then run `design-verify` after implementation and focused tests.
+2. Express scope, exclusions, acceptance criteria, constraints, and open questions as `design-intent/v1` for substantial work.
+3. Run design evidence retrieval and inspect the revision-bound `repository_model`; do not let candidate anchors define the baseline.
+4. Reconstruct topology, ownership, behavior, data, failure, runtime, and change views.
+5. Identify stable boundaries and the smallest credible extension points.
+6. Generate the smallest viable candidate first; add alternatives only for a material structural or behavioral tradeoff.
+7. Express each serious candidate as `design-delta/v2`, binding scenario claims to Delta, repository, and verification references.
+8. Run `design-check`; when alternatives exist, run `design-compare` and preserve its decision, sensitivities, tradeoffs, and selected plan.
+9. Implement in `change_plan.steps` order and replan when a trigger fires.
+10. Run `design-verify` with structured test/symbol evidence, then explicitly record only the compact reviewed outcome.
 
 ```bash
 python tools/agent_memory.py evidence-context --project . --goal design --query "<design goal>" --json
-python tools/agent_memory.py design-check --project . --proposal "<proposal.json>" --json
-python tools/agent_memory.py design-compare --project . --proposal "<a.json>" --proposal "<b.json>" --contract "<contract.json>" --json
-python tools/agent_memory.py design-verify --project . --proposal "<selected.json>" --base HEAD~1 --executed-tests "<test command>" --json
+python tools/agent_memory.py design-check --project . --intent "<intent.json>" --proposal "<proposal.json>" --contract "<contract.json>" --json
+python tools/agent_memory.py design-compare --project . --intent "<intent.json>" --proposal "<a.json>" --proposal "<b.json>" --contract "<contract.json>" --json
+python tools/agent_memory.py design-verify --project . --proposal "<selected.json>" --base HEAD~1 --test-evidence "<test-evidence.json>" --json
+python tools/agent_memory.py design-outcome --project . --verification "<verification.json>" --outcome success --json
 ```
 
 ## Design Rules
@@ -40,7 +42,7 @@ The proposal describes intended structural change, not source code or chain-of-t
 
 ```json
 {
-  "schema_version": "design-delta/v1",
+  "schema_version": "design-delta/v2",
   "id": "profile-cache",
   "contract_id": "profile-cache-contract",
   "goal": "Add profile cache",
@@ -53,6 +55,7 @@ The proposal describes intended structural change, not source code or chain-of-t
   "invariants": ["ProfilePage does not own persistence"],
   "constraint_coverage": [],
   "quality_coverage": [],
+  "coverage_evidence": [],
   "verification": {"tests": ["profile cache tests"], "observability": ["cache result signal"]}
 }
 ```

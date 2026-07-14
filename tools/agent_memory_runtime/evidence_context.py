@@ -7,13 +7,14 @@ import json
 from collections import Counter
 from typing import Any
 
-from .architecture_slice import build_architecture_slice
+from .architecture_slice import evidence_paths
 from .evidence_fusion import build_evidence_chains, evidence_gaps, evidence_tiers, fuse_evidence
 from .evidence_query_execution import execute_evidence_plan
 from .goal_planner import build_goal_plan
 from .models import Project
 from .performance_scoring import append_performance_sample, build_performance_sample, estimate_payload_tokens, monotonic_ms
 from .records import output
+from .repository_model import build_repository_model, public_repository_model
 from .query_results import record_query_miss_if_empty
 from .storage import ensure_initialized, resolve_project
 from .usage_samples import record_query_usage
@@ -80,8 +81,10 @@ def build_evidence_context(
         },
     }
     if plan.goal == "design":
-        payload["architecture_slice"] = build_architecture_slice(project, ranked, query)
-        payload["evidence_gaps"].extend(payload["architecture_slice"]["evidence_gaps"])
+        repository_model = build_repository_model(project, query, evidence_paths(ranked))
+        payload["repository_model"] = public_repository_model(repository_model)
+        payload["architecture_slice"] = repository_model["architecture"]
+        payload["evidence_gaps"].extend(repository_model["evidence_gaps"])
     return payload
 
 

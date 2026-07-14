@@ -38,6 +38,9 @@ def evaluate_case_pack(project: Any, pack: dict[str, Any]) -> dict[str, Any]:
     verified = [item for item in results if item["planned_file_recall"] is not None]
     proposal_count = sum(item["proposal_count"] for item in results)
     assumption_count = sum(item["assumption_count"] for item in results)
+    coverage_items = sum(item["coverage_item_count"] for item in results)
+    supported_items = sum(item["supported_coverage_count"] for item in results)
+    ready_plans = sum(item["ready_plan_count"] for item in results)
     return {
         "schema_version": "design-eval-result/v1",
         "status": "pass" if passed == len(results) else "fail",
@@ -48,6 +51,8 @@ def evaluate_case_pack(project: Any, pack: dict[str, Any]) -> dict[str, Any]:
             "contract_validity_rate": 1.0,
             "planned_file_recall": round(sum(item["planned_file_recall"] for item in verified) / len(verified), 4) if verified else 1.0,
             "unsupported_assumption_rate": round(assumption_count / proposal_count, 4) if proposal_count else 0.0,
+            "supported_coverage_rate": round(supported_items / coverage_items, 4) if coverage_items else 1.0,
+            "change_plan_ready_rate": round(ready_plans / proposal_count, 4) if proposal_count else 1.0,
             "input_payload_bytes": len(json.dumps(pack, ensure_ascii=False).encode("utf-8")),
             "case_count": len(results),
         },
@@ -126,6 +131,15 @@ def evaluate_case(project: Any, value: Any, index: int) -> dict[str, Any]:
         "proposal_count": len(proposals),
         "assumption_count": sum(len(proposal["assumptions"]) for proposal in proposals),
         "planned_file_recall": planned_file_recall,
+        "coverage_item_count": sum(
+            len(item["quality_scenarios"]) + len(item["constraint_coverage"])
+            for item in evaluations.values()
+        ),
+        "supported_coverage_count": sum(
+            sum(1 for coverage in item["quality_scenarios"] + item["constraint_coverage"] if coverage["coverage_state"] in {"supported", "verified"})
+            for item in evaluations.values()
+        ),
+        "ready_plan_count": sum(1 for item in evaluations.values() if item["change_plan"]["status"] == "ready"),
     }
 
 

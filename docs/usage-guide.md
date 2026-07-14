@@ -260,20 +260,21 @@ python tools/agent_memory.py evidence-context --project . \
   --goal design --query "design profile caching around ProfileService" --json
 ```
 
-Read current code evidence first, then `architecture_slice.entry_points`, `boundaries`, `state_owners`, `extension_points`, `public_consumers`, `test_anchors`, `observability_anchors`, and `evidence_gaps`. The slice is bounded to two hops. Missing edges mean incomplete evidence, not no dependency.
+Read current code evidence first, then `repository_model.snapshot`, its topology/ownership/behavior/data/failure/runtime/change views, and the compatibility `architecture_slice`. Check `baseline_entry_points` separately from `scope_entry_points`: candidate paths may broaden scope but cannot define the baseline. Missing edges mean incomplete evidence, not no dependency.
 
 Express a serious candidate as a Delta Graph and check it:
 
 ```bash
-python tools/agent_memory.py design-check --project . --proposal proposal.json --json
-python tools/agent_memory.py design-compare --project . --proposal a.json --proposal b.json --contract contract.json --json
-python tools/agent_memory.py design-verify --project . --proposal selected.json --base HEAD~1 --executed-tests "<test command>" --json
+python tools/agent_memory.py design-check --project . --intent intent.json --proposal proposal.json --contract contract.json --json
+python tools/agent_memory.py design-compare --project . --intent intent.json --proposal a.json --proposal b.json --contract contract.json --json
+python tools/agent_memory.py design-verify --project . --proposal selected.json --base HEAD~1 --test-evidence test-evidence.json --json
+python tools/agent_memory.py design-outcome --project . --verification verification.json --outcome success --json
 python tools/agent_memory.py eval-design --project . --cases docs/eval/design-cases.json --json
 ```
 
-Use `design-contract/v1` when a design has hard constraints or competing quality attributes. Use a version-controlled `design-rules/v1` file for explicit project architecture rules. Historical memory may identify a risk to inspect, but it cannot satisfy a contract, establish a current edge, select a candidate, or create a hard rule. See `docs/design-reasoning.md` for schemas, evidence classes, comparison order, and verification behavior.
+Use `design-intent/v1` for goal/scope/exclusions and `design-contract/v2` plus `design-delta/v2` when coverage must be evidence-backed. `claimed` means the candidate only names a scenario; `supported` requires valid Delta and repository references; `verified` requires successful structured verification. Use a version-controlled `design-rules/v1` file for explicit architecture rules. Historical memory and calibration may identify risk, but neither can satisfy a contract, establish a current edge, select a candidate, or create a hard rule.
 
-`blocked` contains structural errors that should change the proposal. `review` contains warnings or unknown anchors that need explicit engineering judgment. `clean` means the bounded checks found no issue; it does not prove the design or implementation correct. The runtime does not store the proposal. The Query Skill loads `references/code-design.md` only for design intent, so ordinary query and diagnosis tasks do not carry the design protocol.
+`blocked` contains structural errors that should change the proposal. `review` contains warnings, unsupported claims, or unknown anchors requiring judgment. `clean` means bounded checks found no issue; it does not prove correctness. Use `change_plan.steps` as the dependency-ordered implementation and verification plan. `design-verify` remains read-only; record a compact outcome only after reviewing its report. The Query Skill loads `references/code-design.md` only for design intent, so ordinary query and diagnosis tasks do not carry this protocol.
 
 For a Git change or an explicit file set:
 

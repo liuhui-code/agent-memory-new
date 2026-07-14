@@ -357,10 +357,11 @@ Design against the current repository rather than historical patterns:
 ```bash
 python tools/agent_memory.py evidence-context --project . --goal design \
   --query "design profile caching without moving persistence into the page" --json
-python tools/agent_memory.py design-check --project . --proposal proposal.json --json
+python tools/agent_memory.py design-check --project . \
+  --intent intent.json --proposal proposal.json --contract contract.json --json
 ```
 
-Design retrieval attaches a bounded `architecture_slice` with current entry points, typed relationships, evidence classes, boundaries, state owners, consumers, tests, observability anchors, and explicit coverage gaps. Versioned `DesignContract` and `DesignDelta` inputs let `design-check` evaluate hard constraints and quality scenarios. `design-compare` hard-gates and compares alternatives; `design-verify` checks planned changes against the actual diff, tests, and refreshed graph. The runtime remains deterministic, calls no LLM, and persists none of these artifacts. See [Repository-Grounded Design Reasoning](docs/design-reasoning.md).
+Design retrieval attaches `repository-model/v2`, a revision-bound baseline with topology, ownership, behavior, data, failure, runtime, and change views. Candidate paths broaden this baseline but cannot define it. V2 contracts and Deltas bind quality claims to current repository, Delta, and verification evidence. `design-compare` returns sensitivity/tradeoff points and a bounded Change Plan DAG; `design-verify` checks files, optional symbols, graph revision, structured tests, and scenario obligations. These paths remain deterministic and read-only. A separate `design-outcome` command can explicitly store only compact reviewed calibration metrics. See [Repository-Grounded Design Control Loop](docs/design-reasoning.md).
 
 The Query Skill uses progressive disclosure: its main `SKILL.md` is a thin intent router, while code understanding, diagnosis, impact, evidence policy, and code design live in one-level `references/` files loaded only when relevant. The public interface remains four skills.
 

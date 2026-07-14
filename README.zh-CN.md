@@ -122,8 +122,17 @@ Agent Memory 的目标就是把这些重复成本压下来。
 - SQLite 作为唯一事实源
 - Obsidian Vault 作为只读镜像
 - 支持代码学习、业务语义补充、日志锚点提取、经验治理
+- 支持基于当前代码图的设计 baseline、候选方案检查、权衡比较、变更 DAG 和实现验证
 - 支持 `procedure_experience` / `correction_experience` / `semantic_patch_experience`
 - 支持 `maintain-plan` 输出治理动作，而不是直接静默修改
+
+## 基于当前代码的设计闭环
+
+设计能力不把历史经验当成架构事实。运行时先根据用户目标构建绑定图 revision 的 `repository-model/v2`，分别呈现拓扑、状态所有权、行为、数据、失败、运行时和变更视图，再检查候选方案。
+
+候选中的文件只能扩展检查范围，不能决定 baseline。质量场景分为 `claimed`、`supported` 和 `verified`：只有同时关联当前仓库证据、设计 Delta 和成功验证义务，才能逐级提升。候选比较会输出敏感点、权衡点和有依赖顺序的 Change Plan；实现后再用文件、符号、代码图 revision 和结构化测试证据验证。
+
+设计意图、候选、源码 diff、测试日志和推理过程都不会自动写入数据库。只有用户明确执行 `design-outcome` 时，系统才保存少量召回率、未计划变更比例、场景验证率、失败测试数和重规划次数，用于后续校准，不能自动生成硬架构规则。
 
 ## 适合什么场景
 

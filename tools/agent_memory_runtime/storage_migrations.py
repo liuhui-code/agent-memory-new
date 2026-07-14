@@ -116,6 +116,8 @@ def migrate_schema(conn: sqlite3.Connection) -> None:
     migrate_memory_edge_metadata(conn)
     migrate_incident_semantic_columns(conn)
     create_impact_feedback_table(conn)
+    create_design_outcomes_table(conn)
+    migrate_design_outcome_columns(conn)
 
 
 def migrate_memory_edge_metadata(conn: sqlite3.Connection) -> None:
@@ -188,6 +190,37 @@ def create_impact_feedback_table(conn: sqlite3.Connection) -> None:
     )
 
 
+def create_design_outcomes_table(conn: sqlite3.Connection) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS design_outcomes (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          candidate_id TEXT NOT NULL,
+          contract_id TEXT NOT NULL,
+          verification_status TEXT NOT NULL,
+          outcome TEXT NOT NULL,
+          baseline_revision INTEGER NOT NULL DEFAULT 0,
+          current_revision INTEGER NOT NULL DEFAULT 0,
+          planned_file_recall REAL NOT NULL DEFAULT 0,
+          unplanned_file_ratio REAL NOT NULL DEFAULT 0,
+          planned_symbol_recall REAL NOT NULL DEFAULT 0,
+          scenario_verification_rate REAL NOT NULL DEFAULT 0,
+          failed_test_count INTEGER NOT NULL DEFAULT 0,
+          replan_count INTEGER NOT NULL DEFAULT 0,
+          created_at TEXT NOT NULL
+        )
+        """
+    )
+
+
+def migrate_design_outcome_columns(conn: sqlite3.Connection) -> None:
+    existing = {row["name"] for row in conn.execute("PRAGMA table_info(design_outcomes)").fetchall()}
+    for name in ("baseline_revision", "current_revision"):
+        if name not in existing:
+            conn.execute(f"ALTER TABLE design_outcomes ADD COLUMN {name} INTEGER NOT NULL DEFAULT 0")
+
+
 def migrate_incident_semantic_columns(conn: sqlite3.Connection) -> None:
     existing = {row["name"] for row in conn.execute("PRAGMA table_info(incident_traces)").fetchall()}
     if "causal_chain" not in existing:
@@ -212,6 +245,9 @@ def create_post_migration_indexes(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_impact_feedback_project_change
         ON impact_feedback(project_id, change_fingerprint, created_at);
+
+        CREATE INDEX IF NOT EXISTS idx_design_outcomes_project_created
+        ON design_outcomes(project_id, created_at DESC);
 
         CREATE INDEX IF NOT EXISTS idx_code_symbols_project_key
         ON code_symbols(project_id, symbol_key);

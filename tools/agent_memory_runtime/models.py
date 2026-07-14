@@ -24,6 +24,7 @@ REQUIRED_TABLES = {
     "experience_usage_events",
     "semantic_conflicts",
     "impact_feedback",
+    "design_outcomes",
 }
 
 VAULT_DIRS = [

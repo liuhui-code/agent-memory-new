@@ -24,6 +24,34 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-14 - Add repository-grounded design control loop
+
+Files changed:
+- Design protocol, repository-model, evaluation, planning, verification, outcome, CLI, storage, and governance runtime modules.
+- `tests/test_design_control_loop.py` and existing design-context coverage.
+- Agent, runtime, usage, schema, Skill protocol, Query design reference, README, and execution-plan documentation.
+
+What changed:
+- Added a revision-bound `repository-model/v2` shared by design context, candidate checks, comparison, impact analysis, and verification.
+- Separated goal-derived baseline anchors from explicit candidate/intent scope so a proposal cannot define its own evidence boundary.
+- Added v2 intent, contract, Delta, and evaluation support with `claimed`, `supported`, and `verified` coverage states while preserving v1 inputs and outputs.
+- Added deterministic evaluation dimensions, decision sensitivity/tradeoff points, and a bounded dependency-ordered `change-plan/v1`.
+- Added symbol and structured-test verification, graph revision drift checks, and explicit compact `design-outcome/v1` calibration with 1,000-row retention.
+- Kept proposals, source, diffs, test logs, generated reasoning, and architecture rules out of persistent storage.
+- Removed repeated internal architecture payloads from public model/comparison output.
+
+Why:
+- The previous commands checked isolated proposal slices but did not share one repository baseline, prove coverage claims, plan dependent edits, or calibrate predicted design impact against reviewed outcomes.
+
+Verification:
+- Focused design, evidence, semantic, impact, migration, and governance suites pass.
+- Final complete suite: 316 tests passed in 217.371 seconds.
+- On the 312 MiB / 16,300-file archive: warm single-candidate check median 0.496 seconds; two-candidate comparison median 0.490 seconds with one reused baseline.
+- Compact comparison output fell from 55,627 to 22,558 bytes after separating internal and public repository-model payloads.
+
+Rollback notes:
+- V1 design inputs remain compatible. Removing v2 orchestration leaves existing code facts and design checks usable. Dropping `design_outcomes` removes calibration only.
+
 ## 2026-07-14 - Add lazy governance lanes and graph-quality snapshots
 
 Files changed:

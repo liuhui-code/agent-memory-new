@@ -24,7 +24,7 @@ Query commands should use `--json` so the Agent can consume structured output.
 
 ## Repository Design Protocol
 
-The Query Skill loads its one-level code-design reference, then invokes deterministic runtime commands. Stable runtime-only schemas are `design-contract/v1`, `design-delta/v1`, `design-rules/v1`, and `design-evaluation/v1`.
+The Query Skill loads its one-level code-design reference, authors `design-intent/v1` and candidate Deltas, then invokes deterministic runtime commands. `repository-model/v2` supplies one revision-bound baseline across understanding, comparison, impact, planning, and verification. v1 contracts/Deltas remain compatible; v2 adds evidence-backed coverage, evaluator dimensions, a decision, and a bounded change-plan DAG.
 
 Design architecture edges may include `calls`, `reads_state`, `writes_state`, `exposes_api`, `consumes_api`, `registers_callback`, `implements`, and `overrides`. Each returned edge maps extractor provenance to `exact`, `static`, `heuristic`, or `inferred`; missing coverage remains an explicit gap.
 
@@ -32,4 +32,4 @@ Learn commands may populate those relations through the language-neutral `semant
 
 Exact providers use the process-level `semantic-provider-request/v1` / `semantic-provider-result/v1` contract. Skills must not create shell commands from provider configuration or claim that an external provider is installed. `eval-semantic` is the read-only comparison path; normal learning falls back to static and reports the reason.
 
-`design-check`, `design-compare`, `design-verify`, and `eval-design` are read-only. They do not persist contracts, proposals, raw diffs, comparisons, verification results, or generated reasoning. Learned experience cannot establish current architecture or create a hard rule.
+`design-check`, `design-compare`, `design-verify`, and `eval-design` are read-only. `design-outcome` explicitly stores only compact verification metrics. No command persists contracts, proposals, source, raw diffs, test logs, comparisons, or generated reasoning. Learned experience and design outcomes cannot establish current architecture or create a hard rule.

@@ -17,6 +17,7 @@ from .impact_feedback import impact_feedback_summary, recommend_tests
 from .models import Project
 from .performance_scoring import append_performance_sample, build_performance_sample, estimate_payload_tokens, monotonic_ms
 from .records import output, row_dict
+from .repository_model import build_repository_model, public_repository_model
 from .storage import connect, ensure_initialized, resolve_project
 from .text import json_list, unique_list
 from .usage_samples import record_query_usage
@@ -132,6 +133,11 @@ def build_impact_scope(
     user_query: str,
     max_items: int,
 ) -> dict[str, Any]:
+    repository_model = build_repository_model(
+        project,
+        user_query or "change impact " + " ".join(changed_files[:8]),
+        changed_files,
+    )
     graph = collect_impact_graph(project, changed_files)
     query = build_impact_query(changed_files, graph["direct_rows"], user_query)
     plan = build_goal_plan(query, "change_impact", max_items)
@@ -149,6 +155,10 @@ def build_impact_scope(
         [str(link.get("source") or "") for link in graph["reverse_dependents"]]
         + [str(link.get("target") or "") for link in graph["outgoing_dependencies"]]
     )
+    related_files = unique_preserved_paths([
+        *related_files,
+        *repository_related_files(repository_model, set(changed_files)),
+    ])
     recommended_tests = recommend_tests(project, changed_files, related_files)
     tiers = evidence_tiers(ranked)
     gaps = evidence_gaps(ranked, plan)
@@ -161,6 +171,7 @@ def build_impact_scope(
         "project_path": str(project.root),
         "query": query,
         "goal_plan": plan.to_dict(),
+        "repository_model": public_repository_model(repository_model),
         "changed_files": changed_files,
         "impact_summary": {
             "risk_score": risk["score"],
@@ -185,6 +196,20 @@ def build_impact_scope(
             "impact_feedback": impact_feedback_summary(project),
         },
     }
+
+
+def repository_related_files(model: dict[str, Any], changed_files: set[str]) -> list[str]:
+    architecture = model["architecture"]
+    node_paths = {node["id"]: node["file_path"] for node in architecture["nodes"]}
+    related: list[str] = []
+    for edge in architecture["edges"]:
+        source_path = node_paths.get(edge["source"], "")
+        target_path = node_paths.get(edge["target"], "")
+        if source_path in changed_files and target_path:
+            related.append(target_path)
+        if target_path in changed_files and source_path:
+            related.append(source_path)
+    return unique_preserved_paths(related)
 
 
 def collect_impact_graph(project: Project, changed_files: list[str]) -> dict[str, Any]:

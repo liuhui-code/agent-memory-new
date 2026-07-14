@@ -20,6 +20,7 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `memory_edges`: lightweight relation edges between learned files, symbols, and log statements.
 - `graph_runtime_state`: graph revision used to invalidate runtime graph-quality snapshots.
 - `impact_feedback`: compact change/test outcome summaries used to improve later test recommendations.
+- `design_outcomes`: bounded compact design-verification metrics used only for calibration.
 - `learn_scopes`: persistent manifests for previously learned entry, path, or whole-project scopes.
 - `query_misses`: failed retrieval attempts that may need later learning or reflection.
 - `semantic_conflicts`: durable review records for conflicting business summaries.
@@ -242,15 +243,26 @@ Runtime performance samples are stored as bounded JSONL in:
 
 These samples are operational telemetry, not memory. `maintain-health --json` summarizes them as `runtime_performance` with operation sample counts, p50/p95 elapsed time, average performance score, and latest status.
 
-## Runtime-Only Design Schemas
+## Design Control Schemas
 
-Repository design reasoning does not add SQLite tables. It uses caller-owned JSON:
+Repository design reasoning uses caller-owned or disposable JSON:
 
+- `design-intent/v1`: goal, scope, exclusions, acceptance criteria, constraints, and questions.
+- `repository-snapshot/v2`: graph revision, freshness, counts, truncation, and gaps.
+- `repository-model/v2`: bounded topology, ownership, behavior, data, failure, runtime, and change views.
 - `design-contract/v1`: goal, hard constraints, and measurable quality scenarios.
+- `design-contract/v2`: v1 plus intent linkage and evidence requirements.
 - `design-delta/v1`: candidate nodes/edges, assumptions, invariants, coverage, tests, and observability.
+- `design-delta/v2`: v1 plus evidence references for claimed coverage.
 - `design-rules/v1`: explicit `forbid_edge`, `require_edge`, and `single_owner` rules.
 - `design-evaluation/v1`: errors, warnings, quality coverage, architecture summary, and audit.
+- `design-evaluation/v2`: revision-bound model, coverage states, dimensions, synthesis brief, and change plan.
 - `design-comparison/v1`: hard-gated candidate dimensions, recommendation, and tradeoffs.
+- `design-decision/v1`: selected/rejected candidates, reasons, and tradeoffs.
+- `change-plan/v1`: bounded dependency-ordered edits and verification obligations.
 - `design-verification/v1`: planned/actual file drift, graph alignment, tests, and replan triggers.
+- `design-verification/v2`: v1 plus symbol drift, structured tests, scenario verification, and revisions.
+- `test-evidence/v1`: command, status, exit code, compact summary, and verified obligations.
+- `design-outcome/v1`: compact persisted calibration result.
 
-These artifacts are ephemeral. SQLite remains the source of truth only for current learned code/log/edge facts and governed memory.
+All artifacts except `design-outcome/v1` are ephemeral. `design_outcomes` stores only candidate/contract ids, baseline/current graph revisions, status/outcome, four bounded metrics, failed-test count, replan count, and timestamp. It never stores proposals, source, diffs, test logs, or reasoning; retention is capped at 1,000 rows per project. SQLite remains authoritative for current learned repository facts and compact governed outcomes.

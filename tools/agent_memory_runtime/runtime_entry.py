@@ -26,6 +26,7 @@ from .evidence_context import evidence_context_command
 from .design_check import design_check_command
 from .design_compare import design_compare_command
 from .design_eval import eval_design_command
+from .design_outcome import design_outcome_command
 from .design_verify import design_verify_command
 from .derived_rebuild import maintain_rebuild_derived
 from .evidence_attribution import eval_evidence_attribution_command
@@ -71,6 +72,7 @@ def command_handlers() -> dict[str, object]:
         "design_check_command": design_check_command,
         "design_compare_command": design_compare_command,
         "eval_design_command": eval_design_command,
+        "design_outcome_command": design_outcome_command,
         "eval_semantic_command": eval_semantic_command,
         "design_verify_command": design_verify_command,
         "impact_scope_command": impact_scope_command,

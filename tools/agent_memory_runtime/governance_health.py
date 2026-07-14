@@ -27,6 +27,7 @@ from .governance_action_budget import (
 )
 from .incident_trace_governance import build_incident_trace_actions
 from .impact_feedback import impact_feedback_summary
+from .design_outcome import design_calibration_summary
 from .experience_maturity import score_experience_maturity
 from .experience_usage import build_experience_usage_actions, fetch_experience_usage_summary
 from .memory_tiers import build_memory_tier_actions, build_memory_tiers
@@ -200,6 +201,7 @@ def maintain_health(args: argparse.Namespace) -> None:
     )
     last_quality_gate = load_quality_gate_snapshot(project)
     impact_feedback = impact_feedback_summary(project)
+    design_calibration = design_calibration_summary(project)
     evidence_runtime = evidence_runtime_summary(project)
     provider_health = semantic_provider_health(project)
 
@@ -283,6 +285,7 @@ def maintain_health(args: argparse.Namespace) -> None:
         "memory_tiers": memory_tiers,
         "last_quality_gate": last_quality_gate,
         "impact_feedback": impact_feedback,
+        "design_calibration": design_calibration,
         "evidence_runtime": evidence_runtime,
         "runtime_performance": build_runtime_performance_summary(project),
         "semantic_provider": provider_health,

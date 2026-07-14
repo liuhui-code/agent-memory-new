@@ -116,9 +116,12 @@ export class ProfileService {
         )
         payload = json.loads(result.stdout)
         architecture = payload["architecture_slice"]
+        repository_model = payload["repository_model"]
         relations = {edge["relation"] for edge in architecture["edges"]}
 
         self.assertEqual("design", payload["goal_plan"]["goal"])
+        self.assertEqual("repository-model/v2", repository_model["schema_version"])
+        self.assertNotIn("architecture", repository_model)
         self.assertIn("file:pages/ProfilePage.ets", architecture["entry_points"])
         self.assertIn("uses_service", relations)
         self.assertIn("renders_component", relations)

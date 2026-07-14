@@ -8,8 +8,12 @@ from typing import Any
 
 
 CONTRACT_SCHEMA = "design-contract/v1"
+CONTRACT_SCHEMA_V2 = "design-contract/v2"
 DELTA_SCHEMA = "design-delta/v1"
+DELTA_SCHEMA_V2 = "design-delta/v2"
 EVALUATION_SCHEMA = "design-evaluation/v1"
+EVALUATION_SCHEMA_V2 = "design-evaluation/v2"
+INTENT_SCHEMA = "design-intent/v1"
 RULES_SCHEMA = "design-rules/v1"
 MAX_CANDIDATES = 8
 MAX_RULES = 200
@@ -33,7 +37,7 @@ def load_json_object(path: str | Path, label: str) -> dict[str, Any]:
 def normalize_contract(value: dict[str, Any] | None, fallback_goal: str = "") -> dict[str, Any]:
     raw = dict(value or {})
     schema = raw.get("schema_version", CONTRACT_SCHEMA)
-    if schema != CONTRACT_SCHEMA:
+    if schema not in {CONTRACT_SCHEMA, CONTRACT_SCHEMA_V2}:
         raise SystemExit(f"unsupported design contract schema: {schema}")
     goal = raw.get("goal") or fallback_goal
     if not isinstance(goal, str) or not goal.strip():
@@ -47,8 +51,9 @@ def normalize_contract(value: dict[str, Any] | None, fallback_goal: str = "") ->
         raise SystemExit("design contract quality_scenarios must be a list of at most 50 items")
     normalized_scenarios = [normalize_scenario(item, index) for index, item in enumerate(scenarios)]
     return {
-        "schema_version": CONTRACT_SCHEMA,
+        "schema_version": schema,
         "id": contract_id.strip(),
+        "intent_id": string_value(raw.get("intent_id", ""), "design contract intent_id", allow_empty=True),
         "goal": goal.strip(),
         "constraints": constraints,
         "quality_scenarios": normalized_scenarios,
@@ -74,21 +79,27 @@ def normalize_scenario(value: Any, index: int) -> dict[str, Any]:
     if priority not in {"high", "medium", "low"}:
         raise SystemExit(f"quality_scenarios[{index}].priority must be high, medium, or low")
     result["priority"] = priority
+    requirements = value.get("evidence_requirements", [])
+    result["evidence_requirements"] = string_list(requirements, f"quality_scenarios[{index}].evidence_requirements")
     return result
 
 
 def normalize_delta_metadata(value: dict[str, Any]) -> dict[str, Any]:
     schema = value.get("schema_version", DELTA_SCHEMA)
-    if schema != DELTA_SCHEMA:
+    if schema not in {DELTA_SCHEMA, DELTA_SCHEMA_V2}:
         raise SystemExit(f"unsupported design delta schema: {schema}")
     candidate_id = value.get("id") or "candidate"
     if not isinstance(candidate_id, str) or not candidate_id.strip():
         raise SystemExit("design proposal id must be a non-empty string")
-    value["schema_version"] = DELTA_SCHEMA
+    value["schema_version"] = schema
     value["id"] = candidate_id.strip()
     value["contract_id"] = string_value(value.get("contract_id", "default"), "contract_id")
     value["quality_coverage"] = string_list(value.get("quality_coverage", []), "quality_coverage")
     value["constraint_coverage"] = string_list(value.get("constraint_coverage", []), "constraint_coverage")
+    raw_evidence = value.get("coverage_evidence", [])
+    if not isinstance(raw_evidence, list) or len(raw_evidence) > 100:
+        raise SystemExit("coverage_evidence must be a list of at most 100 items")
+    value["coverage_evidence"] = [normalize_coverage_evidence(item, index) for index, item in enumerate(raw_evidence)]
     verification = value.get("verification", {})
     if not isinstance(verification, dict):
         raise SystemExit("design proposal verification must be an object")
@@ -101,6 +112,51 @@ def normalize_delta_metadata(value: dict[str, Any]) -> dict[str, Any]:
     if len(value.get("add_edges", [])) + len(value.get("remove_edges", [])) > MAX_EDGES:
         raise SystemExit(f"design proposal exceeds the {MAX_EDGES} edge limit")
     return value
+
+
+def normalize_coverage_evidence(value: Any, index: int) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        raise SystemExit(f"coverage_evidence[{index}] must be an object")
+    target_type = value.get("target_type", "scenario")
+    if target_type not in {"scenario", "constraint"}:
+        raise SystemExit(f"coverage_evidence[{index}].target_type must be scenario or constraint")
+    return {
+        "target_type": target_type,
+        "target_id": string_value(value.get("target_id"), f"coverage_evidence[{index}].target_id"),
+        "delta_refs": string_list(value.get("delta_refs", []), f"coverage_evidence[{index}].delta_refs"),
+        "repository_refs": string_list(value.get("repository_refs", []), f"coverage_evidence[{index}].repository_refs"),
+        "verification_refs": string_list(value.get("verification_refs", []), f"coverage_evidence[{index}].verification_refs"),
+    }
+
+
+def normalize_intent(value: dict[str, Any] | None, fallback_goal: str) -> dict[str, Any]:
+    raw = dict(value or {})
+    schema = raw.get("schema_version", INTENT_SCHEMA)
+    if schema != INTENT_SCHEMA:
+        raise SystemExit(f"unsupported design intent schema: {schema}")
+    goal = string_value(raw.get("goal", fallback_goal), "design intent goal")
+    return {
+        "schema_version": INTENT_SCHEMA,
+        "id": string_value(raw.get("id", "default"), "design intent id"),
+        "goal": goal,
+        "scope": string_list(raw.get("scope", []), "design intent scope"),
+        "exclusions": string_list(raw.get("exclusions", []), "design intent exclusions"),
+        "acceptance_criteria": string_list(raw.get("acceptance_criteria", []), "design intent acceptance_criteria"),
+        "constraints": string_list(raw.get("constraints", []), "design intent constraints"),
+        "open_questions": string_list(raw.get("open_questions", []), "design intent open_questions"),
+    }
+
+
+def load_intent(path: str | None, fallback_goal: str) -> dict[str, Any]:
+    value = load_json_object(path, "design intent") if path else None
+    return normalize_intent(value, fallback_goal)
+
+
+def apply_intent_to_contract(contract: dict[str, Any], intent: dict[str, Any]) -> dict[str, Any]:
+    result = dict(contract)
+    result["intent_id"] = contract.get("intent_id") or intent["id"]
+    result["constraints"] = list(dict.fromkeys([*contract["constraints"], *intent["constraints"]]))
+    return result
 
 
 def load_contract(path: str | None, fallback_goal: str) -> dict[str, Any]:

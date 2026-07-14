@@ -147,6 +147,24 @@ def create_schema(conn: sqlite3.Connection) -> None:
           created_at TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS design_outcomes (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          candidate_id TEXT NOT NULL,
+          contract_id TEXT NOT NULL,
+          verification_status TEXT NOT NULL,
+          outcome TEXT NOT NULL,
+          baseline_revision INTEGER NOT NULL DEFAULT 0,
+          current_revision INTEGER NOT NULL DEFAULT 0,
+          planned_file_recall REAL NOT NULL DEFAULT 0,
+          unplanned_file_ratio REAL NOT NULL DEFAULT 0,
+          planned_symbol_recall REAL NOT NULL DEFAULT 0,
+          scenario_verification_rate REAL NOT NULL DEFAULT 0,
+          failed_test_count INTEGER NOT NULL DEFAULT 0,
+          replan_count INTEGER NOT NULL DEFAULT 0,
+          created_at TEXT NOT NULL
+        );
+
         CREATE TABLE IF NOT EXISTS learn_scopes (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           project_id TEXT NOT NULL,
@@ -305,6 +323,9 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_impact_feedback_project_change
         ON impact_feedback(project_id, change_fingerprint, created_at);
+
+        CREATE INDEX IF NOT EXISTS idx_design_outcomes_project_created
+        ON design_outcomes(project_id, created_at DESC);
 
         CREATE UNIQUE INDEX IF NOT EXISTS idx_learn_scopes_project_scope_key
         ON learn_scopes(project_id, scope_key);

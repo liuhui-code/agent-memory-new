@@ -9,13 +9,27 @@ from collections import defaultdict
 from pathlib import Path, PurePosixPath
 from typing import Any
 
-from .architecture_slice import DEPENDENCY_RELATIONS, build_architecture_slice, infer_layer
+from .architecture_slice import DEPENDENCY_RELATIONS, infer_layer, unique_paths
+from .design_change_plan import build_change_plan
+from .design_coverage import evaluate_coverage
+from .design_dimensions import evaluate_dimensions
 from .design_fitness import evaluate_rules
-from .design_protocol import EVALUATION_SCHEMA, load_contract, load_rules, normalize_delta_metadata
+from .design_protocol import (
+    CONTRACT_SCHEMA_V2,
+    DELTA_SCHEMA_V2,
+    EVALUATION_SCHEMA,
+    EVALUATION_SCHEMA_V2,
+    apply_intent_to_contract,
+    load_contract,
+    load_intent,
+    load_rules,
+    normalize_delta_metadata,
+)
+from .design_synthesis import build_synthesis_brief
 from .models import Project
 from .records import output
+from .repository_model import architecture_from_model, build_repository_model, public_repository_model
 from .storage import ensure_initialized, resolve_project
-from .text import unique_list
 
 
 REQUIRED_LISTS = (
@@ -30,8 +44,9 @@ def design_check_command(args: argparse.Namespace) -> None:
     ensure_initialized(project)
     proposal = load_proposal(Path(args.proposal))
     contract = load_contract(getattr(args, "contract", None), proposal["goal"])
+    intent = load_intent(getattr(args, "intent", None), contract["goal"])
     rules = load_rules(getattr(args, "rules", None))
-    payload = check_design_proposal(project, proposal, contract, rules)
+    payload = check_design_proposal(project, proposal, contract, rules, intent=intent)
     output(payload, args.json)
 
 
@@ -112,10 +127,15 @@ def check_design_proposal(
     contract: dict[str, Any] | None = None,
     rules: list[dict[str, Any]] | None = None,
     architecture: dict[str, Any] | None = None,
+    repository_model: dict[str, Any] | None = None,
+    intent: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     contract = contract or load_contract(None, proposal["goal"])
-    paths = proposal_paths(proposal)
-    architecture = architecture or build_architecture_slice(project, [], proposal["goal"], explicit_paths=paths)
+    intent = intent or load_intent(None, contract["goal"])
+    contract = apply_intent_to_contract(contract, intent)
+    paths = unique_paths([*proposal_paths(proposal), *intent["scope"]])
+    repository_model = repository_model or build_repository_model(project, intent["goal"], paths)
+    architecture = architecture or architecture_from_model(repository_model)
     current_nodes = {node["id"]: node for node in architecture["nodes"]}
     added_nodes = {node["id"]: added_node_payload(node) for node in proposal["add_nodes"]}
     nodes = {**current_nodes, **added_nodes}
@@ -131,15 +151,19 @@ def check_design_proposal(
     findings.extend(consumer_findings(proposal, architecture))
     findings.extend(test_findings(proposal, architecture, nodes))
     findings.extend(observability_findings(proposal, effective_edges, nodes))
-    findings.extend(contract_findings(proposal, contract))
+    coverage = evaluate_coverage(proposal, contract, architecture)
+    findings.extend(contract_reference_findings(proposal, contract))
+    findings.extend(coverage["findings"])
     findings.extend(evaluate_rules(rules or [], nodes, effective_edges))
     if not proposal["invariants"]:
         findings.append(finding("warning", "missing_invariants", "Proposal does not state behavior that must remain true."))
     errors = [item for item in findings if item["severity"] == "error"]
     warnings = [item for item in findings if item["severity"] == "warning"]
     status = "blocked" if errors else "review" if warnings else "clean"
+    dimensions = evaluate_dimensions(proposal, architecture, coverage, findings)
+    revision = int(repository_model["snapshot"]["graph_revision"])
     return {
-        "schema_version": EVALUATION_SCHEMA,
+        "schema_version": evaluation_schema(proposal, contract),
         "candidate_id": proposal["id"],
         "contract_id": contract["id"],
         "project_id": project.project_id,
@@ -149,7 +173,14 @@ def check_design_proposal(
         "warnings": warnings,
         "unverifiable_assumptions": proposal["assumptions"],
         "invariants": proposal["invariants"],
-        "quality_scenarios": scenario_evaluation(proposal, contract),
+        "baseline_revision": revision,
+        "repository_model": public_repository_model(repository_model),
+        "synthesis_brief": build_synthesis_brief(repository_model, intent, contract),
+        "quality_scenarios": coverage["quality_scenarios"],
+        "constraint_coverage": coverage["constraints"],
+        "coverage_summary": coverage["summary"],
+        "dimensions": dimensions,
+        "change_plan": build_change_plan(proposal, architecture, revision),
         "architecture_summary": {
             "entry_points": architecture["entry_points"],
             "node_count": architecture["audit"]["node_count"],
@@ -172,37 +203,27 @@ def check_design_proposal(
     }
 
 
-def contract_findings(proposal: dict[str, Any], contract: dict[str, Any]) -> list[dict[str, Any]]:
+def evaluation_schema(proposal: dict[str, Any], contract: dict[str, Any]) -> str:
+    if proposal["schema_version"] == DELTA_SCHEMA_V2 or contract["schema_version"] == CONTRACT_SCHEMA_V2:
+        return EVALUATION_SCHEMA_V2
+    return EVALUATION_SCHEMA
+
+
+def contract_reference_findings(proposal: dict[str, Any], contract: dict[str, Any]) -> list[dict[str, Any]]:
     findings: list[dict[str, Any]] = []
     if proposal["contract_id"] not in {"default", contract["id"]}:
         findings.append(finding("error", "contract_id_mismatch", "Candidate references a different design contract.", [proposal["contract_id"], contract["id"]]))
     covered_constraints = set(proposal["constraint_coverage"])
-    findings.extend(
-        finding("error", "uncovered_contract_constraint", f"Candidate does not cover contract constraint: {item}", [item])
-        for item in contract["constraints"] if item not in covered_constraints
-    )
     findings.extend(
         finding("warning", "unknown_constraint_coverage", f"Candidate claims an unknown contract constraint: {item}", [item])
         for item in covered_constraints - set(contract["constraints"])
     )
     covered_scenarios = set(proposal["quality_coverage"])
     findings.extend(
-        finding("warning", "uncovered_quality_scenario", f"Candidate does not address quality scenario: {item['id']}", [item["id"]])
-        for item in contract["quality_scenarios"] if item["id"] not in covered_scenarios
-    )
-    findings.extend(
         finding("warning", "unknown_quality_coverage", f"Candidate claims an unknown quality scenario: {item}", [item])
         for item in covered_scenarios - {scenario["id"] for scenario in contract["quality_scenarios"]}
     )
     return findings
-
-
-def scenario_evaluation(proposal: dict[str, Any], contract: dict[str, Any]) -> list[dict[str, Any]]:
-    covered = set(proposal["quality_coverage"])
-    return [
-        {"id": item["id"], "attribute": item["attribute"], "priority": item["priority"], "covered": item["id"] in covered}
-        for item in contract["quality_scenarios"]
-    ]
 
 
 def proposal_paths(proposal: dict[str, Any]) -> list[str]:
@@ -212,7 +233,7 @@ def proposal_paths(proposal: dict[str, Any]) -> list[str]:
         if path:
             values.append(path)
     values.extend(str(node.get("file_path")) for node in proposal["add_nodes"] if node.get("file_path"))
-    return unique_list(values)[:12]
+    return unique_paths(values)[:12]
 
 
 def path_from_node_id(node_id: str) -> str | None:
