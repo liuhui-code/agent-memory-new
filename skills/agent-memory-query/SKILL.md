@@ -5,7 +5,7 @@ description: Use when the user asks to query, search, recall, inspect, design ag
 
 # Agent Memory Query
 
-Route the request to one focused protocol, retrieve bounded evidence, and keep current source more authoritative than memory.
+Route the request to one focused protocol and query bounded project memory for the local Agent CLI. The Runtime returns historical experience, code-log keywords, current code anchors, and stored graph edges. The Agent CLI owns temporary-log analysis, candidate causes, call/causal chains, diagnosis, design decisions, and verification.
 
 ## Route
 
@@ -23,10 +23,10 @@ If multiple intents apply, start with the user's requested outcome. Load a secon
 
 ## Default Command
 
-Use coordinated evidence for substantial work:
+Use the historical query entry for diagnosis and code understanding:
 
 ```bash
-python tools/agent_memory.py evidence-context --project . --query "<goal>" --json
+python tools/agent_memory.py context --project . --query "<user problem or Agent-extracted term>" --json
 ```
 
 Pass an explicit goal only when the intent is clear:
@@ -41,7 +41,7 @@ applicable pattern candidates, principle checks, required decisions, and an
 unclaimed Delta template. Load `references/code-design.md` before authoring a
 candidate. Use the lower-level design commands only as that protocol requires.
 
-Use `context`, `search`, or `wiki-search` only when the selected protocol calls for a narrower view.
+Use `search` or `wiki-search` only when the selected protocol calls for a broader or code-only view. Do not pass temporary runtime-log files to Agent Memory.
 
 ## Authority
 
@@ -68,10 +68,13 @@ Read `references/evidence-policy.md` when the answer relies materially on reflec
 - Start from the user's natural-language goal.
 - Prefer exact file, symbol, route, resource, log, request, or session anchors for follow-up queries.
 - Respect query round, cursor, graph-depth, and result limits.
-- Read `evidence_gaps` and causal levels before concluding.
-- Never present `association` as verified causality.
+- Read `query_handoff.log_keywords`, code/log anchors, experience boundaries, and raw `edge_matches`.
+- Analyze temporary runtime logs directly in the Agent session.
+- Query each Agent-produced candidate cause separately; do not combine all candidates into one broad query.
+- Infer call chains and causal chains from current source and runtime order in the Agent session.
+- Never treat ranking, stored edges, or historical experience as a Runtime-produced diagnosis.
 - Do not run merge, promotion, stale marking, or vault export from this skill.
 
 ## Output
 
-Return only evidence needed for the selected intent. Cite inspectable files, symbols, edges, logs, or record ids. Separate current facts, assumptions, historical advice, risks, and verification actions. If evidence is incomplete, say what must be inspected instead of filling the gap with a remembered pattern.
+Return only query results needed for the selected intent. Cite inspectable files, symbols, stored edges, code-log templates, or record ids. Separate current code, historical advice, and search misses. The local Agent CLI must summarize the user log, form competing causes, reconstruct call/causal chains from source, and verify its conclusion.

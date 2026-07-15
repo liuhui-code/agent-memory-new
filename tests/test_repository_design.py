@@ -8,7 +8,9 @@ from pathlib import Path
 
 from tests.agent_memory_test_base import AgentMemoryTestBase, REPO_ROOT
 from tools.agent_memory_runtime.design_check import load_proposal
+from tools.agent_memory_runtime.evidence_context import build_evidence_context
 from tools.agent_memory_runtime.goal_planner import build_goal_plan
+from tools.agent_memory_runtime.storage import resolve_project
 
 
 class RepositoryDesignTests(AgentMemoryTestBase):
@@ -105,16 +107,10 @@ export class ProfileService {
         self.assertTrue(all(edge["extractor_version"] == "code-wiki:v4" for edge in static_edges))
 
     def test_design_context_contains_bounded_architecture_slice(self) -> None:
-        result = self.run_memory(
-            self.project,
-            "evidence-context",
-            "--goal",
-            "design",
-            "--query",
-            "Profile page service state design",
-            "--json",
+        project = resolve_project(self.project, self.memory_home(self.project))
+        payload = build_evidence_context(
+            project, "Profile page service state design", explicit_goal="design",
         )
-        payload = json.loads(result.stdout)
         architecture = payload["architecture_slice"]
         repository_model = payload["repository_model"]
         relations = {edge["relation"] for edge in architecture["edges"]}

@@ -53,7 +53,7 @@ See `docs/mvp-implementation-plan.md` for the full implementation plan.
 
 # 2. Query Fast Path
 
-`context`, `search`, `wiki-search`, `evidence-context`, and `impact-scope` are read-oriented commands.
+`context`, `search`, `wiki-search`, `design-assist`, and `impact-scope` are read-oriented commands.
 
 They may:
 
@@ -62,8 +62,7 @@ They may:
 - update lightweight usage fields such as `use_count` and `last_used_at`.
 - record a query miss when no result set has matches.
 - return learned code log statements and lightweight edges between files, symbols, and log statements.
-- return compact one-hop `evidence_chains` derived from allowed edge matches.
-- return a bounded `log_search_plan` that turns user problem language into log-oriented anchors, logger hints, and candidate log events.
+- return `query_handoff` with learned log keywords/statements, source anchors, memory references, and a next-query contract.
 - return a compact `query_audit` that explains result counts and why top records matched, reranked, passed gates, or were penalized.
 - return `memory_intent_v2` alongside the compatible `memory_intent`, plus `retrieval_lanes.lane_budgets`, so Agents can see whether the query is code-location, business-semantics, runtime-log diagnosis, procedure reuse, semantic correction, maintenance, or general context.
 - bound result sets before JSON output so large archives do not return unbounded payloads.
@@ -82,7 +81,6 @@ Network limits for the query fast path:
 ```text
 max_depth = 1
 edge_limit = 10
-evidence_chain_limit = 3
 allowed_relations = contains, emits_log
 ```
 
@@ -91,19 +89,15 @@ The runtime returns these limits in `network_limits` so skill callers know the c
 `search` is also bounded. It returns `result_limits` in the JSON payload so callers can see the current cap for each result set.
 `context` and `search` also return `query_audit`. This is an LLM-facing debug trail, not a ranking input. Use it to spot broad matches, stale or low-trust experience, feedback penalties, and missing query anchors before changing stored memory.
 
-`evidence-context` adds a bounded coordination pass over the existing result lanes. A deterministic goal planner chooses lane weights for design, diagnosis, change impact, code understanding, experience reuse, or governance. Candidates are normalized per source, then reranked by relevance, goal fit, authority, trust, graph support, completeness, freshness, and explicit penalties. This prevents a high raw score from one lane, especially a weak historical experience, from dominating direct code/log evidence only because scoring scales differ.
+`context` applies intent-aware lane budgets and calibration so a weak historical experience cannot dominate current code and learned log facts only because score scales differ. It returns factual retrieval results and raw bounded edges, not a synthesized diagnosis.
 
 `design-assist --query <goal>` is the compact natural-language design entry. It reuses the design evidence and candidate-independent repository workbench, then returns only current structure, deterministic design forces, structurally recognized patterns, conditional pattern candidates, principle checks, required decisions, an unclaimed Delta template, and interaction steps. Optional repeated `--scope`, `--constraint`, `--acceptance`, and `--exclude` values refine the inferred intent. `--mode` selects `design-only`, `design-and-implement`, or `compare`; it does not execute source changes. The command is read-only, bounded, LLM-free, and non-persistent.
 
-The planner also selects `query_scope: local|global`, emits at most three deterministic `subqueries`, and reports each round in `retrieval_metadata.query_execution`. It stops on sufficient cross-lane coverage, zero new evidence, low novelty, or the hard round limit. Final selection caps repeated sources, locations, and title patterns. Global mode adds only bounded SQL aggregates for code languages, active graph relations, incident scenes/statuses, and experience types; it does not traverse or summarize the entire database with an LLM.
-
-The `design` goal is local by default and weights current code plus active graph edges above historical memory. It attaches compatibility `architecture_slice` output and `repository-model/v2`. The model binds topology, ownership, behavior, data, failure, runtime, and change views to one graph revision. Goal-derived baseline anchors are discovered independently of candidate paths; explicit scope can broaden but not replace the baseline. Traversal remains bounded to depth 2, 80 nodes, and 160 edges.
+Design retrieval is internal to `design-assist` and weights current code plus active graph edges above historical memory. It attaches compatibility `architecture_slice` output and `repository-model/v2`. The model binds topology, ownership, behavior, data, failure, runtime, and change views to one graph revision. Goal-derived baseline anchors are discovered independently of candidate paths; explicit scope can broaden but not replace the baseline. Traversal remains bounded to depth 2, 80 nodes, and 160 edges.
 
 `design-prepare --intent <file>` builds the full revision-bound `design-workbench/v1` before any candidate exists. Its `design-guidance/v1` uses current graph structure plus intent forces; a pattern name alone cannot establish applicability. `design-check` produces deterministic dimensions and a dependency-derived `change-plan/v1`; unrelated work remains parallel. `design-progress` rebuilds state without storing a session and requires expected semantic declarations before added ArkTS/TypeScript files complete. `design-verify` checks file, symbol, API, source/learned graph, compiler, and test obligations. Optional `verification-run/v1` binds supplied reports to Git and file digests; stale evidence cannot verify obligations. These commands remain read-only and LLM-free. `design-outcome` stores bounded calibration features, activated as advisory only after five matching reviewed outcomes. See `docs/design-reasoning.md`.
 
-Evidence chains expose `causal_evidence.level`: `association`, `supported`, `verified`, or `rejected`. Shared text, one anchor, or static reachability remains association. A chain becomes supported only when a connected mechanism has the same explicit runtime identity and verified temporal order, or when a reviewed resolution is observed. Verification additionally requires a recorded intervention and before/after evidence. Stale, ignored, misleading, or superseded evidence rejects it. `signals` and `counter_evidence` explain the classification.
-
-Diagnosis-mode `evidence-context` also returns `hypothesis_ledger`. It keeps at most five candidates with supporting and counter evidence, missing evidence, and one next discriminating check. The latest bounded ledger is mirrored to `runtime/last_hypothesis_ledger.json`; it is operational state, not durable project knowledge.
+For incident work, the local Agent CLI owns temporary log reading, observations, hypotheses, source inspection, call-chain and causal-chain inference, intervention, and verification. `context.query_handoff` supplies stored log keywords/templates, source anchors, memory references, and explicit role boundaries. A query containing a strong learned log identity may also activate `query_handoff.path_context`: bounded current-graph candidate paths from recognized entries to the matched emitter, plus expected log anchors, provenance, uncertainty, and missing segments. These paths are navigation evidence, not a Runtime diagnosis. Experience and semantic corrections cannot create or rank them. Each candidate cause should still be submitted in a separate follow-up `context` query.
 
 `impact-scope` accepts `--base`, repeated `--files`, or `--diff-file`. It resolves changed paths without shell execution, attaches the same revision-bound repository model used by design, then projects indexed one-hop impact relationships. It returns reverse dependents, outgoing dependencies, a bounded risk score, evidence tiers, coverage gaps, and a focused verification checklist. It writes only `runtime/last_impact_scope.json`; it does not persist source diffs.
 
@@ -113,32 +107,9 @@ ArkTS learning also emits conservative design relations when they are directly i
 
 `impact-feedback` stores a compact change fingerprint, changed paths, recommended/executed/failed/flaky tests, missed targets, outcome, and note. `impact-scope` combines bounded static test-name/semantic matches with up to 200 recent feedback rows. Historical failures raise a recommendation; flaky outcomes add a warning and penalty. No diff body or test log is persisted.
 
-Both commands reuse the existing usage sample, performance sample, query-miss, retrieval-feedback, and maintenance paths. They do not add a second source of truth or persist full historical result sets. The latest coordinated query is mirrored in `runtime/last_evidence_context.json`.
+Read-oriented commands reuse the existing usage sample, performance sample, query-miss, retrieval-feedback, and maintenance paths. They do not add a second source of truth or persist full historical result sets. Temporary user logs remain entirely outside Runtime and SQLite.
 
-For temporary runtime logs, the runtime also exposes a bounded analysis command:
-
-```bash
-python tools/agent_memory.py analyze-runtime-log --project . --query "<query>" --log-file /path/to/runtime.log --json
-```
-
-This command does not ingest raw logs into SQLite. It:
-
-- reuses the current query fast path to build a `log_search_plan`
-- normalizes raw log lines into lightweight events
-- extracts lightweight runtime fields such as `event_name`, `trace_id`, `span_id`, `trace_flags`, `error_code`, `route`, `request_id`, `session_id`, `result`, `module`, `ability`, and `request_path` when they are present
-- scores those events against code-log anchors and query hints
-- returns bounded evidence slices, `session_candidates`, and a `runtime_episode_candidate`
-- builds a bounded `runtime-span-graph/v1` from explicit trace/span/parent-span identities and chronological events
-- returns a hypothesis ledger whose candidates stay open until correlation and temporal evidence support them
-- returns `log_signal_summary` and `low_signal_events` so Agents can see whether the temporary runtime evidence has enough timestamp, process, logger, stage, reason, correlation, and route/resource fields for diagnosis
-- attaches a bounded `otel_lite` projection to matched runtime events so Agents can read stable severity, logger, event, request, session, error, reason, route, and resource fields before falling back to raw excerpts
-- includes a lightweight `candidate_chain` and `chain_confidence` inside the runtime episode so downstream reflection can preserve the rough failure sequence
-- returns `log_improvement_suggestions` when the current evidence suggests a few missing high-value branch, start, or correlation logs
-- prepares a `reflect_payload_template` so the diagnosis can be compressed directly into a structured reflection or experience candidate, including correction-oriented fields such as `old_hypothesis`, bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action`
-
-The raw log file stays outside SQLite. The runtime only writes the last structured analysis snapshot to `runtime/last_runtime_log_analysis.json` and the compact active ledger to `runtime/last_hypothesis_ledger.json`.
-The `otel_lite` projection is an output adapter, not a new dependency or durable raw-log store. It uses familiar OpenTelemetry-style field names where useful while keeping the MVP local and lightweight.
-It also keeps a runtime-only rolling summary in `runtime/last_usage_sample.json`. This usage sample is not a new database table. It stores bounded facts such as:
+The Runtime keeps a rolling summary in `runtime/last_usage_sample.json`. This usage sample is not a new database table. It stores bounded facts such as:
 
 - which commands were used
 - how many query rounds happened
@@ -267,6 +238,8 @@ python tools/agent_memory.py eval-quality --project . --cases-dir docs/eval --js
 `eval-quality` looks for known golden case files in the cases directory, skips missing files by default, and returns one combined `quality_gate`. Use `--gate log_signal` to run only a selected gate, and repeat `--gate` for a small subset. Use `--strict` for CI-like checks where an empty cases directory should fail. Use `--fail-on-fail` when scripts should receive exit code 1 after a failing JSON report. When the combined gate fails, inspect each failed gate's `next_command_template` and rerun that specific eval for full case detail.
 Use `eval-quality --list-gates --json` to inspect registered gate names, case files, and rerun commands without executing cases or writing the latest quality gate snapshot.
 Each run also writes `runtime/last_quality_gate.json`. The output includes `quality_gate_delta`, a previous-run comparison with `newly_failed_gates`, `resolved_failed_gates`, and `status_change`. `maintain-health --json` exposes a compact `last_quality_gate` view from that file and recommends review when the latest gate failed. `maintain-plan --json` may emit `review_quality_gate_failure` in the `quality_gate` lane so the failure enters normal action budgeting. Treat the snapshot as disposable runtime telemetry, not durable memory.
+
+End-to-end Agent behavior uses a separate A/B benchmark protocol. `eval-harvest-history` creates review-only cases from Git fixes; `eval-mutate-arkts` creates non-destructive, oracle-known ArkTS/TypeScript mutations; `eval-agent-benchmark` runs baseline and memory variants through an approved executable Runner. Each variant receives a fresh frozen workspace. The memory variant gets an isolated index rebuilt from that revision, while the public request excludes the oracle, fix revision, and mutation edit. Results are deterministic metrics rather than LLM-judged prose. The latest compact result is stored in `runtime/last_agent_benchmark.json`, appended to `runtime/agent_benchmark_history.jsonl`, and exposed by `maintain-health.agent_benchmark`. See `docs/agent-benchmark.md`.
 
 To bootstrap editable examples without activating them as the default gate, run:
 

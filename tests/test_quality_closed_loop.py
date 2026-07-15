@@ -176,7 +176,7 @@ class QualityClosedLoopTests(unittest.TestCase):
 
     def test_log_signal_reports_observability_gaps(self) -> None:
         from tools.agent_memory_runtime.log_signal_quality import score_log_signal
-        from tools.agent_memory_runtime.runtime_logs import normalize_runtime_log_line
+        from tools.agent_memory_runtime.runtime_log_parsing import normalize_runtime_log_line
 
         result = score_log_signal(normalize_runtime_log_line("failed", 1))
 

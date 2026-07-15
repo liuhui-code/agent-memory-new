@@ -4,12 +4,14 @@
 
 Agent Memory 是一个面向 Coding Agent 的本地记忆运行时，重点服务 **ArkTS / HarmonyOS** 项目。
 
-它不是向量数据库，也不是重型知识图谱，而是一套可落地的本地记忆、反思、治理、日志诊断能力：
+它不是向量数据库，也不是重型知识图谱，更不是替 Agent 做根因判断的诊断器；它是一套可落地的本地记忆、反思、治理和问题上下文供给能力：
 
 - 用 **SQLite** 作为单一事实源
 - 用 **FTS5** 做轻量全文检索
 - 用 **代码日志提取 + memory edges** 建立代码关系图
 - 用有界上下文、结构化经验、代码锚点来**减少无效上下文和 token 消耗**
+
+代码图、日志图、因果关系和经验都只是辅助证据。本地 Agent CLI 负责理解问题、提出假设、阅读源码、分析流水日志、给出根因并完成验证。
 
 ## 这个项目重点解决什么
 
@@ -122,12 +124,19 @@ Agent Memory 的目标就是把这些重复成本压下来。
 - SQLite 作为唯一事实源
 - Obsidian Vault 作为只读镜像
 - 支持代码学习、业务语义补充、日志锚点提取、经验治理
+- 通过 `context.query_handoff` 提供历史经验、日志关键词、代码锚点和原始关系边；强日志锚点还会给出当前代码图上的多条候选调用路径和预期日志，临时日志分析、路径筛选、候选原因与因果推理由本地 Agent CLI 完成
 - 支持基于当前代码图的设计 baseline、候选方案检查、权衡比较、变更 DAG 和实现验证
 - 支持 `procedure_experience` / `correction_experience` / `semantic_patch_experience`
 - 支持 `maintain-plan` 输出治理动作，而不是直接静默修改
 
+日志锚定的调用路径恢复采用单一 `context` 门面和语言无关抽象，路径只由当前有效代码图构造，经验与业务语义纠正不能改变结构排名。实现与演进设计见
+[日志锚定的调用路径恢复设计](docs/log-anchored-call-path-design.md)。
+
 Agent CLI 如何实际调用 Query Skill 完成问题定位和代码设计，参见
 [Agent CLI 调用 Query Skill 中文指南](docs/agent-cli-query-skill-guide.zh-CN.md)。
+Runtime 与本地 Agent 的职责边界参见 [Agent 上下文供给边界](docs/context-provider-boundary.md)。
+如何从 Git 历史和 ArkTS 可控故障构建案例，并比较使用记忆前后的 Agent 表现，参见
+[Agent 自采集与 A/B 自验证基准](docs/agent-benchmark.md)。
 
 ## 基于当前代码的设计闭环
 

@@ -24,6 +24,57 @@ Rollback notes:
 - ...
 ```
 
+## 2026-07-15 - Design log-anchored call path reconstruction
+
+Files changed:
+- `docs/log-anchored-call-path-design.md`
+- `docs/context-provider-boundary.md`
+- `README.zh-CN.md`
+
+What changed:
+- Designed a single public `context` facade with an internal path-context facade instead of adding another diagnosis command.
+- Defined language-neutral Protocol boundaries for log-anchor resolution, graph access, entry classification, bounded path search, and explainable ranking.
+- Isolated log-anchor, program-path, semantic-correction, and experience lanes so advisory memory cannot change path seeds, graph edges, or structural ranking.
+- Specified revision-bound Top-K path candidates, Agent-owned temporary-log alignment, ArkTS entry adapters, bounded SQL/query behavior, degradation rules, phased implementation, and A/B quality gates.
+- Preserved primary references to SherLog, CodeQL path queries, dynamic slicing, process-model alignment, OpenTelemetry, W3C Trace Context, and Dapper.
+
+Why:
+- The next implementation needs an easy facade while keeping storage, language semantics, graph algorithms, and ranking replaceable. Static candidate paths must remain project context rather than Runtime-selected diagnoses.
+
+Verification:
+- `git diff --check` passed.
+- Documentation links and active command names were checked against the current repository.
+- No runtime code or SQLite schema changed.
+
+Rollback notes:
+- Remove the new design document and its two documentation links. Runtime behavior and stored data are unchanged.
+
+## 2026-07-15 - Make incident diagnosis Agent-led through context retrieval
+
+Files changed:
+- Query CLI, result shaping, handoff, usage sampling, and obsolete runtime-log modules.
+- Query/Reflect/Maintain Skill protocols and incident/query documentation.
+- Incident, query, evidence-boundary, design, and Agent benchmark tests.
+
+What changed:
+- Removed the public `evidence-context` and `analyze-runtime-log` commands and their Runtime handlers.
+- Made `context` return `agent-query-handoff/v1` with historical references, learned log keywords/templates, current source anchors, raw bounded graph edges, and a one-candidate-per-query follow-up contract.
+- Removed public evidence-chain, log-search-plan, and historical `likely_causes` output from normal query results.
+- Deleted unused Runtime hypothesis, temporary-log analysis, reflection-template, and evidence-governance paths.
+- Defined the incident workflow as user problem query, Agent-owned temporary-log analysis, multiple candidate causes, one follow-up query per cause, current-source inspection, and Agent-inferred call/causal chains.
+- Kept repository design and impact analysis as separate read-only capabilities, and kept exactly four public Skills.
+
+Why:
+- Temporary user logs and causal diagnosis require the local Agent's reasoning and source-inspection loop. Runtime-generated chains and hypotheses duplicated that role, encouraged false certainty, and complicated the interface instead of improving project context retrieval.
+
+Verification:
+- Public CLI help no longer exposes `evidence-context` or `analyze-runtime-log`.
+- All 341 tests passed, including focused query, incident, evidence-boundary, benchmark, semantic, and design coverage.
+- Python compilation, diff check, exactly four public Skills, and the 500-line Python gate passed.
+
+Rollback notes:
+- Restore the removed parsers/handlers and temporary-log modules to recover the old Runtime-led flow. Stored SQLite data does not require migration; `query_handoff` is additive to normal `context` output.
+
 ## 2026-07-14 - Add user-facing design capability guide
 
 Files changed:
@@ -4499,3 +4550,128 @@ Verification:
 Rollback notes:
 
 - Remove the Chinese guide and its four navigation links. No runtime or SQLite changes are involved.
+
+## 2026-07-15 - Add self-collected Agent A/B benchmark loop
+
+Files added or extended:
+
+- `tools/agent_memory_runtime/agent_benchmark*.py`
+- `tools/agent_memory_runtime/benchmark_history.py`
+- `tools/agent_memory_runtime/benchmark_mutations.py`
+- `tools/agent_memory_runtime/benchmark_workspace.py`
+- `tools/agent_memory_runtime/benchmark_memory.py`
+- CLI/runtime registration and governance health integration.
+- `tests/test_agent_benchmark.py`
+- `docs/agent-benchmark.md` and related runtime, usage, README, Agent, and Maintain Skill documentation.
+
+What changed:
+
+- Added review-only benchmark case harvesting from real Git history without exposing fix commits or commit messages to Agent runs.
+- Added non-destructive ArkTS/TypeScript mutations for removed awaits, corrupt route targets, and corrupt resource keys with source-digest and exact-occurrence guards.
+- Added an Agent-neutral JSON stdin/stdout Runner protocol for paired baseline and Query Skill executions.
+- Materialized each case in a fresh frozen workspace and rebuilt isolated memory from that revision for the Memory variant, preventing current-HEAD memory leakage.
+- Added deterministic scoring of the external Agent result: root-cause category, file recall/precision, forbidden direction, causal calibration, verification, query rounds, tokens, latency, and explicit context uplift.
+- Rejected private reasoning fields, kept raw logs and reasoning out of persistence, and exposed only a compact latest benchmark summary through maintain health.
+
+Verification:
+
+- Focused 27-test benchmark, quality-gate, design-assist, and causal-diagnosis regression passed.
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest discover -s tests -p 'test_*.py'`: 349 tests passed in 484.094 seconds.
+- Git history harvesting scanned 100 commits and produced 10 bounded draft previews in about 5.6 seconds on this repository.
+- Deterministic scoring processed 1,000 cases and 2,000 A/B observations in 23.48 ms.
+- CLI help, exactly-four-Skill, Python compilation, diff, and 500-line checks passed.
+
+Rollback notes:
+
+- Remove the three benchmark commands, benchmark modules, tests, documentation, and governance summary. Runtime benchmark JSON files are disposable telemetry; no SQLite rollback is required.
+
+## 2026-07-15 - Restore the Agent-led investigation boundary
+
+Files added or extended:
+
+- `tools/agent_memory_runtime/agent_context.py`
+- Evidence context, temporary runtime-log analysis, Span Graph, Incident Trace, evidence governance, and benchmark modules.
+- `skills/agent-memory-query/` diagnosis protocol.
+- `docs/context-provider-boundary.md` and related runtime, usage, benchmark, README, and Chinese Agent CLI documentation.
+- `tests/test_causal_diagnosis.py` and benchmark tests.
+
+What changed:
+
+- Removed Runtime-generated diagnosis hypothesis ledgers, candidate root causes, stop decisions, and intervention suggestions from query and log-analysis output.
+- Added bounded `agent-investigation-context/v1` handoffs containing evidence references, observed relation references, investigation gaps, query terms, and an explicit `no_runtime_diagnosis` boundary.
+- Upgraded Span Graph output to `runtime-span-graph/v2`; `relation_paths` now report only parent-span, runtime identity, and temporal observations. Historical `causal_paths` remain readable inside stored evidence.
+- Kept code graph, code-log graph, Incident links, relation levels, and experience as inspectable context. The local Agent CLI now explicitly owns hypotheses, source inspection, root-cause reasoning, experiments, and verification.
+- Reframed A/B scoring as external Agent outcome and context uplift. The Runtime prepares isolated context, while the external Runner remains the only component that diagnoses or designs.
+- Replaced hypothesis governance with relation coverage and evidence-gap governance; raw user logs remain temporary and outside SQLite.
+- Restricted runtime-log reflection templates to observed context. Experience type, reasoning, success/failure lessons, misleading terms, verification, repair actions, and correction claims now remain Agent-owned completion fields.
+
+Verification:
+
+- Focused evidence, runtime relation, and Agent benchmark regression: 29 tests passed in 17.825 seconds.
+- Focused runtime reflection-boundary regression: 26 tests passed in 19.564 seconds.
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest discover -s tests -p 'test_*.py' -q`: 349 tests passed in 249.389 seconds.
+- Actual CLI contract checks confirmed `agent-investigation-context/v1`, `no_runtime_diagnosis=true`, `runtime-span-graph/v2`, relation-only paths, and empty Agent-owned reflection fields.
+- Python compilation, line-limit, CLI help, exactly-four-Skill, and diff checks passed.
+
+Rollback notes:
+
+- Restore `diagnosis_hypotheses.py`, the v1 Span Graph field, and old output/docs if Runtime-generated diagnoses are intentionally reintroduced. No SQLite migration is involved; old runtime snapshots are disposable.
+
+## 2026-07-15 - Add log-anchored candidate call paths to context
+
+Files added or extended:
+
+- `tools/agent_memory_runtime/path_*.py`, `context_facade.py`, and `context_composition.py`.
+- `tools/agent_memory_runtime/command_handlers.py` and active-edge indexes.
+- Query Skill incident guidance, runtime/usage/Chinese documentation, and the architecture design.
+- `tests/test_log_anchored_paths.py` and `tests/test_path_search.py`.
+
+What changed:
+
+- Kept `context` as the only public query entry while adding injected log-anchor, graph-reader, entry-policy, search, and ranking abstractions behind a facade.
+- Added strong code-log identity activation, ambiguous emitter preservation, bounded reverse breadth-first search, ArkTS lifecycle/event entry recognition, structural provenance scoring, entry diversity, and expected log anchors.
+- Isolated lanes so experience and semantic corrections remain advisory and cannot create seeds, graph edges, or path scores.
+- Kept temporary user logs outside Runtime and SQLite; the Agent CLI compares all candidate paths with real log order and current source before forming a causal conclusion.
+- Added active-edge relation indexes and per-layer batched graph reads to bound work on large graphs.
+
+Verification:
+
+- Focused log-anchor integration and path-search unit tests: 10 tests passed.
+- Exact two-entry reconstruction, expected logs, stale-edge exclusion, ordinary-query non-activation, depth/cycle bounds, batched frontier reads, and experience/correction isolation are covered.
+- Existing context, evidence, benchmark, causal-boundary, graph-performance, and part-10 through part-14 regressions passed.
+- A 500,000-edge in-memory SQLite probe used the relation-aware active-target index; table creation, population, indexing, analysis, and the bounded lookup completed in about 1.2 seconds total.
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest discover -s tests -p 'test_*.py' -q`: 351 tests passed in 260.034 seconds.
+- Python compilation, diff whitespace, exactly-four-Skill, and 500-line checks passed.
+
+Rollback notes:
+
+- Remove the context composition and path modules, restore the direct `limited_context` call, and remove the two relation-aware indexes. No candidate path records require migration because paths are never persisted.
+
+## 2026-07-16 - Validate log paths on an external ArkTS project
+
+Files extended:
+
+- `tools/agent_memory_runtime/code_wiki_extractors.py` and `semantic_ecma.py`.
+- `tools/agent_memory_runtime/path_ranking.py` and `agent_benchmark_eval.py`.
+- Log-path, semantic-index, path-search, and Agent benchmark tests.
+
+What changed:
+
+- Bound ArkTS logs to `async`, `static async`, and other modified methods instead of their enclosing component or no symbol.
+- Added semantic handling for static methods, default imports, and imported static calls/awaits.
+- Deduplicated same-seed paths with identical node sequences, preferring more specific async/callback/event relations, and suppressed unknown-entry variants when the same seed has a recognized entry.
+- Canonicalized bounded benchmark root-cause categories and treated verified causal evidence as satisfying a supported-evidence oracle.
+
+External validation:
+
+- Read-only mutation harvesting on `/Users/liuhui/Documents/code/browser` generated 14 deterministic cases: 5 removed-await, 1 route-target, and 8 resource-key cases; source files remained unchanged.
+- Learning indexed 34 files, 146 symbols, 31 log statements, and 455 current graph edges after semantic fixes.
+- Real code logs reconstructed `Index.aboutToAppear`, `PagesDialog.aboutToAppear -> awaits -> loadHistoryData`, and two `Index.aboutToAppear -> awaits -> RdbUtils` paths without missing emitters.
+- A one-case isolated Codex A/B correctly found the route fault and expected file in both variants. Memory produced no accuracy uplift on this obvious source-local fault and added about 3,100 estimated tokens and 3.6 seconds, so this case should gate selective query routing rather than ranking calibration.
+- Focused log-path, path-search, semantic-index, and benchmark regression: 31 tests passed.
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest discover -s tests -p 'test_*.py' -q`: 356 tests passed in 250.067 seconds.
+- Python compilation, diff whitespace, and 500-line checks passed.
+
+Rollback notes:
+
+- Restore the previous method/import regexes and ranking/evaluation rules. External workspaces and case packs were temporary and did not modify the ArkTS repository.

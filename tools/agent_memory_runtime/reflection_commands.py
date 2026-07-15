@@ -147,7 +147,8 @@ def load_reflection_payload(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def reflection_value(args: argparse.Namespace, payload: dict[str, Any], key: str) -> Any:
-    return payload.get(key) if key in payload else getattr(args, key, None)
+    value = payload.get(key) if key in payload else None
+    return value if value not in (None, "", [], {}) else getattr(args, key, None)
 
 
 

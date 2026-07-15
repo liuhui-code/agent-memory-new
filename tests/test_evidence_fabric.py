@@ -153,24 +153,25 @@ class EvidenceFabricCliTests(AgentMemoryTestBase):
             )
             conn.commit()
 
-    def test_evidence_context_returns_goal_ranked_tiers_and_audit(self) -> None:
+    def test_context_returns_log_keywords_code_and_history_without_diagnosis(self) -> None:
         self._seed_code_graph()
 
         result = self.run_memory(
             self.project,
-            "evidence-context",
+            "context",
             "--query",
             "个人中心空白 profile load failed 日志",
             "--json",
         )
         payload = json.loads(result.stdout)
 
-        self.assertEqual("diagnosis", payload["goal_plan"]["goal"])
-        self.assertGreater(payload["audit"]["returned_count"], 0)
-        self.assertNotIn("memory_use_policy", payload["audit"]["candidate_counts"])
-        all_items = sum(payload["evidence"].values(), [])
-        self.assertTrue(any(item["source"] == "log" for item in all_items))
-        self.assertTrue((self.project_memory_dir(self.project) / "runtime" / "last_evidence_context.json").exists())
+        self.assertTrue(payload["code_log_matches"])
+        self.assertTrue(payload["query_handoff"]["log_keywords"])
+        self.assertTrue(payload["query_handoff"]["code_anchors"])
+        self.assertFalse(payload["query_handoff"]["role_boundary"]["runtime_reads_temporary_logs"])
+        self.assertNotIn("evidence_chains", payload)
+        self.assertNotIn("log_search_plan", payload)
+        self.assertNotIn("likely_causes", payload["code_log_matches"][0])
 
     def test_impact_scope_finds_reverse_dependency_and_unlearned_gap(self) -> None:
         self._seed_code_graph()

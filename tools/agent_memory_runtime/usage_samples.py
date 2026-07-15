@@ -294,42 +294,6 @@ def record_query_usage(project: Project, command_name: str, query: str, data: di
     return sample
 
 
-def record_runtime_log_usage(project: Project, query: str, log_file: str, data: dict[str, Any]) -> dict[str, Any]:
-    sample = _ensure_open_usage_sample(project, load_usage_sample(project))
-    _append_unique(sample, "commands", ["analyze-runtime-log"])
-    _append_unique(sample, "queries", [query])
-    sample["query_rounds"] = max(int(sample.get("query_rounds") or 0), 1)
-    if str(data.get("log_search_plan", {}).get("focus") or "").strip():
-        _append_unique(sample, "followup_focuses", [str(data.get("log_search_plan", {}).get("focus") or "")])
-    runtime_log = sample.setdefault("runtime_log", {})
-    runtime_log.update(
-        {
-            "used": True,
-            "log_file": log_file,
-            "normalized_event_count": int(data.get("normalized_event_count") or 0),
-            "matched_event_count": len(data.get("matched_events") or []),
-            "slice_count": len(data.get("slices") or []),
-            "dominant_signals": unique_list([str(item) for item in data.get("runtime_episode_candidate", {}).get("dominant_signals") or []]),
-            "candidate_chain": unique_list([str(item) for item in data.get("runtime_episode_candidate", {}).get("candidate_chain") or []]),
-            "misleading_followup_terms": unique_list(
-                [str(item) for item in data.get("reflect_payload_template", {}).get("misleading_followup_terms") or []]
-            ),
-            "inspection_targets": unique_list(
-                [str(item) for item in data.get("reflect_payload_template", {}).get("inspection_targets") or []]
-            ),
-            "log_improvement_kinds": unique_list(
-                [str(item.get("kind") or "") for item in data.get("log_improvement_suggestions") or [] if str(item.get("kind") or "").strip()]
-            ),
-        }
-    )
-    reflect_template = data.get("reflect_payload_template") or {}
-    sample["reflect_payload_template"] = reflect_template if isinstance(reflect_template, dict) else {}
-    _append_unique(sample, "suggested_followup_terms", [str(item) for item in reflect_template.get("useful_followup_terms") or []])
-    _append_context_used(sample, f"analyze-runtime-log: {query}")
-    save_usage_sample(project, sample)
-    return sample
-
-
 def record_governance_usage(project: Project, command_name: str, data: dict[str, Any]) -> dict[str, Any]:
     sample = _ensure_open_usage_sample(project, load_usage_sample(project))
     _append_unique(sample, "commands", [command_name])
@@ -387,8 +351,6 @@ def merge_usage_sample_into_reflection_payload(
 
     if not merged.get("problem") and usage_sample.get("queries"):
         merged["problem"] = str((usage_sample.get("queries") or [])[-1])
-    if not merged.get("reasoning_summary") and usage_sample.get("auto_summary"):
-        merged["reasoning_summary"] = str(usage_sample.get("auto_summary") or "")
     if not merged.get("trajectory_summary") and usage_sample.get("auto_summary"):
         merged["trajectory_summary"] = str(usage_sample.get("auto_summary") or "")
     if not merged.get("context_used") and usage_sample.get("context_used"):

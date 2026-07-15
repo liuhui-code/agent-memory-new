@@ -60,11 +60,11 @@ For runtime-log-backed diagnosis, also keep the feedback loop explicit:
 - preserve the strongest runtime signals in `useful_followup_terms`
 - preserve misleading or disproven directions in `misleading_followup_terms`
 - preserve the closing verification path in `final_verification_path`
-- if `analyze-runtime-log` returned `otel_lite`, use those structured severity/logger/event/request/session/error fields in `evidence` or `context_used` instead of copying large raw log excerpts
+- record only compact Agent-observed log facts such as severity, logger, event, request/session/error identifiers, and source references; never copy large raw log excerpts
 
 That lets `reflect-review`, `maintain-plan`, recurring incident fingerprints, and incident strategy candidates reuse the same bounded runtime evidence without storing raw logs.
 
-When recent work already ran `context`, `search`, `analyze-runtime-log`, or `maintain-plan`, the runtime keeps a bounded `runtime/last_usage_sample.json` and `runtime/last_task_trace.json`. You can lean on those files instead of retyping everything. A minimal reflection payload can still inherit missing structured fields such as:
+When recent work already ran `context`, `search`, or `maintain-plan`, the runtime keeps a bounded `runtime/last_usage_sample.json` and `runtime/last_task_trace.json`. You can lean on those files instead of retyping everything. A minimal reflection payload can still inherit missing structured fields such as:
 
 - `task_type`
 - `problem`

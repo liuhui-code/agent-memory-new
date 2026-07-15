@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
-from .text import tokenize, unique_list
+from .text import unique_list
 
 MAX_MATCHED_EVENTS = 20
 DEFAULT_SLICE_BEFORE = 2
@@ -194,86 +194,6 @@ def normalized_event(
         "request_path": fields.get("request_path", ""),
         "raw_line": raw_line,
     }
-
-
-
-def runtime_event_search_text(event: dict[str, Any]) -> str:
-    return " ".join(
-        str(event.get(key) or "")
-        for key in (
-            "process", "level", "logger", "message", "raw_line", "event_name", "route",
-            "resource_key", "request_id", "session_id", "trace_id", "span_id", "parent_span_id", "error_code",
-            "reason", "result", "module", "ability", "request_path",
-            "service_name", "service_version", "service_instance_id", "deployment_environment",
-        )
-    ).lower()
-
-
-
-def candidate_anchor_terms(log_search_plan: dict[str, Any]) -> tuple[list[str], list[str], list[str], list[str], list[str]]:
-    search_terms = [str(item) for item in log_search_plan.get("search_terms") or []]
-    logger_hints = [str(item) for item in log_search_plan.get("logger_hints") or []]
-    function_hints = [str(item) for item in log_search_plan.get("function_hints") or []]
-    process_hints = [str(item) for item in log_search_plan.get("process_hints") or []]
-    candidate_messages = [
-        str(item.get("message_template") or "")
-        for item in log_search_plan.get("candidate_log_events") or []
-        if str(item.get("message_template") or "").strip()
-    ]
-    return search_terms, logger_hints, function_hints, process_hints, candidate_messages
-
-
-
-def score_runtime_event(event: dict[str, Any], query: str, log_search_plan: dict[str, Any]) -> dict[str, Any]:
-    search_text = runtime_event_search_text(event)
-    score = 0
-    matched_terms: list[str] = []
-    search_terms, logger_hints, function_hints, process_hints, candidate_messages = candidate_anchor_terms(log_search_plan)
-
-    for message in candidate_messages:
-        lowered = message.lower()
-        if lowered and lowered in search_text:
-            score += 12
-            matched_terms.append(message)
-    for term in search_terms:
-        lowered = term.lower()
-        if len(lowered) > 1 and lowered in search_text:
-            score += 5
-            matched_terms.append(term)
-    for hint in logger_hints:
-        lowered = hint.lower()
-        if lowered and lowered in search_text:
-            score += 4
-            matched_terms.append(hint)
-    for hint in function_hints:
-        lowered = hint.lower()
-        if lowered and lowered in search_text:
-            score += 2
-            matched_terms.append(hint)
-    for hint in process_hints:
-        lowered = hint.lower()
-        if lowered and lowered in search_text:
-            score += 3
-            matched_terms.append(hint)
-
-    if log_search_plan.get("focus") == "log" and event.get("level") in {"error", "warning", "fatal", "exception"}:
-        score += 3
-    if any(token in search_text for token in tokenize(query)):
-        score += 1
-    if event.get("error_code"):
-        score += 2
-        matched_terms.append(str(event["error_code"]))
-    if event.get("reason"):
-        score += 2
-        matched_terms.append(str(event["reason"]))
-    if event.get("route"):
-        score += 1
-        matched_terms.append(str(event["route"]))
-
-    scored = dict(event)
-    scored["score"] = score
-    scored["matched_terms"] = unique_list(matched_terms)
-    return scored
 
 
 

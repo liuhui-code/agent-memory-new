@@ -10,9 +10,9 @@ from pathlib import Path
 from typing import Any
 
 from .active_learning_queue import build_active_learning_actions, build_active_learning_queue
+from .agent_benchmark_governance import agent_benchmark_summary
 from .code_wiki import semantic_followup_from_db
 from .evidence_chain_quality import build_evidence_chain_summary, enrich_reflections_with_evidence_chains
-from .evidence_runtime_governance import evidence_runtime_summary
 from .graph_quality import (
     build_graph_quality,
     build_graph_quality_actions,
@@ -202,8 +202,8 @@ def maintain_health(args: argparse.Namespace) -> None:
     last_quality_gate = load_quality_gate_snapshot(project)
     impact_feedback = impact_feedback_summary(project)
     design_calibration = design_calibration_summary(project)
-    evidence_runtime = evidence_runtime_summary(project)
     provider_health = semantic_provider_health(project)
+    agent_benchmark = agent_benchmark_summary(project)
 
     duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
     low_confidence_count = low_conf_semantic_count + low_conf_reflection_count
@@ -239,9 +239,9 @@ def maintain_health(args: argparse.Namespace) -> None:
         recommended_actions.append(f"Review latest quality gate failure{f': {failed}' if failed else ''}.")
     if int(provider_health.get("fallbacks") or 0) >= 2:
         recommended_actions.append("Review repeated semantic-provider fallback reasons before trusting static-only graph coverage.")
-    if evidence_runtime.get("causal_quality_band") in {"weak", "insufficient"}:
+    if agent_benchmark.get("quality_gate") == "fail":
         recommended_actions.append(
-            "Continue the latest diagnosis with its hypothesis ledger; collect correlation, temporal, or intervention evidence."
+            "Review the latest Agent A/B benchmark regressions before changing retrieval or design behavior."
         )
 
     data = {
@@ -290,7 +290,7 @@ def maintain_health(args: argparse.Namespace) -> None:
         "last_quality_gate": last_quality_gate,
         "impact_feedback": impact_feedback,
         "design_calibration": design_calibration,
-        "evidence_runtime": evidence_runtime,
+        "agent_benchmark": agent_benchmark,
         "runtime_performance": build_runtime_performance_summary(project),
         "semantic_provider": provider_health,
         "recommended_actions": recommended_actions,

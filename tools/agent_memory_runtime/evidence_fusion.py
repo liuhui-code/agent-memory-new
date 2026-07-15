@@ -278,7 +278,8 @@ def verified_span_paths(raw: dict[str, Any], field: str) -> bool:
     graph = raw.get("span_graph") or {}
     if isinstance(graph, str):
         return False
-    return any(bool(path.get(field)) for path in graph.get("causal_paths") or [])
+    paths = graph.get("relation_paths") or graph.get("causal_paths") or []
+    return any(bool(path.get(field)) for path in paths)
 
 
 def rejected_evidence(item: EvidenceItem) -> bool:

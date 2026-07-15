@@ -53,12 +53,12 @@ def build_runtime_span_graph(events: list[dict[str, Any]]) -> dict[str, Any]:
     paths = build_trace_paths(ordered, key_set)
     trace_ids = sorted({node["trace_id"] for node in spans})
     return {
-        "schema_version": "runtime-span-graph/v1",
+        "schema_version": "runtime-span-graph/v2",
         "trace_ids": trace_ids[:12],
         "spans": spans,
         "edges": edges[:MAX_EDGES],
         "unbound_events": unbound[:12],
-        "causal_paths": paths,
+        "relation_paths": paths,
         "gaps": unique_gaps(gaps),
         "quality": graph_quality(ordered, spans, edges, gaps),
         "audit": {

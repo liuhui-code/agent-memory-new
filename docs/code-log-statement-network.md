@@ -52,7 +52,7 @@ It is not a complete AST or runtime trace.
 
 - `code_log_matches`
 - `edge_matches`
-- `evidence_chains`
+- `query_handoff.log_anchors`
 - `network_limits`
 
 `wiki-search` returns normal wiki file/symbol matches plus matching log statements with `kind: "log_statement"`.
@@ -70,7 +70,7 @@ It does not recursively traverse the network. Current limits are:
 - `evidence_chain_limit`: 3
 - `allowed_relations`: `contains`, `emits_log`, `imports`, `routes_to`, `uses_resource`
 
-`evidence_chains` are readable summaries of returned one-hop edges, not multi-hop graph paths.
+`edge_matches` are raw bounded one-hop relationships. `query_handoff.log_anchors` connects learned log statements to source inspection targets without claiming a call or causal chain.
 
 For ArkTS, the same bounded network also connects learned `.ets` files through project imports, router target pages, and `$r(...)` resource references. This makes HarmonyOS page/component context more knowledge-like without adding a full AST graph.
 

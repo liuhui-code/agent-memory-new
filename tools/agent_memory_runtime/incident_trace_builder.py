@@ -161,7 +161,7 @@ def build_incident_trace_draft(project: Project, symptom: str, log_text: str) ->
     legacy_chain = candidate_chain_from_logs(matched_logs)
     runtime_chain = [
         str(step.get("event_name") or "")
-        for path in span_graph["causal_paths"][:2]
+        for path in span_graph["relation_paths"][:2]
         for step in path["steps"]
         if str(step.get("event_name") or "").strip()
     ]

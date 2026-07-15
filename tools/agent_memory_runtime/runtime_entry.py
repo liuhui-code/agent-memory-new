@@ -5,10 +5,12 @@ from __future__ import annotations
 import sys
 
 from .calibration_eval import eval_calibration_command
+from .agent_benchmark import eval_agent_benchmark_command
+from .benchmark_history import eval_harvest_history_command
+from .benchmark_mutations import eval_mutate_arkts_command
 from .cli import build_parser
 from .code_wiki import learn_business, learn_entry, learn_path, maintain_refresh_scope, wiki_index, wiki_search
 from .command_handlers import (
-    analyze_runtime_log_command,
     conflict_apply,
     conflict_status,
     context,
@@ -22,7 +24,6 @@ from .command_handlers import (
 )
 from .eval_case_drafts import eval_draft_cases_command
 from .eval_case_seed import eval_seed_cases_command
-from .evidence_context import evidence_context_command
 from .design_assist import design_assist_command
 from .design_check import design_check_command
 from .design_compare import design_compare_command
@@ -71,13 +72,15 @@ def command_handlers() -> dict[str, object]:
         "update": update,
         "search": search,
         "context": context,
-        "evidence_context_command": evidence_context_command,
         "design_assist_command": design_assist_command,
         "design_prepare_command": design_prepare_command,
         "design_progress_command": design_progress_command,
         "design_check_command": design_check_command,
         "design_compare_command": design_compare_command,
         "eval_design_command": eval_design_command,
+        "eval_agent_benchmark_command": eval_agent_benchmark_command,
+        "eval_harvest_history_command": eval_harvest_history_command,
+        "eval_mutate_arkts_command": eval_mutate_arkts_command,
         "design_outcome_command": design_outcome_command,
         "eval_semantic_command": eval_semantic_command,
         "design_verify_command": design_verify_command,
@@ -95,7 +98,6 @@ def command_handlers() -> dict[str, object]:
         "eval_seed_cases_command": eval_seed_cases_command,
         "retrieval_feedback_command": retrieval_feedback_command,
         "experience_usage_command": experience_usage_command,
-        "analyze_runtime_log_command": analyze_runtime_log_command,
         "reflect": reflect,
         "reflect_review": reflect_review,
         "list_records": list_records,

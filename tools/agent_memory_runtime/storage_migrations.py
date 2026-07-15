@@ -259,6 +259,12 @@ def create_post_migration_indexes(conn: sqlite3.Connection) -> None:
         CREATE INDEX IF NOT EXISTS idx_memory_edges_project_valid_target
         ON memory_edges(project_id, valid_to, target_type, target_id);
 
+        CREATE INDEX IF NOT EXISTS idx_memory_edges_project_valid_source_relation
+        ON memory_edges(project_id, valid_to, source_type, source_id, relation);
+
+        CREATE INDEX IF NOT EXISTS idx_memory_edges_project_valid_target_relation
+        ON memory_edges(project_id, valid_to, target_type, target_id, relation);
+
         CREATE INDEX IF NOT EXISTS idx_impact_feedback_project_change
         ON impact_feedback(project_id, change_fingerprint, created_at);
 

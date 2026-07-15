@@ -2,9 +2,9 @@
 
 [中文说明](README.zh-CN.md)
 
-Agent Memory is a local memory, reflection, governance, and incident-diagnosis runtime for coding agents.
+Agent Memory is a local memory, reflection, governance, and investigation-context runtime for coding agents.
 
-It gives an agent a stable way to remember project facts, code context, diagnosis trails, runtime incident evidence, and reusable lessons without requiring a vector database, daemon, graph database, or agent-specific wrapper.
+It gives a local Agent CLI a stable way to retrieve project facts, code context, runtime incident evidence, and reusable lessons without requiring a vector database, daemon, graph database, or agent-specific wrapper. The Agent performs diagnosis and design reasoning; the Runtime only supplies bounded, inspectable context.
 
 ![Agent Memory overview](docs/assets/agent-memory-overview.png)
 
@@ -77,7 +77,7 @@ User task / symptom
 The project is especially optimized for:
 
 - **code-aware memory**
-- **goal-oriented log diagnosis**
+- **goal-oriented log context for Agent-led diagnosis**
 - **experience and skill evolution**
 - **governed refresh and drift review**
 
@@ -345,10 +345,10 @@ Query memory:
 
 ```bash
 python tools/agent_memory.py context --project . --query "memory governance workflow" --json
-python tools/agent_memory.py evidence-context --project . --query "个人中心空白，profile load failed" --json
+python tools/agent_memory.py context --project . --query "个人中心空白，profile load failed" --json
 ```
 
-`evidence-context` coordinates the existing FTS5 query, code graph, code-log graph, incident traces, and experience memory into one goal-aware result. It separates direct code/log anchors, supporting incident evidence, and advisory historical experience, exposes score factors and evidence gaps, and keeps all graph traversal bounded.
+`context` retrieves advisory history, learned log keywords/statements, current source anchors, and bounded raw graph edges. Its `query_handoff` tells the local Agent what was found and what can be queried next. It does not read temporary user logs or generate evidence chains, hypotheses, or root causes. The Agent CLI reads the流水 log directly, summarizes observations, forms multiple candidate causes, queries each candidate separately, inspects current source, and infers the call and causal chains.
 
 It also routes concrete questions to local retrieval and architecture/recurring-theme questions to bounded global aggregates. Retrieval uses at most three deterministic subqueries, stops when cross-lane coverage is sufficient or no new evidence appears, and limits duplicate experience/file patterns before building the final context.
 
@@ -358,8 +358,6 @@ Design against the current repository rather than historical patterns:
 python tools/agent_memory.py design-assist --project . \
   --query "design profile caching without moving persistence into the page" \
   --mode design-only --json
-python tools/agent_memory.py evidence-context --project . --goal design \
-  --query "design profile caching without moving persistence into the page" --json
 python tools/agent_memory.py design-prepare --project . \
   --intent intent.json --contract contract.json --json
 python tools/agent_memory.py design-check --project . \
@@ -394,7 +392,7 @@ For diagnosis, query an observed log or output string directly:
 python tools/agent_memory.py context --project . --query "retrying job" --json
 ```
 
-Network context is bounded: the runtime returns only allowed one-hop edges and compact evidence chains. Recursive investigation happens by asking a sharper follow-up query.
+Network context is bounded: the runtime returns only allowed raw edges. Recursive investigation happens when the Agent asks a sharper follow-up query and checks current source.
 
 Reflect after a task:
 
@@ -431,7 +429,7 @@ Normal usage should go through four skills:
 | Skill | Purpose | Typical commands |
 |---|---|---|
 | `agent-memory-learn` | Add project code context to memory | `learn-entry`, `learn-path`, `wiki-index` |
-| `agent-memory-query` | Retrieve and coordinate memory, code, log, and impact evidence | `context`, `evidence-context`, `impact-scope`, `search` |
+| `agent-memory-query` | Retrieve memory, log keywords, source anchors, and impact context | `context`, `impact-scope`, `search` |
 | `agent-memory-maintain` | Initialize, check, review, govern, and export memory | `doctor`, `maintain-plan`, `vault-export` |
 | `agent-memory-reflect` | Save lessons, facts, and reflection feedback | `reflect`, `reflect-review`, `update` |
 
@@ -451,7 +449,6 @@ python tools/agent_memory.py wiki-index --project .
 python tools/agent_memory.py wiki-index --project . --source "<external-project>"
 
 python tools/agent_memory.py context --project . --query "..." --json
-python tools/agent_memory.py evidence-context --project . --query "..." --json
 python tools/agent_memory.py design-assist --project . --query "..." --mode design-only --json
 python tools/agent_memory.py impact-scope --project . --base HEAD~1 --query "..." --json
 python tools/agent_memory.py impact-feedback --project . --outcome pass --executed-tests "..." --json
@@ -482,6 +479,7 @@ python tools/agent_memory.py vault-export --project .
 - `AGENTS.md`: repository instructions for coding agents.
 - `docs/usage-guide.md`: skill-first usage guide.
 - `docs/agent-cli-query-skill-guide.zh-CN.md`: Agent CLI 调用 Query Skill 进行问题定位和代码设计的详细中文指南。
+- `docs/agent-benchmark.md`: Git history harvesting, ArkTS mutation cases, and Agent Query Skill A/B validation.
 - `docs/local-agent-incident-workflow.md`: local Agent diagnosis, verification, impact-feedback, and reflection loop.
 - `docs/runtime.md`: runtime protocol notes.
 - `references/schema.md`: SQLite schema notes.

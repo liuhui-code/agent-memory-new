@@ -251,17 +251,13 @@ For a detailed Chinese guide covering how an Agent CLI invokes the Query Skill
 for both incident diagnosis and repository-grounded code design, see
 `docs/agent-cli-query-skill-guide.zh-CN.md`.
 
-For diagnosis or any task that needs code, logs, incidents, and experience to agree, use the coordinated context:
+For diagnosis, start with the user's problem description:
 
 ```bash
-python tools/agent_memory.py evidence-context --project . --query "<goal or symptom>" --json
+python tools/agent_memory.py context --project . --query "<goal or symptom>" --json
 ```
 
-Read `goal_plan`, then `evidence.direct`, `evidence.supporting`, and `evidence.advisory` in that order. `score_components` and `penalties` explain the cross-domain rerank. `evidence_chains` show bounded shared anchors; `evidence_gaps` say what still needs source learning, temporary logs, or verification. Learned code and code-log rows are anchors for current inspection, not proof that the source is unchanged.
-
-Read `goal_plan.query_scope`, `goal_plan.subqueries`, and `retrieval_metadata.query_execution` when retrieval is surprising. `rounds` shows how much new evidence each subquery added; `stop_reason` explains whether retrieval stopped because coverage was sufficient, novelty was low, no evidence was new, or the hard limit was reached. Use `--scope global` only for architecture, distribution, recurring-theme, or whole-project questions.
-
-Each coordinated chain includes `causal_evidence`. Treat `association` as a lead only, `supported` as evidence with a structural/runtime mechanism, `verified` as resolution-backed evidence, and `rejected` as explicit counter-evidence. Never present association as root cause.
+Read `query_handoff.log_keywords`, `log_anchors`, and `code_anchors` first. If `query_handoff.path_context.activated` is true, inspect all `path_candidates` rather than accepting the top score. Compare each path's `expected_log_anchors`, entry, emitter, edge provenance, uncertainty, and missing segments with the actual temporary-log order. The Agent CLI reads that temporary log directly, records observations, keeps indistinguishable paths, forms multiple candidate causes, and runs one follow-up `context` query per candidate. `edge_matches` and candidate paths are navigation hints. Learned code, logs, and history do not prove the current cause.
 
 For repository-grounded code design, use the design goal before proposing abstractions:
 
@@ -278,14 +274,7 @@ recommendation, and `caution` means an intent constraint conflicts with a common
 applicability condition. The Agent should return the smallest viable design and
 only surface a materially different alternative.
 
-Use the lower-level evidence view when detailed retrieval attribution is needed:
-
-```bash
-python tools/agent_memory.py evidence-context --project . \
-  --goal design --query "design profile caching around ProfileService" --json
-```
-
-Read current code evidence first, then `repository_model.snapshot`, its topology/ownership/behavior/data/failure/runtime/change views, and the compatibility `architecture_slice`. Check `baseline_entry_points` separately from `scope_entry_points`: candidate paths may broaden scope but cannot define the baseline. Missing edges mean incomplete evidence, not no dependency.
+Read current code evidence first, then the `repository_model` and compatibility `architecture_slice` returned by the design workflow. Check `baseline_entry_points` separately from `scope_entry_points`: candidate paths may broaden scope but cannot define the baseline. Missing edges mean incomplete evidence, not no dependency.
 
 Express a serious candidate as a Delta Graph and check it:
 
@@ -333,18 +322,12 @@ python tools/agent_memory.py search --project . --query "<task>" --per-type-limi
 If `search` returns `truncated: true`, continue only with `next_cursor` when the current evidence is still incomplete.
 Use `suggested_followup_terms` from `context` or `search` as the first candidate set for the next recursive query. Add specific `search_terms` or exact anchors only after that.
 If `followup_focus` is present, use it to decide whether the next recursive step should bias route, resource, log, or config anchors.
-Use `log_search_plan` when the user reports a symptom that likely needs runtime log evidence. It turns the natural-language problem into:
-
-- candidate code-log events
-- high-signal search terms
-- logger/tag hints
-- file/function hints
-- a recommended log inspection order
+Use `query_handoff.log_keywords` and `log_anchors` when the user reports a symptom that needs runtime log evidence. The Agent applies those terms while reading the temporary log itself.
 
 If `maintain-plan` returns `review_query_miss`, prefer its `suggested_query_terms` over inventing a fresh keyword set. Those terms combine the original miss wording with current code-memory hint anchors.
 If `maintain-plan` returns `review_correction_experience`, use its `correction_targets`, `learning_rule_draft`, and `learn_business_payload_template` to repair the affected business semantics in place. Keep the repair scoped to the named file, symbol, or log records instead of broadening the learn scope first.
 
-If a query returns no semantic facts, reflections, episodes, or wiki matches, the runtime records a query miss automatically. This also applies to `evidence-context`. The user does not need to maintain keywords.
+If a query returns no semantic facts, reflections, episodes, wiki, code-log, or edge matches, the runtime records a query miss automatically. The user does not need to maintain keywords.
 
 The runtime also performs lightweight query expansion before matching. It maps common symptom words to technical terms, especially for HarmonyOS/ArkTS work. For example:
 
@@ -363,35 +346,14 @@ Code log matches may also include `log_signal_score`, `log_signal_band`, `missin
 
 When diagnosing an error message or observed output, query the message text directly. `context` may return `code_log_matches` and `edge_matches` that point to the likely file and function.
 
-If the user also provides a temporary runtime log file, keep that raw file out of long-term memory and analyze it as bounded evidence:
+If the user provides a temporary runtime log file, the Agent CLI reads it directly with local tools. Use the returned log keywords to find relevant windows, summarize only stable observed fields, and form multiple falsifiable causes. Query each cause separately before reading the related current source and inferring call or causal chains. The Runtime never reads or stores the temporary log.
 
-```bash
-python tools/agent_memory.py analyze-runtime-log \
-  --project . \
-  --query "个人资料页空白，怀疑登录态异常" \
-  --log-file ./profile-runtime.log \
-  --json
-```
-
-This command reuses current code/log memory, normalizes raw lines into lightweight events, and returns only a few scored slices plus:
-
-- `session_candidates`
-- `runtime_episode_candidate`
-- `span_graph`
-- `hypothesis_ledger`
-- `log_improvement_suggestions`
-- `reflect_payload_template`
-
-Use `runtime_episode_candidate.candidate_chain` and `chain_confidence` when you need a compact explanation of how the incident unfolded.
-Use `span_graph.causal_paths` to check explicit parent-span, correlation, and temporal evidence. Use `hypothesis_ledger.hypotheses[].next_discriminating_check` to choose the next inspection or experiment instead of accepting the highest-ranked match as the root cause.
-Use `log_improvement_suggestions` when the current logs were just barely enough; they point at a few high-value start, branch, or correlation logs worth adding to the source code later.
-Use `log_signal_summary` and `low_signal_events` to judge whether matched runtime evidence has enough fields for diagnosis. A poor signal event may still match the query, but it lacks fields such as `request_id`, `session_id`, `route`, `resource`, `reason`, `error_code`, or `result`; use `suggested_log_fields` and `observability_gaps` as narrow logging-improvement guidance.
-When matched events include `otel_lite`, prefer those structured fields for the LLM-facing summary: severity, logger, event name, request id, session id, error code, reason, route, and resource. Use raw excerpts only when the structured fields are insufficient.
-Use `reflect_payload_template` as the starting point when you want to turn temporary runtime-log evidence into a structured reflection or experience candidate. It is designed for diagnosis sessions, not for long-term raw-log archival. The template now also carries bounded `evidence`, `misleading_followup_terms`, and a concrete `repair_action`. When the query is correcting an earlier diagnosis, the template may already switch to `correction_experience` and include `old_hypothesis`.
-The runtime also keeps a rolling `runtime/last_usage_sample.json` during `context`, `search`, `analyze-runtime-log`, and `maintain-plan`. This is a bounded runtime-side summary, not a new long-term database row. A later `reflect` call can reuse it automatically to fill missing fields such as `task_type`, `problem`, `query_rounds`, `useful_followup_focus`, `useful_followup_terms`, `misleading_followup_terms`, `inspection_targets`, `evidence`, and `repair_action`.
+The runtime keeps a rolling `runtime/last_usage_sample.json` during `context`, `search`, and `maintain-plan`. This is a bounded runtime-side summary, not a new long-term database row. A later `reflect` call may reuse factual query and inspection fields. Agent-authored reasoning, verification, and repair fields remain required; placeholders are not valid experience.
 The runtime also writes `runtime/last_task_trace.json`, a compact candidate trace assembled from the same bounded signals. Use `reflect --from-last-task --task "<task>" --lesson "<lesson>" --json` when you want to turn the latest task trace into a normal reflection without retyping context anchors and evidence. Explicit payload fields still override the trace template. The trace also carries `auto_summary_quality` and `reflection_payload_placeholders`; if `maintain-plan` reports `review_low_evidence_auto_summary`, fill verification, repair, or counter-evidence fields before writing the reflection, or discard the trace if it is too weak.
 The runtime also keeps bounded performance samples in `runtime/performance_samples.jsonl`. `maintain-health --json` and `maintain-plan --json` summarize those samples as `runtime_performance` so Agents can see whether `maintain-plan`, `context`, or other operations are becoming slow, token-heavy, or storage-heavy. Do not treat this JSONL file as project knowledge; it is local operational telemetry. If `review_runtime_performance_budget` appears, prefer tightening query limits, reviewing noisy memory records, refreshing stale context, or splitting expensive maintenance work before adding heavier indexing.
 `eval-quality` writes the latest aggregate result to `runtime/last_quality_gate.json`. `maintain-health --json` reports this as `last_quality_gate`; use it to notice a recent failed gate, then follow the failed gate's `next_command_template`.
+
+For end-to-end Agent A/B validation, generate review-only cases from Git history with `eval-harvest-history`, or generate non-destructive ArkTS fault cases with `eval-mutate-arkts`. Run `eval-agent-benchmark` with an approved Agent CLI Runner. The Memory variant receives an isolated index rebuilt from the frozen case revision, while the Baseline variant cannot access memory. `maintain-health.agent_benchmark` reports the latest quality and efficiency delta. See `docs/agent-benchmark.md` for the protocol and leakage controls.
 
 `maintain-plan --json` may include `quality_summary`, `low_quality_records`, and `high_value_records`. Use these as review hints:
 
@@ -462,7 +424,7 @@ To draft cases from runtime signals, use a separate draft directory:
 python tools/agent_memory.py eval-draft-cases --project . --target docs/eval/drafts --json
 ```
 
-Draft generation can use open query misses, the latest `last_runtime_log_analysis.json` low-signal events, and weak evidence fields in `last_task_trace.json`. The output files use `.draft.json` names and are review-only. Replace TODO anchors or claims before moving any draft into `docs/eval`.
+Draft generation can use open query misses and weak evidence fields in `last_task_trace.json`. The output files use `.draft.json` names and are review-only. Replace TODO anchors or claims before moving any draft into `docs/eval`. Log-signal golden cases are curated from project code-log examples, not temporary user logs.
 
 Before changing retrieval ranking, quality scoring, learn-business semantics, code graph extraction, or log graph extraction, run a golden-query evaluation if a case file exists:
 

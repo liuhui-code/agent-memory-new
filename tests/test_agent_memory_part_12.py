@@ -9,99 +9,7 @@ from tests.agent_memory_test_base import *
 
 
 class AgentMemoryRuntimePart12Tests(AgentMemoryTestBase):
-    def test_analyze_runtime_log_reflect_template_carries_runtime_evidence_feedback(self) -> None:
-        with tempfile.TemporaryDirectory() as temp_dir:
-            project = Path(temp_dir)
-            (project / "pages").mkdir()
-            (project / "pages" / "Profile.ets").write_text(
-                "import hilog from '@ohos.hilog';\n"
-                "@Entry\n"
-                "@Component\n"
-                "struct ProfilePage {\n"
-                "  aboutToAppear() {\n"
-                "    hilog.info(0x0000, 'ProfilePage', 'load profile start');\n"
-                "    hilog.error(0x0000, 'ProfilePage', 'load profile failed');\n"
-                "  }\n"
-                "}\n",
-                encoding="utf-8",
-            )
-
-            self.run_memory(project, "learn-path", "--path", "pages")
-            self.run_memory(
-                project,
-                "learn-business",
-                "--payload",
-                json.dumps(
-                    {
-                        "files": [
-                            {
-                                "file_path": "pages/Profile.ets",
-                                "logs": [
-                                    {
-                                        "message_template": "load profile start",
-                                        "function": "aboutToAppear",
-                                        "level": "info",
-                                        "logger": "hilog",
-                                        "business_summary": "用户资料加载开始日志。",
-                                        "business_terms": ["资料加载开始"],
-                                        "business_event": "profile_load_started",
-                                        "trigger_stage": "profile_page_about_to_appear",
-                                        "symptom_terms": ["页面进入后开始加载"],
-                                        "likely_causes": [],
-                                        "process_hint": "EntryAbility",
-                                        "neighbor_terms": ["load profile failed", "session invalid"],
-                                    },
-                                    {
-                                        "message_template": "load profile failed",
-                                        "function": "aboutToAppear",
-                                        "level": "error",
-                                        "logger": "hilog",
-                                        "business_summary": "用户资料加载失败日志。",
-                                        "business_terms": ["用户资料加载失败", "资料页空白", "session invalid"],
-                                        "business_event": "profile_load_failed",
-                                        "trigger_stage": "profile_page_about_to_appear",
-                                        "symptom_terms": ["资料页空白", "登录后没数据"],
-                                        "likely_causes": ["session invalid", "401"],
-                                        "process_hint": "EntryAbility",
-                                        "neighbor_terms": ["load profile start", "session invalid", "navigate login"],
-                                    }
-                                ],
-                            }
-                        ]
-                    },
-                    ensure_ascii=False,
-                ),
-                "--json",
-            )
-
-            runtime_log = project / "profile-feedback.log"
-            runtime_log.write_text(
-                "2026-06-03T10:21:10.100Z pid=2001 tid=3002 EntryAbility I ProfilePage: load profile start route=pages/Profile request_id=req-1 session_id=sess-9\n"
-                "2026-06-03T10:21:13.200Z pid=2001 tid=3002 EntryAbility E ProfilePage: load profile failed code=401 reason=session_invalid request_id=req-1 session_id=sess-9\n"
-                "2026-06-03T10:21:13.300Z pid=2001 tid=3002 EntryAbility W SessionManager: session invalid session_id=sess-9\n",
-                encoding="utf-8",
-            )
-
-            result = self.run_memory(
-                project,
-                "analyze-runtime-log",
-                "--query",
-                "个人资料页空白，怀疑登录态异常",
-                "--log-file",
-                str(runtime_log),
-                "--json",
-            )
-            data = json.loads(result.stdout)
-            reflect_payload = data["reflect_payload_template"]
-
-            self.assertEqual(reflect_payload["experience_type"], "procedure_experience")
-            self.assertIn("candidate_chain", reflect_payload["evidence"])
-            self.assertIn("top_slice", reflect_payload["evidence"])
-            self.assertIn("dominant runtime slice", reflect_payload["repair_action"].lower())
-            self.assertIn("session invalid", " ".join(reflect_payload["what_worked"]).lower())
-            self.assertIsInstance(reflect_payload["misleading_followup_terms"], list)
-
-    def test_log_semantic_fields_enrich_log_search_plan(self) -> None:
+    def test_log_semantic_fields_enrich_query_handoff(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
             (project / "pages").mkdir()
@@ -153,15 +61,15 @@ class AgentMemoryRuntimePart12Tests(AgentMemoryTestBase):
 
             result = self.run_memory(project, "context", "--query", "登录后资料页空白", "--json")
             data = json.loads(result.stdout)
-            plan = data["log_search_plan"]
-            event = plan["candidate_log_events"][0]
+            handoff = data["query_handoff"]
+            event = handoff["log_anchors"][0]
 
             self.assertEqual(event["business_event"], "profile_load_failed")
             self.assertEqual(event["trigger_stage"], "profile_page_about_to_appear")
             self.assertIn("资料页空白", event["symptom_terms"])
-            self.assertIn("session invalid", event["likely_causes"])
-            self.assertIn("EntryAbility", plan["process_hints"])
-            self.assertIn("session invalid", plan["search_terms"])
+            self.assertNotIn("likely_causes", event)
+            self.assertIn("entryability", handoff["log_keywords"])
+            self.assertIn("session invalid", handoff["log_keywords"])
 
     def test_chinese_problem_query_expands_to_harmonyos_config_context(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

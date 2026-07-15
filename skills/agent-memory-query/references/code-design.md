@@ -18,7 +18,6 @@ Use this protocol for feature design, refactoring, interface changes, state flow
 
 ```bash
 python tools/agent_memory.py design-assist --project . --query "<design goal>" --mode design-only --json
-python tools/agent_memory.py evidence-context --project . --goal design --query "<design goal>" --json
 python tools/agent_memory.py design-prepare --project . --intent "<intent.json>" --contract "<contract.json>" --json
 python tools/agent_memory.py design-check --project . --intent "<intent.json>" --proposal "<proposal.json>" --contract "<contract.json>" --json
 python tools/agent_memory.py design-compare --project . --intent "<intent.json>" --proposal "<a.json>" --proposal "<b.json>" --contract "<contract.json>" --json

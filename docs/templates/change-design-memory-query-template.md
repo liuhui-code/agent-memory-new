@@ -24,9 +24,9 @@ Clarify goal and constraints
 ## Retrieve Current Architecture
 
 ```bash
-python tools/agent_memory.py evidence-context \
+python tools/agent_memory.py design-assist \
   --project . \
-  --goal design \
+  --mode design-only \
   --query "<design goal and current anchor>" \
   --json
 ```

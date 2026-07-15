@@ -7,6 +7,8 @@ import tempfile
 from pathlib import Path
 
 from tests.agent_memory_test_base import AgentMemoryTestBase, REPO_ROOT
+from tools.agent_memory_runtime.evidence_context import build_evidence_context
+from tools.agent_memory_runtime.storage import resolve_project
 
 
 class DesignEvolutionTests(AgentMemoryTestBase):
@@ -151,11 +153,11 @@ export class ProfileService {
         self.assertGreater(risky_summary["hard_violations"], 0)
 
     def test_arkts_edges_expose_evidence_class_and_semantics(self) -> None:
-        result = self.run_memory(
-            self.project, "evidence-context", "--goal", "design",
-            "--query", "Profile page state callback API", "--json",
+        project = resolve_project(self.project, self.memory_home(self.project))
+        payload = build_evidence_context(
+            project, "Profile page state callback API", explicit_goal="design",
         )
-        architecture = json.loads(result.stdout)["architecture_slice"]
+        architecture = payload["architecture_slice"]
         relations = {edge["relation"] for edge in architecture["edges"]}
 
         self.assertTrue({"calls", "reads_state", "writes_state", "exposes_api", "consumes_api"} <= relations)

@@ -4,16 +4,15 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 from typing import Any
 
 from .models import Project, REQUIRED_TABLES
 from .performance_scoring import append_performance_sample, build_performance_sample, estimate_payload_tokens, monotonic_ms
-from .query import limited_context, limited_search, record_query_miss_if_empty
+from .context_composition import build_context_facade
+from .query import limited_search, record_query_miss_if_empty
 from .records import output, row_dict, table_for_type
-from .runtime_logs import analyze_runtime_log
 from .storage import connect, create_schema, ensure_dirs, ensure_initialized, now_iso, resolve_project, upsert_project, write_config, write_global_config
-from .usage_samples import record_query_usage, record_runtime_log_usage
+from .usage_samples import record_query_usage
 from .vault import vault_index
 
 def init_project(args: argparse.Namespace) -> None:
@@ -151,7 +150,7 @@ def context(args: argparse.Namespace) -> None:
     started_ms = monotonic_ms()
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    data = limited_context(project, args.query)
+    data = build_context_facade(project).execute(args.query)
     record_query_usage(project, "context", args.query, data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(
@@ -186,32 +185,6 @@ def result_counts(data: dict[str, Any]) -> dict[str, int]:
             counts.update({str(name): int(count or 0) for name, count in value.items()})
     return counts
 
-
-
-def analyze_runtime_log_command(args: argparse.Namespace) -> None:
-    from .diagnosis_hypotheses import persist_hypothesis_ledger
-
-    project = resolve_project(args.project, args.memory_home)
-    ensure_initialized(project)
-    log_file = Path(args.log_file).expanduser().resolve()
-    if not log_file.exists():
-        raise SystemExit(f"log file not found: {log_file}")
-    data = analyze_runtime_log(
-        project,
-        args.query,
-        log_file,
-        before=args.before_lines,
-        after=args.after_lines,
-        slice_limit=args.slice_limit,
-    )
-    record_runtime_log_usage(project, args.query, str(log_file), data)
-    project.runtime_dir.mkdir(parents=True, exist_ok=True)
-    (project.runtime_dir / "last_runtime_log_analysis.json").write_text(
-        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    persist_hypothesis_ledger(project, data["hypothesis_ledger"])
-    output(data, args.json)
 
 
 

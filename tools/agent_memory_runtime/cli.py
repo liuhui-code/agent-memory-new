@@ -7,6 +7,7 @@ from collections.abc import Mapping
 from typing import Any
 
 from .models import VALID_MEMORY_STATUSES
+from .cli_benchmark import add_benchmark_parsers
 from .cli_design import add_design_parsers
 from .cli_semantic import add_semantic_parsers
 
@@ -62,18 +63,6 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("context"))
 
-    p = sub.add_parser("evidence-context")
-    add_project(p)
-    p.add_argument("--query", required=True)
-    p.add_argument(
-        "--goal",
-        choices=["design", "diagnosis", "change_impact", "code_understanding", "experience_reuse", "governance"],
-    )
-    p.add_argument("--scope", choices=["auto", "local", "global"], default="auto")
-    p.add_argument("--max-items", type=int, default=20)
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=command("evidence_context_command"))
-
     p = sub.add_parser("impact-scope")
     add_project(p)
     p.add_argument("--query")
@@ -98,6 +87,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.set_defaults(func=command("impact_feedback_command"))
 
     add_design_parsers(sub, add_project, command)
+    add_benchmark_parsers(sub, add_project, command)
     add_semantic_parsers(sub, add_project, command)
 
     p = sub.add_parser("eval-retrieval")
@@ -205,16 +195,6 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--evidence")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("experience_usage_command"))
-
-    p = sub.add_parser("analyze-runtime-log")
-    add_project(p)
-    p.add_argument("--query", required=True)
-    p.add_argument("--log-file", required=True)
-    p.add_argument("--before-lines", type=int, default=2)
-    p.add_argument("--after-lines", type=int, default=2)
-    p.add_argument("--slice-limit", type=int, default=5)
-    p.add_argument("--json", action="store_true")
-    p.set_defaults(func=command("analyze_runtime_log_command"))
 
     p = sub.add_parser("reflect")
     add_project(p)

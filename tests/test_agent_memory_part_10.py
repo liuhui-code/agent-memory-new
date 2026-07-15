@@ -378,7 +378,7 @@ class AgentMemoryRuntimePart10Tests(AgentMemoryTestBase):
                 log_data["suggested_followup_terms"].index("app.media.logo"),
             )
 
-    def test_context_includes_goal_oriented_log_search_plan(self) -> None:
+    def test_context_includes_agent_query_handoff(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
             (project / "pages").mkdir()
@@ -429,8 +429,8 @@ class AgentMemoryRuntimePart10Tests(AgentMemoryTestBase):
             data = json.loads(result.stdout)
 
             self.assertEqual(data["followup_focus"], "log")
-            self.assertIn("log_search_plan", data)
-            self.assertEqual(data["log_search_plan"]["focus"], "log")
-            self.assertIn("load profile failed", data["log_search_plan"]["search_terms"])
-            self.assertIn("ProfilePage", data["log_search_plan"]["logger_hints"])
-            self.assertTrue(data["log_search_plan"]["candidate_log_events"])
+            self.assertIn("query_handoff", data)
+            self.assertTrue(data["query_handoff"]["log_anchors"])
+            self.assertEqual("load profile failed", data["query_handoff"]["log_anchors"][0]["message_template"])
+            self.assertIn("profile", data["query_handoff"]["log_keywords"])
+            self.assertTrue(data["query_handoff"]["next_query_contract"]["one_candidate_per_query"])

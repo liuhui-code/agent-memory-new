@@ -60,7 +60,6 @@ def write_eval_case_drafts(project: Project, target: Path, limit: int = 5, force
 def build_eval_case_drafts(project: Project, limit: int) -> dict[str, list[dict[str, Any]]]:
     return {
         "golden-retrieval.draft.json": query_miss_retrieval_drafts(project, limit),
-        "golden-log-signal.draft.json": low_signal_log_drafts(project, limit),
         "golden-evidence-attribution.draft.json": weak_evidence_claim_drafts(project, limit),
     }
 
@@ -104,28 +103,6 @@ def query_miss_retrieval_drafts(project: Project, limit: int) -> list[dict[str, 
     return cases
 
 
-def low_signal_log_drafts(project: Project, limit: int) -> list[dict[str, Any]]:
-    analysis = read_runtime_json(project, "last_runtime_log_analysis.json")
-    events = [event for event in analysis.get("low_signal_events") or [] if isinstance(event, dict)]
-    if not events:
-        return []
-    lines = [compact_log_event(event) for event in events[: max(1, limit)]]
-    return [
-        {
-            "name": "draft-low-signal-runtime-log",
-            "logs": lines,
-            "min_good_rate": 1.0,
-            "max_low_signal_rate": 0.0,
-            "draft_source": {
-                "kind": "last_runtime_log_analysis",
-                "query": analysis.get("query"),
-                "log_file": analysis.get("log_file"),
-                "low_signal_event_count": len(events),
-            },
-        }
-    ]
-
-
 def weak_evidence_claim_drafts(project: Project, limit: int) -> list[dict[str, Any]]:
     trace = read_runtime_json(project, "last_task_trace.json")
     quality = trace.get("auto_summary_quality") if isinstance(trace.get("auto_summary_quality"), dict) else {}
@@ -164,22 +141,10 @@ def read_runtime_json(project: Project, filename: str) -> dict[str, Any]:
     return data if isinstance(data, dict) else {}
 
 
-def compact_log_event(event: dict[str, Any]) -> str:
-    parts = [
-        str(event.get("timestamp") or "").strip(),
-        str(event.get("process") or "").strip(),
-        str(event.get("level") or "").strip(),
-        str(event.get("logger") or "").strip(),
-        str(event.get("message") or event.get("raw") or event.get("raw_line") or "").strip(),
-    ]
-    line = " ".join(part for part in parts if part)
-    return line or json.dumps(event, ensure_ascii=False, sort_keys=True)[:240]
-
-
 def draft_readme() -> str:
     return """# Draft Golden Eval Cases
 
-These files are generated from runtime signals such as query misses, low-signal logs, and weak evidence traces.
+These files are generated from runtime signals such as query misses and weak evidence traces.
 
 They are review-only drafts. Do not copy them into `docs/eval` until a human or Agent has replaced TODO anchors with project-specific expected records, claims, or log examples.
 """

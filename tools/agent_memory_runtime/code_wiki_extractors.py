@@ -210,13 +210,14 @@ def function_symbol_on_line(line: str, language: str) -> tuple[str, int] | None:
             r"^\s*(?:export\s+)?(?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(",
             r"^\s*(?:export\s+)?const\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s*)?\(",
             r"^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)",
+            r"^\s*(?:(?:private|public|protected|override|async|static)\s+)*([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{",
         ]
     elif language == "ArkTS":
         patterns = [
             r"^\s*(?:export\s+)?(?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(",
             r"^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)",
             r"^\s*(?:export\s+)?struct\s+([A-Za-z_$][\w$]*)",
-            r"^\s*(?:private\s+|public\s+|protected\s+)?([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{",
+            r"^\s*(?:(?:private|public|protected|override|async|static)\s+)*([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{",
         ]
     elif language == "Dart":
         patterns = [

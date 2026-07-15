@@ -9,8 +9,9 @@ from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT
 from .memory_calibration import calibrate_payload
 from .models import Project
 from .query_collect import collect_matches
-from .query_edges import build_evidence_chains, network_limits
-from .query_followups import build_log_search_plan, infer_followup_focus, suggested_followup_terms
+from .query_edges import network_limits
+from .query_followups import infer_followup_focus, suggested_followup_terms
+from .query_handoff import build_query_handoff
 from .query_intents import gate_matches_by_intent
 from .storage import connect, now_iso
 
@@ -51,6 +52,10 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
     matches = collect_matches(project, query)
     gated = gate_matches_by_intent(project, query, matches)
     bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS)
+    bounded["code_log_matches"] = [
+        {key: value for key, value in item.items() if key != "likely_causes"}
+        for item in bounded["code_log_matches"]
+    ]
     followup_focus = infer_followup_focus(query, bounded)
     context = {
         "project_id": project.project_id,
@@ -73,9 +78,8 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "semantic_patch_notes": gated["semantic_patch_notes"],
         "blocked_memory_notes": gated["blocked_memory_notes"],
         "conflict_notes": gated["conflict_notes"],
-        "evidence_chains": build_evidence_chains(bounded["edge_matches"]),
         "suggested_followup_terms": suggested_followup_terms(query, bounded),
-        "log_search_plan": build_log_search_plan(query, bounded),
+        "query_handoff": build_query_handoff(query, bounded),
         "network_limits": network_limits(),
     }
     calibrate_payload(context)
@@ -95,6 +99,10 @@ def limited_search(
 ) -> dict[str, Any]:
     matches = collect_matches(project, query)
     gated = gate_matches_by_intent(project, query, matches)
+    gated["matches"]["code_log_matches"] = [
+        {key: value for key, value in item.items() if key != "likely_causes"}
+        for item in gated["matches"]["code_log_matches"]
+    ]
     payload = batched_search(gated["matches"], query=query, cursor=cursor, per_type_limit=per_type_limit, aggregate_limit=aggregate_limit)
     payload["memory_intent"] = gated["memory_intent"]
     payload["memory_intent_v2"] = gated["memory_intent_v2"]
@@ -211,7 +219,6 @@ def batched_search(
     payload["total_candidates_by_type"] = total_candidates_by_type
     payload["returned_counts_by_type"] = returned_counts_by_type
     payload["suggested_followup_terms"] = suggested_followup_terms(query, payload)
-    payload["log_search_plan"] = build_log_search_plan(query, payload)
     return payload
 
 

@@ -8,6 +8,7 @@ import tempfile
 from pathlib import Path
 
 from tests.agent_memory_test_base import AgentMemoryTestBase
+from tools.agent_memory_runtime.evidence_context import build_evidence_context
 from tools.agent_memory_runtime.evidence_fusion import classify_causal_evidence, select_diverse_evidence
 from tools.agent_memory_runtime.evidence_models import EvidenceItem
 from tools.agent_memory_runtime.goal_planner import build_goal_plan
@@ -120,32 +121,26 @@ class EvidenceFabricHardeningTests(AgentMemoryTestBase):
         self.assertLessEqual(len(plan.subqueries), 3)
         self.assertEqual(3, plan.max_rounds)
 
-    def test_empty_query_stops_when_second_round_adds_no_evidence(self) -> None:
+    def test_empty_context_query_returns_plain_query_handoff(self) -> None:
         result = self.run_memory(
             self.project,
-            "evidence-context",
+            "context",
             "--query",
             "totally-unmatched-local-anchor",
             "--json",
         )
-        execution = json.loads(result.stdout)["retrieval_metadata"]["query_execution"]
+        payload = json.loads(result.stdout)
 
-        self.assertEqual("no_new_evidence", execution["stop_reason"])
-        self.assertEqual(2, execution["round_count"])
+        self.assertEqual("agent-query-handoff/v1", payload["query_handoff"]["schema_version"])
+        self.assertNotIn("evidence_chains", payload)
 
     def test_global_query_returns_bounded_aggregate_evidence(self) -> None:
         self.seed_code_graph()
 
-        result = self.run_memory(
-            self.project,
-            "evidence-context",
-            "--query",
-            "整体架构和高频事故",
-            "--scope",
-            "global",
-            "--json",
+        project = resolve_project(self.project, self.memory_home(self.project))
+        payload = build_evidence_context(
+            project, "整体架构和高频事故", explicit_scope="global",
         )
-        payload = json.loads(result.stdout)
         items = sum(payload["evidence"].values(), [])
 
         self.assertEqual("global", payload["goal_plan"]["query_scope"])
@@ -167,7 +162,7 @@ class EvidenceFabricHardeningTests(AgentMemoryTestBase):
 
     def test_runtime_log_normalizes_trace_context(self) -> None:
         from tools.agent_memory_runtime.otel_lite import runtime_event_to_otel_lite
-        from tools.agent_memory_runtime.runtime_logs import normalize_runtime_log_line
+        from tools.agent_memory_runtime.runtime_log_parsing import normalize_runtime_log_line
 
         event = normalize_runtime_log_line(
             "07-13 12:00:00.100 EntryAbility E Profile: failed "

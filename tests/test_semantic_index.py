@@ -8,6 +8,7 @@ import tempfile
 from pathlib import Path
 
 from tests.agent_memory_test_base import AgentMemoryTestBase
+from tools.agent_memory_runtime.evidence_context import build_evidence_context
 from tools.agent_memory_runtime.semantic_adapters import registered_adapter_manifest
 from tools.agent_memory_runtime.semantic_models import SemanticBatch, SemanticEntity
 from tools.agent_memory_runtime.semantic_index import supersede_weaker_edge
@@ -152,6 +153,58 @@ struct ProfilePage {
         self.assertIn("registers_callback", {row["relation"] for row in edges})
         self.assertTrue(all(row["evidence_kind"].startswith("static_semantic") for row in edges))
 
+    def test_static_async_arkts_methods_receive_semantic_identity(self) -> None:
+        self.write_file(
+            "service/StaticService.ets",
+            """
+export default class StaticService {
+  static async queryAll(): Promise<void> {
+    console.error('query failed')
+  }
+}
+""",
+        )
+        self.write_file(
+            "pages/StaticPage.ets",
+            """
+import StaticService from '../service/StaticService'
+struct StaticPage {
+  async aboutToAppear(): Promise<void> {
+    await StaticService.queryAll()
+  }
+}
+""",
+        )
+
+        self.learn_all()
+        rows = self.db_rows(
+            """
+            SELECT qualified_name, start_line, semantic_adapter
+            FROM code_symbols
+            WHERE project_id = ? AND file_path = 'service/StaticService.ets'
+              AND symbol = 'queryAll'
+            """,
+            (self.project_id(self.project),),
+        )
+
+        self.assertEqual("StaticService.queryAll", rows[0]["qualified_name"])
+        self.assertTrue(rows[0]["start_line"])
+        self.assertTrue(rows[0]["semantic_adapter"])
+        edges = self.db_rows(
+            """
+            SELECT e.relation, source.qualified_name AS source_name,
+                   target.qualified_name AS target_name
+            FROM memory_edges e
+            JOIN code_symbols source ON source.id = e.source_id
+            JOIN code_symbols target ON target.id = e.target_id
+            WHERE e.project_id = ? AND e.valid_to IS NULL
+              AND e.relation = 'awaits'
+              AND target.qualified_name = 'StaticService.queryAll'
+            """,
+            (self.project_id(self.project),),
+        )
+        self.assertEqual("StaticPage.aboutToAppear", edges[0]["source_name"])
+
     def test_symbol_edges_expand_change_impact_to_cross_file_caller(self) -> None:
         self.learn_all()
 
@@ -169,11 +222,11 @@ struct ProfilePage {
     def test_architecture_slice_exposes_semantic_symbol_identity(self) -> None:
         self.learn_all()
 
-        result = self.run_memory(
-            self.project, "evidence-context", "--goal", "design",
-            "--query", "Profile page service state", "--json",
+        project = resolve_project(self.project, self.memory_home(self.project))
+        payload = build_evidence_context(
+            project, "Profile page service state", explicit_goal="design",
         )
-        nodes = json.loads(result.stdout)["architecture_slice"]["nodes"]
+        nodes = payload["architecture_slice"]["nodes"]
         semantic_symbols = [node for node in nodes if node.get("semantic_adapter")]
 
         self.assertTrue(semantic_symbols)

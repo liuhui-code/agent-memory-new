@@ -9,16 +9,12 @@ from .query_collect import (
     like_recall_candidate_ids,
     recall_candidate_ids,
 )
-from .query_edges import collect_related_edges, build_evidence_chains, evidence_reason, network_limits
+from .query_edges import collect_related_edges, evidence_reason, network_limits
 from .query_followups import (
-    build_log_search_plan,
     focus_from_query,
     infer_followup_focus,
-    log_logger_hints,
     rank_followup_seed_terms,
-    string_literals,
     suggested_followup_terms,
-    unique_preserved,
 )
 from .query_intents import (
     gate_matches_by_intent,

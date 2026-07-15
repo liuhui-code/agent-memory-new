@@ -9,7 +9,7 @@ from typing import Any
 
 from .log_signal_quality import build_log_signal_summary, enrich_log_signal
 from .records import output
-from .runtime_logs import normalize_runtime_log_line
+from .runtime_log_parsing import normalize_runtime_log_line
 from .storage import ensure_initialized, resolve_project
 
 

@@ -11,7 +11,7 @@ Use this protocol to understand current files, symbols, routes, resources, confi
 5. Report missing learned coverage explicitly.
 
 ```bash
-python tools/agent_memory.py evidence-context --project . --goal code_understanding --query "<question>" --json
+python tools/agent_memory.py context --project . --query "<question>" --json
 python tools/agent_memory.py wiki-search --project . --query "<file, symbol, route, or resource>" --json
 ```
 

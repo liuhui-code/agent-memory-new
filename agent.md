@@ -56,6 +56,7 @@ Responsibilities:
 - Obsidian Markdown is a read-only human review mirror.
 - `--project` selects the memory archive and query context. `--source` on learning commands can point at any external source tree to learn into that archive.
 - Natural language plus skills is the intended user interface; direct CLI usage is the backend and debugging interface.
+- The Runtime retrieves, ranks, correlates, and compresses evidence. The local Agent CLI owns hypotheses, diagnosis, design reasoning, interventions, and verification; graph paths and experience are context, not Runtime conclusions.
 - `semantic-index/v1` adapters run only during learning; normalized symbol metadata and edges remain in SQLite for language-neutral design, impact, and Incident consumers.
 
 ## Runtime Commands
@@ -68,9 +69,7 @@ python tools/agent_memory.py doctor --project .
 python tools/agent_memory.py update --project . --type semantic --fact "..."
 python tools/agent_memory.py update --project . --type episode --task "..." --summary "..."
 python tools/agent_memory.py context --project . --query "..." --json
-python tools/agent_memory.py evidence-context --project . --query "..." --json
 python tools/agent_memory.py design-assist --project . --query "..." --mode design-only --json
-python tools/agent_memory.py evidence-context --project . --goal design --query "..." --json
 python tools/agent_memory.py design-prepare --project . --intent intent.json --contract contract.json --json
 python tools/agent_memory.py design-check --project . --intent intent.json --proposal proposal.json --json
 python tools/agent_memory.py design-compare --project . --intent intent.json --proposal a.json --proposal b.json --contract contract.json --json
@@ -79,6 +78,9 @@ python tools/agent_memory.py design-verify --project . --proposal proposal.json 
 python tools/agent_memory.py design-outcome --project . --verification verification.json --outcome success --json
 python tools/agent_memory.py eval-design --project . --cases docs/eval/design-cases.json --json
 python tools/agent_memory.py eval-semantic --project . --cases docs/eval/semantic-cases.json --mode static --json
+python tools/agent_memory.py eval-harvest-history --project . --target /tmp/history-cases.json --json
+python tools/agent_memory.py eval-mutate-arkts --project . --target /tmp/mutation-cases.json --json
+python tools/agent_memory.py eval-agent-benchmark --project . --cases /tmp/mutation-cases.json --runner /path/to/runner --json
 python tools/agent_memory.py impact-scope --project . --base HEAD~1 --json
 python tools/agent_memory.py impact-feedback --project . --outcome pass --executed-tests "tests/test_profile.py" --json
 python tools/agent_memory.py search --project . --query "..." --json
@@ -110,6 +112,13 @@ python tools/agent_memory.py maintain-promote --project . --reflection-id 1 --fa
 ```
 
 All query commands must support `--json`.
+
+For incident diagnosis, `context` is the only public retrieval handoff. It
+returns historical experience, learned log keywords/statements, source anchors,
+and bounded raw graph edges. The Agent CLI reads temporary user logs itself,
+forms multiple candidate causes, queries each candidate separately, inspects
+current source, and infers call and causal chains. The Runtime must not parse
+temporary logs or generate hypotheses, evidence chains, or root causes.
 
 ## Skill Set
 
@@ -173,3 +182,4 @@ See `docs/mvp-implementation-plan.md`.
 
 See `docs/usage-guide.md`.
 See `docs/agent-cli-query-skill-guide.zh-CN.md` for detailed Agent CLI diagnosis and design workflows in Chinese.
+See `docs/context-provider-boundary.md` for the hard boundary between Runtime context supply and Agent reasoning.

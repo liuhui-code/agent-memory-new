@@ -87,7 +87,7 @@ episodes         -> recent related changes and risk history
 wiki_matches     -> files, symbols, pages, route targets, resources to inspect
 code_log_matches -> learned log/print/console/hilog statements
 edge_matches     -> one-hop relations: contains, emits_log, imports, routes_to, uses_resource
-evidence_chains  -> readable explanations for returned edges
+query_handoff    -> log keywords, source anchors, memory refs, next-query contract
 network_limits   -> bounds; never ask for unbounded graph traversal
 ```
 
@@ -170,7 +170,7 @@ Use results in this order:
 2. `semantic_facts` with high confidence and active status.
 3. Relevant `reflections` with clear trigger and repair action.
 4. `wiki_matches` and `code_log_matches` as inspection targets.
-5. `edge_matches` and `evidence_chains` as relationship hints.
+5. `edge_matches` as raw relationship hints and `query_handoff` as the Agent handoff.
 6. `episodes` as historical risk context.
 
 Do not treat `wiki_matches` as proof. They say where to inspect.

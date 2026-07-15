@@ -1,28 +1,31 @@
-# Incident Diagnosis Protocol
+# Agent-Led Incident Query Protocol
 
 Use this protocol for symptoms, errors, runtime logs, crashes, blank pages, failed routes, missing resources, or recurring incidents.
 
 ## Workflow
 
-1. Run `evidence-context` with `--goal diagnosis`.
-2. Prefer current code-log anchors and observed runtime evidence.
-3. If a temporary log is available, analyze it without persisting the raw file.
-4. Read the bounded Span Graph Lite and keep competing candidates in the returned hypothesis ledger.
-5. Run the ledger's next discriminating check before editing code.
-6. Build a bounded chain from symptom to event, code anchor, mechanism, intervention, and verification.
-7. Treat prior incidents and experience as corroboration only.
+1. Run `context` with the user's problem to retrieve historical experience, code-log keywords, code locations, and stored graph edges.
+2. Read the temporary runtime log directly with Agent CLI tools; never send the file to Agent Memory.
+3. Summarize exact events, identifiers, ordering, missing expected events, and multiple candidate causes in the Agent session.
+4. Run one `context` query for each exact log phrase, error code, event name, symbol, or candidate cause.
+5. Inspect the returned current source and raw graph edges, then infer the likely call chain in the Agent session.
+6. Combine the observed runtime order with inspected code behavior to build the causal chain in the Agent session.
+7. Execute discriminating checks and treat prior incidents and experience as historical advice only.
 
 ```bash
-python tools/agent_memory.py evidence-context --project . --goal diagnosis --query "<symptom>" --json
-python tools/agent_memory.py analyze-runtime-log --project . --query "<symptom>" --log-file "<path>" --json
+python tools/agent_memory.py context --project . --query "<user symptom>" --json
+python tools/agent_memory.py context --project . --query "<exact runtime-log phrase or error code>" --json
+python tools/agent_memory.py context --project . --query "<one Agent candidate cause>" --json
 ```
 
-Prefer stable OTel-lite fields such as severity, logger, event name, trace/request/session id, error code, reason, route, resource, and result. Use raw excerpts only when structured fields are insufficient.
+When reading the user log, prefer stable fields such as severity, logger, event name, trace/request/session id, error code, reason, route, resource, and result. These fields become plain text inputs for the next `context` query.
 
-Read `causal_evidence.level`: `association` is a lead; `supported` has a connected mechanism, shared runtime identity, and verified order, or an observed resolution; `verified` additionally records a targeted intervention and before/after evidence; `rejected` has counter-evidence. Never upgrade a chain because multiple weak memories repeat the same claim.
+Read `query_handoff.log_anchors` to map runtime phrases to code-log templates and source functions. When `query_handoff.path_context.activated` is true, treat each `path_candidate` as a current-graph possibility, not a diagnosis. Compare its `expected_log_anchors` with the actual temporary-log order, process/session identity, missing events, and contradictions. Keep multiple paths when the log does not distinguish them. Read `code_anchors` for current source locations and `experience_refs` for historical applicability. Do not let stored `likely_causes`, ranking, or repeated memories select the current root cause.
 
-Read `hypothesis_ledger.hypotheses` as an active diagnosis queue. Prefer `next_discriminating_check` that can separate candidates. Stop only on a verified candidate, all candidates rejected, or an explicit evidence limitation.
+Path scores are structural only. Experience and semantic corrections cannot create graph seeds, edges, or path scores. Use them after path reconstruction to annotate applicability or challenge an interpretation. A missing path means incomplete graph evidence; it does not prove that execution did not occur.
 
-When `incident-trace` returns `causal_chain`, preserve its role boundary: the supplied runtime log is `observed`, enclosing code is `supports`, static semantic neighbors are `possible`, and lower-authority links are `inferred`. Inspect the linked symbol ids before turning a possible path into a diagnosis.
+Create the candidate-cause queue in the Agent session. For each candidate, query separately, inspect its source path, and record supporting and counter observations locally.
 
-Report low-signal logs and `observability_gaps` as narrow engineering follow-ups. Persist only a compact reflection candidate after verification, never the raw log stream.
+Start source inspection with the returned candidate entry, emitter, edge provenance, uncertainty, and missing segments. Extend or reject paths by following callers, async boundaries, callbacks, route/resource access, state reads/writes, and error branches in current source. Infer the causal chain only after aligning that source path with the order observed in the temporary runtime log.
+
+Report missing identifiers or expected events as observability gaps. Persist only the Agent-authored, verified reflection or Incident summary, never the raw log stream.

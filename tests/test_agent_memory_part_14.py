@@ -132,7 +132,7 @@ class AgentMemoryRuntimePart14Tests(AgentMemoryTestBase):
 
             self.assertLessEqual(len(edges), 10)
 
-    def test_context_returns_one_hop_evidence_chains(self) -> None:
+    def test_context_returns_raw_edges_and_agent_query_handoff(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
             (project / "worker.py").write_text(
@@ -144,15 +144,17 @@ class AgentMemoryRuntimePart14Tests(AgentMemoryTestBase):
 
             result = self.run_memory(project, "context", "--query", "retrying job", "--json")
             payload = json.loads(result.stdout)
-            chain = next(
-                item for item in payload["evidence_chains"]
+            edge = next(
+                item for item in payload["edge_matches"]
                 if item["relation"] == "emits_log"
             )
 
-            self.assertEqual(chain["depth"], 1)
-            self.assertEqual(chain["reason"], "matched log statement emitted by symbol")
-            self.assertEqual(chain["target_type"], "code_log_statement")
-            self.assertIn("worker.py", chain["evidence"])
+            self.assertNotIn("evidence_chains", payload)
+            self.assertEqual(edge["target_type"], "code_log_statement")
+            self.assertIn("worker.py", edge["evidence"])
+            self.assertIn("retrying", payload["query_handoff"]["log_keywords"])
+            self.assertTrue(payload["query_handoff"]["log_anchors"])
+            self.assertFalse(payload["query_handoff"]["role_boundary"]["runtime_builds_causal_chains"])
 
     def test_search_limits_large_result_sets(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

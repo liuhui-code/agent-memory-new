@@ -58,14 +58,12 @@ class EvalCaseDraftTests(unittest.TestCase):
         self.assertEqual("query_miss", retrieval[0]["draft_source"]["kind"])
         self.assertTrue(readme_exists)
 
-    def test_eval_draft_cases_writes_log_and_evidence_drafts(self) -> None:
+    def test_eval_draft_cases_writes_evidence_draft_without_runtime_log_draft(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir) / "app"
             target = Path(temp_dir) / "drafts"
-            log_file = Path(temp_dir) / "runtime.log"
             project.mkdir()
-            log_file.write_text("failed\n", encoding="utf-8")
-            self.run_memory(project, "analyze-runtime-log", "--query", "profile failed", "--log-file", str(log_file), "--json")
+            self.run_memory(project, "context", "--query", "profile failed", "--json")
             runtime = self.runtime_dir(project)
             trace = {
                 "sample_id": "trace-1",
@@ -81,11 +79,11 @@ class EvalCaseDraftTests(unittest.TestCase):
 
             result = self.run_memory(project, "eval-draft-cases", "--target", str(target), "--json")
             data = json.loads(result.stdout)
-            log_cases = json.loads((target / "golden-log-signal.draft.json").read_text(encoding="utf-8"))
             evidence_cases = json.loads((target / "golden-evidence-attribution.draft.json").read_text(encoding="utf-8"))
+            log_draft_exists = (target / "golden-log-signal.draft.json").exists()
 
-        self.assertEqual(1, data["draft_counts"]["golden-log-signal.draft.json"])
-        self.assertEqual("last_runtime_log_analysis", log_cases[0]["draft_source"]["kind"])
+        self.assertNotIn("golden-log-signal.draft.json", data["draft_counts"])
+        self.assertFalse(log_draft_exists)
         self.assertEqual(1, data["draft_counts"]["golden-evidence-attribution.draft.json"])
         self.assertEqual(["profile failure claim needs evidence"], evidence_cases[0]["claims"])
 

@@ -16,7 +16,7 @@ CONTAINER_RE = re.compile(
     r"(?:\s+extends\s+([A-Za-z_$][\w$]*))?(?:[^\n{]*?\s+implements\s+([^\n{]+))?"
 )
 METHOD_RE = re.compile(
-    r"^\s*(?:(public|private|protected)\s+)?(override\s+)?(async\s+)?"
+    r"^\s*(?:(public|private|protected)\s+)?(override\s+)?(?:static\s+)?(async\s+)?"
     r"([A-Za-z_$][\w$]*)\s*\(([^)]*)\)\s*(?::\s*([^\s{]+))?\s*\{"
 )
 FUNCTION_RE = re.compile(
@@ -28,6 +28,9 @@ FIELD_RE = re.compile(
     r"^\s*(?:(?:public|private|protected|readonly|static)\s+)*([A-Za-z_$][\w$]*)\s*:\s*([A-Za-z_$][\w$<>,.? ]*)"
 )
 IMPORT_RE = re.compile(r"(?m)^\s*import\s*\{([^}]+)\}\s*from\s*['\"]([^'\"]+)['\"]")
+DEFAULT_IMPORT_RE = re.compile(
+    r"(?m)^\s*import\s+([A-Za-z_$][\w$]*)\s+from\s*['\"]([^'\"]+)['\"]"
+)
 CONTROL_NAMES = {"if", "for", "while", "switch", "catch"}
 
 
@@ -271,7 +274,7 @@ def callable_relations(
             result.append(relation(block.entity.key, "calls", target.key, block.start + 1, 0.95, "local method call"))
     typed_calls = re.findall(r"\b(?:this\.)?([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\s*\(", body)
     for field_name, method_name in typed_calls:
-        type_name = fields.get(field_name)
+        type_name = fields.get(field_name) or (field_name if field_name in imported_paths else None)
         if not type_name or field_name == "this":
             continue
         result.append(SemanticRelation(
@@ -303,7 +306,7 @@ def callable_relations(
         r"\bawait\s+(?:this\.)?([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\s*\(", body
     )
     for field_name, method_name in typed_awaits:
-        type_name = fields.get(field_name)
+        type_name = fields.get(field_name) or (field_name if field_name in imported_paths else None)
         if not type_name:
             gaps.append({
                 "kind": "unresolved_await_target", "file_path": block.entity.file_path,
@@ -350,6 +353,8 @@ def parse_imports(project: Project, path: Path, text: str, language: str) -> lis
             parts = re.split(r"\s+as\s+", raw.strip())
             if parts and parts[0]:
                 result.append((parts[0], parts[-1], target_path))
+    for name, module in DEFAULT_IMPORT_RE.findall(text):
+        result.append((name, name, resolve_relative_module(project, path, module, extensions)))
     return result
 
 
