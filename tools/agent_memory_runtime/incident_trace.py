@@ -29,6 +29,13 @@ def write_incident_trace(project: Any, draft: dict[str, Any]) -> dict[str, Any]:
     ts = now_iso()
     dominant_events = json.dumps(draft.get("dominant_log_events") or [], ensure_ascii=False)
     causal_chain = json.dumps(draft.get("causal_chain") or [], ensure_ascii=False)
+    span_graph_data = dict(draft.get("span_graph") or {})
+    span_graph_data["audit"] = {
+        **(span_graph_data.get("audit") or {}),
+        "persisted": True,
+        "persistence_scope": "compact_incident_trace",
+    }
+    span_graph = json.dumps(span_graph_data, ensure_ascii=False)
     with connect(project) as conn:
         existing = conn.execute(
             """
@@ -45,7 +52,7 @@ def write_incident_trace(project: Any, draft: dict[str, Any]) -> dict[str, Any]:
                 UPDATE incident_traces
                 SET symptom = ?, arkts_scene = ?, entry_log_text = ?, normalized_error = ?,
                     dominant_log_events = ?, suspected_chain = ?, causal_chain = ?,
-                    confidence = ?, updated_at = ?
+                    span_graph = ?, confidence = ?, updated_at = ?
                 WHERE project_id = ? AND id = ?
                 """,
                 (
@@ -56,6 +63,7 @@ def write_incident_trace(project: Any, draft: dict[str, Any]) -> dict[str, Any]:
                     dominant_events,
                     draft.get("suspected_chain"),
                     causal_chain,
+                    span_graph,
                     0.7,
                     ts,
                     project.project_id,
@@ -68,9 +76,9 @@ def write_incident_trace(project: Any, draft: dict[str, Any]) -> dict[str, Any]:
                 INSERT INTO incident_traces(
                   project_id, trace_key, status, symptom, arkts_scene, entry_log_text,
                   normalized_error, dominant_log_events, suspected_chain, causal_chain,
-                  confidence, source, created_at, updated_at
+                  span_graph, confidence, source, created_at, updated_at
                 )
-                VALUES (?, ?, 'open', ?, ?, ?, ?, ?, ?, ?, ?, 'incident-trace', ?, ?)
+                VALUES (?, ?, 'open', ?, ?, ?, ?, ?, ?, ?, ?, ?, 'incident-trace', ?, ?)
                 """,
                 (
                     project.project_id,
@@ -82,6 +90,7 @@ def write_incident_trace(project: Any, draft: dict[str, Any]) -> dict[str, Any]:
                     dominant_events,
                     draft.get("suspected_chain"),
                     causal_chain,
+                    span_graph,
                     0.7,
                     ts,
                     ts,
@@ -124,6 +133,7 @@ def write_incident_trace(project: Any, draft: dict[str, Any]) -> dict[str, Any]:
     data["linked_targets"] = draft.get("linked_targets") or []
     data["candidate_chain"] = draft.get("candidate_chain") or []
     data["causal_chain"] = draft.get("causal_chain") or []
+    data["span_graph"] = span_graph_data
     data["causal_chain_gaps"] = draft.get("causal_chain_gaps") or []
     data["inspection_targets"] = draft.get("inspection_targets") or []
     data["suggested_followup_query"] = draft.get("suggested_followup_query") or ""
@@ -151,10 +161,20 @@ def incident_trace_status(args: argparse.Namespace) -> None:
         conn.execute(
             """
             UPDATE incident_traces
-            SET status = ?, resolution = COALESCE(?, resolution), updated_at = ?
+            SET status = ?, resolution = COALESCE(?, resolution),
+                intervention = COALESCE(?, intervention),
+                verification_evidence = COALESCE(?, verification_evidence), updated_at = ?
             WHERE project_id = ? AND id = ?
             """,
-            (args.status, args.resolution, ts, project.project_id, args.id),
+            (
+                args.status,
+                args.resolution,
+                args.intervention,
+                args.verification_evidence,
+                ts,
+                project.project_id,
+                args.id,
+            ),
         )
         row = conn.execute(
             "SELECT * FROM incident_traces WHERE project_id = ? AND id = ?",

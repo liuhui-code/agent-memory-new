@@ -183,13 +183,39 @@ class EvidenceFabricHardeningTests(AgentMemoryTestBase):
         self.assertEqual("failed", otel["attributes"]["app.result"])
 
     def test_causal_levels_require_more_than_shared_text(self) -> None:
-        code = evidence("code_file:1", "code", "learned_code_anchor", {"id": 1})
-        edge = evidence("memory_edge:2", "edge", "graph_relation", {"id": 2})
+        code = evidence("code_file:1", "code", "learned_code_anchor", {"id": 1}, ["file:src/a.ets"])
+        edge = evidence("memory_edge:2", "edge", "graph_relation", {"id": 2}, ["file:src/a.ets"])
         resolved = evidence(
             "incident_trace:3",
             "incident",
             "observed_incident",
             {"id": 3, "status": "resolved", "resolution": "rollback fixed the symptom"},
+        )
+        verified = evidence(
+            "incident_trace:5",
+            "incident",
+            "observed_incident",
+            {
+                "id": 5,
+                "status": "resolved",
+                "resolution": "rollback fixed the symptom",
+                "intervention": "rollback release 42",
+                "verification_evidence": "error rate fell from 20% to 0%",
+            },
+        )
+        correlated = evidence(
+            "incident_trace:6",
+            "incident",
+            "observed_incident",
+            {
+                "id": 6,
+                "span_graph": {
+                    "causal_paths": [{
+                        "correlation_verified": True,
+                        "temporal_order_verified": True,
+                    }],
+                },
+            },
         )
         rejected = evidence(
             "incident_trace:4",
@@ -199,8 +225,10 @@ class EvidenceFabricHardeningTests(AgentMemoryTestBase):
         )
 
         self.assertEqual("association", classify_causal_evidence([code])["level"])
-        self.assertEqual("supported", classify_causal_evidence([code, edge])["level"])
-        self.assertEqual("verified", classify_causal_evidence([resolved])["level"])
+        self.assertEqual("association", classify_causal_evidence([code, edge])["level"])
+        self.assertEqual("supported", classify_causal_evidence([code, edge, correlated])["level"])
+        self.assertEqual("supported", classify_causal_evidence([resolved])["level"])
+        self.assertEqual("verified", classify_causal_evidence([verified])["level"])
         self.assertEqual("rejected", classify_causal_evidence([rejected])["level"])
 
     def test_failed_test_feedback_boosts_future_recommendation(self) -> None:
@@ -249,7 +277,13 @@ class EvidenceFabricHardeningTests(AgentMemoryTestBase):
         self.assertIn("one_hop_graph_proximity", recommendations[0]["reasons"])
 
 
-def evidence(evidence_id: str, source: str, authority: str, raw: dict) -> EvidenceItem:
+def evidence(
+    evidence_id: str,
+    source: str,
+    authority: str,
+    raw: dict,
+    anchors: list[str] | None = None,
+) -> EvidenceItem:
     return EvidenceItem(
         evidence_id=evidence_id,
         source=source,
@@ -260,5 +294,6 @@ def evidence(evidence_id: str, source: str, authority: str, raw: dict) -> Eviden
         location=None,
         authority=authority,
         original_score=80.0,
+        anchors=anchors or [],
         raw=raw,
     )

@@ -239,6 +239,10 @@ def maintain_health(args: argparse.Namespace) -> None:
         recommended_actions.append(f"Review latest quality gate failure{f': {failed}' if failed else ''}.")
     if int(provider_health.get("fallbacks") or 0) >= 2:
         recommended_actions.append("Review repeated semantic-provider fallback reasons before trusting static-only graph coverage.")
+    if evidence_runtime.get("causal_quality_band") in {"weak", "insufficient"}:
+        recommended_actions.append(
+            "Continue the latest diagnosis with its hypothesis ledger; collect correlation, temporal, or intervention evidence."
+        )
 
     data = {
         "project_id": project.project_id,

@@ -69,6 +69,7 @@ python tools/agent_memory.py update --project . --type semantic --fact "..."
 python tools/agent_memory.py update --project . --type episode --task "..." --summary "..."
 python tools/agent_memory.py context --project . --query "..." --json
 python tools/agent_memory.py evidence-context --project . --query "..." --json
+python tools/agent_memory.py design-assist --project . --query "..." --mode design-only --json
 python tools/agent_memory.py evidence-context --project . --goal design --query "..." --json
 python tools/agent_memory.py design-prepare --project . --intent intent.json --contract contract.json --json
 python tools/agent_memory.py design-check --project . --intent intent.json --proposal proposal.json --json

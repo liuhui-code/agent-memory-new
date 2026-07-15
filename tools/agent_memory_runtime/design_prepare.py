@@ -6,6 +6,7 @@ import argparse
 from typing import Any
 
 from .architecture_slice import DEPENDENCY_RELATIONS
+from .design_guidance import build_design_guidance
 from .design_protocol import apply_intent_to_contract, load_contract, load_intent, load_rules
 from .design_synthesis import build_synthesis_brief
 from .records import output
@@ -45,6 +46,7 @@ def build_design_workbench(
         "baseline_revision": model["snapshot"]["graph_revision"],
         "repository_model": public_repository_model(model),
         "synthesis_brief": build_synthesis_brief(model, intent, contract),
+        "design_guidance": build_design_guidance(model, intent),
         "anchor_catalog": build_anchor_catalog(architecture),
         "fitness_rules": rules[:MAX_CATALOG_RULES],
         "candidate_template": candidate_template(intent, contract, model),

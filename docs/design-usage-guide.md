@@ -36,6 +36,38 @@
 
 `agent-memory-query` 会按需加载设计协议。用户不需要记忆新 Skill 名称，也不必手写 JSON；正常情况下由 Agent 根据当前代码证据生成临时设计文件并调用运行时。
 
+## 推荐的简单入口
+
+正常使用只需要一句自然语言。Agent 在内部调用：
+
+```bash
+python tools/agent_memory.py design-assist --project . \
+  --query "为 ProfileRepository 增加缓存，保持 ProfileService API 兼容" \
+  --mode design-only --json
+```
+
+三种模式对应用户常见表达：
+
+| 用户表达 | 内部模式 | 行为 |
+| --- | --- | --- |
+| “先设计，不改代码” | `design-only` | 返回推荐方案、必要备选、风险和验证要求 |
+| “设计并实现” | `design-and-implement` | 设计检查通过后进入实现和验证闭环 |
+| “比较A和B” | `compare` | 只比较存在实质结构或行为差异的候选 |
+
+`design-assist` 自动完成自然语言意图、设计证据和候选无关基线准备，返回紧凑结果：
+
+- `current_design`：当前revision、入口、稳定边界、扩展点和状态所有者
+- `design_guidance.forces`：从目标和约束识别的设计作用力
+- `existing_patterns`：由当前代码图支持的已有结构模式
+- `pattern_candidates`：带前置条件、反条件和必要决策的候选模式
+- `principle_checks`：最小设计、依赖方向、状态所有权、信息隐藏和可观测性检查
+- `candidate_template`：不包含虚构修改或覆盖声明的Delta模板
+- `interaction`：Agent下一步和真正需要用户决策的问题
+
+模式名称不是结论。`candidate` 表示可以进入方案比较，`needs_evidence` 表示结构证据不足，`caution` 表示存在反条件。普通局部修改没有真实变化轴时，返回空模式候选是正确行为。
+
+以下完整工作流主要用于高级检查、CI或调试。正常用户不需要手工执行。
+
 ## 完整工作流
 
 ```text

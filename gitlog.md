@@ -4393,3 +4393,83 @@ Verification:
 Rollback notes:
 
 - Unset `AGENT_MEMORY_SEMANTIC_PROVIDER_ARKTS` to return immediately to static-only learning. Removing provider selection, telemetry, evaluation, and exact-priority ordering requires no destructive SQLite rollback; existing exact edges remain ordinary versioned memory edges until the next focused refresh.
+
+## 2026-07-14 - Document the local Agent incident diagnosis loop
+
+Files added or extended:
+
+- `docs/local-agent-incident-workflow.md`
+- `docs/usage-guide.md`
+- `README.md`
+
+What changed:
+
+- Documented how a local Agent uses Agent Memory as a diagnosis control layer instead of a one-shot query database.
+- Added an end-to-end workflow for coordinated evidence, temporary runtime-log analysis, hypothesis falsification, source inspection, impact analysis, verification feedback, and bounded reflection.
+- Defined evidence authority, causal-level handling, stopping conditions, temporary-log retention, correction-versus-procedure experience boundaries, and periodic governance.
+- Preserved the single runtime entry point, SQLite source of truth, and four public Skills.
+
+Verification:
+
+- Checked all documented command options against the current CLI help.
+- Documentation-only change; no runtime tests required.
+
+Rollback notes:
+
+- Remove the new guide and its README/usage-guide links. No runtime or stored-memory migration is involved.
+
+## 2026-07-14 - Add the natural-language design assistant entry
+
+Files added or extended:
+
+- `tools/agent_memory_runtime/design_assist.py`
+- `tools/agent_memory_runtime/design_guidance.py`
+- Existing design preparation, CLI, runtime entry, four-Skill protocol, and design documentation files.
+- `tests/test_design_assist.py`
+
+What changed:
+
+- Added read-only `design-assist` as a compact natural-language entry with `design-only`, `design-and-implement`, and `compare` modes.
+- Reused the existing design evidence and candidate-independent workbench instead of creating a second design pipeline.
+- Added deterministic design-force detection, structural recognition of existing patterns, conditional pattern candidates with preconditions and contraindications, principle checks, and required design decisions.
+- Added the same `design-guidance/v1` payload to `design-prepare` for advanced flows.
+- Kept pattern names advisory: unsupported candidates are marked `needs_evidence`, conflicting intent becomes `caution`, and small fixed changes may correctly return no pattern candidate.
+- Preserved one runtime entry point, SQLite source of truth, no persisted workbench, and exactly four public Skills.
+
+Verification:
+
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest tests.test_design_assist`: 3 tests passed.
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest discover -s tests -p 'test_*.py'`: 336 tests passed in 244.095 seconds.
+- Full Python compilation, line-limit check, CLI help, exactly-four-Skill check, and `git diff --check`: passed.
+
+Rollback notes:
+
+- Remove `design-assist`, `design-guidance/v1`, their parser/handler registration, tests, and documentation references. Existing design preparation, checking, comparison, progress, verification, and outcomes remain compatible; no SQLite migration is involved.
+
+## 2026-07-14 - Harden causal diagnosis with Span Graph Lite and hypothesis testing
+
+Files added or extended:
+
+- `tools/agent_memory_runtime/runtime_span_graph.py`
+- `tools/agent_memory_runtime/diagnosis_hypotheses.py`
+- Runtime log parsing, OTel-lite projection, incident trace storage/query, evidence fusion, governance health, and schema migration modules.
+- Incident diagnosis Skill protocol, runtime/usage/schema documentation, and focused causal diagnosis tests.
+
+What changed:
+
+- Added parent-span and service resource identity extraction while preserving chronological runtime episode chains.
+- Added bounded `runtime-span-graph/v1` nodes, parent edges, correlated temporal paths, quality gaps, and compact Incident Trace persistence without storing full raw logs.
+- Added diagnosis hypothesis ledgers with supporting/counter evidence, missing evidence, and one discriminating next check; only the latest bounded ledger is kept as runtime state.
+- Tightened causal levels: static adjacency remains association; supported requires connected mechanism plus explicit correlation and temporal order, or reviewed resolution; verified additionally requires intervention and before/after evidence.
+- Added incident status fields for intervention and verification evidence plus governance summaries for causal quality and open/verified hypotheses.
+- Kept span graph selection linear over the input and bounded ordering to 80 relevant events.
+
+Verification:
+
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest discover -s tests -p 'test_*.py'`: 343 tests passed in 282.226 seconds.
+- A 100,000-event synthetic related-event selection retained 10 events and completed graph selection/build in 239.17 ms.
+- Python compilation, CLI help, exactly-four-Skill check, diff check, and the 500-line Python limit passed.
+
+Rollback notes:
+
+- Remove Span Graph Lite and hypothesis ledger output, revert the stricter causal classifier, and leave the added nullable Incident Trace columns unused. No destructive SQLite rollback is required.

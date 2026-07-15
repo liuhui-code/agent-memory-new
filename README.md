@@ -355,6 +355,9 @@ It also routes concrete questions to local retrieval and architecture/recurring-
 Design against the current repository rather than historical patterns:
 
 ```bash
+python tools/agent_memory.py design-assist --project . \
+  --query "design profile caching without moving persistence into the page" \
+  --mode design-only --json
 python tools/agent_memory.py evidence-context --project . --goal design \
   --query "design profile caching without moving persistence into the page" --json
 python tools/agent_memory.py design-prepare --project . \
@@ -363,7 +366,7 @@ python tools/agent_memory.py design-check --project . \
   --intent intent.json --proposal proposal.json --contract contract.json --json
 ```
 
-Design retrieval attaches `repository-model/v2`, a revision-bound baseline with topology, ownership, behavior, data, failure, runtime, and change views. `design-prepare` exposes that baseline before candidate authoring through a bounded workbench and unclaimed v2 template, so candidate paths cannot define their own evidence boundary. V2 contracts and Deltas bind quality claims to current repository, Delta, and verification evidence. `design-compare` returns sensitivity/tradeoff points and a dependency-derived Change Plan DAG; `design-progress` distinguishes semantic `in_progress` additions from completed nodes; `design-verify` checks symbols, exported APIs, source/learned graphs, compiler diagnostics, and optionally revision-bound test evidence. These paths remain deterministic and read-only. Reviewed outcomes produce advisory calibration only after five matching samples. See [Design Usage Guide](docs/design-usage-guide.md) and [Repository-Grounded Design Control Loop](docs/design-reasoning.md).
+`design-assist` is the simple natural-language entry. It returns a compact current-design summary, intent forces, structurally recognized patterns, conditional pattern candidates, principle checks, required decisions, and an unclaimed Delta template. It does not apply a pattern from its name or generate hidden design reasoning. Design retrieval attaches `repository-model/v2`, a revision-bound baseline with topology, ownership, behavior, data, failure, runtime, and change views. `design-prepare` exposes the full baseline before candidate authoring, so candidate paths cannot define their own evidence boundary. V2 contracts and Deltas bind quality claims to current repository, Delta, and verification evidence. `design-compare` returns sensitivity/tradeoff points and a dependency-derived Change Plan DAG; `design-progress` distinguishes semantic `in_progress` additions from completed nodes; `design-verify` checks symbols, exported APIs, source/learned graphs, compiler diagnostics, and optionally revision-bound test evidence. These paths remain deterministic and read-only. Reviewed outcomes produce advisory calibration only after five matching samples. See [Design Usage Guide](docs/design-usage-guide.md) and [Repository-Grounded Design Control Loop](docs/design-reasoning.md).
 
 The Query Skill uses progressive disclosure: its main `SKILL.md` is a thin intent router, while code understanding, diagnosis, impact, evidence policy, and code design live in one-level `references/` files loaded only when relevant. The public interface remains four skills.
 
@@ -449,6 +452,7 @@ python tools/agent_memory.py wiki-index --project . --source "<external-project>
 
 python tools/agent_memory.py context --project . --query "..." --json
 python tools/agent_memory.py evidence-context --project . --query "..." --json
+python tools/agent_memory.py design-assist --project . --query "..." --mode design-only --json
 python tools/agent_memory.py impact-scope --project . --base HEAD~1 --query "..." --json
 python tools/agent_memory.py impact-feedback --project . --outcome pass --executed-tests "..." --json
 python tools/agent_memory.py search --project . --query "..." --json
@@ -477,6 +481,7 @@ python tools/agent_memory.py vault-export --project .
 - `agent.md`: project mission and agent-facing rules.
 - `AGENTS.md`: repository instructions for coding agents.
 - `docs/usage-guide.md`: skill-first usage guide.
+- `docs/local-agent-incident-workflow.md`: local Agent diagnosis, verification, impact-feedback, and reflection loop.
 - `docs/runtime.md`: runtime protocol notes.
 - `references/schema.md`: SQLite schema notes.
 - `docs/phase-2-memory-governance-plan.md`: memory governance plan.

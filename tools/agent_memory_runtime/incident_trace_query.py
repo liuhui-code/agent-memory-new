@@ -107,6 +107,7 @@ def collect_incident_trace_matches(project: Project, query: str, limit: int) -> 
             item["dominant_log_events"] = json.loads(row["dominant_log_events"] or "[]")
             item["candidate_chain"] = json.loads(row["suspected_chain"] or "[]")
             item["causal_chain"] = json.loads(row["causal_chain"] or "[]")
+            item["span_graph"] = json.loads(row["span_graph"] or "{}")
             item["links"] = trace_links(conn, project, int(row["id"]))
             matches.append(item)
     matches.sort(key=lambda item: (item.get("score", 0), item.get("updated_at", ""), item.get("id", 0)), reverse=True)

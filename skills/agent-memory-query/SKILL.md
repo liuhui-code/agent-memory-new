@@ -32,8 +32,14 @@ python tools/agent_memory.py evidence-context --project . --query "<goal>" --jso
 Pass an explicit goal only when the intent is clear:
 
 ```bash
-python tools/agent_memory.py evidence-context --project . --goal design --query "<design goal>" --json
+python tools/agent_memory.py design-assist --project . --query "<design goal>" --mode design-only --json
 ```
+
+For design intent, prefer `design-assist` as the simple natural-language entry.
+It returns a compact repository baseline, recognized structural patterns,
+applicable pattern candidates, principle checks, required decisions, and an
+unclaimed Delta template. Load `references/code-design.md` before authoring a
+candidate. Use the lower-level design commands only as that protocol requires.
 
 Use `context`, `search`, or `wiki-search` only when the selected protocol calls for a narrower view.
 

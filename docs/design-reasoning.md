@@ -18,6 +18,19 @@ DesignIntent v1
 
 The Agent authors intent, contracts, and materially different candidates. The deterministic runtime validates schemas, retrieves current facts, checks evidence, compares candidates, builds a bounded edit DAG, and verifies implementation evidence. The four public Skills and `tools/agent_memory.py` remain the interface.
 
+## Natural-Language Entry and Guidance
+
+`design-assist` is the compact entry for normal Agent use. It accepts a natural-language goal plus optional scope, constraints, acceptance criteria, and exclusions. It internally builds design evidence and the same candidate-independent workbench used by `design-prepare`, then returns only the current design summary, deterministic guidance, an unclaimed Delta template, readiness, and interaction steps.
+
+`design-guidance/v1` separates four concepts:
+
+- design forces detected from intent and constraints
+- existing patterns supported by current structural evidence
+- conditional pattern candidates with preconditions, contraindications, and required decisions
+- principle checks grounded in dependency direction, state ownership, boundaries, and observability anchors
+
+Pattern names alone are not evidence. The runtime may return no candidate for a small fixed change, and it marks structurally unsupported candidates as `needs_evidence`. This layer does not generate a proposal or persist a design; the Agent still authors and explains the smallest viable candidate.
+
 ## Repository Model
 
 `repository-model/v2` is a read-only view over normalized SQLite code files, symbols, logs, and active edges. Its `repository-snapshot/v2` binds every result to the current graph revision, counts, freshness, truncation, and evidence gaps.
@@ -66,6 +79,10 @@ Verification emits bounded replan triggers for missing/unplanned files, symbol d
 ## Commands
 
 ```bash
+python tools/agent_memory.py design-assist --project . \
+  --query "design profile caching without changing the public API" \
+  --mode design-only --json
+
 python tools/agent_memory.py design-prepare --project . \
   --intent intent.json --contract contract.json --rules design-rules.json --json
 

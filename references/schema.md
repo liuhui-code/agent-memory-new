@@ -202,6 +202,9 @@ Repository-grounded design uses runtime-only `architecture_slice` and Delta Grap
 - `dominant_log_events`: JSON list of compact log events.
 - `suspected_chain`: JSON list of candidate diagnosis chain steps.
 - `causal_chain`: compact JSON chains whose steps separate causal role from evidence precision.
+- `span_graph`: bounded JSON span nodes, parent edges, chronological causal paths, quality, and gaps; never the full raw log.
+- `intervention`: the single reviewed change or experiment applied to test the diagnosis.
+- `verification_evidence`: repeatable before/after metric, test, or observation used to verify the intervention.
 - `resolution`: reviewed fix or closure summary.
 
 `incident_trace_links` connect a trace to code memory anchors such as `code_log_statement`, `code_file`, `code_symbol`, or `memory_edge`. Relations include `matched_log`, `semantic_candidate`, `followup_target`, `suspected_cause`, and later reviewed variants.

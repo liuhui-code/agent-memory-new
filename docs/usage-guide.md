@@ -241,6 +241,12 @@ agent-memory-query
   -> python tools/agent_memory.py context --project . --query "<task>" --json
 ```
 
+For end-to-end local Agent problem diagnosis, use the active workflow in
+`docs/local-agent-incident-workflow.md`. It coordinates evidence preparation,
+temporary runtime logs, hypothesis falsification, source inspection, impact
+analysis, verification feedback, and bounded reflection instead of treating
+memory retrieval as the final answer.
+
 For diagnosis or any task that needs code, logs, incidents, and experience to agree, use the coordinated context:
 
 ```bash
@@ -254,6 +260,21 @@ Read `goal_plan.query_scope`, `goal_plan.subqueries`, and `retrieval_metadata.qu
 Each coordinated chain includes `causal_evidence`. Treat `association` as a lead only, `supported` as evidence with a structural/runtime mechanism, `verified` as resolution-backed evidence, and `rejected` as explicit counter-evidence. Never present association as root cause.
 
 For repository-grounded code design, use the design goal before proposing abstractions:
+
+```bash
+python tools/agent_memory.py design-assist --project . \
+  --query "design profile caching around ProfileService" \
+  --mode design-only --json
+```
+
+This is the normal natural-language entry. Read `current_design`, then
+`design_guidance.existing_patterns`, `pattern_candidates`, `principle_checks`,
+and `required_decisions`. A candidate marked `needs_evidence` is not a
+recommendation, and `caution` means an intent constraint conflicts with a common
+applicability condition. The Agent should return the smallest viable design and
+only surface a materially different alternative.
+
+Use the lower-level evidence view when detailed retrieval attribution is needed:
 
 ```bash
 python tools/agent_memory.py evidence-context --project . \
@@ -274,7 +295,7 @@ python tools/agent_memory.py design-outcome --project . --verification verificat
 python tools/agent_memory.py eval-design --project . --cases docs/eval/design-cases.json --json
 ```
 
-Use `design-intent/v1` for goal/scope/exclusions, then run `design-prepare` before writing candidates. Its template intentionally contains no modifications or coverage claims; fill it from current evidence and general design reasoning. Use `design-contract/v2` plus `design-delta/v2` when coverage must be evidence-backed. `claimed` means the candidate only names a scenario; `supported` requires valid Delta and repository references; `verified` requires successful structured verification. `design-verify` derives changed symbols, exported API changes, and source relation Delta from Git for ArkTS/TypeScript. Repeat `--test-report` for JUnit, compiler, generic/pytest, or Jest reports; use `verification-run/v1` when results must be revision-bound. Reports must already exist because the runtime does not execute tests. Historical calibration requires five matching reviewed outcomes and remains an advisory tie-break only.
+For substantial work, use `design-intent/v1` for goal/scope/exclusions, then run `design-prepare` before writing candidates. Its template intentionally contains no modifications or coverage claims; fill it from current evidence, applicable principles, conditional pattern guidance, and general design reasoning. Use `design-contract/v2` plus `design-delta/v2` when coverage must be evidence-backed. `claimed` means the candidate only names a scenario; `supported` requires valid Delta and repository references; `verified` requires successful structured verification. `design-verify` derives changed symbols, exported API changes, and source relation Delta from Git for ArkTS/TypeScript. Repeat `--test-report` for JUnit, compiler, generic/pytest, or Jest reports; use `verification-run/v1` when results must be revision-bound. Reports must already exist because the runtime does not execute tests. Historical calibration requires five matching reviewed outcomes and remains an advisory tie-break only.
 
 `blocked` contains structural errors that should change the proposal. `review` contains warnings, unsupported claims, or unknown anchors requiring judgment. `clean` means bounded checks found no issue; it does not prove correctness. Use `change_plan.steps` as the dependency-ordered implementation and verification plan. Run `design-progress` during editing; consume only its `next_steps`, and use `--completed-step` only for the returned human review/observability steps. `design-verify` remains the final read-only check; record a compact outcome only after reviewing its report. The Query Skill loads `references/code-design.md` only for design intent, so ordinary query and diagnosis tasks do not carry this protocol.
 
@@ -352,10 +373,13 @@ This command reuses current code/log memory, normalizes raw lines into lightweig
 
 - `session_candidates`
 - `runtime_episode_candidate`
+- `span_graph`
+- `hypothesis_ledger`
 - `log_improvement_suggestions`
 - `reflect_payload_template`
 
 Use `runtime_episode_candidate.candidate_chain` and `chain_confidence` when you need a compact explanation of how the incident unfolded.
+Use `span_graph.causal_paths` to check explicit parent-span, correlation, and temporal evidence. Use `hypothesis_ledger.hypotheses[].next_discriminating_check` to choose the next inspection or experiment instead of accepting the highest-ranked match as the root cause.
 Use `log_improvement_suggestions` when the current logs were just barely enough; they point at a few high-value start, branch, or correlation logs worth adding to the source code later.
 Use `log_signal_summary` and `low_signal_events` to judge whether matched runtime evidence has enough fields for diagnosis. A poor signal event may still match the query, but it lacks fields such as `request_id`, `session_id`, `route`, `resource`, `reason`, `error_code`, or `result`; use `suggested_log_fields` and `observability_gaps` as narrow logging-improvement guidance.
 When matched events include `otel_lite`, prefer those structured fields for the LLM-facing summary: severity, logger, event name, request id, session id, error code, reason, route, and resource. Use raw excerpts only when the structured fields are insufficient.
@@ -1024,4 +1048,15 @@ python tools/agent_memory.py incident-trace \
   --json
 ```
 
-`incident-trace` records the ArkTS scene, short log excerpt, dominant events, matched code log anchors, and candidate chain. It does not store the full raw log stream. Later `context` or `search` calls may return `incident_trace_matches`; maintain can review resolved traces and suggest a reflection payload with `source_cases: ["incident_trace:<id>"]`.
+`incident-trace` records the ArkTS scene, short log excerpt, dominant events, matched code log anchors, candidate chain, and a bounded Span Graph Lite. It does not store the full raw log stream. Later `context` or `search` calls may return `incident_trace_matches`; maintain can review resolved traces and suggest a reflection payload with `source_cases: ["incident_trace:<id>"]`.
+
+Record causal closure explicitly:
+
+```bash
+python tools/agent_memory.py incident-trace-status --project . --id <id> \
+  --status resolved --resolution "symptom cleared" \
+  --intervention "the single change that was applied" \
+  --verification-evidence "before/after metric or repeatable test result" --json
+```
+
+A resolution without intervention and verification remains supported rather than verified.

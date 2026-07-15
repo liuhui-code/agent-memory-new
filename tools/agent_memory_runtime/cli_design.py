@@ -6,6 +6,18 @@ from typing import Any, Callable
 
 
 def add_design_parsers(sub: Any, add_project: Callable[[Any], None], command: Callable[[str], Any]) -> None:
+    assist = sub.add_parser("design-assist")
+    add_project(assist)
+    assist.add_argument("--query", required=True)
+    assist.add_argument("--mode", choices=["design-only", "design-and-implement", "compare"], default="design-only")
+    assist.add_argument("--scope", action="append")
+    assist.add_argument("--constraint", action="append")
+    assist.add_argument("--acceptance", action="append")
+    assist.add_argument("--exclude", action="append")
+    assist.add_argument("--max-items", type=int, default=12)
+    assist.add_argument("--json", action="store_true")
+    assist.set_defaults(func=command("design_assist_command"))
+
     prepare = sub.add_parser("design-prepare")
     add_project(prepare)
     prepare.add_argument("--intent", required=True)

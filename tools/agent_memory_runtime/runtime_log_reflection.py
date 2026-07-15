@@ -11,6 +11,7 @@ SESSION_EVENT_GAP = 10
 MAX_CHAIN_SIGNALS = 8
 
 def build_runtime_episode_candidate(query: str, slices: list[dict[str, Any]], matched_events: list[dict[str, Any]]) -> dict[str, Any]:
+    chronological_events = sorted(matched_events, key=lambda item: int(item.get("line_number") or 0))
     top_slice = slices[0] if slices else None
     dominant_signals = unique_list(
         [
@@ -21,9 +22,9 @@ def build_runtime_episode_candidate(query: str, slices: list[dict[str, Any]], ma
     processes = unique_list([str(event.get("process") or "") for event in matched_events if event.get("process")])[:3]
     candidate_chain = unique_list(
         [
-            *(str(event.get("event_type") or "") for event in matched_events[:6] if str(event.get("event_type") or "").strip()),
-            *(str(event.get("reason") or "") for event in matched_events[:4] if str(event.get("reason") or "").strip()),
-            *(str(event.get("error_code") or "") for event in matched_events[:4] if str(event.get("error_code") or "").strip()),
+            *(str(event.get("event_type") or "") for event in chronological_events[:6] if str(event.get("event_type") or "").strip()),
+            *(str(event.get("reason") or "") for event in chronological_events[:6] if str(event.get("reason") or "").strip()),
+            *(str(event.get("error_code") or "") for event in chronological_events[:6] if str(event.get("error_code") or "").strip()),
         ]
     )[:MAX_CHAIN_SIGNALS]
     chain_confidence = 0.0
@@ -54,6 +55,7 @@ def build_runtime_episode_candidate(query: str, slices: list[dict[str, Any]], ma
         "slice_count": len(slices),
         "matched_event_count": len(matched_events),
         "candidate_chain": candidate_chain,
+        "chain_order": "source_line_chronological",
         "chain_confidence": round(chain_confidence, 2),
         "summary": ". ".join(summary_parts),
     }

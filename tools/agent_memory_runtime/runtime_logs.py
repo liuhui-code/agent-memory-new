@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+from .diagnosis_hypotheses import build_runtime_hypothesis_ledger
 from .log_signal_quality import build_log_signal_summary, enrich_log_signal, low_signal_events
 from .models import Project
 from .otel_lite import attach_otel_lite
@@ -24,6 +25,7 @@ from .runtime_log_reflection import (
     build_runtime_episode_candidate,
     build_session_candidates,
 )
+from .runtime_span_graph import build_runtime_span_graph, select_related_span_events
 
 def analyze_runtime_log(
     project: Project,
@@ -48,6 +50,9 @@ def analyze_runtime_log(
     slices = build_slices(raw_lines, bounded_events, before=before, after=after, limit=slice_limit)
     session_candidates = build_session_candidates(bounded_events)
     episode_candidate = build_runtime_episode_candidate(query, slices, bounded_events)
+    span_graph_events = select_related_span_events(signal_events, bounded_events)
+    span_graph = build_runtime_span_graph(span_graph_events)
+    hypothesis_ledger = build_runtime_hypothesis_ledger(query, bounded_events, span_graph)
     log_improvement_suggestions = build_log_improvement_suggestions(
         bounded_events,
         session_candidates,
@@ -66,6 +71,8 @@ def analyze_runtime_log(
         "slices": slices,
         "session_candidates": session_candidates,
         "runtime_episode_candidate": episode_candidate,
+        "span_graph": span_graph,
+        "hypothesis_ledger": hypothesis_ledger,
         "log_improvement_suggestions": log_improvement_suggestions,
         "reflect_payload_template": build_reflect_payload_template(
             query,

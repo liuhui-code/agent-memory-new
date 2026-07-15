@@ -189,6 +189,8 @@ def result_counts(data: dict[str, Any]) -> dict[str, int]:
 
 
 def analyze_runtime_log_command(args: argparse.Namespace) -> None:
+    from .diagnosis_hypotheses import persist_hypothesis_ledger
+
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     log_file = Path(args.log_file).expanduser().resolve()
@@ -208,6 +210,7 @@ def analyze_runtime_log_command(args: argparse.Namespace) -> None:
         json.dumps(data, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+    persist_hypothesis_ledger(project, data["hypothesis_ledger"])
     output(data, args.json)
 
 

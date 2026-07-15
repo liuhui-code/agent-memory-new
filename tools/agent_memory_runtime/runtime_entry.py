@@ -23,6 +23,7 @@ from .command_handlers import (
 from .eval_case_drafts import eval_draft_cases_command
 from .eval_case_seed import eval_seed_cases_command
 from .evidence_context import evidence_context_command
+from .design_assist import design_assist_command
 from .design_check import design_check_command
 from .design_compare import design_compare_command
 from .design_eval import eval_design_command
@@ -71,6 +72,7 @@ def command_handlers() -> dict[str, object]:
         "search": search,
         "context": context,
         "evidence_context_command": evidence_context_command,
+        "design_assist_command": design_assist_command,
         "design_prepare_command": design_prepare_command,
         "design_progress_command": design_progress_command,
         "design_check_command": design_check_command,

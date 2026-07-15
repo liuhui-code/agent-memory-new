@@ -42,11 +42,18 @@ def runtime_event_to_otel_lite(event: dict[str, Any]) -> dict[str, Any]:
         "event_name": event.get("event_name") or event.get("event_type"),
         "trace_id": event.get("trace_id"),
         "span_id": event.get("span_id"),
+        "parent_span_id": event.get("parent_span_id"),
         "trace_flags": event.get("trace_flags"),
         "severity_text": severity_text(event.get("level")),
         "severity_number": severity_number(event.get("level")),
         "body": event.get("message") or event.get("raw_line") or "",
-        "resource": compact_dict({"process.name": event.get("process")}),
+        "resource": compact_dict({
+            "process.name": event.get("process"),
+            "service.name": event.get("service_name"),
+            "service.version": event.get("service_version"),
+            "service.instance.id": event.get("service_instance_id"),
+            "deployment.environment.name": event.get("deployment_environment"),
+        }),
         "attributes": attributes,
     }
 

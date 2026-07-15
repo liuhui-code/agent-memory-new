@@ -4,18 +4,20 @@ Use this protocol for feature design, refactoring, interface changes, state flow
 
 ## Workflow
 
-1. Clarify the goal, exclusions, hard constraints, and measurable acceptance criteria.
-2. Express scope, exclusions, acceptance criteria, constraints, and open questions as `design-intent/v1` for substantial work.
-3. Run design evidence retrieval, then `design-prepare`; inspect its revision-bound workbench and resolve blocking authoring gaps before proposing a candidate.
-4. Reconstruct topology, ownership, behavior, data, failure, runtime, and change views from the candidate-independent baseline.
-5. Identify stable boundaries and the smallest credible extension points.
-6. Generate the smallest viable candidate first; add alternatives only for a material structural or behavioral tradeoff.
-7. Express each serious candidate as `design-delta/v2`, binding scenario claims to Delta, repository, and verification references.
-8. Run `design-check`; when alternatives exist, run `design-compare` and preserve its decision, sensitivities, tradeoffs, and selected plan.
-9. Implement dependency-ready `change_plan.steps`; independent steps may proceed together. Treat `in_progress` added files as incomplete until the expected semantic declaration exists.
-10. Run `design-verify` against the implementation base and existing machine-readable test/compiler reports. Bind high-trust reports with `verification-run/v1`; stale bound evidence cannot verify an obligation. Record only the compact reviewed outcome.
+1. Start with `design-assist` for a natural-language design request. Read current structure, forces, recognized patterns, pattern candidates, principle checks, and required decisions.
+2. Clarify only unresolved business tradeoffs, exclusions, hard constraints, and measurable acceptance criteria. Do not ask the user to author runtime JSON.
+3. Express scope, exclusions, acceptance criteria, constraints, and open questions as `design-intent/v1` internally for substantial work.
+4. Use `design-prepare` only when the full revision-bound workbench is needed; resolve blocking authoring gaps before proposing a candidate.
+5. Reconstruct topology, ownership, behavior, data, failure, runtime, and change views from the candidate-independent baseline.
+6. Identify stable boundaries and the smallest credible extension points.
+7. Generate the smallest viable candidate first; add alternatives only for a material structural or behavioral tradeoff.
+8. Express each serious candidate as `design-delta/v2`, binding scenario claims to Delta, repository, and verification references.
+9. Run `design-check`; when alternatives exist, run `design-compare` and preserve its decision, sensitivities, tradeoffs, and selected plan.
+10. Implement dependency-ready `change_plan.steps`; independent steps may proceed together. Treat `in_progress` added files as incomplete until the expected semantic declaration exists.
+11. Run `design-verify` against the implementation base and existing machine-readable test/compiler reports. Bind high-trust reports with `verification-run/v1`; stale bound evidence cannot verify an obligation. Record only the compact reviewed outcome.
 
 ```bash
+python tools/agent_memory.py design-assist --project . --query "<design goal>" --mode design-only --json
 python tools/agent_memory.py evidence-context --project . --goal design --query "<design goal>" --json
 python tools/agent_memory.py design-prepare --project . --intent "<intent.json>" --contract "<contract.json>" --json
 python tools/agent_memory.py design-check --project . --intent "<intent.json>" --proposal "<proposal.json>" --contract "<contract.json>" --json
@@ -37,6 +39,7 @@ python tools/agent_memory.py design-outcome --project . --verification "<verific
 - Mark anything not supported by current source or graph as an assumption.
 - Treat missing graph coverage as uncertainty, not permission.
 - Historical experience may warn about constraints but cannot establish the current architecture or select a design by itself.
+- Treat `existing_patterns` as structurally observed signals, `pattern_candidates` as conditional tactics, and `needs_evidence` or `caution` as unresolved applicability. Never apply a pattern from its name alone.
 
 ## Delta Graph
 

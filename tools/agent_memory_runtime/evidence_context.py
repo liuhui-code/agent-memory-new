@@ -8,6 +8,7 @@ from collections import Counter
 from typing import Any
 
 from .architecture_slice import evidence_paths
+from .diagnosis_hypotheses import build_evidence_hypothesis_ledger, persist_hypothesis_ledger
 from .evidence_fusion import build_evidence_chains, evidence_gaps, evidence_tiers, fuse_evidence
 from .evidence_query_execution import execute_evidence_plan
 from .goal_planner import build_goal_plan
@@ -32,6 +33,8 @@ def evidence_context_command(args: argparse.Namespace) -> None:
         explicit_scope=args.scope,
     )
     persist_last_evidence_context(project, payload)
+    if payload.get("hypothesis_ledger"):
+        persist_hypothesis_ledger(project, payload["hypothesis_ledger"])
     compact_usage = usage_view(payload)
     record_query_usage(project, "evidence-context", args.query, compact_usage)
     record_query_miss_if_empty(project, "evidence-context", args.query, compact_usage)
@@ -60,6 +63,8 @@ def build_evidence_context(
     ranked = fuse_evidence(candidates, plan)
     counts_by_source = Counter(item.source for item in ranked)
     counts_by_authority = Counter(item.authority for item in ranked)
+    chains = build_evidence_chains(ranked)
+    gaps = evidence_gaps(ranked, plan)
     payload = {
         "project_id": project.project_id,
         "project_path": str(project.root),
@@ -67,8 +72,8 @@ def build_evidence_context(
         "goal_plan": plan.to_dict(),
         "advisory_notice": "Current source and explicit user instructions override historical memory.",
         "evidence": evidence_tiers(ranked),
-        "evidence_chains": build_evidence_chains(ranked),
-        "evidence_gaps": evidence_gaps(ranked, plan),
+        "evidence_chains": chains,
+        "evidence_gaps": gaps,
         "recommended_actions": recommended_actions(ranked, plan.goal),
         "retrieval_metadata": retrieval,
         "audit": {
@@ -80,6 +85,8 @@ def build_evidence_context(
             "score_range": [0, 100],
         },
     }
+    if plan.goal == "diagnosis":
+        payload["hypothesis_ledger"] = build_evidence_hypothesis_ledger(query, chains, gaps)
     if plan.goal == "design":
         repository_model = build_repository_model(project, query, evidence_paths(ranked))
         payload["repository_model"] = public_repository_model(repository_model)

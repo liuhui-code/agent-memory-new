@@ -14,8 +14,9 @@ DEFAULT_SLICE_LIMIT = 5
 SESSION_EVENT_GAP = 10
 MAX_CHAIN_SIGNALS = 8
 KEY_VALUE_PATTERN = re.compile(
-    r"\b(?P<key>route|resource|request_id|session_id|trace_id|span_id|trace_flags|event_name|"
-    r"code|error_code|reason|result|page|module|ability)=(?P<value>[^\s]+)"
+    r"\b(?P<key>route|resource|request_id|session_id|trace_id|span_id|parent_span_id|trace_flags|event_name|"
+    r"service\.name|service\.version|service\.instance\.id|deployment\.environment\.name|"
+    r"span_kind|duration_ms|code|error_code|reason|result|page|module|ability)=(?P<value>[^\s]+)"
 )
 REQUEST_PATH_PATTERN = re.compile(r"(?P<path>/[A-Za-z0-9_./-]+)")
 
@@ -71,13 +72,19 @@ def normalize_level(raw_level: str) -> str:
 
 def extract_runtime_fields(text: str) -> dict[str, str]:
     fields: dict[str, str] = {}
+    aliases = {
+        "service.name": "service_name",
+        "service.version": "service_version",
+        "service.instance.id": "service_instance_id",
+        "deployment.environment.name": "deployment_environment",
+    }
     for match in KEY_VALUE_PATTERN.finditer(text):
         key = str(match.group("key") or "")
         value = str(match.group("value") or "")
         if key == "code":
             fields["error_code"] = value
         else:
-            fields[key] = value
+            fields[aliases.get(key, key)] = value
     if "error_code" not in fields:
         code_match = re.search(r"\bcode=(?P<code>[A-Za-z0-9_-]+)\b", text)
         if code_match:
@@ -167,7 +174,14 @@ def normalized_event(
         "event_name": fields.get("event_name") or infer_event_type(message, fields),
         "trace_id": fields.get("trace_id", ""),
         "span_id": fields.get("span_id", ""),
+        "parent_span_id": fields.get("parent_span_id", ""),
         "trace_flags": fields.get("trace_flags", ""),
+        "span_kind": fields.get("span_kind", ""),
+        "duration_ms": fields.get("duration_ms", ""),
+        "service_name": fields.get("service_name", ""),
+        "service_version": fields.get("service_version", ""),
+        "service_instance_id": fields.get("service_instance_id", ""),
+        "deployment_environment": fields.get("deployment_environment", ""),
         "error_code": fields.get("error_code", ""),
         "route": fields.get("route", ""),
         "resource_key": fields.get("resource", ""),
@@ -188,8 +202,9 @@ def runtime_event_search_text(event: dict[str, Any]) -> str:
         str(event.get(key) or "")
         for key in (
             "process", "level", "logger", "message", "raw_line", "event_name", "route",
-            "resource_key", "request_id", "session_id", "trace_id", "span_id", "error_code",
+            "resource_key", "request_id", "session_id", "trace_id", "span_id", "parent_span_id", "error_code",
             "reason", "result", "module", "ability", "request_path",
+            "service_name", "service_version", "service_instance_id", "deployment_environment",
         )
     ).lower()
 

@@ -238,8 +238,9 @@ def migrate_design_outcome_columns(conn: sqlite3.Connection) -> None:
 
 def migrate_incident_semantic_columns(conn: sqlite3.Connection) -> None:
     existing = {row["name"] for row in conn.execute("PRAGMA table_info(incident_traces)").fetchall()}
-    if "causal_chain" not in existing:
-        conn.execute("ALTER TABLE incident_traces ADD COLUMN causal_chain TEXT")
+    for name in ("causal_chain", "span_graph", "intervention", "verification_evidence"):
+        if name not in existing:
+            conn.execute(f"ALTER TABLE incident_traces ADD COLUMN {name} TEXT")
 
 
 

@@ -16,6 +16,8 @@ from .incident_semantic_chain import (
 from .models import Project
 from .query import recall_candidate_ids
 from .records import row_dict
+from .runtime_log_parsing import normalize_runtime_log_line
+from .runtime_span_graph import build_runtime_span_graph
 from .storage import connect
 from .text import query_tokens, score_weighted_fields, tokenize, unique_list
 
@@ -43,7 +45,8 @@ def classify_arkts_scene(symptom: str, log_text: str) -> tuple[str, list[str]]:
 
 
 def compact_log_text(log_text: str) -> str:
-    return " ".join(log_text.strip().split())[:INCIDENT_LOG_TEXT_LIMIT]
+    lines = [" ".join(line.strip().split()) for line in log_text.splitlines() if line.strip()]
+    return "\n".join(lines)[:INCIDENT_LOG_TEXT_LIMIT]
 
 
 def dominant_log_events(log_text: str, limit: int = 5) -> list[str]:
@@ -144,13 +147,25 @@ def candidate_chain_from_logs(logs: list[dict[str, Any]]) -> list[str]:
 
 def build_incident_trace_draft(project: Project, symptom: str, log_text: str) -> dict[str, Any]:
     compact_log = compact_log_text(log_text)
+    runtime_events = [
+        normalize_runtime_log_line(line, index)
+        for index, line in enumerate(compact_log.splitlines(), start=1)
+        if line.strip()
+    ]
+    span_graph = build_runtime_span_graph(runtime_events)
     scene, scene_reasons = classify_arkts_scene(symptom, compact_log)
     events = dominant_log_events(compact_log)
     search_query = " ".join(unique_list([symptom, scene, *events]))
     matched_logs = fetch_code_logs(project, search_query)
     causal_chain = semantic_causal_chains(project, matched_logs)
     legacy_chain = candidate_chain_from_logs(matched_logs)
-    candidate_chain = unique_list([*legacy_chain, *semantic_chain_strings(causal_chain)])
+    runtime_chain = [
+        str(step.get("event_name") or "")
+        for path in span_graph["causal_paths"][:2]
+        for step in path["steps"]
+        if str(step.get("event_name") or "").strip()
+    ]
+    candidate_chain = unique_list([*runtime_chain, *legacy_chain, *semantic_chain_strings(causal_chain)])
     linked_targets = [*linked_targets_from_logs(matched_logs), *semantic_chain_links(causal_chain, matched_logs)]
     top_anchor = ""
     if matched_logs:
@@ -175,7 +190,11 @@ def build_incident_trace_draft(project: Project, symptom: str, log_text: str) ->
         "linked_targets": linked_targets,
         "candidate_chain": candidate_chain,
         "causal_chain": causal_chain,
-        "causal_chain_gaps": [gap for chain in causal_chain for gap in chain.get("gaps", [])],
+        "span_graph": span_graph,
+        "causal_chain_gaps": [
+            *span_graph.get("gaps", []),
+            *[gap for chain in causal_chain for gap in chain.get("gaps", [])],
+        ],
         "inspection_targets": unique_list([str(log.get("file_path") or "") for log in matched_logs[:5]]),
         "suggested_followup_query": " ".join(suggested_terms),
         "suspected_chain": json.dumps(candidate_chain, ensure_ascii=False),

@@ -298,6 +298,8 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--id", required=True, type=int)
     p.add_argument("--status", required=True, choices=["open", "diagnosed", "resolved", "stale", "ignored"])
     p.add_argument("--resolution")
+    p.add_argument("--intervention")
+    p.add_argument("--verification-evidence")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("incident_trace_status"))
 

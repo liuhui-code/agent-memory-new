@@ -163,14 +163,20 @@ def classify_causal_evidence(items: list[EvidenceItem]) -> dict[str, Any]:
     signals: list[str] = []
     counter_evidence: list[str] = []
     has_direct = any(item.authority in {"changed_source", "current_source", "learned_code_anchor", "code_log_anchor"} for item in items)
-    if any(item.source == "edge" for item in items):
+    mechanism_connected = connected_mechanism(items)
+    correlation_connected = shared_runtime_correlation(items)
+    temporal_verified = any(temporal_evidence(item) for item in items)
+    resolution_observed = any(resolution_evidence(item) for item in items)
+    if mechanism_connected:
         signals.append("structural_mechanism")
     if any(item.source in {"log", "incident"} for item in items):
         signals.append("runtime_observation")
-    if any(runtime_correlation(item) for item in items):
+    if correlation_connected:
         signals.append("runtime_correlation")
-    if any(temporal_evidence(item) for item in items):
+    if temporal_verified:
         signals.append("temporal_precedence")
+    if resolution_observed:
+        signals.append("resolution_observed")
     verified = any(verified_evidence(item) for item in items)
     rejected = any(rejected_evidence(item) for item in items)
     for item in items:
@@ -184,8 +190,10 @@ def classify_causal_evidence(items: list[EvidenceItem]) -> dict[str, Any]:
         signals.append("contradicted")
     elif verified:
         level = "verified"
-        signals.append("intervention_or_resolution_verified")
-    elif has_direct and ("structural_mechanism" in signals or "runtime_correlation" in signals):
+        signals.append("intervention_and_outcome_verified")
+    elif resolution_observed or (
+        has_direct and mechanism_connected and correlation_connected and temporal_verified
+    ):
         level = "supported"
     else:
         level = "association"
@@ -193,36 +201,84 @@ def classify_causal_evidence(items: list[EvidenceItem]) -> dict[str, Any]:
         "level": level,
         "signals": unique_list(signals),
         "counter_evidence": unique_list(counter_evidence)[:5],
-        "notice": "Association is a lead; supported and verified levels require mechanism, runtime correlation, or resolution evidence.",
+        "notice": (
+            "Association is only a lead. Supported requires a connected mechanism with explicit "
+            "runtime identity and temporal order, or an observed resolution. Verified additionally "
+            "requires an intervention and before/after verification evidence."
+        ),
     }
 
 
 def causal_confidence(nodes: list[dict[str, Any]], level: str) -> float:
     base = min((float(node.get("score") or 0.0) for node in nodes), default=0.0) / 100.0
-    cap = {"association": 0.45, "supported": 0.75, "verified": 1.0, "rejected": 0.0}[level]
+    cap = {"association": 0.35, "supported": 0.7, "verified": 0.95, "rejected": 0.0}[level]
     return round(min(base, cap), 3)
 
 
 def runtime_correlation(item: EvidenceItem) -> bool:
     raw = item.raw
-    if any(raw.get(key) for key in ("trace_id", "request_id", "session_id")):
+    if verified_span_paths(raw, "correlation_verified"):
         return True
-    links = raw.get("links") or []
-    return bool(item.source == "incident" and links)
+    return any(raw.get(key) for key in ("trace_id", "request_id", "session_id"))
+
+
+def shared_runtime_correlation(items: list[EvidenceItem]) -> bool:
+    if any(verified_span_paths(item.raw, "correlation_verified") for item in items):
+        return True
+    seen: set[tuple[str, str]] = set()
+    for item in items:
+        for key in ("trace_id", "request_id", "session_id"):
+            value = str(item.raw.get(key) or "").strip()
+            identity = (key, value)
+            if value and identity in seen:
+                return True
+            if value:
+                seen.add(identity)
+    return False
 
 
 def temporal_evidence(item: EvidenceItem) -> bool:
     raw = item.raw
-    return bool(raw.get("time_window") or raw.get("timestamp"))
+    return bool(raw.get("temporal_order_verified")) or verified_span_paths(
+        raw, "temporal_order_verified"
+    )
 
 
 def verified_evidence(item: EvidenceItem) -> bool:
     raw = item.raw
     if item.source == "incident":
-        return raw.get("status") == "resolved" and bool(str(raw.get("resolution") or "").strip())
+        return resolution_evidence(item) and all(
+            str(raw.get(key) or "").strip()
+            for key in ("intervention", "verification_evidence")
+        )
     if item.source == "reflection":
         return bool(raw.get("verification_method")) and raw.get("last_outcome") in {"helped", "success"}
     return False
+
+
+def resolution_evidence(item: EvidenceItem) -> bool:
+    raw = item.raw
+    return (
+        item.source == "incident"
+        and raw.get("status") == "resolved"
+        and bool(str(raw.get("resolution") or "").strip())
+    )
+
+
+def connected_mechanism(items: list[EvidenceItem]) -> bool:
+    direct = [
+        item for item in items
+        if item.authority in {"changed_source", "current_source", "learned_code_anchor", "code_log_anchor"}
+    ]
+    edges = [item for item in items if item.source == "edge"]
+    return any(_shares_anchor(anchor, edge) for anchor in direct for edge in edges)
+
+
+def verified_span_paths(raw: dict[str, Any], field: str) -> bool:
+    graph = raw.get("span_graph") or {}
+    if isinstance(graph, str):
+        return False
+    return any(bool(path.get(field)) for path in graph.get("causal_paths") or [])
 
 
 def rejected_evidence(item: EvidenceItem) -> bool:
