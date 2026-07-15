@@ -172,3 +172,4 @@ See `docs/mvp-implementation-plan.md`.
 ## Usage Guide
 
 See `docs/usage-guide.md`.
+See `docs/agent-cli-query-skill-guide.zh-CN.md` for detailed Agent CLI diagnosis and design workflows in Chinese.

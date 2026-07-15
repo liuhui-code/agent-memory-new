@@ -481,6 +481,7 @@ python tools/agent_memory.py vault-export --project .
 - `agent.md`: project mission and agent-facing rules.
 - `AGENTS.md`: repository instructions for coding agents.
 - `docs/usage-guide.md`: skill-first usage guide.
+- `docs/agent-cli-query-skill-guide.zh-CN.md`: Agent CLI 调用 Query Skill 进行问题定位和代码设计的详细中文指南。
 - `docs/local-agent-incident-workflow.md`: local Agent diagnosis, verification, impact-feedback, and reflection loop.
 - `docs/runtime.md`: runtime protocol notes.
 - `references/schema.md`: SQLite schema notes.

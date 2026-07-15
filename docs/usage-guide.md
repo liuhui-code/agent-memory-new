@@ -247,6 +247,10 @@ temporary runtime logs, hypothesis falsification, source inspection, impact
 analysis, verification feedback, and bounded reflection instead of treating
 memory retrieval as the final answer.
 
+For a detailed Chinese guide covering how an Agent CLI invokes the Query Skill
+for both incident diagnosis and repository-grounded code design, see
+`docs/agent-cli-query-skill-guide.zh-CN.md`.
+
 For diagnosis or any task that needs code, logs, incidents, and experience to agree, use the coordinated context:
 
 ```bash

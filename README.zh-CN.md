@@ -126,6 +126,9 @@ Agent Memory 的目标就是把这些重复成本压下来。
 - 支持 `procedure_experience` / `correction_experience` / `semantic_patch_experience`
 - 支持 `maintain-plan` 输出治理动作，而不是直接静默修改
 
+Agent CLI 如何实际调用 Query Skill 完成问题定位和代码设计，参见
+[Agent CLI 调用 Query Skill 中文指南](docs/agent-cli-query-skill-guide.zh-CN.md)。
+
 ## 基于当前代码的设计闭环
 
 设计能力不把历史经验当成架构事实。运行时先根据用户目标构建绑定图 revision 的 `repository-model/v2`，分别呈现拓扑、状态所有权、行为、数据、失败、运行时和变更视图，再检查候选方案。

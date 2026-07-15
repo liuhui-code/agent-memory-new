@@ -4473,3 +4473,29 @@ Verification:
 Rollback notes:
 
 - Remove Span Graph Lite and hypothesis ledger output, revert the stricter causal classifier, and leave the added nullable Incident Trace columns unused. No destructive SQLite rollback is required.
+
+## 2026-07-15 - Document Agent CLI Query Skill workflows in Chinese
+
+Files added or extended:
+
+- `docs/agent-cli-query-skill-guide.zh-CN.md`
+- `README.md`
+- `README.zh-CN.md`
+- `docs/usage-guide.md`
+- `agent.md`
+
+What changed:
+
+- Added a detailed Chinese guide for invoking the fixed `agent-memory-query` Skill from a local Agent CLI.
+- Documented intent routing, evidence authority, diagnosis prompts, temporary-log analysis, Span Graph Lite, Hypothesis Ledger iteration, causal levels, Incident closure, impact feedback, and stopping conditions.
+- Documented the simple `design-assist` workflow and the substantial `design-prepare/check/compare/progress/verify` control loop without requiring users to author protocol JSON.
+- Added reusable Agent instructions, ArkTS-oriented examples, output-reading order, token-saving guidance, common failure modes, and operational checklists.
+
+Verification:
+
+- Checked every documented command and option against current CLI help.
+- Documentation links and Markdown whitespace passed `git diff --check`.
+
+Rollback notes:
+
+- Remove the Chinese guide and its four navigation links. No runtime or SQLite changes are involved.
