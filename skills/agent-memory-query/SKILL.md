@@ -41,17 +41,16 @@ python tools/agent_memory.py context --project . --query "<user problem or Agent
 
 For L2 audit expansion, run the same focused query without `--compact`. The full view is not the default Agent injection path.
 
-Pass an explicit goal only when the intent is clear:
+For a design request, use the dedicated context facade:
 
 ```bash
-python tools/agent_memory.py design-assist --project . --query "<design goal>" --mode design-only --json
+python tools/agent_memory.py design-context --project . --query "<design goal>" --compact --json
 ```
 
-For design intent, prefer `design-assist` as the simple natural-language entry.
-It returns a compact repository baseline, recognized structural patterns,
-applicable pattern candidates, principle checks, required decisions, and an
-unclaimed Delta template. Load `references/code-design.md` before authoring a
-candidate. Use the lower-level design commands only as that protocol requires.
+The Runtime returns repository facts, project constraints, quality questions,
+general design references, history, and evidence gaps. It does not recommend a
+pattern or produce a design. Load `references/code-design.md`; the Agent owns
+concern selection, alternatives, tradeoffs, the final design, and its plan.
 
 Use `search` or `wiki-search` only when the selected protocol calls for a broader or code-only view. Do not pass temporary runtime-log files to Agent Memory.
 

@@ -79,3 +79,14 @@ Context  = Agent CLI + 冻结源码 + context 查询结果
 日志锚定的 Top-K 调用路径能力采用相同边界，并通过现有 `context` 门面提供。
 详细接口、算法、模块和分阶段计划见
 [`log-anchored-call-path-design.md`](log-anchored-call-path-design.md)。
+
+## 设计上下文边界
+
+代码设计复用相同原则。`design-context` 根据用户需求返回当前代码图、源码锚点、
+任务和项目约束、业务语义纠正、质量属性问题、通用设计知识、历史警告和证据
+缺口。第一轮用于定向，第二轮由 Agent 提供确认后的 concern 和 anchor 聚焦。
+
+Runtime 不推荐设计模式，不生成或比较候选，不选择方案，也不生成实施计划。
+Agent CLI 阅读当前源码，判断适用原则，分析候选与权衡，并负责最终设计和验证。
+长期协议与业界依据见
+[`Design Context Provider`](superpowers/specs/2026-07-16-design-context-provider.md)。

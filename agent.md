@@ -70,6 +70,7 @@ python tools/agent_memory.py update --project . --type semantic --fact "..."
 python tools/agent_memory.py update --project . --type episode --task "..." --summary "..."
 python tools/agent_memory.py context --project . --query "..." --json
 python tools/agent_memory.py context --project . --query "..." --compact --json
+python tools/agent_memory.py design-context --project . --query "..." --compact --json
 python tools/agent_memory.py design-assist --project . --query "..." --mode design-only --json
 python tools/agent_memory.py design-prepare --project . --intent intent.json --contract contract.json --json
 python tools/agent_memory.py design-check --project . --intent intent.json --proposal proposal.json --json
@@ -190,4 +191,5 @@ See `docs/mvp-implementation-plan.md`.
 
 See `docs/usage-guide.md`.
 See `docs/agent-cli-query-skill-guide.zh-CN.md` for detailed Agent CLI diagnosis and design workflows in Chinese.
+See `docs/design-usage-guide.md` for the dedicated Chinese Design Context usage guide.
 See `docs/context-provider-boundary.md` for the hard boundary between Runtime context supply and Agent reasoning.

@@ -2,9 +2,15 @@
 
 [中文说明](README.zh-CN.md)
 
-Agent Memory is a local memory, reflection, governance, and investigation-context runtime for coding agents.
+Agent Memory is a local project-memory and context runtime for coding agents,
+with an ArkTS/HarmonyOS-first semantic layer and language-neutral retrieval
+contracts.
 
-It gives a local Agent CLI a stable way to retrieve project facts, code context, runtime incident evidence, and reusable lessons without requiring a vector database, daemon, graph database, or agent-specific wrapper. The Agent performs diagnosis and design reasoning; the Runtime only supplies bounded, inspectable context.
+It gives a local Agent CLI a stable way to retrieve project facts, code and log
+anchors, typed graph context, design constraints, and reusable lessons without a
+vector database, daemon, graph database, or agent-specific wrapper. The Agent
+performs diagnosis and design reasoning; the Runtime supplies bounded,
+inspectable context.
 
 ![Agent Memory overview](docs/assets/agent-memory-overview.png)
 
@@ -44,10 +50,15 @@ Agent Memory is designed to solve these practical problems:
    - teams want inspectable local memory without introducing services or heavyweight retrieval systems
 
 4. **Runtime-log diagnosis drift**
-   - raw logs alone are noisy; agents need help moving from user symptoms to code log anchors to bounded runtime evidence
+   - raw logs are noisy; agents need help moving from symptoms to code log
+     anchors and current source without delegating diagnosis to the Runtime
 
 5. **Memory quality decay**
    - as projects change, old structure, old semantics, and old experience can become stale
+
+6. **Design without repository constraints**
+   - generic design advice misses current consumers, state owners, accepted
+     constraints, semantic corrections, and evidence gaps
 
 ## Design Principles
 
@@ -80,6 +91,25 @@ The project is especially optimized for:
 - **goal-oriented log context for Agent-led diagnosis**
 - **experience and skill evolution**
 - **governed refresh and drift review**
+- **Agent-owned repository design using supplied context**
+- **bounded context that reduces repeated token spend**
+
+## Feature Matrix
+
+| Capability | Current implementation |
+|---|---|
+| Local storage and retrieval | Per-project SQLite stores with FTS5 and incremental indexes |
+| ArkTS code understanding | Pages, components, routes, resources, Ability/config, state, async, API, and log relations |
+| Code and log graph | Files, symbols, code logs, and versioned typed `memory_edges` |
+| Incident context | Log keywords, source anchors, candidate call paths, corrections, experience, and gaps |
+| Design context | Repository structure, task/project constraints, quality questions, design knowledge, and provenance |
+| Experience model | Procedure, correction, and semantic-patch experience lanes |
+| Skill evolution | Reviewed multi-case procedure experience can become a Skill candidate or package |
+| Governance | Refresh, stale/merge/conflict/miss/feedback review, graph health, and action plans |
+| Change impact | Git changes mapped to symbols, dependents, logs, tests, history, and coverage gaps |
+| Quality evaluation | Retrieval, trust, log, graph, semantic, design-context, and Agent A/B checks |
+| Token control | Compact diagnosis and design contexts capped near 1,500 estimated tokens |
+| Human review | Generated Obsidian mirror plus health, review, and plan commands |
 
 ## Memory System Design
 
@@ -144,7 +174,10 @@ It stores:
 - code log statements
 - deterministic memory edges
 
-This supports incremental code learning without requiring a full call graph or external search service.
+This supports incremental code learning without requiring a full call graph or
+external search service. Edges carry source revision, extractor version,
+evidence class, validity interval, and verification time so refresh and rebuild
+can retire stale derived structure.
 
 ### 5. Code Log Memory
 
@@ -163,8 +196,9 @@ This lets the agent move from:
 ```text
 user symptom
 -> relevant code log anchors
--> runtime log search plan
--> bounded runtime evidence
+-> temporary-log search plan
+-> current source and candidate call paths
+-> Agent comparison against real log order
 ```
 
 instead of treating logs as raw text blobs.
@@ -178,7 +212,7 @@ The system also keeps a lightweight runtime-only usage summary:
 - followup focus
 - suggested terms
 - dominant runtime signals
-- candidate chain
+- bounded recent context references
 - governance lanes touched
 
 This is stored as a runtime file, not as a new long-term database table.
@@ -216,6 +250,17 @@ correction_experience
 -> semantic repair
 -> better future memory quality
 ```
+
+Correction experience is a scoped query guardrail. It cannot evolve into a
+Skill, create graph edges, or establish current architecture without source
+confirmation.
+
+### Semantic Patch Experience
+
+A focused proposal to repair business meaning attached to a learned file,
+symbol, code log, or edge. It identifies the anchor, semantic field, old/new
+value, reason, applicability, and verification source. Maintain reviews it
+before applying the patch.
 
 ### Incident Strategy And Recurring Fingerprints
 
@@ -290,6 +335,16 @@ The runtime now exposes measurable gates for the main quality loops:
 
 These gates are local JSON checks. They do not mutate memory. Their job is to catch regressions before a ranking, learning, graph, log, or calibration change makes Agents noisier.
 
+### 7. Delayed Feedback Confirmation
+
+Retrieval and use observations are not immediate truth updates:
+
+- one unverified observation does not change ranking
+- a verified event or the same scoped signal from two independent tasks becomes stable
+- task-derived event keys make retries idempotent
+- resolved or ignored feedback is excluded
+- query reads are candidate-directed instead of scanning a global recent tail
+
 ## The Four Skills
 
 The user-facing interface stays intentionally small:
@@ -297,7 +352,7 @@ The user-facing interface stays intentionally small:
 | Skill | Role |
 |---|---|
 | `agent-memory-learn` | Learn code structure, code semantics, code logs, and project scope |
-| `agent-memory-query` | Retrieve concise memory, code wiki context, and runtime-log diagnosis guidance |
+| `agent-memory-query` | Retrieve memory, code/log anchors, impact evidence, and Agent-owned design context |
 | `agent-memory-maintain` | Run doctor, health, review, refresh, governance planning, and vault export |
 | `agent-memory-reflect` | Store structured lessons, reusable experiences, and correction evidence |
 
@@ -348,23 +403,34 @@ python tools/agent_memory.py context --project . --query "memory governance work
 python tools/agent_memory.py context --project . --query "个人中心空白，profile load failed" --json
 ```
 
-`context` retrieves advisory history, learned log keywords/statements, current source anchors, and bounded raw graph edges. Its `query_handoff` tells the local Agent what was found and what can be queried next. It does not read temporary user logs or generate evidence chains, hypotheses, or root causes. The Agent CLI reads the流水 log directly, summarizes observations, forms multiple candidate causes, queries each candidate separately, inspects current source, and infers the call and causal chains.
+`context` retrieves advisory history, learned log keywords/statements, current
+source anchors, and bounded raw graph edges. Its `query_handoff` tells the local
+Agent what was found and what can be queried next. It does not read temporary
+user logs or generate evidence chains, hypotheses, or root causes. The Agent CLI
+reads the temporary stream log directly, summarizes observations, forms
+multiple candidate causes, queries each candidate separately, inspects current
+source, and infers call and causal chains.
 
 It also routes concrete questions to local retrieval and architecture/recurring-theme questions to bounded global aggregates. Retrieval uses at most three deterministic subqueries, stops when cross-lane coverage is sufficient or no new evidence appears, and limits duplicate experience/file patterns before building the final context.
 
-Design against the current repository rather than historical patterns:
+Retrieve design context from the current repository before the Agent designs:
 
 ```bash
-python tools/agent_memory.py design-assist --project . \
+python tools/agent_memory.py design-context --project . \
   --query "design profile caching without moving persistence into the page" \
-  --mode design-only --json
-python tools/agent_memory.py design-prepare --project . \
-  --intent intent.json --contract contract.json --json
-python tools/agent_memory.py design-check --project . \
-  --intent intent.json --proposal proposal.json --contract contract.json --json
+  --compact --json
+python tools/agent_memory.py design-context --project . \
+  --query "design profile caching without moving persistence into the page" \
+  --concern performance --concern compatibility \
+  --anchor service/ProfileService.ets --compact --json
 ```
 
-`design-assist` is the simple natural-language entry. It returns a compact current-design summary, intent forces, structurally recognized patterns, conditional pattern candidates, principle checks, required decisions, and an unclaimed Delta template. It does not apply a pattern from its name or generate hidden design reasoning. Design retrieval attaches `repository-model/v2`, a revision-bound baseline with topology, ownership, behavior, data, failure, runtime, and change views. `design-prepare` exposes the full baseline before candidate authoring, so candidate paths cannot define their own evidence boundary. V2 contracts and Deltas bind quality claims to current repository, Delta, and verification evidence. `design-compare` returns sensitivity/tradeoff points and a dependency-derived Change Plan DAG; `design-progress` distinguishes semantic `in_progress` additions from completed nodes; `design-verify` checks symbols, exported APIs, source/learned graphs, compiler diagnostics, and optionally revision-bound test evidence. These paths remain deterministic and read-only. Reviewed outcomes produce advisory calibration only after five matching samples. See [Design Usage Guide](docs/design-usage-guide.md) and [Repository-Grounded Design Control Loop](docs/design-reasoning.md).
+`design-context` returns repository facts, task and project constraints, quality-attribute questions, versioned design knowledge, historical warnings, evidence gaps, and provenance. The first query orients the Agent; a second query uses Agent-confirmed concerns and source anchors. Pattern entries expose applicability, contraindications, tradeoffs, and questions but are never Runtime recommendations. The Agent CLI owns alternatives, tradeoff analysis, selection, implementation planning, and verification reasoning. Legacy design decision commands remain callable only for compatibility. See [Design Context Provider](docs/superpowers/specs/2026-07-16-design-context-provider.md).
+
+General design knowledge is shipped as a versioned catalog and remains separate
+from project SQLite memory. Task feedback cannot automatically rewrite it.
+Unverified semantic corrections are returned below current graph evidence as
+source-check guardrails, not accepted architecture decisions.
 
 The Query Skill uses progressive disclosure: its main `SKILL.md` is a thin intent router, while code understanding, diagnosis, impact, evidence policy, and code design live in one-level `references/` files loaded only when relevant. The public interface remains four skills.
 
@@ -429,7 +495,7 @@ Normal usage should go through four skills:
 | Skill | Purpose | Typical commands |
 |---|---|---|
 | `agent-memory-learn` | Add project code context to memory | `learn-entry`, `learn-path`, `wiki-index` |
-| `agent-memory-query` | Retrieve memory, log keywords, source anchors, and impact context | `context`, `impact-scope`, `search` |
+| `agent-memory-query` | Retrieve memory, log/code anchors, impact, and design context | `context`, `design-context`, `impact-scope`, `search` |
 | `agent-memory-maintain` | Initialize, check, review, govern, and export memory | `doctor`, `maintain-plan`, `vault-export` |
 | `agent-memory-reflect` | Save lessons, facts, and reflection feedback | `reflect`, `reflect-review`, `update` |
 
@@ -449,7 +515,7 @@ python tools/agent_memory.py wiki-index --project .
 python tools/agent_memory.py wiki-index --project . --source "<external-project>"
 
 python tools/agent_memory.py context --project . --query "..." --json
-python tools/agent_memory.py design-assist --project . --query "..." --mode design-only --json
+python tools/agent_memory.py design-context --project . --query "..." --compact --json
 python tools/agent_memory.py impact-scope --project . --base HEAD~1 --query "..." --json
 python tools/agent_memory.py impact-feedback --project . --outcome pass --executed-tests "..." --json
 python tools/agent_memory.py search --project . --query "..." --json
@@ -479,6 +545,8 @@ python tools/agent_memory.py vault-export --project .
 - `AGENTS.md`: repository instructions for coding agents.
 - `docs/usage-guide.md`: skill-first usage guide.
 - `docs/agent-cli-query-skill-guide.zh-CN.md`: Agent CLI 调用 Query Skill 进行问题定位和代码设计的详细中文指南。
+- `docs/design-usage-guide.md`: dedicated Chinese guide for the Agent-owned, two-pass Design Context workflow.
+- `docs/context-provider-boundary.md`: hard Runtime/Agent boundary for diagnosis and design.
 - `docs/agent-benchmark.md`: Git history harvesting, ArkTS mutation cases, and Agent Query Skill A/B validation.
 - `docs/local-agent-incident-workflow.md`: local Agent diagnosis, verification, impact-feedback, and reflection loop.
 - `docs/runtime.md`: runtime protocol notes.
@@ -491,13 +559,16 @@ python tools/agent_memory.py vault-export --project .
 - `docs/templates/diagnosis-memory-query-template.md`: recursive diagnosis template.
 - `docs/templates/change-design-memory-query-template.md`: repository-grounded design and Delta Graph template.
 - `docs/templates/memory-query-answer-skill-template.md`: copyable skill template for query, logs, recursive search, and final answers.
+- `docs/superpowers/specs/2026-07-16-long-term-data-governance-kernel.md`: long-term observation, stable-signal, and governance architecture.
+- `docs/superpowers/specs/2026-07-16-design-context-provider.md`: long-term Agent-owned design-context architecture and industry references.
 - `gitlog.md`: local development log and rollback notes.
 
 ## Roadmap
 
-- Better conflict detection between memories.
-- Better reflection rewrite and validation workflows.
-- More precise import and link discovery for local code learning.
-- More examples for integrating with different local agent CLIs.
-- Optional richer retrieval backends after the deterministic runtime is stable.
-- Cross-project memory only after per-project isolated memory is proven reliable.
+- Ingest accepted and superseded ADRs as project design constraints.
+- Split legacy design scoring from objective source/API/graph/test validation.
+- Improve stable symbol identity and language-neutral semantic providers.
+- Expand real-repository Agent A/B cases for diagnosis and design quality.
+- Add durable governance cases and selective audit events only when workload volume justifies them.
+- Add retention and rollups after feedback correctness and stable entity identity are proven.
+- Consider richer retrieval only after deterministic FTS5 quality and cost gates remain stable.

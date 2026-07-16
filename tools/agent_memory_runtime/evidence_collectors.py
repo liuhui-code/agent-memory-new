@@ -30,6 +30,11 @@ def collect_evidence_candidates(
     query: str,
 ) -> tuple[list[EvidenceItem], dict[str, Any]]:
     matches = collect_matches(project, query)
+    design_corrections = [
+        dict(row)
+        for row in matches.get("reflections", [])
+        if row.get("experience_type") in {"correction_experience", "semantic_patch_experience"}
+    ][:4]
     gated = gate_matches_by_intent(project, query, matches)
     bounded = limited_matches(gated["matches"], SEARCH_RESULT_LIMITS)
     calibrate_payload(bounded)
@@ -48,6 +53,7 @@ def collect_evidence_candidates(
         "semantic_patch_notes": gated["semantic_patch_notes"],
         "blocked_memory_notes": gated["blocked_memory_notes"],
         "conflict_notes": gated["conflict_notes"],
+        "design_correction_guards": design_corrections,
         "memory_use_policy": bounded.get("memory_use_policy"),
         "candidate_counts": {
             key: len(value)

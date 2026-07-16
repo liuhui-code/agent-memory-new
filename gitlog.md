@@ -4751,3 +4751,70 @@ Rollback notes:
 - Restore the previous feedback and usage aggregation modules and remove the new
   observation columns/indexes from fresh-schema creation. Existing SQLite
   columns can remain unused because SQLite does not require destructive rollback.
+
+## 2026-07-16 - Move code design reasoning back to the Agent
+
+Files added or extended:
+
+- Long-term Design Context Provider architecture and execution plan under
+  `docs/superpowers/` with SEI, ISO, ADR, ArchUnit, SCIP, and AWS references.
+- `design-context` facade, versioned design-knowledge catalog, CLI registration,
+  and evidence metadata for design-scoped correction guardrails.
+- Query Skill design protocol, runtime/schema/protocol references, English and
+  Chinese usage guidance, and README summaries.
+- Design-context contract, routing, authority, compactness, correction, and
+  compatibility tests.
+
+What changed:
+
+- Made `design-context/v1` the normal design retrieval contract while keeping
+  the fixed four-Skill surface and `tools/agent_memory.py` runtime entry.
+- Added two-pass Agent-controlled retrieval: an orientation request followed by
+  optional explicit concerns, source anchors, and task constraints.
+- Separated versioned general design knowledge from project SQLite memory. Each
+  principle, tactic, or pattern reference carries applicability, preconditions,
+  contraindications, tradeoffs, questions, retrieval reasons, and provenance.
+- Composed current repository views, source anchors, consumers, task constraints,
+  scoped semantic corrections, historical memory, quality questions, freshness,
+  and evidence gaps in an explicit authority order.
+- Kept unverified semantic corrections as source-check guardrails instead of
+  falsely marking them confirmed or allowing them to establish architecture.
+- Guaranteed that the new facade emits no pattern recommendation, generated
+  candidate, candidate ranking, selected design, Delta template, or change plan.
+- Moved old design-assist/prepare/check/compare/progress commands to
+  compatibility-only documentation; the Agent owns design synthesis, tradeoffs,
+  selection, implementation planning, and verification reasoning.
+- Added a compact graph and knowledge projection capped at 1,500 estimated
+  tokens without dropping authority, applicability, tradeoff, or provenance
+  boundaries.
+
+Verification:
+
+- Design-context, legacy compatibility, and repository-design regression:
+  16 tests passed.
+- Design, evidence-fabric, and experience-query integration regression:
+  45 tests passed.
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest discover -s tests -p 'test_*.py' -q`:
+  372 tests passed in 260.265 seconds.
+- Python compilation, JSON catalog validation, CLI help, diff whitespace,
+  exactly-four-Skill, and 500-line source checks passed.
+
+Rollback notes:
+
+- Remove the `design-context` parser/handler and knowledge catalog, restore the
+  prior Query Skill design reference, and remove the design-correction metadata
+  projection. No SQLite migration or persisted context requires rollback.
+
+Documentation follow-up:
+
+- Rewrote `docs/design-usage-guide.md` as a complete Chinese guide for the
+  Agent-owned Design Context workflow. It now covers user request structure,
+  two-pass queries, field interpretation, authority, semantic-correction
+  guardrails, Agent design synthesis, answer format, verification, legacy
+  command boundaries, common errors, and a minimal checklist.
+- Added the dedicated guide to the Chinese README and mission-document indexes.
+- Synchronized the English and Chinese READMEs with the current system:
+  ArkTS-first semantic indexing, SQLite/FTS5 retrieval, memory and experience
+  fields, code/log graphs, Agent-owned diagnosis and design, Skill evolution,
+  project refresh and retirement, governance, impact analysis, quality
+  evaluation, privacy boundaries, and the fixed four-Skill interface.

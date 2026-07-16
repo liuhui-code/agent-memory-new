@@ -1,4 +1,10 @@
-# Repository-Grounded Design Control Loop
+# Repository-Grounded Design Control Loop (Legacy Compatibility)
+
+> The normal design workflow moved to the Agent-owned `design-context/v1`
+> protocol. This document describes compatibility commands and historical
+> contracts; Runtime-generated guidance, comparison, and change plans are not
+> design conclusions. See
+> `docs/superpowers/specs/2026-07-16-design-context-provider.md`.
 
 The design runtime coordinates current repository evidence, candidate evaluation, change planning, implementation verification, and compact calibration. It does not generate hidden reasoning, call an LLM, persist proposals or diffs, or treat learned experience as architecture authority.
 

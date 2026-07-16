@@ -203,7 +203,7 @@ Normal query and impact traversal require `valid_to IS NULL`. Legacy rows are ba
 
 `graph_runtime_state` stores only `project_id`, a monotonically increasing `graph_revision`, and `updated_at`. The central graph rebuild increments this row in the same SQLite transaction as edge changes. Graph-quality payloads are disposable operational cache files under `runtime/graph_quality_snapshot.json`; they are accepted only when their project id and graph revision match SQLite. Maintenance reads therefore do not mutate SQLite, and deleting the runtime snapshot only causes a safe recomputation.
 
-Repository-grounded design uses runtime-only `architecture_slice` and Delta Graph JSON. Neither generated architecture slices nor design proposals are stored as SQLite records.
+Agent-owned design uses runtime-only `design-context/v1` and `repository-model/v2`. User requirements, generated context, architecture slices, Agent proposals, and reasoning are not stored as SQLite records.
 
 `impact_feedback` stores JSON arrays for changed files and recommended/executed/failed/flaky tests plus missed targets, outcome, note, change fingerprint, and timestamp. It never stores source diffs or test output.
 
@@ -263,7 +263,11 @@ These samples are operational telemetry, not memory. `maintain-health --json` su
 
 ## Design Control Schemas
 
-Repository design reasoning uses caller-owned or disposable JSON:
+The normal design query returns disposable JSON:
+
+- `design-context/v1`: authority-ordered task constraints, current repository facts, semantic corrections, historical warnings, quality questions, versioned design-knowledge references, evidence gaps, provenance, and Agent-directed expansion hints. It contains no recommendation, candidate selection, design score, or change plan.
+
+Legacy compatibility design commands may also use caller-owned or disposable JSON:
 
 - `design-intent/v1`: goal, scope, exclusions, acceptance criteria, constraints, and questions.
 - `repository-snapshot/v2`: graph revision, freshness, counts, truncation, and gaps.
@@ -287,4 +291,4 @@ Repository design reasoning uses caller-owned or disposable JSON:
 - `design-source-delta/v1`: runtime-only Git-bound changed symbols, exported API signature changes, source relation Delta, digests, provenance, and evidence gaps; source and diff bodies are excluded.
 - `design-outcome/v1`: compact persisted calibration result.
 
-All artifacts except `design-outcome/v1` are ephemeral. Workbenches, candidate templates, and progress checkpoints are caller-owned or disposable and never enter SQLite. `design_outcomes` stores only candidate/contract ids, baseline/current graph revisions, status/outcome, four bounded metrics, failed-test count, replan count, and timestamp. It never stores proposals, progress, source, diffs, test logs, or reasoning; retention is capped at 1,000 rows per project. SQLite remains authoritative for current learned repository facts and compact governed outcomes.
+All design-context and legacy design artifacts except `design-outcome/v1` are ephemeral. Workbenches, candidate templates, and progress checkpoints are caller-owned or disposable and never enter SQLite. `design_outcomes` stores only candidate/contract ids, baseline/current graph revisions, status/outcome, four bounded metrics, failed-test count, replan count, and timestamp. It never stores requirements, context packs, proposals, progress, source, diffs, test logs, or reasoning; retention is capped at 1,000 rows per project. SQLite remains authoritative for current learned repository facts and compact governed outcomes.

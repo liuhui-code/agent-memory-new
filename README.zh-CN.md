@@ -2,175 +2,543 @@
 
 [English README](README.md)
 
-Agent Memory 是一个面向 Coding Agent 的本地记忆运行时，重点服务 **ArkTS / HarmonyOS** 项目。
+Agent Memory 是面向 Coding Agent 的本地项目记忆与上下文运行时，当前重点优化
+**ArkTS / HarmonyOS** 代码理解、日志定位、经验沉淀和代码设计上下文。
 
-它不是向量数据库，也不是重型知识图谱，更不是替 Agent 做根因判断的诊断器；它是一套可落地的本地记忆、反思、治理和问题上下文供给能力：
+它不替代 Agent CLI 的推理能力：
 
-- 用 **SQLite** 作为单一事实源
-- 用 **FTS5** 做轻量全文检索
-- 用 **代码日志提取 + memory edges** 建立代码关系图
-- 用有界上下文、结构化经验、代码锚点来**减少无效上下文和 token 消耗**
+- Runtime 负责学习、检索、关联、裁剪、治理和提供可检查证据。
+- Agent CLI 负责阅读真实源码和临时日志、提出假设、还原调用关系、定位问题、
+  设计方案、修改代码和验证结果。
+- SQLite 保存长期项目记忆；临时用户日志、设计草案和 Agent 私有推理不入库。
 
-代码图、日志图、因果关系和经验都只是辅助证据。本地 Agent CLI 负责理解问题、提出假设、阅读源码、分析流水日志、给出根因并完成验证。
+![Agent Memory 项目特性示意图](docs/assets/agent-memory-overview.png)
 
-## 这个项目重点解决什么
+## 为什么需要项目记忆
 
-面向 ArkTS 项目做 Agent 协作时，常见问题不是“模型不会写代码”，而是：
+Coding Agent 在单次会话内很强，但跨会话、跨版本和重复任务中容易出现：
 
-- 同一个页面、路由、资源、日志反复重新读
-- 已经定位过的问题，下次又从头排查
-- 用户给的是现象和日志，Agent 很难稳定落到相关代码
-- 聊天历史越来越长，但真正有用的上下文越来越少
-- token 花在重复检索、重复解释、重复试错上
+- 反复读取同一批页面、路由、资源、配置和服务代码；
+- 已定位过的问题再次从头排查；
+- 流水日志很多，却难以稳定找到日志对应的源码位置；
+- 旧经验与当前代码冲突，反而干扰查询；
+- 业务语义、历史约束和设计动机没有可靠载体；
+- 上下文越来越长，真正相关的信息比例越来越低；
+- 项目更新后，旧代码图和经验没有及时刷新或淘汰。
 
-Agent Memory 的目标就是把这些重复成本压下来。
+Agent Memory 的目标不是保存更多文本，而是向 Agent 提供**短、准、可追溯、
+可治理**的项目上下文。
 
-## 为什么特别强调 ArkTS
+## 项目定位
 
-这个项目当前非常适合 **ArkTS / HarmonyOS** 场景，原因很直接：
+```text
+用户任务
+  -> 固定四个 Skill
+  -> tools/agent_memory.py
+  -> SQLite + FTS5
+       -> 项目记忆
+       -> 代码/日志关系图
+       -> 经验与纠正
+       -> 治理观察
+  -> 有界 Context
+  -> Agent CLI 推理、实施和验证
+  -> 结构化反思与维护
+```
 
-- ArkTS 项目通常有明显的页面、路由、资源、日志、Ability、模块配置结构
-- 很多问题都可以从“用户症状 -> 代码日志 -> 页面/路由/资源锚点”收敛
-- 这类代码库不一定需要向量库，**FTS5 + 结构化代码索引** 已经能覆盖大量定位需求
+核心原则：
 
-所以它现在不是泛泛地做“任意语言的长期记忆”，而是更偏向 **ArkTS 代码理解 + 日志定位 + 经验沉淀**。
+- `tools/agent_memory.py` 是唯一 Runtime 入口；
+- SQLite 是唯一机器事实源；
+- FTS5 是默认轻量查询引擎；
+- Obsidian Vault 是生成的只读审查镜像；
+- 用户始终只使用四个 Skill；
+- 当前源码和用户约束高于历史记忆；
+- 代码图、日志图、候选路径和经验都是辅助证据；
+- 写操作经过显式命令或确认，维护流程先审查后变更；
+- 不引入向量数据库、图数据库、常驻 daemon 或 Agent 专用 wrapper。
 
-## 轻量查询：SQLite + FTS5
+## 主要特性
 
-项目坚持轻量路线：
+| 能力 | 当前实现 |
+| --- | --- |
+| 轻量存储与查询 | SQLite + FTS5，按项目隔离，支持增量索引和候选定向查询 |
+| ArkTS 代码理解 | 页面、组件、路由、资源、Ability、配置、状态、异步和 API 关系 |
+| 代码图 | 文件、符号、日志和有类型的 `memory_edges` |
+| 日志图 | 日志模板、logger、级别、函数、业务事件、阶段和相邻关键词 |
+| 问题定位上下文 | 用户问题到日志关键词、代码锚点、候选调用路径和历史警告 |
+| 设计上下文 | 代码结构、项目约束、质量属性问题、设计知识和证据缺口 |
+| 影响范围 | Git 变更到依赖方、符号、日志、测试和覆盖缺口 |
+| 经验系统 | procedure、correction、semantic patch 三类经验 |
+| Skill 演化 | 多条已验证 procedure experience 可形成 Skill 候选和草案 |
+| 数据治理 | stale、merge、conflict、miss、feedback、refresh 和 review |
+| 质量门禁 | retrieval、trust、log signal、graph、design context 和 Agent A/B |
+| Token 控制 | `context --compact` 与 `design-context --compact` 约束首轮注入 |
+| 人工审查 | Obsidian Vault、maintain health/review/plan 和可解释治理动作 |
 
-- 不引入向量数据库
-- 不引入常驻服务
-- 不引入图数据库
-- 不要求外部检索基础设施
+## 为什么重点支持 ArkTS
 
-核心查询依赖：
+ArkTS / HarmonyOS 项目通常具有可利用的稳定结构：
 
-- SQLite 表结构化存储
-- FTS5 全文检索
-- 代码实体、业务语义、日志锚点、memory edges 的组合召回
+- 页面和 `@Entry` / `@Component` 生命周期；
+- Router 目标和页面注册；
+- `$r(...)` 字符串、媒体等资源引用；
+- Ability、module/package JSON5 配置；
+- 状态字段、组件组合、服务调用、事件和异步关系；
+- `hilog`、`console` 等代码日志；
+- 页面、服务、仓储和数据层之间较明确的责任边界。
 
-这样做的好处：
+内置 ArkTS / TypeScript semantic adapter 会生成语言无关的
+`semantic-index/v1` 数据。可选 ArkAnalyzer Provider 可提供更精确的 symbol、
+call、inheritance 和 state evidence；Provider 不可用时会明确回退到静态适配器。
 
-- 本地可检查
-- 易调试
-- 成本低
-- 查询快
-- 更容易控制上下文长度
+长期架构仍保留其他语言扩展能力：上层查询、代码图、日志图、影响分析和设计上下文
+只依赖标准化实体与关系，不依赖 ArkTS 专属接口。
 
-对 Agent 来说，这比“召回一大堆长文本”更实用。
+## SQLite + FTS5 轻量查询
 
-## 有日志，也有代码图
+项目没有引入 embedding 服务或向量数据库。查询链路主要是：
 
-这个项目不是只存“反思文本”。
+```text
+自然语言问题
+  -> FTS5 候选召回
+  -> 意图 lane 与状态过滤
+  -> 当前代码、业务语义、日志、经验组合排序
+  -> 反馈与使用结果校准
+  -> 有界 Context 输出
+```
 
-它会在学习代码时提取：
+FTS5 索引由 SQLite trigger 增量维护，不是第二事实源。索引只在首次创建、版本迁移
+或显式执行 derived rebuild 时重建。
+
+查询反馈采用延迟确认：
+
+- 一条未验证反馈不会改变排序；
+- 显式验证，或同一信号出现在至少两个独立任务后，才成为稳定信号；
+- 同一任务重试通过 `event_key` 幂等；
+- `resolved` / `ignored` 反馈不再参与查询；
+- 查询只加载当前候选 ID 的反馈，不扫描全局最近事件。
+
+## 记忆模型
+
+### Semantic Facts
+
+长期项目事实、业务规则、用户偏好和约束。
+
+主要字段：
+
+- `fact`
+- `source`
+- `confidence`
+- `category`
+- `scope`
+- `evidence`
+- `status`
+- `use_count`
+- `last_used_at`
+
+### Episodes
+
+任务或事件级摘要。
+
+主要字段：
+
+- `task`
+- `summary`
+- `outcome`
+- `files_touched`
+- `commands_run`
+- `importance`
+
+### Reflections
+
+经过结构化的任务经验，而不是一段无边界的自然语言。
+
+主要字段：
+
+- `task_type`
+- `experience_type`
+- `problem`
+- `reasoning_summary`
+- `what_worked`
+- `what_failed`
+- `hidden_assumptions`
+- `negative_preconditions`
+- `trigger_condition`
+- `repair_action`
+- `verification_method`
+- `inspection_targets`
+- `useful_followup_terms`
+- `misleading_followup_terms`
+- `source_cases`
+- `skill_candidate`
+
+### Codebase Wiki
+
+从当前代码学习出的轻量仓库模型：
 
 - `code_files`
 - `code_symbols`
 - `code_log_statements`
 - `memory_edges`
+- `learn_scopes`
 
-其中 `memory_edges` 可以把这些信息连起来，形成一个轻量代码关系图，例如：
+代码实体还可保存 Agent 补充的：
+
+- `business_summary`
+- `business_terms`
+
+这些字段用于补足纯静态分析无法理解的业务含义。
+
+## 代码图与日志图
+
+学习代码时会提取：
 
 ```text
-页面
--> 路由
--> 资源
--> 代码日志
--> 相邻业务语义
+code_file --contains--> code_symbol
+code_file --contains--> code_log_statement
+code_symbol --emits_log--> code_log_statement
+code_file --imports/routes_to/uses_resource--> code entity
+code_file --defines_state/uses_service/renders_component--> code entity
+code entity --calls/awaits/registers_callback--> code entity
 ```
 
-这意味着 Agent 可以从用户描述的问题出发：
+每条边包含来源 revision、extractor version、evidence class、有效期和验证时间。
+刷新和重建时旧边会失效，查询只使用当前有效边。
+
+日志记录不仅保存原始语句，还可包含：
+
+- `message_template`
+- `logger`
+- `level`
+- `function`
+- `business_event`
+- `trigger_stage`
+- `symptom_terms`
+- `likely_causes`
+- `process_hint`
+- `neighbor_terms`
+
+这样 Agent 可以从用户描述或真实日志的一行开始，找到代码日志、源码位置和多条可能
+调用路径，再使用真实日志顺序和当前源码筛选路径。
+
+## Agent 主导的问题定位
+
+Runtime 不读取或保存临时用户流水日志，也不生成根因。
+
+推荐流程：
 
 ```text
-用户症状
--> 命中业务词 / 日志词
--> 找到代码日志与相关文件/符号
--> 生成更窄的查询和排查上下文
+用户问题
+  -> context --compact
+  -> 获取日志关键词、代码锚点、候选路径、纠正和经验
+  -> Agent 直接读取临时日志
+  -> Agent 形成多个候选原因
+  -> 每个候选原因分别再次 context 查询
+  -> Agent 检查当前源码和真实日志顺序
+  -> Agent 推断调用链与因果关系
+  -> 修改、测试和验证
 ```
 
-相比单纯读流水日志，这条链路更稳，也更节约 token。
+Query Skill 使用分层策略：
 
-## 怎么节约 token
+- **L0**：有明确文件、行号、符号、路由或配置时，先有限检查当前源码；
+- **L1**：日志、跨模块、异步、历史语义或多候选问题使用
+  `context --compact`；
+- **L2**：对一个精确日志、符号或候选原因进行聚焦展开。
 
-这个项目的一个核心收益就是：**让 Agent 少带无关上下文**。
+`context --compact` 的首轮 Agent 注入受约 1500 Token 估算预算约束。
 
-主要手段有：
+## Agent 主导的代码设计
 
-1. **FTS5 命中局部代码与语义**
-   - 先命中相关文件、符号、日志、业务词，不把整个项目塞进上下文。
+设计能力遵守相同职责边界：系统提供上下文，Agent 负责设计。
 
-2. **代码日志作为锚点**
-   - 日志不再只是大段原始文本，而是和代码位置、符号、业务含义挂钩。
+第一轮查询：
 
-3. **结构化反思**
-   - 经验不是随便一段自然语言，而是带 `trigger_condition`、`repair_action`、`verification_method`、`inspection_targets` 的结构化记录。
+```bash
+python tools/agent_memory.py design-context \
+  --project . \
+  --query "为 ProfileRepository 增加缓存并保持 ProfileService API 兼容" \
+  --compact \
+  --json
+```
 
-4. **查询防干扰**
-   - 把 procedure、correction、semantic patch 分 lane 处理，减少“相似但误导”的旧经验进入主上下文。
+Agent 检查源码后，可按确认的质量属性和源码位置聚焦：
 
-5. **维护治理**
-   - 对冲突经验、过期经验、误导经验做 review，不让记忆池无限变脏。
+```bash
+python tools/agent_memory.py design-context \
+  --project . \
+  --query "为 ProfileRepository 增加缓存并保持 ProfileService API 兼容" \
+  --concern performance \
+  --concern compatibility \
+  --anchor data/ProfileRepository.ets \
+  --constraint "页面不得拥有持久化状态" \
+  --compact \
+  --json
+```
 
-结果是：同样的问题，Agent 更容易拿到**短而有用**的上下文，而不是长而嘈杂的上下文。
+返回内容包括：
 
-## 当前项目特性
+- 当前仓库 snapshot、入口、边界、状态所有者和消费者；
+- 当前任务约束和项目业务语义纠正；
+- 质量属性 routing hints 与场景问题；
+- 带适用前提、反例、取舍和来源的设计知识；
+- 历史经验警告、证据缺口和下一轮查询提示；
+- 明确的 authority order 和 Agent/Runtime 职责边界。
 
-当前版本的几个关键特性：
+Runtime 不推荐模式、不生成或排名候选、不选择设计、不生成实施计划。
+旧 `design-assist/prepare/check/compare/progress` 命令仅为兼容保留。
 
-- 固定四个对外 skill：`learn` / `query` / `maintain` / `reflect`
-- `tools/agent_memory.py` 作为唯一运行时入口
-- SQLite 作为唯一事实源
-- Obsidian Vault 作为只读镜像
-- 支持代码学习、业务语义补充、日志锚点提取、经验治理
-- 通过 `context.query_handoff` 提供历史经验、日志关键词、代码锚点和原始关系边；强日志锚点还会给出当前代码图上的多条候选调用路径和预期日志，临时日志分析、路径筛选、候选原因与因果推理由本地 Agent CLI 完成
-- Query Skill 采用 L0 源码预算、L1 `context --compact`、L2 聚焦展开，紧凑首轮输出受 1500 Token 估算预算约束
-- 支持基于当前代码图的设计 baseline、候选方案检查、权衡比较、变更 DAG 和实现验证
-- 支持 `procedure_experience` / `correction_experience` / `semantic_patch_experience`
-- 支持 `maintain-plan` 输出治理动作，而不是直接静默修改
-- 反馈采用延迟确认：单次未验证观察不改排序，验证或跨任务重复后才进入治理
+详细中文指南：
+[Agent CLI 代码设计能力使用指南](docs/design-usage-guide.md)。
 
-日志锚定的调用路径恢复采用单一 `context` 门面和语言无关抽象，路径只由当前有效代码图构造，经验与业务语义纠正不能改变结构排名。实现与演进设计见
-[日志锚定的调用路径恢复设计](docs/log-anchored-call-path-design.md)。
+## 经验系统与 Skill 演化
 
-Agent CLI 如何实际调用 Query Skill 完成问题定位和代码设计，参见
-[Agent CLI 调用 Query Skill 中文指南](docs/agent-cli-query-skill-guide.zh-CN.md)。
-Runtime 与本地 Agent 的职责边界参见 [Agent 上下文供给边界](docs/context-provider-boundary.md)。
-如何从 Git 历史和 ArkTS 可控故障构建案例，并比较使用记忆前后的 Agent 表现，参见
-[Agent 自采集与 A/B 自验证基准](docs/agent-benchmark.md)。
+经验分为三类，避免相互干扰。
 
-## 基于当前代码的设计闭环
+### `procedure_experience`
 
-设计能力不把历史经验当成架构事实。运行时先根据用户目标构建绑定图 revision 的 `repository-model/v2`，分别呈现拓扑、状态所有权、行为、数据、失败、运行时和变更视图，再检查候选方案。
+记录可复用执行流程：
 
-候选中的文件只能扩展检查范围，不能决定 baseline。质量场景分为 `claimed`、`supported` 和 `verified`：只有同时关联当前仓库证据、设计 Delta 和成功验证义务，才能逐级提升。候选比较会输出敏感点、权衡点和有依赖顺序的 Change Plan；实现后再用文件、符号、代码图 revision 和结构化测试证据验证。
+```text
+任务轨迹与结果
+  -> 反思
+  -> procedure experience
+  -> 多案例复用与验证
+  -> Skill pattern
+  -> Skill draft/package
+  -> 人工确认后正式 Skill
+```
 
-设计意图、候选、源码 diff、测试日志和推理过程都不会自动写入数据库。只有用户明确执行 `design-outcome` 时，系统才保存少量召回率、未计划变更比例、场景验证率、失败测试数和重规划次数，用于后续校准，不能自动生成硬架构规则。
+单次成功不会直接变成 Skill。系统会检查适用范围、反例、验证方式、来源案例和复用
+结果，降低过拟合。
 
-## 适合什么场景
+### `correction_experience`
+
+纠正误导经验或错误业务理解。它是查询 guardrail，不会演化为 Skill，也不能改变
+代码图结构。
+
+### `semantic_patch_experience`
+
+针对文件、符号、日志或边的具体业务语义字段提出修补，例如
+`business_summary`、`business_terms`、`business_event` 或 `likely_causes`。
+修补需要通过维护流程复核后应用。
+
+## 项目更新、刷新与淘汰
+
+`learn_scopes` 保存学习范围和文件摘要。项目更新后可以执行 changed-only refresh：
+
+- 新文件进入学习范围；
+- 修改文件重新索引；
+- 删除文件及其派生实体和边失效；
+- 原有业务语义在结构刷新后恢复；
+- 相关经验和 semantic patch 进入 drift review；
+- 不相关范围保持不动，避免全库重建。
+
+派生代码图可以重建，长期语义事实、经验、治理观察和业务补充不会因此丢失。
+
+## 数据治理
+
+治理入口遵守 read-first：
+
+```bash
+python tools/agent_memory.py maintain-health --project . --json
+python tools/agent_memory.py maintain-review --project . --json
+python tools/agent_memory.py maintain-plan --project . --json
+```
+
+治理范围包括：
+
+- stale、archived、merged、rejected 生命周期；
+- 低质量、不完整、重复和过宽经验；
+- 新旧经验冲突和 retrieval interference；
+- 语义事实与代码业务语义冲突；
+- 查询 miss、反馈 pending/stable/closed 状态；
+- 图新鲜度、孤立日志、弱锚点和缺失业务语义；
+- 学习范围刷新和派生图重建；
+- procedure experience 的 Skill 候选；
+- 日志可观测性缺口；
+- Runtime Token、延迟和数据库体量指标。
+
+`maintain-plan` 只生成有依据的动作建议，不静默修改数据。
+
+## 影响分析与验证反馈
+
+修改前或代码审查时：
+
+```bash
+python tools/agent_memory.py impact-scope \
+  --project . \
+  --base HEAD~1 \
+  --query "Profile 加载流程修改" \
+  --json
+```
+
+系统结合 Git 变更、代码图、符号、日志和经验返回：
+
+- 直接修改文件和符号；
+- 一跳反向依赖和下游依赖；
+- 相关日志、测试和历史风险；
+- 图覆盖缺口；
+- 建议验证清单。
+
+测试结束后可写入紧凑结果：
+
+```bash
+python tools/agent_memory.py impact-feedback \
+  --project . \
+  --outcome pass \
+  --executed-tests tests/ProfileServiceTest.ets \
+  --json
+```
+
+不会保存源码 diff 或原始测试日志。
+
+## 质量评估与自验证
+
+系统提供本地、可重复的质量评估：
+
+- retrieval 命中率和精确 anchor 排名；
+- 误导经验拦截和信任校准；
+- 日志信号完整性；
+- 代码图锚点、关系和业务语义覆盖；
+- design context 的权威顺序、无设计结论和 Token 预算；
+- Git 历史案例和 ArkTS 可控 mutation；
+- 同一个 Agent 在有/无 Memory Context 下的 A/B 对比。
+
+质量检查只评估系统是否提供了更好的上下文，不证明 Runtime 具备诊断或设计推理。
+
+## 固定四个 Skill
+
+| Skill | 职责 |
+| --- | --- |
+| `agent-memory-learn` | 学习代码、配置、业务语义、日志和项目范围 |
+| `agent-memory-query` | 查询记忆、代码图、日志锚点、影响和设计上下文 |
+| `agent-memory-maintain` | 初始化、健康检查、刷新、治理、重建和 Vault 导出 |
+| `agent-memory-reflect` | 保存任务反思、procedure、correction 和 semantic patch |
+
+新增能力全部在四个 Skill 内部渐进披露，不增加第五个用户入口。
+
+## 快速开始
+
+安装到当前项目：
+
+```bash
+python install.py --project . --local-skills
+```
+
+初始化和检查：
+
+```bash
+python tools/agent_memory.py init --project .
+python tools/agent_memory.py doctor --project .
+```
+
+学习项目：
+
+```bash
+python tools/agent_memory.py learn-entry \
+  --project . \
+  --entry entry/src/main/ets/pages/Index.ets \
+  --depth 2 \
+  --json
+
+python tools/agent_memory.py learn-path \
+  --project . \
+  --path entry/src/main/ets \
+  --json
+```
+
+查询问题上下文：
+
+```bash
+python tools/agent_memory.py context \
+  --project . \
+  --query "个人中心空白，profile load failed" \
+  --compact \
+  --json
+```
+
+查询设计上下文：
+
+```bash
+python tools/agent_memory.py design-context \
+  --project . \
+  --query "重构 Profile 数据加载流程" \
+  --compact \
+  --json
+```
+
+任务完成后反思：
+
+```bash
+python tools/agent_memory.py reflect \
+  --project . \
+  --task "修复 Profile 页面空白" \
+  --lesson "先用稳定日志锚点定位当前代码，再检查路由和资源关系"
+```
+
+导出人工审查镜像：
+
+```bash
+python tools/agent_memory.py vault-export --project .
+```
+
+正常使用应由 Agent 自动调用四个 Skill。CLI 是稳定后台接口和调试入口。
+
+## 数据与隐私边界
+
+默认保存在本地项目或指定 memory home：
+
+```text
+.agent-memory/
+  projects/<project_id>/
+    memory.db
+    runtime/
+    vault/
+```
+
+不会默认持久化：
+
+- 用户临时流水日志全文；
+- Agent 私有思维过程；
+- 设计请求、候选方案和比较内容；
+- 源码 diff；
+- 原始测试日志；
+- 外部 semantic provider 的 AST 和 stdout。
+
+## 适合与暂不适合
 
 更适合：
 
-- ArkTS / HarmonyOS 项目
-- 页面、路由、资源、日志关系明确的前端代码库
-- 需要多轮排查、重复定位、长期积累经验的项目
-- 希望在本地、低成本、可审计前提下增强 Agent 的团队
+- ArkTS / HarmonyOS 项目；
+- 页面、路由、资源、日志和模块结构明确的代码库；
+- 需要重复定位、跨会话经验和持续治理的项目；
+- 希望本地、低成本、可审计地增强 Agent CLI。
 
-暂时不追求：
+暂不追求：
 
-- 重型多模态知识库
-- 跨机器分布式记忆服务
-- 完整 AST 图数据库
-- 高成本 embedding / rerank 基础设施
+- 分布式跨机器记忆服务；
+- 完整 AST 图数据库；
+- Runtime 自动诊断或自动设计；
+- 无人工门禁的自修改代码或 Skill；
+- 高成本 embedding / rerank 基础设施。
+
+## 文档索引
+
+- [Agent CLI Query Skill 中文指南](docs/agent-cli-query-skill-guide.zh-CN.md)
+- [Agent CLI 代码设计能力使用指南](docs/design-usage-guide.md)
+- [Agent 上下文供给边界](docs/context-provider-boundary.md)
+- [本地 Agent 问题定位流程](docs/local-agent-incident-workflow.md)
+- [日志锚定调用路径设计](docs/log-anchored-call-path-design.md)
+- [Semantic Index](docs/semantic-index.md)
+- [外部 Semantic Provider](docs/semantic-provider.md)
+- [Agent A/B 自验证](docs/agent-benchmark.md)
+- [Runtime 协议](docs/runtime.md)
+- [SQLite Schema](references/schema.md)
+- [长期数据治理内核](docs/superpowers/specs/2026-07-16-long-term-data-governance-kernel.md)
+- [Design Context Provider](docs/superpowers/specs/2026-07-16-design-context-provider.md)
 
 ## 一句话概括
 
-如果你更关心：
-
-- **ArkTS 项目能不能更快定位问题**
-- **日志和代码能不能连起来用**
-- **Agent 能不能少浪费 token 在重复阅读上**
-
-那这个项目的路线就是对的：  
-**用 SQLite + FTS5 + 代码日志锚点 + 轻量代码图，把 Agent 的上下文收窄到真正有用的那一小块。**
+**用 SQLite + FTS5 + ArkTS 语义索引 + 代码日志锚点 + 轻量代码图 +
+结构化经验治理，为本地 Agent CLI 提供真正相关且可验证的项目上下文。**

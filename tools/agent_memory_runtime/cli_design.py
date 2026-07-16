@@ -6,6 +6,17 @@ from typing import Any, Callable
 
 
 def add_design_parsers(sub: Any, add_project: Callable[[Any], None], command: Callable[[str], Any]) -> None:
+    context = sub.add_parser("design-context")
+    add_project(context)
+    context.add_argument("--query", required=True)
+    context.add_argument("--concern", action="append")
+    context.add_argument("--anchor", action="append")
+    context.add_argument("--constraint", action="append")
+    context.add_argument("--max-items", type=int, default=12)
+    context.add_argument("--compact", action="store_true")
+    context.add_argument("--json", action="store_true")
+    context.set_defaults(func=command("design_context_command"))
+
     assist = sub.add_parser("design-assist")
     add_project(assist)
     assist.add_argument("--query", required=True)

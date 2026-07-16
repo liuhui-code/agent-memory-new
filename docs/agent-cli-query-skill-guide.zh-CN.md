@@ -44,7 +44,7 @@ tools/agent_memory.py
 | 理解文件、符号、路由、资源或当前行为 | Code Understanding | `context` |
 | 定位错误、白屏、崩溃、日志或线上事故 | Incident Diagnosis | `context`，每个候选原因单独查询 |
 | 评估改动影响、回归风险和测试范围 | Change Impact | `impact-scope` |
-| 设计功能、重构、接口、状态流和模块边界 | Repository-Grounded Design | `design-assist` |
+| 设计功能、重构、接口、状态流和模块边界 | Agent-Owned Design Context | `design-context` |
 | 判断历史经验、纠正或冲突是否可信 | Evidence Policy | `context` / `search` |
 
 同一个任务可能包含多个意图，但 Agent 应先选择一个主目标。例如“修复白屏并重构 ProfileService”应先定位根因，验证后再进入设计流程，不能用重构方案替代故障诊断。
@@ -64,7 +64,7 @@ tools/agent_memory.py
    运行日志/Incident > 语义纠正 > 已验证经验 > 普通经验。
 4. 先读取 query_handoff、当前源码锚点和原始关系边；Runtime 不提供诊断结论。
 5. 原始关系边只能作为待检查线索，不能报告为调用链或根因。
-6. 设计任务先调用 design-assist；重要设计再执行 prepare/check/compare/verify。
+6. 设计任务先调用 design-context；Agent 检查源码并按 concern/anchor 聚焦后自行设计。
 7. 不因缺少图边就断言没有依赖；必须报告覆盖缺口。
 8. 只把必要证据注入上下文，避免输出整份 JSON 或完整日志。
 ```
@@ -281,47 +281,57 @@ python tools/agent_memory.py impact-feedback \
 - `约束/排除项`：兼容性、性能、技术和组织限制。
 - `验收标准`：可以怎样验证设计成立。
 
-## 7. 代码设计：简单流程
+## 7. 代码设计：Design Context 主流程
 
-大多数设计先调用：
+系统只向 Agent 提供代码事实、项目约束、质量属性问题、设计知识和证据缺口，
+不负责生成或选择设计。先执行方向查询：
 
 ```bash
-python tools/agent_memory.py design-assist \
+python tools/agent_memory.py design-context \
   --project . \
   --query "设计个人资料缓存，保持 ProfileService 公开 API 兼容" \
-  --mode design-only \
-  --scope "ProfileService 和数据层" \
   --constraint "页面不得拥有持久化逻辑" \
   --constraint "不得破坏现有调用方" \
-  --acceptance "缓存命中不发网络请求" \
-  --acceptance "过期后刷新且失败可回退" \
-  --exclude "全局缓存框架" \
+  --compact \
   --json
 ```
 
-`--scope`、`--constraint`、`--acceptance` 和 `--exclude` 可以重复。
+Agent 应按顺序处理：
 
-Agent 应按顺序读取：
+1. 读取 `authority_order`，明确冲突证据的优先级。
+2. 在当前源码中检查 `current_repository.source_anchors`。
+3. 重建责任边界、状态所有权、调用者、行为和失败路径。
+4. 检查任务硬约束、语义纠正和历史警告，不能让经验覆盖当前源码。
+5. 使用 `quality_context.scenario_questions` 判断真正重要的质量属性。
+6. 将 `design_knowledge` 视为原则、tactic 和模式参考，而不是系统推荐。
+7. 将 `evidence_gaps` 转换为源码检查或显式假设。
 
-1. `current_design`：当前模块、入口、责任和依赖事实。
-2. `design_guidance.forces`：变化、耦合、状态、失败和兼容性压力。
-3. `existing_patterns`：源码结构中已经观察到的模式信号。
-4. `pattern_candidates`：带前提与禁忌条件的可选策略。
-5. `principle_checks`：单一职责、依赖方向、状态所有权、接口稳定性等检查。
-6. `required_decisions`：仍需用户或源码证据解决的设计决策。
-7. `delta_template`：未声称成立的最小变更模板。
+第一轮后，由 Agent 明确 concern 和源码 anchor，再执行聚焦查询：
 
-`existing_patterns` 表示当前结构中观察到了某种形态，不表示它一定正确。`pattern_candidates` 是条件化策略：
+```bash
+python tools/agent_memory.py design-context \
+  --project . \
+  --query "设计个人资料缓存，保持 ProfileService 公开 API 兼容" \
+  --concern performance \
+  --concern compatibility \
+  --anchor service/ProfileService.ets \
+  --constraint "不得破坏现有调用方" \
+  --compact \
+  --json
+```
 
-- `applicable`：已有足够结构和约束支持考虑。
-- `needs_evidence`：缺少适用证据，不能直接采用。
-- `caution`：目标约束与模式常见前提冲突。
+`routing_hints` 只是词法检索提示，Agent 可以确认、拒绝或补充。每条设计知识都
+必须带适用条件、前提、反例、取舍、检查问题和来源。模式名称永远不能单独成为
+设计理由。
 
-模式名称永远不能单独成为设计理由。设计理由必须落到当前责任边界、变化方向、依赖、状态、失败模式和验证方式。
+最终由 Agent CLI 生成最小方案、必要备选、权衡、实施步骤和验证计划。Runtime
+不得推荐模式、生成候选、比较候选、选择方案或生成 Change Plan。
 
-## 8. 代码设计：完整控制循环
+## 8. 旧版兼容控制循环（非默认）
 
-跨模块、公共 API、状态所有权或重要运行路径变化，应使用完整流程。
+以下 `design-assist/prepare/check/compare/progress` 命令为兼容旧自动化而保留，
+不再是 Query Skill 的默认设计流程。其 guidance、评分、候选选择和 Change Plan
+不能当成设计结论。`design-verify` 仅可用于核对客观源码、API、图、编译和测试证据。
 
 ### 8.1 Agent 内部整理 Intent 和 Contract
 
@@ -446,7 +456,7 @@ Agent 最终设计答复应保持可执行，而不是输出运行时原始 JSON
 - 首轮使用自然语言和精确业务症状，不要把整份日志粘进对话。
 - 让 Agent 调用 `--json` 后只摘取 direct evidence、关键链、缺口和下一步。
 - 后续查询加入文件、符号、错误码、route、resource 或 trace id，避免重复宽查询。
-- 普通设计只使用 `design-assist`；完整协议仅用于重要结构变化。
+- 普通设计使用一到两轮 `design-context`；旧设计控制循环仅用于兼容审计。
 - 默认 `--scope auto`，只有全局架构或重复模式问题才用 `--scope global`。
 - 不把临时日志原文、完整 repository model 或所有经验原样输出给用户。
 - 达到停止条件后停止检索，进入源码检查、实验或验证。
@@ -509,12 +519,12 @@ Agent 最终设计答复应保持可执行，而不是输出运行时原始 JSON
 
 ```text
 [ ] 明确目标、范围、约束、排除项和验收标准
-[ ] design-assist
-[ ] 核对 current_design、forces、patterns、principles 和 decisions
-[ ] 先给最小候选
-[ ] 重要设计执行 prepare -> check -> compare（可选）
-[ ] 按 change_plan 实施并运行 progress
-[ ] 运行真实测试后 design-verify
+[ ] design-context 第一轮方向查询
+[ ] 检查当前源码、项目约束、质量问题、知识引用和证据缺口
+[ ] 使用 Agent 确认的 concern 和 anchor 执行第二轮聚焦查询
+[ ] Agent 生成最小候选并分析必要备选
+[ ] Agent 生成实施顺序并执行修改
+[ ] 运行真实测试并核对客观源码、API、图和测试证据
 [ ] 分开报告事实、方案、风险、验证和证据缺口
 ```
 

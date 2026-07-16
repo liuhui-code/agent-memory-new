@@ -259,38 +259,33 @@ python tools/agent_memory.py context --project . --query "<goal or symptom>" --c
 
 First apply selective routing. A precise file/line, compiler symbol, failing test, route, resource key, or configuration value may be inspected directly within a budget of three files and two source searches. Logs, unknown emitters, cross-module/async behavior, competing causes, business semantics, history, or an unresolved direct inspection use compact context. Read `query_handoff.log_keywords`, `log_anchors`, and `code_anchors` first. If `query_handoff.path_context.activated` is true, inspect all `path_candidates` rather than accepting the top score. Compare each path's expected logs, entry, emitter, uncertainty, and missing segments with the actual temporary-log order. The Agent CLI reads that temporary log directly, records observations, keeps indistinguishable paths, forms multiple candidate causes, and runs one compact follow-up query per candidate. Relation hints and candidate paths are navigation evidence. Remove `--compact` only for a focused ranking or full-record audit. Learned code, logs, and history do not prove the current cause.
 
-For repository-grounded code design, use the design goal before proposing abstractions:
+For repository-grounded code design, retrieve context before proposing abstractions:
 
 ```bash
-python tools/agent_memory.py design-assist --project . \
+python tools/agent_memory.py design-context --project . \
   --query "design profile caching around ProfileService" \
-  --mode design-only --json
+  --compact --json
 ```
 
-This is the normal natural-language entry. Read `current_design`, then
-`design_guidance.existing_patterns`, `pattern_candidates`, `principle_checks`,
-and `required_decisions`. A candidate marked `needs_evidence` is not a
-recommendation, and `caution` means an intent constraint conflicts with a common
-applicability condition. The Agent should return the smallest viable design and
-only surface a materially different alternative.
-
-Read current code evidence first, then the `repository_model` and compatibility `architecture_slice` returned by the design workflow. Check `baseline_entry_points` separately from `scope_entry_points`: candidate paths may broaden scope but cannot define the baseline. Missing edges mean incomplete evidence, not no dependency.
-
-Express a serious candidate as a Delta Graph and check it:
+Read current source at `current_repository.source_anchors`, then review explicit
+constraints, corrections, quality questions, general knowledge references, and
+evidence gaps in authority order. Returned pattern references are not
+recommendations. The Agent decides which concerns apply and may refine context:
 
 ```bash
-python tools/agent_memory.py design-prepare --project . --intent intent.json --contract contract.json --json
-python tools/agent_memory.py design-check --project . --intent intent.json --proposal proposal.json --contract contract.json --json
-python tools/agent_memory.py design-compare --project . --intent intent.json --proposal a.json --proposal b.json --contract contract.json --json
-python tools/agent_memory.py design-progress --project . --proposal selected.json --base HEAD --test-report build/test-results.xml --verification-run verification-run.json --json
-python tools/agent_memory.py design-verify --project . --proposal selected.json --base HEAD~1 --test-report build/test-results.xml --verification-run verification-run.json --json
-python tools/agent_memory.py design-outcome --project . --verification verification.json --outcome success --json
-python tools/agent_memory.py eval-design --project . --cases docs/eval/design-cases.json --json
+python tools/agent_memory.py design-context --project . \
+  --query "design profile caching around ProfileService" \
+  --concern performance --concern compatibility \
+  --anchor service/ProfileService.ets \
+  --constraint "ProfileService API remains compatible" \
+  --compact --json
 ```
 
-For substantial work, use `design-intent/v1` for goal/scope/exclusions, then run `design-prepare` before writing candidates. Its template intentionally contains no modifications or coverage claims; fill it from current evidence, applicable principles, conditional pattern guidance, and general design reasoning. Use `design-contract/v2` plus `design-delta/v2` when coverage must be evidence-backed. `claimed` means the candidate only names a scenario; `supported` requires valid Delta and repository references; `verified` requires successful structured verification. `design-verify` derives changed symbols, exported API changes, and source relation Delta from Git for ArkTS/TypeScript. Repeat `--test-report` for JUnit, compiler, generic/pytest, or Jest reports; use `verification-run/v1` when results must be revision-bound. Reports must already exist because the runtime does not execute tests. Historical calibration requires five matching reviewed outcomes and remains an advisory tie-break only.
-
-`blocked` contains structural errors that should change the proposal. `review` contains warnings, unsupported claims, or unknown anchors requiring judgment. `clean` means bounded checks found no issue; it does not prove correctness. Use `change_plan.steps` as the dependency-ordered implementation and verification plan. Run `design-progress` during editing; consume only its `next_steps`, and use `--completed-step` only for the returned human review/observability steps. `design-verify` remains the final read-only check; record a compact outcome only after reviewing its report. The Query Skill loads `references/code-design.md` only for design intent, so ordinary query and diagnosis tasks do not carry this protocol.
+The Agent CLI reconstructs responsibilities and flows, authors alternatives,
+analyzes tradeoffs, selects the design, and creates the implementation and
+verification plan. Legacy design commands remain available for compatibility;
+their generated guidance, ranking, selection, or change plan is not part of the
+normal workflow. A bounded structural check cannot prove design quality.
 
 For a Git change or an explicit file set:
 

@@ -1,69 +1,75 @@
-# Repository-Grounded Code Design Protocol
+# Agent-Owned Code Design Protocol
 
-Use this protocol for feature design, refactoring, interface changes, state flow, service boundaries, or module decomposition. Base the design on current repository facts and general software-design reasoning, not on learned project patterns.
+Use this protocol for feature design, refactoring, interface changes, state flow,
+service boundaries, or module decomposition. Agent Memory supplies bounded
+context. The Agent owns all design reasoning and decisions.
 
 ## Workflow
 
-1. Start with `design-assist` for a natural-language design request. Read current structure, forces, recognized patterns, pattern candidates, principle checks, and required decisions.
-2. Clarify only unresolved business tradeoffs, exclusions, hard constraints, and measurable acceptance criteria. Do not ask the user to author runtime JSON.
-3. Express scope, exclusions, acceptance criteria, constraints, and open questions as `design-intent/v1` internally for substantial work.
-4. Use `design-prepare` only when the full revision-bound workbench is needed; resolve blocking authoring gaps before proposing a candidate.
-5. Reconstruct topology, ownership, behavior, data, failure, runtime, and change views from the candidate-independent baseline.
-6. Identify stable boundaries and the smallest credible extension points.
-7. Generate the smallest viable candidate first; add alternatives only for a material structural or behavioral tradeoff.
-8. Express each serious candidate as `design-delta/v2`, binding scenario claims to Delta, repository, and verification references.
-9. Run `design-check`; when alternatives exist, run `design-compare` and preserve its decision, sensitivities, tradeoffs, and selected plan.
-10. Implement dependency-ready `change_plan.steps`; independent steps may proceed together. Treat `in_progress` added files as incomplete until the expected semantic declaration exists.
-11. Run `design-verify` against the implementation base and existing machine-readable test/compiler reports. Bind high-trust reports with `verification-run/v1`; stale bound evidence cannot verify an obligation. Record only the compact reviewed outcome.
+1. Read the user's goal, explicit constraints, exclusions, and acceptance
+   criteria. Do not ask the user to author Runtime JSON.
+2. Run an orientation query:
 
 ```bash
-python tools/agent_memory.py design-assist --project . --query "<design goal>" --mode design-only --json
-python tools/agent_memory.py design-prepare --project . --intent "<intent.json>" --contract "<contract.json>" --json
-python tools/agent_memory.py design-check --project . --intent "<intent.json>" --proposal "<proposal.json>" --contract "<contract.json>" --json
-python tools/agent_memory.py design-compare --project . --intent "<intent.json>" --proposal "<a.json>" --proposal "<b.json>" --contract "<contract.json>" --json
-python tools/agent_memory.py design-progress --project . --proposal "<selected.json>" --base HEAD --test-report "<junit-or-json-report>" --verification-run "<verification-run.json>" --json
-python tools/agent_memory.py design-verify --project . --proposal "<selected.json>" --base HEAD~1 --test-report "<junit-or-json-report>" --verification-run "<verification-run.json>" --json
-python tools/agent_memory.py design-outcome --project . --verification "<verification.json>" --outcome success --json
+python tools/agent_memory.py design-context --project . --query "<design goal>" --compact --json
 ```
 
-## Design Rules
+3. Inspect `current_repository.source_anchors` in current source. Treat graph
+   relations as navigation evidence and missing edges as uncertainty.
+4. Review task constraints, semantic corrections, and memory evidence in
+   authority order. Historical experience cannot establish current architecture.
+5. Use quality questions and knowledge entries to decide which concerns and
+   principles actually apply. A returned pattern reference is not a recommendation.
+6. When context is broad, query again with Agent-confirmed concerns and anchors:
 
-- Reuse an existing responsibility boundary before adding an abstraction.
-- Add an abstraction only for a demonstrated variation, coupling, ownership, or testability problem.
-- Keep state ownership explicit and singular unless synchronization is part of the design.
-- Preserve dependency direction; do not move business logic into UI, routing, logging, or configuration layers.
-- Check every known consumer before changing a public interface.
-- Give each new branch a test or inspectable verification path.
-- Add observability only at high-value start, decision, failure, or result points.
-- Mark anything not supported by current source or graph as an assumption.
-- Treat missing graph coverage as uncertainty, not permission.
-- Historical experience may warn about constraints but cannot establish the current architecture or select a design by itself.
-- Treat `existing_patterns` as structurally observed signals, `pattern_candidates` as conditional tactics, and `needs_evidence` or `caution` as unresolved applicability. Never apply a pattern from its name alone.
-
-## Delta Graph
-
-The proposal describes intended structural change, not source code or chain-of-thought:
-
-```json
-{
-  "schema_version": "design-delta/v2",
-  "id": "profile-cache",
-  "contract_id": "profile-cache-contract",
-  "goal": "Add profile cache",
-  "anchors": ["file:src/ProfileService.ets"],
-  "add_nodes": [{"id": "new:ProfileCache", "kind": "service", "file_path": "src/ProfileCache.ets"}],
-  "modify_nodes": ["file:src/ProfileService.ets"],
-  "add_edges": [{"source": "file:src/ProfileService.ets", "relation": "uses_service", "target": "new:ProfileCache"}],
-  "remove_edges": [],
-  "assumptions": [],
-  "invariants": ["ProfilePage does not own persistence"],
-  "constraint_coverage": [],
-  "quality_coverage": [],
-  "coverage_evidence": [],
-  "verification": {"tests": ["profile cache tests"], "observability": ["cache result signal"]}
-}
+```bash
+python tools/agent_memory.py design-context --project . \
+  --query "<same design goal>" \
+  --concern modifiability --concern compatibility \
+  --anchor "src/Feature.ets" \
+  --constraint "<hard task constraint>" \
+  --compact --json
 ```
+
+7. Reconstruct current responsibilities, state ownership, behavior, data,
+   failure paths, consumers, and change pressure from source and context.
+8. Author the smallest viable design. Add alternatives only for a material
+   quality-attribute or structural tradeoff.
+9. Explain applicable principles, rejected alternatives, assumptions, risks,
+   and verification. Never cite a pattern name as the sole rationale.
+10. Use current tests, compiler output, source inspection, and optional factual
+    validators to verify claims. A clean bounded check does not prove quality.
+
+## Context Interpretation
+
+- `authority_order`: precedence when evidence conflicts.
+- `current_repository`: graph snapshot, source anchors, boundaries, state
+  owners, consumers, tests, and observability anchors.
+- `project_context`: explicit constraints, scoped semantic corrections, and
+  historical memory warnings.
+- `quality_context`: lexical routing hints and scenario questions. The Agent
+  confirms or rejects each concern.
+- `design_knowledge`: general principles, tactics, and patterns with
+  applicability, preconditions, contraindications, tradeoffs, questions, and
+  provenance.
+- `evidence_gaps`: facts to inspect or mark as assumptions.
+- `expansion_hints`: inputs for the next focused query.
+
+## Hard Boundary
+
+The Runtime must not recommend a pattern, generate candidates, rank
+alternatives, select a design, or create an implementation plan. The Agent must
+not reinterpret retrieval relevance as architectural fitness.
+
+The older `design-assist`, `design-prepare`, `design-check`, `design-compare`,
+and `design-progress` commands are compatibility-only. Do not use their
+Runtime-generated guidance, ranking, or change plan in the normal design flow.
+`design-verify` may be used only for objective source, API, graph, compiler, and
+test evidence after Agent-owned design and implementation.
 
 ## Output
 
-Return current architecture facts, constraints, candidate approaches, rejected alternatives, proposed Delta Graph summary, check findings, affected areas, assumptions, risks, and verification plan. Do not present a generic pattern name as the design rationale.
+Return current structure facts, design goals and constraints, quality scenarios,
+the Agent's selected design, material alternatives, principle-based reasoning,
+affected areas, assumptions, risks, and a verification plan. Cite current files,
+symbols, graph references, project constraints, and knowledge sources used.
