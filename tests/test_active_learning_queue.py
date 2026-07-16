@@ -101,6 +101,7 @@ class ActiveLearningQueueTests(unittest.TestCase):
             "1",
             "--outcome",
             "misleading",
+            "--verified",
             "--json",
         )
 

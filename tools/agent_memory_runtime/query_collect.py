@@ -6,6 +6,7 @@ from typing import Any
 
 from .experience_maturity import score_experience_maturity
 from .experience_usage import apply_usage_adjustment, collect_usage_adjustments_by_type
+from .feedback_policy import candidate_ids
 from .incident_trace_models import INCIDENT_TRACE_SEARCH_LIMIT
 from .incident_trace_query import collect_incident_trace_matches
 from .log_signal_quality import score_log_signal
@@ -236,8 +237,16 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             recall_candidate_ids(conn, project, "code_log_statements", query, QUERY_FTS_RECALL_LIMITS["code_log_statements"]),
         )
     results["incident_trace_matches"] = collect_incident_trace_matches(project, query, INCIDENT_TRACE_SEARCH_LIMIT)
-    feedback, calibration = collect_feedback_adjustments(project, query)
-    usage = collect_usage_adjustments_by_type(project, query)
+    memory_candidate_ids = {
+        "semantic": candidate_ids(semantic),
+        "reflection": candidate_ids(reflections),
+    }
+    feedback, calibration = collect_feedback_adjustments(
+        project, query, record_ids=memory_candidate_ids
+    )
+    usage = collect_usage_adjustments_by_type(
+        project, query, record_ids=memory_candidate_ids
+    )
     semantic_feedback = feedback["semantic"]
     reflection_feedback = feedback["reflection"]
     semantic_usage = usage["semantic"]

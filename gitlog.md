@@ -4675,3 +4675,79 @@ External validation:
 Rollback notes:
 
 - Restore the previous method/import regexes and ranking/evaluation rules. External workspaces and case packs were temporary and did not modify the ArkTS repository.
+
+## 2026-07-16 - Add selective compact context retrieval
+
+Files added or extended:
+
+- `tools/agent_memory_runtime/context_compact.py`, CLI context registration, and command handling.
+- Query Skill routing and code-understanding, incident, and evidence protocols.
+- Runtime, usage, local-Agent, Chinese guide, README, boundary, and mission documentation.
+- `tests/test_log_anchored_paths.py`.
+
+What changed:
+
+- Added the backward-compatible `context --compact` view without changing retrieval, ranking, SQLite state, or the default full context contract.
+- Kept bounded log/code anchors, current-graph path candidates, relation hints, correction and semantic guards, advisory experience references, evidence gaps, expansion guidance, and the Agent/Runtime role boundary.
+- Omitted full records, repeated search terms, retrieval explanations, trust-reason internals, query audit, static policies, and duplicate edge details from first-round Agent injection.
+- Enforced an estimated 1,500-token compact budget through deterministic progressive reductions while preserving correction guards.
+- Added Query Skill L0/L1/L2 routing: bounded current-source inspection for precise local faults, compact Memory for logs/cross-module/async/history or unresolved work, and full output only for focused audit expansion.
+
+Verification:
+
+- A real ArkTS log query against the learned `browser` project fell from about 14,487 estimated tokens to 1,315 while preserving `PagesDialog.aboutToAppear -> awaits -> loadHistoryData` and its log anchors, a 90.9% reduction.
+- Compact contract, budget, correction preservation, default full-output compatibility, and selective Skill routing tests passed.
+- Existing base runtime, part10-part14, design, quality-loop, and memory-calibration regressions passed.
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest discover -s tests -p 'test_*.py' -q`: 359 tests passed in 1112.403 seconds. This unusually slow single run is recorded as validation, not a performance baseline.
+- Python compilation, diff whitespace, Query Skill progressive-disclosure line limit, and 500-line checks passed.
+
+Rollback notes:
+
+- Remove `--compact`, the compact projection module, and the L0/L1/L2 Skill rules. No SQLite migration or stored compact records require cleanup.
+
+## 2026-07-16 - Add the long-term data governance kernel
+
+Files added or extended:
+
+- Long-term governance architecture and execution plan under `docs/superpowers/`.
+- Feedback policy, retrieval feedback, experience usage, storage migrations,
+  candidate collection, and maintain governance projections.
+- Runtime, schema, usage, Chinese README, and Maintain Skill documentation.
+- Retrieval-feedback, experience-usage, calibration, and active-learning tests.
+
+What changed:
+
+- Kept the fixed four-Skill surface and reused the existing
+  `retrieval-feedback` and `experience-usage` commands instead of adding a
+  generic context-feedback interface.
+- Added optional task/query correlation, deterministic event keys, verification,
+  lifecycle closure, target validation, and in-place migrations.
+- Delayed ranking effects until an observation is verified or repeated by two
+  independent tasks; `used`, `ignored`, and `superseded` no longer act as direct
+  relevance labels.
+- Replaced global latest-event scans with candidate-directed batched SQL reads,
+  grouped stable signals once, and excluded resolved or ignored feedback.
+- Exposed stable versus pending observations and closure commands through
+  existing maintain health and plan outputs.
+- Recorded durable governance cases, selective mutation audit events, retention,
+  and algorithm self-evolution as explicit future phases rather than premature
+  schema expansion.
+
+Verification:
+
+- Focused feedback, calibration, usage, active-learning, and quality regression:
+  23 tests passed.
+- Fingerprint, retrieval-feedback, and usage regression: 31 tests passed.
+- `PYTHONPYCACHEPREFIX=/tmp/agent-memory-pyc python3 -m unittest discover -s tests -p 'test_*.py' -q`:
+  366 tests passed in 1467.990 seconds.
+- A synthetic 500,000-row SQLite probe used the candidate composite index and
+  returned 80 bounded rows. The full setup and query took about 1.16 seconds;
+  this is an index-path probe, not a production performance baseline.
+- Python compilation, CLI help, diff whitespace, exactly-four-Skill, and
+  500-line checks passed.
+
+Rollback notes:
+
+- Restore the previous feedback and usage aggregation modules and remove the new
+  observation columns/indexes from fresh-schema creation. Existing SQLite
+  columns can remain unused because SQLite does not require destructive rollback.

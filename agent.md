@@ -69,6 +69,7 @@ python tools/agent_memory.py doctor --project .
 python tools/agent_memory.py update --project . --type semantic --fact "..."
 python tools/agent_memory.py update --project . --type episode --task "..." --summary "..."
 python tools/agent_memory.py context --project . --query "..." --json
+python tools/agent_memory.py context --project . --query "..." --compact --json
 python tools/agent_memory.py design-assist --project . --query "..." --mode design-only --json
 python tools/agent_memory.py design-prepare --project . --intent intent.json --contract contract.json --json
 python tools/agent_memory.py design-check --project . --intent intent.json --proposal proposal.json --json
@@ -105,6 +106,8 @@ python tools/agent_memory.py maintain-plan --project . --verify-graph-quality --
 python tools/agent_memory.py maintain-rebuild-derived --project . --target graph --json
 python tools/agent_memory.py miss-list --project . --status open --json
 python tools/agent_memory.py miss-status --project . --id 1 --status resolved --resolution "..."
+python tools/agent_memory.py retrieval-feedback --project . --query "..." --type reflection --id 1 --reason misleading --task-id task-1 --json
+python tools/agent_memory.py retrieval-feedback --project . --feedback-id 1 --status resolved --note "..." --json
 python tools/agent_memory.py maintain-status --project . --type semantic --id 1 --status stale --reason "..."
 python tools/agent_memory.py maintain-merge --project . --type semantic --ids 1,2 --fact "..." --json
 python tools/agent_memory.py maintain-promote --project . --episode-id 1 --fact "..." --json
@@ -119,6 +122,11 @@ and bounded raw graph edges. The Agent CLI reads temporary user logs itself,
 forms multiple candidate causes, queries each candidate separately, inspects
 current source, and infers call and causal chains. The Runtime must not parse
 temporary logs or generate hypotheses, evidence chains, or root causes.
+The Query Skill uses a selective L0/L1/L2 workflow: precise local anchors get a
+small current-source inspection budget first, log/cross-module/async problems
+use `context --compact`, and the full context view is reserved for focused
+record or ranking audits. Compact output is a projection of the same retrieval,
+not a second query or diagnosis API.
 
 ## Skill Set
 

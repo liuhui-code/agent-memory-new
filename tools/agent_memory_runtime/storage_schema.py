@@ -224,6 +224,10 @@ def create_schema(conn: sqlite3.Connection) -> None:
           outcome TEXT NOT NULL,
           note TEXT,
           evidence TEXT,
+          task_id TEXT,
+          query_id TEXT,
+          event_key TEXT,
+          verified INTEGER NOT NULL DEFAULT 0,
           created_at TEXT NOT NULL
         );
 
@@ -256,6 +260,11 @@ def create_schema(conn: sqlite3.Connection) -> None:
           replacement_id INTEGER,
           note TEXT,
           status TEXT NOT NULL DEFAULT 'open',
+          task_id TEXT,
+          query_id TEXT,
+          event_key TEXT,
+          verified INTEGER NOT NULL DEFAULT 0,
+          resolution TEXT,
           created_at TEXT NOT NULL,
           reviewed_at TEXT
         );
@@ -347,3 +356,4 @@ def create_schema(conn: sqlite3.Connection) -> None:
     create_post_migration_indexes(conn)
     create_search_schema(conn)
     conn.commit()
+    conn.execute("PRAGMA optimize")

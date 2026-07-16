@@ -284,6 +284,8 @@ def build_experience_maturity_actions(rows: list[dict[str, Any]]) -> list[dict[s
 def build_retrieval_feedback_actions(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     actions: list[dict[str, Any]] = []
     for row in rows:
+        if not row.get("signal_stable"):
+            continue
         if row.get("reason") in {"useful", "verified_useful", "undertrusted", "overtrusted"}:
             continue
         actions.append(
@@ -308,6 +310,12 @@ def build_retrieval_feedback_actions(rows: list[dict[str, Any]]) -> list[dict[st
                     "merge_or_supersede_if_replacement_is_better",
                     "ignore_feedback_if_not_reproducible",
                 ],
+                "supporting_feedback_ids": row.get("supporting_feedback_ids") or [row.get("id")],
+                "resolution_commands": [
+                    "python tools/agent_memory.py retrieval-feedback --project . "
+                    f"--feedback-id {feedback_id} --status resolved --note '<resolution>' --json"
+                    for feedback_id in (row.get("supporting_feedback_ids") or [row.get("id")])
+                ],
             }
         )
     return actions
@@ -317,6 +325,8 @@ def build_retrieval_feedback_actions(rows: list[dict[str, Any]]) -> list[dict[st
 def build_calibration_feedback_actions(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     actions: list[dict[str, Any]] = []
     for row in rows:
+        if not row.get("signal_stable"):
+            continue
         reason = str(row.get("reason") or "")
         if reason == "overtrusted":
             actions.append(

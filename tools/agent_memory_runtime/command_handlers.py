@@ -9,6 +9,7 @@ from typing import Any
 from .models import Project, REQUIRED_TABLES
 from .performance_scoring import append_performance_sample, build_performance_sample, estimate_payload_tokens, monotonic_ms
 from .context_composition import build_context_facade
+from .context_compact import compact_context
 from .query import limited_search, record_query_miss_if_empty
 from .records import output, row_dict, table_for_type
 from .storage import connect, create_schema, ensure_dirs, ensure_initialized, now_iso, resolve_project, upsert_project, write_config, write_global_config
@@ -151,6 +152,8 @@ def context(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     data = build_context_facade(project).execute(args.query)
+    if args.compact:
+        data = compact_context(data)
     record_query_usage(project, "context", args.query, data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(

@@ -7,9 +7,11 @@ import sqlite3
 import tempfile
 from pathlib import Path
 
-from agent_memory_test_base import AgentMemoryTestBase
+from agent_memory_test_base import AgentMemoryTestBase, REPO_ROOT
 from tools.agent_memory_runtime.code_wiki_extractors import extract_log_statements
 from tools.agent_memory_runtime.context_composition import build_context_facade
+from tools.agent_memory_runtime.context_compact import COMPACT_TOKEN_BUDGET, compact_context
+from tools.agent_memory_runtime.performance_scoring import estimate_payload_tokens
 from tools.agent_memory_runtime.storage import ensure_initialized, resolve_project
 
 
@@ -209,6 +211,66 @@ class LogAnchoredPathTests(AgentMemoryTestBase):
 
         self.assertIn("path_context", payload["query_handoff"])
         self.assertTrue(payload["query_handoff"]["path_context"]["activated"])
+
+    def test_compact_context_keeps_handoff_and_omits_full_audit(self) -> None:
+        full = json.loads(self.run_memory(
+            self.root, "context", "--query", "profile load failed", "--json",
+        ).stdout)
+        compact = json.loads(self.run_memory(
+            self.root, "context", "--query", "profile load failed", "--compact", "--json",
+        ).stdout)
+
+        self.assertEqual("agent-context-compact/v1", compact["schema_version"])
+        self.assertTrue(compact["query_handoff"]["log_anchors"])
+        self.assertTrue(compact["query_handoff"]["path_context"]["path_candidates"])
+        self.assertNotIn("query_audit", compact)
+        self.assertNotIn("code_log_matches", compact)
+        self.assertIn("query_audit", full)
+        self.assertLess(len(json.dumps(compact)), len(json.dumps(full)) * 0.45)
+        self.assertLessEqual(compact["output_budget"]["estimated_tokens"], COMPACT_TOKEN_BUDGET)
+
+    def test_compact_budget_preserves_correction_guard(self) -> None:
+        full = build_context_facade(self.project).execute("profile load failed")
+        full["correction_guards"] = [{
+            "id": 9,
+            "experience_type": "correction_experience",
+            "fact": "Use the current session lifecycle meaning.",
+            "scope": "ProfileService",
+            "warnings": ["historical interpretation is stale"],
+        }]
+        full["query_handoff"]["log_keywords"] = [f"keyword-{index}-" + "x" * 120 for index in range(40)]
+        full["query_handoff"]["experience_refs"] = [
+            {"reflection_id": index, "task": "x" * 300, "warnings": ["y" * 300]}
+            for index in range(20)
+        ]
+        heavy_guard = {
+            "id": 10,
+            "experience_type": "semantic_patch_experience",
+            "fact": "f" * 500,
+            "scope": "s" * 500,
+            "task": "t" * 500,
+            "problem": "p" * 500,
+            "trigger_condition": "c" * 500,
+            "lesson": "l" * 500,
+            "reason": "r" * 500,
+            "warnings": ["w" * 500, "z" * 500],
+        }
+        full["semantic_patch_notes"] = [heavy_guard, heavy_guard]
+        full["blocked_memory_notes"] = [heavy_guard, heavy_guard]
+        full["conflict_notes"] = [heavy_guard, heavy_guard]
+
+        compact = compact_context(full)
+
+        self.assertEqual(9, compact["correction_guards"][0]["id"])
+        self.assertLessEqual(estimate_payload_tokens(compact), COMPACT_TOKEN_BUDGET)
+
+    def test_query_skill_uses_selective_compact_routing(self) -> None:
+        skill = (REPO_ROOT / "skills" / "agent-memory-query" / "SKILL.md").read_text(encoding="utf-8")
+
+        self.assertIn("L0 current source first", skill)
+        self.assertIn("L1 compact context", skill)
+        self.assertIn("L2 focused expansion", skill)
+        self.assertIn("--compact --json", skill)
 
     def test_relation_aware_active_edge_indexes_are_installed(self) -> None:
         with sqlite3.connect(self.project.db_path) as conn:

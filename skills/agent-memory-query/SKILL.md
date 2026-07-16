@@ -21,13 +21,25 @@ Choose one primary protocol. Do not load every reference.
 
 If multiple intents apply, start with the user's requested outcome. Load a second protocol only when the first protocol explicitly requires that handoff.
 
+## Selective Retrieval
+
+Use the cheapest investigation level that can answer the request:
+
+- **L0 current source first:** when the user supplies a file/line, compiler symbol, failing test, route, resource key, or configuration value that can be checked within three files and two source searches. Do not call Memory if current source and a direct verification settle the issue.
+- **L1 compact context:** when the request contains a runtime log/error code, has no known emitter, crosses modules, lifecycle/callback/async boundaries, has competing causes, depends on business meaning, asks about history, or remains unresolved after the L0 budget.
+- **L2 focused expansion:** query one exact log phrase, symbol, or Agent-produced candidate at a time with `--compact`. Remove `--compact` only to inspect full records, ranking audit, or one unresolved evidence conflict.
+
+Memory selection is an Agent workflow decision, not a Runtime diagnosis. Never skip an explicit user request to query memory.
+
 ## Default Command
 
-Use the historical query entry for diagnosis and code understanding:
+Use the compact historical query entry for L1 diagnosis and code understanding:
 
 ```bash
-python tools/agent_memory.py context --project . --query "<user problem or Agent-extracted term>" --json
+python tools/agent_memory.py context --project . --query "<user problem or Agent-extracted term>" --compact --json
 ```
+
+For L2 audit expansion, run the same focused query without `--compact`. The full view is not the default Agent injection path.
 
 Pass an explicit goal only when the intent is clear:
 
@@ -66,9 +78,10 @@ Read `references/evidence-policy.md` when the answer relies materially on reflec
 ## Bounded Work
 
 - Start from the user's natural-language goal.
+- Apply the L0 budget before Memory only when the problem already has a precise current-source anchor.
 - Prefer exact file, symbol, route, resource, log, request, or session anchors for follow-up queries.
 - Respect query round, cursor, graph-depth, and result limits.
-- Read `query_handoff.log_keywords`, code/log anchors, experience boundaries, and raw `edge_matches`.
+- Read compact `query_handoff.log_keywords`, code/log anchors, path candidates, relation hints, correction guards, and evidence gaps first.
 - Analyze temporary runtime logs directly in the Agent session.
 - Query each Agent-produced candidate cause separately; do not combine all candidates into one broad query.
 - Infer call chains and causal chains from current source and runtime order in the Agent session.

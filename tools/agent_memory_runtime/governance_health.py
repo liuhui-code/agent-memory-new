@@ -50,7 +50,7 @@ from .quality_gate_eval import (
 )
 from .query import collect_matches, infer_followup_focus, rank_followup_seed_terms, suggested_followup_terms
 from .records import output, parse_ids, row_dict, table_for_type
-from .retrieval_feedback import fetch_open_retrieval_feedback
+from .retrieval_feedback import fetch_open_retrieval_feedback, retrieval_feedback_summary
 from .storage import connect, ensure_initialized, now_iso, resolve_project
 from .task_trace_governance import build_task_trace_actions
 from .text import json_list, tokenize, unique_list
@@ -204,6 +204,7 @@ def maintain_health(args: argparse.Namespace) -> None:
     design_calibration = design_calibration_summary(project)
     provider_health = semantic_provider_health(project)
     agent_benchmark = agent_benchmark_summary(project)
+    retrieval_observations = retrieval_feedback_summary(project)
 
     duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
     low_confidence_count = low_conf_semantic_count + low_conf_reflection_count
@@ -283,6 +284,9 @@ def maintain_health(args: argparse.Namespace) -> None:
             "event_count": experience_usage["event_count"],
             "misleading_records": experience_usage["misleading_records"],
             "helpful_records": experience_usage["helpful_records"],
+            "stable_signal_count": experience_usage["stable_signal_count"],
+            "pending_signal_count": experience_usage["pending_signal_count"],
+            "truncated": experience_usage["truncated"],
             "records": experience_usage["records"],
         },
         "active_learning_queue": active_learning_queue,
@@ -291,6 +295,7 @@ def maintain_health(args: argparse.Namespace) -> None:
         "impact_feedback": impact_feedback,
         "design_calibration": design_calibration,
         "agent_benchmark": agent_benchmark,
+        "retrieval_observations": retrieval_observations,
         "runtime_performance": build_runtime_performance_summary(project),
         "semantic_provider": provider_health,
         "recommended_actions": recommended_actions,

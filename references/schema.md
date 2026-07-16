@@ -23,6 +23,8 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `design_outcomes`: bounded compact design-verification metrics used only for calibration.
 - `learn_scopes`: persistent manifests for previously learned entry, path, or whole-project scopes.
 - `query_misses`: failed retrieval attempts that may need later learning or reflection.
+- `retrieval_feedback`: query-scoped relevance and trust observations for semantic facts and reflections.
+- `experience_usage_events`: actual task-use observations for semantic facts and reflections.
 - `semantic_conflicts`: durable review records for conflicting business summaries.
 - `runtime_schema_versions`: component migration versions for FTS and derived edge metadata.
 
@@ -93,6 +95,19 @@ Phase 2 adds memory governance metadata while keeping SQLite as the source of tr
 - `outcome`: `helped`, `partial`, `misleading`, or `unused`.
 - `task`: task name from the applying reflection.
 - `created_at`: when feedback was recorded.
+
+`retrieval_feedback` and `experience_usage_events` are observations, not direct
+truth updates. Both may carry `task_id`, `query_id`, `event_key`, and `verified`.
+`event_key` provides task-level idempotency. Retrieval feedback also carries a
+`status` lifecycle (`open`, `confirmed`, `resolved`, or `ignored`) and an optional
+`resolution`. A signal affects query ranking only when it is verified or repeats
+across at least two independent tasks. `used`, `ignored`, and `superseded` usage
+outcomes remain governance evidence and never directly change ranking.
+
+Query-time feedback reads are candidate-directed: after FTS recall identifies
+semantic/reflection IDs, one bounded SQL query loads observations for only those
+IDs. The Runtime does not use a global latest-event tail, so an older relevant
+signal is not hidden by unrelated recent events.
 
 `query_misses` track retrieval feedback:
 

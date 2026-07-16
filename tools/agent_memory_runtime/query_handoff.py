@@ -25,7 +25,7 @@ def build_query_handoff(query: str, data: dict[str, list[dict[str, Any]]]) -> di
         "experience_refs": [compact_experience(item) for item in reflections[:MAX_ANCHORS]],
         "semantic_refs": [compact_semantic(item) for item in semantics[:MAX_ANCHORS]],
         "next_query_contract": {
-            "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --json",
+            "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
             "accepted_inputs": [
                 "exact phrase or identifier observed in the temporary runtime log",
                 "one candidate cause produced by the Agent CLI",

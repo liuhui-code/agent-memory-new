@@ -5,11 +5,12 @@ Use this protocol when historical memory, semantic corrections, conflicts, or tr
 ## Commands
 
 ```bash
-python tools/agent_memory.py context --project . --query "<query>" --json
+python tools/agent_memory.py context --project . --query "<query>" --compact --json
 python tools/agent_memory.py search --project . --query "<query>" --json
 ```
 
 `search` is paged and bounded. Follow `next_cursor` only when the current batch cannot answer the question.
+Remove `--compact` when the task specifically requires complete trust reasons, ranking audit, or full conflict records.
 
 ## Retrieval Lanes
 

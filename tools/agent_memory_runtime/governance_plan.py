@@ -49,7 +49,7 @@ from .quality_gate_eval import (
 )
 from .query import collect_matches, infer_followup_focus, rank_followup_seed_terms, suggested_followup_terms
 from .records import output, parse_ids, row_dict, table_for_type
-from .retrieval_feedback import fetch_open_retrieval_feedback
+from .retrieval_feedback import fetch_open_retrieval_feedback, retrieval_feedback_summary
 from .storage import connect, ensure_initialized, now_iso, resolve_project
 from .task_trace_governance import build_task_trace_actions
 from .text import json_list, tokenize, unique_list
@@ -123,6 +123,7 @@ def maintain_plan(args: argparse.Namespace) -> None:
     memory_tier_actions = build_memory_tier_actions(memory_tiers)
     task_trace_actions = build_task_trace_actions(project)
     retrieval_feedback_rows = fetch_open_retrieval_feedback(project, args.limit)
+    retrieval_observations = retrieval_feedback_summary(project)
     retrieval_feedback_actions = build_retrieval_feedback_actions(retrieval_feedback_rows)
     calibration_feedback_actions = build_calibration_feedback_actions(retrieval_feedback_rows)
     quality_semantic_rows, quality_reflection_rows = fetch_quality_memory_rows(project, args.limit)
@@ -234,12 +235,16 @@ def maintain_plan(args: argparse.Namespace) -> None:
             "event_count": experience_usage["event_count"],
             "misleading_records": experience_usage["misleading_records"],
             "helpful_records": experience_usage["helpful_records"],
+            "stable_signal_count": experience_usage["stable_signal_count"],
+            "pending_signal_count": experience_usage["pending_signal_count"],
+            "truncated": experience_usage["truncated"],
             "review_actions": len(experience_usage_actions),
         },
         "memory_tiers": memory_tiers,
         "active_learning_queue": active_learning_queue,
         "action_budget": action_budget,
         "retrieval_feedback_summary": {
+            **retrieval_observations,
             "open_feedback": len(retrieval_feedback_rows),
             "review_actions": len(retrieval_feedback_actions),
         },

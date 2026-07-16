@@ -11,11 +11,11 @@ Use this protocol to understand current files, symbols, routes, resources, confi
 5. Report missing learned coverage explicitly.
 
 ```bash
-python tools/agent_memory.py context --project . --query "<question>" --json
+python tools/agent_memory.py context --project . --query "<question>" --compact --json
 python tools/agent_memory.py wiki-search --project . --query "<file, symbol, route, or resource>" --json
 ```
 
-Use `match_reasons`, `search_terms`, `suggested_followup_terms`, and `followup_focus` to sharpen the next query. Prefer route targets for navigation questions, resource keys for display questions, log templates for error questions, and config/permission anchors for configuration questions.
+Use compact anchors, relation hints, evidence gaps, and next queries to sharpen the next query. Remove `--compact` only when full match reasons, search terms, or ranking audit are necessary. Prefer route targets for navigation questions, resource keys for display questions, log templates for error questions, and config/permission anchors for configuration questions.
 
 Code and graph evidence describe learned current structure, not a complete call graph. Verify decisive claims against source. Treat business summaries as semantic navigation aids, not source-code replacements.
 

@@ -99,6 +99,7 @@ class CalibrationFeedbackTests(unittest.TestCase):
                 "1",
                 "--reason",
                 "overtrusted",
+                "--verified",
                 "--json",
             )
             after = json.loads(

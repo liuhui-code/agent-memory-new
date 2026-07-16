@@ -238,7 +238,7 @@ Expected skill path:
 
 ```text
 agent-memory-query
-  -> python tools/agent_memory.py context --project . --query "<task>" --json
+  -> python tools/agent_memory.py context --project . --query "<task>" --compact --json
 ```
 
 For end-to-end local Agent problem diagnosis, use the active workflow in
@@ -254,10 +254,10 @@ for both incident diagnosis and repository-grounded code design, see
 For diagnosis, start with the user's problem description:
 
 ```bash
-python tools/agent_memory.py context --project . --query "<goal or symptom>" --json
+python tools/agent_memory.py context --project . --query "<goal or symptom>" --compact --json
 ```
 
-Read `query_handoff.log_keywords`, `log_anchors`, and `code_anchors` first. If `query_handoff.path_context.activated` is true, inspect all `path_candidates` rather than accepting the top score. Compare each path's `expected_log_anchors`, entry, emitter, edge provenance, uncertainty, and missing segments with the actual temporary-log order. The Agent CLI reads that temporary log directly, records observations, keeps indistinguishable paths, forms multiple candidate causes, and runs one follow-up `context` query per candidate. `edge_matches` and candidate paths are navigation hints. Learned code, logs, and history do not prove the current cause.
+First apply selective routing. A precise file/line, compiler symbol, failing test, route, resource key, or configuration value may be inspected directly within a budget of three files and two source searches. Logs, unknown emitters, cross-module/async behavior, competing causes, business semantics, history, or an unresolved direct inspection use compact context. Read `query_handoff.log_keywords`, `log_anchors`, and `code_anchors` first. If `query_handoff.path_context.activated` is true, inspect all `path_candidates` rather than accepting the top score. Compare each path's expected logs, entry, emitter, uncertainty, and missing segments with the actual temporary-log order. The Agent CLI reads that temporary log directly, records observations, keeps indistinguishable paths, forms multiple candidate causes, and runs one compact follow-up query per candidate. Relation hints and candidate paths are navigation evidence. Remove `--compact` only for a focused ranking or full-record audit. Learned code, logs, and history do not prove the current cause.
 
 For repository-grounded code design, use the design goal before proposing abstractions:
 
@@ -475,10 +475,18 @@ python tools/agent_memory.py retrieval-feedback \
   --type reflection \
   --id 12 \
   --reason weak_related \
+  --task-id "<stable task id>" \
   --json
 ```
 
-Valid retrieval reasons are `weak_related`, `stale`, `wrong_domain`, `too_broad`, and `misleading`. Calibration reasons are `useful`, `verified_useful`, `undertrusted`, and `overtrusted`. Future similar queries apply bounded penalties or bonuses to that record and expose `feedback_penalty` plus `calibration_feedback_*` fields. `maintain-plan` surfaces `review_retrieval_feedback`, `review_overtrusted_memory`, or `review_undertrusted_memory` so the record can later be tightened, lowered in confidence, strengthened with evidence, marked stale, merged, or left alone if the feedback is not reproducible.
+Valid retrieval reasons are `weak_related`, `stale`, `wrong_domain`, `too_broad`, and `misleading`. Calibration reasons are `useful`, `verified_useful`, `undertrusted`, and `overtrusted`. A single unverified observation remains pending. Add `--verified` only after source, test, reproduction, or explicit user confirmation; otherwise the same signal must recur in two independent `--task-id` values before it can affect ranking. Task-scoped retries are idempotent. `maintain-plan` reports stable and pending counts and surfaces review actions only for stable signals.
+
+After review, close every supporting feedback row so it stops affecting later queries:
+
+```bash
+python tools/agent_memory.py retrieval-feedback --project . \
+  --feedback-id 7 --status resolved --note "<resolution>" --json
+```
 
 After the Agent actually uses a returned semantic fact or reflection, record the task outcome when it is clearly helpful, ignored, misleading, or superseded:
 
@@ -489,11 +497,12 @@ python tools/agent_memory.py experience-usage \
   --type reflection \
   --id 12 \
   --outcome helpful \
+  --task-id "<stable task id>" \
   --note "<short outcome note>" \
   --json
 ```
 
-This is the lightweight closed loop for experience quality. Future similar queries expose `usage_feedback_bonus`, `usage_feedback_penalty`, and `usage_feedback_reasons`, so useful experience can rise slightly and misleading experience can stop steering the main task.
+This is the lightweight closed loop for experience quality. Only stable `helpful` and `misleading` outcomes affect later ranking. `used`, `ignored`, and `superseded` remain review evidence because selection position and task context make them unreliable relevance labels. Add `--verified` only when the outcome has concrete evidence; otherwise use independent task IDs and let maintain aggregate repeated observations.
 
 After repeated runtime-log-backed diagnosis, `maintain-plan --json` may also return:
 

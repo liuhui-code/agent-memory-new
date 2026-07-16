@@ -13,6 +13,7 @@
 python tools/agent_memory.py context \
   --project . \
   --query "个人资料页首次进入白屏，日志出现 profile load failed" \
+  --compact \
   --json
 ```
 
@@ -21,9 +22,9 @@ Agent 重点读取：
 - `query_handoff.log_keywords`：搜索流水日志的关键词。
 - `query_handoff.log_anchors`：代码日志模板、logger、事件、阶段和源码位置。
 - `query_handoff.code_anchors`：首批源码入口。
-- `semantic_facts`、`correction_guards`：业务语义与纠正。
-- `reflections`、`episodes`：历史经验，仅作提示。
-- `edge_matches`：原始一跳关系，仅作源码导航。
+- `correction_guards`、`semantic_patch_notes`：业务语义与纠正。
+- `experience_refs`：历史经验，仅作提示。
+- `relation_hints`：紧凑一跳关系，仅作源码导航。
 
 不要从结果排序推断根因，也不要把历史 `likely_causes` 当成当前事实；公开查询
 不会返回该字段。
@@ -63,6 +64,7 @@ Agent 至少列出两个可证伪候选，每个候选包含：
 python tools/agent_memory.py context \
   --project . \
   --query "ProfileService 请求成功但响应解析失败，定位解析函数和失败日志" \
+  --compact \
   --json
 ```
 

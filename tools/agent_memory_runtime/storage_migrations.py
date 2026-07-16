@@ -90,6 +90,7 @@ def migrate_schema(conn: sqlite3.Connection) -> None:
         )
         """
     )
+    migrate_feedback_observation_columns(conn)
     conn.execute(
         """
         UPDATE query_misses
@@ -118,6 +119,29 @@ def migrate_schema(conn: sqlite3.Connection) -> None:
     create_impact_feedback_table(conn)
     create_design_outcomes_table(conn)
     migrate_design_outcome_columns(conn)
+
+
+def migrate_feedback_observation_columns(conn: sqlite3.Connection) -> None:
+    definitions = {
+        "retrieval_feedback": (
+            ("task_id", "TEXT"),
+            ("query_id", "TEXT"),
+            ("event_key", "TEXT"),
+            ("verified", "INTEGER NOT NULL DEFAULT 0"),
+            ("resolution", "TEXT"),
+        ),
+        "experience_usage_events": (
+            ("task_id", "TEXT"),
+            ("query_id", "TEXT"),
+            ("event_key", "TEXT"),
+            ("verified", "INTEGER NOT NULL DEFAULT 0"),
+        ),
+    }
+    for table, columns in definitions.items():
+        existing = {row["name"] for row in conn.execute(f"PRAGMA table_info({table})").fetchall()}
+        for name, definition in columns:
+            if name not in existing:
+                conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {definition}")
 
 
 def migrate_memory_edge_metadata(conn: sqlite3.Connection) -> None:
@@ -285,5 +309,16 @@ def create_post_migration_indexes(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_experience_usage_project_type_recent
         ON experience_usage_events(project_id, record_type, created_at DESC, id DESC);
+
+        CREATE INDEX IF NOT EXISTS idx_retrieval_feedback_candidate
+        ON retrieval_feedback(project_id, record_type, record_id, status, created_at DESC);
+
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_retrieval_feedback_event_key
+        ON retrieval_feedback(project_id, event_key)
+        WHERE event_key IS NOT NULL AND event_key != '';
+
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_experience_usage_event_key
+        ON experience_usage_events(project_id, event_key)
+        WHERE event_key IS NOT NULL AND event_key != '';
         """
     )

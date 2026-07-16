@@ -4,19 +4,22 @@ Use this protocol for symptoms, errors, runtime logs, crashes, blank pages, fail
 
 ## Workflow
 
-1. Run `context` with the user's problem to retrieve historical experience, code-log keywords, code locations, and stored graph edges.
-2. Read the temporary runtime log directly with Agent CLI tools; never send the file to Agent Memory.
-3. Summarize exact events, identifiers, ordering, missing expected events, and multiple candidate causes in the Agent session.
-4. Run one `context` query for each exact log phrase, error code, event name, symbol, or candidate cause.
-5. Inspect the returned current source and raw graph edges, then infer the likely call chain in the Agent session.
-6. Combine the observed runtime order with inspected code behavior to build the causal chain in the Agent session.
-7. Execute discriminating checks and treat prior incidents and experience as historical advice only.
+1. If the problem already names a precise file/line or literal mismatch, inspect at most three files and run at most two source searches first. Stop without Memory when current source plus verification settles it.
+2. Otherwise run compact `context` with the user's problem to retrieve historical experience, code-log keywords, code locations, and stored graph edges.
+3. Read the temporary runtime log directly with Agent CLI tools; never send the file to Agent Memory.
+4. Summarize exact events, identifiers, ordering, missing expected events, and multiple candidate causes in the Agent session.
+5. Run one compact `context` query for each exact log phrase, error code, event name, symbol, or candidate cause.
+6. Inspect the returned current source and relation hints, then infer the likely call chain in the Agent session.
+7. Combine the observed runtime order with inspected code behavior to build the causal chain in the Agent session.
+8. Execute discriminating checks and treat prior incidents and experience as historical advice only.
 
 ```bash
-python tools/agent_memory.py context --project . --query "<user symptom>" --json
-python tools/agent_memory.py context --project . --query "<exact runtime-log phrase or error code>" --json
-python tools/agent_memory.py context --project . --query "<one Agent candidate cause>" --json
+python tools/agent_memory.py context --project . --query "<user symptom>" --compact --json
+python tools/agent_memory.py context --project . --query "<exact runtime-log phrase or error code>" --compact --json
+python tools/agent_memory.py context --project . --query "<one Agent candidate cause>" --compact --json
 ```
+
+Remove `--compact` only when a focused candidate requires full retrieval explanations, complete records, or conflict audit.
 
 When reading the user log, prefer stable fields such as severity, logger, event name, trace/request/session id, error code, reason, route, resource, and result. These fields become plain text inputs for the next `context` query.
 

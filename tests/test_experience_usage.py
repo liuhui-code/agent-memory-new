@@ -107,6 +107,7 @@ class ExperienceUsageTests(unittest.TestCase):
                 "1",
                 "--outcome",
                 "misleading",
+                "--verified",
                 "--json",
             )
             self.run_memory(
@@ -120,6 +121,7 @@ class ExperienceUsageTests(unittest.TestCase):
                 "2",
                 "--outcome",
                 "helpful",
+                "--verified",
                 "--json",
             )
 
@@ -149,6 +151,7 @@ class ExperienceUsageTests(unittest.TestCase):
                 "1",
                 "--outcome",
                 "misleading",
+                "--verified",
                 "--json",
             )
 
@@ -159,6 +162,30 @@ class ExperienceUsageTests(unittest.TestCase):
         self.assertEqual(1, len(actions))
         self.assertEqual(1, data["governance_summary"]["experience_usage_reviews"])
         self.assertEqual("misleading", actions[0]["dominant_outcome"])
+
+    def test_single_unverified_and_verified_ignored_usage_do_not_change_rank(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir) / "app"
+            project.mkdir()
+            self.seed_reflections(project)
+            self.run_memory(
+                project, "experience-usage", "--query", "ArkTS route blank screen",
+                "--type", "reflection", "--id", "1", "--outcome", "misleading",
+                "--task-id", "task-one", "--json",
+            )
+            self.run_memory(
+                project, "experience-usage", "--query", "ArkTS route blank screen",
+                "--type", "reflection", "--id", "2", "--outcome", "ignored",
+                "--verified", "--json",
+            )
+            context = json.loads(
+                self.run_memory(project, "context", "--query", "ArkTS route blank screen", "--json").stdout
+            )
+
+        weak = next(item for item in context["reflections"] if item["id"] == 1)
+        strong = next(item for item in context["reflections"] if item["id"] == 2)
+        self.assertEqual(0.0, weak["usage_feedback_penalty"])
+        self.assertEqual(0.0, strong["usage_feedback_penalty"])
 
 
 if __name__ == "__main__":

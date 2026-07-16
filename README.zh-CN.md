@@ -125,9 +125,11 @@ Agent Memory 的目标就是把这些重复成本压下来。
 - Obsidian Vault 作为只读镜像
 - 支持代码学习、业务语义补充、日志锚点提取、经验治理
 - 通过 `context.query_handoff` 提供历史经验、日志关键词、代码锚点和原始关系边；强日志锚点还会给出当前代码图上的多条候选调用路径和预期日志，临时日志分析、路径筛选、候选原因与因果推理由本地 Agent CLI 完成
+- Query Skill 采用 L0 源码预算、L1 `context --compact`、L2 聚焦展开，紧凑首轮输出受 1500 Token 估算预算约束
 - 支持基于当前代码图的设计 baseline、候选方案检查、权衡比较、变更 DAG 和实现验证
 - 支持 `procedure_experience` / `correction_experience` / `semantic_patch_experience`
 - 支持 `maintain-plan` 输出治理动作，而不是直接静默修改
+- 反馈采用延迟确认：单次未验证观察不改排序，验证或跨任务重复后才进入治理
 
 日志锚定的调用路径恢复采用单一 `context` 门面和语言无关抽象，路径只由当前有效代码图构造，经验与业务语义纠正不能改变结构排名。实现与演进设计见
 [日志锚定的调用路径恢复设计](docs/log-anchored-call-path-design.md)。

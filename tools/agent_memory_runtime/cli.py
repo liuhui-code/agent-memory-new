@@ -60,6 +60,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p = sub.add_parser("context")
     add_project(p)
     p.add_argument("--query", required=True)
+    p.add_argument("--compact", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("context"))
 
@@ -89,7 +90,6 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     add_design_parsers(sub, add_project, command)
     add_benchmark_parsers(sub, add_project, command)
     add_semantic_parsers(sub, add_project, command)
-
     p = sub.add_parser("eval-retrieval")
     add_project(p)
     p.add_argument("--cases", required=True)
@@ -161,12 +161,11 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
 
     p = sub.add_parser("retrieval-feedback")
     add_project(p)
-    p.add_argument("--query", required=True)
-    p.add_argument("--type", required=True, choices=["semantic", "reflection"])
-    p.add_argument("--id", required=True, type=int)
+    p.add_argument("--query")
+    p.add_argument("--type", choices=["semantic", "reflection"])
+    p.add_argument("--id", type=int)
     p.add_argument(
         "--reason",
-        required=True,
         choices=[
             "weak_related",
             "stale",
@@ -181,6 +180,12 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     )
     p.add_argument("--replacement-type", choices=["semantic", "reflection"])
     p.add_argument("--replacement-id", type=int)
+    p.add_argument("--task-id")
+    p.add_argument("--query-id")
+    p.add_argument("--event-key")
+    p.add_argument("--verified", action="store_true")
+    p.add_argument("--feedback-id", type=int)
+    p.add_argument("--status", choices=["open", "confirmed", "resolved", "ignored"])
     p.add_argument("--note")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("retrieval_feedback_command"))
@@ -193,6 +198,10 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p.add_argument("--outcome", required=True, choices=["used", "helpful", "ignored", "misleading", "superseded"])
     p.add_argument("--note")
     p.add_argument("--evidence")
+    p.add_argument("--task-id")
+    p.add_argument("--query-id")
+    p.add_argument("--event-key")
+    p.add_argument("--verified", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("experience_usage_command"))
 

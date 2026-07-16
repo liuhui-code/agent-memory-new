@@ -104,8 +104,9 @@ def experience_usage_items(experience_usage: dict[str, Any]) -> list[dict[str, A
     items: list[dict[str, Any]] = []
     for record in experience_usage.get("records") or []:
         outcomes = record.get("outcomes") or {}
-        negative_count = int(record.get("negative_count") or 0)
-        positive_count = int(record.get("positive_count") or 0)
+        stable_outcomes = set(record.get("stable_outcomes") or [])
+        negative_count = sum(int(outcomes.get(name, 0) or 0) for name in {"misleading", "superseded"} & stable_outcomes)
+        positive_count = sum(int(outcomes.get(name, 0) or 0) for name in {"helpful"} & stable_outcomes)
         if negative_count:
             score = 65 + negative_count * 5
             suggested_action = "tighten_or_stale_experience"

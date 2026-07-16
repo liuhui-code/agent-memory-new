@@ -53,7 +53,7 @@ from .quality_gate_eval import (
     load_quality_gate_snapshot,
 )
 from .quality_scoring import build_quality_report
-from .retrieval_feedback import fetch_open_retrieval_feedback
+from .retrieval_feedback import fetch_open_retrieval_feedback, retrieval_feedback_summary
 from .semantic_provider_metrics import build_semantic_provider_actions, semantic_provider_health
 from .task_trace_governance import build_task_trace_actions
 
@@ -273,6 +273,7 @@ def load_lane_dependencies(
         ctx["retrieval_feedback_actions"] = build_retrieval_feedback_actions(feedback)
         ctx["calibration_feedback_actions"] = build_calibration_feedback_actions(feedback)
         sections["retrieval_feedback_summary"] = {
+            **retrieval_feedback_summary(project),
             "open_feedback": len(feedback),
             "review_actions": len(ctx["retrieval_feedback_actions"]),
         }
