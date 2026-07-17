@@ -13,7 +13,7 @@ from .storage import ensure_initialized, resolve_project
 
 
 BUG_WORDS = {"fix", "bug", "crash", "error", "fail", "blank", "regression", "修复", "错误", "白屏", "崩溃"}
-DESIGN_WORDS = {"refactor", "design", "architecture", "extract", "split", "重构", "设计", "架构", "拆分"}
+DESIGN_WORDS = {"refactor", "design", "architecture", "extract", "重构", "设计", "架构", "拆分"}
 CODE_SUFFIXES = {".ets", ".ts", ".tsx", ".js", ".json5", ".py", ".dart", ".swift"}
 
 
@@ -122,8 +122,12 @@ def build_history_cases(commits: list[dict[str, Any]], limit: int) -> list[dict[
 def infer_category(subject: str) -> str:
     lowered = subject.lower()
     categories = (
-        ("route", ("route", "router", "navigation", "路由", "跳转")),
+        ("route", ("route", "router", "navigation", "nav ", "路由", "跳转")),
         ("resource", ("resource", "image", "资源", "图片")),
+        ("media", ("media", "sticker", "video", "webm", "媒体", "贴纸", "视频")),
+        ("ui_layout", ("layout", "spacing", "width", "breakpoint", "布局", "间距", "宽度", "断点")),
+        ("database_failure", ("database", " db ", "sqlite", "rdb", "数据库")),
+        ("push", ("push", "notification", "推送", "通知")),
         ("state", ("state", "session", "cache", "状态", "会话", "缓存")),
         ("async", ("async", "await", "race", "异步", "竞态")),
         ("api", ("api", "interface", "接口")),

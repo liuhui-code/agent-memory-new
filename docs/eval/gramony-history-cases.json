@@ -1,0 +1,394 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "/path/to/Gramony",
+  "source_repository": "https://github.com/Gramony/Gramony",
+  "source_branch": "dev",
+  "source_head_reviewed": "0a1ee4b026b6736671f0030ba9859aceaa962298",
+  "generated_at": "2026-07-16T00:00:00Z",
+  "generator": "git-history/v1+source-review",
+  "cases": [
+    {
+      "id": "gramony-profile-loading-state",
+      "task_type": "diagnosis",
+      "review_status": "rejected",
+      "task": {
+        "description": "Opening a profile while its user data is still resolving shows a missing-parameter error instead of a loading state.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "9f8994476a5a9e24293c92b6b55c00214d14a044",
+        "after_revision": "3cb59b461e6977afd3c72061349ff53263969b4f",
+        "changed_files": [
+          "features/home/src/main/ets/pages/ProfilePage.ets",
+          "features/home/src/main/ets/utils.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "3cb59b461e6977afd3c72061349ff53263969b4f",
+        "commit_message": "fix: ProfilePage shows error message instead of loading (#7)"
+      },
+      "oracle": {
+        "expected_files": ["features/home/src/main/ets/pages/ProfilePage.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "rejection_reason": "The first Agent A/B run showed that Me.ets and navigation parameter flow are plausibly part of the cause, while the fix only replaces the error branch with a loading state. The source-only oracle is too narrow and the commit does not prove root-cause resolution."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "gramony-new-messages-not-loaded",
+      "task_type": "diagnosis",
+      "review_status": "draft",
+      "task": {
+        "description": "After login, cached chats appear but newly available messages are not loaded during the initial home-page startup flow.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "ed38631ae4b34c2032eb499864d9fb39bd3f7bd1",
+        "after_revision": "30199a30db577f4daf8e5467f291977141580695",
+        "changed_files": ["features/home/src/main/ets/pages/Index.ets"],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "30199a30db577f4daf8e5467f291977141580695",
+        "commit_message": "fix: loadNewMessages"
+      },
+      "oracle": {
+        "expected_files": ["features/home/src/main/ets/pages/Index.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "supported",
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Verify startup behavior with a logged-in test account."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "gramony-split-view-chat-navigation",
+      "task_type": "diagnosis",
+      "review_status": "draft",
+      "task": {
+        "description": "On a wide-screen split layout, selecting another chat stacks another detail destination instead of replacing the active detail pane.",
+        "constraints": ["Preserve stack navigation behavior on small-screen layouts."]
+      },
+      "source": {
+        "before_revision": "230a77501ee81d44830896dfdfd0e4a398f77850",
+        "after_revision": "09c73902a29696ead941009aa0c9c89022e1e54d",
+        "changed_files": ["features/home/src/main/ets/views/Chat/ChatList.ets"],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "09c73902a29696ead941009aa0c9c89022e1e54d",
+        "commit_message": "fix: nav in split view"
+      },
+      "oracle": {
+        "expected_files": ["features/home/src/main/ets/views/Chat/ChatList.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "route",
+        "expected_causal_level": "supported",
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Exercise chat switching at SM and non-SM breakpoints."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "gramony-responsive-breakpoints",
+      "task_type": "diagnosis",
+      "review_status": "draft",
+      "task": {
+        "description": "Medium and extra-large layouts use incorrect navigation widths or tab orientation, causing content and navigation to overlap.",
+        "constraints": ["Retain the existing compact phone layout."]
+      },
+      "source": {
+        "before_revision": "7f0f38656a0d8d3fdbb68298c34ccfb0abc20c6c",
+        "after_revision": "230a77501ee81d44830896dfdfd0e4a398f77850",
+        "changed_files": [
+          "features/home/src/main/ets/constants/HomeConstants.ets",
+          "features/home/src/main/ets/pages/Index.ets",
+          "features/home/src/main/ets/views/Chat/ChatList.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "230a77501ee81d44830896dfdfd0e4a398f77850",
+        "commit_message": "fix: breakpoints"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/constants/HomeConstants.ets",
+          "features/home/src/main/ets/pages/Index.ets",
+          "features/home/src/main/ets/views/Chat/ChatList.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Capture SM, MD, LG, and XL viewport results."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "gramony-login-duplicate-submit",
+      "task_type": "diagnosis",
+      "review_status": "draft",
+      "task": {
+        "description": "Repeated taps on login actions while authentication is pending can start duplicate requests and conflicting navigation transitions.",
+        "constraints": ["Apply the same pending-state behavior to phone, verification-code, and password steps."]
+      },
+      "source": {
+        "before_revision": "f1379518f0130a0dd71f391ccd37add7363394a0",
+        "after_revision": "5c3550646bc0a1886bb7bc5a8fe40d575e53a6da",
+        "changed_files": [
+          "features/home/src/main/ets/pages/Login/Password.ets",
+          "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+          "features/home/src/main/ets/pages/Login/VerifyCode.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "5c3550646bc0a1886bb7bc5a8fe40d575e53a6da",
+        "commit_message": "fix: disable btns in login pages"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/pages/Login/Password.ets",
+          "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+          "features/home/src/main/ets/pages/Login/VerifyCode.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Verify one request per login step under repeated taps."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "gramony-sticker-extension-resolution",
+      "task_type": "diagnosis",
+      "review_status": "draft",
+      "task": {
+        "description": "Some persisted stickers fail to render because the media path is reconstructed with the wrong extension when sticker metadata is incomplete.",
+        "constraints": ["Support static, animated, and video stickers without changing unrelated media handling."]
+      },
+      "source": {
+        "before_revision": "a7168aa945a1bd7f8c1903878470a1b3d6aea851",
+        "after_revision": "9b147195a07d106c1ac8dc3e18e08a229fa83344",
+        "changed_files": [
+          "features/home/src/main/ets/dao/MessageDao.ets",
+          "features/home/src/main/ets/entities/Message.ets",
+          "features/home/src/main/ets/views/Chat/ChatItem.ets",
+          "features/home/src/main/ets/views/Message/MessageBubble.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "9b147195a07d106c1ac8dc3e18e08a229fa83344",
+        "commit_message": "fix: load sticker by file ext"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/entities/Message.ets",
+          "features/home/src/main/ets/views/Message/MessageBubble.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "media",
+        "expected_causal_level": "supported",
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Replay persisted WebP, TGS, and WebM sticker records."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "gramony-chat-avatar-layout",
+      "task_type": "diagnosis",
+      "review_status": "draft",
+      "task": {
+        "description": "A chat row loses its avatar spacing while the photo node is unavailable, shifting the text column relative to other rows.",
+        "constraints": ["Keep row geometry stable before and after the avatar loads."]
+      },
+      "source": {
+        "before_revision": "6e24bbfd0b0bd3527d589f1e86aa344950f00e61",
+        "after_revision": "a7168aa945a1bd7f8c1903878470a1b3d6aea851",
+        "changed_files": ["features/home/src/main/ets/views/Chat/ChatItem.ets"],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "a7168aa945a1bd7f8c1903878470a1b3d6aea851",
+        "commit_message": "fix: spacing when ChatItem photo not loaded"
+      },
+      "oracle": {
+        "expected_files": ["features/home/src/main/ets/views/Chat/ChatItem.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Compare row geometry with loaded, loading, and failed avatars."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "gramony-webm-local-file-access",
+      "task_type": "diagnosis",
+      "review_status": "draft",
+      "task": {
+        "description": "A downloaded WebM sticker exists locally but the embedded Web component cannot render it from the generated page.",
+        "constraints": ["Avoid converting large videos to Base64 in memory."]
+      },
+      "source": {
+        "before_revision": "b4f7ca44f8f63ca5a4c0706c9b8e6bfb6470dcb2",
+        "after_revision": "6e24bbfd0b0bd3527d589f1e86aa344950f00e61",
+        "changed_files": ["features/home/src/main/ets/views/Message/MessageBubble.ets"],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "6e24bbfd0b0bd3527d589f1e86aa344950f00e61",
+        "commit_message": "fix: use fileAccess"
+      },
+      "oracle": {
+        "expected_files": ["features/home/src/main/ets/views/Message/MessageBubble.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "media",
+        "expected_causal_level": "supported",
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Render a local WebM sticker through ArkWeb on device."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "gramony-new-chat-title",
+      "task_type": "diagnosis",
+      "review_status": "draft",
+      "task": {
+        "description": "Opening a direct chat from a message sender action can produce a blank chat title when the main chat data source has no entry for that sender.",
+        "constraints": ["Do not require the full chat list to be refreshed before navigation."]
+      },
+      "source": {
+        "before_revision": "fcfe5da11b0150575f02c20554ab536dc23a2059",
+        "after_revision": "fb8dfd8319bc6e1bbe0d97ccad19c81d9f54738a",
+        "changed_files": [
+          "features/home/src/main/ets/pages/Chat/ChatDetail.ets",
+          "features/home/src/main/ets/views/Message/MessageBubble.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "fb8dfd8319bc6e1bbe0d97ccad19c81d9f54738a",
+        "commit_message": "fix: new chat name"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/pages/Chat/ChatDetail.ets",
+          "features/home/src/main/ets/views/Message/MessageBubble.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open a sender chat absent from chatDataSource and confirm its title."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "gramony-reply-preview-width",
+      "task_type": "diagnosis",
+      "review_status": "draft",
+      "task": {
+        "description": "The replied-message preview does not occupy the available bubble width, producing inconsistent alignment and premature truncation.",
+        "constraints": ["Keep photo and text reply previews aligned."]
+      },
+      "source": {
+        "before_revision": "3e79a8693529b2e0b4c9cb692c021ad79604d12f",
+        "after_revision": "2670f58ab95d40a1ec9f1ed0c505f4665c64f0b6",
+        "changed_files": ["features/home/src/main/ets/views/Message/ReplyToPreview.ets"],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "2670f58ab95d40a1ec9f1ed0c505f4665c64f0b6",
+        "commit_message": "fix: replyToPreview width"
+      },
+      "oracle": {
+        "expected_files": ["features/home/src/main/ets/views/Message/ReplyToPreview.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Compare text and photo reply previews at narrow and wide bubble widths."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "source_diff_reviewed": true,
+    "runtime_verified": false,
+    "promotion_policy": "Keep cases draft until their symptom and verification path are reproduced independently.",
+    "rejected_case_count": 1
+  }
+}

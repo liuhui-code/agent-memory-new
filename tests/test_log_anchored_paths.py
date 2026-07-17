@@ -264,6 +264,51 @@ class LogAnchoredPathTests(AgentMemoryTestBase):
         self.assertEqual(9, compact["correction_guards"][0]["id"])
         self.assertLessEqual(estimate_payload_tokens(compact), COMPACT_TOKEN_BUDGET)
 
+    def test_compact_context_suppresses_weak_log_noise(self) -> None:
+        full = build_context_facade(self.project).execute("login duplicate submit")
+        full["query_handoff"]["path_context"] = {
+            "activated": False,
+            "activation_reason": "no_strong_log_anchor",
+            "path_candidates": [],
+        }
+        full["query_handoff"]["log_anchors"] = [{
+            "log_id": 9,
+            "message_template": "Failed to start vibration",
+            "file_path": "src/Vibrator.ets",
+        }]
+        full["query_handoff"]["log_keywords"] = ["login", "on", "while", "duplicate"]
+        full["query_handoff"]["code_anchors"] = [{
+            "source": "wiki",
+            "record_id": 12,
+            "file_path": "src/Login.ets",
+            "symbol": "Login",
+            "symbol_type": "component",
+            "summary": "ArkTS component Login declared in src/Login.ets",
+        }]
+        full["edge_matches"] = [{
+            "source_type": "code_file",
+            "source_id": 3,
+            "relation": "contains",
+            "target_type": "code_log_statement",
+            "target_id": 9,
+        }]
+
+        compact = compact_context(full)
+        handoff = compact["query_handoff"]
+
+        self.assertEqual([], handoff["log_anchors"])
+        self.assertEqual(["login", "duplicate"], handoff["log_keywords"])
+        self.assertEqual([], handoff["relation_hints"])
+        self.assertEqual([], handoff["next_queries"])
+        self.assertNotIn("summary", handoff["code_anchors"][0])
+        self.assertEqual("primary", handoff["code_anchors"][0]["role"])
+        self.assertEqual(
+            "anchor_first_gap_driven_v4",
+            handoff["source_exploration"]["policy"],
+        )
+        self.assertEqual(7, handoff["source_exploration"]["limits"]["files"])
+        self.assertIn("no_strong_log_anchor", compact["evidence_gaps"])
+
     def test_query_skill_uses_selective_compact_routing(self) -> None:
         skill = (REPO_ROOT / "skills" / "agent-memory-query" / "SKILL.md").read_text(encoding="utf-8")
 

@@ -2,6 +2,165 @@
 
 This repository is currently not a git repository. Use this file as a lightweight local change log so implementation work can be reviewed and manually rolled back.
 
+## 2026-07-17 - Bound Agent source expansion and stopping
+
+Files changed:
+- Compact context, Query Skill, Agent benchmark protocol/evaluator, Codex Runner,
+  tests, and usage/benchmark docs.
+
+What changed:
+- Added `anchor_first_gap_driven_v1` as a shared deterministic exploration
+  contract without moving diagnosis into Runtime.
+- Marked up to three compact code anchors as `primary` and two as `expansion`.
+- Required named evidence-gap reasons before expansion, bounded source files,
+  searches, expansion rounds, and files per round, and explicit stop reasons.
+- Added Runner-computed primary-anchor/non-anchor counts and a compatible
+  benchmark budget gate for newly reporting Runners.
+- Separated causal/repair-owner `predicted_files` from inspected
+  `supporting_files` while retaining both in the investigation trail.
+- Reduced the repeated compact exploration contract from about 175 estimated
+  tokens to 28 by keeping only its policy id and numeric limits.
+- Upgraded the current policy to `anchor_first_gap_driven_v2`: natural-language
+  retrieval filters English noise and low-discrimination code metawords, and
+  FTS5 prefix recall maps domain words such as `sticker` to compound identifiers
+  such as `StickerView`.
+- Added `evidence_basis` and `mechanism_evidence_files`; a supported stop now
+  requires direct mechanism evidence from an inspected causal file.
+- Upgraded the current protocol to `anchor_first_gap_driven_v3`: the Agent emits
+  `expansion_trace` items and the Runner derives round/reason totals, allowing
+  two bounded new files per round without inconsistent parallel counters.
+- Allowed direct mechanism evidence to span an inspected supporting boundary
+  while still requiring at least one predicted causal owner, and clarified
+  async/state classification for in-flight concurrency and duplicate effects.
+
+Why:
+- The three-trial Gramony run improved quality consistently but Memory inspected
+  more files and averaged 50,983 more model tokens than Baseline.
+
+Verification:
+- Focused compact-context, Runner, protocol, and benchmark tests pass.
+- Existing 18-observation Gramony response pack rescored with all historical
+  gates passing; missing exploration fields remain explicitly unreported.
+- All 403 tests passed in 298.909 seconds after the file-role and compact
+  contract refinement.
+- The repository still contains exactly four Skills, and every Python file
+  remains below 500 lines.
+- The authorized post-optimization three-case, three-trial Gramony A/B completed
+  18 external calls with all quality, stability, context, and exploration gates
+  passing.
+- Compared with the pre-optimization Memory batch, model tokens fell by 2,722
+  (1.9%), Agent elapsed time by 2.29 seconds (3.3%), and inspected files by 0.33
+  (7.7%). Outcome score fell from 1.0 to 0.9833 because split-view navigation
+  included one supporting file in addition to the expected causal file.
+- File-role and compact-contract refinements pass focused protocol tests; their
+  external post-refinement A/B completed all 18 calls but failed the quality
+  gate.
+- Local frozen Gramony queries measured 490, 456, and 564 context tokens after
+  refinement, about 147 fewer per case than the first gap-driven payloads.
+- Both saved 18-observation Gramony packs retain their original scores and pass
+  every gate when rescored through the compatible `supporting_files` protocol.
+- The refined batch restored split-view predicted-file precision by moving
+  `Index.ets` to `supporting_files`, and averaged 5,172 fewer tokens than its
+  same-batch Baseline.
+- One of three WebM Memory trials missed `MessageBubble.ets`, reducing the batch
+  score to 0.9000 versus Baseline 0.9556. The reconstructed frozen query showed
+  only generic chat anchors, exposing a retrieval-recall and premature-stop
+  defect. The exact failed batch is retained for regression testing.
+- A frozen local WebM query now returns `MessageBubble.ets / StickerOnlyView` as
+  a primary anchor instead of omitting the owner. Its compact context is about
+  541 estimated tokens.
+- The new retrieval and stop-contract tests pass, as do all 119 runtime part
+  tests.
+- All 406 repository tests passed in 327.039 seconds after the v2 retrieval,
+  protocol, Skill, and documentation changes.
+- The authorized v2 three-case, three-trial Gramony A/B completed all 18 calls.
+  Aggregate outcome, root-cause accuracy, file recall, and file precision were
+  equal to Baseline, but the batch failed per-case and source-exploration gates.
+- WebM recovered fully: all three Memory trials selected `media` and
+  `MessageBubble.ets`, inspected only the two primary anchors, and used no
+  non-anchor expansion.
+- One login Memory trial labeled the correctly described parallel async
+  mechanism as `state`, and v2 evidence reporting exposed supporting-file and
+  expansion-audit violations. The exact failed batch is retained for offline
+  regression testing.
+- V3 focused protocol, Runner, compact-context, and benchmark tests pass. The
+  frozen WebM query still returns `MessageBubble.ets` as a primary anchor at
+  about 541 context tokens.
+- The saved v2 pack rescored unchanged at 0.9556 with the same per-case and
+  exploration gate failures; v3 does not rewrite historical observations.
+- All 409 repository tests passed in 359.785 seconds after the v3 exploration
+  audit and category-boundary refinement.
+
+## 2026-07-17 - Add repeated Agent trials and retrieval discipline
+
+Files changed:
+- Agent benchmark CLI, protocol, evaluator, Codex Runner, tests, and docs.
+
+What changed:
+- Added bounded `--trials 1..10` with independently paired Baseline/Memory runs.
+- Added trial indices, per-case trial details, non-regression rate, root-cause
+  consistency, and predicted-file consistency.
+- Added Runner-computed source file count and Memory anchor hit count/rate.
+- Added `anchor_first_bounded_v1` instructions to limit context-driven expansion.
+- Required two-thirds trial non-regression and root-cause agreement for stability.
+
+Why:
+- A single model run can misclassify a correct source conclusion or choose a
+  different tool path. Aggregate case scores also cannot establish repeatability.
+
+Verification:
+- Focused benchmark and Runner tests cover trial pairing, stability gates,
+  trial bounds, prompt discipline, and computed anchor hits.
+- Existing single-trial Gramony responses remain compatible and report
+  `stability_evaluated=false`; the known WebM per-case regression remains visible.
+- The authorized three-case, three-trial Gramony A/B completed 18 external
+  Agent calls with all quality and stability gates passing.
+- Memory improved outcome score from 0.8667 to 1.0 and root-cause accuracy from
+  0.6667 to 1.0, with every case non-regressing in all three trials.
+- Memory averaged 50,983 more model tokens, 27.9 seconds more elapsed time, and
+  a 0.6815 code-anchor hit rate, so Agent expansion cost remains the next target.
+- All 394 tests passed in 624.003 seconds.
+- The repository still contains exactly four Skills, and every Python file
+  remains below 500 lines.
+
+## 2026-07-17 - Bound benchmark Memory context
+
+Files changed:
+- Benchmark Memory command, protocol, evaluation, Codex Runner, tests, and Gramony records.
+
+What changed:
+- Switched diagnosis benchmark retrieval from full `context` to `context --compact`.
+- Added per-observation Memory payload byte and estimated-token metrics.
+- Added a 1,500-token Memory context quality gate for reporting Runners.
+- Preserved compatibility for third-party response packs that do not report context metrics.
+
+Verification:
+- Three frozen Gramony revisions reduced Runner payload bytes by 95.55% to 96.79%.
+- Compact payload estimates were 444, 414, and 508 tokens.
+- All 387 tests passed in 448.891 seconds.
+- The explicitly approved compact external A/B had equal aggregate quality but
+  failed the new per-case gate because WebM regressed by 0.4.
+- Compact Memory averaged 455 context tokens but increased total model usage by
+  34,473 tokens, so payload size alone does not explain the remaining cost.
+
+## 2026-07-16 - Reproducible Gramony Agent benchmark
+
+Files changed:
+- Agent benchmark runtime, Codex Runner, tests, and Gramony benchmark records.
+
+What changed:
+- Added exact `--case-id` selection and persisted runner configuration metadata.
+- Preloaded isolated Memory context before the read-only Codex session.
+- Isolated Codex from user Skills, Plugins, rules, history, and memory.
+- Added three pinned Gramony development A/B pairs.
+- Capped source-only diagnosis at supported causality with unknown verification.
+
+Verification:
+- Pinned three-case run passed with `gpt-5.5`, low reasoning, and isolated user context.
+- Memory outcome score was 1.0 versus 0.8667, with 66,424 more average tokens.
+- All 382 tests passed in 558.096 seconds.
+- Focused benchmark tests passed and Python files remain below 500 lines.
+
 ## Entry Format
 
 ```md
@@ -4818,3 +4977,148 @@ Documentation follow-up:
   fields, code/log graphs, Agent-owned diagnosis and design, Skill evolution,
   project refresh and retirement, governance, impact analysis, quality
   evaluation, privacy boundaries, and the fixed four-Skill interface.
+
+## 2026-07-16 - Start a real ArkTS Agent benchmark pilot
+
+Files added or extended:
+
+- Gramony source-reviewed development cases and pilot guidance.
+- History-case classification and benchmark category normalization.
+- Agent benchmark regression coverage and benchmark documentation.
+
+What changed:
+
+- Harvested 28 draft candidates from the real Gramony Git history and manually
+  reviewed their source diffs.
+- Curated ten bounded diagnosis drafts covering profile loading, startup
+  lifecycle, split navigation, breakpoints, duplicate login submissions,
+  sticker persistence, avatar layout, ArkWeb local media, chat title fallback,
+  and reply-preview layout.
+- Kept every case at `draft` because source review is not runtime reproduction.
+- Removed ambiguous `split` from design-task keywords so a split-view navigation
+  fix remains a diagnosis case.
+- Added media, UI layout, database, push, and lifecycle category aliases for
+  deterministic benchmark scoring.
+- Added a read-only, ephemeral Codex CLI Runner example with schema-constrained
+  output and measured token/elapsed telemetry.
+- Updated design benchmark memory access to use Agent-owned `design-context`
+  instead of the compatibility-only `design-assist` command.
+
+Verification:
+
+- Curated pack schema validation passed with ten reviewed records.
+- Agent benchmark and Codex Runner regression: 12 tests passed.
+- Frozen revision materialization produced 73 `.ets` files without Git history.
+- The first real Codex A/B pair completed. It invalidated the profile-loading
+  oracle: both variants found `ProfilePage.ets`, while `Me.ets` and navigation
+  state were plausibly causal and the historical fix was only a loading-state
+  workaround. The case was rejected instead of tuning retrieval against a weak
+  oracle.
+- A second, clearer startup-lifecycle pair passed with equal outcome quality:
+  both variants found `Index.ets` and the lifecycle cause. The Memory run
+  reported one query round instead of four, 11,588 fewer tokens, and 14,631 ms
+  lower Agent elapsed time. The exploratory result is recorded with explicit
+  model/runtime limitations and is not treated as general uplift evidence.
+- Focused benchmark, Codex Runner, and design-context regression: 18 tests
+  passed.
+- Full regression: 376 tests passed in 1610.481 seconds.
+- JSON validation, Python compilation, diff whitespace, exactly-four-Skill,
+  public fingerprint, frozen-revision materialization, and 500-line source
+  checks passed.
+
+Rollback notes:
+
+- Remove the Gramony case pack and pilot document, then restore the prior
+  history keywords and category aliases. No SQLite migration is involved.
+
+## 2026-07-17 - Run and audit the Gramony v3 external A/B
+
+What changed:
+
+- Completed the approved three-case, three-trial Gramony A/B: 18 external
+  Codex calls on the pinned source revision with `gpt-5.5`, low reasoning,
+  read-only source, and isolated user context.
+- Preserved the raw v3 response pack for deterministic offline rescoring and
+  recorded aggregate, per-case, stability, and exploration-audit results.
+- Fixed observation normalization so `expansion_trace` is authoritative for
+  round counts and preserves repeated reason codes.
+- Aligned the total source-file cap with three primary anchors plus two rounds
+  of two new files, while retaining per-round and search limits.
+- Clarified category precedence: media loading, decoding, playback, and local
+  media-resource access remain `media` when the concrete defect is API misuse.
+
+Result:
+
+- Navigation remained stable at 3/3 Memory trials; login improved by 0.2 and
+  all three Memory trials correctly selected `async` and the expected files.
+- WebM regressed in two Memory trials from `media` to `api`, producing a
+  -0.2667 case delta. One WebM trial exceeded the search budget, and one login
+  trial inspected an untraced file.
+- The batch remains `fail`: Memory outcome score 0.9111 versus Baseline 0.9333,
+  despite perfect Memory expected-file recall and predicted-file precision.
+
+Verification:
+
+- Raw response pack and pilot-result JSON parse successfully.
+- Agent benchmark, source exploration, and Codex Runner regression: 44 tests
+  passed; the focused compact-context contract group also passed 34 tests.
+- Full regression: 410 tests passed in 816.099 seconds.
+- JSON parsing, checked-in response rescoring, four-Skill, 500-line Python, and
+  diff-whitespace checks passed.
+- The immutable external response pack was rescored after protocol correction;
+  real category and exploration failures remain, so no promotion is claimed.
+
+Rollback notes:
+
+- Restore the prior protocol normalization, five-file cap, and Runner category
+  text, then remove the v3 response artifact and result section. No SQLite
+  migration or persisted project-memory change is involved.
+
+## 2026-07-17 - Prepare auditable Gramony v4 controls
+
+What changed:
+
+- Upgraded the active exploration contract to `anchor_first_gap_driven_v4`.
+- Rendered exact Memory search, file, round, and files-per-round limits directly
+  into the external Agent prompt and required a pre-search budget check.
+- Required every opened file in `investigated_files` and every expansion or
+  non-anchor file in the trace round that first opened it.
+- Added explicit category precedence so concurrency remains `async`, domain
+  failures such as WebM loading remain `media`, and API misuse stays a mechanism
+  detail unless the API contract is the primary domain.
+- Added Codex JSONL command telemetry parsing for `rg`, `grep`, `find`, and `fd`.
+  V4 Codex observations require Runner-derived search counts to pass the source
+  exploration gate; historical and third-party data retain marked fallback.
+
+Result:
+
+- The approved v4 three-case, three-trial Gramony batch completed all 18
+  external calls and passed every quality, stability, context, configuration,
+  and source-exploration gate.
+- Baseline and Memory both scored 1.0 for outcome, root-cause accuracy,
+  expected-file recall, and predicted-file precision. Navigation, canonical
+  login category, and WebM were stable in all three Memory trials.
+- Every observation used Runner-derived source-search telemetry. Memory reduced
+  measured searches from 2.8889 to 0.5556 and query rounds from 2.2222 to
+  1.1111.
+- Memory still used 21,187 more average model tokens, took 14,781 ms longer,
+  and inspected 0.67 more files than its same-batch Baseline. The development
+  gate passes, but cost reduction remains the next priority.
+
+Verification:
+
+- Runner, source-exploration, compact-context, and benchmark regression: 59
+  tests passed.
+- Full regression: 413 tests passed in 334.311 seconds.
+- JSON parsing, historical response rescoring, four-Skill, 500-line Python, and
+  diff-whitespace checks passed.
+- The frozen v3 response pack remains immutable and failing; no Oracle,
+  category, or missing trace entry is rewritten by v4.
+- The raw v4 response pack parses and rescored offline with the same all-pass
+  result; it remains a three-case development result, not a Holdout claim.
+
+Rollback notes:
+
+- Restore policy v3, remove the prompt budget/category additions and Codex
+  telemetry helper, and restore model-reported search counts. No SQLite
+  migration or project-memory data is involved.

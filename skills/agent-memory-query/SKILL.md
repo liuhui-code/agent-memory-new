@@ -87,6 +87,34 @@ Read `references/evidence-policy.md` when the answer relies materially on reflec
 - Never treat ranking, stored edges, or historical experience as a Runtime-produced diagnosis.
 - Do not run merge, promotion, stale marking, or vault export from this skill.
 
+## Source Exploration Control
+
+For compact diagnosis and code-understanding results, follow
+`query_handoff.source_exploration`:
+
+1. Inspect `code_anchors` with `role=primary` first.
+2. Stop only when an inspected causal file shows the concrete mechanism, with
+   no direct contradiction and a verification path. A likely owner or intended
+   behavior is not direct mechanism evidence.
+3. Inspect `role=expansion` or non-anchor files only for one named
+   `allowed_expansion_reasons`.
+4. Record each round in `expansion_trace`; close one gap and add at most two files.
+5. Respect the returned total-file, search, and expansion-round budgets.
+6. On budget exhaustion or no new evidence, report uncertainty instead of
+   continuing broad source exploration.
+
+Before `supported_cause_found`, report direct `evidence_basis` and inspected
+`mechanism_evidence_files`; they may span supporting boundaries but must include
+one predicted owner. Otherwise use `inference_only` and an uncertainty stop.
+
+Do not expand because another file is merely related. The Agent chooses the
+reason, evaluates evidence sufficiency, and reports the stop condition; the
+Runtime only supplies the contract and anchors.
+
+When reporting a diagnosis, separate root-cause or repair-owner files from
+supporting callers, boundaries, and corroborating files. Supporting files stay
+in the evidence trail but must not be presented as causal owners.
+
 ## Output
 
 Return only query results needed for the selected intent. Cite inspectable files, symbols, stored edges, code-log templates, or record ids. Separate current code, historical advice, and search misses. The local Agent CLI must summarize the user log, form competing causes, reconstruct call/causal chains from source, and verify its conclusion.

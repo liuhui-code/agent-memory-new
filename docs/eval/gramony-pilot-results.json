@@ -1,0 +1,730 @@
+{
+  "schema_version": "agent-benchmark-pilot-record/v1",
+  "recorded_at": "2026-07-17",
+  "repository": "https://github.com/Gramony/Gramony",
+  "source_branch": "dev",
+  "source_head": "0a1ee4b026b6736671f0030ba9859aceaa962298",
+  "runner": {
+    "kind": "codex_cli",
+    "version": "codex-cli 0.142.0",
+    "model": "gpt-5.5",
+    "reasoning_effort": "low",
+    "sandbox": "read-only",
+    "ephemeral": true,
+    "memory_delivery": "runner_preloaded",
+    "user_context": "isolated_home"
+  },
+  "runs": [
+    {
+      "case_id": "gramony-profile-loading-state",
+      "disposition": "invalid_oracle_rejected",
+      "quality_gate": "fail",
+      "baseline": {
+        "agent_outcome_score": 0.6,
+        "predicted_files": ["features/home/src/main/ets/pages/ProfilePage.ets"],
+        "root_cause_category": "route",
+        "query_rounds": 3,
+        "token_estimate": 105531,
+        "elapsed_ms": 71738
+      },
+      "memory": {
+        "agent_outcome_score": 0.525,
+        "predicted_files": [
+          "features/home/src/main/ets/pages/ProfilePage.ets",
+          "features/home/src/main/ets/pages/Me.ets"
+        ],
+        "root_cause_category": "async",
+        "query_rounds": 1,
+        "token_estimate": 234891,
+        "elapsed_ms": 113984
+      },
+      "review_conclusion": "The historical fix only replaces an error branch with a loading branch. Me.ets and navigation parameter flow are plausibly causal, so the original expected-file and category oracle was too narrow."
+    },
+    {
+      "case_id": "gramony-new-messages-not-loaded",
+      "configuration": "exploratory_unpinned",
+      "disposition": "valid_development_pair",
+      "quality_gate": "pass",
+      "baseline": {
+        "agent_outcome_score": 1.0,
+        "predicted_files": ["features/home/src/main/ets/pages/Index.ets"],
+        "root_cause_category": "lifecycle",
+        "query_rounds": 4,
+        "token_estimate": 242113,
+        "elapsed_ms": 101441
+      },
+      "memory": {
+        "agent_outcome_score": 1.0,
+        "predicted_files": ["features/home/src/main/ets/pages/Index.ets"],
+        "root_cause_category": "lifecycle",
+        "query_rounds": 1,
+        "token_estimate": 230525,
+        "elapsed_ms": 86810
+      },
+      "context_uplift": {
+        "agent_outcome_score_delta": 0.0,
+        "token_savings": 11588,
+        "elapsed_ms_savings": 14631,
+        "query_round_reduction": 3
+      }
+    },
+    {
+      "case_id": "gramony-split-view-chat-navigation",
+      "configuration": "pinned_isolated",
+      "disposition": "valid_development_pair",
+      "quality_gate": "pass",
+      "baseline": {
+        "agent_outcome_score": 0.6,
+        "root_cause_category": "push",
+        "query_rounds": 3,
+        "token_estimate": 77258,
+        "elapsed_ms": 48881
+      },
+      "memory": {
+        "agent_outcome_score": 1.0,
+        "root_cause_category": "route",
+        "query_rounds": 1,
+        "token_estimate": 193349,
+        "elapsed_ms": 51094
+      }
+    },
+    {
+      "case_id": "gramony-login-duplicate-submit",
+      "configuration": "pinned_isolated",
+      "disposition": "valid_development_pair",
+      "quality_gate": "pass",
+      "baseline": {
+        "agent_outcome_score": 1.0,
+        "root_cause_category": "async",
+        "query_rounds": 2,
+        "token_estimate": 60013,
+        "elapsed_ms": 38512
+      },
+      "memory": {
+        "agent_outcome_score": 1.0,
+        "root_cause_category": "async",
+        "query_rounds": 1,
+        "token_estimate": 114947,
+        "elapsed_ms": 42138
+      }
+    },
+    {
+      "case_id": "gramony-webm-local-file-access",
+      "configuration": "pinned_isolated",
+      "disposition": "valid_development_pair",
+      "quality_gate": "pass",
+      "baseline": {
+        "agent_outcome_score": 1.0,
+        "root_cause_category": "media",
+        "query_rounds": 3,
+        "token_estimate": 77002,
+        "elapsed_ms": 37486
+      },
+      "memory": {
+        "agent_outcome_score": 1.0,
+        "root_cause_category": "media",
+        "query_rounds": 1,
+        "token_estimate": 105248,
+        "elapsed_ms": 48560
+      }
+    }
+  ],
+  "pinned_three_case_summary": {
+    "case_count": 3,
+    "baseline_agent_outcome_score": 0.8667,
+    "memory_agent_outcome_score": 1.0,
+    "agent_outcome_score_delta": 0.1333,
+    "baseline_root_cause_accuracy": 0.6667,
+    "memory_root_cause_accuracy": 1.0,
+    "average_query_round_reduction": 1.6667,
+    "average_token_increase": 66423.6667,
+    "average_elapsed_ms_increase": 5637.6667
+  },
+  "compact_payload_validation": {
+    "method": "local_frozen_revision_query_without_external_agent",
+    "serialization": "runner_compact_json_utf8",
+    "token_budget": 1500,
+    "cases": [
+      {
+        "case_id": "gramony-split-view-chat-navigation",
+        "full_bytes": 51544,
+        "compact_bytes": 1775,
+        "compact_token_estimate": 444,
+        "byte_reduction_rate": 0.9656
+      },
+      {
+        "case_id": "gramony-login-duplicate-submit",
+        "full_bytes": 51576,
+        "compact_bytes": 1656,
+        "compact_token_estimate": 414,
+        "byte_reduction_rate": 0.9679
+      },
+      {
+        "case_id": "gramony-webm-local-file-access",
+        "full_bytes": 45664,
+        "compact_bytes": 2031,
+        "compact_token_estimate": 508,
+        "byte_reduction_rate": 0.9555
+      }
+    ],
+    "quality_policy": [
+      "suppress weak log anchors when no strong log identity activates path context",
+      "deduplicate code anchors by file",
+      "retain only relations connected to returned anchors",
+      "omit generated summaries that repeat file and symbol",
+      "surface evidence gaps instead of filling the payload with weak matches"
+    ],
+    "external_agent_quality_rerun": "completed_with_case_regression"
+  },
+  "compact_external_agent_run": {
+    "configuration": "pinned_isolated_compact",
+    "quality_gate": "fail",
+    "gate_failure": "every_case_outcome_non_regression",
+    "baseline_agent_outcome_score": 0.8667,
+    "memory_agent_outcome_score": 0.8667,
+    "baseline_root_cause_accuracy": 0.6667,
+    "memory_root_cause_accuracy": 0.6667,
+    "average_memory_context_token_estimate": 455.3333,
+    "average_query_round_reduction": 1.6666,
+    "average_total_token_increase": 34473.3333,
+    "average_elapsed_ms_increase": 19417.3333,
+    "case_deltas": [
+      {
+        "case_id": "gramony-split-view-chat-navigation",
+        "agent_outcome_score_delta": 0.4
+      },
+      {
+        "case_id": "gramony-login-duplicate-submit",
+        "agent_outcome_score_delta": 0.0
+      },
+      {
+        "case_id": "gramony-webm-local-file-access",
+        "agent_outcome_score_delta": -0.4,
+        "review_note": "The source conclusion and expected file were correct, but the Agent chose resource instead of the frozen media category. The oracle was not changed after observing the result."
+      }
+    ]
+  },
+  "three_trial_external_agent_run": {
+    "configuration": "pinned_isolated_compact_anchor_first_bounded_v1",
+    "quality_gate": "pass",
+    "trial_count": 3,
+    "external_agent_call_count": 18,
+    "observation_count": 18,
+    "stability_evaluated": true,
+    "baseline_agent_outcome_score": 0.8667,
+    "memory_agent_outcome_score": 1.0,
+    "baseline_root_cause_accuracy": 0.6667,
+    "memory_root_cause_accuracy": 1.0,
+    "average_query_round_reduction": 1.8888,
+    "average_total_token_increase": 50983.3334,
+    "average_elapsed_ms_increase": 27857.0,
+    "average_memory_context_token_estimate": 455.3333,
+    "average_memory_anchor_hit_rate": 0.6815,
+    "average_source_file_count_increase": 1.1111,
+    "all_case_trial_non_regression": true,
+    "all_memory_root_cause_consistent": true,
+    "all_memory_predicted_files_consistent": true,
+    "response_pack": "docs/eval/gramony-three-trial-responses.json",
+    "case_results": [
+      {
+        "case_id": "gramony-split-view-chat-navigation",
+        "agent_outcome_score_delta": 0.4,
+        "trial_non_regression_rate": 1.0,
+        "memory_root_cause_consistency": 1.0,
+        "memory_predicted_files_consistency": 1.0,
+        "memory_anchor_hit_rate": 0.6
+      },
+      {
+        "case_id": "gramony-login-duplicate-submit",
+        "agent_outcome_score_delta": 0.0,
+        "trial_non_regression_rate": 1.0,
+        "memory_root_cause_consistency": 1.0,
+        "memory_predicted_files_consistency": 1.0,
+        "memory_anchor_hit_rate": 0.6667
+      },
+      {
+        "case_id": "gramony-webm-local-file-access",
+        "agent_outcome_score_delta": 0.0,
+        "trial_non_regression_rate": 1.0,
+        "memory_root_cause_consistency": 1.0,
+        "memory_predicted_files_consistency": 1.0,
+        "memory_anchor_hit_rate": 0.7778,
+        "review_note": "All three Memory trials selected media. The earlier resource classification was a single-run variation."
+      }
+    ]
+  },
+  "post_optimization_three_trial_run": {
+    "configuration": "pinned_isolated_compact_anchor_first_gap_driven_v1",
+    "quality_gate": "pass",
+    "trial_count": 3,
+    "external_agent_call_count": 18,
+    "observation_count": 18,
+    "stability_evaluated": true,
+    "baseline_agent_outcome_score": 0.8667,
+    "memory_agent_outcome_score": 0.9833,
+    "baseline_root_cause_accuracy": 0.6667,
+    "memory_root_cause_accuracy": 1.0,
+    "memory_expected_file_recall": 1.0,
+    "memory_predicted_file_precision": 0.8889,
+    "average_query_round_reduction": 1.3333,
+    "average_total_token_increase": 44497.8889,
+    "average_elapsed_ms_increase": 23332.3333,
+    "average_memory_context_token_estimate": 650.0,
+    "average_memory_anchor_hit_rate": 0.6722,
+    "average_primary_anchor_hit_count": 2.6667,
+    "average_non_anchor_file_count": 1.3333,
+    "average_source_search_count": 1.4444,
+    "average_expansion_rounds": 1.0,
+    "reported_stop_reasons": ["supported_cause_found"],
+    "all_case_trial_non_regression": true,
+    "all_memory_root_cause_consistent": true,
+    "source_exploration_within_budget": true,
+    "response_pack": "docs/eval/gramony-post-optimization-responses.json",
+    "before_after_memory_delta": {
+      "agent_outcome_score": -0.0167,
+      "predicted_file_precision": -0.1111,
+      "average_query_rounds": 0.4444,
+      "average_token_estimate": -2722.3334,
+      "average_elapsed_ms": -2287.4445,
+      "average_source_file_count": -0.3333,
+      "average_memory_context_token_estimate": 194.6667,
+      "average_memory_anchor_hit_rate": -0.0093
+    },
+    "case_results": [
+      {
+        "case_id": "gramony-split-view-chat-navigation",
+        "agent_outcome_score_delta_vs_baseline": 0.35,
+        "trial_non_regression_rate": 1.0,
+        "memory_root_cause_consistency": 1.0,
+        "memory_predicted_files_consistency": 0.6667,
+        "memory_anchor_hit_rate": 0.6,
+        "review_note": "Two trials included Index.ets as a supporting predicted file, reducing precision while retaining the expected ChatList.ets."
+      },
+      {
+        "case_id": "gramony-login-duplicate-submit",
+        "agent_outcome_score_delta_vs_baseline": 0.0,
+        "trial_non_regression_rate": 1.0,
+        "memory_root_cause_consistency": 1.0,
+        "memory_predicted_files_consistency": 1.0,
+        "memory_anchor_hit_rate": 0.6667
+      },
+      {
+        "case_id": "gramony-webm-local-file-access",
+        "agent_outcome_score_delta_vs_baseline": 0.0,
+        "trial_non_regression_rate": 1.0,
+        "memory_root_cause_consistency": 1.0,
+        "memory_predicted_files_consistency": 1.0,
+        "memory_anchor_hit_rate": 0.75
+      }
+    ],
+    "conclusion": "Partial cost improvement with a split-view predicted-file precision tradeoff; the original efficiency target was not met."
+  },
+  "local_compact_contract_refinement": {
+    "method": "local_frozen_revision_query_without_external_agent",
+    "policy": "anchor_first_gap_driven_v1",
+    "contract_token_estimate_before": 175,
+    "contract_token_estimate_after": 28,
+    "response_role_contract": {
+      "predicted_files": "root_cause_or_repair_owner",
+      "supporting_files": "inspected_caller_boundary_or_corroboration",
+      "investigated_files": "union_of_causal_supporting_and_other_inspected_files"
+    },
+    "cases": [
+      {
+        "case_id": "gramony-split-view-chat-navigation",
+        "previous_context_tokens": 637,
+        "refined_context_tokens": 490,
+        "token_reduction": 147
+      },
+      {
+        "case_id": "gramony-login-duplicate-submit",
+        "previous_context_tokens": 603,
+        "refined_context_tokens": 456,
+        "token_reduction": 147
+      },
+      {
+        "case_id": "gramony-webm-local-file-access",
+        "previous_context_tokens": 710,
+        "refined_context_tokens": 564,
+        "token_reduction": 146
+      }
+    ],
+    "average_refined_context_tokens": 503.3333,
+    "external_agent_rerun": "completed_quality_gate_failed"
+  },
+  "file_role_refinement_external_run": {
+    "date": "2026-07-17",
+    "model": "gpt-5.5",
+    "reasoning_effort": "low",
+    "trials_per_variant": 3,
+    "observation_count": 18,
+    "quality_gate": "fail",
+    "failed_gate_checks": [
+      "context_agent_outcome_non_regression",
+      "every_case_outcome_non_regression"
+    ],
+    "baseline": {
+      "agent_outcome_score": 0.9556,
+      "agent_root_cause_accuracy": 0.8889,
+      "expected_file_recall": 1.0,
+      "predicted_file_precision": 1.0,
+      "average_query_rounds": 2.4444,
+      "average_source_search_count": 2.4444,
+      "average_token_estimate": 108667.5556,
+      "average_elapsed_ms": 54223.2222,
+      "average_source_file_count": 3.8889,
+      "average_supporting_file_count": 3.3333
+    },
+    "memory": {
+      "agent_outcome_score": 0.9,
+      "agent_root_cause_accuracy": 0.8889,
+      "expected_file_recall": 0.8889,
+      "predicted_file_precision": 0.8889,
+      "average_query_rounds": 1.0,
+      "average_source_search_count": 0.7778,
+      "average_token_estimate": 103495.4444,
+      "average_elapsed_ms": 62003.1111,
+      "average_source_file_count": 4.0,
+      "average_memory_context_token_estimate": 503.3333,
+      "average_memory_anchor_hit_rate": 0.7,
+      "average_supporting_file_count": 2.3333
+    },
+    "response_pack": "docs/eval/gramony-file-role-refinement-responses.json",
+    "case_results": [
+      {
+        "case_id": "gramony-split-view-chat-navigation",
+        "agent_outcome_score_delta_vs_baseline": 0.1333,
+        "trial_non_regression_rate": 1.0,
+        "memory_root_cause_consistency": 1.0,
+        "memory_predicted_files_consistency": 1.0,
+        "review_note": "ChatList.ets remained causal while Index.ets moved to supporting_files."
+      },
+      {
+        "case_id": "gramony-login-duplicate-submit",
+        "agent_outcome_score_delta_vs_baseline": 0.0,
+        "trial_non_regression_rate": 1.0,
+        "memory_root_cause_consistency": 1.0,
+        "memory_predicted_files_consistency": 1.0
+      },
+      {
+        "case_id": "gramony-webm-local-file-access",
+        "agent_outcome_score_delta_vs_baseline": -0.3,
+        "trial_non_regression_rate": 0.6667,
+        "memory_root_cause_consistency": 0.6667,
+        "memory_predicted_files_consistency": 0.6667,
+        "review_note": "One trial stopped on ChatDetail.ets without inspecting MessageBubble.ets because the compact query returned only generic chat anchors."
+      }
+    ],
+    "conclusion": "File-role reporting improved navigation precision, but the batch failed because weak WebM anchor recall combined with an insufficient supported-cause stopping precondition."
+  },
+  "retrieval_and_stop_refinement_v2": {
+    "policy": "anchor_first_gap_driven_v2",
+    "method": "local_frozen_revision_query_without_external_agent",
+    "retrieval_changes": [
+      "filter_english_stopwords_and_low_discrimination_code_metawords",
+      "use_fts5_prefix_recall_for_compound_identifiers"
+    ],
+    "stop_contract": {
+      "evidence_basis": [
+        "direct_source_mechanism",
+        "runtime_verified_mechanism",
+        "inference_only"
+      ],
+      "mechanism_evidence_files_required_for_supported_stop": true,
+      "supported_files_must_be_predicted_and_investigated": true
+    },
+    "webm_frozen_query": {
+      "previous_anchor_count": 5,
+      "previous_owner_present": false,
+      "refined_anchor_count": 2,
+      "refined_primary_anchors": [
+        "features/home/src/main/ets/entities/Message.ets#StickerInfo",
+        "features/home/src/main/ets/views/Message/MessageBubble.ets#StickerOnlyView"
+      ],
+      "owner_present_as_primary": true,
+      "context_token_estimate": 541,
+      "context_token_budget": 1500
+    },
+    "external_agent_rerun": "completed_quality_gate_failed",
+    "external_run": {
+      "date": "2026-07-17",
+      "model": "gpt-5.5",
+      "reasoning_effort": "low",
+      "trials_per_variant": 3,
+      "observation_count": 18,
+      "quality_gate": "fail",
+      "failed_gate_checks": [
+        "every_case_outcome_non_regression",
+        "source_exploration_within_budget"
+      ],
+      "baseline": {
+        "agent_outcome_score": 0.9556,
+        "agent_root_cause_accuracy": 0.8889,
+        "expected_file_recall": 1.0,
+        "predicted_file_precision": 1.0,
+        "average_query_rounds": 2.4445,
+        "average_source_search_count": 2.2222,
+        "average_token_estimate": 135829.2222,
+        "average_elapsed_ms": 56246.0,
+        "average_source_file_count": 4.6667
+      },
+      "memory": {
+        "agent_outcome_score": 0.9556,
+        "agent_root_cause_accuracy": 0.8889,
+        "expected_file_recall": 1.0,
+        "predicted_file_precision": 1.0,
+        "average_query_rounds": 1.0,
+        "average_source_search_count": 1.0,
+        "average_token_estimate": 137467.5556,
+        "average_elapsed_ms": 65838.3333,
+        "average_source_file_count": 4.0,
+        "average_memory_context_token_estimate": 502.6667,
+        "average_memory_anchor_hit_rate": 0.6667,
+        "average_primary_anchor_hit_count": 2.3333,
+        "average_non_anchor_file_count": 1.6667
+      },
+      "response_pack": "docs/eval/gramony-v2-refinement-responses.json",
+      "case_results": [
+        {
+          "case_id": "gramony-split-view-chat-navigation",
+          "agent_outcome_score_delta_vs_baseline": 0.1333,
+          "trial_non_regression_rate": 1.0,
+          "memory_root_cause_consistency": 1.0,
+          "memory_predicted_files_consistency": 1.0,
+          "review_note": "All trials found ChatList.ets, but mechanism_evidence_files also included supporting Index.ets and failed the v2 evidence-role gate."
+        },
+        {
+          "case_id": "gramony-login-duplicate-submit",
+          "agent_outcome_score_delta_vs_baseline": -0.1333,
+          "trial_non_regression_rate": 0.6667,
+          "memory_root_cause_consistency": 0.6667,
+          "memory_predicted_files_consistency": 1.0,
+          "review_note": "One trial labeled the correctly described parallel async mechanism as state; one trial also reported two expansion rounds with one reason code."
+        },
+        {
+          "case_id": "gramony-webm-local-file-access",
+          "agent_outcome_score_delta_vs_baseline": 0.0,
+          "trial_non_regression_rate": 1.0,
+          "memory_root_cause_consistency": 1.0,
+          "memory_predicted_files_consistency": 1.0,
+          "review_note": "All three trials selected media and MessageBubble.ets using two primary anchors with no non-anchor expansion."
+        }
+      ],
+      "conclusion": "The targeted WebM retrieval failure was resolved, but the batch remains non-promotable because login category stability and v2 evidence-role/budget reporting failed."
+    }
+  },
+  "exploration_audit_refinement_v3": {
+    "policy": "anchor_first_gap_driven_v3",
+    "status": "external_verification_failed",
+    "changes": [
+      "replace_separate_model_round_and_reason_reporting_with_expansion_trace",
+      "derive_expansion_rounds_and_reason_codes_in_runner",
+      "enforce_two_new_files_per_round_across_multiple_rounds",
+      "allow_supporting_boundary_mechanism_evidence_when_a_predicted_owner_is_present",
+      "classify_parallel_in_flight_requests_and_duplicate_async_side_effects_as_async"
+    ],
+    "expansion_trace_contract": {
+      "max_rounds": 2,
+      "one_reason_per_round": true,
+      "max_new_files_per_round": 2,
+      "max_total_files": 7,
+      "files_must_be_investigated": true,
+      "duplicate_files_across_rounds": false
+    },
+    "mechanism_evidence_contract": {
+      "all_files_must_be_investigated": true,
+      "at_least_one_predicted_owner_required": true,
+      "supporting_boundaries_allowed": true
+    },
+    "webm_frozen_query": {
+      "owner_present_as_primary": true,
+      "context_token_estimate": 541
+    },
+    "v2_response_rescore": {
+      "agent_outcome_score": 0.9556,
+      "predicted_file_precision": 1.0,
+      "quality_gate": "fail",
+      "failed_gate_checks": [
+        "every_case_outcome_non_regression",
+        "source_exploration_within_budget"
+      ]
+    },
+    "external_agent_rerun": {
+      "completed_at": "2026-07-17T04:45:19Z",
+      "status": "fail",
+      "observation_count": 18,
+      "trial_count_per_variant": 3,
+      "response_artifact": "docs/eval/gramony-v3-refinement-responses.json",
+      "failed_gate_checks": [
+        "context_agent_outcome_non_regression",
+        "context_agent_root_cause_non_regression",
+        "every_case_outcome_non_regression",
+        "trial_stability_non_regression",
+        "source_exploration_within_budget"
+      ],
+      "baseline": {
+        "agent_outcome_score": 0.9333,
+        "agent_root_cause_accuracy": 1.0,
+        "expected_file_recall": 0.8889,
+        "predicted_file_precision": 0.8889,
+        "average_query_rounds": 2.3333,
+        "average_source_search_count": 2.3333,
+        "average_token_estimate": 122226.8889,
+        "average_elapsed_ms": 55210.8889,
+        "average_source_file_count": 4.1111
+      },
+      "memory": {
+        "agent_outcome_score": 0.9111,
+        "agent_root_cause_accuracy": 0.7778,
+        "expected_file_recall": 1.0,
+        "predicted_file_precision": 1.0,
+        "average_query_rounds": 1.1111,
+        "average_source_search_count": 1.3333,
+        "average_token_estimate": 137730.4445,
+        "average_elapsed_ms": 65744.7778,
+        "average_source_file_count": 4.2222,
+        "average_memory_context_token_estimate": 502.6667
+      },
+      "cases": [
+        {
+          "case_id": "gramony-split-view-chat-navigation",
+          "agent_outcome_score_delta_vs_baseline": 0.0,
+          "trial_non_regression_rate": 1.0,
+          "memory_root_cause_consistency": 1.0
+        },
+        {
+          "case_id": "gramony-login-duplicate-submit",
+          "agent_outcome_score_delta_vs_baseline": 0.2,
+          "trial_non_regression_rate": 1.0,
+          "memory_root_cause_consistency": 1.0
+        },
+        {
+          "case_id": "gramony-webm-local-file-access",
+          "agent_outcome_score_delta_vs_baseline": -0.2667,
+          "trial_non_regression_rate": 0.3333,
+          "memory_root_cause_consistency": 0.6667
+        }
+      ],
+      "observation_failures": [
+        "login trial 3 inspected Login/Index.ets without recording it in expansion_trace",
+        "WebM trial 2 used four source searches against a budget of three",
+        "WebM Memory trials 2 and 3 classified the media-loading failure as api"
+      ],
+      "post_run_corrections": [
+        "derive repeated reason codes directly from expansion_trace without deduplication",
+        "align the total-file cap with three primaries plus two two-file expansion rounds",
+        "prefer media for media loading, decoding, playback, and local resource access even when an API is misused"
+      ]
+    }
+  },
+  "budget_category_refinement_v4": {
+    "policy": "anchor_first_gap_driven_v4",
+    "status": "external_development_gate_passed",
+    "changes": [
+      "render_exact_source_limits_in_the_memory_agent_prompt",
+      "require_pre_search_budget_checks_and_uncertainty_stop",
+      "require_all_opened_files_and_first_open_expansion_trace_coverage",
+      "apply_async_then_domain_then_api_or_state_category_precedence",
+      "classify_webm_and_local_media_loading_as_media",
+      "derive_source_search_count_from_codex_jsonl_command_telemetry"
+    ],
+    "search_telemetry": {
+      "commands": ["rg", "grep", "egrep", "fgrep", "find", "fd"],
+      "event": "item.completed/command_execution",
+      "fallback": "agent_reported_for_legacy_or_unknown_runner_output",
+      "v4_codex_gate_requires": "runner_telemetry"
+    },
+    "non_goals": [
+      "do_not_rewrite_agent_category",
+      "do_not_repair_missing_trace_entries",
+      "do_not_change_frozen_oracles",
+      "do_not_claim_external_uplift_from_local_tests"
+    ],
+    "external_agent_rerun": {
+      "completed_at": "2026-07-17T08:19:01Z",
+      "status": "pass",
+      "observation_count": 18,
+      "trial_count_per_variant": 3,
+      "response_artifact": "docs/eval/gramony-v4-refinement-responses.json",
+      "gate_checks": "all_passed",
+      "baseline": {
+        "agent_outcome_score": 1.0,
+        "agent_root_cause_accuracy": 1.0,
+        "expected_file_recall": 1.0,
+        "predicted_file_precision": 1.0,
+        "average_query_rounds": 2.2222,
+        "average_source_search_count": 2.8889,
+        "average_token_estimate": 116995.7778,
+        "average_elapsed_ms": 56021.5555,
+        "average_source_file_count": 3.5555
+      },
+      "memory": {
+        "agent_outcome_score": 1.0,
+        "agent_root_cause_accuracy": 1.0,
+        "expected_file_recall": 1.0,
+        "predicted_file_precision": 1.0,
+        "average_query_rounds": 1.1111,
+        "average_source_search_count": 0.5556,
+        "average_token_estimate": 138182.6667,
+        "average_elapsed_ms": 70802.2222,
+        "average_source_file_count": 4.2222,
+        "average_memory_context_token_estimate": 502.6667
+      },
+      "cases": [
+        {
+          "case_id": "gramony-split-view-chat-navigation",
+          "agent_outcome_score_delta_vs_baseline": 0.0,
+          "trial_non_regression_rate": 1.0,
+          "memory_root_cause_consistency": 1.0,
+          "memory_predicted_files_consistency": 1.0
+        },
+        {
+          "case_id": "gramony-login-duplicate-submit",
+          "agent_outcome_score_delta_vs_baseline": 0.0,
+          "trial_non_regression_rate": 1.0,
+          "memory_root_cause_consistency": 1.0,
+          "memory_predicted_files_consistency": 1.0
+        },
+        {
+          "case_id": "gramony-webm-local-file-access",
+          "agent_outcome_score_delta_vs_baseline": 0.0,
+          "trial_non_regression_rate": 1.0,
+          "memory_root_cause_consistency": 1.0,
+          "memory_predicted_files_consistency": 1.0
+        }
+      ],
+      "audit": {
+        "all_observations_use_runner_search_telemetry": true,
+        "all_memory_observations_within_source_budget": true,
+        "webm_memory_media_trials": 3,
+        "login_memory_async_trials": 3
+      },
+      "cost_delta_memory_vs_baseline": {
+        "source_search_count": -2.3333,
+        "query_rounds": -1.1111,
+        "token_estimate": 21186.8889,
+        "elapsed_ms": 14780.6667,
+        "source_file_count": 0.6667
+      }
+    }
+  },
+  "interpretation_limits": [
+    "The pinned sample contains only three development pairs.",
+    "Earlier exploratory pairs used the default unpinned model.",
+    "Query rounds are reported by the external Agent.",
+    "Source-search counts before v4 are Agent-reported; v4 Codex runs require JSONL command telemetry.",
+    "Token usage comes from Codex CLI usage events.",
+    "No HarmonyOS runtime reproduction or focused project test was available.",
+    "Read-only source diagnosis cannot claim verification pass or verified causality.",
+    "Compact payload reduction, one single-trial A/B, and pre/post three-trial A/B runs were completed.",
+    "Aggregate non-regression cannot mask a regressed individual case.",
+    "The repeated run shows stable quality uplift on three development cases, not general Memory uplift.",
+    "Post-optimization Memory still used more total model tokens, elapsed time, and inspected source files than its same-batch Baseline.",
+    "The before/after cost reduction is small and accompanied by lower predicted-file precision.",
+    "The file-role-refinement batch failed two quality gates because one WebM Memory trial stopped on an irrelevant expansion anchor.",
+    "The v2 external batch resolved the targeted WebM failure but failed login per-case non-regression and source-exploration contract gates.",
+    "The v3 external batch resolved login category stability but regressed WebM category stability and violated two exploration observations, so it is not promotable.",
+    "The v4 external development batch passed every gate with perfect per-case stability and Runner-telemetry search counts.",
+    "V4 remains a three-case development result, not a Holdout or general-uplift claim; model-token and elapsed-time overhead remain."
+  ]
+}

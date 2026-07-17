@@ -12,6 +12,7 @@ from typing import Any
 from .agent_benchmark_cases import public_case
 from .benchmark_memory import prepare_isolated_memory
 from .benchmark_workspace import materialized_workspace
+from .source_exploration import exploration_metrics_reported
 
 
 REQUEST_SCHEMA = "agent-benchmark-request/v1"
@@ -28,6 +29,7 @@ def run_benchmark_agent(
     runner: str,
     timeout: int,
     prepare_memory: bool = True,
+    trial_index: int = 1,
 ) -> dict[str, Any]:
     executable = resolve_runner(runner)
     with materialized_workspace(root, case) as workspace:
@@ -35,10 +37,11 @@ def run_benchmark_agent(
             "schema_version": REQUEST_SCHEMA,
             "case_id": case["id"],
             "variant": variant,
+            "trial_index": trial_index,
             "workspace": str(workspace),
             "case": public_case(case),
             "instructions": runner_instructions(variant),
-            "response_schema": response_template(case["id"], variant),
+            "response_schema": response_template(case["id"], variant, trial_index),
         }
         if variant == "memory" and prepare_memory:
             request["memory_access"] = prepare_isolated_memory(
@@ -72,7 +75,7 @@ def run_benchmark_agent(
         value = json.loads(process.stdout)
     except json.JSONDecodeError as exc:
         raise SystemExit(f"benchmark runner returned invalid JSON for {case['id']}:{variant}") from exc
-    return validate_observation(value, case["id"], variant)
+    return validate_observation(value, case["id"], variant, trial_index)
 
 
 def load_observations(path: Path) -> list[dict[str, Any]]:
@@ -92,6 +95,7 @@ def validate_observation(
     value: Any,
     expected_case_id: str | None = None,
     expected_variant: str | None = None,
+    expected_trial_index: int | None = None,
 ) -> dict[str, Any]:
     if not isinstance(value, dict) or value.get("schema_version") != RESPONSE_SCHEMA:
         raise SystemExit(f"benchmark observation must use {RESPONSE_SCHEMA}")
@@ -103,39 +107,108 @@ def validate_observation(
         raise SystemExit(f"benchmark runner case mismatch: {case_id} != {expected_case_id}")
     if expected_variant and variant != expected_variant:
         raise SystemExit(f"benchmark runner variant mismatch: {variant} != {expected_variant}")
+    trial_index = max(1, nonnegative_int(value.get("trial_index") or 1))
+    if expected_trial_index and trial_index != expected_trial_index:
+        raise SystemExit(
+            f"benchmark runner trial mismatch: {trial_index} != {expected_trial_index}"
+        )
     if variant not in {"baseline", "memory"}:
         raise SystemExit(f"unsupported benchmark variant: {variant}")
     files = string_list(value.get("predicted_files"), "predicted_files")
-    investigated = string_list(value.get("investigated_files") or [], "investigated_files")
+    supporting = [
+        path
+        for path in string_list(value.get("supporting_files") or [], "supporting_files")
+        if path not in files
+    ]
+    mechanism_files = string_list(
+        value.get("mechanism_evidence_files") or [], "mechanism_evidence_files"
+    )
+    trace_reported = "expansion_trace" in value
+    expansion_trace = normalize_expansion_trace(value.get("expansion_trace") or [])
+    expansion_rounds = (
+        len(expansion_trace)
+        if trace_reported
+        else nonnegative_int(value.get("expansion_rounds"))
+    )
+    expansion_reasons = (
+        [item["reason"] for item in expansion_trace]
+        if trace_reported
+        else string_list(
+            value.get("expansion_reason_codes") or [], "expansion_reason_codes"
+        )
+    )
+    investigated = list(dict.fromkeys([
+        *string_list(value.get("investigated_files") or [], "investigated_files"),
+        *files,
+        *supporting,
+    ]))
+    memory_metrics_reported = all(
+        key in value for key in ("memory_context_bytes", "memory_context_token_estimate")
+    )
+    exploration_reported = exploration_metrics_reported(value)
     return {
         **value,
         "case_id": case_id,
         "variant": variant,
+        "trial_index": trial_index,
         "root_cause_category": str(value.get("root_cause_category") or "unknown").strip(),
         "predicted_files": files,
+        "supporting_files": supporting,
         "investigated_files": investigated,
         "causal_level": str(value.get("causal_level") or "association").strip(),
         "verification_status": str(value.get("verification_status") or "unknown").strip(),
         "query_rounds": nonnegative_int(value.get("query_rounds")),
+        "source_search_count": nonnegative_int(value.get("source_search_count")),
+        "source_search_count_source": str(
+            value.get("source_search_count_source") or "agent_reported"
+        ).strip(),
         "token_estimate": nonnegative_int(value.get("token_estimate")),
+        "memory_context_bytes": nonnegative_int(value.get("memory_context_bytes")),
+        "memory_context_token_estimate": nonnegative_int(value.get("memory_context_token_estimate")),
+        "memory_context_metrics_reported": memory_metrics_reported,
+        "expansion_rounds": expansion_rounds,
+        "expansion_reason_codes": expansion_reasons,
+        "stop_reason": str(value.get("stop_reason") or "unreported").strip(),
+        "evidence_basis": str(value.get("evidence_basis") or "unreported").strip(),
+        "mechanism_evidence_files": list(dict.fromkeys(mechanism_files)),
+        "expansion_trace": expansion_trace,
+        "expansion_trace_reported": trace_reported,
+        "exploration_metrics_reported": exploration_reported,
         "elapsed_ms": nonnegative_int(value.get("elapsed_ms")),
+        "source_file_count": nonnegative_int(
+            value.get("source_file_count", len(investigated))
+        ),
+        "memory_anchor_hit_count": nonnegative_int(value.get("memory_anchor_hit_count")),
+        "primary_anchor_hit_count": nonnegative_int(value.get("primary_anchor_hit_count")),
+        "non_anchor_file_count": nonnegative_int(value.get("non_anchor_file_count")),
         "summary": str(value.get("summary") or "")[:1000],
     }
 
 
-def response_template(case_id: str, variant: str) -> dict[str, Any]:
+def response_template(case_id: str, variant: str, trial_index: int = 1) -> dict[str, Any]:
     return {
         "schema_version": RESPONSE_SCHEMA,
         "case_id": case_id,
         "variant": variant,
+        "trial_index": trial_index,
         "root_cause_category": "category only",
         "predicted_files": [],
+        "supporting_files": [],
         "investigated_files": [],
         "causal_level": "association|supported|verified|rejected",
         "verification_status": "pass|fail|unknown",
         "query_rounds": 0,
+        "source_search_count": 0,
+        "expansion_trace": [],
+        "stop_reason": "supported_cause_found|direct_verification_settled|budget_exhausted_report_uncertainty|no_new_evidence",
+        "evidence_basis": "direct_source_mechanism|runtime_verified_mechanism|inference_only",
+        "mechanism_evidence_files": [],
         "token_estimate": 0,
         "elapsed_ms": 0,
+        "source_file_count": 0,
+        "memory_anchor_hit_count": 0,
+        "primary_anchor_hit_count": 0,
+        "non_anchor_file_count": 0,
         "summary": "brief conclusion without private reasoning",
     }
 
@@ -177,6 +250,20 @@ def string_list(value: Any, label: str) -> list[str]:
     if not isinstance(value, list) or not all(isinstance(item, str) for item in value):
         raise SystemExit(f"benchmark response {label} must be a string list")
     return list(dict.fromkeys(item.strip() for item in value if item.strip()))[:100]
+
+
+def normalize_expansion_trace(value: Any) -> list[dict[str, Any]]:
+    if not isinstance(value, list):
+        raise SystemExit("benchmark response expansion_trace must be a list")
+    result = []
+    for index, item in enumerate(value):
+        if not isinstance(item, dict) or not isinstance(item.get("reason"), str):
+            raise SystemExit(f"benchmark response expansion_trace[{index}] is invalid")
+        result.append({
+            "reason": item["reason"].strip(),
+            "files": string_list(item.get("files"), f"expansion_trace[{index}].files"),
+        })
+    return result[:10]
 
 
 def nonnegative_int(value: Any) -> int:

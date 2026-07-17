@@ -5,10 +5,17 @@ from __future__ import annotations
 from typing import Any
 
 from .performance_scoring import estimate_payload_tokens
+from .source_exploration import assign_anchor_roles, exploration_contract
+from .text import ENGLISH_QUERY_STOPWORDS
 
 
 COMPACT_TOKEN_BUDGET = 1500
 MAX_TEXT = 180
+KEYWORD_STOPWORDS = ENGLISH_QUERY_STOPWORDS | {
+    "the", "a", "an", "and", "or", "to", "of", "in", "on", "for", "with",
+    "is", "are", "was", "were", "be", "been", "while", "can", "could",
+    "should", "start", "another",
+}
 
 
 def compact_context(data: dict[str, Any]) -> dict[str, Any]:
@@ -39,16 +46,25 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
 
 
 def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, Any]:
+    path_context = compact_path_context(handoff.get("path_context"))
+    log_anchors = records(handoff.get("log_anchors"))[:3] if path_context["activated"] else []
+    code_anchors = assign_anchor_roles(
+        diverse_code_anchors(handoff.get("code_anchors"), path_context["activated"])
+    )
     return {
         "schema_version": "agent-query-handoff-compact/v1",
-        "log_keywords": text_list(handoff.get("log_keywords"), 12, 80),
-        "log_anchors": [clean_record(item, LOG_FIELDS) for item in records(handoff.get("log_anchors"))[:3]],
-        "code_anchors": [clean_record(item, CODE_FIELDS) for item in records(handoff.get("code_anchors"))[:5]],
-        "path_context": compact_path_context(handoff.get("path_context")),
-        "relation_hints": [compact_relation(item) for item in records(data.get("edge_matches"))[:6]],
+        "log_keywords": compact_keywords(handoff.get("log_keywords")),
+        "log_anchors": [clean_record(item, LOG_FIELDS) for item in log_anchors],
+        "code_anchors": code_anchors,
+        "path_context": path_context,
+        "relation_hints": relevant_relations(data.get("edge_matches"), code_anchors, log_anchors),
         "experience_refs": [compact_memory_ref(item) for item in records(handoff.get("experience_refs"))[:2]],
         "semantic_refs": [compact_memory_ref(item) for item in records(handoff.get("semantic_refs"))[:2]],
-        "next_queries": text_list(data.get("suggested_followup_terms"), 3, 100),
+        "source_exploration": exploration_contract(),
+        "next_queries": (
+            text_list(data.get("suggested_followup_terms"), 3, 100)
+            if path_context["activated"] else []
+        ),
         "role_boundary": {
             "runtime": "retrieval_and_current_graph_context_only",
             "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
@@ -62,7 +78,6 @@ LOG_FIELDS = (
     "log_id", "message_template", "logger", "business_event", "trigger_stage",
     "process_hint", "file_path", "function", "line",
 )
-CODE_FIELDS = ("source", "record_id", "file_path", "symbol", "symbol_type", "summary")
 MEMORY_FIELDS = (
     "reflection_id", "semantic_id", "id", "experience_type", "fact", "scope", "task",
     "problem", "trigger_condition", "verification_method", "trust_level", "warnings",
@@ -136,6 +151,64 @@ def compact_relation(item: dict[str, Any]) -> dict[str, Any]:
     )
 
 
+def compact_code_anchor(item: dict[str, Any]) -> dict[str, Any]:
+    result = clean_record(item, ("source", "record_id", "file_path", "symbol", "symbol_type"))
+    summary = str(item.get("summary") or "").strip()
+    if summary and not generated_anchor_summary(summary, result):
+        result["summary"] = summary[:MAX_TEXT]
+    return result
+
+
+def diverse_code_anchors(value: Any, include_log_emitters: bool) -> list[dict[str, Any]]:
+    selected = []
+    seen_files = set()
+    for item in records(value):
+        if not include_log_emitters and item.get("source") == "log_emitter":
+            continue
+        anchor = compact_code_anchor(item)
+        file_path = str(anchor.get("file_path") or "")
+        if not file_path or file_path in seen_files:
+            continue
+        selected.append(anchor)
+        seen_files.add(file_path)
+        if len(selected) >= 5:
+            break
+    return selected
+
+
+def generated_anchor_summary(summary: str, anchor: dict[str, Any]) -> bool:
+    lowered = summary.casefold()
+    file_path = str(anchor.get("file_path") or "").casefold()
+    symbol = str(anchor.get("symbol") or "").casefold()
+    return bool(file_path and file_path in lowered and (not symbol or symbol in lowered))
+
+
+def relevant_relations(
+    value: Any,
+    code_anchors: list[dict[str, Any]],
+    log_anchors: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    endpoints = {
+        ("code_symbol", int(item["record_id"]))
+        for item in code_anchors
+        if isinstance(item.get("record_id"), int)
+    }
+    endpoints.update(
+        ("code_log_statement", int(item["log_id"]))
+        for item in log_anchors
+        if isinstance(item.get("log_id"), int)
+    )
+    selected = []
+    for item in records(value):
+        source = (str(item.get("source_type") or ""), item.get("source_id"))
+        target = (str(item.get("target_type") or ""), item.get("target_id"))
+        if source in endpoints or target in endpoints:
+            selected.append(compact_relation(item))
+        if len(selected) >= 4:
+            break
+    return selected
+
+
 def compact_memory_ref(item: dict[str, Any]) -> dict[str, Any]:
     return clean_record(item, MEMORY_FIELDS)
 
@@ -150,7 +223,15 @@ def evidence_gaps(handoff: dict[str, Any]) -> list[str]:
         gaps.append("no_log_anchor")
     if not handoff.get("code_anchors"):
         gaps.append("no_code_anchor")
+    elif len({
+        str(item.get("file_path") or "")
+        for item in records(handoff.get("code_anchors"))[:5]
+        if item.get("file_path")
+    }) < 3:
+        gaps.append("limited_code_anchor_diversity")
     path = handoff.get("path_context") if isinstance(handoff.get("path_context"), dict) else {}
+    if handoff.get("log_anchors") and not path.get("activated"):
+        gaps.append("no_strong_log_anchor")
     if path.get("activated") and not path.get("path_candidates"):
         gaps.append("no_reconstructable_path")
     return gaps
@@ -247,3 +328,10 @@ def text_list(value: Any, limit: int, max_length: int) -> list[str]:
     if not isinstance(value, list):
         return []
     return [str(item)[:max_length] for item in value if str(item).strip()][:limit]
+
+
+def compact_keywords(value: Any) -> list[str]:
+    return [
+        item for item in text_list(value, 20, 80)
+        if item.casefold() not in KEYWORD_STOPWORDS
+    ][:12]

@@ -35,15 +35,15 @@ def diagnosis_command(runtime: Path, workspace: Path, memory_home: Path) -> list
     return [
         sys.executable, str(runtime), "context",
         "--project", str(workspace), "--memory-home", str(memory_home),
-        "--query", "<task-description-or-agent-extracted-term>", "--json",
+        "--query", "<task-description-or-agent-extracted-term>", "--compact", "--json",
     ]
 
 
 def design_command(runtime: Path, workspace: Path, memory_home: Path) -> list[str]:
     return [
-        sys.executable, str(runtime), "design-assist",
+        sys.executable, str(runtime), "design-context",
         "--project", str(workspace), "--memory-home", str(memory_home),
-        "--query", "<task-description>", "--mode", "design-only", "--json",
+        "--query", "<task-description>", "--compact", "--json",
     ]
 
 

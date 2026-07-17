@@ -9,6 +9,48 @@ from tests.agent_memory_test_base import *
 
 
 class AgentMemoryRuntimePart12Tests(AgentMemoryTestBase):
+    def test_natural_language_noise_does_not_outrank_domain_symbol(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            views = project / "features" / "home" / "views"
+            views.mkdir(parents=True)
+            (views / "ChatItem.ets").write_text(
+                "@Component\nstruct ChatItem {\n  build() {}\n}\n",
+                encoding="utf-8",
+            )
+            (views / "MessageBubble.ets").write_text(
+                "@Component\n"
+                "struct MessageBubble {\n"
+                "  StickerView() {}\n"
+                "  VideoView() {}\n"
+                "  build() {}\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            pages = project / "features" / "home" / "pages"
+            pages.mkdir()
+            (pages / "ProfilePage.ets").write_text(
+                "@Entry\n@Component\nstruct ProfilePage {\n  build() {}\n}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "features")
+            result = self.run_memory(
+                project,
+                "context",
+                "--query",
+                "A downloaded WebM sticker exists locally but the embedded Web component cannot render it from the generated page.",
+                "--compact",
+                "--json",
+            )
+            anchors = json.loads(result.stdout)["query_handoff"]["code_anchors"]
+
+            self.assertEqual(
+                "features/home/views/MessageBubble.ets",
+                anchors[0]["file_path"],
+            )
+            self.assertEqual("StickerView", anchors[0]["symbol"])
+
     def test_log_semantic_fields_enrich_query_handoff(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)

@@ -1,0 +1,858 @@
+{
+  "schema_version": "agent-benchmark-responses/v1",
+  "generated_at": "2026-07-17T01:19:07+00:00",
+  "observations": [
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-split-view-chat-navigation",
+      "variant": "baseline",
+      "trial_index": 1,
+      "root_cause_category": "push",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Chat/ChatList.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/pages/Index.ets",
+        "features/home/src/main/ets/views/Chat/ChatList.ets",
+        "features/home/src/main/ets/pages/Chat/ChatDetail.ets",
+        "common/base/src/main/ets/constants/BreakpointConstants.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 3,
+      "source_search_count": 2,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_route_target"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 140219,
+      "elapsed_ms": 62650,
+      "summary": "Wide layouts use NavigationMode.Split in features/home/src/main/ets/pages/Index.ets, but chat selection in features/home/src/main/ets/views/Chat/ChatList.ets always calls pageInfo.pushPath({ name: 'ChatDetail' }) after only popping when stack size is greater than one. In split mode this appends another detail destination instead of replacing the active detail pane. The likely fix is to choose replacement semantics for non-small split layouts while preserving pushPath on BreakpointConstants.BREAKPOINT_SM.",
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 4,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-split-view-chat-navigation",
+      "variant": "memory",
+      "trial_index": 1,
+      "root_cause_category": "route",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Chat/ChatList.ets",
+        "features/home/src/main/ets/pages/Index.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/pages/Chat/ChatDetail.ets",
+        "features/home/src/main/ets/views/Chat/ChatDetailBottom.ets",
+        "features/home/src/main/ets/views/Chat/ChatDetailBottomMediaSheet.ets",
+        "features/home/src/main/ets/views/Chat/ChatList.ets",
+        "features/home/src/main/ets/pages/Index.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_caller"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 194647,
+      "elapsed_ms": 98570,
+      "summary": "Wide layouts use NavigationMode.Split in Index.ets, but ChatList.ets handles chat selection by updating currentChatId and calling pageInfo.pushPath({ name: 'ChatDetail' }) for each selected chat. That appends a detail destination instead of replacing the active split detail pane. The small-screen path is also push-based because Index.ets switches to NavigationMode.Stack at the SM breakpoint, so a fix should branch on breakpoint or split mode and replace the detail path only for wide split layouts while preserving pushPath stack behavior on small screens.",
+      "memory_context_bytes": 2546,
+      "memory_context_token_estimate": 637,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 3,
+      "primary_anchor_hit_count": 3,
+      "non_anchor_file_count": 2,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-split-view-chat-navigation",
+      "variant": "baseline",
+      "trial_index": 2,
+      "root_cause_category": "push",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Chat/ChatList.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/pages/Index.ets",
+        "features/home/src/main/ets/views/Chat/ChatList.ets",
+        "features/home/src/main/ets/views/Chat/ChatDetailTopSearch.ets",
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 3,
+      "source_search_count": 2,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_caller"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 113646,
+      "elapsed_ms": 45519,
+      "summary": "Wide layouts use NavigationMode.Split, but ChatList item selection still calls pageInfo.pushPath({ name: 'ChatDetail' }) after only popping when stack size is greater than one. When the active detail pane is represented by a single ChatDetail entry, selecting another chat pushes a second detail destination instead of replacing the current one. The fix should branch on breakpoint/layout and replace or clear-then-push only for split layouts, preserving pushPath stack behavior on small-screen NavigationMode.Stack.",
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 4,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-split-view-chat-navigation",
+      "variant": "memory",
+      "trial_index": 2,
+      "root_cause_category": "route",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Chat/ChatList.ets",
+        "features/home/src/main/ets/pages/Index.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/pages/Chat/ChatDetail.ets",
+        "features/home/src/main/ets/views/Chat/ChatDetailBottom.ets",
+        "features/home/src/main/ets/views/Chat/ChatDetailBottomMediaSheet.ets",
+        "features/home/src/main/ets/views/Chat/ChatList.ets",
+        "features/home/src/main/ets/pages/Index.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_route_target"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 171768,
+      "elapsed_ms": 71246,
+      "summary": "On chat item click, ChatList updates currentChatId but always calls pageInfo.pushPath({ name: 'ChatDetail' }) after only popping when pageInfo.size() > 1. Index switches Navigation to Split for non-small breakpoints, so on wide split layouts selecting another chat appends another ChatDetail destination instead of replacing the active detail. Small-screen stack behavior should be preserved by making the chat selection route operation conditional on the current breakpoint or NavigationMode, using replacement for Split and push for Stack. ChatDetail reads currentChatId on appear, so the destination stack operation is the relevant owner boundary; the bottom/media-sheet anchors did not contradict this.",
+      "memory_context_bytes": 2546,
+      "memory_context_token_estimate": 637,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 3,
+      "primary_anchor_hit_count": 3,
+      "non_anchor_file_count": 2,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-split-view-chat-navigation",
+      "variant": "baseline",
+      "trial_index": 3,
+      "root_cause_category": "push",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Chat/ChatList.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/views/Chat/ChatList.ets",
+        "features/home/src/main/ets/pages/Index.ets",
+        "common/base/src/main/ets/constants/BreakpointConstants.ets",
+        "common/base/src/main/ets/viewmodel/AdaptiveViewModel.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 3,
+      "source_search_count": 3,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_route_target"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 123080,
+      "elapsed_ms": 40830,
+      "summary": "Chat selection always calls pageInfo.pushPath({ name: 'ChatDetail' }) in ChatList, including when Navigation is in Split mode for non-small breakpoints. This appends another detail destination instead of replacing the active split detail pane; small-screen stack behavior should remain push-based.",
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 4,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-split-view-chat-navigation",
+      "variant": "memory",
+      "trial_index": 3,
+      "root_cause_category": "route",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Chat/ChatList.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/pages/Chat/ChatDetail.ets",
+        "features/home/src/main/ets/views/Chat/ChatDetailBottom.ets",
+        "features/home/src/main/ets/views/Chat/ChatDetailBottomMediaSheet.ets",
+        "features/home/src/main/ets/views/Chat/ChatList.ets",
+        "features/home/src/main/ets/pages/Index.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_emitter"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 180008,
+      "elapsed_ms": 65253,
+      "summary": "ChatList selects a chat by updating currentChatId, then always calls pageInfo.pushPath({ name: 'ChatDetail' }). Index switches Navigation to Split mode for non-small breakpoints, but ChatList does not branch for split mode or replace the active detail route. That preserves small-screen stack behavior but causes wide split layouts to accumulate ChatDetail destinations instead of replacing the detail pane. A fix should use replacement behavior for non-small split layouts while keeping pushPath for small stack layouts.",
+      "memory_context_bytes": 2546,
+      "memory_context_token_estimate": 637,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 3,
+      "primary_anchor_hit_count": 3,
+      "non_anchor_file_count": 2,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-login-duplicate-submit",
+      "variant": "baseline",
+      "trial_index": 1,
+      "root_cause_category": "async",
+      "predicted_files": [
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets",
+        "features/home/src/main/ets/pages/Login/Password.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets",
+        "features/home/src/main/ets/pages/Login/Password.ets",
+        "features/home/Index.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_async_boundary"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 44456,
+      "elapsed_ms": 32041,
+      "summary": "The three login step components each run an async auth call directly from the Sign in button handler without an in-flight guard or disabled/loading state. Repeated taps can therefore invoke login, verifyCode, or password concurrently and repeat pageInfo navigation or login event transitions. The likely fix is to add the same pending state guard and button disabled/loading behavior in PhoneNumber, VerifyCode, and Password.",
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 4,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-login-duplicate-submit",
+      "variant": "memory",
+      "trial_index": 1,
+      "root_cause_category": "async",
+      "predicted_files": [
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets",
+        "features/home/src/main/ets/pages/Login/Password.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+        "features/home/src/main/ets/pages/Login/Password.ets",
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 2,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_async_boundary"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 69489,
+      "elapsed_ms": 47098,
+      "summary": "The three login steps each attach an async Button onClick handler that validates input, awaits login/verifyCode/password, and then mutates pageInfo or emits login without any shared pending state, button disabling, or early return guard. Repeated taps while the awaited authentication call is pending can therefore launch duplicate requests and duplicate pageInfo.pushPath/clear navigation transitions. The fix should add the same pending-state guard and disabled behavior in PhoneNumber, VerifyCode, and Password.",
+      "memory_context_bytes": 2410,
+      "memory_context_token_estimate": 603,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 2,
+      "primary_anchor_hit_count": 2,
+      "non_anchor_file_count": 1,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-login-duplicate-submit",
+      "variant": "baseline",
+      "trial_index": 2,
+      "root_cause_category": "async",
+      "predicted_files": [
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets",
+        "features/home/src/main/ets/pages/Login/Password.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets",
+        "features/home/src/main/ets/pages/Login/Password.ets",
+        "features/home/src/main/ets/pages/Login/Index.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_state_owner"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 41696,
+      "elapsed_ms": 30816,
+      "summary": "The three login action components each run async authentication directly from Button.onClick without a shared pending/submitting state or disabled guard. Repeated taps can therefore invoke login, verifyCode, or password multiple times before the awaited result returns, causing duplicate backend calls and repeated pageInfo navigation mutations.",
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 4,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-login-duplicate-submit",
+      "variant": "memory",
+      "trial_index": 2,
+      "root_cause_category": "async",
+      "predicted_files": [
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets",
+        "features/home/src/main/ets/pages/Login/Password.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+        "features/home/src/main/ets/pages/Login/Password.ets",
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_async_boundary"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 74919,
+      "elapsed_ms": 56107,
+      "summary": "PhoneNumber, VerifyCode, and Password each attach an async Sign in onClick directly to auth calls without a shared pending guard or disabled state. Repeated taps can therefore run login, verifyCode, or password concurrently, and each completion may independently clear pageInfo, emit login, or push the next route, causing duplicate requests and conflicting navigation transitions. The pending-state fix should be applied consistently across all three login steps.",
+      "memory_context_bytes": 2410,
+      "memory_context_token_estimate": 603,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 2,
+      "primary_anchor_hit_count": 2,
+      "non_anchor_file_count": 1,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-login-duplicate-submit",
+      "variant": "baseline",
+      "trial_index": 3,
+      "root_cause_category": "async",
+      "predicted_files": [
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets",
+        "features/home/src/main/ets/pages/Login/Password.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets",
+        "features/home/src/main/ets/pages/Login/Password.ets",
+        "features/home/src/main/ets/pages/Login/Index.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 2,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_state_owner"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 58359,
+      "elapsed_ms": 35867,
+      "summary": "The three login action handlers await authentication calls without a shared or per-page pending flag, so repeated taps can enter the async handler multiple times and issue duplicate login, verification-code, or password requests before navigation completes.",
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 4,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-login-duplicate-submit",
+      "variant": "memory",
+      "trial_index": 3,
+      "root_cause_category": "async",
+      "predicted_files": [
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets",
+        "features/home/src/main/ets/pages/Login/Password.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+        "features/home/src/main/ets/pages/Login/Password.ets",
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_async_boundary"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 99017,
+      "elapsed_ms": 70432,
+      "summary": "PhoneNumber, VerifyCode, and Password each attach an async Sign in onClick directly to login, verifyCode, or password without a shared pending guard or disabled state. Repeated taps can therefore start overlapping auth calls, and each completion may clear pageInfo, emit onLoginEvent, or push the next login route, causing duplicate requests and conflicting navigation. The fix should add the same pending-state behavior to all three login steps so clicks are ignored or disabled until the in-flight auth action completes.",
+      "memory_context_bytes": 2410,
+      "memory_context_token_estimate": 603,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 2,
+      "primary_anchor_hit_count": 2,
+      "non_anchor_file_count": 1,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-webm-local-file-access",
+      "variant": "baseline",
+      "trial_index": 1,
+      "root_cause_category": "media",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 3,
+      "source_search_count": 4,
+      "expansion_rounds": 2,
+      "expansion_reason_codes": [
+        "missing_emitter",
+        "missing_resource_owner"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 154565,
+      "elapsed_ms": 56624,
+      "summary": "The WebM sticker path is downloaded, but MessageBubble routes video stickers through an ArkWeb loadData flow that base64-encodes the whole file, loads it with the wrong MIME type audio/webm, and the generated HTML helper does not embed a video src at all. The likely fix belongs in MessageBubble: render WebM from a local-accessible URI or properly generated HTML/base URL without converting large videos to Base64.",
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 1,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 1,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-webm-local-file-access",
+      "variant": "memory",
+      "trial_index": 1,
+      "root_cause_category": "media",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/views/Chat/ChatItem.ets",
+        "features/home/src/main/ets/views/Chat/ParticipantItem.ets",
+        "features/home/src/main/ets/views/Contacts/ContactsItem.ets",
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 2,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_emitter"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 162174,
+      "elapsed_ms": 62680,
+      "summary": "The WebM sticker path is resolved and the local file is checked in MessageBubble.loadMedia, but StickerView never loads a usable generated HTML video page. generateStickerVideoHtml is unused and contains no video element, while the active Web.loadData call feeds raw Base64 bytes as audio/webm instead of rendering video/webm through HTML or a permitted local-file/resource URL. This also violates the benchmark constraint by reading the whole WebM into memory for Base64 conversion.",
+      "memory_context_bytes": 2840,
+      "memory_context_token_estimate": 710,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 3,
+      "primary_anchor_hit_count": 3,
+      "non_anchor_file_count": 1,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-webm-local-file-access",
+      "variant": "baseline",
+      "trial_index": 2,
+      "root_cause_category": "media",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 3,
+      "source_search_count": 2,
+      "expansion_rounds": 0,
+      "expansion_reason_codes": [],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 84583,
+      "elapsed_ms": 56716,
+      "summary": "WebM sticker rendering is handled in MessageBubble.ets by reading the entire local .webm into Base64, then calling WebviewController.loadData with MIME type audio/webm rather than loading an HTML page containing a video element. The existing generateStickerVideoHtml helper is not used and does not embed or reference the video. This explains why a downloaded local WebM sticker exists but the embedded Web component cannot render it from the generated page; the fix should pass a local file URL or app-accessible resource into a video tag instead of converting large videos to Base64.",
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 1,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 1,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-webm-local-file-access",
+      "variant": "memory",
+      "trial_index": 2,
+      "root_cause_category": "media",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/views/Chat/ChatItem.ets",
+        "features/home/src/main/ets/views/Chat/ParticipantItem.ets",
+        "features/home/src/main/ets/views/Contacts/ContactsItem.ets",
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 2,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_emitter"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 185581,
+      "elapsed_ms": 74295,
+      "summary": "The symptom is in MessageBubble.ets: WebM stickers are detected and downloaded as .webm, but then the code reads the entire file into an ArrayBuffer, Base64-encodes it, and calls WebviewController.loadData with MIME type audio/webm rather than generating an HTML video element or streaming/loading the local file. The generated HTML helper is unused and contains no video tag. This matches a local WebM file existing while the embedded Web component cannot render it, and it violates the constraint against large in-memory Base64 conversion. Verification path: inspect lines 519-545, 680-786, and 993-1016, then replace with a local-file/HTML video rendering path and test a video sticker.",
+      "memory_context_bytes": 2840,
+      "memory_context_token_estimate": 710,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 3,
+      "primary_anchor_hit_count": 3,
+      "non_anchor_file_count": 1,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-webm-local-file-access",
+      "variant": "baseline",
+      "trial_index": 3,
+      "root_cause_category": "media",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets",
+        "common/base/src/main/ets/constants/BaseConstants.ets",
+        "features/home/src/main/ets/entities/Message.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 3,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_resource_owner"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 97603,
+      "elapsed_ms": 40408,
+      "summary": "WebM stickers are downloaded to a local file, but MessageBubble renders them by reading the entire file into Base64 and calling WebviewController.loadData with MIME type audio/webm. The generated HTML helper is unused and does not embed a video element, so the Web component never receives a playable video page. This also violates the constraint to avoid large Base64 conversions; the fix should render a proper video source from the local file via a supported local-resource path or native video component rather than Base64 loadData.",
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 3,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-webm-local-file-access",
+      "variant": "memory",
+      "trial_index": 3,
+      "root_cause_category": "media",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/views/Chat/ChatItem.ets",
+        "features/home/src/main/ets/views/Chat/ParticipantItem.ets",
+        "features/home/src/main/ets/views/Contacts/ContactsItem.ets",
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 2,
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_resource_owner"
+      ],
+      "stop_reason": "supported_cause_found",
+      "token_estimate": 121085,
+      "elapsed_ms": 65781,
+      "summary": "The WebM sticker render path is owned by MessageBubble.ets. Existing or downloaded .webm sticker files are read completely into memory and Base64-encoded, then ArkWeb loadData is called with the raw Base64 payload as audio/webm instead of loading an HTML page with a video element/source. The generateStickerVideoHtml helper is unused and does not embed the video, so the Web component has no valid generated page capable of rendering the local WebM. A verification path is to inspect the WebM sticker branch around loadData/videoBase64 and replace it with a file-backed or streamable Web/video source that avoids large in-memory Base64 conversion, then test a downloaded local .webm sticker in the generated page.",
+      "memory_context_bytes": 2840,
+      "memory_context_token_estimate": 710,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 3,
+      "primary_anchor_hit_count": 3,
+      "non_anchor_file_count": 1,
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_gap_driven_v1"
+      },
+      "memory_context_metrics_reported": true,
+      "exploration_metrics_reported": true
+    }
+  ]
+}

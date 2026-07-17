@@ -62,7 +62,7 @@ def fts_match_expression(query: str) -> str | None:
     tokens = unique_list([token for token in query_tokens(query) if len(token) > 1])
     if not tokens:
         return None
-    quoted = ['"' + token.replace('"', '""') + '"' for token in tokens[:12]]
+    quoted = ['"' + token.replace('"', '""') + '"*' for token in tokens[:12]]
     return " OR ".join(quoted)
 
 

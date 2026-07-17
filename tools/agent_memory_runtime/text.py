@@ -35,6 +35,15 @@ QUERY_EXPANSION_RULES = [
     ),
 ]
 
+ENGLISH_QUERY_STOPWORDS = {
+    "a", "an", "and", "are", "as", "at", "be", "been", "but", "by",
+    "can", "cannot", "could", "did", "do", "does", "for", "from", "had",
+    "component", "generated", "has", "have", "if", "in", "into", "is", "it",
+    "its", "may", "not", "of", "on", "or", "page", "pages", "should",
+    "that", "the", "their", "then", "this",
+    "to", "was", "were", "when", "where", "which", "while", "with", "would",
+}
+
 
 def tokenize(text: str) -> list[str]:
     tokens = re.findall(r"[\w\u4e00-\u9fff]+", text.lower())
@@ -47,7 +56,7 @@ def tokenize(text: str) -> list[str]:
 
 
 def query_tokens(query: str) -> list[str]:
-    tokens = tokenize(query)
+    tokens = [token for token in tokenize(query) if significant_query_token(token)]
     lowered = query.lower()
     for triggers, expansions in QUERY_EXPANSION_RULES:
         if any(trigger in lowered for trigger in triggers):
@@ -60,6 +69,12 @@ def query_tokens(query: str) -> list[str]:
         seen.add(token)
         deduped.append(token)
     return deduped
+
+
+def significant_query_token(token: str) -> bool:
+    if token in ENGLISH_QUERY_STOPWORDS:
+        return False
+    return len(token) > 1 or not token.isascii()
 
 
 def score_text(query_tokens: list[str], text: str) -> int:

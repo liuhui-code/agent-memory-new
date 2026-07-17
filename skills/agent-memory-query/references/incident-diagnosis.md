@@ -31,4 +31,22 @@ Create the candidate-cause queue in the Agent session. For each candidate, query
 
 Start source inspection with the returned candidate entry, emitter, edge provenance, uncertainty, and missing segments. Extend or reject paths by following callers, async boundaries, callbacks, route/resource access, state reads/writes, and error branches in current source. Infer the causal chain only after aligning that source path with the order observed in the temporary runtime log.
 
+For compact results, apply `query_handoff.source_exploration`. Inspect
+`role=primary` code anchors before any other source. Expand only after naming
+one allowed reason such as `missing_caller`, `missing_state_owner`,
+`missing_async_boundary`, or `contradicting_evidence`; record each round as one
+`expansion_trace` item with at most two newly inspected files. Stop with
+`supported_cause_found` only when an inspected causal
+file shows the concrete operation, branch, state transition, boundary, or API
+misuse that explains the symptom, with no direct contradiction and a
+verification path. `mechanism_evidence_files` may also include an inspected
+supporting boundary, but must include at least one predicted causal or repair
+owner. Use a direct `evidence_basis`; a likely owner or intended behavior is
+`inference_only`. If the returned budget is exhausted, report the remaining
+evidence gap instead of continuing to browse related files.
+
+In structured results, keep root-cause or repair-owner files separate from
+supporting callers and boundaries. A file used to confirm a call path remains
+important evidence, but inspecting it does not make it a causal owner.
+
 Report missing identifiers or expected events as observability gaps. Persist only the Agent-authored, verified reflection or Incident summary, never the raw log stream.
