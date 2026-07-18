@@ -20,16 +20,20 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from tools.agent_memory_runtime.source_exploration import (  # noqa: E402
-    ALLOWED_EXPANSION_REASONS,
-    EVIDENCE_BASES,
-    EXPANSION_ROUND_LIMIT,
     FILES_PER_EXPANSION_LIMIT,
     POLICY_NAME,
-    SOURCE_FILE_LIMIT,
-    SOURCE_SEARCH_LIMIT,
-    STOP_REASONS,
 )
-from examples.codex_benchmark_telemetry import source_search_metrics  # noqa: E402
+from tools.agent_memory_runtime.context_source_excerpt import (  # noqa: E402
+    redact_source_excerpt_bodies,
+)
+from examples.codex_benchmark_telemetry import (  # noqa: E402
+    codex_cost_metrics,
+    source_search_metrics,
+)
+from examples.codex_benchmark_prompt import (  # noqa: E402
+    benchmark_response_schema,
+    build_prompt,
+)
 
 
 RESPONSE_SCHEMA = "agent-benchmark-response/v1"
@@ -52,7 +56,7 @@ def main() -> int:
         result_path = temp / "last-message.json"
         codex_home = prepare_codex_home(temp)
         schema_path.write_text(json.dumps(output_schema(), indent=2) + "\n", encoding="utf-8")
-        memory_context = load_memory_context(request, workspace)
+        memory_context = external_memory_context(load_memory_context(request, workspace))
         prompt = build_prompt(request, memory_context)
         command = codex_command(workspace, schema_path, result_path)
         started = time.monotonic()
@@ -83,7 +87,7 @@ def main() -> int:
         "causal_level": cap_causal_level(result.get("causal_level")),
         "verification_status": "unknown",
         "elapsed_ms": elapsed_ms,
-        "token_estimate": extract_token_usage(process.stdout),
+        **codex_cost_metrics(process.stdout),
         **memory_context_metrics(memory_context),
         **execution_metrics(result, memory_context),
         **source_search_metrics(process.stdout, result),
@@ -158,71 +162,8 @@ def load_memory_context(request: dict[str, Any], workspace: Path) -> dict[str, A
     return value
 
 
-def build_prompt(request: dict[str, Any], memory_context: dict[str, Any] | None = None) -> str:
-    case = request.get("case") or {}
-    task = case.get("task") or {}
-    instructions = request.get("instructions") or []
-    lines = [
-        "Act as the external coding Agent for a controlled benchmark.",
-        "Do not modify files. Do not inspect Git history. Do not search the web.",
-        f"Task type: {case.get('task_type', 'diagnosis')}",
-        f"Task: {task.get('description', '')}",
-    ]
-    constraints = task.get("constraints") or []
-    if constraints:
-        lines.append("Constraints:")
-        lines.extend(f"- {item}" for item in constraints)
-    lines.append("Benchmark rules:")
-    lines.extend(f"- {item}" for item in instructions)
-    if memory_context is not None:
-        lines.extend([
-            "Agent Memory context was queried once by the benchmark runner before this session:",
-            json.dumps(memory_context, ensure_ascii=False),
-            "Treat its output only as context. Verify all conclusions against current source.",
-            "Follow query_handoff.source_exploration exactly.",
-            source_budget_instruction(memory_context),
-            "Count each rg, grep, find, or fd invocation before running it. If the next invocation would exceed the search budget, do not run it; stop with budget_exhausted_report_uncertainty.",
-            "Inspect code anchors with role=primary first. Do not inspect role=expansion or non-anchor files without naming one allowed expansion reason.",
-            "One expansion round closes one evidence gap and may inspect at most two new files.",
-            "Record each expansion round once in expansion_trace with its reason and newly inspected files; the Runner derives round and reason totals.",
-            "Every source file actually opened must appear in investigated_files. Every role=expansion or non-anchor file must appear exactly once in expansion_trace in the round that first opened it.",
-            "Stop with supported_cause_found only after an inspected causal file shows a concrete operation, branch, state transition, boundary, or API misuse that explains the symptom.",
-            "mechanism_evidence_files may include an inspected supporting boundary, but must include at least one predicted causal or repair-owner file.",
-            "Use direct_source_mechanism or runtime_verified_mechanism as evidence_basis for a supported stop.",
-            "If source only suggests a likely owner or intended behavior, use evidence_basis=inference_only and report no_new_evidence or budget exhaustion instead of supported_cause_found.",
-            "If the budget is exhausted, report uncertainty instead of continuing source exploration.",
-        ])
-    lines.extend([
-        "Inspect the smallest useful set of current source files.",
-        "Put only root-cause or repair-owner files in predicted_files. Put inspected callers, boundaries, and corroborating files in supporting_files.",
-        "Do not repeat a predicted file in supporting_files; include both groups in investigated_files.",
-        "Report source_search_count, expansion_trace, and the final stop_reason.",
-        "Return only the requested JSON object.",
-        "Category precedence is: async concurrency, then the concrete failure domain, then low-level api or state implementation detail.",
-        "Use async for parallel in-flight requests, races, ordering, or duplicate async side effects, even when a missing state flag is the guard. Use state only for a wrong stored or derived value without concurrency.",
-        "Use media for WebM, video, audio, or image loading, decoding, playback, and local media-resource access, even when the mechanism is API misuse. Describe the API misuse in summary instead of changing the category to api.",
-        "Use api only when an external or platform API contract is itself the primary failure domain and no stronger domain category applies. Other categories include route, lifecycle, ui_layout, resource, database_failure, and push.",
-        "Do not include private reasoning, thoughts, or chain-of-thought.",
-        "Response contract:",
-        json.dumps(request.get("response_schema") or {}, ensure_ascii=False),
-    ])
-    return "\n".join(lines)
-
-
-def source_budget_instruction(memory_context: dict[str, Any]) -> str:
-    handoff = memory_context.get("query_handoff")
-    exploration = handoff.get("source_exploration") if isinstance(handoff, dict) else None
-    limits = exploration.get("limits") if isinstance(exploration, dict) else None
-    values = limits if isinstance(limits, dict) else {}
-    searches = int(values.get("searches") or SOURCE_SEARCH_LIMIT)
-    files = int(values.get("files") or SOURCE_FILE_LIMIT)
-    rounds = int(values.get("rounds") or EXPANSION_ROUND_LIMIT)
-    round_files = int(values.get("round_files") or FILES_PER_EXPANSION_LIMIT)
-    return (
-        "Hard source budget for this Memory run: at most "
-        f"{searches} source-search invocations, {files} total investigated source files, "
-        f"{rounds} expansion rounds, and {round_files} new files per expansion round."
-    )
+def external_memory_context(value: dict[str, Any] | None) -> dict[str, Any] | None:
+    return redact_source_excerpt_bodies(value) if isinstance(value, dict) else None
 
 
 def substitute_query(value: Any, description: str) -> list[str]:
@@ -235,70 +176,7 @@ def substitute_query(value: Any, description: str) -> list[str]:
 
 
 def output_schema() -> dict[str, Any]:
-    properties = {
-        "schema_version": {"type": "string"},
-        "case_id": {"type": "string"},
-        "variant": {"type": "string"},
-        "trial_index": {"type": "integer", "minimum": 1},
-        "root_cause_category": {"type": "string"},
-        "predicted_files": {"type": "array", "items": {"type": "string"}},
-        "supporting_files": {"type": "array", "items": {"type": "string"}},
-        "investigated_files": {"type": "array", "items": {"type": "string"}},
-        "causal_level": {
-            "type": "string",
-            "enum": ["association", "supported", "verified", "rejected"],
-        },
-        "verification_status": {
-            "type": "string",
-            "enum": ["pass", "fail", "unknown"],
-        },
-        "query_rounds": {"type": "integer", "minimum": 0},
-        "source_search_count": {"type": "integer", "minimum": 0},
-        "expansion_trace": {
-            "type": "array",
-            "maxItems": EXPANSION_ROUND_LIMIT,
-            "items": {
-                "type": "object",
-                "additionalProperties": False,
-                "required": ["reason", "files"],
-                "properties": {
-                    "reason": {"type": "string", "enum": list(ALLOWED_EXPANSION_REASONS)},
-                    "files": {
-                        "type": "array",
-                        "minItems": 1,
-                        "maxItems": FILES_PER_EXPANSION_LIMIT,
-                        "items": {"type": "string"},
-                    },
-                },
-            },
-        },
-        "stop_reason": {"type": "string", "enum": list(STOP_REASONS)},
-        "evidence_basis": {"type": "string", "enum": list(EVIDENCE_BASES)},
-        "mechanism_evidence_files": {
-            "type": "array",
-            "items": {"type": "string"},
-        },
-        "token_estimate": {"type": "integer", "minimum": 0},
-        "elapsed_ms": {"type": "integer", "minimum": 0},
-        "summary": {"type": "string"},
-    }
-    return {
-        "type": "object",
-        "additionalProperties": False,
-        "required": list(properties),
-        "properties": properties,
-    }
-
-
-def extract_token_usage(text: str) -> int:
-    best = 0
-    for line in text.splitlines():
-        try:
-            event = json.loads(line)
-        except json.JSONDecodeError:
-            continue
-        best = max(best, token_total(event))
-    return best
+    return benchmark_response_schema()
 
 
 def failure_output(stdout: str, stderr: str) -> str:
@@ -309,19 +187,6 @@ def failure_output(stdout: str, stderr: str) -> str:
         excerpt = value if len(value) <= 4000 else value[:2000] + "\n...\n" + value[-2000:]
         parts.append(f"{label}:\n{excerpt}")
     return "\n".join(parts) or "no process output"
-
-
-def token_total(value: Any) -> int:
-    if isinstance(value, dict):
-        direct = sum(
-            int(value.get(key) or 0)
-            for key in ("input_tokens", "output_tokens")
-            if isinstance(value.get(key), (int, float))
-        )
-        return max([direct, *(token_total(item) for item in value.values())])
-    if isinstance(value, list):
-        return max([0, *(token_total(item) for item in value)])
-    return 0
 
 
 def cap_causal_level(value: Any) -> str:
@@ -339,17 +204,26 @@ def memory_context_metrics(value: dict[str, Any] | None) -> dict[str, int]:
     }
 
 
-def execution_metrics(result: dict[str, Any], memory_context: dict[str, Any] | None) -> dict[str, int]:
+def execution_metrics(
+    result: dict[str, Any],
+    memory_context: dict[str, Any] | None,
+) -> dict[str, Any]:
     investigated = {
         str(item) for item in result.get("investigated_files") or [] if str(item).strip()
     }
     anchors = memory_code_anchor_paths(memory_context)
     primary = memory_code_anchor_paths(memory_context, "primary")
+    expansion_files = len(investigated - primary)
     return {
         "source_file_count": len(investigated),
         "memory_anchor_hit_count": len(investigated & anchors),
         "primary_anchor_hit_count": len(investigated & primary),
         "non_anchor_file_count": len(investigated - anchors),
+        "expansion_file_count": expansion_files,
+        "expansion_rounds": (
+            expansion_files + FILES_PER_EXPANSION_LIMIT - 1
+        ) // FILES_PER_EXPANSION_LIMIT,
+        "expansion_accounting_source": "runner_investigated_files",
     }
 
 
@@ -455,6 +329,7 @@ def runner_metadata() -> dict[str, str]:
         "sandbox": "read-only",
         "session": "ephemeral",
         "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
         "user_context": "isolated_home",
         "retrieval_policy": POLICY_NAME,
     }

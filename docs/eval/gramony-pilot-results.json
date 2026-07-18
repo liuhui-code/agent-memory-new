@@ -708,6 +708,467 @@
       }
     }
   },
+  "cost_attribution_v1": {
+    "status": "implemented_local_verification",
+    "quality_policy": "anchor_first_gap_driven_v4_frozen",
+    "fields": [
+      "model_input_tokens",
+      "model_cached_input_tokens",
+      "model_uncached_input_tokens",
+      "model_output_tokens",
+      "model_reasoning_tokens",
+      "command_count",
+      "command_output_bytes",
+      "source_read_count",
+      "source_read_output_bytes",
+      "tool_error_count",
+      "source_search_miss_count",
+      "source_search_error_count",
+      "source_read_error_count",
+      "other_tool_error_count"
+    ],
+    "privacy": {
+      "reasoning_persisted": false,
+      "command_output_persisted": false,
+      "source_body_persisted": false
+    },
+    "efficiency_limits": {
+      "token_overhead_ratio": 0.1,
+      "elapsed_overhead_ratio": 0.15,
+      "source_search_non_regression": true,
+      "complete_cost_attribution_required": true
+    },
+    "v4_response_rescore": {
+      "quality_gate": "pass",
+      "efficiency_gate": "fail",
+      "promotion_gate": "fail",
+      "cost_attribution_coverage": 0.0,
+      "token_overhead_ratio": 0.1811,
+      "elapsed_overhead_ratio": 0.2638,
+      "source_search_non_regression": true
+    },
+    "external_agent_rerun": {
+      "completed_at": "2026-07-17T10:23:49Z",
+      "status": "quality_pass_efficiency_fail",
+      "observation_count": 18,
+      "trial_count_per_variant": 3,
+      "response_artifact": "docs/eval/gramony-v4-cost-attribution-responses.json",
+      "quality_gate": "pass",
+      "efficiency_gate": "fail",
+      "promotion_gate": "fail",
+      "efficiency_gate_checks": {
+        "cost_attribution_complete": true,
+        "token_overhead_within_budget": false,
+        "elapsed_overhead_within_budget": false,
+        "source_search_non_regression": true
+      },
+      "efficiency_metrics": {
+        "cost_attribution_coverage": 1.0,
+        "token_overhead_ratio": 0.6343,
+        "elapsed_overhead_ratio": 0.2771,
+        "command_output_overhead_ratio": -0.2688,
+        "source_read_output_overhead_ratio": 0.2577,
+        "memory_cached_input_ratio": 0.8215,
+        "baseline_source_read_amplification": 2.0556,
+        "memory_source_read_amplification": 1.7568
+      },
+      "baseline": {
+        "agent_outcome_score": 0.9333,
+        "agent_root_cause_accuracy": 1.0,
+        "expected_file_recall": 0.8889,
+        "predicted_file_precision": 0.8889,
+        "average_query_rounds": 1.8889,
+        "average_source_search_count": 2.1111,
+        "average_token_estimate": 89748.7778,
+        "average_model_input_tokens": 88205.7778,
+        "average_model_cached_input_tokens": 60373.3333,
+        "average_model_uncached_input_tokens": 27832.4445,
+        "average_model_output_tokens": 1543.0,
+        "average_model_reasoning_tokens": 199.4444,
+        "average_command_count": 8.8889,
+        "average_command_output_bytes": 66625.0,
+        "average_source_read_count": 8.2222,
+        "average_source_read_output_bytes": 31818.2222,
+        "average_tool_error_count": 0.0,
+        "average_elapsed_ms": 54553.2222
+      },
+      "memory": {
+        "agent_outcome_score": 1.0,
+        "agent_root_cause_accuracy": 1.0,
+        "expected_file_recall": 1.0,
+        "predicted_file_precision": 1.0,
+        "average_query_rounds": 1.1111,
+        "average_source_search_count": 1.0,
+        "average_token_estimate": 146679.0,
+        "average_model_input_tokens": 144931.1111,
+        "average_model_cached_input_tokens": 119054.2222,
+        "average_model_uncached_input_tokens": 25876.8889,
+        "average_model_output_tokens": 1747.8889,
+        "average_model_reasoning_tokens": 380.1111,
+        "average_command_count": 9.5556,
+        "average_command_output_bytes": 48714.2222,
+        "average_source_read_count": 7.2222,
+        "average_source_read_output_bytes": 40018.6667,
+        "average_tool_error_count": 1.5555,
+        "average_memory_context_token_estimate": 502.6667,
+        "average_elapsed_ms": 69667.8889
+      },
+      "attribution": {
+        "dominant_overhead": "cached_input_replay_and_additional_reasoning",
+        "uncached_input_overhead_ratio": -0.0703,
+        "cached_input_overhead_ratio": 0.972,
+        "output_overhead_ratio": 0.1328,
+        "reasoning_output_overhead_ratio": 0.9058,
+        "source_read_count_overhead_ratio": -0.1216,
+        "tool_error_count_is_non_zero_exit_signal": true,
+        "primary_hotspot": "gramony-split-view-chat-navigation"
+      },
+      "audit": {
+        "all_observations_report_cost_metrics": true,
+        "all_observations_use_runner_search_telemetry": true,
+        "reasoning_persisted": false,
+        "command_output_persisted": false,
+        "source_body_persisted": false
+      }
+    },
+    "next_policy_v5": {
+      "policy": "anchor_first_sufficient_evidence_v5",
+      "status": "external_ab_quality_protocol_fail_efficiency_fail",
+      "evidence_loop": ["triage", "gap", "verify", "stop"],
+      "limits": {
+        "searches": 3,
+        "files": 7,
+        "rounds": 2,
+        "round_files": 2,
+        "reads_per_file": 1,
+        "read_lines": 180
+      },
+      "measurements": [
+        "source_search_miss_count",
+        "baseline_source_read_amplification",
+        "memory_source_read_amplification"
+      ],
+      "acceptance": [
+        "quality_gate_passes",
+        "efficiency_gate_passes",
+        "navigation_interaction_cost_decreases",
+        "runner_search_telemetry_remains_complete"
+      ],
+      "external_agent_rerun": {
+        "completed_at": "2026-07-17T11:26:27Z",
+        "status": "quality_protocol_fail_efficiency_fail",
+        "observation_count": 18,
+        "trial_count_per_variant": 3,
+        "response_artifact": "docs/eval/gramony-v5-sufficient-evidence-responses.json",
+        "quality_gate": "fail",
+        "efficiency_gate": "fail",
+        "promotion_gate": "fail",
+        "quality_scores": {
+          "memory_agent_outcome_score": 1.0,
+          "memory_root_cause_accuracy": 1.0,
+          "memory_expected_file_recall": 1.0,
+          "memory_predicted_file_precision": 1.0
+        },
+        "quality_gate_failure": {
+          "check": "source_exploration_within_budget",
+          "observations": [
+            "gramony-split-view-chat-navigation:memory:2 searched 4 times",
+            "gramony-webm-local-file-access:memory:1 searched 5 times"
+          ]
+        },
+        "efficiency_gate_checks": {
+          "cost_attribution_complete": true,
+          "token_overhead_within_budget": false,
+          "elapsed_overhead_within_budget": false,
+          "source_search_non_regression": true
+        },
+        "efficiency_metrics": {
+          "cost_attribution_coverage": 1.0,
+          "token_overhead_ratio": 0.1059,
+          "elapsed_overhead_ratio": 0.1827,
+          "command_output_overhead_ratio": -0.5922,
+          "source_read_output_overhead_ratio": -0.43,
+          "memory_cached_input_ratio": 0.8048,
+          "baseline_source_read_amplification": 2.0,
+          "memory_source_read_amplification": 1.5926
+        },
+        "baseline": {
+          "average_token_estimate": 115107.0,
+          "average_model_cached_input_tokens": 84451.5556,
+          "average_model_uncached_input_tokens": 28966.8889,
+          "average_command_count": 9.4444,
+          "average_command_output_bytes": 77918.7778,
+          "average_source_read_count": 7.7778,
+          "average_source_read_output_bytes": 32276.6667,
+          "average_elapsed_ms": 56967.1111
+        },
+        "memory": {
+          "average_token_estimate": 127296.1111,
+          "average_model_cached_input_tokens": 101191.1111,
+          "average_model_uncached_input_tokens": 24540.2222,
+          "average_command_count": 8.0,
+          "average_command_output_bytes": 31777.4444,
+          "average_source_read_count": 4.7778,
+          "average_source_read_output_bytes": 18396.5556,
+          "average_tool_error_count": 1.5555,
+          "average_source_search_miss_count": 0.0,
+          "average_elapsed_ms": 67376.1111
+        },
+        "v5_memory_delta_vs_v4_memory": {
+          "token_estimate_ratio": -0.1321,
+          "command_count_ratio": -0.1628,
+          "source_read_count_ratio": -0.3385,
+          "source_read_output_bytes_ratio": -0.5403,
+          "elapsed_ms_ratio": -0.0329
+        },
+        "next_action": "restore_pre_command_search_and_read_ledgers_without_relaxing_gates"
+      }
+    },
+    "next_policy_v6": {
+      "policy": "anchor_first_ledgered_stop_v6",
+      "status": "implemented_local_verification_pending_external_ab",
+      "inherits": "anchor_first_sufficient_evidence_v5",
+      "changes": [
+        "restore_pre_command_searches_used_ledger",
+        "add_read_paths_ledger",
+        "count_searches_inside_pipelines_and_compound_commands",
+        "direct_read_known_anchor_paths",
+        "enforce_v6_source_read_count_not_above_source_file_count",
+        "split_tool_errors_by_command_family"
+      ],
+      "prompt_fixture": {
+        "line_count": 8,
+        "character_count": 1750,
+        "v5_character_count": 1592,
+        "v4_character_count": 1848
+      },
+      "error_fields": [
+        "source_search_miss_count",
+        "source_search_error_count",
+        "source_read_error_count",
+        "other_tool_error_count"
+      ],
+      "acceptance": [
+        "quality_gate_passes",
+        "efficiency_gate_passes",
+        "all_memory_search_counts_at_most_three",
+        "all_v6_memory_source_read_counts_not_above_source_file_counts",
+        "complete_runner_telemetry"
+      ],
+      "external_agent_rerun": {
+        "completed_at": "2026-07-17T12:11:41Z",
+        "status": "quality_protocol_fail_efficiency_fail",
+        "observation_count": 18,
+        "trial_count_per_variant": 3,
+        "response_artifact": "docs/eval/gramony-v6-ledgered-stop-responses.json",
+        "quality_gate": "fail",
+        "efficiency_gate": "fail",
+        "promotion_gate": "fail",
+        "quality_scores": {
+          "memory_agent_outcome_score": 0.9333,
+          "memory_root_cause_accuracy": 1.0,
+          "memory_expected_file_recall": 0.8889,
+          "memory_predicted_file_precision": 0.8889
+        },
+        "quality_gate_failures": [
+          "navigation memory trial 1 read 4 times across 3 files",
+          "navigation memory trial 2 read 6 times across 3 files",
+          "login memory trial 1 opened no source and used agent-reported zero-search telemetry",
+          "login memory trial 2 omitted Login/Index.ets from expansion_trace",
+          "WebM memory trial 2 read 7 times across 2 files",
+          "WebM memory trial 3 read 5 times across 2 files"
+        ],
+        "efficiency_gate_checks": {
+          "cost_attribution_complete": true,
+          "token_overhead_within_budget": false,
+          "elapsed_overhead_within_budget": false,
+          "source_search_non_regression": true
+        },
+        "efficiency_metrics": {
+          "cost_attribution_coverage": 1.0,
+          "token_overhead_ratio": 0.2464,
+          "elapsed_overhead_ratio": 0.2032,
+          "command_output_overhead_ratio": -0.5504,
+          "source_read_output_overhead_ratio": -0.3445,
+          "memory_cached_input_ratio": 0.8492,
+          "baseline_source_read_amplification": 2.5484,
+          "memory_source_read_amplification": 1.5
+        },
+        "baseline": {
+          "average_token_estimate": 97855.3333,
+          "average_model_cached_input_tokens": 71552.0,
+          "average_model_uncached_input_tokens": 24757.0,
+          "average_command_count": 7.7778,
+          "average_command_output_bytes": 62773.7778,
+          "average_source_search_count": 2.0,
+          "average_source_read_count": 8.7778,
+          "average_source_read_output_bytes": 30724.3333,
+          "average_elapsed_ms": 56162.7778
+        },
+        "memory": {
+          "average_token_estimate": 121970.4444,
+          "average_model_cached_input_tokens": 102115.5555,
+          "average_model_uncached_input_tokens": 18134.1111,
+          "average_command_count": 6.4444,
+          "average_command_output_bytes": 28225.0,
+          "average_source_search_count": 0.8889,
+          "average_source_read_count": 4.0,
+          "average_source_read_output_bytes": 20139.6667,
+          "average_tool_error_count": 1.6667,
+          "average_source_search_miss_count": 0.0,
+          "average_source_search_error_count": 0.0,
+          "average_source_read_error_count": 0.0,
+          "average_other_tool_error_count": 1.6667,
+          "average_elapsed_ms": 67575.8889
+        },
+        "v6_memory_delta_vs_v5_memory": {
+          "token_estimate_ratio": -0.0418,
+          "command_count_ratio": -0.1945,
+          "source_search_count_ratio": -0.6364,
+          "source_read_count_ratio": -0.1628,
+          "source_read_output_bytes_ratio": 0.0948,
+          "elapsed_ms_ratio": 0.003
+        },
+        "next_action": "keep_search_ledger_fix_zero_command_telemetry_reframe_read_budget"
+      }
+    },
+    "next_policy_v7": {
+      "policy": "anchor_first_search_ledger_v7",
+      "status": "external_ab_quality_protocol_fail_efficiency_fail",
+      "inherits": "anchor_first_ledgered_stop_v6",
+      "changes": [
+        "retain_pre_command_searches_used_ledger",
+        "measure_complete_toolless_turn_as_runner_zero_searches",
+        "allow_second_read_window_only_for_named_unresolved_gap",
+        "move_read_amplification_from_quality_to_efficiency",
+        "require_memory_read_amplification_at_most_2_0",
+        "require_memory_read_amplification_not_above_baseline"
+      ],
+      "acceptance": [
+        "quality_gate_passes",
+        "efficiency_gate_passes",
+        "all_memory_search_counts_at_most_three",
+        "memory_source_read_amplification_at_most_2_0",
+        "memory_source_read_amplification_not_above_baseline",
+        "complete_runner_telemetry"
+      ],
+      "external_agent_rerun": {
+        "completed_at": "2026-07-18T00:42:56Z",
+        "status": "quality_protocol_fail_efficiency_fail",
+        "observation_count": 18,
+        "trial_count_per_variant": 3,
+        "response_artifact": "docs/eval/gramony-v7-search-ledger-responses.json",
+        "quality_gate": "fail",
+        "efficiency_gate": "fail",
+        "promotion_gate": "fail",
+        "quality_scores": {
+          "memory_agent_outcome_score": 1.0,
+          "memory_root_cause_accuracy": 1.0,
+          "memory_expected_file_recall": 1.0,
+          "memory_predicted_file_precision": 1.0
+        },
+        "quality_gate_failures": [
+          "login memory trial 1 traced 3 of 4 expanded files",
+          "login memory trial 2 traced 2 of 4 expanded files and exceeded the one-round two-file expansion budget",
+          "login memory trial 3 traced 3 of 4 expanded files"
+        ],
+        "efficiency_gate_checks": {
+          "cost_attribution_complete": true,
+          "token_overhead_within_budget": false,
+          "elapsed_overhead_within_budget": false,
+          "source_search_non_regression": true,
+          "source_read_amplification_within_budget": true,
+          "source_read_amplification_non_regression": true
+        },
+        "efficiency_metrics": {
+          "cost_attribution_coverage": 1.0,
+          "token_overhead_ratio": 0.1641,
+          "elapsed_overhead_ratio": 0.231,
+          "command_output_overhead_ratio": -0.677,
+          "source_read_output_overhead_ratio": -0.1407,
+          "memory_cached_input_ratio": 0.7961,
+          "baseline_source_read_amplification": 1.647,
+          "memory_source_read_amplification": 1.4667
+        },
+        "per_case_memory_source_read_amplification": {
+          "gramony-split-view-chat-navigation": 1.3333,
+          "gramony-login-duplicate-submit": 1.0,
+          "gramony-webm-local-file-access": 2.8333
+        },
+        "baseline": {
+          "average_token_estimate": 121185.0,
+          "average_command_count": 8.4444,
+          "average_command_output_bytes": 95767.1111,
+          "average_source_search_count": 2.6667,
+          "average_source_read_count": 6.2222,
+          "average_source_read_output_bytes": 27624.7778,
+          "average_elapsed_ms": 53354.0
+        },
+        "memory": {
+          "average_token_estimate": 141072.8889,
+          "average_command_count": 8.2222,
+          "average_command_output_bytes": 30937.0,
+          "average_source_search_count": 1.0,
+          "average_source_read_count": 4.8889,
+          "average_source_read_output_bytes": 23737.3333,
+          "average_tool_error_count": 2.0,
+          "average_source_search_miss_count": 0.0,
+          "average_source_search_error_count": 0.0,
+          "average_source_read_error_count": 0.0,
+          "average_other_tool_error_count": 2.0,
+          "average_elapsed_ms": 65676.3333
+        },
+        "v7_memory_delta_vs_v6_memory": {
+          "token_estimate_ratio": 0.1566,
+          "elapsed_ms_ratio": -0.0281,
+          "command_count_ratio": 0.2759,
+          "source_search_count_ratio": 0.125,
+          "source_read_count_ratio": 0.2222,
+          "source_read_output_bytes_ratio": 0.1786
+        },
+        "next_action": "add_per_case_efficiency_audit_and_make_expansion_accounting_deterministic"
+      }
+    },
+    "next_policy_v8": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "status": "implemented_local_verification_pending_external_ab",
+      "inherits": "anchor_first_search_ledger_v7",
+      "changes": [
+        "derive_expansion_file_count_from_investigated_files_minus_primary_anchors",
+        "derive_minimum_expansion_rounds_from_two_file_round_limit",
+        "treat_expansion_trace_as_gap_reason_and_representative_files",
+        "require_per_case_token_overhead_budget",
+        "require_per_case_elapsed_overhead_budget",
+        "require_per_case_source_search_non_regression",
+        "require_per_case_read_amplification_budget_and_non_regression",
+        "expose_failed_case_efficiency_ids_in_governance"
+      ],
+      "prompt_fixture": {
+        "line_count": 8,
+        "character_count": 1816
+      },
+      "historical_rescore": {
+        "v4": "quality_pass_efficiency_fail",
+        "v5": "quality_fail_efficiency_fail",
+        "v6": "quality_fail_efficiency_fail",
+        "v7": "quality_fail_efficiency_fail"
+      },
+      "acceptance": [
+        "quality_gate_passes",
+        "efficiency_gate_passes",
+        "all_memory_search_counts_at_most_three",
+        "all_v8_memory_expansion_counts_use_runner_accounting",
+        "all_cases_pass_token_elapsed_search_and_read_efficiency",
+        "complete_runner_telemetry"
+      ],
+      "external_agent_rerun": {
+        "status": "pending",
+        "case_count": 3,
+        "trial_count_per_variant": 3,
+        "planned_observation_count": 18
+      }
+    }
+  },
   "interpretation_limits": [
     "The pinned sample contains only three development pairs.",
     "Earlier exploratory pairs used the default unpinned model.",
@@ -725,6 +1186,20 @@
     "The v2 external batch resolved the targeted WebM failure but failed login per-case non-regression and source-exploration contract gates.",
     "The v3 external batch resolved login category stability but regressed WebM category stability and violated two exploration observations, so it is not promotable.",
     "The v4 external development batch passed every gate with perfect per-case stability and Runner-telemetry search counts.",
-    "V4 remains a three-case development result, not a Holdout or general-uplift claim; model-token and elapsed-time overhead remain."
+    "V4 remains a three-case development result, not a Holdout or general-uplift claim; model-token and elapsed-time overhead remain.",
+    "The immutable v4 pack predates detailed cost fields; the separate v4 attribution batch provides complete aggregate cost telemetry without persisting reasoning or tool output.",
+    "The attribution batch passed quality but failed efficiency: cumulative Token overhead is dominated by cached-input replay, while uncached input, source-search count, source-read count, and command-output bytes decreased.",
+    "One Baseline WebM trial opened no source and is a quality/cost outlier; excluding its pair still leaves material Memory input and elapsed overhead.",
+    "Non-zero command exits are review signals because privacy-safe aggregate telemetry cannot distinguish expected no-match searches from real tool failures in the v4 artifact.",
+    "The v5 external batch produced perfect diagnosis/file scores but failed two source-search-budget observations and narrowly missed both efficiency limits, so it is not promotable.",
+    "V5 reduced commands and source-read volume substantially; its next candidate must restore explicit pre-command search/read ledgers without relaxing quality or efficiency gates.",
+    "V6 restored search/read ledgers and added a one-read quality audit; its completed external A/B failed quality and efficiency.",
+    "The v6 external batch eliminated search-budget violations but failed repeated-read, trace, one no-source quality observation, and both efficiency limits; it is not promotable.",
+    "V6 error-family telemetry attributed all Memory non-zero exits to other commands, not search misses/errors or source-read errors, without persisting command content.",
+    "V7 retains the audited search ledger, records complete tool-less turns as runner-measured zero searches, and evaluates bounded repeated reads through efficiency rather than diagnosis quality.",
+    "The v7 external batch achieved perfect diagnosis and file scores but failed all three login expansion traces plus Token and elapsed limits, so it is not promotable.",
+    "V7 aggregate read amplification passed while the WebM case reached 2.8333, showing that aggregate efficiency can mask a single-case regression.",
+    "V8 derives expansion accounting from investigated files and primary anchors, and requires every case to pass Token, elapsed, search, and read-efficiency checks in addition to aggregate checks.",
+    "V8 remains a local candidate pending repeated external A/B; historical v4-v7 quality outcomes remain unchanged under compatibility replay."
   ]
 }

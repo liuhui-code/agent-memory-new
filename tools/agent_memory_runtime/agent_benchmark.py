@@ -64,6 +64,8 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
     output(result, args.json)
     if args.fail_on_fail and result["quality_gate"] == "fail":
         raise SystemExit(1)
+    if args.fail_on_efficiency_fail and result["efficiency_gate"] == "fail":
+        raise SystemExit(1)
 
 
 def select_cases(cases: list[dict[str, Any]], case_ids: list[str]) -> list[dict[str, Any]]:
@@ -136,7 +138,9 @@ def persist_benchmark_result(project: Any, result: dict[str, Any]) -> None:
     compact = {
         key: result.get(key)
         for key in (
-            "schema_version", "status", "quality_gate", "summary", "metrics",
+            "schema_version", "status", "quality_gate", "efficiency_gate",
+            "promotion_gate", "summary", "metrics", "efficiency_metrics",
+            "efficiency_gate_checks", "efficiency_limits",
             "context_uplift", "gate_checks", "case_file", "runner_mode",
             "selected_case_ids", "runner_configuration",
             "requested_trials",

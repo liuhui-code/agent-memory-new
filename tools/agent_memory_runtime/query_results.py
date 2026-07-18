@@ -8,12 +8,14 @@ from typing import Any
 from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT
 from .memory_calibration import calibrate_payload
 from .models import Project
+from .query_code_focus import attach_file_source_locations, focus_code_candidates
 from .query_collect import collect_matches
 from .query_edges import network_limits
 from .query_followups import infer_followup_focus, suggested_followup_terms
 from .query_handoff import build_query_handoff
 from .query_intents import gate_matches_by_intent
 from .storage import connect, now_iso
+from .text import identifier_tokens, matching_code_path_segments, tokenize
 
 SEARCH_RESULT_LIMITS = {
     "semantic_facts": 20,
@@ -36,22 +38,162 @@ CONTEXT_RESULT_LIMITS = {
     "incident_trace_matches": 5,
 }
 
+CODE_DIVERSITY_THRESHOLD = 0.3
+CODE_DIVERSITY_GENERIC_TERMS = {
+    "component", "components", "ets", "features", "home", "main", "pages",
+    "src", "view", "viewmodel", "views",
+}
+EXPLICIT_PATH_GENERIC_TERMS = {
+    "chat", "data", "detail", "login", "message", "source",
+}
+
 
 def limited_matches(
     matches: dict[str, list[dict[str, Any]]],
     limits: dict[str, int],
+    query: str = "",
 ) -> dict[str, list[dict[str, Any]]]:
-    return {
+    bounded = {
         key: value[: limits.get(key, len(value))]
         for key, value in matches.items()
     }
+    wiki_limit = limits.get("wiki_matches", len(matches.get("wiki_matches", [])))
+    bounded["wiki_matches"] = diverse_code_matches(
+        matches.get("wiki_matches", []),
+        wiki_limit,
+        query=query,
+    )
+    return bounded
+
+
+def diverse_code_matches(
+    items: list[dict[str, Any]],
+    limit: int,
+    max_per_file: int = 2,
+    query: str = "",
+) -> list[dict[str, Any]]:
+    explicit_paths = protected_explicit_paths(items, query)
+    attach_file_source_locations(items)
+    items = interleave_graph_candidate(items, explicit_paths)
+    items, focused_candidates = focus_code_candidates(items)
+    selected: list[dict[str, Any]] = []
+    deferred: list[dict[str, Any]] = []
+    file_counts: dict[str, int] = {}
+    selected_terms: list[set[str]] = []
+    direct_scores = [
+        float(item.get("score") or 0.0)
+        for item in items
+        if not is_graph_neighbor(item)
+    ]
+    seed_score = max(direct_scores, default=0.0)
+    for index, item in enumerate(items):
+        file_path = str(item.get("file_path") or "")
+        terms = code_candidate_terms(item)
+        reserved_graph_lane = is_graph_neighbor(item) and (
+            index == 1 or (index == 2 and is_component_flow_neighbor(item))
+        )
+        explicit_target = file_path in explicit_paths
+        weak_graph_neighbor = (
+            limit <= CONTEXT_RESULT_LIMITS["wiki_matches"]
+            and is_graph_neighbor(item)
+            and (
+                seed_score <= 0.0
+                or float(item.get("score") or 0.0) < seed_score * 0.5
+            )
+        )
+        if weak_graph_neighbor and (seed_score <= 0.0 or len(selected) >= 2):
+            continue
+        if (
+            file_path and file_counts.get(file_path, 0) >= max_per_file
+        ) or (
+            not reserved_graph_lane and not explicit_target
+            and any(code_candidate_similarity(terms, other) >= CODE_DIVERSITY_THRESHOLD for other in selected_terms)
+        ):
+            deferred.append(item)
+            continue
+        selected.append(item)
+        selected_terms.append(terms)
+        if file_path:
+            file_counts[file_path] = file_counts.get(file_path, 0) + 1
+        if len(selected) >= limit:
+            return selected
+    if focused_candidates:
+        return selected[:limit]
+    selected.extend(deferred[: max(0, limit - len(selected))])
+    return selected[:limit]
+
+
+def interleave_graph_candidate(
+    items: list[dict[str, Any]],
+    explicit_paths: set[str],
+) -> list[dict[str, Any]]:
+    if len(items) < 2 or is_graph_neighbor(items[0]) or len(explicit_paths) >= 3:
+        return items
+    seed_score = float(items[0].get("score") or 0.0)
+    component_flow = [
+        item for item in items[1:]
+        if is_component_flow_neighbor(item)
+        and float(item.get("score") or 0.0) >= seed_score * 0.5
+    ][:2]
+    if component_flow:
+        selected_ids = {id(item) for item in component_flow}
+        return [items[0], *component_flow, *[item for item in items[1:] if id(item) not in selected_ids]]
+    for index, item in enumerate(items[1:], start=1):
+        if is_graph_neighbor(item) and float(item.get("score") or 0.0) >= seed_score * 0.5:
+            return [items[0], item, *items[1:index], *items[index + 1:]]
+    return items
+
+
+def protected_explicit_paths(items: list[dict[str, Any]], query: str) -> set[str]:
+    if not query.strip() or not items:
+        return set()
+    seed_score = float(items[0].get("score") or 0.0)
+    result: set[str] = set()
+    for item in items:
+        file_path = str(item.get("file_path") or "")
+        matches = set(matching_code_path_segments(query, file_path))
+        if (
+            file_path
+            and not is_graph_neighbor(item)
+            and float(item.get("score") or 0.0) >= seed_score * 0.75
+            and matches - EXPLICIT_PATH_GENERIC_TERMS
+        ):
+            result.add(file_path)
+    return result if len(result) >= 3 else set()
+
+
+def is_graph_neighbor(item: dict[str, Any]) -> bool:
+    return "graph_neighbor" in {str(reason) for reason in item.get("match_reasons") or []}
+
+
+def is_component_flow_neighbor(item: dict[str, Any]) -> bool:
+    reasons = {str(reason) for reason in item.get("match_reasons") or []}
+    return bool(
+        reasons
+        & {"graph_relation:passes_property", "graph_relation:renders_component"}
+    )
+
+
+def code_candidate_terms(item: dict[str, Any]) -> set[str]:
+    value = f"{item.get('file_path') or ''} {item.get('symbol') or ''}"
+    return {
+        token
+        for token in [*tokenize(value), *identifier_tokens(value)]
+        if len(token) > 1 and token not in CODE_DIVERSITY_GENERIC_TERMS
+    }
+
+
+def code_candidate_similarity(left: set[str], right: set[str]) -> float:
+    if not left or not right:
+        return 0.0
+    return len(left & right) / len(left | right)
 
 
 
 def limited_context(project: Project, query: str) -> dict[str, Any]:
     matches = collect_matches(project, query)
     gated = gate_matches_by_intent(project, query, matches)
-    bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS)
+    bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS, query)
     bounded["code_log_matches"] = [
         {key: value for key, value in item.items() if key != "likely_causes"}
         for item in bounded["code_log_matches"]

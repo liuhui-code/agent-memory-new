@@ -12,6 +12,7 @@ from typing import Any
 from .active_learning_queue import build_active_learning_actions, build_active_learning_queue
 from .agent_benchmark_governance import agent_benchmark_summary
 from .code_wiki import semantic_followup_from_db
+from .context_capability_governance import context_capability_summary
 from .evidence_chain_quality import build_evidence_chain_summary, enrich_reflections_with_evidence_chains
 from .graph_quality import (
     build_graph_quality,
@@ -204,6 +205,7 @@ def maintain_health(args: argparse.Namespace) -> None:
     design_calibration = design_calibration_summary(project)
     provider_health = semantic_provider_health(project)
     agent_benchmark = agent_benchmark_summary(project)
+    context_capability = context_capability_summary(project)
     retrieval_observations = retrieval_feedback_summary(project)
 
     duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
@@ -243,6 +245,16 @@ def maintain_health(args: argparse.Namespace) -> None:
     if agent_benchmark.get("quality_gate") == "fail":
         recommended_actions.append(
             "Review the latest Agent A/B benchmark regressions before changing retrieval or design behavior."
+        )
+    if agent_benchmark.get("efficiency_gate") == "fail":
+        recommended_actions.append(
+            "Review Agent A/B token, elapsed-time, source-read amplification, and tool-output attribution before expanding retrieval context."
+        )
+    if context_capability.get("system_context_gate") == "fail":
+        failed = ", ".join(context_capability.get("failed_case_ids") or [])
+        recommended_actions.append(
+            "Repair the latest system context capability failures"
+            f"{f': {failed}' if failed else ''} before another external Agent A/B."
         )
 
     data = {
@@ -295,6 +307,7 @@ def maintain_health(args: argparse.Namespace) -> None:
         "impact_feedback": impact_feedback,
         "design_calibration": design_calibration,
         "agent_benchmark": agent_benchmark,
+        "context_capability": context_capability,
         "retrieval_observations": retrieval_observations,
         "runtime_performance": build_runtime_performance_summary(project),
         "semantic_provider": provider_health,

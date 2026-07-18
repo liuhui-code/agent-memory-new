@@ -6,9 +6,32 @@ import tempfile
 from pathlib import Path
 
 from tests.agent_memory_test_base import *
+from tools.agent_memory_runtime.context_source_excerpt import read_excerpt, safe_source_path
 
 
 class AgentMemoryRuntimePart12Tests(AgentMemoryTestBase):
+    def test_source_excerpt_rejects_paths_outside_project(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir) / "project"
+            root.mkdir()
+            outside = Path(temp_dir) / "outside.ets"
+            outside.write_text("const secret = true\n", encoding="utf-8")
+            (root / "external.ets").symlink_to(outside)
+            binary = root / "binary.ets"
+            binary.write_bytes(b"\x00binary")
+
+            self.assertIsNone(safe_source_path(root.resolve(), "../outside.ets"))
+            self.assertIsNone(safe_source_path(root.resolve(), str(outside)))
+            self.assertIsNone(safe_source_path(root.resolve(), "external.ets"))
+            self.assertEqual(
+                {},
+                read_excerpt(
+                    binary,
+                    {"symbol": "Binary", "start_line": 1, "end_line": 1},
+                    100,
+                ),
+            )
+
     def test_natural_language_noise_does_not_outrank_domain_symbol(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
@@ -21,8 +44,8 @@ class AgentMemoryRuntimePart12Tests(AgentMemoryTestBase):
             (views / "MessageBubble.ets").write_text(
                 "@Component\n"
                 "struct MessageBubble {\n"
-                "  StickerView() {}\n"
-                "  VideoView() {}\n"
+                "  StickerOnlyView() { this.StickerView() }\n"
+                "  StickerView() { const ephemeralMechanism = 'webm-local-only' }\n"
                 "  build() {}\n"
                 "}\n",
                 encoding="utf-8",
@@ -49,7 +72,87 @@ class AgentMemoryRuntimePart12Tests(AgentMemoryTestBase):
                 "features/home/views/MessageBubble.ets",
                 anchors[0]["file_path"],
             )
-            self.assertEqual("StickerView", anchors[0]["symbol"])
+            self.assertIn(anchors[0]["symbol"], {"StickerOnlyView", "StickerView"})
+            self.assertEqual(
+                {"StickerOnlyView", "StickerView"},
+                {item["symbol"] for item in anchors[0]["source_ranges"]},
+            )
+            self.assertTrue(
+                all(item["start_line"] <= item["end_line"] for item in anchors[0]["source_ranges"])
+            )
+            self.assertEqual(
+                {"start_line": 3, "end_line": 4},
+                anchors[0]["read_window"],
+            )
+            excerpts = anchors[0]["source_excerpts"]
+            excerpt_text = "\n".join(item["content"] for item in excerpts)
+            self.assertIn("webm-local-only", excerpt_text)
+            self.assertTrue(all(item["source"] == "current_worktree" for item in excerpts))
+            self.assertNotIn("record_id", anchors[0])
+            self.assertNotIn("start_line", anchors[0])
+            self.assertNotIn("end_line", anchors[0])
+            self.assertLessEqual(json.loads(result.stdout)["output_budget"]["estimated_tokens"], 1500)
+
+            persisted = json.loads(
+                (self.project_memory_dir(project) / "runtime" / "last_context.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            persisted_anchor = persisted["query_handoff"]["code_anchors"][0]
+            self.assertNotIn("webm-local-only", json.dumps(persisted))
+            self.assertNotIn("source_excerpts", persisted_anchor)
+            self.assertTrue(persisted_anchor["source_excerpt_metadata"])
+
+    def test_exact_path_segment_prioritizes_distinct_login_files(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            login = project / "features" / "home" / "pages" / "Login"
+            login.mkdir(parents=True)
+            for name in ("PhoneNumber", "VerifyCode", "Password"):
+                (login / f"{name}.ets").write_text(
+                    f"@Component\nstruct {name} {{\n"
+                    f"  submit{name}() {{}}\n"
+                    f"  build() {{ $r('app.string.login_{name.lower()}_hint') }}\n"
+                    "}\n",
+                    encoding="utf-8",
+                )
+            pages = login.parent
+            (pages / "Index.ets").write_text(
+                "@Component\nstruct Index {\n"
+                "  Navigation() {}\n"
+                "  build() {}\n"
+                "}\n",
+                encoding="utf-8",
+            )
+            chat = project / "features" / "home" / "viewmodel" / "Chat"
+            chat.mkdir(parents=True)
+            (chat / "ChatDetailViewModel.ets").write_text(
+                "class ChatDetailViewModel {\n"
+                "  startAppletAbility() {}\n"
+                "}\n",
+                encoding="utf-8",
+            )
+
+            self.run_memory(project, "learn-path", "--path", "features")
+            result = self.run_memory(
+                project,
+                "context",
+                "--query",
+                "Repeated taps on login actions while authentication is pending can start duplicate requests and conflicting navigation transitions.",
+                "--compact",
+                "--json",
+            )
+            anchors = json.loads(result.stdout)["query_handoff"]["code_anchors"]
+
+            self.assertEqual(
+                {
+                    "features/home/pages/Login/PhoneNumber.ets",
+                    "features/home/pages/Login/VerifyCode.ets",
+                    "features/home/pages/Login/Password.ets",
+                },
+                {item["file_path"] for item in anchors[:3]},
+            )
+            self.assertTrue(all(item["source_ranges"] for item in anchors[:3]))
 
     def test_log_semantic_fields_enrich_query_handoff(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

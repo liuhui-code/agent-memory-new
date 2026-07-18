@@ -5,10 +5,21 @@ from __future__ import annotations
 from typing import Any
 
 
-POLICY_NAME = "anchor_first_gap_driven_v4"
+POLICY_NAME = "anchor_first_deterministic_expansion_v8"
+RUNNER_TELEMETRY_POLICIES = {
+    "anchor_first_gap_driven_v4",
+    "anchor_first_sufficient_evidence_v5",
+    "anchor_first_ledgered_stop_v6",
+    "anchor_first_search_ledger_v7",
+    POLICY_NAME,
+}
+READ_LEDGER_POLICIES = {"anchor_first_ledgered_stop_v6"}
+DETERMINISTIC_EXPANSION_POLICIES = {POLICY_NAME}
 PRIMARY_ANCHOR_LIMIT = 3
 EXPANSION_ANCHOR_LIMIT = 2
 SOURCE_SEARCH_LIMIT = 3
+SOURCE_READS_PER_FILE_LIMIT = 2
+SOURCE_READ_LINE_LIMIT = 180
 EXPANSION_ROUND_LIMIT = 2
 FILES_PER_EXPANSION_LIMIT = 2
 SOURCE_FILE_LIMIT = PRIMARY_ANCHOR_LIMIT + (
@@ -55,6 +66,8 @@ def exploration_contract() -> dict[str, Any]:
             "round_files": FILES_PER_EXPANSION_LIMIT,
             "searches": SOURCE_SEARCH_LIMIT,
             "files": SOURCE_FILE_LIMIT,
+            "reads_per_file": SOURCE_READS_PER_FILE_LIMIT,
+            "read_lines": SOURCE_READ_LINE_LIMIT,
         },
     }
 
@@ -97,18 +110,30 @@ def observation_within_budget(observation: dict[str, Any]) -> bool:
     investigated_files = set(observation.get("investigated_files") or [])
     trace = observation.get("expansion_trace") or []
     trace_reported = bool(observation.get("expansion_trace_reported"))
-    valid_reasons = valid_expansion_audit(
-        rounds,
-        reasons,
-        trace,
-        trace_reported,
-        investigated_files,
-        expanded_files,
+    valid_reasons = (
+        deterministic_expansion_audit(
+            observation,
+            rounds,
+            reasons,
+            trace,
+            investigated_files,
+            expanded_files,
+        )
+        if uses_deterministic_expansion(observation)
+        else valid_expansion_audit(
+            rounds,
+            reasons,
+            trace,
+            trace_reported,
+            investigated_files,
+            expanded_files,
+        )
     )
     return (
         source_files <= SOURCE_FILE_LIMIT
         and int(observation.get("source_search_count") or 0) <= SOURCE_SEARCH_LIMIT
         and source_search_audit_valid(observation)
+        and source_read_audit_valid(observation)
         and int(observation.get("non_anchor_file_count") or 0)
         <= rounds * FILES_PER_EXPANSION_LIMIT
         and rounds <= EXPANSION_ROUND_LIMIT
@@ -130,13 +155,78 @@ def source_search_audit_valid(observation: dict[str, Any]) -> bool:
     metadata = observation.get("runner_metadata")
     if not isinstance(metadata, dict):
         return True
-    is_current_codex = (
+    is_audited_codex = (
         metadata.get("runner") == "codex_cli"
-        and metadata.get("retrieval_policy") == POLICY_NAME
+        and metadata.get("retrieval_policy") in RUNNER_TELEMETRY_POLICIES
     )
-    return not is_current_codex or (
+    return not is_audited_codex or (
         observation.get("source_search_count_source") == "runner_telemetry"
     )
+
+
+def source_read_audit_valid(observation: dict[str, Any]) -> bool:
+    metadata = observation.get("runner_metadata")
+    if not isinstance(metadata, dict):
+        return True
+    is_ledgered_codex = (
+        metadata.get("runner") == "codex_cli"
+        and metadata.get("retrieval_policy") in READ_LEDGER_POLICIES
+    )
+    return not is_ledgered_codex or (
+        bool(observation.get("cost_metrics_reported"))
+        and int(observation.get("source_read_count") or 0)
+        <= int(observation.get("source_file_count") or 0)
+    )
+
+
+def uses_deterministic_expansion(observation: dict[str, Any]) -> bool:
+    metadata = observation.get("runner_metadata")
+    return (
+        isinstance(metadata, dict)
+        and metadata.get("runner") == "codex_cli"
+        and metadata.get("retrieval_policy") in DETERMINISTIC_EXPANSION_POLICIES
+    )
+
+
+def deterministic_expansion_audit(
+    observation: dict[str, Any],
+    rounds: int,
+    reasons: Any,
+    trace: Any,
+    investigated_files: set[str],
+    expanded_files: int,
+) -> bool:
+    reported_count = int(observation.get("expansion_file_count") or 0)
+    expected_rounds = (
+        expanded_files + FILES_PER_EXPANSION_LIMIT - 1
+    ) // FILES_PER_EXPANSION_LIMIT
+    if (
+        observation.get("expansion_accounting_source")
+        != "runner_investigated_files"
+        or reported_count != expanded_files
+        or rounds != expected_rounds
+        or rounds > EXPANSION_ROUND_LIMIT
+        or not isinstance(reasons, list)
+        or not isinstance(trace, list)
+    ):
+        return False
+    if expanded_files == 0:
+        return not reasons and not trace
+    if not 1 <= len(reasons) <= rounds or len(trace) != len(reasons):
+        return False
+    traced_files: set[str] = set()
+    for index, step in enumerate(trace):
+        if not isinstance(step, dict) or step.get("reason") != reasons[index]:
+            return False
+        if reasons[index] not in ALLOWED_EXPANSION_REASONS:
+            return False
+        files = step.get("files")
+        if not isinstance(files, list) or not 1 <= len(files) <= FILES_PER_EXPANSION_LIMIT:
+            return False
+        if len(set(files)) != len(files) or traced_files & set(files):
+            return False
+        traced_files.update(files)
+    return traced_files <= investigated_files
 
 
 def valid_expansion_audit(

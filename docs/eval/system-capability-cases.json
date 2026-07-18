@@ -1,0 +1,591 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "docs/eval/fixtures/system-capability",
+  "generated_at": "2026-07-18T00:00:00Z",
+  "generator": "reviewed-system-capability/v1",
+  "cases": [
+    {
+      "id": "context-log-session-emitter",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The runtime line says profile load failed session invalid. Find the useful log identity and source emitter."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The runtime line says profile load failed session invalid. Find the useful log identity and source emitter."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Locate the source log emitter for the observed line profile load failed session invalid."
+        },
+        {
+          "id": "zh-noise",
+          "description": "用户只提供一行流水日志 profile load failed session invalid，请返回相关日志关键字和源码位置，不要分析根因。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/services/ProfileService.ets"],
+        "forbidden_files": ["src/network/NetworkClient.ets"],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_keywords": ["session invalid"],
+          "required_log_files": ["src/services/ProfileService.ets"],
+          "forbidden_log_keywords": ["generic network timeout"],
+          "forbidden_log_files": ["src/network/NetworkClient.ets"],
+          "require_source_excerpt": true
+        }
+      }
+    },
+    {
+      "id": "context-log-payment-noise",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The runtime line says payment duplicate order rejected. Find its emitter without following generic network timeout noise."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The runtime line says payment duplicate order rejected. Find its emitter without following generic network timeout noise."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Observed payment duplicate order rejected; locate its emitter and ignore generic network timeout."
+        },
+        {
+          "id": "zh-noise",
+          "description": "流水日志命中 payment duplicate order rejected，请定位发射代码，排除 generic network timeout 干扰。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/services/PaymentService.ets"],
+        "forbidden_files": ["src/network/NetworkClient.ets"],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_keywords": ["duplicate order rejected"],
+          "required_log_files": ["src/services/PaymentService.ets"],
+          "forbidden_log_keywords": ["generic network timeout"],
+          "forbidden_log_files": ["src/network/NetworkClient.ets"],
+          "require_source_excerpt": true
+        }
+      }
+    },
+    {
+      "id": "context-experience-correction-guard",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "In current ProfileService code, what does a session refresh 401 mean?"
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "In current ProfileService code, what does a session refresh 401 mean?"
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Explain the current business meaning of ProfileService session refresh 401."
+        },
+        {
+          "id": "zh-noise",
+          "description": "当前 ProfileService 的 session refresh 401 业务含义是什么？"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "context_setup": {
+        "reflections": [
+          {
+            "experience_type": "correction_experience",
+            "task": "401 means invalid session correction",
+            "summary": "A session refresh 401 means the session is invalid, not a generic timeout.",
+            "lesson": "Treat 401 as session invalidation in the current service.",
+            "trigger_condition": "current ProfileService session refresh 401 meaning",
+            "repair_action": "inspect session invalidation and re-authentication",
+            "anti_pattern": "retry every failure as a network timeout",
+            "verification_method": "reviewed current session contract",
+            "source_cases": ["fixture:session-contract"],
+            "confidence": 0.9
+          },
+          {
+            "experience_type": "procedure_experience",
+            "task": "retry every failure legacy workflow",
+            "summary": "Retry every failure before inspecting its status.",
+            "lesson": "Use a generic retry first.",
+            "trigger_condition": "service failure",
+            "repair_action": "retry every failure",
+            "verification_method": "worked once in a legacy project",
+            "source_cases": ["fixture:legacy-retry"],
+            "confidence": 0.8
+          }
+        ]
+      },
+      "oracle": {
+        "expected_files": ["src/services/ProfileService.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": false,
+          "required_experience_types": ["correction_experience"],
+          "required_guard_experience_phrases": ["401 means invalid session correction"],
+          "forbidden_main_experience_phrases": ["retry every failure legacy workflow"]
+        }
+      }
+    },
+    {
+      "id": "context-experience-procedure-and-guard",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Use the bounded session retry workflow to diagnose profile load failed."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Use the bounded session retry workflow to diagnose profile load failed."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "How should the bounded session retry workflow be applied when profile load failed?"
+        },
+        {
+          "id": "zh-noise",
+          "description": "profile load failed 时，如何执行 bounded session retry workflow，同时注意 session recovery 的纠正规则？"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "context_setup": {
+        "reflections": [
+          {
+            "experience_type": "procedure_experience",
+            "task": "bounded session retry workflow",
+            "summary": "Inspect status, refresh once, then require re-authentication.",
+            "lesson": "Bound retries and verify session state.",
+            "trigger_condition": "profile load failed session invalid",
+            "repair_action": "inspect status then perform one bounded refresh",
+            "verification_method": "verified with session transition tests",
+            "source_cases": ["fixture:bounded-session-retry"],
+            "does_not_apply_to": "generic network timeout",
+            "confidence": 0.9
+          },
+          {
+            "experience_type": "correction_experience",
+            "task": "cache is not session recovery correction",
+            "summary": "Clearing cache does not repair an invalid session.",
+            "lesson": "Keep cache cleanup out of session recovery.",
+            "trigger_condition": "profile load failed session invalid",
+            "repair_action": "inspect session state instead of clearing cache",
+            "anti_pattern": "clear cache for invalid session",
+            "verification_method": "reviewed state transition",
+            "source_cases": ["fixture:session-cache-boundary"],
+            "confidence": 0.9
+          }
+        ]
+      },
+      "oracle": {
+        "expected_files": ["src/services/ProfileService.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": false,
+          "required_main_experience_phrases": ["bounded session retry workflow"],
+          "required_guard_experience_phrases": ["cache is not session recovery correction"]
+        }
+      }
+    },
+    {
+      "id": "context-causal-profile-path",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Given the exact runtime line profile load failed session invalid, return the bounded source path that can emit it."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Given the exact runtime line profile load failed session invalid, return the bounded source path that can emit it."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Starting from observed log profile load failed session invalid, show the bounded caller-to-emitter code path."
+        },
+        {
+          "id": "zh-noise",
+          "description": "已知真实日志 profile load failed session invalid，请给出从页面入口到日志发射点的有界代码调用路径。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/services/ProfileService.ets"],
+        "forbidden_files": ["src/services/CacheService.ets"],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_files": ["src/services/ProfileService.ets"],
+          "required_path_files": [
+            "src/pages/ProfilePage.ets",
+            "src/services/ProfileService.ets"
+          ],
+          "required_path_relations": ["calls"],
+          "forbidden_path_files": ["src/services/CacheService.ets"],
+          "min_path_candidates": 1
+        }
+      }
+    },
+    {
+      "id": "context-causal-payment-path",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Given the exact runtime line payment duplicate order rejected, return the bounded source path that can emit it."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Given the exact runtime line payment duplicate order rejected, return the bounded source path that can emit it."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Reconstruct a bounded source path for the observed payment duplicate order rejected log line."
+        },
+        {
+          "id": "zh-noise",
+          "description": "只根据日志 payment duplicate order rejected 还原候选调用路径，并排除 NetworkClient 的 generic network timeout 分支。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/services/PaymentService.ets"],
+        "forbidden_files": ["src/network/NetworkClient.ets"],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_files": ["src/services/PaymentService.ets"],
+          "required_path_files": [
+            "src/pages/CheckoutPage.ets",
+            "src/services/PaymentService.ets"
+          ],
+          "required_path_relations": ["calls"],
+          "forbidden_path_files": ["src/network/NetworkClient.ets"],
+          "min_path_candidates": 1
+        }
+      }
+    },
+    {
+      "id": "context-cross-component-preview",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Message rows and quoted-message previews render inconsistent text sizes. Return both UI source contexts."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Message rows and quoted-message previews render inconsistent text sizes. Return both UI source contexts."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Locate the typography code for message rows and quoted message previews."
+        },
+        {
+          "id": "zh-noise",
+          "description": "消息列表 MessageRow 和引用消息预览 QuotedMessagePreview 的文字大小不一致，请返回两个组件源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": [
+          "src/views/MessageRow.ets",
+          "src/views/QuotedMessagePreview.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "src/views/MessageRow.ets",
+              "start_line": 8,
+              "end_line": 16
+            },
+            {
+              "file_path": "src/views/QuotedMessagePreview.ets",
+              "start_line": 5,
+              "end_line": 12
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-log-dense-source-reserve",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The runtime line says attachment download failed after cache write. Return its emitter, bounded caller path, and current source window."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The runtime line says attachment download failed after cache write. Return its emitter, bounded caller path, and current source window."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "From observed attachment download failed after cache write, locate the source emitter and its bounded caller path."
+        },
+        {
+          "id": "zh-noise",
+          "description": "流水日志 attachment download failed after cache write 周围还有多条 attachment 日志，请保留正确发射点、调用路径和源码窗口。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/services/AttachmentService.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_files": ["src/services/AttachmentService.ets"],
+          "required_path_files": [
+            "src/pages/DownloadsPage.ets",
+            "src/services/AttachmentService.ets"
+          ],
+          "required_path_relations": ["awaits"],
+          "min_path_candidates": 1,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.33,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "src/services/AttachmentService.ets",
+              "start_line": 4,
+              "end_line": 14
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-component-property-flow",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Event bubbles repeat a category label. Return the UI source chain that decides, forwards, and renders label visibility."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Event bubbles repeat a category label. Return the UI source chain that decides, forwards, and renders label visibility."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Locate the component property flow from the timeline list to the bubble that controls whether a category header is shown."
+        },
+        {
+          "id": "zh-noise",
+          "description": "时间线连续项目重复显示分类标题，请查找 TimelinePage、TimelineRow 到 EventBubble 的属性计算、透传和渲染源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": [
+          "src/pages/TimelinePage.ets",
+          "src/views/TimelineRow.ets",
+          "src/views/EventBubble.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 4,
+          "min_anchor_precision": 0.75,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "src/pages/TimelinePage.ets",
+              "start_line": 12,
+              "end_line": 29
+            },
+            {
+              "file_path": "src/views/TimelineRow.ets",
+              "start_line": 9,
+              "end_line": 18
+            },
+            {
+              "file_path": "src/views/EventBubble.ets",
+              "start_line": 8,
+              "end_line": 19
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-query-conditioned-component-lineage",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The compact filter toggle uses the wrong height. Return the component chain that computes, forwards, and renders dense mode."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The compact filter toggle uses the wrong height. Return the component chain that computes, forwards, and renders dense mode."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Locate FilterToggle height behavior and trace denseMode back through CatalogFilterPanel to its page owner."
+        },
+        {
+          "id": "zh-noise",
+          "description": "筛选按钮紧凑模式高度错误，请返回 CatalogPage、CatalogFilterPanel、FilterToggle 的属性计算、透传和渲染位置，忽略 suggestion 组件。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": [
+          "src/pages/CatalogPage.ets",
+          "src/views/CatalogFilterPanel.ets",
+          "src/views/FilterToggle.ets"
+        ],
+        "forbidden_files": ["src/views/CatalogFilterSuggestion.ets"],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 4,
+          "min_anchor_precision": 0.75,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "src/pages/CatalogPage.ets",
+              "start_line": 6,
+              "end_line": 17
+            },
+            {
+              "file_path": "src/views/CatalogFilterPanel.ets",
+              "start_line": 4,
+              "end_line": 13
+            },
+            {
+              "file_path": "src/views/FilterToggle.ets",
+              "start_line": 2,
+              "end_line": 9
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-arkts-ui-operation-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The inventory list separator has the wrong thickness. Return the ArkTS behavior owner and current source window."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The inventory list separator has the wrong thickness. Return the ArkTS behavior owner and current source window."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Locate the inventory divider stroke width implementation."
+        },
+        {
+          "id": "zh-noise",
+          "description": "库存列表分隔线粗细错误，请定位 divider 的源码，不要返回 InventoryRecord 或 InventoryItem。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/views/InventoryList.ets"],
+        "forbidden_files": [
+          "src/entities/InventoryRecord.ets",
+          "src/views/InventoryItem.ets"
+        ],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "src/views/InventoryList.ets",
+              "start_line": 6,
+              "end_line": 14
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-no-evidence-abstention",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Find project evidence for the unmapped incident marker ZXQ991_UNMAPPED."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Find project evidence for the unmapped incident marker ZXQ991_UNMAPPED."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Locate the source and logs for unknown telemetry nonce ZXQ991_UNMAPPED."
+        },
+        {
+          "id": "zh-noise",
+          "description": "定位不存在的事件 ZXQ991_UNMAPPED，检查项目中是否有对应日志或代码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/NoEvidence.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "unknown",
+        "expected_causal_level": "insufficient",
+        "context_requirements": {
+          "require_expected_anchors": false,
+          "require_abstention": true,
+          "required_evidence_gaps": ["no_code_anchor", "no_log_anchor"]
+        }
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "fixture_records_are_reviewed_and_synthetic": true
+  }
+}

@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 import sqlite3
 import subprocess
+from pathlib import Path
 from typing import Any
 
 from .code_wiki_extractors import extract_arkts_reference_symbols
@@ -281,6 +282,7 @@ def annotate_extracted_edges(
               WHEN 'uses_resource' THEN 'static_resource'
               WHEN 'defines_state' THEN 'static_state'
               WHEN 'renders_component' THEN 'static_component_composition'
+              WHEN 'passes_property' THEN 'static_component_property_flow'
               WHEN 'uses_service' THEN 'static_service_use'
               WHEN 'dispatches_event' THEN 'static_event_dispatch'
               WHEN 'handles_event' THEN 'static_event_binding'
@@ -313,6 +315,11 @@ def insert_arkts_knowledge_edges(
     ts: str,
 ) -> None:
     file_ids = {row["file_path"]: row["id"] for row in all_files}
+    named_route_files: dict[str, list[Path]] = {}
+    for file_path in file_ids:
+        named_route_files.setdefault(Path(file_path).stem, []).append(
+            project.root / file_path
+        )
     symbol_ids = {
         (row["file_path"], row["symbol"], row["symbol_type"]): row["id"]
         for row in symbols
@@ -345,7 +352,12 @@ def insert_arkts_knowledge_edges(
                     ts,
                 )
 
-        for target in resolve_arkts_router_targets(project, source_abs, text):
+        route_targets = set(resolve_arkts_router_targets(project, source_abs, text))
+        for route, kind in extract_arkts_reference_symbols(text):
+            named_targets = named_route_files.get(route, [])
+            if kind == "route" and len(named_targets) == 1:
+                route_targets.add(named_targets[0])
+        for target in sorted(route_targets):
             target_rel = relative_project_path(project, target)
             target_id = file_ids.get(target_rel)
             if target_id:

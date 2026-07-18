@@ -12,12 +12,24 @@ from .incident_trace_query import collect_incident_trace_matches
 from .log_signal_quality import score_log_signal
 from .models import Project, QUERY_FTS_RECALL_LIMITS
 from .quality_scoring import score_reflection_quality, score_semantic_quality
-from .query_edges import collect_related_edges
+from .query_edges import collect_related_edge_candidates
+from .query_code_focus import score_file_behavior_match
 from .query_followups import FOCUS_PRIORITY_TERMS, focus_from_query
+from .query_graph_neighbors import collect_result_graph_neighbors
 from .records import memory_warning, row_dict
 from .retrieval_feedback import collect_feedback_adjustments
 from .storage import connect
-from .text import code_search_terms, json_list, query_tokens, score_weighted_fields, tokenize, unique_list
+from .text import (
+    bounded_query_tokens,
+    code_search_terms,
+    json_list,
+    matching_code_path_segments,
+    query_tokens,
+    score_identifier_identity,
+    score_weighted_fields,
+    tokenize,
+    unique_list,
+)
 
 FTS_TABLES = {
     "semantic_facts": "semantic_fact_fts",
@@ -27,7 +39,6 @@ FTS_TABLES = {
     "code_symbols": "code_symbol_fts",
     "code_log_statements": "code_log_fts",
 }
-
 
 LIKE_RECALL_COLUMNS = {
     "semantic_facts": ("fact", "source", "category", "scope", "evidence"),
@@ -59,10 +70,10 @@ LIKE_RECALL_COLUMNS = {
 
 
 def fts_match_expression(query: str) -> str | None:
-    tokens = unique_list([token for token in query_tokens(query) if len(token) > 1])
+    tokens = unique_list([token for token in bounded_query_tokens(query, 12) if len(token) > 1])
     if not tokens:
         return None
-    quoted = ['"' + token.replace('"', '""') + '"*' for token in tokens[:12]]
+    quoted = ['"' + token.replace('"', '""') + '"*' for token in tokens]
     return " OR ".join(quoted)
 
 
@@ -366,6 +377,10 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
             ],
             [("exact_file_path", row["file_path"], 12.0)],
         )
+        score, reasons = apply_path_segment_identity(
+            query, row["file_path"], score, reasons
+        )
+        score, reasons = score_file_behavior_match(str(row["summary"] or ""), original_terms, score, reasons)
         if score:
             item = row_dict(row)
             item["kind"] = "file"
@@ -395,6 +410,15 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
                 ("exact_file_path", row["file_path"], 4.0),
             ],
         )
+        score, reasons = apply_path_segment_identity(
+            query, row["file_path"], score, reasons
+        )
+        score += score_identifier_identity(query, row["symbol"])
+        if row["symbol_type"] == "resource":
+            score -= 8.0
+        elif score > 0 and row["start_line"] and row["end_line"]:
+            score += 2.0
+            reasons = unique_list([*reasons, "source_locatable"])
         if score:
             item = row_dict(row)
             item["kind"] = "symbol"
@@ -453,8 +477,24 @@ def collect_matches(project: Project, query: str) -> dict[str, list[dict[str, An
     for item in results["code_log_matches"]:
         edge_targets["code_log_statement"].add(int(item["id"]))
     if any(edge_targets.values()):
-        results["edge_matches"] = collect_related_edges(project, edge_targets)
+        results["edge_matches"] = collect_related_edge_candidates(project, edge_targets)
+        results["wiki_matches"].extend(collect_result_graph_neighbors(project, results, query))
 
     for key in results:
         results[key].sort(key=lambda item: (item.get("rerank_score", item.get("score", 0)), item.get("created_at", "")), reverse=True)
     return results
+
+
+def apply_path_segment_identity(
+    query: str,
+    file_path: str,
+    score: float,
+    reasons: list[str],
+) -> tuple[float, list[str]]:
+    matches = matching_code_path_segments(query, file_path)
+    if not matches:
+        return score, reasons
+    return score + 20.0 + 2.0 * (len(matches) - 1), unique_list([
+        *reasons,
+        "exact_path_segment",
+    ])

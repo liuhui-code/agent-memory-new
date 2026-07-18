@@ -9,10 +9,33 @@ from .records import row_dict
 from .storage import connect
 
 BATCHED_EDGE_TARGET_SIZE = 200
+EDGE_RECALL_MULTIPLIER = 4
+FILE_BACKED_ENTITY_TABLES = {
+    "code_symbol": "code_symbols",
+    "code_log_statement": "code_log_statements",
+}
+RELATION_PRIORITY = {
+    "passes_property": 4,
+    "renders_component": 3,
+    "routes_to": 2,
+    "imports": 1,
+}
 
 
-def collect_related_edges(project: Project, targets: dict[str, set[int]]) -> list[dict[str, Any]]:
+def collect_related_edge_candidates(
+    project: Project,
+    targets: dict[str, set[int]],
+) -> list[dict[str, Any]]:
+    return collect_related_edges(project, targets, EDGE_RECALL_MULTIPLIER)
+
+
+def collect_related_edges(
+    project: Project,
+    targets: dict[str, set[int]],
+    recall_multiplier: int = 1,
+) -> list[dict[str, Any]]:
     edge_map: dict[int, dict[str, Any]] = {}
+    edge_limit = NETWORK_EDGE_LIMIT * max(1, recall_multiplier)
 
     def chunked(values: list[int], size: int) -> list[list[int]]:
         return [values[index : index + size] for index in range(0, len(values), size)]
@@ -26,8 +49,30 @@ def collect_related_edges(project: Project, targets: dict[str, set[int]]) -> lis
                 continue
             for id_batch in chunked(ordered_ids, BATCHED_EDGE_TARGET_SIZE):
                 placeholders = ",".join("?" for _ in id_batch)
+                node_table = FILE_BACKED_ENTITY_TABLES.get(entity_type)
+                file_cte = ""
+                file_clauses = ""
+                file_parameters: list[Any] = []
+                if node_table:
+                    file_cte = f"""
+                    WITH matched_files AS (
+                      SELECT files.id
+                      FROM code_files AS files
+                      JOIN {node_table} AS nodes
+                        ON nodes.project_id = files.project_id
+                       AND nodes.file_path = files.file_path
+                      WHERE nodes.project_id = ?
+                        AND nodes.id IN ({placeholders})
+                    )
+                    """
+                    file_clauses = """
+                        OR (source_type = 'code_file' AND source_id IN (SELECT id FROM matched_files))
+                        OR (target_type = 'code_file' AND target_id IN (SELECT id FROM matched_files))
+                    """
+                    file_parameters = [project.project_id, *id_batch]
                 rows = conn.execute(
                     f"""
+                    {file_cte}
                     SELECT *
                     FROM memory_edges
                     WHERE project_id = ?
@@ -36,25 +81,40 @@ def collect_related_edges(project: Project, targets: dict[str, set[int]]) -> lis
                       AND (
                         (source_type = ? AND source_id IN ({placeholders}))
                         OR (target_type = ? AND target_id IN ({placeholders}))
+                        {file_clauses}
                       )
-                    ORDER BY confidence DESC, id DESC
+                    ORDER BY CASE
+                      WHEN relation = 'passes_property' THEN 4
+                      WHEN relation = 'renders_component' THEN 3
+                      WHEN relation = 'routes_to' THEN 2
+                      WHEN relation = 'imports' THEN 1
+                      ELSE 0
+                    END DESC, confidence DESC, id DESC
                     LIMIT ?
                     """,
                     [
+                        *file_parameters,
                         project.project_id,
                         *allowed_relations,
                         entity_type,
                         *id_batch,
                         entity_type,
                         *id_batch,
-                        NETWORK_EDGE_LIMIT,
+                        edge_limit,
                     ],
                 ).fetchall()
                 for row in rows:
                     edge_map[row["id"]] = row_dict(row)
     edges = list(edge_map.values())
-    edges.sort(key=lambda item: (item.get("confidence", 0), item.get("id", 0)), reverse=True)
-    return edges[:NETWORK_EDGE_LIMIT]
+    edges.sort(
+        key=lambda item: (
+            RELATION_PRIORITY.get(str(item.get("relation") or ""), 0),
+            item.get("confidence", 0),
+            item.get("id", 0),
+        ),
+        reverse=True,
+    )
+    return edges[:edge_limit]
 
 
 
@@ -81,6 +141,10 @@ def evidence_reason(edge: dict[str, Any]) -> str:
         return "matched file connected by ArkTS import"
     if edge.get("relation") == "routes_to":
         return "matched file connected by ArkTS router target"
+    if edge.get("relation") == "passes_property":
+        return "matched ArkTS components connected by a property binding"
+    if edge.get("relation") == "renders_component":
+        return "matched ArkTS components connected by composition"
     if edge.get("relation") == "uses_resource":
         return "matched ArkTS resource used by learned file"
     return "matched node connected by allowed one-hop edge"

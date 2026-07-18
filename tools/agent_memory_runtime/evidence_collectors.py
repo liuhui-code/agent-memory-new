@@ -36,7 +36,7 @@ def collect_evidence_candidates(
         if row.get("experience_type") in {"correction_experience", "semantic_patch_experience"}
     ][:4]
     gated = gate_matches_by_intent(project, query, matches)
-    bounded = limited_matches(gated["matches"], SEARCH_RESULT_LIMITS)
+    bounded = limited_matches(gated["matches"], SEARCH_RESULT_LIMITS, query)
     calibrate_payload(bounded)
     items: list[EvidenceItem] = []
     for group, rows in bounded.items():

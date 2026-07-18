@@ -103,6 +103,19 @@
         "forbidden_files": [],
         "root_cause_category": "route",
         "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.25,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/views/Chat/ChatList.ets",
+              "start_line": 129,
+              "end_line": 160
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
         "verification_tests": []
       },
       "review": {
@@ -160,7 +173,7 @@
       "task_type": "diagnosis",
       "review_status": "draft",
       "task": {
-        "description": "Repeated taps on login actions while authentication is pending can start duplicate requests and conflicting navigation transitions.",
+        "description": "Repeated taps on phone, verification-code, or password login actions while authentication is pending can start duplicate requests and conflicting navigation transitions.",
         "constraints": ["Apply the same pending-state behavior to phone, verification-code, and password steps."]
       },
       "source": {
@@ -187,6 +200,29 @@
         "forbidden_files": [],
         "root_cause_category": "async",
         "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 1.0,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/pages/Login/Password.ets",
+              "start_line": 34,
+              "end_line": 55
+            },
+            {
+              "file_path": "features/home/src/main/ets/pages/Login/PhoneNumber.ets",
+              "start_line": 40,
+              "end_line": 63
+            },
+            {
+              "file_path": "features/home/src/main/ets/pages/Login/VerifyCode.ets",
+              "start_line": 34,
+              "end_line": 58
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
         "verification_tests": []
       },
       "review": {
@@ -229,6 +265,24 @@
         "forbidden_files": [],
         "root_cause_category": "media",
         "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/entities/Message.ets",
+              "start_line": 177,
+              "end_line": 270
+            },
+            {
+              "file_path": "features/home/src/main/ets/views/Message/MessageBubble.ets",
+              "start_line": 496,
+              "end_line": 800
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
         "verification_tests": []
       },
       "review": {
@@ -297,6 +351,19 @@
         "forbidden_files": [],
         "root_cause_category": "media",
         "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/views/Message/MessageBubble.ets",
+              "start_line": 506,
+              "end_line": 800
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
         "verification_tests": []
       },
       "review": {
@@ -337,6 +404,24 @@
         "forbidden_files": [],
         "root_cause_category": "state",
         "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/pages/Chat/ChatDetail.ets",
+              "start_line": 286,
+              "end_line": 315
+            },
+            {
+              "file_path": "features/home/src/main/ets/views/Message/MessageBubble.ets",
+              "start_line": 157,
+              "end_line": 196
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
         "verification_tests": []
       },
       "review": {

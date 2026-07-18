@@ -14,7 +14,7 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `episodes`: task history and outcome summaries.
 - `semantic_facts`: durable facts, preferences, and project knowledge.
 - `reflections`: lessons, mistakes, and future rules.
-- `code_files`: lightweight file-level wiki index.
+- `code_files`: lightweight file-level wiki index. ArkTS summaries may include at most 12 source-ordered chained operation names for lexical behavior lookup; operation arguments and source bodies are not stored.
 - `code_symbols`: lightweight symbol-level wiki index.
 - `code_log_statements`: log, print, and console statements extracted from learned source files.
 - `memory_edges`: lightweight relation edges between learned files, symbols, and log statements.
@@ -178,18 +178,21 @@ signal is not hidden by unrelated recent events.
 - `code_file --uses_resource--> code_symbol`
 - `code_file --defines_state--> code_symbol`
 - `code_file --renders_component--> code_symbol`
+- `code_file --passes_property--> code_symbol`
 - `code_file --uses_service--> code_symbol`
 - `code_file --dispatches_event/handles_event--> code_symbol`
 - `code_file --configured_by--> code_file`
 - `code_file --tested_by--> code_file`
 
-The ArkTS edges connect learned pages/components to imported project files, router target pages, `$r(...)` resources, state, component composition, services, events, Ability configuration, and naming-matched tests. Ambiguous symbol targets are skipped. These edges are intentionally lightweight and are not a complete call graph.
+The ArkTS edges connect learned pages/components to imported project files, router target pages, `$r(...)` resources, state, component composition, named component-property bindings, services, events, Ability configuration, and naming-matched tests. Property evidence records only top-level argument names, not values or source bodies. Ambiguous symbol targets are skipped. These edges are intentionally lightweight and are not a complete call graph or data-flow graph.
+
+Known ArkUI Builder calls are excluded from function-symbol extraction without suppressing project-defined uppercase methods. Chained operation names in `code_files.summary` are retrieval metadata only and do not create nodes or relations.
 
 `code_symbols` also carries nullable `semantic-index/v1` metadata: `symbol_key`, `qualified_name`, `signature`, `start_line`, `end_line`, `semantic_adapter`, `source_digest`, and `evidence_class`. ArkTS and TypeScript adapters may persist symbol-level `calls`, `reads_state`, `writes_state`, `implements`, `extends`, `overrides`, `registers_callback`, `exposes_api`, `consumes_api`, and `awaits` edges. The built-in adapters emit static evidence; exact compiler-derived evidence is reserved for future adapters.
 
 External provider run metrics are not SQLite memory records. Configured-provider attempts are mirrored to bounded `runtime/semantic_provider_runs.jsonl` operational telemetry with at most 200 compact rows. Raw ASTs, provider stdout, source content, and compiler diagnostics are not persisted.
 
-Query commands do not recursively traverse `memory_edges`. The fast path only returns allowed one-hop relations, currently `contains`, `emits_log`, `imports`, `routes_to`, and `uses_resource`, with hard output limits. Heavier network health checks belong to maintain commands.
+Public query edge output remains one hop and returns only allowed relations with hard output limits. Compact code-anchor ranking may separately walk `renders_component` and `passes_property` backwards for at most two hops and promote at most two source-locatable parents. This bounded navigation does not create a causal path or expose recursive graph output. Heavier network health checks belong to maintain commands.
 
 Each edge also carries governance metadata:
 

@@ -1,0 +1,176 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/Gramony",
+  "source_repository": "https://github.com/Gramony/Gramony",
+  "source_branch": "dev",
+  "source_head_reviewed": "0a1ee4b026b6736671f0030ba9859aceaa962298",
+  "generated_at": "2026-07-18T00:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "gramony-holdout-push-unregister",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After a user disables push notifications, local settings are cleared but the remote push delivery can remain active. Locate the source context responsible for unregistering the endpoint.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "3d1829b02ea88614e45ed31af117600c903469d3",
+        "after_revision": "77db5fe7c9bb12ee01aab47822ee79ea37987371",
+        "changed_files": [
+          "features/home/src/main/ets/pages/Contacts.ets",
+          "features/home/src/main/ets/utils/push.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "77db5fe7c9bb12ee01aab47822ee79ea37987371",
+        "commit_message": "fix: unregister push"
+      },
+      "oracle": {
+        "expected_files": ["features/home/src/main/ets/utils/push.ets"],
+        "forbidden_files": ["features/home/src/main/ets/pages/Contacts.ets"],
+        "root_cause_category": "integration",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/utils/push.ets",
+              "start_line": 134,
+              "end_line": 170
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Verify remote delivery stops after unregistering an active nickname."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "gramony-holdout-media-download-state",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A media download can report failure after the file has become usable, leaving the message bubble in a failed or loading state. Locate the state transition and error handling context.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "4daf2cf373c686e37963706eff6be5d622a8b02f",
+        "after_revision": "3ce2d4d7d35e295def050b197b43a81a3aa8b72a",
+        "changed_files": ["features/home/src/main/ets/views/Message/MessageBubble.ets"],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "3ce2d4d7d35e295def050b197b43a81a3aa8b72a",
+        "commit_message": "fix: `mediaLoaded` failed"
+      },
+      "oracle": {
+        "expected_files": ["features/home/src/main/ets/views/Message/MessageBubble.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/views/Message/MessageBubble.ets",
+              "start_line": 577,
+              "end_line": 603
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Reproduce a usable file paired with a rejected download promise."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "gramony-holdout-message-text-readability",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Message text, sender labels, timestamps, and replied-message previews render at inconsistent or unreadably small sizes. Locate the UI source contexts that define these text sizes.",
+        "constraints": ["Keep message and reply-preview typography consistent.", "Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "20448a3824bae9eefcd5e21e75bc2bd7db6433fc",
+        "after_revision": "89a7cf6eb2d0814884d609cabae5d1b6f783f0f7",
+        "changed_files": [
+          "features/home/src/main/ets/views/Message/MessageBubble.ets",
+          "features/home/src/main/ets/views/Message/ReplyToPreview.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "89a7cf6eb2d0814884d609cabae5d1b6f783f0f7",
+        "commit_message": "fix: adjust `fontSize` of `MessageBubble`"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/views/Message/MessageBubble.ets",
+          "features/home/src/main/ets/views/Message/ReplyToPreview.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/views/Message/MessageBubble.ets",
+              "start_line": 100,
+              "end_line": 360
+            },
+            {
+              "file_path": "features/home/src/main/ets/views/Message/ReplyToPreview.ets",
+              "start_line": 13,
+              "end_line": 70
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Compare message and reply-preview typography under the same display scale."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "sealed_before_first_run": true,
+    "tuning_after_execution_forbidden": true,
+    "raw_logs_persisted": false,
+    "source_diff_reviewed": true,
+    "runtime_verified": false
+  }
+}

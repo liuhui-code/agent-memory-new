@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from .agent_benchmark_cost import COST_METRIC_FIELDS, evaluate_efficiency
 from .source_exploration import source_exploration_within_budget
 
 
@@ -28,6 +29,10 @@ def evaluate_agent_benchmark(
     cases: list[dict[str, Any]],
     observations: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    selected_case_ids = {case["id"] for case in cases}
+    selected_observations = [
+        item for item in observations if item.get("case_id") in selected_case_ids
+    ]
     by_key: dict[tuple[str, str, int], dict[str, Any]] = {}
     duplicates: list[str] = []
     for item in observations:
@@ -56,15 +61,26 @@ def evaluate_agent_benchmark(
         "every_case_outcome_non_regression": every_case_non_regression(results),
         "trial_stability_non_regression": trial_stability_non_regression(results),
         "memory_root_cause_trial_stability": memory_root_cause_trial_stability(results),
-        "runner_configuration_consistent": runner_configuration_consistent(observations),
-        "memory_context_within_budget": memory_context_within_budget(observations),
-        "source_exploration_within_budget": source_exploration_within_budget(observations),
+        "runner_configuration_consistent": runner_configuration_consistent(
+            selected_observations
+        ),
+        "memory_context_within_budget": memory_context_within_budget(
+            selected_observations
+        ),
+        "source_exploration_within_budget": source_exploration_within_budget(
+            selected_observations
+        ),
     }
     gate = "pass" if all(checks.values()) else "fail"
+    efficiency = evaluate_efficiency(aggregates, selected_observations)
     return {
         "schema_version": "agent-benchmark-result/v1",
         "status": gate,
         "quality_gate": gate,
+        "promotion_gate": (
+            "pass" if gate == "pass" and efficiency["efficiency_gate"] == "pass"
+            else "fail"
+        ),
         "summary": {
             "case_count": len(cases),
             "observation_count": len(observations),
@@ -79,12 +95,14 @@ def evaluate_agent_benchmark(
         "metrics": aggregates,
         "context_uplift": deltas,
         "gate_checks": checks,
+        **efficiency,
         "minimum_case_count": minimum,
         "cases": results,
         "audit": {
             "llm_judge_used": False,
             "oracle_hidden_during_run": True,
             "reasoning_persisted": False,
+            "tool_output_persisted": False,
         },
     }
 
@@ -166,6 +184,8 @@ def aggregate_trial_scores(values: list[dict[str, Any]]) -> dict[str, Any]:
         "source_search_count_sources": sorted({
             item["source_search_count_source"] for item in values
         }),
+        **{key: average(values, key) for key in COST_METRIC_FIELDS},
+        "cost_metrics_reported": all(item["cost_metrics_reported"] for item in values),
         "token_estimate": average(values, "token_estimate"),
         "memory_context_bytes": average(values, "memory_context_bytes"),
         "memory_context_token_estimate": average(values, "memory_context_token_estimate"),
@@ -176,6 +196,10 @@ def aggregate_trial_scores(values: list[dict[str, Any]]) -> dict[str, Any]:
         "primary_anchor_hit_count": average(values, "primary_anchor_hit_count"),
         "non_anchor_file_count": average(values, "non_anchor_file_count"),
         "expansion_rounds": average(values, "expansion_rounds"),
+        "expansion_file_count": average(values, "expansion_file_count"),
+        "expansion_accounting_sources": sorted({
+            item["expansion_accounting_source"] for item in values
+        }),
         "expansion_reason_codes": sorted({
             reason for item in values for reason in item["expansion_reason_codes"]
         }),
@@ -230,6 +254,8 @@ def score_observation(case: dict[str, Any], observation: dict[str, Any]) -> dict
             "source_search_count_source", "agent_reported"
         ),
         "token_estimate": observation["token_estimate"],
+        **{key: observation.get(key, 0) for key in COST_METRIC_FIELDS},
+        "cost_metrics_reported": bool(observation.get("cost_metrics_reported")),
         "memory_context_bytes": observation.get("memory_context_bytes", 0),
         "memory_context_token_estimate": observation.get("memory_context_token_estimate", 0),
         "elapsed_ms": observation["elapsed_ms"],
@@ -239,6 +265,10 @@ def score_observation(case: dict[str, Any], observation: dict[str, Any]) -> dict
         "primary_anchor_hit_count": observation.get("primary_anchor_hit_count", 0),
         "non_anchor_file_count": observation.get("non_anchor_file_count", 0),
         "expansion_rounds": observation.get("expansion_rounds", 0),
+        "expansion_file_count": observation.get("expansion_file_count", 0),
+        "expansion_accounting_source": observation.get(
+            "expansion_accounting_source", "agent_trace"
+        ),
         "expansion_reason_codes": observation.get("expansion_reason_codes", []),
         "stop_reason": observation.get("stop_reason", "unreported"),
         "exploration_metrics_reported": bool(
@@ -283,6 +313,10 @@ def aggregate_variant(results: list[dict[str, Any]], variant: str) -> dict[str, 
         "average_query_rounds": average(values, "query_rounds"),
         "average_source_search_count": average(values, "source_search_count"),
         "average_token_estimate": average(values, "token_estimate"),
+        **{
+            f"average_{key}": average(values, key)
+            for key in COST_METRIC_FIELDS
+        },
         "average_memory_context_bytes": average(values, "memory_context_bytes"),
         "average_memory_context_token_estimate": average(values, "memory_context_token_estimate"),
         "average_elapsed_ms": average(values, "elapsed_ms"),
@@ -295,6 +329,7 @@ def aggregate_variant(results: list[dict[str, Any]], variant: str) -> dict[str, 
             sum(len(item["supporting_files"]) for item in values) / len(values), 4
         ) if values else None,
         "average_expansion_rounds": average(values, "expansion_rounds"),
+        "average_expansion_file_count": average(values, "expansion_file_count"),
         "reported_stop_reasons": sorted({
             str(item["stop_reason"])
             for item in values

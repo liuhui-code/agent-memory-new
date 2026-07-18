@@ -6,7 +6,17 @@ import re
 from pathlib import Path
 from typing import Any
 
+from .arkts_ui_behavior import extract_arkts_operation_names
 from .models import CODE_EXTENSIONS, IGNORE_DIRS
+
+
+ARKTS_BUILDER_COMPONENTS = {
+    "Blank", "Button", "Canvas", "Checkbox", "Column", "Divider", "Flex",
+    "ForEach", "Grid", "GridItem", "Image", "List", "ListItem", "Navigation",
+    "Navigator", "Progress", "Radio", "RelativeContainer", "Repeat", "Row",
+    "Scroll", "Search", "Select", "Slider", "Stack", "Swiper", "Tabs", "Text",
+    "TextArea", "TextInput", "Toggle", "Video", "WaterFlow",
+}
 
 def should_skip_dir(path: Path) -> bool:
     return any(part in IGNORE_DIRS for part in path.parts)
@@ -32,6 +42,7 @@ def summarize_file(path: Path, language: str) -> str:
         components = [name for name, kind in symbols if kind == "component"]
         routes = [name for name, kind in symbols if kind == "route"]
         resources = [name for name, kind in symbols if kind == "resource"]
+        operations = extract_arkts_operation_names(text)
         parts = [f"ArkTS file with {len(lines)} non-empty lines"]
         if components:
             parts.append("components: " + ", ".join(sorted(set(components))[:5]))
@@ -39,6 +50,8 @@ def summarize_file(path: Path, language: str) -> str:
             parts.append("routes: " + ", ".join(sorted(set(routes))[:5]))
         if resources:
             parts.append("resources: " + ", ".join(sorted(set(resources))[:5]))
+        if operations:
+            parts.append("operations: " + ", ".join(operations))
         return "; ".join(parts)
     if language == "HarmonyOS Config":
         symbols = extract_symbols(path, language)
@@ -126,6 +139,8 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
                     name = match.group(1).strip()
                 if name in {"if", "for", "while", "switch", "catch"}:
                     continue
+                if language == "ArkTS" and kind == "function" and name in ARKTS_BUILDER_COMPONENTS:
+                    continue
                 symbols.append((name, kind))
     if language == "ArkTS":
         symbols.extend(extract_arkts_reference_symbols(text))
@@ -141,6 +156,12 @@ def extract_arkts_reference_symbols(text: str) -> list[tuple[str, str]]:
         symbols.append((match.group(1), "event"))
     for match in re.finditer(
         r"\brouter\.(?:pushUrl|replaceUrl)\s*\(\s*\{[^}]*\burl\s*:\s*['\"]([^'\"]+)['\"]",
+        text,
+        re.DOTALL,
+    ):
+        symbols.append((match.group(1), "route"))
+    for match in re.finditer(
+        r"\.(?:pushPath|replacePath)\s*\(\s*\{[^}]*\bname\s*:\s*['\"]([^'\"]+)['\"]",
         text,
         re.DOTALL,
     ):
