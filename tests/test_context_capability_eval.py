@@ -9,7 +9,10 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from tools.agent_memory_runtime.benchmark_context_setup import validated_reflections
-from tools.agent_memory_runtime.context_capability import summarize_context
+from tools.agent_memory_runtime.context_capability import (
+    limit_scenario_cases,
+    summarize_context,
+)
 from tools.agent_memory_runtime.context_capability_cases import expand_context_cases
 from tools.agent_memory_runtime.context_capability_eval import (
     evaluate_context_capability,
@@ -34,6 +37,12 @@ from tools.agent_memory_runtime.query_handoff import strong_code_identity
 
 
 class ContextCapabilityEvalTests(unittest.TestCase):
+    def test_context_gate_runs_all_scenarios_unless_limit_is_explicit(self) -> None:
+        cases = [{"id": f"case-{index}"} for index in range(25)]
+
+        self.assertEqual(cases, limit_scenario_cases(cases, None))
+        self.assertEqual(cases[:4], limit_scenario_cases(cases, 4))
+
     def test_query_variants_expand_with_shared_oracle_and_bounded_ids(self) -> None:
         value = case()
         value["query_variants"] = [
@@ -275,6 +284,12 @@ class ContextCapabilityEvalTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             runtime = Path(directory)
             result = evaluate_context_capability([case()], [observation()])
+            result["failure_analysis"] = {
+                "status": "clear",
+                "primary_failure_class": None,
+                "failure_count": 0,
+            }
+            result["case_seal"] = {"status": "verified", "digest": "abc"}
             result["recorded_at"] = "2026-07-18T00:00:00Z"
             (runtime / "last_context_capability.json").write_text(
                 json.dumps(result), encoding="utf-8"
@@ -290,6 +305,8 @@ class ContextCapabilityEvalTests(unittest.TestCase):
         self.assertEqual("pass", summary["query_robustness_status"])
         self.assertEqual(1.0, summary["query_variant_pass_rate"])
         self.assertEqual([], summary["failed_case_ids"])
+        self.assertEqual("clear", summary["failure_analysis_status"])
+        self.assertEqual("verified", summary["case_seal_status"])
 
     def test_context_setup_accepts_only_bounded_reflection_fixtures(self) -> None:
         values = validated_reflections({"reflections": [{"task": "one"}]})

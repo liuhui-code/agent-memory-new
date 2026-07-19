@@ -1,0 +1,278 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/ccplayer",
+  "source_repository": "https://github.com/seagazer/ccplayer.git",
+  "source_branch": "main",
+  "source_head_reviewed": "92a09a15668548588a6198d2dbb559ab3081f4e7",
+  "generated_at": "2026-07-19T11:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "ccplayer-avsession-double-release",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Calling player release more than once can dereference an AVSession object that was already destroyed. Locate session cleanup ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "ab58679a21317b6de3809a9912680768a9a9ca72",
+        "after_revision": "4a6be261e67aa9ac9cf9fba9170754990fda329c",
+        "changed_files": [
+          "lib/BuildProfile.ets",
+          "lib/src/main/ets/core/AvSessionManager.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "4a6be261e67aa9ac9cf9fba9170754990fda329c",
+        "commit_message": "[hotfix] fix repeated release AVSession null dereference"
+      },
+      "oracle": {
+        "expected_files": [
+          "lib/src/main/ets/core/AvSessionManager.ets"
+        ],
+        "forbidden_files": [
+          "lib/src/main/ets/CcPlayer.ets",
+          "lib/src/main/ets/core/impl/AvPlayerImpl.ets"
+        ],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "lib/src/main/ets/core/AvSessionManager.ets",
+              "start_line": 89,
+              "end_line": 103
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Call release twice after session creation and verify the second call does not access the destroyed AVSession."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "ccplayer-surface-render-callback-order",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Video can flash when first-frame and size callbacks race with surface resize rendering. Locate frame readiness, measurement, and visibility ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "a85a036c4cf727cdc767caee5b1b693e424f9344",
+        "after_revision": "94fea99fd6cdec3d09cf31dc5278ae7362c71379",
+        "changed_files": [
+          "lib/src/main/ets/widget/CcPlayerView.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "94fea99fd6cdec3d09cf31dc5278ae7362c71379",
+        "commit_message": "[fix] fix probabilistic frame flash from callback and UI render ordering"
+      },
+      "oracle": {
+        "expected_files": [
+          "lib/src/main/ets/widget/CcPlayerView.ets"
+        ],
+        "forbidden_files": [
+          "lib/src/main/ets/core/AvPlayerImpl.ets",
+          "entry/src/main/ets/pages/VideoSample.ets"
+        ],
+        "root_cause_category": "concurrency",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "lib/src/main/ets/widget/CcPlayerView.ets",
+              "start_line": 108,
+              "end_line": 169
+            },
+            {
+              "file_path": "lib/src/main/ets/widget/CcPlayerView.ets",
+              "start_line": 188,
+              "end_line": 215
+            }
+          ],
+          "min_source_span_recall": 0.5
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Interleave first-frame and size callbacks during resize and verify visibility changes only after coherent frame and measurement state."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "ccplayer-first-failure-source-reset",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After the first media source fails before playback starts, loading another source still requires a manual reset. Locate played-state and source replacement ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "d67098446724a7de219a09f9f7d492b274c274e1",
+        "after_revision": "236b47b460731d090bb259e3b3a79a6539c140d7",
+        "changed_files": [
+          "lib_core/src/main/ets/core/impl/AvPlayerImpl.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "236b47b460731d090bb259e3b3a79a6539c140d7",
+        "commit_message": "[fix] remove manual reset requirement after first-play failure"
+      },
+      "oracle": {
+        "expected_files": [
+          "lib_core/src/main/ets/core/impl/AvPlayerImpl.ets"
+        ],
+        "forbidden_files": [
+          "lib_core/src/main/ets/CcPlayer.ets",
+          "lib_core/src/main/ets/overlay/CcControllerOverlay.ets"
+        ],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "lib_core/src/main/ets/core/impl/AvPlayerImpl.ets",
+              "start_line": 97,
+              "end_line": 102
+            },
+            {
+              "file_path": "lib_core/src/main/ets/core/impl/AvPlayerImpl.ets",
+              "start_line": 268,
+              "end_line": 277
+            }
+          ],
+          "min_source_span_recall": 0.5
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Fail the first source before playing, set a second source, and verify reset behavior is derived from source setup rather than a successful playing callback."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "ccplayer-prepared-control-state",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Playback speed, volume, and seek controls are rejected while media is prepared but has not started. Locate control-state eligibility ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "6e1936c6b3f562016c23365bc05be3963916c6c9",
+        "after_revision": "5531c1b643bb549a9ebd9fc951446e9508ff4162",
+        "changed_files": [
+          "lib_core/BuildProfile.ets",
+          "lib_core/src/main/ets/core/impl/AvPlayerImpl.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "5531c1b643bb549a9ebd9fc951446e9508ff4162",
+        "commit_message": "[fix] allow speed volume and seek controls in prepared state"
+      },
+      "oracle": {
+        "expected_files": [
+          "lib_core/src/main/ets/core/impl/AvPlayerImpl.ets"
+        ],
+        "forbidden_files": [
+          "lib_core/src/main/ets/CcPlayer.ets",
+          "lib_core/src/main/ets/overlay/CcControllerOverlay.ets"
+        ],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "lib_core/src/main/ets/core/impl/AvPlayerImpl.ets",
+              "start_line": 424,
+              "end_line": 436
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Prepare media without starting playback and verify speed, volume, and seek pass through the ready-state eligibility check."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "require_seal": true
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-19T10:59:10+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 4,
+    "digest": "1366b6a17fbeee8d2b38865b34252a6cec7f57d71991dc8e49f87fa3f7b7f7a5"
+  }
+}

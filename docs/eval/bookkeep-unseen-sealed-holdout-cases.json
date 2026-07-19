@@ -1,0 +1,210 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/bookkeep",
+  "source_repository": "https://github.com/Shen-An/bookkeep.git",
+  "source_branch": "master",
+  "source_head_reviewed": "baba9c329a78505352d9f07af9f7a901159fcbc6",
+  "generated_at": "2026-07-19T00:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "bookkeep-home-list-cannot-scroll",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The home page cannot scroll when the transaction list fills the viewport. Locate the page-level container and reusable list component that jointly own the vertical layout.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "86983e65e83d31342047519598dfca7aeb43891a",
+        "after_revision": "9e67f125dbae03b17ead48d0073ee0507e47c0c7",
+        "changed_files": [
+          "entry/src/main/ets/components/BalanceList.ets",
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "9e67f125dbae03b17ead48d0073ee0507e47c0c7",
+        "commit_message": "Repair home-page scrolling by correcting parent and list layout sizing"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/BalanceList.ets",
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.66,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/components/BalanceList.ets",
+              "start_line": 127,
+              "end_line": 142
+            },
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 78,
+              "end_line": 91
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Populate enough transactions to exceed the viewport and verify the full home page scrolls."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "bookkeep-month-totals-do-not-refresh",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Changing the selected month on the home page leaves income and expense totals unchanged. Locate the selected-date state owner and the aggregation logic that must react to it.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "53b5c2a0d6aa6f4d07d1421281946e605bfd062a",
+        "after_revision": "5a7884e9b6ce81b1a20b459d9d2aa9c45320ec14",
+        "changed_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "5a7884e9b6ce81b1a20b459d9d2aa9c45320ec14",
+        "commit_message": "Refresh and filter home totals when the selected month changes"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 18,
+              "end_line": 42
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Switch among months with different entries and verify both totals follow the selected month."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "bookkeep-expense-types-cover-input",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "On the transaction-entry page, the expense-type selector visually covers the numeric input area. Locate the page-level stacking and surface styling owner that separates the selector from the input controls.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "6ef3048e4518db56bf80816c8c999a596aad1ca9",
+        "after_revision": "16c59e1af1aace2c2f32d0a452d0fea17fdb5b7a",
+        "changed_files": [
+          "entry/oh-package.json5",
+          "entry/src/main/ets/data/balanceTypes.ets",
+          "entry/src/main/ets/pages/BillInfoPage.ets",
+          "entry/src/main/ets/pages/addBalance.ets",
+          "entry/src/main/module.json5",
+          "hvigor/hvigor-config.json5",
+          "oh-package-lock.json5"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "16c59e1af1aace2c2f32d0a452d0fea17fdb5b7a",
+        "commit_message": "Keep expense types from covering the transaction input surface"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/addBalance.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/addBalance.ets",
+              "start_line": 330,
+              "end_line": 370
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open expense entry across supported screen sizes and verify the selector and input controls remain visually separated."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-18T17:04:45+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "93cc937b9a639677e318b716746f36575c247de318ea23226c727b2009c67bc5"
+  }
+}

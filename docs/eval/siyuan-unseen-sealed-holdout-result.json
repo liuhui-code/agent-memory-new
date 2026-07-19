@@ -1,0 +1,97 @@
+{
+  "schema_version": "agent-context-capability-observation-summary/v1",
+  "case_file": "docs/eval/siyuan-unseen-sealed-holdout-cases.json",
+  "case_seal_digest": "19a16ba06d8b322cc5f66098b1c27a375506560e58d1fa6ca606d31e89763900",
+  "source_repository": "https://github.com/siyuan-note/siyuan-harmony.git",
+  "recorded_at": "2026-07-19T06:50:15+00:00",
+  "immutable_observation": true,
+  "audit_notes": [
+    "Each case was prepared from its audited full before revision and the sealed pack was executed exactly once."
+  ],
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 4,
+    "passed_case_count": 0,
+    "failed_case_count": 4,
+    "anchor_recall": 0.75,
+    "primary_anchor_recall": 0.75,
+    "oracle_anchor_precision": 0.2708,
+    "expected_anchor_mrr": 0.4583,
+    "source_excerpt_recall": 0.75,
+    "source_span_recall": 0.0,
+    "average_context_tokens": 1074.25,
+    "average_memory_prepare_ms": 2410.25,
+    "average_query_elapsed_ms": 1083.25
+  },
+  "failure_analysis": {
+    "primary_failure_class": "ranking_precision",
+    "root_failure_class": "mixed_candidate_generation_ranking_and_passage_selection",
+    "failure_class_counts": {
+      "candidate_generation": 1,
+      "passage_selection": 5,
+      "ranking_precision": 8
+    },
+    "interpretation": "Desktop focus and shared-record owners are recalled but retain forbidden neighbors and miss the audited methods. Archive extraction ownership is absent behind package metadata. Color parsing ownership is recalled too late with excess page noise. No case reaches its audited source span, while all contexts remain within budget."
+  },
+  "cases": [
+    {
+      "case_id": "siyuan-desktop-webview-focus-loss",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/JSHarmony.ets",
+        "entry/src/main/ets/pages/Main.ets",
+        "entry/src/main/ets/pages/Print.ets"
+      ]
+    },
+    {
+      "case_id": "siyuan-multiple-shared-records",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "expected_anchor_mrr": 0.5,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/entryability/ShorthandAbility.ets",
+        "entry/src/main/ets/pages/Shorthand.ets"
+      ]
+    },
+    {
+      "case_id": "siyuan-upgrade-stale-archive",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/Utils.ets"
+      ],
+      "observed_anchor_paths": [
+        "entry/build-profile.json5",
+        "entry/oh-package.json5",
+        "entry/src/main/module.json5"
+      ]
+    },
+    {
+      "case_id": "siyuan-status-bar-color-parsing",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "expected_anchor_mrr": 0.3333,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/JSHarmony.ets",
+        "entry/src/main/ets/pages/Main.ets",
+        "entry/src/main/ets/pages/PrivacyPolicyDialog.ets",
+        "entry/src/main/ets/pages/Utils.ets"
+      ]
+    }
+  ],
+  "policy": "Do not rerun or modify this sealed pack for tuning. Reproduce archive I/O candidate recall, shared-record aggregation precision, desktop focus ownership, color-parser precision, and method-level source focus in independent fixtures, then validate only on a new sealed pack."
+}

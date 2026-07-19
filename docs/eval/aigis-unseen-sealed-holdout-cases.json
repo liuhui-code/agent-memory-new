@@ -1,0 +1,254 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/Aigis",
+  "source_repository": "https://github.com/iamhyc/Aigis.git",
+  "source_branch": "master",
+  "source_head_reviewed": "585de9128882d868484438d32832ca9b9b50442d",
+  "generated_at": "2026-07-19T00:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "aigis-swipe-edit-opens-wrong-item",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Tapping the edit action on a swiped OTP row opens the sheet with the previously edited item's values. Locate the row action state handoff owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "063c0f693e3dbceee7b4e79b5d61e33f95fd3e02",
+        "after_revision": "f3a4e83b4e21ef9407d0b9928c8f46ad2624c984",
+        "changed_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "f3a4e83b4e21ef9407d0b9928c8f46ad2624c984",
+        "commit_message": "Populate the current row identity and schema before opening its edit sheet"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 345,
+              "end_line": 382
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Swipe two different OTP rows, edit them in sequence, and verify each sheet receives the tapped row's identity and schema."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "aigis-totp-uri-optional-parameters-rejected",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A valid otpauth TOTP URI without algorithm, period, or digits is rejected instead of using standard defaults. Locate the URI-to-TOTP construction owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "9c0c441a85cc65d74c4bcaca078a7e1346cf53b6",
+        "after_revision": "05cf69a373b9107601f3af7206b99cac8dbb5954",
+        "changed_files": [
+          "entry/src/main/ets/crypto/otpUtils.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "05cf69a373b9107601f3af7206b99cac8dbb5954",
+        "commit_message": "Apply RFC-compatible TOTP defaults when optional URI parameters are absent"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/crypto/otpUtils.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "integration",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/crypto/otpUtils.ets",
+              "start_line": 235,
+              "end_line": 270
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Parse a minimal TOTP URI and verify SHA1, 30-second period, and six digits are selected."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "aigis-empty-required-field-still-submits",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Saving an OTP item with an empty required field shows an error toast but still submits the invalid update. Locate the edit validation and update-dispatch owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "9c0c441a85cc65d74c4bcaca078a7e1346cf53b6",
+        "after_revision": "05cf69a373b9107601f3af7206b99cac8dbb5954",
+        "changed_files": [
+          "entry/src/main/ets/pages/ItemEditPage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "05cf69a373b9107601f3af7206b99cac8dbb5954",
+        "commit_message": "Stop item update dispatch after required-field validation fails"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/ItemEditPage.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/ItemEditPage.ets",
+              "start_line": 82,
+              "end_line": 115
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Leave every required field empty and verify no update event is emitted after validation reports the error."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "aigis-code-generation-usage-state-not-persisted",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Generating a valid OTP updates the displayed code, but its usage counter and last-used time remain unchanged after restart. Locate generation state and persistence ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "109a2fdd73991a29f9c16e20b44ac8bcf12eed9c",
+        "after_revision": "fe75ebbcb962bf981d989cd8315323a891c9d674",
+        "changed_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "fe75ebbcb962bf981d989cd8315323a891c9d674",
+        "commit_message": "Persist usage counter and last-used timestamp after successful OTP generation"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "persistence",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/entryability/EntryAbility.ets",
+              "start_line": 125,
+              "end_line": 165
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Generate an OTP, restart the app, and verify counter and last-used timestamp persist only after successful secret access."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-18T18:29:49+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 4,
+    "digest": "474f5fe5bf038a214c2efdb6a30235d0eaac86ac5c1da9b20c66d0baa0a6e057"
+  }
+}

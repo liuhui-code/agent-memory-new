@@ -49,7 +49,7 @@ ENGLISH_QUERY_STOPWORDS = {
 }
 
 GENERIC_CODE_PATH_TERMS = {
-    "common", "detail", "item", "main", "media", "service", "services",
+    "common", "content", "detail", "item", "main", "media", "service", "services",
     "src", "utils", "utility", "view", "views",
 }
 

@@ -243,8 +243,10 @@ def maintain_health(args: argparse.Namespace) -> None:
     if int(provider_health.get("fallbacks") or 0) >= 2:
         recommended_actions.append("Review repeated semantic-provider fallback reasons before trusting static-only graph coverage.")
     if agent_benchmark.get("quality_gate") == "fail":
+        failure_class = agent_benchmark.get("primary_failure_class")
         recommended_actions.append(
-            "Review the latest Agent A/B benchmark regressions before changing retrieval or design behavior."
+            "Review the latest Agent A/B benchmark regressions"
+            f"{f' ({failure_class})' if failure_class else ''} before changing retrieval or design behavior."
         )
     if agent_benchmark.get("efficiency_gate") == "fail":
         recommended_actions.append(
@@ -252,9 +254,14 @@ def maintain_health(args: argparse.Namespace) -> None:
         )
     if context_capability.get("system_context_gate") == "fail":
         failed = ", ".join(context_capability.get("failed_case_ids") or [])
+        failure_class = context_capability.get("primary_failure_class")
+        failure_suffix = (
+            f" Start with failure class {failure_class}." if failure_class else ""
+        )
         recommended_actions.append(
             "Repair the latest system context capability failures"
             f"{f': {failed}' if failed else ''} before another external Agent A/B."
+            f"{failure_suffix}"
         )
 
     data = {

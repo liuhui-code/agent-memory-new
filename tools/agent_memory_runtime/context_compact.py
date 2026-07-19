@@ -14,6 +14,7 @@ from .context_source_excerpt import (
     has_source_excerpt_candidate,
 )
 from .performance_scoring import estimate_payload_tokens
+from .query_behavior_concepts import behavior_marker_terms
 from .source_exploration import assign_anchor_roles, exploration_contract
 from .text import ENGLISH_QUERY_STOPWORDS
 
@@ -74,7 +75,9 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
         records(handoff.get("code_anchors")), path_context
     )
     code_anchors = assign_anchor_roles(
-        diverse_code_anchors(code_candidates, path_context["activated"])
+        diverse_code_anchors(
+            code_candidates, path_context["activated"], str(data.get("query") or "")
+        )
     )
     return {
         "schema_version": "agent-query-handoff-compact/v1",
@@ -131,7 +134,7 @@ def compact_path_context(value: Any) -> dict[str, Any]:
 def compact_path(item: dict[str, Any]) -> dict[str, Any]:
     nodes = records(item.get("nodes"))[:6]
     edges = records(item.get("edges"))[:5]
-    return {
+    compact = {
         "path_id": item.get("path_id"),
         "entry": compact_endpoint(item.get("entry")),
         "emitter": compact_endpoint(item.get("emitter")),
@@ -147,6 +150,11 @@ def compact_path(item: dict[str, Any]) -> dict[str, Any]:
         "source_revision": item.get("source_revision"),
         "complete": item.get("complete"),
         "truncated": item.get("truncated"),
+    }
+    optional_empty = {"uncertainty", "missing_segments", "source_revision"}
+    return {
+        key: value for key, value in compact.items()
+        if key not in optional_empty or value not in (None, "", [], {})
     }
 
 
@@ -201,10 +209,14 @@ def compact_code_anchor(item: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
-def diverse_code_anchors(value: Any, include_log_emitters: bool) -> list[dict[str, Any]]:
+def diverse_code_anchors(
+    value: Any,
+    include_log_emitters: bool,
+    query: str = "",
+) -> list[dict[str, Any]]:
     selected = []
     by_file: dict[str, dict[str, Any]] = {}
-    values = ordered_code_anchor_candidates(records(value), include_log_emitters)
+    values = ordered_code_anchor_candidates(records(value), include_log_emitters, query)
     for item in values:
         if (
             not include_log_emitters
@@ -232,11 +244,14 @@ def diverse_code_anchors(value: Any, include_log_emitters: bool) -> list[dict[st
 def ordered_code_anchor_candidates(
     values: list[dict[str, Any]],
     include_log_emitters: bool,
+    query: str = "",
 ) -> list[dict[str, Any]]:
     wiki = [item for item in values if item.get("source") != "log_emitter"]
     logs = [item for item in values if item.get("source") == "log_emitter"]
     if not include_log_emitters:
-        logs = [item for item in logs if item.get("identity_match")]
+        logs = [] if behavior_marker_terms(query) else [
+            item for item in logs if item.get("identity_match")
+        ]
     return [*wiki[:1], *logs[:1], *wiki[1:], *logs[1:]]
 
 
@@ -352,7 +367,10 @@ def enforce_budget(
     reductions = (
         lambda: handoff.__setitem__("relation_hints", handoff["relation_hints"][:2]),
         lambda: [path.__setitem__("expected_logs", path["expected_logs"][:2]) for path in paths],
-        lambda: [path.__setitem__("uncertainty", path["uncertainty"][:1]) for path in paths],
+        lambda: [
+            path.__setitem__("uncertainty", path.get("uncertainty", [])[:1])
+            for path in paths
+        ],
         lambda: handoff.__setitem__("code_anchors", handoff["code_anchors"][:3]),
         lambda: handoff.__setitem__("log_keywords", handoff["log_keywords"][:8]),
         lambda: handoff.__setitem__("experience_refs", handoff["experience_refs"][:1]),
@@ -362,6 +380,7 @@ def enforce_budget(
         lambda: payload.__setitem__("conflict_notes", payload["conflict_notes"][:1]),
         lambda: minimize_guards(payload),
         lambda: payload.__setitem__("blocked_memory_notes", []),
+        lambda: trim_excerpt_for_path_diversity(handoff),
         lambda: handoff["path_context"].__setitem__("path_candidates", paths[:1]),
         lambda: hard_trim(payload),
     )
@@ -369,6 +388,35 @@ def enforce_budget(
         if estimate_payload_tokens(payload) <= token_budget - 60:
             break
         reduce_payload()
+
+
+def trim_excerpt_for_path_diversity(handoff: dict[str, Any]) -> None:
+    paths = handoff["path_context"]["path_candidates"]
+    if len(paths) < 2:
+        return
+    emitter_files = {
+        str(path.get("emitter", {}).get("file_path") or "")
+        for path in paths[:2]
+    }
+    anchors = [
+        anchor for anchor in reversed(handoff["code_anchors"])
+        if anchor.get("source_excerpts")
+        and str(anchor.get("file_path") or "") not in emitter_files
+    ]
+    if not anchors:
+        return
+    anchors[0].pop("source_excerpts", None)
+    excerpts = [
+        excerpt
+        for anchor in handoff["code_anchors"]
+        for excerpt in anchor.get("source_excerpts") or []
+    ]
+    policy = handoff.get("source_excerpt_policy")
+    if isinstance(policy, dict):
+        policy["excerpt_count"] = len(excerpts)
+        policy["excerpt_chars"] = sum(
+            len(str(excerpt.get("content") or "")) for excerpt in excerpts
+        )
 
 
 def minimize_guards(payload: dict[str, Any]) -> None:

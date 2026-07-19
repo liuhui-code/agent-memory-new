@@ -230,6 +230,27 @@ def parse_top_level_functions(
     return result
 
 
+def callable_line_ranges(lines: list[str]) -> list[dict[str, Any]]:
+    """Return bounded ECMA callable ranges without requiring repository state."""
+    result: list[dict[str, Any]] = []
+    for index, line in enumerate(lines):
+        method = METHOD_RE.match(line)
+        function = FUNCTION_RE.match(line)
+        if method and method.group(4) not in CONTROL_NAMES:
+            name = method.group(4)
+        elif function:
+            name = function.group(3)
+        else:
+            continue
+        result.append({
+            "symbol": name,
+            "start_line": index + 1,
+            "end_line": block_end(lines, index) + 1,
+            "selection_reason": "callable_mechanism_window",
+        })
+    return result
+
+
 def inheritance_relations(container: Container, methods: list[CallableBlock]) -> list[SemanticRelation]:
     result: list[SemanticRelation] = []
     if container.extends:

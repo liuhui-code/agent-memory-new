@@ -9,22 +9,43 @@ from .code_wiki_component_flow import mask_comments
 
 MAX_INDEXED_OPERATIONS = 12
 OPERATION_RE = re.compile(r"(?m)(?:^\s*|\)\s*)\.([a-z][A-Za-z0-9_$]*)\s*\(")
+MEMBER_OPERATION_RE = re.compile(
+    r"\b(?:this\.)?[A-Za-z_$][A-Za-z0-9_$]*\.([a-zA-Z_$][A-Za-z0-9_$]*)\s*\("
+)
 SUMMARY_PREFIX = "operations: "
 GENERIC_OPERATIONS = {
     "align", "backgroundcolor", "fontsize", "height", "margin", "maxlines",
     "padding", "width",
 }
+MEMBER_BEHAVIOR_OPERATIONS = {
+    "executesql", "foreach", "getwindowavoidarea", "pushpath", "pushpathbyname",
+    "pushurl", "querysql", "replacepath", "replacepathbyname", "replaceurl",
+}
 OPERATION_ALIASES = {
+    "navigate": "pushpathbyname",
+    "navigation": "pushpathbyname",
+    "route": "pushpathbyname",
     "separator": "divider",
     "分隔线": "divider",
     "分割线": "divider",
+    "路由": "pushpathbyname",
+    "跳转": "pushpathbyname",
 }
 
 
 def extract_arkts_operation_names(text: str) -> list[str]:
     names: list[str] = []
     seen: set[str] = set()
-    for match in OPERATION_RE.finditer(mask_comments(text)):
+    source = mask_comments(text)
+    member_matches = [
+        match for match in MEMBER_OPERATION_RE.finditer(source)
+        if match.group(1).casefold() in MEMBER_BEHAVIOR_OPERATIONS
+    ]
+    matches = sorted(
+        [*OPERATION_RE.finditer(source), *member_matches],
+        key=lambda item: item.start(),
+    )
+    for match in matches:
         name = match.group(1)
         normalized = name.casefold()
         if normalized in seen:

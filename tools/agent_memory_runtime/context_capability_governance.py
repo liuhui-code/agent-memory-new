@@ -5,6 +5,10 @@ from __future__ import annotations
 import json
 from typing import Any
 
+from .context_capability_history import (
+    cross_project_context_summary,
+    empty_cross_project_summary,
+)
 from .models import Project
 
 
@@ -34,6 +38,11 @@ def context_capability_summary(project: Project) -> dict[str, Any]:
         profile.get("abstention")
         if isinstance(profile.get("abstention"), dict) else {}
     )
+    failure = (
+        data.get("failure_analysis")
+        if isinstance(data.get("failure_analysis"), dict) else {}
+    )
+    seal = data.get("case_seal") if isinstance(data.get("case_seal"), dict) else {}
     failed_ids = [
         str(item.get("case_id"))
         for item in data.get("cases") or []
@@ -57,6 +66,12 @@ def context_capability_summary(project: Project) -> dict[str, Any]:
         "source_span_recall": source.get("source_span_recall"),
         "abstention_status": abstention.get("status"),
         "average_context_tokens": summary.get("average_context_tokens"),
+        "failure_analysis_status": failure.get("status"),
+        "primary_failure_class": failure.get("primary_failure_class"),
+        "failure_count": int(failure.get("failure_count") or 0),
+        "case_seal_status": seal.get("status"),
+        "case_seal_digest": seal.get("digest"),
+        "cross_project_history": cross_project_context_summary(project.runtime_dir),
         "recorded_at": data.get("recorded_at"),
     }
 
@@ -80,5 +95,11 @@ def empty_summary() -> dict[str, Any]:
         "source_span_recall": None,
         "abstention_status": None,
         "average_context_tokens": None,
+        "failure_analysis_status": None,
+        "primary_failure_class": None,
+        "failure_count": 0,
+        "case_seal_status": None,
+        "case_seal_digest": None,
+        "cross_project_history": empty_cross_project_summary(),
         "recorded_at": None,
     }

@@ -1,0 +1,64 @@
+{
+  "schema_version": "agent-context-holdout-result/v1",
+  "case_file": "docs/eval/jingmo-context-holdout-cases.json",
+  "source_repository": "https://github.com/hefengbao/jingmo-for-HarmonyOS",
+  "execution_policy": "first-and-only sealed run; retained as observation and excluded from tuning",
+  "status": "fail",
+  "summary": {
+    "case_count": 10,
+    "passed_case_count": 1,
+    "failed_case_count": 9,
+    "query_variant_pass_rate": 0.1,
+    "average_context_tokens": 1115.7,
+    "average_memory_prepare_ms": 4331.0,
+    "average_query_elapsed_ms": 673.6
+  },
+  "metrics": {
+    "anchor_recall": 0.25,
+    "primary_anchor_recall": 0.25,
+    "oracle_anchor_precision": 0.1,
+    "expected_anchor_mrr": 0.3,
+    "source_excerpt_recall": 0.25,
+    "source_span_recall": 0.25,
+    "compactness_gate": "pass"
+  },
+  "failure_analysis": {
+    "status": "repair_required",
+    "failure_count": 38,
+    "primary_failure_class": "ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 8,
+      "passage_selection": 13,
+      "ranking_precision": 17
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune this sealed holdout."
+  },
+  "cases": [
+    {"case_id": "jingmo-html-tags-rendered-in-content", "status": "fail", "anchor_recall": 0.0, "expected_anchor_mrr": 0.0, "source_span_recall": 0.0},
+    {"case_id": "jingmo-character-filter-wrong-route", "status": "fail", "anchor_recall": 0.0, "expected_anchor_mrr": 0.0, "source_span_recall": 0.0},
+    {"case_id": "jingmo-sentence-search-exact-only", "status": "fail", "anchor_recall": 0.5, "expected_anchor_mrr": 1.0, "source_span_recall": 0.0},
+    {"case_id": "jingmo-menu-safe-area-overexpansion", "status": "fail", "anchor_recall": 1.0, "expected_anchor_mrr": 1.0, "source_span_recall": 1.0},
+    {"case_id": "jingmo-landscape-navigation-overlap", "status": "fail", "anchor_recall": 0.0, "expected_anchor_mrr": 0.0, "source_span_recall": 0.0},
+    {"case_id": "jingmo-character-book-formatting", "status": "fail", "anchor_recall": 0.0, "expected_anchor_mrr": 0.0, "source_span_recall": 0.0},
+    {"case_id": "jingmo-sync-import-memory-block", "status": "fail", "anchor_recall": 0.0, "expected_anchor_mrr": 0.0, "source_span_recall": null},
+    {"case_id": "jingmo-navigation-indicator-avoidance", "status": "fail", "anchor_recall": 0.0, "expected_anchor_mrr": 0.0, "source_span_recall": null},
+    {"case_id": "jingmo-database-version-migration", "status": "pass", "anchor_recall": 1.0, "expected_anchor_mrr": 1.0, "source_span_recall": 1.0},
+    {"case_id": "jingmo-bold-title-color", "status": "fail", "anchor_recall": 0.0, "expected_anchor_mrr": 0.0, "source_span_recall": 0.0}
+  ],
+  "case_seal": {
+    "status": "verified",
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "digest": "539aa2c803e3ced405c11eb166b8b3c50e01f5e059b34dcec380b90bc46a02d0",
+    "sealed_at": "2026-07-18T13:36:22+00:00",
+    "case_count": 10
+  },
+  "audit": {
+    "agent_invoked": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "case_file_modified_after_execution": false,
+    "promotion_allowed": false,
+    "holdout_retained_as_observed": true
+  },
+  "recorded_at": "2026-07-18T13:37:51+00:00"
+}

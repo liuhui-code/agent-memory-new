@@ -1,0 +1,265 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/Wechat_HarmonyOS",
+  "source_repository": "https://github.com/ausboyue/Wechat_HarmonyOS.git",
+  "source_branch": "main",
+  "source_head_reviewed": "38a1671c76d889e79701a601c00f05e9112db6f7",
+  "generated_at": "2026-07-19T00:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "wechat-audio-stop-intermittent-failure",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Voice-message recording can fail intermittently while stopping and releasing the active capture session. Locate audio capture lifecycle ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "584b97b5b2bb98cc669cf88011fe096c9e6f9a28",
+        "after_revision": "e57b1e8450ed1071b60daca2b14d0228432a5216",
+        "changed_files": [
+          "entry/src/main/ets/pages/chat/ChatPage.ets",
+          "entry/src/main/ets/utils/AudioCapturerManager.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "e57b1e8450ed1071b60daca2b14d0228432a5216",
+        "commit_message": "fix: 修复语音消息录制失败概率性问题"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/utils/AudioCapturerManager.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/chat/ChatPage.ets"
+        ],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/utils/AudioCapturerManager.ets",
+              "start_line": 108,
+              "end_line": 128
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Repeatedly start and stop voice capture and verify the session releases without intermittent recording failure."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wechat-transparent-status-content",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After immersive-window setup, status and navigation bar content becomes invisible against the transparent system bars. Locate system-bar property ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "c4a7828cc28edecbf1af9c8fb5db47a424eba476",
+        "after_revision": "50f1450276b1ecd6582d38562c0b2115f77cc71a",
+        "changed_files": [
+          "build-profile.json5",
+          "entry/src/main/ets/utils/StatusBarManager.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "50f1450276b1ecd6582d38562c0b2115f77cc71a",
+        "commit_message": "fix: 解决状态栏内容不显示的问题"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/utils/StatusBarManager.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets"
+        ],
+        "root_cause_category": "ui",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/utils/StatusBarManager.ets",
+              "start_line": 47,
+              "end_line": 55
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Enable immersive transparent system bars and verify their icons and text remain visible."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wechat-keyboard-pushes-toolbar",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Opening the software keyboard on chat scrolls the title toolbar off the top of the screen. Locate the reusable toolbar layout owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "ded2ffb0cdf28cfcc708480946bbd29bf3545b5e",
+        "after_revision": "765ec934de7e0738548e73054c8943335f49b49d",
+        "changed_files": [
+          "entry/src/main/ets/component/Toolbar.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "765ec934de7e0738548e73054c8943335f49b49d",
+        "commit_message": "fix: 解决聊天页键盘弹起导致标题栏被滚入屏幕顶部的问题"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/component/Toolbar.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/chat/ChatPage.ets"
+        ],
+        "root_cause_category": "layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/component/Toolbar.ets",
+              "start_line": 48,
+              "end_line": 53
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open the keyboard in chat and verify the reusable title toolbar remains visible and above content."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wechat-search-keyboard-back-conflict",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Pressing Back while the search keyboard is visible conflicts with page navigation instead of dismissing keyboard state first. Locate search-page key and lifecycle ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "dcf74e3578dbde4f9c4cac20b68d426f4b3c6599",
+        "after_revision": "7ccf2894323f4cdccd4a2c70fb8eb7977705704d",
+        "changed_files": [
+          "entry/src/main/ets/pages/chat/ChatPage.ets",
+          "entry/src/main/ets/pages/search/SearchPage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "7ccf2894323f4cdccd4a2c70fb8eb7977705704d",
+        "commit_message": "fix: 修复键盘与返回事件冲突"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/search/SearchPage.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/chat/ChatPage.ets"
+        ],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/search/SearchPage.ets",
+              "start_line": 174,
+              "end_line": 185
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open the search keyboard, press Back, and verify keyboard dismissal does not trigger page navigation."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-18T22:25:35+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 4,
+    "digest": "299c1db9c1932c0c0186cf3f7b60c993af3b57e6703bc571205b5cae3ac98672"
+  }
+}

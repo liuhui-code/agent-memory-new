@@ -1,0 +1,623 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/jingmo-for-HarmonyOS",
+  "source_repository": "https://github.com/hefengbao/jingmo-for-HarmonyOS",
+  "source_branch": "main",
+  "source_head_reviewed": "a208f3fdc95c0914749072e811301b9dfd6678d6",
+  "generated_at": "2026-07-18T00:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "jingmo-html-tags-rendered-in-content",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "HTML tags remain visible in people details and classical writing comments because the content cleanup does not remove every tag occurrence. Locate the two shared rendering owners.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "d529b648ada5a2b615360c7dd76b906fb56d5273",
+        "after_revision": "9d8b1b3ad951e2d10d45f04e202d716c3ea19204",
+        "changed_files": [
+          "features/classicalliterature/people/src/main/ets/view/PeopleView.ets",
+          "features/classicalliterature/writing/src/main/ets/view/WritingView.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "9d8b1b3ad951e2d10d45f04e202d716c3ea19204",
+        "commit_message": "fix: replace html tags"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/classicalliterature/people/src/main/ets/view/PeopleView.ets",
+          "features/classicalliterature/writing/src/main/ets/view/WritingView.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/classicalliterature/people/src/main/ets/view/PeopleView.ets",
+              "start_line": 31,
+              "end_line": 47
+            },
+            {
+              "file_path": "features/classicalliterature/writing/src/main/ets/view/WritingView.ets",
+              "start_line": 56,
+              "end_line": 72
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Render content containing repeated and differently shaped HTML tags."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "jingmo-character-filter-wrong-route",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Tapping radical, stroke, or syllable filters opens a route name that is not registered for character search. Locate every filter page that owns the incorrect navigation target.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "24d64695e928308393f2c698d607beba336239fd",
+        "after_revision": "d529b648ada5a2b615360c7dd76b906fb56d5273",
+        "changed_files": [
+          "features/chinese/character/src/main/ets/pages/RadicalPage.ets",
+          "features/chinese/character/src/main/ets/pages/StrokePage.ets",
+          "features/chinese/character/src/main/ets/pages/SyllablePage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "d529b648ada5a2b615360c7dd76b906fb56d5273",
+        "commit_message": "fix: correct character search route"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/chinese/character/src/main/ets/pages/RadicalPage.ets",
+          "features/chinese/character/src/main/ets/pages/StrokePage.ets",
+          "features/chinese/character/src/main/ets/pages/SyllablePage.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "route",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 4,
+          "min_anchor_precision": 0.6,
+          "required_source_spans": [
+            {
+              "file_path": "features/chinese/character/src/main/ets/pages/RadicalPage.ets",
+              "start_line": 73,
+              "end_line": 89
+            },
+            {
+              "file_path": "features/chinese/character/src/main/ets/pages/StrokePage.ets",
+              "start_line": 26,
+              "end_line": 42
+            },
+            {
+              "file_path": "features/chinese/character/src/main/ets/pages/SyllablePage.ets",
+              "start_line": 106,
+              "end_line": 122
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open all three filters and verify the registered character result route."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "jingmo-sentence-search-exact-only",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Sentence search returns results only for an exact value instead of matching text that contains the entered phrase. Locate the query parameter owner and the result page that consumes it.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "a0034954eeea37679ca7160dc28cb6626cfa4791",
+        "after_revision": "00477c95dbe86225fdb43f6aab4587b5bdfc952f",
+        "changed_files": [
+          "features/classicalliterature/sentence/src/main/ets/model/Sentence.ets",
+          "features/classicalliterature/sentence/src/main/ets/pages/SearchPage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "00477c95dbe86225fdb43f6aab4587b5bdfc952f",
+        "commit_message": "fix: improve sentence search"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/classicalliterature/sentence/src/main/ets/model/Sentence.ets",
+          "features/classicalliterature/sentence/src/main/ets/pages/SearchPage.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "database_failure",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/classicalliterature/sentence/src/main/ets/model/Sentence.ets",
+              "start_line": 108,
+              "end_line": 124
+            },
+            {
+              "file_path": "features/classicalliterature/sentence/src/main/ets/pages/SearchPage.ets",
+              "start_line": 33,
+              "end_line": 49
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Search with a substring and open the returned sentence."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "jingmo-menu-safe-area-overexpansion",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The home menu grid receives unwanted system safe-area expansion and no longer respects its intended content bounds. Locate the menu layout modifier responsible for the expansion.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "25cbf5a0563baf6c9781f4161951d9c461da23f1",
+        "after_revision": "50b54d960e8d4f26625cfe900f24706fe1e4c948",
+        "changed_files": [
+          "features/home/src/main/ets/view/MenuList.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "50b54d960e8d4f26625cfe900f24706fe1e4c948",
+        "commit_message": "remove expandSafeArea setting"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/view/MenuList.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/view/MenuList.ets",
+              "start_line": 141,
+              "end_line": 151
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Check menu bounds in portrait layouts with system bars."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "jingmo-landscape-navigation-overlap",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "In landscape mode the bottom navigation area can cover the final home menu content. Locate the menu grid modifier that owns system safe-area behavior.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "ee12a64e1fb626df6d9317a5ece32b9adb5dd9c6",
+        "after_revision": "8ea94502448f88ce5cad38a68edd0861a9957b38",
+        "changed_files": [
+          "features/home/src/main/ets/view/MenuList.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "8ea94502448f88ce5cad38a68edd0861a9957b38",
+        "commit_message": "avoid landscape bottom navigation overlap"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/view/MenuList.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/view/MenuList.ets",
+              "start_line": 141,
+              "end_line": 151
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Rotate to landscape and verify final menu rows remain visible."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "jingmo-character-book-formatting",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Character detail attribution renders extra book-title punctuation and a stray closing brace around the source book. Locate the formatter that assembles the detail text.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "b27c36a1bbcc5257e8199b04f0eb29309f7decc5",
+        "after_revision": "c15054a32b0b691b0b22b60a6e5cf27c84f8a169",
+        "changed_files": [
+          "features/chinese/character/src/main/ets/view/CharacterView.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "c15054a32b0b691b0b22b60a6e5cf27c84f8a169",
+        "commit_message": "fix extra book-title punctuation"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/chinese/character/src/main/ets/view/CharacterView.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/chinese/character/src/main/ets/view/CharacterView.ets",
+              "start_line": 108,
+              "end_line": 124
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Render details with and without a source book."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "jingmo-sync-import-memory-block",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Synchronizing or importing several datasets can trigger OutOfMemory and THREAD_BLOCK_6S. Locate the two list components that schedule inserts, update progress, and permit concurrent dataset work.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "f420bd179d8291154d07fbdbb2195f6f4004f83e",
+        "after_revision": "73d15aa5c205a3d946195ed607fcf4ce331341c4",
+        "changed_files": [
+          "features/settings/src/main/ets/view/ImportDataList.ets",
+          "features/settings/src/main/ets/view/SyncDataList.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "73d15aa5c205a3d946195ed607fcf4ce331341c4",
+        "commit_message": "resolve OutOfMemory and THREAD_BLOCK_6S during data work"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/settings/src/main/ets/view/ImportDataList.ets",
+          "features/settings/src/main/ets/view/SyncDataList.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 4,
+          "min_anchor_precision": 0.4
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Import and synchronize datasets one at a time while observing memory and UI responsiveness."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "jingmo-navigation-indicator-avoidance",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Bottom toolbar controls are raised by less than the required navigation-indicator avoidance distance. Locate the window-level avoid-area observer and a representative page that consumes its bottom inset.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "be2f0aeaf501fe50e3fa9ccd586b18b98d2e0479",
+        "after_revision": "a01118e2259b80ce96e557b70b6ece8f278e466d",
+        "changed_files": [
+          "features/chinese/antitheticalcouplet/src/main/ets/pages/AntitheticalCoupletIndexPage.ets",
+          "features/chinese/character/src/main/ets/pages/CharacterIndexPage.ets",
+          "features/chinese/character/src/main/ets/pages/CharacterShowPage.ets",
+          "features/chinese/expression/src/main/ets/pages/ExpressionIndexPage.ets",
+          "features/chinese/idiom/src/main/ets/pages/IdiomIndexPage.ets",
+          "features/chinese/knowledge/src/main/ets/pages/KnowledgeIndexPage.ets",
+          "features/chinese/quote/src/main/ets/pages/QuoteIndexPage.ets",
+          "features/classicalliterature/classicpoem/src/main/ets/pages/ClassicPoemIndexPage.ets",
+          "features/classicalliterature/sentence/src/main/ets/pages/SentenceIndexPage.ets",
+          "products/default/oh-package.json5",
+          "products/default/src/main/ets/entryability/EntryAbility.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "a01118e2259b80ce96e557b70b6ece8f278e466d",
+        "commit_message": "apply navigation indicator avoid-area insets"
+      },
+      "oracle": {
+        "expected_files": [
+          "products/default/src/main/ets/entryability/EntryAbility.ets",
+          "features/chinese/character/src/main/ets/pages/CharacterIndexPage.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 4,
+          "min_anchor_precision": 0.4
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Verify bottom controls against the navigation indicator before and after a window resize."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "jingmo-database-version-migration",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Database initialization only handles a fresh store and cannot advance through versioned migrations. Locate the database utility that owns storeVersion progression and table creation.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "f7396ecc6d61df4a127040a1dde5b8b2a0f4f3a2",
+        "after_revision": "cac260dd29f0fd1fa0e3dc9ae40fea3a6e71f992",
+        "changed_files": [
+          "commons/utils/src/main/ets/data/DbUtil.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "cac260dd29f0fd1fa0e3dc9ae40fea3a6e71f992",
+        "commit_message": "improve database table migration logic"
+      },
+      "oracle": {
+        "expected_files": [
+          "commons/utils/src/main/ets/data/DbUtil.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "database_failure",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "commons/utils/src/main/ets/data/DbUtil.ets",
+              "start_line": 27,
+              "end_line": 120
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open databases at version zero and an intermediate version and verify ordered migration."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "jingmo-bold-title-color",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Bold section titles do not expose or apply a theme-aware text color, causing poor readability in themed content views. Locate the shared title component that owns the text style.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "00477c95dbe86225fdb43f6aab4587b5bdfc952f",
+        "after_revision": "81fdb04e4797ff77934bb526ef3272356cbe1015",
+        "changed_files": [
+          "commons/uicomponents/src/main/ets/components/ContentComponent.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "81fdb04e4797ff77934bb526ef3272356cbe1015",
+        "commit_message": "set BoldTitle text color"
+      },
+      "oracle": {
+        "expected_files": [
+          "commons/uicomponents/src/main/ets/components/ContentComponent.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "commons/uicomponents/src/main/ets/components/ContentComponent.ets",
+              "start_line": 1,
+              "end_line": 15
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Render BoldTitle in light and dark themes with default and explicit colors."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "first_run_only": true,
+    "cross_project_generalization": true,
+    "require_seal": true
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-18T13:36:22+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 10,
+    "digest": "539aa2c803e3ced405c11eb166b8b3c50e01f5e059b34dcec380b90bc46a02d0"
+  }
+}

@@ -114,6 +114,12 @@ class AgentBenchmarkCostTests(AgentMemoryTestBase):
                     "checks": {"token_overhead_within_budget": False},
                 }],
             },
+            "failure_analysis": {
+                "status": "repair_required",
+                "primary_failure_class": "agent_efficiency",
+                "failure_count": 1,
+            },
+            "case_seal": {"status": "verified", "digest": "abc"},
         })
 
         summary = agent_benchmark_summary(project)
@@ -121,6 +127,8 @@ class AgentBenchmarkCostTests(AgentMemoryTestBase):
         self.assertEqual(1.75, summary["source_read_amplification"])
         self.assertEqual(1, summary["failed_case_efficiency_count"])
         self.assertEqual(["case-1"], summary["failed_case_efficiency_ids"])
+        self.assertEqual("agent_efficiency", summary["primary_failure_class"])
+        self.assertEqual("verified", summary["case_seal_status"])
 
     def test_per_case_read_amplification_cannot_hide_in_aggregate(self) -> None:
         pack = two_case_benchmark_pack(self.project)

@@ -8,7 +8,7 @@ import os
 import subprocess
 import time
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 from .agent_benchmark_cases import eligible_cases, load_case_pack
 from .benchmark_context_setup import apply_context_setup
@@ -16,6 +16,8 @@ from .benchmark_memory import prepare_isolated_memory
 from .benchmark_workspace import materialized_workspace
 from .context_capability_cases import expand_context_cases
 from .context_capability_eval import OBSERVATION_SCHEMA, evaluate_context_capability
+from .benchmark_case_seal import case_pack_seal_audit
+from .benchmark_failure_analysis import analyze_context_failures
 from .performance_scoring import estimate_payload_tokens
 from .records import output
 from .storage import ensure_initialized, now_iso, resolve_project
@@ -32,7 +34,7 @@ def eval_context_capability_command(args: argparse.Namespace) -> None:
     pack = load_case_pack(case_path)
     cases = eligible_cases(pack, bool(args.allow_drafts))
     cases = select_cases(cases, list(args.case_id or []))
-    scenario_cases = cases[: max(1, int(args.limit))]
+    scenario_cases = limit_scenario_cases(cases, args.limit)
     if not scenario_cases:
         raise SystemExit("no eligible context capability cases")
     unsupported = [
@@ -51,6 +53,8 @@ def eval_context_capability_command(args: argparse.Namespace) -> None:
     cases = expand_context_cases(scenario_cases)
     observations = collect_context_capabilities(source, cases, int(args.runner_timeout))
     result = evaluate_context_capability(cases, observations)
+    result["failure_analysis"] = analyze_context_failures(result)
+    result["case_seal"] = case_pack_seal_audit(pack)
     result.update({
         "project_id": project.project_id,
         "project_path": str(project.root),
@@ -64,6 +68,15 @@ def eval_context_capability_command(args: argparse.Namespace) -> None:
     output(result, args.json)
     if args.fail_on_fail and result["system_context_gate"] == "fail":
         raise SystemExit(1)
+
+
+def limit_scenario_cases(
+    cases: list[dict[str, Any]],
+    limit: Optional[int],
+) -> list[dict[str, Any]]:
+    if limit is None:
+        return cases
+    return cases[: max(1, int(limit))]
 
 
 def collect_context_capabilities(

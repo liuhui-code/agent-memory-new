@@ -1,0 +1,99 @@
+{
+  "schema_version": "agent-context-capability-observation-summary/v1",
+  "case_file": "docs/eval/clearchat-unseen-sealed-holdout-cases.json",
+  "case_seal_digest": "970f82133fc794cd0c542ccfb7f8f239830feb517f3df2871aa4be4b9645047c",
+  "source_repository": "https://github.com/pixelonetx/ClearChat.git",
+  "recorded_at": "2026-07-19T09:51:24+00:00",
+  "immutable_observation": true,
+  "audit_notes": [
+    "Each case was prepared from its audited full before revision and the sealed pack was executed exactly once."
+  ],
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 4,
+    "passed_case_count": 0,
+    "failed_case_count": 4,
+    "anchor_recall": 0.5,
+    "primary_anchor_recall": 0.5,
+    "oracle_anchor_precision": 0.1875,
+    "expected_anchor_mrr": 0.375,
+    "source_excerpt_recall": 0.5,
+    "source_span_recall": 0.25,
+    "average_context_tokens": 1225.25,
+    "average_memory_prepare_ms": 11073.0,
+    "average_query_elapsed_ms": 3588.5
+  },
+  "failure_analysis": {
+    "primary_failure_class": "ranking_precision",
+    "root_failure_class": "mixed_candidate_generation_ranking_and_passage_selection",
+    "failure_class_counts": {
+      "candidate_generation": 2,
+      "passage_selection": 5,
+      "ranking_precision": 7
+    },
+    "interpretation": "Cache ownership and its source span are found, but broad search neighbors dominate precision. Streaming ownership is recalled late and both checkpoint and final-persist method windows are missed. Initialization and WebView owners are absent. Compactness passes, but context is near budget and materially slower on this larger repository."
+  },
+  "cases": [
+    {
+      "case_id": "clearchat-cache-oldest-eviction",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 1.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/services/search/SearchCache.ets",
+        "entry/src/main/ets/components/utils/SearchResultsSheet.ets",
+        "entry/src/main/ets/pages/SearchServices.ets",
+        "entry/src/main/ets/services/search/SearchModels.ets"
+      ]
+    },
+    {
+      "case_id": "clearchat-stream-checkpoint-serialization",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "expected_anchor_mrr": 0.5,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/Chat.ets",
+        "entry/src/main/ets/services/ChatStreamingService.ets"
+      ]
+    },
+    {
+      "case_id": "clearchat-initialization-timeout-cancellation",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/Chat.ets"
+      ],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/chat/ChatSidebar.ets",
+        "entry/src/main/ets/pages/SearchServices.ets"
+      ]
+    },
+    {
+      "case_id": "clearchat-webview-dangerous-scheme",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "entry/src/main/ets/components/utils/WebViewBrowser.ets"
+      ],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/dialogs/RenameConversationDialog.ets",
+        "entry/src/main/ets/components/utils/SearchResultsSheet.ets",
+        "entry/src/main/ets/pages/Chat.ets",
+        "entry/src/main/ets/pages/Settings.ets"
+      ]
+    }
+  ],
+  "policy": "Do not rerun or modify this sealed pack for tuning. Reproduce large-file passage selection, asynchronous lifecycle ownership, WebView DSL security ownership, and broad-neighbor precision in independent fixtures, then validate only on a new sealed pack."
+}

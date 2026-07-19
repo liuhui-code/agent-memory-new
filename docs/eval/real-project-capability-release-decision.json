@@ -1,0 +1,309 @@
+{
+  "schema_version": "agent-memory-capability-release-decision/v1",
+  "recorded_at": "2026-07-19T10:59:56+00:00",
+  "decision": "deny_promotion",
+  "reason": "Real-project Context generalization and Agent efficiency gates are not both passing.",
+  "sealed_case_inventory": {
+    "source_project_count": 13,
+    "case_count": 58,
+    "packs": [
+      {
+        "case_file": "docs/eval/jingmo-context-holdout-cases.json",
+        "case_count": 10,
+        "digest": "539aa2c803e3ced405c11eb166b8b3c50e01f5e059b34dcec380b90bc46a02d0",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/jingmo-post-repair-holdout-cases.json",
+        "case_count": 3,
+        "digest": "303537c2bac58fb775e7ff401fc4472610e70d245db14363b3f9be2c19d6ce99",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/gramony-unseen-sealed-holdout-cases.json",
+        "case_count": 2,
+        "digest": "d93f2fcebabd6048896576642ef4295050e85e5641a03a8c5ab5e04e4c01b6e8",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/bookkeep-unseen-sealed-holdout-cases.json",
+        "case_count": 3,
+        "digest": "93cc937b9a639677e318b716746f36575c247de318ea23226c727b2009c67bc5",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/homeassistant-unseen-sealed-holdout-cases.json",
+        "case_count": 4,
+        "digest": "36d8a013c2368e0c302cf767ee3c446dcf28a30440ebcc01b87f8e12df926307",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/aigis-unseen-sealed-holdout-cases.json",
+        "case_count": 4,
+        "digest": "474f5fe5bf038a214c2efdb6a30235d0eaac86ac5c1da9b20c66d0baa0a6e057",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/harmonyos-games-unseen-sealed-holdout-cases.json",
+        "case_count": 4,
+        "digest": "a7d9cca37f217a6d833d9054962bc6ba639c0075c32948de4f467b98e113a872",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/justpdf-unseen-sealed-holdout-cases.json",
+        "case_count": 4,
+        "digest": "2cf6ddf75bd455d0c4851ee3df56cc53781534b72f949518e104f67f8e0a6c17",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/finvideo-unseen-sealed-holdout-cases.json",
+        "case_count": 4,
+        "digest": "8df142f386f2ba8f9ecbb0c9c0674fda541a9e6b7e952bef1794764d0fd7bd3b",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/wechat-unseen-sealed-holdout-cases.json",
+        "case_count": 4,
+        "digest": "299c1db9c1932c0c0186cf3f7b60c993af3b57e6703bc571205b5cae3ac98672",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/siyuan-unseen-sealed-holdout-cases.json",
+        "case_count": 4,
+        "digest": "19a16ba06d8b322cc5f66098b1c27a375506560e58d1fa6ca606d31e89763900",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/termony-unseen-sealed-holdout-cases.json",
+        "case_count": 4,
+        "digest": "a7c9b512637b6fb43ffd900abf100b376537404d8639152663e5fa8b3710e761",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/clearchat-unseen-sealed-holdout-cases.json",
+        "case_count": 4,
+        "digest": "970f82133fc794cd0c542ccfb7f8f239830feb517f3df2871aa4be4b9645047c",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/ccplayer-unseen-sealed-holdout-cases.json",
+        "case_count": 4,
+        "digest": "1366b6a17fbeee8d2b38865b34252a6cec7f57d71991dc8e49f87fa3f7b7f7a5",
+        "execution_status": "immutable_observation"
+      }
+    ]
+  },
+  "development_context_gate": {
+    "case_count": 150,
+    "passed_case_count": 150,
+    "scenario_count": 50,
+    "stable_scenario_count": 50,
+    "anchor_recall": 1.0,
+    "expected_anchor_mrr": 0.9929,
+    "source_span_recall": 1.0,
+    "average_context_tokens": 711.4133,
+    "status": "pass"
+  },
+  "real_project_context_observations": [
+    {
+      "case_file": "docs/eval/jingmo-context-holdout-cases.json",
+      "passed_case_count": 1,
+      "case_count": 10,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/jingmo-post-repair-holdout-cases.json",
+      "passed_case_count": 0,
+      "case_count": 3,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "candidate_generation",
+        "passage_selection"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/gramony-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 0,
+      "case_count": 2,
+      "anchor_recall": 0.75,
+      "expected_anchor_mrr": 0.75,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/bookkeep-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 0,
+      "case_count": 3,
+      "anchor_recall": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "primary_failure_classes": [
+        "candidate_generation",
+        "ranking_precision",
+        "passage_selection"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/homeassistant-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 0,
+      "case_count": 4,
+      "anchor_recall": 0.25,
+      "expected_anchor_mrr": 0.25,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "candidate_generation",
+        "passage_selection"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/aigis-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 1,
+      "case_count": 4,
+      "anchor_recall": 0.75,
+      "expected_anchor_mrr": 0.625,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/harmonyos-games-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 1,
+      "case_count": 4,
+      "anchor_recall": 0.75,
+      "expected_anchor_mrr": 0.75,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/justpdf-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 1,
+      "case_count": 4,
+      "anchor_recall": 0.75,
+      "expected_anchor_mrr": 0.625,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/finvideo-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 0,
+      "case_count": 4,
+      "anchor_recall": 0.75,
+      "expected_anchor_mrr": 0.75,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/wechat-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 1,
+      "case_count": 4,
+      "anchor_recall": 0.75,
+      "expected_anchor_mrr": 0.5833,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/siyuan-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 0,
+      "case_count": 4,
+      "anchor_recall": 0.75,
+      "expected_anchor_mrr": 0.4583,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/termony-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 1,
+      "case_count": 4,
+      "anchor_recall": 0.5,
+      "expected_anchor_mrr": 0.5,
+      "primary_failure_classes": [
+        "passage_selection",
+        "candidate_generation",
+        "ranking_precision"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/clearchat-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 0,
+      "case_count": 4,
+      "anchor_recall": 0.5,
+      "expected_anchor_mrr": 0.375,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/ccplayer-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 1,
+      "case_count": 4,
+      "anchor_recall": 0.5,
+      "expected_anchor_mrr": 0.3125,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
+    }
+  ],
+  "agent_ab": {
+    "case_count": 3,
+    "paired_trial_count": 3,
+    "observation_count": 18,
+    "agent_outcome_delta": 0.0,
+    "root_cause_accuracy_delta": 0.0,
+    "token_overhead_ratio": 0.1641,
+    "elapsed_overhead_ratio": 0.231,
+    "quality_gate": "fail",
+    "efficiency_gate": "fail",
+    "promotion_gate": "fail",
+    "primary_failure_class": "agent_efficiency"
+  },
+  "boundaries": {
+    "runtime_role": "retrieval_and_compact_context_supply",
+    "agent_role": "diagnosis_design_reasoning_and_verification",
+    "raw_logs_persisted": false,
+    "reasoning_persisted": false,
+    "four_skill_surface_preserved": true,
+    "sqlite_source_of_truth_preserved": true
+  },
+  "next_repair_target": "Reproduce idempotent resource cleanup ownership, source-replacement lifecycle state, prepared-state command eligibility, and implementation-over-sample ranking in independent fixtures. Keep project-specific aliases and every consumed ccplayer case out of tuning, then validate only on a new sealed pack."
+}

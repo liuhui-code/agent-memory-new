@@ -1,0 +1,254 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/harmonyos-games",
+  "source_repository": "https://github.com/dividez/harmonyos-games.git",
+  "source_branch": "main",
+  "source_head_reviewed": "78482622646cb5294d06c0aab1571f31b308b24c",
+  "generated_at": "2026-07-19T00:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "harmony-games-swipe-status-not-updated",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After a valid number-game swipe, board cells move but the displayed score and win or loss state never change. Locate the gesture-to-game-state owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "6bef7478042f49eb78b5f30e49c02ea66f8aa296",
+        "after_revision": "6cd36e688742373e79d7175a053daeac7613d2db",
+        "changed_files": [
+          "features/number/src/main/ets/views/NumberGameComp.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "6cd36e688742373e79d7175a053daeac7613d2db",
+        "commit_message": "Improve number-game success and failure state updates"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/number/src/main/ets/views/NumberGameComp.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/number/src/main/ets/views/NumberGameComp.ets",
+              "start_line": 97,
+              "end_line": 114
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Swipe in each direction and verify board movement updates score and terminal game state exactly once."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "harmony-games-preferences-context-rejected",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Opening the number game cannot load its preferences because storage receives an unsuitable component context. Locate preference context ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "2e9e5c2e8e7c653f3c848ea088fe5a37eb3c0e0b",
+        "after_revision": "f77151766d2b25a91a2aa88e4b6c4121c9a70e32",
+        "changed_files": [
+          "features/number/src/main/ets/services/PreferencesUtil.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "f77151766d2b25a91a2aa88e4b6c4121c9a70e32",
+        "commit_message": "Use a UIAbility context for number-game preferences"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/number/src/main/ets/services/PreferencesUtil.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "integration",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/number/src/main/ets/services/PreferencesUtil.ets",
+              "start_line": 5,
+              "end_line": 20
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Launch through the real UIAbility and verify preference acquisition succeeds with the ability context."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "harmony-games-best-score-lifecycle-not-integrated",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The displayed best score always starts at zero after relaunch because its component lifecycle has no preference integration. Locate the score state and lifecycle owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "e44f11330b2a8dd7fde5e893e045c6c435e54574",
+        "after_revision": "2e9e5c2e8e7c653f3c848ea088fe5a37eb3c0e0b",
+        "changed_files": [
+          "features/number/src/main/ets/views/NumberGameComp.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "2e9e5c2e8e7c653f3c848ea088fe5a37eb3c0e0b",
+        "commit_message": "Integrate preferences with the number-game best-score lifecycle"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/number/src/main/ets/views/NumberGameComp.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "persistence",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/number/src/main/ets/views/NumberGameComp.ets",
+              "start_line": 12,
+              "end_line": 40
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Record a best score, relaunch, and verify the component restores the same value from preferences."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "harmony-games-color-block-neighbors-not-toggled",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Tapping a color block toggles only that block instead of propagating to its adjacent blocks. Locate the click-to-board mutation owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "f77151766d2b25a91a2aa88e4b6c4121c9a70e32",
+        "after_revision": "78482622646cb5294d06c0aab1571f31b308b24c",
+        "changed_files": [
+          "entry/src/main/ets/pages/ColorBlocks.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "78482622646cb5294d06c0aab1571f31b308b24c",
+        "commit_message": "Propagate color-block clicks to neighboring cells"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/ColorBlocks.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/ColorBlocks.ets",
+              "start_line": 35,
+              "end_line": 44
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Tap corner, edge, and center blocks and verify only valid orthogonal neighbors are toggled."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-18T19:58:29+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 4,
+    "digest": "a7d9cca37f217a6d833d9054962bc6ba639c0075c32948de4f467b98e113a872"
+  }
+}

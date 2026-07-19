@@ -1,0 +1,204 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/jingmo-for-HarmonyOS",
+  "source_repository": "https://github.com/hefengbao/jingmo-for-HarmonyOS",
+  "source_branch": "main",
+  "source_head_reviewed": "f5d93e4",
+  "generated_at": "2026-07-18T14:10:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "jingmo-web-pages-ignore-dark-mode",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The privacy policy and terms Web content remain bright when the application switches to dark mode. Locate both settings page owners of the embedded Web content.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "6f6570cd77a179c40620d8cfdb0fd79e43d6f123",
+        "after_revision": "ee12a64e1fb626df6d9317a5ece32b9adb5dd9c6",
+        "changed_files": [
+          "features/settings/src/main/ets/pages/PrivacyPage.ets",
+          "features/settings/src/main/ets/pages/TosPage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "ee12a64e1fb626df6d9317a5ece32b9adb5dd9c6",
+        "commit_message": "Adapt Web components to dark mode"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/settings/src/main/ets/pages/PrivacyPage.ets",
+          "features/settings/src/main/ets/pages/TosPage.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.66,
+          "required_source_spans": [
+            {
+              "file_path": "features/settings/src/main/ets/pages/PrivacyPage.ets",
+              "start_line": 18,
+              "end_line": 30
+            },
+            {
+              "file_path": "features/settings/src/main/ets/pages/TosPage.ets",
+              "start_line": 18,
+              "end_line": 30
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Switch the application to dark mode and inspect both Web pages."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "jingmo-inline-database-store-config",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The database store name, security level, and tokenizer are defined inline instead of through the shared constants boundary. Locate the utility that owns this relational-store configuration.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "6fbc928d7d660b8b531a95498736ce5397ca8321",
+        "after_revision": "725da9a8059e045cf2e9a1391bd884f63f4b4b79",
+        "changed_files": [
+          "commons/utils/src/main/ets/data/DbUtil.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "725da9a8059e045cf2e9a1391bd884f63f4b4b79",
+        "commit_message": "Move database configuration into the constants module"
+      },
+      "oracle": {
+        "expected_files": [
+          "commons/utils/src/main/ets/data/DbUtil.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "database_failure",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "commons/utils/src/main/ets/data/DbUtil.ets",
+              "start_line": 14,
+              "end_line": 26
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open the database and verify the shared configuration is consumed."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "jingmo-first-launch-missing-data-guidance",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "On first launch, users are not told that offline content requires syncing or importing data. Locate the home-page lifecycle owner that presents accepted content and observes preference changes.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "b55228a3f6e678c73776fe1a42bafbcbdfa48cb4",
+        "after_revision": "1ff26675cc8ee9bf56e4bc6ec367a69966ed001b",
+        "changed_files": [
+          "features/home/src/main/ets/pages/HomePage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "1ff26675cc8ee9bf56e4bc6ec367a69966ed001b",
+        "commit_message": "Guide first-launch users to sync or import data"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/pages/HomePage.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/pages/HomePage.ets",
+              "start_line": 10,
+              "end_line": 50
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Install with empty preferences and verify the guidance appears once."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-18T14:07:48+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "303537c2bac58fb775e7ff401fc4472610e70d245db14363b3f9be2c19d6ce99"
+  }
+}

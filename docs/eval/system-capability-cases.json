@@ -547,6 +547,1572 @@
       }
     },
     {
+      "id": "context-domain-model-versus-render-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Article details still display markup tags. Locate the UI rendering cleanup owner rather than the article data entity."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Article details still display markup tags. Locate the UI rendering cleanup owner rather than the article data entity."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Find the Article view code that strips repeated HTML-like tags before Text renders the body."
+        },
+        {
+          "id": "zh-noise",
+          "description": "文章详情仍显示 HTML 标签，请定位负责清洗并渲染正文的 view，不要返回 ArticleRecord 数据类。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/views/ArticleMarkupView.ets"],
+        "forbidden_files": ["src/entities/ArticleRecord.ets"],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/views/ArticleMarkupView.ets", "start_line": 7, "end_line": 18}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-domain-model-versus-route-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A warehouse facet opens the wrong search route. Locate the filter page click handler rather than the facet data entity."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "A warehouse facet opens the wrong search route. Locate the filter page click handler rather than the facet data entity."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Find the Warehouse facet page that calls pushPathByName when a filter value is selected."
+        },
+        {
+          "id": "zh-noise",
+          "description": "仓库筛选项点击后跳转错误，请定位 pageStack.pushPathByName 所在页面，不要返回 FacetRecord。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pages/WarehouseFacetPage.ets"],
+        "forbidden_files": ["src/entities/FacetRecord.ets"],
+        "root_cause_category": "route",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/pages/WarehouseFacetPage.ets", "start_line": 8, "end_line": 17}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-query-owner-and-consuming-page",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Partial product-name search behaves like an exact query. Locate both the SQL parameter owner and the page that submits and renders the result."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Partial product-name search behaves like an exact query. Locate both the SQL parameter owner and the page that submits and renders the result."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Return ProductSearchService query binding and ProductSearchPage result consumption for the missing substring match."
+        },
+        {
+          "id": "zh-noise",
+          "description": "商品名称只能精确搜索，请返回 LIKE 参数绑定和调用 search 后渲染 products 的页面，不要返回 ProductRecord。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": [
+          "src/services/ProductSearchService.ets",
+          "src/pages/ProductSearchPage.ets"
+        ],
+        "forbidden_files": ["src/entities/ProductRecord.ets"],
+        "root_cause_category": "database_failure",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 3,
+          "min_anchor_precision": 0.66,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/services/ProductSearchService.ets", "start_line": 3, "end_line": 10},
+            {"file_path": "src/pages/ProductSearchPage.ets", "start_line": 8, "end_line": 21}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-abstract-scroll-structure",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Shipment records cannot scroll when their content fills the viewport. Locate the vertical layout owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Shipment records cannot scroll when their content fills the viewport. Locate the vertical layout owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The viewport clips shipment records and the vertical layout does not move. Return the current code owner."
+        },
+        {
+          "id": "zh-noise",
+          "description": "运输记录填满屏幕后无法滑动，请返回纵向布局源码，不要分析根因。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pages/ShipmentTimelinePage.ets"],
+        "forbidden_files": ["src/views/InventoryList.ets"],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/pages/ShipmentTimelinePage.ets", "start_line": 7, "end_line": 15}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-abstract-reactive-aggregate",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Changing the selected quarter leaves revenue and cost totals unchanged. Locate the reactive aggregation owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Changing the selected quarter leaves revenue and cost totals unchanged. Locate the reactive aggregation owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Quarter selection changes but financial totals do not refresh. Return the state and iteration source."
+        },
+        {
+          "id": "zh-noise",
+          "description": "切换季度后收入成本汇总不刷新，请定位状态聚合源码，不要返回数据实体。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pages/RevenueQuarterPage.ets"],
+        "forbidden_files": ["src/entities/ProductRecord.ets"],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/pages/RevenueQuarterPage.ets", "start_line": 9, "end_line": 16}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-abstract-visual-overlap",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The inventory category chooser overlaps the numeric quantity controls. Locate the visual surface owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The inventory category chooser overlaps the numeric quantity controls. Locate the visual surface owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The category layer covers the inventory keypad. Return the stacking or background styling source."
+        },
+        {
+          "id": "zh-noise",
+          "description": "库存分类选择区遮挡数量输入控件，请定位负责层叠背景的 ArkTS 视图。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/views/InventoryOverlayPanel.ets"],
+        "forbidden_files": ["src/entities/InventoryRecord.ets"],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/views/InventoryOverlayPanel.ets", "start_line": 5, "end_line": 16}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-reusable-spacing-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Notification rows have no right breathing room. Locate the reusable row spacing owner rather than page consumers."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Notification rows have no right breathing room. Locate the reusable row spacing owner rather than page consumers."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Find the shared widget spacing source for notification row content, excluding the list and details pages."
+        },
+        {
+          "id": "zh-noise",
+          "description": "通知行右侧没有留白，请定位复用组件的间距源码，不要返回列表页和详情页。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/widgets/NotificationRow.ets"],
+        "forbidden_files": [
+          "src/pages/NotificationListPage.ets",
+          "src/pages/NotificationDetailsPage.ets"
+        ],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/widgets/NotificationRow.ets", "start_line": 5, "end_line": 12}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-fallback-recovery-owners",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Offline startup uses demo cards and never upgrades after reconnect. Locate repository selection and the synchronization trigger."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Offline startup uses fallback cards and never upgrades after reconnect. Locate repository selection and the synchronization trigger."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The offline fallback remains after reconnect; return the registry branch and store sync owners."
+        },
+        {
+          "id": "zh-noise",
+          "description": "离线启动后使用降级数据，连接恢复仍未切换真实数据，请定位仓库选择和同步入口。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": [
+          "src/runtime/TransportRegistry.ets",
+          "src/stores/DeviceSyncStore.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 3,
+          "min_anchor_precision": 0.66,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/runtime/TransportRegistry.ets", "start_line": 1, "end_line": 11},
+            {"file_path": "src/stores/DeviceSyncStore.ets", "start_line": 1, "end_line": 9}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-callback-containment-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A malformed telemetry payload throws in the callback and later responses stop. Locate the receive and deserialization boundary."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "A malformed telemetry payload throws in the callback and later responses stop. Locate the receive and deserialization boundary."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The callback throws while decoding invalid JSON, then subsequent socket responses stop; find the boundary owner."
+        },
+        {
+          "id": "zh-noise",
+          "description": "畸形载荷在回调解析时抛错，后续响应中断，请返回接收和反序列化边界源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/gateways/TelemetrySocketGateway.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/gateways/TelemetrySocketGateway.ets", "start_line": 4, "end_line": 9}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-post-action-refresh-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The lighting action completes but the details state remains unchanged. Locate action dispatch and authoritative refresh ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The lighting action completes but the details state remains unchanged. Locate action dispatch and authoritative refresh ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A command succeeds while the lighting view stays stale; find the command and state reload owner."
+        },
+        {
+          "id": "zh-noise",
+          "description": "灯光操作成功但详情状态未刷新，请定位命令执行和权威状态更新源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/stores/LightingStore.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/stores/LightingStore.ets", "start_line": 5, "end_line": 13}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-event-state-handoff-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Editing a second workspace row opens the panel with the previously selected item. Locate the event-to-state handoff owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Editing a second workspace row opens the panel with the previously selected item. Locate the event-to-state handoff owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The edit action opens data for the wrong row; return the selection state handoff source rather than its schema model."
+        },
+        {
+          "id": "zh-noise",
+          "description": "编辑第二个工作区条目却显示错误行的数据，请定位事件到状态交接源码，不要返回模型定义。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/controllers/WorkspaceSelectionController.ets"],
+        "forbidden_files": ["src/models/WorkspaceSchema.ets"],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/controllers/WorkspaceSelectionController.ets", "start_line": 10, "end_line": 14}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-validation-stop-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A required account field shows an error but the invalid update still submits. Locate the validation-stop and dispatch owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "A required account field shows an error but the invalid update still submits. Locate the validation-stop and dispatch owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "An empty display name reports an error yet submits the account update; return the guarded page action."
+        },
+        {
+          "id": "zh-noise",
+          "description": "必填显示名为空时提示错误但仍提交更新，请定位校验中止和动作分发源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pages/AccountSettingsPage.ets"],
+        "forbidden_files": ["src/services/AccountUpdateService.ets"],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/pages/AccountSettingsPage.ets", "start_line": 9, "end_line": 15}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-persistence-commit-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The usage counter and last-used time are not persisted after restart. Locate successful-use state and storage ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The usage counter and last-used time are not persisted after restart. Locate successful-use state and storage ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A generated session works, but its counter and timestamp disappear on restart; return the persistence coordinator."
+        },
+        {
+          "id": "zh-noise",
+          "description": "会话成功使用后计数和时间在重启后丢失，请定位状态写入和持久化边界，不要返回代码生成器。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/coordinators/SessionUsageCoordinator.ets"],
+        "forbidden_files": ["src/crypto/SessionCodeGenerator.ets"],
+        "root_cause_category": "persistence",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/coordinators/SessionUsageCoordinator.ets", "start_line": 9, "end_line": 13}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-combined-commit-owner-precision",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Validation reports an error but order dispatch and persistence still happen. Locate the guarded commit owner, excluding single-mechanism helpers."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Validation reports an error but order dispatch and persistence still happen. Locate the guarded commit owner, excluding single-mechanism helpers."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "An invalid order still reaches both action dispatch and storage; return the one coordinator that owns the complete guarded commit."
+        },
+        {
+          "id": "zh-noise",
+          "description": "订单校验报错后仍执行动作且写入存储，请只返回同时拥有校验中止、分发和持久化的协调源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/coordinators/OrderCommitCoordinator.ets"],
+        "forbidden_files": [
+          "src/validation/OrderValidator.ets",
+          "src/actions/OrderActionButton.ets",
+          "src/storage/OrderStore.ets"
+        ],
+        "root_cause_category": "persistence",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/coordinators/OrderCommitCoordinator.ets", "start_line": 8, "end_line": 15}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-gesture-state-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Dragging the board moves cells but points and completion remain unchanged. Locate the gesture interaction owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Dragging the board moves cells but points and completion remain unchanged. Locate the gesture interaction owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A board swipe changes its cells while score and terminal status stay stale; return the gesture boundary source."
+        },
+        {
+          "id": "zh-noise",
+          "description": "拖动棋盘后格子移动但分数和完成状态未变化，请定位手势交互边界，不要返回状态模型。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/views/BoardGestureSurface.ets"],
+        "forbidden_files": ["src/models/BoardState.ets"],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/views/BoardGestureSurface.ets", "start_line": 6, "end_line": 11}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-adjacent-collection-owner-precision",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Tapping one seat should propagate selection to adjacent seats. Locate the complete event-to-collection mutation owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Tapping one seat should propagate selection to adjacent seats. Locate the complete event-to-collection mutation owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A seat click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection."
+        },
+        {
+          "id": "zh-noise",
+          "description": "点击座位后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/controllers/SeatMapController.ets"],
+        "forbidden_files": [
+          "src/widgets/SeatCell.ets",
+          "src/stores/SeatStore.ets"
+        ],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/controllers/SeatMapController.ets", "start_line": 8, "end_line": 12}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-lifecycle-persistence-owner-precision",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A saved draft resets after relaunch. Locate the owner that combines lifecycle restore, state update, and persistence."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "A saved draft resets after relaunch. Locate the owner that combines lifecycle restore, state update, and persistence."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Restart loses the saved editor text; return the coordinator owning restore lifecycle, current state, and storage commit."
+        },
+        {
+          "id": "zh-noise",
+          "description": "草稿保存后重启仍被清空，请只返回同时负责生命周期恢复、状态写入和持久化的协调源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/coordinators/DraftSessionCoordinator.ets"],
+        "forbidden_files": [
+          "src/pages/DraftPage.ets",
+          "src/storage/DraftPreferences.ets"
+        ],
+        "root_cause_category": "persistence",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/coordinators/DraftSessionCoordinator.ets", "start_line": 5, "end_line": 15}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-async-navigation-state-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Rapid document navigation renders stale content after repeated taps. Locate the async state commit owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Rapid document navigation renders stale content after repeated taps. Locate the async state commit owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Repeated entry changes can show an older asynchronous result; return the source that owns both loading and visible state assignment."
+        },
+        {
+          "id": "zh-noise",
+          "description": "连续快速跳转文档后显示了陈旧内容，请只返回同时负责异步加载和当前状态提交的源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/coordinators/DocumentNavigationCoordinator.ets"],
+        "forbidden_files": [
+          "src/services/DocumentLoader.ets",
+          "src/stores/DocumentSelectionStore.ets"
+        ],
+        "root_cause_category": "async",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/coordinators/DocumentNavigationCoordinator.ets", "start_line": 17, "end_line": 24}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-touch-arbitration-owner-precision",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Two touch handlers conflict while resizing a canvas selection. Locate the complete gesture and state owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Two touch handlers conflict while resizing a canvas selection. Locate the complete gesture and state owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Resizing with multiple fingers updates the wrong handle; return the interaction source that combines gesture callbacks and active state."
+        },
+        {
+          "id": "zh-noise",
+          "description": "画布缩放时两个触摸处理发生冲突，请只返回同时拥有手势回调和活动状态写入的交互源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/views/CanvasInteractionSurface.ets"],
+        "forbidden_files": [
+          "src/widgets/ResizeHandle.ets",
+          "src/models/CanvasSelection.ets"
+        ],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/views/CanvasInteractionSurface.ets", "start_line": 5, "end_line": 18}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-touch-access-safety-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "An empty touch event has no first pointer and the interaction crashes. Locate the touch boundary and indexed access owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "An empty touch event has no first pointer and the interaction crashes. Locate the touch boundary and indexed access owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The first finger is missing from a touch callback; return the source that reads the pointer collection."
+        },
+        {
+          "id": "zh-noise",
+          "description": "触摸事件为空时第一个手指缺失并导致交互异常，请只返回触摸回调和索引读取所在源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/views/PlaybackTouchSurface.ets"],
+        "forbidden_files": [
+          "src/widgets/TouchOverlay.ets",
+          "src/models/InteractionState.ets"
+        ],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/views/PlaybackTouchSurface.ets", "start_line": 8, "end_line": 11}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-conditional-data-loading-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A folder-backed collection stays empty when nested items are loaded. Locate conditional data-source and state ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "A folder-backed collection stays empty when nested items are loaded. Locate conditional data-source and state ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Recursive folder loading returns no collection entries; find the owner combining the branch, asset query, and visible state."
+        },
+        {
+          "id": "zh-noise",
+          "description": "文件夹中的嵌套资源加载后列表仍为空，请只返回同时拥有条件分支、数据查询和状态提交的源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/viewmodels/FolderCollectionLoader.ets"],
+        "forbidden_files": [
+          "src/pages/CollectionPage.ets",
+          "src/services/AssetSource.ets"
+        ],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/viewmodels/FolderCollectionLoader.ets", "start_line": 5, "end_line": 9}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-lifecycle-callback-cleanup-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A listener must be unregistered before the window context is destroyed. Locate the lifecycle cleanup owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "A listener must be unregistered before the window context is destroyed. Locate the lifecycle cleanup owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Window shutdown leaves a callback registered; return the ability that owns both destruction and callback cleanup."
+        },
+        {
+          "id": "zh-noise",
+          "description": "窗口上下文销毁前没有注销监听回调，请只返回同时拥有生命周期边界和清理动作的源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/abilities/WorkspaceAbility.ets"],
+        "forbidden_files": [
+          "src/pages/WorkspacePage.ets",
+          "src/runtime/WindowRegistry.ets"
+        ],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/abilities/WorkspaceAbility.ets", "start_line": 4, "end_line": 6}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-builder-layout-source-focus",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A horizontal work list clips cards in its viewport. Locate the Builder method that owns list direction and height."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "A horizontal work list clips cards in its viewport. Locate the Builder method that owns list direction and height."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Cards are cut off in a horizontally scrolling gallery; return the reusable list Builder rather than a card or data model."
+        },
+        {
+          "id": "zh-noise",
+          "description": "横向作品列表中的卡片被裁剪，请返回设置列表方向和高度的 Builder 源码，不要返回卡片或数据模型。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/views/WorkGalleryPage.ets"],
+        "forbidden_files": [
+          "src/widgets/WorkCard.ets",
+          "src/viewmodels/GalleryListViewModel.ets"
+        ],
+        "root_cause_category": "layout",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/views/WorkGalleryPage.ets", "start_line": 12, "end_line": 20}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-reusable-toolbar-role-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Keyboard resize pushes a shared navigation toolbar off screen. Locate the reusable component role owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Keyboard resize pushes a shared navigation toolbar off screen. Locate the reusable component role owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A reusable toolbar disappears when the input viewport changes; return the toolbar component rather than its page or action bar."
+        },
+        {
+          "id": "zh-noise",
+          "description": "键盘弹出后共享工具栏被推出屏幕，请只返回可复用工具栏组件，不要返回页面或消息操作栏。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/components/NavigationToolbar.ets"],
+        "forbidden_files": [
+          "src/pages/KeyboardWorkspacePage.ets",
+          "src/widgets/MessageActionBar.ets"
+        ],
+        "root_cause_category": "layout",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/components/NavigationToolbar.ets", "start_line": 3, "end_line": 11}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-media-resource-shutdown-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Voice recording intermittently stops after repeated capture sessions. Locate media resource shutdown ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Voice recording intermittently stops after repeated capture sessions. Locate media resource shutdown ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The media recorder remains unstable because its capture resource is not released; return the owner of stop and release."
+        },
+        {
+          "id": "zh-noise",
+          "description": "多次采集后录音会间歇停止，请只返回负责停止并释放媒体资源的源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/media/VoiceCaptureCoordinator.ets"],
+        "forbidden_files": [
+          "src/pages/VoiceMessagePage.ets",
+          "src/services/AudioPermissionService.ets"
+        ],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/media/VoiceCaptureCoordinator.ets", "start_line": 8, "end_line": 11}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-keyboard-back-event-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The physical keyboard back key conflicts with search input. Locate the key-event and back-guard owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The physical keyboard back key conflicts with search input. Locate the key-event and back-guard owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Pressing the back key while searching triggers the wrong behavior; return the source that handles both keyboard events and the back guard."
+        },
+        {
+          "id": "zh-noise",
+          "description": "搜索输入时键盘返回键发生冲突，请只返回同时处理按键事件和返回键判断的源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pages/ShortcutSearchPage.ets"],
+        "forbidden_files": [
+          "src/components/KeyboardHint.ets",
+          "src/pages/KeyboardWorkspacePage.ets"
+        ],
+        "root_cause_category": "event",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/pages/ShortcutSearchPage.ets", "start_line": 7, "end_line": 12}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-archive-io-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "An existing temporary archive is reused during asset extraction. Locate archive creation and write ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "An existing temporary archive is reused during asset extraction. Locate archive creation and write ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Bundle extraction can retain stale bytes from a temporary archive; return the source that opens, writes, and extracts it rather than package metadata."
+        },
+        {
+          "id": "zh-noise",
+          "description": "资源解压时复用了旧压缩包并残留数据，请只返回创建和写入临时归档的源码，不要返回升级页面或包配置。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/io/AssetArchiveInstaller.ets"],
+        "forbidden_files": [
+          "src/config/ArchivePackageProfile.ets",
+          "src/pages/UpgradeStatusPage.ets"
+        ],
+        "root_cause_category": "io",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/io/AssetArchiveInstaller.ets", "start_line": 4, "end_line": 11}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-shared-record-aggregation-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Combining multiple shared records preserves only the final item. Locate collection aggregation ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Combining multiple shared records preserves only the final item. Locate collection aggregation ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A batch of shared records is reduced to its last value; return the record iteration and accumulator owner rather than the composer page."
+        },
+        {
+          "id": "zh-noise",
+          "description": "聚合多个共享记录时只保留最后一个条目，请返回循环处理记录并写入结果的源码，不要返回预览组件。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/sharing/SharedRecordCollector.ets"],
+        "forbidden_files": [
+          "src/pages/ShareComposerPage.ets",
+          "src/components/RecordPreview.ets"
+        ],
+        "root_cause_category": "data",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/sharing/SharedRecordCollector.ets", "start_line": 2, "end_line": 12}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-keyboard-focus-state-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Dismissing the software keyboard prevents the editor regaining focus. Locate keyboard visibility and focus-state ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Dismissing the software keyboard prevents the editor regaining focus. Locate keyboard visibility and focus-state ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Editor focus is lost after the keyboard hides; return the callback that owns both keyboard height changes and focusability state."
+        },
+        {
+          "id": "zh-noise",
+          "description": "软键盘收起后编辑器焦点无法恢复，请只返回同时监听键盘可见性并修改焦点状态的源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/web/DesktopEditorFocusController.ets"],
+        "forbidden_files": [
+          "src/components/KeyboardFocusHint.ets",
+          "src/pages/EditorKeyboardPage.ets"
+        ],
+        "root_cause_category": "ui",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/web/DesktopEditorFocusController.ets", "start_line": 5, "end_line": 11}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-native-color-parser-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Status bar color conversion returns an invalid opaque value. Locate native color parsing ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Status bar color conversion returns an invalid opaque value. Locate native color parsing ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Native color parsing mishandles an opaque system-bar value; return the conversion method rather than appearance settings."
+        },
+        {
+          "id": "zh-noise",
+          "description": "状态栏颜色转换产生了无效的不透明值，请只返回负责颜色解析和格式转换的方法，不要返回设置页面。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/theme/SystemBarColorAdapter.ets"],
+        "forbidden_files": ["src/pages/AppearanceSettingsPage.ets"],
+        "root_cause_category": "parsing",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/theme/SystemBarColorAdapter.ets", "start_line": 2, "end_line": 12}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-clipboard-content-reader-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Pasting plain text returns empty despite clipboard content. Locate runtime clipboard record extraction ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Pasting plain text returns empty despite clipboard content. Locate runtime clipboard record extraction ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The pasteboard contains a plain-text record but import returns nothing; find the data and record reader rather than permission metadata."
+        },
+        {
+          "id": "zh-noise",
+          "description": "剪贴板明明包含文本但粘贴结果为空，请只返回读取剪贴板数据和记录内容的实现，不要返回权限配置或导入页面。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/io/ClipboardContentReader.ets"],
+        "forbidden_files": [
+          "src/config/ClipboardFeatureProfile.ets",
+          "src/pages/PasteImportPage.ets"
+        ],
+        "root_cause_category": "io",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/io/ClipboardContentReader.ets", "start_line": 4, "end_line": 11}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-startup-permission-sequence-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Startup begins before the permission request result is checked. Locate request and result-guard ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Startup begins before the permission request result is checked. Locate request and result-guard ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The session service starts without waiting for permission approval; return the coordinator that requests access and guards the result."
+        },
+        {
+          "id": "zh-noise",
+          "description": "启动服务没有等待权限请求结果，请只返回同时发起权限申请、检查授权结果并继续启动的协调源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/runtime/PermissionStartupCoordinator.ets"],
+        "forbidden_files": [
+          "src/config/StartupPermissionProfile.ets",
+          "src/pages/StartupStatusPage.ets"
+        ],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/runtime/PermissionStartupCoordinator.ets", "start_line": 8, "end_line": 17}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-process-output-read-loop-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Command output is empty although the line reader has data. Locate output iteration and accumulation ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Command output is empty although the line reader has data. Locate output iteration and accumulation ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A process produces lines but the final output is blank; return the read loop and collector rather than output labels or limits."
+        },
+        {
+          "id": "zh-noise",
+          "description": "进程已经产生多行内容但命令输出仍为空，请只返回循环读取并聚合行数据的方法，不要返回输出页面或配置。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/io/ProcessOutputReader.ets"],
+        "forbidden_files": [
+          "src/config/CommandOutputProfile.ets",
+          "src/pages/CommandOutputPage.ets"
+        ],
+        "root_cause_category": "data",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/io/ProcessOutputReader.ets", "start_line": 2, "end_line": 10}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-runtime-capability-probe-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The manifest declares a capability but the runtime probe reports it unavailable. Locate executable capability inspection ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The manifest declares a capability but the runtime probe reports it unavailable. Locate executable capability inspection ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A declared extension is rejected at runtime; find the bundle capability query instead of manifest metadata or settings text."
+        },
+        {
+          "id": "zh-noise",
+          "description": "清单声明了扩展能力但运行时仍判定不可用，请只返回执行 bundle 能力探测的源码，不要返回功能清单或设置页面。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/runtime/FeatureCapabilityProbe.ets"],
+        "forbidden_files": [
+          "src/config/RuntimeFeatureManifest.ets",
+          "src/pages/CapabilitySettingsPage.ets"
+        ],
+        "root_cause_category": "configuration",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/runtime/FeatureCapabilityProbe.ets", "start_line": 4, "end_line": 9}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-serialized-draft-persistence-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "An incremental draft checkpoint can finish after the final save and overwrite completed content. Locate serialized write and final barrier ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "An incremental draft checkpoint can finish after the final save and overwrite completed content. Locate serialized write and final barrier ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A queued partial write races the completed draft commit; return both the checkpoint write tail and the final wait owner rather than policy or status UI."
+        },
+        {
+          "id": "zh-noise",
+          "description": "增量草稿检查点在最终保存后完成并覆盖完整内容，请只返回串行写入队列和最终等待屏障的实现，不要返回策略或状态页面。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/streaming/ConversationDraftStore.ets"],
+        "forbidden_files": [
+          "src/config/DraftCheckpointPolicy.ets",
+          "src/pages/DraftStatusPage.ets"
+        ],
+        "root_cause_category": "concurrency",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/streaming/ConversationDraftStore.ets", "start_line": 22, "end_line": 27},
+            {"file_path": "src/streaming/ConversationDraftStore.ets", "start_line": 37, "end_line": 41}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-timeout-cancellation-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Workspace initialization continues after its timeout and later marks the application ready. Locate deadline and cancellation-guard ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Workspace initialization continues after its timeout and later marks the application ready. Locate deadline and cancellation-guard ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A background bootstrap completes after the deadline and commits late state; return the timeout race and cancelled checks rather than loading text."
+        },
+        {
+          "id": "zh-noise",
+          "description": "工作区初始化超时后后台任务仍继续并写入就绪状态，请只返回超时竞争和取消检查实现，不要返回加载页面或期限配置。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/lifecycle/DeadlineBootstrapController.ets"],
+        "forbidden_files": [
+          "src/config/BootstrapDeadlineProfile.ets",
+          "src/pages/WorkspaceLoadingPage.ets"
+        ],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/lifecycle/DeadlineBootstrapController.ets", "start_line": 5, "end_line": 14},
+            {"file_path": "src/lifecycle/DeadlineBootstrapController.ets", "start_line": 16, "end_line": 26}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-webview-scheme-policy-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The embedded document WebView permits dangerous file and script URL schemes. Locate executable access and navigation policy ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The embedded document WebView permits dangerous file and script URL schemes. Locate executable access and navigation policy ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "An in-app browser accepts a javascript or file navigation; return the Web DSL file-access setting and URL interceptor rather than scheme metadata."
+        },
+        {
+          "id": "zh-noise",
+          "description": "内嵌浏览器允许 javascript、data 或 file 协议加载，请只返回 WebView 文件访问设置和 URL 拦截回调，不要返回协议清单或设置页面。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/web/SecureDocumentBrowser.ets"],
+        "forbidden_files": [
+          "src/config/BrowserSchemeManifest.ets",
+          "src/pages/DocumentBrowserSettingsPage.ets"
+        ],
+        "root_cause_category": "security",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/web/SecureDocumentBrowser.ets", "start_line": 10, "end_line": 16}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-bounded-cache-eviction-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A full result cache remains above its entry limit because no oldest key is evicted. Locate executable eviction scan ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "A full result cache remains above its entry limit because no oldest key is evicted. Locate executable eviction scan ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The bounded cache fails to remove its oldest entry after capacity is exceeded; return the timestamp scan and delete implementation rather than cache policy or models."
+        },
+        {
+          "id": "zh-noise",
+          "description": "结果缓存超过容量后没有淘汰最旧条目，请只返回遍历时间戳并删除候选键的实现，不要返回缓存配置、页面或数据模型。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/cache/BoundedResultCache.ets"],
+        "forbidden_files": [
+          "src/config/ResultCachePolicy.ets",
+          "src/pages/CacheInspectorPage.ets",
+          "src/models/ResultCacheEntry.ets"
+        ],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/cache/BoundedResultCache.ets", "start_line": 11, "end_line": 27}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
       "id": "context-no-evidence-abstention",
       "task_type": "diagnosis",
       "review_status": "validated",

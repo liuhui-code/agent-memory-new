@@ -7,6 +7,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from .benchmark_case_seal import case_pack_seal_audit
+
 
 CASE_SCHEMA = "agent-benchmark-cases/v1"
 REVIEW_STATUSES = {"draft", "validated", "holdout", "rejected"}
@@ -20,6 +22,7 @@ def load_case_pack(path: Path) -> dict[str, Any]:
         raise SystemExit(f"failed to read benchmark cases: {path}") from exc
     except json.JSONDecodeError as exc:
         raise SystemExit(f"invalid benchmark case JSON: {path}") from exc
+    case_pack_seal_audit(data)
     return validate_case_pack(data)
 
 

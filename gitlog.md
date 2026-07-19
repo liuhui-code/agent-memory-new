@@ -5907,3 +5907,551 @@ Rollback notes:
   lineage seeding, structural source bonuses, and the two Commerce scenarios.
   Relearn affected ArkTS scopes to restore older generated summaries. No SQLite
   schema migration or durable memory rewrite is required.
+
+## 2026-07-18 - Add sealed real-project validation and theory-grounded gates
+
+What changed:
+
+- Added canonical SHA-256 holdout sealing through the existing runtime facade.
+  Sealing verifies source-reviewed cases, hidden Oracle fields, immutable
+  revisions, fix commits, and declared files against the real Git diff. Pack
+  loading rejects missing or modified required seals before evaluation.
+- Added Context and Agent failure attribution for candidate generation,
+  ranking, passage selection, graph structure, experience governance,
+  abstention, compactness, Agent protocol, evaluation integrity, and Agent
+  efficiency. Reports include method references, permitted repair layers,
+  prohibited shortcuts, and the next validation boundary.
+- Added ten sealed Jingmo cases, a separate three-case post-repair Jingmo pack,
+  and two reserved unseen Gramony cases. The 15 source-reviewed sealed cases
+  cover two real ArkTS repositories without changing the four-Skill surface.
+- Added three independent Commerce development scenarios and bounded ArkTS
+  member-operation indexing, explicit multi-type identity focusing,
+  entity-role suppression, and query-focused file-anchor source windows.
+  Candidate selection moved from the runtime facade into a dedicated module.
+- Added cross-project Context history to `maintain-health`, grouped compactly
+  by source project and clearly separating sealed from unsealed observations.
+- Updated the system capability, Agent benchmark, runtime, and usage documents,
+  and recorded an explicit release decision instead of claiming promotion.
+
+Result:
+
+- The development Context gate passes all 15 scenarios and 45 query variants.
+  Anchor recall, primary recall, MRR, source-span recall, and wording stability
+  are 1.0; average compact context is 956.4889 Tokens.
+- The first sealed Jingmo observation passes 1/10. A new, non-overlapping
+  post-repair pack passes 0/3 and remains immutable; its leading failure is
+  ranking precision, followed by candidate generation and passage selection.
+- The recorded Gramony Agent A/B has 18 complete observations across three
+  cases and three paired trials. Result quality is stable, but Memory adds
+  16.41% Token and 23.1% elapsed overhead and fails per-case efficiency checks.
+  Quality, efficiency, and promotion gates therefore remain failed.
+- Seal tampering, source audit, failure analysis, Context governance, ArkTS
+  retrieval, and source-window focused tests pass. The unrestricted full suite
+  passes all 491 tests in 292.902 seconds; loopback permission is required only
+  by the fake Ollama HTTP server tests. JSON, compile, whitespace, and line-
+  count audits pass, and every Python source/test file is at most 500 lines.
+
+Rollback notes:
+
+- Remove the seal/failure-analysis modules, new evaluation artifacts, cross-
+  project governance summary, and query-selection refinements. No SQLite schema
+  migration, fifth Skill, daemon, vector store, or durable user memory rewrite
+  was introduced.
+
+## 2026-07-18 - Add large-repository fielded retrieval and consume Gramony holdout
+
+What changed:
+
+- Extracted candidate generation from `query_collect.py` into a replaceable
+  SQLite recall port with bounded broad, conjunctive, and per-concept FTS5
+  lanes. Extra lanes activate only when broad recall is saturated.
+- Added full-query recall and stage audits, query-focus coverage reranking, and
+  evidence-backed symbol-range-first source passage selection. Compact context
+  remains unchanged and under the existing Token budget.
+- Added independent noisy retrieval fixtures that reproduce multi-owner recall,
+  ranking interference, and whole-file passage drift without using holdout
+  Oracles.
+- Consumed the two sealed Gramony cases once and stored an immutable summary.
+  Updated the release decision instead of retuning the consumed pack.
+
+Result:
+
+- Focused retrieval, graph, audit, and performance regressions pass 39 tests.
+- The development Context gate remains 45/45 with anchor recall 1.0, MRR
+  0.9722, source-span recall 1.0, average context 957.8 Tokens, and average
+  query time 351.1111 ms.
+- The sealed Gramony observation passes 0/2. Anchor recall and MRR are 0.75,
+  precision is 0.25, source-span recall is 0.0, and average context is 1,287.5
+  Tokens. Promotion remains denied; the pack is now immutable and unavailable
+  for tuning.
+- Full discovery ran 496 tests: 494 passed in the restricted sandbox, while two
+  fake Ollama tests could not bind `127.0.0.1`; both loopback tests passed when
+  rerun with local socket permission. JSON, compile, whitespace, and line-count
+  checks pass across 263 Python files, with no file above 500 lines.
+
+Rollback notes:
+
+- Remove the candidate recall/ranking modules and query audit integration, then
+  restore direct broad FTS recall and global source-window selection. No schema
+  migration or durable user-memory rewrite is required. Evaluation observations
+  must remain retained even if the implementation is rolled back.
+
+## 2026-07-19 - Add coverage-first excerpts and consume Bookkeep holdout
+
+What changed:
+
+- Added independent regressions for late query-owner terms, dominant shared
+  owners, executable ArkTS passage focus, and three-anchor excerpt coverage.
+- Changed compact source budgeting so three primary anchors retain small source
+  windows before one candidate consumes the available excerpt budget.
+- Reviewed and sealed three real Bookkeep fixes from immutable Git history,
+  including one noisy commit whose expected file remains symptom-scoped.
+- Stored the one-time external result and updated the three-project release
+  decision without changing the consumed pack or its thresholds.
+
+Result:
+
+- The 15-scenario/45-variant development Context gate passes 45/45 with anchor
+  recall 1.0, MRR 0.9676, source-span recall 1.0, and average context 943.5111
+  Tokens.
+- The sealed Bookkeep observation passes 0/3. No code anchor is returned, so
+  anchor recall, MRR, and source-span recall are 0.0; average context is 388
+  Tokens. The root failure is candidate generation across abstract English
+  symptoms, Chinese domain vocabulary, generic page names, and ArkTS syntax.
+- Sealed inventory now contains 18 cases across Jingmo, Gramony, and Bookkeep.
+  Promotion remains denied and all consumed holdouts remain immutable.
+- Full discovery ran 500 tests: 498 passed in the restricted sandbox and the
+  two fake Ollama loopback tests passed when rerun with local socket permission.
+  JSON, compile, whitespace, and 500-line audits all pass.
+- Post-run audit found that the sealed pack labels the source branch as
+  `master`, while Bookkeep remote HEAD is `main`. Full audited revisions drove
+  source preparation, so the observation is valid; the consumed pack remains
+  unchanged and the discrepancy is recorded in its result summary.
+
+Rollback notes:
+
+- Revert the minimum excerpt allocation and its regression if compact source
+  quality regresses. Retain all sealed packs and immutable observations even if
+  retrieval code is rolled back; no schema migration is involved.
+
+## 2026-07-19 - Add structural symptom recall and consume Home Assistant holdout
+
+What changed:
+
+- Added a language-neutral behavior concept module for abstract scrolling,
+  reactive aggregate refresh, and visual overlap symptoms. The bounded
+  `sqlite_fts5_fielded/v2` structural lane applies only to code-file summaries
+  and exposes its term count in full query audit.
+- Indexed ArkTS `forEach` behavior and added structural marker coverage to code
+  focusing, suppressing stronger lexical noise when a candidate lacks the
+  behavior requested by the symptom.
+- Preserved two alternate causal paths under tight compact budgets by dropping
+  one redundant non-emitter excerpt before collapsing path diversity. Code
+  anchors and common emitter source evidence remain available.
+- Added three independent development scenarios with nine wording variants.
+  Reviewed, source-audited, and sealed four real Home Assistant fixes, executed
+  the pack exactly once, and retained the failed observation unchanged.
+- Updated runtime, usage, benchmark, capability, plan, and release-governance
+  documentation. The public four-Skill surface and SQLite source of truth are
+  unchanged.
+
+Result:
+
+- The development Context gate passes 54/54 variants across 18 scenarios with
+  anchor recall 1.0, MRR 0.9741, source-span recall 1.0, average compact context
+  893.5556 Tokens, and average query time 327.3704 ms.
+- The sealed Home Assistant observation passes 0/4. The layout owner is found
+  at rank one with the required source span but fails precision; lifecycle,
+  callback-containment, and authoritative-refresh owners are not recalled.
+  Aggregate anchor recall and MRR are 0.25. The pack is consumed and cannot be
+  rerun for tuning.
+- Sealed inventory now contains 22 cases across four real ArkTS projects.
+  Promotion remains denied because real-project Context generalization and the
+  recorded Agent efficiency gate do not both pass.
+- Full discovery ran 505 tests: 503 passed in the restricted sandbox, while the
+  two fake Ollama tests could not bind `127.0.0.1`; both passed with local
+  loopback permission. JSON, compile, whitespace, and line-count audits pass,
+  and every Python source/test file remains at most 500 lines.
+
+Rollback notes:
+
+- Remove the structural recall/focus modules and their independent development
+  fixtures, restore the previous recall provider version, and remove the path
+  diversity excerpt preference if regressions appear. Retain all sealed packs
+  and immutable result summaries; no SQLite migration or durable memory rewrite
+  was introduced.
+
+## 2026-07-19 - Add mechanism-aware recall and consume Aigis holdout
+
+What changed:
+
+- Added a conservative ArkTS behavior-marker extractor for existing fallback,
+  repository, callback, deserialization, action, lifecycle, state-write, and
+  async mechanisms. Markers are persisted in file summaries and never infer a
+  missing repair.
+- Added language-neutral reusable-spacing, fallback-recovery,
+  callback-containment, and post-action-refresh concepts. Structural focusing
+  now keeps a bounded minimal cover of complementary marker evidence.
+- Added exact high-entropy identifier abstention so generic topic overlap cannot
+  substitute for an unknown identifier without direct or graph support.
+- Changed `eval-context-capability` to run all scenarios by default, while an
+  explicit limit remains available for a deliberately bounded selection.
+- Added four independent development scenarios and twelve wording variants,
+  then reviewed, sealed, and executed four real Aigis cases exactly once.
+  Updated the five-project release decision without tuning the consumed pack.
+
+Result:
+
+- The development Context gate passes 66/66 variants across 22 scenarios with
+  anchor and primary-anchor recall 1.0, MRR 0.9883, source-span recall 1.0,
+  average compact context 854.0152 Tokens, and average query time 383.6212 ms.
+- The sealed Aigis observation passes 1/4. Aggregate anchor recall is 0.75,
+  precision 0.25, MRR 0.625, source-span recall 0.5, and average context
+  1,194.25 Tokens. The pack is consumed and unavailable for tuning.
+- Sealed inventory now contains 26 cases across five real ArkTS projects.
+  Promotion remains denied because external Context generalization and the
+  recorded Agent efficiency gate do not both pass.
+- Full discovery ran 515 tests: 513 passed in the restricted sandbox; the two
+  fake Ollama tests blocked only by loopback binding both passed with local
+  socket permission. JSON, compile, whitespace, and line-count audits pass,
+  with every Python source/test file at most 500 lines.
+
+Rollback notes:
+
+- Remove the mechanism extractor, concept mappings, minimal structural cover,
+  and opaque-identifier guard together if recall regresses; restore the prior
+  evaluation default only if callers explicitly require partial packs. Retain
+  the sealed Aigis pack and immutable observation under any rollback. No SQLite
+  migration or durable user-memory rewrite was introduced.
+
+## 2026-07-19 - Add event and persistence recall and consume sixth holdout
+
+What changed:
+
+- Added conservative ArkTS markers for event-to-state handoff, validation
+  early-stop ownership, explicit persistence writes, and paired counter/time
+  commits. Added language-neutral query concepts for the same mechanisms.
+- Kept directly supported structural owners eligible when they also carry graph
+  provenance, without promoting generic graph neighbors as direct evidence.
+- Added four independent development scenarios and twelve query variants for
+  state handoff, validation, persistence, and combined-owner precision.
+- Reviewed and sealed four real harmonyos-games fixes, executed the pack once,
+  stored the immutable result, and updated the six-project release decision.
+
+Result:
+
+- The development Context gate passes 78/78 variants across 26 scenarios with
+  anchor and primary-anchor recall 1.0, MRR 0.9928, source-span recall 1.0,
+  average compact context 822.3077 Tokens, and average query time 320.6154 ms.
+- The harmonyos-games observation passes 1/4. Aggregate anchor recall is 0.75,
+  precision 0.375, MRR 0.75, source-span recall 0.75, and average context is
+  1,112 Tokens. Two expected owners rank first but fail precision; one gesture
+  state owner is not recalled.
+- Sealed inventory now contains 30 cases across six real ArkTS projects.
+  Promotion remains denied. The consumed pack cannot be rerun or used to tune
+  ranking, query wording, thresholds, or Oracles.
+- Full discovery ran 520 tests: 518 passed in the restricted sandbox, and the
+  two fake Ollama tests blocked only by loopback binding both passed with local
+  socket permission. All eval JSON, compile, whitespace, and 500-line audits
+  pass.
+
+Rollback notes:
+
+- Remove the four new mechanism markers, query concepts, selection adjustment,
+  and independent fixtures together if regressions appear. Retain every sealed
+  pack and immutable observation. No SQLite migration or durable memory rewrite
+  was introduced.
+
+## 2026-07-19 - Add gesture precision and consume JustPDF holdout
+
+What changed:
+
+- Added conservative ArkTS markers for gesture callbacks and indexed collection
+  writes, and recognized `restore` as an existing lifecycle operation.
+- Added language-neutral concepts for gesture-state symptoms, adjacent
+  collection mutation, and lifecycle-persistence ownership without changing
+  global ranking thresholds.
+- Added three independent development scenarios and nine wording variants with
+  explicit partial-owner noise and method-level source-span Oracles.
+- Reviewed four single-owner fixes across JustPDF history, source-audited and
+  sealed the pack, executed it once, and stored the immutable result.
+
+Result:
+
+- The development Context gate passes 87/87 variants across 29 scenarios with
+  anchor and primary-anchor recall 1.0, MRR 0.9936, source-span recall 1.0,
+  average compact context 801.7011 Tokens, and average query time 312.931 ms.
+- The JustPDF observation passes 1/4. Aggregate anchor recall is 0.75,
+  precision 0.3125, MRR 0.625, source-span recall 0.25, and average context is
+  1,150.5 Tokens. One async owner is absent; two recalled owners miss their
+  audited method windows, and touch arbitration retains excess neighbors.
+- Sealed inventory now contains 34 cases across seven real ArkTS projects.
+  Promotion remains denied and the consumed pack cannot be rerun or tuned.
+- Full discovery ran 525 tests: 523 passed in the restricted sandbox, and the
+  two fake Ollama tests blocked only by loopback binding both passed with local
+  socket permission. All eval JSON, compile, whitespace, and 500-line audits
+  pass.
+
+Rollback notes:
+
+- Remove the gesture/collection markers, lifecycle restore term, query concepts,
+  independent fixtures, and their tests together if regressions appear. Retain
+  every sealed pack and immutable observation. No SQLite migration or durable
+  memory rewrite was introduced.
+
+## 2026-07-19 - Add async method focus and consume FinVideo holdout
+
+What changed:
+
+- Added language-neutral query concepts for asynchronous state ordering and
+  touch-state arbitration while reusing conservative, source-checkable ArkTS
+  behavior markers.
+- Made English concept triggers word-aware, preventing substrings such as
+  `interaction` from activating the unrelated `action` mechanism.
+- Preferred complete multi-mechanism owners over generic operation-name
+  matches, while retaining explicit file and symbol identity precedence.
+- Added language-adapter-backed callable ranges for source excerpt selection,
+  preserved mechanism-complete methods before lexical fallback, and reduced
+  repeated source reads to one scan per file.
+- Added two independent development scenarios and six wording variants, then
+  reviewed and sealed four FinVideo fixes, executed that pack exactly once,
+  and stored its immutable observation.
+
+Result:
+
+- The development Context gate passes 93/93 variants across 31 scenarios with
+  anchor and primary-anchor recall 1.0, MRR 0.994, source-span recall 1.0,
+  average compact context 789.9462 Tokens, and average query time 435.5699 ms.
+- The FinVideo observation passes 0/4. Aggregate anchor recall is 0.75,
+  precision 0.3958, MRR 0.75, source-span recall 0.25, and average context is
+  948.5 Tokens. Nested ArkUI callbacks and Builder ranges remain weak,
+  conditional folder loading misses its owner, and two cases retain excess
+  neighbors.
+- Sealed inventory now contains 38 cases across eight real ArkTS projects.
+  Promotion remains denied and the consumed pack cannot be rerun or tuned.
+- Full discovery ran 529 tests: 527 passed in the restricted sandbox, and the
+  two fake Ollama tests blocked only by loopback binding passed with local
+  socket permission. All 44 eval JSON files, compile, whitespace, and 500-line
+  audits pass; the largest Python source/test file is 496 lines.
+
+Rollback notes:
+
+- Remove the async/touch concepts, word-aware trigger matching, combination
+  precedence, callable-range focus, independent fixtures, and their tests
+  together if regressions appear. Retain every sealed pack and immutable
+  observation. No SQLite migration or durable memory rewrite was introduced.
+
+## 2026-07-19 - Add ArkTS DSL focus and consume Wechat holdout
+
+What changed:
+
+- Added conservative ArkTS markers for indexed touch access, conditional data
+  sources, lifecycle callback cleanup, horizontal and vertical layout axes, and
+  async request ordering guards.
+- Added a language-adapter source range layer that combines ECMA callables with
+  nested chained ArkUI arrow callbacks, allowing callback and Builder windows
+  to compete independently.
+- Added bounded component identifier terms and raw-query-only explicit path
+  protection. Semantic expansions, negative references, and behavior-only
+  queries cannot pin unrelated paths.
+- Added four independent development scenarios and twelve wording variants,
+  then reviewed and sealed four Wechat_HarmonyOS fixes, executed the pack
+  exactly once, and stored its immutable observation.
+
+Result:
+
+- The development Context gate passes 105/105 variants across 35 scenarios
+  with anchor and primary-anchor recall 1.0, MRR 0.9896, source-span recall
+  1.0, average compact context 764.5714 Tokens, and average query time 520 ms.
+- The Wechat observation passes 1/4. Aggregate anchor recall is 0.75,
+  precision 0.25, MRR 0.5833, source-span recall 0.25, and average context is
+  1,138.5 Tokens. Reusable toolbar recall, audio lifecycle passage precision,
+  and keyboard/back event ownership remain external generalization gaps.
+- Sealed inventory now contains 42 cases across nine real ArkTS projects.
+  Promotion remains denied and the consumed pack cannot be rerun or tuned.
+- Focused ArkTS retrieval and source-range regression passes 78/78 tests. Full
+  discovery ran 542 tests: 540 passed in the restricted sandbox, and the two
+  fake Ollama tests blocked only by loopback binding passed with local socket
+  permission. All 46 eval JSON files, compile, whitespace, seal consistency,
+  and 500-line audits pass; the largest Python source/test file is 496 lines.
+
+Rollback notes:
+
+- Remove the new marker concepts, ArkTS range adapter, component terms,
+  explicit-path safeguards, independent fixtures, and their tests together if
+  regressions appear. Retain every sealed pack and immutable observation. No
+  SQLite migration or durable memory rewrite was introduced.
+
+## 2026-07-19 - Add role/boundary recall and consume Siyuan holdout
+
+What changed:
+
+- Added conservative ArkTS markers and language-neutral query concepts for
+  reusable Toolbar roles, media resource acquire/release ownership, and
+  keyboard/back event boundaries. Business ActionBar components remain
+  excluded from the reusable Toolbar role.
+- Kept a bounded structural FTS lane available when broad recall saturates and
+  removed expansion-only tails under two strong identity paths, while
+  preserving component-flow lineage.
+- Added three independent development scenarios and nine wording variants for
+  toolbar ownership, resource shutdown, and key-event precision.
+- Reviewed four single-owner Siyuan Harmony fixes, source-audited and sealed
+  the pack, executed it exactly once, and stored the immutable result.
+
+Result:
+
+- The development Context gate passes 114/114 variants across 38 scenarios
+  with anchor and primary-anchor recall 1.0, MRR 0.9905, source-span recall
+  1.0, average compact context 746.8684 Tokens, and average query time
+  556.5351 ms.
+- The Siyuan observation passes 0/4. Aggregate anchor recall is 0.75,
+  precision 0.2708, MRR 0.4583, source-span recall 0.0, and average context is
+  1,074.25 Tokens. Archive I/O ownership is absent; three other owners are
+  noisy or late, and all four audited method windows are missed.
+- Sealed inventory now contains 46 cases across ten real ArkTS projects.
+  Promotion remains denied and the consumed pack cannot be rerun or tuned.
+- Focused mechanism, recall, precision, and source-focus regression passes
+  43/43 tests. Full discovery ran 551 tests: 549 passed in the restricted
+  sandbox, and the two fake Ollama tests blocked only by loopback binding both
+  passed with local socket permission. All 48 eval JSON files, compile,
+  whitespace, seal consistency, and 500-line audits pass; the largest Python
+  source/test file is 496 lines.
+
+Rollback notes:
+
+- Remove the new role/boundary markers, query concepts, structural-lane
+  scheduling, identity-tail focus, independent fixtures, and their tests
+  together if regressions appear. Retain every sealed pack and immutable
+  observation. No SQLite migration or durable memory rewrite was introduced.
+
+## 2026-07-19 - Add I/O/conversion recall and consume Termony holdout
+
+What changed:
+
+- Added conservative ArkTS behavior markers and language-neutral concepts for
+  archive asset I/O, collection aggregation, keyboard/focus state, and native
+  color conversion.
+- Merged query-supported callable ranges ahead of stored source ranges so a
+  matching implementation method remains visible without discarding existing
+  graph evidence.
+- Tightened reusable-spacing expansion to explicit margin and padding terms
+  after an independent collection fixture exposed a generic shared-owner false
+  positive.
+- Added four independent development scenarios and twelve wording variants,
+  then reviewed and sealed four Termony fixes, executed that pack exactly once,
+  and stored its immutable observation.
+
+Result:
+
+- The development Context gate passes 126/126 variants across 42 scenarios
+  with anchor and primary-anchor recall 1.0, oracle precision 0.9309, MRR
+  0.9915, source-span recall 1.0, average compact context 726.373 Tokens, and
+  average query time 994.9683 ms.
+- The Termony observation passes 1/4. Aggregate anchor recall, primary recall,
+  precision, and MRR are 0.5; source-span recall is 0.25 and average context is
+  721.25 Tokens. Clipboard extraction and sequential permission owners are not
+  recalled, empty-result scrolling recalls the owner but misses its method
+  window, and touch-coordinate conversion passes completely.
+- Sealed inventory now contains 50 cases across eleven real ArkTS projects.
+  Promotion remains denied and the consumed pack cannot be rerun or tuned.
+- Focused marker, recall, precision, source-focus, and diversity regression
+  passes 75/75 tests. Full discovery ran 563 tests: 561 passed in the restricted
+  sandbox, and the two fake Ollama tests blocked only by loopback binding passed
+  in the focused 3/3 local-socket suite. All 50 eval JSON files, compile,
+  whitespace, seal consistency, and 500-line audits pass; the largest Python
+  source/test file is 496 lines.
+
+Rollback notes:
+
+- Remove this stage's behavior markers, concepts, callable-range merge,
+  independent fixtures, and their tests together if regressions appear. Retain
+  every sealed pack and immutable observation. No SQLite migration or durable
+  memory rewrite was introduced.
+
+## 2026-07-19 - Add behavior-owner recall and consume ClearChat holdout
+
+What changed:
+
+- Added conservative ArkTS markers and language-neutral query concepts for
+  clipboard content reads, permission request/result guards, process-output
+  read loops, and runtime-capability probes.
+- Removed explicit negative clauses before behavior expansion, suppressed
+  generic identity-only log emitters for structural queries without active
+  path reconstruction, and preserved exact log and path-led retrieval.
+- Fixed ArkTS callback range detection so a later arrow expression cannot be
+  attached to an already closed call.
+- Added four independent development scenarios and twelve wording variants,
+  then reviewed and sealed four ClearChat fixes, executed that pack exactly
+  once, and stored its immutable observation.
+
+Result:
+
+- The development Context gate passes 138/138 variants across 46 scenarios
+  with anchor and primary-anchor recall 1.0, oracle precision 0.9412, MRR
+  0.9922, source-span recall 1.0, average compact context 714.0 Tokens, and
+  average query time 1,195.2826 ms.
+- The ClearChat observation passes 0/4. Aggregate anchor and primary recall are
+  0.5, precision is 0.1875, MRR is 0.375, source-span recall is 0.25, and
+  average context is 1,225.25 Tokens. Cache ownership passes recall and span
+  gates but broad neighbors reduce precision; streaming persistence windows,
+  initialization timeout ownership, and WebView security ownership remain
+  external generalization gaps.
+- Sealed inventory now contains 54 cases across twelve real ArkTS projects.
+  Promotion remains denied and the consumed pack cannot be rerun or tuned.
+- Focused marker, recall, precision, source-focus, diversity, UI-context, and
+  source-excerpt regression passes 96/96 tests. Full discovery ran 571 tests:
+  569 passed in the restricted sandbox, and the two fake Ollama tests blocked
+  only by loopback binding passed in the focused 3/3 local-socket suite. All 52
+  eval JSON files, compile, whitespace, seal consistency, and 500-line audits
+  pass; the largest Python source/test file is 497 lines.
+
+Rollback notes:
+
+- Remove this stage's behavior markers, concepts, structural log suppression,
+  callback-range fix, independent fixtures, and their tests together if
+  regressions appear. Retain every sealed pack and immutable observation. No
+  SQLite migration or durable memory rewrite was introduced.
+
+## 2026-07-19 - Add async/security owners and consume ccplayer holdout
+
+What changed:
+
+- Added conservative ArkTS markers and language-neutral query concepts for
+  serialized persistence, timeout cancellation, WebView access and URL-scheme
+  policy, and bounded-cache eviction.
+- Required UI context for ambiguous visual-cover terms so data overwrites do
+  not activate overlay retrieval.
+- Added four independent development scenarios and twelve wording variants,
+  then reviewed and sealed four ccplayer fixes, executed that pack exactly
+  once, and stored its immutable observation.
+
+Result:
+
+- The development Context gate passes 150/150 variants across 50 scenarios
+  with anchor and primary-anchor recall 1.0, oracle precision 0.945, MRR
+  0.9929, source-span recall 1.0, average compact context 711.4133 Tokens,
+  average memory preparation time 3,654.1933 ms, and average query time
+  1,466.8867 ms.
+- The ccplayer observation passes 1/4. Aggregate anchor recall is 0.5, primary
+  recall is 0.25, precision and MRR are 0.3125, source-span recall is 0.125,
+  and average context is 1,136.5 Tokens. Surface callback ordering passes;
+  idempotent release ownership, source-reset lifecycle state, and prepared
+  command eligibility remain external generalization gaps.
+- Sealed inventory now contains 58 cases across thirteen real ArkTS projects
+  and fourteen immutable packs. Promotion remains denied and the consumed
+  pack cannot be rerun or tuned.
+- Focused marker, recall, precision, source-focus, diversity, UI-context, and
+  source-excerpt regression passes 105/105 tests. Full discovery ran 580
+  tests: 577 passed in the restricted sandbox; the fingerprint-policy failure
+  was fixed and verified by a focused 10/10 run, while the two fake Ollama
+  tests blocked only by loopback binding passed in the focused 3/3
+  local-socket suite. All 54 eval JSON files, compile, whitespace, seal
+  consistency, and 500-line audits pass; the largest Python source/test file
+  is 497 lines.
+
+Rollback notes:
+
+- Remove this stage's behavior markers, concepts, visual-cover
+  disambiguation, independent fixtures, and their tests together if
+  regressions appear. Retain every sealed pack and immutable observation. No
+  SQLite migration or durable memory rewrite was introduced.

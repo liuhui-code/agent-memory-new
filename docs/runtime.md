@@ -252,7 +252,7 @@ python tools/agent_memory.py eval-quality --project . --cases-dir docs/eval --js
 Use `eval-quality --list-gates --json` to inspect registered gate names, case files, and rerun commands without executing cases or writing the latest quality gate snapshot.
 Each run also writes `runtime/last_quality_gate.json`. The output includes `quality_gate_delta`, a previous-run comparison with `newly_failed_gates`, `resolved_failed_gates`, and `status_change`. `maintain-health --json` exposes a compact `last_quality_gate` view from that file and recommends review when the latest gate failed. `maintain-plan --json` may emit `review_quality_gate_failure` in the `quality_gate` lane so the failure enters normal action budgeting. Treat the snapshot as disposable runtime telemetry, not durable memory.
 
-Before end-to-end Agent A/B, `eval-context-capability` deterministically tests the system's own compact context supply on frozen cases without invoking a model. It gates expected/forbidden code anchors, Top-K rank, anchor precision, query-focused source spans, Token budget, explicitly declared source/log/experience/path requirements, and no-evidence abstention. Undeclared capabilities remain informational. The built-in `docs/eval/system-capability-cases.json` pack supplies 12 reviewed ArkTS scenarios and 36 wording variants for log emitters, main versus guard experience lanes, bounded causal-path candidates, cross-component graph recall, query-conditioned component lineage, exact UI behavior owners, dense-log source budgeting, and abstention. Reports contain paths, source-range metadata, and aggregate measurements but no Oracle or source bodies, are stored in `runtime/last_context_capability.json` plus a bounded history, and are exposed by `maintain-health.context_capability`, including MRR and source-span recall. Keep sealed holdout packs isolated from tuning. End-to-end Agent behavior then uses the separate A/B benchmark protocol. See `docs/agent-benchmark.md` and `docs/system-capability-evaluation.md`.
+Before end-to-end Agent A/B, `eval-context-capability` deterministically tests the system's own compact context supply on frozen cases without invoking a model. It gates expected/forbidden code anchors, Top-K rank, anchor precision, query-focused source spans, Token budget, explicitly declared source/log/experience/path requirements, and no-evidence abstention. Undeclared capabilities remain informational. The built-in `docs/eval/system-capability-cases.json` pack supplies 50 reviewed ArkTS scenarios and 150 wording variants for log emitters, main versus guard experience lanes, bounded causal-path candidates, cross-component graph recall, query-conditioned component lineage, exact and abstract behavior owners, lifecycle/callback/action mechanisms, reusable toolbar roles, media resource shutdown, keyboard/back boundaries, archive I/O, collection aggregation, keyboard focus state, native color parsing, clipboard-content reads, permission request/result guards, process-output read loops, runtime-capability probes, serialized writes and final barriers, timeout cancellation, WebView access and URL-scheme policy, bounded-cache eviction, gesture and indexed-touch safety, conditional data loading, callback cleanup, horizontal and vertical Builder layout, indexed collection writes, async ordering guards, event-to-state handoff, validation stops, persistence commits, domain-entity interference, dense-log source budgeting, and abstention. With no explicit `--limit`, every scenario runs; a supplied limit remains a deliberate bounded development selection. Structural concepts use word-aware English triggers, conservative component identifier terms, and prefer complete multi-mechanism owners over generic operation-name matches. Ambiguous visual-cover terms require UI context so data overwrites do not activate overlay retrieval. Explicit negative clauses are removed before behavior expansion, so an excluded mechanism cannot activate an unrelated concept. Explicit-path protection is derived only from the user's raw identifiers and is disabled for negative or behavior-only queries. For structural behavior queries without active path reconstruction, generic identity-only log emitters are omitted from compact code anchors; exact log and path-led queries retain them. Source excerpts merge query-supported callable ranges ahead of stale stored ranges, then use language adapters for standard ECMA callables and nested ArkUI arrow callbacks. Reports contain paths, source-range metadata, and aggregate measurements but no Oracle or source bodies, are stored in `runtime/last_context_capability.json` plus a bounded history, and are exposed by `maintain-health.context_capability`, including MRR, source-span recall, failure class, seal audit, and cross-project history. `eval-seal-cases` validates immutable revisions and real changed files before adding a canonical SHA-256 seal; modified or incomplete holdouts fail closed. Keep sealed holdout packs isolated from tuning. End-to-end Agent behavior then uses the separate A/B benchmark protocol. See `docs/agent-benchmark.md` and `docs/system-capability-evaluation.md`.
 
 The bundled Codex benchmark Runner always replaces compact source-excerpt bodies with symbol and line metadata before building its external prompt. New observations report `source_excerpt_delivery=external_metadata_only`; therefore they evaluate anchor/range behavior, not source-excerpt effectiveness. The bundled Ollama Runner accepts only loopback HTTP, verifies the requested installed model, and retains full excerpts inside the local process boundary. It exposes only bounded workspace `read_source` and literal `search_source` tools, derives tool and Token telemetry itself, and reports `source_boundary=local_process` plus `source_excerpt_delivery=full`. Result and telemetry stores never contain excerpt bodies. Initial local Qwen 3 1.7B and Llama 3.2 3B Login smoke A/B runs failed quality and efficiency, so the repeated matrix remains stopped; see `docs/gramony-benchmark-pilot.md`.
 
@@ -780,3 +780,43 @@ The response includes:
 
 Use `next_cursor` only when the current batch does not provide enough evidence. Query remains bounded by design.
 `suggested_followup_terms` are scene-aware. The runtime biases them toward exact route, resource, log, or config anchors based on the current problem wording and strongest matches before falling back to broader file-path or summary-derived terms.
+
+Full `context --json` and `search --json` responses include `query_audit`. Its
+`candidate_recall` section reports bounded SQLite FTS5 lanes per table, while
+`retrieval_stages` reports counts after scoring, intent gating, and final
+selection. Term-level code lanes run only when broad recall reaches its budget:
+small archives keep a single broad query, while saturated large archives gain
+coverage across distinct request concepts. Compact context omits this audit to
+preserve the Agent Token budget; use the full view only to diagnose candidate
+loss or ranking noise.
+
+The fielded recall provider is `sqlite_fts5_fielded/v2`. For `code_files` only,
+an unsaturated direct lane may add one bounded structural FTS lane derived from
+language-neutral behavior concepts. Current concepts cover scrolling/layout,
+reactive aggregate refresh, and visual overlap, and map symptom wording to
+indexed ArkTS markers such as `ListDirection`, `layoutWeight`, `forEach`,
+`watch`, `overlay`, or `zIndex`. ArkTS summaries also retain conservative
+existing-mechanism markers for fallback branches, repository/callback/async
+boundaries, deserialization, action dispatch, gesture callbacks, indexed
+collection writes, lifecycle synchronization including restore, event-to-state
+handoff, validation stops, explicit persistence writes, paired counter/timestamp
+commits, and state writes. These markers describe inspectable source mechanisms; they never
+infer a missing repair. A structural match must be present in the stored file
+summary and competes by marker coverage; a bounded greedy cover keeps only
+candidates that add mechanism evidence. It is not a project-name alias and
+does not create graph or causal evidence. Exact high-entropy identifiers fail
+closed unless the identifier itself or a supported graph neighbor is found.
+The full audit exposes the structural term count so candidate recall can be
+distinguished from ranking.
+
+Compact source excerpts use a coverage-first budget. Up to three primary
+anchors each receive a small readable window before any one anchor consumes
+the remaining source budget. This keeps a lower-ranked log emitter or shared
+owner inspectable under the same 1,500-Token ceiling; it does not add weak code
+anchors or increase candidate recall.
+
+When at least two bounded causal-path candidates exist, compact projection
+preserves path diversity before retaining a redundant source excerpt from a
+non-emitter anchor. It may omit one such excerpt while retaining both code
+anchors and the common emitter excerpt. This changes only presentation under
+the fixed Token budget; it does not promote or infer a path.

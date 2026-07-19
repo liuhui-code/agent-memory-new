@@ -6,8 +6,10 @@ import re
 from pathlib import Path
 from typing import Any
 
+from .arkts_behavior_markers import extract_arkts_behavior_markers
 from .arkts_ui_behavior import extract_arkts_operation_names
 from .models import CODE_EXTENSIONS, IGNORE_DIRS
+from .text import identifier_tokens, unique_list
 
 
 ARKTS_BUILDER_COMPONENTS = {
@@ -17,6 +19,7 @@ ARKTS_BUILDER_COMPONENTS = {
     "Scroll", "Search", "Select", "Slider", "Stack", "Swiper", "Tabs", "Text",
     "TextArea", "TextInput", "Toggle", "Video", "WaterFlow",
 }
+COMPONENT_ALIAS_EXCLUDED_SUFFIXES = ("Page", "Screen")
 
 def should_skip_dir(path: Path) -> bool:
     return any(part in IGNORE_DIRS for part in path.parts)
@@ -43,15 +46,25 @@ def summarize_file(path: Path, language: str) -> str:
         routes = [name for name, kind in symbols if kind == "route"]
         resources = [name for name, kind in symbols if kind == "resource"]
         operations = extract_arkts_operation_names(text)
+        behavior = extract_arkts_behavior_markers(text)
         parts = [f"ArkTS file with {len(lines)} non-empty lines"]
         if components:
             parts.append("components: " + ", ".join(sorted(set(components))[:5]))
+            alias_components = [
+                name for name in components
+                if not name.endswith(COMPONENT_ALIAS_EXCLUDED_SUFFIXES)
+            ]
+            aliases = unique_list(identifier_tokens(" ".join(alias_components)))
+            if aliases:
+                parts.append("component terms: " + ", ".join(aliases[:12]))
         if routes:
             parts.append("routes: " + ", ".join(sorted(set(routes))[:5]))
         if resources:
             parts.append("resources: " + ", ".join(sorted(set(resources))[:5]))
         if operations:
             parts.append("operations: " + ", ".join(operations))
+        if behavior:
+            parts.append("behavior: " + ", ".join(behavior))
         return "; ".join(parts)
     if language == "HarmonyOS Config":
         symbols = extract_symbols(path, language)

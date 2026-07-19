@@ -8,6 +8,7 @@ import re
 from typing import Any
 
 from .performance_scoring import estimate_payload_tokens
+from .source_range_focus import mechanism_callable_ranges, mechanism_coverage
 from .text import query_tokens, score_text
 
 
@@ -16,6 +17,7 @@ MAX_EXCERPTS_PER_ANCHOR = 2
 MAX_EXCERPT_LINES = 40
 MAX_EXCERPT_CHARS = 1500
 MAX_TOTAL_EXCERPT_CHARS = 2600
+MIN_EXCERPT_CHARS = 96
 TOKEN_RESERVE = 180
 MAX_FOCUS_SCAN_LINES = 4000
 FOCUS_RADIUS = 8
@@ -39,7 +41,7 @@ def attach_source_excerpts(
         return 0
     available_tokens = max(0, token_budget - TOKEN_RESERVE - estimate_payload_tokens(payload))
     remaining_chars = min(MAX_TOTAL_EXCERPT_CHARS, available_tokens * 3)
-    if remaining_chars < 160:
+    if remaining_chars < MIN_EXCERPT_CHARS:
         return 0
     excerpt_count = 0
     excerpt_chars = 0
@@ -52,7 +54,7 @@ def attach_source_excerpts(
         anchors_left = max(1, len(anchors) - index)
         anchor_remaining = min(
             MAX_EXCERPT_CHARS,
-            max(160, remaining_chars // anchors_left),
+            max(MIN_EXCERPT_CHARS, remaining_chars // anchors_left),
         )
         for source_range in selected_ranges(
             anchor,
@@ -70,14 +72,14 @@ def attach_source_excerpts(
             excerpt_chars += used
             excerpt_count += 1
             if (
-                remaining_chars < 160
-                or anchor_remaining < 160
+                remaining_chars < MIN_EXCERPT_CHARS
+                or anchor_remaining < MIN_EXCERPT_CHARS
                 or len(excerpts) >= MAX_EXCERPTS_PER_ANCHOR
             ):
                 break
         if excerpts:
             anchor["source_excerpts"] = excerpts
-        if remaining_chars < 160:
+        if remaining_chars < MIN_EXCERPT_CHARS:
             break
     if excerpt_count:
         handoff["source_excerpt_policy"] = {
@@ -98,8 +100,8 @@ def has_source_excerpt_candidate(
     if root is None or not isinstance(handoff, dict):
         return False
     return any(
-        safe_source_path(root, anchor.get("file_path")) is not None
-        and bool(selected_ranges(anchor))
+        (source_path := safe_source_path(root, anchor.get("file_path"))) is not None
+        and bool(selected_ranges(anchor, source_path, str(payload.get("query") or "")))
         for anchor in primary_anchors(handoff)
     )
 
@@ -144,9 +146,27 @@ def selected_ranges(
         item for item in anchor.get("source_ranges") or []
         if valid_range(item)
     ]
+    source_lines = read_source_lines(source_path) if source_path is not None else []
+    if source_path is not None:
+        ranges = merge_source_ranges(
+            mechanism_callable_ranges(source_path, source_lines, query),
+            ranges,
+        )
+        if not ranges:
+            fallback = file_anchor_range(source_path)
+            ranges = [fallback] if fallback else []
+    ranges.sort(key=lambda item: (
+        -mechanism_coverage(source_path, source_lines, item, query)
+        if source_path is not None else 0,
+        int(item["end_line"]) - int(item["start_line"]),
+        int(item["start_line"]),
+    ))
     if source_path is not None and query.strip():
-        ranges = [focused_source_range(source_path, item, query) for item in ranges]
-    ranges.sort(key=lambda item: (int(item["end_line"]) - int(item["start_line"]), int(item["start_line"])))
+        ranges = [
+            item if mechanism_coverage(source_path, source_lines, item, query)
+            else focused_source_range(source_path, item, query, source_lines)
+            for item in ranges
+        ]
     selected: list[dict[str, Any]] = []
     for item in ranges:
         if any(overlapping_ranges(item, existing) for existing in selected):
@@ -157,14 +177,84 @@ def selected_ranges(
     return selected
 
 
+def merge_source_ranges(
+    preferred: list[dict[str, Any]],
+    existing: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    merged: list[dict[str, Any]] = []
+    seen: set[tuple[int, int, str]] = set()
+    for item in [*preferred, *existing]:
+        key = (
+            int(item["start_line"]),
+            int(item["end_line"]),
+            str(item.get("symbol") or ""),
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        merged.append(item)
+    return merged
+
+
+def file_anchor_range(path: Path) -> dict[str, Any]:
+    line_count = 0
+    try:
+        with path.open("r", encoding="utf-8", errors="replace") as handle:
+            for line_count, _line in enumerate(handle, start=1):
+                if line_count >= MAX_FOCUS_SCAN_LINES:
+                    break
+    except OSError:
+        return {}
+    if not line_count:
+        return {}
+    return {
+        "start_line": 1,
+        "end_line": line_count,
+        "selection_reason": "file_anchor_window",
+    }
+
+
 def focused_source_range(
     path: Path,
     source_range: dict[str, Any],
     query: str,
+    lines: list[str] | None = None,
 ) -> dict[str, Any]:
     terms = query_tokens(query)
     if not terms:
         return source_range
+    source_lines = lines if lines is not None else read_source_lines(path)
+    if not source_lines:
+        return source_range
+    line_scores = [score_text(terms, line) for line in source_lines]
+    anchor_start = max(1, int(source_range["start_line"]) - FOCUS_RADIUS)
+    anchor_end = min(len(source_lines), int(source_range["end_line"]) + FOCUS_RADIUS)
+    best_line = best_focus_line(source_lines, line_scores, anchor_start, anchor_end)
+    bounded_anchor = (
+        int(source_range["start_line"]) > 1
+        or int(source_range["end_line"]) < len(source_lines)
+    )
+    selection_reason = (
+        "query_term_window_within_anchor"
+        if bounded_anchor else "query_term_window"
+    )
+    if not best_line:
+        best_line = best_focus_line(source_lines, line_scores, 1, len(source_lines))
+        selection_reason = "query_term_window"
+    if not best_line:
+        return source_range
+    start = max(1, best_line - FOCUS_RADIUS)
+    end = best_line + FOCUS_RADIUS
+    result = {**source_range, "start_line": start, "end_line": end}
+    if not int(source_range["start_line"]) <= best_line <= int(source_range["end_line"]):
+        result.pop("symbol", None)
+    result["selection_reason"] = selection_reason
+    return result
+
+
+def read_source_lines(path: Path | None) -> list[str]:
+    if path is None:
+        return []
     lines: list[str] = []
     try:
         with path.open("r", encoding="utf-8", errors="replace") as handle:
@@ -173,11 +263,22 @@ def focused_source_range(
                     break
                 lines.append(line)
     except OSError:
-        return source_range
-    line_scores = [score_text(terms, line) for line in lines]
+        return []
+    return lines
+
+
+def best_focus_line(
+    lines: list[str],
+    line_scores: list[int],
+    first_line: int,
+    last_line: int,
+) -> int:
     best_line = 0
     best_score = 0
-    for index, line in enumerate(lines):
+    best_executable_line = 0
+    best_executable_score = 0
+    for index in range(max(0, first_line - 1), min(len(lines), last_line)):
+        line = lines[index]
         start = max(0, index - FOCUS_SCORE_RADIUS)
         end = min(len(lines), index + FOCUS_SCORE_RADIUS + 1)
         term_score = sum(line_scores[start:end])
@@ -185,15 +286,12 @@ def focused_source_range(
         if term_score and score > best_score:
             best_line = index + 1
             best_score = score
-    if not best_line:
-        return source_range
-    start = max(1, best_line - FOCUS_RADIUS)
-    end = best_line + FOCUS_RADIUS
-    result = {**source_range, "start_line": start, "end_line": end}
-    if not int(source_range["start_line"]) <= best_line <= int(source_range["end_line"]):
-        result.pop("symbol", None)
-    result["selection_reason"] = "query_term_window"
-    return result
+        executable_bonus = source_behavior_bonus(line, line_scores[index])
+        executable_score = line_scores[index] * 10 + executable_bonus
+        if executable_bonus and executable_score > best_executable_score:
+            best_executable_line = index + 1
+            best_executable_score = executable_score
+    return best_executable_line or best_line
 
 
 def source_behavior_bonus(line: str, term_score: int) -> int:
