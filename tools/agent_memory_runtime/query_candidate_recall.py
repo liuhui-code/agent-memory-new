@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Any, Protocol
 
 from .models import Project, QUERY_FTS_RECALL_LIMITS
+from .index_freshness import filter_fresh_candidate_rows
 from .query_behavior_concepts import behavior_marker_terms
 from .query_followups import FOCUS_PRIORITY_TERMS, focus_from_query
 from .text import (
@@ -58,10 +59,12 @@ TERM_COVERAGE_TABLES = {"code_files", "code_symbols", "code_log_statements"}
 STRUCTURAL_RECALL_TABLES = {"code_files"}
 GENERIC_RECALL_TERMS = {
     "application", "behavior", "both", "bright", "code", "content", "current",
-    "dark", "find", "issue", "locate", "mode", "owner", "owners", "problem",
-    "project", "remain", "source", "system", "user",
+    "class", "classes", "dark", "find", "function", "functions", "issue",
+    "locate", "method", "methods", "mode", "owner", "owners", "problem",
+    "project", "remain", "source", "symbol", "symbols", "system", "user",
 }
 MAX_TERM_LANES = 4
+MAX_CODE_LIKE_FALLBACK_ROWS = 50_000
 
 
 @dataclass(frozen=True)
@@ -92,11 +95,15 @@ class SQLiteCandidateRecall:
             )
             lanes_by_id[table_name] = lane_map
             table_audits[table_name] = audit
+        rows, source_freshness = filter_fresh_candidate_rows(
+            conn, project, rows
+        )
         return CandidateRecallBatch(
             rows=rows,
             lanes_by_id=lanes_by_id,
             audit={
                 "schema_version": "agent-candidate-recall-audit/v1",
+                "source_freshness": source_freshness,
                 "provider": "sqlite_fts5_fielded/v2",
                 "tables": table_audits,
             },
@@ -105,7 +112,8 @@ class SQLiteCandidateRecall:
 
 def fts_match_expression(query: str) -> str | None:
     tokens = unique_list([
-        token for token in bounded_query_tokens(query, 12) if len(token) > 1
+        token for token in bounded_query_tokens(query, 12)
+        if len(token) > 1 and token.casefold() not in GENERIC_RECALL_TERMS
     ])
     return fts_expression(tokens, " OR ")
 
@@ -160,11 +168,12 @@ def recall_candidate_ids_with_lanes(
     )
     fielded_recall = table_name in TERM_COVERAGE_TABLES and bool(focus_terms)
     broad_limit = max(1, int(limit * 0.7)) if fielded_recall else limit
+    broad_expression = fts_match_expression(query)
     lane_ids["broad_fts"] = fts_ids(
         conn,
         project,
         table_name,
-        fts_match_expression(query),
+        broad_expression,
         broad_limit,
     )
     broad_saturated = len(lane_ids["broad_fts"]) >= broad_limit
@@ -196,11 +205,14 @@ def recall_candidate_ids_with_lanes(
             )
     ordered = merge_lane_ids(lane_ids, limit)
     used_fallback = False
-    if not ordered:
+    fallback_skipped = False
+    if not ordered and broad_expression and like_fallback_allowed(conn, table_name):
         fallback = like_recall_candidate_ids(conn, project, table_name, query, limit)
         lane_ids["like_fallback"] = fallback
         ordered = fallback
         used_fallback = bool(fallback)
+    elif not ordered and broad_expression:
+        fallback_skipped = True
     lane_map = lanes_for_selected_ids(lane_ids, ordered)
     return ordered, lane_map, {
         "requested_limit": limit,
@@ -208,10 +220,19 @@ def recall_candidate_ids_with_lanes(
         "saturated": len(ordered) >= limit,
         "broad_saturated": broad_saturated,
         "used_fallback": used_fallback,
+        "fallback_skipped_for_scale": fallback_skipped,
         "focus_term_count": len(focus_terms),
         "structural_term_count": len(structural_terms),
         "lane_counts": {key: len(value) for key, value in lane_ids.items()},
     }
+
+
+def like_fallback_allowed(conn: Any, table_name: str) -> bool:
+    if table_name not in TERM_COVERAGE_TABLES:
+        return True
+    row = conn.execute(f"SELECT MAX(id) AS high_watermark FROM {table_name}").fetchone()
+    high_watermark = int(row["high_watermark"] or 0) if row else 0
+    return high_watermark <= MAX_CODE_LIKE_FALLBACK_ROWS
 
 
 def fts_ids(

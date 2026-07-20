@@ -13,6 +13,7 @@ from .context_source_excerpt import (
     attach_source_excerpts,
     has_source_excerpt_candidate,
 )
+from .index_freshness import compact_freshness_report
 from .performance_scoring import estimate_payload_tokens
 from .query_behavior_concepts import behavior_marker_terms
 from .source_exploration import assign_anchor_roles, exploration_contract
@@ -37,6 +38,7 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
         "project_id": data.get("project_id"),
         "query": str(data.get("query") or "")[:240],
         "memory_intent": data.get("memory_intent_v2") or data.get("memory_intent"),
+        "source_freshness": compact_freshness_report(data.get("source_freshness")),
         "query_handoff": compact,
         "correction_guards": compact_records(data.get("correction_guards"), 2),
         "semantic_patch_notes": compact_records(data.get("semantic_patch_notes"), 2),

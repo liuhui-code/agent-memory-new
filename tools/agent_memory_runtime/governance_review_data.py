@@ -87,6 +87,10 @@ def build_scope_health_rows(project: Project, limit: int = 50) -> list[dict[str,
         drift_count = len(added) + len(changed) + len(removed)
         if not source_exists:
             health = "missing_source"
+        elif item.get("refresh_state") == "overflow":
+            health = "overflow"
+        elif item.get("refresh_state") == "boundary_drift":
+            health = "boundary_drift"
         elif drift_count >= 5:
             health = "high_drift"
         elif drift_count >= 1:
@@ -106,7 +110,7 @@ def build_scope_health_rows(project: Project, limit: int = 50) -> list[dict[str,
         scope_rows.append(item)
     scope_rows.sort(
         key=lambda row: (
-            {"missing_source": 3, "high_drift": 2, "drift": 1, "stable": 0}.get(row["health_status"], 0),
+            {"missing_source": 5, "overflow": 4, "boundary_drift": 3, "high_drift": 2, "drift": 1, "stable": 0}.get(row["health_status"], 0),
             row["drift_count"],
             row["id"],
         ),

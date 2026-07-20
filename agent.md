@@ -83,6 +83,7 @@ python tools/agent_memory.py eval-semantic --project . --cases docs/eval/semanti
 python tools/agent_memory.py eval-harvest-history --project . --target /tmp/history-cases.json --json
 python tools/agent_memory.py eval-mutate-arkts --project . --target /tmp/mutation-cases.json --json
 python tools/agent_memory.py eval-agent-benchmark --project . --cases /tmp/mutation-cases.json --runner /path/to/runner --json
+python tools/agent_memory.py eval-scale --project . --profile million --fail-on-slo --json
 python tools/agent_memory.py impact-scope --project . --base HEAD~1 --json
 python tools/agent_memory.py impact-feedback --project . --outcome pass --executed-tests "tests/test_profile.py" --json
 python tools/agent_memory.py search --project . --query "..." --json
@@ -128,6 +129,28 @@ small current-source inspection budget first, log/cross-module/async problems
 use `context --compact`, and the full context view is reserved for focused
 record or ranking audits. Compact output is a projection of the same retrieval,
 not a second query or diagnosis API.
+
+Source-derived code, symbol, and log candidates must be bound to the learned
+file digest and an atomic index generation. Query validates only the bounded
+candidate files against the current worktree, blocks changed or missing
+anchors, and reports legacy digestless anchors as `unverified`. Freshness is
+retrieval evidence for the Agent, not a Runtime diagnosis or a full-repository
+scan on every query.
+
+Changed-only maintenance is Scope-first. A Git provider may narrow work to the
+net changes under one persisted learn Scope, but content digests remain the
+authority and snapshot scanning remains the fallback. Repository changes
+outside the learned Scope must not consume refresh budget. Relevant changes
+over the bounded maintenance limit leave the Scope checkpoint unchanged and
+surface `overflow` for explicit review.
+
+Resolved in-project imports that sit outside a learned Scope are registered as
+boundary dependencies, not silently pulled into that Scope. Changed-only
+maintenance observes their content and structural-surface digests and reports
+`boundary_drift` to relevant Context queries and governance health. The Runtime
+does not infer the impact or widen retrieval automatically; the Agent reviews
+the warning against source and logs, then confirms a full scoped refresh when
+the dependency is accepted as the new baseline.
 
 ## Skill Set
 

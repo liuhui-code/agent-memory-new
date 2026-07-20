@@ -64,6 +64,7 @@ from .quality_gate_eval import eval_quality_command
 from .reflection_commands import reflect
 from .retrieval_eval import eval_retrieval_command
 from .retrieval_feedback import retrieval_feedback_command
+from .scale_benchmark import eval_scale_command
 from .semantic_eval import eval_semantic_command
 from .vault import vault_export, vault_index, vault_init
 
@@ -84,6 +85,7 @@ def command_handlers() -> dict[str, object]:
         "eval_design_command": eval_design_command,
         "eval_agent_benchmark_command": eval_agent_benchmark_command,
         "eval_context_capability_command": eval_context_capability_command,
+        "eval_scale_command": eval_scale_command,
         "eval_harvest_history_command": eval_harvest_history_command,
         "eval_seal_cases_command": eval_seal_cases_command,
         "eval_mutate_arkts_command": eval_mutate_arkts_command,

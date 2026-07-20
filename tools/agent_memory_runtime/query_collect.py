@@ -10,6 +10,7 @@ from .experience_usage import apply_usage_adjustment, collect_usage_adjustments_
 from .feedback_policy import candidate_ids
 from .incident_trace_models import INCIDENT_TRACE_SEARCH_LIMIT
 from .incident_trace_query import collect_incident_trace_matches
+from .index_freshness import filter_scored_derived_matches
 from .log_signal_quality import score_log_signal
 from .models import Project
 from .quality_scoring import score_reflection_quality, score_semantic_quality
@@ -349,6 +350,13 @@ def collect_matches_with_audit(
     if any(edge_targets.values()):
         results["edge_matches"] = collect_related_edge_candidates(project, edge_targets)
         results["wiki_matches"].extend(collect_result_graph_neighbors(project, results, query))
+
+    results, source_freshness = filter_scored_derived_matches(
+        project,
+        results,
+        recalled.audit.get("source_freshness") or {},
+    )
+    recalled.audit["source_freshness"] = source_freshness
 
     for key in results:
         results[key].sort(key=lambda item: (item.get("rerank_score", item.get("score", 0)), item.get("created_at", "")), reverse=True)

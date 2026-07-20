@@ -10,6 +10,13 @@ def add_benchmark_parsers(
     add_project: Callable[[Any], None],
     command: Callable[[str], Any],
 ) -> None:
+    scale = sub.add_parser("eval-scale")
+    add_project(scale)
+    scale.add_argument("--profile", choices=["ci", "million"], default="ci")
+    scale.add_argument("--fail-on-slo", action="store_true")
+    scale.add_argument("--json", action="store_true")
+    scale.set_defaults(func=command("eval_scale_command"))
+
     history = sub.add_parser("eval-harvest-history")
     add_project(history)
     history.add_argument("--source")

@@ -89,6 +89,7 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "suggested_followup_terms": suggested_followup_terms(query, bounded),
         "query_handoff": build_query_handoff(query, bounded),
         "network_limits": network_limits(),
+        "source_freshness": collection.recall_audit.get("source_freshness", {}),
     }
     calibrate_payload(context)
     context["query_audit"] = build_query_audit(
@@ -125,6 +126,7 @@ def limited_search(
     payload["semantic_patch_notes"] = gated["semantic_patch_notes"]
     payload["blocked_memory_notes"] = gated["blocked_memory_notes"]
     payload["conflict_notes"] = gated["conflict_notes"]
+    payload["source_freshness"] = collection.recall_audit.get("source_freshness", {})
     calibrate_payload(payload)
     payload["query_audit"] = build_query_audit(
         payload,

@@ -59,6 +59,10 @@ def migrate_schema(conn: sqlite3.Connection) -> None:
     }
     for name, definition in (
         ("status", "TEXT NOT NULL DEFAULT 'active'"),
+        ("baseline_revision", "TEXT"),
+        ("last_checked_revision", "TEXT"),
+        ("change_provider", "TEXT NOT NULL DEFAULT 'snapshot/v1'"),
+        ("refresh_state", "TEXT NOT NULL DEFAULT 'current'"),
         ("last_refresh_summary", "TEXT"),
         ("last_refreshed_at", "TEXT"),
     ):
@@ -303,6 +307,18 @@ def create_post_migration_indexes(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_code_symbols_project_qualified
         ON code_symbols(project_id, file_path, qualified_name);
+
+        CREATE INDEX IF NOT EXISTS idx_code_symbols_project_qualified_lookup
+        ON code_symbols(project_id, qualified_name);
+
+        CREATE INDEX IF NOT EXISTS idx_code_files_project_generation
+        ON code_files(project_id, index_generation, file_path);
+
+        CREATE INDEX IF NOT EXISTS idx_code_symbols_project_generation
+        ON code_symbols(project_id, index_generation, file_path);
+
+        CREATE INDEX IF NOT EXISTS idx_code_logs_project_generation
+        ON code_log_statements(project_id, index_generation, file_path);
 
         CREATE INDEX IF NOT EXISTS idx_retrieval_feedback_project_type_recent
         ON retrieval_feedback(project_id, record_type, status, created_at DESC, id DESC);

@@ -146,8 +146,40 @@ signal is not hidden by unrelated recent events.
 - `file_snapshot`: JSON map of `file_path -> content_hash` from the last refresh.
 - `file_count`: number of indexed files in that snapshot.
 - `status`: currently `active`.
+- `baseline_revision`: Git commit used by the next Scope-filtered net comparison.
+- `last_checked_revision`: Git HEAD observed by the latest refresh attempt.
+- `change_provider`: latest provider, such as `git/v1`, `snapshot/v1`, or `full-scan/v1`.
+- `refresh_state`: `current`, `overflow`, or `boundary_drift`; overflow retains
+  the prior baseline, while boundary drift marks an observed external change.
 - `last_refresh_summary`: JSON summary of added, changed, removed, and semantic drift targets.
 - `last_refreshed_at`: last successful scope refresh timestamp.
+
+`code_index_state` stores the active source-derived index generation per project:
+
+- `generation`: monotonically increasing generation activated by a successful scoped index transaction.
+- `source_revision`: Git revision when available, otherwise `unversioned`.
+- `extractor_version`: source-derived row producer version.
+- `status`: currently `active` after transaction commit.
+- `indexed_file_count` and `retired_file_count`: scope-level write summary.
+- `updated_at`: activation timestamp.
+
+`code_files`, `code_symbols`, and `code_log_statements` carry nullable `source_digest` and `index_generation`. New rows use the SHA-256 digest of the indexed file and the generation active for that write. Nullable fields preserve old archives; query reports those legacy rows as `unverified` until a focused scope refresh stamps them.
+
+`scope_boundary_dependencies` records resolved project imports that are outside
+one learned Scope without promoting those files into learned code data:
+
+- `scope_id`, `consumer_path`, and `dependency_path`: the owning Scope and the
+  directed import boundary.
+- `dependency_kind`: currently `import`.
+- `source_digest`: last observed SHA-256 content digest.
+- `surface_digest`: extractor-level digest of sorted symbol shapes; this is not
+  a compiler-exact exported API or ABI signature.
+- `status`: `active` or `missing`.
+- `last_observed_at`, `created_at`, and `updated_at`: audit timestamps.
+
+The unique key is project, Scope, consumer, dependency, and dependency kind.
+The table is maintenance evidence: query surfaces Scope-level boundary drift,
+but no boundary row automatically expands retrieval or durable learned scope.
 
 ## Code Log Statement Network
 
@@ -188,7 +220,7 @@ The ArkTS edges connect learned pages/components to imported project files, rout
 
 Known ArkUI Builder calls are excluded from function-symbol extraction without suppressing project-defined uppercase methods. Chained operation names in `code_files.summary` are retrieval metadata only and do not create nodes or relations.
 
-`code_symbols` also carries nullable `semantic-index/v1` metadata: `symbol_key`, `qualified_name`, `signature`, `start_line`, `end_line`, `semantic_adapter`, `source_digest`, and `evidence_class`. ArkTS and TypeScript adapters may persist symbol-level `calls`, `reads_state`, `writes_state`, `implements`, `extends`, `overrides`, `registers_callback`, `exposes_api`, `consumes_api`, and `awaits` edges. The built-in adapters emit static evidence; exact compiler-derived evidence is reserved for future adapters.
+`code_symbols` also carries nullable `semantic-index/v1` metadata: `symbol_key`, `qualified_name`, `signature`, `start_line`, `end_line`, `semantic_adapter`, and `evidence_class`. ArkTS and TypeScript adapters may persist symbol-level `calls`, `reads_state`, `writes_state`, `implements`, `extends`, `overrides`, `registers_callback`, `exposes_api`, `consumes_api`, and `awaits` edges. The built-in adapters emit static evidence; exact compiler-derived evidence is reserved for future adapters.
 
 External provider run metrics are not SQLite memory records. Configured-provider attempts are mirrored to bounded `runtime/semantic_provider_runs.jsonl` operational telemetry with at most 200 compact rows. Raw ASTs, provider stdout, source content, and compiler diagnostics are not persisted.
 

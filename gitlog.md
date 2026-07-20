@@ -6455,3 +6455,214 @@ Rollback notes:
   disambiguation, independent fixtures, and their tests together if
   regressions appear. Retain every sealed pack and immutable observation. No
   SQLite migration or durable memory rewrite was introduced.
+
+## 2026-07-20 - Add freshness-first incremental code index generations
+
+What changed:
+
+- Bound learned code files, symbols, and log statements to SHA-256 source
+  digests and atomic index generations, with per-project active index state.
+- Made refresh replacement and removed-file retirement one SQLite transaction;
+  changed-only refresh advances the generation without rebuilding unchanged
+  files or overwriting governed business semantics and experience.
+- Added candidate-bounded freshness validation to code/log recall, graph
+  expansion, and independently reconstructed paths. Changed or deleted source
+  anchors are blocked, while digestless legacy rows remain explicitly
+  `unverified` until refreshed.
+- Exposed detailed `source_freshness` in full Context, a status-driven compact
+  projection in compact Context, and digest coverage plus generation health in
+  `maintain-health`.
+- Documented the four-phase long-term design using content-addressed Git
+  objects, Skyframe invalidation, Tree-sitter incremental parsing, SCIP source
+  ranges, and SQLite snapshot isolation as foundations.
+
+Result:
+
+- Freshness, external-source, generation, deletion, changed-only refresh,
+  legacy compatibility, path-only validation, and health coverage pass 8/8.
+- Query/Context regression passes 52/52 and log-anchored path regression
+  passes 12/12; the earlier broad focused suite passed 93/93.
+- The development Context capability gate passes 150/150 variants across 50
+  scenarios with anchor and primary recall 1.0, oracle precision 0.945, MRR
+  0.9929, and source-span recall 1.0. A later 15-query compact sample also
+  passes within the 1,500-token budget; its timing was excluded because the
+  host was under abnormal load.
+- Full discovery ran 587 tests: 585 passed in the restricted sandbox, and the
+  two loopback-bind failures passed in the focused 3/3 local-socket suite.
+  Compile, all 54 eval JSON files, whitespace, and 500-line audits pass; the
+  largest Python source file is 499 lines.
+
+Rollback notes:
+
+- Remove `code_index_state`, the three derived-row digest/generation columns,
+  freshness filters, and Context projections together. Existing nullable
+  columns preserve legacy archive readability; no experience, semantic fact,
+  reflection, or episode lifecycle was changed. Phases 2-4 remain future work.
+
+## 2026-07-20 - Add Scope-first Git incremental refresh
+
+What changed:
+
+- Added a provider-neutral `ScopeChangeProvider` contract with `git/v1` and
+  `snapshot/v1` implementations. Git compares each persisted learn Scope's
+  baseline directly with the current worktree and never uses repository-wide
+  changes as the business boundary.
+- Persisted per-Scope baseline revision, last checked revision, provider, and
+  refresh state. Multiple intermediate commits collapse into one net change;
+  SHA-256 snapshots remain authoritative for actual add/change/remove drift.
+- Applied exact learned files to entry Scopes, subtrees to path Scopes, and the
+  repository root only to explicit project Scopes. Entry changes recompute the
+  bounded import closure; external source roots inside a larger Git repository
+  keep source-relative paths.
+- Included untracked files inside the Scope and retained digest checks for
+  previously learned ignored files. Missing baselines, non-Git roots, oversized
+  entry pathspecs, and Git failures fall back to a Scope-local snapshot scan.
+- Added a 200-relevant-file incremental budget. Overflow performs no index
+  writes and does not advance the baseline; `maintain-health` exposes the state,
+  and an explicit full refresh by Scope id restores `current`.
+- Reused one full Scope scan for both snapshot and write selection, avoiding a
+  duplicate directory traversal introduced during the first implementation.
+
+Result:
+
+- Seven Git Scope cases pass: unrelated-team noise isolation, multi-commit
+  coalescing, outside-only checkpoint advancement, legacy fallback, entry
+  closure replacement, nested external source roots, ignored-file digest
+  fallback, and overflow recovery are covered across the suite.
+- The final freshness/refresh focus passes 17/17 and the broader learning,
+  governance, and migration focus passes 51/51.
+- Full discovery ran 595 tests: 593 passed in the restricted sandbox, and the
+  two loopback-bind failures passed in the focused 3/3 local-socket suite.
+  Compile, all 54 eval JSON files, whitespace, and 500-line audits pass.
+
+Rollback notes:
+
+- Remove the Scope checkpoint columns, `scope_changes.py`, changed-only Provider
+  integration, overflow health state, and related tests together. Existing
+  `file_snapshot` remains sufficient for the prior full Scope fallback, and no
+  semantic facts, experiences, reflections, or episodes are rewritten.
+
+## 2026-07-20 - Observe learned Scope boundary dependencies
+
+What changed:
+
+- Added `scope_boundary_dependencies` for resolved in-project imports outside a
+  learned Scope. The registry retains consumer/dependency identity, content
+  digest, extractor-level symbol-surface digest, status, and audit timestamps
+  without learning or indexing the dependency file.
+- Extended Scope change providers to classify normal and boundary candidates
+  separately. Git unions exact registered dependency paths into change
+  discovery, while refresh writes remain limited to learned Scope files.
+- Reported bounded `boundary_changes` with affected consumers, missing state,
+  content drift, and structural-surface drift. Function-body edits retain the
+  same surface digest; symbol shape changes do not.
+- Added `boundary_drift` to relevant Context freshness and governance health.
+  The warning preserves fresh learned anchors, does not infer impact or expand
+  retrieval, and clears only after a reviewed full refresh accepts the current
+  boundary baseline.
+- Documented the boundary protocol, schema, Agent reasoning boundary, user
+  workflow, and remaining compiler-exact/reverse-dependent follow-up work.
+
+Result:
+
+- Boundary behavior and structural digest tests pass 2/2. The combined refresh,
+  provider, freshness, query, migration, and governance focus passes 53/53;
+  log-anchored path regression passes 12/12.
+- Full discovery ran 597 tests: 595 passed in the restricted sandbox, and the
+  only two loopback-bind errors passed in the focused 3/3 local-socket suite.
+- Compile, whitespace, and the 500-line gate pass. New runtime modules are 196,
+  264, and 438 lines; the largest existing Python source remains within the
+  enforced limit.
+
+Rollback notes:
+
+- Remove `scope_boundary_dependencies`, `scope_boundaries.py`, boundary
+  candidate classification, `boundary_drift` projections, and their tests
+  together. This returns changed-only maintenance to strict learned-Scope
+  observation; no learned code row or governed memory record requires data
+  conversion.
+
+## 2026-07-20 - Establish a million-entity query baseline
+
+What changed:
+
+- Added isolated `eval-scale` profiles for 100,000/300,000 and
+  1,000,000/3,000,000 searchable-entity/active-edge combinations. The runner
+  uses the production SQLite schema, FTS5 triggers, WAL, candidate recall, and
+  graph indexes without writing synthetic rows to project memory.
+- Added warm p95 gates for candidate hit/miss, generic method-term abstention,
+  exact log FTS, qualified and file-local method lookup, and active incoming and
+  outgoing graph edges. Query-plan gates require accepted composite indexes.
+- Added a direct `(project_id, qualified_name)` symbol index after the initial
+  query-plan audit exposed the previous file-prefixed index limitation.
+- Persisted bounded CamelCase identifier components in symbol summaries so
+  business terms reach methods through FTS5. Generic method/class/function/
+  symbol-only queries now abstain, and code-table `%LIKE%` compatibility
+  fallback is skipped above a 50,000-row high watermark.
+- Added the release workflow, scale model, SLOs, isolation contract, and actual
+  before/after measurements to architecture and usage documentation.
+
+Result:
+
+- The first million run failed: candidate hit 12,089 ms, miss 10,952 ms, and
+  saturated method FTS 11,317 ms p95, while exact indexed lookups stayed below
+  0.04 ms. This isolated the failure to lexical fallback and high-frequency FTS.
+- The repaired million run passes with exactly 1,000,000 searchable entities,
+  3,000,000 active edges, and a 2,008.3 MiB temporary database. Candidate hit is
+  72.095 ms p95, miss 24.571 ms, generic abstention 0.093 ms, exact log FTS
+  0.265 ms, and indexed symbol/graph lookups at or below 0.024 ms.
+- The optimized 100,000/300,000 profile also passes: candidate hit is 10.459 ms
+  p95 and miss 17.621 ms. Scale and focused query/learning/Context regression
+  pass, including the log-anchored path suite.
+- Full discovery ran 602 tests: 600 passed in the restricted sandbox, and the
+  only two loopback-bind errors passed in the focused 3/3 local-socket suite.
+  Compile, whitespace, 54 eval JSON files, and the 500-line gate pass.
+
+Rollback notes:
+
+- Remove `eval-scale`, `scale_benchmark.py`, the direct qualified-name index,
+  identifier-term suffixes, and scale-bounded fallback together. Reverting the
+  fallback alone restores multi-second full scans at method-level scale; retain
+  the before/after report when evaluating an alternative tokenizer.
+
+## 2026-07-20 - Gate Git incremental maintenance at million scale
+
+What changed:
+
+- Extended both `eval-scale` profiles with four production-path maintenance
+  workloads: no change, committed Scope-external noise, one changed 20-method
+  file, and one changed 500-method file. Every sample uses a real temporary Git
+  repository, persisted Scope checkpoint, `git/v1`, FTS triggers, graph rebuild,
+  semantic indexing, and atomic generation activation.
+- Added bounded phase timings to code-index writes so extraction, Scope load,
+  invalidation, insertion, graph rebuild, summarization, and commit costs can be
+  separated without a benchmark-only refresh implementation.
+- Replaced scoped graph rebuild's all-project file scan with a bounded candidate
+  loader. It combines scoped files, referenced-symbol owners, exact imports and
+  routes, module markers, and test basename candidates retrieved through the
+  existing `code_file_fts` path index. Full graph repair remains all-file.
+- Added a regression proving partial relearn restores same-module `tested_by`
+  relations while excluding a same-name production file outside that module.
+
+Result:
+
+- Initial million baseline failed: the 20-method refresh was 4,428.580 ms p95,
+  including 4,071.153 ms in graph rebuild. Profiling traced the fixed cost to
+  repeated Python path parsing while pairing tests across all 50,000 files.
+- Final million run passes all gates with 1,000,000 searchable entities,
+  3,000,000 active edges, and a 2,113.0 MiB database. No-change is 90.221 ms,
+  Scope-external is 89.841 ms, 20 methods is 452.654 ms, and 500 methods is
+  1,685.729 ms p95. The 20-method graph phase is 87.627 ms.
+- Query performance remains stable: candidate hit is 72.075 ms p95, miss is
+  29.478 ms, exact log FTS is 0.174 ms, and indexed symbol/graph lookups are at
+  or below 0.025 ms.
+- Full discovery ran 603 tests: 601 passed in the restricted sandbox, and the
+  only two loopback-bind errors passed in the focused 3/3 local-socket suite.
+  Compile, whitespace, 54 eval JSON files, and the 500-line gate pass.
+
+Rollback notes:
+
+- Remove `scale_maintenance.py`, maintenance aggregation from `eval-scale`, and
+  `code_wiki_edge_candidates.py` together. Restoring the previous scoped graph
+  path preserves behavior but reintroduces project-size-linear test pairing and
+  fails the million-scale 20-method SLO.

@@ -19,6 +19,7 @@ REQUIRED_TABLES = {
     "code_log_statements",
     "memory_edges",
     "learn_scopes",
+    "scope_boundary_dependencies",
     "query_misses",
     "reflection_reuse_events",
     "experience_usage_events",
@@ -102,6 +103,10 @@ CODE_BUSINESS_COLUMNS = {
 }
 
 CODE_SEMANTIC_COLUMNS = {
+    "code_files": [
+        ("source_digest", "TEXT"),
+        ("index_generation", "INTEGER NOT NULL DEFAULT 0"),
+    ],
     "code_symbols": [
         ("symbol_key", "TEXT"),
         ("qualified_name", "TEXT"),
@@ -111,6 +116,11 @@ CODE_SEMANTIC_COLUMNS = {
         ("semantic_adapter", "TEXT"),
         ("source_digest", "TEXT"),
         ("evidence_class", "TEXT"),
+        ("index_generation", "INTEGER NOT NULL DEFAULT 0"),
+    ],
+    "code_log_statements": [
+        ("source_digest", "TEXT"),
+        ("index_generation", "INTEGER NOT NULL DEFAULT 0"),
     ],
 }
 

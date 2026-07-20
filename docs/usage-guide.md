@@ -649,6 +649,39 @@ python tools/agent_memory.py maintain-refresh-scope --project . --changed-only -
 
 `--changed-only` compares the persisted learn-scope file snapshot with current source, re-indexes only added or changed files, retires removed structural anchors, and leaves unchanged file/wiki rows alone.
 
+For a Git source, the command first limits the net Git change set to that learned Scope. An entry Scope uses its learned import closure, a path Scope uses its subtree, and only an explicit project Scope considers the repository root. Changes made by other teams outside that boundary are ignored. Multiple commits since the last successful refresh are coalesced; the final SHA-256 comparison still decides whether a candidate really changed. Non-Git roots and legacy Scopes fall back to the same Scope-local snapshot comparison.
+
+The response includes `change_set.provider`, baseline/current revisions, candidate count, and bounded candidate paths. If `status` is `overflow`, no baseline or code index is advanced. Review the Scope and run a confirmed full refresh:
+
+```bash
+python tools/agent_memory.py maintain-refresh-scope --project . --scope-id <id> --json
+```
+
+Imports resolved to project files outside the learned Scope are tracked as
+boundaries. A changed-only response keeps them separate:
+
+- `scope_candidate_paths`: files eligible for normal Scope refresh.
+- `boundary_candidate_paths`: observed external dependencies that are not
+  learned or indexed automatically.
+- `boundary_changes`: changed dependencies, affected consumer files, missing
+  state, and whether the extracted symbol surface changed.
+
+When `boundary_changes` is non-empty, inspect the dependency and its consumers
+with the Agent and real logs. Do not treat `surface_changed: false` as proof of
+no behavioral impact; it means only that the extractor saw the same symbol
+shape. Accept the new dependency baseline with an explicit full refresh of the
+Scope after review.
+
+Normal `context --json` and `context --compact --json` responses include `source_freshness`:
+
+- `current`: every checked source-derived candidate still matches its learned digest.
+- `partial_current`: one or more candidate files changed or disappeared; those anchors and their graph paths were omitted from the response.
+- `unverified`: legacy rows have no digest yet; results remain available but must not be claimed as current.
+- `boundary_drift`: learned anchors are still source-current, but a registered
+  dependency outside the Scope changed and needs impact review.
+
+When `partial_current` appears, run `maintain-refresh-scope --changed-only` and repeat the query. When `unverified` appears, refresh the relevant learned scope once to migrate it. When `boundary_drift` appears, inspect the affected Scope ids and the previous maintenance result, then perform a reviewed full refresh. The check is candidate-bounded, so a query does not hash the whole repository.
+
 This is the low-risk update path for changing codebases:
 
 - replay previously learned scopes from `learn_scopes`
@@ -658,6 +691,7 @@ This is the low-risk update path for changing codebases:
 - preserve exact-match `business_summary` and `business_terms` on refreshed file, symbol, and log anchors; changed files with preserved business summaries also create open `semantic_conflicts` so the old meaning is reviewed instead of treated as silently current
 - include refresh drift evidence in `semantic_conflicts.incoming`, such as summary changes and log templates added or removed, so the review can focus on the actual changed behavior
 - return `parse_stats.edge_rebuild` with scoped files, before/after node counts, relation counts, and edge delta so Agents can see whether the refresh rebuilt only the intended graph slice
+- activate the new `index_generation` in the same SQLite transaction as source-derived rows, preventing readers from observing a half-refreshed generation
 
 Use it before broad `--replace` re-learning when the project has evolved but you want to preserve accumulated business semantics and experience review history.
 
@@ -1007,6 +1041,30 @@ agent-memory-maintain performs heavier review, merge, stale, promote, and export
 ```
 
 Do not run duplicate detection, promotion, or vault dashboard generation on every query.
+
+Before enabling broader method-level facts, run the scale gates explicitly:
+
+```bash
+python tools/agent_memory.py eval-scale --project . --profile ci --fail-on-slo --json
+python tools/agent_memory.py eval-scale --project . --profile million --fail-on-slo --json
+```
+
+The benchmark uses a temporary production-schema database and does not add test
+records to project memory. `ci` covers 100,000 searchable entities and 300,000
+active edges. `million` covers 1,000,000 entities and 3,000,000 active edges and
+is intended for release or scheduled validation, not every unit-test run. Each
+profile also creates a real temporary Git repository and measures no-change,
+Scope-external, 20-method, and 500-method changed-only refreshes. A passing
+result requires p95 query latency, query-plan, refresh-evidence, and incremental
+maintenance gates. Inspect
+`runtime/last_scale_benchmark.json` for operation timings, index plans, database
+size, setup cost, and per-refresh phase timings.
+
+Queries containing only generic words such as `method`, `function`, `class`, or
+`symbol` deliberately return no broad symbol candidates. Use a concrete method,
+business term, log fragment, component, or file path. CamelCase method names are
+indexed with bounded component terms, so `PaymentRetryHandler` remains reachable
+from `payment retry` without a full-table LIKE scan.
 
 ## 10. ArkTS Incident Trace
 

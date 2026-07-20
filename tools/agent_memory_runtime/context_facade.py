@@ -6,6 +6,7 @@ from collections.abc import Callable
 from typing import Any
 
 from .models import Project
+from .index_freshness import filter_fresh_path_context
 from .path_context_facade import PathContextFacade
 
 
@@ -25,6 +26,11 @@ class ContextFacade:
     def execute(self, query: str) -> dict[str, Any]:
         result = self.base_context(self.project, query)
         path_payload = self.path_context.build(query)
+        freshness = result.get("source_freshness") or {}
+        path_payload, freshness = filter_fresh_path_context(
+            self.project, path_payload, freshness
+        )
+        result["source_freshness"] = freshness
         handoff = result.setdefault("query_handoff", {})
         handoff["path_context"] = path_payload
         return result

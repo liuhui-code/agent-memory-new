@@ -8,6 +8,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from .code_wiki_edge_candidates import load_rebuild_files
 from .code_wiki_extractors import extract_arkts_reference_symbols
 from .code_wiki_design_edges import insert_design_edges
 from .code_wiki_imports import relative_project_path, resolve_arkts_router_targets, resolve_js_imports
@@ -150,13 +151,12 @@ def rebuild_code_memory_edges(
     previous_edge_id = int(
         conn.execute("SELECT COALESCE(MAX(id), 0) AS id FROM memory_edges").fetchone()["id"]
     )
-    files = conn.execute(
-        "SELECT id, file_path, language FROM code_files WHERE project_id = ?",
-        (project_id,),
-    ).fetchall()
     scoped_paths = set(scope_file_paths or [])
-    scoped_files = [row for row in files if not scoped_paths or row["file_path"] in scoped_paths]
+    scoped_files = load_scoped_rows(
+        conn, "code_files", "id, file_path, language", project_id, scoped_paths,
+    )
     symbols = load_rebuild_symbols(conn, project, scoped_files, scoped_paths)
+    files = load_rebuild_files(conn, project, scoped_files, scoped_paths, symbols)
     logs = load_scoped_rows(
         conn,
         "code_log_statements",

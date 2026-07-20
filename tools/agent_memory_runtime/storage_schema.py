@@ -62,6 +62,8 @@ def create_schema(conn: sqlite3.Connection) -> None:
           language TEXT,
           business_summary TEXT,
           business_terms TEXT,
+          source_digest TEXT,
+          index_generation INTEGER NOT NULL DEFAULT 0,
           updated_at TEXT NOT NULL
         );
 
@@ -83,6 +85,7 @@ def create_schema(conn: sqlite3.Connection) -> None:
           semantic_adapter TEXT,
           source_digest TEXT,
           evidence_class TEXT,
+          index_generation INTEGER NOT NULL DEFAULT 0,
           updated_at TEXT NOT NULL
         );
 
@@ -104,6 +107,8 @@ def create_schema(conn: sqlite3.Connection) -> None:
           likely_causes TEXT,
           process_hint TEXT,
           neighbor_terms TEXT,
+          source_digest TEXT,
+          index_generation INTEGER NOT NULL DEFAULT 0,
           updated_at TEXT NOT NULL
         );
 
@@ -129,6 +134,17 @@ def create_schema(conn: sqlite3.Connection) -> None:
         CREATE TABLE IF NOT EXISTS graph_runtime_state (
           project_id TEXT PRIMARY KEY,
           graph_revision INTEGER NOT NULL DEFAULT 0,
+          updated_at TEXT NOT NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS code_index_state (
+          project_id TEXT PRIMARY KEY,
+          generation INTEGER NOT NULL DEFAULT 0,
+          source_revision TEXT NOT NULL DEFAULT 'unversioned',
+          extractor_version TEXT NOT NULL,
+          status TEXT NOT NULL DEFAULT 'active',
+          indexed_file_count INTEGER NOT NULL DEFAULT 0,
+          retired_file_count INTEGER NOT NULL DEFAULT 0,
           updated_at TEXT NOT NULL
         );
 
@@ -183,10 +199,30 @@ def create_schema(conn: sqlite3.Connection) -> None:
           file_snapshot TEXT NOT NULL,
           file_count INTEGER NOT NULL DEFAULT 0,
           status TEXT NOT NULL DEFAULT 'active',
+          baseline_revision TEXT,
+          last_checked_revision TEXT,
+          change_provider TEXT NOT NULL DEFAULT 'snapshot/v1',
+          refresh_state TEXT NOT NULL DEFAULT 'current',
           last_refresh_summary TEXT,
           created_at TEXT NOT NULL,
           updated_at TEXT NOT NULL,
           last_refreshed_at TEXT
+        );
+
+        CREATE TABLE IF NOT EXISTS scope_boundary_dependencies (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          scope_id INTEGER NOT NULL,
+          consumer_path TEXT NOT NULL,
+          dependency_path TEXT NOT NULL,
+          dependency_kind TEXT NOT NULL DEFAULT 'import',
+          source_digest TEXT,
+          surface_digest TEXT,
+          status TEXT NOT NULL DEFAULT 'active',
+          last_observed_at TEXT,
+          created_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL,
+          UNIQUE(project_id, scope_id, consumer_path, dependency_path, dependency_kind)
         );
 
         CREATE TABLE IF NOT EXISTS query_misses (
@@ -349,6 +385,9 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
         CREATE UNIQUE INDEX IF NOT EXISTS idx_learn_scopes_project_scope_key
         ON learn_scopes(project_id, scope_key);
+
+        CREATE INDEX IF NOT EXISTS idx_scope_boundaries_scope_dependency
+        ON scope_boundary_dependencies(project_id, scope_id, dependency_path, status);
         """
     )
     create_incident_trace_schema(conn)

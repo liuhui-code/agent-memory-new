@@ -83,20 +83,22 @@ def summarize_file(path: Path, language: str) -> str:
 
 def summarize_symbol(file_path: str, symbol: str, symbol_type: str | None, language: str) -> str:
     kind = symbol_type or "symbol"
+    search_terms = " ".join(unique_list(identifier_tokens(symbol)))
+    suffix = f"; identifier terms: {search_terms}" if search_terms else ""
     if language == "ArkTS":
         if kind == "component":
-            return f"ArkTS component {symbol} declared in {file_path}"
+            return f"ArkTS component {symbol} declared in {file_path}{suffix}"
         if kind == "route":
             return f"ArkTS route target {symbol} referenced by {file_path}"
         if kind == "resource":
             return f"ArkTS resource {symbol} referenced by {file_path}"
         if kind == "function":
-            return f"ArkTS function or lifecycle method {symbol} in {file_path}"
+            return f"ArkTS function or lifecycle method {symbol} in {file_path}{suffix}"
         if kind == "class":
-            return f"ArkTS class {symbol} declared in {file_path}"
+            return f"ArkTS class {symbol} declared in {file_path}{suffix}"
     if language == "HarmonyOS Config":
         return f"HarmonyOS {kind} {symbol} configured in {file_path}"
-    return f"{kind} {symbol} in {file_path}"
+    return f"{kind} {symbol} in {file_path}{suffix}"
 
 
 
