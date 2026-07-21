@@ -358,6 +358,36 @@ struct ShortcutSearchPage {
         self.assertEqual("readOutput", selected[0]["symbol"])
         self.assertGreaterEqual(selected[0]["end_line"], 10)
 
+    def test_late_method_window_beats_early_state_anchor_in_large_file(self) -> None:
+        filler = [f"  // unrelated ledger segment {index}" for index in range(450)]
+        source = "\n".join([
+            "struct LedgerPage {",
+            "  @State pendingCount: number = 3",
+            *filler,
+            "  async commitSelectedLedgerBatch(): Promise<void> {",
+            "    await LedgerStore.validatePendingBatch()",
+            "    await LedgerStore.commitPendingBatch()",
+            "    this.pendingCount = 0",
+            "  }",
+            "}",
+        ])
+
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "LedgerPage.ets"
+            path.write_text(source, encoding="utf-8")
+            selected = selected_ranges(
+                {
+                    "source_ranges": [
+                        source_range("commitSelectedLedgerBatch", 453, 457)
+                    ]
+                },
+                path,
+                "pendingCount validate commit selected ledger batch",
+            )
+
+        self.assertEqual("commitSelectedLedgerBatch", selected[0]["symbol"])
+        self.assertGreater(selected[0]["start_line"], 200)
+
 
 def source_range(symbol: str, start: int, end: int) -> dict[str, object]:
     return {"symbol": symbol, "start_line": start, "end_line": end}

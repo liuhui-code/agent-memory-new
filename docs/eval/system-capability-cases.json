@@ -2113,6 +2113,574 @@
       }
     },
     {
+      "id": "context-idempotent-resource-release-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Repeated cleanup should destroy an active lease once and clear its reference. Locate executable release ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Repeated cleanup should destroy an active lease once and clear its reference. Locate executable release ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A second release must be harmless after the runtime destroys the current lease and marks it absent; return that guard and cleanup method."
+        },
+        {
+          "id": "zh-noise",
+          "description": "资源被重复释放时应只销毁一次，并把当前 lease 清空，请定位带空值保护的 destroy 实现。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/runtime/LeaseController.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/runtime/LeaseController.ets", "start_line": 12, "end_line": 18}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-source-replacement-state-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Selecting a replacement source after an earlier load failed must reset lifecycle phase before opening it. Locate the state owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Selecting a replacement source after an earlier load failed must reset lifecycle phase before opening it. Locate the state owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A new source remains stuck after the first source fails; return the method that restores idle state, swaps source identity, and invokes openSource."
+        },
+        {
+          "id": "zh-noise",
+          "description": "第一个数据源加载失败后替换新 source 仍无法继续，请定位重置 phase、更新 source 并调用 openSource 的方法。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/coordinators/SourceSwapCoordinator.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/coordinators/SourceSwapCoordinator.ets", "start_line": 17, "end_line": 21}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-prepared-command-eligibility-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Seek and volume controls stay disabled while the runtime is prepared. Locate command eligibility ownership for prepared and playing phases."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Seek and volume controls stay disabled while the runtime is prepared. Locate command eligibility ownership for prepared and playing phases."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Commands become usable only after playback starts; return the gates that admit both Prepared and Playing state for seek and volume."
+        },
+        {
+          "id": "zh-noise",
+          "description": "运行时已进入 Prepared 但 seek 和音量命令仍不可用，请定位同时允许 Prepared、Playing 的资格判断。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/runtime/CommandEligibility.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/runtime/CommandEligibility.ets", "start_line": 9, "end_line": 15}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-production-over-example-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The thumbnail pool exceeds capacity. Locate the production implementation that deletes the oldest map key rather than its usage example."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The thumbnail pool exceeds capacity. Locate the production implementation that deletes the oldest map key rather than its usage example."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Return executable thumbnail eviction ownership: set the entry, inspect map size, take the first key, and delete it; exclude sample code."
+        },
+        {
+          "id": "zh-noise",
+          "description": "缩略图池超过容量后没有删除最早键，请返回检查 size、读取首个 key 并 delete 的正式实现，排除示例代码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pools/ThumbnailPool.ets"],
+        "forbidden_files": ["src/examples/ThumbnailPoolExample.ets"],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/pools/ThumbnailPool.ets", "start_line": 6, "end_line": 13}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-command-binding-owner-precision",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Choosing Restore backup starts snapshot creation instead of restoration. Locate the menu command binding owner, not transfer infrastructure or its row view."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Choosing Restore backup starts snapshot creation instead of restoration. Locate the menu command binding owner, not transfer infrastructure or its row view."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The restore menu entry invokes the create workflow; return the UI action-to-method dispatch table rather than archive lifecycle code or presentation components."
+        },
+        {
+          "id": "zh-noise",
+          "description": "点击恢复备份却执行了创建快照，请定位菜单项到方法的命令绑定，不要返回传输 Ability 或通用行组件。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/actions/BackupCommandPanel.ets"],
+        "forbidden_files": [
+          "src/abilities/SnapshotTransferAbility.ets",
+          "src/views/SnapshotCommandRow.ets"
+        ],
+        "root_cause_category": "command_dispatch",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/actions/BackupCommandPanel.ets", "start_line": 14, "end_line": 27}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-comparison-target-visual-state-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The rule editor's details chevron points down while expanded, unlike the rule creator. Locate the editor disclosure state binding."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The rule editor's details chevron points down while expanded, unlike the rule creator. Locate the editor disclosure state binding."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "On the existing-rule editing screen, the expanded details indicator is opposite to the create screen; return the editing-side rotation and toggle owner."
+        },
+        {
+          "id": "zh-noise",
+          "description": "规则编辑页的详情箭头在展开时方向错误，相比新建页正好相反，请定位编辑侧 rotate 与展开状态绑定。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pages/RuleEditorPage.ets"],
+        "forbidden_files": [
+          "src/pages/RuleCreatorPage.ets",
+          "src/pages/DisclosureAppearancePage.ets"
+        ],
+        "root_cause_category": "ui_state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/pages/RuleEditorPage.ets", "start_line": 5, "end_line": 20}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-cross-layer-error-contract-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A failed background job reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "A failed background job reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Transport submission throws, but the page banner renders a serialized error instead of useful failure details; return producer and consumer handling code."
+        },
+        {
+          "id": "zh-noise",
+          "description": "后台任务发送失败后页面只显示原始错误对象，请同时返回服务层 catch 返回值和页面层错误提示消费逻辑。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": [
+          "src/gateways/JobTransport.ets",
+          "src/pages/JobDispatchPage.ets"
+        ],
+        "forbidden_files": [
+          "src/config/JobFailureMessages.ets",
+          "src/views/JobDispatchButton.ets"
+        ],
+        "root_cause_category": "error_contract",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 3,
+          "min_anchor_precision": 0.66,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/gateways/JobTransport.ets", "start_line": 4, "end_line": 13},
+            {"file_path": "src/pages/JobDispatchPage.ets", "start_line": 5, "end_line": 15}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-canonical-source-over-preview-artifact",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The quota recovery button does not enable retry. Return the maintained source owner, not a generated preview copy."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The quota recovery button does not enable retry. Return the maintained source owner, not a generated preview copy."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Locate the canonical quota recovery click handler that enables retry and updates the notice; exclude generated build artifacts."
+        },
+        {
+          "id": "zh-noise",
+          "description": "quota recovery 配额恢复按钮点击后没有启用重试，请返回正式源码中的状态更新，不要返回预览缓存生成物。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pages/QuotaRecoveryPage.ets"],
+        "forbidden_files": [".preview/default/cache/src/pages/QuotaRecoveryPage.ets"],
+        "root_cause_category": "ui_state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/pages/QuotaRecoveryPage.ets", "start_line": 6, "end_line": 9}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-query-language-implementation-priority",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "On the HarmonyOS screen, receipt export resolves the wrong files directory. Locate the ArkTS runtime implementation."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "On the HarmonyOS screen, receipt export resolves the wrong files directory. Locate the ArkTS runtime implementation."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Return the .ets implementation used by the HarmonyOS application for receipt export, not an alternate desktop script."
+        },
+        {
+          "id": "zh-noise",
+          "description": "鸿蒙应用 receipt export 导出收据时目录不正确，请定位 ArkTS 实现，排除 Python 桌面脚本。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/automation/ReceiptExportCoordinator.ets"],
+        "forbidden_files": ["tools/receipt_export.py"],
+        "root_cause_category": "runtime_boundary",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.25,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/automation/ReceiptExportCoordinator.ets", "start_line": 2, "end_line": 5}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-mechanism-owner-over-domain-neighbors",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Parcel retry can be submitted twice and leaves the failure text stale. Locate the UI owner that guards pending state, catches failure, and resets in finally."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Parcel retry can be submitted twice and leaves the failure text stale. Locate the UI owner that guards pending state, catches failure, and resets in finally."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Return the parcel retry page handler that disables repeat clicks, clears or shows the message, and restores pending state; omit service and repository neighbors."
+        },
+        {
+          "id": "zh-noise",
+          "description": "包裹重试 retryFailedParcel 会重复提交且失败提示残留，请定位页面中 pending 防重、catch 提示和 finally 复位逻辑，不要返回同域服务或仓储。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pages/ParcelRetryPage.ets"],
+        "forbidden_files": [
+          "src/services/ParcelDeliveryService.ets",
+          "src/repositories/ParcelRepository.ets"
+        ],
+        "root_cause_category": "ui_state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/pages/ParcelRetryPage.ets", "start_line": 6, "end_line": 20}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-large-file-method-window",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Committing the selected ledger batch does not clear pending count. Locate the late-file method that validates, commits, and resets state."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Committing the selected ledger batch does not clear pending count. Locate the late-file method that validates, commits, and resets state."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "In the large ledger page, return commitSelectedLedgerBatch where the pending batch is validated, committed, and pendingCount becomes zero."
+        },
+        {
+          "id": "zh-noise",
+          "description": "大型账本页面提交后计数没有清零，请定位文件尾部 commitSelectedLedgerBatch 中先 validate、再 commit、最后重置计数的方法窗口。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pages/LedgerMaintenancePage.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/pages/LedgerMaintenancePage.ets", "start_line": 483, "end_line": 491}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-indirect-dialog-caller-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "After reconciliation completes, pressing the confirmation button leaves its modal open. Locate the UI click owner rather than the thin dialog controller."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "After reconciliation completes, pressing the confirmation button leaves its modal open. Locate the UI click owner rather than the thin dialog controller."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The completion overlay does not dismiss when Confirm is tapped; return the actual button callback and its caller context, not only the generic close adapter."
+        },
+        {
+          "id": "zh-noise",
+          "description": "reconciliation 对账完成后的确认弹窗点击按钮仍不关闭，请定位页面里的 onClick 调用方，不要只返回通用弹窗控制器。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pages/ReconciliationPage.ets"],
+        "forbidden_files": ["src/dialogs/ConfirmationDialogController.ets"],
+        "root_cause_category": "ui_control",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/pages/ReconciliationPage.ets", "start_line": 7, "end_line": 16}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-persistence-key-restore-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Profiles are saved before exit but restore empty after relaunch while session data still returns. Locate the preference restore contract owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "Profiles are saved before exit but restore empty after relaunch while session data still returns. Locate the preference restore contract owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "The profile list persists successfully yet startup rebuilds it from the wrong stored key; return the lifecycle read implementation rather than the archive screen."
+        },
+        {
+          "id": "zh-noise",
+          "description": "资料列表退出前已保存，但重启后恢复为空而 session 仍有数据，请定位生命周期中的 preference 读取键契约，不要返回资料展示页。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/abilities/ProfileBootstrapAbility.ets"],
+        "forbidden_files": [
+          "src/pages/ProfileArchivePage.ets",
+          "src/models/ProfileList.ets"
+        ],
+        "root_cause_category": "persistence_contract",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/abilities/ProfileBootstrapAbility.ets", "start_line": 13, "end_line": 20}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-platform-sensitive-ui-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "On an unsupported cross-platform target, opening preferences still constructs the platform-only segmented theme control. Locate capability gating ownership."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "On an unsupported cross-platform target, opening preferences still constructs the platform-only segmented theme control. Locate capability gating ownership."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "A platform-specific color-mode selector is built where its runtime API is unavailable; return the executable UI and setColorMode owner, not theme data or palette helpers."
+        },
+        {
+          "id": "zh-noise",
+          "description": "跨平台目标不支持该能力却仍创建分段主题控件，请定位调用 setColorMode 的 UI 所有者，不要返回主题模型或调色板。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pages/ThemePreferencesPage.ets"],
+        "forbidden_files": [
+          "src/models/ThemeSettings.ets",
+          "src/utils/ThemePalette.ets"
+        ],
+        "root_cause_category": "platform_capability",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/pages/ThemePreferencesPage.ets", "start_line": 7, "end_line": 26}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
       "id": "context-no-evidence-abstention",
       "task_type": "diagnosis",
       "review_status": "validated",

@@ -55,8 +55,14 @@ def limited_matches(
     return bounded
 
 
-def limited_context(project: Project, query: str) -> dict[str, Any]:
-    collection = collect_matches_with_audit(project, query)
+def limited_context(
+    project: Project,
+    query: str,
+    enable_passage_shadow: bool = False,
+) -> dict[str, Any]:
+    collection = collect_matches_with_audit(
+        project, query, enable_passage_shadow=enable_passage_shadow
+    )
     matches = collection.matches
     gated = gate_matches_by_intent(project, query, matches)
     bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS, query)
@@ -196,6 +202,7 @@ def compact_query_explanation(result_type: str, item: dict[str, Any]) -> dict[st
         "usage_feedback_penalty": item.get("usage_feedback_penalty", 0.0),
         "match_reasons": item.get("match_reasons") or explanation.get("match_reasons") or [],
         "recall_lanes": item.get("recall_lanes") or [],
+        "recall_fusion": item.get("recall_fusion") or {},
         "gate_reasons": item.get("gate_reasons") or explanation.get("gate_reasons") or [],
         "retrieval_explanation": explanation,
     }

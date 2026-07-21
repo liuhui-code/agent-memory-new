@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from .code_wiki_edges import rebuild_code_memory_edges
+from .code_passages import rebuild_code_passages
 from .code_wiki_extractors import summarize_symbol
 from .code_wiki_followup import finalize_semantic_followup, semantic_followup_template, semantic_quality_report
 from .code_wiki_imports import project_for_learning_source
@@ -326,6 +327,11 @@ def learn_business(args: argparse.Namespace) -> None:
                     )
                 logs_written += 1
         rebuild_code_memory_edges(conn, source_project)
+        passage_stats = rebuild_code_passages(
+            conn,
+            source_project.project_id,
+            [str(item["file_path"]) for item in payload["files"]],
+        )
         edge_count = conn.execute(
             "SELECT COUNT(*) AS count FROM memory_edges WHERE project_id = ?",
             (source_project.project_id,),
@@ -360,6 +366,7 @@ def learn_business(args: argparse.Namespace) -> None:
         "files_written": files_written,
         "symbols_written": symbols_written,
         "logs_written": logs_written,
+        "passage_index": passage_stats,
         "memory_edges_total": edge_count,
     }
     if conflicts:

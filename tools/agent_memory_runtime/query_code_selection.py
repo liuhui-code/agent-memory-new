@@ -7,6 +7,11 @@ from typing import Any
 
 from .query_behavior_concepts import behavior_marker_terms
 from .query_code_focus import attach_file_source_locations, focus_code_candidates
+from .query_language import excluded_result_roles, positive_retrieval_query
+from .source_path_policy import (
+    filter_explicit_language_candidates,
+    filter_generated_candidates,
+)
 from .text import english_query_variants, identifier_tokens, tokenize
 
 
@@ -26,6 +31,7 @@ OPAQUE_IDENTIFIER_RE = re.compile(
     r"(?=[A-Za-z0-9_]*\d)[A-Za-z0-9_]+\b"
 )
 DIRECT_GRAPH_OVERRIDE_REASONS = {
+    "caller_owner",
     "behavior_operation",
     "exact_behavior_operation",
     "exact_file_path",
@@ -111,16 +117,43 @@ def filter_query_role_candidates(
     items: list[dict[str, Any]],
     query: str,
 ) -> list[dict[str, Any]]:
-    opaque_filtered = filter_opaque_identifier_candidates(items, query)
-    if opaque_filtered != items:
+    generated_filtered = filter_generated_candidates(items)
+    language_filtered = filter_explicit_language_candidates(
+        generated_filtered, positive_retrieval_query(query)
+    )
+    role_filtered = filter_excluded_example_candidates(language_filtered, query)
+    opaque_filtered = filter_opaque_identifier_candidates(role_filtered, query)
+    if opaque_filtered != role_filtered:
         return opaque_filtered
     if not behavior_owner_query(query) or entity_definition_query(query):
+        return role_filtered
+    filtered = [
+        item for item in role_filtered
+        if not data_entity_path(str(item.get("file_path") or ""))
+    ]
+    return filtered if filtered else role_filtered
+
+
+def filter_excluded_example_candidates(
+    items: list[dict[str, Any]],
+    query: str,
+) -> list[dict[str, Any]]:
+    if not excluded_result_roles(query):
         return items
     filtered = [
         item for item in items
-        if not data_entity_path(str(item.get("file_path") or ""))
+        if not example_candidate_path(str(item.get("file_path") or ""))
     ]
-    return filtered if filtered else items
+    return filtered or items
+
+
+def example_candidate_path(file_path: str) -> bool:
+    normalized = f"/{file_path.casefold().strip('/')}"
+    name = normalized.rsplit("/", 1)[-1]
+    directories = ("/example/", "/examples/", "/sample/", "/samples/")
+    return any(marker in normalized for marker in directories) or any(
+        marker in name for marker in ("demo", "example", "sample")
+    )
 
 
 def filter_opaque_identifier_candidates(

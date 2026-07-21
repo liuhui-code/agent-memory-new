@@ -17,6 +17,7 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `code_files`: lightweight file-level wiki index. ArkTS summaries may include at most 12 source-ordered chained operation names for lexical behavior lookup; operation arguments and source bodies are not stored.
 - `code_symbols`: lightweight symbol-level wiki index.
 - `code_log_statements`: log, print, and console statements extracted from learned source files.
+- `code_passages`: rebuildable file, symbol, and callable retrieval passages derived from current code rows.
 - `memory_edges`: lightweight relation edges between learned files, symbols, and log statements.
 - `graph_runtime_state`: graph revision used to invalidate runtime graph-quality snapshots.
 - `impact_feedback`: compact change/test outcome summaries used to improve later test recommendations.
@@ -33,7 +34,7 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `business_summary`: concise business meaning of the file, method, field, route, resource, or log.
 - `business_terms`: JSON array of searchable business terms grounded in code names, fields, routes, resources, logs, or UI wording.
 
-FTS5 tables are generated search indexes maintained incrementally by SQLite triggers. Their schema version is stored in `runtime_schema_versions`; they are rebuilt only on first creation, version migration, or explicit `maintain-rebuild-derived --target search`. They are not a second source of truth.
+FTS5 tables are generated search indexes maintained incrementally by SQLite triggers. Their schema version is stored in `runtime_schema_versions`; they are rebuilt only on first creation, version migration, or explicit `maintain-rebuild-derived --target search`. `code_passage_fts` indexes the derived `code_passages` fields. Neither table is a second source of truth.
 
 `memory_edges` are generated from current code rows and source files. `maintain-rebuild-derived --target graph` may replace these derived rows while preserving code business fields and durable memory tables. Its graph audit reports relation counts, edges per node, and dominant-relation share so accidental edge amplification can be detected before the graph is trusted.
 
@@ -164,6 +165,34 @@ signal is not hidden by unrelated recent events.
 - `updated_at`: activation timestamp.
 
 `code_files`, `code_symbols`, and `code_log_statements` carry nullable `source_digest` and `index_generation`. New rows use the SHA-256 digest of the indexed file and the generation active for that write. Nullable fields preserve old archives; query reports those legacy rows as `unverified` until a focused scope refresh stamps them.
+
+`code_symbols.method_evidence` stores at most 36 normalized callable-body terms,
+and `string_evidence` stores at most 24 normalized string literal or key terms.
+`mechanism_evidence` stores a bounded JSON list of language-neutral mechanism
+records. Each record has a source symbol, kind, normalized terms, source line,
+confidence, evidence class, and compact detail. Supported kinds are `operation`,
+`guard`, `resource_bound`, `callback_binding`, `platform_predicate`,
+`persistence_read`, and `persistence_write`. None of these fields stores source
+bodies. Static extraction keeps at most 16 records per callable, and persisted
+mechanism JSON is capped at 4,096 UTF-8 bytes per symbol. `code_passages`
+projects current source-derived rows into independently
+searchable fields:
+
+- `passage_kind`: `file`, `symbol`, or `callable`.
+- `identity_terms`: normalized path, basename, symbol, qualified name, and signature identities.
+- `semantic_terms`: business and structural vocabulary already derived from current code.
+- `body_terms`: bounded callable evidence from `method_evidence`.
+- `string_terms`: bounded literal/key evidence from `string_evidence`.
+- `mechanism_terms`: normalized kinds and terms from `mechanism_evidence`.
+- `source_type` and `source_id`: the source-derived row that owns the passage.
+- `source_digest` and `index_generation`: freshness identity inherited from that source row.
+- `start_line` and `end_line`: optional callable range used for later source selection.
+
+Passage rows are replaced transactionally for a full project or a refreshed file
+scope. They can always be rebuilt from `code_files` and `code_symbols`; they are
+retrieval materialization, not durable memory or Agent-authored semantics.
+An incompatible passage schema is dropped and rebuilt from current source rows;
+durable memory tables are never copied into the passage index.
 
 `scope_boundary_dependencies` records resolved project imports that are outside
 one learned Scope without promoting those files into learned code data:

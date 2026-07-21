@@ -1,0 +1,199 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/tmp/agent-memory-flamechase-v2-20260720",
+  "source_repository": "https://github.com/jiwangyihao/FlameChase.git",
+  "source_branch": "master",
+  "source_head_reviewed": "446275e6972bd5f92a3c5b7eba354ca83d504594",
+  "generated_at": "2026-07-20T18:45:00+08:00",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "flamechase-custom-dialog-close-controller",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After a task completes, tapping the confirmation button in either the success or failure custom dialog leaves the modal open. Locate dialog construction and close-action ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "98012290abfd9ae50009d4caf3adaa1d68335427",
+        "after_revision": "2d3d487d54be5ab91988e704c04fda582be5a4e8",
+        "changed_files": [
+          "entry/src/main/ets/pages/CoreflamesPage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "2d3d487d54be5ab91988e704c04fda582be5a4e8",
+        "commit_message": "解决弹窗关闭的问题。"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/CoreflamesPage.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_control",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/CoreflamesPage.ets",
+              "start_line": 118,
+              "end_line": 142
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Complete both successful and failed tasks, tap the confirmation button, and verify each modal closes exactly once."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "flamechase-award-restore-preference-key",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Awards created before exit are saved, but after restart the award list restores empty while task data still returns. Locate award preference restoration ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "46887dd9b0612451e8ab0d674ca2cfc8ed116e04",
+        "after_revision": "7090a2338ab2154f488c2e6ac1dec1b2c51ec482",
+        "changed_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "7090a2338ab2154f488c2e6ac1dec1b2c51ec482",
+        "commit_message": "Improve data persistence"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/AwardsPage.ets"
+        ],
+        "root_cause_category": "persistence_contract",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/entryability/EntryAbility.ets",
+              "start_line": 91,
+              "end_line": 95
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Create an award, terminate and relaunch the app, and verify the same award is restored from the Award preference store."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "flamechase-dark-mode-platform-gate",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "On a non-OpenHarmony ArkUI-X target, opening settings still constructs the Harmony-only dark-mode segmented control. Locate platform gating ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "62d2152139bf379fbe12e15a367bf62046fff664",
+        "after_revision": "208ef75edbb9cd07acbefc4af7d3587a7f1ac456",
+        "changed_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "208ef75edbb9cd07acbefc4af7d3587a7f1ac456",
+        "commit_message": "Add OS check for dark mode segment button"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "platform_capability",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 127,
+              "end_line": 164
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open settings on OpenHarmony and a second ArkUI-X target, and verify the dark-mode segment is constructed only where supported."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-20T10:42:50+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "51784c6b80b0b0baf68e85136cec638f4351a0ea8f8325319165b9007dbe965c"
+  }
+}

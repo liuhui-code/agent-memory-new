@@ -197,6 +197,10 @@ class QueryCandidateRecallTests(AgentMemoryTestBase):
                 "Voice recording intermittently stops after repeated capture sessions"
             ),
         )
+        self.assertIn(
+            "resourcerelease",
+            behavior_marker_terms("资源被重复释放时只应销毁一次"),
+        )
         self.assertTrue(
             {"keyboundary", "backkeyguard"}
             <= set(behavior_marker_terms(
@@ -430,8 +434,12 @@ class QueryCandidateRecallTests(AgentMemoryTestBase):
 
         audit = context["query_audit"]
         self.assertEqual(
-            "sqlite_fts5_fielded/v2",
+            "sqlite_fts5_passage_rrf/v4",
             audit["candidate_recall"]["provider"],
+        )
+        self.assertEqual(
+            "reciprocal_rank_fusion/v1",
+            audit["candidate_recall"]["rank_fusion_provider"],
         )
         self.assertEqual(
             {"scored", "after_intent_gate", "selected"},
@@ -443,6 +451,10 @@ class QueryCandidateRecallTests(AgentMemoryTestBase):
         )
         self.assertTrue(
             audit["top_explanations"]["wiki_matches"][0]["recall_lanes"]
+        )
+        self.assertEqual(
+            "reciprocal_rank_fusion/v1",
+            audit["top_explanations"]["wiki_matches"][0]["recall_fusion"]["provider"],
         )
         self.assertEqual(
             {"broad_fts"},

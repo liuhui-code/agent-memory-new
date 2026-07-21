@@ -14,6 +14,10 @@ MARKER_ORDER = (
     "callbackboundary",
     "deserialization",
     "actiondispatch",
+    "commandbinding",
+    "disclosurestate",
+    "errorreturnboundary",
+    "errorpresentationboundary",
     "archiveioboundary",
     "collectionfold",
     "keyboardvisibility",
@@ -69,6 +73,24 @@ ACTION_RE = re.compile(
     r"\b(?:run|execute|dispatch|perform|submit|send)?(?:Action|Command)\b|"
     r"\.(?:action|execute|dispatch)\s*\(|"
     r"\.(?:execute|dispatch|perform|submit|send)[A-Z_$][A-Za-z0-9_$]*\s*\("
+)
+COMMAND_BINDING_RE = re.compile(
+    r"\b(?:invoke|action|execute|run)\s*:\s*(?:async\s*)?\([^)]*\)"
+    r"\s*(?::[^=\n]+)?=>[\s\S]{0,320}?"
+    r"(?:await\s+)?(?:this\.)?[A-Za-z_$][A-Za-z0-9_$]*"
+    r"(?:\.[A-Za-z_$][A-Za-z0-9_$]*)+\s*\(",
+    re.I,
+)
+DISCLOSURE_ROTATION_RE = re.compile(
+    r"\.rotate\s*\(\s*\{[\s\S]{0,180}?angle\s*:\s*this\."
+    r"([A-Za-z_$][A-Za-z0-9_$]*)\s*\?",
+)
+DISCLOSURE_SYMBOL_RE = re.compile(r"\b(?:chevron|arrow|caret)[A-Za-z0-9_$]*\b", re.I)
+ERROR_CATCH_RE = re.compile(
+    r"\bcatch\s*\(\s*([A-Za-z_$][A-Za-z0-9_$]*)[^)]*\)\s*\{"
+)
+AWAIT_RESULT_RE = re.compile(
+    r"\b(?:const|let)\s+([A-Za-z_$][A-Za-z0-9_$]*)\s*=\s*await\b"
 )
 ARCHIVE_CONTEXT_RE = re.compile(
     r"\b(?:archive|compressed|gzip|tar|unzip|zip)\b|\.(?:tar|zip)\b",
@@ -226,7 +248,7 @@ RESOURCE_CONTEXT_RE = re.compile(
 RESOURCE_ACQUIRE_RE = re.compile(
     r"\.(?:start|open|prepare|resume|initialize|init)\s*\("
 )
-RESOURCE_RELEASE_RE = re.compile(r"\.(?:stop|pause|release|close|reset)\s*\(")
+RESOURCE_RELEASE_RE = re.compile(r"\.(?:stop|pause|release|close|reset|destroy)\s*\(")
 HORIZONTAL_AXIS_RE = re.compile(r"\bAxis\.Horizontal\b")
 VERTICAL_AXIS_RE = re.compile(r"\bAxis\.Vertical\b")
 ASYNC_ORDER_GUARD_RE = re.compile(
@@ -259,6 +281,14 @@ def extract_arkts_behavior_markers(text: str) -> list[str]:
         markers.add("deserialization")
     if ACTION_RE.search(source):
         markers.add("actiondispatch")
+    if COMMAND_BINDING_RE.search(source):
+        markers.add("commandbinding")
+    if disclosure_state_present(source):
+        markers.add("disclosurestate")
+    if error_return_boundary_present(source):
+        markers.add("errorreturnboundary")
+    if error_presentation_boundary_present(source):
+        markers.add("errorpresentationboundary")
     if ARCHIVE_CONTEXT_RE.search(source) and ARCHIVE_IO_RE.search(source):
         markers.add("archiveioboundary")
     if collection_fold_present(source):
@@ -369,6 +399,40 @@ def validation_guard_present(source: str) -> bool:
         if exit_match is None or "{" not in window[:exit_match.start()]:
             continue
         if VALIDATION_SIGNAL_RE.search(window[:exit_match.end()]):
+            return True
+    return False
+
+
+def disclosure_state_present(source: str) -> bool:
+    if not DISCLOSURE_SYMBOL_RE.search(source):
+        return False
+    for match in DISCLOSURE_ROTATION_RE.finditer(source):
+        state = re.escape(match.group(1))
+        if re.search(rf"\bthis\.{state}\s*=\s*!\s*this\.{state}\b", source):
+            return True
+    return False
+
+
+def error_return_boundary_present(source: str) -> bool:
+    for match in ERROR_CATCH_RE.finditer(source):
+        name = re.escape(match.group(1))
+        window = source[match.end():match.end() + 500]
+        if re.search(rf"\breturn\b[\s\S]{{0,160}}?\b{name}(?:\.message)?\b", window):
+            return True
+    return False
+
+
+def error_presentation_boundary_present(source: str) -> bool:
+    for match in AWAIT_RESULT_RE.finditer(source):
+        name = re.escape(match.group(1))
+        window = source[match.end():match.end() + 700]
+        guarded = re.search(rf"\b(?:typeof\s+{name}|if\s*\([^)]*\b{name}\b)", window)
+        presented = re.search(
+            rf"\b(?:this\.)?(?:show|present|display|render|alert|toast)[A-Za-z0-9_$]*"
+            rf"\s*\([^)]*\b{name}\b",
+            window,
+        )
+        if guarded and presented:
             return True
     return False
 

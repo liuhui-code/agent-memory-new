@@ -10,8 +10,10 @@ from typing import Any
 
 from .models import Project
 from .semantic_models import SemanticBatch, SemanticEntity, SemanticRelation
+from .semantic_mechanism_evidence import mechanism_evidence_payload
 from .semantic_provider_metrics import append_provider_metric
 from .semantic_runtime import run_semantic_adapter
+from .semantic_symbol_evidence import load_semantic_source_lines, method_evidence_payload
 from .storage import now_iso
 
 
@@ -51,8 +53,9 @@ def persist_semantic_index(
                 errors.append({"language": language, "batch": str(batch_index), "error": str(exc)[:240]})
     emitted = 0
     unresolved = 0
+    method_summaries_enriched = 0
     for batch in batches:
-        enrich_code_symbols(conn, project, batch)
+        method_summaries_enriched += enrich_code_symbols(conn, project, batch)
         counts = persist_batch_relations(conn, project, batch, revision)
         emitted += counts["emitted"]
         unresolved += counts["unresolved"]
@@ -63,8 +66,10 @@ def persist_semantic_index(
         "files_indexed": sum(len(batch.source_digests) for batch in batches),
         "entities": sum(len(batch.entities) for batch in batches),
         "relations_extracted": sum(len(batch.relations) for batch in batches),
+        "mechanisms_extracted": sum(len(batch.mechanisms) for batch in batches),
         "relations_emitted": emitted,
         "unresolved_relations": unresolved,
+        "method_summaries_enriched": method_summaries_enriched,
         "gaps": [gap for batch in batches for gap in batch.gaps][:100],
         "adapter_errors": errors,
         "provider_runs": provider_runs,
@@ -103,10 +108,10 @@ def rows_for_scope(conn: sqlite3.Connection, project: Project, paths: list[str])
     return rows
 
 
-def enrich_code_symbols(conn: sqlite3.Connection, project: Project, batch: SemanticBatch) -> None:
+def enrich_code_symbols(conn: sqlite3.Connection, project: Project, batch: SemanticBatch) -> int:
     paths = sorted(batch.source_digests)
     if not paths:
-        return
+        return 0
     rows: list[sqlite3.Row] = []
     for chunk in chunks(paths):
         placeholders = ",".join("?" for _ in chunk)
@@ -118,6 +123,11 @@ def enrich_code_symbols(conn: sqlite3.Connection, project: Project, batch: Seman
     for row in rows:
         grouped_rows[(str(row["file_path"]), str(row["symbol"]))].append(row)
     used: set[int] = set()
+    source_lines = load_semantic_source_lines(project, paths)
+    mechanisms_by_key: dict[str, list[Any]] = defaultdict(list)
+    for mechanism in batch.mechanisms:
+        mechanisms_by_key[mechanism.source_key].append(mechanism)
+    enriched = 0
     for entity in batch.entities:
         candidates = [row for row in grouped_rows.get((entity.file_path, entity.name), []) if int(row["id"]) not in used]
         compatible = [row for row in candidates if compatible_kind(str(row["symbol_type"] or ""), entity.kind)]
@@ -125,19 +135,30 @@ def enrich_code_symbols(conn: sqlite3.Connection, project: Project, batch: Seman
         if not target:
             continue
         used.add(int(target["id"]))
+        method_evidence, string_evidence = method_evidence_payload(
+            entity, source_lines.get(entity.file_path),
+        )
+        mechanism_evidence, _mechanism_terms = mechanism_evidence_payload(
+            mechanisms_by_key.get(entity.key, [])
+        )
+        enriched += int(bool(method_evidence))
         conn.execute(
             """
             UPDATE code_symbols
             SET symbol_key = ?, qualified_name = ?, signature = ?, start_line = ?, end_line = ?,
-                semantic_adapter = ?, source_digest = ?, evidence_class = ?
+                semantic_adapter = ?, source_digest = ?, evidence_class = ?,
+                method_evidence = ?, string_evidence = ?, mechanism_evidence = ?
             WHERE project_id = ? AND id = ?
             """,
             (
                 entity.key, entity.qualified_name, entity.signature, entity.start_line, entity.end_line,
                 f"{batch.adapter_id}@{batch.adapter_version}", batch.source_digests.get(entity.file_path),
-                entity.evidence_class, project.project_id, int(target["id"]),
+                entity.evidence_class, method_evidence, string_evidence,
+                mechanism_evidence,
+                project.project_id, int(target["id"]),
             ),
         )
+    return enriched
 
 
 def compatible_kind(stored: str, semantic: str) -> bool:

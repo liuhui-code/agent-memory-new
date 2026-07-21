@@ -85,6 +85,9 @@ def create_schema(conn: sqlite3.Connection) -> None:
           semantic_adapter TEXT,
           source_digest TEXT,
           evidence_class TEXT,
+          method_evidence TEXT,
+          string_evidence TEXT,
+          mechanism_evidence TEXT,
           index_generation INTEGER NOT NULL DEFAULT 0,
           updated_at TEXT NOT NULL
         );

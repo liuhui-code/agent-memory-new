@@ -142,6 +142,22 @@ def matching_code_path_segments(query: str, file_path: str) -> list[str]:
         if significant_query_token(token)
         and token.casefold() not in GENERIC_CODE_PATH_TERMS
     }
+    return matching_path_terms(query_terms, file_path)
+
+
+def matching_direct_code_path_segments(query: str, file_path: str) -> list[str]:
+    lexical_tokens = [*tokenize(query), *identifier_tokens(query)]
+    query_terms = {
+        token.casefold()
+        for lexical in lexical_tokens
+        for token in (lexical, *english_query_variants(lexical))
+        if significant_query_token(token)
+        and token.casefold() not in GENERIC_CODE_PATH_TERMS
+    }
+    return matching_path_terms(query_terms, file_path)
+
+
+def matching_path_terms(query_terms: set[str], file_path: str) -> list[str]:
     path_segments = {
         token.casefold()
         for token in [*tokenize(file_path), *identifier_tokens(file_path)]

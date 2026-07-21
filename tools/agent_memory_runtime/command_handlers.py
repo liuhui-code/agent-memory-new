@@ -152,7 +152,9 @@ def context(args: argparse.Namespace) -> None:
     started_ms = monotonic_ms()
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    data = build_context_facade(project).execute(args.query)
+    data = build_context_facade(
+        project, enable_passage_shadow=not args.compact
+    ).execute(args.query)
     if args.compact:
         data = compact_context(data)
     record_query_usage(project, "context", args.query, data)

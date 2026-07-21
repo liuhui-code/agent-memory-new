@@ -21,15 +21,19 @@ from .query_candidate_recall import (
     CandidateRecallBatch,
     CandidateRecallPort,
     SQLiteCandidateRecall,
+    method_evidence_focus_terms,
+    method_evidence_term_coverage,
 )
+from .query_caller_ownership import collect_bounded_caller_owners
 from .query_graph_neighbors import collect_result_graph_neighbors
+from .query_language import positive_retrieval_query
 from .records import memory_warning, row_dict
 from .retrieval_feedback import collect_feedback_adjustments
 from .storage import connect
 from .text import (
     code_search_terms,
     json_list,
-    matching_code_path_segments,
+    matching_direct_code_path_segments,
     query_tokens,
     score_identifier_identity,
     score_weighted_fields,
@@ -76,10 +80,13 @@ def collect_matches_with_audit(
     project: Project,
     query: str,
     recall_port: CandidateRecallPort | None = None,
+    enable_passage_shadow: bool = False,
 ) -> CollectedMatches:
-    tokens = query_tokens(query)
-    original_terms = set(tokenize(query))
+    retrieval_query = positive_retrieval_query(query)
+    tokens = query_tokens(retrieval_query)
+    original_terms = set(tokenize(retrieval_query))
     expanded_terms = set(tokens) - original_terms
+    method_focus_terms = method_evidence_focus_terms(retrieval_query)
     results: dict[str, list[dict[str, Any]]] = {
         "semantic_facts": [],
         "reflections": [],
@@ -90,14 +97,20 @@ def collect_matches_with_audit(
         "incident_trace_matches": [],
     }
     with connect(project) as conn:
-        recalled = (recall_port or SQLiteCandidateRecall()).recall(conn, project, query)
+        recalled = (recall_port or SQLiteCandidateRecall(
+            enable_passage_shadow=enable_passage_shadow
+        )).recall(
+            conn, project, retrieval_query
+        )
     semantic = recalled.rows["semantic_facts"]
     reflections = recalled.rows["reflections"]
     episodes = recalled.rows["episodes"]
     files = recalled.rows["code_files"]
     symbols = recalled.rows["code_symbols"]
     logs = recalled.rows["code_log_statements"]
-    results["incident_trace_matches"] = collect_incident_trace_matches(project, query, INCIDENT_TRACE_SEARCH_LIMIT)
+    results["incident_trace_matches"] = collect_incident_trace_matches(
+        project, retrieval_query, INCIDENT_TRACE_SEARCH_LIMIT
+    )
     memory_candidate_ids = {
         "semantic": candidate_ids(semantic),
         "reflection": candidate_ids(reflections),
@@ -117,7 +130,7 @@ def collect_matches_with_audit(
 
     for row in semantic:
         score, reasons = score_weighted_fields(
-            query,
+            retrieval_query,
             tokens,
             expanded_terms,
             [("semantic_fact", row["fact"], 1.0)],
@@ -174,7 +187,7 @@ def collect_matches_with_audit(
             )
         )
         score, reasons = score_weighted_fields(
-            query,
+            retrieval_query,
             tokens,
             expanded_terms,
             [("reflection", text, 1.0)],
@@ -200,7 +213,7 @@ def collect_matches_with_audit(
     for row in episodes:
         text = f"{row['task']} {row['summary']} {row['outcome'] or ''}"
         score, reasons = score_weighted_fields(
-            query,
+            retrieval_query,
             tokens,
             expanded_terms,
             [("episode", text, 0.8)],
@@ -217,7 +230,7 @@ def collect_matches_with_audit(
     for row in files:
         search_terms = code_search_terms("file", row)
         score, reasons = score_weighted_fields(
-            query,
+            retrieval_query,
             tokens,
             expanded_terms,
             [
@@ -231,17 +244,17 @@ def collect_matches_with_audit(
             [("exact_file_path", row["file_path"], 12.0)],
         )
         score, reasons = apply_path_segment_identity(
-            query, row["file_path"], score, reasons
+            retrieval_query, row["file_path"], score, reasons
         )
         score, reasons = score_file_behavior_match(
             f"{row['file_path']} {row['summary'] or ''}",
             original_terms,
-            query,
+            retrieval_query,
             score,
             reasons,
         )
         score, reasons = score_query_focus_coverage(
-            query, " ".join(search_terms), score, reasons
+            retrieval_query, " ".join(search_terms), score, reasons
         )
         if score:
             item = row_dict(row)
@@ -255,30 +268,41 @@ def collect_matches_with_audit(
 
     for row in symbols:
         search_terms = code_search_terms("symbol", row)
+        symbol_lanes = recalled.lanes_by_id.get("code_symbols", {}).get(
+            int(row["id"]), []
+        )
+        weighted_fields = [
+            ("business_terms", " ".join(json_list(row["business_terms"])), 5.0),
+            ("business_summary", row["business_summary"] or "", 3.0),
+            ("file_path", row["file_path"], 2.0),
+            ("symbol", row["symbol"], 4.0),
+            ("symbol_type", row["symbol_type"] or "", 2.0),
+            ("symbol_summary", row["summary"] or "", 1.5),
+            ("search_terms", " ".join(search_terms), 1.0),
+        ]
+        if "method_body_fts" in symbol_lanes:
+            weighted_fields.append(
+                ("method_evidence", row["method_evidence"] or "", 0.75)
+            )
+        method_coverage = method_evidence_term_coverage(
+            row["method_evidence"] or "", method_focus_terms
+        ) if "method_body_fts" in symbol_lanes else 0
         score, reasons = score_weighted_fields(
-            query,
+            retrieval_query,
             tokens,
             expanded_terms,
-            [
-                ("business_terms", " ".join(json_list(row["business_terms"])), 5.0),
-                ("business_summary", row["business_summary"] or "", 3.0),
-                ("file_path", row["file_path"], 2.0),
-                ("symbol", row["symbol"], 4.0),
-                ("symbol_type", row["symbol_type"] or "", 2.0),
-                ("symbol_summary", row["summary"] or "", 1.5),
-                ("search_terms", " ".join(search_terms), 1.0),
-            ],
+            weighted_fields,
             [
                 ("exact_symbol", row["symbol"], 12.0),
                 ("exact_file_path", row["file_path"], 4.0),
             ],
         )
         score, reasons = apply_path_segment_identity(
-            query, row["file_path"], score, reasons
+            retrieval_query, row["file_path"], score, reasons
         )
-        score += score_identifier_identity(query, row["symbol"])
+        score += score_identifier_identity(retrieval_query, row["symbol"])
         score, reasons = score_query_focus_coverage(
-            query, " ".join(search_terms), score, reasons
+            retrieval_query, " ".join(search_terms), score, reasons
         )
         if row["symbol_type"] == "resource":
             score -= 8.0
@@ -288,6 +312,9 @@ def collect_matches_with_audit(
         if score:
             item = row_dict(row)
             attach_recall_metadata(item, recalled, "code_symbols")
+            item["method_evidence_coverage"] = method_coverage
+            if method_coverage >= 3:
+                reasons = unique_list([*reasons, "multi_term_method_evidence"])
             item["kind"] = "symbol"
             item["score"] = score
             item["search_terms"] = search_terms
@@ -298,7 +325,7 @@ def collect_matches_with_audit(
     for row in logs:
         search_terms = code_search_terms("log_statement", row)
         score, reasons = score_weighted_fields(
-            query,
+            retrieval_query,
             tokens,
             expanded_terms,
             [
@@ -322,7 +349,7 @@ def collect_matches_with_audit(
             ],
         )
         score, reasons = score_query_focus_coverage(
-            query, " ".join(search_terms), score, reasons
+            retrieval_query, " ".join(search_terms), score, reasons
         )
         if score:
             item = row_dict(row)
@@ -334,6 +361,10 @@ def collect_matches_with_audit(
             item["match_reasons"] = reasons
             item.update(score_log_signal(item))
             results["code_log_matches"].append(item)
+
+    results["wiki_matches"].extend(
+        collect_bounded_caller_owners(project, results["wiki_matches"], query)
+    )
 
     edge_targets: dict[str, set[int]] = {
         "code_file": set(),
@@ -349,7 +380,9 @@ def collect_matches_with_audit(
         edge_targets["code_log_statement"].add(int(item["id"]))
     if any(edge_targets.values()):
         results["edge_matches"] = collect_related_edge_candidates(project, edge_targets)
-        results["wiki_matches"].extend(collect_result_graph_neighbors(project, results, query))
+        results["wiki_matches"].extend(
+            collect_result_graph_neighbors(project, results, retrieval_query)
+        )
 
     results, source_freshness = filter_scored_derived_matches(
         project,
@@ -372,6 +405,10 @@ def attach_recall_metadata(
         int(item.get("id") or 0),
         [],
     )
+    item["recall_fusion"] = recalled.fusion_by_id.get(table_name, {}).get(
+        int(item.get("id") or 0),
+        {},
+    )
 
 
 def apply_path_segment_identity(
@@ -380,7 +417,7 @@ def apply_path_segment_identity(
     score: float,
     reasons: list[str],
 ) -> tuple[float, list[str]]:
-    matches = matching_code_path_segments(query, file_path)
+    matches = matching_direct_code_path_segments(query, file_path)
     if not matches:
         return score, reasons
     return score + 20.0 + 2.0 * (len(matches) - 1), unique_list([

@@ -15,12 +15,13 @@ from .benchmark_context_setup import apply_context_setup
 from .benchmark_memory import prepare_isolated_memory
 from .benchmark_workspace import materialized_workspace
 from .context_capability_cases import expand_context_cases
+from .query_candidate_recall import SQLiteCandidateRecall
 from .context_capability_eval import OBSERVATION_SCHEMA, evaluate_context_capability
 from .benchmark_case_seal import case_pack_seal_audit
 from .benchmark_failure_analysis import analyze_context_failures
 from .performance_scoring import estimate_payload_tokens
 from .records import output
-from .storage import ensure_initialized, now_iso, resolve_project
+from .storage import connect, ensure_initialized, now_iso, resolve_project
 
 
 MAX_CONTEXT_BYTES = 1_000_000
@@ -94,9 +95,10 @@ def collect_context_capability(
 ) -> dict[str, Any]:
     with materialized_workspace(source, case) as workspace:
         started = time.monotonic()
+        memory_home = workspace.parent / "memory-home"
         memory = prepare_isolated_memory(
             workspace,
-            workspace.parent / "memory-home",
+            memory_home,
             timeout,
             case["task_type"],
         )
@@ -110,10 +112,14 @@ def collect_context_capability(
             timeout,
         )
         query_ms = elapsed_ms(query_started)
-        return {
+        observation = {
             **summarize_context(case["id"], context, prepare_ms, query_ms),
             "fixture_counts": fixture_counts,
         }
+        observation["candidate_anchor_paths"] = shadow_candidate_paths(
+            workspace, memory_home, str(case.get("task", {}).get("description") or "")
+        )
+        return observation
 
 
 def run_context_query(
@@ -163,6 +169,7 @@ def summarize_context(
     prepare_ms: int,
     query_ms: int,
 ) -> dict[str, Any]:
+    candidate_paths = candidate_paths_from_context(context)
     handoff = context.get("query_handoff")
     handoff = handoff if isinstance(handoff, dict) else {}
     anchors = records(handoff.get("code_anchors"))
@@ -188,6 +195,7 @@ def summarize_context(
         "primary_anchor_paths": unique_paths(
             item.get("file_path") for item in anchors if item.get("role") == "primary"
         ),
+        "candidate_anchor_paths": candidate_paths,
         "excerpt_paths": unique_paths(
             item.get("file_path") for item in anchors if records(item.get("source_excerpts"))
         ),
@@ -228,6 +236,34 @@ def summarize_context(
         "memory_prepare_ms": prepare_ms,
         "query_elapsed_ms": query_ms,
     }
+
+
+def candidate_paths_from_context(context: dict[str, Any]) -> list[str]:
+    audit = context.get("query_audit")
+    candidate = audit.get("candidate_recall") if isinstance(audit, dict) else {}
+    tables = candidate.get("tables") if isinstance(candidate, dict) else {}
+    refs = []
+    for table_name in ("code_files", "code_symbols"):
+        table = tables.get(table_name) if isinstance(tables, dict) else {}
+        fielded = table.get("fielded_retrieval") if isinstance(table, dict) else {}
+        selected = fielded.get("candidate_refs") if isinstance(fielded, dict) else None
+        refs.extend(records(selected or table.get("candidate_refs"))[:20] if isinstance(table, dict) else [])
+    return unique_paths(item.get("file_path") for item in refs)
+
+
+def shadow_candidate_paths(
+    workspace: Path,
+    memory_home: Path,
+    query: str,
+) -> list[str]:
+    project = resolve_project(str(workspace), str(memory_home))
+    with connect(project) as conn:
+        recalled = SQLiteCandidateRecall(enable_passage_shadow=True).recall(
+            conn, project, query
+        )
+    return candidate_paths_from_context({
+        "query_audit": {"candidate_recall": recalled.audit}
+    })
 
 
 def path_files(candidates: list[dict[str, Any]]) -> list[str]:

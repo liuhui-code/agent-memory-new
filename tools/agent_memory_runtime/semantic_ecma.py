@@ -8,7 +8,11 @@ from pathlib import Path
 from typing import Any
 
 from .models import Project
-from .semantic_models import MAX_GAPS, SemanticBatch, SemanticEntity, SemanticRelation, source_digest, symbol_key
+from .semantic_ecma_mechanisms import extract_callable_mechanisms
+from .semantic_models import (
+    MAX_GAPS, SemanticBatch, SemanticEntity, SemanticMechanism,
+    SemanticRelation, source_digest, symbol_key,
+)
 
 
 CONTAINER_RE = re.compile(
@@ -62,6 +66,7 @@ class ParsedFile:
     digest: str
     entities: list[SemanticEntity]
     relations: list[SemanticRelation]
+    mechanisms: list[SemanticMechanism]
     gaps: list[dict[str, str]]
 
 
@@ -87,6 +92,7 @@ def index_ecma_files(
         source_digests={item.path: item.digest for item in parsed},
         entities=[entity for item in parsed for entity in item.entities],
         relations=[relation for item in parsed for relation in item.relations],
+        mechanisms=[mechanism for item in parsed for mechanism in item.mechanisms],
         gaps=bounded_gaps([gap for item in parsed for gap in item.gaps]),
     )
     return batch.validate()
@@ -140,12 +146,20 @@ def parse_source(
         ))
     for block in callables:
         relations.extend(callable_relations(lines, block, context, by_qualified, by_name, gaps))
+    mechanisms = [
+        mechanism
+        for block in callables
+        for mechanism in extract_callable_mechanisms(
+            lines, block.entity.key, block.start, block.end
+        )
+    ]
     return ParsedFile(
         path=rel_path,
         text=text,
         digest=source_digest(text),
         entities=dedupe_entities(entities),
         relations=dedupe_relations(relations),
+        mechanisms=mechanisms,
         gaps=gaps,
     )
 

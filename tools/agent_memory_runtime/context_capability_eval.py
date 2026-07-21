@@ -80,6 +80,7 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
     forbidden = string_set(oracle.get("forbidden_files"))
     anchors = string_set(observation.get("anchor_paths"))
     primary = string_set(observation.get("primary_anchor_paths"))
+    candidates = string_set(observation.get("candidate_anchor_paths"))
     excerpts = string_set(observation.get("excerpt_paths"))
     log_keywords = string_set(observation.get("log_keywords"), fold=True)
     log_evidence = string_set(observation.get("log_evidence_texts"), fold=True)
@@ -173,6 +174,7 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
         "checks": checks,
         "anchor_recall": recall(expected, anchors),
         "primary_anchor_recall": recall(expected, primary),
+        "candidate_file_recall_at_20": recall(expected, candidates),
         "oracle_anchor_precision": precision(expected, anchors),
         "source_excerpt_recall": recall(expected, excerpts),
         "source_span_recall": quality["source_span_recall"],
@@ -258,6 +260,7 @@ def capability_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
             "evaluated_cases": len(code_cases),
             "anchor_recall": average(code_cases, "anchor_recall"),
             "primary_anchor_recall": average(code_cases, "primary_anchor_recall"),
+            "candidate_file_recall_at_20": average(code_cases, "candidate_file_recall_at_20"),
             "oracle_anchor_precision": average(code_cases, "oracle_anchor_precision"),
             "expected_anchor_mrr": average(code_cases, "expected_anchor_mrr"),
         },

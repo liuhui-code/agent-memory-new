@@ -10,6 +10,7 @@ from types import SimpleNamespace
 
 from tools.agent_memory_runtime.benchmark_context_setup import validated_reflections
 from tools.agent_memory_runtime.context_capability import (
+    candidate_paths_from_context,
     limit_scenario_cases,
     summarize_context,
 )
@@ -92,6 +93,7 @@ class ContextCapabilityEvalTests(unittest.TestCase):
 
         self.assertEqual("pass", result["system_context_gate"])
         self.assertEqual(1.0, result["capability_profile"]["code_locator"]["anchor_recall"])
+        self.assertEqual(1.0, result["capability_profile"]["code_locator"]["candidate_file_recall_at_20"])
         self.assertEqual(
             "informational",
             result["capability_profile"]["source_evidence"]["status"],
@@ -247,6 +249,24 @@ class ContextCapabilityEvalTests(unittest.TestCase):
         self.assertEqual(["src/Entry.ets", "src/Profile.ets"], measured["path_files"])
         self.assertEqual(1, measured["relation_hint_count"])
         self.assertNotIn("private-source-marker", str(measured))
+
+    def test_evaluation_reads_fielded_shadow_candidates_from_audit(self) -> None:
+        context = {
+            "query_audit": {"candidate_recall": {"tables": {
+                "code_files": {"candidate_refs": [
+                    {"file_path": "src/Profile.ets"},
+                    {"file_path": "src/Support.ets"},
+                ]},
+                "code_symbols": {"candidate_refs": [
+                    {"file_path": "src/Profile.ets", "symbol": "openProfile"},
+                ]},
+            }}},
+        }
+
+        self.assertEqual(
+            ["src/Profile.ets", "src/Support.ets"],
+            candidate_paths_from_context(context),
+        )
 
     def test_strong_log_code_identity_gets_one_slot_without_weak_log_noise(self) -> None:
         values = [
@@ -430,6 +450,7 @@ def observation() -> dict:
         "anchor_paths": ["src/Profile.ets", "src/Support.ets"],
         "ordered_anchor_paths": ["src/Profile.ets", "src/Support.ets"],
         "primary_anchor_paths": ["src/Profile.ets"],
+        "candidate_anchor_paths": ["src/Profile.ets", "src/Support.ets"],
         "excerpt_paths": ["src/Profile.ets"],
         "excerpt_spans": [],
         "log_anchor_paths": [],

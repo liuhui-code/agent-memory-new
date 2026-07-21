@@ -6,6 +6,7 @@ import unittest
 
 from tools.agent_memory_runtime.text import (
     bounded_query_tokens,
+    matching_direct_code_path_segments,
     matching_code_path_segments,
     query_tokens,
     score_identifier_identity,
@@ -66,6 +67,15 @@ class TextQueryNormalizationTests(unittest.TestCase):
             matching_code_path_segments(
                 "login action failed",
                 "src/pages/Login/Password.ets",
+            ),
+        )
+
+    def test_query_expansion_terms_do_not_become_path_identity(self) -> None:
+        self.assertEqual(
+            [],
+            matching_direct_code_path_segments(
+                "请定位命令不可用的原因",
+                "src/config/JobFailureMessages.ets",
             ),
         )
 

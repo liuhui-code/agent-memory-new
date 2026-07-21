@@ -410,3 +410,49 @@ expansion without an excerpt, while source-replacement state and prepared-state
 command eligibility owners are absent. The pack is consumed and cannot be
 rerun. Further repair requires independent fixtures and a new sealed project;
 no ccplayer name, path, task phrase, threshold, or Oracle may enter tuning.
+
+## 2026-07-20 Method Evidence Precision And Fourteenth-Project Observation
+
+- [x] Reproduce idempotent cleanup, source replacement, prepared command
+  eligibility, and implementation-over-example ownership in independent
+  fixtures with three wording variants each.
+- [x] Restrict method evidence recall to bounded raw terms and promote only
+  multi-term direct evidence that is not displaced by a strong exact, flow,
+  multi-concept, or structural competitor.
+- [x] Add explicit example/sample/demo result-role exclusion without weakening
+  ordinary code retrieval.
+- [x] Expand the development gate to 54 scenarios and 162 variants and retain
+  a 162/162 pass before external observation.
+- [x] Review and seal four Wake-HarmonyOS fixes, execute the pack exactly once,
+  and retain the immutable failed observation.
+
+The fourteenth-project observation passes 1/4. Cross-page import completion and
+return ownership passes. Direct command dispatch is recalled with excess
+infrastructure and presentation neighbors. Visual state ownership is recalled
+late and misses its audited method passage. The cross-layer network error
+contract misses both implementation owners. Agent A/B is not eligible. The pack
+is consumed and cannot be rerun. Further repair requires independent fixtures
+and a new sealed project; no Wake-HarmonyOS name, path, task phrase, threshold,
+or Oracle may enter tuning.
+
+## 2026-07-20 Contract Ownership And Fifteenth-Project Observation
+
+- [x] Reproduce command-binding precision, comparison-target visual ownership,
+  and cross-layer error contracts in independent fixtures with three wording
+  variants each.
+- [x] Add executable-syntax markers and bounded query-clause decomposition
+  without project aliases or inferred repairs.
+- [x] Separate direct path identity from semantic graph-path expansion and keep
+  the strong method-focus threshold intact.
+- [x] Expand the development gate to 57 scenarios and 171 variants and retain
+  a 171/171 pass before external observation.
+- [x] Review and seal four RayTV fixes, execute the pack exactly once, and
+  retain the immutable failed observation.
+
+The fifteenth-project observation passes 0/4. All expected files are present
+somewhere in the compact anchors, but generated preview sources, alternate
+language implementations, and same-domain neighbors dominate Top-K precision.
+All four audited source spans are missed. Agent A/B is not eligible. The pack
+is consumed and cannot be rerun; future work must reproduce artifact-role
+filtering, implementation-language preference, and large-file passage focus in
+independent fixtures before observing another new sealed project.

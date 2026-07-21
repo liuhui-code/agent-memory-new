@@ -1,11 +1,11 @@
 {
   "schema_version": "agent-memory-capability-release-decision/v1",
-  "recorded_at": "2026-07-19T10:59:56+00:00",
+  "recorded_at": "2026-07-20T18:18:08+00:00",
   "decision": "deny_promotion",
   "reason": "Real-project Context generalization and Agent efficiency gates are not both passing.",
   "sealed_case_inventory": {
-    "source_project_count": 13,
-    "case_count": 58,
+    "source_project_count": 17,
+    "case_count": 72,
     "packs": [
       {
         "case_file": "docs/eval/jingmo-context-holdout-cases.json",
@@ -90,18 +90,49 @@
         "case_count": 4,
         "digest": "1366b6a17fbeee8d2b38865b34252a6cec7f57d71991dc8e49f87fa3f7b7f7a5",
         "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/wake-unseen-sealed-holdout-cases.json",
+        "case_count": 4,
+        "digest": "0ca1a2810280a686a77587c8e98c884c373ffbf6c4e85e17aa9aa08a43612873",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/raytv-unseen-sealed-holdout-cases.json",
+        "case_count": 4,
+        "digest": "589240f57caefbf641a803e859a51635dd4dd0080f854bd412aa055c0d198a3f",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/flamechase-unseen-sealed-holdout-cases.json",
+        "case_count": 3,
+        "digest": "51784c6b80b0b0baf68e85136cec638f4351a0ea8f8325319165b9007dbe965c",
+        "execution_status": "immutable_observation"
+      },
+      {
+        "case_file": "docs/eval/linysbrowser-unseen-sealed-holdout-cases.json",
+        "case_count": 3,
+        "digest": "7b337f701b4545df9abec518af691936dee2264510cc799e6342791b41826ea3",
+        "execution_status": "immutable_observation"
       }
     ]
   },
   "development_context_gate": {
-    "case_count": 150,
-    "passed_case_count": 150,
-    "scenario_count": 50,
-    "stable_scenario_count": 50,
+    "case_count": 192,
+    "passed_case_count": 192,
+    "scenario_count": 64,
+    "stable_scenario_count": 64,
     "anchor_recall": 1.0,
-    "expected_anchor_mrr": 0.9929,
+    "expected_anchor_mrr": 0.9945,
     "source_span_recall": 1.0,
-    "average_context_tokens": 711.4133,
+    "average_context_tokens": 721.5365,
+    "candidate_file_recall_at_20": 0.898,
+    "candidate_recall_provider": "sqlite_fts5_passage_rrf/v4",
+    "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+    "passage_retrieval_provider": "code_passage_fts/v2",
+    "passage_mode": "shadow",
+    "semantic_schema": "semantic-index/v1",
+    "static_semantic_adapter_version": "1.1",
     "status": "pass"
   },
   "real_project_context_observations": [
@@ -282,6 +313,57 @@
         "candidate_generation"
       ],
       "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/wake-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 1,
+      "case_count": 4,
+      "anchor_recall": 0.75,
+      "expected_anchor_mrr": 0.5833,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/raytv-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 0,
+      "case_count": 4,
+      "anchor_recall": 1.0,
+      "expected_anchor_mrr": 0.4791,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/flamechase-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 0,
+      "case_count": 3,
+      "anchor_recall": 0.6667,
+      "expected_anchor_mrr": 0.3333,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
+    },
+    {
+      "case_file": "docs/eval/linysbrowser-unseen-sealed-holdout-cases.json",
+      "passed_case_count": 0,
+      "case_count": 3,
+      "anchor_recall": 0.3333,
+      "expected_anchor_mrr": 0.0833,
+      "primary_failure_classes": [
+        "ranking_precision",
+        "passage_selection",
+        "candidate_generation"
+      ],
+      "status": "fail"
     }
   ],
   "agent_ab": {
@@ -305,5 +387,5 @@
     "four_skill_surface_preserved": true,
     "sqlite_source_of_truth_preserved": true
   },
-  "next_repair_target": "Reproduce idempotent resource cleanup ownership, source-replacement lifecycle state, prepared-state command eligibility, and implementation-over-sample ranking in independent fixtures. Keep project-specific aliases and every consumed ccplayer case out of tuning, then validate only on a new sealed pack."
+  "next_repair_target": "Implement hierarchical file-to-callable-to-source-range localization and calibrate owner reranking against the expanded fielded candidate distribution on independent project-neutral fixtures. Keep every fielded passage lane in shadow mode and keep LinysBrowser and every consumed sealed project's paths, identifiers, task phrases, thresholds, and Oracle data out of tuning until candidate recall, final precision, regression, scale, and one new sealed-project gate pass together."
 }

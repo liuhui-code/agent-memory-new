@@ -90,6 +90,11 @@ ArkTS / HarmonyOS 项目通常具有可利用的稳定结构：
 内置 ArkTS / TypeScript semantic adapter 会生成语言无关的
 `semantic-index/v1` 数据。可选 ArkAnalyzer Provider 可提供更精确的 symbol、
 call、inheritance 和 state evidence；Provider 不可用时会明确回退到静态适配器。
+对方法名不具业务含义的代码，系统还会从 callable 源码范围提取有界调用词，写入
+独立的稀疏 FTS5 索引；只有多个问题词共同命中时才补充方法锚点，不污染普通符号排序。
+学习时会跳过明确的 preview、cache 和 generated 目录，旧索引查询时也会在存在正式
+源码候选时过滤生成物。查询正向语义只明确指定一种语言时，可按扩展名注册表选择 ArkTS、
+TypeScript、Python、Dart 或 Swift 实现；未指定或没有匹配候选时不会强制过滤。
 
 长期架构仍保留其他语言扩展能力：上层查询、代码图、日志图、影响分析和设计上下文
 只依赖标准化实体与关系，不依赖 ArkTS 专属接口。

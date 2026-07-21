@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Callable
 
-from .arkts_behavior_markers import extract_arkts_behavior_markers
+from .arkts_context_markers import extract_arkts_context_markers
 from .arkts_source_ranges import arkts_line_ranges
 from .arkts_ui_behavior import extract_arkts_operation_names
 from .query_behavior_concepts import behavior_marker_terms
@@ -17,7 +17,7 @@ RangeExtractor = Callable[[list[str]], list[dict[str, Any]]]
 
 def arkts_source_mechanisms(text: str) -> list[str]:
     return [
-        *extract_arkts_behavior_markers(text),
+        *extract_arkts_context_markers(text),
         *[name.casefold() for name in extract_arkts_operation_names(text)],
     ]
 

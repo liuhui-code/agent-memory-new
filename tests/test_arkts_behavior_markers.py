@@ -325,6 +325,13 @@ export class VoiceCaptureCoordinator {
             <= set(markers)
         )
 
+    def test_media_destroy_is_a_resource_release_boundary(self) -> None:
+        markers = extract_arkts_behavior_markers(
+            "class MediaLease { close() { this.session.destroy() } }"
+        )
+
+        self.assertIn("resourcerelease", markers)
+
     def test_key_event_and_back_guard_are_normalized_in_dsl_callback(self) -> None:
         source = """
 TextInput()

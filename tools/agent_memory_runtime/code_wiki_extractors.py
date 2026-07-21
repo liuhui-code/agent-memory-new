@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from .arkts_behavior_markers import extract_arkts_behavior_markers
+from .arkts_context_markers import extract_arkts_context_markers
 from .arkts_ui_behavior import extract_arkts_operation_names
 from .models import CODE_EXTENSIONS, IGNORE_DIRS
 from .text import identifier_tokens, unique_list
@@ -46,7 +46,7 @@ def summarize_file(path: Path, language: str) -> str:
         routes = [name for name, kind in symbols if kind == "route"]
         resources = [name for name, kind in symbols if kind == "resource"]
         operations = extract_arkts_operation_names(text)
-        behavior = extract_arkts_behavior_markers(text)
+        behavior = extract_arkts_context_markers(text)
         parts = [f"ArkTS file with {len(lines)} non-empty lines"]
         if components:
             parts.append("components: " + ", ".join(sorted(set(components))[:5]))

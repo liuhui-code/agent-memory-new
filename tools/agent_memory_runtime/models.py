@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+from .source_path_policy import GENERATED_SOURCE_DIRS
 
 PROJECT_FINGERPRINT_SCHEME = "owner-salted-sha256:v1"
 PROJECT_FINGERPRINT = "sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77"
@@ -46,6 +47,7 @@ IGNORE_DIRS = {
     "__pycache__",
     ".agent-memory",
     ".agent-skills",
+    *GENERATED_SOURCE_DIRS,
 }
 
 CODE_EXTENSIONS = {
@@ -116,6 +118,9 @@ CODE_SEMANTIC_COLUMNS = {
         ("semantic_adapter", "TEXT"),
         ("source_digest", "TEXT"),
         ("evidence_class", "TEXT"),
+        ("method_evidence", "TEXT"),
+        ("string_evidence", "TEXT"),
+        ("mechanism_evidence", "TEXT"),
         ("index_generation", "INTEGER NOT NULL DEFAULT 0"),
     ],
     "code_log_statements": [

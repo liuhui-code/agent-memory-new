@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-import re
 
+from .query_language import positive_retrieval_query
 from .text import query_tokens, terms_from_text, unique_list
 
 
@@ -148,6 +148,35 @@ BEHAVIOR_CONCEPTS = (
             ("清单", "能力"), ("运行时", "能力"), ("能力", "不可用"),
         ),
         markers=("runtimecapability",),
+    ),
+    BehaviorConcept(
+        name="ui_callback_owner",
+        trigger_groups=(
+            ("confirmation", "button"), ("button", "callback"),
+            ("click", "owner"), ("onclick",), ("tapped", "dismiss"),
+            ("确认", "按钮"), ("点击", "调用方"), ("点击", "所有者"),
+        ),
+        markers=("uicallbackbinding",),
+    ),
+    BehaviorConcept(
+        name="persistence_restore_contract",
+        trigger_groups=(
+            ("restore", "empty"), ("restores", "empty"),
+            ("startup", "wrong", "key"), ("lifecycle", "read"),
+            ("preference", "restore"), ("恢复", "为空"),
+            ("生命周期", "读取"), ("读取键", "契约"),
+        ),
+        markers=("persistenceread", "lifecycleboundary", "persistencewrite"),
+    ),
+    BehaviorConcept(
+        name="platform_sensitive_ui",
+        trigger_groups=(
+            ("unsupported", "platform"), ("cross-platform", "control"),
+            ("platform", "gating"), ("platform-specific",),
+            ("runtime", "api", "unavailable"), ("跨平台", "控件"),
+            ("平台", "能力"), ("不支持", "能力"),
+        ),
+        markers=("platformsensitiveui",),
     ),
     BehaviorConcept(
         name="serialized_persistence",
@@ -325,8 +354,10 @@ BEHAVIOR_CONCEPTS = (
         trigger_groups=(
             ("recording", "stops"), ("capture", "stops"),
             ("media", "release"), ("audio", "release"),
+            ("resource", "release"), ("resource", "destroy"),
             ("recorder", "shutdown"), ("capturer", "shutdown"),
             ("录音", "停止"), ("采集", "停止"), ("媒体", "释放"),
+            ("资源", "释放"), ("资源", "销毁"),
         ),
         markers=("resourcerelease",),
     ),
@@ -349,18 +380,48 @@ BEHAVIOR_CONCEPTS = (
         ),
         markers=("asyncboundary", "orderingguard", "statewrite"),
     ),
+    BehaviorConcept(
+        name="guarded_async_action",
+        trigger_groups=(
+            ("submitted", "twice"), ("repeat", "click"),
+            ("guards", "pending"), ("pending", "state"),
+            ("resets", "finally"), ("restores", "pending"),
+            ("重复", "提交"), ("pending", "防重"), ("finally", "复位"),
+        ),
+        markers=("conditionalbranch", "statewrite", "asyncboundary"),
+    ),
+    BehaviorConcept(
+        name="ui_command_binding",
+        trigger_groups=(
+            ("menu", "command"), ("menu", "entry", "invokes"),
+            ("ui", "action", "dispatch"), ("action-to-method",),
+            ("菜单", "命令"), ("菜单项", "方法"), ("命令", "绑定"),
+        ),
+        markers=("commandbinding",),
+    ),
+    BehaviorConcept(
+        name="disclosure_state_binding",
+        trigger_groups=(
+            ("details", "chevron"), ("expanded", "indicator"),
+            ("disclosure", "state"), ("rotation", "toggle"),
+            ("详情", "箭头"), ("展开", "方向"), ("rotate", "展开"),
+        ),
+        markers=("disclosurestate",),
+    ),
+    BehaviorConcept(
+        name="error_handoff_contract",
+        trigger_groups=(
+            ("raw", "error", "value"), ("failure", "details"),
+            ("producer", "consumer", "handling"),
+            ("service", "return", "ui"),
+            ("错误对象",), ("服务层", "页面层"), ("catch", "返回值"),
+        ),
+        markers=("errorreturnboundary", "errorpresentationboundary"),
+    ),
 )
-
-NEGATIVE_BEHAVIOR_CLAUSE_RE = re.compile(
-    r"(?:rather\s+than|do\s+not\s+return|don't\s+return|"
-    r"excluding|exclude|不要返回|不要|而不是|排除|忽略)"
-    r"[^,.;，。；\n]*",
-    re.I,
-)
-
 
 def behavior_marker_terms(query: str) -> list[str]:
-    positive_query = NEGATIVE_BEHAVIOR_CLAUSE_RE.sub(" ", query)
+    positive_query = positive_retrieval_query(query)
     lowered = positive_query.casefold()
     indexed_terms = set(query_tokens(positive_query))
     return unique_list([

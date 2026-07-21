@@ -105,6 +105,7 @@ struct ProfilePage {
 
         self.assertIn("symbol_key", symbol_columns)
         self.assertIn("semantic_adapter", symbol_columns)
+        self.assertIn("mechanism_evidence", symbol_columns)
         self.assertNotIn("symbol_key", file_columns)
 
     def test_exact_edge_blocks_weaker_semantic_duplicate(self) -> None:
@@ -151,6 +152,7 @@ struct ProfilePage {
         self.assertIn("calls", {row["relation"] for row in edges})
         self.assertIn("writes_state", {row["relation"] for row in edges})
         self.assertIn("registers_callback", {row["relation"] for row in edges})
+        self.assertGreater(stats["mechanisms_extracted"], 0)
         self.assertTrue(all(row["evidence_kind"].startswith("static_semantic") for row in edges))
 
     def test_static_async_arkts_methods_receive_semantic_identity(self) -> None:
