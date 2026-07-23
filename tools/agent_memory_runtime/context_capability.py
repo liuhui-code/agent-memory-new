@@ -15,13 +15,12 @@ from .benchmark_context_setup import apply_context_setup
 from .benchmark_memory import prepare_isolated_memory
 from .benchmark_workspace import materialized_workspace
 from .context_capability_cases import expand_context_cases
-from .query_candidate_recall import SQLiteCandidateRecall
 from .context_capability_eval import OBSERVATION_SCHEMA, evaluate_context_capability
 from .benchmark_case_seal import case_pack_seal_audit
 from .benchmark_failure_analysis import analyze_context_failures
 from .performance_scoring import estimate_payload_tokens
 from .records import output
-from .storage import connect, ensure_initialized, now_iso, resolve_project
+from .storage import ensure_initialized, now_iso, resolve_project
 
 
 MAX_CONTEXT_BYTES = 1_000_000
@@ -112,13 +111,20 @@ def collect_context_capability(
             timeout,
         )
         query_ms = elapsed_ms(query_started)
+        audit_started = time.monotonic()
+        audit_context = run_context_query(
+            memory.get("audit_query_command"),
+            str(case.get("task", {}).get("description") or ""),
+            workspace,
+            timeout,
+        )
+        audit_ms = elapsed_ms(audit_started)
         observation = {
-            **summarize_context(case["id"], context, prepare_ms, query_ms),
+            **summarize_context(
+                case["id"], context, prepare_ms, query_ms, audit_context, audit_ms,
+            ),
             "fixture_counts": fixture_counts,
         }
-        observation["candidate_anchor_paths"] = shadow_candidate_paths(
-            workspace, memory_home, str(case.get("task", {}).get("description") or "")
-        )
         return observation
 
 
@@ -168,8 +174,12 @@ def summarize_context(
     context: dict[str, Any],
     prepare_ms: int,
     query_ms: int,
+    audit_context: dict[str, Any] | None = None,
+    audit_ms: int = 0,
 ) -> dict[str, Any]:
-    candidate_paths = candidate_paths_from_context(context)
+    audit = audit_context if isinstance(audit_context, dict) else context
+    candidate_paths = candidate_paths_from_context(audit)
+    localization = hierarchical_localization_from_context(audit)
     handoff = context.get("query_handoff")
     handoff = handoff if isinstance(handoff, dict) else {}
     anchors = records(handoff.get("code_anchors"))
@@ -196,6 +206,8 @@ def summarize_context(
             item.get("file_path") for item in anchors if item.get("role") == "primary"
         ),
         "candidate_anchor_paths": candidate_paths,
+        **localization,
+        "hierarchical_audit_elapsed_ms": audit_ms,
         "excerpt_paths": unique_paths(
             item.get("file_path") for item in anchors if records(item.get("source_excerpts"))
         ),
@@ -251,19 +263,24 @@ def candidate_paths_from_context(context: dict[str, Any]) -> list[str]:
     return unique_paths(item.get("file_path") for item in refs)
 
 
-def shadow_candidate_paths(
-    workspace: Path,
-    memory_home: Path,
-    query: str,
-) -> list[str]:
-    project = resolve_project(str(workspace), str(memory_home))
-    with connect(project) as conn:
-        recalled = SQLiteCandidateRecall(enable_passage_shadow=True).recall(
-            conn, project, query
-        )
-    return candidate_paths_from_context({
-        "query_audit": {"candidate_recall": recalled.audit}
-    })
+def hierarchical_localization_from_context(context: dict[str, Any]) -> dict[str, Any]:
+    audit = context.get("query_audit")
+    localization = audit.get("hierarchical_localization") if isinstance(audit, dict) else {}
+    localization = localization if isinstance(localization, dict) else {}
+    callables = records(localization.get("callable_candidates"))
+    owners = records(localization.get("graph_owner_candidates"))
+    ranges = records(localization.get("source_ranges"))
+    return {
+        "hierarchical_schema_version": str(localization.get("schema_version") or ""),
+        "hierarchical_file_paths": unique_paths(
+            item.get("file_path") for item in records(localization.get("file_candidates"))
+        ),
+        "hierarchical_callable_refs": callables,
+        "hierarchical_owner_refs": owners or [
+            item for item in callables if int(item.get("graph_depth") or 0) == 1
+        ],
+        "hierarchical_source_ranges": ranges,
+    }
 
 
 def path_files(candidates: list[dict[str, Any]]) -> list[str]:

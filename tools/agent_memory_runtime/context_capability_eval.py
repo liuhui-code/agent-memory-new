@@ -6,12 +6,10 @@ from typing import Any
 
 from .context_compact import COMPACT_TOKEN_BUDGET
 from .context_capability_quality import assess_context_quality
-
+from .context_hierarchical_metrics import assess_hierarchical_localization, localization_profile
 
 OBSERVATION_SCHEMA = "agent-context-capability-observation/v1"
 RESULT_SCHEMA = "agent-context-capability-result/v1"
-
-
 def evaluate_context_capability(
     cases: list[dict[str, Any]],
     observations: list[dict[str, Any]],
@@ -51,7 +49,6 @@ def evaluate_context_capability(
         "next_gate": "paired_external_agent_ab" if gate == "pass" else "repair_context_supply",
     }
 
-
 def validated_observations(
     cases: list[dict[str, Any]],
     observations: list[dict[str, Any]],
@@ -71,7 +68,6 @@ def validated_observations(
     if missing:
         raise SystemExit(f"missing context capability observations: {', '.join(missing)}")
     return by_case
-
 
 def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, Any]:
     oracle = case.get("oracle") if isinstance(case.get("oracle"), dict) else {}
@@ -122,6 +118,7 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
     token_estimate = nonnegative_int(observation.get("context_token_estimate"))
     excerpt_hits = expected & excerpts
     quality = assess_context_quality(requirements, expected, observation)
+    localization = assess_hierarchical_localization(expected, requirements, observation)
     checks = {
         "compact_schema_returned": (
             observation.get("context_schema_version") == "agent-context-compact/v1"
@@ -198,6 +195,7 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
         "forbidden_path_file_hits": forbidden_path_hits,
         "missing_required_source_spans": quality["missing_required_source_spans"],
         "missing_required_evidence_gaps": quality["missing_required_evidence_gaps"],
+        "hierarchical_localization": localization,
         "abstention_observed": quality["abstention_observed"],
         "anchor_count": len(anchors),
         "primary_anchor_count": len(primary),
@@ -213,7 +211,6 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
         "query_elapsed_ms": nonnegative_int(observation.get("query_elapsed_ms")),
         "requirements": requirements,
     }
-
 
 def query_robustness_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
     grouped: dict[str, list[dict[str, Any]]] = {}
@@ -240,7 +237,6 @@ def query_robustness_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
         "variant_pass_rate": round(passed / len(scored), 4) if scored else 0.0,
         "scenarios": scenarios,
     }
-
 
 def capability_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
     code_cases = [item for item in scored if item["requirements"]["require_expected_anchors"]]
@@ -296,6 +292,7 @@ def capability_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
             ),
         ),
         "causal_context": causal_profile(scored),
+        "hierarchical_localization": localization_profile(scored),
         "abstention": optional_profile(
             scored,
             "require_abstention",
@@ -308,7 +305,6 @@ def capability_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
             "token_budget": COMPACT_TOKEN_BUDGET,
         },
     }
-
 
 def optional_profile(
     scored: list[dict[str, Any]],
@@ -396,6 +392,10 @@ def context_requirements(value: Any) -> dict[str, Any]:
         "required_top_k": nonnegative_int(item.get("required_top_k")),
         "min_anchor_precision": optional_ratio(item.get("min_anchor_precision")),
         "required_source_spans": source_spans(item.get("required_source_spans")),
+        "required_owner_spans": source_spans(item.get("required_owner_spans")),
+        "hierarchical_callable_spans": source_spans(item.get("hierarchical_callable_spans")),
+        "hierarchical_owner_spans": source_spans(item.get("hierarchical_owner_spans")),
+        "hierarchical_range_spans": source_spans(item.get("hierarchical_range_spans")),
         "min_source_span_recall": optional_ratio(
             item.get("min_source_span_recall"), default=1.0
         ),

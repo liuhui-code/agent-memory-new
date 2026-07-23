@@ -1,0 +1,197 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-chengyu-game",
+  "source_repository": "https://github.com/zcg741/chengyu-game.git",
+  "source_branch": "main",
+  "source_head_reviewed": "69a7a2723266fc60559929b37895ad53f573b0df",
+  "generated_at": "2026-07-23T00:00:00+08:00",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "chengyu-game-rawfile-utf8-decoding",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The idiom dataset loads, but Chinese words and pinyin are garbled after reading the raw JSON resource. Locate the data-loading ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "faf28b632f3c5434782e641207a81747523b8219",
+        "after_revision": "071f0fce0980acb6983f54213a3614fe4650f9ce",
+        "changed_files": [
+          "entry/src/main/ets/service/ChengyuService.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "071f0fce0980acb6983f54213a3614fe4650f9ce",
+        "commit_message": "fix: 修复 UTF-8 解码导致的中文/拼音乱码"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/service/ChengyuService.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "resource_decoding",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/service/ChengyuService.ets",
+              "start_line": 18,
+              "end_line": 33
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Load the bundled idiom JSON and verify Chinese words and pinyin render without replacement or garbled characters."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "chengyu-game-detail-dialog-stale-state",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Opening an idiom detail dialog fails because its confirmation handler still writes a removed detail-visibility state. Locate the dialog action owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "2205edd4f5b1d8b8fcc30aeba84e86c5f74a9060",
+        "after_revision": "e8583d061051dc26dc054f76eb0c5dbb2d830f10",
+        "changed_files": [
+          "entry/src/main/ets/pages/CollectionPage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "e8583d061051dc26dc054f76eb0c5dbb2d830f10",
+        "commit_message": "fix: 删除 CollectionPage 中残留的 showDetail 引用"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/CollectionPage.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_state_contract",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/CollectionPage.ets",
+              "start_line": 197,
+              "end_line": 215
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open an idiom detail, confirm it, and verify no removed visibility property is accessed."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "chengyu-game-router-kit-migration",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Navigation helpers use deprecated router calls and fail against the current ArkUI routing API. Locate shared navigation ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "da976d4219abe8f70078647af8b32e50538e84b7",
+        "after_revision": "ffba2451867e68e4591364fc03e3bcf8100bdd0b",
+        "changed_files": [
+          "entry/src/main/ets/utils/NavUtil.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "ffba2451867e68e4591364fc03e3bcf8100bdd0b",
+        "commit_message": "fix: 更新 NavUtil.ets 使用新的 router API"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/utils/NavUtil.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "platform_api_migration",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/utils/NavUtil.ets",
+              "start_line": 1,
+              "end_line": 70
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Navigate forward, replace a route, return, and read route parameters using the current ArkUI API."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-23T01:07:55+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "c3e155b7dfec600181b00fa063df560ba92a2e63f871911f3d3c859013bd4728"
+  }
+}

@@ -13,6 +13,7 @@ from .query_collect import collect_matches_with_audit
 from .query_edges import network_limits
 from .query_followups import infer_followup_focus, suggested_followup_terms
 from .query_handoff import build_query_handoff
+from .query_hierarchical_localization import SQLiteHierarchicalLocalizer
 from .query_intents import gate_matches_by_intent
 from .storage import connect, now_iso
 
@@ -103,6 +104,10 @@ def limited_context(
         collection.recall_audit,
         retrieval_stage_counts(matches, gated["matches"], bounded),
     )
+    if enable_passage_shadow:
+        context["query_audit"]["hierarchical_localization"] = (
+            SQLiteHierarchicalLocalizer().localize(project, query, gated["matches"])
+        )
     record_context_use(project, context)
     record_query_miss_if_empty(project, "context", query, context)
     return context

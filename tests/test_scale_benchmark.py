@@ -51,6 +51,7 @@ class ScaleBenchmarkTests(unittest.TestCase):
                 "file_symbols",
                 "outgoing_edges",
                 "incoming_edges",
+                "hierarchical_one_hop_owners",
             },
             set(report["operations"]),
         )

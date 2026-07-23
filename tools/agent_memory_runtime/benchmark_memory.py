@@ -26,6 +26,8 @@ def prepare_isolated_memory(
         "project": str(workspace),
         "memory_home": str(memory_home),
         "query_command": query_command,
+        "audit_query_command": diagnosis_audit_command(runtime, workspace, memory_home)
+        if task_type != "design" else query_command,
         "isolated": True,
         "source_revision_only": True,
     }
@@ -36,6 +38,14 @@ def diagnosis_command(runtime: Path, workspace: Path, memory_home: Path) -> list
         sys.executable, str(runtime), "context",
         "--project", str(workspace), "--memory-home", str(memory_home),
         "--query", "<task-description-or-agent-extracted-term>", "--compact", "--json",
+    ]
+
+
+def diagnosis_audit_command(runtime: Path, workspace: Path, memory_home: Path) -> list[str]:
+    return [
+        sys.executable, str(runtime), "context",
+        "--project", str(workspace), "--memory-home", str(memory_home),
+        "--query", "<task-description-or-agent-extracted-term>", "--json",
     ]
 
 

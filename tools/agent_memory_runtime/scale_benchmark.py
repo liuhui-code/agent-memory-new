@@ -14,6 +14,7 @@ from typing import Any, Callable, Iterable
 from .code_wiki_extractors import summarize_symbol
 from .models import Project
 from .query_candidate_recall import SQLiteCandidateRecall, recall_candidate_ids
+from .query_hierarchical_owners import load_one_hop_owners
 from .records import output
 from .scale_maintenance import benchmark_incremental_maintenance
 from .storage import connect, ensure_dirs, ensure_initialized, now_iso, resolve_project
@@ -56,6 +57,7 @@ SLO_MS = {
     "file_symbols": 100.0,
     "outgoing_edges": 100.0,
     "incoming_edges": 100.0,
+    "hierarchical_one_hop_owners": 150.0,
 }
 
 
@@ -126,7 +128,7 @@ def seed_scale_data(project: Project, profile: ScaleProfile) -> dict[str, float]
             """INSERT INTO code_symbols(
                  id, project_id, file_path, symbol, symbol_type, summary,
                  symbol_key, qualified_name, signature, updated_at
-               ) VALUES (?, ?, ?, ?, 'function', ?, ?, ?, ?, ?)""",
+               ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             symbol_rows(profile, project.project_id),
         )
         timings["code_logs"] = timed_load(
@@ -187,6 +189,7 @@ def symbol_rows(profile: ScaleProfile, project_id: str) -> Iterable[tuple[Any, .
             project_id,
             file_path(file_id),
             name,
+            "component" if symbol_id == 2 else "function",
             summarize_symbol(file_path(file_id), name, "function", "ArkTS"),
             f"arkts:{file_id}:{symbol_id}",
             qualified,
@@ -225,11 +228,18 @@ def edge_rows(profile: ScaleProfile, project_id: str) -> Iterable[tuple[Any, ...
                 "code_symbol", edge_id, ts, ts,
             )
             continue
-        source_id = ((edge_id - 1) % profile.symbol_count) + 1
-        target_id = (source_id % profile.symbol_count) + 1
+        source_type, relation, target_type = "code_symbol", "calls", "code_symbol"
+        if edge_id == profile.symbol_count + 1:
+            source_id, target_id = 1, 2
+        elif edge_id == profile.symbol_count + 2:
+            source_type, source_id = "code_file", 2
+            relation, target_type, target_id = "passes_property", "code_symbol", 2
+        else:
+            source_id = ((edge_id - 1) % profile.symbol_count) + 1
+            target_id = (source_id % profile.symbol_count) + 1
         yield (
-            edge_id, project_id, "code_symbol", source_id, "calls",
-            "code_symbol", target_id, ts, ts,
+            edge_id, project_id, source_type, source_id, relation,
+            target_type, target_id, ts, ts,
         )
 
 
@@ -270,6 +280,9 @@ def benchmark_operations(
             "AND relation = 'calls' LIMIT 240",
             (project.project_id, 2),
         ).fetchall(),
+        "hierarchical_one_hop_owners": lambda: load_one_hop_owners(
+            project, [2], 16
+        ),
     }
     return {
         name: measure_operation(operation, repetitions, SLO_MS[name])
@@ -323,6 +336,13 @@ def benchmark_query_plans(
         "incoming_edges": (
             "SELECT source_id FROM memory_edges WHERE project_id = ? AND valid_to IS NULL "
             "AND target_type = 'code_symbol' AND target_id = ? AND relation = 'calls' LIMIT 240",
+            (project_id, 2),
+            "idx_memory_edges_project_valid_target_relation",
+        ),
+        "property_flow_edges": (
+            "SELECT source_id FROM memory_edges WHERE project_id = ? AND valid_to IS NULL "
+            "AND source_type = 'code_file' AND target_type = 'code_symbol' "
+            "AND target_id = ? AND relation = 'passes_property' LIMIT 16",
             (project_id, 2),
             "idx_memory_edges_project_valid_target_relation",
         ),

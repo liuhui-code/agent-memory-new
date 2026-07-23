@@ -80,6 +80,90 @@
       }
     },
     {
+      "id": "context-hierarchical-snapshot-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A snapshot restore must reject payloads beyond maximumBytes before reading snapshot_key. Locate the restore callable and its UI caller."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "A snapshot restore must reject payloads beyond maximumBytes before reading snapshot_key. Locate the restore callable and its UI caller."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Find restoreSnapshot's payload size guard and the page method that awaits this snapshot_key restore."
+        },
+        {
+          "id": "zh-identifier",
+          "description": "定位 snapshot 恢复的 maximumBytes 守卫、restoreSnapshot 方法和调用它的 refreshSnapshot 页面方法。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/services/SnapshotCoordinator.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "resource_bound",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": false,
+          "hierarchical_callable_spans": [
+            {"file_path": "src/services/SnapshotCoordinator.ets", "symbol": "restoreSnapshot"}
+          ],
+          "hierarchical_owner_spans": [
+            {"file_path": "src/pages/SnapshotAuditPage.ets", "symbol": "refreshSnapshot"}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/services/SnapshotCoordinator.ets", "symbol": "restoreSnapshot"}
+          ]
+        }
+      }
+    },
+    {
+      "id": "context-hierarchical-callback-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The Refresh button does not update refreshed state. Locate refreshNow and its direct UI callback owner."
+      },
+      "query_variants": [
+        {
+          "id": "original",
+          "description": "The Refresh button does not update refreshed state. Locate refreshNow and its direct UI callback owner."
+        },
+        {
+          "id": "en-paraphrase",
+          "description": "Find the CallbackAuditPage function that changes refreshed state and the build method registering it with onClick."
+        },
+        {
+          "id": "zh-identifier",
+          "description": "Refresh 按钮没有更新 refreshed 状态，请定位 refreshNow 方法和注册 onClick 回调的 build 方法。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/pages/CallbackAuditPage.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "ui_event",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": false,
+          "hierarchical_callable_spans": [
+            {"file_path": "src/pages/CallbackAuditPage.ets", "symbol": "refreshNow"}
+          ],
+          "hierarchical_owner_spans": [
+            {"file_path": "src/pages/CallbackAuditPage.ets", "symbol": "build"}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/pages/CallbackAuditPage.ets", "symbol": "refreshNow"}
+          ]
+        }
+      }
+    },
+    {
       "id": "context-experience-correction-guard",
       "task_type": "diagnosis",
       "review_status": "validated",
@@ -439,7 +523,16 @@
               "end_line": 19
             }
           ],
-          "min_source_span_recall": 1.0
+          "min_source_span_recall": 1.0,
+          "hierarchical_callable_spans": [
+            {"file_path": "src/views/EventBubble.ets", "symbol": "build"}
+          ],
+          "hierarchical_owner_spans": [
+            {"file_path": "src/views/TimelineRow.ets", "symbol": "build"}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/views/EventBubble.ets", "symbol": "build"}
+          ]
         }
       }
     },

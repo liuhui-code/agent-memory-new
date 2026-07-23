@@ -7007,3 +7007,162 @@ Result:
 - Compile, JSON, whitespace, and Python 500-line gates pass.
 - No consumed sealed pack was rerun or changed. Promotion remains denied; Phase
   4 owns hierarchical localization and owner-reranker calibration.
+
+## 2026-07-21 - Add shadow hierarchical code localization
+
+What changed:
+
+- Added a bounded `HierarchicalLocalizerPort` with a SQLite implementation that
+  projects intent-gated code candidates through files, callables, supported
+  one-hop caller owners, and callable-bounded source ranges.
+- Reused normalized semantic mechanism evidence to identify a narrow expression
+  window without persisting source bodies or adding a new query command.
+- Exposed the projection only in full Context audit. Compact Context and the
+  serving candidate/owner path remain unchanged while calibration is pending.
+- Added project-neutral contracts for file diversity, mechanism windows, and
+  one-hop caller expansion.
+
+Result:
+
+- Focused hierarchical localization tests pass 3/3; related fielded passage,
+  semantic mechanism, method-focus, and method-symbol tests pass 23/23.
+- The implementation has fixed file, callable, graph-owner, and source-range
+  limits, uses only SQLite source-derived rows and existing one-hop graph
+  relations, and keeps every Python source/test file at or below 500 lines.
+- No consumed sealed pack was rerun or changed. Promotion remains denied until
+  independent callable/owner/range metrics, full regression and scale gates,
+  and a new sealed-project validation pass together.
+
+## 2026-07-21 - Measure shadow hierarchical localization
+
+What changed:
+
+- Extended the isolated Context evaluator with a second full-audit query that
+  shares the frozen workspace and SQLite memory of the compact gate query.
+- Added independent informational metrics for files, callables, incoming
+  one-hop owners, source ranges, missing reviewed spans, and audit latency.
+- Added optional `required_owner_spans` evaluation metadata and project-neutral
+  metric contracts; source bodies remain excluded from observations and reports.
+
+Result:
+
+- The three development log query variants keep the compact gate at 3/3 pass;
+  shadow file recall is 1.0 and mean full-audit time is 3,125.6667 ms.
+- No callable, owner, or source-range Oracle was declared in that scenario, so
+  those metrics correctly remain `null` rather than being treated as passing.
+- Focused evaluator and metric tests pass 21/21. Compile, whitespace, and
+  Python 500-line gates pass. No sealed pack was run or changed; promotion
+  remains denied pending reviewed Oracle cases, full gates, and new holdout.
+
+## 2026-07-22 - Calibrate independent hierarchical owner evidence
+
+What changed:
+
+- Added dedicated callable, owner, and range Oracle fields for hierarchical
+  shadow evaluation, leaving compact source-excerpt gates independent.
+- Added a reviewed three-phrasing Snapshot fixture that exercises a bounded
+  resource guard, a target callable, and a one-hop UI caller.
+- Exposed bounded graph seed and owner pools in the full audit. Owner metrics
+  now score the discovered graph-owner stage rather than a presentation list
+  that may deduplicate the same callable as a direct result.
+- Prioritized graph seeds by direct evidence, exact symbol identity, semantic
+  mechanism evidence, then existing score, while retaining the fixed one-hop
+  and count bounds.
+
+Result:
+
+- The Snapshot scenario passes all 3 variants. File, callable, owner, and
+  source-range recall plus owner precision are each 1.0; compact output remains
+  under 1,500 Tokens and full audit averages 633.6667 ms.
+- Focused hierarchical, Context metric, and evaluator tests pass 23/23.
+  Compile, JSON, whitespace, and Python 500-line gates pass.
+- No sealed pack was run or changed. The result is synthetic development
+  evidence only; promotion remains denied pending full regression, scale, and
+  one new sealed external project.
+
+## 2026-07-23 - Validate hierarchical shadow on development and scale gates
+
+What changed:
+
+- Added per-metric non-null Oracle sample counts to the hierarchical evaluation
+  profile so sparse owner labels cannot be misread as broad precision evidence.
+
+Result:
+
+- Full unsealed development Context gate passes 65 scenarios and 195 variants.
+  Code anchor and primary-anchor recall are 1.0, candidate Recall@20 is 0.9104,
+  Oracle precision is 0.9404, MRR is 0.9919, source-range recall is 1.0, and
+  average compact Context is 726.0154 Tokens.
+- Shadow localization file/callable/range recall is 0.9496/0.9349/0.9320.
+  Owner recall and precision are both 1.0 but only have three reviewed Oracle
+  variants; the profile now makes that support explicit.
+- CI scale passes at 100,000 searchable entities and 300,000 graph edges:
+  candidate hit/miss p95 is 9.572/17.816 ms, and single-file/500-method refresh
+  p95 is 280.338/829.282 ms.
+- Focused hierarchical, evaluator, and scale tests pass 28/28. Compile, JSON,
+  whitespace, and Python 500-line gates pass. No sealed pack was run or
+  changed; serving promotion remains denied.
+
+## 2026-07-23 - Broaden hierarchical owner relation coverage
+
+What changed:
+
+- Added a bounded owner adapter that distinguishes symbol-to-symbol caller
+  relations from file-to-component property-flow relations. The latter projects
+  back to a single source-file callable, preferring `build`.
+- Added reviewed callback-registration and component-property-flow fixtures,
+  each with three query phrasings and independent callable/owner/range Oracles.
+- Marked the callback fixture as audit-only for compact file-anchor recall; the
+  component-flow fixture keeps its compact retrieval requirements.
+
+Result:
+
+- Both scenarios pass all six variants. Shadow callable/owner/range recall and
+  owner precision are 1.0, with 603.1667 ms mean audit time. The component-flow
+  compact gate remains 3/3 passing.
+- The work remains shadow-only: no compact response or serving ranking changed,
+  no sealed case was run, and promotion remains denied pending full regression,
+  scale confirmation, and a new external sealed validation.
+
+## 2026-07-23 - Benchmark bounded hierarchical owner expansion
+
+What changed:
+
+- Extended the existing scale fixture with both direct symbol owner and
+  `code_file -> component` property-flow edges, including a real component node.
+- Added the full bounded owner adapter as a CI-scale operation and added a
+  property-flow target-edge query-plan gate.
+
+Result:
+
+- CI scale passes at 100,000 searchable entities, 80,000 symbols, and 300,000
+  edges. `hierarchical_one_hop_owners` is 8.481 ms p95 against a 150 ms audit
+  SLO; the property-flow lookup uses
+  `idx_memory_edges_project_valid_target_relation`.
+- This confirms bounded audit cost only. Compact serving does not call the
+  adapter, and no sealed pack was run or changed.
+
+## 2026-07-23 - Run eighteenth-project Chengyu Game holdout observation
+
+What changed:
+
+- Selected the previously unused native ArkTS project `zcg741/chengyu-game` and
+  source-reviewed three single-file fixes from complete immutable Git revisions:
+  rawfile UTF-8 decoding, a stale detail-dialog state action, and ArkUI router
+  API migration.
+- Sealed the reviewed pack with digest
+  `c3e155b7dfec600181b00fa063df560ba92a2e63f871911f3d3c859013bd4728`, then
+  executed the Context gate exactly once and saved a source-free immutable
+  observation summary.
+
+Result:
+
+- The external Context gate passes 0/3. Aggregate anchor and primary recall are
+  0.6667, Oracle precision is 0.1667, MRR is 0.2778, and source excerpt/span
+  recall are both 0.6667. Average compact Context is 1,001.3333 Tokens.
+- The resource-decoding service is absent from candidate generation. The dialog
+  and router owners are recalled with the expected range but lose precision to
+  same-domain or unrelated neighbors. Agent A/B was not run.
+- The sealed inventory is now 18 projects and 75 cases. Do not rerun or modify
+  this pack for tuning; reproduce the failure classes only in independent
+  development fixtures before the next external observation.

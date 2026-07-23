@@ -320,3 +320,145 @@ No consumed sealed pack was rerun or changed. Phase 3 establishes attributable
 semantic candidate evidence, not external generalization. Phase 4 will perform
 hierarchical file-to-callable localization and owner-reranker calibration while
 keeping all fielded channels in shadow until the complete promotion gates pass.
+
+## Phase 4 Initial Shadow Implementation
+
+Completed on 2026-07-21:
+
+- Added a storage-neutral `HierarchicalLocalizerPort` with the bounded SQLite
+  implementation `sqlite_hierarchical_localizer/v1`.
+- It groups the existing fused, intent-gated code candidates into at most eight
+  file candidates, preserves directory diversity while multiple routes remain
+  plausible, and loads callable symbols only from those files.
+- It may add only bounded incoming one-hop owners over supported static graph
+  relations (`calls`, `awaits`, callback/component/property flow). No recursive
+  graph traversal, diagnosis, or causal conclusion is performed.
+- It uses normalized symbol, business, method, string, and semantic-mechanism
+  evidence to rank callables, then converts a matching mechanism line into a
+  small expression window bounded by the callable span.
+- The result is exposed solely at
+  `query_audit.hierarchical_localization` for full `context --json`. Compact
+  Context and the serving candidate/owner path are unchanged.
+
+Focused verification:
+
+- Project-neutral contracts cover file-directory diversity, a resource-bound
+  mechanism window, and one-hop caller-owner expansion.
+- Existing fielded passage, semantic mechanism, method-focus, and method-symbol
+  evidence contracts remain green.
+- This is an observable shadow boundary, not promotion evidence. The next
+  subphase must add independent callable/owner/range measurements, run the
+  regression and scale gates, and validate once on a new sealed project before
+  any serving-path change.
+
+## Phase 4 Shadow Measurement
+
+Completed on 2026-07-21:
+
+- Extended the deterministic evaluator, not the serving interface. Every
+  diagnosis development case retains its compact query as the sole gate input
+  and performs one additional full Context query against the same frozen
+  workspace only for audit extraction.
+- Added independent informational metrics for diverse file recall, callable
+  recall, incoming one-hop owner recall/precision, mechanism-bounded source
+  range recall, candidate counts, missing spans, and audit latency.
+- Added the optional `required_owner_spans` Oracle contract. Existing case
+  packs remain valid: a missing callable, owner, or range Oracle reports null
+  rather than a synthetic pass or fail.
+- Added contracts proving that the evaluation summary consumes only audit
+  references and line bounds, never source bodies, and that missing audit data
+  cannot alter the compact Context gate.
+
+Verification:
+
+- The three wording variants of the development log scenario pass the compact
+  gate 3/3; shadow file recall is 1.0 and full-audit mean time is 3,125.6667 ms.
+- Focused evaluator, quality, and hierarchical metric contracts pass 21/21;
+  compile, whitespace, and the 500-line gate pass.
+
+This is measurement infrastructure, not calibration or promotion. Callable,
+owner, and range metrics remain null until reviewed Oracles exist. Before any
+serving change, add such development cases, run the full regression and scale
+gates, and validate only once on a newly sealed external project.
+
+## Phase 4 Independent Owner Calibration Fixture
+
+Completed on 2026-07-22:
+
+- Added a reviewed Snapshot development fixture with three equivalent query
+  phrasings and separate `hierarchical_callable_spans`,
+  `hierarchical_owner_spans`, and `hierarchical_range_spans`. These fields are
+  intentionally outside compact Context quality requirements; legacy source
+  span fields remain observation-only fallbacks for older cases.
+- Exposed graph seed and graph-owner pools as separate bounded audit stages.
+  Owner quality is now measured from the discovered one-hop owner pool rather
+  than from the final callable list, where a direct callable duplicate can
+  legitimately take precedence for presentation.
+- Refined the fixed six seed policy to preserve direct candidates, exact symbol
+  evidence, and mechanism evidence before score-only fill. It remains a
+  one-hop, bounded localizer and does not change the compact serving path.
+
+Verification:
+
+- The Snapshot scenario passes all three phrasings. File, callable, owner, and
+  source-range recall plus owner precision are each 1.0; compact Context stays
+  within its 1,500 Token budget and the mean full-audit time is 633.6667 ms.
+- Focused hierarchical, Context metric, and evaluator contracts pass 23/23;
+  compile, whitespace, JSON, and 500-line gates pass.
+
+This is still synthetic development evidence. Promotion remains denied until
+the complete development regression, scale profile, and a new sealed external
+project agree on recall, precision, latency, and no-serving-regression gates.
+
+## Phase 4 Development And Scale Gate
+
+Completed on 2026-07-23:
+
+- Complete unsealed development regression passes 65 scenarios and 195 query
+  variants. Existing cases were not relaxed; the added Snapshot scenario brings
+  the suite from 64 to 65 scenarios.
+- CI scale passes with 100,000 searchable entities, 80,000 symbols, 15,000 log
+  statements, and 300,000 graph edges. Candidate hit/miss p95 is 9.572/17.816
+  ms; single-file and 500-method refresh p95 is 280.338/829.282 ms.
+- The localization profile now reports a non-null Oracle sample count per
+  metric. This makes the current 1.0 owner recall/precision explicitly scoped
+  to three reviewed Snapshot variants instead of implying broad generality.
+
+Decision:
+
+- Keep all hierarchical output in shadow. Full development file/callable/range
+  recall is 0.9496/0.9349/0.9320, which is useful diagnostic evidence but not
+  a calibrated serving-quality threshold.
+- Do not rerun any consumed sealed pack. The next admissible evidence is a
+  broader reviewed development Oracle set, followed by one newly sealed
+  external project. No compact serving promotion is authorized by this phase.
+
+## Phase 4 Multi-Relation Owner Calibration
+
+Completed on 2026-07-23:
+
+- Extracted one-hop owner expansion behind a bounded adapter. Symbol-origin
+  relations (`calls`, `awaits`, `registers_callback`) remain direct graph
+  lookups. File-origin component/property-flow relations are projected to one
+  callable in the source file, preferring `build`, rather than pretending that
+  a file node is a callable or adding recursive traversal.
+- Added reviewed three-variant development Oracles for direct callback
+  registration and component property flow. The callback case is explicitly
+  audit-only for anchor recall; the property-flow case retains compact Context
+  anchor, excerpt, precision, and range requirements.
+
+Verification:
+
+- The two scenarios pass all six variants. Shadow callable, owner, and range
+  recall plus owner precision are 1.0, with 603.1667 ms mean audit latency.
+  The property-flow compact gate remains 3/3 passing.
+- The adapter keeps six graph seeds, sixteen owners, and one hop. It changes no
+  compact Context field, no serving candidate ranking, and no graph depth.
+- CI scale also passes with 100,000 searchable entities, 80,000 symbols, and
+  300,000 edges. The combined direct-owner and property-flow adapter has 8.481
+  ms p95 against a 150 ms audit SLO; the property-flow lookup uses the existing
+  target-relation composite index.
+
+This broadens reviewed relation coverage, but is still synthetic development
+evidence. Keep hierarchical localization in shadow until the full regression,
+scale gate, and a new sealed external validation all agree.

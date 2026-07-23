@@ -850,6 +850,23 @@ capability report measures `candidate_file_recall_at_20` from that isolated
 candidate set. It is diagnostic rather than a release gate until the fielded
 retriever and downstream owner reranker are calibrated together.
 
+Full `context --json` also exposes
+`query_audit.hierarchical_localization`. This separate shadow audit projects
+the already intent-gated code candidates through bounded stages: diverse files,
+callables inside those files, evidence-prioritized graph seeds, supported
+incoming one-hop graph owners, and
+callable-bounded source ranges. A range may be narrowed to a line-local
+semantic mechanism such as a guard, resource bound, callback, platform
+predicate, or persistence operation. The audit records provenance and limits;
+it does not select a diagnosis, alter compact Context, widen the graph, or
+promote fielded candidates into the serving path.
+
+`eval-context-capability` uses that full audit only as a second, isolated
+measurement pass after its normal compact query. It records references, symbol
+bounds, counts, and audit time to score file/callable/one-hop-owner/source-range
+quality independently. It never persists source bodies, changes compact
+selection, or turns an informational localization score into a Context gate.
+
 For `code_files` only, an unsaturated direct channel may add one bounded
 structural FTS channel derived from language-neutral behavior concepts. Current
 concepts cover scrolling/layout,
