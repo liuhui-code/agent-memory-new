@@ -1,0 +1,96 @@
+{
+  "schema_version": "agent-context-capability-observation-summary/v1",
+  "case_file": "docs/eval/harmonyos-games-unseen-sealed-holdout-cases.json",
+  "case_seal_digest": "a7d9cca37f217a6d833d9054962bc6ba639c0075c32948de4f467b98e113a872",
+  "source_repository": "https://github.com/dividez/harmonyos-games.git",
+  "recorded_at": "2026-07-18T19:58:53+00:00",
+  "immutable_observation": true,
+  "audit_notes": [
+    "Each case was prepared from its audited full before revision and the sealed pack was executed exactly once.",
+    "The repository is a small ArkTS mechanism-generalization sample and is not evidence of large-repository latency."
+  ],
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 4,
+    "passed_case_count": 1,
+    "failed_case_count": 3,
+    "anchor_recall": 0.75,
+    "primary_anchor_recall": 0.75,
+    "oracle_anchor_precision": 0.375,
+    "expected_anchor_mrr": 0.75,
+    "source_excerpt_recall": 0.75,
+    "source_span_recall": 0.75,
+    "average_context_tokens": 1112.0,
+    "average_memory_prepare_ms": 987.75,
+    "average_query_elapsed_ms": 615.25
+  },
+  "failure_analysis": {
+    "primary_failure_class": "ranking_precision",
+    "root_failure_class": "mixed_candidate_generation_and_ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 1,
+      "passage_selection": 2,
+      "ranking_precision": 4
+    },
+    "interpretation": "Preference-context ownership is localized exactly. Best-score lifecycle and color-block mutation owners rank first with the required source spans, but three unrelated anchors exceed the precision gate in each case. The swipe symptom returns only About.ets and misses NumberGameComp.ets entirely, so its passage failures originate in candidate generation rather than source-window sizing."
+  },
+  "cases": [
+    {
+      "case_id": "harmony-games-swipe-status-not-updated",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "features/number/src/main/ets/views/NumberGameComp.ets"
+      ],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/About.ets"
+      ]
+    },
+    {
+      "case_id": "harmony-games-preferences-context-rejected",
+      "status": "pass",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 1.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "features/number/src/main/ets/services/PreferencesUtil.ets"
+      ]
+    },
+    {
+      "case_id": "harmony-games-best-score-lifecycle-not-integrated",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 1.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/About.ets",
+        "entry/src/main/ets/pages/Index.ets",
+        "entry/src/main/ets/pages/NumberGame.ets",
+        "features/number/src/main/ets/views/NumberGameComp.ets"
+      ]
+    },
+    {
+      "case_id": "harmony-games-color-block-neighbors-not-toggled",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 1.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "commons/basic/src/main/ets/components/HdNav.ets",
+        "entry/src/main/ets/pages/About.ets",
+        "entry/src/main/ets/pages/ColorBlocks.ets",
+        "features/number/src/main/ets/views/NumberGameComp.ets"
+      ]
+    }
+  ],
+  "policy": "Do not rerun or modify this sealed pack for tuning. Reproduce abstract gesture-to-state candidate recall and excess-neighbor precision in independent development fixtures, then use a new sealed pack for the next external observation."
+}

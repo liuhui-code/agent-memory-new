@@ -1,0 +1,93 @@
+{
+  "schema_version": "agent-context-generalization-holdout-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "case_file": "docs/eval/gramony-context-generalization-holdout-cases.json",
+  "case_file_sha256": "72e1588b9cb41850068e2e4d1831013e0dea600bfd9b7776160e41790c6766f1",
+  "valid_execution_count": 1,
+  "recorded_at": "2026-07-18T11:01:04+00:00",
+  "summary": {
+    "case_count": 3,
+    "passed_case_count": 1,
+    "failed_case_count": 2,
+    "query_variant_pass_rate": 0.3333,
+    "average_context_tokens": 1192.6667,
+    "average_memory_prepare_ms": 1279.6667,
+    "average_query_elapsed_ms": 517.6667,
+    "anchor_recall": 0.7778,
+    "primary_anchor_recall": 0.7778,
+    "oracle_anchor_precision": 0.3889,
+    "expected_anchor_mrr": 1.0,
+    "source_excerpt_recall": 0.7778,
+    "source_span_recall": 0.6667
+  },
+  "cases": [
+    {
+      "case_id": "gramony-generalization-search-header-overlap",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "source_span_recall": 1.0,
+      "context_token_estimate": 1087,
+      "failed_checks": ["minimum_anchor_precision_met"],
+      "observed_anchor_paths": [
+        "features/home/src/main/ets/entities/Chat.ets",
+        "features/home/src/main/ets/pages/Chat/ChatDetail.ets",
+        "features/home/src/main/ets/views/Chat/ChatList.ets",
+        "features/home/src/main/ets/views/common/HomeTopSearch.ets"
+      ]
+    },
+    {
+      "case_id": "gramony-generalization-consecutive-sender-name",
+      "status": "fail",
+      "anchor_recall": 0.3333,
+      "oracle_anchor_precision": 0.25,
+      "source_span_recall": 0.0,
+      "context_token_estimate": 1172,
+      "failed_checks": [
+        "expected_anchors_within_top_k",
+        "minimum_anchor_precision_met",
+        "minimum_source_span_recall_met",
+        "expected_anchors_recalled"
+      ],
+      "observed_anchor_paths": [
+        "features/home/src/main/ets/entities/Message.ets",
+        "features/home/src/main/ets/pages/Chat/Group/ParticipantList.ets",
+        "features/home/src/main/ets/viewmodel/Message/MessageDataSource.ets",
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "missing_expected_anchors": [
+        "features/home/src/main/ets/pages/Chat/ChatDetail.ets",
+        "features/home/src/main/ets/views/Chat/ChatDetailItem.ets"
+      ]
+    },
+    {
+      "case_id": "gramony-generalization-formatted-entity-reload",
+      "status": "pass",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.6667,
+      "source_span_recall": 1.0,
+      "context_token_estimate": 1319,
+      "failed_checks": [],
+      "observed_anchor_paths": [
+        "features/home/src/main/ets/dao/MessageDao.ets",
+        "features/home/src/main/ets/entities/Message.ets",
+        "features/home/src/main/ets/viewmodel/Message/MessageDataSource.ets"
+      ]
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "retrieval_tuned_after_execution": false,
+    "holdout_case_file_modified_after_execution": false
+  },
+  "disposition": {
+    "promotion_allowed": false,
+    "holdout_retained_as_observed": true,
+    "recommended_next_development_theme": "backward component-property flow and anchor precision"
+  }
+}

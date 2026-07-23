@@ -73,7 +73,7 @@ They must not:
 - promote episodes;
 - run expensive duplicate scans;
 - export the vault.
-- recursively traverse the memory graph.
+- expose recursive memory-graph traversal as public evidence.
 - return arbitrary relation types from `memory_edges`.
 
 Network limits for the query fast path:
@@ -81,10 +81,11 @@ Network limits for the query fast path:
 ```text
 max_depth = 1
 edge_limit = 10
-allowed_relations = contains, emits_log
+allowed_relations = contains, emits_log, imports, passes_property,
+                    renders_component, routes_to, uses_resource
 ```
 
-The runtime returns these limits in `network_limits` so skill callers know the context is intentionally bounded. Recursive reasoning belongs in the LLM skill layer: inspect the returned context, sharpen the query, and call `context` again.
+The runtime returns these limits in `network_limits` so skill callers know the public edge context is intentionally bounded. Compact anchor ranking has one internal exception: from directly matched ArkTS components it may follow `renders_component` or `passes_property` backwards for at most two hops and promote at most two parent files. The promoted rows carry `graph_depth`; raw `edge_matches` and evidence chains remain one hop. The Agent still owns data-flow and causal reasoning.
 
 `search` is also bounded. It returns `result_limits` in the JSON payload so callers can see the current cap for each result set.
 `context` and `search` also return `query_audit`. This is an LLM-facing debug trail, not a ranking input. Use it to spot broad matches, stale or low-trust experience, feedback penalties, and missing query anchors before changing stored memory.
@@ -99,7 +100,7 @@ not from a global recent-event tail. `used`, `ignored`, and `superseded` usage
 outcomes do not directly alter ranking. Resolved or ignored retrieval feedback
 is excluded from query aggregation.
 
-`context --compact` runs the same retrieval and ranking, then projects an `agent-context-compact/v1` handoff capped at an estimated 1,500 tokens. It keeps up to three strong log anchors, five file-diverse code anchors, three candidate paths, two correction/semantic/experience references, relation hints connected to returned anchors, evidence gaps, and the Agent/Runtime role boundary. The first three code anchors are marked `primary`; up to two remaining anchors are marked `expansion`. Natural-language retrieval drops English stopwords and low-discrimination code metawords, while FTS5 prefix recall lets domain words such as `sticker` reach compound identifiers such as `StickerView`. `query_handoff.source_exploration` carries only the versioned policy id and deterministic primary/round/files-per-round/search/total-file limits. Allowed evidence-gap reasons, `expansion_trace`, direct-mechanism sufficiency, evidence basis, and stop reasons live in the fixed Query Skill and Runner schema instead of being reinjected as static text on every query. The Agent records one reason and up to two new files per expansion item; Runner metrics derive round and reason totals from that trace. The built-in Codex benchmark Runner also derives source-search count from completed JSONL command telemetry when available; the Runtime itself does not observe Agent tools. Mechanism evidence may span an inspected supporting boundary but must include a predicted causal owner. The Agent evaluates those conditions; the Runtime does not select a cause or stop the investigation. When no strong log identity activates path context, weak log anchors and their follow-up terms are suppressed instead of injected. Generated summaries that only repeat path and symbol are omitted. It also omits full records, repeated search terms, retrieval explanations, trust-reason internals, query audit, duplicate edge details, and other static policy text. Calling `context` without `--compact` remains backward-compatible and is the focused L2 audit view.
+`context --compact` runs the same retrieval and ranking, then projects an `agent-context-compact/v1` handoff capped at an estimated 1,500 tokens. It keeps up to three strong log anchors, five file-diverse code anchors, three candidate paths, two correction/semantic/experience references, relation hints connected to returned anchors, evidence gaps, and the Agent/Runtime role boundary. The first three code anchors are marked `primary`; up to two remaining anchors are marked `expansion`. Natural-language retrieval drops English stopwords and low-discrimination code metawords, while FTS5 prefix recall lets domain words such as `sticker` reach compound identifiers such as `StickerView`. `query_handoff.source_exploration` carries only the versioned policy id and deterministic primary/round/files-per-round/search/total-file/read-per-file/read-line limits. Allowed evidence-gap reasons, `expansion_trace`, direct-mechanism sufficiency, evidence basis, and stop reasons live in the fixed Query Skill and Runner schema instead of being reinjected as static text on every query. The Agent records one reason and up to two new files per expansion item; Runner metrics derive round and reason totals from that trace. The built-in Codex benchmark Runner also derives source-search count from completed JSONL command telemetry when available; the Runtime itself does not observe Agent tools. Mechanism evidence may span an inspected supporting boundary but must include a predicted causal owner. The Agent evaluates those conditions; the Runtime does not select a cause or stop the investigation. When no strong log identity activates path context, weak log anchors and their follow-up terms are suppressed instead of injected. Generated summaries that only repeat path and symbol are omitted. It also omits full records, repeated search terms, retrieval explanations, trust-reason internals, query audit, duplicate edge details, and other static policy text. Calling `context` without `--compact` remains backward-compatible and is the focused L2 audit view.
 
 `design-context --query <goal>` is the normal design retrieval entry. It returns `design-context/v1`: explicit task constraints, a revision-bound repository model, bounded source and relation anchors, project corrections and memory warnings, quality-attribute routing questions, versioned principle/pattern references, evidence gaps, provenance, and Agent-directed expansion hints. Repeated `--concern`, `--anchor`, and `--constraint` values support a second focused query; `--compact` reduces repository and knowledge limits. General knowledge is advisory and separated from project SQLite memory.
 
@@ -113,7 +114,7 @@ For incident work, the local Agent CLI owns temporary log reading, observations,
 
 `memory_edges` carry `source_revision`, `extractor_version`, `valid_from`, `valid_to`, `evidence_kind`, and `last_verified_at`. Query and impact traversal use only edges whose `valid_to` is null. `graph_quality.edge_governance` reports legacy, missing-revision, and unverified edge counts.
 
-ArkTS learning also emits conservative design relations when they are directly inspectable: `renders_component`, `uses_service`, `dispatches_event`, `handles_event`, `configured_by`, and `tested_by`. Existing `defines_state`, `imports`, `routes_to`, `uses_resource`, `contains`, and `emits_log` relations remain available. Ambiguous symbol targets are skipped instead of producing speculative edges.
+ArkTS learning also emits conservative design relations when they are directly inspectable: `renders_component`, `passes_property`, `uses_service`, `dispatches_event`, `handles_event`, `configured_by`, and `tested_by`. `passes_property` stores only top-level object-argument names such as `showHeader`, never expression values or source bodies. File summaries additionally index at most 12 source-ordered chained operations such as `divider` or `safeAreaPadding`; this is a lexical behavior locator, not a call/data-flow edge. Known ArkUI Builder invocations such as `List() {}` are not indexed as function declarations, while project-defined uppercase methods remain available. Existing `defines_state`, `imports`, `routes_to`, `uses_resource`, `contains`, and `emits_log` relations remain available. Ambiguous symbol targets and commented calls are skipped instead of producing speculative edges.
 
 `impact-feedback` stores a compact change fingerprint, changed paths, recommended/executed/failed/flaky tests, missed targets, outcome, and note. `impact-scope` combines bounded static test-name/semantic matches with up to 200 recent feedback rows. Historical failures raise a recommendation; flaky outcomes add a warning and penalty. No diff body or test log is persisted.
 
@@ -165,6 +166,16 @@ python tools/agent_memory.py maintain-skill-promotion-status --project . --patte
 Governance actions should preserve history. Prefer status transitions over destructive deletion.
 
 `maintain-refresh-scope` is the low-risk codebase drift path for projects that keep changing. It replays previously learned `wiki-index`, `learn-path`, and `learn-entry` scopes from the persisted `learn_scopes` manifest table, refreshes structural code-wiki rows, retires removed-file structure, and returns semantic drift targets without blindly overwriting business semantics or experiences.
+
+With `--changed-only`, change discovery is Scope-first. `git/v1` compares each Scope's last successful baseline directly with the current worktree and applies an exact entry-file set, path subtree, or explicit project pathspec. Intermediate team commits collapse into one net change set, unrelated repository paths are not returned, and untracked files inside the Scope are included. Previously learned ignored files remain digest-checked. `snapshot/v1` scans only the learned Scope when Git is unavailable, the baseline is missing, an entry pathspec is too large, or Git fails. In every mode, SHA-256 snapshot comparison decides the actual added, changed, and removed files.
+
+Learning also registers resolved project imports whose files are outside the learned Scope in `scope_boundary_dependencies`. Git change discovery unions those exact paths with the Scope pathspec, but keeps them classified as `boundary_candidate_paths`; they are never inserted into `code_files` merely because they changed. Maintenance compares both a content digest and a structural-surface digest derived from extracted symbol shapes. A body-only edit therefore reports content drift without claiming an exported-shape change, while a renamed or added symbol reports `surface_changed`. This surface digest is a conservative extractor-level approximation, not a compiler ABI guarantee.
+
+Observed boundary changes are returned as bounded `boundary_changes` and set the Scope to `boundary_drift`. Relevant Context queries keep fresh learned anchors but expose the affected Scope ids in `source_freshness`; `maintain-health` increments `scope_boundary_drift`. The Runtime supplies this warning as evidence and does not infer impact, expand the Scope, or diagnose the cause. After review, an explicit full refresh of that Scope rebuilds its learned files, re-registers current boundaries, and restores `current`.
+
+Each refresh result includes `change_set`, including separate Scope and boundary candidate lists. More than 200 relevant candidates returns `status: overflow`, keeps `baseline_revision` unchanged, records `last_checked_revision`, and performs no index writes. `maintain-health` reports `scope_overflow`; resolve it with a reviewed full refresh for the specific Scope rather than expanding automatic work.
+
+Source-derived `code_files`, `code_symbols`, and `code_log_statements` are stamped with a SHA-256 `source_digest` and one atomic `index_generation`. `context` and `search` validate only their bounded candidate paths against the current source root before returning them. Changed or missing candidates are blocked from code/log/graph output, while legacy digestless rows remain visible but are marked `unverified` for migration compatibility. Full context exposes detailed `source_freshness`; compact context keeps only status and generation when current, adding affected paths and blocked-row count only when action is needed. This is a freshness guard, not a repository-wide scan or a root-cause decision.
 
 `maintain-rebuild-derived` repairs generated indexes without replacing learned code rows. Use `--target search` to rebuild FTS5 content, `--target graph` to rebuild source-derived code/log edges, or `--target all` for both. Graph repair preserves business summaries, business terms, semantic facts, reflections, and episodes, and returns before/after relation counts, edge amplification, relation dominance, semantic adapter results, and preservation checks. Pass the original `--source` when an archive learned an external source tree. This command is safer than `wiki-index --replace` when only derived data is damaged.
 
@@ -239,6 +250,8 @@ Reflection and correction-guard rows may also include `query_risk_flags`, `trust
 
 `reflect --payload` keeps reusable procedure experience and correction experience separate. `procedure_experience` requires a repair action, verification method, and a trigger anchor such as `trigger_condition`, `useful_followup_focus`, `source_cases`, or `context_used`. `correction_experience` requires `trigger_condition`, `repair_action`, and a misleading signal such as `anti_pattern`, `misleading_followup_terms`, or `what_failed`. A correction experience cannot set `skill_candidate`; single-case semantic or business corrections route to guardrail and semantic-repair governance, not direct skill evolution.
 
+`context --compact` may attach bounded `source_excerpts` to the first three primary code anchors. It fairly divides the available character budget across those anchors before reading any second range. Excerpts are read from the current `project_path`, never from SQLite, and only when normalized paths remain inside the project root. Each excerpt covers at most 40 lines, the combined text is dynamically limited by the existing 1,500-Token payload budget, and unavailable, binary-like, absolute, traversal, or external-symlink paths are skipped. Excerpt bodies are emitted only in the command response. `runtime/last_context.json` keeps source, symbol, line, and truncation metadata but removes the body. The Agent should not reread excerpted lines; `read_window` remains the fallback when no excerpt is available.
+
 All available golden evaluations can be checked with one local quality gate:
 
 ```bash
@@ -249,7 +262,39 @@ python tools/agent_memory.py eval-quality --project . --cases-dir docs/eval --js
 Use `eval-quality --list-gates --json` to inspect registered gate names, case files, and rerun commands without executing cases or writing the latest quality gate snapshot.
 Each run also writes `runtime/last_quality_gate.json`. The output includes `quality_gate_delta`, a previous-run comparison with `newly_failed_gates`, `resolved_failed_gates`, and `status_change`. `maintain-health --json` exposes a compact `last_quality_gate` view from that file and recommends review when the latest gate failed. `maintain-plan --json` may emit `review_quality_gate_failure` in the `quality_gate` lane so the failure enters normal action budgeting. Treat the snapshot as disposable runtime telemetry, not durable memory.
 
-End-to-end Agent behavior uses a separate A/B benchmark protocol. `eval-harvest-history` creates review-only cases from Git fixes; `eval-mutate-arkts` creates non-destructive, oracle-known ArkTS/TypeScript mutations; `eval-agent-benchmark` runs baseline and memory variants through an approved executable Runner. Each variant receives a fresh frozen workspace. The memory variant gets an isolated index rebuilt from that revision, while the public request excludes the oracle, fix revision, and mutation edit. `--trials 1..10` repeats independently paired variants; three or more trials expose stability, per-case non-regression rate, root-cause/file consistency, source inspection count, and Memory anchor hit rate. The Runtime never selects the best trial. Results are deterministic metrics over Agent outputs rather than LLM-judged prose. The latest compact result is stored in `runtime/last_agent_benchmark.json`, appended to `runtime/agent_benchmark_history.jsonl`, and exposed by `maintain-health.agent_benchmark`. See `docs/agent-benchmark.md`.
+Before end-to-end Agent A/B, `eval-context-capability` deterministically tests the system's own compact context supply on frozen cases without invoking a model. It gates expected/forbidden code anchors, Top-K rank, anchor precision, query-focused source spans, Token budget, explicitly declared source/log/experience/path requirements, and no-evidence abstention. Undeclared capabilities remain informational. The built-in `docs/eval/system-capability-cases.json` pack supplies 64 reviewed ArkTS scenarios and 192 wording variants for log emitters, main versus guard experience lanes, bounded causal-path candidates, cross-component graph recall, query-conditioned component lineage, exact and abstract behavior owners, lifecycle/callback/action mechanisms, reusable toolbar roles, media resource shutdown, keyboard/back boundaries, archive I/O, collection aggregation, keyboard focus state, native color parsing, clipboard-content reads, permission request/result guards, process-output read loops, runtime-capability probes, serialized writes and final barriers, timeout cancellation, WebView access and URL-scheme policy, bounded-cache eviction, gesture and indexed-touch safety, conditional data loading, callback cleanup, horizontal and vertical Builder layout, indexed collection writes, async ordering guards, event-to-state handoff, validation stops, persistence commits and reads, domain-entity interference, dense-log source budgeting, method-body evidence, command binding, indirect caller ownership, platform-sensitive UI ownership, comparison-target visual state, cross-layer error contracts, explicit result-role exclusion, and abstention. With no explicit `--limit`, every scenario runs; a supplied limit remains a deliberate bounded development selection. Structural concepts use word-aware English triggers, conservative component identifier terms, and prefer complete multi-mechanism owners over generic operation-name matches. Ambiguous visual-cover terms require UI context so data overwrites do not activate overlay retrieval. Explicit result-exclusion clauses are removed before recall, ranking, graph expansion, and behavior expansion. Compound exclusions retain non-role domain stems such as `article` from `ArticleRecord`, while generic `record`/`entity`/`model` terms are discarded. Explicit-path protection is derived only from the user's raw identifiers and is disabled for negative or behavior-only queries. For structural behavior queries without active path reconstruction, generic identity-only log emitters are omitted from compact code anchors; exact log and path-led queries retain them. Source excerpts merge query-supported callable ranges ahead of stale stored ranges, then use language adapters for standard ECMA callables and nested ArkUI arrow callbacks. Reports contain paths, source-range metadata, and aggregate measurements but no Oracle or source bodies, are stored in `runtime/last_context_capability.json` plus a bounded history, and are exposed by `maintain-health.context_capability`, including MRR, source-span recall, failure class, seal audit, and cross-project history. `eval-seal-cases` validates immutable revisions and real changed files before adding a canonical SHA-256 seal; modified or incomplete holdouts fail closed. Keep sealed holdout packs isolated from tuning. End-to-end Agent behavior then uses the separate A/B benchmark protocol. See `docs/agent-benchmark.md` and `docs/system-capability-evaluation.md`.
+
+`eval-scale` validates SQLite, FTS5, graph, and Git-driven maintenance capacity without modifying project memory. The `ci` profile creates 100,000 searchable code entities and 300,000 active graph edges; `million` creates 1,000,000 entities and 3,000,000 edges in an isolated temporary archive. It measures precise and absent candidate recall, low-information method-term abstention, exact log FTS, qualified/file-local symbol lookups, and both active graph directions. It also creates a real temporary Git repository and measures no-change, Scope-external, 20-method, and 500-method changed-only refreshes through the production Scope facade. `EXPLAIN QUERY PLAN` must select the expected composite indexes, and refresh evidence must remain on `git/v1` with only expected files. Reports are written to `runtime/last_scale_benchmark.json`; `--fail-on-slo` makes latency, query-plan, or incremental-maintenance failure nonzero. Method summaries persist bounded CamelCase identifier components so domain terms use FTS instead of `%LIKE%`. Code-table LIKE fallback is retained only below 50,000 rows; larger tables fail closed on an FTS miss rather than scanning the full derived corpus. Scoped graph rebuilds use bounded file candidates from exact references and `code_file_fts` basename matches; full rebuilds retain all-file semantics. This fallback policy does not change precise identifiers or FTS matches.
+
+Callable bodies additionally produce at most 36 source-derived terms in `code_symbols.method_evidence` and at most 24 bounded string literal/key terms in `string_evidence`. Source bodies are not stored. Only non-empty method evidence enters the separate sparse `code_method_fts` serving lane, and query-time recall requires at least two matching focus terms. This lets behavior descriptions retrieve generic owners without adding body vocabulary to normal symbol identity ranking.
+
+Search schema `fts-v4` also materializes rebuildable `code_passages` for file,
+symbol, and callable units. It normalizes path segments, CamelCase, snake_case,
+qualified names, signatures, method evidence, string keys, and language-neutral
+mechanisms into separate identity, semantic, body, string, and mechanism fields.
+Seven bounded FTS5 channels apply channel-local BM25 column weights: file
+identity, file semantics, symbol identity, symbol semantics, method body,
+string key, and semantic mechanism. Weighted RRF combines only ranks, never raw
+BM25 scores from different channels.
+
+`semantic-index/v1` accepts optional `SemanticMechanism` records while remaining
+compatible with providers that emit only entities and relations. Built-in
+ArkTS and TypeScript static adapters version `1.1` extract bounded operations,
+conditional guards, resource bounds, callback bindings, platform predicates,
+and persistence reads/writes inside callable ranges. The Runtime validates that
+each evidence line belongs to its source entity, persists only bounded metadata,
+caps static extraction at 16 mechanisms per callable and persisted JSON at
+4,096 UTF-8 bytes per symbol, and never treats a mechanism as a diagnosis or
+missing-code recommendation.
+
+Fielded passage retrieval is currently deployed in `shadow` mode. Full
+`context --json` runs it and exposes its candidate audit and Recall@20 inputs,
+but the Phase 1 candidate set remains the serving set. `context --compact` does
+not execute the shadow retriever, so Agent Token and latency budgets are
+unchanged. Promotion requires project-neutral candidate-recall improvement,
+owner-reranker calibration, and a new sealed external gate.
+
+The bundled Codex benchmark Runner always replaces compact source-excerpt bodies with symbol and line metadata before building its external prompt. New observations report `source_excerpt_delivery=external_metadata_only`; therefore they evaluate anchor/range behavior, not source-excerpt effectiveness. The bundled Ollama Runner accepts only loopback HTTP, verifies the requested installed model, and retains full excerpts inside the local process boundary. It exposes only bounded workspace `read_source` and literal `search_source` tools, derives tool and Token telemetry itself, and reports `source_boundary=local_process` plus `source_excerpt_delivery=full`. Result and telemetry stores never contain excerpt bodies. Initial local Qwen 3 1.7B and Llama 3.2 3B Login smoke A/B runs failed quality and efficiency, so the repeated matrix remains stopped; see `docs/gramony-benchmark-pilot.md`.
 
 To bootstrap editable examples without activating them as the default gate, run:
 
@@ -557,6 +602,10 @@ Current MVP behavior:
 - current files in the scope are re-indexed
 - removed files in the scope have their structural `code_files`, `code_symbols`, `code_log_statements`, and derived edges retired from the code wiki
 - business semantics, reflections, and experiences are not silently deleted
+- indexed rows receive one new generation only after the scoped SQLite transaction succeeds
+- `--changed-only` hashes the persisted scope manifest and updates only added, changed, or removed paths
+
+`maintain-health --json` returns `code_index` with the active generation, source revision, extractor version, indexed/retired counts, and digest coverage. `legacy_unverified_rows > 0` means older structural rows should be refreshed; it does not mean those rows are automatically deleted.
 
 Use `semantic_review_targets` to decide whether the next step is:
 
@@ -775,3 +824,76 @@ The response includes:
 
 Use `next_cursor` only when the current batch does not provide enough evidence. Query remains bounded by design.
 `suggested_followup_terms` are scene-aware. The runtime biases them toward exact route, resource, log, or config anchors based on the current problem wording and strongest matches before falling back to broader file-path or summary-derived terms.
+
+Full `context --json` and `search --json` responses include `query_audit`. Its
+`candidate_recall` section reports bounded SQLite FTS5 channels per table,
+their limits, and `rank_fusion_provider`, while `retrieval_stages` reports
+counts after scoring, intent gating, and final selection. Term-level code
+channels run only when broad recall reaches its budget: small archives keep a
+single broad query, while saturated large archives gain coverage across
+distinct request concepts. Compact context omits this audit to preserve the
+Agent Token budget; use the full view only to diagnose candidate loss or
+ranking noise.
+
+The candidate recall provider is `sqlite_fts5_passage_rrf/v4`. Each serving FTS5
+query ranks rows only inside its own channel. Weighted Reciprocal Rank Fusion
+then combines those bounded rankings without comparing channel-local BM25 raw
+scores. Returned candidates expose `recall_fusion`, including the fusion
+provider, fused score, best source rank, channel count, and each channel's
+rank, weight, and contribution. This is candidate generation provenance; the
+existing `rerank_score` is a separate downstream owner-ranking decision.
+
+When passage shadow retrieval is enabled, `candidate_recall.fielded_passages`
+reports provider `code_passage_fts/v2`, mode `shadow`, seven channel audits, a
+nested fusion result, and `serving_candidates_changed: false`. The deterministic
+capability report measures `candidate_file_recall_at_20` from that isolated
+candidate set. It is diagnostic rather than a release gate until the fielded
+retriever and downstream owner reranker are calibrated together.
+
+Full `context --json` also exposes
+`query_audit.hierarchical_localization`. This separate shadow audit projects
+the already intent-gated code candidates through bounded stages: diverse files,
+callables inside those files, evidence-prioritized graph seeds, supported
+incoming one-hop graph owners, and
+callable-bounded source ranges. A range may be narrowed to a line-local
+semantic mechanism such as a guard, resource bound, callback, platform
+predicate, or persistence operation. The audit records provenance and limits;
+it does not select a diagnosis, alter compact Context, widen the graph, or
+promote fielded candidates into the serving path.
+
+`eval-context-capability` uses that full audit only as a second, isolated
+measurement pass after its normal compact query. It records references, symbol
+bounds, counts, and audit time to score file/callable/one-hop-owner/source-range
+quality independently. It never persists source bodies, changes compact
+selection, or turns an informational localization score into a Context gate.
+
+For `code_files` only, an unsaturated direct channel may add one bounded
+structural FTS channel derived from language-neutral behavior concepts. Current
+concepts cover scrolling/layout,
+reactive aggregate refresh, and visual overlap, and map symptom wording to
+indexed ArkTS markers such as `ListDirection`, `layoutWeight`, `forEach`,
+`watch`, `overlay`, or `zIndex`. ArkTS summaries also retain conservative
+existing-mechanism markers for fallback branches, repository/callback/async
+boundaries, deserialization, action dispatch, gesture callbacks, indexed
+collection writes, lifecycle synchronization including restore, event-to-state
+handoff, validation stops, explicit persistence writes, paired counter/timestamp
+commits, and state writes. These markers describe inspectable source mechanisms; they never
+infer a missing repair. A structural match must be present in the stored file
+summary and competes by marker coverage; a bounded greedy cover keeps only
+candidates that add mechanism evidence. It is not a project-name alias and
+does not create graph or causal evidence. Exact high-entropy identifiers fail
+closed unless the identifier itself or a supported graph neighbor is found.
+The full audit exposes the structural term count and per-candidate fusion so
+candidate generation can be distinguished from downstream ranking.
+
+Compact source excerpts use a coverage-first budget. Up to three primary
+anchors each receive a small readable window before any one anchor consumes
+the remaining source budget. This keeps a lower-ranked log emitter or shared
+owner inspectable under the same 1,500-Token ceiling; it does not add weak code
+anchors or increase candidate recall.
+
+When at least two bounded causal-path candidates exist, compact projection
+preserves path diversity before retaining a redundant source excerpt from a
+non-emitter anchor. It may omit one such excerpt while retaining both code
+anchors and the common emitter excerpt. This changes only presentation under
+the fixed Token budget; it does not promote or infer a path.

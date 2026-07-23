@@ -1,0 +1,262 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/siyuan-harmony",
+  "source_repository": "https://github.com/siyuan-note/siyuan-harmony.git",
+  "source_branch": "main",
+  "source_head_reviewed": "71e7e21d09a8f018d7e51db773f7d94259e9cb10",
+  "generated_at": "2026-07-19T00:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "siyuan-desktop-webview-focus-loss",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "In desktop mode, dismissing the software keyboard once prevents later editor taps from restoring WebView focus. Locate keyboard visibility and focus ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "3ffe21024870b90ad1ced3f286e8a7e2bbc71a50",
+        "after_revision": "92b764c992ebf78f129b3f67f805772844495c66",
+        "changed_files": [
+          "entry/src/main/ets/pages/Main.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "92b764c992ebf78f129b3f67f805772844495c66",
+        "commit_message": ":art: Fix desktop mode WebView focus loss after soft keyboard dismiss on HarmonyOS https://github.com/siyuan-note/siyuan/issues/18141"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Main.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/JSHarmony.ets"
+        ],
+        "root_cause_category": "ui",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Main.ets",
+              "start_line": 188,
+              "end_line": 202
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Dismiss and reopen the software keyboard in desktop mode and verify editor taps restore WebView focus."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "siyuan-multiple-shared-records",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Sharing several mixed records into the shorthand editor preserves only the final record. Locate shared-record aggregation ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "ac5d84fd3207d16ca885b57fc9bce77ebf1cee46",
+        "after_revision": "71e7e21d09a8f018d7e51db773f7d94259e9cb10",
+        "changed_files": [
+          "entry/src/main/ets/entryability/ShorthandAbility.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "71e7e21d09a8f018d7e51db773f7d94259e9cb10",
+        "commit_message": ":bug: Preserve files shared to shorthands https://github.com/siyuan-note/siyuan/issues/18245"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/entryability/ShorthandAbility.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/Shorthand.ets"
+        ],
+        "root_cause_category": "data",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/entryability/ShorthandAbility.ets",
+              "start_line": 58,
+              "end_line": 73
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Share several text, HTML, and file records together and verify every record reaches the shorthand editor."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "siyuan-upgrade-stale-archive",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After an application upgrade, extracting bundled web assets can produce a white screen or crash because an existing temporary archive is reused. Locate archive creation and write ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "61d1a678b0a99b8647522f2764632582e961fbff",
+        "after_revision": "dee933cddbd60d839a951616429c65a1b6c4cb03",
+        "changed_files": [
+          "entry/src/main/ets/pages/Utils.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "dee933cddbd60d839a951616429c65a1b6c4cb03",
+        "commit_message": ":bug: White screen or crashes after upgrade on HarmonyOS https://github.com/siyuan-note/siyuan/issues/17043"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Utils.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/Main.ets"
+        ],
+        "root_cause_category": "io",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Utils.ets",
+              "start_line": 208,
+              "end_line": 217
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Upgrade over a prior installation and verify bundled web assets are extracted from a clean temporary archive."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "siyuan-status-bar-color-parsing",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Mobile status-bar color conversion accepts unsupported formats and produces an invalid opaque fallback. Locate native color parsing ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "828cad9f80112634e0a32fbcad0af262178fff09",
+        "after_revision": "e44f05ee21963657d9a099e1d6d855328b04eb35",
+        "changed_files": [
+          "entry/src/main/ets/pages/JSHarmony.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "e44f05ee21963657d9a099e1d6d855328b04eb35",
+        "commit_message": ":art: Improve status bar color parsing on mobile https://github.com/siyuan-note/siyuan/pull/18073"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/JSHarmony.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/Main.ets"
+        ],
+        "root_cause_category": "parsing",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/JSHarmony.ets",
+              "start_line": 380,
+              "end_line": 401
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Apply supported and unsupported status-bar colors and verify native conversion always emits a valid opaque value."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-19T06:49:45+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 4,
+    "digest": "19a16ba06d8b322cc5f66098b1c27a375506560e58d1fa6ca606d31e89763900"
+  }
+}

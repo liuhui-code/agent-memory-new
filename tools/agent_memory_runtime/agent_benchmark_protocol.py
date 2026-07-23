@@ -125,10 +125,17 @@ def validate_observation(
     )
     trace_reported = "expansion_trace" in value
     expansion_trace = normalize_expansion_trace(value.get("expansion_trace") or [])
+    deterministic_accounting = (
+        value.get("expansion_accounting_source") == "runner_investigated_files"
+    )
     expansion_rounds = (
-        len(expansion_trace)
-        if trace_reported
-        else nonnegative_int(value.get("expansion_rounds"))
+        nonnegative_int(value.get("expansion_rounds"))
+        if deterministic_accounting
+        else (
+            len(expansion_trace)
+            if trace_reported
+            else nonnegative_int(value.get("expansion_rounds"))
+        )
     )
     expansion_reasons = (
         [item["reason"] for item in expansion_trace]
@@ -163,10 +170,43 @@ def validate_observation(
             value.get("source_search_count_source") or "agent_reported"
         ).strip(),
         "token_estimate": nonnegative_int(value.get("token_estimate")),
+        "model_input_tokens": nonnegative_int(value.get("model_input_tokens")),
+        "model_cached_input_tokens": nonnegative_int(
+            value.get("model_cached_input_tokens")
+        ),
+        "model_uncached_input_tokens": nonnegative_int(
+            value.get("model_uncached_input_tokens")
+        ),
+        "model_output_tokens": nonnegative_int(value.get("model_output_tokens")),
+        "model_reasoning_tokens": nonnegative_int(value.get("model_reasoning_tokens")),
+        "command_count": nonnegative_int(value.get("command_count")),
+        "command_output_bytes": nonnegative_int(value.get("command_output_bytes")),
+        "source_read_count": nonnegative_int(value.get("source_read_count")),
+        "source_read_output_bytes": nonnegative_int(
+            value.get("source_read_output_bytes")
+        ),
+        "tool_error_count": nonnegative_int(value.get("tool_error_count")),
+        "source_search_miss_count": nonnegative_int(
+            value.get("source_search_miss_count")
+        ),
+        "source_search_error_count": nonnegative_int(
+            value.get("source_search_error_count")
+        ),
+        "source_read_error_count": nonnegative_int(
+            value.get("source_read_error_count")
+        ),
+        "other_tool_error_count": nonnegative_int(
+            value.get("other_tool_error_count")
+        ),
+        "cost_metrics_reported": bool(value.get("cost_metrics_reported")),
         "memory_context_bytes": nonnegative_int(value.get("memory_context_bytes")),
         "memory_context_token_estimate": nonnegative_int(value.get("memory_context_token_estimate")),
         "memory_context_metrics_reported": memory_metrics_reported,
         "expansion_rounds": expansion_rounds,
+        "expansion_file_count": nonnegative_int(value.get("expansion_file_count")),
+        "expansion_accounting_source": str(
+            value.get("expansion_accounting_source") or "agent_trace"
+        ).strip(),
         "expansion_reason_codes": expansion_reasons,
         "stop_reason": str(value.get("stop_reason") or "unreported").strip(),
         "evidence_basis": str(value.get("evidence_basis") or "unreported").strip(),

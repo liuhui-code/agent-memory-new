@@ -1,0 +1,210 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/Gramony",
+  "source_repository": "https://github.com/Gramony/Gramony",
+  "source_branch": "dev",
+  "source_head_reviewed": "0a1ee4b026b6736671f0030ba9859aceaa962298",
+  "generated_at": "2026-07-18T00:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "gramony-generalization-search-header-overlap",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The fixed home search header overlays the first chat rows instead of reserving vertical space in the chat list. Locate the layout source that composes the search header and scrollable chat items.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "8a6e85898b6194fdd04ead75e732d348888a0c07",
+        "after_revision": "aeb7bfa713239a544e49fb486c875774cfca1c90",
+        "changed_files": [
+          "features/home/src/main/ets/views/Chat/ChatList.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "aeb7bfa713239a544e49fb486c875774cfca1c90",
+        "commit_message": "fix HomeTopSearch overlapping ChatList"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/views/Chat/ChatList.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/views/Chat/ChatList.ets",
+              "start_line": 61,
+              "end_line": 124
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Verify that the first chat row begins below the measured search header at supported breakpoints."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "gramony-generalization-consecutive-sender-name",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Consecutive incoming messages from the same sender in a group repeat the sender name on every bubble. Locate the message-list-to-bubble source path that should decide and propagate whether the name is shown.",
+        "constraints": [
+          "Private chats and outgoing messages must keep their existing behavior.",
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "fb8dfd8319bc6e1bbe0d97ccad19c81d9f54738a",
+        "after_revision": "d07d55d1e0e6ec7348b8b0b047044ff022203bc3",
+        "changed_files": [
+          "features/home/src/main/ets/pages/Chat/ChatDetail.ets",
+          "features/home/src/main/ets/views/Chat/ChatDetailItem.ets",
+          "features/home/src/main/ets/views/Message/MessageBubble.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "d07d55d1e0e6ec7348b8b0b047044ff022203bc3",
+        "commit_message": "feat: hide usernames on consecutive messages"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/pages/Chat/ChatDetail.ets",
+          "features/home/src/main/ets/views/Chat/ChatDetailItem.ets",
+          "features/home/src/main/ets/views/Message/MessageBubble.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 4,
+          "min_anchor_precision": 0.6,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/pages/Chat/ChatDetail.ets",
+              "start_line": 183,
+              "end_line": 214
+            },
+            {
+              "file_path": "features/home/src/main/ets/views/Chat/ChatDetailItem.ets",
+              "start_line": 21,
+              "end_line": 40
+            },
+            {
+              "file_path": "features/home/src/main/ets/views/Message/MessageBubble.ets",
+              "start_line": 197,
+              "end_line": 218
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Verify sender changes, time gaps, stickers, outgoing messages, and private chats."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "gramony-generalization-formatted-entity-reload",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Links and other formatted message entities render for newly received messages but disappear after the same messages are loaded from the local database. Locate the persistence serialization, deserialization, and DAO reload context.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "51264c21a23c4824573898378a4b07a96ad0bb99",
+        "after_revision": "44e54e5b0031c0f181c8e624f7936f949c0b9f27",
+        "changed_files": [
+          "features/home/src/main/ets/dao/MessageDao.ets",
+          "features/home/src/main/ets/entities/Message.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "44e54e5b0031c0f181c8e624f7936f949c0b9f27",
+        "commit_message": "fix: a bit of db issues"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/entities/Message.ets",
+          "features/home/src/main/ets/dao/MessageDao.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "persistence",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/entities/Message.ets",
+              "start_line": 103,
+              "end_line": 152
+            },
+            {
+              "file_path": "features/home/src/main/ets/dao/MessageDao.ets",
+              "start_line": 77,
+              "end_line": 106
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Persist and reload messages with multiple entity types and verify equivalent formatting."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "sealed_before_first_run": true,
+    "tuning_after_execution_forbidden": true,
+    "raw_logs_persisted": false,
+    "source_diff_reviewed": true,
+    "runtime_verified": false
+  }
+}

@@ -8,6 +8,7 @@ from typing import Any
 
 from .models import Project, REQUIRED_TABLES
 from .performance_scoring import append_performance_sample, build_performance_sample, estimate_payload_tokens, monotonic_ms
+from .context_source_excerpt import redact_source_excerpt_bodies
 from .context_composition import build_context_facade
 from .context_compact import compact_context
 from .query import limited_search, record_query_miss_if_empty
@@ -151,13 +152,15 @@ def context(args: argparse.Namespace) -> None:
     started_ms = monotonic_ms()
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    data = build_context_facade(project).execute(args.query)
+    data = build_context_facade(
+        project, enable_passage_shadow=not args.compact
+    ).execute(args.query)
     if args.compact:
         data = compact_context(data)
     record_query_usage(project, "context", args.query, data)
     project.runtime_dir.mkdir(parents=True, exist_ok=True)
     (project.runtime_dir / "last_context.json").write_text(
-        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+        json.dumps(redact_source_excerpt_bodies(data), ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     append_query_performance_sample(project, "context", started_ms, data)

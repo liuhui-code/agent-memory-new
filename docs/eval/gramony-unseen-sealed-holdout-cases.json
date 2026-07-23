@@ -1,0 +1,147 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/Gramony",
+  "source_repository": "https://github.com/Gramony-Team/Gramony",
+  "source_branch": "main",
+  "source_head_reviewed": "0a1ee4b026b6736671f0030ba9859aceaa962298",
+  "generated_at": "2026-07-18T14:15:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "gramony-chat-list-loading-state-stuck",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Refreshing chat updates can leave the chat list loading state stuck while concurrent additions reorder pinned and unpinned chats. Locate the page-level loading owner and the chat data source mutation owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "a298911750d79af930fefb0f3e41ee7673de24e7",
+        "after_revision": "3558ddf6705b13e0aec10d5efaaa9ed31d89ae19",
+        "changed_files": [
+          "features/home/src/main/ets/pages/Index.ets",
+          "features/home/src/main/ets/viewmodel/Chat/ChatDataSource.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "3558ddf6705b13e0aec10d5efaaa9ed31d89ae19",
+        "commit_message": "Fix chat-list loading state and concurrent data-source mutation"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/pages/Index.ets",
+          "features/home/src/main/ets/viewmodel/Chat/ChatDataSource.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.66,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/pages/Index.ets",
+              "start_line": 650,
+              "end_line": 672
+            },
+            {
+              "file_path": "features/home/src/main/ets/viewmodel/Chat/ChatDataSource.ets",
+              "start_line": 45,
+              "end_line": 105
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Refresh messages while chat updates arrive and verify loading settles without corrupting order."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "gramony-rich-text-hardcoded-dark-colors",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Formatted message entities such as links, code, spoilers, quotes, underline, and strikethrough use hard-coded light-theme colors and become unreadable in dark mode. Locate the shared rich-text rendering owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "09c73902a29696ead941009aa0c9c89022e1e54d",
+        "after_revision": "2ab3572d7cdefe555a4b164af2f6c192183db097",
+        "changed_files": [
+          "features/home/src/main/ets/views/Message/MessageBubble.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "2ab3572d7cdefe555a4b164af2f6c192183db097",
+        "commit_message": "Use theme resources for formatted message entity colors"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/home/src/main/ets/views/Message/MessageBubble.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "features/home/src/main/ets/views/Message/MessageBubble.ets",
+              "start_line": 400,
+              "end_line": 570
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Render every formatted entity type under light and dark color modes."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-18T14:10:32+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 2,
+    "digest": "d93f2fcebabd6048896576642ef4295050e85e5641a03a8c5ab5e04e4c01b6e8"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "schema_version": "agent-context-composition-holdout-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "case_file": "docs/eval/gramony-context-composition-holdout-cases.json",
+  "case_file_sha256": "c2fe3ca4d161ff1e70b8b2549758ee87d4096f2ed56e7bd131548e768482fb69",
+  "valid_execution_count": 1,
+  "recorded_at": "2026-07-18T11:38:45+00:00",
+  "summary": {
+    "case_count": 3,
+    "passed_case_count": 0,
+    "failed_case_count": 3,
+    "query_variant_pass_rate": 0.0,
+    "average_context_tokens": 1101.0,
+    "average_memory_prepare_ms": 1295.6667,
+    "average_query_elapsed_ms": 486.6667,
+    "anchor_recall": 0.5,
+    "primary_anchor_recall": 0.5,
+    "oracle_anchor_precision": 0.2778,
+    "expected_anchor_mrr": 0.6667,
+    "source_excerpt_recall": 0.5,
+    "source_span_recall": 0.1667
+  },
+  "cases": [
+    {
+      "case_id": "gramony-composition-chat-bottom-safe-area",
+      "status": "fail",
+      "anchor_recall": 0.5,
+      "oracle_anchor_precision": 0.3333,
+      "source_span_recall": 0.0,
+      "context_token_estimate": 1352,
+      "failed_checks": [
+        "expected_anchors_within_top_k",
+        "minimum_anchor_precision_met",
+        "minimum_source_span_recall_met",
+        "expected_anchors_recalled"
+      ],
+      "observed_anchor_paths": [
+        "features/home/src/main/ets/views/Chat/ChatDetailBottom.ets",
+        "features/home/src/main/ets/views/Chat/ChatDetailBottomMediaSheet.ets",
+        "features/home/src/main/ets/views/Chat/ChatDetailBottomPhotoPicker.ets"
+      ],
+      "missing_expected_anchors": [
+        "features/home/src/main/ets/pages/Chat/ChatDetail.ets"
+      ]
+    },
+    {
+      "case_id": "gramony-composition-chat-list-divider",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "source_span_recall": 0.0,
+      "context_token_estimate": 826,
+      "failed_checks": [
+        "expected_anchors_within_top_k",
+        "minimum_anchor_precision_met",
+        "minimum_source_span_recall_met",
+        "expected_anchors_recalled",
+        "expected_source_excerpt_returned"
+      ],
+      "observed_anchor_paths": [
+        "features/home/src/main/ets/entities/Chat.ets",
+        "features/home/src/main/ets/pages/Chat/Group/ForumTopicList.ets",
+        "features/home/src/main/ets/pages/Index.ets",
+        "features/home/src/main/ets/views/Chat/ChatItem.ets"
+      ],
+      "missing_expected_anchors": [
+        "features/home/src/main/ets/views/Chat/ChatList.ets"
+      ]
+    },
+    {
+      "case_id": "gramony-composition-home-search-spacing",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "source_span_recall": 0.5,
+      "context_token_estimate": 1125,
+      "failed_checks": [
+        "minimum_anchor_precision_met",
+        "minimum_source_span_recall_met"
+      ],
+      "observed_anchor_paths": [
+        "features/home/src/main/ets/pages/Chat/Group/ForumTopicList.ets",
+        "features/home/src/main/ets/views/Chat/ChatDetailTopSearch.ets",
+        "features/home/src/main/ets/views/Chat/ChatList.ets",
+        "features/home/src/main/ets/views/common/HomeTopSearch.ets"
+      ],
+      "missing_expected_anchors": []
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "retrieval_tuned_after_execution": false,
+    "holdout_case_file_modified_after_execution": false
+  },
+  "disposition": {
+    "promotion_allowed": false,
+    "holdout_retained_as_observed": true,
+    "recommended_next_development_theme": "query-conditioned component lineage, exact UI behavior anchors, and source-window alignment"
+  }
+}

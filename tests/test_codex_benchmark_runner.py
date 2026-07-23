@@ -51,16 +51,29 @@ class CodexBenchmarkRunnerTests(unittest.TestCase):
             self.assertEqual("memory", result["variant"])
             self.assertEqual(1, result["trial_index"])
             self.assertEqual(125, result["token_estimate"])
+            self.assertEqual(100, result["model_input_tokens"])
+            self.assertEqual(0, result["model_cached_input_tokens"])
+            self.assertEqual(100, result["model_uncached_input_tokens"])
+            self.assertEqual(25, result["model_output_tokens"])
+            self.assertEqual(1, result["command_count"])
+            self.assertEqual(0, result["command_output_bytes"])
+            self.assertTrue(result["cost_metrics_reported"])
             self.assertEqual("gpt-5.6-sol", result["runner_metadata"]["model"])
             self.assertEqual("low", result["runner_metadata"]["reasoning_effort"])
             self.assertEqual("runner_preloaded", result["runner_metadata"]["memory_delivery"])
             self.assertEqual("isolated_home", result["runner_metadata"]["user_context"])
             self.assertEqual(
-                "anchor_first_gap_driven_v4",
+                "external_metadata_only",
+                result["runner_metadata"]["source_excerpt_delivery"],
+            )
+            self.assertEqual(
+                "anchor_first_deterministic_expansion_v8",
                 result["runner_metadata"]["retrieval_policy"],
             )
-            self.assertEqual(1, result["expansion_rounds"])
-            self.assertEqual(["missing_state_owner"], result["expansion_reason_codes"])
+            self.assertEqual(0, result["expansion_rounds"])
+            self.assertEqual(0, result["expansion_file_count"])
+            self.assertEqual("runner_investigated_files", result["expansion_accounting_source"])
+            self.assertEqual([], result["expansion_reason_codes"])
             self.assertEqual("supported_cause_found", result["stop_reason"])
             self.assertEqual("direct_source_mechanism", result["evidence_basis"])
             self.assertEqual(
@@ -70,7 +83,7 @@ class CodexBenchmarkRunnerTests(unittest.TestCase):
             self.assertEqual([], result["supporting_files"])
             self.assertEqual(1, result["source_search_count"])
             self.assertEqual("runner_telemetry", result["source_search_count_source"])
-            self.assertEqual(1, result["non_anchor_file_count"])
+            self.assertEqual(0, result["non_anchor_file_count"])
             self.assertGreater(result["memory_context_bytes"], 0)
             self.assertGreater(result["memory_context_token_estimate"], 0)
             self.assertGreaterEqual(result["elapsed_ms"], 0)
@@ -85,20 +98,46 @@ class CodexBenchmarkRunnerTests(unittest.TestCase):
         self.assertIn("Profile route context.", prompt)
         self.assertIn("queried once by the benchmark runner", prompt)
         self.assertIn("Treat its output only as context", prompt)
-        self.assertIn("role=primary first", prompt)
-        self.assertIn("without naming one allowed expansion reason", prompt)
+        self.assertIn("TRIAGE -> GAP -> VERIFY -> STOP", prompt)
+        self.assertIn("SEARCH LEDGER", prompt)
+        self.assertIn("searches_used", prompt)
+        self.assertIn("READ PLAN", prompt)
+        self.assertIn("one additional window", prompt)
+        self.assertIn("including pipelines and compound commands", prompt)
+        self.assertIn("Known anchor paths must be read directly, not searched", prompt)
+        self.assertIn("highest-ranked role=primary anchor first", prompt)
+        self.assertIn("Do not open every anchor by default", prompt)
+        self.assertIn("Name exactly one allowed gap", prompt)
         self.assertIn("at most 3 source-search invocations", prompt)
         self.assertIn("7 total investigated source files", prompt)
-        self.assertIn("Every source file actually opened", prompt)
-        self.assertIn("must appear exactly once in expansion_trace", prompt)
-        self.assertIn("Stop with supported_cause_found", prompt)
+        self.assertIn("one source-read command per file", prompt)
+        self.assertIn("Without a window, read at most 180 lines", prompt)
+        self.assertIn("source_ranges are targets, not separate reads", prompt)
+        self.assertIn("Once sufficient evidence exists, run no more source search or read", prompt)
         self.assertIn("concrete operation, branch, state transition, boundary, or API misuse", prompt)
         self.assertIn("inference_only", prompt)
         self.assertIn("parallel in-flight requests", prompt)
         self.assertIn("Use media for WebM", prompt)
         self.assertIn("Use api only when", prompt)
         self.assertIn("expansion_trace", prompt)
+        self.assertIn("Runner derives expansion accounting", prompt)
         self.assertIn("Report source_search_count", prompt)
+
+    def test_memory_evidence_protocol_is_compact_and_memory_only(self) -> None:
+        module = load_runner_module()
+        request = benchmark_request(Path("/workspace"))
+        baseline = module.build_prompt(request)
+        memory = module.build_prompt(
+            request,
+            {"query_handoff": {"source_exploration": {"limits": {}}}},
+        )
+
+        self.assertNotIn("TRIAGE -> GAP -> VERIFY -> STOP", baseline)
+        self.assertEqual(1, memory.count("TRIAGE -> GAP -> VERIFY -> STOP"))
+        self.assertEqual(1, memory.count("SEARCH LEDGER"))
+        self.assertEqual(1, memory.count("READ PLAN"))
+        self.assertNotIn("read_paths", memory)
+        self.assertLessEqual(len(memory) - len(baseline), 1850)
 
     def test_memory_query_failure_stops_the_runner(self) -> None:
         module = load_runner_module()
@@ -148,6 +187,9 @@ class CodexBenchmarkRunnerTests(unittest.TestCase):
                 "memory_anchor_hit_count": 1,
                 "primary_anchor_hit_count": 1,
                 "non_anchor_file_count": 1,
+                "expansion_file_count": 1,
+                "expansion_rounds": 1,
+                "expansion_accounting_source": "runner_investigated_files",
             },
             module.execution_metrics(result, context),
         )
@@ -188,6 +230,69 @@ class CodexBenchmarkRunnerTests(unittest.TestCase):
                 {"source_search_count": 2},
             ),
         )
+
+    def test_source_search_count_reports_runner_zero_for_completed_toolless_turn(self) -> None:
+        module = load_runner_module()
+        events = json.dumps({
+            "type": "turn.completed",
+            "usage": {"input_tokens": 10, "output_tokens": 2},
+        })
+
+        self.assertEqual(
+            {"source_search_count": 0, "source_search_count_source": "runner_telemetry"},
+            module.source_search_metrics(events, {"source_search_count": 9}),
+        )
+
+    def test_cost_metrics_aggregate_usage_and_command_sizes_without_content(self) -> None:
+        module = load_runner_module()
+        events = "\n".join([
+            json.dumps({
+                "type": "item.completed",
+                "item": {
+                    "id": "search",
+                    "type": "command_execution",
+                    "command": "rg -n Login src",
+                    "aggregated_output": "abc",
+                    "exit_code": 1,
+                },
+            }),
+            json.dumps({
+                "type": "item.completed",
+                "item": {
+                    "id": "read",
+                    "type": "command_execution",
+                    "command": "sed -n '1,80p' src/Login.ets",
+                    "aggregated_output": "hello",
+                    "exit_code": 2,
+                },
+            }),
+            json.dumps({
+                "type": "turn.completed",
+                "usage": {
+                    "input_tokens": 100,
+                    "cached_input_tokens": 40,
+                    "output_tokens": 25,
+                    "output_tokens_details": {"reasoning_tokens": 5},
+                },
+            }),
+        ])
+
+        metrics = module.codex_cost_metrics(events)
+
+        self.assertEqual(125, metrics["token_estimate"])
+        self.assertEqual(40, metrics["model_cached_input_tokens"])
+        self.assertEqual(60, metrics["model_uncached_input_tokens"])
+        self.assertEqual(5, metrics["model_reasoning_tokens"])
+        self.assertEqual(2, metrics["command_count"])
+        self.assertEqual(8, metrics["command_output_bytes"])
+        self.assertEqual(1, metrics["source_read_count"])
+        self.assertEqual(5, metrics["source_read_output_bytes"])
+        self.assertEqual(1, metrics["tool_error_count"])
+        self.assertEqual(1, metrics["source_search_miss_count"])
+        self.assertEqual(0, metrics["source_search_error_count"])
+        self.assertEqual(1, metrics["source_read_error_count"])
+        self.assertEqual(0, metrics["other_tool_error_count"])
+        self.assertNotIn("hello", json.dumps(metrics))
 
     def test_source_exploration_contract_and_gate(self) -> None:
         contract = exploration_contract()
@@ -294,6 +399,8 @@ import json
 import sys
 from pathlib import Path
 
+prompt = sys.stdin.read()
+assert "external-secret-source-body" not in prompt
 args = sys.argv[1:]
 output = Path(args[args.index("--output-last-message") + 1])
 result = {
@@ -308,9 +415,7 @@ result = {
     "verification_status": "unknown",
     "query_rounds": 1,
     "source_search_count": 1,
-    "expansion_trace": [
-        {"reason": "missing_state_owner", "files": ["features/home/src/main/ets/pages/ProfilePage.ets"]}
-    ],
+    "expansion_trace": [],
     "stop_reason": "supported_cause_found",
     "evidence_basis": "direct_source_mechanism",
     "mechanism_evidence_files": ["features/home/src/main/ets/pages/ProfilePage.ets"],
@@ -337,5 +442,22 @@ import json
 import sys
 
 assert sys.argv[1] == "Profile does not load."
-print(json.dumps({"summary": "Profile route context."}))
+print(json.dumps({
+    "summary": "Profile route context.",
+    "query_handoff": {
+        "source_excerpt_policy": {"source": "current_worktree"},
+        "code_anchors": [{
+            "file_path": "features/home/src/main/ets/pages/ProfilePage.ets",
+            "role": "primary",
+            "source_excerpts": [{
+                "symbol": "ProfilePage",
+                "start_line": 1,
+                "end_line": 2,
+                "content": "external-secret-source-body",
+                "source": "current_worktree",
+                "truncated": False
+            }]
+        }]
+    }
+}))
 """

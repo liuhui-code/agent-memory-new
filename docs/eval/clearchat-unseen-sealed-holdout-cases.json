@@ -1,0 +1,280 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/ClearChat",
+  "source_repository": "https://github.com/pixelonetx/ClearChat.git",
+  "source_branch": "main",
+  "source_head_reviewed": "9a5034348b9d92ad5b0b729fecf683692a9e866a",
+  "generated_at": "2026-07-19T09:45:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "clearchat-cache-oldest-eviction",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A full search cache sometimes remains above its entry limit because the oldest item scan selects no key. Locate cache eviction ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "344c79dcdbe764ee969bc153250bbe4aee486448",
+        "after_revision": "de3a1b4d9b11bfb0d68cb72ca4621a7323cd7e10",
+        "changed_files": [
+          "entry/src/main/ets/services/search/SearchCache.ets"
+        ],
+        "test_files": [
+          "entry/src/test/LocalUnit.test.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "de3a1b4d9b11bfb0d68cb72ca4621a7323cd7e10",
+        "commit_message": "fix: migrate deprecated getContext, expand tests & fix cache eviction"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/services/search/SearchCache.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/services/search/SearchConfigManager.ets",
+          "entry/src/main/ets/pages/SearchServices.ets"
+        ],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/services/search/SearchCache.ets",
+              "start_line": 165,
+              "end_line": 181
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": [
+          "entry/src/test/LocalUnit.test.ets"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Fill the cache with equal-time entries and verify adding one entry always evicts exactly one oldest candidate."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "clearchat-stream-checkpoint-serialization",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A streaming response checkpoint can finish after the final save and overwrite the completed message with older content. Locate incremental and final persistence coordination.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "80bbfca6ae9add8035961c2acba8e56dedcdd7dd",
+        "after_revision": "9a5034348b9d92ad5b0b729fecf683692a9e866a",
+        "changed_files": [
+          "entry/src/main/ets/services/ChatStreamingService.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "9a5034348b9d92ad5b0b729fecf683692a9e866a",
+        "commit_message": "fix: resolve some blockers (WebView security, log leakage, init race, DB race, dark mode)"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/services/ChatStreamingService.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/Chat.ets",
+          "entry/src/main/ets/services/DatabaseManager.ets"
+        ],
+        "root_cause_category": "concurrency",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/services/ChatStreamingService.ets",
+              "start_line": 306,
+              "end_line": 327
+            },
+            {
+              "file_path": "entry/src/main/ets/services/ChatStreamingService.ets",
+              "start_line": 363,
+              "end_line": 374
+            }
+          ],
+          "min_source_span_recall": 0.5
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Complete a stream while a checkpoint write is delayed and verify final content cannot be overwritten by the older checkpoint."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "clearchat-initialization-timeout-cancellation",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After application initialization times out, background initialization continues and can later mark the page ready or open setup UI. Locate timeout and initialization state ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "80bbfca6ae9add8035961c2acba8e56dedcdd7dd",
+        "after_revision": "9a5034348b9d92ad5b0b729fecf683692a9e866a",
+        "changed_files": [
+          "entry/src/main/ets/pages/Chat.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "9a5034348b9d92ad5b0b729fecf683692a9e866a",
+        "commit_message": "fix: resolve some blockers (WebView security, log leakage, init race, DB race, dark mode)"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Chat.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets",
+          "entry/src/main/ets/services/DatabaseManager.ets"
+        ],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Chat.ets",
+              "start_line": 941,
+              "end_line": 955
+            },
+            {
+              "file_path": "entry/src/main/ets/pages/Chat.ets",
+              "start_line": 957,
+              "end_line": 989
+            }
+          ],
+          "min_source_span_recall": 0.5
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Force initialization past the timeout and verify no late task marks the page initialized or opens setup state."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "clearchat-webview-dangerous-scheme",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The in-app browser allows file and script URL schemes to load with file access enabled. Locate WebView navigation interception and access policy ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "80bbfca6ae9add8035961c2acba8e56dedcdd7dd",
+        "after_revision": "9a5034348b9d92ad5b0b729fecf683692a9e866a",
+        "changed_files": [
+          "entry/src/main/ets/components/utils/WebViewBrowser.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "9a5034348b9d92ad5b0b729fecf683692a9e866a",
+        "commit_message": "fix: resolve some blockers (WebView security, log leakage, init race, DB race, dark mode)"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/utils/WebViewBrowser.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/services/BrowserHelper.ets",
+          "entry/src/main/module.json5"
+        ],
+        "root_cause_category": "security",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/components/utils/WebViewBrowser.ets",
+              "start_line": 135,
+              "end_line": 165
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Navigate to javascript, data, file, and vbscript URLs and verify the WebView blocks each while normal HTTPS navigation remains available."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "require_seal": true
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-19T09:50:11+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 4,
+    "digest": "970f82133fc794cd0c542ccfb7f8f239830feb517f3df2871aa4be4b9645047c"
+  }
+}

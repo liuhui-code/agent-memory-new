@@ -1,0 +1,99 @@
+{
+  "schema_version": "agent-context-capability-observation-summary/v1",
+  "case_file": "docs/eval/ccplayer-unseen-sealed-holdout-cases.json",
+  "case_seal_digest": "1366b6a17fbeee8d2b38865b34252a6cec7f57d71991dc8e49f87fa3f7b7f7a5",
+  "source_repository": "https://github.com/seagazer/ccplayer.git",
+  "recorded_at": "2026-07-19T10:59:56+00:00",
+  "immutable_observation": true,
+  "audit_notes": [
+    "Each case was prepared from its audited full before revision and the sealed pack was executed exactly once."
+  ],
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 4,
+    "passed_case_count": 1,
+    "failed_case_count": 3,
+    "anchor_recall": 0.5,
+    "primary_anchor_recall": 0.25,
+    "oracle_anchor_precision": 0.3125,
+    "expected_anchor_mrr": 0.3125,
+    "source_excerpt_recall": 0.25,
+    "source_span_recall": 0.125,
+    "average_context_tokens": 1136.5,
+    "average_memory_prepare_ms": 5104.25,
+    "average_query_elapsed_ms": 1339.5
+  },
+  "failure_analysis": {
+    "primary_failure_class": "ranking_precision",
+    "root_failure_class": "mixed_candidate_generation_ranking_and_passage_selection",
+    "failure_class_counts": {
+      "candidate_generation": 2,
+      "passage_selection": 6,
+      "ranking_precision": 7
+    },
+    "interpretation": "Surface render coordination passes with one of two audited regions. Repeated session release recalls its owner only as a late expansion and returns no owner excerpt. First-failure source replacement and prepared-state control eligibility do not recall their implementation owner. Compactness remains within budget."
+  },
+  "cases": [
+    {
+      "case_id": "ccplayer-avsession-double-release",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "expected_anchor_mrr": 0.25,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/CcPlayerViewSample.ets",
+        "lib/src/main/ets/core/AvSessionManager.ets",
+        "lib/src/main/ets/core/impl/AvPlayerImpl.ets",
+        "lib/src/main/ets/view/CcPlayerViewV2.ets"
+      ]
+    },
+    {
+      "case_id": "ccplayer-surface-render-callback-order",
+      "status": "pass",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 0.5,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "lib/src/main/ets/widget/CcPlayerView.ets"
+      ]
+    },
+    {
+      "case_id": "ccplayer-first-failure-source-reset",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "lib_core/src/main/ets/core/impl/AvPlayerImpl.ets"
+      ],
+      "observed_anchor_paths": [
+        "lib_base/src/main/ets/base/MediaLogger.ets",
+        "lib_base/src/main/ets/base/source/MediaSource.ets",
+        "lib_base/src/main/ets/base/source/MediaSourceFactory.ets",
+        "lib_core/src/main/ets/overlay/CcLoadingOverlay.ets"
+      ]
+    },
+    {
+      "case_id": "ccplayer-prepared-control-state",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "lib_core/src/main/ets/core/impl/AvPlayerImpl.ets"
+      ],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/CustomControlOverlay.ets",
+        "lib_base/src/main/ets/base/MediaLogger.ets",
+        "lib_core/src/main/ets/view/CcPlayerView.ets"
+      ]
+    }
+  ],
+  "policy": "Do not rerun or modify this sealed pack for tuning. Reproduce idempotent resource cleanup ownership, source-replacement lifecycle state, prepared-state command eligibility, and implementation-over-sample ranking in independent fixtures, then validate only on a new sealed pack."
+}

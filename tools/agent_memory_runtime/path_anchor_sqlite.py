@@ -6,7 +6,7 @@ import re
 
 from .models import Project, QUERY_FTS_RECALL_LIMITS
 from .path_context_models import AnchorResolution, LogAnchorMatch
-from .query_collect import recall_candidate_ids
+from .query_candidate_recall import recall_candidate_ids
 from .storage import connect
 from .text import tokenize, unique_list
 

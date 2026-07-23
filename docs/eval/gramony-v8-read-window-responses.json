@@ -1,0 +1,166 @@
+{
+  "schema_version": "agent-benchmark-responses/v1",
+  "generated_at": "2026-07-18T01:59:53+00:00",
+  "observations": [
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-webm-local-file-access",
+      "variant": "baseline",
+      "trial_index": 1,
+      "root_cause_category": "media",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "supporting_files": [
+        "common/base/src/main/ets/constants/BaseConstants.ets",
+        "features/home/src/main/ets/entities/Message.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets",
+        "common/base/src/main/ets/constants/BaseConstants.ets",
+        "features/home/src/main/ets/entities/Message.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 3,
+      "source_search_count": 4,
+      "expansion_trace": [
+        {
+          "reason": "missing_resource_owner",
+          "files": [
+            "common/base/src/main/ets/constants/BaseConstants.ets"
+          ]
+        },
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "features/home/src/main/ets/entities/Message.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "token_estimate": 183338,
+      "elapsed_ms": 57069,
+      "summary": "WebM sticker rendering is owned by MessageBubble. The file is downloaded to the local downloads path, but the Web component loads raw Base64 as audio/webm and the generated HTML path is unused and contains no video source. This also violates the large-video Base64 constraint; repair should stream or expose the local WebM to ArkWeb as a media resource instead of loading the whole file as Base64.",
+      "expansion_rounds": 2,
+      "expansion_reason_codes": [
+        "missing_resource_owner",
+        "missing_state_owner"
+      ],
+      "model_input_tokens": 181491,
+      "model_cached_input_tokens": 146688,
+      "model_uncached_input_tokens": 34803,
+      "model_output_tokens": 1847,
+      "model_reasoning_tokens": 519,
+      "usage_metrics_reported": true,
+      "command_count": 9,
+      "command_output_bytes": 149529,
+      "source_read_count": 5,
+      "source_read_output_bytes": 15921,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 3,
+      "expansion_file_count": 3,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-webm-local-file-access",
+      "variant": "memory",
+      "trial_index": 1,
+      "root_cause_category": "media",
+      "predicted_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "supporting_files": [
+        "features/home/src/main/ets/entities/Message.ets"
+      ],
+      "investigated_files": [
+        "features/home/src/main/ets/entities/Message.ets",
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_trace": [],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "features/home/src/main/ets/views/Message/MessageBubble.ets"
+      ],
+      "token_estimate": 143715,
+      "elapsed_ms": 64720,
+      "summary": "WebM stickers are detected and loaded from local .webm files, but MessageBubble converts the file to a Base64 string and then calls WebviewController.loadData with the raw Base64 as audio/webm. The generated HTML renderer is not used, and the Web component is never given a video element or file/data URL it can render. This also violates the constraint by reading the whole WebM into memory for Base64 conversion.",
+      "expansion_rounds": 0,
+      "expansion_reason_codes": [],
+      "model_input_tokens": 142188,
+      "model_cached_input_tokens": 127360,
+      "model_uncached_input_tokens": 14828,
+      "model_output_tokens": 1527,
+      "model_reasoning_tokens": 292,
+      "usage_metrics_reported": true,
+      "command_count": 9,
+      "command_output_bytes": 24017,
+      "source_read_count": 6,
+      "source_read_output_bytes": 20750,
+      "tool_error_count": 2,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 2,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 2115,
+      "memory_context_token_estimate": 529,
+      "source_file_count": 2,
+      "memory_anchor_hit_count": 2,
+      "primary_anchor_hit_count": 2,
+      "non_anchor_file_count": 0,
+      "expansion_file_count": 0,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true
+    }
+  ]
+}

@@ -10,6 +10,8 @@ from typing import Any
 from .agent_benchmark_cases import eligible_cases, load_case_pack
 from .agent_benchmark_eval import evaluate_agent_benchmark
 from .agent_benchmark_protocol import RESPONSES_SCHEMA, load_observations, run_benchmark_agent
+from .benchmark_case_seal import case_pack_seal_audit
+from .benchmark_failure_analysis import analyze_agent_failures
 from .records import output
 from .storage import ensure_initialized, now_iso, resolve_project
 
@@ -46,6 +48,8 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
     selected_ids = {case["id"] for case in cases}
     observations = [item for item in observations if item["case_id"] in selected_ids]
     result = evaluate_agent_benchmark(pack, cases, observations)
+    result["failure_analysis"] = analyze_agent_failures(result)
+    result["case_seal"] = case_pack_seal_audit(pack)
     result.update({
         "project_id": project.project_id,
         "project_path": str(project.root),
@@ -63,6 +67,8 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
     persist_benchmark_result(project, result)
     output(result, args.json)
     if args.fail_on_fail and result["quality_gate"] == "fail":
+        raise SystemExit(1)
+    if args.fail_on_efficiency_fail and result["efficiency_gate"] == "fail":
         raise SystemExit(1)
 
 
@@ -136,10 +142,12 @@ def persist_benchmark_result(project: Any, result: dict[str, Any]) -> None:
     compact = {
         key: result.get(key)
         for key in (
-            "schema_version", "status", "quality_gate", "summary", "metrics",
+            "schema_version", "status", "quality_gate", "efficiency_gate",
+            "promotion_gate", "summary", "metrics", "efficiency_metrics",
+            "efficiency_gate_checks", "efficiency_limits",
             "context_uplift", "gate_checks", "case_file", "runner_mode",
             "selected_case_ids", "runner_configuration",
-            "requested_trials",
+            "requested_trials", "failure_analysis", "case_seal",
         )
     }
     compact["recorded_at"] = now_iso()

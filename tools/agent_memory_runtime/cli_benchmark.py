@@ -10,6 +10,13 @@ def add_benchmark_parsers(
     add_project: Callable[[Any], None],
     command: Callable[[str], Any],
 ) -> None:
+    scale = sub.add_parser("eval-scale")
+    add_project(scale)
+    scale.add_argument("--profile", choices=["ci", "million"], default="ci")
+    scale.add_argument("--fail-on-slo", action="store_true")
+    scale.add_argument("--json", action="store_true")
+    scale.set_defaults(func=command("eval_scale_command"))
+
     history = sub.add_parser("eval-harvest-history")
     add_project(history)
     history.add_argument("--source")
@@ -20,6 +27,15 @@ def add_benchmark_parsers(
     history.add_argument("--force", action="store_true")
     history.add_argument("--json", action="store_true")
     history.set_defaults(func=command("eval_harvest_history_command"))
+
+    seal = sub.add_parser("eval-seal-cases")
+    add_project(seal)
+    seal.add_argument("--cases", required=True)
+    seal.add_argument("--target", required=True)
+    seal.add_argument("--source")
+    seal.add_argument("--force", action="store_true")
+    seal.add_argument("--json", action="store_true")
+    seal.set_defaults(func=command("eval_seal_cases_command"))
 
     mutate = sub.add_parser("eval-mutate-arkts")
     add_project(mutate)
@@ -48,5 +64,18 @@ def add_benchmark_parsers(
     evaluate.add_argument("--output-responses")
     evaluate.add_argument("--allow-drafts", action="store_true")
     evaluate.add_argument("--fail-on-fail", action="store_true")
+    evaluate.add_argument("--fail-on-efficiency-fail", action="store_true")
     evaluate.add_argument("--json", action="store_true")
     evaluate.set_defaults(func=command("eval_agent_benchmark_command"))
+
+    context = sub.add_parser("eval-context-capability")
+    add_project(context)
+    context.add_argument("--cases", required=True)
+    context.add_argument("--source")
+    context.add_argument("--runner-timeout", type=int, default=300)
+    context.add_argument("--limit", type=int)
+    context.add_argument("--case-id", action="append", default=[])
+    context.add_argument("--allow-drafts", action="store_true")
+    context.add_argument("--fail-on-fail", action="store_true")
+    context.add_argument("--json", action="store_true")
+    context.set_defaults(func=command("eval_context_capability_command"))

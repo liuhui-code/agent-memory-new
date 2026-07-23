@@ -1,0 +1,283 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/Wake-HarmonyOS",
+  "source_repository": "https://github.com/azhuge233/Wake-HarmonyOS.git",
+  "source_branch": "master",
+  "source_head_reviewed": "e356da80a93ad06996954126e214f4f34bf20c93",
+  "generated_at": "2026-07-20T07:32:12Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "wake-import-return-stale-device-list",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After importing a replacement device list from the More page, returning to the home page still shows the old devices until the app is restarted. Locate the import completion and navigation-return ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "bca30861bb97bd79d771e4598ce8e6877f3665b8",
+        "after_revision": "52e2dc07e6a952c3eb49f228b3e0de01f228aade",
+        "changed_files": [
+          "entry/src/main/ets/pages/Index.ets",
+          "entry/src/main/ets/pages/More.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "52e2dc07e6a952c3eb49f228b3e0de01f228aade",
+        "commit_message": "Fix home list not updating after importing devices."
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/More.ets",
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/AddMachine.ets",
+          "entry/src/main/ets/viewmodel/DeviceListViewModel.ets"
+        ],
+        "root_cause_category": "navigation_state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/More.ets",
+              "start_line": 183,
+              "end_line": 194
+            },
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 181,
+              "end_line": 197
+            }
+          ],
+          "min_source_span_recall": 0.5
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Import a different device set, return from More, and verify that the home list reloads only after the import has completed."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wake-import-action-runs-export",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Choosing Import in the More page opens the export workflow instead of selecting a backup to restore. Locate the command dispatch owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "4d0f3e5938ea3a1d2f557d883900f530568db3b1",
+        "after_revision": "6a1e71b6e061aa92e44e8ee917216ac7de356673",
+        "changed_files": [
+          "entry/src/main/ets/pages/More.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "6a1e71b6e061aa92e44e8ee917216ac7de356673",
+        "commit_message": "Fix import"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/More.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/Index.ets",
+          "entry/src/main/ets/viewmodel/DeviceListViewModel.ets"
+        ],
+        "root_cause_category": "command_dispatch",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/More.ets",
+              "start_line": 45,
+              "end_line": 60
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Invoke Import while idle and verify that it enters the restore picker rather than the export file creation path."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wake-edit-advanced-arrow-state",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The advanced-settings chevron points in the opposite direction on the device Edit page compared with the Add page for the same expanded state. Locate the Edit-page visual state owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "f820ff3aa31b9c7c89bb52d3ae0fe90aa08d2a20",
+        "after_revision": "f62323569431d11d9914842f32a4c1994a2e3f7b",
+        "changed_files": [
+          "entry/src/main/ets/pages/Edit.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "f62323569431d11d9914842f32a4c1994a2e3f7b",
+        "commit_message": "Fix inconsistent arrow between edit and add pages"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Edit.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/AddMachine.ets",
+          "entry/src/main/ets/common/constants/StyleConstants.ets"
+        ],
+        "root_cause_category": "ui_state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Edit.ets",
+              "start_line": 113,
+              "end_line": 148
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Toggle advanced settings on Add and Edit pages and verify that the same collapsed or expanded state uses the same chevron direction."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wake-packet-failure-message-contract",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "When sending a wake packet fails, the UI displays an unhelpful serialized error value instead of the underlying business error message. Locate the network-to-dialog error contract.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "bbba5589b0df70226eb5b642341770205aa3259d",
+        "after_revision": "2b22de8665a0fb095eae03aea5cae536a79094a8",
+        "changed_files": [
+          "entry/src/main/ets/common/utils/NET.ets",
+          "entry/src/main/ets/pages/Index.ets",
+          "entry/src/main/resources/base/element/string.json",
+          "entry/src/main/resources/en_US/element/string.json",
+          "entry/src/main/resources/zh_CN/element/string.json"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "2b22de8665a0fb095eae03aea5cae536a79094a8",
+        "commit_message": "Improved message display on failed packets."
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/common/utils/NET.ets",
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/view/DeviceTile.ets",
+          "entry/src/main/ets/common/utils/CommonUtils.ets"
+        ],
+        "root_cause_category": "error_contract",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/common/utils/NET.ets",
+              "start_line": 66,
+              "end_line": 81
+            },
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 203,
+              "end_line": 214
+            }
+          ],
+          "min_source_span_recall": 0.5
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Force UDP send to throw a BusinessError and verify that the dialog presents its message while resource-valued no-network failures remain localized."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "require_seal": true
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-20T07:33:47+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 4,
+    "digest": "0ca1a2810280a686a77587c8e98c884c373ffbf6c4e85e17aa9aa08a43612873"
+  }
+}

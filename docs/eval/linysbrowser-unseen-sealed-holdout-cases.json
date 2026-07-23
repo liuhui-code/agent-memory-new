@@ -1,0 +1,203 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/LinysBrowser_NEXT",
+  "source_repository": "https://github.com/awaLiny2333/LinysBrowser_NEXT.git",
+  "source_branch": "master",
+  "source_head_reviewed": "6c972bbb22a77a81ec2406a355b18e710edf1864",
+  "source_license": "MIT",
+  "generated_at": "2026-07-20T20:00:05+08:00",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "linysbrowser-location-cancel-dialog-owner",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "When a website requests location and the user taps Cancel, the denial callback runs but the permission modal remains visible. Locate the cancel and dialog-close ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "ff9452b0a04f52466e36cff69ce84fa48a2ddec3",
+        "after_revision": "0fa916ddf8899637afeb1c384e64463ae53a3894",
+        "changed_files": [
+          "home/src/main/ets/dialogs/web/permissions/WoofLocation.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "0fa916ddf8899637afeb1c384e64463ae53a3894",
+        "commit_message": "fix: cannot cancel location requests."
+      },
+      "oracle": {
+        "expected_files": [
+          "home/src/main/ets/dialogs/web/permissions/WoofLocation.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_control",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "home/src/main/ets/dialogs/web/permissions/WoofLocation.ets",
+              "start_line": 26,
+              "end_line": 40
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Trigger a website geolocation request, tap Cancel, and verify the denial callback runs once and the permission modal closes."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "linysbrowser-non-2in1-bottom-avoid",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "On a phone or another non-2-in-1 device with the title bar at the bottom, excessive blank spacing remains below the browser content. Locate the platform-aware bottom avoid calculation.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "16df1bbfac792c586de39095247932e0d1ac5d80",
+        "after_revision": "b83785c3bd6649a671043f2b8f5aaee18aa95c3c",
+        "changed_files": [
+          "home/src/main/ets/blocks/modules/meowAppSettings.ets",
+          "home/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "b83785c3bd6649a671043f2b8f5aaee18aa95c3c",
+        "commit_message": "fix: fix too much spacing on bottom on non-2in1 platforms."
+      },
+      "oracle": {
+        "expected_files": [
+          "home/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [
+          "home/src/main/ets/blocks/modules/meowAppSettings.ets"
+        ],
+        "root_cause_category": "platform_capability",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "home/src/main/ets/pages/Index.ets",
+              "start_line": 312,
+              "end_line": 317
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open the browser with a bottom title bar on a phone and on a 2-in-1 device, then verify the bottom avoid height is correct in normal and fullscreen modes."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "linysbrowser-oversized-webstate-restore",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Restoring an abnormally large saved tab state loads the entire payload instead of rejecting it, creating avoidable memory and crash risk. Locate the saved-state read and restore validation owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "c14d14ec105c5197c6b10451e7c1f68f89ed8da1",
+        "after_revision": "34ccd930a860ee125b4f753814676a4a2298b16a",
+        "changed_files": [
+          "home/src/main/ets/hosts/bunch_of_tabs.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "34ccd930a860ee125b4f753814676a4a2298b16a",
+        "commit_message": "fix: Would now reject restore arrays that are larger than 512 KB."
+      },
+      "oracle": {
+        "expected_files": [
+          "home/src/main/ets/hosts/bunch_of_tabs.ets"
+        ],
+        "forbidden_files": [
+          "home/src/main/ets/utils/storage_tools.ets"
+        ],
+        "root_cause_category": "persistence_contract",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "home/src/main/ets/hosts/bunch_of_tabs.ets",
+              "start_line": 973,
+              "end_line": 1000
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Restore a normal saved tab state and an oversized state payload, then verify only the bounded payload reaches WebView restoration."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "require_seal": true
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-20T12:02:23+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "7b337f701b4545df9abec518af691936dee2264510cc799e6342791b41826ea3"
+  }
+}

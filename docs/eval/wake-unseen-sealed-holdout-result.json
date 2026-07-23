@@ -1,0 +1,102 @@
+{
+  "schema_version": "agent-context-capability-observation-summary/v1",
+  "case_file": "docs/eval/wake-unseen-sealed-holdout-cases.json",
+  "case_seal_digest": "0ca1a2810280a686a77587c8e98c884c373ffbf6c4e85e17aa9aa08a43612873",
+  "source_repository": "https://github.com/azhuge233/Wake-HarmonyOS.git",
+  "recorded_at": "2026-07-20T07:34:21+00:00",
+  "immutable_observation": true,
+  "audit_notes": [
+    "Each case was prepared from its audited full before revision and the sealed pack was executed exactly once."
+  ],
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 4,
+    "passed_case_count": 1,
+    "failed_case_count": 3,
+    "anchor_recall": 0.75,
+    "primary_anchor_recall": 0.75,
+    "oracle_anchor_precision": 0.2708,
+    "expected_anchor_mrr": 0.5833,
+    "source_excerpt_recall": 0.75,
+    "source_span_recall": 0.375,
+    "average_context_tokens": 1260.25,
+    "average_memory_prepare_ms": 1507.5,
+    "average_query_elapsed_ms": 532.5
+  },
+  "failure_analysis": {
+    "primary_failure_class": "ranking_precision",
+    "root_failure_class": "mixed_candidate_generation_ranking_and_passage_selection",
+    "failure_class_counts": {
+      "candidate_generation": 1,
+      "passage_selection": 3,
+      "ranking_precision": 5
+    },
+    "interpretation": "The cross-page import completion and return chain passes. Direct command dispatch is recalled with excess neighboring infrastructure. Visual state ownership is recalled too late and its audited method window is missed. The network-to-UI error contract misses both implementation owners. Compactness remains within budget."
+  },
+  "cases": [
+    {
+      "case_id": "wake-import-return-stale-device-list",
+      "status": "pass",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 0.5,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/Index.ets",
+        "entry/src/main/ets/pages/More.ets",
+        "entry/src/main/ets/view/MoreMenuItem.ets",
+        "entry/src/ohosTest/ets/test/List.test.ets"
+      ]
+    },
+    {
+      "case_id": "wake-import-action-runs-export",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 1.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/entrybackupability/EntryBackupAbility.ets",
+        "entry/src/main/ets/pages/More.ets",
+        "entry/src/main/ets/view/MoreMenuItem.ets"
+      ]
+    },
+    {
+      "case_id": "wake-edit-advanced-arrow-state",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "expected_anchor_mrr": 0.3333,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/common/utils/AppSettingsManager.ets",
+        "entry/src/main/ets/pages/AddDevice.ets",
+        "entry/src/main/ets/pages/ColorModeSettings.ets",
+        "entry/src/main/ets/pages/Edit.ets"
+      ]
+    },
+    {
+      "case_id": "wake-packet-failure-message-contract",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "entry/src/main/ets/common/utils/NET.ets",
+        "entry/src/main/ets/pages/Index.ets"
+      ],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/common/utils/Logger.ets",
+        "entry/src/main/ets/wakewidget/pages/WakeWidgetCard.ets",
+        "entry/src/main/ets/wakewidget/wakeformability/WakeFormAbility.ets",
+        "entry/src/main/ets/wakewidget/wakewidgetentryability/WakeWidgetEntryAbility.ets"
+      ]
+    }
+  ],
+  "agent_ab_eligibility": "blocked_by_context_gate",
+  "policy": "Do not rerun or modify this sealed pack for tuning. Reproduce command-owner precision, visual-state method passage focus, and network-to-UI error-contract candidate recall in independent fixtures, then validate only on a new sealed pack."
+}

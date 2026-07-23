@@ -14,9 +14,10 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `episodes`: task history and outcome summaries.
 - `semantic_facts`: durable facts, preferences, and project knowledge.
 - `reflections`: lessons, mistakes, and future rules.
-- `code_files`: lightweight file-level wiki index.
+- `code_files`: lightweight file-level wiki index. ArkTS summaries may include at most 12 source-ordered chained operation names for lexical behavior lookup; operation arguments and source bodies are not stored.
 - `code_symbols`: lightweight symbol-level wiki index.
 - `code_log_statements`: log, print, and console statements extracted from learned source files.
+- `code_passages`: rebuildable file, symbol, and callable retrieval passages derived from current code rows.
 - `memory_edges`: lightweight relation edges between learned files, symbols, and log statements.
 - `graph_runtime_state`: graph revision used to invalidate runtime graph-quality snapshots.
 - `impact_feedback`: compact change/test outcome summaries used to improve later test recommendations.
@@ -33,7 +34,7 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `business_summary`: concise business meaning of the file, method, field, route, resource, or log.
 - `business_terms`: JSON array of searchable business terms grounded in code names, fields, routes, resources, logs, or UI wording.
 
-FTS5 tables are generated search indexes maintained incrementally by SQLite triggers. Their schema version is stored in `runtime_schema_versions`; they are rebuilt only on first creation, version migration, or explicit `maintain-rebuild-derived --target search`. They are not a second source of truth.
+FTS5 tables are generated search indexes maintained incrementally by SQLite triggers. Their schema version is stored in `runtime_schema_versions`; they are rebuilt only on first creation, version migration, or explicit `maintain-rebuild-derived --target search`. `code_passage_fts` indexes the derived `code_passages` fields. Neither table is a second source of truth.
 
 `memory_edges` are generated from current code rows and source files. `maintain-rebuild-derived --target graph` may replace these derived rows while preserving code business fields and durable memory tables. Its graph audit reports relation counts, edges per node, and dominant-relation share so accidental edge amplification can be detected before the graph is trusted.
 
@@ -146,8 +147,68 @@ signal is not hidden by unrelated recent events.
 - `file_snapshot`: JSON map of `file_path -> content_hash` from the last refresh.
 - `file_count`: number of indexed files in that snapshot.
 - `status`: currently `active`.
+- `baseline_revision`: Git commit used by the next Scope-filtered net comparison.
+- `last_checked_revision`: Git HEAD observed by the latest refresh attempt.
+- `change_provider`: latest provider, such as `git/v1`, `snapshot/v1`, or `full-scan/v1`.
+- `refresh_state`: `current`, `overflow`, or `boundary_drift`; overflow retains
+  the prior baseline, while boundary drift marks an observed external change.
 - `last_refresh_summary`: JSON summary of added, changed, removed, and semantic drift targets.
 - `last_refreshed_at`: last successful scope refresh timestamp.
+
+`code_index_state` stores the active source-derived index generation per project:
+
+- `generation`: monotonically increasing generation activated by a successful scoped index transaction.
+- `source_revision`: Git revision when available, otherwise `unversioned`.
+- `extractor_version`: source-derived row producer version.
+- `status`: currently `active` after transaction commit.
+- `indexed_file_count` and `retired_file_count`: scope-level write summary.
+- `updated_at`: activation timestamp.
+
+`code_files`, `code_symbols`, and `code_log_statements` carry nullable `source_digest` and `index_generation`. New rows use the SHA-256 digest of the indexed file and the generation active for that write. Nullable fields preserve old archives; query reports those legacy rows as `unverified` until a focused scope refresh stamps them.
+
+`code_symbols.method_evidence` stores at most 36 normalized callable-body terms,
+and `string_evidence` stores at most 24 normalized string literal or key terms.
+`mechanism_evidence` stores a bounded JSON list of language-neutral mechanism
+records. Each record has a source symbol, kind, normalized terms, source line,
+confidence, evidence class, and compact detail. Supported kinds are `operation`,
+`guard`, `resource_bound`, `callback_binding`, `platform_predicate`,
+`persistence_read`, and `persistence_write`. None of these fields stores source
+bodies. Static extraction keeps at most 16 records per callable, and persisted
+mechanism JSON is capped at 4,096 UTF-8 bytes per symbol. `code_passages`
+projects current source-derived rows into independently
+searchable fields:
+
+- `passage_kind`: `file`, `symbol`, or `callable`.
+- `identity_terms`: normalized path, basename, symbol, qualified name, and signature identities.
+- `semantic_terms`: business and structural vocabulary already derived from current code.
+- `body_terms`: bounded callable evidence from `method_evidence`.
+- `string_terms`: bounded literal/key evidence from `string_evidence`.
+- `mechanism_terms`: normalized kinds and terms from `mechanism_evidence`.
+- `source_type` and `source_id`: the source-derived row that owns the passage.
+- `source_digest` and `index_generation`: freshness identity inherited from that source row.
+- `start_line` and `end_line`: optional callable range used for later source selection.
+
+Passage rows are replaced transactionally for a full project or a refreshed file
+scope. They can always be rebuilt from `code_files` and `code_symbols`; they are
+retrieval materialization, not durable memory or Agent-authored semantics.
+An incompatible passage schema is dropped and rebuilt from current source rows;
+durable memory tables are never copied into the passage index.
+
+`scope_boundary_dependencies` records resolved project imports that are outside
+one learned Scope without promoting those files into learned code data:
+
+- `scope_id`, `consumer_path`, and `dependency_path`: the owning Scope and the
+  directed import boundary.
+- `dependency_kind`: currently `import`.
+- `source_digest`: last observed SHA-256 content digest.
+- `surface_digest`: extractor-level digest of sorted symbol shapes; this is not
+  a compiler-exact exported API or ABI signature.
+- `status`: `active` or `missing`.
+- `last_observed_at`, `created_at`, and `updated_at`: audit timestamps.
+
+The unique key is project, Scope, consumer, dependency, and dependency kind.
+The table is maintenance evidence: query surfaces Scope-level boundary drift,
+but no boundary row automatically expands retrieval or durable learned scope.
 
 ## Code Log Statement Network
 
@@ -178,18 +239,21 @@ signal is not hidden by unrelated recent events.
 - `code_file --uses_resource--> code_symbol`
 - `code_file --defines_state--> code_symbol`
 - `code_file --renders_component--> code_symbol`
+- `code_file --passes_property--> code_symbol`
 - `code_file --uses_service--> code_symbol`
 - `code_file --dispatches_event/handles_event--> code_symbol`
 - `code_file --configured_by--> code_file`
 - `code_file --tested_by--> code_file`
 
-The ArkTS edges connect learned pages/components to imported project files, router target pages, `$r(...)` resources, state, component composition, services, events, Ability configuration, and naming-matched tests. Ambiguous symbol targets are skipped. These edges are intentionally lightweight and are not a complete call graph.
+The ArkTS edges connect learned pages/components to imported project files, router target pages, `$r(...)` resources, state, component composition, named component-property bindings, services, events, Ability configuration, and naming-matched tests. Property evidence records only top-level argument names, not values or source bodies. Ambiguous symbol targets are skipped. These edges are intentionally lightweight and are not a complete call graph or data-flow graph.
 
-`code_symbols` also carries nullable `semantic-index/v1` metadata: `symbol_key`, `qualified_name`, `signature`, `start_line`, `end_line`, `semantic_adapter`, `source_digest`, and `evidence_class`. ArkTS and TypeScript adapters may persist symbol-level `calls`, `reads_state`, `writes_state`, `implements`, `extends`, `overrides`, `registers_callback`, `exposes_api`, `consumes_api`, and `awaits` edges. The built-in adapters emit static evidence; exact compiler-derived evidence is reserved for future adapters.
+Known ArkUI Builder calls are excluded from function-symbol extraction without suppressing project-defined uppercase methods. Chained operation names in `code_files.summary` are retrieval metadata only and do not create nodes or relations.
+
+`code_symbols` also carries nullable `semantic-index/v1` metadata: `symbol_key`, `qualified_name`, `signature`, `start_line`, `end_line`, `semantic_adapter`, and `evidence_class`. ArkTS and TypeScript adapters may persist symbol-level `calls`, `reads_state`, `writes_state`, `implements`, `extends`, `overrides`, `registers_callback`, `exposes_api`, `consumes_api`, and `awaits` edges. The built-in adapters emit static evidence; exact compiler-derived evidence is reserved for future adapters.
 
 External provider run metrics are not SQLite memory records. Configured-provider attempts are mirrored to bounded `runtime/semantic_provider_runs.jsonl` operational telemetry with at most 200 compact rows. Raw ASTs, provider stdout, source content, and compiler diagnostics are not persisted.
 
-Query commands do not recursively traverse `memory_edges`. The fast path only returns allowed one-hop relations, currently `contains`, `emits_log`, `imports`, `routes_to`, and `uses_resource`, with hard output limits. Heavier network health checks belong to maintain commands.
+Public query edge output remains one hop and returns only allowed relations with hard output limits. Compact code-anchor ranking may separately walk `renders_component` and `passes_property` backwards for at most two hops and promote at most two source-locatable parents. This bounded navigation does not create a causal path or expose recursive graph output. Heavier network health checks belong to maintain commands.
 
 Each edge also carries governance metadata:
 

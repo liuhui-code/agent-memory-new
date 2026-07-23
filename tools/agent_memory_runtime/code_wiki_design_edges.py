@@ -7,6 +7,7 @@ import sqlite3
 from pathlib import Path
 from typing import Any
 
+from .code_wiki_component_flow import extract_component_property_bindings
 from .models import Project
 
 
@@ -75,6 +76,20 @@ def insert_component_edges(
             insert_edge(
                 conn, project.project_id, "code_file", source_id, "renders_component",
                 "code_symbol", int(target["id"]), f"{source_path} renders {name}", 0.75,
+                timestamp, emitted,
+            )
+    for binding in extract_component_property_bindings(text):
+        targets = [
+            row for row in symbols_by_name.get(binding.component, [])
+            if row["symbol_type"] == "component"
+        ]
+        target = unique_target(targets)
+        if target:
+            properties = ", ".join(binding.properties[:8])
+            insert_edge(
+                conn, project.project_id, "code_file", source_id, "passes_property",
+                "code_symbol", int(target["id"]),
+                f"{source_path} passes {properties} to {binding.component}", 0.85,
                 timestamp, emitted,
             )
 

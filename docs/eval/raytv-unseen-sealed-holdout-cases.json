@@ -1,0 +1,266 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/RayTV",
+  "source_repository": "https://github.com/iswhat/RayTV.git",
+  "source_branch": "master",
+  "source_head_reviewed": "6d003e874ef8b9231ddad16a4858f5fdeb5448da",
+  "generated_at": "2026-07-20T09:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "raytv-search-default-keyword-encoding",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "When no cached search suggestions exist, the default hot-keyword chips display garbled text. Locate the fallback keyword owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "71ad695c735f30803b9e3ae8001a743868babef6",
+        "after_revision": "811a2e9aea7efa8bbf9528fb34f246b7c1137b6c",
+        "changed_files": [
+          "RayTV/raytv/src/main/ets/pages/SearchPage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "811a2e9aea7efa8bbf9528fb34f246b7c1137b6c",
+        "commit_message": "fix"
+      },
+      "oracle": {
+        "expected_files": [
+          "RayTV/raytv/src/main/ets/pages/SearchPage.ets"
+        ],
+        "forbidden_files": [
+          "RayTV/raytv/src/main/ets/service/cache/CacheService.ets",
+          "RayTV/raytv/src/main/ets/pages/SearchResultPage.ets"
+        ],
+        "root_cause_category": "ui_content",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "RayTV/raytv/src/main/ets/pages/SearchPage.ets",
+              "start_line": 211,
+              "end_line": 226
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Clear the hot-keyword cache and verify that every default search chip renders readable localized text."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "raytv-python-http-payload-contract",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A Python spider calling its injected http.get or http.post helper receives the full HTTP response envelope instead of the decoded payload expected by script code. Locate the adapter contract owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "7ae462afa8218d63f7b91764e8db6c688011c746",
+        "after_revision": "85dec00ce484e90b3227af7b4d71dfcc2b412473",
+        "changed_files": [
+          "RayTV/raytv/src/main/ets/service/spider/loader/ArkPyLoader.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "85dec00ce484e90b3227af7b4d71dfcc2b412473",
+        "commit_message": "update"
+      },
+      "oracle": {
+        "expected_files": [
+          "RayTV/raytv/src/main/ets/service/spider/loader/ArkPyLoader.ets"
+        ],
+        "forbidden_files": [
+          "RayTV/raytv/src/main/ets/service/HttpService.ets",
+          "RayTV/raytv/src/main/ets/service/spider/loader/ArkJarLoader.ets"
+        ],
+        "root_cause_category": "adapter_contract",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "RayTV/raytv/src/main/ets/service/spider/loader/ArkPyLoader.ets",
+              "start_line": 397,
+              "end_line": 408
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Run a Python spider against a JSON endpoint and verify that its helper returns response data rather than transport metadata."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "raytv-jar-sandbox-policy-ownership",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "JAR spiders always use a hard-coded sandbox memory limit and never grant trusted sites their configured write and HTTPS permissions. Locate sandbox policy assembly ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "720250b8d5e6ef1c133b2c0a24c3611d3e503c76",
+        "after_revision": "b5b94c451f9808e48e7b0a31a2abcb681e98bdda",
+        "changed_files": [
+          "RayTV/raytv/src/main/ets/service/spider/loader/ArkJarLoader.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "b5b94c451f9808e48e7b0a31a2abcb681e98bdda",
+        "commit_message": "Update ArkJarLoader.ets"
+      },
+      "oracle": {
+        "expected_files": [
+          "RayTV/raytv/src/main/ets/service/spider/loader/ArkJarLoader.ets"
+        ],
+        "forbidden_files": [
+          "RayTV/raytv/src/main/ets/service/config/JarLoaderConfigService.ets",
+          "RayTV/raytv/src/main/ets/service/spider/loader/ArkPyLoader.ets"
+        ],
+        "root_cause_category": "security_policy",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "RayTV/raytv/src/main/ets/service/spider/loader/ArkJarLoader.ets",
+              "start_line": 449,
+              "end_line": 467
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Create trusted and untrusted JAR sites and verify sandbox memory and permissions follow the configured policy."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "raytv-python-method-name-validation",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Python spider calls validate argument values but allow an invalid or unsafe method name to reach execution. Locate the public invocation validation owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "43f74d5950e1e040f1ddf44ba496dea7ed0f3cde",
+        "after_revision": "720250b8d5e6ef1c133b2c0a24c3611d3e503c76",
+        "changed_files": [
+          "RayTV/raytv/src/main/ets/service/spider/loader/ArkPyLoader.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "720250b8d5e6ef1c133b2c0a24c3611d3e503c76",
+        "commit_message": "Update ArkPyLoader.ets"
+      },
+      "oracle": {
+        "expected_files": [
+          "RayTV/raytv/src/main/ets/service/spider/loader/ArkPyLoader.ets"
+        ],
+        "forbidden_files": [
+          "RayTV/raytv/src/main/ets/service/spider/loader/BaseLoader.ets",
+          "RayTV/raytv/src/main/ets/service/spider/loader/ArkJarLoader.ets"
+        ],
+        "root_cause_category": "input_validation",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "RayTV/raytv/src/main/ets/service/spider/loader/ArkPyLoader.ets",
+              "start_line": 296,
+              "end_line": 318
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Call the public Python invocation API with an invalid method name and verify it is rejected before execution."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "require_seal": true
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-20T09:07:33+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 4,
+    "digest": "589240f57caefbf641a803e859a51635dd4dd0080f854bd412aa055c0d198a3f"
+  }
+}

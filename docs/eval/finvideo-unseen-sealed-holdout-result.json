@@ -1,0 +1,95 @@
+{
+  "schema_version": "agent-context-capability-observation-summary/v1",
+  "case_file": "docs/eval/finvideo-unseen-sealed-holdout-cases.json",
+  "case_seal_digest": "8df142f386f2ba8f9ecbb0c9c0674fda541a9e6b7e952bef1794764d0fd7bd3b",
+  "source_repository": "https://github.com/OHPG/FinVideo.git",
+  "recorded_at": "2026-07-18T21:31:00+00:00",
+  "immutable_observation": true,
+  "audit_notes": [
+    "Each case was prepared from its audited full before revision and the sealed pack was executed exactly once."
+  ],
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 4,
+    "passed_case_count": 0,
+    "failed_case_count": 4,
+    "anchor_recall": 0.75,
+    "primary_anchor_recall": 0.75,
+    "oracle_anchor_precision": 0.3958,
+    "expected_anchor_mrr": 0.75,
+    "source_excerpt_recall": 0.75,
+    "source_span_recall": 0.25,
+    "average_context_tokens": 948.5,
+    "average_memory_prepare_ms": 1531.5,
+    "average_query_elapsed_ms": 515.5
+  },
+  "failure_analysis": {
+    "primary_failure_class": "ranking_precision",
+    "root_failure_class": "mixed_candidate_generation_ranking_and_passage_selection",
+    "failure_class_counts": {
+      "candidate_generation": 1,
+      "passage_selection": 4,
+      "ranking_precision": 5
+    },
+    "interpretation": "The empty-touch owner is the only returned file but its nested ArkUI callback window is missed. Window cleanup finds EntryAbility first and the audited span passes, but two lifecycle pages remain. Folder-backed media loading misses MediaListVewModel. PersonPage ranks first but retains generic list, view-model, and test noise and misses the worksSection builder span. Compactness remains within budget."
+  },
+  "cases": [
+    {
+      "case_id": "finvideo-empty-touch-event",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/player/PlayerPage.ets"
+      ]
+    },
+    {
+      "case_id": "finvideo-window-cleanup-timing",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 1.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/ability/entry/EntryAbility.ets",
+        "entry/src/main/ets/pages/home/HomePage.ets",
+        "entry/src/main/ets/pages/home/main/MainComponent.ets"
+      ]
+    },
+    {
+      "case_id": "finvideo-folder-library-empty",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/media/MediaListVewModel.ets"
+      ],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/home/HomePage.ets",
+        "entry/src/main/ets/pages/media/MediaListArgs.ets"
+      ]
+    },
+    {
+      "case_id": "finvideo-person-works-list-clipped",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/common/ListViewModel.ets",
+        "entry/src/main/ets/pages/detail/person/PersonPage.ets",
+        "entry/src/main/ets/pages/detail/person/PersonViewModel.ets",
+        "entry/src/ohosTest/ets/test/List.test.ets"
+      ]
+    }
+  ],
+  "policy": "Do not rerun or modify this sealed pack for tuning. Reproduce nested DSL callback passage focus, conditional data-loading recall, lifecycle precision, and builder-window selection in independent fixtures, then validate only on a new sealed pack."
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": "agent-context-capability-observation-summary/v1",
+  "case_file": "docs/eval/flamechase-unseen-sealed-holdout-cases.json",
+  "case_seal_digest": "51784c6b80b0b0baf68e85136cec638f4351a0ea8f8325319165b9007dbe965c",
+  "source_repository": "https://github.com/jiwangyihao/FlameChase.git",
+  "recorded_at": "2026-07-20T10:43:11+00:00",
+  "immutable_observation": true,
+  "audit_notes": [
+    "Three source-reviewed fixes were prepared from complete immutable before revisions and the sealed pack was executed exactly once.",
+    "The MPL-2.0 ArkTS project was not present in the prior fifteen-project sealed inventory.",
+    "No Agent A/B was run because the Context gate failed."
+  ],
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 3,
+    "passed_case_count": 0,
+    "failed_case_count": 3,
+    "anchor_recall": 0.6667,
+    "primary_anchor_recall": 0.6667,
+    "oracle_anchor_precision": 0.25,
+    "expected_anchor_mrr": 0.3333,
+    "source_excerpt_recall": 0.6667,
+    "source_span_recall": 0.3333,
+    "average_context_tokens": 1109.3333,
+    "average_memory_prepare_ms": 1396.0,
+    "average_query_elapsed_ms": 641.6667
+  },
+  "failure_analysis": {
+    "primary_failure_class": "ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 1,
+      "passage_selection": 3,
+      "ranking_precision": 4
+    },
+    "interpretation": "Dialog close ownership was absent from candidates; retrieval preferred a thin prompt helper and the task model. Award restoration recalled the lifecycle owner in second place but selected the wrong passage and retained the forbidden presentation page. Platform gating recalled the expected page and exact source span in second place, but unrelated settings, page, and base-object neighbors reduced precision."
+  },
+  "cases": [
+    {
+      "case_id": "flamechase-custom-dialog-close-controller",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/CoreflamesPage.ets"
+      ],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/model/Task.ets",
+        "entry/src/main/ets/pages/PromptActionClass.ets"
+      ]
+    },
+    {
+      "case_id": "flamechase-award-restore-preference-key",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "expected_anchor_mrr": 0.5,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/pages/AwardsPage.ets"
+      ]
+    },
+    {
+      "case_id": "flamechase-dark-mode-platform-gate",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "expected_anchor_mrr": 0.5,
+      "source_span_recall": 1.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/model/Settings.ets",
+        "entry/src/main/ets/pages/CoreflamesPage.ets",
+        "entry/src/main/ets/pages/Index.ets",
+        "entry/src/main/ets/utils/BaseObjects.ets"
+      ]
+    }
+  ],
+  "policy": "Do not rerun or modify this sealed pack for tuning. Reproduce controller ownership under helper indirection, lifecycle key-contract passage focus, and platform-capability owner precision in independent development fixtures, then use a new sealed pack for the next external observation."
+}

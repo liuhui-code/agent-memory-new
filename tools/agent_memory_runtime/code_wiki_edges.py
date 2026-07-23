@@ -5,8 +5,10 @@ from __future__ import annotations
 import re
 import sqlite3
 import subprocess
+from pathlib import Path
 from typing import Any
 
+from .code_wiki_edge_candidates import load_rebuild_files
 from .code_wiki_extractors import extract_arkts_reference_symbols
 from .code_wiki_design_edges import insert_design_edges
 from .code_wiki_imports import relative_project_path, resolve_arkts_router_targets, resolve_js_imports
@@ -149,13 +151,12 @@ def rebuild_code_memory_edges(
     previous_edge_id = int(
         conn.execute("SELECT COALESCE(MAX(id), 0) AS id FROM memory_edges").fetchone()["id"]
     )
-    files = conn.execute(
-        "SELECT id, file_path, language FROM code_files WHERE project_id = ?",
-        (project_id,),
-    ).fetchall()
     scoped_paths = set(scope_file_paths or [])
-    scoped_files = [row for row in files if not scoped_paths or row["file_path"] in scoped_paths]
+    scoped_files = load_scoped_rows(
+        conn, "code_files", "id, file_path, language", project_id, scoped_paths,
+    )
     symbols = load_rebuild_symbols(conn, project, scoped_files, scoped_paths)
+    files = load_rebuild_files(conn, project, scoped_files, scoped_paths, symbols)
     logs = load_scoped_rows(
         conn,
         "code_log_statements",
@@ -281,6 +282,7 @@ def annotate_extracted_edges(
               WHEN 'uses_resource' THEN 'static_resource'
               WHEN 'defines_state' THEN 'static_state'
               WHEN 'renders_component' THEN 'static_component_composition'
+              WHEN 'passes_property' THEN 'static_component_property_flow'
               WHEN 'uses_service' THEN 'static_service_use'
               WHEN 'dispatches_event' THEN 'static_event_dispatch'
               WHEN 'handles_event' THEN 'static_event_binding'
@@ -313,6 +315,11 @@ def insert_arkts_knowledge_edges(
     ts: str,
 ) -> None:
     file_ids = {row["file_path"]: row["id"] for row in all_files}
+    named_route_files: dict[str, list[Path]] = {}
+    for file_path in file_ids:
+        named_route_files.setdefault(Path(file_path).stem, []).append(
+            project.root / file_path
+        )
     symbol_ids = {
         (row["file_path"], row["symbol"], row["symbol_type"]): row["id"]
         for row in symbols
@@ -345,7 +352,12 @@ def insert_arkts_knowledge_edges(
                     ts,
                 )
 
-        for target in resolve_arkts_router_targets(project, source_abs, text):
+        route_targets = set(resolve_arkts_router_targets(project, source_abs, text))
+        for route, kind in extract_arkts_reference_symbols(text):
+            named_targets = named_route_files.get(route, [])
+            if kind == "route" and len(named_targets) == 1:
+                route_targets.add(named_targets[0])
+        for target in sorted(route_targets):
             target_rel = relative_project_path(project, target)
             target_id = file_ids.get(target_rel)
             if target_id:

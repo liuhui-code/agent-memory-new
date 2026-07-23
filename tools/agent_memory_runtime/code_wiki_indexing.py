@@ -5,7 +5,9 @@ from __future__ import annotations
 import hashlib
 import json
 import sqlite3
+import time
 from collections import Counter
+from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
@@ -13,13 +15,18 @@ from .code_wiki_edges import (
     delete_edges_for_scope,
     dependent_file_paths_for_scope,
     rebuild_code_memory_edges,
+    source_revision,
     scope_node_ids,
     sql_chunks,
 )
 from .code_wiki_extractors import extract_log_statements, extract_symbols, language_for, should_skip_dir, summarize_file, summarize_symbol
 from .graph_refresh_metrics import edge_rebuild_metrics, scoped_edge_summary
+from .index_freshness import activate_index_generation, next_index_generation
+from .code_passages import rebuild_code_passages
 from .models import Project
 from .semantic_refresh import load_business_semantics, restore_business_semantics
+from .scope_changes import git_head
+from .scope_boundaries import sync_scope_boundaries
 from .storage import connect, now_iso
 
 def file_sha256(path: Path) -> str:
@@ -79,7 +86,14 @@ def record_learn_scope(
     depth: int | None = None,
 ) -> int:
     ts = now_iso()
-    snapshot = build_file_snapshot(project, files)
+    snapshot_project = replace(
+        project,
+        root=source_root.resolve(),
+        project_name=source_root.name,
+    )
+    snapshot = build_file_snapshot(snapshot_project, files)
+    baseline_revision = git_head(source_root)
+    change_provider = "git/v1" if baseline_revision else "snapshot/v1"
     scope_key = learn_scope_key(
         scope_type,
         source_root,
@@ -92,9 +106,11 @@ def record_learn_scope(
             """
             INSERT INTO learn_scopes(
               project_id, scope_key, scope_type, source_root, target_path, entry_path,
-              depth, mode, file_snapshot, file_count, status, created_at, updated_at, last_refreshed_at
+              depth, mode, file_snapshot, file_count, status, baseline_revision,
+              last_checked_revision, change_provider, refresh_state,
+              created_at, updated_at, last_refreshed_at
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, ?, ?, 'current', ?, ?, ?)
             ON CONFLICT(project_id, scope_key) DO UPDATE SET
               scope_type=excluded.scope_type,
               source_root=excluded.source_root,
@@ -104,6 +120,10 @@ def record_learn_scope(
               mode=excluded.mode,
               file_snapshot=excluded.file_snapshot,
               file_count=excluded.file_count,
+              baseline_revision=excluded.baseline_revision,
+              last_checked_revision=excluded.last_checked_revision,
+              change_provider=excluded.change_provider,
+              refresh_state='current',
               status='active',
               updated_at=excluded.updated_at,
               last_refreshed_at=excluded.last_refreshed_at
@@ -119,6 +139,9 @@ def record_learn_scope(
                 mode,
                 json.dumps(snapshot, ensure_ascii=False, sort_keys=True),
                 len(snapshot),
+                baseline_revision,
+                baseline_revision,
+                change_provider,
                 ts,
                 ts,
                 ts,
@@ -133,7 +156,9 @@ def record_learn_scope(
             (project.project_id, scope_key),
         ).fetchone()
         conn.commit()
-    return int(row["id"])
+    scope_id = int(row["id"])
+    sync_scope_boundaries(snapshot_project, scope_id, set(snapshot))
+    return scope_id
 
 
 
@@ -144,7 +169,6 @@ def write_wiki_scope(
     replace: bool = False,
     retired_relative_files: list[str] | None = None,
 ) -> dict[str, Any]:
-    stats = write_wiki_index(project, files, replace=replace)
     retired = sorted(
         {
             str(item).strip()
@@ -152,31 +176,13 @@ def write_wiki_scope(
             if str(item).strip()
         }
     )
-    if retired:
-        with connect(project) as conn:
-            retired_ids = scope_node_ids(conn, project.project_id, retired)
-            delete_edges_for_scope(conn, project.project_id, retired_ids)
-            for file_path in retired:
-                conn.execute(
-                    "DELETE FROM code_files WHERE project_id = ? AND file_path = ?",
-                    (project.project_id, file_path),
-                )
-                conn.execute(
-                    "DELETE FROM code_symbols WHERE project_id = ? AND file_path = ?",
-                    (project.project_id, file_path),
-                )
-                conn.execute(
-                    "DELETE FROM code_log_statements WHERE project_id = ? AND file_path = ?",
-                    (project.project_id, file_path),
-                )
-            stats["memory_edges_total"] = conn.execute(
-                "SELECT COUNT(*) AS count FROM memory_edges WHERE project_id = ?",
-                (project.project_id,),
-            ).fetchone()["count"]
-            conn.commit()
-        stats["retired_files"] = retired
-    else:
-        stats["retired_files"] = []
+    stats = write_wiki_index(
+        project,
+        files,
+        replace=replace,
+        retired_relative_files=retired,
+    )
+    stats["retired_files"] = retired
     return stats
 
 
@@ -206,7 +212,22 @@ def load_learn_scopes(project: Project, scope_id: int | None = None) -> list[sql
 
 
 
-def write_wiki_index(project: Project, files: list[Path], replace: bool = False) -> dict[str, Any]:
+def write_wiki_index(
+    project: Project,
+    files: list[Path],
+    replace: bool = False,
+    retired_relative_files: list[str] | None = None,
+) -> dict[str, Any]:
+    operation_started = time.perf_counter()
+    phase_started = operation_started
+    phase_ms: dict[str, float] = {}
+
+    def mark_phase(name: str) -> None:
+        nonlocal phase_started
+        current = time.perf_counter()
+        phase_ms[name] = round((current - phase_started) * 1000.0, 3)
+        phase_started = current
+
     ts = now_iso()
     unique_files = sorted({path.resolve() for path in files})
     relative_files: list[tuple[Path, Path, str, str]] = []
@@ -227,8 +248,10 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
     log_level_counts: Counter[str] = Counter()
     symbols_by_file: dict[str, list[tuple[str, str]]] = {}
     logs_by_file: dict[str, list[dict[str, Any]]] = {}
+    digests_by_file: dict[str, str] = {}
     for path, _rel, rel_text, language in relative_files:
         language_counts[language] += 1
+        digests_by_file[rel_text] = file_sha256(path)
         symbols = extract_symbols(path, language)
         logs = extract_log_statements(path, language)
         symbols_by_file[rel_text] = symbols
@@ -237,20 +260,26 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
             symbol_type_counts[symbol_type or "symbol"] += 1
         for log in logs:
             log_level_counts[str(log.get("level") or "log")] += 1
+    mark_phase("extract")
 
     affected_file_paths = [rel_text for _, _, rel_text, _ in relative_files]
+    retired_file_paths = sorted(set(retired_relative_files or []))
+    invalidated_file_paths = sorted(set(affected_file_paths) | set(retired_file_paths))
     with connect(project) as conn:
-        previous_scope_ids = scope_node_ids(conn, project.project_id, affected_file_paths)
+        generation = next_index_generation(conn, project.project_id)
+        revision = source_revision(project)
+        previous_scope_ids = scope_node_ids(conn, project.project_id, invalidated_file_paths)
         edges_before = scoped_edge_summary(conn, project.project_id, previous_scope_ids)
         reverse_dependents = (
             [] if replace else dependent_file_paths_for_scope(conn, project.project_id, previous_scope_ids)
         )
-        rebuild_paths = sorted(set(affected_file_paths) | set(reverse_dependents))
+        rebuild_paths = sorted(set(invalidated_file_paths) | set(reverse_dependents))
         business_snapshot = (
             load_business_semantics(conn, project.project_id, affected_file_paths)
             if not replace
             else {"code_files": {}, "code_symbols": {}, "code_log_statements": {}}
         )
+        mark_phase("load_scope")
         if replace:
             conn.execute("DELETE FROM code_files WHERE project_id = ?", (project.project_id,))
             conn.execute("DELETE FROM code_symbols WHERE project_id = ?", (project.project_id,))
@@ -260,21 +289,28 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
             rebuild_scope_ids = scope_node_ids(conn, project.project_id, rebuild_paths)
             delete_edges_for_scope(conn, project.project_id, rebuild_scope_ids)
             for table in ("code_files", "code_symbols", "code_log_statements"):
-                for chunk in sql_chunks(affected_file_paths):
+                for chunk in sql_chunks(invalidated_file_paths):
                     conn.execute(
                         f"DELETE FROM {table} WHERE project_id = ? AND file_path IN ({','.join('?' for _ in chunk)})",
                         (project.project_id, *chunk),
                     )
+        mark_phase("invalidate")
         file_rows: list[tuple[Any, ...]] = []
         symbol_rows: list[tuple[Any, ...]] = []
         log_rows: list[tuple[Any, ...]] = []
         for path, _rel, rel_text, language in relative_files:
             summary = summarize_file(path, language)
-            file_rows.append((project.project_id, rel_text, summary, language, ts))
+            digest = digests_by_file[rel_text]
+            file_rows.append(
+                (project.project_id, rel_text, summary, language, digest, generation, ts)
+            )
             for symbol, symbol_type in symbols_by_file.get(rel_text, []):
                 summary = summarize_symbol(rel_text, symbol, symbol_type, language)
                 symbol_rows.append(
-                    (project.project_id, rel_text, symbol, symbol_type, summary, "", ts)
+                    (
+                        project.project_id, rel_text, symbol, symbol_type,
+                        summary, "", digest, generation, ts,
+                    )
                 )
             for log in logs_by_file.get(rel_text, []):
                 log_rows.append(
@@ -287,17 +323,27 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
                         log.get("logger"),
                         log.get("message_template") or "",
                         log.get("raw_statement"),
+                        digest,
+                        generation,
                         ts,
                     )
                 )
+        mark_phase("prepare_rows")
         conn.executemany(
-            "INSERT INTO code_files(project_id, file_path, summary, language, updated_at) VALUES (?, ?, ?, ?, ?)",
+            """
+            INSERT INTO code_files(
+              project_id, file_path, summary, language, source_digest,
+              index_generation, updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
             file_rows,
         )
         conn.executemany(
             """
-            INSERT INTO code_symbols(project_id, file_path, symbol, symbol_type, summary, calls, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO code_symbols(
+              project_id, file_path, symbol, symbol_type, summary, calls,
+              source_digest, index_generation, updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             symbol_rows,
         )
@@ -305,24 +351,42 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
             """
             INSERT INTO code_log_statements(
               project_id, file_path, line, function, level, logger,
-              message_template, raw_statement, updated_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+              message_template, raw_statement, source_digest, index_generation,
+              updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             log_rows,
         )
+        mark_phase("insert_rows")
         business_semantics_restored = restore_business_semantics(conn, project.project_id, business_snapshot)
+        mark_phase("restore_business")
         semantic_stats = rebuild_code_memory_edges(
             conn,
             project,
             scope_file_paths=None if replace else rebuild_paths,
         )
+        passage_stats = rebuild_code_passages(
+            conn, project.project_id, None if replace else invalidated_file_paths
+        )
+        mark_phase("rebuild_graph")
         refreshed_scope_ids = scope_node_ids(conn, project.project_id, affected_file_paths)
         edges_after = scoped_edge_summary(conn, project.project_id, refreshed_scope_ids)
         memory_edges_total = conn.execute(
             "SELECT COUNT(*) AS count FROM memory_edges WHERE project_id = ?",
             (project.project_id,),
         ).fetchone()["count"]
+        mark_phase("summarize")
+        activate_index_generation(
+            conn,
+            project.project_id,
+            generation,
+            revision,
+            len(affected_file_paths),
+            len(retired_file_paths),
+        )
         conn.commit()
+        mark_phase("commit")
+    phase_ms["total"] = round((time.perf_counter() - operation_started) * 1000.0, 3)
     return {
         "files_indexed": len(relative_files),
         "languages": dict(sorted(language_counts.items())),
@@ -332,6 +396,7 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
         "code_logs_by_level": dict(sorted(log_level_counts.items())),
         "business_semantics_restored": business_semantics_restored,
         "semantic_index": semantic_stats,
+        "passage_index": passage_stats,
         "reverse_dependents_reindexed": reverse_dependents,
         "edge_rebuild": edge_rebuild_metrics(
             scope_file_paths=affected_file_paths,
@@ -339,7 +404,10 @@ def write_wiki_index(project: Project, files: list[Path], replace: bool = False)
             after=edges_after,
             replace=replace,
         ),
+        "phase_ms": phase_ms,
         "memory_edges_total": memory_edges_total,
+        "index_generation": generation,
+        "source_revision": revision,
     }
 
 

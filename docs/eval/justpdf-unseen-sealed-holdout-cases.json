@@ -1,0 +1,262 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/JustPDF",
+  "source_repository": "https://github.com/Delsin-Yu/JustPDF.git",
+  "source_branch": "main",
+  "source_head_reviewed": "e061db09aa2302a82a17fb12fa79ebfe39aab916",
+  "generated_at": "2026-07-19T00:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "justpdf-annotation-drag-also-pans",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "While drawing an annotation, a one-finger drag also pans the document. Locate the touch-mode arbitration owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "fa079610a6fb08ab35264801b053c4b168dccf0a",
+        "after_revision": "05a8adf66f615f5a4e38b0384f0dd5dbc7caaba0",
+        "changed_files": [
+          "entry/src/main/ets/pages/PDFView.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "05a8adf66f615f5a4e38b0384f0dd5dbc7caaba0",
+        "commit_message": "Fix annotation mode: single-finger drag no longer triggers page panning"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/PDFView.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/pdfview/PDFAnnotationController.ets"
+        ],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/PDFView.ets",
+              "start_line": 1868,
+              "end_line": 1935
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Draw with one finger and verify the annotation receives movement without panning the PDF viewport."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "justpdf-rapid-navigation-stale-render",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After rapid page changes, a delayed render from an earlier page overwrites the current display. Locate async page navigation ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "9969f2edb04648f81bba8febfd4de00a2e7c74b0",
+        "after_revision": "a554b8be3a5e9ee6bf1db081e5a78997ba7cef46",
+        "changed_files": [
+          "entry/src/main/ets/pages/PDFView.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "a554b8be3a5e9ee6bf1db081e5a78997ba7cef46",
+        "commit_message": "Prevent stale async page updates after rapid navigation"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/PDFView.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/components/PageInfo.ets"
+        ],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/PDFView.ets",
+              "start_line": 591,
+              "end_line": 618
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Navigate quickly across several pages and verify old async completions never replace the active page."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "justpdf-empty-launch-uri-auto-open",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Returning to the index can trigger an automatic document-open attempt with a blank launch value. Locate launch-state consumption ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "a554b8be3a5e9ee6bf1db081e5a78997ba7cef46",
+        "after_revision": "b1c228a83ab6357c0ee3332e7174f0362e4eb671",
+        "changed_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "b1c228a83ab6357c0ee3332e7174f0362e4eb671",
+        "commit_message": "Guard Index auto-open against empty launch URI"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets"
+        ],
+        "root_cause_category": "validation",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 15,
+              "end_line": 29
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Consume an empty launch value and verify no file-open operation starts."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "justpdf-save-dialog-missing-current-name",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Saving annotations opens a document picker without suggesting the current PDF file name. Locate save-picker option ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "b4bbd232682d32f755903a9dc5989089f566c4f3",
+        "after_revision": "32d9cef2f1690592f65796957f31eb7e050aaf62",
+        "changed_files": [
+          "entry/src/main/ets/pages/pdfview/PDFAnnotationController.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "32d9cef2f1690592f65796957f31eb7e050aaf62",
+        "commit_message": "Fix annotation save dialog to use actual file name"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/pdfview/PDFAnnotationController.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/PDFView.ets"
+        ],
+        "root_cause_category": "integration",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/pdfview/PDFAnnotationController.ets",
+              "start_line": 295,
+              "end_line": 311
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open Save As for an annotated PDF and verify the picker proposes the active document name."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-18T20:31:21+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 4,
+    "digest": "2cf6ddf75bd455d0c4851ee3df56cc53781534b72f949518e104f67f8e0a6c17"
+  }
+}

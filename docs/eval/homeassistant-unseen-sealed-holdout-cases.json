@@ -1,0 +1,261 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/Home-Assistant-HarmonyOS-Next",
+  "source_repository": "https://github.com/gentslava/Home-Assistant-HarmonyOS-Next.git",
+  "source_branch": "master+feat/phase4-domains",
+  "source_head_reviewed": "ab094397c3a88aee751e0ef35ba2b6d1a13762e2",
+  "generated_at": "2026-07-19T00:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "homeassistant-system-tile-right-spacing",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Rows on the circular watch screen leave no breathing room before the right-side chevron. Locate the reusable tile text-container spacing owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "341a64cf008dcfa537d1678c8addda7ae44de417",
+        "after_revision": "d8cf624f6d92bedac06380b01a77c3c51e55beb5",
+        "changed_files": [
+          "entry/src/main/ets/presentation/ui/components/SystemTile.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "d8cf624f6d92bedac06380b01a77c3c51e55beb5",
+        "commit_message": "Adjust shared system tile margin to include right spacing"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/presentation/ui/components/SystemTile.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/presentation/ui/components/SystemTile.ets",
+              "start_line": 23,
+              "end_line": 45
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Render tiles with and without a chevron on the circular display and verify balanced side spacing."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "homeassistant-mock-repository-never-upgrades",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "If the watch starts without the phone, it falls back to mock cards and never upgrades after the companion becomes reachable. Locate the service repository-selection owner and the store sync trigger.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "fd8c3f579eab43c7c0f2d9da06446234779bbcaa",
+        "after_revision": "bf2495ed5310de223e9fe49c3dde8f567f57ff48",
+        "changed_files": [
+          "apps/watch-arkts/entry/src/main/ets/app/Services.ets",
+          "apps/watch-arkts/entry/src/main/ets/presentation/store/HomeAssistantStore.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "bf2495ed5310de223e9fe49c3dde8f567f57ff48",
+        "commit_message": "Retry the real repository from store sync after startup fallback"
+      },
+      "oracle": {
+        "expected_files": [
+          "apps/watch-arkts/entry/src/main/ets/app/Services.ets",
+          "apps/watch-arkts/entry/src/main/ets/presentation/store/HomeAssistantStore.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.66,
+          "required_source_spans": [
+            {
+              "file_path": "apps/watch-arkts/entry/src/main/ets/app/Services.ets",
+              "start_line": 13,
+              "end_line": 44
+            },
+            {
+              "file_path": "apps/watch-arkts/entry/src/main/ets/presentation/store/HomeAssistantStore.ets",
+              "start_line": 8,
+              "end_line": 24
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Start offline, reconnect the companion, sync again, and verify real cards replace mock data."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "homeassistant-malformed-p2p-payload-breaks-receive",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A malformed non-JSON companion payload throws from the Wear Engine callback and later responses stop being received. Locate the P2P receive and parsing owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "fd8c3f579eab43c7c0f2d9da06446234779bbcaa",
+        "after_revision": "bf2495ed5310de223e9fe49c3dde8f567f57ff48",
+        "changed_files": [
+          "apps/watch-arkts/entry/src/main/ets/data/repository/P2pHomeAssistantRepository.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "bf2495ed5310de223e9fe49c3dde8f567f57ff48",
+        "commit_message": "Contain malformed companion payloads inside the P2P callback"
+      },
+      "oracle": {
+        "expected_files": [
+          "apps/watch-arkts/entry/src/main/ets/data/repository/P2pHomeAssistantRepository.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "apps/watch-arkts/entry/src/main/ets/data/repository/P2pHomeAssistantRepository.ets",
+              "start_line": 71,
+              "end_line": 100
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Inject malformed input, then a valid correlated response, and verify the receive callback remains usable."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "homeassistant-action-state-remains-stale",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Tapping an entity action completes, but the details screen remains visually unchanged. Locate the store action and authoritative refresh-state owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "fd8c3f579eab43c7c0f2d9da06446234779bbcaa",
+        "after_revision": "bf2495ed5310de223e9fe49c3dde8f567f57ff48",
+        "changed_files": [
+          "apps/watch-arkts/entry/src/main/ets/presentation/store/HomeAssistantStore.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "bf2495ed5310de223e9fe49c3dde8f567f57ff48",
+        "commit_message": "Refresh authoritative entity state after a successful action"
+      },
+      "oracle": {
+        "expected_files": [
+          "apps/watch-arkts/entry/src/main/ets/presentation/store/HomeAssistantStore.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "apps/watch-arkts/entry/src/main/ets/presentation/store/HomeAssistantStore.ets",
+              "start_line": 64,
+              "end_line": 78
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Run an action and verify the details state is refreshed from the active repository."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-18T17:45:42+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 4,
+    "digest": "36d8a013c2368e0c302cf767ee3c446dcf28a30440ebcc01b87f8e12df926307"
+  }
+}

@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from .query_collect import (
-    collect_matches,
+from .query_candidate_recall import (
     fetch_rows_by_ids,
     fts_match_expression,
     like_recall_candidate_ids,
     recall_candidate_ids,
 )
+from .query_collect import collect_matches
 from .query_edges import collect_related_edges, evidence_reason, network_limits
 from .query_followups import (
     focus_from_query,

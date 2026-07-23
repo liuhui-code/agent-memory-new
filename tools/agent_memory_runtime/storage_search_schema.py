@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import sqlite3
 
-SEARCH_SCHEMA_VERSION = "fts-v1"
+from .code_passages import create_code_passage_schema, rebuild_code_passages
+
+
+SEARCH_SCHEMA_VERSION = "fts-v4"
 
 
 def create_search_schema(conn: sqlite3.Connection) -> None:
@@ -16,6 +19,7 @@ def create_search_schema(conn: sqlite3.Connection) -> None:
         )
         """
     )
+    create_code_passage_schema(conn)
     conn.executescript(
         """
         CREATE VIRTUAL TABLE IF NOT EXISTS semantic_fact_fts USING fts5(
@@ -85,6 +89,11 @@ def create_search_schema(conn: sqlite3.Connection) -> None:
           summary,
           business_summary,
           business_terms
+        );
+
+        CREATE VIRTUAL TABLE IF NOT EXISTS code_method_fts USING fts5(
+          project_id UNINDEXED,
+          method_evidence
         );
 
         CREATE VIRTUAL TABLE IF NOT EXISTS code_log_fts USING fts5(
@@ -180,6 +189,21 @@ def create_search_triggers(conn: sqlite3.Connection) -> None:
           VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.symbol, ''), COALESCE(new.symbol_type, ''), COALESCE(new.summary, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''));
         END;
 
+        CREATE TRIGGER IF NOT EXISTS code_method_fts_ai AFTER INSERT ON code_symbols BEGIN
+          INSERT INTO code_method_fts(rowid, project_id, method_evidence)
+          SELECT new.id, new.project_id, new.method_evidence
+          WHERE COALESCE(new.method_evidence, '') != '';
+        END;
+        CREATE TRIGGER IF NOT EXISTS code_method_fts_ad AFTER DELETE ON code_symbols BEGIN
+          DELETE FROM code_method_fts WHERE rowid = old.id;
+        END;
+        CREATE TRIGGER IF NOT EXISTS code_method_fts_au AFTER UPDATE ON code_symbols BEGIN
+          DELETE FROM code_method_fts WHERE rowid = old.id;
+          INSERT INTO code_method_fts(rowid, project_id, method_evidence)
+          SELECT new.id, new.project_id, new.method_evidence
+          WHERE COALESCE(new.method_evidence, '') != '';
+        END;
+
         CREATE TRIGGER IF NOT EXISTS code_log_fts_ai AFTER INSERT ON code_log_statements BEGIN
           INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms, business_event, trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms)
           VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.function, ''), COALESCE(new.level, ''), COALESCE(new.logger, ''), COALESCE(new.message_template, ''), COALESCE(new.raw_statement, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''), COALESCE(new.business_event, ''), COALESCE(new.trigger_stage, ''), COALESCE(new.symptom_terms, ''), COALESCE(new.likely_causes, ''), COALESCE(new.process_hint, ''), COALESCE(new.neighbor_terms, ''));
@@ -204,6 +228,7 @@ def rebuild_search_indexes(conn: sqlite3.Connection) -> None:
         "episode_fts",
         "code_file_fts",
         "code_symbol_fts",
+        "code_method_fts",
         "code_log_fts",
     )
     for table in tables:
@@ -245,11 +270,25 @@ def rebuild_search_indexes(conn: sqlite3.Connection) -> None:
     )
     conn.execute(
         """
+        INSERT INTO code_method_fts(rowid, project_id, method_evidence)
+        SELECT id, project_id, method_evidence
+        FROM code_symbols
+        WHERE COALESCE(method_evidence, '') != ''
+        """
+    )
+    conn.execute(
+        """
         INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms, business_event, trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms)
         SELECT id, project_id, COALESCE(file_path, ''), COALESCE(function, ''), COALESCE(level, ''), COALESCE(logger, ''), COALESCE(message_template, ''), COALESCE(raw_statement, ''), COALESCE(business_summary, ''), COALESCE(business_terms, ''), COALESCE(business_event, ''), COALESCE(trigger_stage, ''), COALESCE(symptom_terms, ''), COALESCE(likely_causes, ''), COALESCE(process_hint, ''), COALESCE(neighbor_terms, '')
         FROM code_log_statements
         """
     )
+    project_ids = [
+        str(row["project_id"])
+        for row in conn.execute("SELECT project_id FROM projects").fetchall()
+    ]
+    for project_id in project_ids:
+        rebuild_code_passages(conn, project_id)
     conn.execute(
         """
         INSERT INTO runtime_schema_versions(component, version)

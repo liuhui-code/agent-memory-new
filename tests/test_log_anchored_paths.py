@@ -303,11 +303,13 @@ class LogAnchoredPathTests(AgentMemoryTestBase):
         self.assertNotIn("summary", handoff["code_anchors"][0])
         self.assertEqual("primary", handoff["code_anchors"][0]["role"])
         self.assertEqual(
-            "anchor_first_gap_driven_v4",
+            "anchor_first_deterministic_expansion_v8",
             handoff["source_exploration"]["policy"],
         )
         self.assertEqual(7, handoff["source_exploration"]["limits"]["files"])
-        self.assertIn("no_strong_log_anchor", compact["evidence_gaps"])
+        self.assertEqual(2, handoff["source_exploration"]["limits"]["reads_per_file"])
+        self.assertEqual(180, handoff["source_exploration"]["limits"]["read_lines"])
+        self.assertIn("no_log_anchor", compact["evidence_gaps"])
 
     def test_query_skill_uses_selective_compact_routing(self) -> None:
         skill = (REPO_ROOT / "skills" / "agent-memory-query" / "SKILL.md").read_text(encoding="utf-8")

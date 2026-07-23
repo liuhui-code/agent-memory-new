@@ -6,8 +6,10 @@ import sys
 
 from .calibration_eval import eval_calibration_command
 from .agent_benchmark import eval_agent_benchmark_command
+from .context_capability import eval_context_capability_command
 from .benchmark_history import eval_harvest_history_command
 from .benchmark_mutations import eval_mutate_arkts_command
+from .benchmark_case_seal_command import eval_seal_cases_command
 from .cli import build_parser
 from .code_wiki import learn_business, learn_entry, learn_path, maintain_refresh_scope, wiki_index, wiki_search
 from .command_handlers import (
@@ -62,6 +64,7 @@ from .quality_gate_eval import eval_quality_command
 from .reflection_commands import reflect
 from .retrieval_eval import eval_retrieval_command
 from .retrieval_feedback import retrieval_feedback_command
+from .scale_benchmark import eval_scale_command
 from .semantic_eval import eval_semantic_command
 from .vault import vault_export, vault_index, vault_init
 
@@ -81,7 +84,10 @@ def command_handlers() -> dict[str, object]:
         "design_compare_command": design_compare_command,
         "eval_design_command": eval_design_command,
         "eval_agent_benchmark_command": eval_agent_benchmark_command,
+        "eval_context_capability_command": eval_context_capability_command,
+        "eval_scale_command": eval_scale_command,
         "eval_harvest_history_command": eval_harvest_history_command,
+        "eval_seal_cases_command": eval_seal_cases_command,
         "eval_mutate_arkts_command": eval_mutate_arkts_command,
         "design_outcome_command": design_outcome_command,
         "eval_semantic_command": eval_semantic_command,

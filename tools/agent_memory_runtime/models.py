@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+from .source_path_policy import GENERATED_SOURCE_DIRS
 
 PROJECT_FINGERPRINT_SCHEME = "owner-salted-sha256:v1"
 PROJECT_FINGERPRINT = "sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77"
@@ -19,6 +20,7 @@ REQUIRED_TABLES = {
     "code_log_statements",
     "memory_edges",
     "learn_scopes",
+    "scope_boundary_dependencies",
     "query_misses",
     "reflection_reuse_events",
     "experience_usage_events",
@@ -45,6 +47,7 @@ IGNORE_DIRS = {
     "__pycache__",
     ".agent-memory",
     ".agent-skills",
+    *GENERATED_SOURCE_DIRS,
 }
 
 CODE_EXTENSIONS = {
@@ -66,7 +69,10 @@ VALID_MEMORY_STATUSES = {"active", "stale", "merged", "archived", "rejected"}
 NETWORK_MAX_DEPTH = 1
 NETWORK_EDGE_LIMIT = 10
 EVIDENCE_CHAIN_LIMIT = 3
-QUERY_ALLOWED_EDGE_RELATIONS = {"contains", "emits_log", "imports", "routes_to", "uses_resource"}
+QUERY_ALLOWED_EDGE_RELATIONS = {
+    "contains", "emits_log", "imports", "passes_property", "renders_component",
+    "routes_to", "uses_resource",
+}
 QUERY_FTS_RECALL_LIMITS = {
     "semantic_facts": 120,
     "reflections": 120,
@@ -99,6 +105,10 @@ CODE_BUSINESS_COLUMNS = {
 }
 
 CODE_SEMANTIC_COLUMNS = {
+    "code_files": [
+        ("source_digest", "TEXT"),
+        ("index_generation", "INTEGER NOT NULL DEFAULT 0"),
+    ],
     "code_symbols": [
         ("symbol_key", "TEXT"),
         ("qualified_name", "TEXT"),
@@ -108,6 +118,14 @@ CODE_SEMANTIC_COLUMNS = {
         ("semantic_adapter", "TEXT"),
         ("source_digest", "TEXT"),
         ("evidence_class", "TEXT"),
+        ("method_evidence", "TEXT"),
+        ("string_evidence", "TEXT"),
+        ("mechanism_evidence", "TEXT"),
+        ("index_generation", "INTEGER NOT NULL DEFAULT 0"),
+    ],
+    "code_log_statements": [
+        ("source_digest", "TEXT"),
+        ("index_generation", "INTEGER NOT NULL DEFAULT 0"),
     ],
 }
 

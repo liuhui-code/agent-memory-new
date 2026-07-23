@@ -138,6 +138,8 @@ Learning also stores code log statements such as `print(...)`, `logger.error(...
 
 For HarmonyOS projects, learning also indexes `.json5` config files, ArkTS router targets, and `$r(...)` resource references as code wiki symbols. `learn-entry` can follow ArkTS router targets such as `router.pushUrl({ url: 'pages/Detail' })` to the related `.ets` page.
 It also indexes ArkTS component state such as `@State`, `@Prop`, `@Link`, and `@Provide` as `state` symbols and connects the file with `defines_state` edges. Use these anchors when symptoms mention stale UI state, blank pages after state changes, or state-driven rendering problems.
+When one learned ArkTS component invokes another with an object argument, learning also records a `passes_property` edge containing only the top-level property names. A compact query that first finds a leaf component may use this relation with `renders_component` to add at most two upstream component files across two hops. Treat these anchors as navigation for inspecting where a value is calculated and forwarded; they do not prove runtime data flow or causality.
+ArkTS file summaries also retain at most 12 chained operation names. A precise query such as `divider stroke width` can therefore locate the behavior owner without indexing full source. If only one distinctive operation owner is supported, compact output returns that owner instead of filling the budget with same-prefix files or unrelated graph neighbors; the Agent can then inspect its current-source window and expand only when a concrete evidence gap remains.
 
 `learn-entry --json` and `learn-path --json` can also return `semantic_followup` immediately after structural indexing. Use it to start the next `learn-business` pass on the exact files just learned, rather than waiting for a later maintenance review.
 
@@ -257,7 +259,7 @@ For diagnosis, start with the user's problem description:
 python tools/agent_memory.py context --project . --query "<goal or symptom>" --compact --json
 ```
 
-First apply selective routing. A precise file/line, compiler symbol, failing test, route, resource key, or configuration value may be inspected directly within a budget of three files and two source searches. Logs, unknown emitters, cross-module/async behavior, competing causes, business semantics, history, or an unresolved direct inspection use compact context. Read `query_handoff.log_keywords`, `log_anchors`, and `code_anchors` first. If `query_handoff.path_context.activated` is true, inspect all `path_candidates` rather than accepting the top score. Compare each path's expected logs, entry, emitter, uncertainty, and missing segments with the actual temporary-log order. The Agent CLI reads that temporary log directly, records observations, keeps indistinguishable paths, forms multiple candidate causes, and runs one compact follow-up query per candidate. Relation hints and candidate paths are navigation evidence. Remove `--compact` only for a focused ranking or full-record audit. Learned code, logs, and history do not prove the current cause.
+First apply selective routing. A precise file/line, compiler symbol, failing test, route, resource key, or configuration value may be inspected directly within a budget of three files and two source searches. Logs, unknown emitters, cross-module/async behavior, competing causes, business semantics, history, or an unresolved direct inspection use compact context. Read `query_handoff.log_keywords`, `log_anchors`, and `code_anchors` first. `source_excerpts` are bounded text read from the current worktree during this query; use them as current-source evidence and do not reread those lines. Use `source_ranges` to identify covered symbols. If no excerpt is present, read `read_window` once rather than issuing one read per range. Excerpt bodies are returned to the caller but removed from `runtime/last_context.json`; only line metadata is retained. If `query_handoff.path_context.activated` is true, inspect all `path_candidates` rather than accepting the top score. Compare each path's expected logs, entry, emitter, uncertainty, and missing segments with the actual temporary-log order. The Agent CLI reads that temporary log directly, records observations, keeps indistinguishable paths, forms multiple candidate causes, and runs one compact follow-up query per candidate. Relation hints and candidate paths are navigation evidence. Remove `--compact` only for a focused ranking or full-record audit. Learned code, logs, and history do not prove the current cause.
 
 For repository-grounded code design, retrieve context before proposing abstractions:
 
@@ -335,7 +337,7 @@ The runtime also performs lightweight query expansion before matching. It maps c
 This is deterministic keyword expansion, not a vector database. If the first result is broad, the Agent should query again with matched anchors such as file paths, route names, resources, log templates, or function names.
 
 Code and log matches include `search_terms` and `match_reasons`. `search_terms` expose the generated anchors used for retrieval. `match_reasons` explain whether a row matched by exact file path, exact symbol, log text, expanded query terms, or broader summary text.
-`context` and `search` also return `query_audit`. Use it when the top result looks suspicious: it summarizes result counts and exposes top-match explanations such as rerank score, quality score, trust level, feedback penalty, match reasons, gate reasons, and retrieval explanation. Treat it as diagnosis for the retrieval path, not as user-facing answer content.
+`context` and `search` also return `query_audit`. Use it when the top result looks suspicious: it summarizes result counts and exposes top-match explanations such as candidate `recall_fusion`, downstream rerank score, quality score, trust level, feedback penalty, match reasons, gate reasons, and retrieval explanation. `recall_fusion` shows which bounded FTS channels supplied a candidate and how their ranks contributed; it does not claim that the candidate is the final owner. Full `context` may also expose `candidate_recall.fielded_passages`: its file/symbol/callable field channels currently run in `shadow` mode and do not change served candidates. The `semantic_mechanism_fts` lane identifies candidates recalled from normalized operations, guards, resource bounds, callback bindings, platform predicates, or persistence reads/writes. Full Context also exposes `hierarchical_localization`: a shadow-only file -> callable -> source-range projection. Its `graph_seeds` are evidence-prioritized within a fixed budget, while `graph_owner_candidates` are the independent bounded one-hop owner stage; `semantic_mechanism_window` identifies a callable-bounded expression range rather than a root cause. Compare candidate Recall@20, owner/range provenance, and the serving lane before changing owner ranking. Compact Agent context omits these development audits. Treat the audit as diagnosis for the retrieval path, not as user-facing answer content. `eval-context-capability` runs this full audit only after its compact gate query and reports independent file/callable/owner/range quality when reviewed span Oracles exist; those measurements never affect normal compact output.
 
 Code log matches may also include `log_signal_score`, `log_signal_band`, `missing_signals`, and `suggested_log_fields`. Prefer stronger-signal logs as anchors for recursive diagnosis. Treat low-signal logs as evidence gaps, not as source truth.
 
@@ -348,7 +350,7 @@ The runtime also writes `runtime/last_task_trace.json`, a compact candidate trac
 The runtime also keeps bounded performance samples in `runtime/performance_samples.jsonl`. `maintain-health --json` and `maintain-plan --json` summarize those samples as `runtime_performance` so Agents can see whether `maintain-plan`, `context`, or other operations are becoming slow, token-heavy, or storage-heavy. Do not treat this JSONL file as project knowledge; it is local operational telemetry. If `review_runtime_performance_budget` appears, prefer tightening query limits, reviewing noisy memory records, refreshing stale context, or splitting expensive maintenance work before adding heavier indexing.
 `eval-quality` writes the latest aggregate result to `runtime/last_quality_gate.json`. `maintain-health --json` reports this as `last_quality_gate`; use it to notice a recent failed gate, then follow the failed gate's `next_command_template`.
 
-For end-to-end Agent A/B validation, generate review-only cases from Git history with `eval-harvest-history`, or generate non-destructive ArkTS fault cases with `eval-mutate-arkts`. Run `eval-agent-benchmark` with an approved Agent CLI Runner. The Memory variant receives an isolated index rebuilt from the frozen case revision, while the Baseline variant cannot access memory. `maintain-health.agent_benchmark` reports the latest quality and efficiency delta. See `docs/agent-benchmark.md` for the protocol and leakage controls.
+Before end-to-end Agent A/B, run `eval-context-capability` on reviewed frozen cases. Start with `docs/eval/system-capability-cases.json` and `docs/eval/fixtures/system-capability`; its 64 model-free ArkTS scenarios execute 192 query variants to verify log emitters, procedure versus correction-guard experience lanes, bounded causal paths, cross-component graph recall, query-conditioned component lineage, exact and abstract structural behavior owners, lifecycle/callback/action mechanisms, reusable toolbar roles, media resource shutdown, keyboard/back boundaries, archive I/O, collection aggregation, keyboard focus state, native color parsing, clipboard-content reads, permission request/result guards, process-output read loops, runtime-capability probes, serialized writes and final barriers, timeout cancellation, WebView access and URL-scheme policy, bounded-cache eviction, gesture and indexed-touch safety, conditional data loading, callback cleanup, horizontal and vertical Builder layout, async ordering guards, indexed collection writes, event-to-state handoff, validation stops, persistence commits and reads, indirect caller ownership, platform-sensitive UI ownership, domain-entity interference, dense-log source budgeting, method-body evidence, command binding, comparison-target visual state, cross-layer error contracts, explicit result-role exclusion, query-focused callable and nested ArkUI callback spans, compactness, wording robustness, and no-evidence abstention. Omit `--limit` to run the complete pack. Compact retrieval keeps direct evidence primary, promotes only bounded supported graph context, prefers complete multi-mechanism owners over generic operation-name matches, and fairly divides excerpt budget across the first three primary anchors. Ambiguous visual-cover terms require UI context, and explicit negative clauses are removed before behavior expansion. Explicit user path identities survive diversity filtering, while semantic expansions, negative mentions, and behavior-only queries cannot activate that protection. Structural behavior queries suppress generic identity-only log emitters unless path reconstruction is active; precise log queries are unchanged. Source excerpts merge query-supported callable ranges ahead of stale stored ranges and use a language adapter to preserve ECMA methods and nested ArkUI callbacks, scanning each file once. When two causal paths compete for a tight budget, retrieval keeps path diversity before a redundant non-emitter excerpt. The persisted report contains neither Oracle nor source bodies. `maintain-health.context_capability` reports the gate, MRR, source-span recall, abstention status, query-variant pass rate, and compact cross-project history separately from model behavior. Seal reviewed holdouts with `eval-seal-cases` before first use; a digest mismatch or incomplete source audit fails closed. Sealed holdouts are immutable observations and must not be rerun or used to tune ranking, query wording, or Oracle thresholds. Then run `eval-agent-benchmark` with an approved Agent CLI Runner to test whether the Agent uses the supplied context. See `docs/system-capability-evaluation.md` and `docs/agent-benchmark.md`.
 
 `maintain-plan --json` may include `quality_summary`, `low_quality_records`, and `high_value_records`. Use these as review hints:
 
@@ -647,6 +649,39 @@ python tools/agent_memory.py maintain-refresh-scope --project . --changed-only -
 
 `--changed-only` compares the persisted learn-scope file snapshot with current source, re-indexes only added or changed files, retires removed structural anchors, and leaves unchanged file/wiki rows alone.
 
+For a Git source, the command first limits the net Git change set to that learned Scope. An entry Scope uses its learned import closure, a path Scope uses its subtree, and only an explicit project Scope considers the repository root. Changes made by other teams outside that boundary are ignored. Multiple commits since the last successful refresh are coalesced; the final SHA-256 comparison still decides whether a candidate really changed. Non-Git roots and legacy Scopes fall back to the same Scope-local snapshot comparison.
+
+The response includes `change_set.provider`, baseline/current revisions, candidate count, and bounded candidate paths. If `status` is `overflow`, no baseline or code index is advanced. Review the Scope and run a confirmed full refresh:
+
+```bash
+python tools/agent_memory.py maintain-refresh-scope --project . --scope-id <id> --json
+```
+
+Imports resolved to project files outside the learned Scope are tracked as
+boundaries. A changed-only response keeps them separate:
+
+- `scope_candidate_paths`: files eligible for normal Scope refresh.
+- `boundary_candidate_paths`: observed external dependencies that are not
+  learned or indexed automatically.
+- `boundary_changes`: changed dependencies, affected consumer files, missing
+  state, and whether the extracted symbol surface changed.
+
+When `boundary_changes` is non-empty, inspect the dependency and its consumers
+with the Agent and real logs. Do not treat `surface_changed: false` as proof of
+no behavioral impact; it means only that the extractor saw the same symbol
+shape. Accept the new dependency baseline with an explicit full refresh of the
+Scope after review.
+
+Normal `context --json` and `context --compact --json` responses include `source_freshness`:
+
+- `current`: every checked source-derived candidate still matches its learned digest.
+- `partial_current`: one or more candidate files changed or disappeared; those anchors and their graph paths were omitted from the response.
+- `unverified`: legacy rows have no digest yet; results remain available but must not be claimed as current.
+- `boundary_drift`: learned anchors are still source-current, but a registered
+  dependency outside the Scope changed and needs impact review.
+
+When `partial_current` appears, run `maintain-refresh-scope --changed-only` and repeat the query. When `unverified` appears, refresh the relevant learned scope once to migrate it. When `boundary_drift` appears, inspect the affected Scope ids and the previous maintenance result, then perform a reviewed full refresh. The check is candidate-bounded, so a query does not hash the whole repository.
+
 This is the low-risk update path for changing codebases:
 
 - replay previously learned scopes from `learn_scopes`
@@ -656,6 +691,7 @@ This is the low-risk update path for changing codebases:
 - preserve exact-match `business_summary` and `business_terms` on refreshed file, symbol, and log anchors; changed files with preserved business summaries also create open `semantic_conflicts` so the old meaning is reviewed instead of treated as silently current
 - include refresh drift evidence in `semantic_conflicts.incoming`, such as summary changes and log templates added or removed, so the review can focus on the actual changed behavior
 - return `parse_stats.edge_rebuild` with scoped files, before/after node counts, relation counts, and edge delta so Agents can see whether the refresh rebuilt only the intended graph slice
+- activate the new `index_generation` in the same SQLite transaction as source-derived rows, preventing readers from observing a half-refreshed generation
 
 Use it before broad `--replace` re-learning when the project has evolved but you want to preserve accumulated business semantics and experience review history.
 
@@ -1005,6 +1041,35 @@ agent-memory-maintain performs heavier review, merge, stale, promote, and export
 ```
 
 Do not run duplicate detection, promotion, or vault dashboard generation on every query.
+
+Before enabling broader method-level facts, run the scale gates explicitly:
+
+```bash
+python tools/agent_memory.py eval-scale --project . --profile ci --fail-on-slo --json
+python tools/agent_memory.py eval-scale --project . --profile million --fail-on-slo --json
+```
+
+The benchmark uses a temporary production-schema database and does not add test
+records to project memory. `ci` covers 100,000 searchable entities and 300,000
+active edges. `million` covers 1,000,000 entities and 3,000,000 active edges and
+is intended for release or scheduled validation, not every unit-test run. Each
+profile also creates a real temporary Git repository and measures no-change,
+Scope-external, 20-method, and 500-method changed-only refreshes. A passing
+result requires p95 query latency, query-plan, refresh-evidence, and incremental
+maintenance gates. Inspect
+`runtime/last_scale_benchmark.json` for operation timings, index plans, database
+size, setup cost, and per-refresh phase timings.
+
+Queries containing only generic words such as `method`, `function`, `class`, or
+`symbol` deliberately return no broad symbol candidates. Use a concrete method,
+business term, log fragment, component, or file path. CamelCase method names are
+indexed with bounded component terms, so `PaymentRetryHandler` remains reachable
+from `payment retry` without a full-table LIKE scan. Callable bodies also expose
+bounded member-call terms through a separate sparse FTS lane. At least two query
+terms must match that evidence, so a behavior description can find a generic
+owner such as `execute` without allowing one common body word to redirect normal
+symbol ranking. Explicit `do not return` / `不要返回` clauses are result exclusions;
+only useful business stems from a compound identifier remain retrieval context.
 
 ## 10. ArkTS Incident Trace
 

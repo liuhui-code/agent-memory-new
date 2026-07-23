@@ -8,10 +8,12 @@ from typing import Any
 from .incident_trace_models import INCIDENT_TRACE_QUERY_LIMIT
 from .memory_calibration import calibrate_payload
 from .models import Project
-from .query_collect import collect_matches
+from .query_code_selection import diverse_code_matches
+from .query_collect import collect_matches_with_audit
 from .query_edges import network_limits
 from .query_followups import infer_followup_focus, suggested_followup_terms
 from .query_handoff import build_query_handoff
+from .query_hierarchical_localization import SQLiteHierarchicalLocalizer
 from .query_intents import gate_matches_by_intent
 from .storage import connect, now_iso
 
@@ -36,22 +38,35 @@ CONTEXT_RESULT_LIMITS = {
     "incident_trace_matches": 5,
 }
 
-
 def limited_matches(
     matches: dict[str, list[dict[str, Any]]],
     limits: dict[str, int],
+    query: str = "",
 ) -> dict[str, list[dict[str, Any]]]:
-    return {
+    bounded = {
         key: value[: limits.get(key, len(value))]
         for key, value in matches.items()
     }
+    wiki_limit = limits.get("wiki_matches", len(matches.get("wiki_matches", [])))
+    bounded["wiki_matches"] = diverse_code_matches(
+        matches.get("wiki_matches", []),
+        wiki_limit,
+        query=query,
+    )
+    return bounded
 
 
-
-def limited_context(project: Project, query: str) -> dict[str, Any]:
-    matches = collect_matches(project, query)
+def limited_context(
+    project: Project,
+    query: str,
+    enable_passage_shadow: bool = False,
+) -> dict[str, Any]:
+    collection = collect_matches_with_audit(
+        project, query, enable_passage_shadow=enable_passage_shadow
+    )
+    matches = collection.matches
     gated = gate_matches_by_intent(project, query, matches)
-    bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS)
+    bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS, query)
     bounded["code_log_matches"] = [
         {key: value for key, value in item.items() if key != "likely_causes"}
         for item in bounded["code_log_matches"]
@@ -81,9 +96,18 @@ def limited_context(project: Project, query: str) -> dict[str, Any]:
         "suggested_followup_terms": suggested_followup_terms(query, bounded),
         "query_handoff": build_query_handoff(query, bounded),
         "network_limits": network_limits(),
+        "source_freshness": collection.recall_audit.get("source_freshness", {}),
     }
     calibrate_payload(context)
-    context["query_audit"] = build_query_audit(context)
+    context["query_audit"] = build_query_audit(
+        context,
+        collection.recall_audit,
+        retrieval_stage_counts(matches, gated["matches"], bounded),
+    )
+    if enable_passage_shadow:
+        context["query_audit"]["hierarchical_localization"] = (
+            SQLiteHierarchicalLocalizer().localize(project, query, gated["matches"])
+        )
     record_context_use(project, context)
     record_query_miss_if_empty(project, "context", query, context)
     return context
@@ -97,7 +121,8 @@ def limited_search(
     per_type_limit: int | None = None,
     aggregate_limit: int | None = None,
 ) -> dict[str, Any]:
-    matches = collect_matches(project, query)
+    collection = collect_matches_with_audit(project, query)
+    matches = collection.matches
     gated = gate_matches_by_intent(project, query, matches)
     gated["matches"]["code_log_matches"] = [
         {key: value for key, value in item.items() if key != "likely_causes"}
@@ -112,13 +137,22 @@ def limited_search(
     payload["semantic_patch_notes"] = gated["semantic_patch_notes"]
     payload["blocked_memory_notes"] = gated["blocked_memory_notes"]
     payload["conflict_notes"] = gated["conflict_notes"]
+    payload["source_freshness"] = collection.recall_audit.get("source_freshness", {})
     calibrate_payload(payload)
-    payload["query_audit"] = build_query_audit(payload)
+    payload["query_audit"] = build_query_audit(
+        payload,
+        collection.recall_audit,
+        retrieval_stage_counts(matches, gated["matches"], payload),
+    )
     return payload
 
 
 
-def build_query_audit(payload: dict[str, Any]) -> dict[str, Any]:
+def build_query_audit(
+    payload: dict[str, Any],
+    candidate_recall: dict[str, Any] | None = None,
+    retrieval_stages: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     result_keys = [
         "semantic_facts",
         "reflections",
@@ -150,6 +184,8 @@ def build_query_audit(payload: dict[str, Any]) -> dict[str, Any]:
         top_explanations[key] = explanations[:3]
     return {
         "result_counts": result_counts,
+        "candidate_recall": candidate_recall or {},
+        "retrieval_stages": retrieval_stages or {},
         "top_explanations": top_explanations,
         "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
     }
@@ -170,8 +206,30 @@ def compact_query_explanation(result_type: str, item: dict[str, Any]) -> dict[st
         "usage_feedback_bonus": item.get("usage_feedback_bonus", 0.0),
         "usage_feedback_penalty": item.get("usage_feedback_penalty", 0.0),
         "match_reasons": item.get("match_reasons") or explanation.get("match_reasons") or [],
+        "recall_lanes": item.get("recall_lanes") or [],
+        "recall_fusion": item.get("recall_fusion") or {},
         "gate_reasons": item.get("gate_reasons") or explanation.get("gate_reasons") or [],
         "retrieval_explanation": explanation,
+    }
+
+
+def retrieval_stage_counts(
+    scored: dict[str, list[dict[str, Any]]],
+    intent_gated: dict[str, list[dict[str, Any]]],
+    selected: dict[str, Any],
+) -> dict[str, dict[str, int]]:
+    keys = (
+        "semantic_facts", "reflections", "episodes", "wiki_matches",
+        "code_log_matches", "edge_matches", "incident_trace_matches",
+    )
+    return {
+        "scored": {key: len(scored.get(key) or []) for key in keys},
+        "after_intent_gate": {key: len(intent_gated.get(key) or []) for key in keys},
+        "selected": {
+            key: len(selected.get(key) or [])
+            if isinstance(selected.get(key), list) else 0
+            for key in keys
+        },
     }
 
 

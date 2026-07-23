@@ -21,11 +21,11 @@ class LanguageAdapter(Protocol):
 
 class ArkTSSemanticAdapter:
     adapter_id = "arkts-static"
-    adapter_version = "1.0"
+    adapter_version = "1.1"
     language = "ArkTS"
     capabilities = (
         "definitions", "references", "calls", "types", "inheritance",
-        "state_flow", "callbacks", "async_flow", "api_boundaries",
+        "state_flow", "callbacks", "async_flow", "api_boundaries", "mechanisms",
     )
 
     def index(self, project: Project, files: list[Path]) -> SemanticBatch:
@@ -34,11 +34,11 @@ class ArkTSSemanticAdapter:
 
 class TypeScriptSemanticAdapter:
     adapter_id = "typescript-static"
-    adapter_version = "1.0"
+    adapter_version = "1.1"
     language = "TypeScript"
     capabilities = (
         "definitions", "references", "calls", "types", "inheritance",
-        "callbacks", "async_flow", "api_boundaries",
+        "callbacks", "async_flow", "api_boundaries", "mechanisms",
     )
 
     def index(self, project: Project, files: list[Path]) -> SemanticBatch:

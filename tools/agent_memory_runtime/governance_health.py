@@ -12,6 +12,7 @@ from typing import Any
 from .active_learning_queue import build_active_learning_actions, build_active_learning_queue
 from .agent_benchmark_governance import agent_benchmark_summary
 from .code_wiki import semantic_followup_from_db
+from .context_capability_governance import context_capability_summary
 from .evidence_chain_quality import build_evidence_chain_summary, enrich_reflections_with_evidence_chains
 from .graph_quality import (
     build_graph_quality,
@@ -27,6 +28,7 @@ from .governance_action_budget import (
 )
 from .incident_trace_governance import build_incident_trace_actions
 from .impact_feedback import impact_feedback_summary
+from .index_freshness import index_health_summary
 from .design_outcome import design_calibration_summary
 from .experience_maturity import score_experience_maturity
 from .experience_usage import build_experience_usage_actions, fetch_experience_usage_summary
@@ -175,6 +177,8 @@ def maintain_health(args: argparse.Namespace) -> None:
 
     scope_health_rows = build_scope_health_rows(project)
     scope_missing_source = sum(1 for row in scope_health_rows if row["health_status"] == "missing_source")
+    scope_overflow = sum(1 for row in scope_health_rows if row["health_status"] == "overflow")
+    scope_boundary_drift = sum(1 for row in scope_health_rows if row["health_status"] == "boundary_drift")
     scope_with_drift = sum(1 for row in scope_health_rows if row["health_status"] in {"drift", "high_drift"})
     scope_high_drift = sum(1 for row in scope_health_rows if row["health_status"] == "high_drift")
     incident_strategy_candidates = build_incident_strategy_candidates(project, reflection_active_rows)
@@ -204,7 +208,9 @@ def maintain_health(args: argparse.Namespace) -> None:
     design_calibration = design_calibration_summary(project)
     provider_health = semantic_provider_health(project)
     agent_benchmark = agent_benchmark_summary(project)
+    context_capability = context_capability_summary(project)
     retrieval_observations = retrieval_feedback_summary(project)
+    code_index = index_health_summary(project)
 
     duplicate_count = len(duplicate_candidates(semantic_active_rows, "semantic")) + len(duplicate_candidates(reflection_active_rows, "reflection"))
     low_confidence_count = low_conf_semantic_count + low_conf_reflection_count
@@ -241,8 +247,37 @@ def maintain_health(args: argparse.Namespace) -> None:
     if int(provider_health.get("fallbacks") or 0) >= 2:
         recommended_actions.append("Review repeated semantic-provider fallback reasons before trusting static-only graph coverage.")
     if agent_benchmark.get("quality_gate") == "fail":
+        failure_class = agent_benchmark.get("primary_failure_class")
         recommended_actions.append(
-            "Review the latest Agent A/B benchmark regressions before changing retrieval or design behavior."
+            "Review the latest Agent A/B benchmark regressions"
+            f"{f' ({failure_class})' if failure_class else ''} before changing retrieval or design behavior."
+        )
+    if agent_benchmark.get("efficiency_gate") == "fail":
+        recommended_actions.append(
+            "Review Agent A/B token, elapsed-time, source-read amplification, and tool-output attribution before expanding retrieval context."
+        )
+    if context_capability.get("system_context_gate") == "fail":
+        failed = ", ".join(context_capability.get("failed_case_ids") or [])
+        failure_class = context_capability.get("primary_failure_class")
+        failure_suffix = (
+            f" Start with failure class {failure_class}." if failure_class else ""
+        )
+        recommended_actions.append(
+            "Repair the latest system context capability failures"
+            f"{f': {failed}' if failed else ''} before another external Agent A/B."
+            f"{failure_suffix}"
+        )
+    if code_index["status"] == "legacy_unverified":
+        recommended_actions.append(
+            "Refresh learned scopes so source-derived rows receive content digests."
+        )
+    if scope_overflow:
+        recommended_actions.append(
+            "Review overflow learn scopes and run a confirmed full refresh by scope id."
+        )
+    if scope_boundary_drift:
+        recommended_actions.append(
+            "Review changed Scope boundary dependencies before trusting affected business context."
         )
 
     data = {
@@ -260,6 +295,8 @@ def maintain_health(args: argparse.Namespace) -> None:
             "code_logs_missing_business_terms": code_logs_missing_business_terms,
             "learn_scopes": len(scope_health_rows),
             "scope_missing_source": scope_missing_source,
+            "scope_overflow": scope_overflow,
+            "scope_boundary_drift": scope_boundary_drift,
             "scope_with_drift": scope_with_drift,
             "scope_high_drift": scope_high_drift,
             "incident_strategy_candidates": len(incident_strategy_candidates),
@@ -295,7 +332,9 @@ def maintain_health(args: argparse.Namespace) -> None:
         "impact_feedback": impact_feedback,
         "design_calibration": design_calibration,
         "agent_benchmark": agent_benchmark,
+        "context_capability": context_capability,
         "retrieval_observations": retrieval_observations,
+        "code_index": code_index,
         "runtime_performance": build_runtime_performance_summary(project),
         "semantic_provider": provider_health,
         "recommended_actions": recommended_actions,

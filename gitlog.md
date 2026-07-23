@@ -2,6 +2,26 @@
 
 This repository is currently not a git repository. Use this file as a lightweight local change log so implementation work can be reviewed and manually rolled back.
 
+## 2026-07-23 - Preserve complete source blocks during learning
+
+Files changed:
+- ECMA structural block scanner, semantic and ArkTS range consumers, and learning regression tests.
+
+What changed:
+- Replaced raw per-line brace counts with a shared lexical scanner that excludes
+  braces in quoted literals, line comments, and block comments.
+- Applied the scanner to both semantic indexing and ArkTS callback source-range
+  extraction, so `learn-path` and `learn-entry` follow identical boundaries.
+- Added regression coverage for a method after JSON-like literal content through
+  both learning entry paths.
+- Restored the repository fingerprint header on five existing hierarchical
+  localization modules and tests so the project-wide source-integrity gate can
+  evaluate the complete suite.
+
+Why:
+- A `}` inside source text could terminate the enclosing class early, causing
+  all later methods in the same file to be omitted from semantic enrichment.
+
 ## 2026-07-17 - Bound Agent source expansion and stopping
 
 Files changed:
@@ -5122,3 +5142,2047 @@ Rollback notes:
 - Restore policy v3, remove the prompt budget/category additions and Codex
   telemetry helper, and restore model-reported search counts. No SQLite
   migration or project-memory data is involved.
+
+## 2026-07-17 - Add Agent benchmark cost attribution
+
+What changed:
+
+- Added privacy-safe Codex JSONL aggregation for input, cached input, uncached
+  input, output, and reasoning Token counts.
+- Added command count, command-output bytes, source-read count,
+  source-read-output bytes, and tool-error count without persisting command
+  output, source bodies, or private reasoning.
+- Kept `quality_gate` backward-compatible and added an independent
+  `efficiency_gate`. `promotion_gate` now requires both quality and efficiency.
+- Set initial efficiency limits to at most 10% Token overhead, at most 15%
+  elapsed-time overhead, complete cost attribution, and non-regressing source
+  searches.
+- Added `--fail-on-efficiency-fail`, persisted compact efficiency results, and
+  exposed them through `maintain-health.agent_benchmark` recommendations.
+
+Result:
+
+- The immutable v4 Gramony pack remains `quality_gate=pass` but now reports
+  `efficiency_gate=fail` and `promotion_gate=fail`: Token overhead is 18.11%,
+  elapsed overhead is 26.38%, source-search non-regression passes, and detailed
+  attribution coverage is zero because the pack predates the new fields.
+- A new external batch is required to attribute cost to model input/output,
+  cache behavior, source reads, and tool-output volume.
+
+Verification:
+
+- Cost telemetry, Runner, protocol, CLI, governance, and benchmark regression:
+  50 focused tests passed.
+- Full regression: 416 tests passed in 330.423 seconds.
+- Historical response rescoring, JSON parsing, four-Skill, 500-line Python, and
+  diff-whitespace checks passed.
+
+Rollback notes:
+
+- Remove the cost fields, efficiency module and CI option, then restore the
+  quality-only persisted summary. No SQLite migration or project-memory data
+  is involved.
+
+## 2026-07-17 - Run the Gramony cost-attribution A/B
+
+What changed:
+
+- Completed the authorized three-case, three-trial Gramony A/B with 18 external
+  Codex calls under the frozen v4 policy.
+- Preserved the complete aggregate response pack in
+  `docs/eval/gramony-v4-cost-attribution-responses.json` and updated the pilot
+  report and structured result ledger.
+- Kept source bodies, command output, and private reasoning out of the stored
+  artifact.
+
+Result:
+
+- All 18 observations reported complete model and command cost fields and used
+  Runner telemetry for source-search count.
+- Quality passed: Memory reached 1.0 outcome, root-cause accuracy, expected-file
+  recall, and predicted-file precision across all cases and trials.
+- Efficiency failed: cumulative Token overhead was 63.43% and elapsed overhead
+  was 27.71%, while source-search non-regression passed.
+- Attribution identified cached-input replay as the dominant increase:
+  cached input rose 97.20%, but uncached input fell 7.03%, command output fell
+  26.88%, and source-read count fell 12.16%.
+- Navigation is the main hotspot. A Baseline WebM trial that opened no source is
+  an outlier, but excluding its pair still leaves 52.00% input and 20.56%
+  elapsed overhead.
+- Memory reported 1.5555 non-zero command exits on average. Aggregate telemetry
+  treats these as review signals because it cannot distinguish expected search
+  misses from real failures without persisting command details.
+
+Verification:
+
+- The raw pack contains 18 observations, three trials per variant and case,
+  complete cost attribution, and valid JSON.
+- Offline rescoring reports `quality_gate=pass`, `efficiency_gate=fail`, and
+  `promotion_gate=fail` without an LLM judge.
+- The cost-attribution implementation already passed 50 focused tests and the
+  full 416-test regression suite before this external batch.
+
+Rollback notes:
+
+- Remove the attribution response pack and its report entries. No runtime data,
+  SQLite migration, benchmark Oracle, or frozen source revision is changed.
+
+## 2026-07-17 - Add the v5 sufficient-evidence Agent protocol
+
+What changed:
+
+- Added `anchor_first_sufficient_evidence_v5` with a compact
+  `TRIAGE -> GAP -> VERIFY -> STOP` source-inspection loop.
+- Moved benchmark prompt composition behind
+  `examples/codex_benchmark_prompt.py`, keeping the Runner focused on execution
+  and normalization.
+- Added one-read-per-file and 180-line read guidance while retaining the v4
+  search, file, expansion, category, and direct-evidence limits.
+- Preserved Runner-search telemetry enforcement for both historical v4 and new
+  v5 observations.
+- Separated expected `rg/grep` no-match exits from real tool errors and added
+  source-read amplification metrics.
+
+Result:
+
+- The minimal Memory protocol is eight lines and 1,592 characters versus the
+  previous 15 lines and 1,848 characters.
+- Historical v4 cost-attribution responses still rescore to
+  `quality_gate=pass`, `efficiency_gate=fail`, and `promotion_gate=fail` with
+  unchanged metrics.
+- V5 remains a local candidate. Its interaction-cost hypothesis requires a new
+  repeated external A/B before promotion.
+
+Verification:
+
+- Runner prompt, telemetry, source-exploration, path-handoff, benchmark, and
+  cost tests: 63 tests passed.
+- Full regression: 417 tests passed in 449.012 seconds.
+- Structured benchmark reports parse as JSON; no benchmark Oracle or frozen
+  response artifact was modified.
+
+Rollback notes:
+
+- Restore policy v4 and inline prompt composition, then remove the read limits,
+  search-miss field, and read-amplification metrics. No SQLite migration or
+  project-memory data is involved.
+
+## 2026-07-17 - Run the Gramony v5 external A/B
+
+What changed:
+
+- Completed the authorized three-case, three-trial v5 benchmark with 18
+  external Codex calls against the same frozen Gramony revisions.
+- Preserved the raw aggregate pack in
+  `docs/eval/gramony-v5-sufficient-evidence-responses.json`.
+- Recorded quality, efficiency, per-observation contract failures, v4 trend,
+  and the next bounded protocol change.
+
+Result:
+
+- All Memory trials returned the expected root-cause category, causal level,
+  and repair-owner files.
+- Quality still failed because navigation Memory trial 2 used four searches and
+  WebM Memory trial 1 used five against the limit of three.
+- Efficiency narrowly failed: Token overhead was 10.59% against 10%, and elapsed
+  overhead was 18.27% against 15%.
+- Commands fell 15.29%, command output 59.22%, source reads 38.57%, and
+  source-read output 43.00% against the same-batch Baseline.
+- Compared directionally with v4 Memory, v5 reduced model tokens 13.21%,
+  commands 16.28%, source reads 33.85%, and read output 54.03%.
+- All observations reported the new search-miss field. It was zero, so the
+  remaining non-zero exits were not expected `rg/grep` no-match results.
+
+Verification:
+
+- The response pack contains exactly 18 observations, with three trials for
+  each case and variant and complete cost telemetry.
+- Offline rescoring reproduces `quality_gate=fail`, `efficiency_gate=fail`, and
+  `promotion_gate=fail` without an LLM judge.
+
+Rollback notes:
+
+- Remove the v5 response pack and report entries. No runtime data, SQLite
+  migration, Oracle, or frozen source revision is changed.
+
+## 2026-07-17 - Add the v6 ledgered-stop candidate
+
+What changed:
+
+- Added `anchor_first_ledgered_stop_v6`, retaining the v5 sufficient-evidence
+  loop and restoring explicit pre-command search and read ledgers.
+- Required compound/pipeline search occurrences to count separately, known
+  anchors to be read directly, and each source path to be read at most once.
+- Added a v6-only Codex exploration audit requiring complete cost telemetry and
+  `source_read_count <= source_file_count`; historical v4/v5 scoring is not
+  changed.
+- Split non-zero command exits into search, source-read, and other command
+  families without storing command text or output.
+
+Result:
+
+- The minimal v6 Memory protocol is eight lines and 1,750 characters, below the
+  v4 protocol while restoring the ledger omitted by v5.
+- V6 is locally verified and remains pending the same repeated Gramony external
+  A/B. No gate threshold, Oracle, or retrieval ranking changed.
+
+Verification:
+
+- Prompt, telemetry, source-exploration, path-handoff, benchmark, and cost
+  regression: 64 tests passed.
+- Full regression: 418 tests passed in 503.485 seconds.
+- Historical v4 and v5 response packs retain their previous gate outcomes and
+  efficiency metrics under v6 code.
+
+Rollback notes:
+
+- Restore policy v5, remove the ledger line, v6 read audit, and family-specific
+  error fields. No SQLite migration or project-memory data is involved.
+
+## 2026-07-17 - Run the Gramony v6 external A/B
+
+What changed:
+
+- Completed the authorized three-case, three-trial v6 benchmark with 18
+  external Codex calls against the frozen Gramony revisions.
+- Preserved the raw aggregate pack in
+  `docs/eval/gramony-v6-ledgered-stop-responses.json`.
+- Recorded read-ledger, trace, zero-command telemetry, quality, efficiency, and
+  command-family error findings.
+
+Result:
+
+- The search ledger worked: every Memory observation stayed within three
+  searches and average searches fell to 0.8889.
+- Quality failed on four repeated-read observations, one incomplete expansion
+  trace, and one no-source login observation that scored 0.4.
+- Efficiency failed: Token overhead was 24.64% and elapsed overhead was 20.32%.
+- Commands, command output, source searches, source reads, and read output all
+  improved against same-batch Baseline, but cached-input replay remained high.
+- Compared directionally with v5 Memory, v6 reduced tokens 4.18%, commands
+  19.45%, searches 63.64%, and reads 16.28%; elapsed time was flat.
+- All Memory non-zero exits were classified as other-command failures. Search
+  misses/errors and source-read errors were zero.
+
+Verification:
+
+- The response pack contains exactly 18 observations with consistent v6 Runner
+  metadata and complete cost/error-family telemetry.
+- Offline rescoring reproduces `quality_gate=fail`, `efficiency_gate=fail`, and
+  `promotion_gate=fail` without an LLM judge.
+
+Rollback notes:
+
+- Remove the v6 response pack and report entries. No runtime data, SQLite
+  migration, Oracle, or frozen source revision is changed.
+
+## 2026-07-17 - Add the v7 search-ledger candidate
+
+What changed:
+
+- Kept the v6 hard search ledger and audited three-search limit under
+  `anchor_first_search_ledger_v7`.
+- Replaced the hard one-read-per-file quality rule with a bounded read plan:
+  one 180-line window plus one additional window for a named evidence gap.
+- Added source-read amplification to the efficiency gate with a 2.0 ceiling
+  and Baseline non-regression check.
+- Treat complete tool-less Codex turns as Runner-telemetry zero searches and
+  expose Memory read amplification through benchmark governance health.
+
+Result:
+
+- Focused prompt, telemetry, exploration, path, cost, and governance
+  regressions: 46 tests passed.
+- Full regression: 422 tests passed in 453.621 seconds.
+- Historical three-case rescoring preserves v4 quality-pass/efficiency-fail
+  and v5/v6 quality-fail/efficiency-fail outcomes; the new read-amplification
+  checks pass on all three immutable packs.
+- V7 remains a local candidate pending the repeated 18-call Gramony A/B; no
+  Oracle, quality threshold, retrieval ranking, or SQLite data changed.
+
+Rollback notes:
+
+- Restore the v6 policy and one-read quality audit, then remove the two read
+  amplification efficiency checks. Historical response artifacts remain valid.
+
+## 2026-07-18 - Run the Gramony v7 external A/B
+
+What changed:
+
+- Completed the three-case, three-trial v7 benchmark with 18 external Codex
+  calls against the frozen Gramony revisions.
+- Preserved the privacy-safe aggregate response pack in
+  `docs/eval/gramony-v7-search-ledger-responses.json`.
+- Recorded aggregate and per-case source-read amplification alongside quality,
+  efficiency, trace, and error-family results.
+
+Result:
+
+- All Memory diagnosis and file metrics reached 1.0, and every search count
+  came from Runner telemetry.
+- Quality failed because all three Login trials incompletely accounted for
+  expanded files; trial 2 also exceeded the per-round expansion-file budget.
+- Efficiency failed with 16.41% Token and 23.10% elapsed overhead.
+- Searches, reads, command output, read output, and aggregate read amplification
+  improved against Baseline. WebM still had 2.8333 reads per file, hidden by
+  the passing 1.4667 aggregate.
+- V7 is not promotable. The next candidate needs deterministic expansion
+  accounting and per-case efficiency checks before another external run.
+
+Verification:
+
+- The response pack contains exactly 18 observations with consistent v7
+  Runner metadata and complete cost/search telemetry.
+- Offline rescoring reproduces `quality_gate=fail`, `efficiency_gate=fail`, and
+  `promotion_gate=fail` without an LLM judge.
+
+Rollback notes:
+
+- Remove the v7 response pack and result entries. No SQLite migration, Oracle,
+  frozen source revision, or project-memory data changed.
+
+## 2026-07-18 - Add the v8 deterministic-expansion candidate
+
+What changed:
+
+- Added `anchor_first_deterministic_expansion_v8`, retaining the v7 search
+  ledger and bounded read plan.
+- Runner now derives expansion-file count and minimum two-file rounds from
+  investigated files and primary anchors; Agent trace files are representative.
+- Added per-case Token, elapsed, search, and read-amplification efficiency
+  checks alongside aggregate checks.
+- Exposed failed efficiency-case count and IDs through benchmark governance.
+
+Result:
+
+- Focused Runner, protocol, path, cost, and governance regression: 73 tests
+  passed.
+- Full regression: 427 tests passed in 245.793 seconds.
+- V4-v7 offline replay preserves their existing quality and promotion outcomes.
+- New per-case checks surface the historical Login Token/time and WebM read
+  hotspots that aggregate checks masked.
+- V8 is locally implemented and remains pending the repeated 18-call Gramony
+  A/B. No retrieval ranking, Oracle, SQLite schema, or memory data changed.
+
+Rollback notes:
+
+- Restore v7 policy, trace-completeness accounting, and aggregate-only
+  efficiency checks. Historical response artifacts require no migration.
+
+## 2026-07-18 - Improve core query context and test read windows
+
+What changed:
+
+- Added exact path-segment and long identifier identity signals, source-location
+  preference, and file-diverse result bounding for code retrieval.
+- Compact handoff now groups same-file symbols, carries source ranges and a
+  merged 180-line `read_window`, and removes duplicate containment evidence.
+- Updated the Codex benchmark protocol to treat source ranges as targets inside
+  one file read instead of separate read requests.
+- Preserved two privacy-safe development response packs for the Login/WebM
+  core-context check and the targeted WebM read-window check.
+
+Result:
+
+- Frozen Login now returns Password, PhoneNumber, and VerifyCode with source
+  ranges; frozen WebM ranks StickerInfo and MessageBubble first and includes
+  both sticker-rendering function ranges.
+- The first four-call A/B reduced Login reads from 9 to 3, searches from 3 to
+  0, Token use by about 50%, and elapsed time by about 16%, with outcome 1.0.
+- WebM outcome and file precision reached 1.0, but the read-window retest still
+  made 6 reads across 2 files. Prompt-only guidance did not solve repeated
+  source reads; a budgeted non-persistent source-excerpt stage remains next.
+- Focused query/retrieval/benchmark regression passed 97 tests. Full regression
+  after the read-window addition passed 428 tests in 244.680 seconds.
+
+Rollback notes:
+
+- Remove the identity scoring, diversity bound, compact source metadata, and
+  read-window prompt. SQLite schema, frozen Oracle, and project memory data do
+  not require migration.
+
+## 2026-07-18 - Add budgeted non-persistent source excerpts
+
+What changed:
+
+- Added a language-neutral current-source excerpt provider for the first two
+  compact primary anchors, bounded by ranges, lines, characters, and the
+  existing 1,500-Token payload budget.
+- Reject absolute, traversal, missing, and external-symlink source paths.
+- Return excerpt bodies to the caller while persisting only source-range
+  metadata in `runtime/last_context.json`.
+- Updated Query Skill and Runner guidance so an Agent reuses current-worktree
+  excerpts instead of rereading the same lines.
+
+Result:
+
+- Frozen WebM compact context is about 1,216 Tokens and contains the concrete
+  `audio/webm` Base64 `loadData` call. Frozen Login remains below budget at
+  about 1,244 Tokens while retaining all three Login files.
+- Source-excerpt, path-boundary, compact-query, Runner-prompt, log-path, query,
+  and retrieval focused regressions pass.
+- Final full regression passes all 430 tests in 252.937 seconds; Query Skill
+  remains within its 120-line progressive-disclosure limit at 118 lines.
+- The external WebM A/B was rejected because it would disclose current source
+  bodies to an external model. No external result was recorded or inferred.
+
+Rollback notes:
+
+- Remove `context_source_excerpt.py`, its compact-context attachment and
+  persistence redaction calls, and the source-excerpt Agent guidance. No
+  SQLite migration or stored-memory rewrite is required.
+
+## 2026-07-18 - Redact source excerpts at the external Runner boundary
+
+What changed:
+
+- The bundled Codex benchmark Runner now removes source-excerpt bodies before
+  constructing an external prompt while retaining inspectable line metadata.
+- Prompt logic distinguishes actual current-worktree bodies from metadata-only
+  anchors, so redacted runs still require direct source verification.
+- Runner metadata reports `source_excerpt_delivery=external_metadata_only`.
+- Added an end-to-end fake-Codex regression that fails if a unique source body
+  reaches the external process stdin.
+
+Result:
+
+- External Codex benchmark runs can evaluate anchor and range retrieval without
+  transmitting compact source bodies.
+- No supported local model CLI was found, so full source-excerpt behavior was
+  not assigned an invented Agent quality result. The generic Runner protocol
+  remains available for a trusted local implementation.
+- Historical v4, v7, and v8 response packs replay offline with their existing
+  non-promotion outcomes; no observation was rewritten.
+- Final full regression passes all 431 tests in 249.804 seconds. Source-privacy
+  tests remain in a separate 81-line module and all Python files stay below
+  the 500-line limit.
+
+Rollback notes:
+
+- Remove external-context redaction and its metadata field only if the external
+  source-disclosure boundary is intentionally restored. Runtime query behavior
+  and SQLite data require no migration.
+
+## 2026-07-18 - Add a trusted local Ollama benchmark Runner
+
+What changed:
+
+- Added a loopback-only Ollama Benchmark Runner using native `/api/chat` tool
+  calls and the shared Codex/Ollama structured response schema.
+- Added bounded, read-only workspace `read_source` and literal `search_source`
+  tools with path, symlink, file-size, output, search, file, line, and read limits.
+- Kept full compact source excerpts inside the declared local process boundary
+  while continuing to persist only aggregate telemetry and file paths.
+- Added mock Ollama end-to-end, model/host boundary, source tool, and existing
+  external Codex privacy regressions plus local usage documentation.
+
+Result:
+
+- The simulated local Agent performs a native tool call, receives current
+  source, returns the benchmark schema, and reports Runner-derived tool and
+  Ollama Token totals. The full regression passes all 436 tests in 246.564
+  seconds; the final binary/path/tool-loop focused regression passes 24 tests.
+- External Codex behavior remains metadata-only and its compatibility/privacy
+  tests pass unchanged.
+- Ollama `0.32.1` and four local model tags were installed for bounded probes;
+  no model passed the single-case quality and efficiency smoke gate, so no
+  three-case quality or promotion claim is made.
+- A first real `qwen3:8b` tool probe on an Intel six-core/16-GB host timed out
+  after five minutes at roughly 19 generated Tokens. The Runner now disables
+  thinking and caps tool/final generation at 256/512 Tokens; a smaller-model
+  smoke test is required before any Gramony quality claim.
+- Real compatibility probes found that `qwen3:1.7b` can call tools but failed a
+  Login A/B on planning quality, while `qwen3:4b` emitted reasoning text without
+  a tool call. `llama3.2:3b` returned a native tool call in 12.3 seconds but
+  encoded integer arguments as digit strings, so the tool facade now safely
+  normalizes ASCII digit strings and continues to reject other invalid types.
+- A real `llama3.2:3b` Login A/B also failed: Memory received two correct source
+  excerpts but returned a placeholder category, while Baseline invented JS file
+  names without reading source. This exposed and fixed a telemetry issue:
+  `source_file_count` now derives only from Runner-observed reads and delivered
+  excerpts, never model-claimed predicted or supporting files.
+- Preserved both privacy-safe failed smoke packs for offline replay, stopped the
+  18-call matrix, removed the unusable 8B/4B blobs, and retained only the 1.7B
+  protocol fixture plus 3B smoke candidate locally.
+
+Rollback notes:
+
+- Remove the Ollama Runner, source tool module, tests, and documentation. The
+  Runtime API, four Skills, SQLite schema, and stored memory require no change.
+
+## 2026-07-18 - Add a model-free system context capability gate
+
+What changed:
+
+- Added `eval-context-capability` to rebuild frozen cases and score compact
+  context supply before invoking an external Agent.
+- Separated code-anchor, source-excerpt, log, experience, causal-context, and
+  compactness profiles; capabilities without an explicit Oracle remain
+  informational rather than passing implicitly.
+- Persisted privacy-safe bounded results and exposed the latest summary through
+  `maintain-health.context_capability`.
+- Added selective promotion of one score-qualified exact log-emitter code
+  identity while retaining ordinary weak-log suppression.
+
+Result:
+
+- The first Gramony run caught a real split-view retrieval loss that previous
+  Agent outcome scoring had hidden: `ChatList.ets` existed in full log-emitter
+  results but was removed from compact context.
+- After the scoped fix, split-view navigation, duplicate login submission, and
+  WebM access all pass. Code and primary-anchor recall are 1.0, source-excerpt
+  recall is 0.8889, and average compact context is 1,215.3333 Tokens.
+- The gate invokes no model and stores no source body. It authorizes a later
+  Agent A/B but does not convert failed local-model smoke runs into a quality
+  pass.
+- Full regression passes all 443 tests in 252.332 seconds. All changed Python
+  files remain below 500 lines and `git diff --check` is clean.
+
+Rollback notes:
+
+- Remove the context capability command, evaluator, governance summary, and
+  exact log-emitter identity slot. Existing Agent A/B artifacts and SQLite data
+  require no migration.
+
+## 2026-07-18 - Add a six-case system capability suite
+
+What changed:
+
+- Added a reviewed minimal ArkTS fixture with two log, two experience, and two
+  bounded causal-path cases plus explicit positive and negative Oracles.
+- Added bounded reflection fixture injection through the existing public
+  `reflect` command and expanded deterministic scoring for log emitters,
+  main/guard experience lanes, path files, relations, and forbidden noise.
+- Scoped compact anchors and candidate paths after explicit negative log
+  clauses, preserved correction identity under budget trimming, and recognized
+  English semantic questions before memory-maintenance terms.
+- Kept trigger-relevant correction experience in the guard lane beside a
+  procedure while leaving unrelated correction memories blocked.
+
+Result:
+
+- The first run failed 5 of 6 cases and exposed concrete context-supply defects;
+  the final isolated run passes all 6 cases without changing the Oracles.
+- Code-anchor and source-excerpt recall are 1.0. Log, experience, causal, source,
+  code, and compactness profiles all pass at an average 1,002.5 Tokens.
+- Persisted reports contain no Oracle, source body, temporary log, or Agent
+  output. The evaluator invokes no model.
+- Selection logic was split from compact rendering; all changed Python files
+  remain below 500 lines. The full regression passes all 450 tests in 252.548
+  seconds.
+
+Rollback notes:
+
+- Remove the six-case fixture, context setup adapter, expanded Oracle fields,
+  and compact anchor selection module. No SQLite migration is required because
+  fixtures use isolated temporary memory only.
+
+## 2026-07-18 - Gate system capability across query variants
+
+What changed:
+
+- Added a bounded `query_variants` protocol that expands each selected scenario
+  into isolated context queries while sharing one reviewed Oracle and fixture.
+- Added per-scenario query robustness, variant pass rate, failed variant IDs,
+  and `maintain-health.context_capability` stability fields.
+- Expanded six ArkTS scenarios to original, English paraphrase, and Chinese or
+  explicit-noise wording for 18 model-free system queries.
+- Prioritized explicit business-semantics phrases over generic `refresh`
+  maintenance terms and measured procedure correction applicability by trigger
+  coverage instead of full-query length.
+
+Result:
+
+- The first robustness run passed 15/18 and isolated all failures to experience
+  wording sensitivity; log and causal-path variants already passed 12/12.
+- After the scoped fixes, all 6 scenarios and 18 variants pass. Query robustness,
+  code, source, log, experience, causal context, and compactness all pass;
+  average compact context is 998.6667 Tokens.
+- Unrelated procedure correction guards remain blocked by existing regressions,
+  and no Agent, Oracle, source body, or temporary log is persisted.
+- The full regression passes all 452 tests in 249.351 seconds, and all Python
+  files remain within the 500-line limit.
+
+Rollback notes:
+
+- Remove query variant expansion and robustness fields, then restore the six
+  original task descriptions. No runtime database migration is required.
+
+## 2026-07-18 - Add precision, source-span, abstention, and sealed holdout gates
+
+What changed:
+
+- Added query-focused current-source windows and persisted only bounded range
+  metadata, never source bodies.
+- Added hard Top-K, anchor-precision, source-span-recall, evidence-gap, and
+  no-evidence abstention Oracles to the model-free capability evaluator.
+- Expanded the synthetic suite to seven scenarios and 21 wording variants, and
+  exposed MRR, source-span recall, and abstention status through governance.
+- Sealed three previously unused Gramony history fixes as a separate holdout
+  before their first system-capability run.
+
+Result:
+
+- The synthetic gate passes all 21/21 variants; abstention passes 3/3, expected
+  anchor MRR is 1.0, and average compact context is 992.9524 Tokens.
+- The three-case Gramony development validation passes Top-K, precision, and
+  human source-span gates with source-span recall 1.0 and MRR 0.6667.
+- The untouched Gramony holdout fails 0/3 on the strict combined gate. It still
+  reaches 0.8333 file recall and MRR, but exposes ranking noise, source excerpts
+  displaced by log evidence, and a missed cross-component reply preview. The
+  holdout is retained as a failure baseline and is not used for tuning.
+- Full regression passes all 458 tests in 249.507 seconds. JSON fixtures and
+  whitespace checks pass, and every Python file remains below 500 lines.
+
+Rollback notes:
+
+- Remove the quality scorer, source-span metadata, negative fixture, and sealed
+  holdout pack. No SQLite migration is required.
+
+## 2026-07-18 - Generalize compact retrieval across lexical, graph, and source evidence
+
+What changed:
+
+- Added query-only CamelCase, underscore, and conservative English morphology
+  expansion without changing the base tokenizer used by memory governance.
+- Normalized symbol and log graph candidates to their containing files, added
+  bounded named ArkTS navigation routes, and reranked at most one independently
+  supported graph neighbor behind direct evidence.
+- Added lightweight code-anchor diversity, weak-graph abstention, and explicit
+  multi-target protection so related code can expand recall without displacing
+  requested files or manufacturing evidence.
+- Fairly divided the compact source-excerpt budget across the first three
+  primary anchors, selected query-focused windows, and retained a bounded
+  fallback path when a primary excerpt is unavailable.
+- Expanded the synthetic capability suite with cross-component and log-dense
+  cases, and expanded Gramony development validation with Sticker extension and
+  new-chat-title cases. The sealed Gramony holdout was not rerun or used for
+  tuning.
+- Enforced the existing 1,500-Token budget on compact design context and kept
+  the public related-edge result contract at ten entries while using broader
+  candidates only inside graph reranking.
+
+Result:
+
+- The model-free synthetic gate passes 9/9 scenarios and 27/27 query variants.
+  Code recall, primary recall, MRR, source-span recall, and query robustness are
+  1.0; abstention passes 3/3; average compact context is 1,014.8519 Tokens.
+- The five-case Gramony development gate passes 5/5 with code and primary recall
+  1.0, MRR 0.7, source and source-span recall 1.0, and average compact context
+  1,175.4 Tokens. Average preparation is 1,343.8 ms and query time is 408.4 ms.
+- Focused retrieval, graph, source, and budget regressions pass. The final full
+  regression passes all 470 tests in 251.300 seconds.
+- Both evaluation JSON files parse successfully, whitespace checks pass, and
+  every Python file remains at or below 500 lines.
+
+Rollback notes:
+
+- Remove query-only normalization, graph-neighbor promotion, named-route
+  extraction, source-budget fairness, and the two added development scenarios.
+  No SQLite schema or persisted project-memory migration is required.
+
+## 2026-07-18 - Measure retrieval generalization on a second sealed Gramony set
+
+What changed:
+
+- Source-reviewed three previously unused Gramony fixes covering a chat-search
+  layout overlap, cross-component sender-name propagation, and formatted-message
+  persistence reload.
+- Froze task wording, revisions, expected files, Top-K, precision thresholds,
+  and source spans before execution in a new holdout pack. Its pre-run SHA-256 is
+  `72e1588b9cb41850068e2e4d1831013e0dea600bfd9b7776160e41790c6766f1`.
+- Preserved a compact first-run result artifact without source bodies, Oracle
+  payloads, Agent output, or temporary logs. No retrieval implementation or
+  holdout threshold was changed after observing the result.
+
+Result:
+
+- The first and only valid model-free run passes 1/3 cases. Anchor and primary
+  recall are 0.7778, anchor precision is 0.3889, MRR is 1.0, and source-span
+  recall is 0.6667 at an average 1,192.6667 Tokens.
+- Formatted-entity persistence passes. Search-header layout reaches the correct
+  file and source span but fails precision. Consecutive sender-name context
+  misses the two upstream components that calculate and forward UI state.
+- The result is retained as a failed generalization observation. Future work
+  must develop backward component-property flow and precision on separate
+  development cases, then validate against another unseen set.
+- JSON, whitespace, and 19 focused capability tests pass. The final full
+  regression passes all 470 tests in 250.551 seconds; the unrestricted rerun
+  was required only for two fake Ollama tests that bind a loopback port.
+
+Rollback notes:
+
+- Remove the second holdout pack, its compact result, and the corresponding
+  documentation. No Runtime code, SQLite schema, or project memory changed.
+
+## 2026-07-18 - Add bounded ArkTS component-property navigation
+
+What changed:
+
+- Added a standalone ArkTS component-call parser that extracts only top-level
+  object-argument names, ignores comments, and emits `passes_property` edges
+  only when the target resolves to one unique learned component.
+- Added a single recursive CTE that walks component composition/property edges
+  backwards for at most two hops. Compact ranking can promote at most two
+  source-locatable parents and records `graph_depth`; public edge output remains
+  one hop and the Runtime does not infer data flow or causality.
+- Allowed two strong component-flow neighbors in the compact diversity lane
+  while retaining existing weak-graph abstention and explicit-target guards.
+- Expanded ArkTS source-window behavior markers so component property bindings,
+  `@Prop`, and conditional rendering outrank matching import lines.
+- Added a generic Timeline page/row/bubble development fixture and three query
+  variants without rerunning or modifying either sealed Gramony holdout.
+
+Result:
+
+- The focused component-flow gate passes 3/3 variants with anchor recall,
+  precision, MRR, and source-span recall all at 1.0.
+- The complete model-free development gate passes 10/10 scenarios and 30/30
+  variants. Code recall, primary recall, MRR, source-span recall, and query
+  robustness are 1.0; abstention passes 3/3; average compact context is 1,033.4
+  Tokens, preparation is 676.0 ms, and query time is 282.6333 ms.
+- The prior 9/27 development scenarios still pass unchanged. Neither sealed
+  Gramony holdout was rerun or used as a tuning input.
+- Focused graph, source-window, diversity, design-edge, and query-performance
+  regressions pass. The final full regression passes all 471 tests in 252.793
+  seconds, and every Python file remains at or below 500 lines.
+
+Rollback notes:
+
+- Remove `passes_property` extraction, component-lineage promotion, the Timeline
+  fixture/scenario, and the added ArkTS source markers. Rebuild derived graph
+  edges to remove the relation; no SQLite schema or durable memory migration is
+  required.
+
+## 2026-07-18 - Measure component-context generalization on a third sealed set
+
+What changed:
+
+- Source-reviewed and froze three previously unused Gramony UI fixes covering a
+  chat-bottom safe area, a chat-list divider, and home-search spacing.
+- Recorded the case pack SHA-256 as
+  `c2fe3ca4d161ff1e70b8b2549758ee87d4096f2ed56e7bd131548e768482fb69`
+  before execution and confirmed it remained unchanged afterwards.
+- Preserved a compact first-run result without source bodies, raw logs, Agent
+  output, or hidden Oracle payloads. Retrieval code and thresholds were not
+  changed after observing the result.
+
+Result:
+
+- The first and only valid model-free run passes 0/3 cases. Anchor recall is
+  0.5, precision is 0.2778, MRR is 0.6667, and source-span recall is 0.1667 at
+  an average 1,101 Tokens.
+- Home-search spacing recalls both expected files but misses precision and one
+  source span. Chat-bottom context reaches the leaf component but not its page
+  container. Chat-list divider misses the exact behavior owner.
+- The failed holdout is retained as an immutable generalization observation.
+  Future implementation work must use separate development cases and a new
+  unseen set for validation.
+- Both JSON artifacts parse, the sealed case hash is unchanged, whitespace
+  checks pass, all 23 focused context-capability tests pass, and every Python
+  file remains at or below 500 lines.
+
+Rollback notes:
+
+- Remove the third holdout pack, its compact result, and the corresponding
+  documentation. No Runtime code, SQLite schema, or project memory changed.
+
+## 2026-07-18 - Improve ArkTS behavior owners and component-lineage precision
+
+What changed:
+
+- Added two independent Commerce development scenarios for a three-component
+  property chain and an exact ArkTS UI operation owner, each with three query
+  variants. No sealed Gramony holdout was read, rerun, or modified for tuning.
+- Added bounded, source-ordered ArkTS chained-operation names to file summaries
+  and kept operation arguments and source bodies out of SQLite.
+- Excluded known ArkUI Builder calls from function-symbol extraction while
+  preserving project-defined uppercase methods.
+- Conditioned component-lineage seeds on direct query support, focused compact
+  candidates on coherent static branches, and stopped unrelated same-prefix
+  candidates from backfilling a complete branch.
+- Merged file-level behavior evidence with the best same-file source location,
+  prioritized UI modifiers and component bindings in source windows, and kept
+  a uniquely supported behavior owner isolated from unproven graph neighbors.
+- Required short ASCII query terms to match token boundaries and allowed source
+  locatability to boost only candidates with an existing textual match. This
+  preserved no-evidence abstention after adding the Catalog fixture.
+
+Result:
+
+- Both new scenarios improve from 1/3 and 0/3 baselines to 3/3 variants.
+- The complete model-free development gate passes 12/12 scenarios and 36/36
+  variants. Code and primary recall, MRR, source-span recall, and query
+  robustness are 1.0; abstention passes 3/3; average compact context is
+  1,006.0278 Tokens, preparation is 677.2222 ms, and query time is 282.4722 ms.
+- Forty focused tests pass. The final unrestricted regression passes all 476
+  tests in 257.659 seconds; unrestricted execution is needed only for fake
+  Ollama tests that bind a loopback port.
+- JSON and whitespace checks pass, and every Python file remains at or below
+  500 lines.
+
+Rollback notes:
+
+- Remove ArkTS operation summary extraction, candidate focusing, query-aware
+  lineage seeding, structural source bonuses, and the two Commerce scenarios.
+  Relearn affected ArkTS scopes to restore older generated summaries. No SQLite
+  schema migration or durable memory rewrite is required.
+
+## 2026-07-18 - Add sealed real-project validation and theory-grounded gates
+
+What changed:
+
+- Added canonical SHA-256 holdout sealing through the existing runtime facade.
+  Sealing verifies source-reviewed cases, hidden Oracle fields, immutable
+  revisions, fix commits, and declared files against the real Git diff. Pack
+  loading rejects missing or modified required seals before evaluation.
+- Added Context and Agent failure attribution for candidate generation,
+  ranking, passage selection, graph structure, experience governance,
+  abstention, compactness, Agent protocol, evaluation integrity, and Agent
+  efficiency. Reports include method references, permitted repair layers,
+  prohibited shortcuts, and the next validation boundary.
+- Added ten sealed Jingmo cases, a separate three-case post-repair Jingmo pack,
+  and two reserved unseen Gramony cases. The 15 source-reviewed sealed cases
+  cover two real ArkTS repositories without changing the four-Skill surface.
+- Added three independent Commerce development scenarios and bounded ArkTS
+  member-operation indexing, explicit multi-type identity focusing,
+  entity-role suppression, and query-focused file-anchor source windows.
+  Candidate selection moved from the runtime facade into a dedicated module.
+- Added cross-project Context history to `maintain-health`, grouped compactly
+  by source project and clearly separating sealed from unsealed observations.
+- Updated the system capability, Agent benchmark, runtime, and usage documents,
+  and recorded an explicit release decision instead of claiming promotion.
+
+Result:
+
+- The development Context gate passes all 15 scenarios and 45 query variants.
+  Anchor recall, primary recall, MRR, source-span recall, and wording stability
+  are 1.0; average compact context is 956.4889 Tokens.
+- The first sealed Jingmo observation passes 1/10. A new, non-overlapping
+  post-repair pack passes 0/3 and remains immutable; its leading failure is
+  ranking precision, followed by candidate generation and passage selection.
+- The recorded Gramony Agent A/B has 18 complete observations across three
+  cases and three paired trials. Result quality is stable, but Memory adds
+  16.41% Token and 23.1% elapsed overhead and fails per-case efficiency checks.
+  Quality, efficiency, and promotion gates therefore remain failed.
+- Seal tampering, source audit, failure analysis, Context governance, ArkTS
+  retrieval, and source-window focused tests pass. The unrestricted full suite
+  passes all 491 tests in 292.902 seconds; loopback permission is required only
+  by the fake Ollama HTTP server tests. JSON, compile, whitespace, and line-
+  count audits pass, and every Python source/test file is at most 500 lines.
+
+Rollback notes:
+
+- Remove the seal/failure-analysis modules, new evaluation artifacts, cross-
+  project governance summary, and query-selection refinements. No SQLite schema
+  migration, fifth Skill, daemon, vector store, or durable user memory rewrite
+  was introduced.
+
+## 2026-07-18 - Add large-repository fielded retrieval and consume Gramony holdout
+
+What changed:
+
+- Extracted candidate generation from `query_collect.py` into a replaceable
+  SQLite recall port with bounded broad, conjunctive, and per-concept FTS5
+  lanes. Extra lanes activate only when broad recall is saturated.
+- Added full-query recall and stage audits, query-focus coverage reranking, and
+  evidence-backed symbol-range-first source passage selection. Compact context
+  remains unchanged and under the existing Token budget.
+- Added independent noisy retrieval fixtures that reproduce multi-owner recall,
+  ranking interference, and whole-file passage drift without using holdout
+  Oracles.
+- Consumed the two sealed Gramony cases once and stored an immutable summary.
+  Updated the release decision instead of retuning the consumed pack.
+
+Result:
+
+- Focused retrieval, graph, audit, and performance regressions pass 39 tests.
+- The development Context gate remains 45/45 with anchor recall 1.0, MRR
+  0.9722, source-span recall 1.0, average context 957.8 Tokens, and average
+  query time 351.1111 ms.
+- The sealed Gramony observation passes 0/2. Anchor recall and MRR are 0.75,
+  precision is 0.25, source-span recall is 0.0, and average context is 1,287.5
+  Tokens. Promotion remains denied; the pack is now immutable and unavailable
+  for tuning.
+- Full discovery ran 496 tests: 494 passed in the restricted sandbox, while two
+  fake Ollama tests could not bind `127.0.0.1`; both loopback tests passed when
+  rerun with local socket permission. JSON, compile, whitespace, and line-count
+  checks pass across 263 Python files, with no file above 500 lines.
+
+Rollback notes:
+
+- Remove the candidate recall/ranking modules and query audit integration, then
+  restore direct broad FTS recall and global source-window selection. No schema
+  migration or durable user-memory rewrite is required. Evaluation observations
+  must remain retained even if the implementation is rolled back.
+
+## 2026-07-19 - Add coverage-first excerpts and consume Bookkeep holdout
+
+What changed:
+
+- Added independent regressions for late query-owner terms, dominant shared
+  owners, executable ArkTS passage focus, and three-anchor excerpt coverage.
+- Changed compact source budgeting so three primary anchors retain small source
+  windows before one candidate consumes the available excerpt budget.
+- Reviewed and sealed three real Bookkeep fixes from immutable Git history,
+  including one noisy commit whose expected file remains symptom-scoped.
+- Stored the one-time external result and updated the three-project release
+  decision without changing the consumed pack or its thresholds.
+
+Result:
+
+- The 15-scenario/45-variant development Context gate passes 45/45 with anchor
+  recall 1.0, MRR 0.9676, source-span recall 1.0, and average context 943.5111
+  Tokens.
+- The sealed Bookkeep observation passes 0/3. No code anchor is returned, so
+  anchor recall, MRR, and source-span recall are 0.0; average context is 388
+  Tokens. The root failure is candidate generation across abstract English
+  symptoms, Chinese domain vocabulary, generic page names, and ArkTS syntax.
+- Sealed inventory now contains 18 cases across Jingmo, Gramony, and Bookkeep.
+  Promotion remains denied and all consumed holdouts remain immutable.
+- Full discovery ran 500 tests: 498 passed in the restricted sandbox and the
+  two fake Ollama loopback tests passed when rerun with local socket permission.
+  JSON, compile, whitespace, and 500-line audits all pass.
+- Post-run audit found that the sealed pack labels the source branch as
+  `master`, while Bookkeep remote HEAD is `main`. Full audited revisions drove
+  source preparation, so the observation is valid; the consumed pack remains
+  unchanged and the discrepancy is recorded in its result summary.
+
+Rollback notes:
+
+- Revert the minimum excerpt allocation and its regression if compact source
+  quality regresses. Retain all sealed packs and immutable observations even if
+  retrieval code is rolled back; no schema migration is involved.
+
+## 2026-07-19 - Add structural symptom recall and consume Home Assistant holdout
+
+What changed:
+
+- Added a language-neutral behavior concept module for abstract scrolling,
+  reactive aggregate refresh, and visual overlap symptoms. The bounded
+  `sqlite_fts5_fielded/v2` structural lane applies only to code-file summaries
+  and exposes its term count in full query audit.
+- Indexed ArkTS `forEach` behavior and added structural marker coverage to code
+  focusing, suppressing stronger lexical noise when a candidate lacks the
+  behavior requested by the symptom.
+- Preserved two alternate causal paths under tight compact budgets by dropping
+  one redundant non-emitter excerpt before collapsing path diversity. Code
+  anchors and common emitter source evidence remain available.
+- Added three independent development scenarios with nine wording variants.
+  Reviewed, source-audited, and sealed four real Home Assistant fixes, executed
+  the pack exactly once, and retained the failed observation unchanged.
+- Updated runtime, usage, benchmark, capability, plan, and release-governance
+  documentation. The public four-Skill surface and SQLite source of truth are
+  unchanged.
+
+Result:
+
+- The development Context gate passes 54/54 variants across 18 scenarios with
+  anchor recall 1.0, MRR 0.9741, source-span recall 1.0, average compact context
+  893.5556 Tokens, and average query time 327.3704 ms.
+- The sealed Home Assistant observation passes 0/4. The layout owner is found
+  at rank one with the required source span but fails precision; lifecycle,
+  callback-containment, and authoritative-refresh owners are not recalled.
+  Aggregate anchor recall and MRR are 0.25. The pack is consumed and cannot be
+  rerun for tuning.
+- Sealed inventory now contains 22 cases across four real ArkTS projects.
+  Promotion remains denied because real-project Context generalization and the
+  recorded Agent efficiency gate do not both pass.
+- Full discovery ran 505 tests: 503 passed in the restricted sandbox, while the
+  two fake Ollama tests could not bind `127.0.0.1`; both passed with local
+  loopback permission. JSON, compile, whitespace, and line-count audits pass,
+  and every Python source/test file remains at most 500 lines.
+
+Rollback notes:
+
+- Remove the structural recall/focus modules and their independent development
+  fixtures, restore the previous recall provider version, and remove the path
+  diversity excerpt preference if regressions appear. Retain all sealed packs
+  and immutable result summaries; no SQLite migration or durable memory rewrite
+  was introduced.
+
+## 2026-07-19 - Add mechanism-aware recall and consume Aigis holdout
+
+What changed:
+
+- Added a conservative ArkTS behavior-marker extractor for existing fallback,
+  repository, callback, deserialization, action, lifecycle, state-write, and
+  async mechanisms. Markers are persisted in file summaries and never infer a
+  missing repair.
+- Added language-neutral reusable-spacing, fallback-recovery,
+  callback-containment, and post-action-refresh concepts. Structural focusing
+  now keeps a bounded minimal cover of complementary marker evidence.
+- Added exact high-entropy identifier abstention so generic topic overlap cannot
+  substitute for an unknown identifier without direct or graph support.
+- Changed `eval-context-capability` to run all scenarios by default, while an
+  explicit limit remains available for a deliberately bounded selection.
+- Added four independent development scenarios and twelve wording variants,
+  then reviewed, sealed, and executed four real Aigis cases exactly once.
+  Updated the five-project release decision without tuning the consumed pack.
+
+Result:
+
+- The development Context gate passes 66/66 variants across 22 scenarios with
+  anchor and primary-anchor recall 1.0, MRR 0.9883, source-span recall 1.0,
+  average compact context 854.0152 Tokens, and average query time 383.6212 ms.
+- The sealed Aigis observation passes 1/4. Aggregate anchor recall is 0.75,
+  precision 0.25, MRR 0.625, source-span recall 0.5, and average context
+  1,194.25 Tokens. The pack is consumed and unavailable for tuning.
+- Sealed inventory now contains 26 cases across five real ArkTS projects.
+  Promotion remains denied because external Context generalization and the
+  recorded Agent efficiency gate do not both pass.
+- Full discovery ran 515 tests: 513 passed in the restricted sandbox; the two
+  fake Ollama tests blocked only by loopback binding both passed with local
+  socket permission. JSON, compile, whitespace, and line-count audits pass,
+  with every Python source/test file at most 500 lines.
+
+Rollback notes:
+
+- Remove the mechanism extractor, concept mappings, minimal structural cover,
+  and opaque-identifier guard together if recall regresses; restore the prior
+  evaluation default only if callers explicitly require partial packs. Retain
+  the sealed Aigis pack and immutable observation under any rollback. No SQLite
+  migration or durable user-memory rewrite was introduced.
+
+## 2026-07-19 - Add event and persistence recall and consume sixth holdout
+
+What changed:
+
+- Added conservative ArkTS markers for event-to-state handoff, validation
+  early-stop ownership, explicit persistence writes, and paired counter/time
+  commits. Added language-neutral query concepts for the same mechanisms.
+- Kept directly supported structural owners eligible when they also carry graph
+  provenance, without promoting generic graph neighbors as direct evidence.
+- Added four independent development scenarios and twelve query variants for
+  state handoff, validation, persistence, and combined-owner precision.
+- Reviewed and sealed four real harmonyos-games fixes, executed the pack once,
+  stored the immutable result, and updated the six-project release decision.
+
+Result:
+
+- The development Context gate passes 78/78 variants across 26 scenarios with
+  anchor and primary-anchor recall 1.0, MRR 0.9928, source-span recall 1.0,
+  average compact context 822.3077 Tokens, and average query time 320.6154 ms.
+- The harmonyos-games observation passes 1/4. Aggregate anchor recall is 0.75,
+  precision 0.375, MRR 0.75, source-span recall 0.75, and average context is
+  1,112 Tokens. Two expected owners rank first but fail precision; one gesture
+  state owner is not recalled.
+- Sealed inventory now contains 30 cases across six real ArkTS projects.
+  Promotion remains denied. The consumed pack cannot be rerun or used to tune
+  ranking, query wording, thresholds, or Oracles.
+- Full discovery ran 520 tests: 518 passed in the restricted sandbox, and the
+  two fake Ollama tests blocked only by loopback binding both passed with local
+  socket permission. All eval JSON, compile, whitespace, and 500-line audits
+  pass.
+
+Rollback notes:
+
+- Remove the four new mechanism markers, query concepts, selection adjustment,
+  and independent fixtures together if regressions appear. Retain every sealed
+  pack and immutable observation. No SQLite migration or durable memory rewrite
+  was introduced.
+
+## 2026-07-19 - Add gesture precision and consume JustPDF holdout
+
+What changed:
+
+- Added conservative ArkTS markers for gesture callbacks and indexed collection
+  writes, and recognized `restore` as an existing lifecycle operation.
+- Added language-neutral concepts for gesture-state symptoms, adjacent
+  collection mutation, and lifecycle-persistence ownership without changing
+  global ranking thresholds.
+- Added three independent development scenarios and nine wording variants with
+  explicit partial-owner noise and method-level source-span Oracles.
+- Reviewed four single-owner fixes across JustPDF history, source-audited and
+  sealed the pack, executed it once, and stored the immutable result.
+
+Result:
+
+- The development Context gate passes 87/87 variants across 29 scenarios with
+  anchor and primary-anchor recall 1.0, MRR 0.9936, source-span recall 1.0,
+  average compact context 801.7011 Tokens, and average query time 312.931 ms.
+- The JustPDF observation passes 1/4. Aggregate anchor recall is 0.75,
+  precision 0.3125, MRR 0.625, source-span recall 0.25, and average context is
+  1,150.5 Tokens. One async owner is absent; two recalled owners miss their
+  audited method windows, and touch arbitration retains excess neighbors.
+- Sealed inventory now contains 34 cases across seven real ArkTS projects.
+  Promotion remains denied and the consumed pack cannot be rerun or tuned.
+- Full discovery ran 525 tests: 523 passed in the restricted sandbox, and the
+  two fake Ollama tests blocked only by loopback binding both passed with local
+  socket permission. All eval JSON, compile, whitespace, and 500-line audits
+  pass.
+
+Rollback notes:
+
+- Remove the gesture/collection markers, lifecycle restore term, query concepts,
+  independent fixtures, and their tests together if regressions appear. Retain
+  every sealed pack and immutable observation. No SQLite migration or durable
+  memory rewrite was introduced.
+
+## 2026-07-19 - Add async method focus and consume FinVideo holdout
+
+What changed:
+
+- Added language-neutral query concepts for asynchronous state ordering and
+  touch-state arbitration while reusing conservative, source-checkable ArkTS
+  behavior markers.
+- Made English concept triggers word-aware, preventing substrings such as
+  `interaction` from activating the unrelated `action` mechanism.
+- Preferred complete multi-mechanism owners over generic operation-name
+  matches, while retaining explicit file and symbol identity precedence.
+- Added language-adapter-backed callable ranges for source excerpt selection,
+  preserved mechanism-complete methods before lexical fallback, and reduced
+  repeated source reads to one scan per file.
+- Added two independent development scenarios and six wording variants, then
+  reviewed and sealed four FinVideo fixes, executed that pack exactly once,
+  and stored its immutable observation.
+
+Result:
+
+- The development Context gate passes 93/93 variants across 31 scenarios with
+  anchor and primary-anchor recall 1.0, MRR 0.994, source-span recall 1.0,
+  average compact context 789.9462 Tokens, and average query time 435.5699 ms.
+- The FinVideo observation passes 0/4. Aggregate anchor recall is 0.75,
+  precision 0.3958, MRR 0.75, source-span recall 0.25, and average context is
+  948.5 Tokens. Nested ArkUI callbacks and Builder ranges remain weak,
+  conditional folder loading misses its owner, and two cases retain excess
+  neighbors.
+- Sealed inventory now contains 38 cases across eight real ArkTS projects.
+  Promotion remains denied and the consumed pack cannot be rerun or tuned.
+- Full discovery ran 529 tests: 527 passed in the restricted sandbox, and the
+  two fake Ollama tests blocked only by loopback binding passed with local
+  socket permission. All 44 eval JSON files, compile, whitespace, and 500-line
+  audits pass; the largest Python source/test file is 496 lines.
+
+Rollback notes:
+
+- Remove the async/touch concepts, word-aware trigger matching, combination
+  precedence, callable-range focus, independent fixtures, and their tests
+  together if regressions appear. Retain every sealed pack and immutable
+  observation. No SQLite migration or durable memory rewrite was introduced.
+
+## 2026-07-19 - Add ArkTS DSL focus and consume Wechat holdout
+
+What changed:
+
+- Added conservative ArkTS markers for indexed touch access, conditional data
+  sources, lifecycle callback cleanup, horizontal and vertical layout axes, and
+  async request ordering guards.
+- Added a language-adapter source range layer that combines ECMA callables with
+  nested chained ArkUI arrow callbacks, allowing callback and Builder windows
+  to compete independently.
+- Added bounded component identifier terms and raw-query-only explicit path
+  protection. Semantic expansions, negative references, and behavior-only
+  queries cannot pin unrelated paths.
+- Added four independent development scenarios and twelve wording variants,
+  then reviewed and sealed four Wechat_HarmonyOS fixes, executed the pack
+  exactly once, and stored its immutable observation.
+
+Result:
+
+- The development Context gate passes 105/105 variants across 35 scenarios
+  with anchor and primary-anchor recall 1.0, MRR 0.9896, source-span recall
+  1.0, average compact context 764.5714 Tokens, and average query time 520 ms.
+- The Wechat observation passes 1/4. Aggregate anchor recall is 0.75,
+  precision 0.25, MRR 0.5833, source-span recall 0.25, and average context is
+  1,138.5 Tokens. Reusable toolbar recall, audio lifecycle passage precision,
+  and keyboard/back event ownership remain external generalization gaps.
+- Sealed inventory now contains 42 cases across nine real ArkTS projects.
+  Promotion remains denied and the consumed pack cannot be rerun or tuned.
+- Focused ArkTS retrieval and source-range regression passes 78/78 tests. Full
+  discovery ran 542 tests: 540 passed in the restricted sandbox, and the two
+  fake Ollama tests blocked only by loopback binding passed with local socket
+  permission. All 46 eval JSON files, compile, whitespace, seal consistency,
+  and 500-line audits pass; the largest Python source/test file is 496 lines.
+
+Rollback notes:
+
+- Remove the new marker concepts, ArkTS range adapter, component terms,
+  explicit-path safeguards, independent fixtures, and their tests together if
+  regressions appear. Retain every sealed pack and immutable observation. No
+  SQLite migration or durable memory rewrite was introduced.
+
+## 2026-07-19 - Add role/boundary recall and consume Siyuan holdout
+
+What changed:
+
+- Added conservative ArkTS markers and language-neutral query concepts for
+  reusable Toolbar roles, media resource acquire/release ownership, and
+  keyboard/back event boundaries. Business ActionBar components remain
+  excluded from the reusable Toolbar role.
+- Kept a bounded structural FTS lane available when broad recall saturates and
+  removed expansion-only tails under two strong identity paths, while
+  preserving component-flow lineage.
+- Added three independent development scenarios and nine wording variants for
+  toolbar ownership, resource shutdown, and key-event precision.
+- Reviewed four single-owner Siyuan Harmony fixes, source-audited and sealed
+  the pack, executed it exactly once, and stored the immutable result.
+
+Result:
+
+- The development Context gate passes 114/114 variants across 38 scenarios
+  with anchor and primary-anchor recall 1.0, MRR 0.9905, source-span recall
+  1.0, average compact context 746.8684 Tokens, and average query time
+  556.5351 ms.
+- The Siyuan observation passes 0/4. Aggregate anchor recall is 0.75,
+  precision 0.2708, MRR 0.4583, source-span recall 0.0, and average context is
+  1,074.25 Tokens. Archive I/O ownership is absent; three other owners are
+  noisy or late, and all four audited method windows are missed.
+- Sealed inventory now contains 46 cases across ten real ArkTS projects.
+  Promotion remains denied and the consumed pack cannot be rerun or tuned.
+- Focused mechanism, recall, precision, and source-focus regression passes
+  43/43 tests. Full discovery ran 551 tests: 549 passed in the restricted
+  sandbox, and the two fake Ollama tests blocked only by loopback binding both
+  passed with local socket permission. All 48 eval JSON files, compile,
+  whitespace, seal consistency, and 500-line audits pass; the largest Python
+  source/test file is 496 lines.
+
+Rollback notes:
+
+- Remove the new role/boundary markers, query concepts, structural-lane
+  scheduling, identity-tail focus, independent fixtures, and their tests
+  together if regressions appear. Retain every sealed pack and immutable
+  observation. No SQLite migration or durable memory rewrite was introduced.
+
+## 2026-07-19 - Add I/O/conversion recall and consume Termony holdout
+
+What changed:
+
+- Added conservative ArkTS behavior markers and language-neutral concepts for
+  archive asset I/O, collection aggregation, keyboard/focus state, and native
+  color conversion.
+- Merged query-supported callable ranges ahead of stored source ranges so a
+  matching implementation method remains visible without discarding existing
+  graph evidence.
+- Tightened reusable-spacing expansion to explicit margin and padding terms
+  after an independent collection fixture exposed a generic shared-owner false
+  positive.
+- Added four independent development scenarios and twelve wording variants,
+  then reviewed and sealed four Termony fixes, executed that pack exactly once,
+  and stored its immutable observation.
+
+Result:
+
+- The development Context gate passes 126/126 variants across 42 scenarios
+  with anchor and primary-anchor recall 1.0, oracle precision 0.9309, MRR
+  0.9915, source-span recall 1.0, average compact context 726.373 Tokens, and
+  average query time 994.9683 ms.
+- The Termony observation passes 1/4. Aggregate anchor recall, primary recall,
+  precision, and MRR are 0.5; source-span recall is 0.25 and average context is
+  721.25 Tokens. Clipboard extraction and sequential permission owners are not
+  recalled, empty-result scrolling recalls the owner but misses its method
+  window, and touch-coordinate conversion passes completely.
+- Sealed inventory now contains 50 cases across eleven real ArkTS projects.
+  Promotion remains denied and the consumed pack cannot be rerun or tuned.
+- Focused marker, recall, precision, source-focus, and diversity regression
+  passes 75/75 tests. Full discovery ran 563 tests: 561 passed in the restricted
+  sandbox, and the two fake Ollama tests blocked only by loopback binding passed
+  in the focused 3/3 local-socket suite. All 50 eval JSON files, compile,
+  whitespace, seal consistency, and 500-line audits pass; the largest Python
+  source/test file is 496 lines.
+
+Rollback notes:
+
+- Remove this stage's behavior markers, concepts, callable-range merge,
+  independent fixtures, and their tests together if regressions appear. Retain
+  every sealed pack and immutable observation. No SQLite migration or durable
+  memory rewrite was introduced.
+
+## 2026-07-19 - Add behavior-owner recall and consume ClearChat holdout
+
+What changed:
+
+- Added conservative ArkTS markers and language-neutral query concepts for
+  clipboard content reads, permission request/result guards, process-output
+  read loops, and runtime-capability probes.
+- Removed explicit negative clauses before behavior expansion, suppressed
+  generic identity-only log emitters for structural queries without active
+  path reconstruction, and preserved exact log and path-led retrieval.
+- Fixed ArkTS callback range detection so a later arrow expression cannot be
+  attached to an already closed call.
+- Added four independent development scenarios and twelve wording variants,
+  then reviewed and sealed four ClearChat fixes, executed that pack exactly
+  once, and stored its immutable observation.
+
+Result:
+
+- The development Context gate passes 138/138 variants across 46 scenarios
+  with anchor and primary-anchor recall 1.0, oracle precision 0.9412, MRR
+  0.9922, source-span recall 1.0, average compact context 714.0 Tokens, and
+  average query time 1,195.2826 ms.
+- The ClearChat observation passes 0/4. Aggregate anchor and primary recall are
+  0.5, precision is 0.1875, MRR is 0.375, source-span recall is 0.25, and
+  average context is 1,225.25 Tokens. Cache ownership passes recall and span
+  gates but broad neighbors reduce precision; streaming persistence windows,
+  initialization timeout ownership, and WebView security ownership remain
+  external generalization gaps.
+- Sealed inventory now contains 54 cases across twelve real ArkTS projects.
+  Promotion remains denied and the consumed pack cannot be rerun or tuned.
+- Focused marker, recall, precision, source-focus, diversity, UI-context, and
+  source-excerpt regression passes 96/96 tests. Full discovery ran 571 tests:
+  569 passed in the restricted sandbox, and the two fake Ollama tests blocked
+  only by loopback binding passed in the focused 3/3 local-socket suite. All 52
+  eval JSON files, compile, whitespace, seal consistency, and 500-line audits
+  pass; the largest Python source/test file is 497 lines.
+
+Rollback notes:
+
+- Remove this stage's behavior markers, concepts, structural log suppression,
+  callback-range fix, independent fixtures, and their tests together if
+  regressions appear. Retain every sealed pack and immutable observation. No
+  SQLite migration or durable memory rewrite was introduced.
+
+## 2026-07-19 - Add async/security owners and consume ccplayer holdout
+
+What changed:
+
+- Added conservative ArkTS markers and language-neutral query concepts for
+  serialized persistence, timeout cancellation, WebView access and URL-scheme
+  policy, and bounded-cache eviction.
+- Required UI context for ambiguous visual-cover terms so data overwrites do
+  not activate overlay retrieval.
+- Added four independent development scenarios and twelve wording variants,
+  then reviewed and sealed four ccplayer fixes, executed that pack exactly
+  once, and stored its immutable observation.
+
+Result:
+
+- The development Context gate passes 150/150 variants across 50 scenarios
+  with anchor and primary-anchor recall 1.0, oracle precision 0.945, MRR
+  0.9929, source-span recall 1.0, average compact context 711.4133 Tokens,
+  average memory preparation time 3,654.1933 ms, and average query time
+  1,466.8867 ms.
+- The ccplayer observation passes 1/4. Aggregate anchor recall is 0.5, primary
+  recall is 0.25, precision and MRR are 0.3125, source-span recall is 0.125,
+  and average context is 1,136.5 Tokens. Surface callback ordering passes;
+  idempotent release ownership, source-reset lifecycle state, and prepared
+  command eligibility remain external generalization gaps.
+- Sealed inventory now contains 58 cases across thirteen real ArkTS projects
+  and fourteen immutable packs. Promotion remains denied and the consumed
+  pack cannot be rerun or tuned.
+- Focused marker, recall, precision, source-focus, diversity, UI-context, and
+  source-excerpt regression passes 105/105 tests. Full discovery ran 580
+  tests: 577 passed in the restricted sandbox; the fingerprint-policy failure
+  was fixed and verified by a focused 10/10 run, while the two fake Ollama
+  tests blocked only by loopback binding passed in the focused 3/3
+  local-socket suite. All 54 eval JSON files, compile, whitespace, seal
+  consistency, and 500-line audits pass; the largest Python source/test file
+  is 497 lines.
+
+Rollback notes:
+
+- Remove this stage's behavior markers, concepts, visual-cover
+  disambiguation, independent fixtures, and their tests together if
+  regressions appear. Retain every sealed pack and immutable observation. No
+  SQLite migration or durable memory rewrite was introduced.
+
+## 2026-07-20 - Add freshness-first incremental code index generations
+
+What changed:
+
+- Bound learned code files, symbols, and log statements to SHA-256 source
+  digests and atomic index generations, with per-project active index state.
+- Made refresh replacement and removed-file retirement one SQLite transaction;
+  changed-only refresh advances the generation without rebuilding unchanged
+  files or overwriting governed business semantics and experience.
+- Added candidate-bounded freshness validation to code/log recall, graph
+  expansion, and independently reconstructed paths. Changed or deleted source
+  anchors are blocked, while digestless legacy rows remain explicitly
+  `unverified` until refreshed.
+- Exposed detailed `source_freshness` in full Context, a status-driven compact
+  projection in compact Context, and digest coverage plus generation health in
+  `maintain-health`.
+- Documented the four-phase long-term design using content-addressed Git
+  objects, Skyframe invalidation, Tree-sitter incremental parsing, SCIP source
+  ranges, and SQLite snapshot isolation as foundations.
+
+Result:
+
+- Freshness, external-source, generation, deletion, changed-only refresh,
+  legacy compatibility, path-only validation, and health coverage pass 8/8.
+- Query/Context regression passes 52/52 and log-anchored path regression
+  passes 12/12; the earlier broad focused suite passed 93/93.
+- The development Context capability gate passes 150/150 variants across 50
+  scenarios with anchor and primary recall 1.0, oracle precision 0.945, MRR
+  0.9929, and source-span recall 1.0. A later 15-query compact sample also
+  passes within the 1,500-token budget; its timing was excluded because the
+  host was under abnormal load.
+- Full discovery ran 587 tests: 585 passed in the restricted sandbox, and the
+  two loopback-bind failures passed in the focused 3/3 local-socket suite.
+  Compile, all 54 eval JSON files, whitespace, and 500-line audits pass; the
+  largest Python source file is 499 lines.
+
+Rollback notes:
+
+- Remove `code_index_state`, the three derived-row digest/generation columns,
+  freshness filters, and Context projections together. Existing nullable
+  columns preserve legacy archive readability; no experience, semantic fact,
+  reflection, or episode lifecycle was changed. Phases 2-4 remain future work.
+
+## 2026-07-20 - Add Scope-first Git incremental refresh
+
+What changed:
+
+- Added a provider-neutral `ScopeChangeProvider` contract with `git/v1` and
+  `snapshot/v1` implementations. Git compares each persisted learn Scope's
+  baseline directly with the current worktree and never uses repository-wide
+  changes as the business boundary.
+- Persisted per-Scope baseline revision, last checked revision, provider, and
+  refresh state. Multiple intermediate commits collapse into one net change;
+  SHA-256 snapshots remain authoritative for actual add/change/remove drift.
+- Applied exact learned files to entry Scopes, subtrees to path Scopes, and the
+  repository root only to explicit project Scopes. Entry changes recompute the
+  bounded import closure; external source roots inside a larger Git repository
+  keep source-relative paths.
+- Included untracked files inside the Scope and retained digest checks for
+  previously learned ignored files. Missing baselines, non-Git roots, oversized
+  entry pathspecs, and Git failures fall back to a Scope-local snapshot scan.
+- Added a 200-relevant-file incremental budget. Overflow performs no index
+  writes and does not advance the baseline; `maintain-health` exposes the state,
+  and an explicit full refresh by Scope id restores `current`.
+- Reused one full Scope scan for both snapshot and write selection, avoiding a
+  duplicate directory traversal introduced during the first implementation.
+
+Result:
+
+- Seven Git Scope cases pass: unrelated-team noise isolation, multi-commit
+  coalescing, outside-only checkpoint advancement, legacy fallback, entry
+  closure replacement, nested external source roots, ignored-file digest
+  fallback, and overflow recovery are covered across the suite.
+- The final freshness/refresh focus passes 17/17 and the broader learning,
+  governance, and migration focus passes 51/51.
+- Full discovery ran 595 tests: 593 passed in the restricted sandbox, and the
+  two loopback-bind failures passed in the focused 3/3 local-socket suite.
+  Compile, all 54 eval JSON files, whitespace, and 500-line audits pass.
+
+Rollback notes:
+
+- Remove the Scope checkpoint columns, `scope_changes.py`, changed-only Provider
+  integration, overflow health state, and related tests together. Existing
+  `file_snapshot` remains sufficient for the prior full Scope fallback, and no
+  semantic facts, experiences, reflections, or episodes are rewritten.
+
+## 2026-07-20 - Observe learned Scope boundary dependencies
+
+What changed:
+
+- Added `scope_boundary_dependencies` for resolved in-project imports outside a
+  learned Scope. The registry retains consumer/dependency identity, content
+  digest, extractor-level symbol-surface digest, status, and audit timestamps
+  without learning or indexing the dependency file.
+- Extended Scope change providers to classify normal and boundary candidates
+  separately. Git unions exact registered dependency paths into change
+  discovery, while refresh writes remain limited to learned Scope files.
+- Reported bounded `boundary_changes` with affected consumers, missing state,
+  content drift, and structural-surface drift. Function-body edits retain the
+  same surface digest; symbol shape changes do not.
+- Added `boundary_drift` to relevant Context freshness and governance health.
+  The warning preserves fresh learned anchors, does not infer impact or expand
+  retrieval, and clears only after a reviewed full refresh accepts the current
+  boundary baseline.
+- Documented the boundary protocol, schema, Agent reasoning boundary, user
+  workflow, and remaining compiler-exact/reverse-dependent follow-up work.
+
+Result:
+
+- Boundary behavior and structural digest tests pass 2/2. The combined refresh,
+  provider, freshness, query, migration, and governance focus passes 53/53;
+  log-anchored path regression passes 12/12.
+- Full discovery ran 597 tests: 595 passed in the restricted sandbox, and the
+  only two loopback-bind errors passed in the focused 3/3 local-socket suite.
+- Compile, whitespace, and the 500-line gate pass. New runtime modules are 196,
+  264, and 438 lines; the largest existing Python source remains within the
+  enforced limit.
+
+Rollback notes:
+
+- Remove `scope_boundary_dependencies`, `scope_boundaries.py`, boundary
+  candidate classification, `boundary_drift` projections, and their tests
+  together. This returns changed-only maintenance to strict learned-Scope
+  observation; no learned code row or governed memory record requires data
+  conversion.
+
+## 2026-07-20 - Establish a million-entity query baseline
+
+What changed:
+
+- Added isolated `eval-scale` profiles for 100,000/300,000 and
+  1,000,000/3,000,000 searchable-entity/active-edge combinations. The runner
+  uses the production SQLite schema, FTS5 triggers, WAL, candidate recall, and
+  graph indexes without writing synthetic rows to project memory.
+- Added warm p95 gates for candidate hit/miss, generic method-term abstention,
+  exact log FTS, qualified and file-local method lookup, and active incoming and
+  outgoing graph edges. Query-plan gates require accepted composite indexes.
+- Added a direct `(project_id, qualified_name)` symbol index after the initial
+  query-plan audit exposed the previous file-prefixed index limitation.
+- Persisted bounded CamelCase identifier components in symbol summaries so
+  business terms reach methods through FTS5. Generic method/class/function/
+  symbol-only queries now abstain, and code-table `%LIKE%` compatibility
+  fallback is skipped above a 50,000-row high watermark.
+- Added the release workflow, scale model, SLOs, isolation contract, and actual
+  before/after measurements to architecture and usage documentation.
+
+Result:
+
+- The first million run failed: candidate hit 12,089 ms, miss 10,952 ms, and
+  saturated method FTS 11,317 ms p95, while exact indexed lookups stayed below
+  0.04 ms. This isolated the failure to lexical fallback and high-frequency FTS.
+- The repaired million run passes with exactly 1,000,000 searchable entities,
+  3,000,000 active edges, and a 2,008.3 MiB temporary database. Candidate hit is
+  72.095 ms p95, miss 24.571 ms, generic abstention 0.093 ms, exact log FTS
+  0.265 ms, and indexed symbol/graph lookups at or below 0.024 ms.
+- The optimized 100,000/300,000 profile also passes: candidate hit is 10.459 ms
+  p95 and miss 17.621 ms. Scale and focused query/learning/Context regression
+  pass, including the log-anchored path suite.
+- Full discovery ran 602 tests: 600 passed in the restricted sandbox, and the
+  only two loopback-bind errors passed in the focused 3/3 local-socket suite.
+  Compile, whitespace, 54 eval JSON files, and the 500-line gate pass.
+
+Rollback notes:
+
+- Remove `eval-scale`, `scale_benchmark.py`, the direct qualified-name index,
+  identifier-term suffixes, and scale-bounded fallback together. Reverting the
+  fallback alone restores multi-second full scans at method-level scale; retain
+  the before/after report when evaluating an alternative tokenizer.
+
+## 2026-07-20 - Gate Git incremental maintenance at million scale
+
+What changed:
+
+- Extended both `eval-scale` profiles with four production-path maintenance
+  workloads: no change, committed Scope-external noise, one changed 20-method
+  file, and one changed 500-method file. Every sample uses a real temporary Git
+  repository, persisted Scope checkpoint, `git/v1`, FTS triggers, graph rebuild,
+  semantic indexing, and atomic generation activation.
+- Added bounded phase timings to code-index writes so extraction, Scope load,
+  invalidation, insertion, graph rebuild, summarization, and commit costs can be
+  separated without a benchmark-only refresh implementation.
+- Replaced scoped graph rebuild's all-project file scan with a bounded candidate
+  loader. It combines scoped files, referenced-symbol owners, exact imports and
+  routes, module markers, and test basename candidates retrieved through the
+  existing `code_file_fts` path index. Full graph repair remains all-file.
+- Added a regression proving partial relearn restores same-module `tested_by`
+  relations while excluding a same-name production file outside that module.
+
+Result:
+
+- Initial million baseline failed: the 20-method refresh was 4,428.580 ms p95,
+  including 4,071.153 ms in graph rebuild. Profiling traced the fixed cost to
+  repeated Python path parsing while pairing tests across all 50,000 files.
+- Final million run passes all gates with 1,000,000 searchable entities,
+  3,000,000 active edges, and a 2,113.0 MiB database. No-change is 90.221 ms,
+  Scope-external is 89.841 ms, 20 methods is 452.654 ms, and 500 methods is
+  1,685.729 ms p95. The 20-method graph phase is 87.627 ms.
+- Query performance remains stable: candidate hit is 72.075 ms p95, miss is
+  29.478 ms, exact log FTS is 0.174 ms, and indexed symbol/graph lookups are at
+  or below 0.025 ms.
+- Full discovery ran 603 tests: 601 passed in the restricted sandbox, and the
+  only two loopback-bind errors passed in the focused 3/3 local-socket suite.
+  Compile, whitespace, 54 eval JSON files, and the 500-line gate pass.
+
+Rollback notes:
+
+- Remove `scale_maintenance.py`, maintenance aggregation from `eval-scale`, and
+  `code_wiki_edge_candidates.py` together. Restoring the previous scoped graph
+  path preserves behavior but reintroduces project-size-linear test pairing and
+  fails the million-scale 20-method SLO.
+
+## 2026-07-20 - Generalize method-owner context without ranking interference
+
+What changed:
+
+- Added bounded source-derived `method_evidence` for semantic `function` and
+  `method` entities. Extraction loads each source file once, stays inside the
+  callable span, and retains at most 36 normalized member/call terms from at
+  most 240 lines.
+- Added a separate sparse `code_method_fts` table and versioned FTS migration.
+  Empty class, field, and symbol evidence does not create an FTS row. Search
+  rebuilds and SQLite triggers preserve the derived-index contract.
+- Added a low-priority method recall lane with at most 24 candidates, two-term
+  direct evidence qualification, and lane-conditioned scoring. Method body
+  vocabulary cannot raise an ordinary symbol candidate's score.
+- Added explicit result-exclusion query decomposition. `do not return` and
+  `不要返回` clauses no longer drive candidate recall, scoring, graph expansion,
+  or behavior expansion; useful compound domain stems remain while generic
+  entity-role terms are removed.
+- Added independent method-owner and query-language regressions, updated user
+  and runtime documentation, and recorded the full architecture and rollback
+  boundary in the staged implementation plan.
+
+Result:
+
+- The first broad-summary implementation regressed the context gate to 148/150.
+  The isolated lane removed that interference. A frozen pre-change replay also
+  exposed an existing 149/150 must-not precision defect; query decomposition
+  repaired it without a case-specific rule.
+- The final development context gate passes all 150 variants across 50 ArkTS
+  scenarios. Average compact query latency is 441.1 ms including isolated case
+  setup and freshness checks.
+- CI scale passes at 100,000 searchable entities and 300,000 edges: candidate
+  hit is 10.1 ms p95, 20-method refresh is 201.9 ms, and 500-method refresh is
+  554.6 ms.
+- Million scale passes at exactly 1,000,000 searchable entities and 3,000,000
+  edges with a 2.064 GiB database. Candidate hit is 69.4 ms p95, 20-method
+  refresh is 419.9 ms, and 500-method refresh is 1,681.3 ms. Database size stays
+  below the prior 2.113 GiB baseline.
+- Full discovery ran 610 tests: 608 passed in the restricted sandbox, and the
+  only two loopback-bind errors passed in the focused 3/3 local-socket suite.
+  Compile with a temporary bytecode cache, 54 eval JSON files, whitespace, and
+  the 500-line gate pass.
+
+Rollback notes:
+
+- Remove `method_evidence`, `code_method_fts`, semantic body extraction, and the
+  method recall lane together. Keep explicit result-exclusion decomposition as
+  an independent fix for the reproduced pre-existing precision defect.
+
+## 2026-07-20 - Harden method focus and run fourteenth-project observation
+
+What changed:
+
+- Added four independent ArkTS development scenarios for idempotent release,
+  source-replacement state, prepared command eligibility, and implementation
+  ownership over examples, each with three query variants.
+- Restricted method evidence recall to bounded raw query terms and promoted
+  method focus only under strong multi-term direct evidence without a competing
+  exact, flow, multi-concept, or structural owner.
+- Added explicit sample/example/demo result-role exclusion before final code
+  selection and preserved ordinary role retrieval.
+- Reviewed four real Wake-HarmonyOS fixes at immutable pre-fix revisions,
+  verified every changed file, and sealed the pack with digest
+  `0ca1a2810280a686a77587c8e98c884c373ffbf6c4e85e17aa9aa08a43612873`.
+
+Result:
+
+- The expanded development Context gate passes 162/162 variants across 54
+  scenarios with 719.6111 average context Tokens and 441.5247 ms average query
+  time including isolated setup and freshness checks.
+- The new sealed project was executed exactly once and passed 1/4. Cross-page
+  import completion and return ownership passed; command-owner precision,
+  visual-state passage focus, and cross-layer error-contract recall remain the
+  independent repair targets.
+- Agent A/B was not run because the Context gate failed. The sealed inventory
+  is now 14 projects and 62 cases; promotion remains denied.
+- CI scale passes at 100,000 searchable entities and 300,000 edges. Candidate
+  hit is 10.405 ms p95, the 20-method refresh is 204.952 ms, and the 500-method
+  refresh is 564.104 ms.
+- Full discovery ran 619 tests: 617 passed in the restricted sandbox, and the
+  two loopback-bind errors passed in the focused 3/3 local-socket suite. Compile,
+  56 eval JSON files, whitespace, and the 500-line gate pass.
+
+Rollback notes:
+
+- Revert method focus competition and explicit example-role filtering together
+  with their independent fixtures if they introduce regressions. Never modify
+  or rerun the consumed Wake-HarmonyOS pack; validate future repairs only with
+  project-neutral development cases and a new sealed project.
+
+## 2026-07-20 - Generalize contract ownership and run fifteenth-project observation
+
+What changed:
+
+- Added three independent ArkTS scenarios and nine query variants for UI command
+  binding, comparison-target disclosure state, and cross-layer error return and
+  presentation contracts.
+- Added bounded executable-syntax markers for object callback bindings,
+  chevron rotation/toggle state, caught-error return boundaries, and UI failure
+  presentation boundaries.
+- Split comparison clauses and explicit result exclusions from positive
+  retrieval evidence while preserving `instead of` as faulty-behavior context.
+- Separated direct path identity from semantic graph-path expansion. Added a
+  tightly bounded lowerCamelCase method identity fallback without lowering the
+  existing three-term method-focus threshold.
+- Added focused query-language, marker, path-identity, method-focus, and recall
+  regressions. All Python production and test files remain at or below 500
+  lines.
+
+Result:
+
+- The development Context gate passes 171/171 variants across 57 scenarios.
+  Anchor recall is 1.0, Oracle precision is 0.9604, MRR is 0.9938, source-span
+  recall is 1.0, average compact context is 720.2281 Tokens, and average query
+  time is 454.8889 ms.
+- CI scale passes at 100,000 searchable entities and 300,000 edges. Candidate
+  hit is 11.346 ms p95 and the 500-method refresh is 562.315 ms p95.
+- Full discovery ran 633 tests: 630 passed, one new-file fingerprint failure
+  was fixed and its focused policy/marker suite passed 5/5, and the two
+  loopback-bind errors passed in the focused 3/3 authorized local-socket suite.
+  Compile, 58 eval JSON files, whitespace, and the 500-line gate pass.
+- Four real RayTV fixes were reviewed at immutable pre-fix revisions and sealed
+  with digest
+  `589240f57caefbf641a803e859a51635dd4dd0080f854bd412aa055c0d198a3f`.
+  The pack was executed exactly once and passed 0/4. All expected files were
+  recalled, but generated preview sources, alternate Python implementations,
+  same-domain neighbors, and missed large-file passages kept the Context gate
+  red. Agent A/B was not run.
+- The sealed inventory is now 15 projects and 66 cases; promotion remains
+  denied.
+
+Rollback notes:
+
+- Revert the three contract marker families, clause decomposition, and bounded
+  focus changes with their development fixtures if an independent regression
+  appears. Never modify or rerun the consumed RayTV pack.
+
+## 2026-07-20 - Filter generated sources and tighten implementation context
+
+What changed:
+
+- Added a bounded source-path policy for generated preview/cache directories
+  and an extensible explicit-language suffix registry.
+- Applied generated-source filtering during learning and as a query-time
+  fallback policy for archives created before the learning filter.
+- Added guarded asynchronous action evidence so complete branch/state/async UI
+  owners outrank same-domain thin service and repository methods.
+- Added `omit/omitting` result-exclusion parsing and four independent ArkTS
+  scenarios for canonical sources, language choice, owner precision, and a
+  method window near the end of a 500-line file.
+
+Result:
+
+- The development Context gate passes 183/183 variants across 61 scenarios.
+  Anchor recall and source-span recall are 1.0, Oracle precision is 0.9478, MRR
+  is 0.9943, average compact context is 722.2951 Tokens, and average query time
+  is 472.3005 ms.
+- Full discovery ran 642 tests: 639 passed in the restricted sandbox, the
+  fixture fingerprint failure was fixed and its focused 8-test suite passed,
+  and both loopback-bind tests passed outside the sandbox.
+- CI scale passes with 100,000 searchable entities and 300,000 edges. Candidate
+  hit is 10.02 ms p95 and 500-method incremental refresh is 578.846 ms p95.
+- Compile with a temporary bytecode cache, whitespace, JSON parsing, and the
+  500-line Python gate pass. The large ArkTS fixture is exactly 500 lines.
+- RayTV was not rerun. The sealed inventory remains 15 projects and 66 cases;
+  promotion remains denied pending a new independent sealed observation.
+
+## 2026-07-20 - Run sixteenth-project FlameChase observation
+
+What changed:
+
+- Reviewed three source-provable fixes from the previously unseen MPL-2.0
+  FlameChase ArkTS project at their complete pre-fix revisions.
+- Added and sealed diagnosis cases for custom-dialog close ownership, award
+  preference-key restoration, and platform gating of a dark-mode control.
+- Recorded the immutable Context observation without modifying retrieval logic
+  or running Agent A/B.
+
+Result:
+
+- The sealed digest is
+  `51784c6b80b0b0baf68e85136cec638f4351a0ea8f8325319165b9007dbe965c`.
+  The pack was executed exactly once and passed 0/3.
+- Aggregate anchor recall is 0.6667, Oracle precision is 0.25, MRR is 0.3333,
+  source-span recall is 0.3333, average compact context is 1,109.3333 Tokens,
+  and average query time is 641.6667 ms.
+- Dialog close ownership was absent from candidates. Award restoration found
+  the lifecycle owner but missed its audited passage and retained the display
+  page. Platform gating found the expected page and exact passage but retained
+  three unrelated neighbors.
+- The sealed inventory is now 16 projects and 69 cases. Promotion remains
+  denied, and the FlameChase pack must not be rerun or used for tuning.
+
+## 2026-07-20 - Repair indirect owner and contract-focused context
+
+What changed:
+
+- Added three independent ArkTS scenarios for indirect dialog caller ownership,
+  persistence-key restoration, and platform-sensitive UI controls. Their first
+  baseline passed 2/9 variants.
+- Added project-neutral structural markers for UI callback bindings,
+  persistence reads, and platform-sensitive UI ownership.
+- Added an explicit-intent, one-hop reverse caller lookup bounded to indirect
+  roles and two callback-owning callers. Default graph depth is unchanged.
+- Focused complete persistence/platform contract owners before generic method
+  evidence, with regression tests for marker extraction and caller selection.
+- Updated the release record and capability documentation without changing or
+  rerunning any consumed sealed pack.
+
+Result:
+
+- The new scenarios pass 9/9 and seven related regression scenarios pass 21/21.
+- The complete development Context gate passes 192/192 variants across 64
+  scenarios. Anchor recall and source-span recall are 1.0, Oracle precision is
+  0.9504, MRR is 0.9945, and average compact context is 721.5365 Tokens.
+- Full discovery ran 646 tests. The restricted sandbox had only two expected
+  loopback-bind permission errors; the complete loopback module passed 3/3
+  outside the sandbox.
+- CI scale passes with 100,000 searchable entities, 80,000 symbols, and 300,000
+  graph edges. Candidate hit/miss p95 is 10.632/19.334 ms, single-file refresh
+  p95 is 223.003 ms, and 500-method refresh p95 is 621.899 ms.
+- Compile, whitespace, JSON, and the Python 500-line gate pass. Promotion stays
+  denied until a new independently reviewed sealed project validates the repair.
+
+## 2026-07-20 - Run seventeenth-project LinysBrowser observation
+
+What changed:
+
+- Selected the previously unseen MIT-licensed LinysBrowser_NEXT ArkTS browser
+  and reviewed its complete Git history.
+- Added three source-reviewed cases for location permission dialog cancellation,
+  non-2-in-1 bottom avoid layout, and oversized saved WebState restoration.
+- Verified all before/after revisions and changed files, then sealed the pack
+  with digest
+  `7b337f701b4545df9abec518af691936dee2264510cc799e6342791b41826ea3`.
+- Executed the sealed Context gate exactly once and persisted the full result.
+
+Result:
+
+- The external Context gate passes 0/3. Aggregate anchor recall is 0.3333,
+  primary recall is 0, Oracle precision is 0.0833, MRR is 0.0833, and source
+  excerpt/span recall is 0.
+- The location dialog owner is recalled only at rank 4 behind generic dialog
+  infrastructure. The platform layout owner and saved-state restore owner are
+  absent from candidate generation.
+- Average compact context is 1,134 Tokens, average memory preparation is
+  6,232 ms, and average query time is 1,000 ms.
+- Agent A/B was not run. The sealed inventory is now 17 projects and 72 cases;
+  promotion remains denied and this pack must not be rerun or used for tuning.
+
+## 2026-07-20 - Add multi-stage retrieval rank fusion boundary
+
+What changed:
+
+- Documented the long-term multi-stage retrieval architecture from query intent
+  through bounded retrievers, rank fusion, owner reranking, hierarchical source
+  selection, and compact context budgeting.
+- Added a storage-neutral `RankFusionPort` and deterministic weighted Reciprocal
+  Rank Fusion over existing SQLite FTS5 candidate channels.
+- Preserved channel-local BM25 semantics and the downstream owner reranker;
+  full query audit now explains each candidate's fusion provenance.
+- Added project-neutral fusion, compatibility, and query-audit tests without
+  changing the four Skills, public `context` command, SQLite source of truth, or
+  compact output budget.
+
+Result:
+
+- Focused retrieval tests pass 19/19; all query tests pass 62/62 and all context
+  tests pass 39/39.
+- The development Context gate remains 192/192 variants across 64 scenarios,
+  with 1.0 anchor recall, 0.9945 MRR, 1.0 source-span recall, and 721.5365
+  average compact Tokens.
+- CI scale passes at 100,000 entities, 80,000 symbols, and 300,000 edges;
+  candidate hit/miss p95 is 10.226/17.61 ms and 500-method refresh p95 is
+  592.658 ms.
+- Full discovery ran 650 tests. Only the two expected loopback-bind tests fail
+  in the restricted sandbox, and their complete module passes 3/3 where binding
+  is allowed. Compile and the Python 500-line gate pass.
+- No consumed sealed pack was rerun or changed. Promotion remains denied;
+  Phase 2 will add fielded passage retrieval and independent Recall@20 metrics.
+
+## 2026-07-20 - Add shadow fielded passage retrieval
+
+What changed:
+
+- Added rebuildable source-derived file, symbol, and callable passages with
+  separate identity, semantic, method-body, and string-key fields.
+- Added six weighted SQLite FTS5 field channels behind nested RRF and exposed
+  their provenance only in full-query development audit.
+- Added candidate file Recall@20 to deterministic capability evaluation without
+  a second Context construction or extra compact Agent output.
+- Kept the Phase 1 candidate path in production after direct fielded serving
+  exposed five owner-reranker regressions on the development suite.
+
+Result:
+
+- The complete development Context gate passes 192/192 variants across 64
+  scenarios. Anchor recall is 1.0, Oracle precision 0.9504, MRR 0.9945,
+  source-span recall 1.0, and average compact context 721.5365 Tokens.
+- Shadow fielded candidate file Recall@20 is 0.8925, so the new retriever is not
+  promoted until recall and downstream reranking are calibrated together.
+- CI scale passes at 100,000 entities, 80,000 symbols, and 300,000 edges;
+  candidate hit/miss p95 is 30.514/55.063 ms and 500-method refresh p95 is
+  2,127.179 ms.
+- Full discovery ran 656 tests. Only two expected restricted-sandbox loopback
+  tests failed, and their module passed 3/3 with loopback access. Python source
+  and tests remain within 500 lines.
+- No consumed sealed pack was rerun or changed. Promotion remains denied; Phase
+  3 owns semantic-adapter recall improvements before any serving switch.
+
+## 2026-07-21 - Add language-neutral semantic mechanism evidence
+
+What changed:
+
+- Extended the existing semantic IR with optional bounded mechanism records for
+  operations, guards, resource bounds, callbacks, platform predicates, and
+  persistence reads/writes.
+- Upgraded the built-in ArkTS and TypeScript static adapters to `1.1` without
+  changing the external `semantic-index/v1` compatibility boundary.
+- Persisted bounded mechanism metadata on symbols and added an independently
+  weighted `semantic_mechanism_fts` passage lane under `fts-v4`.
+- Added a rebuild migration for the derived passage schema and project-neutral
+  IR, extraction, persistence, retrieval, and migration tests.
+
+Result:
+
+- The complete development Context gate passes 192/192 variants across 64
+  scenarios. Anchor recall is 1.0, Oracle precision 0.9504, MRR 0.9945,
+  source-span recall 1.0, and average compact context 721.5365 Tokens.
+- Shadow candidate file Recall@20 improves from 0.8925 to 0.8980. The fielded
+  candidate set remains non-serving because this is below promotion quality.
+- CI scale passes at 100,000 entities, 80,000 symbols, and 300,000 edges;
+  candidate hit/miss p95 is 10.956/20.271 ms and 500-method refresh p95 is
+  812.501 ms.
+- Query tests pass 62/62, Context tests 40/40, and focused semantic/passage tests
+  33/33. Full discovery ran 660 tests; only two restricted-sandbox loopback
+  errors remained, and that module passed 3/3 with loopback access.
+- Compile, JSON, whitespace, and Python 500-line gates pass.
+- No consumed sealed pack was rerun or changed. Promotion remains denied; Phase
+  4 owns hierarchical localization and owner-reranker calibration.
+
+## 2026-07-21 - Add shadow hierarchical code localization
+
+What changed:
+
+- Added a bounded `HierarchicalLocalizerPort` with a SQLite implementation that
+  projects intent-gated code candidates through files, callables, supported
+  one-hop caller owners, and callable-bounded source ranges.
+- Reused normalized semantic mechanism evidence to identify a narrow expression
+  window without persisting source bodies or adding a new query command.
+- Exposed the projection only in full Context audit. Compact Context and the
+  serving candidate/owner path remain unchanged while calibration is pending.
+- Added project-neutral contracts for file diversity, mechanism windows, and
+  one-hop caller expansion.
+
+Result:
+
+- Focused hierarchical localization tests pass 3/3; related fielded passage,
+  semantic mechanism, method-focus, and method-symbol tests pass 23/23.
+- The implementation has fixed file, callable, graph-owner, and source-range
+  limits, uses only SQLite source-derived rows and existing one-hop graph
+  relations, and keeps every Python source/test file at or below 500 lines.
+- No consumed sealed pack was rerun or changed. Promotion remains denied until
+  independent callable/owner/range metrics, full regression and scale gates,
+  and a new sealed-project validation pass together.
+
+## 2026-07-21 - Measure shadow hierarchical localization
+
+What changed:
+
+- Extended the isolated Context evaluator with a second full-audit query that
+  shares the frozen workspace and SQLite memory of the compact gate query.
+- Added independent informational metrics for files, callables, incoming
+  one-hop owners, source ranges, missing reviewed spans, and audit latency.
+- Added optional `required_owner_spans` evaluation metadata and project-neutral
+  metric contracts; source bodies remain excluded from observations and reports.
+
+Result:
+
+- The three development log query variants keep the compact gate at 3/3 pass;
+  shadow file recall is 1.0 and mean full-audit time is 3,125.6667 ms.
+- No callable, owner, or source-range Oracle was declared in that scenario, so
+  those metrics correctly remain `null` rather than being treated as passing.
+- Focused evaluator and metric tests pass 21/21. Compile, whitespace, and
+  Python 500-line gates pass. No sealed pack was run or changed; promotion
+  remains denied pending reviewed Oracle cases, full gates, and new holdout.
+
+## 2026-07-22 - Calibrate independent hierarchical owner evidence
+
+What changed:
+
+- Added dedicated callable, owner, and range Oracle fields for hierarchical
+  shadow evaluation, leaving compact source-excerpt gates independent.
+- Added a reviewed three-phrasing Snapshot fixture that exercises a bounded
+  resource guard, a target callable, and a one-hop UI caller.
+- Exposed bounded graph seed and owner pools in the full audit. Owner metrics
+  now score the discovered graph-owner stage rather than a presentation list
+  that may deduplicate the same callable as a direct result.
+- Prioritized graph seeds by direct evidence, exact symbol identity, semantic
+  mechanism evidence, then existing score, while retaining the fixed one-hop
+  and count bounds.
+
+Result:
+
+- The Snapshot scenario passes all 3 variants. File, callable, owner, and
+  source-range recall plus owner precision are each 1.0; compact output remains
+  under 1,500 Tokens and full audit averages 633.6667 ms.
+- Focused hierarchical, Context metric, and evaluator tests pass 23/23.
+  Compile, JSON, whitespace, and Python 500-line gates pass.
+- No sealed pack was run or changed. The result is synthetic development
+  evidence only; promotion remains denied pending full regression, scale, and
+  one new sealed external project.
+
+## 2026-07-23 - Validate hierarchical shadow on development and scale gates
+
+What changed:
+
+- Added per-metric non-null Oracle sample counts to the hierarchical evaluation
+  profile so sparse owner labels cannot be misread as broad precision evidence.
+
+Result:
+
+- Full unsealed development Context gate passes 65 scenarios and 195 variants.
+  Code anchor and primary-anchor recall are 1.0, candidate Recall@20 is 0.9104,
+  Oracle precision is 0.9404, MRR is 0.9919, source-range recall is 1.0, and
+  average compact Context is 726.0154 Tokens.
+- Shadow localization file/callable/range recall is 0.9496/0.9349/0.9320.
+  Owner recall and precision are both 1.0 but only have three reviewed Oracle
+  variants; the profile now makes that support explicit.
+- CI scale passes at 100,000 searchable entities and 300,000 graph edges:
+  candidate hit/miss p95 is 9.572/17.816 ms, and single-file/500-method refresh
+  p95 is 280.338/829.282 ms.
+- Focused hierarchical, evaluator, and scale tests pass 28/28. Compile, JSON,
+  whitespace, and Python 500-line gates pass. No sealed pack was run or
+  changed; serving promotion remains denied.
+
+## 2026-07-23 - Broaden hierarchical owner relation coverage
+
+What changed:
+
+- Added a bounded owner adapter that distinguishes symbol-to-symbol caller
+  relations from file-to-component property-flow relations. The latter projects
+  back to a single source-file callable, preferring `build`.
+- Added reviewed callback-registration and component-property-flow fixtures,
+  each with three query phrasings and independent callable/owner/range Oracles.
+- Marked the callback fixture as audit-only for compact file-anchor recall; the
+  component-flow fixture keeps its compact retrieval requirements.
+
+Result:
+
+- Both scenarios pass all six variants. Shadow callable/owner/range recall and
+  owner precision are 1.0, with 603.1667 ms mean audit time. The component-flow
+  compact gate remains 3/3 passing.
+- The work remains shadow-only: no compact response or serving ranking changed,
+  no sealed case was run, and promotion remains denied pending full regression,
+  scale confirmation, and a new external sealed validation.
+
+## 2026-07-23 - Benchmark bounded hierarchical owner expansion
+
+What changed:
+
+- Extended the existing scale fixture with both direct symbol owner and
+  `code_file -> component` property-flow edges, including a real component node.
+- Added the full bounded owner adapter as a CI-scale operation and added a
+  property-flow target-edge query-plan gate.
+
+Result:
+
+- CI scale passes at 100,000 searchable entities, 80,000 symbols, and 300,000
+  edges. `hierarchical_one_hop_owners` is 8.481 ms p95 against a 150 ms audit
+  SLO; the property-flow lookup uses
+  `idx_memory_edges_project_valid_target_relation`.
+- This confirms bounded audit cost only. Compact serving does not call the
+  adapter, and no sealed pack was run or changed.
+
+## 2026-07-23 - Run eighteenth-project Chengyu Game holdout observation
+
+What changed:
+
+- Selected the previously unused native ArkTS project `zcg741/chengyu-game` and
+  source-reviewed three single-file fixes from complete immutable Git revisions:
+  rawfile UTF-8 decoding, a stale detail-dialog state action, and ArkUI router
+  API migration.
+- Sealed the reviewed pack with digest
+  `c3e155b7dfec600181b00fa063df560ba92a2e63f871911f3d3c859013bd4728`, then
+  executed the Context gate exactly once and saved a source-free immutable
+  observation summary.
+
+Result:
+
+- The external Context gate passes 0/3. Aggregate anchor and primary recall are
+  0.6667, Oracle precision is 0.1667, MRR is 0.2778, and source excerpt/span
+  recall are both 0.6667. Average compact Context is 1,001.3333 Tokens.
+- The resource-decoding service is absent from candidate generation. The dialog
+  and router owners are recalled with the expected range but lose precision to
+  same-domain or unrelated neighbors. Agent A/B was not run.
+- The sealed inventory is now 18 projects and 75 cases. Do not rerun or modify
+  this pack for tuning; reproduce the failure classes only in independent
+  development fixtures before the next external observation.

@@ -1,0 +1,65 @@
+{
+  "schema_version": "agent-context-capability-observation-summary/v1",
+  "case_file": "docs/eval/gramony-unseen-sealed-holdout-cases.json",
+  "case_seal_digest": "d93f2fcebabd6048896576642ef4295050e85e5641a03a8c5ab5e04e4c01b6e8",
+  "source_repository": "https://github.com/Gramony-Team/Gramony",
+  "recorded_at": "2026-07-18T15:31:50+00:00",
+  "immutable_observation": true,
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 2,
+    "passed_case_count": 0,
+    "failed_case_count": 2,
+    "anchor_recall": 0.75,
+    "primary_anchor_recall": 0.75,
+    "oracle_anchor_precision": 0.25,
+    "expected_anchor_mrr": 0.75,
+    "source_excerpt_recall": 0.75,
+    "source_span_recall": 0.0,
+    "average_context_tokens": 1287.5,
+    "average_query_elapsed_ms": 616.0
+  },
+  "failure_analysis": {
+    "primary_failure_class": "ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 1,
+      "passage_selection": 2,
+      "ranking_precision": 3
+    }
+  },
+  "cases": [
+    {
+      "case_id": "gramony-chat-list-loading-state-stuck",
+      "status": "fail",
+      "anchor_recall": 0.5,
+      "oracle_anchor_precision": 0.25,
+      "expected_anchor_mrr": 0.5,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "features/home/src/main/ets/viewmodel/Chat/ChatDataSource.ets"
+      ],
+      "observed_anchor_paths": [
+        "features/home/src/main/ets/pages/Index.ets",
+        "features/home/src/main/ets/viewmodel/Chat/ChatPhotoNodeController.ets",
+        "features/home/src/main/ets/views/Chat/ChatList.ets",
+        "features/home/src/main/ets/views/common/HomeTopSearch.ets"
+      ]
+    },
+    {
+      "case_id": "gramony-rich-text-hardcoded-dark-colors",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "features/home/src/main/ets/pages/Login/VerifyCode.ets",
+        "features/home/src/main/ets/views/Chat/ChatDetailItem.ets",
+        "features/home/src/main/ets/views/Message/MessageBubble.ets",
+        "features/home/src/main/ets/views/Message/ReplyToPreview.ets"
+      ]
+    }
+  ],
+  "policy": "Do not rerun or modify this sealed pack for tuning. Reproduce the observed failure classes in independent development fixtures and use a newly sealed project for the next external gate."
+}

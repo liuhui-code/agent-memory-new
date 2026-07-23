@@ -1,0 +1,91 @@
+{
+  "schema_version": "agent-context-capability-observation-summary/v1",
+  "case_file": "docs/eval/termony-unseen-sealed-holdout-cases.json",
+  "case_seal_digest": "a7c9b512637b6fb43ffd900abf100b376537404d8639152663e5fa8b3710e761",
+  "source_repository": "https://github.com/TermonyHQ/Termony.git",
+  "recorded_at": "2026-07-19T08:04:35+00:00",
+  "immutable_observation": true,
+  "audit_notes": [
+    "Each case was prepared from its audited full before revision and the sealed pack was executed exactly once."
+  ],
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 4,
+    "passed_case_count": 1,
+    "failed_case_count": 3,
+    "anchor_recall": 0.5,
+    "primary_anchor_recall": 0.5,
+    "oracle_anchor_precision": 0.5,
+    "expected_anchor_mrr": 0.5,
+    "source_excerpt_recall": 0.5,
+    "source_span_recall": 0.25,
+    "average_context_tokens": 721.25,
+    "average_memory_prepare_ms": 2415.0,
+    "average_query_elapsed_ms": 1269.25
+  },
+  "failure_analysis": {
+    "primary_failure_class": "passage_selection",
+    "root_failure_class": "mixed_candidate_generation_ranking_and_passage_selection",
+    "failure_class_counts": {
+      "candidate_generation": 2,
+      "passage_selection": 5,
+      "ranking_precision": 4
+    },
+    "interpretation": "Touch coordinate ownership and its callback span pass. Empty-output scrolling recalls the correct page but misses the read-loop method. Clipboard extraction and startup permission sequencing return module metadata instead of their ArkTS owners. Compactness remains within budget."
+  },
+  "cases": [
+    {
+      "case_id": "termony-pasteboard-plain-text",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/Index.ets"
+      ],
+      "observed_anchor_paths": [
+        "entry/src/main/module.json5"
+      ]
+    },
+    {
+      "case_id": "termony-startup-permission-sequencing",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "entry/src/main/ets/entryability/EntryAbility.ets"
+      ],
+      "observed_anchor_paths": [
+        "entry/src/main/module.json5"
+      ]
+    },
+    {
+      "case_id": "termony-empty-output-scroll",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/Index.ets"
+      ]
+    },
+    {
+      "case_id": "termony-touch-scroll-coordinate-units",
+      "status": "pass",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 1.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/Index.ets"
+      ]
+    }
+  ],
+  "policy": "Do not rerun or modify this sealed pack for tuning. Reproduce clipboard-record extraction, sequential permission requests, empty-result loop focus, and metadata-versus-implementation recall in independent fixtures, then validate only on a new sealed pack."
+}

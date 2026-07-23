@@ -1,0 +1,159 @@
+{
+  "schema_version": "agent-benchmark-responses/v1",
+  "generated_at": "2026-07-18T04:46:39+00:00",
+  "observations": [
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-login-duplicate-submit",
+      "variant": "baseline",
+      "trial_index": 1,
+      "root_cause_category": "async",
+      "predicted_files": [],
+      "supporting_files": [],
+      "investigated_files": [],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 0,
+      "source_search_count": 1,
+      "expansion_trace": [],
+      "stop_reason": "direct_verification_settled",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [],
+      "token_estimate": 2773,
+      "elapsed_ms": 26075,
+      "summary": "The benchmark response indicates that repeated taps on login actions while authentication is pending can lead to duplicate requests and conflicting navigation transitions, and the mechanism is verified through direct source analysis.",
+      "expansion_rounds": 0,
+      "expansion_reason_codes": [],
+      "model_input_tokens": 2506,
+      "model_cached_input_tokens": 0,
+      "model_uncached_input_tokens": 2506,
+      "model_output_tokens": 267,
+      "model_reasoning_tokens": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "command_count": 1,
+      "command_output_bytes": 41,
+      "source_read_count": 0,
+      "source_read_output_bytes": 0,
+      "tool_error_count": 1,
+      "source_search_count_source": "runner_telemetry",
+      "source_search_miss_count": 0,
+      "source_search_error_count": 1,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "source_file_count": 0,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 0,
+      "expansion_file_count": 0,
+      "expansion_accounting_source": "runner_investigated_files",
+      "runner_metadata": {
+        "runner": "ollama_local",
+        "runner_version": "0.32.1",
+        "model": "qwen3:1.7b",
+        "host": "http://127.0.0.1:11434",
+        "sandbox": "workspace_read_tools",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_boundary": "local_process",
+        "source_excerpt_delivery": "full",
+        "thinking": "disabled",
+        "tool_num_predict": "256",
+        "final_num_predict": "512",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "gramony-login-duplicate-submit",
+      "variant": "memory",
+      "trial_index": 1,
+      "root_cause_category": "user_interaction",
+      "predicted_files": [
+        "features/home/src/main/ets/pages/Login/Password.ets"
+      ],
+      "supporting_files": [],
+      "investigated_files": [
+        "features/home/src/main/ets/pages/Login/Password.ets",
+        "features/home/src/main/ets/pages/Login/PhoneNumber.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 3,
+      "expansion_trace": [
+        {
+          "reason": "missing_route_target",
+          "files": [
+            "features/home/src/main/ets/pages/Login/PhoneNumber.ets"
+          ]
+        },
+        {
+          "reason": "missing_route_target",
+          "files": [
+            "features/home/src/main/ets/pages/Login/VerifyCode.ets"
+          ]
+        }
+      ],
+      "stop_reason": "no_new_evidence",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "features/home/src/main/ets/pages/Login/Password.ets"
+      ],
+      "token_estimate": 19697,
+      "elapsed_ms": 144155,
+      "summary": "No new evidence was found for the query 'repeated taps' in the provided files. The codebase does not contain any direct references to repeated taps in the Password.ets file.",
+      "expansion_rounds": 0,
+      "expansion_reason_codes": [
+        "missing_route_target",
+        "missing_route_target"
+      ],
+      "model_input_tokens": 18960,
+      "model_cached_input_tokens": 0,
+      "model_uncached_input_tokens": 18960,
+      "model_output_tokens": 737,
+      "model_reasoning_tokens": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 4926,
+      "memory_context_token_estimate": 1232,
+      "command_count": 5,
+      "command_output_bytes": 5639,
+      "source_read_count": 2,
+      "source_read_output_bytes": 5516,
+      "tool_error_count": 0,
+      "source_search_count_source": "runner_telemetry",
+      "source_search_miss_count": 3,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "source_file_count": 2,
+      "memory_anchor_hit_count": 2,
+      "primary_anchor_hit_count": 2,
+      "non_anchor_file_count": 0,
+      "expansion_file_count": 0,
+      "expansion_accounting_source": "runner_investigated_files",
+      "runner_metadata": {
+        "runner": "ollama_local",
+        "runner_version": "0.32.1",
+        "model": "qwen3:1.7b",
+        "host": "http://127.0.0.1:11434",
+        "sandbox": "workspace_read_tools",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_boundary": "local_process",
+        "source_excerpt_delivery": "full",
+        "thinking": "disabled",
+        "tool_num_predict": "256",
+        "final_num_predict": "512",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true
+    }
+  ]
+}

@@ -7,8 +7,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .ecma_braces import block_end
 from .models import Project
-from .semantic_models import MAX_GAPS, SemanticBatch, SemanticEntity, SemanticRelation, source_digest, symbol_key
+from .semantic_ecma_mechanisms import extract_callable_mechanisms
+from .semantic_models import (
+    MAX_GAPS, SemanticBatch, SemanticEntity, SemanticMechanism,
+    SemanticRelation, source_digest, symbol_key,
+)
 
 
 CONTAINER_RE = re.compile(
@@ -62,6 +67,7 @@ class ParsedFile:
     digest: str
     entities: list[SemanticEntity]
     relations: list[SemanticRelation]
+    mechanisms: list[SemanticMechanism]
     gaps: list[dict[str, str]]
 
 
@@ -87,6 +93,7 @@ def index_ecma_files(
         source_digests={item.path: item.digest for item in parsed},
         entities=[entity for item in parsed for entity in item.entities],
         relations=[relation for item in parsed for relation in item.relations],
+        mechanisms=[mechanism for item in parsed for mechanism in item.mechanisms],
         gaps=bounded_gaps([gap for item in parsed for gap in item.gaps]),
     )
     return batch.validate()
@@ -140,12 +147,20 @@ def parse_source(
         ))
     for block in callables:
         relations.extend(callable_relations(lines, block, context, by_qualified, by_name, gaps))
+    mechanisms = [
+        mechanism
+        for block in callables
+        for mechanism in extract_callable_mechanisms(
+            lines, block.entity.key, block.start, block.end
+        )
+    ]
     return ParsedFile(
         path=rel_path,
         text=text,
         digest=source_digest(text),
         entities=dedupe_entities(entities),
         relations=dedupe_relations(relations),
+        mechanisms=mechanisms,
         gaps=gaps,
     )
 
@@ -227,6 +242,27 @@ def parse_top_level_functions(
         entity = make_entity(language, file_path, name, "function", name, signature, index + 1, end + 1, bool(exported))
         result.append(CallableBlock(None, index, end, entity))
         index = end + 1
+    return result
+
+
+def callable_line_ranges(lines: list[str]) -> list[dict[str, Any]]:
+    """Return bounded ECMA callable ranges without requiring repository state."""
+    result: list[dict[str, Any]] = []
+    for index, line in enumerate(lines):
+        method = METHOD_RE.match(line)
+        function = FUNCTION_RE.match(line)
+        if method and method.group(4) not in CONTROL_NAMES:
+            name = method.group(4)
+        elif function:
+            name = function.group(3)
+        else:
+            continue
+        result.append({
+            "symbol": name,
+            "start_line": index + 1,
+            "end_line": block_end(lines, index) + 1,
+            "selection_reason": "callable_mechanism_window",
+        })
     return result
 
 
@@ -382,17 +418,6 @@ def container_fields(lines: list[str], container: Container | None) -> dict[str,
         if match and "(" not in line.split(":", 1)[0]:
             result[match.group(1)] = re.split(r"[<,?. ]", match.group(2).strip())[0]
     return result
-
-
-def block_end(lines: list[str], start: int) -> int:
-    depth = 0
-    opened = False
-    for index in range(start, len(lines)):
-        depth += lines[index].count("{") - lines[index].count("}")
-        opened = opened or "{" in lines[index]
-        if opened and depth <= 0:
-            return index
-    return start
 
 
 def callable_signature(name: str, params: str, return_type: str | None, async_value: bool) -> str:

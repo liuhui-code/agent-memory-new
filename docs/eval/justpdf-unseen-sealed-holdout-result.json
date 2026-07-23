@@ -1,0 +1,95 @@
+{
+  "schema_version": "agent-context-capability-observation-summary/v1",
+  "case_file": "docs/eval/justpdf-unseen-sealed-holdout-cases.json",
+  "case_seal_digest": "2cf6ddf75bd455d0c4851ee3df56cc53781534b72f949518e104f67f8e0a6c17",
+  "source_repository": "https://github.com/Delsin-Yu/JustPDF.git",
+  "recorded_at": "2026-07-18T20:32:16+00:00",
+  "immutable_observation": true,
+  "audit_notes": [
+    "Each case was prepared from its audited full before revision and the sealed pack was executed exactly once."
+  ],
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 4,
+    "passed_case_count": 1,
+    "failed_case_count": 3,
+    "anchor_recall": 0.75,
+    "primary_anchor_recall": 0.75,
+    "oracle_anchor_precision": 0.3125,
+    "expected_anchor_mrr": 0.625,
+    "source_excerpt_recall": 0.75,
+    "source_span_recall": 0.25,
+    "average_context_tokens": 1150.5,
+    "average_memory_prepare_ms": 2240.25,
+    "average_query_elapsed_ms": 418.0
+  },
+  "failure_analysis": {
+    "primary_failure_class": "ranking_precision",
+    "root_failure_class": "mixed_candidate_generation_ranking_and_passage_selection",
+    "failure_class_counts": {
+      "candidate_generation": 1,
+      "passage_selection": 4,
+      "ranking_precision": 4
+    },
+    "interpretation": "Empty launch-value consumption passes. Touch arbitration recalls PDFView at rank two but retains three annotation neighbors and misses the audited handler window. Rapid-navigation stale rendering misses PDFView entirely. Save-picker ownership ranks first with acceptable precision, but its excerpt does not reach pickSaveUri. The dominant remaining boundary is method-level owner and passage alignment rather than compactness."
+  },
+  "cases": [
+    {
+      "case_id": "justpdf-annotation-drag-also-pans",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "expected_anchor_mrr": 0.5,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/PDFView.ets",
+        "entry/src/main/ets/pages/pdfview/PDFAnnotationColors.ets",
+        "entry/src/main/ets/pages/pdfview/PDFAnnotationController.ets",
+        "entry/src/main/ets/pages/pdfview/PDFPageSlot.ets"
+      ]
+    },
+    {
+      "case_id": "justpdf-rapid-navigation-stale-render",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/PDFView.ets"
+      ],
+      "observed_anchor_paths": [
+        ".github/copilot-instructions.md",
+        "entry/src/main/ets/components/ScrollSpinBox.ets"
+      ]
+    },
+    {
+      "case_id": "justpdf-empty-launch-uri-auto-open",
+      "status": "pass",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 1.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/UIComponents.ets",
+        "entry/src/main/ets/pages/Index.ets"
+      ]
+    },
+    {
+      "case_id": "justpdf-save-dialog-missing-current-name",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": [],
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/SettingsDialog.ets",
+        "entry/src/main/ets/pages/pdfview/PDFAnnotationController.ets"
+      ]
+    }
+  ],
+  "policy": "Do not rerun or modify this sealed pack for tuning. Reproduce rapid-navigation async owner recall, touch-arbitration precision, and method-level source-window alignment in independent development fixtures, then validate only on a new sealed pack."
+}

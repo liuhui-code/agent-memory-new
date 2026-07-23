@@ -9,6 +9,8 @@ from .text import json_list, tokenize, unique_list
 
 MAX_KEYWORDS = 20
 MAX_ANCHORS = 12
+CODE_IDENTITY_SCORE_MIN = 6.0
+CODE_IDENTITY_REASONS = {"exact_function", "exact_symbol", "exact_identifier"}
 
 
 def build_query_handoff(query: str, data: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
@@ -80,10 +82,16 @@ def code_anchors(
 ) -> list[dict[str, Any]]:
     anchors: list[dict[str, Any]] = []
     seen: set[tuple[str, str]] = set()
-    for item in wiki[:MAX_ANCHORS]:
-        append_code_anchor(anchors, seen, item, "wiki")
-    for item in logs[:MAX_ANCHORS]:
-        append_code_anchor(anchors, seen, item, "log_emitter")
+    file_counts: dict[str, int] = {}
+    for source, values in (("wiki", wiki), ("log_emitter", logs)):
+        for item in values:
+            file_path = str(item.get("file_path") or "")
+            if file_counts.get(file_path, 0) >= 2:
+                continue
+            if append_code_anchor(anchors, seen, item, source):
+                file_counts[file_path] = file_counts.get(file_path, 0) + 1
+            if len(anchors) >= MAX_ANCHORS:
+                return anchors
     return anchors[:MAX_ANCHORS]
 
 
@@ -92,12 +100,12 @@ def append_code_anchor(
     seen: set[tuple[str, str]],
     item: dict[str, Any],
     source: str,
-) -> None:
+) -> bool:
     file_path = str(item.get("file_path") or "")
     symbol = str(item.get("symbol") or item.get("function") or "")
     key = (file_path, symbol)
     if not file_path or key in seen:
-        return
+        return False
     seen.add(key)
     anchors.append({
         "source": source,
@@ -106,7 +114,22 @@ def append_code_anchor(
         "symbol": symbol,
         "symbol_type": item.get("symbol_type"),
         "summary": item.get("business_summary") or item.get("summary"),
+        "start_line": item.get("start_line") or item.get("line"),
+        "end_line": item.get("end_line") or item.get("line"),
+        "identity_match": source == "log_emitter" and strong_code_identity(item),
     })
+    return True
+
+
+def strong_code_identity(item: dict[str, Any]) -> bool:
+    reasons = {
+        str(reason) for reason in item.get("match_reasons") or [] if str(reason).strip()
+    }
+    try:
+        score = float(item.get("score") or 0.0)
+    except (TypeError, ValueError):
+        score = 0.0
+    return bool(reasons & CODE_IDENTITY_REASONS) and score >= CODE_IDENTITY_SCORE_MIN
 
 
 def compact_experience(item: dict[str, Any]) -> dict[str, Any]:

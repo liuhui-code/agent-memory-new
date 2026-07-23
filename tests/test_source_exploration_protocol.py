@@ -47,16 +47,113 @@ class SourceExplorationProtocolTests(unittest.TestCase):
 
         self.assertFalse(source_exploration_within_budget([observation]))
 
-    def test_v4_codex_runner_requires_search_telemetry(self) -> None:
-        observation = validate_observation(response())
+    def test_audited_codex_policies_require_search_telemetry(self) -> None:
+        for policy in (
+            "anchor_first_gap_driven_v4",
+            "anchor_first_sufficient_evidence_v5",
+            "anchor_first_ledgered_stop_v6",
+            "anchor_first_search_ledger_v7",
+            "anchor_first_deterministic_expansion_v8",
+        ):
+            with self.subTest(policy=policy):
+                observation = validate_observation(response())
+                observation["runner_metadata"] = {
+                    "runner": "codex_cli",
+                    "retrieval_policy": policy,
+                }
+
+                self.assertFalse(source_exploration_within_budget([observation]))
+                observation["source_search_count_source"] = "runner_telemetry"
+                if policy == "anchor_first_ledgered_stop_v6":
+                    observation["cost_metrics_reported"] = True
+                    observation["source_read_count"] = 2
+                if policy == "anchor_first_deterministic_expansion_v8":
+                    observation.update({
+                        "expansion_file_count": 1,
+                        "expansion_rounds": 1,
+                        "expansion_accounting_source": "runner_investigated_files",
+                    })
+                self.assertTrue(source_exploration_within_budget([observation]))
+
+    def test_v6_codex_runner_enforces_read_ledger(self) -> None:
+        value = response()
+        value.update({
+            "cost_metrics_reported": True,
+            "source_read_count": 2,
+        })
+        observation = validate_observation(value)
         observation["runner_metadata"] = {
             "runner": "codex_cli",
-            "retrieval_policy": "anchor_first_gap_driven_v4",
+            "retrieval_policy": "anchor_first_ledgered_stop_v6",
         }
+        observation["source_search_count_source"] = "runner_telemetry"
+
+        self.assertTrue(source_exploration_within_budget([observation]))
+        observation["source_read_count"] = 3
+        self.assertFalse(source_exploration_within_budget([observation]))
+
+    def test_v7_read_amplification_does_not_change_quality_gate(self) -> None:
+        value = response()
+        value.update({
+            "cost_metrics_reported": True,
+            "source_read_count": 5,
+        })
+        observation = validate_observation(value)
+        observation["runner_metadata"] = {
+            "runner": "codex_cli",
+            "retrieval_policy": "anchor_first_search_ledger_v7",
+        }
+        observation["source_search_count_source"] = "runner_telemetry"
+
+        self.assertTrue(source_exploration_within_budget([observation]))
+
+    def test_v8_uses_runner_expansion_count_instead_of_trace_coverage(self) -> None:
+        value = response()
+        value.update({
+            "investigated_files": [
+                "src/Profile.ets", "src/A.ets", "src/B.ets", "src/C.ets",
+            ],
+            "supporting_files": ["src/A.ets", "src/B.ets", "src/C.ets"],
+            "source_file_count": 4,
+            "primary_anchor_hit_count": 1,
+            "non_anchor_file_count": 3,
+            "expansion_file_count": 3,
+            "expansion_rounds": 2,
+            "expansion_accounting_source": "runner_investigated_files",
+            "expansion_trace": [
+                {"reason": "missing_caller", "files": ["src/A.ets", "src/B.ets"]},
+            ],
+        })
+        observation = validate_observation(value)
+        observation["runner_metadata"] = {
+            "runner": "codex_cli",
+            "retrieval_policy": "anchor_first_deterministic_expansion_v8",
+        }
+        observation["source_search_count_source"] = "runner_telemetry"
+
+        self.assertEqual(2, observation["expansion_rounds"])
+        self.assertTrue(source_exploration_within_budget([observation]))
+
+        observation["expansion_file_count"] = 2
+        self.assertFalse(source_exploration_within_budget([observation]))
+
+    def test_v7_still_requires_complete_expansion_trace(self) -> None:
+        value = response()
+        value.update({
+            "investigated_files": ["src/Profile.ets", "src/Router.ets", "src/A.ets"],
+            "supporting_files": ["src/Router.ets", "src/A.ets"],
+            "source_file_count": 3,
+            "primary_anchor_hit_count": 1,
+            "non_anchor_file_count": 2,
+        })
+        observation = validate_observation(value)
+        observation["runner_metadata"] = {
+            "runner": "codex_cli",
+            "retrieval_policy": "anchor_first_search_ledger_v7",
+        }
+        observation["source_search_count_source"] = "runner_telemetry"
 
         self.assertFalse(source_exploration_within_budget([observation]))
-        observation["source_search_count_source"] = "runner_telemetry"
-        self.assertTrue(source_exploration_within_budget([observation]))
 
     def test_supported_stop_requires_direct_mechanism_in_causal_file(self) -> None:
         inference_only = validate_observation(response())

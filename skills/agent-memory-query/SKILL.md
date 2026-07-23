@@ -93,14 +93,12 @@ For compact diagnosis and code-understanding results, follow
 `query_handoff.source_exploration`:
 
 1. Inspect `code_anchors` with `role=primary` first.
-2. Stop only when an inspected causal file shows the concrete mechanism, with
-   no direct contradiction and a verification path. A likely owner or intended
-   behavior is not direct mechanism evidence.
-3. Inspect `role=expansion` or non-anchor files only for one named
-   `allowed_expansion_reasons`.
-4. Record each round in `expansion_trace`; close one gap and add at most two files.
-5. Respect the returned total-file, search, and expansion-round budgets.
-6. On budget exhaustion or no new evidence, report uncertainty instead of
+2. Treat `source_excerpts` as bounded current-worktree evidence: do not reread those lines, and open source only for a named gap outside them. Without excerpts, read `read_window` once rather than once per `source_range`.
+3. Stop only when an inspected causal file shows the concrete mechanism, with no direct contradiction and a verification path. A likely owner or intended behavior is not direct mechanism evidence.
+4. Inspect `role=expansion` or non-anchor files only for one named `allowed_expansion_reasons`.
+5. Record each round in `expansion_trace`; close one gap and add at most two files.
+6. Respect the returned total-file, search, and expansion-round budgets.
+7. On budget exhaustion or no new evidence, report uncertainty instead of
    continuing broad source exploration.
 
 Before `supported_cause_found`, report direct `evidence_basis` and inspected

@@ -269,6 +269,44 @@ class GraphQueryPerformanceTests(AgentMemoryTestBase):
             pairs,
         )
 
+    def test_partial_relearn_restores_matching_test_edge_without_full_file_scan(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            files = {
+                "feature/oh-package.json5": "{}",
+                "feature/src/main/ets/ProfileService.ets": "export class ProfileService {}",
+                "feature/src/test/ProfileServiceTest.ets": "export class ProfileServiceTest {}",
+                "other/src/main/ets/ProfileService.ets": "export class ProfileService {}",
+            }
+            for relative, content in files.items():
+                path = project / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(content + "\n", encoding="utf-8")
+            self.run_memory(project, "learn-path", "--path", ".", "--json")
+
+            source = project / "feature/src/main/ets/ProfileService.ets"
+            source.write_text("export class ProfileService { load(): void {} }\n", encoding="utf-8")
+            self.run_memory(
+                project, "learn-path", "--path", str(source.relative_to(project)), "--json",
+            )
+            code_files = {
+                int(row["id"]): str(row["file_path"])
+                for row in self.list_records(project, "code-file")
+            }
+            tested = {
+                (code_files[int(row["source_id"])], code_files[int(row["target_id"])])
+                for row in self.list_records(project, "memory-edge")
+                if row["relation"] == "tested_by"
+            }
+
+        self.assertIn(
+            (
+                "feature/src/main/ets/ProfileService.ets",
+                "feature/src/test/ProfileServiceTest.ets",
+            ),
+            tested,
+        )
+
     def test_safe_graph_rebuild_preserves_business_memory(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)

@@ -1,0 +1,263 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/Termony",
+  "source_repository": "https://github.com/TermonyHQ/Termony.git",
+  "source_branch": "master",
+  "source_head_reviewed": "2fe84795201dbe14a586819f7de641db6b6c18b7",
+  "generated_at": "2026-07-19T00:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "termony-pasteboard-plain-text",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Pasting a rich clipboard record into terminal input inserts converted markup instead of its literal plain text. Locate pasteboard record extraction ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "296fbbce56bd3733bbf8e085d6f25a9c487fab49",
+        "after_revision": "0975ad87a0c698ee1f34354b060d811696fb8e2e",
+        "changed_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "0975ad87a0c698ee1f34354b060d811696fb8e2e",
+        "commit_message": "Paste plaintext instead of html"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets"
+        ],
+        "root_cause_category": "data",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 126,
+              "end_line": 141
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Paste a rich clipboard record and verify terminal input receives its literal plain-text field."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "termony-startup-permission-sequencing",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "On first launch, requesting document and download access together can leave one permission flow incomplete. Locate startup permission sequencing ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "07e4acf25771c51268ec82c331035bc268f6cdda",
+        "after_revision": "bf2e918fc3badbaebb337eb072a490ff8d4406f0",
+        "changed_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "bf2e918fc3badbaebb337eb072a490ff8d4406f0",
+        "commit_message": "Request permissions in serial"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "root_cause_category": "permission",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/entryability/EntryAbility.ets",
+              "start_line": 41,
+              "end_line": 45
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Start from a clean permission state and verify both access requests complete in sequence."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "termony-empty-output-scroll",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The terminal read loop scrolls to the bottom even when the backend returns an empty output string, causing needless viewport movement. Locate output append and scroll gating ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "3d20638c64e94d4ce99d7691f0fa4737599984e7",
+        "after_revision": "e80acec85618a0b11f5dacb8b31c023850a9ebe2",
+        "changed_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "e80acec85618a0b11f5dacb8b31c023850a9ebe2",
+        "commit_message": "Do not scroll if empty string"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets"
+        ],
+        "root_cause_category": "performance",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 21,
+              "end_line": 33
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Return an empty backend read and verify the terminal neither appends content nor scrolls."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "termony-touch-scroll-coordinate-units",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Touch dragging scrolls terminal content by the wrong distance on high-density displays. Locate coordinate-unit conversion at the touch-event boundary.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "6717f0f83d7d67dbbfe39a6ae66d370721fec4b7",
+        "after_revision": "b24443eb255a965303bbcda09b665511bbc562d4",
+        "changed_files": [
+          "entry/src/main/cpp/napi_init.cpp",
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "b24443eb255a965303bbcda09b665511bbc562d4",
+        "commit_message": "Convert vp to px for touch event"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets"
+        ],
+        "root_cause_category": "ui",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 47,
+              "end_line": 59
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Drag the terminal on displays with different densities and verify equal physical movement produces equal scrolling."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-19T08:03:58+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 4,
+    "digest": "a7c9b512637b6fb43ffd900abf100b376537404d8639152663e5fa8b3710e761"
+  }
+}

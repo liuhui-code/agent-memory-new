@@ -4,12 +4,24 @@ from __future__ import annotations
 
 from typing import Any
 
+from .context_anchor_selection import (
+    path_context_for_log_anchors,
+    path_scoped_code_anchors,
+    relevant_log_anchors,
+)
+from .context_source_excerpt import (
+    attach_source_excerpts,
+    has_source_excerpt_candidate,
+)
+from .index_freshness import compact_freshness_report
 from .performance_scoring import estimate_payload_tokens
+from .query_behavior_concepts import behavior_marker_terms
 from .source_exploration import assign_anchor_roles, exploration_contract
 from .text import ENGLISH_QUERY_STOPWORDS
 
 
 COMPACT_TOKEN_BUDGET = 1500
+SOURCE_EXCERPT_PRE_BUDGET = 1220
 MAX_TEXT = 180
 KEYWORD_STOPWORDS = ENGLISH_QUERY_STOPWORDS | {
     "the", "a", "an", "and", "or", "to", "of", "in", "on", "for", "with",
@@ -20,23 +32,32 @@ KEYWORD_STOPWORDS = ENGLISH_QUERY_STOPWORDS | {
 
 def compact_context(data: dict[str, Any]) -> dict[str, Any]:
     handoff = data.get("query_handoff") if isinstance(data.get("query_handoff"), dict) else {}
+    compact = compact_handoff(handoff, data)
     payload = {
         "schema_version": "agent-context-compact/v1",
         "project_id": data.get("project_id"),
         "query": str(data.get("query") or "")[:240],
         "memory_intent": data.get("memory_intent_v2") or data.get("memory_intent"),
-        "query_handoff": compact_handoff(handoff, data),
+        "source_freshness": compact_freshness_report(data.get("source_freshness")),
+        "query_handoff": compact,
         "correction_guards": compact_records(data.get("correction_guards"), 2),
         "semantic_patch_notes": compact_records(data.get("semantic_patch_notes"), 2),
         "blocked_memory_notes": compact_records(data.get("blocked_memory_notes"), 2),
         "conflict_notes": compact_records(data.get("conflict_notes"), 2),
-        "evidence_gaps": evidence_gaps(handoff),
+        "evidence_gaps": evidence_gaps(compact),
         "expansion": {
             "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
             "use_when": "inspect ranking audit, full records, or one unresolved candidate",
         },
     }
+    excerpt_count = attach_source_excerpts(
+        payload, data.get("project_path"), COMPACT_TOKEN_BUDGET
+    )
+    if not excerpt_count and has_source_excerpt_candidate(payload, data.get("project_path")):
+        enforce_budget(payload, SOURCE_EXCERPT_PRE_BUDGET)
+        attach_source_excerpts(payload, data.get("project_path"), COMPACT_TOKEN_BUDGET)
     enforce_budget(payload)
+    payload["evidence_gaps"] = evidence_gaps(payload["query_handoff"])
     payload["output_budget"] = {
         "estimated_tokens": estimate_payload_tokens(payload),
         "target_tokens": COMPACT_TOKEN_BUDGET,
@@ -47,9 +68,18 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
 
 def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, Any]:
     path_context = compact_path_context(handoff.get("path_context"))
-    log_anchors = records(handoff.get("log_anchors"))[:3] if path_context["activated"] else []
+    log_anchors = (
+        relevant_log_anchors(records(handoff.get("log_anchors")), data.get("query"))[:3]
+        if path_context["activated"] else []
+    )
+    path_context = path_context_for_log_anchors(path_context, log_anchors)
+    code_candidates = path_scoped_code_anchors(
+        records(handoff.get("code_anchors")), path_context
+    )
     code_anchors = assign_anchor_roles(
-        diverse_code_anchors(handoff.get("code_anchors"), path_context["activated"])
+        diverse_code_anchors(
+            code_candidates, path_context["activated"], str(data.get("query") or "")
+        )
     )
     return {
         "schema_version": "agent-query-handoff-compact/v1",
@@ -88,7 +118,7 @@ GUARD_FIELDS = (
 )
 MINIMAL_GUARD_FIELDS = (
     "id", "reflection_id", "semantic_id", "experience_type", "fact", "scope",
-    "trigger_condition", "status", "warnings",
+    "task", "trigger_condition", "status", "warnings",
 )
 
 
@@ -106,7 +136,7 @@ def compact_path_context(value: Any) -> dict[str, Any]:
 def compact_path(item: dict[str, Any]) -> dict[str, Any]:
     nodes = records(item.get("nodes"))[:6]
     edges = records(item.get("edges"))[:5]
-    return {
+    compact = {
         "path_id": item.get("path_id"),
         "entry": compact_endpoint(item.get("entry")),
         "emitter": compact_endpoint(item.get("emitter")),
@@ -122,6 +152,11 @@ def compact_path(item: dict[str, Any]) -> dict[str, Any]:
         "source_revision": item.get("source_revision"),
         "complete": item.get("complete"),
         "truncated": item.get("truncated"),
+    }
+    optional_empty = {"uncertainty", "missing_segments", "source_revision"}
+    return {
+        key: value for key, value in compact.items()
+        if key not in optional_empty or value not in (None, "", [], {})
     }
 
 
@@ -152,28 +187,108 @@ def compact_relation(item: dict[str, Any]) -> dict[str, Any]:
 
 
 def compact_code_anchor(item: dict[str, Any]) -> dict[str, Any]:
-    result = clean_record(item, ("source", "record_id", "file_path", "symbol", "symbol_type"))
+    result = clean_record(
+        item,
+        (
+            "source", "record_id", "file_path", "symbol", "symbol_type",
+            "start_line", "end_line", "identity_match",
+        ),
+    )
+    record_id = result.get("record_id")
+    if isinstance(record_id, int):
+        result["record_ids"] = [record_id]
+        result.pop("record_id", None)
+    source_range = anchor_source_range(result)
+    if source_range:
+        result["source_ranges"] = [source_range]
+        result.pop("start_line", None)
+        result.pop("end_line", None)
+    if result.get("source") == "wiki":
+        result.pop("source", None)
     summary = str(item.get("summary") or "").strip()
     if summary and not generated_anchor_summary(summary, result):
         result["summary"] = summary[:MAX_TEXT]
     return result
 
 
-def diverse_code_anchors(value: Any, include_log_emitters: bool) -> list[dict[str, Any]]:
+def diverse_code_anchors(
+    value: Any,
+    include_log_emitters: bool,
+    query: str = "",
+) -> list[dict[str, Any]]:
     selected = []
-    seen_files = set()
-    for item in records(value):
-        if not include_log_emitters and item.get("source") == "log_emitter":
+    by_file: dict[str, dict[str, Any]] = {}
+    values = ordered_code_anchor_candidates(records(value), include_log_emitters, query)
+    for item in values:
+        if (
+            not include_log_emitters
+            and item.get("source") == "log_emitter"
+            and not item.get("identity_match")
+        ):
             continue
         anchor = compact_code_anchor(item)
         file_path = str(anchor.get("file_path") or "")
-        if not file_path or file_path in seen_files:
+        if not file_path:
+            continue
+        if file_path in by_file:
+            merge_anchor_evidence(by_file[file_path], anchor)
+            continue
+        if len(selected) >= 4:
             continue
         selected.append(anchor)
-        seen_files.add(file_path)
-        if len(selected) >= 5:
-            break
+        by_file[file_path] = anchor
+    for anchor in selected:
+        anchor.pop("identity_match", None)
+        add_read_window(anchor)
     return selected
+
+
+def ordered_code_anchor_candidates(
+    values: list[dict[str, Any]],
+    include_log_emitters: bool,
+    query: str = "",
+) -> list[dict[str, Any]]:
+    wiki = [item for item in values if item.get("source") != "log_emitter"]
+    logs = [item for item in values if item.get("source") == "log_emitter"]
+    if not include_log_emitters:
+        logs = [] if behavior_marker_terms(query) else [
+            item for item in logs if item.get("identity_match")
+        ]
+    return [*wiki[:1], *logs[:1], *wiki[1:], *logs[1:]]
+
+
+def add_read_window(anchor: dict[str, Any]) -> None:
+    ranges = anchor.get("source_ranges") or []
+    starts = [item.get("start_line") for item in ranges if isinstance(item.get("start_line"), int)]
+    ends = [item.get("end_line") for item in ranges if isinstance(item.get("end_line"), int)]
+    if starts and ends and max(ends) - min(starts) < 180:
+        anchor["read_window"] = {"start_line": min(starts), "end_line": max(ends)}
+
+
+def anchor_source_range(anchor: dict[str, Any]) -> dict[str, Any]:
+    start = anchor.get("start_line")
+    end = anchor.get("end_line")
+    if not isinstance(start, int) or not isinstance(end, int) or start <= 0 or end < start:
+        return {}
+    return clean_record(
+        {
+            "symbol": anchor.get("symbol"),
+            "start_line": start,
+            "end_line": end,
+        },
+        ("symbol", "start_line", "end_line"),
+    )
+
+
+def merge_anchor_evidence(target: dict[str, Any], source: dict[str, Any]) -> None:
+    record_ids = target.setdefault("record_ids", [])
+    for source_id in source.get("record_ids") or []:
+        if isinstance(source_id, int) and source_id not in record_ids and len(record_ids) < 3:
+            record_ids.append(source_id)
+    ranges = target.setdefault("source_ranges", [])
+    for source_range in source.get("source_ranges") or []:
+        if source_range not in ranges and len(ranges) < 3:
+            ranges.append(source_range)
 
 
 def generated_anchor_summary(summary: str, anchor: dict[str, Any]) -> bool:
@@ -194,12 +309,20 @@ def relevant_relations(
         if isinstance(item.get("record_id"), int)
     }
     endpoints.update(
+        ("code_symbol", int(record_id))
+        for item in code_anchors
+        for record_id in item.get("record_ids") or []
+        if isinstance(record_id, int)
+    )
+    endpoints.update(
         ("code_log_statement", int(item["log_id"]))
         for item in log_anchors
         if isinstance(item.get("log_id"), int)
     )
     selected = []
     for item in records(value):
+        if item.get("relation") == "contains":
+            continue
         source = (str(item.get("source_type") or ""), item.get("source_id"))
         target = (str(item.get("target_type") or ""), item.get("target_id"))
         if source in endpoints or target in endpoints:
@@ -237,13 +360,19 @@ def evidence_gaps(handoff: dict[str, Any]) -> list[str]:
     return gaps
 
 
-def enforce_budget(payload: dict[str, Any]) -> None:
+def enforce_budget(
+    payload: dict[str, Any],
+    token_budget: int = COMPACT_TOKEN_BUDGET,
+) -> None:
     handoff = payload["query_handoff"]
     paths = handoff["path_context"]["path_candidates"]
     reductions = (
         lambda: handoff.__setitem__("relation_hints", handoff["relation_hints"][:2]),
         lambda: [path.__setitem__("expected_logs", path["expected_logs"][:2]) for path in paths],
-        lambda: [path.__setitem__("uncertainty", path["uncertainty"][:1]) for path in paths],
+        lambda: [
+            path.__setitem__("uncertainty", path.get("uncertainty", [])[:1])
+            for path in paths
+        ],
         lambda: handoff.__setitem__("code_anchors", handoff["code_anchors"][:3]),
         lambda: handoff.__setitem__("log_keywords", handoff["log_keywords"][:8]),
         lambda: handoff.__setitem__("experience_refs", handoff["experience_refs"][:1]),
@@ -253,13 +382,43 @@ def enforce_budget(payload: dict[str, Any]) -> None:
         lambda: payload.__setitem__("conflict_notes", payload["conflict_notes"][:1]),
         lambda: minimize_guards(payload),
         lambda: payload.__setitem__("blocked_memory_notes", []),
+        lambda: trim_excerpt_for_path_diversity(handoff),
         lambda: handoff["path_context"].__setitem__("path_candidates", paths[:1]),
         lambda: hard_trim(payload),
     )
     for reduce_payload in reductions:
-        if estimate_payload_tokens(payload) <= COMPACT_TOKEN_BUDGET - 60:
+        if estimate_payload_tokens(payload) <= token_budget - 60:
             break
         reduce_payload()
+
+
+def trim_excerpt_for_path_diversity(handoff: dict[str, Any]) -> None:
+    paths = handoff["path_context"]["path_candidates"]
+    if len(paths) < 2:
+        return
+    emitter_files = {
+        str(path.get("emitter", {}).get("file_path") or "")
+        for path in paths[:2]
+    }
+    anchors = [
+        anchor for anchor in reversed(handoff["code_anchors"])
+        if anchor.get("source_excerpts")
+        and str(anchor.get("file_path") or "") not in emitter_files
+    ]
+    if not anchors:
+        return
+    anchors[0].pop("source_excerpts", None)
+    excerpts = [
+        excerpt
+        for anchor in handoff["code_anchors"]
+        for excerpt in anchor.get("source_excerpts") or []
+    ]
+    policy = handoff.get("source_excerpt_policy")
+    if isinstance(policy, dict):
+        policy["excerpt_count"] = len(excerpts)
+        policy["excerpt_chars"] = sum(
+            len(str(excerpt.get("content") or "")) for excerpt in excerpts
+        )
 
 
 def minimize_guards(payload: dict[str, Any]) -> None:
@@ -292,7 +451,10 @@ def shrink_guard_group(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     if not items:
         return []
     item = items[0]
-    keys = ("id", "reflection_id", "semantic_id", "experience_type", "fact", "scope", "status")
+    keys = (
+        "id", "reflection_id", "semantic_id", "experience_type", "fact",
+        "scope", "task", "status",
+    )
     result = {
         key: str(item[key])[:100] if isinstance(item.get(key), str) else item[key]
         for key in keys

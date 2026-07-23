@@ -138,10 +138,13 @@ class AgentBenchmarkTests(AgentMemoryTestBase):
         ).stdout)
 
         self.assertEqual("pass", payload["quality_gate"])
+        self.assertEqual("fail", payload["efficiency_gate"])
+        self.assertEqual("fail", payload["promotion_gate"])
         self.assertGreater(payload["context_uplift"]["agent_outcome_score_delta"], 0)
         self.assertEqual(500.0, payload["context_uplift"]["token_savings"])
         health = json.loads(self.run_memory(self.project, "maintain-health", "--json").stdout)
         self.assertEqual("pass", health["agent_benchmark"]["quality_gate"])
+        self.assertEqual("fail", health["agent_benchmark"]["efficiency_gate"])
         self.assertEqual(1, health["agent_benchmark"]["case_count"])
 
     def test_external_runner_receives_materialized_mutation_without_oracle(self) -> None:

@@ -1,0 +1,262 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/path/to/FinVideo",
+  "source_repository": "https://github.com/OHPG/FinVideo.git",
+  "source_branch": "master",
+  "source_head_reviewed": "3def9e0121edc13c15b46eba82338fa463b0e8ba",
+  "generated_at": "2026-07-19T00:00:00Z",
+  "generator": "git-history/v1+sealed-source-review",
+  "cases": [
+    {
+      "id": "finvideo-empty-touch-event",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A double-tap playback gesture can crash when the framework supplies no first finger entry. Locate touch-event consumption ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "dd6c0515e89bb6882e186cf288d25ebccefc452d",
+        "after_revision": "7638b53b1da20463934a0b5ad3cdb1d8f903bbb9",
+        "changed_files": [
+          "entry/src/main/ets/pages/player/PlayerPage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "7638b53b1da20463934a0b5ad3cdb1d8f903bbb9",
+        "commit_message": "修复触摸事件可能为空的问题。"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/player/PlayerPage.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/player/XController.ets"
+        ],
+        "root_cause_category": "validation",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/player/PlayerPage.ets",
+              "start_line": 398,
+              "end_line": 409
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Dispatch a double-tap event with an empty finger list and verify playback remains stable."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "finvideo-window-cleanup-timing",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Closing the main window can leave breakpoint and avoid-area listeners registered until their UI context is invalid. Locate lifecycle cleanup ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "bc4c181e39f5765f3881d756ecf7ed7c0549a526",
+        "after_revision": "4500e8b00449ac70f5e1232a00084f0103e453f4",
+        "changed_files": [
+          "entry/src/main/ets/ability/entry/EntryAbility.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "4500e8b00449ac70f5e1232a00084f0103e453f4",
+        "commit_message": "修复关闭窗口时，取消注册的问题。"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/ability/entry/EntryAbility.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/splash/SplashPage.ets"
+        ],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/ability/entry/EntryAbility.ets",
+              "start_line": 22,
+              "end_line": 45
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Close the window and verify both systems unregister before the window-stage context is destroyed."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "finvideo-folder-library-empty",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A media library organized by folders opens with no content because its list request does not traverse child folders. Locate list-loading option ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "c639eb352e58a2e297a3c5d9e0f5fee041774413",
+        "after_revision": "ce5363fb26f70046887017399fd1e2f95ba7e3af",
+        "changed_files": [
+          "entry/src/main/ets/pages/media/MediaListVewModel.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "ce5363fb26f70046887017399fd1e2f95ba7e3af",
+        "commit_message": "修复电影库以文件夹区分时，内容为空的问题。"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/media/MediaListVewModel.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/media/MediaListPage.ets"
+        ],
+        "root_cause_category": "data",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/media/MediaListVewModel.ets",
+              "start_line": 24,
+              "end_line": 40
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open a folder-backed movie library and verify nested media is returned."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "finvideo-person-works-list-clipped",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "On a phone, the horizontal works list on a person detail screen clips the lower part of its cards. Locate the list sizing owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "ca8dcdad07b95f8e692d42b39f8d1b07744f7179",
+        "after_revision": "228d22847b4cd3d7ea5fe6c668ec5f7d06ae07b0",
+        "changed_files": [
+          "entry/src/main/ets/pages/detail/person/PersonPage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "228d22847b4cd3d7ea5fe6c668ec5f7d06ae07b0",
+        "commit_message": "修复演员信息页列表可能的裁剪。"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/detail/person/PersonPage.ets"
+        ],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/detail/person/PersonViewModel.ets"
+        ],
+        "root_cause_category": "ui",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/detail/person/PersonPage.ets",
+              "start_line": 117,
+              "end_line": 149
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Render person work cards on a phone and verify the horizontal list does not clip their lower content."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-18T21:30:26+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 4,
+    "digest": "8df142f386f2ba8f9ecbb0c9c0674fda541a9e6b7e952bef1794764d0fd7bd3b"
+  }
+}

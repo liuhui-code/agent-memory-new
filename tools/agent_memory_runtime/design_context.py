@@ -7,6 +7,7 @@ from typing import Any
 
 from .design_knowledge import routing_hints, select_design_knowledge, unique
 from .evidence_context import build_evidence_context
+from .performance_scoring import estimate_payload_tokens
 from .records import output
 from .repository_model import build_repository_model, public_repository_model
 from .storage import ensure_initialized, resolve_project
@@ -88,7 +89,24 @@ def design_context_command(args: argparse.Namespace) -> None:
         knowledge_audit,
         args.compact,
     )
+    if args.compact:
+        enforce_compact_budget(payload)
     output(payload, args.json)
+
+
+def enforce_compact_budget(payload: dict[str, Any], token_budget: int = 1500) -> None:
+    reductions = (
+        lambda: payload["quality_context"].pop("vocabulary_source", None),
+        lambda: payload.__setitem__("expansion_hints", payload["expansion_hints"][:1]),
+        lambda: payload.__setitem__("design_knowledge", payload["design_knowledge"][:1]),
+        lambda: payload["current_repository"].__setitem__(
+            "relations", payload["current_repository"]["relations"][:2]
+        ),
+    )
+    for reduce_payload in reductions:
+        if estimate_payload_tokens(payload) <= token_budget:
+            break
+        reduce_payload()
 
 
 def build_design_context_payload(

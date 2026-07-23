@@ -13,7 +13,10 @@ from .path_search import BoundedReverseCallPathSearch
 from .query import limited_context
 
 
-def build_context_facade(project: Project) -> ContextFacade:
+def build_context_facade(
+    project: Project,
+    enable_passage_shadow: bool = False,
+) -> ContextFacade:
     path_context = PathContextFacade(
         anchor_resolver=SQLiteLogAnchorResolver(project),
         graph_reader=SQLiteProgramGraphReader(project),
@@ -21,4 +24,10 @@ def build_context_facade(project: Project) -> ContextFacade:
         search_strategy=BoundedReverseCallPathSearch(),
         ranking_policy=StructuralCallPathRankingPolicy(),
     )
-    return ContextFacade(project, limited_context, path_context)
+    return ContextFacade(
+        project,
+        lambda current, query: limited_context(
+            current, query, enable_passage_shadow=enable_passage_shadow
+        ),
+        path_context,
+    )
