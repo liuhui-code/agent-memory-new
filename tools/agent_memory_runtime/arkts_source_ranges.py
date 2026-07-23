@@ -5,7 +5,8 @@ from __future__ import annotations
 import re
 from typing import Any
 
-from .semantic_ecma import block_end, callable_line_ranges
+from .ecma_braces import block_end
+from .semantic_ecma import callable_line_ranges
 
 
 DSL_CALLBACK_RE = re.compile(r"\.([a-z][A-Za-z0-9_$]*)\s*\(")

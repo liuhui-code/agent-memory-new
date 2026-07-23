@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .ecma_braces import block_end
 from .models import Project
 from .semantic_ecma_mechanisms import extract_callable_mechanisms
 from .semantic_models import (
@@ -417,17 +418,6 @@ def container_fields(lines: list[str], container: Container | None) -> dict[str,
         if match and "(" not in line.split(":", 1)[0]:
             result[match.group(1)] = re.split(r"[<,?. ]", match.group(2).strip())[0]
     return result
-
-
-def block_end(lines: list[str], start: int) -> int:
-    depth = 0
-    opened = False
-    for index in range(start, len(lines)):
-        depth += lines[index].count("{") - lines[index].count("}")
-        opened = opened or "{" in lines[index]
-        if opened and depth <= 0:
-            return index
-    return start
 
 
 def callable_signature(name: str, params: str, return_type: str | None, async_value: bool) -> str:

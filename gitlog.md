@@ -2,6 +2,26 @@
 
 This repository is currently not a git repository. Use this file as a lightweight local change log so implementation work can be reviewed and manually rolled back.
 
+## 2026-07-23 - Preserve complete source blocks during learning
+
+Files changed:
+- ECMA structural block scanner, semantic and ArkTS range consumers, and learning regression tests.
+
+What changed:
+- Replaced raw per-line brace counts with a shared lexical scanner that excludes
+  braces in quoted literals, line comments, and block comments.
+- Applied the scanner to both semantic indexing and ArkTS callback source-range
+  extraction, so `learn-path` and `learn-entry` follow identical boundaries.
+- Added regression coverage for a method after JSON-like literal content through
+  both learning entry paths.
+- Restored the repository fingerprint header on five existing hierarchical
+  localization modules and tests so the project-wide source-integrity gate can
+  evaluate the complete suite.
+
+Why:
+- A `}` inside source text could terminate the enclosing class early, causing
+  all later methods in the same file to be omitted from semantic enrichment.
+
 ## 2026-07-17 - Bound Agent source expansion and stopping
 
 Files changed:
