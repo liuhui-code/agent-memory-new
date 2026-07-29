@@ -293,6 +293,27 @@ def maintain_refresh_scope(args: argparse.Namespace) -> None:
             if changed_only
             else []
         )
+        if changed_only and not (added_files or removed_files or changed_files or observed_boundary_changes):
+            refresh_summary = no_change_refresh_summary(change_set, unchanged_count)
+            update_scope_refresh_record(project, scope_row, current_snapshot, refresh_summary, change_set)
+            result.update({
+                "status": "refreshed",
+                "previous_file_count": len(previous_snapshot),
+                "current_file_count": len(current_snapshot),
+                "added_files": [],
+                "changed_files": [],
+                "removed_files": [],
+                "unchanged_count": unchanged_count,
+                "parse_stats": {"files_indexed": 0, "incremental_noop": True},
+                "semantic_review_targets": semantic_review_targets_from_drift([], [], []),
+                "semantic_conflicts": [],
+                "changed_only": True,
+                "refreshed_files": [],
+                "change_set": change_set.as_dict(),
+                "boundary_changes": [],
+            })
+            refreshed.append(result)
+            continue
         if changed_only and len(added_files) + len(removed_files) + len(changed_files) > 200:
             overflow_set = ScopeChangeSet(
                 provider=change_set.provider,
@@ -413,3 +434,20 @@ def maintain_refresh_scope(args: argparse.Namespace) -> None:
         encoding="utf-8",
     )
     output(payload, args.json)
+
+
+def no_change_refresh_summary(change_set: ScopeChangeSet, unchanged_count: int) -> dict[str, Any]:
+    return {
+        "status": "refreshed",
+        "added_files": [],
+        "changed_files": [],
+        "removed_files": [],
+        "unchanged_count": unchanged_count,
+        "semantic_review_targets": semantic_review_targets_from_drift([], [], []),
+        "semantic_conflicts": [],
+        "changed_only": True,
+        "refreshed_files": [],
+        "change_set": change_set.as_dict(),
+        "boundary_changes": [],
+        "incremental_noop": True,
+    }

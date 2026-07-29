@@ -6,10 +6,15 @@ import json
 import sqlite3
 import tempfile
 from pathlib import Path
+from unittest.mock import patch
 
 from tests.agent_memory_test_base import AgentMemoryTestBase
 from tools.agent_memory_runtime.evidence_context import build_evidence_context
-from tools.agent_memory_runtime.semantic_adapters import registered_adapter_manifest
+from tools.agent_memory_runtime.semantic_adapters import ArkTSSemanticAdapter, registered_adapter_manifest
+from tools.agent_memory_runtime.semantic_dispatch_candidates import (
+    MAX_DISPATCH_CANDIDATES,
+    expand_dispatch_candidates_across_batches,
+)
 from tools.agent_memory_runtime.semantic_models import SemanticBatch, SemanticEntity
 from tools.agent_memory_runtime.semantic_index import supersede_weaker_edge
 from tools.agent_memory_runtime.storage import connect, now_iso, resolve_project
@@ -98,6 +103,73 @@ struct ProfilePage {
 
         self.assertEqual({"ArkTS", "TypeScript"}, {item["language"] for item in manifest})
         self.assertTrue(all("calls" in item["capabilities"] for item in manifest))
+
+    def test_dispatch_catalog_crosses_batches_with_explicit_candidate_budget(self) -> None:
+        self.write_file("dispatch/Contract.ets", "export interface Contract {\n}")
+        self.write_file(
+            "dispatch/Caller.ets",
+            """
+export class Caller {
+  private target: Contract
+  run(): void { this.target.execute('work') }
+}
+""",
+        )
+        implementations: list[Path] = []
+        for index in range(MAX_DISPATCH_CANDIDATES + 2):
+            relative = f"dispatch/Worker{index}.ets"
+            self.write_file(
+                relative,
+                f"""
+export class Worker{index} implements Contract {{
+  execute(message: string): void {{ console.error(message) }}
+}}
+""",
+            )
+            implementations.append(self.project / relative)
+        runtime_project = resolve_project(
+            str(self.project), str(self.memory_home(self.project)),
+        )
+        adapter = ArkTSSemanticAdapter()
+        caller_batch = adapter.index(runtime_project, [
+            (self.project / "dispatch/Caller.ets").resolve(),
+            (self.project / "dispatch/Contract.ets").resolve(),
+        ])
+        implementation_batch = adapter.index(
+            runtime_project, [path.resolve() for path in implementations],
+        )
+        bounded_caller = SemanticBatch.from_dict(caller_batch.to_dict())
+        bounded_implementations = SemanticBatch.from_dict(implementation_batch.to_dict())
+        base_count = sum(
+            item.relation != "dispatches_via" and item.evidence_class != "inferred"
+            for item in bounded_caller.relations
+        )
+        relation_budget = base_count + 3
+        with patch(
+            "tools.agent_memory_runtime.semantic_dispatch_candidates.MAX_RELATIONS",
+            relation_budget,
+        ):
+            expand_dispatch_candidates_across_batches([
+                bounded_caller, bounded_implementations,
+            ])
+        bounded_inferred = [
+            item for item in bounded_caller.relations if item.evidence_class == "inferred"
+        ]
+
+        self.assertLessEqual(len(bounded_caller.relations), relation_budget)
+        self.assertEqual(2, len(bounded_inferred))
+
+        expand_dispatch_candidates_across_batches([caller_batch, implementation_batch])
+
+        inferred = [
+            item for item in caller_batch.relations
+            if item.relation == "calls" and item.evidence_class == "inferred"
+        ]
+        self.assertEqual(MAX_DISPATCH_CANDIDATES, len(inferred))
+        self.assertIn(
+            "dispatch_candidates_truncated",
+            {item["kind"] for item in caller_batch.gaps},
+        )
 
     def test_semantic_columns_belong_to_symbols_not_files(self) -> None:
         symbol_columns = {row[1] for row in self.db_rows("PRAGMA table_info(code_symbols)")}

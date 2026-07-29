@@ -17,6 +17,8 @@ from .benchmark_workspace import materialized_workspace
 from .context_capability_cases import expand_context_cases
 from .context_calibration import assess_calibration, calibration_contract
 from .context_capability_eval import OBSERVATION_SCHEMA, evaluate_context_capability
+from .context_log_path_quality import observe_log_paths
+from .context_sufficiency_metrics import sufficiency_profile
 from .benchmark_case_seal import case_pack_seal_audit
 from .benchmark_failure_analysis import analyze_context_failures
 from .performance_scoring import estimate_payload_tokens
@@ -55,6 +57,7 @@ def eval_context_capability_command(args: argparse.Namespace) -> None:
     cases = expand_context_cases(scenario_cases)
     observations = collect_context_capabilities(source, cases, int(args.runner_timeout))
     result = evaluate_context_capability(cases, observations)
+    result["capability_profile"]["sufficiency"] = sufficiency_profile(observations)
     contract = calibration_contract(pack)
     result["calibration"] = assess_calibration(cases, result["cases"], contract)
     result["calibration_gate"] = result["calibration"]["status"] if contract else "not_required"
@@ -256,6 +259,7 @@ def summarize_context(
             item.get("file_path") for item in log_anchors
         ),
         "log_anchor_count": len(log_anchors),
+        **observe_log_paths(log_anchors),
         "log_evidence_texts": [
             " ".join(
                 str(item.get(key) or "").strip()
@@ -282,6 +286,7 @@ def summarize_context(
         "path_candidate_count": len(path_candidates),
         "relation_hint_count": len(records(handoff.get("relation_hints"))),
         "evidence_gaps": string_values(context.get("evidence_gaps")),
+        "sufficiency": context.get("sufficiency") if isinstance(context.get("sufficiency"), dict) else {},
         "context_token_estimate": positive_int(
             budget.get("estimated_tokens"), estimate_payload_tokens(context)
         ),

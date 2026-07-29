@@ -49,6 +49,9 @@ def semantic_provider_health(project: Project) -> dict[str, Any]:
     exact = sum(item.get("status") == "exact" for item in rows)
     fallback = sum(item.get("status") == "fallback" for item in rows)
     failures = [item for item in rows if item.get("fallback_reason")]
+    underqualified = [
+        item for item in failures if item.get("fallback_reason") == "provider_underqualified"
+    ]
     count = len(rows)
     configured_languages = [
         language for language in ("ArkTS", "TypeScript")
@@ -61,7 +64,9 @@ def semantic_provider_health(project: Project) -> dict[str, Any]:
         "fallbacks": fallback,
         "exact_success_rate": round(exact / count, 4) if count else None,
         "fallback_rate": round(fallback / count, 4) if count else None,
+        "underqualified_fallbacks": len(underqualified),
         "recent_failure_reasons": [str(item.get("fallback_reason")) for item in failures[-5:]],
+        "recent_lost_relation_families": _recent_lost_families(underqualified),
         "retention_limit": METRIC_LIMIT,
         "recent_runs": rows[-5:],
     }
@@ -70,19 +75,26 @@ def semantic_provider_health(project: Project) -> dict[str, Any]:
 def build_semantic_provider_actions(summary: dict[str, Any]) -> list[dict[str, Any]]:
     if int(summary.get("sample_count") or 0) < 2 or int(summary.get("fallbacks") or 0) < 2:
         return []
+    underqualified = int(summary.get("underqualified_fallbacks") or 0)
     return [{
         "action": "review_semantic_provider_failures",
         "governance_lane": "graph_quality",
         "type": "semantic_provider",
-        "reason": "configured semantic provider repeatedly fell back to static analysis",
+        "reason": (
+            "configured semantic provider repeatedly failed semantic qualification"
+            if underqualified >= 2
+            else "configured semantic provider repeatedly fell back to static analysis"
+        ),
         "risk": "medium",
         "requires_confirmation": True,
         "failure_reasons": summary.get("recent_failure_reasons") or [],
+        "lost_relation_families": summary.get("recent_lost_relation_families") or [],
         "command": None,
     }]
 
 
 def compact_metric(telemetry: dict[str, Any]) -> dict[str, Any]:
+    qualification = telemetry.get("qualification") or {}
     return {
         "timestamp": now_iso(),
         "language": telemetry.get("language"),
@@ -95,8 +107,20 @@ def compact_metric(telemetry: dict[str, Any]) -> dict[str, Any]:
         "duration_ms": telemetry.get("duration_ms"),
         "output_bytes": telemetry.get("output_bytes"),
         "fallback_reason": telemetry.get("fallback_reason"),
+        "qualification_status": qualification.get("status"),
+        "entity_file_coverage": qualification.get("entity_file_coverage"),
+        "lost_relation_families": (qualification.get("lost_relation_families") or [])[:8],
     }
 
 
 def provider_metric_path(project: Project) -> Path:
     return project.runtime_dir / METRIC_FILE
+
+
+def _recent_lost_families(rows: list[dict[str, Any]]) -> list[str]:
+    families = {
+        str(family)
+        for item in rows[-5:]
+        for family in item.get("lost_relation_families") or []
+    }
+    return sorted(families)

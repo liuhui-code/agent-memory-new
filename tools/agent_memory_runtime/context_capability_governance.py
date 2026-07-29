@@ -38,6 +38,10 @@ def context_capability_summary(project: Project) -> dict[str, Any]:
         profile.get("abstention")
         if isinstance(profile.get("abstention"), dict) else {}
     )
+    log_paths = (
+        profile.get("log_path_quality")
+        if isinstance(profile.get("log_path_quality"), dict) else {}
+    )
     failure = (
         data.get("failure_analysis")
         if isinstance(data.get("failure_analysis"), dict) else {}
@@ -66,6 +70,10 @@ def context_capability_summary(project: Project) -> dict[str, Any]:
         "source_excerpt_recall": source.get("source_excerpt_recall"),
         "source_span_recall": source.get("source_span_recall"),
         "abstention_status": abstention.get("status"),
+        "log_path_quality_status": log_paths.get("status"),
+        "log_path_recall": log_paths.get("average_path_recall"),
+        "log_path_precision": log_paths.get("average_path_precision"),
+        "truncated_log_path_case_count": int(log_paths.get("truncated_case_count") or 0),
         "average_context_tokens": summary.get("average_context_tokens"),
         "failure_analysis_status": failure.get("status"),
         "primary_failure_class": failure.get("primary_failure_class"),
@@ -98,6 +106,10 @@ def empty_summary() -> dict[str, Any]:
         "source_excerpt_recall": None,
         "source_span_recall": None,
         "abstention_status": None,
+        "log_path_quality_status": None,
+        "log_path_recall": None,
+        "log_path_precision": None,
+        "truncated_log_path_case_count": 0,
         "average_context_tokens": None,
         "failure_analysis_status": None,
         "primary_failure_class": None,

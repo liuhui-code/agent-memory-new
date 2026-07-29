@@ -6,8 +6,10 @@ from typing import Any
 
 from .context_compact import COMPACT_TOKEN_BUDGET
 from .context_capability_quality import assess_context_quality
+from .context_capability_requirements import context_requirements
 from .context_evidence_funnel import assess_evidence_funnel, evidence_funnel_profile
 from .context_hierarchical_metrics import assess_hierarchical_localization, localization_profile
+from .context_log_path_quality import assess_log_path_quality, log_path_profile
 
 OBSERVATION_SCHEMA = "agent-context-capability-observation/v1"
 RESULT_SCHEMA = "agent-context-capability-result/v1"
@@ -123,6 +125,7 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
     quality = assess_context_quality(requirements, expected, observation)
     localization = assess_hierarchical_localization(expected, requirements, observation)
     funnel = assess_evidence_funnel(expected, requirements, observation)
+    log_paths = assess_log_path_quality(requirements, observation)
     checks = {
         "compact_schema_returned": (
             observation.get("context_schema_version") == "agent-context-compact/v1"
@@ -130,6 +133,7 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
         "context_within_budget": 0 < token_estimate <= COMPACT_TOKEN_BUDGET,
     }
     checks.update(quality["checks"])
+    checks.update(log_paths["checks"])
     if requirements["require_expected_anchors"]:
         checks["expected_anchors_recalled"] = bool(expected) and expected <= anchors
         checks["forbidden_anchors_absent"] = not bool(forbidden & anchors)
@@ -201,6 +205,7 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
         "missing_required_evidence_gaps": quality["missing_required_evidence_gaps"],
         "hierarchical_localization": localization,
         "evidence_funnel": funnel,
+        **log_paths["result"],
         "abstention_observed": quality["abstention_observed"],
         "anchor_count": len(anchors),
         "primary_anchor_count": len(primary),
@@ -283,6 +288,7 @@ def capability_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
                 "forbidden_log_keywords_absent", "forbidden_log_files_absent",
             ),
         ),
+        "log_path_quality": log_path_profile(scored),
         "experience": optional_profile(
             scored,
             (
@@ -362,47 +368,6 @@ def causal_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
         "observed_relation_case_count": sum(item["relation_hint_count"] > 0 for item in scored),
     }
 
-def context_requirements(value: Any) -> dict[str, Any]:
-    item = value if isinstance(value, dict) else {}
-    return {
-        "required_log_keywords": string_list(item.get("required_log_keywords"), fold=True),
-        "required_log_files": string_list(item.get("required_log_files")),
-        "forbidden_log_keywords": string_list(item.get("forbidden_log_keywords"), fold=True),
-        "forbidden_log_files": string_list(item.get("forbidden_log_files")),
-        "required_experience_types": string_list(
-            item.get("required_experience_types"), fold=True
-        ),
-        "required_main_experience_phrases": string_list(
-            item.get("required_main_experience_phrases"), fold=True
-        ),
-        "forbidden_main_experience_phrases": string_list(
-            item.get("forbidden_main_experience_phrases"), fold=True
-        ),
-        "required_guard_experience_phrases": string_list(
-            item.get("required_guard_experience_phrases"), fold=True
-        ),
-        "required_path_files": string_list(item.get("required_path_files")),
-        "required_path_relations": string_list(item.get("required_path_relations"), fold=True),
-        "forbidden_path_files": string_list(item.get("forbidden_path_files")),
-        "min_relation_hints": nonnegative_int(item.get("min_relation_hints")),
-        "min_path_candidates": nonnegative_int(item.get("min_path_candidates")),
-        "require_source_excerpt": bool(item.get("require_source_excerpt")),
-        "require_expected_anchors": item.get("require_expected_anchors") is not False,
-        "required_top_k": nonnegative_int(item.get("required_top_k")),
-        "min_anchor_precision": optional_ratio(item.get("min_anchor_precision")),
-        "required_source_spans": source_spans(item.get("required_source_spans")),
-        "required_owner_spans": source_spans(item.get("required_owner_spans")),
-        "hierarchical_callable_spans": source_spans(item.get("hierarchical_callable_spans")),
-        "hierarchical_owner_spans": source_spans(item.get("hierarchical_owner_spans")),
-        "hierarchical_range_spans": source_spans(item.get("hierarchical_range_spans")),
-        "min_source_span_recall": optional_ratio(
-            item.get("min_source_span_recall"), default=1.0
-        ),
-        "require_abstention": bool(item.get("require_abstention")),
-        "required_evidence_gaps": string_list(item.get("required_evidence_gaps")),
-    }
-
-
 def observed_capability(item: dict[str, Any], requirement_key: str) -> bool:
     fields = {
         "require_source_excerpt": "source_excerpt_count",
@@ -462,37 +427,3 @@ def nonnegative_int(value: Any) -> int:
         return max(0, int(value or 0))
     except (TypeError, ValueError):
         return 0
-
-
-def optional_ratio(value: Any, default: float | None = None) -> float | None:
-    if value is None:
-        return default
-    try:
-        result = float(value)
-    except (TypeError, ValueError) as exc:
-        raise SystemExit("context capability ratio must be numeric") from exc
-    if not 0.0 <= result <= 1.0:
-        raise SystemExit("context capability ratio must be between 0 and 1")
-    return result
-
-
-def source_spans(value: Any) -> list[dict[str, Any]]:
-    if value is None:
-        return []
-    if not isinstance(value, list) or len(value) > 20:
-        raise SystemExit("required_source_spans must be a list with at most 20 items")
-    result = []
-    for item in value:
-        if not isinstance(item, dict) or not str(item.get("file_path") or "").strip():
-            raise SystemExit("required source span requires file_path")
-        span = {"file_path": str(item["file_path"]).strip()}
-        if item.get("symbol"):
-            span["symbol"] = str(item["symbol"]).strip()
-        if isinstance(item.get("start_line"), int) and isinstance(item.get("end_line"), int):
-            if item["start_line"] <= 0 or item["end_line"] < item["start_line"]:
-                raise SystemExit("required source span line range is invalid")
-            span.update({"start_line": item["start_line"], "end_line": item["end_line"]})
-        if "symbol" not in span and "start_line" not in span:
-            raise SystemExit("required source span requires symbol or line range")
-        result.append(span)
-    return result

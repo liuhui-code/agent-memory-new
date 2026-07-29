@@ -28,6 +28,7 @@ A batch declares its schema, adapter identity/version, language, capabilities, s
 - `registers_callback`
 - `exposes_api` / `consumes_api`
 - `awaits`
+- `dispatches_via` for the static receiver contract of a bounded virtual call site
 
 Malformed, oversized, unsupported, ambiguous, or unresolved output is rejected or reported as a gap. The core consumers do not import ArkTS or TypeScript parsing code.
 
@@ -40,9 +41,11 @@ Evidence precision and causal role are separate dimensions:
 
 The built-in lightweight adapters emit `static`, never `exact`. A matched runtime log is `observed`; its enclosing symbol `supports` the inspection path; static code relations are only `possible`. This prevents a statically reachable method from being presented as a proven runtime cause.
 
+For ArkTS/TypeScript interface and base-class calls, the static adapter builds a shared per-language dispatch catalog across semantic file batches. Explicit `implements`/`extends`, method name, and argument count may produce at most eight `inferred` call targets. These are learned-scope CHA candidates, not points-to results. The original static receiver is retained as `dispatches_via`, and exact Provider edges continue to outrank inferred candidates.
+
 ## Incremental Refresh
 
-Partial learning captures existing reverse dependents before replacing symbol rows. It rebuilds the changed files and those dependents, restores incoming semantic edges to the new symbol ids, and supersedes weaker duplicate active edges. Target resolution uses indexed symbol key and file/qualified-name lookups rather than loading the whole graph.
+Partial learning captures existing reverse dependents before replacing symbol rows. It rebuilds the changed files and those dependents, restores incoming semantic edges to the new symbol ids, and supersedes weaker duplicate active edges. A hierarchy change additionally follows bounded `dispatches_via`, `implements`, and `extends` edges so the contract, known implementations, and callers are rebuilt together. Target resolution uses indexed symbol key and file/qualified-name lookups rather than loading the whole graph.
 
 `parse_stats.semantic_index` reports adapter coverage, files, entities, extracted/emitted relations, unresolved relations, gaps, and adapter errors.
 

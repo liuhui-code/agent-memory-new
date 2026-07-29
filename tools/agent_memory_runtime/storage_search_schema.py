@@ -7,7 +7,7 @@ import sqlite3
 from .code_passages import create_code_passage_schema, rebuild_code_passages
 
 
-SEARCH_SCHEMA_VERSION = "fts-v4"
+SEARCH_SCHEMA_VERSION = "fts-v6"
 
 
 def create_search_schema(conn: sqlite3.Connection) -> None:
@@ -20,6 +20,7 @@ def create_search_schema(conn: sqlite3.Connection) -> None:
         """
     )
     create_code_passage_schema(conn)
+    migrate_log_effect_search_schema(conn)
     conn.executescript(
         """
         CREATE VIRTUAL TABLE IF NOT EXISTS semantic_fact_fts USING fts5(
@@ -113,11 +114,41 @@ def create_search_schema(conn: sqlite3.Connection) -> None:
           process_hint,
           neighbor_terms
         );
+
+        CREATE VIRTUAL TABLE IF NOT EXISTS code_log_effect_fts USING fts5(
+          project_id UNINDEXED,
+          file_path,
+          function,
+          wrapper_symbol,
+          level,
+          logger,
+          message_template,
+          evidence_class,
+          call_path,
+          call_path_locations,
+          raw_call
+        );
         """
     )
     create_search_triggers(conn)
     if search_schema_version(conn) != SEARCH_SCHEMA_VERSION:
         rebuild_search_indexes(conn)
+
+
+def migrate_log_effect_search_schema(conn: sqlite3.Connection) -> None:
+    columns = {
+        str(row["name"])
+        for row in conn.execute("PRAGMA table_info(code_log_effect_fts)").fetchall()
+    }
+    if columns and "call_path_locations" not in columns:
+        conn.executescript(
+            """
+            DROP TRIGGER IF EXISTS code_log_effect_fts_ai;
+            DROP TRIGGER IF EXISTS code_log_effect_fts_ad;
+            DROP TRIGGER IF EXISTS code_log_effect_fts_au;
+            DROP TABLE code_log_effect_fts;
+            """
+        )
 
 
 
@@ -216,6 +247,19 @@ def create_search_triggers(conn: sqlite3.Connection) -> None:
           INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms, business_event, trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms)
           VALUES (new.id, new.project_id, COALESCE(new.file_path, ''), COALESCE(new.function, ''), COALESCE(new.level, ''), COALESCE(new.logger, ''), COALESCE(new.message_template, ''), COALESCE(new.raw_statement, ''), COALESCE(new.business_summary, ''), COALESCE(new.business_terms, ''), COALESCE(new.business_event, ''), COALESCE(new.trigger_stage, ''), COALESCE(new.symptom_terms, ''), COALESCE(new.likely_causes, ''), COALESCE(new.process_hint, ''), COALESCE(new.neighbor_terms, ''));
         END;
+
+        CREATE TRIGGER IF NOT EXISTS code_log_effect_fts_ai AFTER INSERT ON code_log_effects BEGIN
+          INSERT INTO code_log_effect_fts(rowid, project_id, file_path, function, wrapper_symbol, level, logger, message_template, evidence_class, call_path, call_path_locations, raw_call)
+          VALUES (new.id, new.project_id, new.file_path, new.function, new.wrapper_symbol, COALESCE(new.level, ''), COALESCE(new.logger, ''), new.message_template, new.evidence_class, new.call_path, new.call_path_locations, COALESCE(new.raw_call, ''));
+        END;
+        CREATE TRIGGER IF NOT EXISTS code_log_effect_fts_ad AFTER DELETE ON code_log_effects BEGIN
+          DELETE FROM code_log_effect_fts WHERE rowid = old.id;
+        END;
+        CREATE TRIGGER IF NOT EXISTS code_log_effect_fts_au AFTER UPDATE ON code_log_effects BEGIN
+          DELETE FROM code_log_effect_fts WHERE rowid = old.id;
+          INSERT INTO code_log_effect_fts(rowid, project_id, file_path, function, wrapper_symbol, level, logger, message_template, evidence_class, call_path, call_path_locations, raw_call)
+          VALUES (new.id, new.project_id, new.file_path, new.function, new.wrapper_symbol, COALESCE(new.level, ''), COALESCE(new.logger, ''), new.message_template, new.evidence_class, new.call_path, new.call_path_locations, COALESCE(new.raw_call, ''));
+        END;
         """
     )
 
@@ -230,6 +274,7 @@ def rebuild_search_indexes(conn: sqlite3.Connection) -> None:
         "code_symbol_fts",
         "code_method_fts",
         "code_log_fts",
+        "code_log_effect_fts",
     )
     for table in tables:
         conn.execute(f"DELETE FROM {table}")
@@ -281,6 +326,13 @@ def rebuild_search_indexes(conn: sqlite3.Connection) -> None:
         INSERT INTO code_log_fts(rowid, project_id, file_path, function, level, logger, message_template, raw_statement, business_summary, business_terms, business_event, trigger_stage, symptom_terms, likely_causes, process_hint, neighbor_terms)
         SELECT id, project_id, COALESCE(file_path, ''), COALESCE(function, ''), COALESCE(level, ''), COALESCE(logger, ''), COALESCE(message_template, ''), COALESCE(raw_statement, ''), COALESCE(business_summary, ''), COALESCE(business_terms, ''), COALESCE(business_event, ''), COALESCE(trigger_stage, ''), COALESCE(symptom_terms, ''), COALESCE(likely_causes, ''), COALESCE(process_hint, ''), COALESCE(neighbor_terms, '')
         FROM code_log_statements
+        """
+    )
+    conn.execute(
+        """
+        INSERT INTO code_log_effect_fts(rowid, project_id, file_path, function, wrapper_symbol, level, logger, message_template, evidence_class, call_path, call_path_locations, raw_call)
+        SELECT id, project_id, file_path, function, wrapper_symbol, COALESCE(level, ''), COALESCE(logger, ''), message_template, evidence_class, call_path, call_path_locations, COALESCE(raw_call, '')
+        FROM code_log_effects
         """
     )
     project_ids = [

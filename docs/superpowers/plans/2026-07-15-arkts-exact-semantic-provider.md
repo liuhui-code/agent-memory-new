@@ -2,7 +2,7 @@
 
 **Goal:** Add a production-safe, language-neutral external semantic-provider path for ArkTS, measure it against the existing static adapter, and let design, impact, and Incident consumers prefer higher-authority evidence without making the compiler toolchain a runtime dependency.
 
-**Architecture:** Learning remains the only indexing entry. An explicitly configured executable receives a bounded `semantic-provider-request/v1` JSON document on stdin and returns a correlated `semantic-provider-result/v1` envelope containing a validated `semantic-index/v1` batch. Auto mode tries the external provider and falls back to the built-in static adapter. SQLite remains the source of truth; bounded provider telemetry is operational JSONL under `runtime/`.
+**Architecture:** Learning remains the only indexing entry. An explicitly configured executable receives a bounded `semantic-provider-request/v1` JSON document on stdin and returns a correlated `semantic-provider-result/v1` envelope containing a validated `semantic-index/v1` batch. Auto mode tries the external provider, qualifies it against one static shadow batch, and reuses that batch on fallback. SQLite remains the source of truth; bounded provider telemetry is operational JSONL under `runtime/`.
 
 **Boundaries:** Keep four public Skills, one CLI entry, no daemon, no shell command execution, no project-controlled provider configuration, no raw AST persistence, no graph/vector database, no runtime LLM, and every Python file at or below 500 lines.
 
@@ -82,6 +82,21 @@ Acceptance:
 - [x] Update README, runtime, schema, semantic-index, Skill protocol, Learn/Maintain instructions, and `gitlog.md`.
 - [x] Run focused/full tests, compilation, CLI help, golden evaluation, diff checks, four-Skill check, and 500-line gate.
 
+## Phase 7: Differential Provider Qualification
+
+- [x] Treat protocol validity and semantic replacement fitness as separate gates.
+- [x] Compare only definition-bearing file coverage and observed critical relation-family presence; do not require exact/static edge equality.
+- [x] Reject empty or structurally collapsed exact batches as `provider_underqualified`.
+- [x] Reuse the static shadow batch for `auto` fallback and fail explicitly in forced `external` mode.
+- [x] Persist bounded qualification status, file coverage, and lost relation families in Provider telemetry.
+- [x] Surface repeated semantic qualification loss through existing Maintain health and review actions.
+
+Acceptance:
+
+- A live Provider cannot erase a learned graph merely by returning a valid empty envelope.
+- Static false positives do not force relation-by-relation agreement with exact output.
+- Qualification does not introduce a second static parse after fallback.
+
 ## Performance Guardrails
 
 - Default timeout: 20 seconds per provider invocation.
@@ -89,7 +104,7 @@ Acceptance:
 - Request limits inherit `semantic-index/v1`: 5,000 files, 50,000 entities, 100,000 relations, and 1,000 gaps.
 - Provider telemetry retains at most 200 compact records.
 - Learning invokes at most one external provider per language/scope and never starts a background process.
-- Static comparison runs only under `eval-semantic`, not normal learning.
+- When an external provider is configured, normal learning runs one static shadow batch for replacement qualification; without a Provider there is no added work.
 
 ## Rollback
 

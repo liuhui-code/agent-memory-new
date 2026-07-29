@@ -9,7 +9,9 @@ def focus_callable_anchors(
     anchors: list[dict[str, Any]], evidence: Any, path_activated: bool,
 ) -> list[dict[str, Any]]:
     """Narrow compact source anchors only for a bounded callable-local query."""
-    if path_activated or not isinstance(evidence, dict):
+    if path_activated or any(item.get("log_identity_match") for item in anchors):
+        return anchors
+    if not isinstance(evidence, dict):
         return anchors
     if any(item.get("graph_neighbor") for item in anchors):
         return anchors

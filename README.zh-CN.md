@@ -90,6 +90,9 @@ ArkTS / HarmonyOS 项目通常具有可利用的稳定结构：
 内置 ArkTS / TypeScript semantic adapter 会生成语言无关的
 `semantic-index/v1` 数据。可选 ArkAnalyzer Provider 可提供更精确的 symbol、
 call、inheritance 和 state evidence；Provider 不可用时会明确回退到静态适配器。
+配置 Provider 时会用一次静态影子解析做有界资格检查，阻止空实体、整文件定义缺失或
+关键关系族被整体清空的“协议正确但语义退化”结果替换现有代码图；治理指标会单独记录
+资格失败和丢失的关系族。
 对方法名不具业务含义的代码，系统还会从 callable 源码范围提取有界调用词，写入
 独立的稀疏 FTS5 索引；只有多个问题词共同命中时才补充方法锚点，不污染普通符号排序。
 学习时会跳过明确的 preview、cache 和 generated 目录，旧索引查询时也会在存在正式
@@ -222,6 +225,14 @@ code entity --calls/awaits/registers_callback--> code entity
 - `likely_causes`
 - `process_hint`
 - `neighbor_terms`
+
+对于 ArkTS/TypeScript 的日志封装，语义索引还会生成独立的 `static_wrapped` 或
+`inferred_wrapped` 日志效果：支持同文件、类型/导入关系可解析的跨文件调用，以及
+基于显式 `implements/extends`、方法名和参数个数的有界接口分派候选，保留外层业务调用位置、
+直接日志 `log_id`、最多三层的 `call_path`、逐节点 `call_path_locations`、封装深度和
+源码新鲜度。它表示“该调用方可能经此路径输出日志”，不表示运行时一定执行；Agent
+仍需用临时流水日志和当前源码核对并列路径。反射、结构类型分派、无法解析的导入和
+函数别名不会被猜测成确定路径。
 
 这样 Agent 可以从用户描述或真实日志的一行开始，找到代码日志、源码位置和多条可能
 调用路径，再使用真实日志顺序和当前源码筛选路径。

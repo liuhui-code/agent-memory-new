@@ -118,6 +118,28 @@ def create_schema(conn: sqlite3.Connection) -> None:
           updated_at TEXT NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS code_log_effects (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          project_id TEXT NOT NULL,
+          file_path TEXT NOT NULL,
+          line INTEGER NOT NULL,
+          function TEXT NOT NULL,
+          wrapper_symbol TEXT NOT NULL,
+          sink_log_id INTEGER NOT NULL,
+          level TEXT,
+          logger TEXT,
+          message_template TEXT NOT NULL,
+          evidence_class TEXT NOT NULL,
+          wrapper_depth INTEGER NOT NULL DEFAULT 1,
+          truncated INTEGER NOT NULL DEFAULT 0,
+          call_path TEXT NOT NULL,
+          call_path_locations TEXT NOT NULL DEFAULT '[]',
+          raw_call TEXT,
+          source_digest TEXT,
+          index_generation INTEGER NOT NULL DEFAULT 0,
+          updated_at TEXT NOT NULL
+        );
+
         CREATE TABLE IF NOT EXISTS memory_edges (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           project_id TEXT NOT NULL,
@@ -364,6 +386,12 @@ def create_schema(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_code_logs_project_function
         ON code_log_statements(project_id, function);
+
+        CREATE INDEX IF NOT EXISTS idx_log_effects_project_file
+        ON code_log_effects(project_id, file_path, function);
+
+        CREATE INDEX IF NOT EXISTS idx_log_effects_project_sink
+        ON code_log_effects(project_id, sink_log_id);
 
         CREATE INDEX IF NOT EXISTS idx_memory_edges_project_source
         ON memory_edges(project_id, source_type, source_id);

@@ -63,7 +63,8 @@ def log_keywords(query: str, logs: list[dict[str, Any]]) -> list[str]:
 
 def compact_log_anchor(item: dict[str, Any]) -> dict[str, Any]:
     return {
-        "log_id": item.get("id"),
+        "log_id": item.get("sink_log_id") or item.get("id"),
+        "effect_id": item.get("id") if item.get("kind") == "log_effect" else None,
         "message_template": item.get("message_template"),
         "logger": item.get("logger"),
         "business_event": item.get("business_event"),
@@ -73,6 +74,12 @@ def compact_log_anchor(item: dict[str, Any]) -> dict[str, Any]:
         "file_path": item.get("file_path"),
         "function": item.get("function"),
         "line": item.get("line"),
+        "evidence_class": item.get("evidence_class") or "direct",
+        "wrapper_symbol": item.get("wrapper_symbol"),
+        "wrapper_depth": item.get("wrapper_depth"),
+        "truncated": bool(item.get("truncated")),
+        "call_path": item.get("call_path") or [],
+        "call_path_locations": item.get("call_path_locations") or [],
     }
 
 
@@ -88,7 +95,8 @@ def code_anchors(
             file_path = str(item.get("file_path") or "")
             if file_counts.get(file_path, 0) >= 2:
                 continue
-            if append_code_anchor(anchors, seen, item, source):
+            item_source = "wrapped_log_caller" if item.get("kind") == "log_effect" else source
+            if append_code_anchor(anchors, seen, item, item_source):
                 file_counts[file_path] = file_counts.get(file_path, 0) + 1
             if len(anchors) >= MAX_ANCHORS:
                 return anchors

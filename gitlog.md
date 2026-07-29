@@ -1,5 +1,95 @@
 # Local Development Log
 
+## 2026-07-29 - Preserve Multiline ArkTS Code Logs During Learning
+
+Files changed:
+- Code-log extractor and ArkTS log-path regression coverage.
+
+What changed:
+- Replaced line-only log discovery with a bounded source-call scanner that finds
+  recognized logging call starts and closes their balanced argument list while
+  respecting quoted strings.
+- ArkTS/ECMA extraction now accepts multiline `console`, `hilog`/`HiLog`, and
+  `logger`/`Logger` calls, keeps the invocation start line and current function,
+  and extracts single, double, or template-string message literals.
+
+Why:
+- The previous line regex discarded a large class of normal production logging:
+  formatted calls spread over multiple lines and uppercase `Logger` APIs. The
+  loss happened before SQLite insertion, so no query or graph-layer change
+  could recover the missing logs.
+
+Verification:
+- The ArkTS log-path suite passes 13/13, including a new multiline,
+  template-string, uppercase-Logger, and HiLog regression.
+- The focused `learn-entry` relative-import regression passes. An earlier long
+  full-suite wait was not reproduced by that focused test.
+
+## 2026-07-29 - Short-Circuit Changed-Only No-Op Refresh
+
+Files changed:
+- Scope refresh control flow and Scope-boundary regression coverage.
+
+What changed:
+- Added a changed-only no-op fast path after the Scope change and boundary-drift
+  checks. When no learned file and no registered boundary changed, it updates
+  only the Scope checkpoint and runtime result.
+- It no longer rescans imports, writes boundary rows, scans semantic conflicts,
+  or adds a durable refresh Episode for an empty refresh. Changed files and
+  boundary changes retain the existing full refresh behavior.
+
+Why:
+- The 100k scale run showed that empty and outside-Scope refreshes were spending
+  work on post-refresh governance despite having no source delta. A no-op must
+  be observable but should not create history noise or rebuild derived context.
+
+Verification:
+- Scope-boundary regressions pass, including the new no-op checkpoint and
+  no-Episode assertion.
+- The tiny scale profile passes all latency, query-plan, and maintenance gates.
+
+## 2026-07-29 - Add Task-Specific Context Sufficiency Protocol
+
+Files changed:
+- Read-only Context sufficiency adapters, compact Context, design Context,
+  impact Scope, Context capability observation, tests, usage guidance, and
+  a long-term execution design record.
+
+What changed:
+- Added `agent-context-sufficiency/v1` to the existing `context --compact`,
+  `design-context`, and `impact-scope` outputs. Each task type reports only
+  retrieval readiness, stable reason codes, evidence coverage, and one bounded
+  next action.
+- Diagnosis readiness requires a source-locatable code anchor; source freshness
+  drift requires refresh. Design distinguishes first-pass orientation from
+  Agent-directed refinement. Impact requires learned changed files and direct
+  scope evidence before Agent verification.
+- `eval-context-capability` now records an informational readiness distribution.
+  It cannot change the strict Context gate or claim Agent success.
+
+Why:
+- A generic confidence score would conflate three different jobs and encourage
+  Runtime overreach. Task-specific minimum evidence makes expansion needs
+  observable while preserving the boundary that the local Agent owns diagnosis,
+  design decisions, and verification.
+
+Verification:
+- New focused tests cover diagnosis, design, impact, no-evidence,
+  freshness-drift, unlearned-change, and informational evaluation behavior.
+- The neutral ArkTS owner-role development suite passes all 6 query variants:
+  strict Context gate, exact anchors, source spans, and compactness are all
+  1.0. The new readiness profile reports 6/6
+  `ready_for_agent_inspection` observations at an average 1,068.7 tokens.
+- A full-suite attempt was stopped after an existing `learn-entry` subprocess
+  remained blocked in `tests/test_agent_memory_part_10.py`; no assertion failure
+  was emitted before interruption.
+- The isolated 100k scale benchmark passed all retrieval latency and SQL-index
+  checks, but failed incremental-maintenance SLOs in this environment: no-change
+  p95 was 699.327 ms (target 500 ms), outside-scope p95 was 675.639 ms (target
+  500 ms), and large-method-file p95 was 8,538.044 ms (target 5,000 ms).
+  Treat this as a separate reproducibility/performance investigation rather
+  than evidence that the read-only sufficiency projection is promoted.
+
 This repository is currently not a git repository. Use this file as a lightweight local change log so implementation work can be reviewed and manually rolled back.
 
 ## 2026-07-28 - Add Callable Evidence Funnel Foundation
@@ -7455,3 +7545,167 @@ Result:
 - CI scale passes at 100,000 searchable entities, 80,000 symbols, and 300,000
   edges. Candidate hit/miss p95 is 47.193/74.712 ms and hierarchical one-hop
   owner p95 is 18.773 ms. No sealed external pack was modified or rerun.
+
+## 2026-07-29 - Recover bounded ArkTS log-wrapper effects
+
+What changed:
+
+- Added a comment/string-aware balanced call scanner and a language-owned log
+  sink API Catalog, fixing multiline direct-log loss without matching examples
+  embedded in comments or strings.
+- Reused the scanner in the ArkTS/TypeScript semantic adapter so same-file call
+  edges carry the actual call line rather than the callable declaration line.
+- Added a separate `code_log_effects` projection and FTS5 index. Bounded summary
+  propagation follows up to three resolved wrappers, detects cycles, limits
+  branching, retains source generation/digest, and links back to the direct log.
+- Existing `context` and `search` now expose wrapped calls as lower-weight
+  `static_wrapped` evidence with `call_path`; graph expansion continues from the
+  direct sink id and the Agent remains responsible for runtime verification.
+
+Result:
+
+- New end-to-end tests recover a two-wrapper business message and full call
+  path, preserve the anchor in compact context, and remove stale effects after
+  incremental relearning.
+- Focused log-effect, direct-log, semantic-index, scope, sufficiency, and query
+  suites pass (102 tests). Compile, whitespace, and Python 500-line checks pass.
+- Profiling attributes 32 ms total to LogEffect across two incremental graph
+  rebuilds (about 16 ms each). An initial scale run was distorted by concurrent
+  subprocess-heavy tests; isolated reruns pass 5/5 in 2.58 seconds, with the
+  large-method refresh around 0.72 seconds. Full discovery was stopped during
+  that contention; no failure appeared before interruption.
+- Dynamic dispatch and unresolved call targets remain explicit follow-up gaps
+  rather than guessed paths.
+
+## 2026-07-29 - Extend bounded log effects across resolved files
+
+What changed:
+
+- Extended LogEffect propagation across statically resolved ArkTS/TypeScript
+  `calls` edges while retaining the depth-three, cycle, and per-caller budgets.
+- Added bounded reverse-caller expansion to incremental graph scope. Changing a
+  bottom sink now rebuilds all affected caller files up to the same effect
+  depth instead of leaving upper materialized effects attached to a stale log.
+- Added `call_path_locations` so every caller, wrapper, and sink in a cross-file
+  path remains directly inspectable by the Agent.
+- Bumped the effect FTS index to `fts-v6` and added automatic migration from the
+  pre-location schema.
+
+Result:
+
+- A reviewed three-file ArkTS fixture recovers
+  `load -> report -> emit -> logger.error`; relearning only `LogSink.ets`
+  replaces the upper caller's sink id and compact Context retains intermediate
+  source locations.
+- Log-effect, semantic, scope, candidate-recall, direct-log, and scale suites
+  pass. Dynamic dispatch, unresolved imports, and function aliases remain
+  explicit unknowns.
+
+## 2026-07-29 - Qualify exact semantic Provider replacements
+
+What changed:
+
+- Added a language-neutral differential qualification gate after external
+  Provider protocol validation. It detects definition-bearing files that
+  disappear and complete loss of critical relation families already observed
+  by the built-in static adapter without requiring edge-level agreement.
+- `auto` mode reuses the static shadow batch after `provider_underqualified`;
+  forced `external` mode fails explicitly. Provider-free learning is unchanged.
+- Extended bounded Provider telemetry and Maintain health with qualification
+  status, entity-file coverage, underqualified counts, and recent lost relation
+  families.
+
+Result:
+
+- Empty exact batches and declared-but-empty call results can no longer replace
+  the code graph. Valid exact fixture learning still persists exact edges.
+- Provider tests pass 15/15; semantic, evaluation, mechanism, scope, refresh,
+  and scale regression suites pass 35/35. All changed Python files remain below
+  500 lines.
+
+## 2026-07-29 - Recover bounded polymorphic log paths
+
+What changed:
+
+- Added a language-neutral DispatchCatalog shared across semantic file batches.
+  ArkTS/TypeScript static analysis now expands explicit interface/base calls by
+  hierarchy, method name, and argument count, capped at eight deterministic
+  candidates per call site.
+- Persisted the static receiver contract as `dispatches_via`. Focused learning
+  uses it with old/new `implements` and `extends` edges to rebuild the contract,
+  known implementations, and callers when hierarchy membership changes.
+- Propagated inferred call evidence into `inferred_wrapped` LogEffects instead
+  of labeling candidate paths static. Context reserves bounded wrapped-path
+  diversity and recognizes English error/failure wording as log diagnosis.
+
+Result:
+
+- A fixture with two valid interface implementations and one same-name arity
+  mismatch returns exactly two parallel paths. Adding an implementation by
+  learning one file expands to three; removing `implements` contracts back to
+  two without a full-project rebuild.
+- Cross-batch evaluation retains eight candidates and emits an explicit
+  truncation gap. Existing exact/static evidence ordering and three-anchor
+  compact budget remain unchanged.
+- A synthetic catalog with 1,000 implementations, 5,000 call sites, and 6,000
+  input relations expands to 51,000 bounded relations in about 346 ms locally;
+  candidate lookup uses a pre-sorted `(receiver, method, arity)` index.
+- Final semantic, Provider, LogEffect, query-diversity, Context, refresh, scope,
+  scale, and log-anchored-path regressions pass 86/86. Compile, whitespace, and
+  the at-most-500-line source gate pass.
+
+## 2026-07-29 - Gate log context completeness independently
+
+What changed:
+
+- Extended the existing model-free Context capability gate with reviewed
+  log-effect path Oracles: evidence class, ordered path recall, allowed-path
+  precision, candidate bounds, and explicit truncation checks.
+- Persisted LogEffect truncation through SQLite, retrieval, and compact Context
+  so the Agent can distinguish a complete bounded set from an overflowed one.
+- Added static multi-wrapper and nominal-polymorphic ArkTS development cases;
+  no command or fifth Skill was introduced.
+- Fixed focused caller relearning by reading a depth-three, 2,000-symbol bounded
+  forward call closure while materializing effects only for affected callers.
+
+Result:
+
+- The two new end-to-end Context cases pass 2/2. Both have path recall 1.0;
+  the two-implementation dispatch case has path precision 1.0 and exactly two
+  candidates. The static case records its current compact-noise baseline at
+  precision 0.5 rather than hiding the extra candidate.
+- Relearning only the outer caller now keeps the unchanged cross-file sink and
+  replaces the old call-site message. Unit and integration coverage also fail
+  closed on malformed Oracles, excess candidates, hidden truncation, and
+  unexpected inferred paths.
+
+## 2026-07-29 - Align exact log, code, and source context
+
+What changed:
+
+- Added a conservative exact-log-phrase cascade after negative filtering. It
+  keeps every same-message parallel path, suppresses other-message candidates,
+  and falls back to broad retrieval for short or non-exact symptom queries.
+- Scoped compact code anchors to exact log callers unless an activated
+  structural path already owns focus. Lower-confidence callable evidence can no
+  longer redirect code context away from the selected log identity.
+- Strengthened the static and polymorphic LogEffect capability scenarios with
+  exact, English-context, and Chinese-context variants plus code/source gates.
+
+Result:
+
+- All 6 variants pass. Anchor recall/precision, source excerpt recall, MRR, and
+  log-path recall/precision are 1.0; static output has one legal path and
+  polymorphic output retains both legal candidates with no truncation.
+- The change is confined to compact evidence selection. SQLite facts, graph
+  construction, broad-query fallback, four Skills, and Agent-owned path
+  comparison remain unchanged.
+- Focused Context, LogEffect, query-diversity, freshness, graph-performance,
+  and scale regressions pass 113/113. The isolated design control-loop module
+  also passes 12/12.
+- Full discovery emitted no assertion failure before it was stopped after 11.5
+  minutes in a `test_design_control_loop` setup subprocess. The same module
+  completed independently in 31.412 seconds, indicating cumulative long-run
+  contention rather than a reproducible functional failure.
+- Python compilation, capability-case JSON validation, diff whitespace, four
+  public Skills, and the at-most-500-line Python gate pass.

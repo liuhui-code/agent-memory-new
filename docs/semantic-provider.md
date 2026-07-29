@@ -21,9 +21,12 @@ Normal learning uses `auto` mode:
 configured exact provider succeeds -> persist exact batch
 provider absent                    -> use built-in static adapter
 provider fails validation/runtime -> report fallback and use static adapter
+provider loses observed structure -> report underqualified and use static shadow
 ```
 
-`parse_stats.semantic_index.provider_runs` reports the selected path, provider identity, toolchain, duration, accepted output bytes, and fallback reason. Compact configured-provider telemetry is retained at `runtime/semantic_provider_runs.jsonl`, capped at 200 records.
+When a provider is configured, learning also runs one built-in static shadow analysis. A bounded qualification gate rejects whole definition-bearing files disappearing and rejects complete loss of a critical relation family already observed by the static adapter. It deliberately does not require edge-by-edge agreement: static-only and exact-only edges remain valid diagnostic differences. Forced `external` mode raises `provider_underqualified`; normal `auto` mode reuses the shadow batch as fallback.
+
+`parse_stats.semantic_index.provider_runs` reports the selected path, provider identity, toolchain, duration, accepted output bytes, fallback reason, and qualification profile. Compact configured-provider telemetry is retained at `runtime/semantic_provider_runs.jsonl`, capped at 200 records. `maintain-health` separates underqualified fallbacks and recent lost relation families from provider process failures.
 
 ## Request
 
@@ -81,7 +84,7 @@ The executable writes exactly one JSON document to stdout:
 
 Every external entity/relation must be `exact`. Symbol keys must equal the deterministic `symbol_key(language, file_path, qualified_name, signature)` identity defined by `semantic-index/v1`. Cross-scope targets may use that stable key and/or qualified-name/path hints; unknown keys remain unresolved instead of creating graph nodes.
 
-The runtime rejects stale digests, unsafe paths, unstable keys, non-exact evidence, malformed JSON, identity mismatch, request mismatch, unsupported schema, nonzero exit, timeout, and oversized accepted output.
+The runtime rejects stale digests, unsafe paths, unstable keys, non-exact evidence, malformed JSON, identity mismatch, request mismatch, unsupported schema, nonzero exit, timeout, oversized accepted output, and semantically underqualified replacement batches.
 
 ## Evaluation
 

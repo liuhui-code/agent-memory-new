@@ -5,11 +5,13 @@ from __future__ import annotations
 from typing import Any
 
 from .context_anchor_selection import (
+    has_wrapped_log_anchor,
     path_context_for_log_anchors,
     path_scoped_code_anchors,
-    relevant_log_anchors,
+    prioritized_log_anchors,
 )
 from .context_callable_focus import focus_callable_anchors
+from .context_sufficiency import diagnosis_sufficiency
 from .context_source_excerpt import (
     attach_source_excerpts,
     has_source_excerpt_candidate,
@@ -59,6 +61,9 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
         attach_source_excerpts(payload, data.get("project_path"), COMPACT_TOKEN_BUDGET)
     enforce_budget(payload)
     payload["evidence_gaps"] = evidence_gaps(payload["query_handoff"])
+    payload["sufficiency"] = diagnosis_sufficiency(
+        payload["query_handoff"], payload["evidence_gaps"], payload["source_freshness"],
+    )
     payload["output_budget"] = {
         "estimated_tokens": estimate_payload_tokens(payload),
         "target_tokens": COMPACT_TOKEN_BUDGET,
@@ -70,13 +75,13 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
 def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, Any]:
     path_context = compact_path_context(handoff.get("path_context"))
     callable_evidence = handoff.get("callable_evidence")
-    log_anchors = (
-        relevant_log_anchors(records(handoff.get("log_anchors")), data.get("query"))[:3]
-        if path_context["activated"] else []
+    candidate_logs = prioritized_log_anchors(
+        records(handoff.get("log_anchors")), data.get("query"),
     )
+    log_anchors = candidate_logs if path_context["activated"] or has_wrapped_log_anchor(candidate_logs) else []
     path_context = path_context_for_log_anchors(path_context, log_anchors)
     code_candidates = path_scoped_code_anchors(
-        records(handoff.get("code_anchors")), path_context
+        records(handoff.get("code_anchors")), path_context, log_anchors, data.get("query"),
     )
     code_candidates = focus_callable_anchors(
         code_candidates, callable_evidence, path_context["activated"],
@@ -112,7 +117,8 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
 
 LOG_FIELDS = (
     "log_id", "message_template", "logger", "business_event", "trigger_stage",
-    "process_hint", "file_path", "function", "line",
+    "process_hint", "file_path", "function", "line", "effect_id", "evidence_class",
+    "wrapper_symbol", "wrapper_depth", "call_path", "call_path_locations", "truncated",
 )
 MEMORY_FIELDS = (
     "reflection_id", "semantic_id", "id", "experience_type", "fact", "scope", "task",
@@ -465,15 +471,15 @@ def shrink_guard_group(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return [result]
 def clean_record(item: dict[str, Any], fields: tuple[str, ...]) -> dict[str, Any]:
     return {
-        key: compact_value(item.get(key))
+        key: compact_value(item.get(key), 5 if key in {"call_path", "call_path_locations"} else 2)
         for key in fields
         if item.get(key) not in (None, "", [], {})
     }
-def compact_value(value: Any) -> Any:
+def compact_value(value: Any, list_limit: int = 2) -> Any:
     if isinstance(value, str):
         return value[:MAX_TEXT]
     if isinstance(value, list):
-        return [compact_value(item) for item in value[:2]]
+        return [compact_value(item) for item in value[:list_limit]]
     return value
 
 

@@ -13,7 +13,9 @@ from .code_wiki_extractors import extract_arkts_reference_symbols
 from .code_wiki_design_edges import insert_design_edges
 from .code_wiki_imports import relative_project_path, resolve_arkts_router_targets, resolve_js_imports
 from .models import Project
+from .log_effects import rebuild_log_effects
 from .graph_quality_snapshot import bump_graph_revision
+from .incremental_graph_scope import transitive_caller_paths
 from .semantic_index import persist_semantic_index
 from .storage import now_iso
 
@@ -132,6 +134,9 @@ def dependent_file_paths_for_scope(
                 (project_id, *chunk),
             ).fetchall()
             paths.update(str(row["file_path"]) for row in rows)
+    paths.update(transitive_caller_paths(
+        conn, project_id, scoped_ids.get("code_symbol", set()), limit,
+    ))
     return sorted(paths)[:limit]
 
 
@@ -200,6 +205,11 @@ def rebuild_code_memory_edges(
         project,
         [str(row["file_path"]) for row in scoped_files],
         revision,
+    )
+    semantic_stats["log_effects"] = rebuild_log_effects(
+        conn,
+        project,
+        [str(row["file_path"]) for row in scoped_files] if scope_file_paths is not None else None,
     )
     bump_graph_revision(conn, project_id)
     return semantic_stats

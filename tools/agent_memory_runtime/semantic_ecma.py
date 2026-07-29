@@ -11,10 +11,12 @@ from .ecma_braces import block_end
 from .models import Project
 from .semantic_ecma_mechanisms import extract_callable_mechanisms
 from .semantic_callable_profile import callable_roles, owner_kind
+from .semantic_dispatch_candidates import expand_dispatch_candidates
 from .semantic_models import (
     MAX_GAPS, SemanticBatch, SemanticEntity, SemanticMechanism,
     SemanticRelation, source_digest, symbol_key,
 )
+from .source_call_scanner import call_argument_count, code_mask, scan_calls_masked
 
 
 CONTAINER_RE = re.compile(
@@ -97,6 +99,7 @@ def index_ecma_files(
         mechanisms=[mechanism for item in parsed for mechanism in item.mechanisms],
         gaps=bounded_gaps([gap for item in parsed for gap in item.gaps]),
     )
+    expand_dispatch_candidates(batch)
     return batch.validate()
 
 
@@ -319,19 +322,24 @@ def callable_relations(
     fields = context.fields_by_owner.get(block.owner or "", {})
     imported_paths = context.imported_paths
     local_prefix = f"{block.owner}." if block.owner else ""
-    for name in set(re.findall(r"\bthis\.([A-Za-z_$][\w$]*)\s*\(", body)):
+    mask = code_mask(body)
+    local_calls = scan_calls_masked(body, mask, r"\bthis\.([A-Za-z_$][\w$]*)\s*\(")
+    for call_line, call in local_calls:
+        name = re.search(r"\bthis\.([A-Za-z_$][\w$]*)", call).group(1)
         target = by_qualified.get(local_prefix + name)
         if target:
-            result.append(relation(block.entity.key, "calls", target.key, block.start + 1, 0.95, "local method call"))
-    typed_calls = re.findall(r"\b(?:this\.)?([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\s*\(", body)
-    for field_name, method_name in typed_calls:
+            result.append(relation(block.entity.key, "calls", target.key, block.start + call_line, 0.95, "local method call"))
+    typed_calls = scan_calls_masked(body, mask, r"\b(?:this\.)?([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\s*\(")
+    for call_line, call in typed_calls:
+        field_name, method_name = re.search(r"\b(?:this\.)?([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)", call).groups()
         type_name = fields.get(field_name) or (field_name if field_name in imported_paths else None)
         if not type_name or field_name == "this":
             continue
         result.append(SemanticRelation(
             source_key=block.entity.key, relation="calls", target_name=method_name,
             target_qualified_name=f"{type_name}.{method_name}", target_file_path=imported_paths.get(type_name),
-            line=block.start + 1, confidence=0.9, detail=f"typed field call through {field_name}",
+            line=block.start + call_line, confidence=0.9,
+            detail=f"typed field call through {field_name}; arity={call_argument_count(call)}",
         ))
     if block.owner:
         for name in context.state_names_by_owner.get(block.owner, ()):

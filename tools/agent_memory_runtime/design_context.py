@@ -11,6 +11,7 @@ from .performance_scoring import estimate_payload_tokens
 from .records import output
 from .repository_model import build_repository_model, public_repository_model
 from .storage import ensure_initialized, resolve_project
+from .context_sufficiency import design_sufficiency
 
 
 QUALITY_PROMPTS = {
@@ -125,7 +126,7 @@ def build_design_context_payload(
     limits = {"nodes": 3 if compact else 24, "edges": 3 if compact else 36, "memory": 3 if compact else 8}
     corrections = correction_context(evidence, limits["memory"])
     project_memory = project_memory_context(evidence, limits["memory"])
-    return {
+    payload = {
         "schema_version": "design-context/v1",
         "request": {
             "query": query,
@@ -166,6 +167,8 @@ def build_design_context_payload(
         "agent_ownership": agent_ownership(compact),
         "audit": audit_payload(compact, knowledge_audit, model, evidence),
     }
+    payload["sufficiency"] = design_sufficiency(payload)
+    return payload
 
 
 def task_constraint(value: str) -> dict[str, Any]:

@@ -18,6 +18,7 @@ REQUIRED_TABLES = {
     "code_files",
     "code_symbols",
     "code_log_statements",
+    "code_log_effects",
     "memory_edges",
     "learn_scopes",
     "scope_boundary_dependencies",

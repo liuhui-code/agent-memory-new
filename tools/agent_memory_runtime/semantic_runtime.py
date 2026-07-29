@@ -11,6 +11,7 @@ from .semantic_adapters import adapter_for
 from .semantic_models import SemanticBatch
 from .semantic_provider_process import configured_provider, run_external_provider
 from .semantic_provider_protocol import ProviderFailure
+from .semantic_provider_qualification import qualification_diagnostic, qualify_exact_batch
 
 
 @dataclass(frozen=True)
@@ -35,22 +36,31 @@ def run_semantic_adapter(
     if mode == "static" or (mode == "auto" and not provider_configured):
         batch = static_adapter.index(project, files)
         return SemanticSelection(batch, static_telemetry(language, provider_configured, mode))
+    static_batch: SemanticBatch | None = None
+    qualification: dict[str, Any] | None = None
     try:
         batch, metadata = run_external_provider(project, language, files, environ)
+        static_batch = static_adapter.index(project, files)
+        qualification = qualify_exact_batch(batch, static_batch)
+        if qualification["status"] != "qualified":
+            raise ProviderFailure("provider_underqualified", qualification_diagnostic(qualification))
         return SemanticSelection(batch, {
             "language": language,
             "mode": mode,
             "status": "exact",
             "selected": "external",
             "provider_configured": True,
+            "qualification": qualification,
             **metadata,
         })
     except ProviderFailure as exc:
         if mode == "external":
             raise
-        batch = static_adapter.index(project, files)
+        batch = static_batch or static_adapter.index(project, files)
         telemetry = static_telemetry(language, True, mode)
         telemetry.update({"status": "fallback", "fallback_reason": exc.code, "diagnostic": exc.detail})
+        if qualification:
+            telemetry["qualification"] = qualification
         return SemanticSelection(batch, telemetry)
 
 

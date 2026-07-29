@@ -22,6 +22,7 @@ from .code_wiki_edges import (
 from .code_wiki_extractors import extract_log_statements, extract_symbols, language_for, should_skip_dir, summarize_file, summarize_symbol
 from .graph_refresh_metrics import edge_rebuild_metrics, scoped_edge_summary
 from .index_freshness import activate_index_generation, next_index_generation
+from .incremental_dispatch_scope import dispatch_rebuild_paths
 from .code_passages import rebuild_code_passages
 from .models import Project
 from .semantic_refresh import load_business_semantics, restore_business_semantics
@@ -273,6 +274,12 @@ def write_wiki_index(
         reverse_dependents = (
             [] if replace else dependent_file_paths_for_scope(conn, project.project_id, previous_scope_ids)
         )
+        dispatch_dependents = (
+            [] if replace else dispatch_rebuild_paths(
+                conn, project, invalidated_file_paths, previous_scope_ids["code_symbol"],
+            )
+        )
+        reverse_dependents = sorted(set(reverse_dependents) | set(dispatch_dependents))
         rebuild_paths = sorted(set(invalidated_file_paths) | set(reverse_dependents))
         business_snapshot = (
             load_business_semantics(conn, project.project_id, affected_file_paths)
@@ -398,6 +405,7 @@ def write_wiki_index(
         "semantic_index": semantic_stats,
         "passage_index": passage_stats,
         "reverse_dependents_reindexed": reverse_dependents,
+        "dispatch_dependents_reindexed": dispatch_dependents,
         "edge_rebuild": edge_rebuild_metrics(
             scope_file_paths=affected_file_paths,
             before=edges_before,

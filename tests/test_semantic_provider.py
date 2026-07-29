@@ -114,6 +114,31 @@ export class Demo {
         self.assertEqual("static", selection.telemetry["status"])
         self.assertEqual("arkts-static", selection.batch.adapter_id)
 
+    def test_auto_rejects_semantically_empty_exact_provider(self) -> None:
+        selection = run_semantic_adapter(
+            self.runtime_project, "ArkTS", [self.source.resolve()],
+            "auto", self.provider_env("empty-exact"),
+        )
+
+        self.assertEqual("fallback", selection.telemetry["status"])
+        self.assertEqual("provider_underqualified", selection.telemetry["fallback_reason"])
+        self.assertEqual("rejected", selection.telemetry["qualification"]["status"])
+        self.assertEqual(0.0, selection.telemetry["qualification"]["entity_file_coverage"])
+        self.assertEqual("arkts-static", selection.batch.adapter_id)
+        append_provider_metric(self.runtime_project, selection.telemetry)
+        metric = read_provider_metrics(self.runtime_project)[-1]
+        self.assertEqual("rejected", metric["qualification_status"])
+        self.assertEqual(["calls"], metric["lost_relation_families"])
+
+    def test_forced_external_rejects_declared_call_capability_loss(self) -> None:
+        with self.assertRaises(ProviderFailure) as caught:
+            run_semantic_adapter(
+                self.runtime_project, "ArkTS", [self.source.resolve()],
+                "external", self.provider_env("missing-calls"),
+            )
+
+        self.assertEqual("provider_underqualified", caught.exception.code)
+
     def test_forced_external_reports_process_failures(self) -> None:
         for mode, code in (("malformed", "invalid_json"), ("exit", "provider_exit")):
             with self.subTest(mode=mode), self.assertRaises(ProviderFailure) as caught:
@@ -190,12 +215,18 @@ export class Demo {
             append_provider_metric(self.runtime_project, {
                 "language": "ArkTS", "mode": "auto", "status": "fallback",
                 "selected": "static", "provider_configured": True,
-                "fallback_reason": f"failure-{index % 2}",
+                "fallback_reason": "provider_underqualified",
+                "qualification": {
+                    "status": "rejected", "entity_file_coverage": 0.5,
+                    "lost_relation_families": ["calls"],
+                },
             })
         summary = semantic_provider_health(self.runtime_project)
 
         self.assertEqual(METRIC_LIMIT, summary["sample_count"])
         self.assertEqual(1.0, summary["fallback_rate"])
+        self.assertEqual(METRIC_LIMIT, summary["underqualified_fallbacks"])
+        self.assertEqual(["calls"], summary["recent_lost_relation_families"])
         self.assertEqual("review_semantic_provider_failures", build_semantic_provider_actions(summary)[0]["action"])
 
         health = json.loads(self.run_memory(self.project, "maintain-health", "--json").stdout)

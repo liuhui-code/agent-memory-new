@@ -347,6 +347,49 @@ struct Demo {
 
         self.assertEqual(["aboutToAppear", "queryAll"], [item["function"] for item in logs])
 
+    def test_arkts_log_extraction_keeps_multiline_and_uppercase_logger_calls(self) -> None:
+        source = self.root / "MultilineLogs.ets"
+        source.write_text(
+            """
+struct Demo {
+  load() {
+    console.error(
+      `profile load failed: ${this.id}`,
+      this.id
+    )
+    Logger.info(
+      'profile load recovered'
+    )
+    hilog.error(0x0000, 'Demo', 'profile load permanent failure')
+  }
+}
+""".strip() + "\n",
+            encoding="utf-8",
+        )
+
+        logs = extract_log_statements(source, "ArkTS")
+
+        self.assertEqual(3, len(logs))
+        self.assertEqual([3, 7, 10], [item["line"] for item in logs])
+        self.assertEqual(["load", "load", "load"], [item["function"] for item in logs])
+        self.assertEqual("profile load recovered", logs[1]["message_template"])
+        self.assertEqual("profile load permanent failure", logs[2]["message_template"])
+
+    def test_log_scanner_ignores_comments_and_string_examples(self) -> None:
+        source = self.root / "LogExamples.ets"
+        source.write_text(
+            "const url = 'https://example.invalid'; console.info('real log')\n"
+            "const sample = \"console.error('not a log')\"\n"
+            "// console.warn('comment log')\n"
+            "/* hilog.error(0x0, 'Demo', 'block comment') */\n"
+            "console.error(/* misleading ) */ 'balanced log')\n",
+            encoding="utf-8",
+        )
+
+        logs = extract_log_statements(source, "ArkTS")
+
+        self.assertEqual(["real log", "balanced log"], [item["message_template"] for item in logs])
+
 
 if __name__ == "__main__":
     import unittest

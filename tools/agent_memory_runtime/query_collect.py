@@ -28,6 +28,7 @@ from .query_candidate_recall import (
 from .query_caller_ownership import collect_bounded_caller_owners
 from .query_graph_neighbors import collect_result_graph_neighbors
 from .query_language import positive_retrieval_query
+from .query_log_effects import collect_log_effect_matches
 from .records import memory_warning, row_dict
 from .retrieval_feedback import collect_feedback_adjustments
 from .storage import connect
@@ -104,12 +105,14 @@ def collect_matches_with_audit(
         )).recall(
             conn, project, retrieval_query
         )
+        log_effects = collect_log_effect_matches(conn, project, retrieval_query)
     semantic = recalled.rows["semantic_facts"]
     reflections = recalled.rows["reflections"]
     episodes = recalled.rows["episodes"]
     files = recalled.rows["code_files"]
     symbols = recalled.rows["code_symbols"]
-    logs = recalled.rows["code_log_statements"]
+    logs = [row_dict(row) for row in recalled.rows["code_log_statements"]]
+    logs.extend(log_effects)
     results["incident_trace_matches"] = collect_incident_trace_matches(
         project, retrieval_query, INCIDENT_TRACE_SEARCH_LIMIT
     )
@@ -357,10 +360,15 @@ def collect_matches_with_audit(
         score, reasons = score_query_focus_coverage(
             retrieval_query, " ".join(search_terms), score, reasons
         )
+        if row.get("kind") == "log_effect":
+            evidence = str(row.get("evidence_class") or "static_wrapped")
+            score *= 0.75 if evidence == "inferred_wrapped" else 0.9
+            reasons = unique_list([*reasons, evidence])
         if score:
             item = row_dict(row)
-            attach_recall_metadata(item, recalled, "code_log_statements")
-            item["kind"] = "log_statement"
+            if item.get("kind") != "log_effect":
+                attach_recall_metadata(item, recalled, "code_log_statements")
+            item["kind"] = item.get("kind") or "log_statement"
             item["score"] = score
             item["search_terms"] = search_terms
             item["business_terms"] = json_list(row["business_terms"])
@@ -383,7 +391,9 @@ def collect_matches_with_audit(
         elif item.get("kind") == "symbol":
             edge_targets["code_symbol"].add(int(item["id"]))
     for item in results["code_log_matches"]:
-        edge_targets["code_log_statement"].add(int(item["id"]))
+        edge_targets["code_log_statement"].add(
+            int(item.get("sink_log_id") or item["id"])
+        )
     if any(edge_targets.values()):
         results["edge_matches"] = collect_related_edge_candidates(project, edge_targets)
         results["wiki_matches"].extend(

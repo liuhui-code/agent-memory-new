@@ -15,20 +15,46 @@ def relevant_log_anchors(logs: list[dict[str, Any]], query: Any) -> list[dict[st
     text = str(query or "")
     lowered = text.casefold()
     positions = [(lowered.find(cue), cue) for cue in NEGATION_CUES if cue in lowered]
-    if not positions:
-        return logs
-    position, cue = min(positions)
-    excluded = {
-        token.casefold() for token in tokenize(text[position + len(cue):])
-        if token.casefold() not in ENGLISH_QUERY_STOPWORDS | NEGATION_FILLER
-    }
-    if not excluded:
-        return logs
-    selected = [
-        item for item in logs
-        if not excluded.intersection(tokenize(log_identity_text(item)))
-    ]
-    return selected or logs
+    selected = logs
+    if positions:
+        position, cue = min(positions)
+        excluded = {
+            token.casefold() for token in tokenize(text[position + len(cue):])
+            if token.casefold() not in ENGLISH_QUERY_STOPWORDS | NEGATION_FILLER
+        }
+        if excluded:
+            filtered = [
+                item for item in logs
+                if not excluded.intersection(tokenize(log_identity_text(item)))
+            ]
+            selected = filtered or logs
+    exact = [item for item in selected if exact_log_identity(item, text)]
+    return exact or selected
+
+
+def exact_log_identity(item: dict[str, Any], query: Any) -> bool:
+    message = tokenize(str(item.get("message_template") or ""))
+    if not message or (len(message) == 1 and len(message[0]) < 8):
+        return False
+    query_tokens = tokenize(str(query or ""))
+    width = len(message)
+    return any(query_tokens[index:index + width] == message for index in range(len(query_tokens)))
+
+
+def prioritized_log_anchors(
+    logs: list[dict[str, Any]], query: Any, limit: int = 3,
+) -> list[dict[str, Any]]:
+    relevant = relevant_log_anchors(logs, query)
+    wrapped = [
+        item for item in relevant
+        if str(item.get("evidence_class") or "").endswith("_wrapped")
+    ][:2]
+    wrapped_ids = {id(item) for item in wrapped}
+    return [*wrapped, *(item for item in relevant if id(item) not in wrapped_ids)][:limit]
+
+
+def has_wrapped_log_anchor(logs: list[dict[str, Any]]) -> bool:
+    return any(str(item.get("evidence_class") or "").endswith("_wrapped") for item in logs)
 
 
 def log_identity_text(item: dict[str, Any]) -> str:
@@ -58,21 +84,35 @@ def path_context_for_log_anchors(
 def path_scoped_code_anchors(
     anchors: list[dict[str, Any]],
     path_context: dict[str, Any],
+    log_anchors: list[dict[str, Any]] | None = None,
+    query: Any = "",
 ) -> list[dict[str, Any]]:
     candidates = records(path_context.get("path_candidates"))
-    if not path_context.get("activated") or not candidates:
-        return anchors
-    files = {
-        str(item.get("file_path"))
-        for candidate in candidates
-        for item in [
-            candidate.get("entry"),
-            candidate.get("emitter"),
-            *records(candidate.get("nodes")),
-        ]
-        if isinstance(item, dict) and item.get("file_path")
+    if path_context.get("activated") and candidates:
+        files = {
+            str(item.get("file_path"))
+            for candidate in candidates
+            for item in [
+                candidate.get("entry"),
+                candidate.get("emitter"),
+                *records(candidate.get("nodes")),
+            ]
+            if isinstance(item, dict) and item.get("file_path")
+        }
+        scoped = [item for item in anchors if str(item.get("file_path") or "") in files]
+        return scoped or anchors
+    exact = [
+        item for item in (log_anchors or []) if exact_log_identity(item, query)
+    ]
+    identities = {
+        (str(item.get("file_path") or ""), str(item.get("function") or ""))
+        for item in exact if item.get("file_path")
     }
-    scoped = [item for item in anchors if str(item.get("file_path") or "") in files]
+    scoped = [
+        {**item, "log_identity_match": True}
+        for item in anchors
+        if (str(item.get("file_path") or ""), str(item.get("symbol") or "")) in identities
+    ]
     return scoped or anchors
 
 

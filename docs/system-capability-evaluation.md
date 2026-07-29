@@ -41,6 +41,22 @@
   "required_log_files": ["src/ProfileService.ets"],
   "forbidden_log_keywords": ["generic network timeout"],
   "forbidden_log_files": ["src/NetworkClient.ets"],
+  "required_log_evidence_classes": ["static_wrapped"],
+  "required_log_effect_paths": [
+    {
+      "evidence_class": "static_wrapped",
+      "locations": ["src/Profile.ets#load", "src/Logger.ets#report"]
+    }
+  ],
+  "allowed_log_effect_paths": [
+    {
+      "evidence_class": "static_wrapped",
+      "locations": ["src/Profile.ets#load", "src/Logger.ets#report"]
+    }
+  ],
+  "min_log_path_precision": 1.0,
+  "max_log_path_candidates": 2,
+  "require_log_truncation_signal": false,
   "required_experience_types": ["correction_experience"],
   "required_main_experience_phrases": ["bounded session retry"],
   "forbidden_main_experience_phrases": ["retry every failure"],
@@ -83,6 +99,12 @@
 回退；新案例应使用专用字段，避免影子标注改变紧凑源码摘录门禁。尚未人工标注的维度会显示
 为 `null`，不能解读为 0 分或通过。
 
+日志效果路径使用有序位置子序列匹配，而不依赖不稳定的数据库 ID。`required_log_effect_paths`
+约束必须召回的静态或推断包装链；只有显式提供完整的 `allowed_log_effect_paths` 时，
+`min_log_path_precision` 才能作为门禁。`max_log_path_candidates` 约束 Agent 需要比较的分支数，
+`require_log_truncation_signal` 用于溢出案例，要求 Runtime 明确暴露候选不完整。直接日志参与
+`required_log_evidence_classes`，但没有包装链，因此不计入日志路径精度分母。
+
 若案例只校准完整审计的层级定位，而不要求紧凑 Context 直接返回目标文件，应保留
 `expected_files` 作为影子文件指标，并显式设置 `require_expected_anchors: false`。这样紧凑
 预算和 schema 仍受门禁约束，但 callable、owner、range 的 Oracle 不会被无关的紧凑锚点失败
@@ -111,6 +133,8 @@ python tools/agent_memory.py eval-context-capability \
 
 `system_context_gate=pass` 只允许进入下一层 Agent A/B，不等于最终诊断能力通过。
 Agent A/B 仍需独立检查根因、文件、因果校准、稳定性、Token、耗时和工具成本。
+`maintain-health.context_capability` 同时暴露日志路径门禁状态、平均召回/精度和发生截断的
+案例数，便于长期治理；这些指标仍不代表 Agent 已经选出真实执行路径。
 
 紧凑检索先保留直接命中，再交错最多一个达到阈值的图邻居，并用轻量 MMR 延后同质代码
 候选；显式枚举的多个路径目标不参与合并。最终最多返回四个文件锚点。源码摘录会在前三个
@@ -120,12 +144,13 @@ Agent A/B 仍需独立检查根因、文件、因果校准、稳定性、Token�
 `require_abstention` 用于无证据负例：代码、日志、经验和路径必须全部为空，并报告要求的
 `evidence_gaps`，不能用弱相关结果填满上下文。
 
-## 内置十五案例能力集
+## 内置开发能力集
 
 `docs/eval/system-capability-cases.json` 配合
 `docs/eval/fixtures/system-capability/` 提供最小、可审查、与外部项目无关的 ArkTS 能力集：
 
 - 2 个日志案例：正确日志发射点、显式排除的弱相关日志及当前源码摘录。
+- 2 个包装日志案例：跨文件两层静态包装链，以及两个显式实现形成的有界多态候选。
 - 2 个经验案例：可复用 procedure 进入主 lane，纠正经验只进入 guard lane。
 - 2 个因果案例：从精确日志发射点返回有界调用候选、关系和禁止分支检查。
 - 1 个跨组件案例：验证直接组件与一跳依赖组件都进入 Top-K 和源码区间。
@@ -894,3 +919,17 @@ API 迁移。修复前后 revision 与每个预期变更文件均在密封前验
 结果固定在 `docs/eval/chengyu-game-unseen-sealed-holdout-result.json`。不运行 Agent A/B，
 不重跑或修改该集合，也不以项目词、文件名或任务措辞调参。后续只能在独立开发夹具中复现资源
 解码候选召回与同域 owner 精度，再使用另一未消费密封项目观察泛化。
+
+## 2026-07-29 日志路径与代码锚点一致性门禁
+
+日志路径完整并不代表紧凑 Context 一致：宽日志召回可能保留其他消息的路径，通用 callable
+证据也可能把代码锚点改写为文本相似但无关的 owner。本阶段在展示层加入保守级联：只有足够长
+且连续命中的完整日志短语才激活精确身份，保留该消息的全部并行路径并过滤其他消息；短通用词
+仍回退原有宽召回。精确日志调用方随后约束代码锚点和源码摘录，但显式激活的结构路径优先级
+更高。该规则不改变 SQLite 事实、图边、候选生成或根因判断。
+
+静态双层封装和接口双实现各使用精确行、英文上下文、中文上下文三种表述，共 6 个开发变体，
+全部通过。代码锚点召回/精度、源码摘录召回、MRR、日志路径召回/精度均为 1.0；静态场景只
+保留 1 条合法路径，多态场景保留 2 条并行合法路径，截断数为 0。平均紧凑 Context 为
+1,227.6667 Token，平均查询为 666.5 ms。该结果证明跨通道契约和表述稳定性，不替代新的外部
+密封项目或 Agent A/B 泛化验证。

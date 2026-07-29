@@ -90,6 +90,11 @@ def main() -> None:
         parsed_entities, parsed_relations = parse_file(language, item["path"])
         entities.extend(parsed_entities)
         relations.extend(parsed_relations)
+    if mode == "empty-exact":
+        entities = []
+        relations = []
+    if mode == "missing-calls":
+        relations = []
     if mode == "stale":
         digests[next(iter(digests))] = "stale"
     if mode == "unsafe" and entities:

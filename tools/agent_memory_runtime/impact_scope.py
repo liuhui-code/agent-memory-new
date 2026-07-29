@@ -19,6 +19,7 @@ from .performance_scoring import append_performance_sample, build_performance_sa
 from .records import output, row_dict
 from .repository_model import build_repository_model, public_repository_model
 from .storage import connect, ensure_initialized, resolve_project
+from .context_sufficiency import impact_sufficiency
 from .text import json_list, unique_list
 from .usage_samples import record_query_usage
 
@@ -167,7 +168,7 @@ def build_impact_scope(
         {"kind": "unlearned_changed_file", "action": f"learn current source: {path}"}
         for path in graph["unlearned_files"]
     )
-    return {
+    payload = {
         "project_id": project.project_id,
         "project_path": str(project.root),
         "query": query,
@@ -197,6 +198,8 @@ def build_impact_scope(
             "impact_feedback": impact_feedback_summary(project),
         },
     }
+    payload["sufficiency"] = impact_sufficiency(payload)
+    return payload
 
 
 def repository_related_files(model: dict[str, Any], changed_files: set[str]) -> list[str]:

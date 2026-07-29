@@ -2774,6 +2774,134 @@
       }
     },
     {
+      "id": "context-static-wrapped-log-path",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The runtime line is WRAP_PROFILE_7F19 load failed. Return the bounded wrapper chain that can emit it."
+      },
+      "query_variants": [
+        {
+          "id": "exact-line",
+          "description": "WRAP_PROFILE_7F19 load failed"
+        },
+        {
+          "id": "en-context",
+          "description": "The observed runtime line is WRAP_PROFILE_7F19 load failed. Return source context for its wrapper chain."
+        },
+        {
+          "id": "zh-context",
+          "description": "流水日志命中 WRAP_PROFILE_7F19 load failed，请返回包装调用链和外层调用源码。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/services/WrappedProfileService.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "unknown",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_keywords": ["WRAP_PROFILE_7F19"],
+          "required_log_files": ["src/services/WrappedProfileService.ets"],
+          "required_log_evidence_classes": ["static_wrapped"],
+          "required_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "src/services/WrappedProfileService.ets#load",
+                "src/logging/DomainLogger.ets#report",
+                "src/logging/LogSink.ets#emit"
+              ]
+            }
+          ],
+          "allowed_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "src/services/WrappedProfileService.ets#load",
+                "src/logging/DomainLogger.ets#report",
+                "src/logging/LogSink.ets#emit"
+              ]
+            }
+          ],
+          "min_log_path_precision": 1.0,
+          "max_log_path_candidates": 2,
+          "require_source_excerpt": true
+        }
+      }
+    },
+    {
+      "id": "context-polymorphic-wrapped-log-paths",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "DISPATCH_PROFILE_8A21 load failed"
+      },
+      "query_variants": [
+        {
+          "id": "exact-line",
+          "description": "DISPATCH_PROFILE_8A21 load failed"
+        },
+        {
+          "id": "en-context",
+          "description": "The observed runtime line is DISPATCH_PROFILE_8A21 load failed. Return every bounded candidate wrapper chain."
+        },
+        {
+          "id": "zh-context",
+          "description": "流水日志命中 DISPATCH_PROFILE_8A21 load failed，请返回所有有界候选包装路径，不要选择根因。"
+        }
+      ],
+      "source": {"before_revision": "working-tree"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/services/DispatchProfileService.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "unknown",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_keywords": ["DISPATCH_PROFILE_8A21"],
+          "required_log_files": ["src/services/DispatchProfileService.ets"],
+          "required_log_evidence_classes": ["inferred_wrapped"],
+          "required_log_effect_paths": [
+            {
+              "evidence_class": "inferred_wrapped",
+              "locations": [
+                "src/services/DispatchProfileService.ets#run",
+                "src/logging/ConsoleFailureReporter.ets#report"
+              ]
+            },
+            {
+              "evidence_class": "inferred_wrapped",
+              "locations": [
+                "src/services/DispatchProfileService.ets#run",
+                "src/logging/FileFailureReporter.ets#report"
+              ]
+            }
+          ],
+          "allowed_log_effect_paths": [
+            {
+              "evidence_class": "inferred_wrapped",
+              "locations": [
+                "src/services/DispatchProfileService.ets#run",
+                "src/logging/ConsoleFailureReporter.ets#report"
+              ]
+            },
+            {
+              "evidence_class": "inferred_wrapped",
+              "locations": [
+                "src/services/DispatchProfileService.ets#run",
+                "src/logging/FileFailureReporter.ets#report"
+              ]
+            }
+          ],
+          "min_log_path_precision": 1.0,
+          "max_log_path_candidates": 2,
+          "require_source_excerpt": true
+        }
+      }
+    },
+    {
       "id": "context-no-evidence-abstention",
       "task_type": "diagnosis",
       "review_status": "validated",

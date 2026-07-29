@@ -9,6 +9,8 @@ from typing import Any
 from .arkts_context_markers import extract_arkts_context_markers
 from .arkts_ui_behavior import extract_arkts_operation_names
 from .models import CODE_EXTENSIONS, IGNORE_DIRS
+from .log_api_catalog import direct_log_pattern
+from .source_call_scanner import scan_calls
 from .text import identifier_tokens, unique_list
 
 
@@ -212,7 +214,7 @@ def extract_log_statements(path: Path, language: str) -> list[dict[str, Any]]:
         text = path.read_text(encoding="utf-8", errors="ignore")
     except OSError:
         return []
-    logs: list[dict[str, Any]] = []
+    functions_by_line: dict[int, str | None] = {}
     current_function: str | None = None
     current_indent = -1
     for line_number, line in enumerate(text.splitlines(), start=1):
@@ -225,14 +227,21 @@ def extract_log_statements(path: Path, language: str) -> list[dict[str, Any]]:
             if stripped and indent <= current_indent and not stripped.startswith(("#", "@")):
                 current_function = None
                 current_indent = -1
-        log = log_statement_on_line(line, language)
+        functions_by_line[line_number] = current_function
+    logs: list[dict[str, Any]] = []
+    for line_number, statement in log_calls_in_text(text, language):
+        log = log_statement_on_line(statement, language)
         if not log:
             continue
         log["line"] = line_number
-        log["function"] = current_function
-        log["raw_statement"] = line.strip()
+        log["function"] = functions_by_line.get(line_number)
+        log["raw_statement"] = statement.strip()
         logs.append(log)
     return logs
+
+
+def log_calls_in_text(text: str, language: str) -> list[tuple[int, str]]:
+    return scan_calls(text, direct_log_pattern(language))
 
 
 
@@ -290,14 +299,14 @@ def log_statement_on_line(line: str, language: str) -> dict[str, Any] | None:
         ]
     elif language in {"TypeScript", "JavaScript"}:
         patterns = [
-            (r"\bconsole\.(log|info|warn|error|debug)\s*\((.*)\)", "console", ""),
-            (r"\blogger\.(log|info|warn|error|debug)\s*\((.*)\)", "logger", ""),
+            (r"\bconsole\.(log|info|warn|error|debug)\s*\(([\s\S]*)\)", "console", ""),
+            (r"\b(?:logger|Logger)\.(log|info|warn|warning|error|debug|exception)\s*\(([\s\S]*)\)", "logger", ""),
         ]
     elif language == "ArkTS":
         patterns = [
-            (r"\bconsole\.(log|info|warn|error|debug)\s*\((.*)\)", "console", ""),
-            (r"\blogger\.(log|info|warn|error|debug)\s*\((.*)\)", "logger", ""),
-            (r"\bhilog\.(debug|info|warn|error|fatal)\s*\((.*)\)", "hilog", ""),
+            (r"\bconsole\.(log|info|warn|error|debug)\s*\(([\s\S]*)\)", "console", ""),
+            (r"\b(?:logger|Logger)\.(log|info|warn|warning|error|debug|exception)\s*\(([\s\S]*)\)", "logger", ""),
+            (r"\b(?:hilog|HiLog)\.(debug|info|warn|error|fatal)\s*\(([\s\S]*)\)", "hilog", ""),
         ]
     elif language == "Dart":
         patterns = [
@@ -354,4 +363,4 @@ def message_template_for_args(logger: str, args_text: str) -> str:
 
 
 def string_literals(text: str) -> list[str]:
-    return [match.group(2) for match in re.finditer(r"""(['"])(.*?)(?<!\\)\1""", text)]
+    return [match.group(2) for match in re.finditer(r"""(['"`])([\s\S]*?)(?<!\\)\1""", text)]

@@ -11,6 +11,7 @@ from typing import Any
 from .models import Project
 from .semantic_models import SemanticBatch, SemanticEntity, SemanticRelation
 from .semantic_mechanism_evidence import mechanism_evidence_payload
+from .semantic_dispatch_candidates import expand_dispatch_candidates_across_batches
 from .semantic_provider_metrics import append_provider_metric
 from .semantic_runtime import run_semantic_adapter
 from .semantic_symbol_evidence import load_semantic_source_lines, method_evidence_payload
@@ -54,6 +55,7 @@ def persist_semantic_index(
     emitted = 0
     unresolved = 0
     method_summaries_enriched = 0
+    expand_dispatch_candidates_across_batches(batches)
     for batch in batches:
         method_summaries_enriched += enrich_code_symbols(conn, project, batch)
         counts = persist_batch_relations(conn, project, batch, revision)

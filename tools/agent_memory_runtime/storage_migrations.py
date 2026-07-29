@@ -9,6 +9,7 @@ from .models import CODE_BUSINESS_COLUMNS, CODE_SEMANTIC_COLUMNS, GOVERNANCE_COL
 EDGE_METADATA_SCHEMA_VERSION = "edge-metadata-v1"
 
 def migrate_schema(conn: sqlite3.Connection) -> None:
+    create_log_effects_table(conn)
     for table, columns in GOVERNANCE_COLUMNS.items():
         existing = {
             row["name"]
@@ -123,6 +124,43 @@ def migrate_schema(conn: sqlite3.Connection) -> None:
     create_impact_feedback_table(conn)
     create_design_outcomes_table(conn)
     migrate_design_outcome_columns(conn)
+
+
+def create_log_effects_table(conn: sqlite3.Connection) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS code_log_effects (
+          id INTEGER PRIMARY KEY AUTOINCREMENT, project_id TEXT NOT NULL,
+          file_path TEXT NOT NULL, line INTEGER NOT NULL, function TEXT NOT NULL,
+          wrapper_symbol TEXT NOT NULL, sink_log_id INTEGER NOT NULL, level TEXT,
+          logger TEXT, message_template TEXT NOT NULL, evidence_class TEXT NOT NULL,
+          wrapper_depth INTEGER NOT NULL DEFAULT 1, truncated INTEGER NOT NULL DEFAULT 0,
+          call_path TEXT NOT NULL,
+          call_path_locations TEXT NOT NULL DEFAULT '[]', raw_call TEXT,
+          source_digest TEXT, index_generation INTEGER NOT NULL DEFAULT 0,
+          updated_at TEXT NOT NULL
+        )
+        """
+    )
+    columns = {row["name"] for row in conn.execute("PRAGMA table_info(code_log_effects)")}
+    if "call_path_locations" not in columns:
+        conn.execute(
+            "ALTER TABLE code_log_effects ADD COLUMN "
+            "call_path_locations TEXT NOT NULL DEFAULT '[]'"
+        )
+    if "truncated" not in columns:
+        conn.execute(
+            "ALTER TABLE code_log_effects ADD COLUMN "
+            "truncated INTEGER NOT NULL DEFAULT 0"
+        )
+    conn.execute(
+        "CREATE INDEX IF NOT EXISTS idx_log_effects_project_file "
+        "ON code_log_effects(project_id, file_path, function)"
+    )
+    conn.execute(
+        "CREATE INDEX IF NOT EXISTS idx_log_effects_project_sink "
+        "ON code_log_effects(project_id, sink_log_id)"
+    )
 
 
 def migrate_feedback_observation_columns(conn: sqlite3.Connection) -> None:

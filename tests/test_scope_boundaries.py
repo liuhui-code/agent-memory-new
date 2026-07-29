@@ -153,6 +153,25 @@ class ScopeBoundaryTests(AgentMemoryTestBase):
         self.assertEqual("current", recovered_context["source_freshness"]["status"])
         self.assertEqual(0, recovered_health["counts"]["scope_boundary_drift"])
 
+    def test_changed_only_noop_skips_refresh_episode_and_boundary_rescan(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            self.write(project, "feature/Profile.ts", "export const profile = 'v1'\n")
+            self.init_repo(project)
+            learn = json.loads(self.run_memory(project, "learn-path", "--path", "feature", "--json").stdout)
+            before = self.rows(project, "SELECT * FROM episodes")
+            refreshed = json.loads(
+                self.run_memory(
+                    project, "maintain-refresh-scope", "--scope-id", str(learn["scope_id"]),
+                    "--changed-only", "--json",
+                ).stdout
+            )["scopes"][0]
+            after = self.rows(project, "SELECT * FROM episodes")
+
+        self.assertTrue(refreshed["parse_stats"]["incremental_noop"])
+        self.assertEqual([], refreshed["refreshed_files"])
+        self.assertEqual(len(before), len(after))
+
 
 if __name__ == "__main__":
     import unittest
