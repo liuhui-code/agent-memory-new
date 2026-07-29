@@ -1,0 +1,1802 @@
+{
+  "schema_version": "agent-context-capability-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 6,
+    "passed_case_count": 0,
+    "failed_case_count": 6,
+    "scenario_count": 3,
+    "stable_scenario_count": 0,
+    "query_variant_pass_rate": 0.0,
+    "average_context_tokens": 1459.1667,
+    "average_memory_prepare_ms": 5069.8333,
+    "average_query_elapsed_ms": 819.3333
+  },
+  "capability_profile": {
+    "code_locator": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "anchor_recall": 0.5,
+      "primary_anchor_recall": 0.5,
+      "candidate_file_recall_at_20": 0.3333,
+      "oracle_anchor_precision": 0.25,
+      "expected_anchor_mrr": 0.3333
+    },
+    "source_evidence": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "observed_case_count": 6,
+      "source_excerpt_recall": 0.5,
+      "source_span_recall": 0.5
+    },
+    "log_graph": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "observed_case_count": 6
+    },
+    "log_path_quality": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "average_path_recall": 0.5,
+      "average_path_precision": 0.25,
+      "truncated_case_count": 0
+    },
+    "experience": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "causal_context": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_path_case_count": 2,
+      "observed_relation_case_count": 0
+    },
+    "hierarchical_localization": {
+      "status": "informational",
+      "evaluated_cases": 6,
+      "observed_case_count": 6,
+      "file_evaluated_case_count": 6,
+      "callable_evaluated_case_count": 6,
+      "owner_evaluated_case_count": 0,
+      "range_evaluated_case_count": 6,
+      "file_recall": 0.0,
+      "callable_recall": 0.1667,
+      "owner_recall": null,
+      "owner_precision": null,
+      "range_recall": 0.1667,
+      "average_audit_elapsed_ms": 768.6667
+    },
+    "abstention": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "compactness": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "average_context_tokens": 1459.1667,
+      "token_budget": 1500
+    },
+    "query_robustness": {
+      "status": "fail",
+      "scenario_count": 3,
+      "stable_scenario_count": 0,
+      "variant_count": 6,
+      "passed_variant_count": 0,
+      "variant_pass_rate": 0.0,
+      "scenarios": [
+        {
+          "scenario_id": "localsend-small-upload-recipient-error-log-path",
+          "status": "fail",
+          "variant_count": 2,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "runtime-line",
+            "symptom-context"
+          ]
+        },
+        {
+          "scenario_id": "localsend-register-hostname-log-path",
+          "status": "fail",
+          "variant_count": 2,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "runtime-line",
+            "symptom-context"
+          ]
+        },
+        {
+          "scenario_id": "localsend-multifile-write-error-log-path",
+          "status": "fail",
+          "variant_count": 2,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "runtime-line",
+            "symptom-context"
+          ]
+        }
+      ]
+    },
+    "evidence_funnel": {
+      "status": "informational",
+      "evaluated_cases": 6,
+      "first_loss_counts": {
+        "candidate_file": 4,
+        "localizer_file": 2
+      },
+      "stage_pass_rates": {
+        "candidate_file": 0.3333,
+        "localizer_file": 0.0,
+        "callable": 0.1667,
+        "source_range": 0.1667,
+        "evidence_primary": 0.0,
+        "compact_primary": 0.5,
+        "compact_anchor": 0.5
+      }
+    },
+    "sufficiency": {
+      "status": "informational",
+      "evaluated_case_count": 6,
+      "missing_observation_count": 0,
+      "kind_counts": {
+        "diagnosis": 6
+      },
+      "readiness_status_counts": {
+        "ready_for_agent_inspection": 6
+      },
+      "reason_code_counts": {
+        "limited_code_anchor_diversity": 5,
+        "no_strong_log_anchor": 4
+      },
+      "scope": "shadow_observation_not_a_context_gate"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "localsend-small-upload-recipient-error-log-path::runtime-line",
+      "scenario_id": "localsend-small-upload-recipient-error-log-path",
+      "query_variant": "runtime-line",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": true,
+        "required_log_effect_paths_recalled": true,
+        "minimum_log_path_precision_met": false,
+        "maximum_log_path_candidates_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "required_log_keywords_recalled": true,
+        "required_log_files_recalled": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/transfer/TransferPage.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/pages/transfer/TransferPage.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/pages/transfer/TransferPage.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/service/WebClient.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/service/WebClient.ets",
+          "start_line": 84,
+          "end_line": 136
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 0.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/service/WebClient.ets",
+            "start_line": 84,
+            "end_line": 136
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/service/WebClient.ets",
+            "start_line": 84,
+            "end_line": 136
+          }
+        ],
+        "file_candidate_count": 0,
+        "callable_candidate_count": 0,
+        "owner_candidate_count": 0,
+        "range_candidate_count": 0,
+        "audit_elapsed_ms": 434
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": false,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 2,
+        "localizer_file_count": 0,
+        "callable_count": 0,
+        "range_count": 0,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": 0.5,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1395,
+      "memory_prepare_ms": 5337,
+      "query_elapsed_ms": 491,
+      "requirements": {
+        "required_log_keywords": [
+          "上传文件出错"
+        ],
+        "required_log_files": [
+          "entry/src/main/ets/service/WebClient.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/service/WebClient.ets",
+            "start_line": 84,
+            "end_line": 136
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "static_wrapped"
+        ],
+        "required_log_effect_paths": [
+          {
+            "evidence_class": "static_wrapped",
+            "locations": [
+              "entry/src/main/ets/service/WebClient.ets#upload",
+              "common/src/main/ets/utils/Logger.ets#warn"
+            ]
+          }
+        ],
+        "allowed_log_effect_paths": [
+          {
+            "evidence_class": "static_wrapped",
+            "locations": [
+              "entry/src/main/ets/service/WebClient.ets#upload",
+              "common/src/main/ets/utils/Logger.ets#warn"
+            ]
+          }
+        ],
+        "min_log_path_precision": 1.0,
+        "max_log_path_candidates": 2,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "localsend-small-upload-recipient-error-log-path::symptom-context",
+      "scenario_id": "localsend-small-upload-recipient-error-log-path",
+      "query_variant": "symptom-context",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": false,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": true,
+        "required_log_effect_paths_recalled": false,
+        "minimum_log_path_precision_met": false,
+        "maximum_log_path_candidates_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "required_log_keywords_recalled": false,
+        "required_log_files_recalled": false,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/model/FileTransferInfo.ets",
+        "entry/src/main/ets/pages/main/send/view/SelctedFiles.ets",
+        "entry/src/main/ets/pages/transfer/FileItem.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/model/FileTransferInfo.ets",
+        "entry/src/main/ets/pages/main/send/view/SelctedFiles.ets",
+        "entry/src/main/ets/pages/transfer/FileItem.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/model/FileTransferInfo.ets",
+        "entry/src/main/ets/pages/main/send/view/SelctedFiles.ets",
+        "entry/src/main/ets/pages/transfer/FileItem.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/service/WebClient.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [
+        "上传文件出错"
+      ],
+      "missing_required_log_files": [
+        "entry/src/main/ets/service/WebClient.ets"
+      ],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/service/WebClient.ets",
+          "start_line": 84,
+          "end_line": 136
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 0.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/service/WebClient.ets",
+            "start_line": 84,
+            "end_line": 136
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/service/WebClient.ets",
+            "start_line": 84,
+            "end_line": 136
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 5,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1320
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": false,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 22,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "log_path_recall": 0.0,
+      "log_path_precision": 0.0,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [
+        {
+          "evidence_class": "static_wrapped",
+          "locations": [
+            "entry/src/main/ets/service/WebClient.ets#upload",
+            "common/src/main/ets/utils/Logger.ets#warn"
+          ]
+        }
+      ],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1537,
+      "memory_prepare_ms": 5026,
+      "query_elapsed_ms": 1331,
+      "requirements": {
+        "required_log_keywords": [
+          "上传文件出错"
+        ],
+        "required_log_files": [
+          "entry/src/main/ets/service/WebClient.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/service/WebClient.ets",
+            "start_line": 84,
+            "end_line": 136
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "static_wrapped"
+        ],
+        "required_log_effect_paths": [
+          {
+            "evidence_class": "static_wrapped",
+            "locations": [
+              "entry/src/main/ets/service/WebClient.ets#upload",
+              "common/src/main/ets/utils/Logger.ets#warn"
+            ]
+          }
+        ],
+        "allowed_log_effect_paths": [
+          {
+            "evidence_class": "static_wrapped",
+            "locations": [
+              "entry/src/main/ets/service/WebClient.ets#upload",
+              "common/src/main/ets/utils/Logger.ets#warn"
+            ]
+          }
+        ],
+        "min_log_path_precision": 1.0,
+        "max_log_path_candidates": 2,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "localsend-register-hostname-log-path::runtime-line",
+      "scenario_id": "localsend-register-hostname-log-path",
+      "query_variant": "runtime-line",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "required_log_evidence_classes_recalled": true,
+        "required_log_effect_paths_recalled": false,
+        "minimum_log_path_precision_met": false,
+        "maximum_log_path_candidates_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "required_log_keywords_recalled": true,
+        "required_log_files_recalled": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 0.0,
+      "oracle_anchor_precision": 0.5,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 1.0,
+      "first_expected_anchor_rank": 2,
+      "expected_anchor_mrr": 0.5,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/service/WebClient.ets",
+        "entry/src/main/ets/service/WebService.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/service/WebClient.ets",
+        "entry/src/main/ets/service/WebService.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/service/WebClient.ets",
+        "entry/src/main/ets/service/WebService.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 0.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/service/WebClient.ets",
+            "start_line": 33,
+            "end_line": 51
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/service/WebClient.ets",
+            "start_line": 33,
+            "end_line": 51
+          }
+        ],
+        "file_candidate_count": 5,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 4,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 562
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": false,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 5,
+        "localizer_file_count": 5,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "log_path_recall": 0.0,
+      "log_path_precision": 0.0,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [
+        {
+          "evidence_class": "static_wrapped",
+          "locations": [
+            "entry/src/main/ets/service/WebClient.ets#register",
+            "common/src/main/ets/utils/Logger.ets#info"
+          ]
+        }
+      ],
+      "observed_log_path_count": 1,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 2,
+      "primary_anchor_count": 2,
+      "source_excerpt_count": 2,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 1,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 1471,
+      "memory_prepare_ms": 4672,
+      "query_elapsed_ms": 657,
+      "requirements": {
+        "required_log_keywords": [
+          "当前设备信息已发送",
+          "response"
+        ],
+        "required_log_files": [
+          "entry/src/main/ets/service/WebClient.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/service/WebClient.ets",
+            "start_line": 33,
+            "end_line": 51
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "static_wrapped"
+        ],
+        "required_log_effect_paths": [
+          {
+            "evidence_class": "static_wrapped",
+            "locations": [
+              "entry/src/main/ets/service/WebClient.ets#register",
+              "common/src/main/ets/utils/Logger.ets#info"
+            ]
+          }
+        ],
+        "allowed_log_effect_paths": [
+          {
+            "evidence_class": "static_wrapped",
+            "locations": [
+              "entry/src/main/ets/service/WebClient.ets#register",
+              "common/src/main/ets/utils/Logger.ets#info"
+            ]
+          }
+        ],
+        "min_log_path_precision": 1.0,
+        "max_log_path_candidates": 2,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "localsend-register-hostname-log-path::symptom-context",
+      "scenario_id": "localsend-register-hostname-log-path",
+      "query_variant": "symptom-context",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "required_log_evidence_classes_recalled": true,
+        "required_log_effect_paths_recalled": false,
+        "minimum_log_path_precision_met": false,
+        "maximum_log_path_candidates_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "required_log_keywords_recalled": true,
+        "required_log_files_recalled": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 1.0,
+      "first_expected_anchor_rank": 2,
+      "expected_anchor_mrr": 0.5,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/service/WebClient.ets",
+        "entry/src/main/ets/service/WebService.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/service/WebClient.ets",
+        "entry/src/main/ets/service/WebService.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/service/WebClient.ets",
+        "entry/src/main/ets/service/WebService.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 0.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 1.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 7,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 835
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": true,
+          "source_range": true,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 16,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "log_path_recall": 0.0,
+      "log_path_precision": 0.0,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [
+        {
+          "evidence_class": "static_wrapped",
+          "locations": [
+            "entry/src/main/ets/service/WebClient.ets#register",
+            "common/src/main/ets/utils/Logger.ets#info"
+          ]
+        }
+      ],
+      "observed_log_path_count": 1,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 2,
+      "primary_anchor_count": 2,
+      "source_excerpt_count": 2,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 1,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 1494,
+      "memory_prepare_ms": 5069,
+      "query_elapsed_ms": 923,
+      "requirements": {
+        "required_log_keywords": [
+          "当前设备信息已发送",
+          "response"
+        ],
+        "required_log_files": [
+          "entry/src/main/ets/service/WebClient.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/service/WebClient.ets",
+            "start_line": 33,
+            "end_line": 51
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "static_wrapped"
+        ],
+        "required_log_effect_paths": [
+          {
+            "evidence_class": "static_wrapped",
+            "locations": [
+              "entry/src/main/ets/service/WebClient.ets#register",
+              "common/src/main/ets/utils/Logger.ets#info"
+            ]
+          }
+        ],
+        "allowed_log_effect_paths": [
+          {
+            "evidence_class": "static_wrapped",
+            "locations": [
+              "entry/src/main/ets/service/WebClient.ets#register",
+              "common/src/main/ets/utils/Logger.ets#info"
+            ]
+          }
+        ],
+        "min_log_path_precision": 1.0,
+        "max_log_path_candidates": 2,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "localsend-multifile-write-error-log-path::runtime-line",
+      "scenario_id": "localsend-multifile-write-error-log-path",
+      "query_variant": "runtime-line",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "required_log_evidence_classes_recalled": true,
+        "required_log_effect_paths_recalled": true,
+        "minimum_log_path_precision_met": false,
+        "maximum_log_path_candidates_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "required_log_keywords_recalled": true,
+        "required_log_files_recalled": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 1.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/service/flush/FlushService.ets",
+        "serve/src/main/ets/decode/BufferPool.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/service/flush/FlushService.ets",
+        "serve/src/main/ets/decode/BufferPool.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/service/flush/FlushService.ets",
+        "serve/src/main/ets/decode/BufferPool.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 0.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/service/flush/FlushService.ets",
+            "start_line": 72,
+            "end_line": 131
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/service/flush/FlushService.ets",
+            "start_line": 72,
+            "end_line": 131
+          }
+        ],
+        "file_candidate_count": 0,
+        "callable_candidate_count": 0,
+        "owner_candidate_count": 0,
+        "range_candidate_count": 0,
+        "audit_elapsed_ms": 454
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 2,
+        "localizer_file_count": 0,
+        "callable_count": 0,
+        "range_count": 0,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": 0.5,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 2,
+      "primary_anchor_count": 2,
+      "source_excerpt_count": 2,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1367,
+      "memory_prepare_ms": 5170,
+      "query_elapsed_ms": 559,
+      "requirements": {
+        "required_log_keywords": [
+          "文件写入出错"
+        ],
+        "required_log_files": [
+          "entry/src/main/ets/service/flush/FlushService.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/service/flush/FlushService.ets",
+            "start_line": 72,
+            "end_line": 131
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "static_wrapped"
+        ],
+        "required_log_effect_paths": [
+          {
+            "evidence_class": "static_wrapped",
+            "locations": [
+              "entry/src/main/ets/service/flush/FlushService.ets#process",
+              "common/src/main/ets/utils/Logger.ets#debug"
+            ]
+          }
+        ],
+        "allowed_log_effect_paths": [
+          {
+            "evidence_class": "static_wrapped",
+            "locations": [
+              "entry/src/main/ets/service/flush/FlushService.ets#process",
+              "common/src/main/ets/utils/Logger.ets#debug"
+            ]
+          }
+        ],
+        "min_log_path_precision": 1.0,
+        "max_log_path_candidates": 2,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "localsend-multifile-write-error-log-path::symptom-context",
+      "scenario_id": "localsend-multifile-write-error-log-path",
+      "query_variant": "symptom-context",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": true,
+        "required_log_effect_paths_recalled": true,
+        "minimum_log_path_precision_met": false,
+        "maximum_log_path_candidates_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "required_log_keywords_recalled": true,
+        "required_log_files_recalled": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/receive/ReceiveSettingPage.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/pages/receive/ReceiveSettingPage.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/pages/receive/ReceiveSettingPage.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/service/flush/FlushService.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/service/flush/FlushService.ets",
+          "start_line": 72,
+          "end_line": 131
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 0.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/service/flush/FlushService.ets",
+            "start_line": 72,
+            "end_line": 131
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/service/flush/FlushService.ets",
+            "start_line": 72,
+            "end_line": 131
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 5,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1007
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": false,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 23,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "entry/src/main/ets/pages/receive/ReceiveSettingPage.ets"
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": 0.5,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1491,
+      "memory_prepare_ms": 5145,
+      "query_elapsed_ms": 955,
+      "requirements": {
+        "required_log_keywords": [
+          "文件写入出错"
+        ],
+        "required_log_files": [
+          "entry/src/main/ets/service/flush/FlushService.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/service/flush/FlushService.ets",
+            "start_line": 72,
+            "end_line": 131
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "static_wrapped"
+        ],
+        "required_log_effect_paths": [
+          {
+            "evidence_class": "static_wrapped",
+            "locations": [
+              "entry/src/main/ets/service/flush/FlushService.ets#process",
+              "common/src/main/ets/utils/Logger.ets#debug"
+            ]
+          }
+        ],
+        "allowed_log_effect_paths": [
+          {
+            "evidence_class": "static_wrapped",
+            "locations": [
+              "entry/src/main/ets/service/flush/FlushService.ets#process",
+              "common/src/main/ets/utils/Logger.ets#debug"
+            ]
+          }
+        ],
+        "min_log_path_precision": 1.0,
+        "max_log_path_candidates": 2,
+        "require_log_truncation_signal": false
+      }
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "scope": "context_supply_only"
+  },
+  "next_gate": "repair_context_supply",
+  "calibration": {
+    "schema_version": "agent-context-calibration/v1",
+    "status": "informational",
+    "target_domain": null,
+    "profiled_case_count": 0,
+    "coverage": {
+      "target_levels": [],
+      "artifact_roles": [],
+      "mechanism_kinds": []
+    },
+    "contract_gaps": [],
+    "macro_metrics": {
+      "artifact_roles": {
+        "pass_rate": null,
+        "anchor_recall": null,
+        "anchor_precision": null,
+        "source_span_recall": null
+      },
+      "target_levels": {
+        "pass_rate": null,
+        "anchor_recall": null,
+        "anchor_precision": null,
+        "source_span_recall": null
+      },
+      "mechanism_kinds": {
+        "pass_rate": null,
+        "anchor_recall": null,
+        "anchor_precision": null,
+        "source_span_recall": null
+      }
+    },
+    "strata": {
+      "artifact_roles": [],
+      "target_levels": [],
+      "mechanism_kinds": []
+    },
+    "scope": "evaluation_only_not_injected_into_agent_context"
+  },
+  "calibration_gate": "not_required",
+  "promotion_eligible": false,
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 27,
+    "primary_failure_class": "graph_structure",
+    "failure_class_counts": {
+      "candidate_generation": 5,
+      "context_compactness": 1,
+      "graph_structure": 9,
+      "passage_selection": 6,
+      "ranking_precision": 6
+    },
+    "failures": [
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::runtime-line",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::runtime-line",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::runtime-line",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::runtime-line",
+        "failed_check": "minimum_log_path_precision_met",
+        "gate": "context",
+        "failure_class": "graph_structure",
+        "owning_layer": "semantic_graph_adapter",
+        "method_reference_ids": [
+          "graphrag_local",
+          "context_boundary"
+        ],
+        "allowed_repair": "Add evidence-backed language-neutral relations or bounded traversal.",
+        "prohibited_shortcut": "Do not turn text similarity into a call or causal edge.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::runtime-line",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::runtime-line",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::symptom-context",
+        "failed_check": "context_within_budget",
+        "gate": "context",
+        "failure_class": "context_compactness",
+        "owning_layer": "compact_context_projection",
+        "method_reference_ids": [
+          "agent_benchmark"
+        ],
+        "allowed_repair": "Remove redundant evidence while preserving required anchors.",
+        "prohibited_shortcut": "Do not drop required evidence merely to pass the budget.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::symptom-context",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::symptom-context",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::symptom-context",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::symptom-context",
+        "failed_check": "required_log_effect_paths_recalled",
+        "gate": "context",
+        "failure_class": "graph_structure",
+        "owning_layer": "semantic_graph_adapter",
+        "method_reference_ids": [
+          "graphrag_local",
+          "context_boundary"
+        ],
+        "allowed_repair": "Add evidence-backed language-neutral relations or bounded traversal.",
+        "prohibited_shortcut": "Do not turn text similarity into a call or causal edge.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::symptom-context",
+        "failed_check": "minimum_log_path_precision_met",
+        "gate": "context",
+        "failure_class": "graph_structure",
+        "owning_layer": "semantic_graph_adapter",
+        "method_reference_ids": [
+          "graphrag_local",
+          "context_boundary"
+        ],
+        "allowed_repair": "Add evidence-backed language-neutral relations or bounded traversal.",
+        "prohibited_shortcut": "Do not turn text similarity into a call or causal edge.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::symptom-context",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::symptom-context",
+        "failed_check": "required_log_keywords_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::symptom-context",
+        "failed_check": "required_log_files_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-small-upload-recipient-error-log-path::symptom-context",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-register-hostname-log-path::runtime-line",
+        "failed_check": "required_log_effect_paths_recalled",
+        "gate": "context",
+        "failure_class": "graph_structure",
+        "owning_layer": "semantic_graph_adapter",
+        "method_reference_ids": [
+          "graphrag_local",
+          "context_boundary"
+        ],
+        "allowed_repair": "Add evidence-backed language-neutral relations or bounded traversal.",
+        "prohibited_shortcut": "Do not turn text similarity into a call or causal edge.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-register-hostname-log-path::runtime-line",
+        "failed_check": "minimum_log_path_precision_met",
+        "gate": "context",
+        "failure_class": "graph_structure",
+        "owning_layer": "semantic_graph_adapter",
+        "method_reference_ids": [
+          "graphrag_local",
+          "context_boundary"
+        ],
+        "allowed_repair": "Add evidence-backed language-neutral relations or bounded traversal.",
+        "prohibited_shortcut": "Do not turn text similarity into a call or causal edge.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-register-hostname-log-path::symptom-context",
+        "failed_check": "required_log_effect_paths_recalled",
+        "gate": "context",
+        "failure_class": "graph_structure",
+        "owning_layer": "semantic_graph_adapter",
+        "method_reference_ids": [
+          "graphrag_local",
+          "context_boundary"
+        ],
+        "allowed_repair": "Add evidence-backed language-neutral relations or bounded traversal.",
+        "prohibited_shortcut": "Do not turn text similarity into a call or causal edge.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-register-hostname-log-path::symptom-context",
+        "failed_check": "minimum_log_path_precision_met",
+        "gate": "context",
+        "failure_class": "graph_structure",
+        "owning_layer": "semantic_graph_adapter",
+        "method_reference_ids": [
+          "graphrag_local",
+          "context_boundary"
+        ],
+        "allowed_repair": "Add evidence-backed language-neutral relations or bounded traversal.",
+        "prohibited_shortcut": "Do not turn text similarity into a call or causal edge.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-multifile-write-error-log-path::runtime-line",
+        "failed_check": "minimum_log_path_precision_met",
+        "gate": "context",
+        "failure_class": "graph_structure",
+        "owning_layer": "semantic_graph_adapter",
+        "method_reference_ids": [
+          "graphrag_local",
+          "context_boundary"
+        ],
+        "allowed_repair": "Add evidence-backed language-neutral relations or bounded traversal.",
+        "prohibited_shortcut": "Do not turn text similarity into a call or causal edge.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-multifile-write-error-log-path::symptom-context",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-multifile-write-error-log-path::symptom-context",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-multifile-write-error-log-path::symptom-context",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-multifile-write-error-log-path::symptom-context",
+        "failed_check": "minimum_log_path_precision_met",
+        "gate": "context",
+        "failure_class": "graph_structure",
+        "owning_layer": "semantic_graph_adapter",
+        "method_reference_ids": [
+          "graphrag_local",
+          "context_boundary"
+        ],
+        "allowed_repair": "Add evidence-backed language-neutral relations or bounded traversal.",
+        "prohibited_shortcut": "Do not turn text similarity into a call or causal edge.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-multifile-write-error-log-path::symptom-context",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "localsend-multifile-write-error-log-path::symptom-context",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout."
+  },
+  "case_seal": {
+    "status": "verified",
+    "required": true,
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "digest": "11bb5d370bc7b9b62c4e16c5faf76925933f420e4ec812871e9c8f6af573cdc7",
+    "sealed_at": "2026-07-29T12:14:20+00:00",
+    "case_count": 3
+  },
+  "evaluation_governance": {
+    "status": "legacy_unclassified",
+    "enforced": false
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/localsend-log-path-unseen-holdout-cases.sealed.json",
+  "selected_scenario_ids": [
+    "localsend-small-upload-recipient-error-log-path",
+    "localsend-register-hostname-log-path",
+    "localsend-multifile-write-error-log-path"
+  ],
+  "selected_case_ids": [
+    "localsend-small-upload-recipient-error-log-path::runtime-line",
+    "localsend-small-upload-recipient-error-log-path::symptom-context",
+    "localsend-register-hostname-log-path::runtime-line",
+    "localsend-register-hostname-log-path::symptom-context",
+    "localsend-multifile-write-error-log-path::runtime-line",
+    "localsend-multifile-write-error-log-path::symptom-context"
+  ],
+  "source_project": "/private/tmp/agent-memory-external-localsend",
+  "recorded_at": "2026-07-29T12:15:20+00:00"
+}

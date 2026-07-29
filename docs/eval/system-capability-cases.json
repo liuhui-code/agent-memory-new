@@ -2902,6 +2902,136 @@
       }
     },
     {
+      "id": "context-dynamic-template-event-identity",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "UPLOAD_EVENT_913A transfer failed: socket reset; session=s-7"
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "UPLOAD_EVENT_913A transfer failed: socket reset; session=s-7"
+        },
+        {
+          "id": "en-context",
+          "description": "The receiver closes early during upload and logs UPLOAD_EVENT_913A transfer failed: socket reset; session=s-7. Return the exact event owner and wrapper path, not the retry event."
+        },
+        {
+          "id": "zh-context",
+          "description": "多个文件上传时连接提前关闭，流水日志出现 UPLOAD_EVENT_913A transfer failed: socket reset; session=s-7，请定位事件源码和包装路径，不要返回重试事件。"
+        }
+      ],
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "log-event-identity"
+      },
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/services/DynamicUploadService.ets"],
+        "forbidden_files": ["src/services/UploadRetryService.ets"],
+        "root_cause_category": "unknown",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_keywords": ["UPLOAD_EVENT_913A"],
+          "required_log_files": ["src/services/DynamicUploadService.ets"],
+          "required_log_evidence_classes": ["static_wrapped"],
+          "required_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "src/services/DynamicUploadService.ets#upload",
+                "src/logging/EventLogger.ets#warn"
+              ]
+            }
+          ],
+          "allowed_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "src/services/DynamicUploadService.ets#upload",
+                "src/logging/EventLogger.ets#warn"
+              ]
+            }
+          ],
+          "min_log_path_precision": 1.0,
+          "max_log_path_candidates": 1,
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/services/DynamicUploadService.ets", "start_line": 6, "end_line": 11}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-nested-callback-log-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "REGISTER_EVENT_45C2 response accepted: peer-7"
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "REGISTER_EVENT_45C2 response accepted: peer-7"
+        },
+        {
+          "id": "en-context",
+          "description": "Registration later loses peer state after REGISTER_EVENT_45C2 response accepted: peer-7. Return the enclosing callback owner and imported logger path."
+        },
+        {
+          "id": "zh-context",
+          "description": "注册回调后状态丢失，流水日志出现 REGISTER_EVENT_45C2 response accepted: peer-7，请定位外层方法和实际导入的 Logger 路径。"
+        }
+      ],
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "log-event-identity"
+      },
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/services/CallbackRegistrationService.ets"],
+        "forbidden_files": ["src/logging/ShadowEventLogger.ets"],
+        "root_cause_category": "unknown",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_keywords": ["REGISTER_EVENT_45C2"],
+          "required_log_files": ["src/services/CallbackRegistrationService.ets"],
+          "required_log_evidence_classes": ["static_wrapped"],
+          "required_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "src/services/CallbackRegistrationService.ets#register",
+                "src/logging/EventLogger.ets#info"
+              ]
+            }
+          ],
+          "allowed_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "src/services/CallbackRegistrationService.ets#register",
+                "src/logging/EventLogger.ets#info"
+              ]
+            }
+          ],
+          "min_log_path_precision": 1.0,
+          "max_log_path_candidates": 1,
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/services/CallbackRegistrationService.ets", "start_line": 6, "end_line": 11}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
       "id": "context-no-evidence-abstention",
       "task_type": "diagnosis",
       "review_status": "validated",

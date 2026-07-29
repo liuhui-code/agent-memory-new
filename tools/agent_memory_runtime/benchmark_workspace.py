@@ -14,6 +14,11 @@ from typing import Any, Iterator
 from .models import IGNORE_DIRS
 
 
+CASE_FIXTURE_DIR = ".benchmark-fixtures"
+MAX_FIXTURE_FILES = 64
+MAX_FIXTURE_BYTES = 1_000_000
+
+
 @contextmanager
 def materialized_workspace(root: Path, case: dict[str, Any]) -> Iterator[Path]:
     with tempfile.TemporaryDirectory(prefix="agent-memory-benchmark-") as directory:
@@ -23,6 +28,8 @@ def materialized_workspace(root: Path, case: dict[str, Any]) -> Iterator[Path]:
             pass
         else:
             copy_working_tree(root, workspace)
+        remove_fixture_sources(workspace)
+        apply_fixture_group(root, workspace, case, revision)
         mutation = case.get("source", {}).get("mutation")
         if isinstance(mutation, dict):
             apply_mutation(workspace, mutation)
@@ -60,9 +67,48 @@ def copy_working_tree(root: Path, workspace: Path) -> None:
     shutil.copytree(
         root,
         workspace,
-        ignore=shutil.ignore_patterns(*sorted(IGNORE_DIRS)),
+        ignore=shutil.ignore_patterns(*sorted({*IGNORE_DIRS, CASE_FIXTURE_DIR})),
         symlinks=True,
     )
+
+
+def remove_fixture_sources(workspace: Path) -> None:
+    fixture_root = workspace / CASE_FIXTURE_DIR
+    if fixture_root.exists():
+        shutil.rmtree(fixture_root)
+
+
+def apply_fixture_group(
+    root: Path,
+    workspace: Path,
+    case: dict[str, Any],
+    revision: str,
+) -> None:
+    source = case.get("source") if isinstance(case.get("source"), dict) else {}
+    value = str(source.get("fixture_group") or "").strip()
+    if not value:
+        return
+    group = safe_relative_path(value)
+    if revision != "working-tree":
+        raise SystemExit("fixture_group requires a working-tree source")
+    fixture_root = (root / CASE_FIXTURE_DIR / group).resolve()
+    fixture_parent = (root / CASE_FIXTURE_DIR).resolve()
+    if fixture_parent not in fixture_root.parents or not fixture_root.is_dir():
+        raise SystemExit(f"benchmark fixture group not found: {value}")
+    files = sorted(path for path in fixture_root.rglob("*") if path.is_file())
+    if len(files) > MAX_FIXTURE_FILES:
+        raise SystemExit(f"benchmark fixture group exceeds {MAX_FIXTURE_FILES} files")
+    if any(path.is_symlink() for path in files):
+        raise SystemExit("benchmark fixture group cannot contain symlinks")
+    if sum(path.stat().st_size for path in files) > MAX_FIXTURE_BYTES:
+        raise SystemExit(f"benchmark fixture group exceeds {MAX_FIXTURE_BYTES} bytes")
+    for source_path in files:
+        relative = source_path.relative_to(fixture_root)
+        target = workspace / relative
+        if target.exists():
+            raise SystemExit(f"benchmark fixture cannot overwrite source: {relative}")
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source_path, target)
 
 
 def apply_mutation(workspace: Path, mutation: dict[str, Any]) -> None:

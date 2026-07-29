@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from .log_event_identity import event_match, select_event_matches
 from .text import ENGLISH_QUERY_STOPWORDS, tokenize
 
 
@@ -28,17 +29,11 @@ def relevant_log_anchors(logs: list[dict[str, Any]], query: Any) -> list[dict[st
                 if not excluded.intersection(tokenize(log_identity_text(item)))
             ]
             selected = filtered or logs
-    exact = [item for item in selected if exact_log_identity(item, text)]
-    return exact or selected
+    return select_event_matches(selected, text)
 
 
 def exact_log_identity(item: dict[str, Any], query: Any) -> bool:
-    message = tokenize(str(item.get("message_template") or ""))
-    if not message or (len(message) == 1 and len(message[0]) < 8):
-        return False
-    query_tokens = tokenize(str(query or ""))
-    width = len(message)
-    return any(query_tokens[index:index + width] == message for index in range(len(query_tokens)))
+    return bool(event_match(item, query)["priority"])
 
 
 def prioritized_log_anchors(

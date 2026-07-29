@@ -1,0 +1,274 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-external-localsend",
+  "source_repository": "https://github.com/azhu003/localsend-harmony.git",
+  "source_branch": "main",
+  "source_head_reviewed": "ef7151ba27e317dac76ccb73474de12e1f540e82",
+  "generated_at": "2026-07-29T00:00:00+08:00",
+  "generator": "git-history/v1+external-log-path-source-review",
+  "cases": [
+    {
+      "id": "localsend-small-upload-recipient-error-log-path",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The temporary runtime log contains 上传文件出错 while a small file is being sent and the receiver reports an incomplete transfer. Locate the source owner and bounded logging path for that line.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "上传文件出错"
+        },
+        {
+          "id": "symptom-context",
+          "description": "Small file transfer reports 上传文件出错 and the receiver closes before completion. Return the source owner and logging path."
+        }
+      ],
+      "source": {
+        "before_revision": "f0879e650de756e3de3b64d3234f800a49326ab3",
+        "after_revision": "a8faf23036e3dcbd51883b3908a31c859a134226",
+        "changed_files": [
+          "entry/src/main/ets/service/WebClient.ets",
+          "entry/src/main/ets/utils/Dates.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed_log_path",
+        "fix_commit": "a8faf23036e3dcbd51883b3908a31c859a134226",
+        "commit_message": "Fix the error reported by the recipient during small file transfer."
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/service/WebClient.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "async_control",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_keywords": ["上传文件出错"],
+          "required_log_files": ["entry/src/main/ets/service/WebClient.ets"],
+          "required_log_evidence_classes": ["static_wrapped"],
+          "required_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "entry/src/main/ets/service/WebClient.ets#upload",
+                "common/src/main/ets/utils/Logger.ets#warn"
+              ]
+            }
+          ],
+          "allowed_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "entry/src/main/ets/service/WebClient.ets#upload",
+                "common/src/main/ets/utils/Logger.ets#warn"
+              ]
+            }
+          ],
+          "min_log_path_precision": 1.0,
+          "max_log_path_candidates": 2,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/service/WebClient.ets",
+              "start_line": 84,
+              "end_line": 136
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Send a small file to a LocalSend peer and verify the receiver completes before the connection is closed."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "localsend-register-hostname-log-path",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The runtime log says 当前设备信息已发送 response, but the registered peer later has an undefined hostname. Locate the registration source owner and bounded logging path.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "当前设备信息已发送 response"
+        },
+        {
+          "id": "symptom-context",
+          "description": "After 当前设备信息已发送 response, the registered device hostname is undefined. Return the source owner and logging path."
+        }
+      ],
+      "source": {
+        "before_revision": "53d4f566c2e6ed5aed574db86e132fd25dcd3956",
+        "after_revision": "f0879e650de756e3de3b64d3234f800a49326ab3",
+        "changed_files": [
+          "entry/src/main/ets/model/NearbyDeviceModel.ets",
+          "entry/src/main/ets/service/WebClient.ets",
+          "entry/src/main/ets/service/upload/UploadServer.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed_log_path",
+        "fix_commit": "f0879e650de756e3de3b64d3234f800a49326ab3",
+        "commit_message": "Fix device hostname is undefined"
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/service/WebClient.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "error_contract",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_keywords": ["当前设备信息已发送", "response"],
+          "required_log_files": ["entry/src/main/ets/service/WebClient.ets"],
+          "required_log_evidence_classes": ["static_wrapped"],
+          "required_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "entry/src/main/ets/service/WebClient.ets#register",
+                "common/src/main/ets/utils/Logger.ets#info"
+              ]
+            }
+          ],
+          "allowed_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "entry/src/main/ets/service/WebClient.ets#register",
+                "common/src/main/ets/utils/Logger.ets#info"
+              ]
+            }
+          ],
+          "min_log_path_precision": 1.0,
+          "max_log_path_candidates": 2,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/service/WebClient.ets",
+              "start_line": 33,
+              "end_line": 51
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Register a peer and verify the stored response preserves hostname, port, and device type."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "localsend-multifile-write-error-log-path",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "During simultaneous receive, the temporary runtime log contains 文件写入出错 and one transfer is left in an incorrect state. Locate the write owner and bounded logging path.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "文件写入出错"
+        },
+        {
+          "id": "symptom-context",
+          "description": "Multiple simultaneous receives produce 文件写入出错 and an incorrect transfer state. Return the source owner and logging path."
+        }
+      ],
+      "source": {
+        "before_revision": "907a8cf27a1f6a6aa0a61ad860986da3c41517c4",
+        "after_revision": "64e627e22fffd98368f43d388be8579897a65119",
+        "changed_files": [
+          "entry/src/main/ets/model/FileTransferInfo.ets",
+          "entry/src/main/ets/pages/record/FileMenu.ets",
+          "entry/src/main/ets/pages/transfer/FileItem.ets",
+          "entry/src/main/ets/pages/transfer/TransferPage.ets",
+          "entry/src/main/ets/service/WebClient.ets",
+          "entry/src/main/ets/service/WebService.ets",
+          "entry/src/main/ets/service/flush/FlushService.ets",
+          "entry/src/main/ets/utils/Apps.ets",
+          "entry/src/main/resources/en_US/element/string.json"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed_log_path",
+        "fix_commit": "64e627e22fffd98368f43d388be8579897a65119",
+        "commit_message": "修复多文件同时接收时写入错误"
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/service/flush/FlushService.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "async_control",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_keywords": ["文件写入出错"],
+          "required_log_files": ["entry/src/main/ets/service/flush/FlushService.ets"],
+          "required_log_evidence_classes": ["static_wrapped"],
+          "required_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "entry/src/main/ets/service/flush/FlushService.ets#process",
+                "common/src/main/ets/utils/Logger.ets#debug"
+              ]
+            }
+          ],
+          "allowed_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "entry/src/main/ets/service/flush/FlushService.ets#process",
+                "common/src/main/ets/utils/Logger.ets#debug"
+              ]
+            }
+          ],
+          "min_log_path_precision": 1.0,
+          "max_log_path_candidates": 2,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/service/flush/FlushService.ets",
+              "start_line": 72,
+              "end_line": 131
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Receive multiple files concurrently and verify cancellation, queue cleanup, write closure, and final transfer state."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  }
+}

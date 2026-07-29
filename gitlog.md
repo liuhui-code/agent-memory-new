@@ -7709,3 +7709,55 @@ Result:
   contention rather than a reproducible functional failure.
 - Python compilation, capability-case JSON validation, diff whitespace, four
   public Skills, and the at-most-500-line Python gate pass.
+
+## 2026-07-29 - Execute first real ArkTS LogEffect holdout
+
+What changed:
+
+- Froze Runtime commit `56cac1b`, selected the previously unused
+  `azhu003/localsend-harmony` project, and source-reviewed three real pre-fix
+  logging scenarios across upload, registration, and concurrent file writing.
+- Verified all before/after revisions and 14 declared changed files, then sealed
+  the pack with digest
+  `11bb5d370bc7b9b62c4e16c5faf76925933f420e4ec812871e9c8f6af573cdc7`.
+- Executed the sealed six-variant Context gate exactly once and retained the
+  source-free result without rerunning or modifying the project.
+
+Result:
+
+- The external gate passes 0/6. Anchor recall is 0.5, candidate file Recall@20
+  is 0.3333, anchor precision is 0.25, source span recall is 0.5, and log-path
+  recall/precision are 0.5/0.25.
+- Two short log queries recover the reviewed wrapper path but each retain one
+  extra path. Registration keeps the correct code/source owner in both
+  phrasings while its compact path mismatches the reviewed path. Longer symptom
+  wording loses two owners, and one Context exceeds budget at 1,537 Tokens.
+- No truncation was hidden. The observation points to event-template identity,
+  competing similar logs, nested ownership/import provenance, query dilution,
+  and compact budgeting as independent reproduction classes.
+- LocalSend is now consumed and prohibited from tuning. The next implementation
+  must use project-neutral development fixtures and a different future holdout.
+
+## 2026-07-29 - Add dynamic log event identity without fixture drift
+
+What changed:
+
+- Added a query-time `LogEventIdentity` projection for exact static templates
+  and distinctive literal segments around dynamic placeholders. Short generic
+  queries keep broad fallback; every bounded path for the selected event stays
+  available to the Agent.
+- Added independent ArkTS cases for dynamic event competition and nested
+  callback/import ownership, including a same-method shadow logger.
+- Added bounded development `fixture_group` overlays. Scenario-only files no
+  longer enter the common corpus and cannot silently change old BM25 statistics.
+
+Result:
+
+- The 6 new variants pass with anchor, source-span, and log-path
+  recall/precision of 1.0. Focused regression and scale coverage pass 91/91.
+- A frozen `56cac1b` full run measured the actual prior baseline at 135/204,
+  not all green. The expanded run is 141/210; all 204 common variants have
+  identical failed-check sets and zero regressions.
+- The 69 historical development failures remain separate. The consumed
+  LocalSend pack was not rerun or modified, and no public command or Skill was
+  added.
