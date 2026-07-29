@@ -8,8 +8,8 @@ from typing import Any, Callable
 from .arkts_context_markers import extract_arkts_context_markers
 from .arkts_source_ranges import arkts_line_ranges
 from .arkts_ui_behavior import extract_arkts_operation_names
+from .ecma_callable_ranges import callable_line_ranges
 from .query_behavior_concepts import behavior_marker_terms
-from .semantic_ecma import callable_line_ranges
 
 
 MarkerExtractor = Callable[[str], list[str]]

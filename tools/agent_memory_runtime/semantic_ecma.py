@@ -8,7 +8,9 @@ from pathlib import Path
 from typing import Any
 
 from .ecma_braces import block_end
+from .ecma_callable_ranges import CONTROL_NAMES, FUNCTION_RE, METHOD_RE
 from .models import Project
+from .semantic_ecma_callbacks import callback_callable_specs
 from .semantic_ecma_mechanisms import extract_callable_mechanisms
 from .semantic_callable_profile import callable_roles, owner_kind
 from .semantic_dispatch_candidates import expand_dispatch_candidates
@@ -23,14 +25,6 @@ CONTAINER_RE = re.compile(
     r"^\s*(export\s+)?(?:default\s+)?(class|struct|interface)\s+([A-Za-z_$][\w$]*)"
     r"(?:\s+extends\s+([A-Za-z_$][\w$]*))?(?:[^\n{]*?\s+implements\s+([^\n{]+))?"
 )
-METHOD_RE = re.compile(
-    r"^\s*(?:(public|private|protected)\s+)?(override\s+)?(?:static\s+)?(async\s+)?"
-    r"([A-Za-z_$][\w$]*)\s*\(([^)]*)\)\s*(?::\s*([^\s{]+))?\s*\{"
-)
-FUNCTION_RE = re.compile(
-    r"^\s*(export\s+)?(?:default\s+)?(async\s+)?function\s+"
-    r"([A-Za-z_$][\w$]*)\s*\(([^)]*)\)\s*(?::\s*([^\s{]+))?\s*\{"
-)
 STATE_RE = re.compile(r"@(?:State|Prop|Link|Provide|Consume|ObjectLink|Local|Param)\s+([A-Za-z_$][\w$]*)")
 FIELD_RE = re.compile(
     r"^\s*(?:(?:public|private|protected|readonly|static)\s+)*([A-Za-z_$][\w$]*)\s*:\s*([A-Za-z_$][\w$<>,.? ]*)"
@@ -39,7 +33,6 @@ IMPORT_RE = re.compile(r"(?m)^\s*import\s*\{([^}]+)\}\s*from\s*['\"]([^'\"]+)['\
 DEFAULT_IMPORT_RE = re.compile(
     r"(?m)^\s*import\s+([A-Za-z_$][\w$]*)\s+from\s*['\"]([^'\"]+)['\"]"
 )
-CONTROL_NAMES = {"if", "for", "while", "switch", "catch"}
 
 
 @dataclass
@@ -136,6 +129,9 @@ def parse_source(
     top_level = parse_top_level_functions(lines, language, rel_path, containers)
     callables.extend(top_level)
     entities.extend(block.entity for block in top_level)
+    callbacks = parse_callback_callables(lines, language, rel_path, containers)
+    callables.extend(callbacks)
+    entities.extend(block.entity for block in callbacks)
     imports = parse_imports(project, path, text, language)
     by_qualified = {entity.qualified_name: entity for entity in entities}
     by_name = unique_entity_names(entities)
@@ -150,7 +146,9 @@ def parse_source(
             detail=f"imports {name} as {alias}",
         ))
     for block in callables:
-        relations.extend(callable_relations(lines, block, context, by_qualified, by_name, gaps))
+        relations.extend(callable_relations(
+            lines, block, context, by_qualified, by_name, gaps, callables,
+        ))
     mechanisms = [
         mechanism
         for block in callables
@@ -263,27 +261,6 @@ def parse_top_level_functions(
     return result
 
 
-def callable_line_ranges(lines: list[str]) -> list[dict[str, Any]]:
-    """Return bounded ECMA callable ranges without requiring repository state."""
-    result: list[dict[str, Any]] = []
-    for index, line in enumerate(lines):
-        method = METHOD_RE.match(line)
-        function = FUNCTION_RE.match(line)
-        if method and method.group(4) not in CONTROL_NAMES:
-            name = method.group(4)
-        elif function:
-            name = function.group(3)
-        else:
-            continue
-        result.append({
-            "symbol": name,
-            "start_line": index + 1,
-            "end_line": block_end(lines, index) + 1,
-            "selection_reason": "callable_mechanism_window",
-        })
-    return result
-
-
 def inheritance_relations(container: Container, methods: list[CallableBlock]) -> list[SemanticRelation]:
     result: list[SemanticRelation] = []
     if container.extends:
@@ -316,9 +293,15 @@ def callable_relations(
     by_qualified: dict[str, SemanticEntity],
     by_name: dict[str, SemanticEntity],
     gaps: list[dict[str, str]],
+    callables: list[CallableBlock],
 ) -> list[SemanticRelation]:
     result: list[SemanticRelation] = []
-    body = "\n".join(lines[block.start:block.end + 1])
+    body_lines = list(lines[block.start:block.end + 1])
+    for nested in callables:
+        if block.start < nested.start and nested.end <= block.end:
+            for index in range(nested.start - block.start, nested.end - block.start + 1):
+                body_lines[index] = ""
+    body = "\n".join(body_lines)
     fields = context.fields_by_owner.get(block.owner or "", {})
     imported_paths = context.imported_paths
     local_prefix = f"{block.owner}." if block.owner else ""
@@ -470,6 +453,22 @@ def make_entity(
         owner_name=owner_name, owner_kind=owner_kind,
         callable_roles=callable_roles or [],
     )
+
+
+def parse_callback_callables(
+    lines: list[str], language: str, file_path: str, containers: list[Container],
+) -> list[CallableBlock]:
+    result: list[CallableBlock] = []
+    for spec in callback_callable_specs(lines, language, containers):
+        source = "\n".join(lines[spec["start"]:spec["end"] + 1])
+        entity = make_entity(
+            language, file_path, spec["name"], "function", spec["qualified_name"],
+            spec["signature"], spec["start"] + 1, spec["end"] + 1, False,
+            owner_name=spec["owner"], owner_kind=spec["owner_kind"],
+            callable_roles=callable_roles(spec["name"], spec["signature"], source),
+        )
+        result.append(CallableBlock(spec["owner"] or None, spec["start"], spec["end"], entity))
+    return result
 
 
 def relation(source: str, kind: str, target: str, line: int, confidence: float, detail: str) -> SemanticRelation:

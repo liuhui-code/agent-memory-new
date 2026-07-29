@@ -8,8 +8,9 @@ from typing import Any
 
 from .arkts_context_markers import extract_arkts_context_markers
 from .arkts_ui_behavior import extract_arkts_operation_names
+from .ecma_callable_ranges import callback_ranges_for_language, callable_symbols_by_line
 from .models import CODE_EXTENSIONS, IGNORE_DIRS
-from .log_api_catalog import direct_log_pattern
+from .log_api_catalog import direct_log_pattern, parse_log_api_call
 from .source_call_scanner import scan_calls
 from .text import identifier_tokens, unique_list
 
@@ -161,6 +162,11 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
                 symbols.append((name, kind))
     if language == "ArkTS":
         symbols.extend(extract_arkts_reference_symbols(text))
+    if language in {"ArkTS", "JavaScript", "TypeScript"}:
+        symbols.extend(
+            (str(item["symbol"]), "function")
+            for item in callback_ranges_for_language(text.splitlines(), language)
+        )
     return symbols
 
 
@@ -214,10 +220,15 @@ def extract_log_statements(path: Path, language: str) -> list[dict[str, Any]]:
         text = path.read_text(encoding="utf-8", errors="ignore")
     except OSError:
         return []
+    lines = text.splitlines()
     functions_by_line: dict[int, str | None] = {}
+    if language in {"ArkTS", "JavaScript", "TypeScript"}:
+        functions_by_line.update(callable_symbols_by_line(lines, language))
     current_function: str | None = None
     current_indent = -1
-    for line_number, line in enumerate(text.splitlines(), start=1):
+    for line_number, line in enumerate(lines, start=1):
+        if language in {"ArkTS", "JavaScript", "TypeScript"}:
+            continue
         symbol = function_symbol_on_line(line, language)
         if symbol:
             current_function, current_indent = symbol
@@ -291,74 +302,62 @@ def log_statement_on_line(line: str, language: str) -> dict[str, Any] | None:
     stripped = line.strip()
     if not stripped or stripped.startswith(("#", "//")):
         return None
-    patterns: list[tuple[str, str, str]]
-    if language == "Python":
-        patterns = [
-            (r"\bprint\s*\((.*)\)", "print", "print"),
-            (r"\b(logging|logger)\.(debug|info|warning|warn|error|exception)\s*\((.*)\)", "", ""),
-        ]
-    elif language in {"TypeScript", "JavaScript"}:
-        patterns = [
-            (r"\bconsole\.(log|info|warn|error|debug)\s*\(([\s\S]*)\)", "console", ""),
-            (r"\b(?:logger|Logger)\.(log|info|warn|warning|error|debug|exception)\s*\(([\s\S]*)\)", "logger", ""),
-        ]
-    elif language == "ArkTS":
-        patterns = [
-            (r"\bconsole\.(log|info|warn|error|debug)\s*\(([\s\S]*)\)", "console", ""),
-            (r"\b(?:logger|Logger)\.(log|info|warn|warning|error|debug|exception)\s*\(([\s\S]*)\)", "logger", ""),
-            (r"\b(?:hilog|HiLog)\.(debug|info|warn|error|fatal)\s*\(([\s\S]*)\)", "hilog", ""),
-        ]
-    elif language == "Dart":
-        patterns = [
-            (r"\bprint\s*\((.*)\)", "print", "print"),
-            (r"\bdebugPrint\s*\((.*)\)", "debugPrint", "debug"),
-            (r"\blog\s*\((.*)\)", "log", "log"),
-        ]
-    elif language == "Swift":
-        patterns = [
-            (r"\bprint\s*\((.*)\)", "print", "print"),
-            (r"\bNSLog\s*\((.*)\)", "NSLog", "log"),
-            (r"\bos_log\s*\((.*)\)", "os_log", "log"),
-            (r"\blogger\.(debug|info|warning|error)\s*\((.*)\)", "logger", ""),
-        ]
-    else:
+    parsed = parse_log_api_call(stripped, language)
+    if parsed is None:
         return None
-    for pattern, logger_name, fixed_level in patterns:
-        match = re.search(pattern, stripped)
-        if not match:
-            continue
-        if language == "Python" and logger_name == "":
-            logger = match.group(1)
-            level = match.group(2)
-            args_text = match.group(3)
-        elif language in {"TypeScript", "JavaScript", "ArkTS"}:
-            logger = logger_name
-            level = match.group(1)
-            args_text = match.group(2)
-        elif language == "Swift" and logger_name == "logger":
-            logger = logger_name
-            level = match.group(1)
-            args_text = match.group(2)
-        else:
-            logger = logger_name
-            level = fixed_level
-            args_text = match.group(1)
-        return {
-            "level": "warning" if level == "warn" else level,
-            "logger": logger,
-            "message_template": message_template_for_args(logger, args_text),
-        }
-    return None
+    return {
+        "level": parsed.level,
+        "logger": parsed.logger,
+        "message_template": message_template_for_args(
+            parsed.logger, parsed.args_text, parsed.message_argument,
+        ),
+    }
 
 
 
-def message_template_for_args(logger: str, args_text: str) -> str:
-    literals = string_literals(args_text)
-    if logger == "hilog" and len(literals) >= 2:
-        return literals[1]
+def message_template_for_args(
+    logger: str, args_text: str, message_argument: int | None = None,
+) -> str:
+    index = 2 if message_argument is None and logger == "hilog" else int(message_argument or 0)
+    arguments = split_arguments(args_text)
+    selected = arguments[index] if index < len(arguments) else args_text
+    literals = string_literals(selected)
     if literals:
         return literals[0]
-    return args_text.strip()
+    expression = selected.strip()
+    if re.fullmatch(r"[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*", expression):
+        return "{" + expression + "}"
+    return "{value}" if expression else ""
+
+
+def split_arguments(text: str) -> list[str]:
+    result: list[str] = []
+    start = 0
+    depth = 0
+    quote = ""
+    escaped = False
+    for index, char in enumerate(text):
+        if quote:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == quote:
+                quote = ""
+            continue
+        if char in {"'", '"', "`"}:
+            quote = char
+        elif char in "([{":
+            depth += 1
+        elif char in ")]}":
+            depth = max(0, depth - 1)
+        elif char == "," and depth == 0:
+            result.append(text[start:index].strip())
+            start = index + 1
+    tail = text[start:].strip()
+    if tail or result:
+        result.append(tail)
+    return result
 
 
 

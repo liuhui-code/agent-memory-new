@@ -12,6 +12,7 @@ PLACEHOLDER_RE = re.compile(
 )
 CJK_RE = re.compile(r"[\u4e00-\u9fff]")
 IDENTITY_RE = re.compile(r"\b(?=[A-Za-z0-9_]*[A-Za-z])(?=[A-Za-z0-9_]*\d)[A-Za-z0-9_]{6,}\b")
+DYNAMIC_EXPRESSION_RE = re.compile(r"[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*")
 MATCH_PRIORITY = {"none": 0, "distinctive_literal": 1, "exact_template": 2}
 
 
@@ -44,6 +45,15 @@ def template_literal_segments(template: str) -> list[str]:
             canonical_text(part) for part in PLACEHOLDER_RE.split(str(template or ""))
         ) if segment
     ]
+
+
+def has_literal_event_identity(item: dict[str, Any]) -> bool:
+    template = str(item.get("message_template") or "")
+    raw = str(item.get("raw_statement") or item.get("raw_call") or "")
+    if raw and DYNAMIC_EXPRESSION_RE.fullmatch(template):
+        quoted = rf"(['\"`]){re.escape(template)}\1"
+        return bool(re.search(quoted, raw))
+    return bool(template_literal_segments(template))
 
 
 def event_match(item: dict[str, Any], query: Any) -> dict[str, Any]:

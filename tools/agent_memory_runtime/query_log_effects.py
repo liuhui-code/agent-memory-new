@@ -11,6 +11,7 @@ from .query_candidate_recall import fts_match_expression
 
 
 LOG_EFFECT_RECALL_LIMIT = 40
+SQL_CHUNK_SIZE = 400
 
 
 def collect_log_effect_matches(
@@ -56,6 +57,55 @@ def normalize_effect(row: sqlite3.Row) -> dict[str, Any]:
         "call_path_locations": json_list(item.get("call_path_locations")),
     })
     return item
+
+
+def attach_log_owner_ranges(
+    conn: sqlite3.Connection,
+    project_id: str,
+    items: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    paths = sorted({
+        str(item.get("file_path") or "")
+        for item in items if item.get("file_path") and item.get("function")
+    })
+    rows: list[sqlite3.Row] = []
+    for chunk in chunks(paths):
+        rows.extend(conn.execute(
+            f"""
+            SELECT file_path, symbol, start_line, end_line
+            FROM code_symbols
+            WHERE project_id = ?
+              AND start_line IS NOT NULL AND end_line IS NOT NULL
+              AND file_path IN ({','.join('?' for _ in chunk)})
+            ORDER BY file_path, symbol, start_line, id
+            """,
+            (project_id, *chunk),
+        ).fetchall())
+    by_owner: dict[tuple[str, str], list[sqlite3.Row]] = {}
+    for row in rows:
+        by_owner.setdefault((str(row["file_path"]), str(row["symbol"])), []).append(row)
+    for item in items:
+        candidates = by_owner.get((
+            str(item.get("file_path") or ""), str(item.get("function") or ""),
+        ), [])
+        line = int(item.get("line") or 0)
+        containing = [
+            row for row in candidates
+            if int(row["start_line"]) <= line <= int(row["end_line"])
+        ]
+        selected = min(containing or candidates, key=range_width, default=None)
+        if selected is not None:
+            item["start_line"] = int(selected["start_line"])
+            item["end_line"] = int(selected["end_line"])
+    return items
+
+
+def range_width(row: sqlite3.Row) -> tuple[int, int]:
+    return int(row["end_line"]) - int(row["start_line"]), int(row["start_line"])
+
+
+def chunks(values: list[str]) -> list[list[str]]:
+    return [values[index:index + SQL_CHUNK_SIZE] for index in range(0, len(values), SQL_CHUNK_SIZE)]
 
 
 def json_list(value: Any) -> list[str]:

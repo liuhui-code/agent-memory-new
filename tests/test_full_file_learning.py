@@ -81,7 +81,7 @@ class FullFileLearningTests(AgentMemoryTestBase):
         self.assertIsNotNone(row)
         self.assertEqual(7, row["start_line"])
         self.assertEqual(9, row["end_line"])
-        self.assertEqual("arkts-static@1.1", row["semantic_adapter"])
+        self.assertEqual("arkts-static@1.2", row["semantic_adapter"])
 
 
 if __name__ == "__main__":

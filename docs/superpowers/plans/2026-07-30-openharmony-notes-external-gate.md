@@ -109,3 +109,44 @@ facade:
 - Prove sink extraction, wrapper propagation, callback ownership, and passage binding
   independently before running the full development differential. Use a different
   unseen repository for any later external promotion gate.
+
+## Independent repair implementation
+
+The consumed OpenHarmony Notes pack was not rerun or edited. Repairs were developed
+against a new local contract fixture and the existing unsealed development pack:
+
+- `LogApiModel` is now the single source for scan and parse behavior across ArkTS,
+  TypeScript, JavaScript, Python, Dart, and Swift. The model owns receiver aliases,
+  levels, and the message argument position, including the third `hilog` argument.
+- A shared ECMAScript callable-range adapter supplies named methods, property arrow
+  callbacks, `.on(...)` subscriptions, and `.onXxx(...)` ArkUI callbacks to source
+  focus, symbol extraction, log ownership, and semantic indexing.
+- Anonymous control-flow callbacks such as `.then(...)` remain attributed to their
+  nearest stable enclosing method. This keeps call paths addressable while avoiding
+  synthetic `then` or `resolve` owners.
+- Dynamic passthrough arguments are stored as placeholders such as `{message}`.
+  They remain valid wrapper sinks but cannot compete as stable event literals unless
+  the query explicitly identifies their owner. Query-time raw-statement inspection
+  applies the same rule to legacy indexes that stored the bare identifier.
+- Query-time owner ranges use one bounded batch lookup over at most 40 log effects;
+  source files are not reparsed and no per-result SQL loop is introduced.
+
+## Development validation
+
+- The independent contract tests cover TypeScript `hilog`, property callbacks,
+  ArkUI member callbacks, anonymous Promise ownership, dynamic-template identity,
+  wrapped effects, and compact callback source passages.
+- The three affected development scenarios recover to 8/9 variants. The only failure
+  is the same cross-component original wording that failed before this repair.
+- The complete 216-variant differential is exactly 158/216, with zero previously
+  passing variants regressed and the same 58 historical failures.
+- The CI scale profile passes at 100,000 searchable entities, 80,000 symbols, 15,000
+  logs, and 300,000 edges. Candidate recall P95 is 48.483 ms, exact-log FTS P95 is
+  0.82 ms, and hierarchical owner lookup P95 is 20.415 ms.
+- Full discovery executed 742 tests. Its two behavioral failures were repaired and
+  passed focused regression; two loopback-server errors passed 3/3 outside the
+  socket-restricted sandbox.
+
+This repair restores the missing extraction and ownership abstractions. It is not a
+new external promotion result; a different unseen repository is still required for
+that gate.

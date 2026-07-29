@@ -7846,3 +7846,34 @@ Result:
   intervals. The next repair must unify log APIs as declarative models and expose a
   language-adapter callable-range contract, using independent fixtures and a different
   future external holdout.
+
+## 2026-07-30 - Repair log API and callback ownership contracts
+
+What changed:
+
+- Replaced separate log scanner/parser conditionals with a declarative API catalog
+  that shares receiver, level, language, and message-argument semantics. TypeScript
+  and ArkTS `hilog` sinks now use the same third-argument template rule.
+- Added a shared ECMAScript callable-range adapter for methods, property arrow
+  callbacks, `.on(...)` subscriptions, and `.onXxx(...)` ArkUI callbacks. Symbol
+  extraction, semantic relations, source focus, and log ownership use this contract.
+- Preserved stable outer-method ownership for anonymous Promise callbacks and
+  represented variable-only log payloads as placeholders instead of event literals;
+  raw-statement inspection preserves the same behavior for legacy indexes.
+- Added one bounded batch lookup that binds recalled direct and wrapped log effects to
+  persisted callable ranges without reparsing source or issuing per-item SQL.
+- Added independent contract coverage and updated the ArkTS semantic adapter version
+  to `arkts-static@1.2`.
+
+Result:
+
+- The affected development subset passes 8/9; its sole failure is unchanged from the
+  prior baseline. The full differential remains 158/216 with zero new regressions.
+- The CI scale profile passes with 100,000 searchable entities and 300,000 edges.
+  Candidate recall P95 is 48.483 ms, exact-log FTS P95 is 0.82 ms, and hierarchical
+  owner lookup P95 is 20.415 ms; all query-plan and incremental-maintenance gates pass.
+- Full discovery ran 742 tests. Both behavior failures were fixed and passed 20/20
+  focused regression; the socket-restricted Ollama errors pass 3/3 with loopback
+  binding enabled. Python compilation, whitespace, four-Skill, and 500-line gates pass.
+- The consumed OpenHarmony Notes holdout was not changed or rerun. A different unseen
+  project remains required for external promotion evidence.

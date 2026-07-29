@@ -21,7 +21,7 @@ class LanguageAdapter(Protocol):
 
 class ArkTSSemanticAdapter:
     adapter_id = "arkts-static"
-    adapter_version = "1.1"
+    adapter_version = "1.2"
     language = "ArkTS"
     capabilities = (
         "definitions", "references", "calls", "types", "inheritance",
@@ -34,7 +34,7 @@ class ArkTSSemanticAdapter:
 
 class TypeScriptSemanticAdapter:
     adapter_id = "typescript-static"
-    adapter_version = "1.1"
+    adapter_version = "1.2"
     language = "TypeScript"
     capabilities = (
         "definitions", "references", "calls", "types", "inheritance",

@@ -11,6 +11,7 @@ from .feedback_policy import candidate_ids
 from .incident_trace_models import INCIDENT_TRACE_SEARCH_LIMIT
 from .incident_trace_query import collect_incident_trace_matches
 from .index_freshness import filter_scored_derived_matches
+from .log_event_identity import has_literal_event_identity
 from .log_signal_quality import score_log_signal
 from .models import Project
 from .quality_scoring import score_reflection_quality, score_semantic_quality
@@ -28,7 +29,7 @@ from .query_candidate_recall import (
 from .query_caller_ownership import collect_bounded_caller_owners
 from .query_graph_neighbors import collect_result_graph_neighbors
 from .query_language import positive_retrieval_query
-from .query_log_effects import collect_log_effect_matches
+from .query_log_effects import attach_log_owner_ranges, collect_log_effect_matches
 from .records import memory_warning, row_dict
 from .retrieval_feedback import collect_feedback_adjustments
 from .storage import connect
@@ -106,13 +107,16 @@ def collect_matches_with_audit(
             conn, project, retrieval_query
         )
         log_effects = collect_log_effect_matches(conn, project, retrieval_query)
+        logs = attach_log_owner_ranges(
+            conn,
+            project.project_id,
+            [*[row_dict(row) for row in recalled.rows["code_log_statements"]], *log_effects],
+        )
     semantic = recalled.rows["semantic_facts"]
     reflections = recalled.rows["reflections"]
     episodes = recalled.rows["episodes"]
     files = recalled.rows["code_files"]
     symbols = recalled.rows["code_symbols"]
-    logs = [row_dict(row) for row in recalled.rows["code_log_statements"]]
-    logs.extend(log_effects)
     results["incident_trace_matches"] = collect_incident_trace_matches(
         project, retrieval_query, INCIDENT_TRACE_SEARCH_LIMIT
     )
@@ -364,6 +368,13 @@ def collect_matches_with_audit(
             evidence = str(row.get("evidence_class") or "static_wrapped")
             score *= 0.75 if evidence == "inferred_wrapped" else 0.9
             reasons = unique_list([*reasons, evidence])
+        owner_identity = " ".join(str(row.get(key) or "") for key in (
+            "file_path", "function", "wrapper_symbol", "logger",
+        ))
+        if not has_literal_event_identity(row) and not score_identifier_identity(
+            retrieval_query, owner_identity,
+        ):
+            score = 0.0
         if score:
             item = row_dict(row)
             if item.get("kind") != "log_effect":
