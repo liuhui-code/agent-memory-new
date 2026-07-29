@@ -1,0 +1,263 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-external-ohtotptoken",
+  "source_repository": "https://github.com/OHOTP/ohtotptoken.git",
+  "source_branch": "dev",
+  "source_head_reviewed": "30a6fd02b9a209b960c3792c00bf1e8ea2de562b",
+  "generated_at": "2026-07-29T00:00:00+08:00",
+  "generator": "git-history/v1+external-log-event-source-review",
+  "cases": [
+    {
+      "id": "ohtotp-empty-cloud-restore-token-count-event",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Cloud restore fails for a valid backup with an empty token list after the runtime log restoreFromBackupRecord: token count=undefined. Locate the source owner and current evidence around that event.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "restoreFromBackupRecord: token count=undefined"
+        },
+        {
+          "id": "symptom-context",
+          "description": "A cloud backup with no tokens crashes during restore after restoreFromBackupRecord: token count=undefined. Return the event owner and relevant source, not another cloud operation."
+        }
+      ],
+      "source": {
+        "before_revision": "a7f3359b17d3512d76acc5f7355738900a61a689",
+        "after_revision": "e8ad8587ed7f01e6d1f51b949a145a751b4af290",
+        "changed_files": [
+          "entry/src/main/ets/utils/CloudBackupManager.ets",
+          "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed_log_event",
+        "fix_commit": "e8ad8587ed7f01e6d1f51b949a145a751b4af290",
+        "commit_message": "fix: repair empty-token cloud restore detection and restore ordering"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/utils/CloudBackupManager.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "error_contract",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_keywords": [
+            "restoreFromBackupRecord",
+            "token count"
+          ],
+          "required_log_files": [
+            "entry/src/main/ets/utils/CloudBackupManager.ets"
+          ],
+          "required_log_evidence_classes": [
+            "direct"
+          ],
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/utils/CloudBackupManager.ets",
+              "start_line": 429,
+              "end_line": 464
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Restore a new-format backup with an empty tokens array and verify it remains a valid empty restore instead of entering the legacy-array path."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "ohtotp-form-agent-card-kv-event",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After an application update, a card loses its configuration and the FormAgent runtime log contains generateCardData failed. code: 401, message: KV store not initialized. Locate the enclosing event owner and source evidence.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "generateCardData failed. code: 401, message: KV store not initialized"
+        },
+        {
+          "id": "symptom-context",
+          "description": "A configured card becomes empty after update and FormAgent logs generateCardData failed. code: 401, message: KV store not initialized. Return the enclosing callback owner and source."
+        }
+      ],
+      "source": {
+        "before_revision": "b869a21a7e2e1b6f1ca2cfed0906cf0523b0805a",
+        "after_revision": "a6be7b8e03f0dc4a8d46266f1352ab00d36ad805",
+        "changed_files": [
+          "entry/src/main/ets/entryformability/EntryFormAbility.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed_log_event",
+        "fix_commit": "a6be7b8e03f0dc4a8d46266f1352ab00d36ad805",
+        "commit_message": "fix: initialize FormAgent context and KV before preserving card configuration"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/entryformability/EntryFormAbility.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "initialization_order",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_keywords": [
+            "generateCardData failed",
+            "KV store not initialized"
+          ],
+          "required_log_files": [
+            "entry/src/main/ets/entryformability/EntryFormAbility.ets"
+          ],
+          "required_log_evidence_classes": [
+            "direct"
+          ],
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/entryformability/EntryFormAbility.ets",
+              "start_line": 53,
+              "end_line": 65
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Update an existing card through the FormAgent process and verify KV initialization completes before card data is generated or overwritten."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "ohtotp-icon-backup-completion-blocking-event",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The application stalls during icon-pack backup before logging backupIconPacks: completed, timestamp=1780855200000. Locate the operation owner and source evidence associated with that event.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "backupIconPacks: completed, timestamp=1780855200000"
+        },
+        {
+          "id": "symptom-context",
+          "description": "The UI stalls while copying an icon-pack backup, then logs backupIconPacks: completed, timestamp=1780855200000. Return the event owner and source around the file work."
+        }
+      ],
+      "source": {
+        "before_revision": "e8ad8587ed7f01e6d1f51b949a145a751b4af290",
+        "after_revision": "a9c7e97ec1f6479863e46c6ae752f54ca1f619b5",
+        "changed_files": [
+          "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed_log_event",
+        "fix_commit": "a9c7e97ec1f6479863e46c6ae752f54ca1f619b5",
+        "commit_message": "perf: move icon-pack backup and restore file operations off synchronous I/O"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "blocking_io",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_keywords": [
+            "backupIconPacks",
+            "completed",
+            "timestamp"
+          ],
+          "required_log_files": [
+            "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+          ],
+          "required_log_evidence_classes": [
+            "direct"
+          ],
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/utils/IconPackCloudBackup.ets",
+              "start_line": 238,
+              "end_line": 299
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Back up a large icon pack while measuring the UI thread and verify recursive copy, cleanup, and cloud copy no longer use synchronous file I/O."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "require_seal": true
+  },
+  "evaluation_governance": {
+    "status": "legacy_unclassified",
+    "enforced": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-29T14:11:58+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "551aec223cb5952ada505c246edf5ed200546ee28735965d6077cf83383d9b5a"
+  }
+}

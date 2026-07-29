@@ -7761,3 +7761,29 @@ Result:
 - The 69 historical development failures remain separate. The consumed
   LocalSend pack was not rerun or modified, and no public command or Skill was
   added.
+
+## 2026-07-29 - Run OHOTP external log-event observation
+
+What changed:
+
+- Froze Runtime commit `d589a57`, selected the previously unused
+  `OHOTP/ohtotptoken` repository, and source-reviewed three fixes covering empty
+  cloud restore, FormAgent card KV initialization, and blocking icon-pack I/O.
+- Verified every before/after revision and all four declared changed files,
+  then sealed the six-variant pack with digest
+  `551aec223cb5952ada505c246edf5ed200546ee28735965d6077cf83383d9b5a`.
+- Executed the sealed Context gate exactly once. The pack is now consumed and
+  cannot be changed, rerun, or used for project-specific tuning.
+
+Result:
+
+- The external gate passes 0/6, but anchor and primary recall are 1.0, MRR is
+  1.0, anchor precision is 0.8333, and every required log owner is recalled.
+- Source files are returned in all variants, but compact reviewed-span recall is
+  0.0. Four Contexts exceed budget by 2 to 6 Tokens; average Context is 1,497.5
+  Tokens and average query time is 1,389.8333 ms.
+- Two failures also reveal an evaluation-contract defect: a runtime-only
+  placeholder value was declared as a required static log keyword. Future packs
+  must separate stable template literals from observed runtime values.
+- The next repair class is event-owner-driven passage selection and deterministic
+  compact budgeting in independent fixtures, not tuning the consumed project.

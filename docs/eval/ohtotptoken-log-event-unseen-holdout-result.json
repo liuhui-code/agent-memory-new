@@ -1,0 +1,1433 @@
+{
+  "schema_version": "agent-context-capability-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 6,
+    "passed_case_count": 0,
+    "failed_case_count": 6,
+    "scenario_count": 3,
+    "stable_scenario_count": 0,
+    "query_variant_pass_rate": 0.0,
+    "average_context_tokens": 1497.5,
+    "average_memory_prepare_ms": 8138.0,
+    "average_query_elapsed_ms": 1389.8333
+  },
+  "capability_profile": {
+    "code_locator": {
+      "status": "pass",
+      "evaluated_cases": 6,
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 0.8333,
+      "oracle_anchor_precision": 0.8333,
+      "expected_anchor_mrr": 1.0
+    },
+    "source_evidence": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "observed_case_count": 6,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 0.0
+    },
+    "log_graph": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "observed_case_count": 6
+    },
+    "log_path_quality": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "average_path_recall": 1.0,
+      "average_path_precision": null,
+      "truncated_case_count": 2
+    },
+    "experience": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "causal_context": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_path_case_count": 0,
+      "observed_relation_case_count": 0
+    },
+    "hierarchical_localization": {
+      "status": "informational",
+      "evaluated_cases": 6,
+      "observed_case_count": 6,
+      "file_evaluated_case_count": 6,
+      "callable_evaluated_case_count": 6,
+      "owner_evaluated_case_count": 0,
+      "range_evaluated_case_count": 6,
+      "file_recall": 0.8333,
+      "callable_recall": 0.6667,
+      "owner_recall": null,
+      "owner_precision": null,
+      "range_recall": 0.3333,
+      "average_audit_elapsed_ms": 1323.6667
+    },
+    "abstention": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "compactness": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "average_context_tokens": 1497.5,
+      "token_budget": 1500
+    },
+    "query_robustness": {
+      "status": "fail",
+      "scenario_count": 3,
+      "stable_scenario_count": 0,
+      "variant_count": 6,
+      "passed_variant_count": 0,
+      "variant_pass_rate": 0.0,
+      "scenarios": [
+        {
+          "scenario_id": "ohtotp-empty-cloud-restore-token-count-event",
+          "status": "fail",
+          "variant_count": 2,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "runtime-line",
+            "symptom-context"
+          ]
+        },
+        {
+          "scenario_id": "ohtotp-form-agent-card-kv-event",
+          "status": "fail",
+          "variant_count": 2,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "runtime-line",
+            "symptom-context"
+          ]
+        },
+        {
+          "scenario_id": "ohtotp-icon-backup-completion-blocking-event",
+          "status": "fail",
+          "variant_count": 2,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "runtime-line",
+            "symptom-context"
+          ]
+        }
+      ]
+    },
+    "evidence_funnel": {
+      "status": "informational",
+      "evaluated_cases": 6,
+      "first_loss_counts": {
+        "callable": 1,
+        "candidate_file": 1,
+        "evidence_primary": 1,
+        "source_range": 2
+      },
+      "stage_pass_rates": {
+        "candidate_file": 0.8333,
+        "localizer_file": 0.8333,
+        "callable": 0.6667,
+        "source_range": 0.3333,
+        "evidence_primary": 0.3333,
+        "compact_primary": 1.0,
+        "compact_anchor": 1.0
+      }
+    },
+    "sufficiency": {
+      "status": "informational",
+      "evaluated_case_count": 6,
+      "missing_observation_count": 0,
+      "kind_counts": {
+        "diagnosis": 6
+      },
+      "readiness_status_counts": {
+        "ready_for_agent_inspection": 6
+      },
+      "reason_code_counts": {
+        "limited_code_anchor_diversity": 6,
+        "no_strong_log_anchor": 6
+      },
+      "scope": "shadow_observation_not_a_context_gate"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "ohtotp-empty-cloud-restore-token-count-event::runtime-line",
+      "scenario_id": "ohtotp-empty-cloud-restore-token-count-event",
+      "query_variant": "runtime-line",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "required_log_keywords_recalled": true,
+        "required_log_files_recalled": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/ShowCloudBackupHistoryPage.ets",
+        "entry/src/main/ets/utils/CloudBackupManager.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/pages/ShowCloudBackupHistoryPage.ets",
+        "entry/src/main/ets/utils/CloudBackupManager.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/pages/ShowCloudBackupHistoryPage.ets",
+        "entry/src/main/ets/utils/CloudBackupManager.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/utils/CloudBackupManager.ets",
+          "start_line": 429,
+          "end_line": 464
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 1.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 11,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 945
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": true,
+          "source_range": true,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 22,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 1,
+      "abstention_observed": false,
+      "anchor_count": 2,
+      "primary_anchor_count": 2,
+      "source_excerpt_count": 2,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1480,
+      "memory_prepare_ms": 8317,
+      "query_elapsed_ms": 992,
+      "requirements": {
+        "required_log_keywords": [
+          "restorefrombackuprecord",
+          "token count"
+        ],
+        "required_log_files": [
+          "entry/src/main/ets/utils/CloudBackupManager.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/utils/CloudBackupManager.ets",
+            "start_line": 429,
+            "end_line": 464
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "direct"
+        ],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "ohtotp-empty-cloud-restore-token-count-event::symptom-context",
+      "scenario_id": "ohtotp-empty-cloud-restore-token-count-event",
+      "query_variant": "symptom-context",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": false,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "required_log_keywords_recalled": true,
+        "required_log_files_recalled": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/ShowCloudBackupHistoryPage.ets",
+        "entry/src/main/ets/utils/CloudBackupManager.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/pages/ShowCloudBackupHistoryPage.ets",
+        "entry/src/main/ets/utils/CloudBackupManager.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/pages/ShowCloudBackupHistoryPage.ets",
+        "entry/src/main/ets/utils/CloudBackupManager.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/utils/CloudBackupManager.ets",
+          "start_line": 429,
+          "end_line": 464
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/utils/CloudBackupManager.ets",
+            "start_line": 429,
+            "end_line": 464
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 12,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1677
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": true,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "source_range",
+        "candidate_file_count": 21,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 1,
+      "abstention_observed": false,
+      "anchor_count": 2,
+      "primary_anchor_count": 2,
+      "source_excerpt_count": 2,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1502,
+      "memory_prepare_ms": 8243,
+      "query_elapsed_ms": 1787,
+      "requirements": {
+        "required_log_keywords": [
+          "restorefrombackuprecord",
+          "token count"
+        ],
+        "required_log_files": [
+          "entry/src/main/ets/utils/CloudBackupManager.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/utils/CloudBackupManager.ets",
+            "start_line": 429,
+            "end_line": 464
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "direct"
+        ],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "ohtotp-form-agent-card-kv-event::runtime-line",
+      "scenario_id": "ohtotp-form-agent-card-kv-event",
+      "query_variant": "runtime-line",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "required_log_keywords_recalled": false,
+        "required_log_files_recalled": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 0.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/entryformability/EntryFormAbility.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/entryformability/EntryFormAbility.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/entryformability/EntryFormAbility.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [
+        "kv store not initialized"
+      ],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/entryformability/EntryFormAbility.ets",
+          "start_line": 53,
+          "end_line": 65
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 0.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/entryformability/EntryFormAbility.ets",
+            "start_line": 53,
+            "end_line": 65
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/entryformability/EntryFormAbility.ets",
+            "start_line": 53,
+            "end_line": 65
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 1,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 956
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": false,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 21,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "entry/src/main/ets/utils/TokenCardStore.ets"
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1490,
+      "memory_prepare_ms": 7952,
+      "query_elapsed_ms": 968,
+      "requirements": {
+        "required_log_keywords": [
+          "generatecarddata failed",
+          "kv store not initialized"
+        ],
+        "required_log_files": [
+          "entry/src/main/ets/entryformability/EntryFormAbility.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/entryformability/EntryFormAbility.ets",
+            "start_line": 53,
+            "end_line": 65
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "direct"
+        ],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "ohtotp-form-agent-card-kv-event::symptom-context",
+      "scenario_id": "ohtotp-form-agent-card-kv-event",
+      "query_variant": "symptom-context",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": false,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "required_log_keywords_recalled": false,
+        "required_log_files_recalled": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/entryformability/EntryFormAbility.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/entryformability/EntryFormAbility.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/entryformability/EntryFormAbility.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [
+        "kv store not initialized"
+      ],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/entryformability/EntryFormAbility.ets",
+          "start_line": 53,
+          "end_line": 65
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 1.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 0,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1679
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": true,
+          "source_range": true,
+          "evidence_primary": true,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": null,
+        "candidate_file_count": 29,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "entry/src/main/ets/entryformability/EntryFormAbility.ets"
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1503,
+      "memory_prepare_ms": 7909,
+      "query_elapsed_ms": 1639,
+      "requirements": {
+        "required_log_keywords": [
+          "generatecarddata failed",
+          "kv store not initialized"
+        ],
+        "required_log_files": [
+          "entry/src/main/ets/entryformability/EntryFormAbility.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/entryformability/EntryFormAbility.ets",
+            "start_line": 53,
+            "end_line": 65
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "direct"
+        ],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "ohtotp-icon-backup-completion-blocking-event::runtime-line",
+      "scenario_id": "ohtotp-icon-backup-completion-blocking-event",
+      "query_variant": "runtime-line",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": false,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "required_log_keywords_recalled": true,
+        "required_log_files_recalled": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/utils/IconPackCloudBackup.ets",
+          "start_line": 238,
+          "end_line": 299
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/utils/IconPackCloudBackup.ets",
+            "start_line": 238,
+            "end_line": 299
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 9,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 985
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": true,
+          "source_range": false,
+          "evidence_primary": true,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "source_range",
+        "candidate_file_count": 23,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1504,
+      "memory_prepare_ms": 8199,
+      "query_elapsed_ms": 963,
+      "requirements": {
+        "required_log_keywords": [
+          "backupiconpacks",
+          "completed",
+          "timestamp"
+        ],
+        "required_log_files": [
+          "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/utils/IconPackCloudBackup.ets",
+            "start_line": 238,
+            "end_line": 299
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "direct"
+        ],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "ohtotp-icon-backup-completion-blocking-event::symptom-context",
+      "scenario_id": "ohtotp-icon-backup-completion-blocking-event",
+      "query_variant": "symptom-context",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": false,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "required_log_keywords_recalled": true,
+        "required_log_files_recalled": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/utils/IconPackCloudBackup.ets",
+          "start_line": 238,
+          "end_line": 299
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/utils/IconPackCloudBackup.ets",
+            "start_line": 238,
+            "end_line": 299
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/utils/IconPackCloudBackup.ets",
+            "start_line": 238,
+            "end_line": 299
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 13,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1700
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "callable",
+        "candidate_file_count": 21,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "entry/src/main/ets/dialogs/SelectIconDialog.ets"
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1506,
+      "memory_prepare_ms": 8208,
+      "query_elapsed_ms": 1990,
+      "requirements": {
+        "required_log_keywords": [
+          "backupiconpacks",
+          "completed",
+          "timestamp"
+        ],
+        "required_log_files": [
+          "entry/src/main/ets/utils/IconPackCloudBackup.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/utils/IconPackCloudBackup.ets",
+            "start_line": 238,
+            "end_line": 299
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "direct"
+        ],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "scope": "context_supply_only"
+  },
+  "next_gate": "repair_context_supply",
+  "calibration": {
+    "schema_version": "agent-context-calibration/v1",
+    "status": "informational",
+    "target_domain": null,
+    "profiled_case_count": 0,
+    "coverage": {
+      "target_levels": [],
+      "artifact_roles": [],
+      "mechanism_kinds": []
+    },
+    "contract_gaps": [],
+    "macro_metrics": {
+      "artifact_roles": {
+        "pass_rate": null,
+        "anchor_recall": null,
+        "anchor_precision": null,
+        "source_span_recall": null
+      },
+      "target_levels": {
+        "pass_rate": null,
+        "anchor_recall": null,
+        "anchor_precision": null,
+        "source_span_recall": null
+      },
+      "mechanism_kinds": {
+        "pass_rate": null,
+        "anchor_recall": null,
+        "anchor_precision": null,
+        "source_span_recall": null
+      }
+    },
+    "strata": {
+      "artifact_roles": [],
+      "target_levels": [],
+      "mechanism_kinds": []
+    },
+    "scope": "evaluation_only_not_injected_into_agent_context"
+  },
+  "calibration_gate": "not_required",
+  "promotion_eligible": false,
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 12,
+    "primary_failure_class": "passage_selection",
+    "failure_class_counts": {
+      "candidate_generation": 2,
+      "context_compactness": 4,
+      "passage_selection": 6
+    },
+    "failures": [
+      {
+        "case_id": "ohtotp-empty-cloud-restore-token-count-event::runtime-line",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "ohtotp-empty-cloud-restore-token-count-event::symptom-context",
+        "failed_check": "context_within_budget",
+        "gate": "context",
+        "failure_class": "context_compactness",
+        "owning_layer": "compact_context_projection",
+        "method_reference_ids": [
+          "agent_benchmark"
+        ],
+        "allowed_repair": "Remove redundant evidence while preserving required anchors.",
+        "prohibited_shortcut": "Do not drop required evidence merely to pass the budget.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "ohtotp-empty-cloud-restore-token-count-event::symptom-context",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "ohtotp-form-agent-card-kv-event::runtime-line",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "ohtotp-form-agent-card-kv-event::runtime-line",
+        "failed_check": "required_log_keywords_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "ohtotp-form-agent-card-kv-event::symptom-context",
+        "failed_check": "context_within_budget",
+        "gate": "context",
+        "failure_class": "context_compactness",
+        "owning_layer": "compact_context_projection",
+        "method_reference_ids": [
+          "agent_benchmark"
+        ],
+        "allowed_repair": "Remove redundant evidence while preserving required anchors.",
+        "prohibited_shortcut": "Do not drop required evidence merely to pass the budget.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "ohtotp-form-agent-card-kv-event::symptom-context",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "ohtotp-form-agent-card-kv-event::symptom-context",
+        "failed_check": "required_log_keywords_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "ohtotp-icon-backup-completion-blocking-event::runtime-line",
+        "failed_check": "context_within_budget",
+        "gate": "context",
+        "failure_class": "context_compactness",
+        "owning_layer": "compact_context_projection",
+        "method_reference_ids": [
+          "agent_benchmark"
+        ],
+        "allowed_repair": "Remove redundant evidence while preserving required anchors.",
+        "prohibited_shortcut": "Do not drop required evidence merely to pass the budget.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "ohtotp-icon-backup-completion-blocking-event::runtime-line",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "ohtotp-icon-backup-completion-blocking-event::symptom-context",
+        "failed_check": "context_within_budget",
+        "gate": "context",
+        "failure_class": "context_compactness",
+        "owning_layer": "compact_context_projection",
+        "method_reference_ids": [
+          "agent_benchmark"
+        ],
+        "allowed_repair": "Remove redundant evidence while preserving required anchors.",
+        "prohibited_shortcut": "Do not drop required evidence merely to pass the budget.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "ohtotp-icon-backup-completion-blocking-event::symptom-context",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout."
+  },
+  "case_seal": {
+    "status": "verified",
+    "required": true,
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "digest": "551aec223cb5952ada505c246edf5ed200546ee28735965d6077cf83383d9b5a",
+    "sealed_at": "2026-07-29T14:11:58+00:00",
+    "case_count": 3
+  },
+  "evaluation_governance": {
+    "status": "legacy_unclassified",
+    "enforced": false
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/ohtotptoken-log-event-unseen-holdout-cases.sealed.json",
+  "selected_scenario_ids": [
+    "ohtotp-empty-cloud-restore-token-count-event",
+    "ohtotp-form-agent-card-kv-event",
+    "ohtotp-icon-backup-completion-blocking-event"
+  ],
+  "selected_case_ids": [
+    "ohtotp-empty-cloud-restore-token-count-event::runtime-line",
+    "ohtotp-empty-cloud-restore-token-count-event::symptom-context",
+    "ohtotp-form-agent-card-kv-event::runtime-line",
+    "ohtotp-form-agent-card-kv-event::symptom-context",
+    "ohtotp-icon-backup-completion-blocking-event::runtime-line",
+    "ohtotp-icon-backup-completion-blocking-event::symptom-context"
+  ],
+  "source_project": "/private/tmp/agent-memory-external-ohtotptoken",
+  "recorded_at": "2026-07-29T14:13:19+00:00"
+}

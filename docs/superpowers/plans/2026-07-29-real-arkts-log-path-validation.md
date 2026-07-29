@@ -129,3 +129,26 @@ new fixture cannot change the common FTS corpus. Against Runtime `56cac1b`, all
 204 common variants have identical failed-check sets and zero regressions; the
 expanded pack passes 141/210 versus the measured baseline 135/204. The 69
 historical failures are not attributed to or repaired by this change.
+
+## Second External Observation
+
+Runtime commit `d589a57` was frozen before selecting the previously unused
+`OHOTP/ohtotptoken` project. Three source-reviewed fixes cover an empty cloud
+restore, FormAgent card storage initialization, and synchronous icon-pack file
+I/O. The six variants contain real static event fragments plus representative
+runtime values. The sealed digest is
+`551aec223cb5952ada505c246edf5ed200546ee28735965d6077cf83383d9b5a`.
+
+The pack was executed exactly once and passes 0/6, but event ownership is no
+longer the primary loss: anchor and primary recall are 1.0, MRR is 1.0, anchor
+precision is 0.8333, and every required log file is recalled. Compact source
+files are present in all variants, while reviewed source-span recall is 0.0.
+Four variants exceed the 1,500-Token budget by 2 to 6 Tokens. Two card variants
+also expose an evaluation-contract error: `KV store not initialized` is a
+runtime placeholder value and cannot be required in the learned static template.
+
+The consumed pack must not be changed or rerun. The next development stage is
+therefore bounded passage selection from the selected event owner, deterministic
+budget reserve, and a schema-level separation between stable template literals
+and runtime-only observed values. These must be reproduced in independent
+fixtures before another external project is consumed.
