@@ -7787,3 +7787,32 @@ Result:
   must separate stable template literals from observed runtime values.
 - The next repair class is event-owner-driven passage selection and deterministic
   compact budgeting in independent fixtures, not tuning the consumed project.
+
+## 2026-07-29 - Bind selected log events to source passages
+
+What changed:
+
+- Added a bounded event-owner passage adapter. A high-confidence selected static or
+  dynamic-template log identity now seeds its learned callable or emission line ahead
+  of mechanism and lexical source windows.
+- Split compact budgeting into one coarse reduction pass and one final-serialization
+  convergence pass. Static expansion instructions are discarded before task evidence,
+  and the reported Token estimate now equals the final serialized estimate.
+- Added evaluation fields that gate stable `required_log_template_literals` while
+  keeping `runtime_observed_terms` informational. Legacy keyword gates remain valid.
+- Added two isolated ArkTS scenarios and documented the architecture against
+  OpenTelemetry event modeling, BEIR multi-stage retrieval, and RECOMP compression.
+
+Result:
+
+- All 6 new variants pass with template recall, source-span recall, and anchor
+  precision of 1.0 at 1,217-1,278 Tokens.
+- Across 210 common development variants there are zero newly failed checks. Twenty-two
+  old budget checks improve, eleven old variants become passing, and the expanded set
+  is 158/216; 58 unrelated historical failures remain. The two final hard-limit
+  scenarios peak at 1,499 Tokens without new anchor or source-span loss.
+- Focused context/privacy/log tests pass 110/110. The CI scale profile passes at
+  100,000 searchable entities and 300,000 graph edges, including all query-plan and
+  incremental-maintenance gates.
+- Python compilation, JSON, whitespace, four-Skill, and at-most-500-line gates pass.
+  The consumed LocalSend and OHOTP packs were not modified or rerun.

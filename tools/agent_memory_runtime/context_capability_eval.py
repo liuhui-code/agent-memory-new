@@ -92,10 +92,12 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
     path_files = string_set(observation.get("path_files"))
     path_relations = string_set(observation.get("path_relations"), fold=True)
     required_logs = requirements["required_log_keywords"]
+    required_templates = requirements["required_log_template_literals"]
     required_log_files = requirements["required_log_files"]
     required_experiences = requirements["required_experience_types"]
     required_paths = requirements["required_path_files"]
     missing_logs = unmatched_terms(required_logs, log_evidence)
+    missing_templates = unmatched_terms(required_templates, log_evidence)
     missing_log_files = sorted(set(required_log_files) - log_files)
     missing_experiences = unmatched_terms(required_experiences, experience_types)
     missing_paths = sorted(set(required_paths) - path_files)
@@ -139,6 +141,8 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
         checks["forbidden_anchors_absent"] = not bool(forbidden & anchors)
     if required_logs:
         checks["required_log_keywords_recalled"] = not missing_logs
+    if required_templates:
+        checks["required_log_template_literals_recalled"] = not missing_templates
     if required_log_files:
         checks["required_log_files_recalled"] = not missing_log_files
     if requirements["forbidden_log_keywords"]:
@@ -191,6 +195,8 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
         "missing_expected_anchors": sorted(expected - anchors),
         "forbidden_anchor_hits": sorted(forbidden & anchors),
         "missing_required_log_keywords": missing_logs,
+        "missing_required_log_template_literals": missing_templates,
+        "runtime_observed_terms": requirements["runtime_observed_terms"],
         "missing_required_log_files": missing_log_files,
         "forbidden_log_keyword_hits": forbidden_log_keyword_hits,
         "forbidden_log_file_hits": forbidden_log_file_hits,
@@ -281,10 +287,12 @@ def capability_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
             scored,
             (
                 "required_log_keywords", "required_log_files",
+                "required_log_template_literals",
                 "forbidden_log_keywords", "forbidden_log_files",
             ),
             (
                 "required_log_keywords_recalled", "required_log_files_recalled",
+                "required_log_template_literals_recalled",
                 "forbidden_log_keywords_absent", "forbidden_log_files_absent",
             ),
         ),

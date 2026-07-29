@@ -148,14 +148,23 @@ def selected_ranges(
     ]
     source_lines = read_source_lines(source_path) if source_path is not None else []
     if source_path is not None:
+        owner_ranges = [
+            item for item in ranges
+            if item.get("selection_reason") == "selected_log_event_owner"
+        ]
+        other_ranges = [item for item in ranges if item not in owner_ranges]
         ranges = merge_source_ranges(
-            mechanism_callable_ranges(source_path, source_lines, query),
-            ranges,
+            owner_ranges,
+            merge_source_ranges(
+                mechanism_callable_ranges(source_path, source_lines, query),
+                other_ranges,
+            ),
         )
         if not ranges:
             fallback = file_anchor_range(source_path)
             ranges = [fallback] if fallback else []
     ranges.sort(key=lambda item: (
+        0 if item.get("selection_reason") == "selected_log_event_owner" else 1,
         -mechanism_coverage(source_path, source_lines, item, query)
         if source_path is not None else 0,
         int(item["end_line"]) - int(item["start_line"]),
@@ -163,7 +172,10 @@ def selected_ranges(
     ))
     if source_path is not None and query.strip():
         ranges = [
-            item if mechanism_coverage(source_path, source_lines, item, query)
+            item if (
+                item.get("selection_reason") == "selected_log_event_owner"
+                or mechanism_coverage(source_path, source_lines, item, query)
+            )
             else focused_source_range(source_path, item, query, source_lines)
             for item in ranges
         ]
@@ -362,6 +374,7 @@ def read_excerpt(
         "content": "\n".join(lines),
         "source": "current_worktree",
         "selection_reason": source_range.get("selection_reason") or "anchor_range",
+        "focus_line": source_range.get("focus_line"),
         "truncated": char_truncated or actual_end < requested_end,
     }
 
@@ -385,7 +398,8 @@ def excerpt_metadata(item: dict[str, Any]) -> dict[str, Any]:
     return {
         key: item[key]
         for key in (
-            "symbol", "start_line", "end_line", "source", "selection_reason", "truncated",
+            "symbol", "start_line", "end_line", "focus_line", "source",
+            "selection_reason", "truncated",
         )
         if item.get(key) not in (None, "")
     }

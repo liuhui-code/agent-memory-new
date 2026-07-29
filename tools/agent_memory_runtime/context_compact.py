@@ -10,14 +10,15 @@ from .context_anchor_selection import (
     path_scoped_code_anchors,
     prioritized_log_anchors,
 )
+from .context_budget import enforce_budget, finalize_budget, minimize_guards
 from .context_callable_focus import focus_callable_anchors
+from .context_event_owner import bind_event_owner_ranges
 from .context_sufficiency import diagnosis_sufficiency
 from .context_source_excerpt import (
     attach_source_excerpts,
     has_source_excerpt_candidate,
 )
 from .index_freshness import compact_freshness_report
-from .performance_scoring import estimate_payload_tokens
 from .query_behavior_concepts import behavior_marker_terms
 from .source_exploration import assign_anchor_roles, exploration_contract
 from .text import ENGLISH_QUERY_STOPWORDS
@@ -59,16 +60,12 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
     if not excerpt_count and has_source_excerpt_candidate(payload, data.get("project_path")):
         enforce_budget(payload, SOURCE_EXCERPT_PRE_BUDGET)
         attach_source_excerpts(payload, data.get("project_path"), COMPACT_TOKEN_BUDGET)
-    enforce_budget(payload)
+    enforce_budget(payload, COMPACT_TOKEN_BUDGET)
     payload["evidence_gaps"] = evidence_gaps(payload["query_handoff"])
     payload["sufficiency"] = diagnosis_sufficiency(
         payload["query_handoff"], payload["evidence_gaps"], payload["source_freshness"],
     )
-    payload["output_budget"] = {
-        "estimated_tokens": estimate_payload_tokens(payload),
-        "target_tokens": COMPACT_TOKEN_BUDGET,
-        "truncated": True,
-    }
+    finalize_budget(payload, COMPACT_TOKEN_BUDGET)
     return payload
 
 
@@ -90,6 +87,9 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
         diverse_code_anchors(
             code_candidates, path_context["activated"], str(data.get("query") or "")
         )
+    )
+    code_anchors = bind_event_owner_ranges(
+        code_anchors, log_anchors, str(data.get("query") or "")
     )
     return {
         "schema_version": "agent-query-handoff-compact/v1",
@@ -128,12 +128,6 @@ GUARD_FIELDS = (
     "id", "reflection_id", "semantic_id", "experience_type", "fact", "scope", "task",
     "problem", "trigger_condition", "lesson", "status", "trust_level", "warnings", "reason",
 )
-MINIMAL_GUARD_FIELDS = (
-    "id", "reflection_id", "semantic_id", "experience_type", "fact", "scope",
-    "task", "trigger_condition", "status", "warnings",
-)
-
-
 def compact_path_context(value: Any) -> dict[str, Any]:
     path = value if isinstance(value, dict) else {}
     return {
@@ -372,103 +366,6 @@ def evidence_gaps(handoff: dict[str, Any]) -> list[str]:
     return gaps
 
 
-def enforce_budget(
-    payload: dict[str, Any],
-    token_budget: int = COMPACT_TOKEN_BUDGET,
-) -> None:
-    handoff = payload["query_handoff"]
-    paths = handoff["path_context"]["path_candidates"]
-    reductions = (
-        lambda: handoff.__setitem__("relation_hints", handoff["relation_hints"][:2]),
-        lambda: [path.__setitem__("expected_logs", path["expected_logs"][:2]) for path in paths],
-        lambda: [
-            path.__setitem__("uncertainty", path.get("uncertainty", [])[:1])
-            for path in paths
-        ],
-        lambda: handoff.__setitem__("code_anchors", handoff["code_anchors"][:3]),
-        lambda: handoff.__setitem__("log_keywords", handoff["log_keywords"][:8]),
-        lambda: handoff.__setitem__("experience_refs", handoff["experience_refs"][:1]),
-        lambda: handoff.__setitem__("semantic_refs", handoff["semantic_refs"][:1]),
-        lambda: handoff.__setitem__("callable_evidence", {}),
-        lambda: handoff["path_context"].__setitem__("path_candidates", paths[:2]),
-        lambda: payload.__setitem__("blocked_memory_notes", payload["blocked_memory_notes"][:1]),
-        lambda: payload.__setitem__("conflict_notes", payload["conflict_notes"][:1]),
-        lambda: minimize_guards(payload),
-        lambda: payload.__setitem__("blocked_memory_notes", []),
-        lambda: trim_excerpt_for_path_diversity(handoff),
-        lambda: handoff["path_context"].__setitem__("path_candidates", paths[:1]),
-        lambda: hard_trim(payload),
-    )
-    for reduce_payload in reductions:
-        if estimate_payload_tokens(payload) <= token_budget - 60:
-            break
-        reduce_payload()
-def trim_excerpt_for_path_diversity(handoff: dict[str, Any]) -> None:
-    paths = handoff["path_context"]["path_candidates"]
-    if len(paths) < 2:
-        return
-    emitter_files = {
-        str(path.get("emitter", {}).get("file_path") or "")
-        for path in paths[:2]
-    }
-    anchors = [
-        anchor for anchor in reversed(handoff["code_anchors"])
-        if anchor.get("source_excerpts")
-        and str(anchor.get("file_path") or "") not in emitter_files
-    ]
-    if not anchors:
-        return
-    anchors[0].pop("source_excerpts", None)
-    excerpts = [
-        excerpt
-        for anchor in handoff["code_anchors"]
-        for excerpt in anchor.get("source_excerpts") or []
-    ]
-    policy = handoff.get("source_excerpt_policy")
-    if isinstance(policy, dict):
-        policy["excerpt_count"] = len(excerpts)
-        policy["excerpt_chars"] = sum(
-            len(str(excerpt.get("content") or "")) for excerpt in excerpts
-        )
-def minimize_guards(payload: dict[str, Any]) -> None:
-    for key in ("correction_guards", "semantic_patch_notes", "blocked_memory_notes", "conflict_notes"):
-        payload[key] = [clean_record(item, MINIMAL_GUARD_FIELDS) for item in payload[key]]
-def hard_trim(payload: dict[str, Any]) -> None:
-    handoff = payload["query_handoff"]
-    handoff["log_keywords"] = handoff["log_keywords"][:6]
-    handoff["log_anchors"] = handoff["log_anchors"][:2]
-    handoff["code_anchors"] = handoff["code_anchors"][:2]
-    handoff["relation_hints"] = []
-    handoff["experience_refs"] = []
-    handoff["semantic_refs"] = []
-    candidates = handoff["path_context"]["path_candidates"][:1]
-    for candidate in candidates:
-        candidate["nodes"] = candidate["nodes"][:4]
-        candidate["relations"] = candidate["relations"][:3]
-        candidate["expected_logs"] = candidate["expected_logs"][:1]
-        candidate["uncertainty"] = candidate["uncertainty"][:1]
-    handoff["path_context"]["path_candidates"] = candidates
-    payload["correction_guards"] = shrink_guard_group(payload["correction_guards"])
-    payload["semantic_patch_notes"] = shrink_guard_group(payload["semantic_patch_notes"])
-    payload["blocked_memory_notes"] = []
-    payload["conflict_notes"] = shrink_guard_group(payload["conflict_notes"])
-def shrink_guard_group(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    if not items:
-        return []
-    item = items[0]
-    keys = (
-        "id", "reflection_id", "semantic_id", "experience_type", "fact",
-        "scope", "task", "status",
-    )
-    result = {
-        key: str(item[key])[:100] if isinstance(item.get(key), str) else item[key]
-        for key in keys
-        if item.get(key) not in (None, "")
-    }
-    warnings = item.get("warnings")
-    if isinstance(warnings, list) and warnings:
-        result["warnings"] = [str(warnings[0])[:100]]
-    return [result]
 def clean_record(item: dict[str, Any], fields: tuple[str, ...]) -> dict[str, Any]:
     return {
         key: compact_value(item.get(key), 5 if key in {"call_path", "call_path_locations"} else 2)

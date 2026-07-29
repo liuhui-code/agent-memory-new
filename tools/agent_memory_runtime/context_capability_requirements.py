@@ -11,6 +11,10 @@ def context_requirements(value: Any) -> dict[str, Any]:
     item = value if isinstance(value, dict) else {}
     return {
         "required_log_keywords": string_list(item.get("required_log_keywords"), fold=True),
+        "required_log_template_literals": string_list(
+            item.get("required_log_template_literals"), fold=True
+        ),
+        "runtime_observed_terms": string_list(item.get("runtime_observed_terms"), fold=True),
         "required_log_files": string_list(item.get("required_log_files")),
         "forbidden_log_keywords": string_list(item.get("forbidden_log_keywords"), fold=True),
         "forbidden_log_files": string_list(item.get("forbidden_log_files")),

@@ -3032,6 +3032,97 @@
       }
     },
     {
+      "id": "context-event-owner-passage",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "ARCHIVE_EVENT_D42A restore rejected: storage handle missing; archive=archive-77"
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "ARCHIVE_EVENT_D42A restore rejected: storage handle missing; archive=archive-77"
+        },
+        {
+          "id": "en-context",
+          "description": "A nested restore callback reports ARCHIVE_EVENT_D42A restore rejected: storage handle missing; archive=archive-77. Return the event owner source passage, not the retry event."
+        },
+        {
+          "id": "zh-context",
+          "description": "流水日志出现 ARCHIVE_EVENT_D42A restore rejected: storage handle missing; archive=archive-77，请返回嵌套回调中的事件源码，不要返回重试事件。"
+        }
+      ],
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "event-owner-budget"
+      },
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/services/ArchiveRestoreService.ets"],
+        "forbidden_files": ["src/services/ArchiveRetryService.ets"],
+        "root_cause_category": "unknown",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_template_literals": ["ARCHIVE_EVENT_D42A restore rejected"],
+          "runtime_observed_terms": ["storage handle missing", "archive-77"],
+          "required_log_files": ["src/services/ArchiveRestoreService.ets"],
+          "forbidden_log_files": ["src/services/ArchiveRetryService.ets"],
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/services/ArchiveRestoreService.ets", "start_line": 42, "end_line": 50}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-deterministic-final-budget",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "SYNC_EVENT_A91C transaction persistence failed: database writer unavailable; batch=batch-204 while recovery metadata, sequence reservation, checkpoint update, observer notification, transaction closure, and retry diagnostics all appear nearby"
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "SYNC_EVENT_A91C transaction persistence failed: database writer unavailable; batch=batch-204"
+        },
+        {
+          "id": "en-long-context",
+          "description": "SYNC_EVENT_A91C transaction persistence failed: database writer unavailable; batch=batch-204 while recovery metadata, sequence reservation, checkpoint update, observer notification, transaction closure, and retry diagnostics all appear nearby; preserve the selected event owner passage within the compact context budget."
+        },
+        {
+          "id": "zh-long-context",
+          "description": "流水日志出现 SYNC_EVENT_A91C transaction persistence failed: database writer unavailable; batch=batch-204，同时附近还有事务恢复、序列预留、检查点、观察者通知和关闭流程，请在紧凑预算内保留真实事件所有者源码。"
+        }
+      ],
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "event-owner-budget"
+      },
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/services/TransactionSyncService.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "unknown",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_template_literals": ["SYNC_EVENT_A91C transaction persistence failed"],
+          "runtime_observed_terms": ["database writer unavailable", "batch-204"],
+          "required_log_files": ["src/services/TransactionSyncService.ets"],
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/services/TransactionSyncService.ets", "start_line": 45, "end_line": 53}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
       "id": "context-no-evidence-abstention",
       "task_type": "diagnosis",
       "review_status": "validated",
