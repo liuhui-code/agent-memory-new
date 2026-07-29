@@ -1,0 +1,2019 @@
+{
+  "schema_version": "agent-context-capability-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 6,
+    "passed_case_count": 0,
+    "failed_case_count": 6,
+    "scenario_count": 3,
+    "stable_scenario_count": 0,
+    "query_variant_pass_rate": 0.0,
+    "average_context_tokens": 1209.8333,
+    "average_memory_prepare_ms": 9347.6667,
+    "average_query_elapsed_ms": 2730.6667
+  },
+  "capability_profile": {
+    "code_locator": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "anchor_recall": 0.1667,
+      "primary_anchor_recall": 0.1667,
+      "candidate_file_recall_at_20": 0.8333,
+      "oracle_anchor_precision": 0.0555,
+      "expected_anchor_mrr": 0.1667
+    },
+    "source_evidence": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "observed_case_count": 5,
+      "source_excerpt_recall": 0.1667,
+      "source_span_recall": 0.0
+    },
+    "log_graph": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "observed_case_count": 0
+    },
+    "log_path_quality": {
+      "status": "fail",
+      "evaluated_cases": 6,
+      "average_path_recall": 1.0,
+      "average_path_precision": null,
+      "truncated_case_count": 0
+    },
+    "experience": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "causal_context": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_path_case_count": 0,
+      "observed_relation_case_count": 1
+    },
+    "hierarchical_localization": {
+      "status": "informational",
+      "evaluated_cases": 6,
+      "observed_case_count": 6,
+      "file_evaluated_case_count": 6,
+      "callable_evaluated_case_count": 6,
+      "owner_evaluated_case_count": 0,
+      "range_evaluated_case_count": 6,
+      "file_recall": 0.8333,
+      "callable_recall": 0.0,
+      "owner_recall": null,
+      "owner_precision": null,
+      "range_recall": 0.0,
+      "average_audit_elapsed_ms": 2489.5
+    },
+    "abstention": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 1
+    },
+    "compactness": {
+      "status": "pass",
+      "evaluated_cases": 6,
+      "average_context_tokens": 1209.8333,
+      "token_budget": 1500
+    },
+    "query_robustness": {
+      "status": "fail",
+      "scenario_count": 3,
+      "stable_scenario_count": 0,
+      "variant_count": 6,
+      "passed_variant_count": 0,
+      "variant_pass_rate": 0.0,
+      "scenarios": [
+        {
+          "scenario_id": "openharmony-notes-image-callback-owner",
+          "status": "fail",
+          "variant_count": 2,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "runtime-line",
+            "symptom-context"
+          ]
+        },
+        {
+          "scenario_id": "openharmony-notes-webview-page-end-owner",
+          "status": "fail",
+          "variant_count": 2,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "runtime-line",
+            "symptom-context"
+          ]
+        },
+        {
+          "scenario_id": "openharmony-notes-window-resize-freeze-owner",
+          "status": "fail",
+          "variant_count": 2,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "runtime-line",
+            "symptom-context"
+          ]
+        }
+      ]
+    },
+    "evidence_funnel": {
+      "status": "informational",
+      "evaluated_cases": 6,
+      "first_loss_counts": {
+        "callable": 5,
+        "candidate_file": 1
+      },
+      "stage_pass_rates": {
+        "candidate_file": 0.8333,
+        "localizer_file": 0.8333,
+        "callable": 0.0,
+        "source_range": 0.0,
+        "evidence_primary": 0.1667,
+        "compact_primary": 0.1667,
+        "compact_anchor": 0.1667
+      }
+    },
+    "sufficiency": {
+      "status": "informational",
+      "evaluated_case_count": 6,
+      "missing_observation_count": 0,
+      "kind_counts": {
+        "diagnosis": 6
+      },
+      "readiness_status_counts": {
+        "insufficient_evidence": 1,
+        "ready_for_agent_inspection": 5
+      },
+      "reason_code_counts": {
+        "limited_code_anchor_diversity": 2,
+        "no_code_anchor": 1,
+        "no_inspectable_retrieval_evidence": 1,
+        "no_log_anchor": 6
+      },
+      "scope": "shadow_observation_not_a_context_gate"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "openharmony-notes-image-callback-owner::runtime-line",
+      "scenario_id": "openharmony-notes-image-callback-owner",
+      "query_variant": "runtime-line",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "required_log_template_literals_recalled": false,
+        "required_log_files_recalled": false,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "common/utils/src/main/ets/default/baseUtil/RdbStoreUtil.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "common/utils/src/main/ets/default/baseUtil/RdbStoreUtil.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "common/utils/src/main/ets/default/baseUtil/RdbStoreUtil.ets"
+      ],
+      "missing_expected_anchors": [
+        "features/src/main/ets/components/NoteContentComp.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [
+        "note imgname is:"
+      ],
+      "runtime_observed_terms": [
+        "/data/storage/el2/base/files/scan-42.png"
+      ],
+      "missing_required_log_files": [
+        "features/src/main/ets/components/NoteContentComp.ets"
+      ],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+          "start_line": 158,
+          "end_line": 162
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+            "start_line": 158,
+            "end_line": 162
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+            "start_line": 158,
+            "end_line": 162
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 16,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 2286
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "callable",
+        "candidate_file_count": 23,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "common/utils/src/main/ets/default/baseUtil/RdbStoreUtil.ets"
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [
+        "static_wrapped"
+      ],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 1243,
+      "memory_prepare_ms": 10033,
+      "query_elapsed_ms": 2453,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [
+          "note imgname is:"
+        ],
+        "runtime_observed_terms": [
+          "/data/storage/el2/base/files/scan-42.png"
+        ],
+        "required_log_files": [
+          "features/src/main/ets/components/NoteContentComp.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+            "start_line": 158,
+            "end_line": 162
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "static_wrapped"
+        ],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "openharmony-notes-image-callback-owner::symptom-context",
+      "scenario_id": "openharmony-notes-image-callback-owner",
+      "query_variant": "symptom-context",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": false,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "required_log_template_literals_recalled": false,
+        "required_log_files_recalled": false,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "common/utils/src/main/ets/default/baseUtil/NoteUtil.ets",
+        "features/src/main/ets/components/NoteContentComp.ets",
+        "product/default/src/main/ets/pages/NoteContentHome.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "common/utils/src/main/ets/default/baseUtil/NoteUtil.ets",
+        "features/src/main/ets/components/NoteContentComp.ets",
+        "product/default/src/main/ets/pages/NoteContentHome.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "common/utils/src/main/ets/default/baseUtil/NoteUtil.ets",
+        "features/src/main/ets/components/NoteContentComp.ets",
+        "product/default/src/main/ets/pages/NoteContentHome.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [
+        "note imgname is:"
+      ],
+      "runtime_observed_terms": [
+        "/data/storage/el2/base/files/scan-42.png"
+      ],
+      "missing_required_log_files": [
+        "features/src/main/ets/components/NoteContentComp.ets"
+      ],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+          "start_line": 158,
+          "end_line": 162
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+            "start_line": 158,
+            "end_line": 162
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+            "start_line": 158,
+            "end_line": 162
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 16,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3731
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "callable",
+        "candidate_file_count": 21,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "common/utils/src/main/ets/default/baseUtil/RdbStoreUtil.ets"
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [
+        "static_wrapped"
+      ],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1466,
+      "memory_prepare_ms": 10527,
+      "query_elapsed_ms": 5522,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [
+          "note imgname is:"
+        ],
+        "runtime_observed_terms": [
+          "/data/storage/el2/base/files/scan-42.png"
+        ],
+        "required_log_files": [
+          "features/src/main/ets/components/NoteContentComp.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+            "start_line": 158,
+            "end_line": 162
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "static_wrapped"
+        ],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "openharmony-notes-webview-page-end-owner::runtime-line",
+      "scenario_id": "openharmony-notes-webview-page-end-owner",
+      "query_variant": "runtime-line",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "required_log_template_literals_recalled": false,
+        "required_log_files_recalled": false,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [],
+      "observed_primary_anchor_paths": [],
+      "observed_source_excerpt_paths": [],
+      "missing_expected_anchors": [
+        "features/src/main/ets/components/NoteContentComp.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [
+        "finish loadurl"
+      ],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [
+        "features/src/main/ets/components/NoteContentComp.ets"
+      ],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+          "start_line": 258,
+          "end_line": 287
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 0.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+            "start_line": 258,
+            "end_line": 287
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+            "start_line": 258,
+            "end_line": 287
+          }
+        ],
+        "file_candidate_count": 0,
+        "callable_candidate_count": 0,
+        "owner_candidate_count": 0,
+        "range_candidate_count": 0,
+        "audit_elapsed_ms": 920
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": false,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 2,
+        "localizer_file_count": 0,
+        "callable_count": 0,
+        "range_count": 0,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [
+        "static_wrapped"
+      ],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": true,
+      "anchor_count": 0,
+      "primary_anchor_count": 0,
+      "source_excerpt_count": 0,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor",
+        "no_code_anchor"
+      ],
+      "context_token_estimate": 536,
+      "memory_prepare_ms": 9355,
+      "query_elapsed_ms": 856,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [
+          "finish loadurl"
+        ],
+        "runtime_observed_terms": [],
+        "required_log_files": [
+          "features/src/main/ets/components/NoteContentComp.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+            "start_line": 258,
+            "end_line": 287
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "static_wrapped"
+        ],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "openharmony-notes-webview-page-end-owner::symptom-context",
+      "scenario_id": "openharmony-notes-webview-page-end-owner",
+      "query_variant": "symptom-context",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "required_log_template_literals_recalled": false,
+        "required_log_files_recalled": false,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "common/resources/hvigorfile.js",
+        "hvigor/hvigor-wrapper.js"
+      ],
+      "observed_primary_anchor_paths": [
+        "common/resources/hvigorfile.js",
+        "hvigor/hvigor-wrapper.js"
+      ],
+      "observed_source_excerpt_paths": [
+        "common/resources/hvigorfile.js"
+      ],
+      "missing_expected_anchors": [
+        "features/src/main/ets/components/NoteContentComp.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [
+        "finish loadurl"
+      ],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [
+        "features/src/main/ets/components/NoteContentComp.ets"
+      ],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+          "start_line": 258,
+          "end_line": 287
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+            "start_line": 258,
+            "end_line": 287
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+            "start_line": 258,
+            "end_line": 287
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 4,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 2443
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": true,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "callable",
+        "candidate_file_count": 25,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "features/src/main/ets/components/NoteContentComp.ets"
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [
+        "static_wrapped"
+      ],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 2,
+      "primary_anchor_count": 2,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 1107,
+      "memory_prepare_ms": 8926,
+      "query_elapsed_ms": 2551,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [
+          "finish loadurl"
+        ],
+        "runtime_observed_terms": [],
+        "required_log_files": [
+          "features/src/main/ets/components/NoteContentComp.ets"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+            "start_line": 258,
+            "end_line": 287
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "static_wrapped"
+        ],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "openharmony-notes-window-resize-freeze-owner::runtime-line",
+      "scenario_id": "openharmony-notes-window-resize-freeze-owner",
+      "query_variant": "runtime-line",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "required_log_template_literals_recalled": false,
+        "required_log_files_recalled": false,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "common/resources/src/main/resources/rawfile/rich_editor.js",
+        "features/src/main/ets/components/NoteContentComp.ets",
+        "features/src/main/ets/components/NoteListComp.ets",
+        "product/default/src/main/ets/pages/MyNoteHome.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "common/resources/src/main/resources/rawfile/rich_editor.js",
+        "features/src/main/ets/components/NoteContentComp.ets",
+        "features/src/main/ets/components/NoteListComp.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "common/resources/src/main/resources/rawfile/rich_editor.js",
+        "features/src/main/ets/components/NoteContentComp.ets",
+        "features/src/main/ets/components/NoteListComp.ets"
+      ],
+      "missing_expected_anchors": [
+        "product/default/src/main/ets/MainAbility/MainAbility.ts"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [
+        "windowsizechange"
+      ],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [
+        "product/default/src/main/ets/MainAbility/MainAbility.ts"
+      ],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "product/default/src/main/ets/MainAbility/MainAbility.ts",
+          "start_line": 78,
+          "end_line": 109
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "product/default/src/main/ets/MainAbility/MainAbility.ts",
+            "start_line": 78,
+            "end_line": 109
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "product/default/src/main/ets/MainAbility/MainAbility.ts",
+            "start_line": 78,
+            "end_line": 109
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 4,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1297
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "callable",
+        "candidate_file_count": 11,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "common/resources/src/main/resources/rawfile/rich_editor.js"
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [
+        "static_wrapped"
+      ],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 4,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1454,
+      "memory_prepare_ms": 7908,
+      "query_elapsed_ms": 1808,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [
+          "windowsizechange"
+        ],
+        "runtime_observed_terms": [],
+        "required_log_files": [
+          "product/default/src/main/ets/MainAbility/MainAbility.ts"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "product/default/src/main/ets/MainAbility/MainAbility.ts",
+            "start_line": 78,
+            "end_line": 109
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "static_wrapped"
+        ],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "openharmony-notes-window-resize-freeze-owner::symptom-context",
+      "scenario_id": "openharmony-notes-window-resize-freeze-owner",
+      "query_variant": "symptom-context",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "required_log_evidence_classes_recalled": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "required_log_template_literals_recalled": false,
+        "required_log_files_recalled": false,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "common/resources/src/main/resources/rawfile/rich_editor.js",
+        "product/default/src/main/ets/pages/NoteHome.ets",
+        "product/default/src/main/ets/pages/NoteHomePortrait.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "common/resources/src/main/resources/rawfile/rich_editor.js",
+        "product/default/src/main/ets/pages/NoteHome.ets",
+        "product/default/src/main/ets/pages/NoteHomePortrait.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "common/resources/src/main/resources/rawfile/rich_editor.js",
+        "product/default/src/main/ets/pages/NoteHome.ets",
+        "product/default/src/main/ets/pages/NoteHomePortrait.ets"
+      ],
+      "missing_expected_anchors": [
+        "product/default/src/main/ets/MainAbility/MainAbility.ts"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [
+        "windowsizechange"
+      ],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [
+        "product/default/src/main/ets/MainAbility/MainAbility.ts"
+      ],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "product/default/src/main/ets/MainAbility/MainAbility.ts",
+          "start_line": 78,
+          "end_line": 109
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "product/default/src/main/ets/MainAbility/MainAbility.ts",
+            "start_line": 78,
+            "end_line": 109
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "product/default/src/main/ets/MainAbility/MainAbility.ts",
+            "start_line": 78,
+            "end_line": 109
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 4,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 4260
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "callable",
+        "candidate_file_count": 16,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "common/resources/src/main/resources/rawfile/rich_editor.js"
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [
+        "static_wrapped"
+      ],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 1,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1453,
+      "memory_prepare_ms": 9337,
+      "query_elapsed_ms": 3194,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [
+          "windowsizechange"
+        ],
+        "runtime_observed_terms": [],
+        "required_log_files": [
+          "product/default/src/main/ets/MainAbility/MainAbility.ts"
+        ],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "product/default/src/main/ets/MainAbility/MainAbility.ts",
+            "start_line": 78,
+            "end_line": 109
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [
+          "static_wrapped"
+        ],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "scope": "context_supply_only"
+  },
+  "next_gate": "repair_context_supply",
+  "calibration": {
+    "schema_version": "agent-context-calibration/v1",
+    "status": "informational",
+    "target_domain": null,
+    "profiled_case_count": 0,
+    "coverage": {
+      "target_levels": [],
+      "artifact_roles": [],
+      "mechanism_kinds": []
+    },
+    "contract_gaps": [],
+    "macro_metrics": {
+      "artifact_roles": {
+        "pass_rate": null,
+        "anchor_recall": null,
+        "anchor_precision": null,
+        "source_span_recall": null
+      },
+      "target_levels": {
+        "pass_rate": null,
+        "anchor_recall": null,
+        "anchor_precision": null,
+        "source_span_recall": null
+      },
+      "mechanism_kinds": {
+        "pass_rate": null,
+        "anchor_recall": null,
+        "anchor_precision": null,
+        "source_span_recall": null
+      }
+    },
+    "strata": {
+      "artifact_roles": [],
+      "target_levels": [],
+      "mechanism_kinds": []
+    },
+    "scope": "evaluation_only_not_injected_into_agent_context"
+  },
+  "calibration_gate": "not_required",
+  "promotion_eligible": false,
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 45,
+    "primary_failure_class": "candidate_generation",
+    "failure_class_counts": {
+      "candidate_generation": 23,
+      "passage_selection": 11,
+      "ranking_precision": 11
+    },
+    "failures": [
+      {
+        "case_id": "openharmony-notes-image-callback-owner::runtime-line",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-image-callback-owner::runtime-line",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-image-callback-owner::runtime-line",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-image-callback-owner::runtime-line",
+        "failed_check": "required_log_evidence_classes_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-image-callback-owner::runtime-line",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-image-callback-owner::runtime-line",
+        "failed_check": "required_log_template_literals_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-image-callback-owner::runtime-line",
+        "failed_check": "required_log_files_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-image-callback-owner::runtime-line",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-image-callback-owner::symptom-context",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-image-callback-owner::symptom-context",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-image-callback-owner::symptom-context",
+        "failed_check": "required_log_evidence_classes_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-image-callback-owner::symptom-context",
+        "failed_check": "required_log_template_literals_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-image-callback-owner::symptom-context",
+        "failed_check": "required_log_files_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::runtime-line",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::runtime-line",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::runtime-line",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::runtime-line",
+        "failed_check": "required_log_evidence_classes_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::runtime-line",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::runtime-line",
+        "failed_check": "required_log_template_literals_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::runtime-line",
+        "failed_check": "required_log_files_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::runtime-line",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::symptom-context",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::symptom-context",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::symptom-context",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::symptom-context",
+        "failed_check": "required_log_evidence_classes_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::symptom-context",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::symptom-context",
+        "failed_check": "required_log_template_literals_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::symptom-context",
+        "failed_check": "required_log_files_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-webview-page-end-owner::symptom-context",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::runtime-line",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::runtime-line",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::runtime-line",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::runtime-line",
+        "failed_check": "required_log_evidence_classes_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::runtime-line",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::runtime-line",
+        "failed_check": "required_log_template_literals_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::runtime-line",
+        "failed_check": "required_log_files_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::runtime-line",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::symptom-context",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::symptom-context",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::symptom-context",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::symptom-context",
+        "failed_check": "required_log_evidence_classes_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::symptom-context",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::symptom-context",
+        "failed_check": "required_log_template_literals_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::symptom-context",
+        "failed_check": "required_log_files_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "openharmony-notes-window-resize-freeze-owner::symptom-context",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout."
+  },
+  "case_seal": {
+    "status": "verified",
+    "required": true,
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "digest": "ffc8c7085e542f408e34e754978df73ec7c257e85cd7daa9c4c9542b9bfc197e",
+    "sealed_at": "2026-07-29T16:47:44+00:00",
+    "case_count": 3
+  },
+  "evaluation_governance": {
+    "status": "legacy_unclassified",
+    "enforced": false
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/openharmony-notes-log-owner-unseen-holdout-cases.sealed.json",
+  "selected_scenario_ids": [
+    "openharmony-notes-image-callback-owner",
+    "openharmony-notes-webview-page-end-owner",
+    "openharmony-notes-window-resize-freeze-owner"
+  ],
+  "selected_case_ids": [
+    "openharmony-notes-image-callback-owner::runtime-line",
+    "openharmony-notes-image-callback-owner::symptom-context",
+    "openharmony-notes-webview-page-end-owner::runtime-line",
+    "openharmony-notes-webview-page-end-owner::symptom-context",
+    "openharmony-notes-window-resize-freeze-owner::runtime-line",
+    "openharmony-notes-window-resize-freeze-owner::symptom-context"
+  ],
+  "source_project": "/private/tmp/agent-memory-external-oh-notes",
+  "recorded_at": "2026-07-29T16:49:33+00:00"
+}

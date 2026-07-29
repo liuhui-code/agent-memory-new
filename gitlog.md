@@ -7816,3 +7816,33 @@ Result:
   incremental-maintenance gates.
 - Python compilation, JSON, whitespace, four-Skill, and at-most-500-line gates pass.
   The consumed LocalSend and OHOTP packs were not modified or rerun.
+
+## 2026-07-30 - Run OpenHarmony Notes external event-owner gate
+
+What changed:
+
+- Froze Runtime revision `c242de2` and selected the previously unused official
+  `openharmony/applications_notes` repository after rejecting candidates with weak,
+  related, deleted, or post-fix-only evidence.
+- Source-reviewed three fixes covering an image callback crash, WebView page-end
+  crash, and resize-event UI freeze. Each parent revision already contains the stable
+  log template used by its query.
+- Added stable `required_log_template_literals` and informational
+  `runtime_observed_terms`, audited every revision and declared changed file, and
+  sealed the pack with digest
+  `ffc8c7085e542f408e34e754978df73ec7c257e85cd7daa9c4c9542b9bfc197e`.
+- Executed the sealed six-variant Context gate exactly once. The project is now
+  consumed and cannot be tuned on, changed, or rerun.
+
+Result:
+
+- The gate passes 0/6. Candidate file Recall@20 is 0.8333, anchor recall is 0.1667,
+  anchor precision is 0.0555, and source-span recall is 0. Compact output still passes
+  at an average 1,209.8333 Tokens.
+- Log graph observation and callable recall are both 0. Static audit confirms the
+  direct-log scanner accepts `hilog.*` while the TypeScript statement parser rejects
+  it, so `LogUtil.ts` emits no sink and every wrapped `LogUtil` event disappears.
+- ArkTS property arrow callbacks and nested builder callbacks also lack callable
+  intervals. The next repair must unify log APIs as declarative models and expose a
+  language-adapter callable-range contract, using independent fixtures and a different
+  future external holdout.

@@ -1,0 +1,264 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-external-oh-notes",
+  "source_repository": "https://github.com/openharmony/applications_notes.git",
+  "source_branch": "master",
+  "source_head_reviewed": "9ca45c4f41c6f710677436321064be6c40ac790f",
+  "runtime_revision": "c242de2",
+  "generated_at": "2026-07-30T00:00:00+08:00",
+  "generator": "git-history/v1+external-stable-log-owner-source-review",
+  "cases": [
+    {
+      "id": "openharmony-notes-image-callback-owner",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The editor crashes immediately after the runtime line note imgName is:/data/storage/el2/base/files/scan-42.png while returning a selected image path. Locate the event owner and the source passage that handles the image-path callback.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "note imgName is:/data/storage/el2/base/files/scan-42.png"
+        },
+        {
+          "id": "symptom-context",
+          "description": "The note editor crashes after note imgName is:/data/storage/el2/base/files/scan-42.png when an image callback updates the note. Return the event owner and relevant source."
+        }
+      ],
+      "source": {
+        "before_revision": "8ea39673609e957964714a9eabf69ad4b15e113b",
+        "after_revision": "cb966bbf22c14a148d127b244a42351cd9e13380",
+        "changed_files": [
+          "features/src/main/ets/components/NoteContentComp.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed_stable_log_owner",
+        "fix_commit": "cb966bbf22c14a148d127b244a42351cd9e13380",
+        "commit_message": "修复jscrash"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/src/main/ets/components/NoteContentComp.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "error_contract",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_template_literals": [
+            "note imgName is:"
+          ],
+          "runtime_observed_terms": [
+            "/data/storage/el2/base/files/scan-42.png"
+          ],
+          "required_log_files": [
+            "features/src/main/ets/components/NoteContentComp.ets"
+          ],
+          "required_log_evidence_classes": [
+            "static_wrapped"
+          ],
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+              "start_line": 158,
+              "end_line": 162
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Return an image path after the selected note has become unavailable and verify the callback is contained instead of terminating the UI process."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "openharmony-notes-webview-page-end-owner",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The note WebView logs finish loadurl and then the process reports a JavaScript crash while restoring editor content. Locate the event owner and the bounded source passage around the page-end work.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "finish loadurl"
+        },
+        {
+          "id": "symptom-context",
+          "description": "After finish loadurl, restoring note content through the WebView causes a JavaScript crash. Return the page-end event owner and relevant source."
+        }
+      ],
+      "source": {
+        "before_revision": "f677f222e5eb2b63dcd763d6586e485209f41394",
+        "after_revision": "363a10a702efba6a5bfa0d3afc61c4cd19ead5c5",
+        "changed_files": [
+          "features/src/main/ets/components/NoteContentComp.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed_stable_log_owner",
+        "fix_commit": "363a10a702efba6a5bfa0d3afc61c4cd19ead5c5",
+        "commit_message": "备忘录jscrash修复"
+      },
+      "oracle": {
+        "expected_files": [
+          "features/src/main/ets/components/NoteContentComp.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "error_contract",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_template_literals": [
+            "finish loadurl"
+          ],
+          "runtime_observed_terms": [],
+          "required_log_files": [
+            "features/src/main/ets/components/NoteContentComp.ets"
+          ],
+          "required_log_evidence_classes": [
+            "static_wrapped"
+          ],
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "features/src/main/ets/components/NoteContentComp.ets",
+              "start_line": 258,
+              "end_line": 287
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Force a WebView runJavaScript failure during page-end restoration and verify the callback contains and records the platform error."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "openharmony-notes-window-resize-freeze-owner",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Repeated resize activity is followed by the runtime line --------------- windowSizeChange --------------- and the Notes UI freezes. Locate the event owner and source passage that binds and handles the window event.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "--------------- windowSizeChange ---------------"
+        },
+        {
+          "id": "symptom-context",
+          "description": "The UI freezes during repeated resize events after --------------- windowSizeChange ---------------. Return the window-event owner and relevant source."
+        }
+      ],
+      "source": {
+        "before_revision": "d812cc06d946aa614925942430b9bbc86f814832",
+        "after_revision": "52b7b32cea5d16218b64caeac2fbad6fbe10394d",
+        "changed_files": [
+          "product/default/src/main/ets/MainAbility/MainAbility.ts"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed_stable_log_owner",
+        "fix_commit": "52b7b32cea5d16218b64caeac2fbad6fbe10394d",
+        "commit_message": "删除windowSizeChange监听，验证稳定性问题"
+      },
+      "oracle": {
+        "expected_files": [
+          "product/default/src/main/ets/MainAbility/MainAbility.ts"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "event_binding",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_template_literals": [
+            "windowSizeChange"
+          ],
+          "runtime_observed_terms": [],
+          "required_log_files": [
+            "product/default/src/main/ets/MainAbility/MainAbility.ts"
+          ],
+          "required_log_evidence_classes": [
+            "static_wrapped"
+          ],
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "product/default/src/main/ets/MainAbility/MainAbility.ts",
+              "start_line": 78,
+              "end_line": 109
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Generate repeated window-size changes while tracing the UI thread and verify removing the listener eliminates the observed freeze."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "require_seal": true
+  },
+  "evaluation_governance": {
+    "status": "legacy_unclassified",
+    "enforced": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-29T16:47:44+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "ffc8c7085e542f408e34e754978df73ec7c257e85cd7daa9c4c9542b9bfc197e"
+  }
+}
