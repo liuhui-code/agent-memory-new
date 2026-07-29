@@ -1,0 +1,67 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "docs/eval/fixtures/arkts-multilayer-repro",
+  "generated_at": "2026-07-28T00:00:00Z",
+  "generator": "project-neutral-retrieval-layer-reproduction/v1",
+  "cases": [
+    {
+      "id": "repro-bootstrap-stored-preference",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "At application launch, a saved display density is ignored. Locate the startup callable that reads the stored setting and applies the display configuration."},
+      "source": {"changed_files": ["src/bootstrap/DisplayPreferenceBootstrap.ets"]},
+      "oracle": {
+        "expected_files": ["src/bootstrap/DisplayPreferenceBootstrap.ets"],
+        "forbidden_files": ["src/bootstrap/BootstrapDiagnostics.ets"],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 1.0,
+          "required_source_spans": [{"file_path": "src/bootstrap/DisplayPreferenceBootstrap.ets", "start_line": 2, "end_line": 9}],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["utility"], "target_levels": ["callable"], "mechanism_kinds": ["persistence", "platform_api"]}
+    },
+    {
+      "id": "repro-coordinator-duplicate-work",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "A periodic refresh can run more than once after the coordinator resumes. Locate the routine that prevents duplicate scheduling before publishing the current snapshot."},
+      "source": {"changed_files": ["src/sync/RefreshCoordinator.ets"]},
+      "oracle": {
+        "expected_files": ["src/sync/RefreshCoordinator.ets"],
+        "forbidden_files": ["src/sync/RefreshStatusView.ets"],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 1.0,
+          "required_source_spans": [{"file_path": "src/sync/RefreshCoordinator.ets", "start_line": 4, "end_line": 12}],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["utility"], "target_levels": ["callable"], "mechanism_kinds": ["async_control", "ui_state"]}
+    },
+    {
+      "id": "repro-shortcut-panel-reuse",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "Selecting an inspector shortcut should focus an already-open panel instead of creating a duplicate. Locate the interaction expression that chooses between focus and open."},
+      "source": {"changed_files": ["src/panels/InspectorShortcut.ets"]},
+      "oracle": {
+        "expected_files": ["src/panels/InspectorShortcut.ets"],
+        "forbidden_files": ["src/panels/InspectorSummaryRow.ets"],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 1.0,
+          "required_source_spans": [{"file_path": "src/panels/InspectorShortcut.ets", "start_line": 6, "end_line": 12}],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["component"], "target_levels": ["expression"], "mechanism_kinds": ["navigation", "event_binding"]}
+    }
+  ],
+  "governance": {"oracle_hidden_from_runner": true, "raw_logs_persisted": false}
+}

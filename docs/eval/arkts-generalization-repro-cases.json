@@ -1,0 +1,67 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "docs/eval/fixtures/arkts-generalization-repro",
+  "generated_at": "2026-07-28T00:00:00Z",
+  "generator": "project-neutral-arkts-failure-reproduction/v1",
+  "cases": [
+    {
+      "id": "repro-same-domain-page-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "After switching collection sections, the view renders a reused selection. Locate the page owner that chooses which section content appears."},
+      "source": {"changed_files": ["src/pages/CollectionWorkspacePage.ets"]},
+      "oracle": {
+        "expected_files": ["src/pages/CollectionWorkspacePage.ets"],
+        "forbidden_files": ["src/pages/CollectionSearchPage.ets", "src/pages/CollectionHistoryPage.ets"],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 1.0,
+          "required_source_spans": [{"file_path": "src/pages/CollectionWorkspacePage.ets", "start_line": 23, "end_line": 29}],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["page"], "target_levels": ["callable"], "mechanism_kinds": ["ui_state", "event_binding"]}
+    },
+    {
+      "id": "repro-lifecycle-component-promotion",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "A global busy overlay opens but its spinner does not begin rotating. Locate the component lifecycle expression that starts the animation."},
+      "source": {"changed_files": ["src/components/DeferredSpinnerDialog.ets"]},
+      "oracle": {
+        "expected_files": ["src/components/DeferredSpinnerDialog.ets"],
+        "forbidden_files": ["src/events/BusyOverlayEvent.ets"],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 1.0,
+          "required_source_spans": [{"file_path": "src/components/DeferredSpinnerDialog.ets", "start_line": 6, "end_line": 10}],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["component"], "target_levels": ["expression"], "mechanism_kinds": ["async_control"]}
+    },
+    {
+      "id": "repro-late-callable-source-range",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "A dashboard should display the selected collection rather than the prior section. Locate the callable that assigns the collection display state."},
+      "source": {"changed_files": ["src/pages/WorkspaceDashboardPage.ets"]},
+      "oracle": {
+        "expected_files": ["src/pages/WorkspaceDashboardPage.ets"],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 1.0,
+          "required_source_spans": [{"file_path": "src/pages/WorkspaceDashboardPage.ets", "start_line": 38, "end_line": 41}],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["page"], "target_levels": ["callable"], "mechanism_kinds": ["ui_state"]}
+    }
+  ],
+  "governance": {"oracle_hidden_from_runner": true, "raw_logs_persisted": false}
+}

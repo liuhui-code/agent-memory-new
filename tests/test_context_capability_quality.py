@@ -76,6 +76,25 @@ class ContextCapabilityQualityTests(unittest.TestCase):
         self.assertIn("no_code_anchor", compact["evidence_gaps"])
         self.assertIn("no_log_anchor", compact["evidence_gaps"])
 
+    def test_compact_context_keeps_callable_evidence_advisory(self) -> None:
+        compact = compact_context({
+            "query": "profile save",
+            "query_handoff": {
+                "log_anchors": [], "code_anchors": [],
+                "callable_evidence": {
+                    "certainty": "uncertain",
+                    "primary": {"file_path": "src/Profile.ets", "symbol": "save"},
+                    "alternatives": [],
+                    "boundary": "retrieval_evidence_not_root_cause",
+                },
+                "path_context": {"activated": False, "path_candidates": []},
+            },
+        })
+
+        evidence = compact["query_handoff"]["callable_evidence"]
+        self.assertEqual("uncertain", evidence["certainty"])
+        self.assertEqual("retrieval_evidence_not_root_cause", evidence["boundary"])
+
 
 def capability_case(requirements: dict) -> dict:
     return {

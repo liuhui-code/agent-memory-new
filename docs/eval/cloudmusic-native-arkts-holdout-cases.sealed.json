@@ -1,0 +1,243 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-cloudmusic-harmonyos",
+  "source_repository": "https://github.com/Chenlvin/CloudMusic-HarmonyOSNext.git",
+  "source_branch": "master",
+  "source_head_reviewed": "724702c9eb5ae0695651eb995829c0b0c7834e0a",
+  "generated_at": "2026-07-28T00:00:00+08:00",
+  "generator": "native-arkts-source-review/v1",
+  "cases": [
+    {
+      "id": "cloudmusic-session-preference-restore",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A previously signed-in session is not restored during application startup. Locate the initialization callable that reads the saved credential, validates it, and continues with the user-specific load.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "a9ff23e181dda6b4630fdcc75818cc81d023ad64",
+        "after_revision": "8f7ebb02297df62f1ab6d3bfb4195652d0c292a8",
+        "changed_files": [
+          "entry/src/main/ets/common/functions/app/appInit.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "8f7ebb02297df62f1ab6d3bfb4195652d0c292a8",
+        "commit_message": "1.4.6 Update"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/common/functions/app/appInit.ets"
+        ],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/common/functions/app/appInit.ets",
+              "start_line": 51,
+              "end_line": 60
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "callable"
+        ],
+        "artifact_roles": [
+          "utility"
+        ],
+        "mechanism_kinds": [
+          "persistence",
+          "async_control"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "cloudmusic-lyric-interval-duplication",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The playback lyric display can create repeated update work after reactivation. Locate the callable that guards against duplicate scheduling and publishes the current lyric state.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "397f67fab4504f7e00350b41e5fa075f54bf6f4a",
+        "after_revision": "6dc574497e7a5b67664afae8f775770e78ef589b",
+        "changed_files": [
+          "entry/src/main/ets/common/utils/play/LyricUtils.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "6dc574497e7a5b67664afae8f775770e78ef589b",
+        "commit_message": "完善一些功能"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/common/utils/play/LyricUtils.ets"
+        ],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/common/utils/play/LyricUtils.ets",
+              "start_line": 77,
+              "end_line": 93
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "callable"
+        ],
+        "artifact_roles": [
+          "utility"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "ui_state"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "cloudmusic-card-route-reuse",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Selecting an audio-program card should reuse the already-open destination instead of stacking a duplicate route. Locate the UI selection expression that branches between pushing and replacing the destination.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "cb68d2fdb262753109dbea659076d540f434ec4b",
+        "after_revision": "8a5bb8c070e93379fdb3e336b5163f6ce7e320ba",
+        "changed_files": [
+          "entry/src/main/ets/components/cards/DjRadioCard.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "8a5bb8c070e93379fdb3e336b5163f6ce7e320ba",
+        "commit_message": "Fix: 播客页面无法跳转"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/cards/DjRadioCard.ets"
+        ],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/components/cards/DjRadioCard.ets",
+              "start_line": 42,
+              "end_line": 51
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "expression"
+        ],
+        "artifact_roles": [
+          "component"
+        ],
+        "mechanism_kinds": [
+          "navigation",
+          "event_binding"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "calibration": {
+      "target_domain": "native_arkts",
+      "minimum_case_count": 3,
+      "required_target_levels": [
+        "callable",
+        "expression"
+      ],
+      "required_artifact_roles": [
+        "utility",
+        "component"
+      ],
+      "required_mechanism_kinds": [
+        "persistence",
+        "async_control",
+        "ui_state",
+        "navigation",
+        "event_binding"
+      ]
+    },
+    "require_seal": true
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-28T09:54:55+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "51172b912130dabbbc2f870f176c49c036c69c5b5ca9cf7990621879d77a509d"
+  }
+}

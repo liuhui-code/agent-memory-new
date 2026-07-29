@@ -88,6 +88,9 @@ def create_schema(conn: sqlite3.Connection) -> None:
           method_evidence TEXT,
           string_evidence TEXT,
           mechanism_evidence TEXT,
+          owner_name TEXT,
+          owner_kind TEXT,
+          callable_roles TEXT,
           index_generation INTEGER NOT NULL DEFAULT 0,
           updated_at TEXT NOT NULL
         );

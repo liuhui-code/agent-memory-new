@@ -1,0 +1,253 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-openeye",
+  "source_repository": "https://github.com/WinWang/HarmoneyOpenEye.git",
+  "source_branch": "master",
+  "source_head_reviewed": "57f0542795336009aa0d46fd9fa5b07facc2ae87",
+  "generated_at": "2026-07-28T00:00:00+08:00",
+  "generator": "git-history/v1+native-arkts-source-review",
+  "cases": [
+    {
+      "id": "openeye-container-lazy-content-state",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Switching between content categories reuses the wrong lazy page selection. Locate the container page state and content-selection owner.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "6c883315a41a0f83e2f4a8b7b43079335be1c41f",
+        "after_revision": "8afb2ecc9f524fa0b87fb87cdf1efaf27b124612",
+        "changed_files": [
+          "entry/src/main/ets/pages/container/ContainerPage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "8afb2ecc9f524fa0b87fb87cdf1efaf27b124612",
+        "commit_message": "修复懒加载导致页面内容复用加载异常"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/container/ContainerPage.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_state_reuse",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/container/ContainerPage.ets",
+              "start_line": 28,
+              "end_line": 40
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "callable"
+        ],
+        "artifact_roles": [
+          "page"
+        ],
+        "mechanism_kinds": [
+          "ui_state",
+          "event_binding"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Navigate between category routes and verify each lazy content page receives its own selection state."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "openeye-loading-animation-lifecycle",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The shared loading dialog opens but its spinner animation does not begin reliably. Locate the lifecycle expression that starts the animation.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "9cf6af8baaa1edb30f5e82b5854934dac815c3be",
+        "after_revision": "6eb65eefdd62ef44dca30280e6bf3a3914cf7979",
+        "changed_files": [
+          "entry/src/main/ets/views/LoadingDialog.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "6eb65eefdd62ef44dca30280e6bf3a3914cf7979",
+        "commit_message": "适配Dialog+状态栏"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/views/LoadingDialog.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "lifecycle_animation_start",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/views/LoadingDialog.ets",
+              "start_line": 13,
+              "end_line": 16
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "expression"
+        ],
+        "artifact_roles": [
+          "component"
+        ],
+        "mechanism_kinds": [
+          "async_control"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Open the global loading dialog and verify the spinner begins after the dialog is attached."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "openeye-preferences-flush-persistence",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A saved application preference disappears after restart. Locate the shared preference write owner responsible for durable storage.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "a52c0560a700e4920db8e0d4ab56c37cd9ae6201",
+        "after_revision": "70b0f4f7c7205fa4983cbad962ad7698aaa45a94",
+        "changed_files": [
+          "entry/src/main/ets/utils/StorageUtils.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "70b0f4f7c7205fa4983cbad962ad7698aaa45a94",
+        "commit_message": "修改网络调用方式+CoordinateLayout尝试记住滚动位置恢复"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/utils/StorageUtils.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "persistence_commit",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/utils/StorageUtils.ets",
+              "start_line": 25,
+              "end_line": 29
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file"
+        ],
+        "artifact_roles": [
+          "utility"
+        ],
+        "mechanism_kinds": [
+          "persistence"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Save a preference, restart the application, and verify the stored value is available."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "calibration": {
+      "target_domain": "native_arkts",
+      "minimum_case_count": 3,
+      "required_target_levels": [
+        "file",
+        "callable",
+        "expression"
+      ],
+      "required_artifact_roles": [
+        "page",
+        "component",
+        "utility"
+      ],
+      "required_mechanism_kinds": [
+        "ui_state",
+        "async_control",
+        "persistence"
+      ]
+    },
+    "require_seal": true
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-28T07:55:06+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "af9e3c3f23209efd43320d194ac6bdf7f9274667059298178850887ca5e474b2"
+  }
+}

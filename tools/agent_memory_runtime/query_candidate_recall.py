@@ -88,6 +88,7 @@ CANDIDATE_CHANNEL_WEIGHTS = {
     "symbol_semantic_fts": 1.0,
     "broad_fts": 1.0,
     "method_body_fts": 0.8,
+    "behavior_method_fts": 1.35,
     "string_key_fts": 1.2,
     "semantic_mechanism_fts": 1.25,
     "passage_fts": 1.1,
@@ -322,6 +323,7 @@ def recall_table_candidates(
                 per_term_limit,
             )
     method_terms = method_evidence_focus_terms(query)
+    behavior_terms = behavior_marker_terms(query)
     if table_name == "code_symbols" and len(method_terms) >= 2:
         method_ids = fts_table_ids(
             conn, project, "code_method_fts",
@@ -330,6 +332,12 @@ def recall_table_candidates(
         )
         lane_ids["method_body_fts"] = qualifying_method_evidence_ids(
             conn, project, method_ids, method_terms
+        )
+    if table_name == "code_symbols" and behavior_terms:
+        lane_ids["behavior_method_fts"] = fts_table_ids(
+            conn, project, "code_method_fts",
+            fts_expression(behavior_terms, " OR "),
+            METHOD_EVIDENCE_RECALL_LIMIT,
         )
     fused = rank_fusion.fuse(lane_ids, limit)
     ordered = [item.record_id for item in fused.candidates]

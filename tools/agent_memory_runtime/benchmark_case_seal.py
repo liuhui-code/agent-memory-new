@@ -6,6 +6,7 @@ import hashlib
 import json
 from typing import Any
 
+from .context_calibration import validate_calibrated_holdout
 
 SEAL_SCHEMA = "agent-benchmark-case-seal/v1"
 REQUIRED_HIDDEN_FIELDS = {
@@ -75,6 +76,7 @@ def case_pack_seal_audit(pack: dict[str, Any]) -> dict[str, Any]:
 def case_pack_digest(pack: dict[str, Any]) -> str:
     payload = json_clone(pack)
     payload.pop("seal", None)
+    payload.pop("evaluation_governance", None)
     encoded = json.dumps(
         payload,
         ensure_ascii=False,
@@ -94,6 +96,7 @@ def validate_sealable_pack(pack: dict[str, Any]) -> None:
         raise SystemExit("sealed holdout requires at least one case")
     for case in cases:
         validate_sealable_case(case)
+    validate_calibrated_holdout(pack)
 
 
 def validate_sealable_case(case: Any) -> None:
@@ -129,4 +132,3 @@ def required_text(value: Any, label: str) -> str:
     if not text:
         raise SystemExit(f"benchmark case seal requires {label}")
     return text
-

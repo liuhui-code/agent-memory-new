@@ -15,6 +15,7 @@ from .benchmark_context_setup import apply_context_setup
 from .benchmark_memory import prepare_isolated_memory
 from .benchmark_workspace import materialized_workspace
 from .context_capability_cases import expand_context_cases
+from .context_calibration import assess_calibration, calibration_contract
 from .context_capability_eval import OBSERVATION_SCHEMA, evaluate_context_capability
 from .benchmark_case_seal import case_pack_seal_audit
 from .benchmark_failure_analysis import analyze_context_failures
@@ -28,8 +29,6 @@ HISTORY_LIMIT = 100
 
 
 def eval_context_capability_command(args: argparse.Namespace) -> None:
-    project = resolve_project(args.project, args.memory_home)
-    ensure_initialized(project)
     case_path = Path(args.cases).expanduser()
     pack = load_case_pack(case_path)
     cases = eligible_cases(pack, bool(args.allow_drafts))
@@ -50,11 +49,24 @@ def eval_context_capability_command(args: argparse.Namespace) -> None:
     )
     if not source.is_dir():
         raise SystemExit(f"context capability source directory not found: {source}")
+    reject_overlapping_memory_home(args.memory_home, source)
+    project = resolve_project(args.project, args.memory_home)
+    ensure_initialized(project)
     cases = expand_context_cases(scenario_cases)
     observations = collect_context_capabilities(source, cases, int(args.runner_timeout))
     result = evaluate_context_capability(cases, observations)
+    contract = calibration_contract(pack)
+    result["calibration"] = assess_calibration(cases, result["cases"], contract)
+    result["calibration_gate"] = result["calibration"]["status"] if contract else "not_required"
+    result["promotion_eligible"] = (
+        result["system_context_gate"] == "pass"
+        and result["calibration_gate"] in {"pass", "not_required"}
+    )
+    if not result["promotion_eligible"]:
+        result["next_gate"] = "repair_context_supply"
     result["failure_analysis"] = analyze_context_failures(result)
     result["case_seal"] = case_pack_seal_audit(pack)
+    result["evaluation_governance"] = pack.get("evaluation_governance", {})
     result.update({
         "project_id": project.project_id,
         "project_path": str(project.root),
@@ -66,8 +78,34 @@ def eval_context_capability_command(args: argparse.Namespace) -> None:
     })
     persist_context_capability(project, result)
     output(result, args.json)
-    if args.fail_on_fail and result["system_context_gate"] == "fail":
+    if args.fail_on_fail and not result["promotion_eligible"]:
         raise SystemExit(1)
+
+
+def reject_overlapping_memory_home(memory_home: str | None, source: Path) -> None:
+    if not memory_home:
+        return
+    configured_home = Path(memory_home).expanduser().resolve()
+    if paths_overlap(configured_home, source):
+        raise SystemExit(
+            "context capability memory home must not overlap the source directory"
+        )
+
+
+def paths_overlap(first: Path, second: Path) -> bool:
+    resolved_first = first.resolve()
+    resolved_second = second.resolve()
+    return is_within(resolved_first, resolved_second) or is_within(
+        resolved_second, resolved_first
+    )
+
+
+def is_within(path: Path, parent: Path) -> bool:
+    try:
+        path.relative_to(parent)
+    except ValueError:
+        return False
+    return True
 
 
 def limit_scenario_cases(
@@ -195,6 +233,7 @@ def summarize_context(
     budget = context.get("output_budget")
     budget = budget if isinstance(budget, dict) else {}
     log_anchors = records(handoff.get("log_anchors"))
+    callable_evidence = handoff.get("callable_evidence")
     return {
         "schema_version": OBSERVATION_SCHEMA,
         "case_id": case_id,
@@ -206,6 +245,7 @@ def summarize_context(
             item.get("file_path") for item in anchors if item.get("role") == "primary"
         ),
         "candidate_anchor_paths": candidate_paths,
+        "callable_evidence": compact_callable_evidence(callable_evidence),
         **localization,
         "hierarchical_audit_elapsed_ms": audit_ms,
         "excerpt_paths": unique_paths(
@@ -261,6 +301,20 @@ def candidate_paths_from_context(context: dict[str, Any]) -> list[str]:
         selected = fielded.get("candidate_refs") if isinstance(fielded, dict) else None
         refs.extend(records(selected or table.get("candidate_refs"))[:20] if isinstance(table, dict) else [])
     return unique_paths(item.get("file_path") for item in refs)
+
+
+def compact_callable_evidence(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {}
+    primary = value.get("primary") if isinstance(value.get("primary"), dict) else {}
+    return {
+        "certainty": str(value.get("certainty") or "unavailable"),
+        "primary": {
+            key: primary[key] for key in ("file_path", "symbol", "owner_kind")
+            if primary.get(key) not in (None, "")
+        },
+        "boundary": str(value.get("boundary") or ""),
+    }
 
 
 def hierarchical_localization_from_context(context: dict[str, Any]) -> dict[str, Any]:

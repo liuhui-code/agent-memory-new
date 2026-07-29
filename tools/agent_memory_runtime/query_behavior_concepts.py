@@ -391,6 +391,15 @@ BEHAVIOR_CONCEPTS = (
         markers=("conditionalbranch", "statewrite", "asyncboundary"),
     ),
     BehaviorConcept(
+        name="guarded_recurring_work",
+        trigger_groups=(
+            ("periodic", "duplicate"), ("recurring", "second"),
+            ("repeated", "timer"), ("周期", "重复"),
+            ("定时", "重复"),
+        ),
+        markers=("deferredexecution", "statebranch", "stateread"),
+    ),
+    BehaviorConcept(
         name="ui_command_binding",
         trigger_groups=(
             ("menu", "command"), ("menu", "entry", "invokes"),
@@ -417,6 +426,41 @@ BEHAVIOR_CONCEPTS = (
             ("错误对象",), ("服务层", "页面层"), ("catch", "返回值"),
         ),
         markers=("errorreturnboundary", "errorpresentationboundary"),
+    ),
+    BehaviorConcept(
+        name="lifecycle_visual_activation",
+        trigger_groups=(
+            ("lifecycle", "animation"), ("spinner", "rotating"),
+            ("component", "rotation"), ("生命周期", "动画"),
+            ("加载", "旋转"),
+        ),
+        markers=("lifecycleactivation", "deferredexecution", "statewrite"),
+    ),
+    BehaviorConcept(
+        name="state_driven_view_selection",
+        trigger_groups=(
+            ("switch", "section"), ("selection", "section"),
+            ("choose", "content"), ("选择", "内容"), ("切换", "区域"),
+        ),
+        markers=("statebranch", "stateread"),
+    ),
+    BehaviorConcept(
+        name="guarded_state_selection",
+        trigger_groups=(
+            ("only", "changes"), ("persist", "selection"),
+            ("active", "selection"), ("仅", "变更"),
+            ("保存", "选择"),
+        ),
+        markers=("statebranch", "stateread", "statewrite", "persistencewrite"),
+    ),
+    BehaviorConcept(
+        name="guarded_async_persistence",
+        trigger_groups=(
+            ("blank", "persist"), ("save", "trimmed"),
+            ("empty", "storage"), ("为空", "持久化"),
+            ("保存", "去除空白"),
+        ),
+        markers=("asyncboundary", "guardreturn", "stateread", "persistencewrite"),
     ),
 )
 

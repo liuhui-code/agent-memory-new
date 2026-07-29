@@ -14,6 +14,7 @@ from .query_edges import network_limits
 from .query_followups import infer_followup_focus, suggested_followup_terms
 from .query_handoff import build_query_handoff
 from .query_hierarchical_localization import SQLiteHierarchicalLocalizer
+from .query_callable_evidence import callable_evidence
 from .query_intents import gate_matches_by_intent
 from .storage import connect, now_iso
 
@@ -72,6 +73,7 @@ def limited_context(
         for item in bounded["code_log_matches"]
     ]
     followup_focus = infer_followup_focus(query, bounded)
+    localization = SQLiteHierarchicalLocalizer().localize(project, query, gated["matches"])
     context = {
         "project_id": project.project_id,
         "project_path": str(project.root),
@@ -98,16 +100,14 @@ def limited_context(
         "network_limits": network_limits(),
         "source_freshness": collection.recall_audit.get("source_freshness", {}),
     }
+    context["query_handoff"]["callable_evidence"] = callable_evidence(localization)
     calibrate_payload(context)
     context["query_audit"] = build_query_audit(
         context,
         collection.recall_audit,
         retrieval_stage_counts(matches, gated["matches"], bounded),
     )
-    if enable_passage_shadow:
-        context["query_audit"]["hierarchical_localization"] = (
-            SQLiteHierarchicalLocalizer().localize(project, query, gated["matches"])
-        )
+    context["query_audit"]["hierarchical_localization"] = localization
     record_context_use(project, context)
     record_query_miss_if_empty(project, "context", query, context)
     return context

@@ -1,0 +1,37 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "docs/eval/fixtures/arkts-layered-repro",
+  "generated_at": "2026-07-28T00:00:00Z",
+  "generator": "project-neutral-three-layer-reproduction/v1",
+  "cases": [
+    {
+      "id": "layered-reader-setting-hydration",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "When the reading screen becomes available, a saved text scale is not applied. Locate the callable that reads the durable display setting and applies it to the reader."},
+      "source": {"changed_files": ["src/reader/ReaderSettingsBridge.ets"]},
+      "oracle": {"expected_files": ["src/reader/ReaderSettingsBridge.ets"], "forbidden_files": ["src/reader/ReaderLandingTelemetry.ets"], "context_requirements": {"require_source_excerpt": true, "required_top_k": 1, "min_anchor_precision": 1.0, "required_source_spans": [{"file_path": "src/reader/ReaderSettingsBridge.ets", "start_line": 2, "end_line": 9}], "min_source_span_recall": 1.0}},
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["utility"], "target_levels": ["callable"], "mechanism_kinds": ["persistence", "platform_api"]}
+    },
+    {
+      "id": "layered-delivery-cycle-guard",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "A recurring delivery retry can start another timer after recovery. Locate the routine that rejects a second schedule before publishing the pending delivery state."},
+      "source": {"changed_files": ["src/notifications/DeliveryRetryCoordinator.ets"]},
+      "oracle": {"expected_files": ["src/notifications/DeliveryRetryCoordinator.ets"], "forbidden_files": ["src/notifications/DeliveryRetryBanner.ets"], "context_requirements": {"require_source_excerpt": true, "required_top_k": 1, "min_anchor_precision": 1.0, "required_source_spans": [{"file_path": "src/notifications/DeliveryRetryCoordinator.ets", "start_line": 4, "end_line": 12}], "min_source_span_recall": 1.0}},
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["utility"], "target_levels": ["callable"], "mechanism_kinds": ["async_control", "ui_state"]}
+    },
+    {
+      "id": "layered-workspace-active-window",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "Choosing a workspace should update the active workspace only when it changes, then persist that choice. Locate the interaction callable that guards, assigns, and saves the selected workspace."},
+      "source": {"changed_files": ["src/workspace/WorkspaceSwitcher.ets"]},
+      "oracle": {"expected_files": ["src/workspace/WorkspaceSwitcher.ets"], "forbidden_files": ["src/workspace/WorkspaceSummary.ets"], "context_requirements": {"require_source_excerpt": true, "required_top_k": 1, "min_anchor_precision": 1.0, "required_source_spans": [{"file_path": "src/workspace/WorkspaceSwitcher.ets", "start_line": 5, "end_line": 11}], "min_source_span_recall": 1.0}},
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["component"], "target_levels": ["callable"], "mechanism_kinds": ["event_binding", "ui_state", "persistence"]}
+    }
+  ],
+  "governance": {"oracle_hidden_from_runner": true, "raw_logs_persisted": false}
+}

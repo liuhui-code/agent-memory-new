@@ -1,0 +1,61 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "docs/eval/fixtures/arkts-role-funnel-repro",
+  "generated_at": "2026-07-29T00:00:00Z",
+  "generator": "project-neutral-owner-role-funnel/v1",
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "raw_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "development",
+      "change_policy": "editable",
+      "source_isolation": "project_neutral"
+    }
+  },
+  "cases": [
+    {
+      "id": "role-viewmodel-draft-commit",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "Blank profile draft input is ignored. Locate the asynchronous ViewModel callable that trims the name, guards empty input, and persists it."},
+      "query_variants": [
+        {"id": "role", "description": "Find the ViewModel method that stores a nonempty profile draft."},
+        {"id": "behavior", "description": "Profile draft save does nothing for blank text; where are the trim, guard, and async write performed?"}
+      ],
+      "source": {"changed_files": ["src/profile/ProfileDraftViewModel.ets"]},
+      "provenance": {"source_family": "synthetic-role-collision/v1", "independence_basis": "constructed from owner-role contracts without external holdout identifiers"},
+      "oracle": {"expected_files": ["src/profile/ProfileDraftViewModel.ets"], "forbidden_files": ["src/profile/ProfileDraftHelp.ets"], "context_requirements": {"require_source_excerpt": true, "required_top_k": 1, "min_anchor_precision": 1.0, "required_source_spans": [{"file_path": "src/profile/ProfileDraftViewModel.ets", "start_line": 5, "end_line": 11}], "hierarchical_callable_spans": [{"file_path": "src/profile/ProfileDraftViewModel.ets", "symbol": "commitDraft"}], "hierarchical_range_spans": [{"file_path": "src/profile/ProfileDraftViewModel.ets", "start_line": 5, "end_line": 11}], "min_source_span_recall": 1.0}},
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["viewmodel"], "target_levels": ["callable"], "mechanism_kinds": ["persistence", "async_control", "ui_state"]}
+    },
+    {
+      "id": "role-store-session-persist",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "The latest session selection is not durable. Locate the Store callable that rejects an empty id, updates its state, and writes the preference."},
+      "query_variants": [
+        {"id": "role", "description": "Find the Store method that persists the latest nonempty session id."},
+        {"id": "behavior", "description": "Where does session selection guard an empty id and save it to preferences?"}
+      ],
+      "source": {"changed_files": ["src/session/SessionDraftStore.ets"]},
+      "provenance": {"source_family": "synthetic-role-collision/v1", "independence_basis": "constructed from owner-role contracts without external holdout identifiers"},
+      "oracle": {"expected_files": ["src/session/SessionDraftStore.ets"], "forbidden_files": ["src/session/SessionDraftService.ets"], "context_requirements": {"require_source_excerpt": true, "required_top_k": 1, "min_anchor_precision": 1.0, "required_source_spans": [{"file_path": "src/session/SessionDraftStore.ets", "start_line": 4, "end_line": 10}], "hierarchical_callable_spans": [{"file_path": "src/session/SessionDraftStore.ets", "symbol": "saveLatest"}], "hierarchical_range_spans": [{"file_path": "src/session/SessionDraftStore.ets", "start_line": 4, "end_line": 10}], "min_source_span_recall": 1.0}},
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["store"], "target_levels": ["callable"], "mechanism_kinds": ["persistence", "async_control"]}
+    },
+    {
+      "id": "role-component-editor-save",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "An editor Save click ignores blank text. Locate the Component callable that normalizes the subject, returns for empty input, and invokes the draft write."},
+      "query_variants": [
+        {"id": "role", "description": "Find the Component method called by Save that applies a nonempty editor subject."},
+        {"id": "behavior", "description": "Save button text is blank-safe; where is editor subject trimmed before the draft write?"}
+      ],
+      "source": {"changed_files": ["src/editor/EditorSavePanel.ets"]},
+      "provenance": {"source_family": "synthetic-role-collision/v1", "independence_basis": "constructed from owner-role contracts without external holdout identifiers"},
+      "oracle": {"expected_files": ["src/editor/EditorSavePanel.ets"], "forbidden_files": ["src/editor/EditorSaveHint.ets"], "context_requirements": {"require_source_excerpt": true, "required_top_k": 1, "min_anchor_precision": 1.0, "required_source_spans": [{"file_path": "src/editor/EditorSavePanel.ets", "start_line": 5, "end_line": 11}], "hierarchical_callable_spans": [{"file_path": "src/editor/EditorSavePanel.ets", "symbol": "applySubject"}], "hierarchical_range_spans": [{"file_path": "src/editor/EditorSavePanel.ets", "start_line": 5, "end_line": 11}], "min_source_span_recall": 1.0}},
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["component"], "target_levels": ["callable"], "mechanism_kinds": ["event_binding", "persistence", "ui_state"]}
+    }
+  ]
+}

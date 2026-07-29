@@ -9,6 +9,7 @@ from typing import Any
 
 from .agent_benchmark_cases import eligible_cases, load_case_pack
 from .agent_benchmark_eval import evaluate_agent_benchmark
+from .agent_evidence_utility import evaluate_agent_evidence_utility
 from .agent_benchmark_protocol import RESPONSES_SCHEMA, load_observations, run_benchmark_agent
 from .benchmark_case_seal import case_pack_seal_audit
 from .benchmark_failure_analysis import analyze_agent_failures
@@ -48,6 +49,8 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
     selected_ids = {case["id"] for case in cases}
     observations = [item for item in observations if item["case_id"] in selected_ids]
     result = evaluate_agent_benchmark(pack, cases, observations)
+    result["evidence_utility"] = evaluate_agent_evidence_utility(cases, observations)
+    result["evaluation_governance"] = pack.get("evaluation_governance", {})
     result["failure_analysis"] = analyze_agent_failures(result)
     result["case_seal"] = case_pack_seal_audit(pack)
     result.update({
@@ -148,6 +151,7 @@ def persist_benchmark_result(project: Any, result: dict[str, Any]) -> None:
             "context_uplift", "gate_checks", "case_file", "runner_mode",
             "selected_case_ids", "runner_configuration",
             "requested_trials", "failure_analysis", "case_seal",
+            "evidence_utility", "evaluation_governance",
         )
     }
     compact["recorded_at"] = now_iso()

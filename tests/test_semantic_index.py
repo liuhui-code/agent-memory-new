@@ -155,6 +155,21 @@ struct ProfilePage {
         self.assertGreater(stats["mechanisms_extracted"], 0)
         self.assertTrue(all(row["evidence_kind"].startswith("static_semantic") for row in edges))
 
+    def test_learning_persists_callable_owner_and_roles(self) -> None:
+        self.learn_all()
+        rows = self.db_rows(
+            """
+            SELECT owner_name, owner_kind, callable_roles
+            FROM code_symbols
+            WHERE project_id = ? AND qualified_name = 'ProfilePage.handleSave'
+            """,
+            (self.project_id(self.project),),
+        )
+
+        self.assertEqual("ProfilePage", rows[0]["owner_name"])
+        self.assertEqual("component", rows[0]["owner_kind"])
+        self.assertIn("state_write", json.loads(rows[0]["callable_roles"]))
+
     def test_static_async_arkts_methods_receive_semantic_identity(self) -> None:
         self.write_file(
             "service/StaticService.ets",

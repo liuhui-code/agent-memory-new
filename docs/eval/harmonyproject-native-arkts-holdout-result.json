@@ -1,0 +1,826 @@
+{
+  "schema_version": "agent-context-capability-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 3,
+    "passed_case_count": 0,
+    "failed_case_count": 3,
+    "scenario_count": 3,
+    "stable_scenario_count": 0,
+    "query_variant_pass_rate": 0.0,
+    "average_context_tokens": 1048.0,
+    "average_memory_prepare_ms": 1744.6667,
+    "average_query_elapsed_ms": 650.3333
+  },
+  "capability_profile": {
+    "code_locator": {
+      "status": "fail",
+      "evaluated_cases": 3,
+      "anchor_recall": 0.3333,
+      "primary_anchor_recall": 0.3333,
+      "candidate_file_recall_at_20": 0.6667,
+      "oracle_anchor_precision": 0.0833,
+      "expected_anchor_mrr": 0.3333
+    },
+    "source_evidence": {
+      "status": "fail",
+      "evaluated_cases": 3,
+      "observed_case_count": 3,
+      "source_excerpt_recall": 0.3333,
+      "source_span_recall": 0.0
+    },
+    "log_graph": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "experience": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "causal_context": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_path_case_count": 0,
+      "observed_relation_case_count": 0
+    },
+    "hierarchical_localization": {
+      "status": "informational",
+      "evaluated_cases": 3,
+      "observed_case_count": 3,
+      "file_evaluated_case_count": 3,
+      "callable_evaluated_case_count": 3,
+      "owner_evaluated_case_count": 0,
+      "range_evaluated_case_count": 3,
+      "file_recall": 0.6667,
+      "callable_recall": 0.6667,
+      "owner_recall": null,
+      "owner_precision": null,
+      "range_recall": 0.6667,
+      "average_audit_elapsed_ms": 688.0
+    },
+    "abstention": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "compactness": {
+      "status": "pass",
+      "evaluated_cases": 3,
+      "average_context_tokens": 1048.0,
+      "token_budget": 1500
+    },
+    "query_robustness": {
+      "status": "fail",
+      "scenario_count": 3,
+      "stable_scenario_count": 0,
+      "variant_count": 3,
+      "passed_variant_count": 0,
+      "variant_pass_rate": 0.0,
+      "scenarios": [
+        {
+          "scenario_id": "harmonyproject-recent-search-persistence",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "harmonyproject-result-parameter-restore",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "harmonyproject-product-scroll-control",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "case_id": "harmonyproject-recent-search-persistence",
+      "scenario_id": "harmonyproject-recent-search-persistence",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/api/search/index.ets",
+        "entry/src/main/ets/pages/search/SearchPage.ets",
+        "entry/src/main/ets/pages/search/SearchShowPage.ets",
+        "entry/src/main/ets/pages/search/filter/SearchFilter.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/pages/search/SearchPage.ets",
+        "entry/src/main/ets/pages/search/SearchShowPage.ets",
+        "entry/src/main/ets/pages/search/filter/SearchFilter.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/pages/search/SearchPage.ets",
+        "entry/src/main/ets/pages/search/SearchShowPage.ets",
+        "entry/src/main/ets/pages/search/filter/SearchFilter.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/pages/search/SearchPage.ets",
+          "start_line": 35,
+          "end_line": 45
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 1.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 2,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 669
+      },
+      "abstention_observed": false,
+      "anchor_count": 4,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1244,
+      "memory_prepare_ms": 1714,
+      "query_elapsed_ms": 634,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/search/SearchPage.ets",
+            "start_line": 35,
+            "end_line": 45
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": []
+      }
+    },
+    {
+      "case_id": "harmonyproject-result-parameter-restore",
+      "scenario_id": "harmonyproject-result-parameter-restore",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/home/main/HomeHeader.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/pages/home/main/HomeHeader.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/pages/home/main/HomeHeader.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/search/SearchShowPage.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/pages/search/SearchShowPage.ets",
+          "start_line": 38,
+          "end_line": 43
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 1.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 4,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 854
+      },
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 692,
+      "memory_prepare_ms": 1745,
+      "query_elapsed_ms": 825,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/search/SearchShowPage.ets",
+            "start_line": 38,
+            "end_line": 43
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": []
+      }
+    },
+    {
+      "case_id": "harmonyproject-product-scroll-control",
+      "scenario_id": "harmonyproject-product-scroll-control",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/api/home/index.ets",
+        "entry/src/main/ets/pages/Index.ets",
+        "entry/src/main/ets/pages/activity/product/NewProduct.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/api/home/index.ets",
+        "entry/src/main/ets/pages/Index.ets",
+        "entry/src/main/ets/pages/activity/product/NewProduct.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/api/home/index.ets",
+        "entry/src/main/ets/pages/Index.ets",
+        "entry/src/main/ets/pages/activity/product/NewProduct.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/product/ProductDetail.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/pages/product/ProductDetail.ets",
+          "start_line": 40,
+          "end_line": 42
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 0.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/pages/product/ProductDetail.ets",
+            "start_line": 40,
+            "end_line": 42
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/pages/product/ProductDetail.ets",
+            "start_line": 40,
+            "end_line": 42
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 5,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 541
+      },
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1208,
+      "memory_prepare_ms": 1775,
+      "query_elapsed_ms": 492,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/product/ProductDetail.ets",
+            "start_line": 40,
+            "end_line": 42
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": []
+      }
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "scope": "context_supply_only"
+  },
+  "next_gate": "repair_context_supply",
+  "calibration": {
+    "schema_version": "agent-context-calibration/v1",
+    "status": "pass",
+    "target_domain": "native_arkts",
+    "profiled_case_count": 3,
+    "coverage": {
+      "target_levels": [
+        "callable"
+      ],
+      "artifact_roles": [
+        "page"
+      ],
+      "mechanism_kinds": [
+        "async_control",
+        "navigation",
+        "persistence",
+        "ui_state"
+      ]
+    },
+    "contract_gaps": [],
+    "macro_metrics": {
+      "artifact_roles": {
+        "pass_rate": 0.0,
+        "anchor_recall": 0.3333,
+        "anchor_precision": 0.0833,
+        "source_span_recall": 0.0
+      },
+      "target_levels": {
+        "pass_rate": 0.0,
+        "anchor_recall": 0.3333,
+        "anchor_precision": 0.0833,
+        "source_span_recall": 0.0
+      },
+      "mechanism_kinds": {
+        "pass_rate": 0.0,
+        "anchor_recall": 0.4583,
+        "anchor_precision": 0.1146,
+        "source_span_recall": 0.0
+      }
+    },
+    "strata": {
+      "artifact_roles": [
+        {
+          "label": "page",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.3333,
+          "anchor_precision": 0.0833,
+          "source_span_recall": 0.0
+        }
+      ],
+      "target_levels": [
+        {
+          "label": "callable",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.3333,
+          "anchor_precision": 0.0833,
+          "source_span_recall": 0.0
+        }
+      ],
+      "mechanism_kinds": [
+        {
+          "label": "async_control",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "navigation",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.5,
+          "anchor_precision": 0.125,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "persistence",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 1.0,
+          "anchor_precision": 0.25,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "ui_state",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.3333,
+          "anchor_precision": 0.0833,
+          "source_span_recall": 0.0
+        }
+      ]
+    },
+    "scope": "evaluation_only_not_injected_into_agent_context"
+  },
+  "calibration_gate": "pass",
+  "promotion_eligible": false,
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 12,
+    "primary_failure_class": "ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 2,
+      "passage_selection": 5,
+      "ranking_precision": 5
+    },
+    "failures": [
+      {
+        "case_id": "harmonyproject-recent-search-persistence",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "harmonyproject-recent-search-persistence",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "harmonyproject-result-parameter-restore",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "harmonyproject-result-parameter-restore",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "harmonyproject-result-parameter-restore",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "harmonyproject-result-parameter-restore",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "harmonyproject-result-parameter-restore",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "harmonyproject-product-scroll-control",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "harmonyproject-product-scroll-control",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "harmonyproject-product-scroll-control",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "harmonyproject-product-scroll-control",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "harmonyproject-product-scroll-control",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout."
+  },
+  "case_seal": {
+    "status": "verified",
+    "required": true,
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "digest": "e9ce187d7e977ea6554d155299646cfaa4448bef2d10b8fb2750e7e03428afcd",
+    "sealed_at": "2026-07-28T10:29:30+00:00",
+    "case_count": 3
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/harmonyproject-native-arkts-holdout-cases.sealed.json",
+  "selected_scenario_ids": [
+    "harmonyproject-recent-search-persistence",
+    "harmonyproject-result-parameter-restore",
+    "harmonyproject-product-scroll-control"
+  ],
+  "selected_case_ids": [
+    "harmonyproject-recent-search-persistence",
+    "harmonyproject-result-parameter-restore",
+    "harmonyproject-product-scroll-control"
+  ],
+  "source_project": "/private/tmp/agent-memory-harmonyproject-holdout",
+  "recorded_at": "2026-07-28T10:29:47+00:00"
+}

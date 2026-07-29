@@ -1,0 +1,49 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-harmonyproject-holdout",
+  "source_repository": "https://github.com/youfrweb/harmonyProject.git",
+  "source_branch": "master",
+  "source_head_reviewed": "c95207f5ef319719a960c9e9a75b0c14a24842eb",
+  "generated_at": "2026-07-28T00:00:00+08:00",
+  "generator": "native-arkts-source-review/v1",
+  "cases": [
+    {
+      "id": "harmonyproject-recent-search-persistence",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {"description": "Submitting a search should retain the query for recent-search suggestions while avoiding duplicate entries. Locate the handler that routes to results and updates the ordered stored search list.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "17b75a324379a9f84f7d3b6b359d75eb3a179472", "after_revision": "9f015c84f3a37adf7aac0a5af74e35ac1e8059fa", "changed_files": ["entry/src/main/ets/pages/search/SearchPage.ets"], "test_files": []},
+      "provenance": {"kind": "git_history_source_reviewed", "fix_commit": "9f015c84f3a37adf7aac0a5af74e35ac1e8059fa", "commit_message": "存储最近搜索"},
+      "oracle": {"expected_files": ["entry/src/main/ets/pages/search/SearchPage.ets"], "forbidden_files": [], "context_requirements": {"require_source_excerpt": true, "required_top_k": 2, "min_anchor_precision": 0.5, "required_source_spans": [{"file_path": "entry/src/main/ets/pages/search/SearchPage.ets", "start_line": 35, "end_line": 45}], "min_source_span_recall": 1.0}},
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["page"], "target_levels": ["callable"], "mechanism_kinds": ["persistence", "navigation", "ui_state"]},
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "harmonyproject-result-parameter-restore",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {"description": "The result page must restore the submitted query when it appears so the result header reflects the active search. Locate the lifecycle callable that reads and stores the route parameters.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "fde0402a1e57f7a5a430815c9a2bb2ed5c2885c9", "after_revision": "17b75a324379a9f84f7d3b6b359d75eb3a179472", "changed_files": ["entry/src/main/ets/pages/search/SearchShowPage.ets"], "test_files": []},
+      "provenance": {"kind": "git_history_source_reviewed", "fix_commit": "17b75a324379a9f84f7d3b6b359d75eb3a179472", "commit_message": "查询结果页专区"},
+      "oracle": {"expected_files": ["entry/src/main/ets/pages/search/SearchShowPage.ets"], "forbidden_files": [], "context_requirements": {"require_source_excerpt": true, "required_top_k": 2, "min_anchor_precision": 0.5, "required_source_spans": [{"file_path": "entry/src/main/ets/pages/search/SearchShowPage.ets", "start_line": 38, "end_line": 43}], "min_source_span_recall": 1.0}},
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["page"], "target_levels": ["callable"], "mechanism_kinds": ["navigation", "ui_state", "async_control"]},
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "harmonyproject-product-scroll-control",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {"description": "A product detail action needs to move the product list to a selected position. Locate the page callable that delegates the requested index to the list scroller.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "258a8d6ea78acf65709f3b20bd8eb67ce55da6ad", "after_revision": "a80be3a0899972b86857c862f1bee68941e1b8a0", "changed_files": ["entry/src/main/ets/pages/product/ProductDetail.ets"], "test_files": []},
+      "provenance": {"kind": "git_history_source_reviewed", "fix_commit": "a80be3a0899972b86857c862f1bee68941e1b8a0", "commit_message": "商品详情"},
+      "oracle": {"expected_files": ["entry/src/main/ets/pages/product/ProductDetail.ets"], "forbidden_files": [], "context_requirements": {"require_source_excerpt": true, "required_top_k": 2, "min_anchor_precision": 0.5, "required_source_spans": [{"file_path": "entry/src/main/ets/pages/product/ProductDetail.ets", "start_line": 40, "end_line": 42}], "min_source_span_recall": 1.0}},
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["page"], "target_levels": ["callable"], "mechanism_kinds": ["ui_state"]},
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    }
+  ],
+  "governance": {"oracle_hidden_from_runner": true, "holdout_requires_review": true, "raw_logs_persisted": false, "calibration": {"target_domain": "native_arkts", "minimum_case_count": 3, "required_target_levels": ["callable"], "required_artifact_roles": ["page"], "required_mechanism_kinds": ["persistence", "navigation", "ui_state", "async_control"]}}
+}

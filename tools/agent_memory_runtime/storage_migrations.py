@@ -311,6 +311,9 @@ def create_post_migration_indexes(conn: sqlite3.Connection) -> None:
         CREATE INDEX IF NOT EXISTS idx_code_symbols_project_qualified_lookup
         ON code_symbols(project_id, qualified_name);
 
+        CREATE INDEX IF NOT EXISTS idx_code_symbols_project_owner_kind
+        ON code_symbols(project_id, owner_kind, file_path);
+
         CREATE INDEX IF NOT EXISTS idx_code_files_project_generation
         ON code_files(project_id, index_generation, file_path);
 

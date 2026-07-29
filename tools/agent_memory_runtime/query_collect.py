@@ -16,6 +16,7 @@ from .models import Project
 from .quality_scoring import score_reflection_quality, score_semantic_quality
 from .query_edges import collect_related_edge_candidates
 from .query_code_focus import score_file_behavior_match
+from .query_behavior_concepts import behavior_marker_terms
 from .query_code_ranking import score_query_focus_coverage
 from .query_candidate_recall import (
     CandidateRecallBatch,
@@ -87,6 +88,7 @@ def collect_matches_with_audit(
     original_terms = set(tokenize(retrieval_query))
     expanded_terms = set(tokens) - original_terms
     method_focus_terms = method_evidence_focus_terms(retrieval_query)
+    behavior_terms = behavior_marker_terms(retrieval_query)
     results: dict[str, list[dict[str, Any]]] = {
         "semantic_facts": [],
         "reflections": [],
@@ -304,6 +306,9 @@ def collect_matches_with_audit(
         score, reasons = score_query_focus_coverage(
             retrieval_query, " ".join(search_terms), score, reasons
         )
+        score, reasons, behavior_coverage = score_symbol_behavior_match(
+            row["method_evidence"] or "", behavior_terms, score, reasons
+        )
         if row["symbol_type"] == "resource":
             score -= 8.0
         elif score > 0 and row["start_line"] and row["end_line"]:
@@ -313,6 +318,7 @@ def collect_matches_with_audit(
             item = row_dict(row)
             attach_recall_metadata(item, recalled, "code_symbols")
             item["method_evidence_coverage"] = method_coverage
+            item["semantic_behavior_coverage"] = behavior_coverage
             if method_coverage >= 3:
                 reasons = unique_list([*reasons, "multi_term_method_evidence"])
             item["kind"] = "symbol"
@@ -394,6 +400,22 @@ def collect_matches_with_audit(
     for key in results:
         results[key].sort(key=lambda item: (item.get("rerank_score", item.get("score", 0)), item.get("created_at", "")), reverse=True)
     return CollectedMatches(results, recalled.audit)
+
+
+def score_symbol_behavior_match(
+    evidence: str,
+    expected: list[str],
+    score: float,
+    reasons: list[str],
+) -> tuple[float, list[str], int]:
+    if not expected:
+        return score, reasons, 0
+    observed = set(tokenize(evidence))
+    coverage = len(set(expected) & observed)
+    if coverage:
+        score += 7.0 + 3.0 * (coverage - 1)
+        reasons = unique_list([*reasons, "semantic_behavior"])
+    return score, reasons, coverage
 
 
 def attach_recall_metadata(

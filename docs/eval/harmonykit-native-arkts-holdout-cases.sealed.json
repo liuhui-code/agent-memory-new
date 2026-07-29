@@ -1,0 +1,240 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-harmonykit-holdout",
+  "source_repository": "https://github.com/Joker-x-dev/HarmonyKit.git",
+  "source_branch": "master",
+  "source_head_reviewed": "f97197ce157df7f303244fba42e34918306dfb08",
+  "generated_at": "2026-07-28T00:00:00+08:00",
+  "generator": "native-arkts-source-review/v1",
+  "cases": [
+    {
+      "id": "harmonykit-account-save",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A local account entry should ignore blank input and persist a trimmed value. Locate the asynchronous callable that applies this guard and delegates the save.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "2bd050b415e604fdb95d7326ad9e263d537322b1",
+        "after_revision": "9cc6f7d28d5dcbe86aa88e78f1b99cc9e8d87970",
+        "changed_files": [
+          "feature/demo/src/main/ets/viewmodel/LocalStorageViewModel.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "9cc6f7d28d5dcbe86aa88e78f1b99cc9e8d87970",
+        "commit_message": "本地存储示例"
+      },
+      "oracle": {
+        "expected_files": [
+          "feature/demo/src/main/ets/viewmodel/LocalStorageViewModel.ets"
+        ],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "feature/demo/src/main/ets/viewmodel/LocalStorageViewModel.ets",
+              "start_line": 38,
+              "end_line": 44
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "callable"
+        ],
+        "artifact_roles": [
+          "viewmodel"
+        ],
+        "mechanism_kinds": [
+          "persistence",
+          "async_control",
+          "ui_state"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "harmonykit-shared-counter-update",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A shared demonstration counter should increase through its state holder rather than a detached view value. Locate the callable that forwards the increment action to the shared state.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "9cc6f7d28d5dcbe86aa88e78f1b99cc9e8d87970",
+        "after_revision": "bd895766fa92e9d5a853d5bbfa1ba512a2d38e8a",
+        "changed_files": [
+          "feature/demo/src/main/ets/viewmodel/StateManagementViewModel.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "bd895766fa92e9d5a853d5bbfa1ba512a2d38e8a",
+        "commit_message": "状态管理示例"
+      },
+      "oracle": {
+        "expected_files": [
+          "feature/demo/src/main/ets/viewmodel/StateManagementViewModel.ets"
+        ],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "feature/demo/src/main/ets/viewmodel/StateManagementViewModel.ets",
+              "start_line": 20,
+              "end_line": 22
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "callable"
+        ],
+        "artifact_roles": [
+          "viewmodel"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "harmonykit-navigation-result-submit",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Submitting a form should trim both fields, build a result object, and return it to the previous route. Locate the callable that constructs and sends the navigation result.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "ef595e53a147b18eb411518b56ff96dd8e47e377",
+        "after_revision": "e0871c3c29a15eea00c7ad2534977f12b25db9f7",
+        "changed_files": [
+          "feature/demo/src/main/ets/viewmodel/NavigationResultViewModel.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "e0871c3c29a15eea00c7ad2534977f12b25db9f7",
+        "commit_message": "结果回传示例"
+      },
+      "oracle": {
+        "expected_files": [
+          "feature/demo/src/main/ets/viewmodel/NavigationResultViewModel.ets"
+        ],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "feature/demo/src/main/ets/viewmodel/NavigationResultViewModel.ets",
+              "start_line": 43,
+              "end_line": 49
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "callable"
+        ],
+        "artifact_roles": [
+          "viewmodel"
+        ],
+        "mechanism_kinds": [
+          "navigation",
+          "ui_state"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "calibration": {
+      "target_domain": "native_arkts",
+      "minimum_case_count": 3,
+      "required_target_levels": [
+        "callable"
+      ],
+      "required_artifact_roles": [
+        "viewmodel"
+      ],
+      "required_mechanism_kinds": [
+        "persistence",
+        "async_control",
+        "ui_state",
+        "navigation"
+      ]
+    },
+    "require_seal": true
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-28T12:03:08+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "10290bfcb35bc28bc53087cc27e980de8957b0df530254e8eeadb6c45e1c52ad"
+  }
+}

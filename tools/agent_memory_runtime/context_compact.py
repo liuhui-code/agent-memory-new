@@ -9,6 +9,7 @@ from .context_anchor_selection import (
     path_scoped_code_anchors,
     relevant_log_anchors,
 )
+from .context_callable_focus import focus_callable_anchors
 from .context_source_excerpt import (
     attach_source_excerpts,
     has_source_excerpt_candidate,
@@ -68,6 +69,7 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
 
 def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, Any]:
     path_context = compact_path_context(handoff.get("path_context"))
+    callable_evidence = handoff.get("callable_evidence")
     log_anchors = (
         relevant_log_anchors(records(handoff.get("log_anchors")), data.get("query"))[:3]
         if path_context["activated"] else []
@@ -75,6 +77,9 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
     path_context = path_context_for_log_anchors(path_context, log_anchors)
     code_candidates = path_scoped_code_anchors(
         records(handoff.get("code_anchors")), path_context
+    )
+    code_candidates = focus_callable_anchors(
+        code_candidates, callable_evidence, path_context["activated"],
     )
     code_anchors = assign_anchor_roles(
         diverse_code_anchors(
@@ -86,6 +91,7 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
         "log_keywords": compact_keywords(handoff.get("log_keywords")),
         "log_anchors": [clean_record(item, LOG_FIELDS) for item in log_anchors],
         "code_anchors": code_anchors,
+        "callable_evidence": callable_evidence if isinstance(callable_evidence, dict) else {},
         "path_context": path_context,
         "relation_hints": relevant_relations(data.get("edge_matches"), code_anchors, log_anchors),
         "experience_refs": [compact_memory_ref(item) for item in records(handoff.get("experience_refs"))[:2]],
@@ -377,6 +383,7 @@ def enforce_budget(
         lambda: handoff.__setitem__("log_keywords", handoff["log_keywords"][:8]),
         lambda: handoff.__setitem__("experience_refs", handoff["experience_refs"][:1]),
         lambda: handoff.__setitem__("semantic_refs", handoff["semantic_refs"][:1]),
+        lambda: handoff.__setitem__("callable_evidence", {}),
         lambda: handoff["path_context"].__setitem__("path_candidates", paths[:2]),
         lambda: payload.__setitem__("blocked_memory_notes", payload["blocked_memory_notes"][:1]),
         lambda: payload.__setitem__("conflict_notes", payload["conflict_notes"][:1]),
@@ -390,8 +397,6 @@ def enforce_budget(
         if estimate_payload_tokens(payload) <= token_budget - 60:
             break
         reduce_payload()
-
-
 def trim_excerpt_for_path_diversity(handoff: dict[str, Any]) -> None:
     paths = handoff["path_context"]["path_candidates"]
     if len(paths) < 2:
@@ -419,13 +424,9 @@ def trim_excerpt_for_path_diversity(handoff: dict[str, Any]) -> None:
         policy["excerpt_chars"] = sum(
             len(str(excerpt.get("content") or "")) for excerpt in excerpts
         )
-
-
 def minimize_guards(payload: dict[str, Any]) -> None:
     for key in ("correction_guards", "semantic_patch_notes", "blocked_memory_notes", "conflict_notes"):
         payload[key] = [clean_record(item, MINIMAL_GUARD_FIELDS) for item in payload[key]]
-
-
 def hard_trim(payload: dict[str, Any]) -> None:
     handoff = payload["query_handoff"]
     handoff["log_keywords"] = handoff["log_keywords"][:6]
@@ -445,8 +446,6 @@ def hard_trim(payload: dict[str, Any]) -> None:
     payload["semantic_patch_notes"] = shrink_guard_group(payload["semantic_patch_notes"])
     payload["blocked_memory_notes"] = []
     payload["conflict_notes"] = shrink_guard_group(payload["conflict_notes"])
-
-
 def shrink_guard_group(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     if not items:
         return []
@@ -464,16 +463,12 @@ def shrink_guard_group(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     if isinstance(warnings, list) and warnings:
         result["warnings"] = [str(warnings[0])[:100]]
     return [result]
-
-
 def clean_record(item: dict[str, Any], fields: tuple[str, ...]) -> dict[str, Any]:
     return {
         key: compact_value(item.get(key))
         for key in fields
         if item.get(key) not in (None, "", [], {})
     }
-
-
 def compact_value(value: Any) -> Any:
     if isinstance(value, str):
         return value[:MAX_TEXT]

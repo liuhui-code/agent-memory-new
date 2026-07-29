@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from .callable_behavior_hints import callable_behavior_hints
 from .models import Project
 from .semantic_models import SemanticEntity
 from .text import ENGLISH_QUERY_STOPWORDS, identifier_tokens, unique_list
@@ -64,7 +65,10 @@ def method_evidence_payload(
     if not source:
         return "", ""
     return (
-        " ".join(method_terms_from_source(source, entity)),
+        " ".join([
+            *method_terms_from_source(source, entity),
+            *callable_behavior_hints(entity, source),
+        ]),
         " ".join(string_terms_from_source(source)),
     )
 

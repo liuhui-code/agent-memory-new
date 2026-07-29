@@ -1,0 +1,241 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-coolmall-holdout",
+  "source_repository": "https://github.com/Joker-x-dev/CoolMallArkTS.git",
+  "source_branch": "master",
+  "source_head_reviewed": "17b6899086a57a4d48448842a14f9e325e3e35a3",
+  "generated_at": "2026-07-28T00:00:00+08:00",
+  "generator": "native-arkts-source-review/v1",
+  "cases": [
+    {
+      "id": "coolmall-coupon-login-handoff",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Selecting a promotion while signed out should close the promotion surface and send the user to sign-in instead of submitting a claim. Locate the callable that applies this state and navigation guard.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "1bec70782706c5ff103da71193ab63c47d7f6fff",
+        "after_revision": "71fe06cbef55f52f2ca38875e9d815dd68925bf1",
+        "changed_files": [
+          "feature/main/src/main/ets/viewmodel/HomeViewModel.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "71fe06cbef55f52f2ca38875e9d815dd68925bf1",
+        "commit_message": "完成领取以及使用优惠券相关功能"
+      },
+      "oracle": {
+        "expected_files": [
+          "feature/main/src/main/ets/viewmodel/HomeViewModel.ets"
+        ],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "feature/main/src/main/ets/viewmodel/HomeViewModel.ets",
+              "start_line": 151,
+              "end_line": 165
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "callable"
+        ],
+        "artifact_roles": [
+          "viewmodel"
+        ],
+        "mechanism_kinds": [
+          "navigation",
+          "ui_state",
+          "async_control"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "coolmall-address-selection-handoff",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "An order flow opens address selection but does not reflect the returned address. Locate the callable that awaits the navigation result and updates the selected address only when a result is present.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "f4ec1399754b0de268a6167b81d3dd53f0c713a4",
+        "after_revision": "c7846e5b0d897a6ec67d405c29373deaa9670b2a",
+        "changed_files": [
+          "feature/order/src/main/ets/viewmodel/OrderConfirmViewModel.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "c7846e5b0d897a6ec67d405c29373deaa9670b2a",
+        "commit_message": "订单页面选择收货地址回传"
+      },
+      "oracle": {
+        "expected_files": [
+          "feature/order/src/main/ets/viewmodel/OrderConfirmViewModel.ets"
+        ],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "feature/order/src/main/ets/viewmodel/OrderConfirmViewModel.ets",
+              "start_line": 306,
+              "end_line": 313
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "callable"
+        ],
+        "artifact_roles": [
+          "viewmodel"
+        ],
+        "mechanism_kinds": [
+          "navigation",
+          "async_control",
+          "ui_state"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "coolmall-category-child-parameter",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Opening a product category should include the direct child identifiers in the destination filter. Locate the page-model callable that derives those identifiers and builds the category route parameter.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "3fff5865cc8f6f363c487361acfd332719f1c7ca",
+        "after_revision": "5c0474efc1a16a4f8f92c7247ff736b75970af3f",
+        "changed_files": [
+          "feature/main/src/main/ets/viewmodel/HomeViewModel.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "5c0474efc1a16a4f8f92c7247ff736b75970af3f",
+        "commit_message": "完成商品分类页面及功能"
+      },
+      "oracle": {
+        "expected_files": [
+          "feature/main/src/main/ets/viewmodel/HomeViewModel.ets"
+        ],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "feature/main/src/main/ets/viewmodel/HomeViewModel.ets",
+              "start_line": 172,
+              "end_line": 182
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "callable"
+        ],
+        "artifact_roles": [
+          "viewmodel"
+        ],
+        "mechanism_kinds": [
+          "navigation",
+          "ui_state"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "calibration": {
+      "target_domain": "native_arkts",
+      "minimum_case_count": 3,
+      "required_target_levels": [
+        "callable"
+      ],
+      "required_artifact_roles": [
+        "viewmodel"
+      ],
+      "required_mechanism_kinds": [
+        "navigation",
+        "ui_state",
+        "async_control"
+      ]
+    },
+    "require_seal": true
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-28T10:05:24+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "57210da8f19df3ac5338b951de15a396c0d822c0c2f5203de776517647695df2"
+  }
+}

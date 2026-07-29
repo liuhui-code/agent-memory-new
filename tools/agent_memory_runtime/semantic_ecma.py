@@ -10,6 +10,7 @@ from typing import Any
 from .ecma_braces import block_end
 from .models import Project
 from .semantic_ecma_mechanisms import extract_callable_mechanisms
+from .semantic_callable_profile import callable_roles, owner_kind
 from .semantic_models import (
     MAX_GAPS, SemanticBatch, SemanticEntity, SemanticMechanism,
     SemanticRelation, source_digest, symbol_key,
@@ -175,7 +176,10 @@ def parse_containers(lines: list[str], language: str, file_path: str) -> list[Co
         end = block_end(lines, index)
         kind = "component" if raw_kind == "struct" and language == "ArkTS" else raw_kind
         signature = f"{raw_kind} {name}"
-        entity = make_entity(language, file_path, name, kind, name, signature, index + 1, end + 1, bool(exported))
+        entity = make_entity(
+            language, file_path, name, kind, name, signature, index + 1, end + 1,
+            bool(exported), owner_kind=owner_kind(name, kind, file_path),
+        )
         result.append(Container(
             name=name, kind=kind, start=index, end=end, exported=bool(exported), extends=extends,
             implements=[item.strip() for item in (implements or "").split(",") if item.strip()],
@@ -203,7 +207,13 @@ def parse_container_members(
             qualified = f"{container.name}.{name}"
             signature = callable_signature(name, params, return_type, bool(async_value))
             exported = container.exported and visibility != "private"
-            entity = make_entity(language, file_path, name, "function", qualified, signature, index + 1, end + 1, exported)
+            source = "\n".join(lines[index:end + 1])
+            entity = make_entity(
+                language, file_path, name, "function", qualified, signature, index + 1,
+                end + 1, exported, owner_name=container.name,
+                owner_kind=container.entity.owner_kind,
+                callable_roles=callable_roles(name, signature, source),
+            )
             methods.append(CallableBlock(container.name, index, end, entity, bool(override)))
             index = end + 1
             continue
@@ -239,7 +249,12 @@ def parse_top_level_functions(
         exported, async_value, name, params, return_type = match.groups()
         end = block_end(lines, index)
         signature = callable_signature(name, params, return_type, bool(async_value))
-        entity = make_entity(language, file_path, name, "function", name, signature, index + 1, end + 1, bool(exported))
+        source = "\n".join(lines[index:end + 1])
+        entity = make_entity(
+            language, file_path, name, "function", name, signature, index + 1, end + 1,
+            bool(exported), owner_kind="module",
+            callable_roles=callable_roles(name, signature, source),
+        )
         result.append(CallableBlock(None, index, end, entity))
         index = end + 1
     return result
@@ -436,11 +451,16 @@ def make_entity(
     start_line: int,
     end_line: int,
     exported: bool,
+    owner_name: str = "",
+    owner_kind: str = "",
+    callable_roles: list[str] | None = None,
 ) -> SemanticEntity:
     return SemanticEntity(
         key=symbol_key(language, file_path, qualified_name, signature), file_path=file_path,
         name=name, kind=kind, qualified_name=qualified_name, signature=signature,
         start_line=start_line, end_line=end_line, exported=exported,
+        owner_name=owner_name, owner_kind=owner_kind,
+        callable_roles=callable_roles or [],
     )
 
 

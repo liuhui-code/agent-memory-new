@@ -121,6 +121,9 @@ CODE_SEMANTIC_COLUMNS = {
         ("method_evidence", "TEXT"),
         ("string_evidence", "TEXT"),
         ("mechanism_evidence", "TEXT"),
+        ("owner_name", "TEXT"),
+        ("owner_kind", "TEXT"),
+        ("callable_roles", "TEXT"),
         ("index_generation", "INTEGER NOT NULL DEFAULT 0"),
     ],
     "code_log_statements": [

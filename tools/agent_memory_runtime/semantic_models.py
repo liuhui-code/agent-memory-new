@@ -33,6 +33,9 @@ class SemanticEntity:
     end_line: int
     exported: bool = False
     evidence_class: str = "static"
+    owner_name: str = ""
+    owner_kind: str = ""
+    callable_roles: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -158,6 +161,8 @@ def validate_entity(entity: SemanticEntity) -> None:
         raise ValueError(f"invalid semantic entity span: {entity.key}")
     if entity.evidence_class not in EVIDENCE_CLASSES:
         raise ValueError(f"invalid entity evidence class: {entity.evidence_class}")
+    if not isinstance(entity.callable_roles, list) or any(not isinstance(item, str) for item in entity.callable_roles):
+        raise ValueError(f"invalid callable roles: {entity.key}")
 
 
 def validate_relation(relation: SemanticRelation, local_keys: set[str]) -> None:

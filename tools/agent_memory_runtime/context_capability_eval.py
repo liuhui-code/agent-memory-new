@@ -6,10 +6,13 @@ from typing import Any
 
 from .context_compact import COMPACT_TOKEN_BUDGET
 from .context_capability_quality import assess_context_quality
+from .context_evidence_funnel import assess_evidence_funnel, evidence_funnel_profile
 from .context_hierarchical_metrics import assess_hierarchical_localization, localization_profile
 
 OBSERVATION_SCHEMA = "agent-context-capability-observation/v1"
 RESULT_SCHEMA = "agent-context-capability-result/v1"
+
+
 def evaluate_context_capability(
     cases: list[dict[str, Any]],
     observations: list[dict[str, Any]],
@@ -36,6 +39,7 @@ def evaluate_context_capability(
         "capability_profile": {
             **capability_profile(scored),
             "query_robustness": robustness,
+            "evidence_funnel": evidence_funnel_profile(scored),
         },
         "cases": scored,
         "audit": {
@@ -68,7 +72,6 @@ def validated_observations(
     if missing:
         raise SystemExit(f"missing context capability observations: {', '.join(missing)}")
     return by_case
-
 def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, Any]:
     oracle = case.get("oracle") if isinstance(case.get("oracle"), dict) else {}
     requirements = context_requirements(oracle.get("context_requirements"))
@@ -119,6 +122,7 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
     excerpt_hits = expected & excerpts
     quality = assess_context_quality(requirements, expected, observation)
     localization = assess_hierarchical_localization(expected, requirements, observation)
+    funnel = assess_evidence_funnel(expected, requirements, observation)
     checks = {
         "compact_schema_returned": (
             observation.get("context_schema_version") == "agent-context-compact/v1"
@@ -196,6 +200,7 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
         "missing_required_source_spans": quality["missing_required_source_spans"],
         "missing_required_evidence_gaps": quality["missing_required_evidence_gaps"],
         "hierarchical_localization": localization,
+        "evidence_funnel": funnel,
         "abstention_observed": quality["abstention_observed"],
         "anchor_count": len(anchors),
         "primary_anchor_count": len(primary),
@@ -211,7 +216,6 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
         "query_elapsed_ms": nonnegative_int(observation.get("query_elapsed_ms")),
         "requirements": requirements,
     }
-
 def query_robustness_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
     grouped: dict[str, list[dict[str, Any]]] = {}
     for item in scored:
@@ -237,7 +241,6 @@ def query_robustness_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
         "variant_pass_rate": round(passed / len(scored), 4) if scored else 0.0,
         "scenarios": scenarios,
     }
-
 def capability_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
     code_cases = [item for item in scored if item["requirements"]["require_expected_anchors"]]
     code_checks = (
@@ -305,7 +308,6 @@ def capability_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
             "token_budget": COMPACT_TOKEN_BUDGET,
         },
     }
-
 def optional_profile(
     scored: list[dict[str, Any]],
     requirement_key: str | tuple[str, ...],
@@ -331,8 +333,6 @@ def optional_profile(
     }
     result.update(extra or {})
     return result
-
-
 def causal_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
     evaluated = [
         item for item in scored
@@ -361,7 +361,6 @@ def causal_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
         "observed_path_case_count": sum(item["path_candidate_count"] > 0 for item in scored),
         "observed_relation_case_count": sum(item["relation_hint_count"] > 0 for item in scored),
     }
-
 
 def context_requirements(value: Any) -> dict[str, Any]:
     item = value if isinstance(value, dict) else {}

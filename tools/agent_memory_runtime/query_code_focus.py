@@ -11,7 +11,7 @@ from .arkts_ui_behavior import (
     distinctive_operation_names,
     matching_operation_names,
 )
-from .query_behavior_concepts import matching_behavior_markers
+from .query_behavior_concepts import behavior_marker_terms, matching_behavior_markers
 from .query_language import target_role_terms
 from .text import identifier_tokens
 
@@ -88,6 +88,9 @@ def focus_code_candidates(
     contracts = strongest_owner_contract_candidates(items, query)
     if contracts:
         return contracts, True
+    behavior = strongest_semantic_behavior_candidates(items, query)
+    if behavior:
+        return behavior, True
     method = strongest_method_evidence_candidates(items, query)
     if method:
         return method, True
@@ -120,6 +123,28 @@ def focus_code_candidates(
             allowed.add(id(seed))
         return [item for item in items if id(item) in allowed], True
     return items, False
+
+
+def strongest_semantic_behavior_candidates(
+    items: list[dict[str, Any]],
+    query: str,
+) -> list[dict[str, Any]]:
+    expected = behavior_marker_terms(query)
+    if len(expected) < 2:
+        return []
+    coverage = max(
+        (int(item.get("semantic_behavior_coverage") or 0) for item in items),
+        default=0,
+    )
+    if coverage < 2:
+        return []
+    selected = [
+        item for item in items
+        if int(item.get("semantic_behavior_coverage") or 0) == coverage
+        and has_reason(item, "semantic_behavior")
+    ]
+    paths = list(dict.fromkeys(str(item.get("file_path") or "") for item in selected))[:2]
+    return [item for item in selected if str(item.get("file_path") or "") in paths]
 
 
 def strongest_owner_contract_candidates(

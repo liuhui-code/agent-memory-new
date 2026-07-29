@@ -2,6 +2,242 @@
 
 This repository is currently not a git repository. Use this file as a lightweight local change log so implementation work can be reviewed and manually rolled back.
 
+## 2026-07-28 - Add Callable Evidence Funnel Foundation
+
+Files changed:
+- Semantic entity/index schema, ArkTS/ECMA semantic adapter, bounded
+  hierarchical localization, compact Context projection, tests, and design plan.
+
+What changed:
+- Added backwards-compatible `owner_name`, `owner_kind`, and `callable_roles`
+  fields to the semantic entity contract and SQLite symbol index.
+- Added deterministic ArkTS/ECMA owner and callable-role extraction while
+  retaining existing mechanism evidence as the operation-level detail.
+- Made one bounded file -> callable -> owner -> range localization pass available
+  to every Context request. It now emits a compact advisory primary candidate,
+  up to two diverse alternatives, and an explicit certainty state.
+- Kept existing `code_anchors` as the compatibility path; the new projection
+  explicitly says it is retrieval evidence rather than a root-cause claim.
+
+Why:
+- External ArkTS holdouts repeatedly recalled files while losing callable and
+  range selection. Profiled callable evidence creates a language-neutral,
+  auditable foundation for future calibration without adding more query phrases
+  or a diagnosis interface.
+
+Verification:
+- Focused semantic, hierarchical, compact-Context, evidence-projection, and
+  budget regressions pass; the budget case retains correction guards while
+  dropping advisory callable evidence when necessary.
+- Full suite passes `683/683` in a loopback-enabled environment in 620.883s.
+- The 100,000-entity CI scale profile passes. Hierarchical one-hop owner p95 is
+  8.561ms, candidate hit/miss p95 are 21.243/32.703ms, and all query-plan and
+  incremental-maintenance gates pass.
+- The isolated ViewModel development pack passes `3/3`, with 1.0 exact anchor
+  and source-span recall and 836.3 average compact Context tokens.
+
+## 2026-07-28 - Repair Guarded Async ViewModel Persistence Ranking
+
+Files changed:
+- Callable behavior evidence, behavior-concept query mapping, independent
+  ViewModel fixtures/cases, and regression tests.
+
+What changed:
+- Added source-proven async-callable and early-return guard hints.
+- Added a guarded async persistence contract that requires async, guard, state
+  read, and persistence-write evidence before promoting a complete ViewModel
+  owner over storage-description noise.
+
+Verification:
+- The direct behavior-contract test passes and returns all four required
+  markers. The full repository suite, line-limit check, and diff check pass.
+
+## 2026-07-28 - Freeze Second Native ArkTS Context Observation
+
+Files changed:
+- New source-reviewed native ArkTS holdout, sealed case artifact, immutable
+  Context result, and calibration design record.
+
+What changed:
+- Ran a new, previously unused real-project holdout exactly once after revision
+  and changed-file audits. Its sealed case digest is
+  `51172b912130dabbbc2f870f176c49c036c69c5b5ca9cf7990621879d77a509d`.
+- Recorded the Context result without exposing it to retrieval behavior:
+  calibration coverage passes, while Context fails all three cases. Compactness
+  remains within the 1,500-token budget.
+- Classified only aggregate failures: candidate generation (3), ranking and
+  evidence fusion (6), and focused passage selection (6). Agent A/B remains
+  blocked.
+
+Why:
+- A second independent external observation is needed to distinguish local
+  fixture success from real-project generalization. The result is frozen so a
+  future repair must use new, de-identified development cases rather than tune
+  to this source.
+
+Verification:
+- Revision audit, changed-file audit, and seal verification passed before the
+  sole Context execution.
+- The result artifact records `0/3` Context cases, exact anchor/source-span
+  recall of `0.0`, and average compact context of 1,186.7 estimated tokens.
+
+## 2026-07-28 - Repair General Guarded-Recurring-Work Ranking
+
+Files changed:
+- Independent multi-layer ArkTS fixture/case pack, behavior-concept retrieval,
+  regression tests, and the calibration design record.
+
+What changed:
+- Added a bounded behavior concept for repeated scheduled work. It only
+  activates for multi-term query evidence and only promotes callables whose
+  indexed source evidence contains deferred execution, state branch, and state
+  read markers.
+- Added a neutral regression where an actual guarded coordinator must outrank a
+  same-domain status display that shares superficial refresh terms.
+
+Why:
+- The new independent reproduction isolated ranking precision after exact file
+  and source-range recall already succeeded. Suppressing incomplete lexical
+  evidence is a fielded-ranking repair, not a larger-recall or Oracle change.
+
+Verification:
+- Focused behavior and candidate-recall tests pass.
+- The independent multi-layer Context pack passes 3/3 with exact anchor,
+  precision, and source-span recall of 1.0 at 628.7 estimated tokens per case.
+- All 675 tests pass. The 100,000-entity scale gate passes: candidate-recall
+  hit p95 is 13.267 ms, miss p95 is 21.801 ms, and all SQL/index and
+  incremental-maintenance gates pass.
+
+## 2026-07-28 - Harden Context Evaluation Isolation
+
+Files changed:
+- Context evaluation entry guard, calibration taxonomy/test, one audited but
+  invalid external result artifact, and the calibration design record.
+
+What changed:
+- Added an early hard failure when explicit `--memory-home` overlaps `--source`.
+  Canonical path comparison handles the `/var` to `/private/var` alias.
+- Added `viewmodel` as a first-class native ArkTS calibration artifact role.
+- Retained the third sealed external execution as an invalid-result artifact:
+  its memory home overlapped the source and created Runtime artifacts before
+  materialization, so its `0/3` output is excluded from capability evidence.
+
+Why:
+- Evaluation isolation is a precondition for reliable held-out evidence. A
+  contaminated run cannot justify retrieval tuning, retesting, or promotion.
+
+Verification:
+- Context-capability and calibration tests pass (23 tests), including parent,
+  child, sibling, and canonical-path overlap behavior.
+- Python line-limit and whitespace checks pass. The next external gate must use
+  a new source and a sibling memory home; the invalid sealed pack is not rerun.
+
+## 2026-07-28 - Freeze Fourth Native ArkTS Context Observation
+
+Files changed:
+- Source-reviewed fourth ArkTS holdout, sealed case artifact, immutable result,
+  calibration design record, and local change log.
+
+What changed:
+- Selected a previously unused repository with independent Git history, audited
+  all three expected changed files, sealed the case pack, and ran Context once
+  using a sibling memory home that passed the new isolation guard.
+- Recorded the valid `0/3` outcome without adding source-specific retrieval
+  behavior. Calibration coverage passes; Context and promotion do not.
+
+Why:
+- The system needs valid out-of-domain evidence after the development repair.
+  This result confirms generalization remains insufficient across candidate
+  generation, ranking, and focused source-window layers.
+
+Verification:
+- Revision audit, changed-file audit, seal verification, and calibration
+  coverage passed before the sole Context invocation.
+- Result metrics: anchor recall 0.3333, precision 0.0833, source-span recall
+  0.0, and 1,048 estimated tokens per case. The pack is consumed and blocked
+  from rerun or tuning.
+
+## 2026-07-28 - Repair Guarded State-Persistence Ranking
+
+Files changed:
+- Fresh project-neutral three-layer ArkTS fixture/cases, callable behavior
+  evidence, regression tests, and calibration design record.
+
+What changed:
+- Added source-proven persistence-write hints for callable receiver operations
+  named `save*`, `store*`, `persist*`, or `write*`.
+- Added a guarded selection behavior concept requiring state read, state branch,
+  state write, and persistence write before a candidate receives complete-owner
+  priority.
+
+Why:
+- The independent reproduction showed that generic state evidence alone cannot
+  distinguish an actual state-transition owner from a summary interaction.
+  The added evidence is bounded to source syntax and activates only for a
+  multi-term guarded-persistence query.
+
+Verification:
+- Focused behavior/candidate-recall tests pass.
+- New independent Context fixture passes 3/3 with exact anchor, precision, and
+  source-span recall of 1.0 at 615.3 estimated tokens per case.
+- Full test suite, Python line-limit, and whitespace checks pass. A fifth
+  independent sealed source is required before any promotion decision.
+
+## 2026-07-28 - Repair ArkTS Callable Behavior Retrieval
+
+Files changed:
+- Callable behavior evidence, bounded method-evidence recall and focus policy,
+  project-neutral ArkTS reproduction cases, tests, and calibration design log.
+
+What changed:
+- Added source-proven callable hints for lifecycle activation, deferred work,
+  instance state read/write, and conditional state branches.
+- Added a bounded behavior-specific method-evidence recall lane and only lets
+  complete multi-marker coverage outrank lexical owner matches.
+- Added independent page-selection and lifecycle-promotion regression tests;
+  no frozen external holdout path, identifier, phrase, or Oracle was used.
+
+Why:
+- The first native ArkTS external observation exposed candidate-promotion and
+  source-range precision failures that cannot be safely tuned on the consumed
+  holdout itself.
+
+Verification:
+- The independent reproduction Context pack passes 3/3 with top-1 anchor and
+  source-span recall of 1.0.
+- The existing independent calibration Context pack remains 3/3 at about 600
+  compact-context tokens per case.
+- The consumed HarmoneyOpenEye holdout was not rerun; a new sealed holdout is
+  required before any external Agent A/B decision.
+
+## 2026-07-28 - Add Native ArkTS Generalization Calibration
+
+Files changed:
+- Context evaluation calibration module, case validation and sealing boundaries,
+  governance summary, independent ArkTS fixture and cases, sealed external
+  observation, tests, and design record.
+
+What changed:
+- Added hidden `evaluation_profile` metadata and an optional native ArkTS
+  calibration contract for new holdout packs.
+- Added deterministic stratum and macro reports for artifact role, target level,
+  and mechanism coverage without changing Agent Context or public case payloads.
+- Preserved historical sealed-case SHA-256 digests by omitting absent profile
+  fields during normalization.
+- Added an independent native ArkTS development calibration pack and a new,
+  single-run source-reviewed HarmoneyOpenEye holdout observation.
+
+Why:
+- The synthetic development gate was saturated while real-project Context
+  generalization remained denied; the system needed an auditable, target-domain
+  calibration boundary before further retrieval changes.
+
+Verification:
+- Calibration unit and existing case-seal/context-evaluation tests pass.
+- The independent ArkTS development Context gate passes 3/3.
+- The new sealed external observation passes calibration coverage but fails the
+  Context gate 1/3; Agent A/B remains correctly blocked and the pack is frozen.
+
 ## 2026-07-23 - Preserve complete source blocks during learning
 
 Files changed:
@@ -7186,3 +7422,36 @@ Result:
 - The sealed inventory is now 18 projects and 75 cases. Do not rerun or modify
   this pack for tuning; reproduce the failure classes only in independent
   development fixtures before the next external observation.
+
+## 2026-07-29 - Govern retrieval-funnel evaluation and bounded compact focus
+
+What changed:
+
+- Added split-aware evaluation governance for development, calibration, and
+  sealed external holdout packs. Derived governance classification is retained
+  in results but excluded from seal digests so loading a sealed pack remains
+  immutable.
+- Added informational retrieval-funnel attribution across candidate files,
+  hierarchy localization, callable/range evidence, and compact anchors. It
+  identifies the first lost Oracle target without changing runtime diagnosis or
+  automatic promotion.
+- Added offline Agent evidence-utility reporting for expected-source inspection,
+  evidence sufficiency, uncertainty integrity, and anchor guidance. It never
+  reads private reasoning and cannot promote a Runtime change.
+- Added a project-neutral ArkTS development pack covering ViewModel, Store, and
+  Component callables with two user phrasings and same-domain decoys.
+- The pack initially exposed compact-ranking precision rather than recall loss:
+  all hierarchical stages passed, but unrelated compact anchors remained. Added
+  bounded callable-focused projection only when the callable lead has a source
+  range and score margin; graph-path queries, graph neighbors, and uncertain
+  callable evidence keep the existing multi-anchor behavior.
+
+Result:
+
+- Neutral role suite passes all 6 variants. File/callable/range/primary/compact
+  anchor stage rates are 1.0; compact anchor precision increased from 0.5278 to
+  1.0 and mean compact context decreased from 1,128.8333 to 941 tokens.
+- Full regression passes 692 tests, including loopback Agent-runner coverage.
+- CI scale passes at 100,000 searchable entities, 80,000 symbols, and 300,000
+  edges. Candidate hit/miss p95 is 47.193/74.712 ms and hierarchical one-hop
+  owner p95 is 18.773 ms. No sealed external pack was modified or rerun.

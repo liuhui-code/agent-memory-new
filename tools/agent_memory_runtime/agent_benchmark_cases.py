@@ -8,6 +8,8 @@ from pathlib import Path
 from typing import Any
 
 from .benchmark_case_seal import case_pack_seal_audit
+from .context_calibration import normalize_evaluation_profile, validate_calibrated_holdout
+from .evaluation_governance import validate_evaluation_governance
 
 
 CASE_SCHEMA = "agent-benchmark-cases/v1"
@@ -34,7 +36,10 @@ def validate_case_pack(value: Any) -> dict[str, Any]:
         raise SystemExit("benchmark case pack requires a non-empty cases list")
     seen: set[str] = set()
     normalized = [validate_case(item, index, seen) for index, item in enumerate(cases)]
-    return {**value, "cases": normalized}
+    result = {**value, "cases": normalized}
+    result["evaluation_governance"] = validate_evaluation_governance(result)
+    validate_calibrated_holdout(result)
+    return result
 
 
 def validate_case(value: Any, index: int, seen: set[str]) -> dict[str, Any]:
@@ -63,7 +68,8 @@ def validate_case(value: Any, index: int, seen: set[str]) -> dict[str, Any]:
     if not expected_files:
         raise SystemExit(f"benchmark case {case_id} requires oracle.expected_files")
     forbidden = string_list(oracle.get("forbidden_files") or [], f"case {case_id} oracle.forbidden_files")
-    return {
+    profile = normalize_evaluation_profile(value.get("evaluation_profile"), case_id)
+    result = {
         **value,
         "id": case_id,
         "task_type": task_type,
@@ -72,6 +78,9 @@ def validate_case(value: Any, index: int, seen: set[str]) -> dict[str, Any]:
         "source": dict(source),
         "oracle": {**oracle, "expected_files": expected_files, "forbidden_files": forbidden},
     }
+    if profile is not None:
+        result["evaluation_profile"] = profile
+    return result
 
 
 def public_case(case: dict[str, Any]) -> dict[str, Any]:

@@ -1,0 +1,91 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "docs/eval/fixtures/arkts-calibration",
+  "generated_at": "2026-07-28T00:00:00Z",
+  "generator": "independent-native-arkts-calibration/v1",
+  "cases": [
+    {
+      "id": "calibration-resource-decoding-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Bundled dictionary text is garbled after raw resource loading. Locate the resource decoding owner."
+      },
+      "source": {"changed_files": ["src/services/ArchiveTextService.ets"]},
+      "oracle": {
+        "expected_files": ["src/services/ArchiveTextService.ets"],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 1.0,
+          "required_source_spans": [{"file_path": "src/services/ArchiveTextService.ets", "start_line": 4, "end_line": 7}],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "artifact_roles": ["service"],
+        "target_levels": ["file"],
+        "mechanism_kinds": ["resource_io"]
+      }
+    },
+    {
+      "id": "calibration-dialog-state-callback-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The details dialog remains visible after its close control. Locate the confirmation state handler."
+      },
+      "source": {"changed_files": ["src/pages/PreferenceDialogPage.ets"]},
+      "oracle": {
+        "expected_files": ["src/pages/PreferenceDialogPage.ets"],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 1.0,
+          "required_source_spans": [{"file_path": "src/pages/PreferenceDialogPage.ets", "start_line": 7, "end_line": 9}],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "artifact_roles": ["page"],
+        "target_levels": ["callable"],
+        "mechanism_kinds": ["ui_state", "event_binding"]
+      }
+    },
+    {
+      "id": "calibration-shared-route-expression-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A shared navigation helper must replace the details route through the current router API. Locate the route replacement expression."
+      },
+      "source": {"changed_files": ["src/utils/RouteActions.ets"]},
+      "oracle": {
+        "expected_files": ["src/utils/RouteActions.ets"],
+        "forbidden_files": [],
+        "context_requirements": {
+          "require_source_excerpt": true,
+          "required_top_k": 1,
+          "min_anchor_precision": 1.0,
+          "required_source_spans": [{"file_path": "src/utils/RouteActions.ets", "start_line": 3, "end_line": 5}],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "artifact_roles": ["utility"],
+        "target_levels": ["expression"],
+        "mechanism_kinds": ["navigation", "platform_api"]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "raw_logs_persisted": false
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "schema_version": "agent-context-capability-observation-summary/v1",
+  "case_file": "docs/eval/harmoney-openeye-native-arkts-holdout-cases.sealed.json",
+  "case_seal_digest": "af9e3c3f23209efd43320d194ac6bdf7f9274667059298178850887ca5e474b2",
+  "source_repository": "https://github.com/WinWang/HarmoneyOpenEye.git",
+  "recorded_at": "2026-07-28T07:55:32+00:00",
+  "immutable_observation": true,
+  "audit_notes": [
+    "Three source-reviewed fixes were prepared from complete immutable before revisions and the sealed pack was executed exactly once.",
+    "The repository is a native ArkTS project not present in the prior sealed inventory.",
+    "No Agent A/B was run because the Context gate failed."
+  ],
+  "system_context_gate": "fail",
+  "calibration_gate": "pass",
+  "summary": {
+    "case_count": 3,
+    "passed_case_count": 1,
+    "failed_case_count": 2,
+    "anchor_recall": 0.6667,
+    "primary_anchor_recall": 0.6667,
+    "oracle_anchor_precision": 0.2778,
+    "expected_anchor_mrr": 0.6667,
+    "source_excerpt_recall": 0.6667,
+    "source_span_recall": 0.3333,
+    "average_context_tokens": 961.3333,
+    "average_memory_prepare_ms": 2077.0,
+    "average_query_elapsed_ms": 778.6667
+  },
+  "calibration": {
+    "target_domain": "native_arkts",
+    "artifact_role_macro_pass_rate": 0.3333,
+    "target_level_macro_pass_rate": 0.3333,
+    "mechanism_macro_pass_rate": 0.25,
+    "contract_gaps": []
+  },
+  "failure_analysis": {
+    "primary_failure_class": "ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 1,
+      "passage_selection": 3,
+      "ranking_precision": 3
+    },
+    "interpretation": "The container page is recalled first but surrounded by same-domain page neighbors and misses the audited builder range. The loading component is present in candidate recall but fails compact Top-K selection and passage focus. The preferences utility passes with the expected durable-write range."
+  },
+  "cases": [
+    {
+      "case_id": "openeye-container-lazy-content-state",
+      "status": "fail",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": []
+    },
+    {
+      "case_id": "openeye-loading-animation-lifecycle",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "expected_anchor_mrr": 0.0,
+      "source_span_recall": 0.0,
+      "missing_expected_anchors": ["entry/src/main/ets/views/LoadingDialog.ets"]
+    },
+    {
+      "case_id": "openeye-preferences-flush-persistence",
+      "status": "pass",
+      "anchor_recall": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "expected_anchor_mrr": 1.0,
+      "source_span_recall": 1.0,
+      "missing_expected_anchors": []
+    }
+  ],
+  "policy": "Do not rerun or modify this sealed pack for tuning. Reproduce same-domain page precision, lifecycle component candidate promotion, and callable-range passage focus in independent development fixtures before a new native ArkTS observation."
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "docs/eval/fixtures/arkts-viewmodel-repro",
+  "generated_at": "2026-07-28T00:00:00Z",
+  "generator": "project-neutral-viewmodel-reproduction/v1",
+  "cases": [
+    {
+      "id": "viewmodel-draft-save",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "Blank profile draft input is ignored; persist the trimmed name. Locate the asynchronous ViewModel callable that guards and writes the draft."},
+      "source": {"changed_files": ["src/settings/ProfileDraftViewModel.ets"]},
+      "oracle": {"expected_files": ["src/settings/ProfileDraftViewModel.ets"], "forbidden_files": ["src/settings/StorageHelpViewModel.ets"], "context_requirements": {"require_source_excerpt": true, "required_top_k": 1, "min_anchor_precision": 1.0, "required_source_spans": [{"file_path": "src/settings/ProfileDraftViewModel.ets", "start_line": 9, "end_line": 15}], "min_source_span_recall": 1.0}},
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["viewmodel"], "target_levels": ["callable"], "mechanism_kinds": ["persistence", "async_control", "ui_state"]}
+    },
+    {
+      "id": "viewmodel-shared-counter",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "A panel increment action updates the shared counter holder instead of a detached display field. Locate the ViewModel callable that delegates the increment."},
+      "source": {"changed_files": ["src/state/CounterPanelViewModel.ets"]},
+      "oracle": {"expected_files": ["src/state/CounterPanelViewModel.ets"], "forbidden_files": ["src/state/CounterStatusViewModel.ets"], "context_requirements": {"require_source_excerpt": true, "required_top_k": 1, "min_anchor_precision": 1.0, "required_source_spans": [{"file_path": "src/state/CounterPanelViewModel.ets", "start_line": 4, "end_line": 6}], "min_source_span_recall": 1.0}},
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["viewmodel"], "target_levels": ["callable"], "mechanism_kinds": ["ui_state"]}
+    },
+    {
+      "id": "viewmodel-result-return",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "Editor submission trims both inputs, builds a result value, and returns it through navigation. Locate the ViewModel callable that constructs and returns the result."},
+      "source": {"changed_files": ["src/flow/EditorResultViewModel.ets"]},
+      "oracle": {"expected_files": ["src/flow/EditorResultViewModel.ets"], "forbidden_files": ["src/flow/RouteOverviewViewModel.ets"], "context_requirements": {"require_source_excerpt": true, "required_top_k": 1, "min_anchor_precision": 1.0, "required_source_spans": [{"file_path": "src/flow/EditorResultViewModel.ets", "start_line": 5, "end_line": 8}], "min_source_span_recall": 1.0}},
+      "evaluation_profile": {"target_domain": "native_arkts", "artifact_roles": ["viewmodel"], "target_levels": ["callable"], "mechanism_kinds": ["navigation", "ui_state"]}
+    }
+  ],
+  "governance": {"oracle_hidden_from_runner": true, "raw_logs_persisted": false}
+}

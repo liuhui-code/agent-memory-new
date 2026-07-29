@@ -116,6 +116,7 @@ def append_code_anchor(
         "summary": item.get("business_summary") or item.get("summary"),
         "start_line": item.get("start_line") or item.get("line"),
         "end_line": item.get("end_line") or item.get("line"),
+        "graph_neighbor": "graph_neighbor" in item.get("match_reasons", []),
         "identity_match": source == "log_emitter" and strong_code_identity(item),
     })
     return True

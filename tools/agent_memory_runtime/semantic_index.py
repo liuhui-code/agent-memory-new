@@ -147,14 +147,16 @@ def enrich_code_symbols(conn: sqlite3.Connection, project: Project, batch: Seman
             UPDATE code_symbols
             SET symbol_key = ?, qualified_name = ?, signature = ?, start_line = ?, end_line = ?,
                 semantic_adapter = ?, source_digest = ?, evidence_class = ?,
-                method_evidence = ?, string_evidence = ?, mechanism_evidence = ?
+                method_evidence = ?, string_evidence = ?, mechanism_evidence = ?,
+                owner_name = ?, owner_kind = ?, callable_roles = ?
             WHERE project_id = ? AND id = ?
             """,
             (
                 entity.key, entity.qualified_name, entity.signature, entity.start_line, entity.end_line,
                 f"{batch.adapter_id}@{batch.adapter_version}", batch.source_digests.get(entity.file_path),
                 entity.evidence_class, method_evidence, string_evidence,
-                mechanism_evidence,
+                mechanism_evidence, entity.owner_name, entity.owner_kind,
+                json.dumps(entity.callable_roles, ensure_ascii=True),
                 project.project_id, int(target["id"]),
             ),
         )

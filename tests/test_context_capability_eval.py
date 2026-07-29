@@ -12,6 +12,8 @@ from tools.agent_memory_runtime.benchmark_context_setup import validated_reflect
 from tools.agent_memory_runtime.context_capability import (
     candidate_paths_from_context,
     limit_scenario_cases,
+    paths_overlap,
+    reject_overlapping_memory_home,
     summarize_context,
 )
 from tools.agent_memory_runtime.context_capability_cases import expand_context_cases
@@ -38,6 +40,17 @@ from tools.agent_memory_runtime.query_handoff import strong_code_identity
 
 
 class ContextCapabilityEvalTests(unittest.TestCase):
+    def test_explicit_memory_home_must_not_overlap_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            source = root / "source"
+            source.mkdir()
+
+            self.assertTrue(paths_overlap(source, source / "memory"))
+            self.assertFalse(paths_overlap(source, root / "memory"))
+            with self.assertRaisesRegex(SystemExit, "must not overlap"):
+                reject_overlapping_memory_home(str(source / "memory"), source)
+
     def test_context_gate_runs_all_scenarios_unless_limit_is_explicit(self) -> None:
         cases = [{"id": f"case-{index}"} for index in range(25)]
 

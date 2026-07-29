@@ -42,6 +42,7 @@ def context_capability_summary(project: Project) -> dict[str, Any]:
         data.get("failure_analysis")
         if isinstance(data.get("failure_analysis"), dict) else {}
     )
+    calibration = data.get("calibration") if isinstance(data.get("calibration"), dict) else {}
     seal = data.get("case_seal") if isinstance(data.get("case_seal"), dict) else {}
     failed_ids = [
         str(item.get("case_id"))
@@ -69,6 +70,9 @@ def context_capability_summary(project: Project) -> dict[str, Any]:
         "failure_analysis_status": failure.get("status"),
         "primary_failure_class": failure.get("primary_failure_class"),
         "failure_count": int(failure.get("failure_count") or 0),
+        "calibration_gate": data.get("calibration_gate"),
+        "calibration_status": calibration.get("status"),
+        "calibration_contract_gaps": calibration.get("contract_gaps") or [],
         "case_seal_status": seal.get("status"),
         "case_seal_digest": seal.get("digest"),
         "cross_project_history": cross_project_context_summary(project.runtime_dir),
@@ -98,6 +102,9 @@ def empty_summary() -> dict[str, Any]:
         "failure_analysis_status": None,
         "primary_failure_class": None,
         "failure_count": 0,
+        "calibration_gate": None,
+        "calibration_status": None,
+        "calibration_contract_gaps": [],
         "case_seal_status": None,
         "case_seal_digest": None,
         "cross_project_history": empty_cross_project_summary(),

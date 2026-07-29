@@ -10,6 +10,7 @@ from typing import Any, Protocol
 from .models import Project
 from .query_behavior_concepts import behavior_marker_terms
 from .query_hierarchical_owners import load_one_hop_owners
+from .semantic_callable_profile import matching_owner_kind
 from .records import row_dict
 from .storage import connect
 from .text import json_list, query_tokens, score_weighted_fields, unique_list
@@ -283,6 +284,9 @@ def rank_callables(items: list[dict[str, Any]], query: str) -> list[dict[str, An
         if mechanism_hits:
             score += min(9.0, 3.0 * len(mechanism_hits[0]["matched_terms"]))
             reasons.append("semantic_mechanism")
+        if matching_owner_kind(query, item.get("owner_kind")):
+            score += 6.0
+            reasons.append("structured_owner_kind")
         if item.get("graph_depth"):
             score += 3.0 + float(item.get("graph_confidence") or 0.0) * 3.0
             reasons.extend(f"graph_owner:{value}" for value in item.get("graph_relations") or [])
@@ -376,6 +380,9 @@ def compact_callable(item: dict[str, Any]) -> dict[str, Any]:
         "graph_depth": item.get("graph_depth"),
         "graph_relations": item.get("graph_relations") or [],
         "recall_lanes": item.get("direct_recall_lanes") or [],
+        "owner_name": item.get("owner_name"),
+        "owner_kind": item.get("owner_kind"),
+        "callable_roles": json_list(item.get("callable_roles")),
     }
 
 
