@@ -1,0 +1,286 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-link-my-harmony-holdout",
+  "source_repository": "https://github.com/xiebyapps/link-my-harmony.git",
+  "source_branch": "master",
+  "source_head_reviewed": "d618c879af84777d3bf7dcf4086ebb67d0b7ec4f",
+  "runtime_revision": "0a1a4ec",
+  "generated_at": "2026-07-30T00:00:00+08:00",
+  "generator": "git-history/v1+external-stable-log-owner-source-review",
+  "cases": [
+    {
+      "id": "link-my-harmony-theme-prop-callback-owner",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The ArkUI page crashes while rendering or invoking the theme picker after a previous runtime line Theme persist failed: Preferences save failed. Locate the logged callback owner and the source passage connecting the picker event to its function-valued component property.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "Theme persist failed: Preferences save failed"
+        },
+        {
+          "id": "symptom-context",
+          "description": "The theme picker crashes during render or selection after Theme persist failed: Preferences save failed. Return the callback owner and the component event source that invokes its function-valued property."
+        }
+      ],
+      "source": {
+        "before_revision": "a85be3ba0dfd038a71891acfc6721ac761badc42",
+        "after_revision": "fd01f754c47e44f0fef925e5a46aa4372daeabd8",
+        "changed_files": [
+          "harmony/entry/src/main/ets/components/ElementsPanelComponent.ets",
+          "harmony/entry/src/main/ets/components/ThemePickerComponent.ets",
+          "harmony/entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed_stable_log_owner",
+        "fix_commit": "fd01f754c47e44f0fef925e5a46aa4372daeabd8",
+        "commit_message": "fix: crash from function-type @Prop in ArkUI components"
+      },
+      "oracle": {
+        "expected_files": [
+          "harmony/entry/src/main/ets/pages/Index.ets",
+          "harmony/entry/src/main/ets/components/ThemePickerComponent.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "framework_callback_contract",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_template_literals": [
+            "Theme persist failed:"
+          ],
+          "runtime_observed_terms": [
+            "Preferences save failed"
+          ],
+          "required_log_files": [
+            "harmony/entry/src/main/ets/pages/Index.ets"
+          ],
+          "required_log_evidence_classes": [
+            "direct"
+          ],
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "harmony/entry/src/main/ets/pages/Index.ets",
+              "start_line": 410,
+              "end_line": 419
+            },
+            {
+              "file_path": "harmony/entry/src/main/ets/components/ThemePickerComponent.ets",
+              "start_line": 7,
+              "end_line": 12
+            },
+            {
+              "file_path": "harmony/entry/src/main/ets/components/ThemePickerComponent.ets",
+              "start_line": 60,
+              "end_line": 62
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Render the picker and select each theme on the affected ArkUI version; verify the handler-object contract prevents the component crash."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "link-my-harmony-dashboard-total-caller",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "In offline mode the dashboard undercounts links that are not assigned to a collection after the runtime line fetchDashboardTotals failed: HTTP 503. Locate the emitting owner and the caller passage that calculates linksTotal.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "fetchDashboardTotals failed: HTTP 503"
+        },
+        {
+          "id": "symptom-context",
+          "description": "Offline dashboard linksTotal omits unorganized links after fetchDashboardTotals failed: HTTP 503. Return the log owner and the caller source that derives the total."
+        }
+      ],
+      "source": {
+        "before_revision": "9a425e8924fd6a4c69576212b3be300e51a62038",
+        "after_revision": "98d668a8e07db0e372eddb82cd091e4e93b56e75",
+        "changed_files": [
+          "harmony/entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed_stable_log_owner",
+        "fix_commit": "98d668a8e07db0e372eddb82cd091e4e93b56e75",
+        "commit_message": "fix: dashboard linksTotal should count all links including unorganized"
+      },
+      "oracle": {
+        "expected_files": [
+          "harmony/entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "aggregation_semantics",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_template_literals": [
+            "fetchDashboardTotals failed: %{public}s"
+          ],
+          "runtime_observed_terms": [
+            "HTTP 503"
+          ],
+          "required_log_files": [
+            "harmony/entry/src/main/ets/pages/Index.ets"
+          ],
+          "required_log_evidence_classes": [
+            "direct"
+          ],
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "harmony/entry/src/main/ets/pages/Index.ets",
+              "start_line": 2683,
+              "end_line": 2704
+            },
+            {
+              "file_path": "harmony/entry/src/main/ets/pages/Index.ets",
+              "start_line": 2721,
+              "end_line": 2727
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Create offline links both inside and outside collections and verify the dashboard total equals the local link count when remote totals are unavailable."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "link-my-harmony-host-memory-context-owner",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Saving host-to-collection memory on a newer ArkUI runtime emits persist host memory failed: BusinessError 401 invalid context. Locate the log owner and the source passage that constructs storage from the component context.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "persist host memory failed: BusinessError 401 invalid context"
+        },
+        {
+          "id": "symptom-context",
+          "description": "Host collection memory is not persisted on a newer ArkUI runtime after persist host memory failed: BusinessError 401 invalid context. Return the owner and context-construction source."
+        }
+      ],
+      "source": {
+        "before_revision": "ff1b8ba2fed9b7e7d3a92101ba11e483a234a084",
+        "after_revision": "88486fb6dd952b1c72cec0c579ee7fe754dfe8b8",
+        "changed_files": [
+          "harmony/entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed_stable_log_owner",
+        "fix_commit": "88486fb6dd952b1c72cec0c579ee7fe754dfe8b8",
+        "commit_message": "fix: replace deprecated getContext(this) with getUIContext().getHostContext()"
+      },
+      "oracle": {
+        "expected_files": [
+          "harmony/entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "platform_context_contract",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_template_literals": [
+            "persist host memory failed:"
+          ],
+          "runtime_observed_terms": [
+            "BusinessError 401 invalid context"
+          ],
+          "required_log_files": [
+            "harmony/entry/src/main/ets/pages/Index.ets"
+          ],
+          "required_log_evidence_classes": [
+            "direct"
+          ],
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "harmony/entry/src/main/ets/pages/Index.ets",
+              "start_line": 3551,
+              "end_line": 3559
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Persist host memory on the target ArkUI API level and verify storage receives the host UIAbility context without a context BusinessError."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "require_seal": true
+  },
+  "evaluation_governance": {
+    "status": "legacy_unclassified",
+    "enforced": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-30T00:34:45+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "401dd0bede0e2a769460c4c9c5193ec4943341e2b1e125fac93424d52c719906"
+  }
+}

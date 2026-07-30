@@ -7877,3 +7877,36 @@ Result:
   binding enabled. Python compilation, whitespace, four-Skill, and 500-line gates pass.
 - The consumed OpenHarmony Notes holdout was not changed or rerun. A different unseen
   project remains required for external promotion evidence.
+
+## 2026-07-30 - Run link-my-harmony external context gate
+
+What changed:
+
+- Froze Runtime at `0a1a4ec` and selected the previously unused MIT-licensed
+  `xiebyapps/link-my-harmony` project without running Context retrieval during source
+  selection.
+- Source-reviewed three real fixes covering an ArkUI function-valued component
+  property, a third-argument `hilog` event with a dashboard caller, and a dynamic
+  persistence warning in a platform-context owner.
+- Audited all parent/fix revisions and declared changed files, then sealed the pack
+  with digest
+  `401dd0bede0e2a769460c4c9c5193ec4943341e2b1e125fac93424d52c719906`.
+- Executed the six-variant Context gate exactly once. The project is consumed; the
+  sealed cases and result cannot be edited, tuned on, or rerun.
+
+Result:
+
+- The gate passes 0/6 and denies promotion. Candidate-file Recall@20 is 1.0, anchor
+  recall is 0.3333, precision is 0.4167, MRR is 0.4167, and reviewed source-span
+  recall is 0.1111.
+- Every variant first loses evidence at callable localization. Static audit found a
+  global position-biased 128-callable pool, a 4,000-line source-focus boundary, and
+  missing typed component property-flow context.
+- The host-memory variants deliver no log anchor, while the result lacks stage-level
+  removal provenance needed to identify whether extraction, recall, fusion, or compact
+  selection removed it.
+- Compactness passes at 1,444.6667 average Tokens, but memory preparation averages
+  30.7655 seconds and compact query execution averages 11.3435 seconds.
+- Future repair must use independent fixtures, per-file evidence-seeded retrieval,
+  complete bounded source access, typed ArkTS property flow, and explicit candidate
+  removal telemetry. A different unseen project is required for promotion.
