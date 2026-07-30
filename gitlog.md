@@ -8059,3 +8059,29 @@ Result:
 - The draft remains unsealed and unconsumed because the Runtime worktree does not yet
   have a unique immutable revision. No AGenUI Context or Agent result exists, and no
   prior holdout was modified or rerun.
+
+## 2026-07-31 - Run the sealed AGenUI Context observation once
+
+What changed:
+
+- Froze Runtime revision `b26de18`, re-audited all three source revisions and five
+  declared changed files, and sealed the AGenUI pack with digest
+  `0d1634e36e09aa52f0c62501f02d37bcaadd46e1f7685e407978e59404763ea4`.
+- Ran the six-variant Context gate exactly once with a sibling memory home and retained
+  the complete seal-verified result.
+- Audited an orchestration race where the redirected file appeared empty before the
+  long-running child had actually flushed its final JSON. The same first process later
+  completed; no second evaluation command was issued.
+
+Result:
+
+- The gate fails 0/6 variants and 0/3 stable scenarios. Candidate-file recall is 1.0,
+  while final anchor recall, precision, MRR, and source-span recall are 0.3333.
+- Callable and hierarchical range recall are 0.6667. The resize scenario reaches the
+  correct code passage but misses required log evidence; error propagation and Lottie
+  measurement lose the final anchor. Compactness passes at 1,375.3333 average Tokens.
+- Agent A/B remains blocked. The sealed pack is consumed and must not be rerun or used
+  directly for tuning. Future one-shot runs should persist a write-ahead execution
+  receipt independently of final stdout.
+- The immutable result SHA-256 is
+  `848fc9ae4d1fb440df7f95dcb66fc41faf6f97a8f767496cbc321b2c54a7a7fa`.

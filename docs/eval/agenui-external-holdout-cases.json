@@ -9,17 +9,28 @@
   "generated_at": "2026-07-30T23:20:00+08:00",
   "generator": "git-history/v1+external-agenui-source-review",
   "preparation_state": {
-    "status": "awaiting_runtime_freeze",
+    "status": "ready_to_seal",
     "runtime_base_revision": "54585c364c05d63850c3b9e999f59d0ba57d61d9",
+    "runtime_revision": "b26de18",
+    "runtime_frozen_at": "2026-07-31T00:13:52+08:00",
     "context_gate_executed": false,
     "consumed": false
   },
   "selection_audit": {
     "selected_source_family": "AGenUI/AGenUI",
     "excluded_sources": [
-      {"repository": "HomoArk/Homogram", "reason": "source lineage overlaps consumed Gramony"},
-      {"repository": "Yebingiscn/SweetVideo", "reason": "source lineage overlaps consumed FinVideo"},
-      {"repository": "xiaobaigroup/ClashBox", "reason": "application source was deleted from reviewed history"}
+      {
+        "repository": "HomoArk/Homogram",
+        "reason": "source lineage overlaps consumed Gramony"
+      },
+      {
+        "repository": "Yebingiscn/SweetVideo",
+        "reason": "source lineage overlaps consumed FinVideo"
+      },
+      {
+        "repository": "xiaobaigroup/ClashBox",
+        "reason": "application source was deleted from reviewed history"
+      }
     ]
   },
   "governance": {
@@ -35,8 +46,14 @@
     "calibration": {
       "target_domain": "native_arkts",
       "minimum_case_count": 3,
-      "required_target_levels": ["callable", "expression"],
-      "required_artifact_roles": ["adapter", "component"],
+      "required_target_levels": [
+        "callable",
+        "expression"
+      ],
+      "required_artifact_roles": [
+        "adapter",
+        "component"
+      ],
       "required_mechanism_kinds": [
         "async_control",
         "error_contract",
@@ -44,7 +61,8 @@
         "platform_api",
         "ui_state"
       ]
-    }
+    },
+    "require_seal": true
   },
   "cases": [
     {
@@ -53,7 +71,9 @@
       "review_status": "holdout",
       "task": {
         "description": "A malformed A2UI payload is rejected, but the Harmony host receives no error and a later payload can remain affected. Locate the ArkTS listener adapter and manager passage where native surface events are forwarded.",
-        "constraints": ["Do not inspect Git history or a later revision."]
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
       },
       "query_variants": [
         {
@@ -109,9 +129,16 @@
       },
       "evaluation_profile": {
         "target_domain": "native_arkts",
-        "artifact_roles": ["adapter"],
-        "target_levels": ["callable"],
-        "mechanism_kinds": ["error_contract", "event_binding"]
+        "target_levels": [
+          "callable"
+        ],
+        "artifact_roles": [
+          "adapter"
+        ],
+        "mechanism_kinds": [
+          "error_contract",
+          "event_binding"
+        ]
       },
       "review": {
         "source_diff_reviewed": true,
@@ -119,7 +146,11 @@
         "remaining_gate": "Reject a malformed payload, verify the host callback fires, then submit a valid payload and verify parsing recovers."
       },
       "leakage_guard": {
-        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
       }
     },
     {
@@ -128,7 +159,9 @@
       "review_status": "holdout",
       "task": {
         "description": "After a fold, unfold, or rotation, the Harmony page is truncated or leaves excessive empty space. The earlier log says onSizeChange notified native - width: 1700, but no later width reaches native layout. Locate the resize event owner and source passage.",
-        "constraints": ["Do not inspect Git history or a later revision."]
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
       },
       "query_variants": [
         {
@@ -169,11 +202,15 @@
           "required_log_template_literals": [
             "onSizeChange notified native - width: %{public}d"
           ],
-          "runtime_observed_terms": ["1700"],
+          "runtime_observed_terms": [
+            "1700"
+          ],
           "required_log_files": [
             "platforms/harmony/agenui/src/main/ets/agenui/AGenUIContainer.ets"
           ],
-          "required_log_evidence_classes": ["direct"],
+          "required_log_evidence_classes": [
+            "direct"
+          ],
           "required_top_k": 2,
           "min_anchor_precision": 0.5,
           "require_source_excerpt": true,
@@ -190,9 +227,17 @@
       },
       "evaluation_profile": {
         "target_domain": "native_arkts",
-        "artifact_roles": ["component"],
-        "target_levels": ["expression"],
-        "mechanism_kinds": ["event_binding", "platform_api", "ui_state"]
+        "target_levels": [
+          "expression"
+        ],
+        "artifact_roles": [
+          "component"
+        ],
+        "mechanism_kinds": [
+          "event_binding",
+          "platform_api",
+          "ui_state"
+        ]
       },
       "review": {
         "source_diff_reviewed": true,
@@ -200,7 +245,11 @@
         "remaining_gate": "Fold, unfold, and rotate while recording width notifications; verify every changed positive width reaches native layout."
       },
       "leakage_guard": {
-        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
       }
     },
     {
@@ -209,7 +258,9 @@
       "review_status": "holdout",
       "task": {
         "description": "A Harmony Lottie node remains invisible at 0x0 even though its measurer computes positive fallback dimensions. Locate the measurement owner and the returned size contract that controls whether Yoga accepts those dimensions.",
-        "constraints": ["Do not inspect Git history or a later revision."]
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
       },
       "query_variants": [
         {
@@ -263,9 +314,17 @@
       },
       "evaluation_profile": {
         "target_domain": "native_arkts",
-        "artifact_roles": ["component"],
-        "target_levels": ["callable", "expression"],
-        "mechanism_kinds": ["async_control", "platform_api"]
+        "target_levels": [
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "component"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "platform_api"
+        ]
       },
       "review": {
         "source_diff_reviewed": true,
@@ -273,8 +332,31 @@
         "remaining_gate": "Render Lottie under constrained and unconstrained Yoga modes and verify the node receives a nonzero initial size."
       },
       "leakage_guard": {
-        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
       }
     }
-  ]
+  ],
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 3,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-07-30T16:14:27+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 3,
+    "digest": "0d1634e36e09aa52f0c62501f02d37bcaadd46e1f7685e407978e59404763ea4"
+  }
 }

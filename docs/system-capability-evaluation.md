@@ -1091,8 +1091,21 @@ Gramony 同源的 Homogram、派生自已消费 FinVideo 的 SweetVideo，以及
 ClashBox。草案保存在 `docs/eval/agenui-external-holdout-cases.json`，状态为
 `awaiting_runtime_freeze`。
 
-当前 Runtime 工作区包含尚未提交的治理与 Context 修改，无法提供唯一可复现 revision，因此
-本案例包没有 seal，也没有执行 Context 或 Agent。执行入口现会在案例选择和源码访问前拒绝
-未分类或未通过必需 seal 验证的 holdout；命令级负向验证以退出码 1 返回
-`holdout execution requires a verified required seal`。只有在 Runtime 形成不可变提交、写入精确
-revision 并完成 `eval-seal-cases` 后，才能按预声明次数首次执行。
+Runtime 随后冻结为 `b26de18`，三个 revision 和 5 个声明变更文件通过审计，案例包以摘要
+`0d1634e36e09aa52f0c62501f02d37bcaadd46e1f7685e407978e59404763ea4` 密封，并只执行一次。
+三个场景、六个查询变体均未通过，稳定场景为 0/3。候选文件 Recall@20 和层级文件召回均为
+1.0，说明目标文件已进入宽候选；但最终锚点召回、精度、MRR 和源码区间召回均为 0.3333。
+callable 与层级 range 召回为 0.6667，证据漏斗的首次损失集中在 callable 和
+`evidence_primary`。
+
+尺寸变化案例的两个变体已返回正确代码锚点与源码区间，但未返回要求的静态日志模板和日志
+文件；错误传播与 Lottie 测量案例均未把宽候选稳定转成最终锚点。紧凑预算门禁通过，平均
+1,375.3333 Token。主要失败类为 `ranking_precision`，同时存在 candidate generation 与
+passage selection 缺口；Agent A/B 因 Context 门禁失败而停止。完整不可变结果保存在
+`docs/eval/agenui-external-holdout-result.json`，文件 SHA-256 为
+`848fc9ae4d1fb440df7f95dcb66fc41faf6f97a8f767496cbc321b2c54a7a7fa`，不得重跑、修改或直接
+用于调参。
+
+执行编排曾在子进程实际完成前暴露空的重定向文件，随后同一个首次执行进程写入完整 JSON；
+没有发起第二次评测。该竞态不改变结果，但后续一次性外部门禁应增加独立于最终 stdout 的
+持久化执行回执，避免操作者过早判断进程终止。
