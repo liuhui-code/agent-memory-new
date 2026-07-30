@@ -7,7 +7,11 @@ import json
 from pathlib import Path
 from typing import Any
 
-from .agent_benchmark_cases import eligible_cases, load_case_pack
+from .agent_benchmark_cases import (
+    eligible_cases,
+    load_case_pack,
+    require_executable_case_pack,
+)
 from .agent_benchmark_eval import evaluate_agent_benchmark
 from .agent_evidence_utility import evaluate_agent_evidence_utility
 from .agent_benchmark_protocol import RESPONSES_SCHEMA, load_observations, run_benchmark_agent
@@ -24,6 +28,7 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     pack = load_case_pack(Path(args.cases).expanduser())
+    require_executable_case_pack(pack)
     cases = eligible_cases(pack, bool(args.allow_drafts))
     cases = select_cases(cases, list(args.case_id or []))
     cases = cases[: max(1, int(args.limit))]

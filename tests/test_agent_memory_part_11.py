@@ -39,6 +39,24 @@ class AgentMemoryRuntimePart11Tests(AgentMemoryTestBase):
             self.assertIn("SessionManager.ets", payload["code_log_matches"][0]["file_path"])
             self.assertTrue(payload["query_handoff"]["next_query_contract"]["one_candidate_per_query"])
 
+    def test_compact_context_keeps_exact_direct_log(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = profile_project(Path(temp_dir))
+            self.run_memory(project, "learn-path", "--path", "pages")
+
+            payload = json.loads(self.run_memory(
+                project,
+                "context",
+                "--query",
+                "Observed runtime line profile load failed",
+                "--compact",
+                "--json",
+            ).stdout)
+
+            anchors = payload["query_handoff"]["log_anchors"]
+            self.assertEqual("profile load failed", anchors[0]["message_template"])
+            self.assertEqual("pages/Profile.ets", anchors[0]["file_path"])
+
     def test_context_usage_and_reflection_keep_agent_authored_lesson(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             project = profile_project(Path(temp_dir))

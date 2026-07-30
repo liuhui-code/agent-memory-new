@@ -5,6 +5,18 @@
 该评测只回答一个问题：在不调用 Agent/LLM 的情况下，系统能否根据用户问题提供正确、
 紧凑、可验证的上下文。它不评价模型是否会规划工具、理解源码或给出正确根因。
 
+所有案例采集、结果解释和能力改动必须遵守
+[`docs/evaluation-and-change-policy.md`](evaluation-and-change-policy.md)。未分类案例、shadow
+输出和 informational 指标只能形成假设；只有独立 development fixture 在正式公共输出中复现
+缺陷后，才允许修改服务行为。Seal 只证明不可变，不能替代症状、日志、因果关系和 Oracle 的
+来源审查。
+
+`system_context_gate` 与 `promotion_eligible` 是两个不同结论。前者通过表示该案例集的 Context
+供给满足 Oracle；后者还要求 `evaluation_governance` 已强制分类为 external holdout，并且
+`case_seal` 已验证且为必需。Development、calibration 或 `legacy_unclassified` 案例即使能力
+全绿，也只能进入 `classify_evaluation_pack` 或 `prepare_external_holdout`，不能直接进入 Agent
+A/B。`--fail-on-fail` 继续检查能力与必需 calibration，不把“尚未晋级”误报为开发门禁失败。
+
 ```text
 真实案例 + 冻结 revision + 隐藏 Oracle
                   |
@@ -149,6 +161,10 @@ Agent A/B 仍需独立检查根因、文件、因果校准、稳定性、Token�
 `docs/eval/system-capability-cases.json` 配合
 `docs/eval/fixtures/system-capability/` 提供最小、可审查、与外部项目无关的 ArkTS 能力集：
 
+该案例包被分类为 `development/editable/project_neutral`，72 条同源合成 fixture 使用包级谱系，
+仅用于开发回归。即使全部通过，`promotion_eligible` 仍为 false，下一步只能准备新的、逐案例
+显式谱系且运行前密封的外部 holdout。旧的已执行案例包不会被事后追认为 holdout。
+
 - 2 个日志案例：正确日志发射点、显式排除的弱相关日志及当前源码摘录。
 - 2 个包装日志案例：跨文件两层静态包装链，以及两个显式实现形成的有界多态候选。
 - 2 个经验案例：可复用 procedure 进入主 lane，纠正经验只进入 guard lane。
@@ -158,6 +174,16 @@ Agent A/B 仍需独立检查根因、文件、因果校准、稳定性、Token�
 - 1 个组件属性流案例：验证叶子组件可沿属性绑定反向找到两层计算与透传组件。
 - 3 个领域实体干扰案例：分别验证渲染所有者、路由所有者，以及查询所有者与消费页面。
 - 1 个无证据案例：三种措辞都必须稳定 abstain，并显式报告代码和日志证据缺口。
+
+2026-07-30 分类后的首次单场景实际重跑为 0/3：代码锚点、日志候选和源码摘录均已召回，
+但最终 Token 收缩保留了两个包装调用者并删除了直接 emitter。修复没有调整召回、Oracle 或
+阈值；预算策略改为固定保留一个直接 emitter，再保留同一事件的包装调用者。原场景复测 3/3，
+平均 1,339 Token；相邻的支付日志噪声排除场景也为 3/3，平均 1,356 Token。两者仍只是
+development 证据，晋级状态保持 `promotion_eligible=false` 和 `prepare_external_holdout`。
+
+相关日志、路径、预算和 Context 测试共 67 项通过。Tiny 规模基准的查询延迟与查询计划门禁
+全部通过；聚合状态仍因独立的增量 no-change 与大方法文件维护时延超限而失败，本次纯列表预算
+选择不进入学习、SQL 或图重建路径，未调整既有维护 SLO。
 
 直接运行：
 
@@ -1019,3 +1045,54 @@ Token，且没有新增锚点或源码区间丢失；扩展集平均 Context 约
 可搜索实体、8 万符号、1.5 万日志和 30 万图边下通过；候选命中/缺失 p95 为
 13.162/21.610 ms，精确日志 FTS p95 为 0.295 ms，一跳 owner p95 为 6.204 ms，所有查询计划
 和增量维护 SLO 均通过。Python 编译、JSON、diff、4 Skill 和 500 行代码门禁也通过。
+
+## 2026-07-30 稠密方法池与超长文件有界访问
+
+本阶段先在独立临时 development fixture 中验证两个来自外部观察的假设，没有重跑或修改任何
+已消费 holdout。两个缺陷都实际进入 compact `query_handoff`：字母序靠前且包含 130 个方法的
+文件会占满全局 128 callable 池，使正确代码锚点同时携带错误的 `callable_evidence.primary`；
+已正确索引到第 4,102 行的方法会在源码聚焦时回退到文件头，导致 Agent 看不到目标方法正文。
+
+层级定位改为两阶段有界候选策略：最多 32 个高相关直接符号在各自文件内优先，然后使用 SQLite
+窗口函数按文件公平分配候选，总池仍限制为 128。源码聚焦在已知锚点超出 4,000 行扫描窗口时
+直接保留该范围，由摘录器随机访问目标行；不扩大整文件扫描。两个端到端用例均由失败转为通过。
+
+相关 Context 门禁选择 4 个既有场景、12 个查询变体，结果 12/12：锚点召回、精度、MRR 和
+源码区间召回均为 1.0，平均 Context 为 1,289.4167 Token。完整 216 变体执行在有界验证窗口内
+未完成并被终止，因此不计为通过或回归证明。完整 Python 测试共 744 项；742 项在沙箱内通过，
+两个 loopback Ollama 测试因沙箱禁止端口绑定报错，在允许 `127.0.0.1` 的环境重跑后 2/2 通过。
+
+CI 规模基准在 10 万实体、8 万符号和 30 万图边下测得新 callable 池 P95 为 30.219 ms，低于
+150 ms SLO；全部查询延迟和查询计划门禁通过。聚合规模报告仍因独立的增量 no-change 和大方法
+文件维护时延超限而失败，本阶段不将其误归因于查询修改，也不顺手调整维护阈值或实现。
+
+## 2026-07-30 能力门禁与外部晋级资格分离
+
+受控回归发现一个治理误判：未分类 development 能力集通过时，旧逻辑会同时输出
+`promotion_eligible: true` 和 `next_gate: paired_external_agent_ab`。这与 seal、来源隔离和本项目
+强制评测政策冲突。
+
+晋级判定现由 `agent-context-promotion-policy/v1` 统一表达。系统能力、calibration、治理分类、
+holdout split 和必需 seal 分别检查，并返回有序原因及下一门禁。真实 CLI 回归执行 1 个场景、
+3 个变体，能力门禁 3/3 通过且 `--fail-on-fail` 正常退出；同一结果明确返回
+`promotion_eligible: false`、`evaluation_governance_not_enforced` 和
+`next_gate: classify_evaluation_pack`。治理、能力评测、seal、calibration、历史和 Agent benchmark
+相关测试 60 项通过，未修改任何既有案例分数或已消费结果。
+
+## 2026-07-30 AGenUI 外部 Holdout 准备
+
+在不读取任何案例 Context 的前提下，筛选此前未使用的 `AGenUI/AGenUI` 作为独立 ArkTS
+来源。源码审查固定三个 PR 支持的真实修复：NAPI/ArkTS 错误传播、折叠屏尺寸变化后的宽度
+重算，以及异步测量类型导致 Lottie 保持 0x0。每个案例均显式记录来源族、独立性依据、问题
+提交、父提交、变更文件和变更前源码范围。
+
+三个父/修复 revision 和 5 个声明变更文件已与 Git diff 逐项核对。候选审计同时排除了与既有
+Gramony 同源的 Homogram、派生自已消费 FinVideo 的 SweetVideo，以及缺失可审查代码历史的
+ClashBox。草案保存在 `docs/eval/agenui-external-holdout-cases.json`，状态为
+`awaiting_runtime_freeze`。
+
+当前 Runtime 工作区包含尚未提交的治理与 Context 修改，无法提供唯一可复现 revision，因此
+本案例包没有 seal，也没有执行 Context 或 Agent。执行入口现会在案例选择和源码访问前拒绝
+未分类或未通过必需 seal 验证的 holdout；命令级负向验证以退出码 1 返回
+`holdout execution requires a verified required seal`。只有在 Runtime 形成不可变提交、写入精确
+revision 并完成 `eval-seal-cases` 后，才能按预声明次数首次执行。

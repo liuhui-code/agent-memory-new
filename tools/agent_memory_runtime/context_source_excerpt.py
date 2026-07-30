@@ -241,6 +241,8 @@ def focused_source_range(
     line_scores = [score_text(terms, line) for line in source_lines]
     anchor_start = max(1, int(source_range["start_line"]) - FOCUS_RADIUS)
     anchor_end = min(len(source_lines), int(source_range["end_line"]) + FOCUS_RADIUS)
+    if anchor_start > len(source_lines):
+        return source_range
     best_line = best_focus_line(source_lines, line_scores, anchor_start, anchor_end)
     bounded_anchor = (
         int(source_range["start_line"]) > 1

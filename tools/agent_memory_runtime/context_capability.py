@@ -10,7 +10,11 @@ import time
 from pathlib import Path
 from typing import Any, Optional
 
-from .agent_benchmark_cases import eligible_cases, load_case_pack
+from .agent_benchmark_cases import (
+    eligible_cases,
+    load_case_pack,
+    require_executable_case_pack,
+)
 from .benchmark_context_setup import apply_context_setup
 from .benchmark_memory import prepare_isolated_memory
 from .benchmark_workspace import materialized_workspace
@@ -19,6 +23,7 @@ from .context_calibration import assess_calibration, calibration_contract
 from .context_capability_eval import OBSERVATION_SCHEMA, evaluate_context_capability
 from .context_log_path_quality import observe_log_paths
 from .context_sufficiency_metrics import sufficiency_profile
+from .evaluation_governance import assess_promotion_policy
 from .benchmark_case_seal import case_pack_seal_audit
 from .benchmark_failure_analysis import analyze_context_failures
 from .performance_scoring import estimate_payload_tokens
@@ -33,6 +38,7 @@ HISTORY_LIMIT = 100
 def eval_context_capability_command(args: argparse.Namespace) -> None:
     case_path = Path(args.cases).expanduser()
     pack = load_case_pack(case_path)
+    require_executable_case_pack(pack)
     cases = eligible_cases(pack, bool(args.allow_drafts))
     cases = select_cases(cases, list(args.case_id or []))
     scenario_cases = limit_scenario_cases(cases, args.limit)
@@ -61,15 +67,17 @@ def eval_context_capability_command(args: argparse.Namespace) -> None:
     contract = calibration_contract(pack)
     result["calibration"] = assess_calibration(cases, result["cases"], contract)
     result["calibration_gate"] = result["calibration"]["status"] if contract else "not_required"
-    result["promotion_eligible"] = (
-        result["system_context_gate"] == "pass"
-        and result["calibration_gate"] in {"pass", "not_required"}
-    )
-    if not result["promotion_eligible"]:
-        result["next_gate"] = "repair_context_supply"
-    result["failure_analysis"] = analyze_context_failures(result)
     result["case_seal"] = case_pack_seal_audit(pack)
     result["evaluation_governance"] = pack.get("evaluation_governance", {})
+    result["promotion_policy"] = assess_promotion_policy(
+        result["system_context_gate"],
+        result["calibration_gate"],
+        result["evaluation_governance"],
+        result["case_seal"],
+    )
+    result["promotion_eligible"] = result["promotion_policy"]["eligible"]
+    result["next_gate"] = result["promotion_policy"]["next_gate"]
+    result["failure_analysis"] = analyze_context_failures(result)
     result.update({
         "project_id": project.project_id,
         "project_path": str(project.root),
@@ -81,7 +89,11 @@ def eval_context_capability_command(args: argparse.Namespace) -> None:
     })
     persist_context_capability(project, result)
     output(result, args.json)
-    if args.fail_on_fail and not result["promotion_eligible"]:
+    context_gate_failed = (
+        result["system_context_gate"] != "pass"
+        or result["calibration_gate"] not in {"pass", "not_required"}
+    )
+    if args.fail_on_fail and context_gate_failed:
         raise SystemExit(1)
 
 

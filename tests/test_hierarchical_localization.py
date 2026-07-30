@@ -203,6 +203,76 @@ struct TimelineRow {
         )
         self.assertIn("passes_property", owner["graph_relations"])
 
+    def test_dense_earlier_file_cannot_replace_exact_callable_in_serving_handoff(self) -> None:
+        methods = "\n".join(
+            f"  processLedgerSegment{index}(): void {{ this.pendingCount = {index} }}"
+            for index in range(130)
+        )
+        self.write_file(
+            "src/a/DenseLedgerArchive.ets",
+            f"export class DenseLedgerArchive {{\n  pendingCount: number = 0\n{methods}\n}}",
+        )
+        self.write_file(
+            "src/z/LedgerCommitPage.ets",
+            """
+export class LedgerCommitPage {
+  pendingCount: number = 3
+
+  async commitSelectedLedgerBatch(): Promise<void> {
+    await LedgerStore.validatePendingBatch()
+    await LedgerStore.commitPendingBatch()
+    this.pendingCount = 0
+  }
+}
+""",
+        )
+        self.run_memory(self.root, "learn-path", "--path", ".", "--json")
+
+        payload = self.compact_context(
+            "commitSelectedLedgerBatch validates and commits pending ledger batch then clears pendingCount"
+        )
+
+        handoff = payload["query_handoff"]
+        self.assertEqual(
+            "src/z/LedgerCommitPage.ets",
+            handoff["callable_evidence"]["primary"]["file_path"],
+        )
+        self.assertIn(
+            "src/z/LedgerCommitPage.ets",
+            {item["file_path"] for item in handoff["code_anchors"]},
+        )
+
+    def test_known_callable_after_scan_boundary_reaches_serving_excerpt(self) -> None:
+        filler = "\n".join(
+            f"  // unrelated audit history row {index}" for index in range(4100)
+        )
+        self.write_file(
+            "src/pages/LateAuditPage.ets",
+            f"""
+export class LateAuditPage {{
+{filler}
+  async reconcileLateAuditCheckpoint(): Promise<void> {{
+    await AuditStore.validateCheckpoint()
+    await AuditStore.commitCheckpoint()
+    this.pendingAuditCount = 0
+  }}
+}}
+""",
+        )
+        self.run_memory(self.root, "learn-path", "--path", ".", "--json")
+
+        payload = self.compact_context(
+            "reconcileLateAuditCheckpoint validates commits and clears pending audit count"
+        )
+
+        anchor = next(
+            item for item in payload["query_handoff"]["code_anchors"]
+            if item["file_path"] == "src/pages/LateAuditPage.ets"
+        )
+        excerpt = anchor["source_excerpts"][0]
+        self.assertGreater(excerpt["start_line"], 4000)
+        self.assertIn("reconcileLateAuditCheckpoint", excerpt["content"])
+
 
 def candidate(path: str, score: float) -> dict[str, object]:
     return {

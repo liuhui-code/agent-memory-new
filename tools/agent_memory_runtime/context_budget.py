@@ -14,6 +14,26 @@ MINIMAL_GUARD_FIELDS = (
 MIN_FINAL_EXCERPT_CHARS = 64
 
 
+def bounded_log_evidence(items: list[dict[str, Any]], limit: int) -> list[dict[str, Any]]:
+    if limit <= 0 or not items:
+        return []
+    if len(items) <= limit:
+        return items
+    emitter = next(
+        (item for item in items if item.get("evidence_class") == "direct"),
+        None,
+    )
+    if emitter is None:
+        return items[:limit]
+    log_id = emitter.get("log_id")
+    linked = [
+        item for item in items
+        if item is not emitter and log_id is not None and item.get("log_id") == log_id
+    ]
+    remaining = [item for item in items if item is not emitter and item not in linked]
+    return [emitter, *linked, *remaining][:limit]
+
+
 def enforce_budget(payload: dict[str, Any], token_budget: int) -> None:
     handoff = payload["query_handoff"]
     paths = handoff["path_context"]["path_candidates"]
@@ -198,7 +218,7 @@ def minimize_guards(payload: dict[str, Any]) -> None:
 def hard_trim(payload: dict[str, Any]) -> None:
     handoff = payload["query_handoff"]
     handoff["log_keywords"] = handoff["log_keywords"][:6]
-    handoff["log_anchors"] = handoff["log_anchors"][:2]
+    handoff["log_anchors"] = bounded_log_evidence(handoff["log_anchors"], 2)
     handoff["code_anchors"] = handoff["code_anchors"][:2]
     handoff["relation_hints"] = []
     handoff["experience_refs"] = []

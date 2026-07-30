@@ -6,6 +6,8 @@
 
 ## 核心边界
 
+- 所有案例等级、证据使用、停止条件和实现改动必须遵守
+  [`docs/evaluation-and-change-policy.md`](evaluation-and-change-policy.md)。
 - Git 历史采集只生成 `draft`，不能未经审查进入 Holdout。
 - ArkTS Mutation 描述可逆编辑，不修改当前源码。
 - 每次 Runner 执行都使用临时工作区。
@@ -15,6 +17,10 @@
 - 根因、设计判断、受影响文件和验证结论都由外部 Agent Runner 产生；Runtime 不参与作答。
 - 评分由文件、根因类别、禁入方向、因果等级、验证状态、耗时和 Token 确定，不使用 LLM Judge。
 - 最新结果只写入 runtime 快照和有界历史，不写入 SQLite 项目知识。
+- `legacy_unclassified`、`enforced: false`、shadow 或 informational 结果不得称为外部门禁，
+  也不得直接驱动生产行为或架构改动。
+- `system_context_gate=pass` 只允许开发结论成立；只有 `promotion_policy.eligible=true` 才允许
+  进入外部 Agent A/B 晋级链。
 
 ## 零、先测系统上下文能力
 
@@ -436,6 +442,10 @@ draft -> validated -> holdout
 - 修复 commit、after revision、Oracle 和 Mutation 原始位置不会进入 Runner public case。
 - Runner 不应读取冻结 revision 之后的 Git 历史。
 - 用户原始日志不写入案例包；只保留经审查的结构化症状和事件。
+- `eval-context-capability` 与 `eval-agent-benchmark` 对 holdout 执行相同的 fail-closed 前置检查：
+  治理必须强制分类为 holdout，且必需 seal 必须验证通过。该检查发生在案例选择、源码访问和
+  Runner 调用之前，`--limit` 或 `--case-id` 不能绕过。
+- 只有 `eval-seal-cases` 可以读取尚未密封的 holdout 草案；密封过程不运行 Context 或 Agent。
 
 ## 九、维护集成
 

@@ -7910,3 +7910,152 @@ Result:
 - Future repair must use independent fixtures, per-file evidence-seeded retrieval,
   complete bounded source access, typed ArkTS property flow, and explicit candidate
   removal telemetry. A different unseen project is required for promotion.
+
+## 2026-07-30 - Establish mandatory evaluation and change policy
+
+What changed:
+
+- Added a repository-level policy that separates exploratory, development,
+  calibration, and holdout evidence and defines mandatory eligibility rules.
+- Added decision and stop rules for serving changes, evaluator changes, architecture
+  changes, shadow metrics, consumed holdouts, and system-versus-Agent conclusions.
+- Made the policy mandatory through `AGENTS.md`, `agent.md`, and both capability and
+  Agent benchmark guides.
+- Preserved the immutable Link My Harmony artifacts but corrected their interpretation:
+  because governance is `legacy_unclassified` and source evidence is incomplete, the
+  result is an exploratory observation rather than an external promotion gate.
+
+Result:
+
+- Future work must reproduce a defect in an independent development fixture and the
+  actual public serving output before changing production behavior.
+- Missing evidence now requires an explicit stop and evidence-gap record instead of a
+  speculative feature, threshold adjustment, or one-case architecture change.
+
+## 2026-07-30 - Verify and repair bounded callable and source access
+
+What changed:
+
+- Added two independent end-to-end development fixtures that assert the final compact
+  `query_handoff`, not only internal shadow metrics.
+- Reproduced a global position-biased 128-callable pool with an earlier dense file and
+  a known callable after line 4,000 whose excerpt incorrectly fell back to file start.
+- Changed callable loading to preserve at most 32 direct candidates and distribute the
+  fixed 128-row pool fairly across selected files with one SQLite window query.
+- Kept the 4,000-line mechanism scan bound; a known source range outside that scan is
+  now read directly instead of triggering an unrelated global fallback.
+- Added the callable-pool operation to the existing scale benchmark.
+
+Result:
+
+- Both new end-to-end regressions pass; 32 focused localization and source tests pass.
+- Four related Context scenarios pass all 12 query variants with 1.0 anchor recall,
+  precision, MRR, and source-span recall at 1,289.4167 average Tokens.
+- The full 216-variant Context run did not complete within the bounded verification
+  window and was terminated; it is not counted as a pass.
+- The complete Python suite ran 744 tests. The 742 sandbox-compatible tests pass; the
+  two loopback Ollama tests fail only because sandbox socket binding is prohibited and
+  pass 2/2 when rerun with loopback permission.
+- At the CI scale of 100,000 entities and 300,000 edges, the new callable pool records
+  30.219 ms P95 against a 150 ms SLO. Query latency and plans pass. The aggregate scale
+  report still fails unrelated incremental-maintenance SLOs, which were not changed.
+- Python compilation, diff validation, and the 500-line Python gate pass.
+
+## 2026-07-30 - Separate context capability from promotion eligibility
+
+What changed:
+
+- Reproduced a controlled governance contradiction where a passing unclassified
+  development pack reported `promotion_eligible: true` and pointed directly to Agent
+  A/B.
+- Added `agent-context-promotion-policy/v1` to evaluate system capability,
+  calibration, enforced evaluation classification, holdout split, and verified
+  required seal as separate conditions with explicit reason codes.
+- Kept `--fail-on-fail` scoped to capability and required calibration so a valid
+  development gate can pass without claiming external promotion authority.
+- Updated the mandatory policy and benchmark guides with the distinction between
+  capability success and promotion eligibility.
+
+Result:
+
+- A real three-variant development run passes the Context gate and exits successfully
+  while correctly reporting `promotion_eligible: false`,
+  `evaluation_governance_not_enforced`, and `classify_evaluation_pack`.
+- Governance, capability, seal, calibration, history, failure-analysis, and Agent
+  benchmark regression groups pass 60 tests.
+- No stored case score, sealed artifact, ranking threshold, or Runtime retrieval
+  behavior changed.
+
+## 2026-07-30 - Classify active evaluation packs without rewriting history
+
+What changed:
+
+- Inventoried benchmark case packs and their active documentation/test references.
+  Classified only the 72-case system capability pack that still serves as the primary
+  development gate; consumed and legacy holdouts remain untouched and unclassified.
+- Added package-level lineage defaults for reviewed development and calibration
+  fixtures while keeping holdout validation fail-closed on explicit per-case lineage.
+- Exposed whether validated lineage is `pack_defaults` or `case_explicit` and added
+  regression coverage for both the allowed development and rejected holdout paths.
+
+Result:
+
+- The system capability pack loads as
+  `development/editable/project_neutral` with `lineage_mode: pack_defaults`.
+- A passing role-funnel development run completes 2/2 variants but correctly reports
+  `promotion_eligible: false` and `next_gate: prepare_external_holdout`.
+- At the classification checkpoint, the first system log scenario failed 0/3 because
+  the expected log file was absent from the final log evidence channel. The gate stopped at
+  `repair_context_supply`; no Oracle, threshold, ranking, or consumed artifact was
+  changed to hide this existing failure.
+
+## 2026-07-30 - Preserve direct log evidence under compact budget pressure
+
+What changed:
+
+- Traced the classified system log failure through the public compact handoff. The
+  direct emitter and two wrapped callers survived indexing, recall, event selection,
+  and path construction; the final two-slot budget trim kept both callers and removed
+  the emitter.
+- Replaced positional log trimming with bounded evidence-role selection: preserve one
+  direct emitter, then a wrapped caller with the same `log_id`, then any remaining
+  candidate. The list remains capped at two and performs no database work.
+- Added regression coverage for emitter-versus-wrapper competition while retaining the
+  existing weak-log suppression contract.
+
+Result:
+
+- The original system emitter scenario moves from 0/3 to 3/3 with log, code, and source
+  gates passing at 1,339 average Tokens.
+- The adjacent payment-log noise exclusion scenario remains 3/3 at 1,356 average
+  Tokens, so direct-evidence preservation does not become unconditional log retention.
+- Both are classified development observations. Promotion remains denied and points to
+  `prepare_external_holdout`; no consumed holdout was changed or rerun.
+- Related log, path, budget, and Context groups pass 67 tests. Tiny-scale query latency
+  and query-plan gates pass; the aggregate scale report still fails the independent
+  incremental no-change and large-method maintenance SLOs, which this list-only change
+  neither executes nor modifies.
+
+## 2026-07-30 - Prepare an independent AGenUI holdout without consuming it
+
+What changed:
+
+- Audited unused ArkTS repositories and selected `AGenUI/AGenUI` after excluding a
+  Gramony source relative, a FinVideo derivative, and a repository without reviewable
+  code history.
+- Reviewed three PR-backed fixes at exact pre-fix revisions: native error propagation,
+  fold/rotation width refresh, and asynchronous Lottie measurement. All parent/fix
+  revisions and five declared changed files match Git history.
+- Added a classified, case-explicit external holdout draft with source ranges,
+  independent lineage, leakage guards, and `awaiting_runtime_freeze` state.
+- Added a shared fail-closed execution guard to both Context and Agent benchmarks.
+  Unclassified or unsealed holdouts are rejected before case selection, source access,
+  or Runner invocation; the sealing command remains the only pre-execution consumer.
+
+Result:
+
+- Seal/governance/Agent benchmark regressions pass. A real CLI attempt against the
+  unsealed AGenUI draft exits 1 with the required-seal error before any Context query.
+- The draft remains unsealed and unconsumed because the Runtime worktree does not yet
+  have a unique immutable revision. No AGenUI Context or Agent result exists, and no
+  prior holdout was modified or rerun.

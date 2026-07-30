@@ -28,6 +28,23 @@ def load_case_pack(path: Path) -> dict[str, Any]:
     return validate_case_pack(data)
 
 
+def require_executable_case_pack(pack: dict[str, Any]) -> None:
+    governance = pack.get("evaluation_governance")
+    governance = (
+        governance
+        if isinstance(governance, dict)
+        else validate_evaluation_governance(pack)
+    )
+    is_holdout = pack.get("suite") == "holdout" or governance.get("split") == "holdout"
+    if not is_holdout:
+        return
+    if not governance.get("enforced") or governance.get("split") != "holdout":
+        raise SystemExit("holdout execution requires classified evaluation governance")
+    seal = case_pack_seal_audit(pack)
+    if seal.get("status") != "verified" or not seal.get("required"):
+        raise SystemExit("holdout execution requires a verified required seal")
+
+
 def validate_case_pack(value: Any) -> dict[str, Any]:
     if not isinstance(value, dict) or value.get("schema_version") != CASE_SCHEMA:
         raise SystemExit(f"unsupported benchmark case schema; expected {CASE_SCHEMA}")

@@ -6,6 +6,7 @@ from typing import Any
 
 
 GOVERNANCE_SCHEMA = "agent-evaluation-governance/v1"
+PROMOTION_SCHEMA = "agent-context-promotion-policy/v1"
 SPLITS = {"development", "calibration", "holdout"}
 POLICIES = {"editable", "frozen", "sealed"}
 ISOLATION_KINDS = {"project_neutral", "independent_source", "external_holdout"}
@@ -27,9 +28,18 @@ def validate_evaluation_governance(pack: dict[str, Any]) -> dict[str, Any]:
         raise SystemExit("evaluation governance has unsupported split, policy, or isolation")
     validate_suite(str(pack.get("suite") or ""), split, policy, isolation)
     cases = pack.get("cases") if isinstance(pack.get("cases"), list) else []
-    missing = [str(item.get("id") or "<unknown>") for item in cases if not case_lineage(item)]
+    defaults = lineage_defaults(value)
+    effective_defaults = {} if split == "holdout" else defaults
+    missing = [
+        str(item.get("id") or "<unknown>")
+        for item in cases
+        if not case_lineage(item, effective_defaults)
+    ]
     if missing:
+        if split == "holdout" and defaults:
+            raise SystemExit(f"holdout requires explicit case lineage: {', '.join(missing)}")
         raise SystemExit(f"evaluation governance missing case lineage: {', '.join(missing)}")
+    inherited = bool(defaults) and any(not case_lineage(item) for item in cases)
     return {
         "status": "classified",
         "enforced": True,
@@ -38,8 +48,45 @@ def validate_evaluation_governance(pack: dict[str, Any]) -> dict[str, Any]:
         "change_policy": policy,
         "source_isolation": isolation,
         "case_count": len(cases),
+        "lineage_mode": "pack_defaults" if inherited else "case_explicit",
         "tuning_allowed": split == "development" and policy == "editable",
     }
+
+
+def assess_promotion_policy(
+    system_context_gate: str,
+    calibration_gate: str,
+    governance: dict[str, Any],
+    case_seal: dict[str, Any],
+) -> dict[str, Any]:
+    reasons: list[str] = []
+    if system_context_gate != "pass":
+        reasons.append("system_context_gate_failed")
+    if calibration_gate not in {"pass", "not_required"}:
+        reasons.append("calibration_gate_failed")
+    if not governance.get("enforced"):
+        reasons.append("evaluation_governance_not_enforced")
+    elif governance.get("split") != "holdout":
+        reasons.append("evaluation_split_not_holdout")
+    elif case_seal.get("status") != "verified" or not case_seal.get("required"):
+        reasons.append("holdout_seal_not_verified")
+    return {
+        "schema_version": PROMOTION_SCHEMA,
+        "eligible": not reasons,
+        "reasons": reasons,
+        "next_gate": promotion_next_gate(reasons),
+    }
+
+
+def promotion_next_gate(reasons: list[str]) -> str:
+    priorities = (
+        ("system_context_gate_failed", "repair_context_supply"),
+        ("calibration_gate_failed", "repair_calibration_coverage"),
+        ("evaluation_governance_not_enforced", "classify_evaluation_pack"),
+        ("evaluation_split_not_holdout", "prepare_external_holdout"),
+        ("holdout_seal_not_verified", "seal_reviewed_holdout"),
+    )
+    return next((gate for reason, gate in priorities if reason in reasons), "paired_external_agent_ab")
 
 
 def validate_suite(suite: str, split: str, policy: str, isolation: str) -> None:
@@ -53,15 +100,32 @@ def validate_suite(suite: str, split: str, policy: str, isolation: str) -> None:
         raise SystemExit("development split requires editable policy")
 
 
-def case_lineage(value: Any) -> bool:
+def case_lineage(value: Any, defaults: dict[str, str] | None = None) -> bool:
     if not isinstance(value, dict):
         return False
     provenance = value.get("provenance")
-    if not isinstance(provenance, dict):
+    if provenance is not None and not isinstance(provenance, dict):
         return False
-    return bool(str(provenance.get("source_family") or "").strip()) and bool(
-        str(provenance.get("independence_basis") or "").strip()
+    provenance = provenance or {}
+    defaults = defaults or {}
+    return bool(str(provenance.get("source_family") or defaults.get("source_family") or "").strip()) and bool(
+        str(provenance.get("independence_basis") or defaults.get("independence_basis") or "").strip()
     )
+
+
+def lineage_defaults(value: dict[str, Any]) -> dict[str, str]:
+    raw = value.get("lineage_defaults")
+    if raw is None:
+        return {}
+    if not isinstance(raw, dict):
+        raise SystemExit("evaluation governance lineage_defaults must be an object")
+    defaults = {
+        "source_family": str(raw.get("source_family") or "").strip(),
+        "independence_basis": str(raw.get("independence_basis") or "").strip(),
+    }
+    if not all(defaults.values()):
+        raise SystemExit("evaluation governance lineage_defaults requires source_family and independence_basis")
+    return defaults
 
 
 def required(value: dict[str, Any], key: str) -> str:

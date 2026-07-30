@@ -20,6 +20,7 @@ CALLABLE_TYPES = ("function", "method")
 MAX_FILES = 8
 MAX_FILES_PER_DIRECTORY = 2
 MAX_FILE_CALLABLE_POOL = 128
+MAX_DIRECT_CALLABLE_POOL = 32
 MAX_GRAPH_SEEDS = 6
 MAX_GRAPH_OWNERS = 16
 MAX_CALLABLES = 12
@@ -52,7 +53,11 @@ class SQLiteHierarchicalLocalizer:
         if not files:
             return empty_localization()
         direct_symbols = direct_symbol_candidates(matches.get("wiki_matches") or [], files)
-        rows = load_file_callables(project, [item["file_path"] for item in files])
+        rows = load_file_callables(
+            project,
+            [item["file_path"] for item in files],
+            list(direct_symbols)[:MAX_DIRECT_CALLABLE_POOL],
+        )
         candidates = attach_candidate_metadata(rows, files, direct_symbols)
         initial = rank_callables(candidates, query)
         graph_seeds = select_graph_seeds(initial, MAX_GRAPH_SEEDS)
@@ -111,6 +116,7 @@ def localization_limits() -> dict[str, int]:
     return {
         "files": MAX_FILES,
         "file_callable_pool": MAX_FILE_CALLABLE_POOL,
+        "direct_callable_pool": MAX_DIRECT_CALLABLE_POOL,
         "graph_seeds": MAX_GRAPH_SEEDS,
         "graph_owners": MAX_GRAPH_OWNERS,
         "callables": MAX_CALLABLES,
@@ -190,21 +196,48 @@ def direct_symbol_candidates(
     return result
 
 
-def load_file_callables(project: Project, file_paths: list[str]) -> list[dict[str, Any]]:
+def load_file_callables(
+    project: Project,
+    file_paths: list[str],
+    preferred_ids: list[int] | None = None,
+) -> list[dict[str, Any]]:
     if not file_paths:
         return []
+    preferred = [int(value) for value in (preferred_ids or []) if int(value) > 0]
     placeholders = ",".join("?" for _ in file_paths)
     type_placeholders = ",".join("?" for _ in CALLABLE_TYPES)
+    preferred_placeholders = ",".join("?" for _ in preferred)
+    preference = (
+        f"CASE WHEN id IN ({preferred_placeholders}) THEN 0 ELSE 1 END"
+        if preferred else "1"
+    )
+    per_file_limit = max(1, (MAX_FILE_CALLABLE_POOL + len(file_paths) - 1) // len(file_paths))
     with connect(project) as conn:
         rows = conn.execute(
             f"""
-            SELECT * FROM code_symbols
-            WHERE project_id = ? AND file_path IN ({placeholders})
-              AND symbol_type IN ({type_placeholders})
-            ORDER BY file_path, start_line, id
+            WITH ranked AS (
+              SELECT code_symbols.*,
+                     ROW_NUMBER() OVER (
+                       PARTITION BY file_path
+                       ORDER BY {preference}, start_line, id
+                     ) AS file_pool_rank
+              FROM code_symbols
+              WHERE project_id = ? AND file_path IN ({placeholders})
+                AND symbol_type IN ({type_placeholders})
+            )
+            SELECT * FROM ranked
+            WHERE file_pool_rank <= ?
+            ORDER BY file_pool_rank, file_path, start_line, id
             LIMIT ?
             """,
-            (project.project_id, *file_paths, *CALLABLE_TYPES, MAX_FILE_CALLABLE_POOL),
+            (
+                *preferred,
+                project.project_id,
+                *file_paths,
+                *CALLABLE_TYPES,
+                per_file_limit,
+                MAX_FILE_CALLABLE_POOL,
+            ),
         ).fetchall()
     return [row_dict(row) for row in rows]
 

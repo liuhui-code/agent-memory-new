@@ -14,6 +14,7 @@ from typing import Any, Callable, Iterable
 from .code_wiki_extractors import summarize_symbol
 from .models import Project
 from .query_candidate_recall import SQLiteCandidateRecall, recall_candidate_ids
+from .query_hierarchical_localization import load_file_callables
 from .query_hierarchical_owners import load_one_hop_owners
 from .records import output
 from .scale_maintenance import benchmark_incremental_maintenance
@@ -57,6 +58,7 @@ SLO_MS = {
     "file_symbols": 100.0,
     "outgoing_edges": 100.0,
     "incoming_edges": 100.0,
+    "hierarchical_callable_pool": 150.0,
     "hierarchical_one_hop_owners": 150.0,
 }
 
@@ -280,6 +282,9 @@ def benchmark_operations(
             "AND relation = 'calls' LIMIT 240",
             (project.project_id, 2),
         ).fetchall(),
+        "hierarchical_callable_pool": lambda: load_file_callables(
+            project, [file_path(index) for index in range(1, 9)], [1]
+        ),
         "hierarchical_one_hop_owners": lambda: load_one_hop_owners(
             project, [2], 16
         ),

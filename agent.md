@@ -205,6 +205,13 @@ tools/
 8. Record meaningful local development changes in `gitlog.md`.
 9. Design new workflows so the LLM invokes skills first, and skills invoke runtime commands.
 10. Keep query fast: consume governance metadata in query, run heavier review/merge/promote work through maintain.
+11. Never invent logs, symptoms, causal links, or Oracle evidence to complete an evaluation case.
+12. Treat unclassified, shadow, and informational results as hypotheses, not release or architecture evidence.
+13. Reproduce retrieval defects in independent development fixtures and in the public serving output before changing production behavior.
+14. Do not tune on, edit, or rerun consumed sealed holdouts.
+15. Change architecture only when multiple independent defect classes demonstrate the same missing contract.
+16. Stop and record an evidence gap when the failing layer cannot be proven.
+17. Follow the mandatory evaluation and change policy in `docs/evaluation-and-change-policy.md`.
 
 ## Primary Plan
 

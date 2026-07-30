@@ -10,6 +10,7 @@ from tools.agent_memory_runtime.context_anchor_selection import (
     relevant_log_anchors,
 )
 from tools.agent_memory_runtime.context_callable_focus import focus_callable_anchors
+from tools.agent_memory_runtime.context_budget import bounded_log_evidence
 
 
 class ContextLogAlignmentTests(unittest.TestCase):
@@ -84,9 +85,30 @@ class ContextLogAlignmentTests(unittest.TestCase):
         self.assertEqual(anchors, scoped)
         self.assertFalse(any(item.get("log_identity_match") for item in scoped))
 
+    def test_budget_keeps_emitter_with_one_of_multiple_wrapped_callers(self) -> None:
+        logs = [
+            log("profile load failed", "src/Ability.ets", "onCreate", "static_wrapped", log_id=7),
+            log("profile load failed", "src/Page.ets", "aboutToAppear", "static_wrapped", log_id=7),
+            log("profile load failed", "src/ProfileService.ets", "load", "direct", log_id=7),
+        ]
 
-def log(message: str, file_path: str, function: str, evidence_class: str) -> dict:
+        selected = bounded_log_evidence(logs, 2)
+
+        self.assertEqual(
+            ["src/ProfileService.ets", "src/Ability.ets"],
+            [item["file_path"] for item in selected],
+        )
+
+
+def log(
+    message: str,
+    file_path: str,
+    function: str,
+    evidence_class: str,
+    log_id: int | None = None,
+) -> dict:
     return {
+        "log_id": log_id,
         "message_template": message,
         "file_path": file_path,
         "function": function,

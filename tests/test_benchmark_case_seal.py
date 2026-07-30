@@ -7,7 +7,10 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.agent_memory_runtime.agent_benchmark_cases import load_case_pack
+from tools.agent_memory_runtime.agent_benchmark_cases import (
+    load_case_pack,
+    require_executable_case_pack,
+)
 from tools.agent_memory_runtime.benchmark_case_seal import (
     case_pack_seal_audit,
     seal_case_pack,
@@ -56,6 +59,24 @@ def reviewed_pack() -> dict:
 
 
 class BenchmarkCaseSealTests(unittest.TestCase):
+    def test_holdout_execution_requires_classification_and_verified_required_seal(self) -> None:
+        legacy = reviewed_pack()
+        with self.assertRaisesRegex(SystemExit, "classified evaluation governance"):
+            require_executable_case_pack(legacy)
+
+        governed = governed_holdout()
+        with self.assertRaisesRegex(SystemExit, "verified required seal"):
+            require_executable_case_pack(governed)
+
+        mismatched_suite = governed_holdout()
+        mismatched_suite["suite"] = "development"
+        with self.assertRaisesRegex(SystemExit, "verified required seal"):
+            require_executable_case_pack(mismatched_suite)
+
+        require_executable_case_pack(
+            seal_case_pack(governed, "2026-07-18T00:00:00Z")
+        )
+
     def test_seal_is_verified_when_pack_loads(self) -> None:
         sealed = seal_case_pack(reviewed_pack(), "2026-07-18T00:00:00Z")
         with tempfile.TemporaryDirectory() as directory:
@@ -94,6 +115,21 @@ class BenchmarkCaseSealTests(unittest.TestCase):
             path.write_text(json.dumps(pack), encoding="utf-8")
             with self.assertRaisesRegex(SystemExit, "requires a seal"):
                 load_case_pack(path)
+
+
+def governed_holdout() -> dict:
+    pack = reviewed_pack()
+    pack["governance"] = {"evaluation": {
+        "schema_version": "agent-evaluation-governance/v1",
+        "split": "holdout",
+        "change_policy": "sealed",
+        "source_isolation": "external_holdout",
+    }}
+    pack["cases"][0]["provenance"].update({
+        "source_family": "example/project@reviewed-fix",
+        "independence_basis": "selected after implementation from an unused source",
+    })
+    return pack
 
 
 if __name__ == "__main__":

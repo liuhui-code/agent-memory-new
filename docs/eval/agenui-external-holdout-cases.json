@@ -1,0 +1,280 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/tmp/agent-memory-agenui-holdout",
+  "source_repository": "https://github.com/AGenUI/AGenUI.git",
+  "source_branch": "main",
+  "source_head_reviewed": "1e802aaf030ccdf45328c36ae285b679c6839fd0",
+  "source_license": "Apache-2.0",
+  "generated_at": "2026-07-30T23:20:00+08:00",
+  "generator": "git-history/v1+external-agenui-source-review",
+  "preparation_state": {
+    "status": "awaiting_runtime_freeze",
+    "runtime_base_revision": "54585c364c05d63850c3b9e999f59d0ba57d61d9",
+    "context_gate_executed": false,
+    "consumed": false
+  },
+  "selection_audit": {
+    "selected_source_family": "AGenUI/AGenUI",
+    "excluded_sources": [
+      {"repository": "HomoArk/Homogram", "reason": "source lineage overlaps consumed Gramony"},
+      {"repository": "Yebingiscn/SweetVideo", "reason": "source lineage overlaps consumed FinVideo"},
+      {"repository": "xiaobaigroup/ClashBox", "reason": "application source was deleted from reviewed history"}
+    ]
+  },
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "calibration": {
+      "target_domain": "native_arkts",
+      "minimum_case_count": 3,
+      "required_target_levels": ["callable", "expression"],
+      "required_artifact_roles": ["adapter", "component"],
+      "required_mechanism_kinds": [
+        "async_control",
+        "error_contract",
+        "event_binding",
+        "platform_api",
+        "ui_state"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "id": "agenui-engine-rejection-listener-gap",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A malformed A2UI payload is rejected, but the Harmony host receives no error and a later payload can remain affected. Locate the ArkTS listener adapter and manager passage where native surface events are forwarded.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "query_variants": [
+        {
+          "id": "symptom",
+          "description": "A rejected A2UI payload never reaches the Harmony host error listener. Locate the ArkTS native-listener adapter and forwarding owner."
+        },
+        {
+          "id": "follow-on",
+          "description": "After one malformed payload, a later render is affected and no rejection callback appears. Return the Harmony surface-listener forwarding source."
+        }
+      ],
+      "source": {
+        "before_revision": "052eabe4bc3a3c72d44b5df3b205c1038fe86373",
+        "after_revision": "57746ddb1ad1692f02c7c72303da8da44ce44107",
+        "changed_files": [
+          "platforms/harmony/agenui/src/main/cpp/types/liba2ui-capi/Index.d.ts",
+          "platforms/harmony/agenui/src/main/ets/agenui/AGenEngineUI.ets",
+          "playground/harmony/entry/src/main/ets/pages/AGenUIDemoPage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "github_pr_and_git_history_source_reviewed",
+        "source_family": "AGenUI/AGenUI@pr-49",
+        "independence_basis": "selected after implementation from an unused repository with no lineage overlap with prior development or holdouts",
+        "fix_commit": "57746ddb1ad1692f02c7c72303da8da44ce44107",
+        "commit_message": "feat(harmony): add SurfaceManager.onError + playground error banner",
+        "pull_request": "https://github.com/AGenUI/AGenUI/pull/49"
+      },
+      "oracle": {
+        "expected_files": [
+          "platforms/harmony/agenui/src/main/ets/agenui/AGenEngineUI.ets"
+        ],
+        "forbidden_files": [
+          "platforms/harmony/agenui/src/main/ets/agenui/AGenUIContainer.ets"
+        ],
+        "root_cause_category": "error_contract",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "platforms/harmony/agenui/src/main/ets/agenui/AGenEngineUI.ets",
+              "start_line": 233,
+              "end_line": 264
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "artifact_roles": ["adapter"],
+        "target_levels": ["callable"],
+        "mechanism_kinds": ["error_contract", "event_binding"]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "source_evidence": "PR 49 marks a HarmonyOS bug fix; commit body describes missing rejection propagation and parser-buffer pollution.",
+        "remaining_gate": "Reject a malformed payload, verify the host callback fires, then submit a valid payload and verify parsing recovers."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "agenui-resize-native-notification-owner",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After a fold, unfold, or rotation, the Harmony page is truncated or leaves excessive empty space. The earlier log says onSizeChange notified native - width: 1700, but no later width reaches native layout. Locate the resize event owner and source passage.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "onSizeChange notified native - width: 1700"
+        },
+        {
+          "id": "symptom-context",
+          "description": "After folding or rotating, content is truncated and no new onSizeChange notified native width appears. Return the resize owner and relevant source."
+        }
+      ],
+      "source": {
+        "before_revision": "b2d338084a48e949e4165e0484e9b9219453d43b",
+        "after_revision": "507e68d6987d8ee391d8b2619127af0bed4c49b5",
+        "changed_files": [
+          "platforms/harmony/agenui/src/main/ets/agenui/AGenUIContainer.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "github_pr_and_git_history_source_reviewed_stable_log_owner",
+        "source_family": "AGenUI/AGenUI@pr-71",
+        "independence_basis": "selected after implementation from an unused repository with no lineage overlap with prior development or holdouts",
+        "fix_commit": "507e68d6987d8ee391d8b2619127af0bed4c49b5",
+        "commit_message": "fix: Resolve the problem that the layout is not recalculated when the window dimensions change",
+        "pull_request": "https://github.com/AGenUI/AGenUI/pull/71"
+      },
+      "oracle": {
+        "expected_files": [
+          "platforms/harmony/agenui/src/main/ets/agenui/AGenUIContainer.ets"
+        ],
+        "forbidden_files": [
+          "playground/harmony/entry/src/main/ets/components/LottieMeasurementComponent.ets"
+        ],
+        "root_cause_category": "ui_state",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_template_literals": [
+            "onSizeChange notified native - width: %{public}d"
+          ],
+          "runtime_observed_terms": ["1700"],
+          "required_log_files": [
+            "platforms/harmony/agenui/src/main/ets/agenui/AGenUIContainer.ets"
+          ],
+          "required_log_evidence_classes": ["direct"],
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "platforms/harmony/agenui/src/main/ets/agenui/AGenUIContainer.ets",
+              "start_line": 59,
+              "end_line": 70
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "artifact_roles": ["component"],
+        "target_levels": ["expression"],
+        "mechanism_kinds": ["event_binding", "platform_api", "ui_state"]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "source_evidence": "PR 71 documents truncation and empty-space failures on fold, unfold, and rotation and reports device/simulator testing.",
+        "remaining_gate": "Fold, unfold, and rotate while recording width notifications; verify every changed positive width reaches native layout."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "agenui-lottie-zero-size-measurer",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A Harmony Lottie node remains invisible at 0x0 even though its measurer computes positive fallback dimensions. Locate the measurement owner and the returned size contract that controls whether Yoga accepts those dimensions.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "query_variants": [
+        {
+          "id": "symptom",
+          "description": "Lottie stays invisible at 0x0 although positive width and height are calculated. Find the Harmony measurement owner and result contract."
+        },
+        {
+          "id": "mechanism",
+          "description": "Locate the Lottie measurer that returns width, height, and calcType to Yoga."
+        }
+      ],
+      "source": {
+        "before_revision": "365cd5b7df92245c519cae0e64a6643e929519a8",
+        "after_revision": "f0eb6e8d3f0e355440fddcfe31b27d4d58af2c5e",
+        "changed_files": [
+          "playground/harmony/entry/src/main/ets/components/LottieMeasurementComponent.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "github_pr_and_git_history_source_reviewed",
+        "source_family": "AGenUI/AGenUI@pr-44",
+        "independence_basis": "selected after implementation from an unused repository with no lineage overlap with prior development or holdouts",
+        "fix_commit": "f0eb6e8d3f0e355440fddcfe31b27d4d58af2c5e",
+        "commit_message": "fix(harmony): make Lottie measurer Sync to prevent 0x0 rendering",
+        "pull_request": "https://github.com/AGenUI/AGenUI/pull/44"
+      },
+      "oracle": {
+        "expected_files": [
+          "playground/harmony/entry/src/main/ets/components/LottieMeasurementComponent.ets"
+        ],
+        "forbidden_files": [
+          "playground/harmony/entry/src/main/ets/components/CustomLottieComponent.ets"
+        ],
+        "root_cause_category": "async_control",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {
+              "file_path": "playground/harmony/entry/src/main/ets/components/LottieMeasurementComponent.ets",
+              "start_line": 19,
+              "end_line": 37
+            }
+          ],
+          "min_source_span_recall": 1.0
+        },
+        "verification_tests": []
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "artifact_roles": ["component"],
+        "target_levels": ["callable", "expression"],
+        "mechanism_kinds": ["async_control", "platform_api"]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "source_evidence": "PR 44 and its commit body state that async measurement discards the computed size and waits for a callback the custom component never sends.",
+        "remaining_gate": "Render Lottie under constrained and unconstrained Yoga modes and verify the node receives a nonzero initial size."
+      },
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    }
+  ]
+}
