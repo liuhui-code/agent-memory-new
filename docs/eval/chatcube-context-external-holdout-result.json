@@ -1,0 +1,1940 @@
+{
+  "schema_version": "agent-context-capability-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 5,
+    "passed_case_count": 0,
+    "failed_case_count": 5,
+    "scenario_count": 5,
+    "stable_scenario_count": 0,
+    "query_variant_pass_rate": 0.0,
+    "average_context_tokens": 1431.4,
+    "average_memory_prepare_ms": 106145.8,
+    "average_query_elapsed_ms": 5885.8
+  },
+  "capability_profile": {
+    "code_locator": {
+      "status": "fail",
+      "evaluated_cases": 5,
+      "anchor_recall": 0.2,
+      "primary_anchor_recall": 0.2,
+      "candidate_file_recall_at_20": 0.8,
+      "oracle_anchor_precision": 0.0667,
+      "expected_anchor_mrr": 0.1
+    },
+    "source_evidence": {
+      "status": "fail",
+      "evaluated_cases": 5,
+      "observed_case_count": 5,
+      "source_excerpt_recall": 0.2,
+      "source_span_recall": 0.0
+    },
+    "log_graph": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 5
+    },
+    "log_path_quality": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "average_path_recall": null,
+      "average_path_precision": null,
+      "truncated_case_count": 0
+    },
+    "experience": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "causal_context": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_path_case_count": 0,
+      "observed_relation_case_count": 0
+    },
+    "hierarchical_localization": {
+      "status": "informational_serving_stage",
+      "evaluated_cases": 5,
+      "observed_case_count": 5,
+      "serving_observed_case_count": 5,
+      "file_evaluated_case_count": 5,
+      "callable_evaluated_case_count": 5,
+      "owner_evaluated_case_count": 0,
+      "range_evaluated_case_count": 5,
+      "file_recall": 0.7,
+      "callable_recall": 0.2,
+      "owner_recall": null,
+      "owner_precision": null,
+      "range_recall": 0.2,
+      "average_audit_elapsed_ms": 4230.4
+    },
+    "abstention": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "compactness": {
+      "status": "pass",
+      "evaluated_cases": 5,
+      "average_context_tokens": 1431.4,
+      "token_budget": 1500
+    },
+    "query_robustness": {
+      "status": "fail",
+      "scenario_count": 5,
+      "stable_scenario_count": 0,
+      "variant_count": 5,
+      "passed_variant_count": 0,
+      "variant_pass_rate": 0.0,
+      "scenarios": [
+        {
+          "scenario_id": "chatcube-hosted-search-reasoning-continuity",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "chatcube-long-screenshot-color-channel-swap",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "chatcube-provider-icon-backup-integrity",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "chatcube-settings-sheet-immediate-dismiss",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "chatcube-consecutive-image-attachment-scope",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        }
+      ]
+    },
+    "evidence_funnel": {
+      "status": "informational",
+      "evaluated_cases": 5,
+      "first_loss_counts": {
+        "callable": 2,
+        "candidate_file": 1,
+        "localizer_file": 2
+      },
+      "stage_pass_rates": {
+        "candidate_file": 0.8,
+        "localizer_file": 0.6,
+        "callable": 0.2,
+        "source_range": 0.2,
+        "evidence_primary": 0.0,
+        "compact_primary": 0.2,
+        "compact_anchor": 0.2
+      }
+    },
+    "evidence_set_calibration": {
+      "status": "informational",
+      "evaluated_cases": 5,
+      "observed_case_count": 5,
+      "target_scope_accuracy": 0.0,
+      "member_recall": 0.2,
+      "primary_precision": 0.2,
+      "calibration_state_accuracy": null,
+      "forbidden_member_hit_count": 0,
+      "guarded_exclusion_count": 0,
+      "calibration_state_counts": {
+        "insufficient": 5
+      },
+      "serving_projection_changed": false
+    },
+    "sufficiency": {
+      "status": "informational",
+      "evaluated_case_count": 5,
+      "missing_observation_count": 0,
+      "kind_counts": {
+        "diagnosis": 5
+      },
+      "readiness_status_counts": {
+        "ready_for_agent_inspection": 5
+      },
+      "reason_code_counts": {
+        "limited_code_anchor_diversity": 4,
+        "no_strong_log_anchor": 5
+      },
+      "scope": "shadow_observation_not_a_context_gate"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "chatcube-hosted-search-reasoning-continuity",
+      "scenario_id": "chatcube-hosted-search-reasoning-continuity",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/utils/ChatMessagePartsHelper.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/utils/ChatMessagePartsHelper.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/utils/ChatMessagePartsHelper.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/viewmodels/ChatViewModel.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+          "start_line": 2566,
+          "end_line": 2625
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+            "start_line": 2566,
+            "end_line": 2625
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+            "start_line": 2566,
+            "end_line": 2625
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 2,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3959
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "callable",
+        "candidate_file_count": 22,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "entry/src/main/ets/utils/ChatMessagePartsHelper.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1496,
+      "memory_prepare_ms": 83014,
+      "query_elapsed_ms": 4118,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+            "start_line": 2566,
+            "end_line": 2625
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [
+          {
+            "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+            "start_line": 2566,
+            "end_line": 2625
+          }
+        ],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [
+          {
+            "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+            "start_line": 2566,
+            "end_line": 2625
+          }
+        ],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "chatcube-long-screenshot-color-channel-swap",
+      "scenario_id": "chatcube-long-screenshot-color-channel-swap",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 0.0,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": 2,
+      "expected_anchor_mrr": 0.5,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/ScreenshotBanner.ets",
+        "entry/src/main/ets/pages/ChatPage.ets",
+        "entry/src/main/ets/services/ShareService.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/ScreenshotBanner.ets",
+        "entry/src/main/ets/pages/ChatPage.ets",
+        "entry/src/main/ets/services/ShareService.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/ScreenshotBanner.ets",
+        "entry/src/main/ets/pages/ChatPage.ets",
+        "entry/src/main/ets/services/ShareService.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/services/ShareService.ets",
+          "start_line": 275,
+          "end_line": 334
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 1.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 7,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3439
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": true,
+          "callable": true,
+          "source_range": true,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 30,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1461,
+      "memory_prepare_ms": 112444,
+      "query_elapsed_ms": 10423,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/services/ShareService.ets",
+            "start_line": 275,
+            "end_line": 334
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [
+          {
+            "file_path": "entry/src/main/ets/services/ShareService.ets",
+            "start_line": 275,
+            "end_line": 334
+          }
+        ],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [
+          {
+            "file_path": "entry/src/main/ets/services/ShareService.ets",
+            "start_line": 275,
+            "end_line": 334
+          }
+        ],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "chatcube-provider-icon-backup-integrity",
+      "scenario_id": "chatcube-provider-icon-backup-integrity",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/ExportDataPage.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/pages/ExportDataPage.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/pages/ExportDataPage.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/services/ImportExportService.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/services/ImportExportService.ets",
+          "start_line": 832,
+          "end_line": 835
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/services/ImportExportService.ets",
+            "start_line": 343,
+            "end_line": 850
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/services/ImportExportService.ets",
+            "start_line": 832,
+            "end_line": 835
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 6,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 5683
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "callable",
+        "candidate_file_count": 29,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1471,
+      "memory_prepare_ms": 122811,
+      "query_elapsed_ms": 6150,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/services/ImportExportService.ets",
+            "start_line": 832,
+            "end_line": 835
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [
+          {
+            "file_path": "entry/src/main/ets/services/ImportExportService.ets",
+            "start_line": 343,
+            "end_line": 850
+          }
+        ],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [
+          {
+            "file_path": "entry/src/main/ets/services/ImportExportService.ets",
+            "start_line": 832,
+            "end_line": 835
+          }
+        ],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "chatcube-settings-sheet-immediate-dismiss",
+      "scenario_id": "chatcube-settings-sheet-immediate-dismiss",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/imagegen/ImageGenerationSettingsSheet.ets",
+        "entry/src/main/ets/components/index/IndexSettingsSheetContent.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/imagegen/ImageGenerationSettingsSheet.ets",
+        "entry/src/main/ets/components/index/IndexSettingsSheetContent.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/imagegen/ImageGenerationSettingsSheet.ets",
+        "entry/src/main/ets/components/index/IndexSettingsSheetContent.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/Index.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/pages/Index.ets",
+          "start_line": 1695,
+          "end_line": 1712
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/Index.ets",
+          "start_line": 1727,
+          "end_line": 1731
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/pages/Index.ets",
+            "start_line": 1695,
+            "end_line": 1712
+          },
+          {
+            "file_path": "entry/src/main/ets/pages/Index.ets",
+            "start_line": 1727,
+            "end_line": 1731
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/pages/Index.ets",
+            "start_line": 1695,
+            "end_line": 1712
+          },
+          {
+            "file_path": "entry/src/main/ets/pages/Index.ets",
+            "start_line": 1727,
+            "end_line": 1731
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 12,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3567
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 22,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 2,
+      "primary_anchor_count": 2,
+      "source_excerpt_count": 2,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1236,
+      "memory_prepare_ms": 108354,
+      "query_elapsed_ms": 4162,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/Index.ets",
+            "start_line": 1695,
+            "end_line": 1712
+          },
+          {
+            "file_path": "entry/src/main/ets/pages/Index.ets",
+            "start_line": 1727,
+            "end_line": 1731
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/Index.ets",
+            "start_line": 1695,
+            "end_line": 1712
+          },
+          {
+            "file_path": "entry/src/main/ets/pages/Index.ets",
+            "start_line": 1727,
+            "end_line": 1731
+          }
+        ],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/Index.ets",
+            "start_line": 1695,
+            "end_line": 1712
+          },
+          {
+            "file_path": "entry/src/main/ets/pages/Index.ets",
+            "start_line": 1727,
+            "end_line": 1731
+          }
+        ],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "chatcube-consecutive-image-attachment-scope",
+      "scenario_id": "chatcube-consecutive-image-attachment-scope",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/chat/ChatMessageListSection.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/chat/ChatMessageListSection.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/chat/ChatMessageListSection.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/components/AttachmentPicker.ets",
+        "entry/src/main/ets/viewmodels/ChatViewModel.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/components/AttachmentPicker.ets",
+          "start_line": 188,
+          "end_line": 228
+        },
+        {
+          "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+          "start_line": 973,
+          "end_line": 1087
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.5,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/components/AttachmentPicker.ets",
+            "start_line": 188,
+            "end_line": 228
+          },
+          {
+            "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+            "start_line": 973,
+            "end_line": 1087
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/components/AttachmentPicker.ets",
+            "start_line": 188,
+            "end_line": 228
+          },
+          {
+            "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+            "start_line": 973,
+            "end_line": 1087
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 1,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 4504
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 32,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "entry/src/main/ets/components/chat/ChatMessageListSection.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1493,
+      "memory_prepare_ms": 104106,
+      "query_elapsed_ms": 4576,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/components/AttachmentPicker.ets",
+            "start_line": 188,
+            "end_line": 228
+          },
+          {
+            "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+            "start_line": 973,
+            "end_line": 1087
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [
+          {
+            "file_path": "entry/src/main/ets/components/AttachmentPicker.ets",
+            "start_line": 188,
+            "end_line": 228
+          },
+          {
+            "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+            "start_line": 973,
+            "end_line": 1087
+          }
+        ],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [
+          {
+            "file_path": "entry/src/main/ets/components/AttachmentPicker.ets",
+            "start_line": 188,
+            "end_line": 228
+          },
+          {
+            "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+            "start_line": 973,
+            "end_line": 1087
+          }
+        ],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "scope": "context_supply_only"
+  },
+  "next_gate": "repair_context_supply",
+  "execution": {
+    "schema_version": "agent-context-capability-execution/v1",
+    "strategy": "shared-index-isolated-case-snapshot",
+    "expanded_case_count": 5,
+    "source_group_count": 5,
+    "setup_group_count": 5,
+    "index_build_count": 5,
+    "case_snapshot_count": 5,
+    "avoided_index_build_count": 0,
+    "source_materialize_ms": 3916,
+    "index_prepare_ms": 530146,
+    "setup_prepare_ms": 0,
+    "case_snapshot_ms": 583,
+    "batch_elapsed_ms": 586183,
+    "source_groups": [
+      {
+        "source_digest": "af4dd63e5411c90930d09377d0ded3ac6349f66981285964eccf685569756f50",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 523,
+        "index_prepare_ms": 82924,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 90,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 90
+          }
+        ]
+      },
+      {
+        "source_digest": "e209dcb6b282b46eed881e1e8335fc5efd1f2f67cfe8d019a58560da8d0934fe",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 774,
+        "index_prepare_ms": 112311,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 133,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 133
+          }
+        ]
+      },
+      {
+        "source_digest": "01c892e5d473628c4a3dcb88f3e309e50d77a1ec894787f51d24ab20ae307ed1",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 908,
+        "index_prepare_ms": 122670,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 141,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 141
+          }
+        ]
+      },
+      {
+        "source_digest": "9b29ae83216687a3661469fdb364069255305cd72667031fc74a3c421d173d57",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 882,
+        "index_prepare_ms": 108278,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 76,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 76
+          }
+        ]
+      },
+      {
+        "source_digest": "c534bb3b7bb40e305dc6cf7f6e1000f6877f16ef911fea20e20d4b11fe5225d7",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 829,
+        "index_prepare_ms": 103963,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 143,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 143
+          }
+        ]
+      }
+    ]
+  },
+  "calibration": {
+    "schema_version": "agent-context-calibration/v1",
+    "status": "pass",
+    "target_domain": "native_arkts",
+    "profiled_case_count": 5,
+    "coverage": {
+      "target_levels": [
+        "callable",
+        "expression",
+        "file"
+      ],
+      "artifact_roles": [
+        "adapter",
+        "component",
+        "page",
+        "service",
+        "store",
+        "viewmodel"
+      ],
+      "mechanism_kinds": [
+        "async_control",
+        "error_contract",
+        "event_binding",
+        "navigation",
+        "persistence",
+        "platform_api",
+        "resource_io",
+        "ui_state"
+      ]
+    },
+    "contract_gaps": [],
+    "macro_metrics": {
+      "artifact_roles": {
+        "pass_rate": 0.0,
+        "anchor_recall": 0.2222,
+        "anchor_precision": 0.0741,
+        "source_span_recall": 0.0
+      },
+      "target_levels": {
+        "pass_rate": 0.0,
+        "anchor_recall": 0.2167,
+        "anchor_precision": 0.0722,
+        "source_span_recall": 0.0
+      },
+      "mechanism_kinds": {
+        "pass_rate": 0.0,
+        "anchor_recall": 0.1875,
+        "anchor_precision": 0.0625,
+        "source_span_recall": 0.0
+      }
+    },
+    "strata": {
+      "artifact_roles": [
+        {
+          "label": "adapter",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 1.0,
+          "anchor_precision": 0.3333,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "component",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "page",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "service",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.3333,
+          "anchor_precision": 0.1111,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "store",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "viewmodel",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        }
+      ],
+      "target_levels": [
+        {
+          "label": "callable",
+          "case_count": 5,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.2,
+          "anchor_precision": 0.0667,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "expression",
+          "case_count": 4,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.25,
+          "anchor_precision": 0.0833,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "file",
+          "case_count": 5,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.2,
+          "anchor_precision": 0.0667,
+          "source_span_recall": 0.0
+        }
+      ],
+      "mechanism_kinds": [
+        {
+          "label": "async_control",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "error_contract",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "event_binding",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "navigation",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "persistence",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "platform_api",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 1.0,
+          "anchor_precision": 0.3333,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "resource_io",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.5,
+          "anchor_precision": 0.1666,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "ui_state",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        }
+      ]
+    },
+    "scope": "evaluation_only_not_injected_into_agent_context"
+  },
+  "calibration_gate": "pass",
+  "case_seal": {
+    "status": "verified",
+    "required": true,
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "digest": "6db8be056b5ec2f22e9ba5df3c25d99ab0d142bb7d3769723c6fda49cc194ceb",
+    "sealed_at": "2026-08-01T13:02:28+00:00",
+    "case_count": 5
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 5,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "promotion_policy": {
+    "schema_version": "agent-context-promotion-policy/v1",
+    "eligible": false,
+    "reasons": [
+      "system_context_gate_failed"
+    ],
+    "next_gate": "repair_context_supply"
+  },
+  "promotion_eligible": false,
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 22,
+    "primary_failure_class": "ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 4,
+      "passage_selection": 9,
+      "ranking_precision": 9
+    },
+    "failures": [
+      {
+        "case_id": "chatcube-hosted-search-reasoning-continuity",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-hosted-search-reasoning-continuity",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-hosted-search-reasoning-continuity",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-hosted-search-reasoning-continuity",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-hosted-search-reasoning-continuity",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-long-screenshot-color-channel-swap",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-long-screenshot-color-channel-swap",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-provider-icon-backup-integrity",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-provider-icon-backup-integrity",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-provider-icon-backup-integrity",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-provider-icon-backup-integrity",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-provider-icon-backup-integrity",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-settings-sheet-immediate-dismiss",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-settings-sheet-immediate-dismiss",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-settings-sheet-immediate-dismiss",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-settings-sheet-immediate-dismiss",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-settings-sheet-immediate-dismiss",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-consecutive-image-attachment-scope",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-consecutive-image-attachment-scope",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-consecutive-image-attachment-scope",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-consecutive-image-attachment-scope",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "chatcube-consecutive-image-attachment-scope",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout."
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/chatcube-context-external-holdout-cases.sealed.json",
+  "selected_scenario_ids": [
+    "chatcube-hosted-search-reasoning-continuity",
+    "chatcube-long-screenshot-color-channel-swap",
+    "chatcube-provider-icon-backup-integrity",
+    "chatcube-settings-sheet-immediate-dismiss",
+    "chatcube-consecutive-image-attachment-scope"
+  ],
+  "selected_case_ids": [
+    "chatcube-hosted-search-reasoning-continuity",
+    "chatcube-long-screenshot-color-channel-swap",
+    "chatcube-provider-icon-backup-integrity",
+    "chatcube-settings-sheet-immediate-dismiss",
+    "chatcube-consecutive-image-attachment-scope"
+  ],
+  "source_project": "/private/tmp/agent-memory-chatcube-rc",
+  "recorded_at": "2026-08-01T13:13:04+00:00"
+}

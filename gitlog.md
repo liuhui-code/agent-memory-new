@@ -8485,3 +8485,32 @@ Result:
 - Python compilation, 113 evaluation JSON, diff hygiene, exactly four Skills, and the
   repository-wide 500-line gate pass.
 - No consumed holdout was read, changed, or rerun.
+
+## 2026-08-01 - Consume ChatCube Context external holdout
+
+What changed:
+
+- Froze RC `80431d1`, selected the previously unused MIT ChatCube ArkTS project,
+  and source-reviewed five independent real fixes covering stream ordering, pixel
+  layout, backup resource integrity, sheet lifecycle, and attachment payload scope.
+- Verified all ten before/after revisions and every declared changed file before
+  sealing the pack with digest
+  `6db8be056b5ec2f22e9ba5df3c25d99ab0d142bb7d3769723c6fda49cc194ceb`.
+- Executed the sealed Context gate exactly once with no case filter or limit, then
+  froze the complete result and a report that separates proved facts from unknowns.
+- Kept retrieval, ranking, parser behavior, thresholds, graph expansion, compact
+  projection, SQLite schema, Runtime facade, and the fixed four Skills unchanged.
+
+Result:
+
+- The formal Context gate fails 0/5; calibration and compactness pass, but promotion
+  is ineligible and the predeclared Agent A/B stage is skipped.
+- Candidate-file recall at 20 is 0.8 and hierarchical file recall is 0.7, while
+  callable recall is 0.2, final anchor precision is 0.0667, and required source-span
+  recall is 0.0.
+- First loss occurs at callable localization in two cases, localizer-file ranking in
+  two, and candidate-file generation in one. The result demonstrates a multi-stage
+  Context supply gap but does not isolate a production repair.
+- No serving change is made from the consumed holdout. Future work requires
+  independent development reproductions, with a new external source for any later
+  promotion claim.

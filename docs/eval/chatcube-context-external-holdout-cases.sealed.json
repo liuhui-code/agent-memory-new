@@ -1,0 +1,527 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/tmp/agent-memory-chatcube-rc",
+  "source_repository": "https://github.com/LongLiveY96/chatcube.git",
+  "cases": [
+    {
+      "id": "chatcube-hosted-search-reasoning-continuity",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "When hosted web search starts during an unfinished reasoning stream, the reasoning display is split into separate blocks. Locate the callable that inserts hosted search parts into the message timeline."
+      },
+      "source": {
+        "before_revision": "cad416d3a66d58d17627accdc4747459350be579",
+        "after_revision": "b92ceb6a1e35cae701d744e6d441e19e13af4eeb",
+        "changed_files": [
+          "entry/src/main/ets/viewmodels/ChatViewModel.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "b92ceb6a1e35cae701d744e6d441e19e13af4eeb",
+        "commit_message": "fix(chat): avoid splitting reasoning with hosted search",
+        "source_family": "LongLiveY96/chatcube@hosted-search-reasoning-continuity",
+        "independence_basis": "selected after RC 80431d1 from a previously unused external project; the stream-part ordering defect is independent of the media, backup, sheet-lifecycle, and attachment cases"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "viewmodel"
+        ],
+        "mechanism_kinds": [
+          "ui_state",
+          "event_binding"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/viewmodels/ChatViewModel.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "stream_ordering",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+              "start_line": 2566,
+              "end_line": 2625
+            }
+          ],
+          "hierarchical_callable_spans": [
+            {
+              "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+              "start_line": 2566,
+              "end_line": 2625
+            }
+          ],
+          "hierarchical_range_spans": [
+            {
+              "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+              "start_line": 2566,
+              "end_line": 2625
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "chatcube-long-screenshot-color-channel-swap",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A stitched long screenshot swaps red and blue colors in the exported PNG. Locate the callable that combines captured scroll segments."
+      },
+      "source": {
+        "before_revision": "20268d1b79df213d08ad097178f39faa11470b44",
+        "after_revision": "952e52ad158a8d9e4c4c77cb853bb8f63b35b313",
+        "changed_files": [
+          "entry/src/main/ets/services/ShareService.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "952e52ad158a8d9e4c4c77cb853bb8f63b35b313",
+        "commit_message": "fix: screenshot stitching unconditionally swaps R/B channels when SDK pixelFormat is unreliable",
+        "source_family": "LongLiveY96/chatcube@long-screenshot-color-channel-swap",
+        "independence_basis": "selected after RC 80431d1 from a previously unused external project; the platform pixel-layout defect is independent of the stream, backup, sheet-lifecycle, and attachment cases"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "service",
+          "adapter"
+        ],
+        "mechanism_kinds": [
+          "resource_io",
+          "platform_api"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/services/ShareService.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "pixel_format_contract",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/services/ShareService.ets",
+              "start_line": 275,
+              "end_line": 334
+            }
+          ],
+          "hierarchical_callable_spans": [
+            {
+              "file_path": "entry/src/main/ets/services/ShareService.ets",
+              "start_line": 275,
+              "end_line": 334
+            }
+          ],
+          "hierarchical_range_spans": [
+            {
+              "file_path": "entry/src/main/ets/services/ShareService.ets",
+              "start_line": 275,
+              "end_line": 334
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "chatcube-provider-icon-backup-integrity",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After exporting and importing a backup, locally selected provider icons are missing while provider metadata remains. Locate the export callable responsible for provider data and resources."
+      },
+      "source": {
+        "before_revision": "1c97d45effd0ddd21ef72a4db99e587bb98edf4a",
+        "after_revision": "4727866a67737695661bd38c4b861adfc9a02349",
+        "changed_files": [
+          "entry/src/main/ets/services/ImportExportService.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "4727866a67737695661bd38c4b861adfc9a02349",
+        "commit_message": "fix: include provider icon files in export",
+        "source_family": "LongLiveY96/chatcube@provider-icon-backup-integrity",
+        "independence_basis": "selected after RC 80431d1 from a previously unused external project; the backup resource-completeness defect is independent of the stream, media, sheet-lifecycle, and attachment cases"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "service",
+          "store"
+        ],
+        "mechanism_kinds": [
+          "resource_io",
+          "persistence",
+          "error_contract"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/services/ImportExportService.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "backup_resource_integrity",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/services/ImportExportService.ets",
+              "start_line": 832,
+              "end_line": 835
+            }
+          ],
+          "hierarchical_callable_spans": [
+            {
+              "file_path": "entry/src/main/ets/services/ImportExportService.ets",
+              "start_line": 343,
+              "end_line": 850
+            }
+          ],
+          "hierarchical_range_spans": [
+            {
+              "file_path": "entry/src/main/ets/services/ImportExportService.ets",
+              "start_line": 832,
+              "end_line": 835
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "chatcube-settings-sheet-immediate-dismiss",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A settings sheet can close immediately after a rapid opening tap. Locate the callables that control opening and dismissal of the settings sheet."
+      },
+      "source": {
+        "before_revision": "7578899042e72becea1a9f58555208878db0faa5",
+        "after_revision": "d54f0c6c3f975c37706ff3215d3c913bde9e099e",
+        "changed_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "d54f0c6c3f975c37706ff3215d3c913bde9e099e",
+        "commit_message": "fix settings sheet dismissal behavior",
+        "source_family": "LongLiveY96/chatcube@settings-sheet-immediate-dismiss",
+        "independence_basis": "selected after RC 80431d1 from a previously unused external project; the sheet event-lifecycle defect is independent of the stream, media, backup, and attachment cases"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "page",
+          "component"
+        ],
+        "mechanism_kinds": [
+          "ui_state",
+          "event_binding",
+          "navigation"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "sheet_lifecycle_race",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 1695,
+              "end_line": 1712
+            },
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 1727,
+              "end_line": 1731
+            }
+          ],
+          "hierarchical_callable_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 1695,
+              "end_line": 1712
+            },
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 1727,
+              "end_line": 1731
+            }
+          ],
+          "hierarchical_range_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 1695,
+              "end_line": 1712
+            },
+            {
+              "file_path": "entry/src/main/ets/pages/Index.ets",
+              "start_line": 1727,
+              "end_line": 1731
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "chatcube-consecutive-image-attachment-scope",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Sending different image attachments in consecutive chat messages can cause the later request to include an earlier image. Locate the callables that persist attachments and build request history payloads."
+      },
+      "source": {
+        "before_revision": "66a5f85510cd3211ea2ba5d3590f7631696df558",
+        "after_revision": "7578899042e72becea1a9f58555208878db0faa5",
+        "changed_files": [
+          "entry/src/main/ets/components/AttachmentPicker.ets",
+          "entry/src/main/ets/viewmodels/ChatViewModel.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "7578899042e72becea1a9f58555208878db0faa5",
+        "commit_message": "fix: prevent image attachments from crossing consecutive sends",
+        "source_family": "LongLiveY96/chatcube@consecutive-image-attachment-scope",
+        "independence_basis": "selected after RC 80431d1 from a previously unused external project; the attachment payload-lifetime defect is independent of the stream, media, backup, and sheet-lifecycle cases"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "component",
+          "viewmodel",
+          "service"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "persistence"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/AttachmentPicker.ets",
+          "entry/src/main/ets/viewmodels/ChatViewModel.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "attachment_payload_scope",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/components/AttachmentPicker.ets",
+              "start_line": 188,
+              "end_line": 228
+            },
+            {
+              "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+              "start_line": 973,
+              "end_line": 1087
+            }
+          ],
+          "hierarchical_callable_spans": [
+            {
+              "file_path": "entry/src/main/ets/components/AttachmentPicker.ets",
+              "start_line": 188,
+              "end_line": 228
+            },
+            {
+              "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+              "start_line": 973,
+              "end_line": 1087
+            }
+          ],
+          "hierarchical_range_spans": [
+            {
+              "file_path": "entry/src/main/ets/components/AttachmentPicker.ets",
+              "start_line": 188,
+              "end_line": 228
+            },
+            {
+              "file_path": "entry/src/main/ets/viewmodels/ChatViewModel.ets",
+              "start_line": 973,
+              "end_line": 1087
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "calibration": {
+      "target_domain": "native_arkts",
+      "minimum_case_count": 5,
+      "required_target_levels": [
+        "file",
+        "callable",
+        "expression"
+      ],
+      "required_artifact_roles": [
+        "page",
+        "service",
+        "store",
+        "viewmodel",
+        "component",
+        "adapter"
+      ],
+      "required_mechanism_kinds": [
+        "resource_io",
+        "ui_state",
+        "navigation",
+        "platform_api",
+        "async_control",
+        "persistence",
+        "event_binding",
+        "error_contract"
+      ]
+    },
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 5,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-08-01T13:02:28+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 5,
+    "digest": "6db8be056b5ec2f22e9ba5df3c25d99ab0d142bb7d3769723c6fda49cc194ceb"
+  }
+}
