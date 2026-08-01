@@ -89,11 +89,11 @@ class FieldedPassageRetrievalTests(AgentMemoryTestBase):
         self.assertEqual("loadCurrentSession", passages[0]["symbol"])
         self.assertNotIn("restoresessionstate", passages[0]["identity_terms"].split())
 
-    def test_candidate_audit_supports_recall_at_twenty(self) -> None:
+    def test_candidate_audit_supports_serving_recall_at_twenty(self) -> None:
         with connect(self.project) as conn:
             insert_source_records(conn, self.project.project_id)
             rebuild_code_passages(conn, self.project.project_id)
-            recalled = SQLiteCandidateRecall(enable_passage_shadow=True).recall(
+            recalled = SQLiteCandidateRecall().recall(
                 conn, self.project, "restore web state snapshot preferences"
             )
 
@@ -106,7 +106,7 @@ class FieldedPassageRetrievalTests(AgentMemoryTestBase):
             ),
         )
         self.assertIn("method_body_fts", refs[0]["channels"])
-        self.assertEqual("shadow", fielded["mode"])
+        self.assertEqual("serving", fielded["mode"])
         self.assertFalse(fielded["serving_candidates_changed"])
 
     def test_wiki_index_builds_callable_and_string_key_passages(self) -> None:

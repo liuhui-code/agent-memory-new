@@ -15,7 +15,6 @@ from .query import limited_context
 
 def build_context_facade(
     project: Project,
-    enable_passage_shadow: bool = False,
 ) -> ContextFacade:
     path_context = PathContextFacade(
         anchor_resolver=SQLiteLogAnchorResolver(project),
@@ -26,8 +25,6 @@ def build_context_facade(
     )
     return ContextFacade(
         project,
-        lambda current, query: limited_context(
-            current, query, enable_passage_shadow=enable_passage_shadow
-        ),
+        limited_context,
         path_context,
     )

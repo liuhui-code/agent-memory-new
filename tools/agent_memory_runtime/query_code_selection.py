@@ -176,7 +176,7 @@ def opaque_identifiers_in_candidate(item: dict[str, Any]) -> set[str]:
     values = [
         item.get("file_path"), item.get("symbol"), item.get("summary"),
         item.get("business_summary"), item.get("business_terms"),
-        item.get("search_terms"),
+        item.get("search_terms"), item.get("string_evidence"),
     ]
     text = " ".join(str(value or "") for value in values)
     return {value.casefold() for value in OPAQUE_IDENTIFIER_RE.findall(text)}

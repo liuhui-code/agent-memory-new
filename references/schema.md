@@ -194,6 +194,13 @@ retrieval materialization, not durable memory or Agent-authored semantics.
 An incompatible passage schema is dropped and rebuilt from current source rows;
 durable memory tables are never copied into the passage index.
 
+All applicable passage fields participate in bounded serving candidate fusion.
+Channel-local BM25 ranks remain incomparable across fields, so weighted reciprocal
+rank fusion combines ranks before the existing scorer and hierarchical localizer.
+Candidates recalled from string or mechanism fields are scored only against the
+field that supplied them. This preserves inspectable provenance without treating
+derived passage metadata as a root cause or a second source of truth.
+
 `scope_boundary_dependencies` records resolved project imports that are outside
 one learned Scope without promoting those files into learned code data:
 

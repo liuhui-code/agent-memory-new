@@ -457,7 +457,7 @@ class QueryCandidateRecallTests(AgentMemoryTestBase):
             audit["top_explanations"]["wiki_matches"][0]["recall_fusion"]["provider"],
         )
         self.assertEqual(
-            {"broad_fts"},
+            {"broad_fts", "file_identity_fts", "file_semantic_fts"},
             set(audit["candidate_recall"]["tables"]["code_files"]["lane_counts"]),
         )
 

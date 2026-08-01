@@ -57,6 +57,7 @@ def score_file_behavior_match(
 
 
 def attach_file_source_locations(items: list[dict[str, Any]]) -> None:
+    """Project callable locations onto file evidence without changing entity identity."""
     locations: dict[str, dict[str, Any]] = {}
     for item in items:
         if not valid_source_location(item):
@@ -66,7 +67,7 @@ def attach_file_source_locations(items: list[dict[str, Any]]) -> None:
         if current is None or location_priority(item) < location_priority(current):
             locations[path] = item
     for item in items:
-        if valid_source_location(item):
+        if item.get("kind") != "file" or valid_source_location(item):
             continue
         location = locations.get(str(item.get("file_path") or ""))
         if location is None:

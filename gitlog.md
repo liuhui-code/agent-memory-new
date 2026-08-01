@@ -8514,3 +8514,40 @@ Result:
 - No serving change is made from the consumed holdout. Future work requires
   independent development reproductions, with a new external source for any later
   promotion claim.
+
+## 2026-08-01 - Repair fielded Context supply and late source windows
+
+What changed:
+
+- Added project-neutral development cases for string-key and normalized-mechanism
+  callable recall, plus a public compact-handoff regression for a callable beyond the
+  4,000-line source prefix.
+- Promoted the existing fielded passage channels into the bounded serving RRF shared by
+  full and compact Context. String and mechanism fields are scored only when their lane
+  supplied the candidate, and serving provenance remains visible in the full audit.
+- Added a bounded selected-range source reader so late callable evidence can focus on a
+  relevant expression without increasing source, result, graph, or Token budgets.
+- Removed the obsolete full-only passage-shadow flag from the Runtime composition path.
+- Separated semantic entity identity from source-location projection: file candidates
+  may inherit a same-file callable range, but resources and routes retain their own
+  symbols. Updated the controlled log ranking assertion so omitted unrelated resource
+  noise is not treated as a failure.
+- Updated Runtime, usage, schema, and execution-plan documentation. The public surface
+  remains one context facade and exactly four Skills; Runtime still supplies evidence
+  rather than diagnosis.
+
+Result:
+
+- The new classified development pack passes 2/2 with 1.0 query-variant pass rate and
+  958.5 average estimated Context tokens. Callable-range development remains 2/2, while
+  localization development remains at the accepted 4/5 baseline.
+- Focused suites pass 55/55 and 23/23. The restricted full run passes 803/806; two errors
+  are the known loopback bind restriction, and its one real projection failure was
+  independently reproduced and passes in both subsequent focused suites.
+- The CI scale profile passes all gates; candidate-hit P95 is 56.567 ms and large-method
+  incremental P95 is 3,374.898 ms. At one million searchable entities, candidate hit and
+  miss P95 pass at 352.751/124.673 ms and all query plans pass. The separate maintenance
+  gate fails due to summarize and graph-rebuild phase latency and is not attributed to or
+  tuned through this query-only change.
+- Python compilation, JSON syntax, diff hygiene, exactly four Skills, and the 500-line
+  limit pass. No consumed holdout was read, changed, or rerun.

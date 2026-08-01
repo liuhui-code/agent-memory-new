@@ -8,6 +8,7 @@ import re
 from typing import Any
 
 from .performance_scoring import estimate_payload_tokens
+from .source_line_window import read_source_interval
 from .source_range_focus import mechanism_callable_ranges, mechanism_coverage
 from .text import query_tokens, score_text
 
@@ -238,22 +239,36 @@ def focused_source_range(
     source_lines = lines if lines is not None else read_source_lines(path)
     if not source_lines:
         return source_range
-    line_scores = [score_text(terms, line) for line in source_lines]
     precise_callable = source_range.get("selection_reason") == "bounded_callable_primary"
     source_start = int(source_range["start_line"])
     source_end = int(source_range["end_line"])
-    anchor_start = source_start if precise_callable else max(1, source_start - FOCUS_RADIUS)
-    anchor_end = (
-        source_end
-        if precise_callable
-        else min(len(source_lines), source_end + FOCUS_RADIUS)
-    )
-    if anchor_start > len(source_lines):
+    line_offset = 0
+    if source_end > len(source_lines):
+        interval = read_source_interval(
+            path, source_start, source_end, MAX_FOCUS_SCAN_LINES
+        )
+        source_lines = interval.lines
+        line_offset = interval.start_line - 1
+        anchor_start = 1
+        anchor_end = len(source_lines)
+    else:
+        anchor_start = source_start if precise_callable else max(
+            1, source_start - FOCUS_RADIUS
+        )
+        anchor_end = (
+            source_end
+            if precise_callable
+            else min(len(source_lines), source_end + FOCUS_RADIUS)
+        )
+    if not source_lines or anchor_start > len(source_lines):
         return source_range
+    line_scores = [score_text(terms, line) for line in source_lines]
     best_line = best_focus_line(source_lines, line_scores, anchor_start, anchor_end)
+    if best_line:
+        best_line += line_offset
     bounded_anchor = (
         int(source_range["start_line"]) > 1
-        or int(source_range["end_line"]) < len(source_lines)
+        or int(source_range["end_line"]) < line_offset + len(source_lines)
     )
     selection_reason = (
         "query_term_window_within_anchor"
@@ -263,6 +278,8 @@ def focused_source_range(
         if precise_callable:
             return source_range
         best_line = best_focus_line(source_lines, line_scores, 1, len(source_lines))
+        if best_line:
+            best_line += line_offset
         selection_reason = "query_term_window"
     if not best_line:
         return source_range

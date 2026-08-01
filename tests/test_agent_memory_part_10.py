@@ -373,9 +373,17 @@ class AgentMemoryRuntimePart10Tests(AgentMemoryTestBase):
             self.assertTrue(any("log" in reason for reason in log_match["match_reasons"]))
             self.assertIn("load profile failed", log_data["suggested_followup_terms"])
             self.assertIn("load profile failed", log_data["suggested_followup_terms"][:3])
+            resource_rank = next(
+                (
+                    index
+                    for index, term in enumerate(log_data["suggested_followup_terms"])
+                    if term == "app.media.logo"
+                ),
+                len(log_data["suggested_followup_terms"]),
+            )
             self.assertLess(
                 log_data["suggested_followup_terms"].index("load profile failed"),
-                log_data["suggested_followup_terms"].index("app.media.logo"),
+                resource_rank,
             )
 
     def test_context_includes_agent_query_handoff(self) -> None:

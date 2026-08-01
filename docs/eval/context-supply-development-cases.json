@@ -1,0 +1,106 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "docs/eval/fixtures/context-supply-development",
+  "cases": [
+    {
+      "id": "context-supply-string-key-callable",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Locate the callable that owns theme_font_payload_v7."
+      },
+      "source": {
+        "before_revision": "working-tree"
+      },
+      "provenance": {
+        "kind": "reviewed_synthetic_context_fixture",
+        "source_family": "context-supply-development/string-key",
+        "independence_basis": "project-neutral literal-identity fixture that isolates fielded string-key candidate propagation"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["service"],
+        "mechanism_kinds": ["persistence", "resource_io"]
+      },
+      "oracle": {
+        "expected_files": ["src/storage/ArchiveService.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "fielded_string_key_recall",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "src/storage/ArchiveService.ets", "start_line": 2, "end_line": 5}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "src/storage/ArchiveService.ets", "start_line": 2, "end_line": 5}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/storage/ArchiveService.ets", "start_line": 2, "end_line": 5}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-supply-mechanism-callable",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Locate the callable that applies a platform predicate."
+      },
+      "source": {
+        "before_revision": "working-tree"
+      },
+      "provenance": {
+        "kind": "reviewed_synthetic_context_fixture",
+        "source_family": "context-supply-development/platform-mechanism",
+        "independence_basis": "project-neutral static-mechanism fixture that isolates fielded mechanism candidate propagation"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["service"],
+        "mechanism_kinds": ["platform_api"]
+      },
+      "oracle": {
+        "expected_files": ["src/runtime/DecisionUnit.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "fielded_mechanism_recall",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "src/runtime/DecisionUnit.ets", "start_line": 2, "end_line": 4}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "src/runtime/DecisionUnit.ets", "start_line": 2, "end_line": 4}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/runtime/DecisionUnit.ets", "start_line": 2, "end_line": 4}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "development",
+      "change_policy": "editable",
+      "source_isolation": "project_neutral"
+    }
+  }
+}

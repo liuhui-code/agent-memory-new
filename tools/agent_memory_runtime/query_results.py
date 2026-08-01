@@ -90,11 +90,8 @@ def diverse_log_matches(
 def limited_context(
     project: Project,
     query: str,
-    enable_passage_shadow: bool = False,
 ) -> dict[str, Any]:
-    collection = collect_matches_with_audit(
-        project, query, enable_passage_shadow=enable_passage_shadow
-    )
+    collection = collect_matches_with_audit(project, query)
     matches = collection.matches
     gated = gate_matches_by_intent(project, query, matches)
     bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS, query)
@@ -104,7 +101,7 @@ def limited_context(
     ]
     followup_focus = infer_followup_focus(query, bounded)
     localization_matches, direct_scores_safe = localization_input(
-        project, query, gated["matches"], enable_passage_shadow,
+        project, query, gated["matches"],
     )
     localization = SQLiteHierarchicalLocalizer().localize(
         project, query, localization_matches, direct_scores_safe,
@@ -156,14 +153,11 @@ def localization_input(
     project: Project,
     query: str,
     matches: dict[str, list[dict[str, Any]]],
-    enable_passage_shadow: bool,
 ) -> tuple[dict[str, list[dict[str, Any]]], bool]:
     positive = positive_retrieval_query(query)
     if positive == " ".join(query.split()):
         return matches, False
-    collection = collect_matches_with_audit(
-        project, positive, enable_passage_shadow=enable_passage_shadow,
-    )
+    collection = collect_matches_with_audit(project, positive)
     positive_matches = dict(collection.matches)
     positive_matches["wiki_matches"] = [
         item for item in positive_matches.get("wiki_matches") or []

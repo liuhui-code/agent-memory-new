@@ -287,12 +287,12 @@ caps static extraction at 16 mechanisms per callable and persisted JSON at
 4,096 UTF-8 bytes per symbol, and never treats a mechanism as a diagnosis or
 missing-code recommendation.
 
-Fielded passage retrieval is currently deployed in `shadow` mode. Full
-`context --json` runs it and exposes its candidate audit and Recall@20 inputs,
-but the Phase 1 candidate set remains the serving set. `context --compact` does
-not execute the shadow retriever, so Agent Token and latency budgets are
-unchanged. Promotion requires project-neutral candidate-recall improvement,
-owner-reranker calibration, and a new sealed external gate.
+Fielded passage retrieval is part of the serving candidate set. Full and compact
+`context` use the same bounded field channels and weighted RRF; only the full view
+exposes detailed audit records. A candidate recalled through `string_key_fts` or
+`semantic_mechanism_fts` is scored against that matched field before downstream
+selection. Field evidence supplies retrieval provenance, not a diagnosis. The
+hierarchical localizer still owns file, callable, and source-range selection.
 
 The bundled Codex benchmark Runner always replaces compact source-excerpt bodies with symbol and line metadata before building its external prompt. New observations report `source_excerpt_delivery=external_metadata_only`; therefore they evaluate anchor/range behavior, not source-excerpt effectiveness. The bundled Ollama Runner accepts only loopback HTTP, verifies the requested installed model, and retains full excerpts inside the local process boundary. It exposes only bounded workspace `read_source` and literal `search_source` tools, derives tool and Token telemetry itself, and reports `source_boundary=local_process` plus `source_excerpt_delivery=full`. Result and telemetry stores never contain excerpt bodies. Initial local Qwen 3 1.7B and Llama 3.2 3B Login smoke A/B runs failed quality and efficiency, so the repeated matrix remains stopped; see `docs/gramony-benchmark-pilot.md`.
 
@@ -859,12 +859,12 @@ provider, fused score, best source rank, channel count, and each channel's
 rank, weight, and contribution. This is candidate generation provenance; the
 existing `rerank_score` is a separate downstream owner-ranking decision.
 
-When passage shadow retrieval is enabled, `candidate_recall.fielded_passages`
-reports provider `code_passage_fts/v2`, mode `shadow`, seven channel audits, a
-nested fusion result, and `serving_candidates_changed: false`. The deterministic
-capability report measures `candidate_file_recall_at_20` from that isolated
-candidate set. It is diagnostic rather than a release gate until the fielded
-retriever and downstream owner reranker are calibrated together.
+`candidate_recall.tables.<code table>.fielded_retrieval` reports provider
+`code_passage_fts/v2`, mode `serving`, the applicable field-channel audits, a
+nested fusion result, candidate references, and whether those channels changed
+the bounded serving IDs relative to the legacy lanes. The deterministic capability
+report measures `candidate_file_recall_at_20` from the actual serving candidate
+set. This is retrieval-stage evidence and does not make the top candidate a cause.
 
 Full `context --json` also exposes
 `query_audit.hierarchical_localization`. This serving-stage audit projects the
@@ -873,10 +873,17 @@ callables inside those files, evidence-prioritized graph seeds, supported
 incoming one-hop graph owners, and
 callable-bounded source ranges. A range may be narrowed to a line-local
 semantic mechanism such as a guard, resource bound, callback, platform
-predicate, or persistence operation. It does not change first-stage candidate
-recall or promote fielded shadow candidates, but its callable evidence can focus
-compact code anchors and source ranges. The audit records that serving contract,
-provenance, and limits; it never selects a diagnosis or widens the graph.
+predicate, or persistence operation. It does not generate first-stage candidates,
+but its callable evidence can focus compact code anchors and source ranges. The
+current-source excerpt reader scans a bounded selected callable interval even when
+that interval begins after the large-file prefix limit. The audit records that
+serving contract, provenance, and limits; it never selects a diagnosis or widens
+the graph.
+
+Source-location projection preserves evidence identity. File-level candidates may
+inherit a same-file callable range so the Agent can inspect source, but semantic
+symbols such as resources and routes keep their own `symbol` and `symbol_type` rather
+than being rewritten as the nearby callable.
 
 `eval-context-capability` uses that full audit only as a second, isolated
 measurement pass after its normal compact query. It records references, symbol

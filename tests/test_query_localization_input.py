@@ -17,7 +17,7 @@ class QueryLocalizationInputTests(unittest.TestCase):
             "tools.agent_memory_runtime.query_results.collect_matches_with_audit",
         ) as collect:
             selected, direct_scores_safe = localization_input(
-                SimpleNamespace(), "locate the render owner", matches, False,
+                SimpleNamespace(), "locate the render owner", matches,
             )
 
         self.assertIs(matches, selected)
@@ -42,13 +42,12 @@ class QueryLocalizationInputTests(unittest.TestCase):
             SimpleNamespace(),
             original,
             {"wiki_matches": [{"id": 1}]},
-            True,
         )
 
         self.assertIs(filtered_matches, selected)
         self.assertTrue(direct_scores_safe)
         collect.assert_called_once_with(
-            unittest.mock.ANY, "locate the view article", enable_passage_shadow=True,
+            unittest.mock.ANY, "locate the view article",
         )
         gate.assert_called_once_with(unittest.mock.ANY, original, filtered_matches)
 

@@ -83,7 +83,6 @@ def collect_matches_with_audit(
     project: Project,
     query: str,
     recall_port: CandidateRecallPort | None = None,
-    enable_passage_shadow: bool = False,
 ) -> CollectedMatches:
     retrieval_query = positive_retrieval_query(query)
     tokens = query_tokens(retrieval_query)
@@ -101,9 +100,7 @@ def collect_matches_with_audit(
         "incident_trace_matches": [],
     }
     with connect(project) as conn:
-        recalled = (recall_port or SQLiteCandidateRecall(
-            enable_passage_shadow=enable_passage_shadow
-        )).recall(
+        recalled = (recall_port or SQLiteCandidateRecall()).recall(
             conn, project, retrieval_query
         )
         log_effects = collect_log_effect_matches(conn, project, retrieval_query)
@@ -292,6 +289,14 @@ def collect_matches_with_audit(
         if "method_body_fts" in symbol_lanes:
             weighted_fields.append(
                 ("method_evidence", row["method_evidence"] or "", 0.75)
+            )
+        if "string_key_fts" in symbol_lanes:
+            weighted_fields.append(
+                ("string_evidence", row["string_evidence"] or "", 2.5)
+            )
+        if "semantic_mechanism_fts" in symbol_lanes:
+            weighted_fields.append(
+                ("mechanism_evidence", row["mechanism_evidence"] or "", 2.5)
             )
         method_coverage = method_evidence_term_coverage(
             row["method_evidence"] or "", method_focus_terms

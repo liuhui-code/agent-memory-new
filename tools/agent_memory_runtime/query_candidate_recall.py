@@ -9,11 +9,8 @@ from .models import Project, QUERY_FTS_RECALL_LIMITS
 from .index_freshness import filter_fresh_candidate_rows
 from .query_behavior_concepts import behavior_marker_terms
 from .query_followups import FOCUS_PRIORITY_TERMS, focus_from_query
-from .query_fielded_retrieval import (
-    candidate_refs,
-    fielded_passage_rankings,
-    passage_candidate_refs,
-)
+from .query_fielded_retrieval import candidate_refs
+from .query_fielded_serving import fielded_serving_candidates
 from .query_method_evidence import (
     method_evidence_focus_terms,
     method_evidence_term_coverage,
@@ -123,12 +120,10 @@ class SQLiteCandidateRecall:
     def __init__(
         self,
         rank_fusion: RankFusionPort | None = None,
-        enable_passage_shadow: bool = False,
     ) -> None:
         self.rank_fusion = rank_fusion or ReciprocalRankFusion(
             channel_weights=CANDIDATE_CHANNEL_WEIGHTS
         )
-        self.enable_passage_shadow = enable_passage_shadow
 
     def recall(self, conn: Any, project: Project, query: str) -> CandidateRecallBatch:
         rows: dict[str, list[Any]] = {}
@@ -139,7 +134,6 @@ class SQLiteCandidateRecall:
         for table_name, limit in QUERY_FTS_RECALL_LIMITS.items():
             recalled = recall_table_candidates(
                 conn, project, table_name, query, limit, self.rank_fusion,
-                self.enable_passage_shadow,
             )
             rows[table_name] = fetch_rows_by_ids(
                 conn,
@@ -241,7 +235,6 @@ def recall_table_candidates(
     query: str,
     limit: int,
     rank_fusion: RankFusionPort,
-    enable_passage_shadow: bool = False,
 ) -> TableCandidateRecall:
     lane_ids: dict[str, list[int]] = {}
     fielded_audit: dict[str, Any] = {}
@@ -264,38 +257,6 @@ def recall_table_candidates(
     source_type = {
         "code_files": "code_file", "code_symbols": "code_symbol",
     }.get(table_name)
-    if source_type and enable_passage_shadow:
-        fielded = fielded_passage_rankings(
-            conn, project, query, limit, source_type
-        )
-        if source_type == "code_symbol":
-            method_terms = method_evidence_focus_terms(query)
-            method_ids = fielded.rankings.get("method_body_fts", [])
-            fielded.rankings["method_body_fts"] = (
-                qualifying_method_evidence_ids(
-                    conn, project, method_ids, method_terms
-                )
-                if len(method_terms) >= 2 else []
-            )
-        fielded_fusion = rank_fusion.fuse(fielded.rankings, limit)
-        fielded_ids = [item.record_id for item in fielded_fusion.candidates]
-        fielded_audit = {
-            **fielded.audit,
-            "mode": "shadow",
-            "serving_candidates_changed": False,
-            "rank_fusion": fielded_fusion.audit(),
-            "candidate_fusion": {
-                str(item.record_id): item.audit()
-                for item in fielded_fusion.candidates
-            },
-            "candidate_refs": passage_candidate_refs(
-                conn, project, source_type, fielded_ids, fielded.rankings
-            ),
-        }
-    elif source_type:
-        fielded_audit = {
-            "provider": "code_passage_fts/v2", "mode": "disabled"
-        }
     if structural_terms:
         lane_ids["structural_fts"] = fts_ids(
             conn,
@@ -339,8 +300,18 @@ def recall_table_candidates(
             fts_expression(behavior_terms, " OR "),
             METHOD_EVIDENCE_RECALL_LIMIT,
         )
+    baseline = rank_fusion.fuse(lane_ids, limit)
+    fielded = fielded_serving_candidates(
+        conn, project, query, limit, source_type, rank_fusion
+    )
+    lane_ids.update(fielded.lanes)
+    fielded_audit = fielded.audit
     fused = rank_fusion.fuse(lane_ids, limit)
     ordered = [item.record_id for item in fused.candidates]
+    if fielded_audit:
+        fielded_audit["serving_candidates_changed"] = (
+            [item.record_id for item in baseline.candidates] != ordered
+        )
     used_fallback = False
     fallback_skipped = False
     if not ordered and broad_expression and like_fallback_allowed(conn, table_name):
