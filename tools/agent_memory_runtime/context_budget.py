@@ -34,7 +34,11 @@ def bounded_log_evidence(items: list[dict[str, Any]], limit: int) -> list[dict[s
     return [emitter, *linked, *remaining][:limit]
 
 
-def enforce_budget(payload: dict[str, Any], token_budget: int) -> None:
+def enforce_budget(
+    payload: dict[str, Any],
+    token_budget: int,
+    reserve_tokens: int = 60,
+) -> None:
     handoff = payload["query_handoff"]
     paths = handoff["path_context"]["path_candidates"]
     reductions: tuple[Callable[[], Any], ...] = (
@@ -52,11 +56,13 @@ def enforce_budget(payload: dict[str, Any], token_budget: int) -> None:
         lambda: minimize_guards(payload),
         lambda: payload.__setitem__("blocked_memory_notes", []),
         lambda: trim_excerpt_for_path_diversity(handoff),
+        lambda: compress_primary_path_duplicates(handoff),
+        lambda: compress_alternate_path_branches(handoff),
         lambda: handoff["path_context"].__setitem__("path_candidates", paths[:1]),
         lambda: hard_trim(payload),
     )
     for reduce_payload in reductions:
-        if estimate_payload_tokens(payload) <= token_budget - 60:
+        if estimate_payload_tokens(payload) <= token_budget - reserve_tokens:
             break
         reduce_payload()
 
@@ -198,6 +204,86 @@ def trim_excerpt_for_path_diversity(handoff: dict[str, Any]) -> None:
         update_excerpt_policy(handoff)
 
 
+def compress_primary_path_duplicates(handoff: dict[str, Any]) -> None:
+    paths = handoff["path_context"]["path_candidates"]
+    if not paths:
+        return
+    primary = paths[0]
+    primary["entry"] = compact_projected_endpoint(primary.get("entry"))
+    primary["emitter"] = compact_projected_endpoint(primary.get("emitter"))
+    primary["relations"] = compact_projected_relations(primary.get("relations"))
+    nodes = primary.get("nodes") or []
+    if len(nodes) == 2 and endpoints_match_nodes(primary, nodes):
+        primary.pop("nodes", None)
+    log_keys = {
+        log_identity(item) for item in handoff.get("log_anchors") or []
+    }
+    expected = primary.get("expected_logs") or []
+    if expected and all(log_identity(item) in log_keys for item in expected):
+        primary.pop("expected_logs", None)
+    if primary.get("source_revision") == handoff["path_context"].get("graph_revision"):
+        primary.pop("source_revision", None)
+    if primary.get("complete") is True:
+        primary.pop("complete", None)
+    if primary.get("truncated") is False:
+        primary.pop("truncated", None)
+    primary.pop("uncertainty", None)
+
+
+def compact_projected_endpoint(value: Any) -> dict[str, Any]:
+    item = value if isinstance(value, dict) else {}
+    return {
+        key: item[key] for key in ("name", "file_path", "line", "category")
+        if item.get(key) not in (None, "", [], {})
+    }
+
+
+def compact_projected_relations(value: Any) -> list[dict[str, str]]:
+    items = value if isinstance(value, list) else []
+    return [
+        {"relation": str(item["relation"])}
+        for item in items if isinstance(item, dict) and item.get("relation")
+    ][:5]
+
+
+def endpoints_match_nodes(path: dict[str, Any], nodes: list[dict[str, Any]]) -> bool:
+    return (
+        endpoint_identity(path.get("entry")) == endpoint_identity(nodes[0])
+        and endpoint_identity(path.get("emitter")) == endpoint_identity(nodes[-1])
+    )
+
+
+def endpoint_identity(value: Any) -> tuple[str, str]:
+    item = value if isinstance(value, dict) else {}
+    return str(item.get("file_path") or ""), str(item.get("name") or "")
+
+
+def log_identity(value: Any) -> tuple[str, str, int]:
+    item = value if isinstance(value, dict) else {}
+    return (
+        str(item.get("message_template") or ""),
+        str(item.get("function") or ""),
+        int(item.get("line") or 0),
+    )
+
+
+def compress_alternate_path_branches(handoff: dict[str, Any]) -> None:
+    paths = handoff["path_context"]["path_candidates"]
+    if len(paths) < 2:
+        return
+    alternate = paths[1]
+    entry = compact_projected_endpoint(alternate.get("entry"))
+    relations = compact_projected_relations(alternate.get("relations"))[:2]
+    paths[1:] = [{
+        key: value for key, value in {
+            "path_id": alternate.get("path_id"),
+            "entry": entry,
+            "relations": relations,
+            "projection": "alternate_entry",
+        }.items() if value not in (None, "", [], {})
+    }]
+
+
 def update_excerpt_policy(handoff: dict[str, Any]) -> None:
     excerpts = [
         excerpt for anchor in handoff["code_anchors"]
@@ -225,9 +311,12 @@ def hard_trim(payload: dict[str, Any]) -> None:
     handoff["semantic_refs"] = []
     candidates = handoff["path_context"]["path_candidates"][:1]
     for candidate in candidates:
-        candidate["nodes"] = candidate["nodes"][:4]
-        candidate["relations"] = candidate["relations"][:3]
-        candidate["expected_logs"] = candidate["expected_logs"][:1]
+        if candidate.get("nodes"):
+            candidate["nodes"] = candidate["nodes"][:4]
+        if candidate.get("relations"):
+            candidate["relations"] = candidate["relations"][:3]
+        if candidate.get("expected_logs"):
+            candidate["expected_logs"] = candidate["expected_logs"][:1]
         candidate["uncertainty"] = candidate.get("uncertainty", [])[:1]
     handoff["path_context"]["path_candidates"] = candidates
     payload["correction_guards"] = shrink_guard_group(payload["correction_guards"])

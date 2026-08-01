@@ -14,11 +14,16 @@ def write_incident_trace_vault_pages(project: Project, incident_traces: list[sql
     notice = "This file is generated. Edit memory through agent-memory-maintain or runtime commands.\n\n"
     rows = [row_dict(row) for row in incident_traces]
     wiki_doc = header + "# Incident Traces\n\n" + notice
-    wiki_doc += "These are compact ArkTS incident summaries. Raw runtime logs are not persisted here.\n\n"
+    wiki_doc += "These are Agent-structured incident outcomes. Runtime does not read or persist temporary logs.\n\n"
     for row in rows[:50]:
-        wiki_doc += f"- trace #{row['id']} ({row['status']}, {row['arkts_scene']}): {row['symptom']}\n"
-        if row.get("normalized_error"):
-            wiki_doc += f"  - event: {row['normalized_error']}\n"
+        state = row.get("evidence_state") or "legacy_unverified"
+        wiki_doc += f"- trace #{row['id']} ({row['status']}, {state}, {row['arkts_scene']}): {row['symptom']}\n"
+        if row.get("diagnosis_summary"):
+            wiki_doc += f"  - diagnosis: {row['diagnosis_summary']}\n"
+        if row.get("intervention"):
+            wiki_doc += f"  - intervention: {row['intervention']}\n"
+        if row.get("verification_evidence"):
+            wiki_doc += f"  - verification: {row['verification_evidence']}\n"
         if row.get("resolution"):
             wiki_doc += f"  - resolution: {row['resolution']}\n"
     write_vault_file(project.vault_dir / "Codebase Wiki" / "incident-traces.md", wiki_doc)
@@ -27,6 +32,7 @@ def write_incident_trace_vault_pages(project: Project, incident_traces: list[sql
     for row in rows[:50]:
         if row.get("status") in {"stale", "ignored"}:
             continue
-        review_doc += f"- trace #{row['id']} ({row['status']}, {row['arkts_scene']}): {row['symptom']}\n"
-        review_doc += "  - review: resolve, ignore, mark stale, or promote to reflection after source verification\n"
+        state = row.get("evidence_state") or "legacy_unverified"
+        review_doc += f"- trace #{row['id']} ({row['status']}, {state}, {row['arkts_scene']}): {row['symptom']}\n"
+        review_doc += "  - review: only verified Agent-structured outcomes may be promoted\n"
     write_vault_file(project.vault_dir / "Governance" / "Incident Trace Review.md", review_doc)

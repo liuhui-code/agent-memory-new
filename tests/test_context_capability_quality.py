@@ -95,6 +95,34 @@ class ContextCapabilityQualityTests(unittest.TestCase):
         self.assertEqual("uncertain", evidence["certainty"])
         self.assertEqual("retrieval_evidence_not_root_cause", evidence["boundary"])
 
+    def test_bounded_callable_evidence_is_a_serving_projection(self) -> None:
+        compact = compact_context({
+            "query": "return the profile coordinator",
+            "query_handoff": {
+                "log_anchors": [],
+                "code_anchors": [{"file_path": "src/Noise.ets"}],
+                "callable_evidence": {
+                    "certainty": "bounded",
+                    "primary": {
+                        "file_path": "src/ProfileCoordinator.ets",
+                        "symbol": "loadProfile",
+                        "target_owner_kind_match": True,
+                        "source_range": {"start_line": 12, "end_line": 24},
+                    },
+                    "alternatives": [],
+                    "boundary": "retrieval_evidence_not_root_cause",
+                },
+                "path_context": {"activated": False, "path_candidates": []},
+            },
+        })
+
+        anchors = compact["query_handoff"]["code_anchors"]
+        self.assertEqual(["src/ProfileCoordinator.ets"], [item["file_path"] for item in anchors])
+        self.assertEqual(
+            "bounded_callable_primary",
+            anchors[0]["source_ranges"][0]["selection_reason"],
+        )
+
 
 def capability_case(requirements: dict) -> dict:
     return {

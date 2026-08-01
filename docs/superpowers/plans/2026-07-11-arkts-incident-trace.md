@@ -1,5 +1,10 @@
 # ArkTS Incident Trace Implementation Plan
 
+> Superseded on 2026-08-01 by
+> `docs/superpowers/plans/2026-08-01-agent-structured-incident-outcome.md`.
+> The Runtime-derived log ingestion and causal-chain design below is historical
+> and must not be used as the current serving contract.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Add a small but extensible ArkTS incident trace layer that turns temporary user logs and symptoms into compact, code-anchored diagnosis traces.

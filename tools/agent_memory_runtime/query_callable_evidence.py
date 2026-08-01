@@ -37,8 +37,10 @@ def compact_candidate(item: dict[str, Any], ranges: dict[tuple[str, str], dict[s
         "symbol": symbol,
         "owner_name": item.get("owner_name"),
         "owner_kind": item.get("owner_kind"),
+        "target_owner_kind_match": item.get("target_owner_kind_match"),
         "callable_roles": strings(item.get("callable_roles"))[:4],
         "score": item.get("score"),
+        "evidence_score": item.get("evidence_score"),
         "reasons": strings(item.get("reasons"))[:4],
     }
     source_range = ranges.get((path, symbol))
@@ -64,9 +66,23 @@ def diverse_alternatives(items: list[dict[str, Any]], primary: dict[str, Any]) -
 def certainty(primary: dict[str, Any], alternatives: list[dict[str, Any]]) -> str:
     if not primary.get("source_range"):
         return "uncertain"
-    score = float(primary.get("score") or 0.0)
-    next_score = float(alternatives[0].get("score") or 0.0) if alternatives else 0.0
+    reasons = set(strings(primary.get("reasons")))
+    owner_kind = primary.get("owner_kind")
+    if (primary.get("target_owner_kind_match") or "structured_owner_kind" in reasons) and all(
+        item.get("owner_kind") != owner_kind for item in alternatives
+    ):
+        return "bounded"
+    if primary.get("target_owner_kind_match"):
+        score = float(primary.get("score") or 0.0)
+        next_score = float(alternatives[0].get("score") or 0.0) if alternatives else 0.0
+    else:
+        score = calibrated_evidence_score(primary)
+        next_score = calibrated_evidence_score(alternatives[0]) if alternatives else 0.0
     return "bounded" if score >= next_score + 2.0 else "uncertain"
+
+
+def calibrated_evidence_score(item: dict[str, Any]) -> float:
+    return max(0.0, float(item.get("evidence_score") or item.get("score") or 0.0))
 
 
 def range_lookup(items: list[dict[str, Any]]) -> dict[tuple[str, str], dict[str, Any]]:

@@ -1,5 +1,36 @@
 # Local Development Log
 
+## 2026-08-01 - Converge Incident Memory On Agent-Structured Outcomes
+
+Files changed:
+- Incident CLI, storage migration, query projection, governance, quality,
+  Vault mirror, focused tests, Skills, and Runtime/usage documentation.
+
+What changed:
+- Removed raw-log text/file inputs from `incident-trace`; the command now accepts
+  a required Agent diagnosis plus bounded observed events, causal steps, and
+  current-index code anchors.
+- Added `capture_mode` and `evidence_state` with explicit confidence caps.
+  New records progress through reported, supported, and verified evidence;
+  status alone cannot establish causal verification.
+- Normal Context serves only sanitized Agent-structured records. Existing
+  Runtime-derived rows default to `legacy_unverified`, remain quarantined, and
+  receive a governance review action instead of promotion.
+- Removed the unused Runtime Incident semantic-chain and span-graph builders.
+  Kept the separate model-free runtime-log parser because quality evaluation,
+  not production Incident diagnosis, still depends on it.
+
+Why:
+- Runtime must provide bounded code, log, graph, and experience context while
+  the local Agent CLI owns temporary-log analysis and causal reasoning. The old
+  Incident path violated both data ownership and causal authority boundaries.
+
+Verification:
+- The full suite passes 801 non-socket tests; its only two sandbox errors are
+  loopback-bind restrictions. The complete three-test Ollama runner module
+  passes when rerun with local `127.0.0.1` binding enabled.
+- Every changed Python file remains below the 500-line project limit.
+
 ## 2026-07-29 - Preserve Multiline ArkTS Code Logs During Learning
 
 Files changed:
@@ -8085,3 +8116,372 @@ Result:
   receipt independently of final stdout.
 - The immutable result SHA-256 is
   `848fc9ae4d1fb440df7f95dcb66fc41faf6f97a8f767496cbc321b2c54a7a7fa`.
+
+## 2026-07-31 - Repair the typed evidence funnel in independent fixtures
+
+What changed:
+
+- Added three isolated development scenarios for listener-boundary localization,
+  deferred measurement ownership, and an ArkTS hilog import alias plus wrapper path.
+- Reused `positive_retrieval_query` in hierarchical callable ranking and disabled
+  upstream direct-score reuse when exclusion clauses change the positive query.
+- Added adapter, boundary, and policy owner kinds with English/Chinese role matching.
+  Typed owner matches now order callables and share a bounded certainty contract with
+  compact projection.
+- Resolved bounded ECMA named/default import aliases to canonical log API receivers
+  before the existing source-call scanner and wrapper graph execute.
+- Corrected only source-review errors in the new development Oracle: the nested log
+  owner is `onAreaChange`, the requested wrapper is expected context, and a broad
+  Top-2/source-span case does not impose whole-list precision on four intentionally
+  diverse compact anchors.
+
+Result:
+
+- The initial isolated gate passed 3/9 and first lost six variants at
+  `evidence_primary`. The final gate passes 9/9 and 3/3 stable scenarios with exact
+  anchor/source/log-path recall and 1,333.5556 average Tokens.
+- Seventy-two focused tests pass, including named/default import-alias contracts. The CI
+  scale profile passes latency, query-plan, and
+  incremental-maintenance gates; callable pool P95 is 7.336 ms and one-hop owner P95 is
+  8.026 ms against 150 ms SLOs.
+- A frozen-`b26de18` comparison over six affected existing scenarios produces the same
+  16/18 result and identical failed checks as the repaired Runtime. No regression is
+  observed in this bounded comparison; the two failures remain pre-existing debt.
+- The complete 75-scenario/225-variant development run was terminated after a bounded
+  12-minute window without a result, so it is not counted as pass or regression proof.
+  No consumed holdout was read, modified, or rerun; a new external gate remains blocked.
+
+## 2026-07-31 - Share immutable Context evaluation preparation safely
+
+What changed:
+
+- Kept `eval-context-capability` as the facade and added a batch runner with exact
+  source/setup grouping, immutable indexed/setup preparation, and an independent
+  temporary memory snapshot for every expanded query case.
+- Added bounded execution audit data for group identities, index builds, snapshots,
+  avoided builds, and actual preparation/batch timing.
+- Preserved query-write isolation for experience usage, timestamps, and query misses;
+  no persistent cache, daemon, schema, CLI option, retrieval score, or Oracle changed.
+
+Result:
+
+- Evidence-funnel 9/9 and selected existing 16/18 results are byte-equivalent after
+  timing fields are removed. Distinct reflection setups also pass 9/9 with correct
+  2/2/0 setup counts.
+- The full 225-variant development gate completes in 316,578 ms with four index builds
+  and 225 isolated snapshots, avoiding 221 redundant index builds.
+- The full gate exposes a real 173/225 baseline with 52 failed variants: 23 candidate-
+  generation, 44 passage-selection, 68 ranking-precision, and 4 abstention failed
+  checks. Retrieval tuning remains outside this infrastructure stage.
+- The CI scale gate passes; callable-pool and one-hop-owner P95 are 5.349 and 5.764 ms.
+  Context tests pass 78/78 and benchmark/governance tests pass 37/37. Python compile,
+  evaluation JSON, diff, and 500-line gates pass. No consumed holdout was read or rerun.
+
+## 2026-07-31 - Calibrate cascade ranking without historical regressions
+
+What changed:
+
+- Added two independent development scenarios for target-role collisions and
+  exclusion-aware first-stage ranking, with three query variants each.
+- Split general owner relevance from explicit singular-target authority. Target-clause
+  roles take precedence, while implicit whole-query roles remain a fallback.
+- Added target-cardinality handling for chains, flows, conjunctions, and Chinese
+  quantity terms so multi-owner requests cannot collapse to one callable.
+- Added a positive-query localization stage for explicit exclusions. It reuses existing
+  retrieval, applies original-query negative role/identifier constraints, and marks only
+  the resulting direct scores safe.
+- Added a smoothed RRF fallback, bounded callable projection, precise callable source
+  provenance, and an Agent-facing calibrated `evidence_score`.
+
+Result:
+
+- Rejected a broad attempt that passed 172/231 and regressed 14 existing variants.
+- The independent gate improves from 2/6 to 6/6. The final complete development run
+  passes 183/231 and 44/77 stable scenarios.
+- Existing variants improve from 173/225 to 177/225 with zero regressions. Frozen
+  `b26de18` improves from 168/225 to 177/225 with nine improvements and zero
+  regressions. The overall development capability gate still fails and cannot promote.
+- Five shared index builds and 231 isolated snapshots avoid 226 repeated builds; batch
+  time is 354,771 ms. Average query time increases 9.36% to 735.6364 ms and average
+  Context size is 1,291.1948 Tokens.
+- Context tests pass 81/81, query/localization tests 68/68, and
+  benchmark/governance tests 91/91. CI scale, compile, 200 evaluation JSON, diff,
+  four-Skill, and 500-line gates pass. No consumed external holdout was accessed.
+
+## 2026-07-31 - Preserve typed file evidence before hierarchical localization
+
+What changed:
+
+- Moved heterogeneous file-candidate grouping and selection behind a dedicated bounded
+  policy while keeping `SQLiteHierarchicalLocalizer` and its public port unchanged.
+- Added query-adaptive identity and structural evidence lanes for behavior queries,
+  followed by ordinary score fill under the existing directory and total budgets.
+- Corrected Context evaluation to ignore fielded candidates while that channel remains
+  in shadow mode; served candidates are now used for first-stage loss attribution.
+- Rejected two broader policies after they reduced callback-owner and multi-file-flow
+  metrics. The accepted policy computes behavior markers once per query and preserves
+  original candidate order after membership selection.
+
+Result:
+
+- The complete development gate improves from 183/231 to 185/231 and from 44/77 to
+  46/77 stable scenarios. Two failures become passing with no prior check or
+  hierarchical metric regression; the overall gate remains fail.
+- Hierarchical file/callable/range recall improves from 0.9271/0.9069/0.8995 to
+  0.9769/0.9632/0.9338. Owner recall and precision remain 1.0.
+- The CI scale gate passes at 100,000 searchable entities and 300,000 edges. Candidate
+  hit/miss P95 is 46.485/81.839 ms, callable pool is 16.362 ms, and one-hop owner is
+  24.708 ms. Large-method incremental refresh passes at 2,821.429 ms P95.
+- Query/Context regressions pass 107/107 and benchmark/governance regressions pass
+  97/97. Compile, evaluation JSON, diff, four-Skill, and 500-line checks pass. No
+  consumed external holdout was accessed.
+
+## 2026-07-31 - Stop unsafe callable evidence projection
+
+What changed:
+
+- Added design records for bounded callable projection and certainty calibration, with
+  explicit budgets, architecture boundaries, and stop rules.
+- Added a regression contract proving an activated graph path remains authoritative
+  over bounded callable evidence.
+- Tested and reverted two serving strategies: broad bounded-primary projection and
+  scalar file-prior subtraction from callable confidence.
+
+Result:
+
+- Broad projection improved four failed variants but regressed thirteen previously
+  passing variants and 23 formal checks in the complete 231-variant development gate.
+- Scalar prior subtraction caused a focused multi-component regression by changing
+  `uncertain` evidence to `bounded`; it was also reverted.
+- No retrieval, ranking, projection, threshold, Oracle, budget, schema, facade, or
+  Skill behavior is accepted from either experiment. The next admissible design is a
+  shadow evidence-set calibration contract, not another scalar or case-specific rule.
+- After both reversions, 180 relevant Context, query, localization, log-alignment, and
+  source-window tests pass. A six-variant serving smoke matches the accepted 185/231
+  baseline exactly for status, checks, anchors, and first-loss attribution.
+- Python compile, 100 evaluation JSON documents, diff, fixed four-Skill, and 500-line
+  gates pass. No consumed external holdout was read, changed, or rerun.
+
+## 2026-07-31 - Add shadow callable evidence-set calibration
+
+What changed:
+
+- Added a pure, bounded callable evidence-set provider behind the existing Context
+  facade. It records target scope, categorical member support, graph competition,
+  exclusion conflicts, and calibration state without changing serving projection.
+- Stored the contract only in full-context `query_audit`; compact Context and the
+  1,500-token budget remain unchanged.
+- Added separate observation and informational metric modules so Oracle-based shadow
+  scoring cannot enter formal Context checks.
+- Added independent unit and integration coverage for single/multi targets, graph
+  competition, exclusions, insufficient evidence, member bounds, and compact
+  non-interference.
+
+Result:
+
+- Eight contract/integration tests and 102 broader relevant tests pass.
+- A 15-variant development smoke reports 0.3333 target-scope accuracy, 0.7556 member
+  recall, and 0.5333 primary precision. Formal status, checks, anchors, excerpts, and
+  first-loss attribution exactly match the accepted 185/231 baseline.
+- The complete 231-variant observation exceeded the existing 12-minute bounded window
+  without a result, was terminated, and was not rerun or counted as pass.
+- CI scale query-latency and SQL-plan gates pass. Unchanged incremental maintenance
+  fails under elevated load, including 9,854.305 ms large-method P95, so the overall
+  scale result remains fail and no SLO is adjusted.
+- Compile, 100 evaluation JSON, fixed four-Skill, diff, and 500-line gates pass. No
+  consumed external holdout was accessed.
+
+## 2026-07-31 - Calibrate the shadow callable evidence set
+
+What changed:
+
+- Added an explicit informational evidence-set Oracle for target scope, active members,
+  primary files, exclusion guards, and allowed calibration states.
+- Added disjoint editable development and frozen calibration fixture groups covering
+  single owner, multi-owner flow, graph competition, explicit exclusion, and
+  insufficient evidence with three wording variants each.
+- Classified excluded candidates as inspectable guards instead of active members,
+  recognized lower-camel method exclusions, and required typed, direct-identity, or
+  graph support before supporting a single candidate.
+- Kept all evidence-set data in full-context shadow audit; serving retrieval, compact
+  Context, ranking, budgets, formal checks, and the fixed four Skills are unchanged.
+
+Result:
+
+- The 15-variant development run passed its formal gate and exposed three generic
+  shadow-contract defects. Focused post-fix exclusion and insufficient runs pass 9/9.
+- After freezing the provider, the disjoint calibration pack ran once and passed 15/15
+  variants and 5/5 stable scenarios.
+- Calibration target-scope accuracy, member recall, primary precision, and state
+  accuracy are all 1.0. Two excluded candidates are guarded and zero forbidden members
+  remain active. The pack is `calibration/frozen/project_neutral` with tuning disabled.
+- This is synthetic shadow calibration, not external promotion evidence and not
+  permission to change compact serving projection. No consumed holdout was accessed.
+- Main regression tests pass 105/105 and focused query-exclusion/semantic tests pass
+  10/10. Compile, 102 evaluation JSON, fixed four-Skill, diff, and 500-line gates pass.
+
+## 2026-07-31 - Fail closed on immutable benchmark materialization
+
+What changed:
+
+- Sealed and executed a five-case ClashBox callable evidence-set holdout exactly once.
+- Classified the run as infrastructure-invalid after all candidate stages returned zero
+  because a failed Git archive silently fell back to an empty partial-clone worktree.
+- Changed benchmark workspace materialization so immutable revision failures terminate
+  before indexing; only explicit `working-tree` cases may copy the current source tree.
+- Added regression coverage proving failed archives cannot call the working-tree copy
+  path, plus an immutable invalid-run audit record and governance documentation.
+
+Result:
+
+- The observed 0/5 is not a retrieval result and cannot support tuning or promotion.
+- The sealed ClashBox pack is consumed and must never be modified or rerun.
+- Nine benchmark workspace and Context runner tests pass. A future external gate must use
+  a different unused source after revision materialization is independently validated.
+
+## 2026-07-31 - Consume a valid KeePassHO evidence-set holdout
+
+What changed:
+
+- Selected the previously unused GPL-3.0 KeePassHO project with 252 ArkTS files and
+  source-reviewed five independent history fixes across search, distributed KV, Ability
+  lifecycle, S3 protocol handling, and WebDAV connection lifecycle.
+- Preflighted every immutable pre-fix revision with Git archive, sealed the five-case
+  pack with digest `d3be3e541193749ea96a061838726f3290cc9773bec0f8641cebb796d2376ec3`,
+  and executed it exactly once.
+- Stored the immutable full result and documented formal Context, hierarchical, shadow
+  evidence-set, compactness, execution-cost, and governance outcomes separately.
+
+Result:
+
+- Source materialization and all five isolated index builds are valid. Every case has
+  non-empty file and callable candidate pools, so this is not an infrastructure failure.
+- The formal Context gate fails 0/5. File recall is 0.8, callable and range recall are
+  0.0, and source-span recall is 0.2.
+- Shadow target-scope accuracy is 0.2, member recall 0.5, primary precision 0.6, and
+  state accuracy 0.0; all five observations abstain as `insufficient` and serving output
+  remains unchanged. Compactness passes at 1,443.8 average estimated tokens.
+- No holdout case, Oracle, threshold, ranking, Provider, or compact projection was
+  changed after observation. The consumed pack will not be modified or rerun.
+- Focused workspace, Context, evidence-set, semantic, hierarchical, source-window, and
+  log-contract regressions pass 93/93. Compile, evaluation JSON, diff, fixed four-Skill,
+  and 500-line gates pass.
+
+## 2026-07-31 - Generalize ArkTS callable and source-range localization
+
+What changed:
+
+- Added a bounded normalized ECMA callable-header front end shared by semantic indexing
+  and source-range ownership, including multiline method and function declarations.
+- Replaced per-file source-prefix truncation with a fixed-budget direct-first stratified
+  callable pool that samples the full source extent before reranking.
+- Made causal path IDs independent of SQLite surrogate IDs and added duplicate-aware
+  compact branch projection so equal-score entry alternatives survive reindexing.
+- Added project-neutral multiline and dense-tail fixtures plus extraction, localization,
+  stable-identity, branch-diversity, and public Context regression tests.
+
+Result:
+
+- Development cases improve from 1/2 with zero callable/range recall to 2/2 with 1.0
+  file, callable, range, and source-span recall; average compact tokens fall to 1,399.
+- The final 231-variant run reaches 186/231 and 46/77 versus the accepted 185/231 and
+  46/77 baseline, with no previous pass regressing. Callable/range recall improve to
+  0.9804/0.9412 from 0.9632/0.9338.
+- The million profile passes at one million searchable entities and three million edges;
+  callable-pool P95 is 10.695 ms and candidate-hit P95 is 124.653 ms.
+- The restricted full run passed 799/802; the two socket-only tests pass 3/3 with local
+  loopback permission, and the fingerprint failure is corrected with 24 focused tests
+  passing. Compile, 110 JSON, diff, fixed four-Skill, and 500-line gates pass.
+- No consumed external holdout was read, modified, or rerun.
+
+## 2026-08-01 - Consume Cloudrs callable-range external holdout
+
+What changed:
+
+- Selected the previously unused GPL-3.0 Cloudrs project and source-reviewed five
+  independent history fixes covering UI timing, component lifecycle, draft-key
+  identity, download integrity, and sheet lifecycle races.
+- Fixed task wording, files, methods, and source ranges before Context execution;
+  materialized all ten before/after revisions and audited every declared target file
+  against the real fix diff.
+- Sealed the pack with digest
+  `661cfe13bd116f6642651f9dc9ba460ab1fa64aff7734ed0822df2ff2564ac79`, executed it
+  exactly once, and froze the complete raw result.
+- Kept production retrieval, ranking, parser behavior, thresholds, compact projection,
+  budgets, Oracles, SQLite schema, CLI facade, and four Skills unchanged.
+
+Result:
+
+- The run is infrastructure-valid: all five source snapshots and isolated indexes
+  completed, with non-empty file and callable pools in every case.
+- The formal Context gate fails 0/5. Candidate-file and hierarchical-file recall are
+  0.8; callable and range recall are 0.0. One case returns the exact source span but
+  misses the precision threshold because four anchors survive projection.
+- First loss occurs at callable localization in three cases, candidate-file retrieval
+  in one, and localizer-file ranking in one. This external evidence requires future
+  project-neutral development reproductions rather than direct holdout-driven tuning.
+- Shadow evidence sets report 0.6 member recall, 0.6 primary precision, and five
+  `insufficient` states; serving output remains unchanged. Compactness passes at
+  1,463.2/1,500 average estimated tokens.
+- Benchmark workspace and Context runner tests pass 29/29. Compile with a temporary
+  bytecode cache, all evaluation JSON, diff, exactly four Skills, and the 500-line
+  Python limit pass. The consumed Cloudrs pack will not be modified or rerun.
+
+## 2026-08-01 - Generalize inline decorated ArkTS callables
+
+What changed:
+
+- Added a classified project-neutral development portfolio for inline ArkUI builders,
+  inline reusable styles, dense method-body ranking, multilingual semantic recall, and
+  same-domain compact projection.
+- Proved in the public compact handoff that an inline `@Builder` file was returned but
+  its source range was attributed to `build`; the initial five-case baseline passed 3/5.
+- Extended the existing bounded callable-header front end to skip generic inline
+  decorator prefixes, including decorators with arguments, before applying the shared
+  method/function grammar.
+- Added header/range tests and an end-to-end learn/query regression that verifies the
+  decorated callable identity and source range in `query_handoff`.
+- Documented `learn-business` as the supported bilingual semantic bridge instead of
+  adding case-specific Chinese vocabulary or a runtime translation subsystem.
+
+Result:
+
+- The independent development portfolio improves to 4/5. Builder and Styles cases now
+  reach 1.0 file, callable, range, and source-span recall. Dense method and same-domain
+  cases remain passing without ranking or compact changes.
+- The pure Chinese-to-English case remains a candidate-file evidence gap. It does not
+  justify architecture or vocabulary changes without reviewed business semantics and a
+  second independent defect class.
+- The complete 231 variants remain exactly 186/231 and 46/77, with identical checks,
+  anchors, and hierarchical metrics versus the accepted baseline.
+- The million profile passes at one million searchable entities and three million
+  edges; callable-pool P95 is 8.213 ms and large-method incremental P95 is 2,278.093 ms.
+- Focused tests pass 58/58. The restricted suite passes 803/805; the two socket-only
+  errors pass in the complete 3/3 loopback module with local permission. Compile, all
+  evaluation JSON, diff, four Skills, and the 500-line gate pass.
+- No consumed holdout was read, modified, or rerun.
+
+## 2026-08-01 - Correct hierarchical localization serving contract
+
+What changed:
+
+- Proved with a controlled compact-context regression that bounded callable evidence can
+  focus the formal code-anchor and source-range projection.
+- Reclassified `sqlite_hierarchical_localizer/v2` as a serving-stage provider while
+  declaring that it does not alter first-stage candidate recall.
+- Exposed the serving mode to capability observations and kept localization metrics
+  informational rather than silently treating the provider as an isolated shadow.
+- Preserved the separate callable evidence-set as shadow-only and updated Runtime,
+  evaluation, and usage documentation to distinguish the two contracts.
+- Did not change retrieval, ranking, thresholds, graph depth, compact budgets, SQLite
+  schema, CLI facade, or the fixed four-Skill surface.
+
+Result:
+
+- Relevant regression passes 75/75. The restricted full suite passes 805/807; both
+  loopback-only errors pass in the complete 3/3 module outside the socket sandbox.
+- The million profile passes with one million searchable entities and three million
+  edges. Callable-pool P95 is 7.322 ms and one-hop-owner P95 is 5.263 ms.
+- Python compilation, 113 evaluation JSON, diff hygiene, exactly four Skills, and the
+  repository-wide 500-line gate pass.
+- No consumed holdout was read, changed, or rerun.

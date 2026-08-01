@@ -38,6 +38,43 @@ class CallableEvidenceTests(unittest.TestCase):
         self.assertEqual("uncertain", evidence["certainty"])
         self.assertNotIn("source_range", evidence["primary"])
 
+    def test_unique_structured_owner_match_is_bounded_without_score_gap(self) -> None:
+        primary = candidate("src/policy/SizePolicy.ets", "resolve", "policy", 12.0)
+        primary["reasons"] = ["structured_owner_kind"]
+        evidence = callable_evidence({
+            "callable_candidates": [
+                primary,
+                candidate("src/logging/Reporter.ets", "report", "class", 15.0),
+            ],
+            "source_ranges": [{
+                "file_path": "src/policy/SizePolicy.ets",
+                "symbol": "resolve",
+                "start_line": 3,
+                "end_line": 12,
+                "selection_reason": "callable_symbol_range",
+            }],
+        })
+
+        self.assertEqual("bounded", evidence["certainty"])
+
+    def test_first_stage_prior_cannot_create_bounded_certainty_by_itself(self) -> None:
+        primary = candidate("src/First.ets", "run", "class", 18.0)
+        primary["evidence_score"] = 6.0
+        alternative = candidate("src/Second.ets", "apply", "class", 12.0)
+        alternative["evidence_score"] = 6.0
+        evidence = callable_evidence({
+            "callable_candidates": [primary, alternative],
+            "source_ranges": [{
+                "file_path": "src/First.ets",
+                "symbol": "run",
+                "start_line": 3,
+                "end_line": 8,
+                "selection_reason": "callable_symbol_range",
+            }],
+        })
+
+        self.assertEqual("uncertain", evidence["certainty"])
+
 
 def candidate(path: str, symbol: str, owner_kind: str, score: float) -> dict[str, object]:
     return {

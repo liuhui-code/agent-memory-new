@@ -1,0 +1,1862 @@
+{
+  "schema_version": "agent-context-capability-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 5,
+    "passed_case_count": 0,
+    "failed_case_count": 5,
+    "scenario_count": 5,
+    "stable_scenario_count": 0,
+    "query_variant_pass_rate": 0.0,
+    "average_context_tokens": 1463.2,
+    "average_memory_prepare_ms": 20007.0,
+    "average_query_elapsed_ms": 2773.8
+  },
+  "capability_profile": {
+    "code_locator": {
+      "status": "fail",
+      "evaluated_cases": 5,
+      "anchor_recall": 0.2,
+      "primary_anchor_recall": 0.2,
+      "candidate_file_recall_at_20": 0.8,
+      "oracle_anchor_precision": 0.05,
+      "expected_anchor_mrr": 0.2
+    },
+    "source_evidence": {
+      "status": "fail",
+      "evaluated_cases": 5,
+      "observed_case_count": 5,
+      "source_excerpt_recall": 0.2,
+      "source_span_recall": 0.2
+    },
+    "log_graph": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "log_path_quality": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "average_path_recall": null,
+      "average_path_precision": null,
+      "truncated_case_count": 0
+    },
+    "experience": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "causal_context": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_path_case_count": 0,
+      "observed_relation_case_count": 0
+    },
+    "hierarchical_localization": {
+      "status": "informational",
+      "evaluated_cases": 5,
+      "observed_case_count": 5,
+      "file_evaluated_case_count": 5,
+      "callable_evaluated_case_count": 5,
+      "owner_evaluated_case_count": 0,
+      "range_evaluated_case_count": 5,
+      "file_recall": 0.8,
+      "callable_recall": 0.0,
+      "owner_recall": null,
+      "owner_precision": null,
+      "range_recall": 0.0,
+      "average_audit_elapsed_ms": 2078.4
+    },
+    "abstention": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "compactness": {
+      "status": "pass",
+      "evaluated_cases": 5,
+      "average_context_tokens": 1463.2,
+      "token_budget": 1500
+    },
+    "query_robustness": {
+      "status": "fail",
+      "scenario_count": 5,
+      "stable_scenario_count": 0,
+      "variant_count": 5,
+      "passed_variant_count": 0,
+      "variant_pass_rate": 0.0,
+      "scenarios": [
+        {
+          "scenario_id": "cloudrs-batch-sheet-short-operation",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "cloudrs-album-tab-component-lifecycle",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "cloudrs-text-draft-key-collision",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "cloudrs-download-resume-signed-url",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "cloudrs-settings-sheet-close-open-race",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        }
+      ]
+    },
+    "evidence_funnel": {
+      "status": "informational",
+      "evaluated_cases": 5,
+      "first_loss_counts": {
+        "callable": 3,
+        "candidate_file": 1,
+        "localizer_file": 1
+      },
+      "stage_pass_rates": {
+        "candidate_file": 0.8,
+        "localizer_file": 0.8,
+        "callable": 0.0,
+        "source_range": 0.0,
+        "evidence_primary": 0.6,
+        "compact_primary": 0.2,
+        "compact_anchor": 0.2
+      }
+    },
+    "evidence_set_calibration": {
+      "status": "informational",
+      "evaluated_cases": 5,
+      "observed_case_count": 5,
+      "target_scope_accuracy": 0.0,
+      "member_recall": 0.6,
+      "primary_precision": 0.6,
+      "calibration_state_accuracy": null,
+      "forbidden_member_hit_count": 0,
+      "guarded_exclusion_count": 0,
+      "calibration_state_counts": {
+        "insufficient": 5
+      },
+      "serving_projection_changed": false
+    },
+    "sufficiency": {
+      "status": "informational",
+      "evaluated_case_count": 5,
+      "missing_observation_count": 0,
+      "kind_counts": {
+        "diagnosis": 5
+      },
+      "readiness_status_counts": {
+        "ready_for_agent_inspection": 5
+      },
+      "reason_code_counts": {
+        "limited_code_anchor_diversity": 1,
+        "no_log_anchor": 5
+      },
+      "scope": "shadow_observation_not_a_context_gate"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "cloudrs-batch-sheet-short-operation",
+      "scenario_id": "cloudrs-batch-sheet-short-operation",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 1.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/LogViewerSheet.ets",
+        "entry/src/main/ets/components/PathSelectSheet.ets",
+        "entry/src/main/ets/components/PhotoBackupSettingsSheet.ets",
+        "entry/src/main/ets/pages/tabs/TabFiles.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/LogViewerSheet.ets",
+        "entry/src/main/ets/components/PathSelectSheet.ets",
+        "entry/src/main/ets/pages/tabs/TabFiles.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/LogViewerSheet.ets",
+        "entry/src/main/ets/components/PathSelectSheet.ets",
+        "entry/src/main/ets/pages/tabs/TabFiles.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+            "start_line": 1470,
+            "end_line": 1501
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+            "start_line": 1470,
+            "end_line": 1501
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 1,
+        "range_candidate_count": 0,
+        "audit_elapsed_ms": 2390
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": true,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "callable",
+        "candidate_file_count": 22,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 0,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 4,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1482,
+      "memory_prepare_ms": 22058,
+      "query_elapsed_ms": 3496,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+            "start_line": 1470,
+            "end_line": 1501
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+            "start_line": 1470,
+            "end_line": 1501
+          }
+        ],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+            "start_line": 1470,
+            "end_line": 1501
+          }
+        ],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "cloudrs-album-tab-component-lifecycle",
+      "scenario_id": "cloudrs-album-tab-component-lifecycle",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/model/PhotoBackupSettingsStore.ets",
+        "entry/src/main/ets/pages/VideoPreview.ets",
+        "entry/src/main/ets/utils/PhotoSaveUtil.ets",
+        "entry/src/ohosTest/ets/test/PhotoBackupSettingsStore.test.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/pages/VideoPreview.ets",
+        "entry/src/main/ets/utils/PhotoSaveUtil.ets",
+        "entry/src/ohosTest/ets/test/PhotoBackupSettingsStore.test.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/pages/VideoPreview.ets",
+        "entry/src/main/ets/utils/PhotoSaveUtil.ets",
+        "entry/src/ohosTest/ets/test/PhotoBackupSettingsStore.test.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/HomePage.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/pages/HomePage.ets",
+          "start_line": 361,
+          "end_line": 376
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 0.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/pages/HomePage.ets",
+            "start_line": 361,
+            "end_line": 376
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/pages/HomePage.ets",
+            "start_line": 361,
+            "end_line": 376
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 0,
+        "range_candidate_count": 0,
+        "audit_elapsed_ms": 2193
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 32,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 0,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "entry/src/ohosTest/ets/test/PhotoBackupSettingsStore.test.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 4,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1479,
+      "memory_prepare_ms": 21045,
+      "query_elapsed_ms": 2352,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/HomePage.ets",
+            "start_line": 361,
+            "end_line": 376
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/HomePage.ets",
+            "start_line": 361,
+            "end_line": 376
+          }
+        ],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/HomePage.ets",
+            "start_line": 361,
+            "end_line": 376
+          }
+        ],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "cloudrs-text-draft-key-collision",
+      "scenario_id": "cloudrs-text-draft-key-collision",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 0.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/Aria2Create.ets",
+        "entry/src/main/ets/pages/tabs/TabFiles.ets",
+        "entry/src/main/ets/utils/StorageMigration.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/Aria2Create.ets",
+        "entry/src/main/ets/pages/tabs/TabFiles.ets",
+        "entry/src/main/ets/utils/StorageMigration.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/Aria2Create.ets",
+        "entry/src/main/ets/pages/tabs/TabFiles.ets",
+        "entry/src/main/ets/utils/StorageMigration.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/utils/TextDraftStore.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/utils/TextDraftStore.ets",
+          "start_line": 94,
+          "end_line": 102
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/utils/TextDraftStore.ets",
+            "start_line": 94,
+            "end_line": 102
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/utils/TextDraftStore.ets",
+            "start_line": 94,
+            "end_line": 102
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 3,
+        "range_candidate_count": 0,
+        "audit_elapsed_ms": 2558
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 28,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 0,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "entry/src/main/ets/components/PathSelectSheet.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1462,
+      "memory_prepare_ms": 22089,
+      "query_elapsed_ms": 3794,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/utils/TextDraftStore.ets",
+            "start_line": 94,
+            "end_line": 102
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [
+          {
+            "file_path": "entry/src/main/ets/utils/TextDraftStore.ets",
+            "start_line": 94,
+            "end_line": 102
+          }
+        ],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [
+          {
+            "file_path": "entry/src/main/ets/utils/TextDraftStore.ets",
+            "start_line": 94,
+            "end_line": 102
+          }
+        ],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "cloudrs-download-resume-signed-url",
+      "scenario_id": "cloudrs-download-resume-signed-url",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "docs/photo-backup-next-plan.md",
+        "entry/src/main/ets/components/Downloads.ets",
+        "entry/src/main/ets/pages/HomePage.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "docs/photo-backup-next-plan.md",
+        "entry/src/main/ets/components/Downloads.ets",
+        "entry/src/main/ets/pages/HomePage.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "docs/photo-backup-next-plan.md",
+        "entry/src/main/ets/components/Downloads.ets",
+        "entry/src/main/ets/pages/HomePage.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/tabs/TabFiles.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+          "start_line": 3416,
+          "end_line": 3440
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+            "start_line": 3416,
+            "end_line": 3440
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+            "start_line": 3416,
+            "end_line": 3440
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 1,
+        "range_candidate_count": 0,
+        "audit_elapsed_ms": 1759
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": true,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "callable",
+        "candidate_file_count": 16,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 0,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1454,
+      "memory_prepare_ms": 17357,
+      "query_elapsed_ms": 2524,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+            "start_line": 3416,
+            "end_line": 3440
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+            "start_line": 3416,
+            "end_line": 3440
+          }
+        ],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+            "start_line": 3416,
+            "end_line": 3440
+          }
+        ],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "cloudrs-settings-sheet-close-open-race",
+      "scenario_id": "cloudrs-settings-sheet-close-open-race",
+      "query_variant": "default",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "minimum_source_span_recall_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": 0.0,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/TabFilesHeader.ets",
+        "entry/src/main/ets/utils/RequestDownload.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/TabFilesHeader.ets",
+        "entry/src/main/ets/utils/RequestDownload.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/TabFilesHeader.ets",
+        "entry/src/main/ets/utils/RequestDownload.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/tabs/TabMine.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [
+        {
+          "file_path": "entry/src/main/ets/pages/tabs/TabMine.ets",
+          "start_line": 1083,
+          "end_line": 1109
+        }
+      ],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabMine.ets",
+            "start_line": 1083,
+            "end_line": 1109
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabMine.ets",
+            "start_line": 1083,
+            "end_line": 1109
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 2,
+        "range_candidate_count": 0,
+        "audit_elapsed_ms": 1492
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": true,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "callable",
+        "candidate_file_count": 13,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 0,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "entry/src/main/ets/pages/tabs/TabMine.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 2,
+      "primary_anchor_count": 2,
+      "source_excerpt_count": 2,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 1439,
+      "memory_prepare_ms": 17486,
+      "query_elapsed_ms": 1703,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabMine.ets",
+            "start_line": 1083,
+            "end_line": 1109
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabMine.ets",
+            "start_line": 1083,
+            "end_line": 1109
+          }
+        ],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [
+          {
+            "file_path": "entry/src/main/ets/pages/tabs/TabMine.ets",
+            "start_line": 1083,
+            "end_line": 1109
+          }
+        ],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "scope": "context_supply_only"
+  },
+  "next_gate": "repair_context_supply",
+  "execution": {
+    "schema_version": "agent-context-capability-execution/v1",
+    "strategy": "shared-index-isolated-case-snapshot",
+    "expanded_case_count": 5,
+    "source_group_count": 5,
+    "setup_group_count": 5,
+    "index_build_count": 5,
+    "case_snapshot_count": 5,
+    "avoided_index_build_count": 0,
+    "source_materialize_ms": 2783,
+    "index_prepare_ms": 99935,
+    "setup_prepare_ms": 0,
+    "case_snapshot_ms": 100,
+    "batch_elapsed_ms": 127546,
+    "source_groups": [
+      {
+        "source_digest": "8abdc23e2f3723698e57e0c2c6a8e6005bbc24ee18f7fb7ec60905d5dacf0efe",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 524,
+        "index_prepare_ms": 22034,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 24,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 24
+          }
+        ]
+      },
+      {
+        "source_digest": "5dafd6d0f44dc3204bb0c2d385b582eea270ff5c17adff1123c40b25144e5fd4",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 587,
+        "index_prepare_ms": 21027,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 18,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 18
+          }
+        ]
+      },
+      {
+        "source_digest": "40dd5234a75f30af332b0979d7c8fd9ef36c392ea414e2b01a2eb1e143d56608",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 551,
+        "index_prepare_ms": 22069,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 20,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 20
+          }
+        ]
+      },
+      {
+        "source_digest": "bf824ecc5daede6405bb3c33600b21206fb9114c3e89ff1b9b90ea3a7c7b1860",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 569,
+        "index_prepare_ms": 17339,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 18,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 18
+          }
+        ]
+      },
+      {
+        "source_digest": "e97d53738166365a789dc583ef85feeabb43783cd8b82669f3f0b8d36edc0d26",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 552,
+        "index_prepare_ms": 17466,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 20,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 20
+          }
+        ]
+      }
+    ]
+  },
+  "calibration": {
+    "schema_version": "agent-context-calibration/v1",
+    "status": "pass",
+    "target_domain": "native_arkts",
+    "profiled_case_count": 5,
+    "coverage": {
+      "target_levels": [
+        "callable",
+        "expression",
+        "file"
+      ],
+      "artifact_roles": [
+        "adapter",
+        "component",
+        "page",
+        "service",
+        "store",
+        "utility"
+      ],
+      "mechanism_kinds": [
+        "async_control",
+        "error_contract",
+        "event_binding",
+        "navigation",
+        "persistence",
+        "platform_api",
+        "resource_io",
+        "ui_state"
+      ]
+    },
+    "contract_gaps": [],
+    "macro_metrics": {
+      "artifact_roles": {
+        "pass_rate": 0.0,
+        "anchor_recall": 0.0972,
+        "anchor_precision": 0.0243,
+        "source_span_recall": 0.0972
+      },
+      "target_levels": {
+        "pass_rate": 0.0,
+        "anchor_recall": 0.1333,
+        "anchor_precision": 0.0333,
+        "source_span_recall": 0.1333
+      },
+      "mechanism_kinds": {
+        "pass_rate": 0.0,
+        "anchor_recall": 0.1042,
+        "anchor_precision": 0.026,
+        "source_span_recall": 0.1042
+      }
+    },
+    "strata": {
+      "artifact_roles": [
+        {
+          "label": "adapter",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "component",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.3333,
+          "anchor_precision": 0.0833,
+          "source_span_recall": 0.3333
+        },
+        {
+          "label": "page",
+          "case_count": 4,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.25,
+          "anchor_precision": 0.0625,
+          "source_span_recall": 0.25
+        },
+        {
+          "label": "service",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "store",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "utility",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        }
+      ],
+      "target_levels": [
+        {
+          "label": "callable",
+          "case_count": 5,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.2,
+          "anchor_precision": 0.05,
+          "source_span_recall": 0.2
+        },
+        {
+          "label": "expression",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "file",
+          "case_count": 5,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.2,
+          "anchor_precision": 0.05,
+          "source_span_recall": 0.2
+        }
+      ],
+      "mechanism_kinds": [
+        {
+          "label": "async_control",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.5,
+          "anchor_precision": 0.125,
+          "source_span_recall": 0.5
+        },
+        {
+          "label": "error_contract",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "event_binding",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "navigation",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "persistence",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "platform_api",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "resource_io",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": 0.0
+        },
+        {
+          "label": "ui_state",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.3333,
+          "anchor_precision": 0.0833,
+          "source_span_recall": 0.3333
+        }
+      ]
+    },
+    "scope": "evaluation_only_not_injected_into_agent_context"
+  },
+  "calibration_gate": "pass",
+  "case_seal": {
+    "status": "verified",
+    "required": true,
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "digest": "661cfe13bd116f6642651f9dc9ba460ab1fa64aff7734ed0822df2ff2564ac79",
+    "sealed_at": "2026-08-01T00:31:11+00:00",
+    "case_count": 5
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 5,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "promotion_policy": {
+    "schema_version": "agent-context-promotion-policy/v1",
+    "eligible": false,
+    "reasons": [
+      "system_context_gate_failed"
+    ],
+    "next_gate": "repair_context_supply"
+  },
+  "promotion_eligible": false,
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 21,
+    "primary_failure_class": "ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 4,
+      "passage_selection": 8,
+      "ranking_precision": 9
+    },
+    "failures": [
+      {
+        "case_id": "cloudrs-batch-sheet-short-operation",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-album-tab-component-lifecycle",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-album-tab-component-lifecycle",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-album-tab-component-lifecycle",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-album-tab-component-lifecycle",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-album-tab-component-lifecycle",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-text-draft-key-collision",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-text-draft-key-collision",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-text-draft-key-collision",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-text-draft-key-collision",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-text-draft-key-collision",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-download-resume-signed-url",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-download-resume-signed-url",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-download-resume-signed-url",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-download-resume-signed-url",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-download-resume-signed-url",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-settings-sheet-close-open-race",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-settings-sheet-close-open-race",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-settings-sheet-close-open-race",
+        "failed_check": "minimum_source_span_recall_met",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-settings-sheet-close-open-race",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "cloudrs-settings-sheet-close-open-race",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout."
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/cloudrs-callable-range-external-holdout-cases.sealed.json",
+  "selected_scenario_ids": [
+    "cloudrs-batch-sheet-short-operation",
+    "cloudrs-album-tab-component-lifecycle",
+    "cloudrs-text-draft-key-collision",
+    "cloudrs-download-resume-signed-url",
+    "cloudrs-settings-sheet-close-open-race"
+  ],
+  "selected_case_ids": [
+    "cloudrs-batch-sheet-short-operation",
+    "cloudrs-album-tab-component-lifecycle",
+    "cloudrs-text-draft-key-collision",
+    "cloudrs-download-resume-signed-url",
+    "cloudrs-settings-sheet-close-open-race"
+  ],
+  "source_project": "/private/tmp/agent-memory-cloudrs-ohos-holdout",
+  "recorded_at": "2026-08-01T00:33:35+00:00"
+}

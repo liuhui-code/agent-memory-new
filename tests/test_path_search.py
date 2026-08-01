@@ -15,12 +15,22 @@ from tools.agent_memory_runtime.path_context_models import (
     PathSeed,
     RawPath,
 )
-from tools.agent_memory_runtime.path_ranking import StructuralCallPathRankingPolicy
+from tools.agent_memory_runtime.path_ranking import (
+    StructuralCallPathRankingPolicy,
+    path_identity,
+)
 from tools.agent_memory_runtime.path_search import BoundedReverseCallPathSearch
 
 
 def node(identifier: int, name: str) -> GraphNode:
     return GraphNode(NodeRef("code_symbol", identifier), "symbol", name, name, "src/Test.ets", language="ArkTS")
+
+
+def source_node(identifier: int, name: str, file_path: str, line: int) -> GraphNode:
+    return GraphNode(
+        NodeRef("code_symbol", identifier), "symbol", name, name, file_path,
+        language="ArkTS", start_line=line, end_line=line + 2,
+    )
 
 
 def edge(identifier: int, source: GraphNode, target: GraphNode) -> GraphEdge:
@@ -126,6 +136,24 @@ class PathSearchTests(unittest.TestCase):
 
         self.assertEqual(1, len(ranked))
         self.assertEqual("awaits", ranked[0].raw_path.edges[0].relation)
+
+    def test_path_identity_is_stable_across_surrogate_id_rebuilds(self) -> None:
+        entry_before = source_node(2, "ProfilePage.aboutToAppear", "src/pages/ProfilePage.ets", 8)
+        emitter_before = source_node(3, "ProfileService.loadProfile", "src/services/ProfileService.ets", 4)
+        entry_after = source_node(202, "ProfilePage.aboutToAppear", "src/pages/ProfilePage.ets", 8)
+        emitter_after = source_node(303, "ProfileService.loadProfile", "src/services/ProfileService.ets", 4)
+        before = RawPath(
+            self.seed(emitter_before), (entry_before, emitter_before),
+            (edge(4, entry_before, emitter_before),),
+            EntryPoint("lifecycle", 1.0, "test entry"), True,
+        )
+        after = RawPath(
+            self.seed(emitter_after), (entry_after, emitter_after),
+            (edge(404, entry_after, emitter_after),),
+            EntryPoint("lifecycle", 1.0, "test entry"), True,
+        )
+
+        self.assertEqual(path_identity(before), path_identity(after))
 
 
 if __name__ == "__main__":

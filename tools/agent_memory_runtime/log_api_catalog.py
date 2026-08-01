@@ -71,19 +71,79 @@ LOG_API_MODELS = (
     LogApiModel(("Swift",), ("logger",), ("debug", "info", "warning", "error"), "logger"),
 )
 
+NAMED_IMPORT_RE = re.compile(
+    r"\bimport\s*\{(?P<bindings>[^}]*)\}\s*from\s*['\"](?P<module>[^'\"]+)['\"]",
+    re.DOTALL,
+)
+DEFAULT_IMPORT_RE = re.compile(
+    r"\bimport\s+(?P<local>[A-Za-z_$][\w$]*)\s+from\s*['\"](?P<module>[^'\"]+)['\"]"
+)
+
 
 def models_for(language: str) -> tuple[LogApiModel, ...]:
     return tuple(model for model in LOG_API_MODELS if language in model.languages)
 
 
-def direct_log_pattern(language: str) -> str:
-    patterns = [model.scan_pattern() for model in models_for(language)]
+def log_receiver_bindings(source: str, language: str) -> dict[str, str]:
+    if language not in ECMA_LANGUAGES:
+        return {}
+    canonical = {
+        name: name
+        for model in models_for(language)
+        if model.member_call
+        for name in model.names
+    }
+    result: dict[str, str] = {}
+    for match in NAMED_IMPORT_RE.finditer(source):
+        for raw_binding in match.group("bindings").split(","):
+            parts = re.split(r"\s+as\s+", raw_binding.strip())
+            original = parts[0].removeprefix("type ").strip()
+            local = parts[-1].strip()
+            if original in canonical and local and local != original:
+                result[local] = canonical[original]
+    for match in DEFAULT_IMPORT_RE.finditer(source):
+        module = match.group("module").casefold()
+        if "hilog" in module:
+            result[match.group("local")] = "hilog"
+    return result
+
+
+def direct_log_pattern(
+    language: str,
+    receiver_bindings: dict[str, str] | None = None,
+) -> str:
+    models = models_for(language)
+    patterns = [model.scan_pattern() for model in models]
+    by_name = {name: model for model in models if model.member_call for name in model.names}
+    for local, canonical in (receiver_bindings or {}).items():
+        model = by_name.get(canonical)
+        if model is None:
+            continue
+        levels = "|".join(re.escape(level) for level in model.levels)
+        patterns.append(rf"\b{re.escape(local)}\.(?:{levels})\s*\(")
     return "(?:" + "|".join(patterns) + ")" if patterns else ""
 
 
-def parse_log_api_call(statement: str, language: str) -> LogApiCall | None:
+def parse_log_api_call(
+    statement: str,
+    language: str,
+    receiver_bindings: dict[str, str] | None = None,
+) -> LogApiCall | None:
     for model in models_for(language):
         parsed = model.parse(statement)
         if parsed is not None:
             return parsed
+    receiver = re.match(r"^\s*([A-Za-z_$][\w$]*)\.", statement)
+    canonical = (receiver_bindings or {}).get(receiver.group(1)) if receiver else None
+    if canonical:
+        normalized = re.sub(
+            rf"^(\s*){re.escape(receiver.group(1))}\.",
+            rf"\1{canonical}.",
+            statement,
+            count=1,
+        )
+        for model in models_for(language):
+            parsed = model.parse(normalized)
+            if parsed is not None:
+                return parsed
     return None

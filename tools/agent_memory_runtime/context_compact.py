@@ -25,7 +25,7 @@ from .text import ENGLISH_QUERY_STOPWORDS
 
 
 COMPACT_TOKEN_BUDGET = 1500
-SOURCE_EXCERPT_PRE_BUDGET = 1220
+SOURCE_EXCERPT_PRE_BUDGET = 1280
 MAX_TEXT = 180
 KEYWORD_STOPWORDS = ENGLISH_QUERY_STOPWORDS | {
     "the", "a", "an", "and", "or", "to", "of", "in", "on", "for", "with",
@@ -58,7 +58,7 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
         payload, data.get("project_path"), COMPACT_TOKEN_BUDGET
     )
     if not excerpt_count and has_source_excerpt_candidate(payload, data.get("project_path")):
-        enforce_budget(payload, SOURCE_EXCERPT_PRE_BUDGET)
+        enforce_budget(payload, SOURCE_EXCERPT_PRE_BUDGET, reserve_tokens=0)
         attach_source_excerpts(payload, data.get("project_path"), COMPACT_TOKEN_BUDGET)
     enforce_budget(payload, COMPACT_TOKEN_BUDGET)
     payload["evidence_gaps"] = evidence_gaps(payload["query_handoff"])
@@ -197,7 +197,7 @@ def compact_code_anchor(item: dict[str, Any]) -> dict[str, Any]:
         item,
         (
             "source", "record_id", "file_path", "symbol", "symbol_type",
-            "start_line", "end_line", "identity_match",
+            "start_line", "end_line", "identity_match", "callable_focus",
         ),
     )
     record_id = result.get("record_id")
@@ -209,6 +209,7 @@ def compact_code_anchor(item: dict[str, Any]) -> dict[str, Any]:
         result["source_ranges"] = [source_range]
         result.pop("start_line", None)
         result.pop("end_line", None)
+    result.pop("callable_focus", None)
     if result.get("source") == "wiki":
         result.pop("source", None)
     summary = str(item.get("summary") or "").strip()
@@ -281,8 +282,11 @@ def anchor_source_range(anchor: dict[str, Any]) -> dict[str, Any]:
             "symbol": anchor.get("symbol"),
             "start_line": start,
             "end_line": end,
+            "selection_reason": (
+                "bounded_callable_primary" if anchor.get("callable_focus") else None
+            ),
         },
-        ("symbol", "start_line", "end_line"),
+        ("symbol", "start_line", "end_line", "selection_reason"),
     )
 
 

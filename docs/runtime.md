@@ -764,16 +764,32 @@ memory_edges_total
 Agents should use these counts to detect narrow or failed learning scopes before relying on the codebase wiki.
 When the learned files still lack business semantics, `learn-entry --json` and `learn-path --json` also include `semantic_followup` with a second-pass `learn-business` template scoped to the files just indexed.
 
-# 4.5 ArkTS Incident Trace Path
+# 4.5 Agent-Structured Incident Outcome
 
-Use `incident-trace` when the user provides a symptom and temporary runtime log evidence:
+The local Agent CLI owns temporary-log reading, path comparison, diagnosis, and
+causal inference. After it has inspected current source and gathered bounded
+evidence, use `incident-trace` to persist only the structured outcome:
 
 ```bash
-python tools/agent_memory.py incident-trace --project . --symptom "页面跳转后白屏" --log-text "router.pushUrl failed for ProfileDetail" --json
-python tools/agent_memory.py incident-trace --project . --symptom "页面跳转后白屏" --log-file /tmp/runtime.log --json
+python tools/agent_memory.py incident-trace --project . \
+  --symptom "页面跳转后白屏" \
+  --scene routing \
+  --diagnosis-summary "route target resolution failed" \
+  --observed-event "router.pushUrl failed for ProfileDetail" \
+  --causal-step "route request -> target resolution failed -> page not mounted" \
+  --code-anchor "entry/src/main/ets/router/ProfileRouter.ets::openProfile" \
+  --json
 ```
 
-The command stores only compact trace fields. It does not persist the full raw log stream. `span_graph` stores bounded span nodes, propagated parent edges, causal paths, quality, and evidence gaps. When a matched code log has a semantic enclosing symbol, `causal_chain` adds bounded symbol-level candidates with independent `observed`, `supports`, `possible`, or `inferred` roles. Static reachability is never reported as observed runtime causality. Close a trace with separate `--resolution`, `--intervention`, and `--verification-evidence` values; resolution alone is supported evidence, not verified causality. Query commands may return `incident_trace_matches`, and `maintain-plan` may return `promote_incident_trace_to_reflection` or `review_log_anchor_gap`.
+The command does not accept `--log-text` or `--log-file`, and Runtime does not
+derive spans, paths, or root causes. `capture_mode=agent_structured` identifies
+the new contract. Evidence progresses from `reported` to `supported` when an
+Agent-supplied anchor matches the current learned index, and to `verified` only
+after resolution, intervention, and verification evidence are all recorded.
+Query returns sanitized structured fields; Maintain promotes only resolved,
+verified records. Existing Runtime-derived rows are classified as
+`legacy_runtime_derived` / `legacy_unverified`, excluded from normal Context,
+and surfaced only for governance review.
 
 # 4.6 Semantic Index
 
@@ -851,21 +867,24 @@ candidate set. It is diagnostic rather than a release gate until the fielded
 retriever and downstream owner reranker are calibrated together.
 
 Full `context --json` also exposes
-`query_audit.hierarchical_localization`. This separate shadow audit projects
-the already intent-gated code candidates through bounded stages: diverse files,
+`query_audit.hierarchical_localization`. This serving-stage audit projects the
+already intent-gated code candidates through bounded stages: diverse files,
 callables inside those files, evidence-prioritized graph seeds, supported
 incoming one-hop graph owners, and
 callable-bounded source ranges. A range may be narrowed to a line-local
 semantic mechanism such as a guard, resource bound, callback, platform
-predicate, or persistence operation. The audit records provenance and limits;
-it does not select a diagnosis, alter compact Context, widen the graph, or
-promote fielded candidates into the serving path.
+predicate, or persistence operation. It does not change first-stage candidate
+recall or promote fielded shadow candidates, but its callable evidence can focus
+compact code anchors and source ranges. The audit records that serving contract,
+provenance, and limits; it never selects a diagnosis or widens the graph.
 
 `eval-context-capability` uses that full audit only as a second, isolated
 measurement pass after its normal compact query. It records references, symbol
 bounds, counts, and audit time to score file/callable/one-hop-owner/source-range
-quality independently. It never persists source bodies, changes compact
-selection, or turns an informational localization score into a Context gate.
+quality independently. These serving-stage measurements remain informational:
+they never persist source bodies or become a Context gate by themselves. The
+separate `callable_evidence_set` contract remains shadow-only and cannot change
+compact selection.
 
 For `code_files` only, an unsaturated direct channel may add one bounded
 structural FTS channel derived from language-neutral behavior concepts. Current

@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from .ecma_braces import block_end
-from .ecma_callable_ranges import CONTROL_NAMES, FUNCTION_RE, METHOD_RE
+from .ecma_callable_headers import function_header, method_header
 from .models import Project
 from .semantic_ecma_callbacks import callback_callable_specs
 from .semantic_ecma_mechanisms import extract_callable_mechanisms
@@ -201,13 +201,13 @@ def parse_container_members(
     index = container.start + 1
     while index < container.end:
         line = lines[index]
-        method = METHOD_RE.match(line)
-        if method and method.group(4) not in CONTROL_NAMES:
-            visibility, override, async_value, name, params, return_type = method.groups()
+        method = method_header(lines, index)
+        if method:
+            name, params, return_type = method.name, method.params, method.return_type
             end = min(block_end(lines, index), container.end)
             qualified = f"{container.name}.{name}"
-            signature = callable_signature(name, params, return_type, bool(async_value))
-            exported = container.exported and visibility != "private"
+            signature = callable_signature(name, params, return_type, method.async_value)
+            exported = container.exported and method.visibility != "private"
             source = "\n".join(lines[index:end + 1])
             entity = make_entity(
                 language, file_path, name, "function", qualified, signature, index + 1,
@@ -215,7 +215,7 @@ def parse_container_members(
                 owner_kind=container.entity.owner_kind,
                 callable_roles=callable_roles(name, signature, source),
             )
-            methods.append(CallableBlock(container.name, index, end, entity, bool(override)))
+            methods.append(CallableBlock(container.name, index, end, entity, method.override))
             index = end + 1
             continue
         if state_annotations:
@@ -243,17 +243,17 @@ def parse_top_level_functions(
         if container_index < len(containers) and containers[container_index].start <= index:
             index = containers[container_index].end + 1
             continue
-        match = FUNCTION_RE.match(lines[index])
-        if not match:
+        header = function_header(lines, index)
+        if not header:
             index += 1
             continue
-        exported, async_value, name, params, return_type = match.groups()
+        name, params, return_type = header.name, header.params, header.return_type
         end = block_end(lines, index)
-        signature = callable_signature(name, params, return_type, bool(async_value))
+        signature = callable_signature(name, params, return_type, header.async_value)
         source = "\n".join(lines[index:end + 1])
         entity = make_entity(
             language, file_path, name, "function", name, signature, index + 1, end + 1,
-            bool(exported), owner_kind="module",
+            header.exported, owner_kind="module",
             callable_roles=callable_roles(name, signature, source),
         )
         result.append(CallableBlock(None, index, end, entity))

@@ -1,0 +1,349 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/tmp/clashbox-evidence-set-holdout",
+  "source_repository": "https://github.com/xiaobaigroup/ClashBox.git",
+  "source_branch": "master",
+  "source_head_reviewed": "1fdc47eb9b3bdb715fb04c4b44e1d5238faf83e0",
+  "generated_at": "2026-07-31T00:00:00+08:00",
+  "generator": "callable-evidence-set-source-review/v1",
+  "cases": [
+    {
+      "id": "clashbox-profile-url-context-owner",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Adding or updating a remote profile URL drops the configured global user agent before the profile loads its context. Return the single callable that constructs or reuses the Profile and initializes it before assigning URL metadata.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "cf600b14cf02367a13e05fa826e714ece698b800",
+        "after_revision": "43da37217c3f47ab4b31d4510fb02653219f8a3c",
+        "changed_files": ["entry/src/main/ets/entryability/ClashViewModel.ets"],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "43da37217c3f47ab4b31d4510fb02653219f8a3c",
+        "commit_message": "fix(entry): pass the configured user agent while adding or updating a profile URL",
+        "source_family": "clashbox-profile-url-context/v1",
+        "independence_basis": "previously unused repository and source-reviewed URL profile fix"
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/entryability/ClashViewModel.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "missing_context_parameter",
+        "expected_causal_level": "association",
+        "evidence_set_oracle": {
+          "target_scope": "single",
+          "expected_member_files": ["entry/src/main/ets/entryability/ClashViewModel.ets"],
+          "expected_primary_files": ["entry/src/main/ets/entryability/ClashViewModel.ets"],
+          "allowed_states": ["single_candidate_supported"]
+        },
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "entry/src/main/ets/entryability/ClashViewModel.ets", "start_line": 50, "end_line": 68}
+          ],
+          "min_source_span_recall": 1.0,
+          "hierarchical_callable_spans": [
+            {"file_path": "entry/src/main/ets/entryability/ClashViewModel.ets", "symbol": "addOrUpdateProfileByUrl"}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "entry/src/main/ets/entryability/ClashViewModel.ets", "symbol": "addOrUpdateProfileByUrl"}
+          ]
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "artifact_roles": ["viewmodel"],
+        "target_levels": ["file", "callable", "expression"],
+        "mechanism_kinds": ["async_control", "persistence"]
+      },
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "clashbox-profile-url-context-path",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Trace the profile URL initialization path through both the ViewModel caller and the Profile method that stores Context and global user-agent state. Return both callable owners.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "cf600b14cf02367a13e05fa826e714ece698b800",
+        "after_revision": "43da37217c3f47ab4b31d4510fb02653219f8a3c",
+        "changed_files": ["entry/src/main/ets/entryability/ClashViewModel.ets"],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "43da37217c3f47ab4b31d4510fb02653219f8a3c",
+        "commit_message": "fix(entry): pass the configured user agent while adding or updating a profile URL",
+        "source_family": "clashbox-profile-url-call-path/v1",
+        "independence_basis": "previously unused repository and source-reviewed cross-module caller-callee contract"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/entryability/ClashViewModel.ets",
+          "proxy_core/src/main/ets/Profile.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "missing_context_parameter",
+        "expected_causal_level": "association",
+        "evidence_set_oracle": {
+          "target_scope": "multiple",
+          "expected_member_files": [
+            "entry/src/main/ets/entryability/ClashViewModel.ets",
+            "proxy_core/src/main/ets/Profile.ets"
+          ],
+          "expected_primary_files": [
+            "entry/src/main/ets/entryability/ClashViewModel.ets",
+            "proxy_core/src/main/ets/Profile.ets"
+          ],
+          "allowed_states": ["portfolio_required"]
+        },
+        "context_requirements": {
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "entry/src/main/ets/entryability/ClashViewModel.ets", "start_line": 50, "end_line": 68},
+            {"file_path": "proxy_core/src/main/ets/Profile.ets", "start_line": 55, "end_line": 68}
+          ],
+          "min_source_span_recall": 1.0,
+          "hierarchical_callable_spans": [
+            {"file_path": "entry/src/main/ets/entryability/ClashViewModel.ets", "symbol": "addOrUpdateProfileByUrl"},
+            {"file_path": "proxy_core/src/main/ets/Profile.ets", "symbol": "loadContext"}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "entry/src/main/ets/entryability/ClashViewModel.ets", "symbol": "addOrUpdateProfileByUrl"},
+            {"file_path": "proxy_core/src/main/ets/Profile.ets", "symbol": "loadContext"}
+          ]
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "artifact_roles": ["viewmodel", "service"],
+        "target_levels": ["file", "callable", "expression"],
+        "mechanism_kinds": ["async_control", "persistence"]
+      },
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "clashbox-dark-mode-dual-owner",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Dark-mode state must be applied consistently when the user changes appearance settings and when the root page restores persisted state during startup. Return both owners of that theme-mode contract.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "21cc903e6fd3c2d6736258171a4b31b101351f78",
+        "after_revision": "fa5489c0075c37ee1e152640dee8619fb0d3b891",
+        "changed_files": [
+          "entry/src/main/ets/components/Settings/Appearance.ets",
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "fa5489c0075c37ee1e152640dee8619fb0d3b891",
+        "commit_message": "fix(settings): unify persisted dark-mode changes and startup initialization",
+        "source_family": "clashbox-dark-mode-lifecycle/v1",
+        "independence_basis": "previously unused repository and source-reviewed settings/startup consistency fix"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/Settings/Appearance.ets",
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "inconsistent_state_application",
+        "expected_causal_level": "association",
+        "evidence_set_oracle": {
+          "target_scope": "multiple",
+          "expected_member_files": [
+            "entry/src/main/ets/components/Settings/Appearance.ets",
+            "entry/src/main/ets/pages/Index.ets"
+          ],
+          "expected_primary_files": [
+            "entry/src/main/ets/components/Settings/Appearance.ets",
+            "entry/src/main/ets/pages/Index.ets"
+          ],
+          "allowed_states": ["portfolio_required"]
+        },
+        "context_requirements": {
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "entry/src/main/ets/components/Settings/Appearance.ets", "start_line": 372, "end_line": 389},
+            {"file_path": "entry/src/main/ets/pages/Index.ets", "start_line": 819, "end_line": 825}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "artifact_roles": ["component", "page"],
+        "target_levels": ["file", "callable", "expression"],
+        "mechanism_kinds": ["ui_state", "persistence"]
+      },
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "clashbox-root-event-cleanup-owner",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Navigating away from child configuration or proxy pages must not unregister FetchProfile or FetchProxyGroup listeners owned by the root page. Return only the root lifecycle owner and exclude both child pages.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "2eff7f115bed224e4a1fe6d1c494c23aa5db77a9",
+        "after_revision": "a4211a1a071467b1c8373c041fb13f53d88c25ad",
+        "changed_files": [
+          "entry/src/main/ets/pages/Index.ets",
+          "entry/src/main/ets/pages/ConfigurationPage.ets",
+          "entry/src/main/ets/pages/ProxyPage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "a4211a1a071467b1c8373c041fb13f53d88c25ad",
+        "commit_message": "fix root-page event listener cleanup ownership",
+        "source_family": "clashbox-root-event-lifecycle/v1",
+        "independence_basis": "previously unused repository and source-reviewed root versus child lifecycle fix"
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/pages/Index.ets"],
+        "forbidden_files": [
+          "entry/src/main/ets/pages/ConfigurationPage.ets",
+          "entry/src/main/ets/pages/ProxyPage.ets"
+        ],
+        "root_cause_category": "event_ownership_conflict",
+        "expected_causal_level": "association",
+        "evidence_set_oracle": {
+          "target_scope": "single",
+          "expected_member_files": ["entry/src/main/ets/pages/Index.ets"],
+          "expected_primary_files": ["entry/src/main/ets/pages/Index.ets"],
+          "forbidden_member_files": [
+            "entry/src/main/ets/pages/ConfigurationPage.ets",
+            "entry/src/main/ets/pages/ProxyPage.ets"
+          ],
+          "allowed_states": ["single_candidate_supported"]
+        },
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "entry/src/main/ets/pages/Index.ets", "start_line": 1280, "end_line": 1284},
+            {"file_path": "entry/src/main/ets/pages/Index.ets", "start_line": 1346, "end_line": 1359}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "artifact_roles": ["page"],
+        "target_levels": ["file", "callable", "expression"],
+        "mechanism_kinds": ["event_binding", "ui_state"]
+      },
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "clashbox-config-save-dual-owner",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Configuration persistence has two owners: the editor callable writes the latest WebView text to config.yaml, while the ViewModel persists imported profile metadata and emits FetchProfile. Return both owners.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "edc1886c46fcd0de1830ac07e7837486aaeed0d0",
+        "after_revision": "351b7d92ef19dc2ce11acb19ca386ae3b950cffa",
+        "changed_files": [
+          "entry/src/main/ets/components/Configuration/EditConfigContent.ets",
+          "entry/src/main/ets/entryability/ClashViewModel.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "351b7d92ef19dc2ce11acb19ca386ae3b950cffa",
+        "commit_message": "fix configuration content and profile persistence paths",
+        "source_family": "clashbox-config-persistence/v1",
+        "independence_basis": "previously unused repository and source-reviewed editor/ViewModel persistence fix"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/Configuration/EditConfigContent.ets",
+          "entry/src/main/ets/entryability/ClashViewModel.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "persistence_contract",
+        "expected_causal_level": "association",
+        "evidence_set_oracle": {
+          "target_scope": "multiple",
+          "expected_member_files": [
+            "entry/src/main/ets/components/Configuration/EditConfigContent.ets",
+            "entry/src/main/ets/entryability/ClashViewModel.ets"
+          ],
+          "expected_primary_files": [
+            "entry/src/main/ets/components/Configuration/EditConfigContent.ets",
+            "entry/src/main/ets/entryability/ClashViewModel.ets"
+          ],
+          "allowed_states": ["portfolio_required"]
+        },
+        "context_requirements": {
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "entry/src/main/ets/components/Configuration/EditConfigContent.ets", "start_line": 194, "end_line": 212},
+            {"file_path": "entry/src/main/ets/entryability/ClashViewModel.ets", "start_line": 142, "end_line": 162}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "artifact_roles": ["component", "viewmodel"],
+        "target_levels": ["file", "callable", "expression"],
+        "mechanism_kinds": ["resource_io", "persistence", "event_binding", "async_control"]
+      },
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "calibration": {
+      "target_domain": "native_arkts",
+      "minimum_case_count": 5,
+      "required_target_levels": ["file", "callable", "expression"],
+      "required_artifact_roles": ["page", "component", "service", "viewmodel"],
+      "required_mechanism_kinds": [
+        "resource_io", "ui_state", "async_control", "persistence", "event_binding"
+      ]
+    }
+  }
+}

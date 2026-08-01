@@ -58,6 +58,46 @@ export class PlatformLog {
         self.assertEqual("hilog", logs[0]["logger"])
         self.assertEqual("platform sink failed", logs[0]["message_template"])
 
+    def test_imported_hilog_alias_uses_canonical_log_api_contract(self) -> None:
+        source = self.write(
+            "src/logging/AliasedPlatformLog.ets",
+            """
+import { hilog as systemLog } from '@kit.PerformanceAnalysisKit'
+export class AliasedPlatformLog {
+  static info(width: number): void {
+    systemLog.info(0x1200, 'AliasFixture', 'VIEWPORT_EVENT_E73B width changed', width)
+  }
+}
+""",
+        )
+
+        logs = extract_log_statements(source, "ArkTS")
+
+        self.assertEqual(1, len(logs))
+        self.assertEqual("info", logs[0]["function"])
+        self.assertEqual("hilog", logs[0]["logger"])
+        self.assertEqual("VIEWPORT_EVENT_E73B width changed", logs[0]["message_template"])
+
+    def test_default_hilog_alias_uses_canonical_log_api_contract(self) -> None:
+        source = self.write(
+            "src/logging/DefaultAliasedPlatformLog.ets",
+            """
+import platformLog from '@ohos.hilog'
+export class DefaultAliasedPlatformLog {
+  static warn(height: number): void {
+    platformLog.warn(0x1200, 'AliasFixture', 'VIEWPORT_EVENT_E73B height changed', height)
+  }
+}
+""",
+        )
+
+        logs = extract_log_statements(source, "ArkTS")
+
+        self.assertEqual(1, len(logs))
+        self.assertEqual("warn", logs[0]["function"])
+        self.assertEqual("hilog", logs[0]["logger"])
+        self.assertEqual("VIEWPORT_EVENT_E73B height changed", logs[0]["message_template"])
+
     def test_callable_ranges_include_property_and_member_callbacks(self) -> None:
         lines = """
 struct EditorPanel {

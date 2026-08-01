@@ -151,6 +151,13 @@ python tools/agent_memory.py learn-business --project . --payload "<json>" --jso
 
 This stores `business_summary` and `business_terms` directly on existing code file, symbol, and log records. Business terms should name real business objects such as profile, avatar, order status, device binding, user id, route names, resource keys, and log meanings.
 
+This enrichment is also the supported bridge when user problem descriptions and source
+identifiers use different languages. The lightweight Runtime does not guess a general
+translation from a Chinese business symptom to unrelated English identifiers. Record
+reviewed bilingual terms on the owning file and callable, then query normally; without
+that evidence the Runtime should be treated as having a semantic recall gap and the
+Agent should fall back to source exploration rather than trusting weak matches.
+
 `learn-business` is merge-oriented by default:
 
 - it updates only the file, symbol, and log rows named in the payload
@@ -346,7 +353,7 @@ The runtime also performs lightweight query expansion before matching. It maps c
 This is deterministic keyword expansion, not a vector database. If the first result is broad, the Agent should query again with matched anchors such as file paths, route names, resources, log templates, or function names.
 
 Code and log matches include `search_terms` and `match_reasons`. `search_terms` expose the generated anchors used for retrieval. `match_reasons` explain whether a row matched by exact file path, exact symbol, log text, expanded query terms, or broader summary text.
-`context` and `search` also return `query_audit`. Use it when the top result looks suspicious: it summarizes result counts and exposes top-match explanations such as candidate `recall_fusion`, downstream rerank score, quality score, trust level, feedback penalty, match reasons, gate reasons, and retrieval explanation. `recall_fusion` shows which bounded FTS channels supplied a candidate and how their ranks contributed; it does not claim that the candidate is the final owner. Full `context` may also expose `candidate_recall.fielded_passages`: its file/symbol/callable field channels currently run in `shadow` mode and do not change served candidates. The `semantic_mechanism_fts` lane identifies candidates recalled from normalized operations, guards, resource bounds, callback bindings, platform predicates, or persistence reads/writes. Full Context also exposes `hierarchical_localization`: a shadow-only file -> callable -> source-range projection. Its `graph_seeds` are evidence-prioritized within a fixed budget, while `graph_owner_candidates` are the independent bounded one-hop owner stage; `semantic_mechanism_window` identifies a callable-bounded expression range rather than a root cause. Compare candidate Recall@20, owner/range provenance, and the serving lane before changing owner ranking. Compact Agent context omits these development audits. Treat the audit as diagnosis for the retrieval path, not as user-facing answer content. `eval-context-capability` runs this full audit only after its compact gate query and reports independent file/callable/owner/range quality when reviewed span Oracles exist; those measurements never affect normal compact output.
+`context` and `search` also return `query_audit`. Use it when the top result looks suspicious: it summarizes result counts and exposes top-match explanations such as candidate `recall_fusion`, downstream rerank score, quality score, trust level, feedback penalty, match reasons, gate reasons, and retrieval explanation. `recall_fusion` shows which bounded FTS channels supplied a candidate and how their ranks contributed; it does not claim that the candidate is the final owner. Full `context` may also expose `candidate_recall.fielded_passages`: its file/symbol/callable field channels currently run in `shadow` mode and do not change served candidates. The `semantic_mechanism_fts` lane identifies candidates recalled from normalized operations, guards, resource bounds, callback bindings, platform predicates, or persistence reads/writes. Full Context also exposes `hierarchical_localization`, the serving file -> callable -> source-range projection behind `query_handoff.callable_evidence`. It does not change first-stage candidate recall, but bounded evidence may focus compact code anchors and source excerpts. Its `graph_seeds` are evidence-prioritized within a fixed budget, while `graph_owner_candidates` are the independent bounded one-hop owner stage; `semantic_mechanism_window` identifies a callable-bounded expression range rather than a root cause. The separate `callable_evidence_set` under `query_audit` remains shadow-only and cannot change compact output. Compare candidate Recall@20, owner/range provenance, and final compact anchors before changing owner ranking. Compact Agent context omits development-only audits. Treat the audit as diagnosis for the retrieval path, not as user-facing answer content. `eval-context-capability` reports file/callable/owner/range quality when reviewed span Oracles exist; those serving-stage measurements remain informational and do not become a gate by themselves.
 
 Code log matches may also include `log_signal_score`, `log_signal_band`, `missing_signals`, and `suggested_log_fields`. Prefer stronger-signal logs as anchors for recursive diagnosis. Treat low-signal logs as evidence gaps, not as source truth.
 
@@ -1084,19 +1091,28 @@ owner such as `execute` without allowing one common body word to redirect normal
 symbol ranking. Explicit `do not return` / `不要返回` clauses are result exclusions;
 only useful business stems from a compound identifier remain retrieval context.
 
-## 10. ArkTS Incident Trace
+## 10. Agent-Structured Incident Outcome
 
-When the user provides a symptom plus temporary runtime logs, store only a compact trace:
+The Agent CLI reads temporary runtime logs directly, compares them with current
+source and Runtime context, and submits only its structured diagnosis outcome:
 
 ```bash
 python tools/agent_memory.py incident-trace \
   --project . \
   --symptom "页面跳转后白屏" \
-  --log-text "router.pushUrl failed for ProfileDetail" \
+  --scene route \
+  --diagnosis-summary "ProfileDetail route target was absent from the current module" \
+  --observed-event "router.pushUrl failed for ProfileDetail" \
+  --causal-step "route request -> target resolution failed -> page was not mounted" \
+  --code-anchor "entry/src/main/ets/router/ProfileRouter.ets::openProfile" \
   --json
 ```
 
-`incident-trace` records the ArkTS scene, short log excerpt, dominant events, matched code log anchors, candidate chain, and a bounded Span Graph Lite. It does not store the full raw log stream. Later `context` or `search` calls may return `incident_trace_matches`; maintain can review resolved traces and suggest a reflection payload with `source_cases: ["incident_trace:<id>"]`.
+`incident-trace` never accepts a log file or raw log stream. It records the
+Agent-supplied symptom, diagnosis, bounded observed events, causal steps, and
+current-index code anchors. Missing anchors remain `reported`; resolved anchors
+are `supported`. Later `context` or `search` calls may return only these
+structured, sanitized `incident_trace_matches`.
 
 Record causal closure explicitly:
 
@@ -1107,4 +1123,7 @@ python tools/agent_memory.py incident-trace-status --project . --id <id> \
   --verification-evidence "before/after metric or repeatable test result" --json
 ```
 
-A resolution without intervention and verification remains supported rather than verified.
+A record becomes `verified` only when it has a current learned code anchor,
+resolution, intervention, and verification evidence. Legacy Runtime-derived
+traces remain `legacy_unverified`, are excluded from normal Context, and are
+sent to Maintain for review instead of promotion.

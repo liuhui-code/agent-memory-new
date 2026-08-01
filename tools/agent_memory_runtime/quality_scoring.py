@@ -159,24 +159,36 @@ def score_semantic_quality(row: dict[str, Any]) -> dict[str, Any]:
 
 
 def score_incident_trace_quality(row: dict[str, Any]) -> dict[str, Any]:
-    linked_targets = json_list(row.get("linked_targets"))
-    candidate_chain = json_list(row.get("candidate_chain"))
-    resolved = str(row.get("status") or "") == "resolved"
+    state = str(row.get("evidence_state") or "legacy_unverified")
+    verified = state == "verified"
     confidence = confidence_value(row, 0.7)
+    evidence_strength = {
+        "legacy_unverified": 0.1,
+        "reported": 0.35,
+        "supported": 0.65,
+        "verified": 0.95,
+    }.get(state, 0.1)
     parts = {
         "retrieval_relevance": 0.8 if value_present(row, "arkts_scene") else 0.55,
-        "evidence_strength": min(1.0, 0.35 + (0.25 if linked_targets else 0) + (0.2 if candidate_chain else 0) + (0.15 if value_present(row, "dominant_log_events") else 0)),
+        "evidence_strength": evidence_strength,
         "freshness": confidence,
-        "conflict_safety": 0.85,
-        "reuse_success": 0.85 if resolved else 0.45,
-        "governance_completeness": min(1.0, 0.4 + (0.2 if value_present(row, "symptom") else 0) + (0.2 if value_present(row, "resolution") else 0)),
+        "conflict_safety": 0.35 if state == "legacy_unverified" else 0.85,
+        "reuse_success": 0.85 if verified else 0.35,
+        "governance_completeness": min(
+            1.0,
+            0.3
+            + (0.15 if value_present(row, "symptom") else 0)
+            + (0.15 if value_present(row, "diagnosis_summary") else 0)
+            + (0.15 if value_present(row, "intervention") else 0)
+            + (0.2 if value_present(row, "verification_evidence") else 0),
+        ),
     }
     score = weighted_score(parts, QUALITY_WEIGHTS)
-    reasons = ["has compact incident trace"]
-    if linked_targets:
-        reasons.append("has linked code/log anchors")
-    if resolved:
-        reasons.append("resolved incident")
+    reasons = [f"incident evidence state={state}"]
+    if verified:
+        reasons.append("has Agent-supplied intervention and verification closure")
+    if state == "legacy_unverified":
+        reasons.append("legacy Runtime-derived trace is quarantined")
     return quality_payload("incident_trace", row, score, parts, reasons)
 
 

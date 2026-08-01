@@ -6,19 +6,11 @@ import re
 from typing import Any
 
 from .ecma_braces import block_end
+from .ecma_callable_headers import CONTROL_NAMES, named_callable_header
 
 
-CONTROL_NAMES = {"if", "for", "while", "switch", "catch"}
 MAX_CALLBACK_HEADER_LINES = 4
 MAX_CALLBACK_RANGES = 256
-METHOD_RE = re.compile(
-    r"^\s*(?:(public|private|protected)\s+)?(override\s+)?(?:static\s+)?(async\s+)?"
-    r"([A-Za-z_$][\w$]*)\s*\(([^)]*)\)\s*(?::\s*([^\s{]+))?\s*\{"
-)
-FUNCTION_RE = re.compile(
-    r"^\s*(export\s+)?(?:default\s+)?(async\s+)?function\s+"
-    r"([A-Za-z_$][\w$]*)\s*\(([^)]*)\)\s*(?::\s*([^\s{]+))?\s*\{"
-)
 PROPERTY_CALLBACK_RE = re.compile(
     r"^\s*(?:(?:public|private|protected|readonly|static)\s+)*"
     r"([A-Za-z_$][\w$]*)\s*[:=]\s*(?:async\s*)?\([^)]*\)\s*=>\s*\{"
@@ -51,16 +43,13 @@ def callback_ranges_for_language(
 
 def named_callable_ranges(lines: list[str]) -> list[dict[str, Any]]:
     result: list[dict[str, Any]] = []
-    for index, line in enumerate(lines):
-        method = METHOD_RE.match(line)
-        function = FUNCTION_RE.match(line)
-        if method and method.group(4) not in CONTROL_NAMES:
-            name = method.group(4)
-        elif function:
-            name = function.group(3)
-        else:
+    for index, _line in enumerate(lines):
+        header = named_callable_header(lines, index)
+        if header is None:
             continue
-        result.append(source_range(name, index, block_end(lines, index), "callable_mechanism_window"))
+        result.append(source_range(
+            header.name, index, block_end(lines, index), "callable_mechanism_window",
+        ))
     return result
 
 

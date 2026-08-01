@@ -76,21 +76,30 @@ For ArkTS, the same bounded network also connects learned `.ets` files through p
 
 If no result set matches, query miss recording still works normally.
 
-## ArkTS Incident Traces
+## Agent-Structured Incident Outcomes
 
-`incident-trace` compresses a temporary symptom and runtime log excerpt into `incident_traces` and `incident_trace_links`:
+After the Agent CLI analyzes temporary logs and current source,
+`incident-trace` stores only its structured outcome in `incident_traces` and
+`incident_trace_links`:
 
 ```bash
 python tools/agent_memory.py incident-trace \
   --project . \
   --symptom "页面跳转后白屏" \
-  --log-text "router.pushUrl failed for ProfileDetail" \
+  --diagnosis-summary "route target resolution failed" \
+  --observed-event "router.pushUrl failed for ProfileDetail" \
+  --code-anchor "entry/src/main/ets/router/ProfileRouter.ets::openProfile" \
   --json
 ```
 
-The command does not persist full raw logs. It stores a short `entry_log_text`, dominant log events, the ArkTS scene, matched code log anchors, and a compact candidate chain.
+The command accepts neither raw log text nor log files. Runtime does not infer a
+candidate chain. It resolves Agent-supplied code anchors against the current
+learned index and stores bounded observed events and causal steps with explicit
+evidence state.
 
-`context` and `search` can then return `incident_trace_matches` beside `code_log_matches` and `edge_matches`.
+`context` and `search` can return only `agent_structured` incident matches beside
+`code_log_matches` and `edge_matches`; legacy Runtime-derived rows are
+quarantined for governance review.
 
 ## Obsidian Mirror
 

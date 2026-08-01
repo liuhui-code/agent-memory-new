@@ -240,6 +240,9 @@ code entity --calls/awaits/registers_callback--> code entity
 ## Agent 主导的问题定位
 
 Runtime 不读取或保存临时用户流水日志，也不生成根因。
+需要跨任务保留定位结果时，Agent 只提交结构化症状、诊断摘要、有限事件、
+因果步骤、当前代码锚点和验证闭环；旧版 Runtime 派生 Incident 被隔离为
+`legacy_unverified`，不会进入普通查询或自动晋升经验。
 
 推荐流程：
 

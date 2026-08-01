@@ -1,0 +1,360 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/tmp/keepassho-evidence-set-holdout",
+  "source_repository": "https://github.com/aimilin6688/KeePassHO.git",
+  "cases": [
+    {
+      "id": "keepassho-recycle-bin-search-ownership",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Global search returns entries and groups from the recycle bin. Return both the recursive search owner and the page that invokes it."
+      },
+      "source": {
+        "before_revision": "9210b88010b0fcdb50e0c1f61d6331822dab93f4",
+        "after_revision": "fe4b155cff15c2ee2047ceadc60278d63cffd592",
+        "changed_files": [
+          "entry/src/main/ets/common/utils/KdbxUtils.ets",
+          "entry/src/main/ets/pages/DatabaseView.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "fe4b155cff15c2ee2047ceadc60278d63cffd592",
+        "commit_message": "fix: exclude recycle-bin content from search",
+        "source_family": "aimilin6688/KeePassHO@recycle-bin-search",
+        "independence_basis": "selected after provider freeze from a previously unused external project"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable"],
+        "artifact_roles": ["utility", "page"],
+        "mechanism_kinds": ["persistence", "ui_state"]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/common/utils/KdbxUtils.ets",
+          "entry/src/main/ets/pages/DatabaseView.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "search_scope",
+        "expected_causal_level": "association",
+        "evidence_set_oracle": {
+          "target_scope": "multiple",
+          "expected_member_files": [
+            "entry/src/main/ets/common/utils/KdbxUtils.ets",
+            "entry/src/main/ets/pages/DatabaseView.ets"
+          ],
+          "expected_primary_files": [
+            "entry/src/main/ets/common/utils/KdbxUtils.ets",
+            "entry/src/main/ets/pages/DatabaseView.ets"
+          ],
+          "allowed_states": ["portfolio_required"]
+        },
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "entry/src/main/ets/common/utils/KdbxUtils.ets", "start_line": 147, "end_line": 177},
+            {"file_path": "entry/src/main/ets/pages/DatabaseView.ets", "start_line": 1263, "end_line": 1280}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "entry/src/main/ets/common/utils/KdbxUtils.ets", "start_line": 147, "end_line": 177},
+            {"file_path": "entry/src/main/ets/pages/DatabaseView.ets", "start_line": 1263, "end_line": 1280}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "entry/src/main/ets/common/utils/KdbxUtils.ets", "start_line": 147, "end_line": 177},
+            {"file_path": "entry/src/main/ets/pages/DatabaseView.ets", "start_line": 1263, "end_line": 1280}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "keepassho-distributed-kv-value-unpacking",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Remote settings changes arrive but synchronized values are not applied because the callback receives a typed Value object. Locate the owning callback."
+      },
+      "source": {
+        "before_revision": "f0ed77ce2def04e04e2edc56ed65f8d895c73deb",
+        "after_revision": "8e874a2f6b94da766be3d050067410343c46f9ac",
+        "changed_files": ["entry/src/main/ets/services/store/SyncSettingsService.ets"],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "8e874a2f6b94da766be3d050067410343c46f9ac",
+        "commit_message": "fix: unpack typed Value objects from remote KV callbacks",
+        "source_family": "aimilin6688/KeePassHO@distributed-kv-value",
+        "independence_basis": "selected after provider freeze from a previously unused external project"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable"],
+        "artifact_roles": ["service", "store"],
+        "mechanism_kinds": ["event_binding", "persistence", "async_control"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/services/store/SyncSettingsService.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "typed_value_boundary",
+        "expected_causal_level": "association",
+        "evidence_set_oracle": {
+          "target_scope": "single",
+          "expected_member_files": ["entry/src/main/ets/services/store/SyncSettingsService.ets"],
+          "expected_primary_files": ["entry/src/main/ets/services/store/SyncSettingsService.ets"],
+          "allowed_states": ["single_candidate_supported"]
+        },
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "entry/src/main/ets/services/store/SyncSettingsService.ets", "start_line": 204, "end_line": 230}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "entry/src/main/ets/services/store/SyncSettingsService.ets", "start_line": 204, "end_line": 230}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "entry/src/main/ets/services/store/SyncSettingsService.ets", "start_line": 204, "end_line": 230}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "keepassho-new-intent-lock-lifecycle",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Opening a new database URI while the lock subwindow is active leaves stale database and lock state. Return the Ability lifecycle owner and lock-window service."
+      },
+      "source": {
+        "before_revision": "61c27af0ddced9e205174454d9fc9e5facd9b535",
+        "after_revision": "b294cf5787e8c967576b9db487480be705da6110",
+        "changed_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets",
+          "entry/src/main/ets/services/LockScreenService.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "b294cf5787e8c967576b9db487480be705da6110",
+        "commit_message": "fix: close stale database and lock window on a new Intent",
+        "source_family": "aimilin6688/KeePassHO@new-intent-lock-lifecycle",
+        "independence_basis": "selected after provider freeze from a previously unused external project"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable"],
+        "artifact_roles": ["service"],
+        "mechanism_kinds": ["navigation", "platform_api", "event_binding"]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/entryability/EntryAbility.ets",
+          "entry/src/main/ets/services/LockScreenService.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "lifecycle_cleanup",
+        "expected_causal_level": "association",
+        "evidence_set_oracle": {
+          "target_scope": "multiple",
+          "expected_member_files": [
+            "entry/src/main/ets/entryability/EntryAbility.ets",
+            "entry/src/main/ets/services/LockScreenService.ets"
+          ],
+          "expected_primary_files": [
+            "entry/src/main/ets/entryability/EntryAbility.ets",
+            "entry/src/main/ets/services/LockScreenService.ets"
+          ],
+          "allowed_states": ["portfolio_required"]
+        },
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "entry/src/main/ets/entryability/EntryAbility.ets", "start_line": 166, "end_line": 174},
+            {"file_path": "entry/src/main/ets/services/LockScreenService.ets", "start_line": 54, "end_line": 109}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "entry/src/main/ets/entryability/EntryAbility.ets", "start_line": 166, "end_line": 174},
+            {"file_path": "entry/src/main/ets/services/LockScreenService.ets", "start_line": 54, "end_line": 109}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "entry/src/main/ets/entryability/EntryAbility.ets", "start_line": 166, "end_line": 174},
+            {"file_path": "entry/src/main/ets/services/LockScreenService.ets", "start_line": 54, "end_line": 109}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "keepassho-s3-multipart-signature-query",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "S3 multipart upload initialization is rejected because canonical signing and the actual uploads URL use different query representations. Locate the owning operation."
+      },
+      "source": {
+        "before_revision": "7c107270f76373bcde77434ee1f039be9aeab933",
+        "after_revision": "9cdd465999604d4a280bde104fb2c1b19e9c7691",
+        "changed_files": ["entry/src/main/ets/storage/s3/S3Client.ets"],
+        "test_files": ["entry/src/ohosTest/ets/test/storage/s3/S3ClientMultipart.test.ets"]
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "9cdd465999604d4a280bde104fb2c1b19e9c7691",
+        "commit_message": "fix(s3): distinguish multipart canonical query from request URL",
+        "source_family": "aimilin6688/KeePassHO@s3-multipart-signature",
+        "independence_basis": "selected after provider freeze from a previously unused external project"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["callable", "expression"],
+        "artifact_roles": ["adapter"],
+        "mechanism_kinds": ["resource_io", "error_contract"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/storage/s3/S3Client.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "protocol_canonicalization",
+        "expected_causal_level": "association",
+        "evidence_set_oracle": {
+          "target_scope": "single",
+          "expected_member_files": ["entry/src/main/ets/storage/s3/S3Client.ets"],
+          "expected_primary_files": ["entry/src/main/ets/storage/s3/S3Client.ets"],
+          "allowed_states": ["single_candidate_supported"]
+        },
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "entry/src/main/ets/storage/s3/S3Client.ets", "start_line": 492, "end_line": 542}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "entry/src/main/ets/storage/s3/S3Client.ets", "start_line": 492, "end_line": 542}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "entry/src/main/ets/storage/s3/S3Client.ets", "start_line": 492, "end_line": 542}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    },
+    {
+      "id": "keepassho-webdav-equivalent-config-reuse",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Opening the app can cancel an in-flight WebDAV request when storage is initialized again with equivalent credentials. Locate the connection lifecycle owner."
+      },
+      "source": {
+        "before_revision": "6125a7fda8388fd5a4449d731043cf0d1350a285",
+        "after_revision": "496d663550425c29644cc60ac288654e940d9652",
+        "changed_files": ["entry/src/main/ets/storage/webdav/WebDAVStorage.ets"],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "496d663550425c29644cc60ac288654e940d9652",
+        "commit_message": "fix: preserve equivalent WebDAV client sessions during initialization",
+        "source_family": "aimilin6688/KeePassHO@webdav-client-reuse",
+        "independence_basis": "selected after provider freeze from a previously unused external project"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable"],
+        "artifact_roles": ["adapter"],
+        "mechanism_kinds": ["resource_io", "async_control"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/storage/webdav/WebDAVStorage.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "connection_lifecycle",
+        "expected_causal_level": "association",
+        "evidence_set_oracle": {
+          "target_scope": "single",
+          "expected_member_files": ["entry/src/main/ets/storage/webdav/WebDAVStorage.ets"],
+          "expected_primary_files": ["entry/src/main/ets/storage/webdav/WebDAVStorage.ets"],
+          "allowed_states": ["single_candidate_supported"]
+        },
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "entry/src/main/ets/storage/webdav/WebDAVStorage.ets", "start_line": 28, "end_line": 45}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "entry/src/main/ets/storage/webdav/WebDAVStorage.ets", "start_line": 28, "end_line": 45}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "entry/src/main/ets/storage/webdav/WebDAVStorage.ets", "start_line": 28, "end_line": 45}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "calibration": {
+      "target_domain": "native_arkts",
+      "minimum_case_count": 5,
+      "required_target_levels": ["file", "callable", "expression"],
+      "required_artifact_roles": ["page", "service", "store", "utility", "adapter"],
+      "required_mechanism_kinds": [
+        "resource_io",
+        "ui_state",
+        "navigation",
+        "platform_api",
+        "async_control",
+        "persistence",
+        "event_binding",
+        "error_contract"
+      ]
+    }
+  }
+}

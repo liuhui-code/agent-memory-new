@@ -49,6 +49,7 @@ def collect_incident_trace_matches(project: Project, query: str, limit: int) -> 
                 WHERE incident_trace_fts MATCH ?
                   AND incident_trace_fts.project_id = ?
                   AND incident_traces.status NOT IN ('stale', 'ignored')
+                  AND incident_traces.capture_mode = 'agent_structured'
                 ORDER BY bm25(incident_trace_fts)
                 LIMIT ?
                 """,
@@ -62,17 +63,17 @@ def collect_incident_trace_matches(project: Project, query: str, limit: int) -> 
                 FROM incident_traces
                 WHERE project_id = ?
                   AND status NOT IN ('stale', 'ignored')
+                  AND capture_mode = 'agent_structured'
                   AND (
                     COALESCE(symptom, '') LIKE ?
-                    OR COALESCE(entry_log_text, '') LIKE ?
                     OR COALESCE(dominant_log_events, '') LIKE ?
-                    OR COALESCE(suspected_chain, '') LIKE ?
+                    OR COALESCE(diagnosis_summary, '') LIKE ?
                     OR COALESCE(causal_chain, '') LIKE ?
                   )
                 ORDER BY updated_at DESC, id DESC
                 LIMIT ?
                 """,
-                (project.project_id, like, like, like, like, like, limit * 3),
+                (project.project_id, like, like, like, like, limit * 3),
             ).fetchall()
         matches: list[dict[str, Any]] = []
         for row in rows:
@@ -82,14 +83,12 @@ def collect_incident_trace_matches(project: Project, query: str, limit: int) -> 
                     "symptom",
                     "goal",
                     "arkts_scene",
-                    "entry_log_text",
-                    "normalized_error",
                     "dominant_log_events",
                     "diagnosis_summary",
-                    "suspected_chain",
                     "causal_chain",
-                    "root_cause_hypothesis",
                     "resolution",
+                    "intervention",
+                    "verification_evidence",
                 )
             )
             score, reasons = score_weighted_fields(
@@ -104,11 +103,23 @@ def collect_incident_trace_matches(project: Project, query: str, limit: int) -> 
             item = row_dict(row)
             item["score"] = round(score + float(row["confidence"] or 0), 2)
             item["match_reasons"] = reasons
-            item["dominant_log_events"] = json.loads(row["dominant_log_events"] or "[]")
-            item["candidate_chain"] = json.loads(row["suspected_chain"] or "[]")
-            item["causal_chain"] = json.loads(row["causal_chain"] or "[]")
-            item["span_graph"] = json.loads(row["span_graph"] or "{}")
+            item["observed_events"] = json_list_value(row["dominant_log_events"])
+            item["agent_causal_steps"] = json_list_value(row["causal_chain"])
+            for key in (
+                "entry_log_text", "dominant_log_events", "normalized_error",
+                "suspected_chain", "causal_chain", "span_graph", "root_cause_hypothesis",
+            ):
+                item.pop(key, None)
+            item["authority"] = "agent_reported_incident"
             item["links"] = trace_links(conn, project, int(row["id"]))
             matches.append(item)
     matches.sort(key=lambda item: (item.get("score", 0), item.get("updated_at", ""), item.get("id", 0)), reverse=True)
     return matches[:limit]
+
+
+def json_list_value(value: Any) -> list[Any]:
+    try:
+        parsed = json.loads(value or "[]")
+    except (TypeError, json.JSONDecodeError):
+        return []
+    return parsed if isinstance(parsed, list) else []

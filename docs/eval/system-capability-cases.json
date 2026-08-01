@@ -3123,6 +3123,269 @@
       }
     },
     {
+      "id": "context-native-result-listener-boundary",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A native result failure callback never reaches the host listener. Locate the adapter boundary that forwards runtime observer callbacks, not the retry service."
+      },
+      "query_variants": [
+        {
+          "id": "symptom",
+          "description": "A native result failure callback never reaches the host listener. Locate the runtime observer adapter boundary, not retry recovery."
+        },
+        {
+          "id": "contract",
+          "description": "Find the callable that binds native runtime observer callbacks to the host ResultListener failure contract."
+        },
+        {
+          "id": "zh-context",
+          "description": "native result 失败回调没有传给 host listener，请定位 observer 到 listener 的适配边界，不要返回重试服务。"
+        }
+      ],
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "evidence-funnel"
+      },
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/adapters/NativeResultBoundary.ets"],
+        "forbidden_files": ["src/recovery/NativeResultRecovery.ets"],
+        "root_cause_category": "unknown",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/adapters/NativeResultBoundary.ets", "start_line": 6, "end_line": 17}
+          ],
+          "min_source_span_recall": 1.0,
+          "hierarchical_callable_spans": [
+            {"file_path": "src/adapters/NativeResultBoundary.ets", "symbol": "attach"}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/adapters/NativeResultBoundary.ets", "symbol": "attach"}
+          ]
+        }
+      }
+    },
+    {
+      "id": "context-deferred-measurement-policy",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A drawable asset has positive dimensions but remains invisible because measurement declares a deferred result. Locate the measurement policy, not the rendering component."
+      },
+      "query_variants": [
+        {
+          "id": "symptom",
+          "description": "Positive asset dimensions still produce an invisible drawable because measurement waits for a deferred callback. Locate the measurement owner."
+        },
+        {
+          "id": "mechanism",
+          "description": "Find the size policy returning width and height together with a deferred measurement mode that can suppress rendering."
+        },
+        {
+          "id": "zh-context",
+          "description": "资源宽高大于零但仍不可见，测量结果声明 deferred 并等待回调，请定位尺寸策略而不是 Canvas 组件。"
+        }
+      ],
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "evidence-funnel"
+      },
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/measurement/DeferredSizePolicy.ets"],
+        "forbidden_files": ["src/components/CanvasPreview.ets"],
+        "root_cause_category": "unknown",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/measurement/DeferredSizePolicy.ets", "start_line": 2, "end_line": 12}
+          ],
+          "min_source_span_recall": 1.0,
+          "hierarchical_callable_spans": [
+            {"file_path": "src/measurement/DeferredSizePolicy.ets", "symbol": "resolve"}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/measurement/DeferredSizePolicy.ets", "symbol": "resolve"}
+          ]
+        }
+      }
+    },
+    {
+      "id": "context-aliased-arkts-log-binding",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "VIEWPORT_EVENT_E73B width changed: 720 appears during a layout update. Return the component callback and its imported telemetry wrapper path."
+      },
+      "query_variants": [
+        {
+          "id": "runtime-line",
+          "description": "VIEWPORT_EVENT_E73B width changed: 720"
+        },
+        {
+          "id": "wrapper",
+          "description": "A layout callback emits VIEWPORT_EVENT_E73B width changed through an imported telemetry wrapper. Locate the component and wrapped log path."
+        },
+        {
+          "id": "zh-context",
+          "description": "布局变化时流水日志出现 VIEWPORT_EVENT_E73B width changed: 720，请定位组件回调和导入别名后的日志包装链。"
+        }
+      ],
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "evidence-funnel"
+      },
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": [
+          "src/components/ViewportHost.ets",
+          "src/logging/ViewportTelemetry.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "unknown",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_log_template_literals": ["VIEWPORT_EVENT_E73B width changed"],
+          "runtime_observed_terms": ["720"],
+          "required_log_files": ["src/components/ViewportHost.ets"],
+          "required_log_evidence_classes": ["static_wrapped"],
+          "required_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "src/components/ViewportHost.ets#onAreaChange",
+                "src/logging/ViewportTelemetry.ets#notice"
+              ]
+            }
+          ],
+          "allowed_log_effect_paths": [
+            {
+              "evidence_class": "static_wrapped",
+              "locations": [
+                "src/components/ViewportHost.ets#onAreaChange",
+                "src/logging/ViewportTelemetry.ets#notice"
+              ]
+            }
+          ],
+          "min_log_path_precision": 1.0,
+          "max_log_path_candidates": 1,
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/components/ViewportHost.ets", "start_line": 7, "end_line": 15}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "context-target-role-over-problem-role",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "The transport service starts without a TRANSPORT_GRANT_Q7 code. Return the coordinator that requests the grant and guards activation."
+      },
+      "query_variants": [
+        {
+          "id": "role-collision",
+          "description": "The transport service opens without TRANSPORT_GRANT_Q7. Return the coordinator that requests the grant before activation."
+        },
+        {
+          "id": "target-contract",
+          "description": "Find the transport activation coordinator that validates a grant code before opening the native session."
+        },
+        {
+          "id": "zh-context",
+          "description": "transport service 未取得 TRANSPORT_GRANT_Q7 就启动，请定位校验 grant 后激活的协调器，不要返回 service。"
+        }
+      ],
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "ranking-calibration"
+      },
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/runtime/TransportActivationCoordinator.ets"],
+        "forbidden_files": ["src/services/SessionTransportService.ets"],
+        "root_cause_category": "unknown",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/runtime/TransportActivationCoordinator.ets", "start_line": 6, "end_line": 9}
+          ],
+          "min_source_span_recall": 1.0,
+          "hierarchical_callable_spans": [
+            {"file_path": "src/runtime/TransportActivationCoordinator.ets", "symbol": "activateWithGrant"}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/runtime/TransportActivationCoordinator.ets", "symbol": "activateWithGrant"}
+          ]
+        }
+      }
+    },
+    {
+      "id": "context-first-stage-prior-with-exclusion",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A Quasar preview displays raw markup. Locate the view that cleans and renders content, not the record or generic reporter."
+      },
+      "query_variants": [
+        {
+          "id": "render-owner",
+          "description": "A Quasar preview shows raw markup. Locate the view that cleans and renders the body, not the record."
+        },
+        {
+          "id": "component-contract",
+          "description": "Find the Quasar preview component that removes markup tags before rendering text; exclude the data record."
+        },
+        {
+          "id": "zh-context",
+          "description": "Quasar 预览仍显示标签，请定位清洗并渲染正文的 view，不要返回 QuasarMarkupRecord 或通用 reporter。"
+        }
+      ],
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "ranking-calibration"
+      },
+      "provenance": {"kind": "reviewed_synthetic_context_fixture"},
+      "oracle": {
+        "expected_files": ["src/views/QuasarMarkupPreview.ets"],
+        "forbidden_files": [
+          "src/entities/QuasarMarkupRecord.ets",
+          "src/logging/QuasarMarkupFailureReporter.ets"
+        ],
+        "root_cause_category": "unknown",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "required_top_k": 2,
+          "min_anchor_precision": 1.0,
+          "require_source_excerpt": true,
+          "required_source_spans": [
+            {"file_path": "src/views/QuasarMarkupPreview.ets", "start_line": 5, "end_line": 10}
+          ],
+          "min_source_span_recall": 1.0,
+          "hierarchical_callable_spans": [
+            {"file_path": "src/views/QuasarMarkupPreview.ets", "symbol": "cleanQuasarBody"}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/views/QuasarMarkupPreview.ets", "symbol": "cleanQuasarBody"}
+          ]
+        }
+      }
+    },
+    {
       "id": "context-no-evidence-abstention",
       "task_type": "diagnosis",
       "review_status": "validated",

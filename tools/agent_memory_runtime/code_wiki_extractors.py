@@ -8,9 +8,16 @@ from typing import Any
 
 from .arkts_context_markers import extract_arkts_context_markers
 from .arkts_ui_behavior import extract_arkts_operation_names
-from .ecma_callable_ranges import callback_ranges_for_language, callable_symbols_by_line
+from .ecma_callable_ranges import (
+    callable_ranges_for_language,
+    callable_symbols_by_line,
+)
 from .models import CODE_EXTENSIONS, IGNORE_DIRS
-from .log_api_catalog import direct_log_pattern, parse_log_api_call
+from .log_api_catalog import (
+    direct_log_pattern,
+    log_receiver_bindings,
+    parse_log_api_call,
+)
 from .source_call_scanner import scan_calls
 from .text import identifier_tokens, unique_list
 
@@ -163,10 +170,14 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
     if language == "ArkTS":
         symbols.extend(extract_arkts_reference_symbols(text))
     if language in {"ArkTS", "JavaScript", "TypeScript"}:
-        symbols.extend(
-            (str(item["symbol"]), "function")
-            for item in callback_ranges_for_language(text.splitlines(), language)
-        )
+        known = set(symbols)
+        for item in callable_ranges_for_language(text.splitlines(), language):
+            candidate = (str(item["symbol"]), "function")
+            if language == "ArkTS" and candidate[0] in ARKTS_BUILDER_COMPONENTS:
+                continue
+            if candidate not in known:
+                known.add(candidate)
+                symbols.append(candidate)
     return symbols
 
 
@@ -221,6 +232,7 @@ def extract_log_statements(path: Path, language: str) -> list[dict[str, Any]]:
     except OSError:
         return []
     lines = text.splitlines()
+    receiver_bindings = log_receiver_bindings(text, language)
     functions_by_line: dict[int, str | None] = {}
     if language in {"ArkTS", "JavaScript", "TypeScript"}:
         functions_by_line.update(callable_symbols_by_line(lines, language))
@@ -240,8 +252,8 @@ def extract_log_statements(path: Path, language: str) -> list[dict[str, Any]]:
                 current_indent = -1
         functions_by_line[line_number] = current_function
     logs: list[dict[str, Any]] = []
-    for line_number, statement in log_calls_in_text(text, language):
-        log = log_statement_on_line(statement, language)
+    for line_number, statement in log_calls_in_text(text, language, receiver_bindings):
+        log = log_statement_on_line(statement, language, receiver_bindings)
         if not log:
             continue
         log["line"] = line_number
@@ -251,8 +263,12 @@ def extract_log_statements(path: Path, language: str) -> list[dict[str, Any]]:
     return logs
 
 
-def log_calls_in_text(text: str, language: str) -> list[tuple[int, str]]:
-    return scan_calls(text, direct_log_pattern(language))
+def log_calls_in_text(
+    text: str,
+    language: str,
+    receiver_bindings: dict[str, str] | None = None,
+) -> list[tuple[int, str]]:
+    return scan_calls(text, direct_log_pattern(language, receiver_bindings))
 
 
 
@@ -298,11 +314,15 @@ def function_symbol_on_line(line: str, language: str) -> tuple[str, int] | None:
 
 
 
-def log_statement_on_line(line: str, language: str) -> dict[str, Any] | None:
+def log_statement_on_line(
+    line: str,
+    language: str,
+    receiver_bindings: dict[str, str] | None = None,
+) -> dict[str, Any] | None:
     stripped = line.strip()
     if not stripped or stripped.startswith(("#", "//")):
         return None
-    parsed = parse_log_api_call(stripped, language)
+    parsed = parse_log_api_call(stripped, language, receiver_bindings)
     if parsed is None:
         return None
     return {

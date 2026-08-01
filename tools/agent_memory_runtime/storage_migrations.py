@@ -307,6 +307,13 @@ def migrate_incident_semantic_columns(conn: sqlite3.Connection) -> None:
     for name in ("causal_chain", "span_graph", "intervention", "verification_evidence"):
         if name not in existing:
             conn.execute(f"ALTER TABLE incident_traces ADD COLUMN {name} TEXT")
+    existing = {row["name"] for row in conn.execute("PRAGMA table_info(incident_traces)").fetchall()}
+    for name, definition in (
+        ("capture_mode", "TEXT NOT NULL DEFAULT 'legacy_runtime_derived'"),
+        ("evidence_state", "TEXT NOT NULL DEFAULT 'legacy_unverified'"),
+    ):
+        if name not in existing:
+            conn.execute(f"ALTER TABLE incident_traces ADD COLUMN {name} {definition}")
 
 
 
@@ -336,6 +343,9 @@ def create_post_migration_indexes(conn: sqlite3.Connection) -> None:
 
         CREATE INDEX IF NOT EXISTS idx_design_outcomes_project_created
         ON design_outcomes(project_id, created_at DESC);
+
+        CREATE INDEX IF NOT EXISTS idx_incident_traces_project_evidence
+        ON incident_traces(project_id, capture_mode, evidence_state, status, updated_at);
 
         CREATE INDEX IF NOT EXISTS idx_design_outcomes_project_profile
         ON design_outcomes(project_id, archetype, change_size_bucket, id DESC);

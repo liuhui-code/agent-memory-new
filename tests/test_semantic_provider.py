@@ -81,16 +81,6 @@ export class Demo {
         self.assertTrue(edges)
         self.assertTrue(read_provider_metrics(self.runtime_project))
 
-        incident = self.run_memory(
-            self.project, "incident-trace", "--symptom", "demo failed",
-            "--log-text", "demo failed", "--json", env=self.provider_env(),
-        )
-        chains = json.loads(incident.stdout)["causal_chain"]
-        semantic_steps = [step for chain in chains for step in chain["steps"] if step.get("edge_id")]
-        self.assertTrue(semantic_steps)
-        self.assertEqual("exact", semantic_steps[0]["evidence_class"])
-        self.assertEqual("possible", semantic_steps[0]["evidence_role"])
-
     def test_unavailable_provider_falls_back_to_static(self) -> None:
         env = {"AGENT_MEMORY_SEMANTIC_PROVIDER_ARKTS": str(self.project / "missing-provider")}
 

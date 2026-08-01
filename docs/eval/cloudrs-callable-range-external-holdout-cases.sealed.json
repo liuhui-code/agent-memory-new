@@ -1,0 +1,498 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/tmp/agent-memory-cloudrs-ohos-holdout",
+  "source_repository": "https://github.com/Cloudrs/Cloudrs-ohos.git",
+  "cases": [
+    {
+      "id": "cloudrs-batch-sheet-short-operation",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A small batch operation completes so quickly that its progress sheet flashes before disappearing. Locate the callable that starts the batch progress lifecycle."
+      },
+      "source": {
+        "before_revision": "5650d1b53120c2ccc11995443a10b4db7a895e90",
+        "after_revision": "d9fa4ca4a0179723666296aec57f980cf7dfe9b1",
+        "changed_files": [
+          "entry/src/main/ets/pages/tabs/TabFiles.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "d9fa4ca4a0179723666296aec57f980cf7dfe9b1",
+        "commit_message": "fix(files): 批量操作面板延迟显示，小批量不再闪一下",
+        "source_family": "Cloudrs/Cloudrs-ohos@batch-sheet-short-operation",
+        "independence_basis": "selected after callable-range implementation freeze from a previously unused external project; the timing defect is independent of the other four cases"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "page",
+          "component"
+        ],
+        "mechanism_kinds": [
+          "ui_state",
+          "async_control"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/tabs/TabFiles.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_timing",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+              "start_line": 1470,
+              "end_line": 1501
+            }
+          ],
+          "hierarchical_callable_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+              "start_line": 1470,
+              "end_line": 1501
+            }
+          ],
+          "hierarchical_range_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+              "start_line": 1470,
+              "end_line": 1501
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "cloudrs-album-tab-component-lifecycle",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Switching away from the album and back briefly renders an empty-album state before photos return. Locate the tab content callable that controls the album component lifecycle."
+      },
+      "source": {
+        "before_revision": "f8f90fb8bade56d8a717a039b2908c0ab9033e53",
+        "after_revision": "c7e4fe21c787899986d6fded48b19ffb62560cd2",
+        "changed_files": [
+          "entry/src/main/ets/pages/HomePage.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "c7e4fe21c787899986d6fded48b19ffb62560cd2",
+        "commit_message": "fix(album): 避免切页时短暂显示空相册",
+        "source_family": "Cloudrs/Cloudrs-ohos@album-tab-component-lifecycle",
+        "independence_basis": "selected after callable-range implementation freeze from a previously unused external project; the component-retention defect is independent of the other four cases"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "page",
+          "component"
+        ],
+        "mechanism_kinds": [
+          "ui_state",
+          "navigation"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/HomePage.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "component_lifecycle",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/HomePage.ets",
+              "start_line": 361,
+              "end_line": 376
+            }
+          ],
+          "hierarchical_callable_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/HomePage.ets",
+              "start_line": 361,
+              "end_line": 376
+            }
+          ],
+          "hierarchical_range_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/HomePage.ets",
+              "start_line": 361,
+              "end_line": 376
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "cloudrs-text-draft-key-collision",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Two drafts for different Chinese file paths can resolve to the same draft file and restore the wrong content. Locate the callable that derives the draft storage key."
+      },
+      "source": {
+        "before_revision": "5c5496aef9daca4feb7492c1638363b7cf9f010b",
+        "after_revision": "3b9fc9e37447b8bd04f308a45ef01b0e501370e9",
+        "changed_files": [
+          "entry/src/main/ets/utils/TextDraftStore.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "3b9fc9e37447b8bd04f308a45ef01b0e501370e9",
+        "commit_message": "fix(text): 修复只读绕过与草稿串档，并放开新建文件入口",
+        "source_family": "Cloudrs/Cloudrs-ohos@text-draft-key-collision",
+        "independence_basis": "selected after callable-range implementation freeze from a previously unused external project; the persistence-identity defect is independent of the other four cases"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "utility",
+          "store"
+        ],
+        "mechanism_kinds": [
+          "persistence",
+          "error_contract"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/utils/TextDraftStore.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "identity_collision",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/utils/TextDraftStore.ets",
+              "start_line": 94,
+              "end_line": 102
+            }
+          ],
+          "hierarchical_callable_spans": [
+            {
+              "file_path": "entry/src/main/ets/utils/TextDraftStore.ets",
+              "start_line": 94,
+              "end_line": 102
+            }
+          ],
+          "hierarchical_range_spans": [
+            {
+              "file_path": "entry/src/main/ets/utils/TextDraftStore.ets",
+              "start_line": 94,
+              "end_line": 102
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "cloudrs-download-resume-signed-url",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Resuming a download in a later session can reuse an expired signed URL and accept a short error response as a completed file. Locate the callable that restores and resumes the download."
+      },
+      "source": {
+        "before_revision": "963565f372a8f32cd9fdf693d8d1d5bbf1e154f8",
+        "after_revision": "39696274fbf0390d75873316d69d42889e6615b4",
+        "changed_files": [
+          "entry/src/main/ets/pages/tabs/TabFiles.ets",
+          "entry/src/main/ets/utils/RequestDownload.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "39696274fbf0390d75873316d69d42889e6615b4",
+        "commit_message": "fix(transfers): resume with fresh url and validate completed size",
+        "source_family": "Cloudrs/Cloudrs-ohos@download-resume-signed-url",
+        "independence_basis": "selected after callable-range implementation freeze from a previously unused external project; the transfer-integrity defect is independent of the other four cases"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "page",
+          "service",
+          "adapter"
+        ],
+        "mechanism_kinds": [
+          "resource_io",
+          "async_control",
+          "error_contract"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/tabs/TabFiles.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "transfer_integrity",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+              "start_line": 3416,
+              "end_line": 3440
+            }
+          ],
+          "hierarchical_callable_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+              "start_line": 3416,
+              "end_line": 3440
+            }
+          ],
+          "hierarchical_range_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/tabs/TabFiles.ets",
+              "start_line": 3416,
+              "end_line": 3440
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "cloudrs-settings-sheet-close-open-race",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Opening a settings sheet immediately after it begins closing can dismiss the new request and require a second tap. Locate the callable that initiates the settings sheet transition."
+      },
+      "source": {
+        "before_revision": "0d4d780e1da2559f78a3c703348352250ed80047",
+        "after_revision": "7865870b47dc1a6e6039b457b60939add0d89823",
+        "changed_files": [
+          "entry/src/main/ets/pages/tabs/TabMine.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_history_source_reviewed",
+        "fix_commit": "7865870b47dc1a6e6039b457b60939add0d89823",
+        "commit_message": "fix(sheet): resolve bindSheet open races and polish sheet UI",
+        "source_family": "Cloudrs/Cloudrs-ohos@settings-sheet-close-open-race",
+        "independence_basis": "selected after callable-range implementation freeze from a previously unused external project; the sheet-lifecycle race is independent of the other four cases"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "page",
+          "component",
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state",
+          "event_binding",
+          "navigation",
+          "platform_api"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/tabs/TabMine.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "lifecycle_race",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/tabs/TabMine.ets",
+              "start_line": 1083,
+              "end_line": 1109
+            }
+          ],
+          "hierarchical_callable_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/tabs/TabMine.ets",
+              "start_line": 1083,
+              "end_line": 1109
+            }
+          ],
+          "hierarchical_range_spans": [
+            {
+              "file_path": "entry/src/main/ets/pages/tabs/TabMine.ets",
+              "start_line": 1083,
+              "end_line": 1109
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "calibration": {
+      "target_domain": "native_arkts",
+      "minimum_case_count": 5,
+      "required_target_levels": [
+        "file",
+        "callable",
+        "expression"
+      ],
+      "required_artifact_roles": [
+        "page",
+        "service",
+        "store",
+        "utility",
+        "component",
+        "adapter"
+      ],
+      "required_mechanism_kinds": [
+        "resource_io",
+        "ui_state",
+        "navigation",
+        "platform_api",
+        "async_control",
+        "persistence",
+        "event_binding",
+        "error_contract"
+      ]
+    },
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 5,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-08-01T00:31:11+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 5,
+    "digest": "661cfe13bd116f6642651f9dc9ba460ab1fa64aff7734ed0822df2ff2564ac79"
+  }
+}

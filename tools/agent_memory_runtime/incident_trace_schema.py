@@ -30,6 +30,8 @@ def create_incident_trace_schema(conn: sqlite3.Connection) -> None:
           resolution TEXT,
           confidence REAL DEFAULT 0.7,
           source TEXT DEFAULT 'incident-trace',
+          capture_mode TEXT NOT NULL DEFAULT 'legacy_runtime_derived',
+          evidence_state TEXT NOT NULL DEFAULT 'legacy_unverified',
           created_at TEXT NOT NULL,
           updated_at TEXT NOT NULL
         );

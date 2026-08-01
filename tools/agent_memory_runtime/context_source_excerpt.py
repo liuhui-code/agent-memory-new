@@ -239,8 +239,15 @@ def focused_source_range(
     if not source_lines:
         return source_range
     line_scores = [score_text(terms, line) for line in source_lines]
-    anchor_start = max(1, int(source_range["start_line"]) - FOCUS_RADIUS)
-    anchor_end = min(len(source_lines), int(source_range["end_line"]) + FOCUS_RADIUS)
+    precise_callable = source_range.get("selection_reason") == "bounded_callable_primary"
+    source_start = int(source_range["start_line"])
+    source_end = int(source_range["end_line"])
+    anchor_start = source_start if precise_callable else max(1, source_start - FOCUS_RADIUS)
+    anchor_end = (
+        source_end
+        if precise_callable
+        else min(len(source_lines), source_end + FOCUS_RADIUS)
+    )
     if anchor_start > len(source_lines):
         return source_range
     best_line = best_focus_line(source_lines, line_scores, anchor_start, anchor_end)
@@ -253,12 +260,14 @@ def focused_source_range(
         if bounded_anchor else "query_term_window"
     )
     if not best_line:
+        if precise_callable:
+            return source_range
         best_line = best_focus_line(source_lines, line_scores, 1, len(source_lines))
         selection_reason = "query_term_window"
     if not best_line:
         return source_range
-    start = max(1, best_line - FOCUS_RADIUS)
-    end = best_line + FOCUS_RADIUS
+    start = max(source_start if precise_callable else 1, best_line - FOCUS_RADIUS)
+    end = min(source_end, best_line + FOCUS_RADIUS) if precise_callable else best_line + FOCUS_RADIUS
     result = {**source_range, "start_line": start, "end_line": end}
     if not int(source_range["start_line"]) <= best_line <= int(source_range["end_line"]):
         result.pop("symbol", None)

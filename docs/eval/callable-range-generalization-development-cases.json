@@ -1,0 +1,108 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "docs/eval/fixtures/system-capability",
+  "cases": [
+    {
+      "id": "callable-range-multiline-header",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A wrapped telemetry sample reaches the observer but is not decoded for its expected channel. Locate the callable that owns wrapped-sample decoding."
+      },
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "callable-range-generalization"
+      },
+      "provenance": {
+        "kind": "reviewed_synthetic_context_fixture",
+        "source_family": "callable-range-generalization/v1",
+        "independence_basis": "project-neutral syntax fixture created without external project identifiers"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["callable", "expression"],
+        "artifact_roles": ["service"],
+        "mechanism_kinds": ["event_binding", "async_control"]
+      },
+      "oracle": {
+        "expected_files": ["src/telemetry/TelemetryEnvelopeService.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "callable_header_extraction",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "src/telemetry/TelemetryEnvelopeService.ets", "start_line": 13, "end_line": 22}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "src/telemetry/TelemetryEnvelopeService.ets", "start_line": 13, "end_line": 22}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/telemetry/TelemetryEnvelopeService.ets", "start_line": 13, "end_line": 22}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "callable-range-dense-file-tail",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A playback lease remains bound to the previous session after a replacement session becomes active. Locate the state transition callable."
+      },
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "callable-range-generalization"
+      },
+      "provenance": {
+        "kind": "reviewed_synthetic_context_fixture",
+        "source_family": "callable-range-generalization/v1",
+        "independence_basis": "project-neutral dense-file fixture created without external project identifiers"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable"],
+        "artifact_roles": ["service"],
+        "mechanism_kinds": ["ui_state"]
+      },
+      "oracle": {
+        "expected_files": ["src/playback/PlaybackLeaseCoordinator.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "bounded_callable_pool",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "src/playback/PlaybackLeaseCoordinator.ets", "start_line": 88, "end_line": 94}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "src/playback/PlaybackLeaseCoordinator.ets", "start_line": 88, "end_line": 94}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/playback/PlaybackLeaseCoordinator.ets", "start_line": 88, "end_line": 94}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "development",
+      "change_policy": "editable",
+      "source_isolation": "project_neutral"
+    }
+  }
+}

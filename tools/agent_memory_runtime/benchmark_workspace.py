@@ -24,10 +24,12 @@ def materialized_workspace(root: Path, case: dict[str, Any]) -> Iterator[Path]:
     with tempfile.TemporaryDirectory(prefix="agent-memory-benchmark-") as directory:
         workspace = Path(directory) / "workspace"
         revision = str(case.get("source", {}).get("before_revision") or "working-tree")
-        if revision != "working-tree" and git_archive(root, revision, workspace):
-            pass
-        else:
+        if revision == "working-tree":
             copy_working_tree(root, workspace)
+        elif not git_archive(root, revision, workspace):
+            raise SystemExit(
+                f"failed to materialize immutable benchmark revision: {revision}"
+            )
         remove_fixture_sources(workspace)
         apply_fixture_group(root, workspace, case, revision)
         mutation = case.get("source", {}).get("mutation")

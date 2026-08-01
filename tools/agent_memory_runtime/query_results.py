@@ -15,7 +15,9 @@ from .query_followups import infer_followup_focus, suggested_followup_terms
 from .query_handoff import build_query_handoff
 from .query_hierarchical_localization import SQLiteHierarchicalLocalizer
 from .query_callable_evidence import callable_evidence
+from .query_callable_evidence_set import build_callable_evidence_set
 from .query_intents import gate_matches_by_intent
+from .query_language import excluded_code_candidate, positive_retrieval_query
 from .storage import connect, now_iso
 
 SEARCH_RESULT_LIMITS = {
@@ -101,7 +103,12 @@ def limited_context(
         for item in bounded["code_log_matches"]
     ]
     followup_focus = infer_followup_focus(query, bounded)
-    localization = SQLiteHierarchicalLocalizer().localize(project, query, gated["matches"])
+    localization_matches, direct_scores_safe = localization_input(
+        project, query, gated["matches"], enable_passage_shadow,
+    )
+    localization = SQLiteHierarchicalLocalizer().localize(
+        project, query, localization_matches, direct_scores_safe,
+    )
     context = {
         "project_id": project.project_id,
         "project_path": str(project.root),
@@ -128,7 +135,8 @@ def limited_context(
         "network_limits": network_limits(),
         "source_freshness": collection.recall_audit.get("source_freshness", {}),
     }
-    context["query_handoff"]["callable_evidence"] = callable_evidence(localization)
+    evidence = callable_evidence(localization)
+    context["query_handoff"]["callable_evidence"] = evidence
     calibrate_payload(context)
     context["query_audit"] = build_query_audit(
         context,
@@ -136,9 +144,32 @@ def limited_context(
         retrieval_stage_counts(matches, gated["matches"], bounded),
     )
     context["query_audit"]["hierarchical_localization"] = localization
+    context["query_audit"]["callable_evidence_set"] = build_callable_evidence_set(
+        query, localization, evidence,
+    )
     record_context_use(project, context)
     record_query_miss_if_empty(project, "context", query, context)
     return context
+
+
+def localization_input(
+    project: Project,
+    query: str,
+    matches: dict[str, list[dict[str, Any]]],
+    enable_passage_shadow: bool,
+) -> tuple[dict[str, list[dict[str, Any]]], bool]:
+    positive = positive_retrieval_query(query)
+    if positive == " ".join(query.split()):
+        return matches, False
+    collection = collect_matches_with_audit(
+        project, positive, enable_passage_shadow=enable_passage_shadow,
+    )
+    positive_matches = dict(collection.matches)
+    positive_matches["wiki_matches"] = [
+        item for item in positive_matches.get("wiki_matches") or []
+        if not excluded_code_candidate(query, item)
+    ]
+    return gate_matches_by_intent(project, query, positive_matches)["matches"], True
 
 
 

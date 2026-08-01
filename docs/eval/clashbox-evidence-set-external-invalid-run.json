@@ -1,0 +1,35 @@
+{
+  "schema_version": "agent-context-capability-invalid-run/v1",
+  "status": "invalid",
+  "evaluation_scope": "external_holdout",
+  "source_repository": "https://github.com/xiaobaigroup/ClashBox.git",
+  "source_branch": "master",
+  "case_file": "docs/eval/clashbox-evidence-set-unseen-holdout-cases.sealed.json",
+  "case_seal": {
+    "status": "verified",
+    "digest": "71378afa73fa6d46f201ca386d75c62ba0289a1bb9beac3361411e1aeb116c6b",
+    "case_count": 5
+  },
+  "execution": {
+    "executed_once": true,
+    "observed_case_count": 5,
+    "formal_pass_count": 0,
+    "observed_file_candidate_count": 0,
+    "observed_callable_candidate_count": 0,
+    "observed_range_candidate_count": 0
+  },
+  "invalidation": {
+    "class": "source_materialization_failure",
+    "reason": "git archive could not materialize the immutable revision and the benchmark workspace silently fell back to an empty partial-clone working tree",
+    "metric_interpretation_allowed": false,
+    "retrieval_failure_inference_allowed": false,
+    "promotion_eligible": false
+  },
+  "corrective_action": {
+    "contract": "immutable revisions fail closed when archival materialization fails",
+    "consumed_pack_may_be_rerun": false,
+    "consumed_pack_may_be_tuned": false,
+    "next_gate": "seal and execute a different previously unused external holdout after validating source materialization"
+  },
+  "recorded_at": "2026-07-31T14:10:00+00:00"
+}

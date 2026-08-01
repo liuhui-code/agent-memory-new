@@ -3,11 +3,18 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from collections import defaultdict
 from collections.abc import Iterable
 from typing import Sequence
 
-from .path_context_models import ExpectedLogAnchor, PathBounds, PathCandidate, RawPath
+from .path_context_models import (
+    ExpectedLogAnchor,
+    GraphNode,
+    PathBounds,
+    PathCandidate,
+    RawPath,
+)
 
 
 EVIDENCE_WEIGHTS = {"exact": 1.0, "static": 0.85, "heuristic": 0.5, "inferred": 0.3}
@@ -143,8 +150,30 @@ def deduplicate_candidates(candidates: list[PathCandidate]) -> list[PathCandidat
 
 
 def path_identity(path: RawPath) -> str:
-    source = f"{path.seed.seed_id}|{'|'.join(node.ref.key for node in path.nodes)}"
+    source = json.dumps({
+        "anchor": {
+            "message_template": path.seed.anchor.message_template,
+            "logger": path.seed.anchor.logger,
+            "event_name": path.seed.anchor.event_name,
+            "file_path": path.seed.anchor.file_path,
+            "function": path.seed.anchor.function,
+            "line": path.seed.anchor.line,
+        },
+        "nodes": [stable_node_identity(node) for node in path.nodes],
+        "relations": [edge.relation for edge in path.edges],
+    }, ensure_ascii=True, sort_keys=True, separators=(",", ":"))
     return "path_" + hashlib.sha256(source.encode("utf-8")).hexdigest()[:16]
+
+
+def stable_node_identity(node: GraphNode) -> dict[str, object]:
+    return {
+        "entity_type": node.ref.entity_type,
+        "kind": node.kind,
+        "file_path": node.file_path,
+        "qualified_name": node.qualified_name or node.name,
+        "start_line": node.start_line,
+        "end_line": node.end_line,
+    }
 
 
 def deduplicate_logs(items: Iterable[ExpectedLogAnchor]) -> tuple[ExpectedLogAnchor, ...]:

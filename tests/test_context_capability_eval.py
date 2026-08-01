@@ -263,13 +263,16 @@ class ContextCapabilityEvalTests(unittest.TestCase):
         self.assertEqual(1, measured["relation_hint_count"])
         self.assertNotIn("private-source-marker", str(measured))
 
-    def test_evaluation_reads_fielded_shadow_candidates_from_audit(self) -> None:
+    def test_evaluation_uses_serving_candidates_not_fielded_shadow(self) -> None:
         context = {
             "query_audit": {"candidate_recall": {"tables": {
                 "code_files": {"candidate_refs": [
                     {"file_path": "src/Profile.ets"},
                     {"file_path": "src/Support.ets"},
-                ]},
+                ], "fielded_retrieval": {
+                    "mode": "shadow",
+                    "candidate_refs": [{"file_path": "src/Shadow.ets"}],
+                }},
                 "code_symbols": {"candidate_refs": [
                     {"file_path": "src/Profile.ets", "symbol": "openProfile"},
                 ]},

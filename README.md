@@ -69,6 +69,7 @@ Agent Memory stays intentionally conservative:
 - `tools/agent_memory.py` is the only runtime entry point
 - the user-facing interface stays fixed at **four skills**
 - raw runtime logs are temporary evidence, not long-term memory
+- incident memory stores only Agent-structured outcomes with explicit evidence state
 - current source files always override historical memory
 - governance is read-first and confirmation-oriented
 

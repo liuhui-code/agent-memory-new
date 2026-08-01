@@ -7,6 +7,7 @@ from collections.abc import Mapping
 from typing import Any
 
 from .models import VALID_MEMORY_STATUSES
+from .incident_trace_models import ARKTS_SCENES
 from .cli_benchmark import add_benchmark_parsers
 from .cli_design import add_design_parsers
 from .cli_semantic import add_semantic_parsers
@@ -277,8 +278,16 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p = sub.add_parser("incident-trace")
     add_project(p)
     p.add_argument("--symptom", required=True)
-    p.add_argument("--log-text")
-    p.add_argument("--log-file")
+    p.add_argument("--scene", choices=sorted(ARKTS_SCENES), default="unknown")
+    p.add_argument("--diagnosis-summary", required=True)
+    p.add_argument("--observed-event", action="append", default=[])
+    p.add_argument("--causal-step", action="append", default=[])
+    p.add_argument("--code-anchor", action="append", default=[])
+    p.add_argument("--status", choices=["diagnosed", "resolved"], default="diagnosed")
+    p.add_argument("--resolution")
+    p.add_argument("--intervention")
+    p.add_argument("--verification-evidence")
+    p.add_argument("--confidence", type=float, default=0.7)
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("incident_trace_command"))
 

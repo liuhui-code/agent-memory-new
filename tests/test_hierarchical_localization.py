@@ -12,9 +12,12 @@ from tools.agent_memory_runtime.context_hierarchical_metrics import (
     assess_hierarchical_localization,
 )
 from tools.agent_memory_runtime.query_hierarchical_localization import (
+    file_rank_prior,
+    select_graph_seeds,
+)
+from tools.agent_memory_runtime.query_localization_file_candidates import (
     MAX_FILES_PER_DIRECTORY,
     select_file_candidates,
-    select_graph_seeds,
 )
 
 
@@ -114,8 +117,10 @@ struct TimelineRow {
             "resource bound maximum persistence restore snapshot"
         )
 
-        self.assertEqual("shadow", localization["mode"])
-        self.assertFalse(localization["serving_candidates_changed"])
+        self.assertEqual("serving", localization["mode"])
+        contract = localization["projection_contract"]
+        self.assertFalse(contract["candidate_recall_changed"])
+        self.assertTrue(contract["affects_serving_projection"])
         source_range = next(
             item for item in localization["source_ranges"]
             if item["symbol"] == "restoreSnapshot"
@@ -163,6 +168,7 @@ struct TimelineRow {
         )
 
         self.assertTrue(score["observed"])
+        self.assertTrue(score["serving_observed"])
         self.assertEqual(1.0, score["file_recall"])
         self.assertEqual(1.0, score["callable_recall"])
         self.assertEqual(1.0, score["owner_recall"])
@@ -176,11 +182,105 @@ struct TimelineRow {
             candidate("src/services/Owner.ets", 20.0),
         ]
 
-        selected = select_file_candidates(items, 3)
+        selected = select_file_candidates(items, 3, "")
 
         paths = [item["file_path"] for item in selected]
         self.assertEqual(MAX_FILES_PER_DIRECTORY, sum("src/pages/" in path for path in paths))
         self.assertIn("src/services/Owner.ets", paths)
+
+    def test_file_selection_reserves_bounded_structural_evidence(self) -> None:
+        items = [
+            candidate(f"src/noise/Generic{index}.ets", 40.0 - index)
+            for index in range(10)
+        ]
+        items.extend([
+            candidate(
+                "src/pages/BehaviorOwner.ets",
+                4.0,
+                reasons=["structural_behavior"],
+                behavior_coverage=2,
+            ),
+            candidate(
+                "src/services/PartialOwner.ets",
+                3.0,
+                reasons=["structural_behavior"],
+                behavior_coverage=1,
+            ),
+        ])
+
+        selected = select_file_candidates(
+            items,
+            8,
+            "invalid update still submits validation dispatch",
+        )
+
+        paths = [item["file_path"] for item in selected]
+        self.assertEqual(8, len(paths))
+        self.assertIn("src/pages/BehaviorOwner.ets", paths)
+        self.assertIn("src/services/PartialOwner.ets", paths)
+        self.assertEqual(
+            2,
+            next(
+                item["structural_coverage"]
+                for item in selected
+                if item["file_path"] == "src/pages/BehaviorOwner.ets"
+            ),
+        )
+
+    def test_structural_reservation_cannot_displace_exact_identity(self) -> None:
+        items = [
+            candidate(
+                "src/pages/ExactOwner.ets",
+                60.0,
+                reasons=["exact_symbol"],
+            ),
+            candidate(
+                "src/pages/StructuralOne.ets",
+                4.0,
+                reasons=["structural_behavior"],
+                behavior_coverage=2,
+            ),
+            candidate(
+                "src/pages/StructuralTwo.ets",
+                3.0,
+                reasons=["structural_behavior"],
+                behavior_coverage=2,
+            ),
+            *[
+                candidate(f"src/noise/Generic{index}.ets", 40.0 - index)
+                for index in range(8)
+            ],
+        ]
+
+        selected = select_file_candidates(
+            items,
+            8,
+            "refresh action unchanged state owner",
+        )
+
+        paths = {item["file_path"] for item in selected}
+        self.assertIn("src/pages/ExactOwner.ets", paths)
+
+    def test_deferred_lane_duplicates_do_not_reduce_file_budget(self) -> None:
+        items = [
+            candidate(
+                f"src/pages/Owner{index}.ets",
+                20.0 - index,
+                reasons=["structural_behavior"],
+                behavior_coverage=2,
+            )
+            for index in range(8)
+        ]
+
+        selected = select_file_candidates(
+            items,
+            8,
+            "invalid update still submits validation dispatch",
+        )
+
+        paths = [item["file_path"] for item in selected]
+        self.assertEqual(8, len(paths))
+        self.assertEqual(8, len(set(paths)))
 
     def test_graph_seeds_preserve_direct_or_mechanism_callable_before_rank_fill(self) -> None:
         ranked = [
@@ -193,6 +293,12 @@ struct TimelineRow {
         seeds = select_graph_seeds(ranked, 3)
 
         self.assertEqual([4, 3, 1], [item["id"] for item in seeds])
+
+    def test_file_rank_prior_is_bounded_and_reciprocal(self) -> None:
+        self.assertEqual(12.0, file_rank_prior(1))
+        self.assertEqual(11.0, file_rank_prior(2))
+        self.assertEqual(7.333, file_rank_prior(8))
+        self.assertEqual(0.0, file_rank_prior(0))
 
     def test_component_property_flow_projects_parent_build_as_owner(self) -> None:
         localization = self.localization("event bubble show header property flow")
@@ -273,13 +379,98 @@ export class LateAuditPage {{
         self.assertGreater(excerpt["start_line"], 4000)
         self.assertIn("reconcileLateAuditCheckpoint", excerpt["content"])
 
+    def test_inline_builder_reaches_public_compact_source_excerpt(self) -> None:
+        self.write_file(
+            "src/workspace/WorkspaceShell.ets",
+            """
+@Entry
+@Component
+struct WorkspaceShell {
+  @State retainedDocument: string = ''
 
-def candidate(path: str, score: float) -> dict[str, object]:
+  @Builder renderActiveDocument() {
+    Column() {
+      Text(this.retainedDocument)
+    }
+  }
+
+  build() {
+    this.renderActiveDocument()
+  }
+}
+""",
+        )
+        self.run_memory(self.root, "learn-path", "--path", ".", "--json")
+
+        payload = self.compact_context(
+            "WorkspaceShell builder renders the retained document state"
+        )
+
+        anchor = next(
+            item for item in payload["query_handoff"]["code_anchors"]
+            if item["file_path"] == "src/workspace/WorkspaceShell.ets"
+        )
+        excerpts = anchor.get("source_excerpts") or []
+        self.assertTrue(excerpts)
+        excerpt = excerpts[0]
+        self.assertIn("@Builder renderActiveDocument", excerpt["content"])
+        self.assertEqual("renderActiveDocument", anchor.get("symbol"))
+        source_range = anchor["source_ranges"][0]
+        self.assertLessEqual(source_range["start_line"], 6)
+        self.assertGreaterEqual(source_range["end_line"], 10)
+
+    def test_excluded_result_clause_does_not_rank_decoy_callable(self) -> None:
+        self.write_file(
+            "src/adapters/ObserverBoundary.ets",
+            """
+export class ObserverBoundary {
+  attach(runtime: Runtime, listener: Listener): void {
+    runtime.setObserver({
+      onFailure: (code: number) => listener.onFailure(code)
+    })
+  }
+}
+""",
+        )
+        self.write_file(
+            "src/recovery/ObserverRetryService.ets",
+            """
+export class ObserverRetryService {
+  retryFailure(): void {
+    this.queue.schedule('observer failure retry service')
+  }
+}
+""",
+        )
+        self.run_memory(self.root, "learn-path", "--path", ".", "--json")
+
+        payload = self.compact_context(
+            "observer failure 回调没有传给 listener，请定位 adapter boundary，不要返回 retry service。"
+        )
+
+        handoff = payload["query_handoff"]
+        self.assertEqual(
+            "src/adapters/ObserverBoundary.ets",
+            handoff["callable_evidence"]["primary"]["file_path"],
+        )
+        self.assertNotIn(
+            "src/recovery/ObserverRetryService.ets",
+            {item["file_path"] for item in handoff["code_anchors"]},
+        )
+
+
+def candidate(
+    path: str,
+    score: float,
+    reasons: list[str] | None = None,
+    behavior_coverage: int = 0,
+) -> dict[str, object]:
     return {
         "id": len(path),
         "kind": "file",
         "file_path": path,
         "score": score,
-        "match_reasons": ["semantic_match"],
+        "match_reasons": reasons or ["semantic_match"],
         "recall_lanes": ["broad_fts"],
+        "semantic_behavior_coverage": behavior_coverage,
     }

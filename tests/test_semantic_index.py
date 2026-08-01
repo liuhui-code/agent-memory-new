@@ -355,29 +355,6 @@ export class ProfileService {
         self.assertIn("pages/ProfilePage.ets", stats["reverse_dependents_reindexed"])
         self.assertTrue(edges)
 
-    def test_incident_trace_adds_structured_semantic_candidates(self) -> None:
-        self.learn_all()
-
-        result = self.run_memory(
-            self.project, "incident-trace", "--symptom", "profile page is blank",
-            "--log-text", "profile load failed", "--json",
-        )
-        payload = json.loads(result.stdout)
-        roles = {
-            step["evidence_role"]
-            for chain in payload["causal_chain"]
-            for step in chain["steps"]
-        }
-
-        self.assertIn("observed", roles)
-        self.assertIn("supports", roles)
-        self.assertIn("possible", roles)
-        semantic_links = [
-            link for link in payload["linked_targets"] if link["relation"] == "semantic_candidate"
-        ]
-        self.assertTrue(semantic_links)
-        self.assertTrue(all(link["target_id"] for link in semantic_links))
-
     def test_typescript_adapter_uses_the_same_ir_contract(self) -> None:
         self.write_file(
             "typescript/task.ts",

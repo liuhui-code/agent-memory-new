@@ -112,7 +112,7 @@ When `maintain-plan` returns `quality_summary`, `low_quality_records`, or `high_
 When `maintain-plan` returns `review_low_quality_memory`, inspect `quality_reasons` before choosing a fix. Prefer tightening the record, lowering confidence, marking stale, or merging duplicates over deleting data.
 When `maintain-plan` returns `review_high_value_experience`, prioritize it for reuse or skill-pattern review. This is not permission to create or promote a skill automatically; keep the normal draft/review/promotion gates.
 When `maintain-plan` returns `review_missing_counter_evidence`, add negative preconditions, does-not-apply cases, or counter examples before letting the experience act as a reusable rule. If `review_immature_experience` appears, add trigger, repair, verification, or lower confidence. If `review_maturity_regression` appears, inspect misleading or stale signals before keeping the experience active.
-When `maintain-plan` returns `review_weak_evidence_chain`, do not discard the experience. Check whether `source_cases` can be linked to an existing `incident_trace:<id>` or whether a code/log anchor should be added through a future reflection or incident trace.
+When `maintain-plan` returns `review_weak_evidence_chain`, do not discard the experience. Check whether `source_cases` can be linked to a verified Agent-structured `incident_trace:<id>` or whether a code/log anchor should be added through a future reflection. Never send temporary logs to Runtime to manufacture the missing chain.
 When `maintain-plan` returns `review_retrieval_feedback`, inspect the feedback query, reason, independent observation count, and supporting feedback IDs. Only stable signals produce this action. Prefer tightening trigger conditions, lowering confidence, marking stale only after confirmation, or superseding with the replacement record if provided. Then execute the supplied resolution commands so reviewed feedback no longer affects ranking. Pending feedback is observation only, not a mutation prompt.
 When `maintain-plan` returns `review_experience_usage`, inspect stable outcomes before changing the record. A verified event or the same outcome from two independent tasks is required. `used`, `ignored`, and `superseded` do not directly change rank; prefer tightening scope, lowering confidence, adding `does_not_apply_to`, or marking stale only after checking current source and replacement guidance.
 When `maintain-plan` returns `review_active_learning_queue`, treat it as an ordering aid. Inspect `queue_item.lane`, `priority_score`, `source_signals`, and `suggested_action`, then use the specific query miss, graph signal, experience usage, or quality action path for the actual repair.
@@ -308,12 +308,13 @@ python tools/agent_memory.py miss-status \
 
 Open misses are merged by normalized query text. Use `miss_count` and `last_seen_at` to prioritize recurring retrieval gaps before one-off misses.
 
-Incident trace review actions can appear in `maintain-plan`:
+Agent-structured incident review actions can appear in `maintain-plan`:
 
-- `promote_incident_trace_to_reflection`: a resolved trace has code anchors and can be reviewed as a diagnosis reflection.
-- `review_log_anchor_gap`: a trace contains runtime log evidence but did not match learned code log anchors.
+- `promote_incident_trace_to_reflection`: a resolved, verified structured outcome has a current code anchor and can be reviewed as a diagnosis reflection.
+- `complete_incident_verification`: a structured outcome still lacks a current anchor or causal closure evidence.
+- `review_legacy_incident_trace`: an old Runtime-derived trace is quarantined and must not be promoted.
 
-Do not promote a trace automatically. Check current source and logs, then run `agent-memory-reflect` with the returned `reflection_payload_template` if the trace is reusable.
+Do not promote an outcome automatically. Check current source and the Agent's evidence, then run `agent-memory-reflect` with the returned `reflection_payload_template` if the result is reusable.
 
 ## Refresh Indexes
 

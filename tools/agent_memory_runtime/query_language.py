@@ -21,7 +21,14 @@ COMPARISON_CLAUSE_RE = re.compile(
     re.I,
 )
 NAMED_IDENTIFIER_RE = re.compile(r"\b[A-Z][A-Za-z0-9_$]*[A-Z][A-Za-z0-9_$]*\b")
-EXCLUDED_ROLE_TERMS = {"class", "data", "entity", "item", "model", "record", "type"}
+LOWER_CAMEL_IDENTIFIER_RE = re.compile(
+    r"\b[a-z][A-Za-z0-9_$]*[A-Z][A-Za-z0-9_$]*\b"
+)
+EXCLUDED_ROLE_TERMS = {
+    "adapter", "boundary", "card", "class", "component", "config", "configuration",
+    "coordinator", "data", "entity", "item", "manifest", "metadata", "model", "page",
+    "record", "reporter", "repository", "service", "store", "type", "view", "viewmodel",
+}
 EXAMPLE_ROLE_TERMS = {"demo", "demos", "example", "examples", "sample", "samples"}
 TARGET_ROLE_PATTERNS = (
     (re.compile(r"\beditor\b", re.I), "editor"),
@@ -58,3 +65,30 @@ def excluded_result_roles(query: str) -> set[str]:
         for term in re.findall(r"[a-z]+", clause.casefold())
         if term in EXAMPLE_ROLE_TERMS
     }
+
+
+def excluded_result_identifiers(query: str) -> set[str]:
+    return {
+        re.sub(r"[^a-z0-9]", "", value.casefold())
+        for clause in NEGATIVE_RESULT_CLAUSE_RE.findall(query)
+        for pattern in (NAMED_IDENTIFIER_RE, LOWER_CAMEL_IDENTIFIER_RE)
+        for value in pattern.findall(clause)
+    }
+
+
+def excluded_code_candidate(query: str, item: dict[str, object]) -> bool:
+    clauses = NEGATIVE_RESULT_CLAUSE_RE.findall(query)
+    if not clauses:
+        return False
+    text = " ".join(str(item.get(key) or "") for key in ("file_path", "owner_name"))
+    tokens = set(identifier_tokens(text))
+    roles = {
+        term for clause in clauses for term in re.findall(r"[a-z]+", clause.casefold())
+        if term in EXCLUDED_ROLE_TERMS
+    }
+    normalized = re.sub(r"[^a-z0-9]", "", text.casefold())
+    identifiers = {
+        re.sub(r"[^a-z0-9]", "", value.casefold())
+        for clause in clauses for value in NAMED_IDENTIFIER_RE.findall(clause)
+    }
+    return bool(roles & tokens or any(value in normalized for value in identifiers))

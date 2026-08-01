@@ -8,6 +8,7 @@ from .context_compact import COMPACT_TOKEN_BUDGET
 from .context_capability_quality import assess_context_quality
 from .context_capability_requirements import context_requirements
 from .context_evidence_funnel import assess_evidence_funnel, evidence_funnel_profile
+from .context_evidence_set_metrics import assess_evidence_set, evidence_set_profile
 from .context_hierarchical_metrics import assess_hierarchical_localization, localization_profile
 from .context_log_path_quality import assess_log_path_quality, log_path_profile
 
@@ -42,6 +43,7 @@ def evaluate_context_capability(
             **capability_profile(scored),
             "query_robustness": robustness,
             "evidence_funnel": evidence_funnel_profile(scored),
+            "evidence_set_calibration": evidence_set_profile(scored),
         },
         "cases": scored,
         "audit": {
@@ -127,6 +129,9 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
     quality = assess_context_quality(requirements, expected, observation)
     localization = assess_hierarchical_localization(expected, requirements, observation)
     funnel = assess_evidence_funnel(expected, requirements, observation)
+    evidence_set = assess_evidence_set(
+        expected, observation, oracle.get("evidence_set_oracle"),
+    )
     log_paths = assess_log_path_quality(requirements, observation)
     checks = {
         "compact_schema_returned": (
@@ -211,6 +216,7 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
         "missing_required_evidence_gaps": quality["missing_required_evidence_gaps"],
         "hierarchical_localization": localization,
         "evidence_funnel": funnel,
+        "evidence_set": evidence_set,
         **log_paths["result"],
         "abstention_observed": quality["abstention_observed"],
         "anchor_count": len(anchors),

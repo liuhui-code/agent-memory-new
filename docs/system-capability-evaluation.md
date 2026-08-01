@@ -105,10 +105,11 @@ A/B。`--fail-on-fail` 继续检查能力与必需 calibration，不把“尚未
 临时查询进程中使用；能力观察与持久化报告只保存路径、命中、计数、耗时和 Token。
 
 `hierarchical_callable_spans`、`hierarchical_owner_spans` 与
-`hierarchical_range_spans` 只用于分层定位影子评估，不加入 `system_context_gate`。它们分别
+`hierarchical_range_spans` 只用于分层定位 serving-stage 独立评估，不单独加入
+`system_context_gate`。它们分别
 标注目标 callable、从该 callable 反向一跳可达的真实 caller/owner、以及可供 Agent 检查的
 源码范围。旧的 `required_source_spans` 和 `required_owner_spans` 仍作为未迁移案例的观察
-回退；新案例应使用专用字段，避免影子标注改变紧凑源码摘录门禁。尚未人工标注的维度会显示
+回退；新案例应使用专用字段，避免独立定位指标改变紧凑源码摘录门禁。尚未人工标注的维度会显示
 为 `null`，不能解读为 0 分或通过。
 
 日志效果路径使用有序位置子序列匹配，而不依赖不稳定的数据库 ID。`required_log_effect_paths`
@@ -118,7 +119,7 @@ A/B。`--fail-on-fail` 继续检查能力与必需 calibration，不把“尚未
 `required_log_evidence_classes`，但没有包装链，因此不计入日志路径精度分母。
 
 若案例只校准完整审计的层级定位，而不要求紧凑 Context 直接返回目标文件，应保留
-`expected_files` 作为影子文件指标，并显式设置 `require_expected_anchors: false`。这样紧凑
+`expected_files` 作为独立文件指标，并显式设置 `require_expected_anchors: false`。这样紧凑
 预算和 schema 仍受门禁约束，但 callable、owner、range 的 Oracle 不会被无关的紧凑锚点失败
 掩盖。需要同时验证服务检索和分层定位的案例则保持默认值 `true`。
 
@@ -866,7 +867,8 @@ Context。`sqlite_hierarchical_localizer/v1` 只接收已经过意图门控的�
 指标。两条查询共享同一冻结工作区和临时 SQLite Memory，不改变用户查询、正式候选路径或
 紧凑 Token 预算。
 
-评测报告的 `capability_profile.hierarchical_localization` 固定为 `informational`，分别给出
+初始评测报告把 `capability_profile.hierarchical_localization` 标为 `informational`。在
+serving 契约校正后，状态改为 `informational_serving_stage`，但仍不单独参与正式门禁；报告分别给出
 `file_recall`、`callable_recall`、`owner_recall`、`owner_precision`、`range_recall` 与
 `average_audit_elapsed_ms`。这避免用文件命中替代方法、调用者或具体表达式质量；也避免在尚无
 人工 owner/range Oracle 时把缺失标注当成系统退化。
@@ -1109,3 +1111,290 @@ passage selection 缺口；Agent A/B 因 Context 门禁失败而停止。完整�
 执行编排曾在子进程实际完成前暴露空的重定向文件，随后同一个首次执行进程写入完整 JSON；
 没有发起第二次评测。该竞态不改变结果，但后续一次性外部门禁应增加独立于最终 stdout 的
 持久化执行回执，避免操作者过早判断进程终止。
+
+## 2026-07-31 Evidence Funnel 独立开发修复
+
+本阶段没有读取或重跑 AGenUI，而是建立三个项目无关的隔离 development 场景：native observer
+到 listener 的适配边界、deferred 尺寸策略，以及通过 ArkTS import alias 调用 hilog 的组件包装
+链。首次 9 变体运行只通过 3 个；候选文件、层级文件、callable 和 range 召回均为 1.0，但 6 个
+变体首次丢失在 `evidence_primary`，别名日志也没有形成静态包装路径。
+
+修复复用现有架构：层级 callable 排序现在与代码候选共享 `positive_retrieval_query`，存在排除
+子句时不再复用由原始查询计算的 direct score；owner profile 增加 adapter、boundary 和 policy，
+显式角色匹配成为 typed ranking 信号，并与 callable evidence 的 bounded certainty 使用同一契约。
+日志 API catalog 在扫描前有界解析 ECMA named/default import alias，映射到 canonical receiver 后
+继续使用原 extractor、SQLite 模型和 wrapper graph，没有增加项目 logger 名称、数据库或模型。
+
+源码复核修正了两个新案例标注问题：嵌套回调 owner 是 `onAreaChange` 而非 `build`，任务明确要求
+的 wrapper 也应属于 expected files；宽测量查询保留 Top-2、禁止 Canvas 和源码段门禁，但不再
+要求 compact 允许的 4 个有界候选全部来自同一文件。最终独立门禁为 9/9、稳定场景 3/3；锚点
+召回、主锚点召回、MRR、源码摘录/区间召回、日志路径召回和精度均为 1.0，平均 Context 为
+1,333.5556 Token。
+
+相关聚焦测试 72 项通过，包含 named/default 两类 ECMA import alias 契约。CI 规模配置下延迟、
+查询计划和增量维护全部通过，callable pool P95 为
+7.336 ms，一跳 owner P95 为 8.026 ms，均低于 150 ms SLO。完整 75 场景、225 变体运行在 12
+分钟有界窗口内没有产出结果并被终止，因此不计为通过或完整回归证明。
+
+另选 6 个受影响的既有场景进行版本对照：冻结 Runtime `b26de18` 与当前实现均通过 16/18，失败
+的是相同两个中文噪声变体，具体失败检查也完全一致。本阶段在该有界范围内没有观测到新增回归；
+两项失败保留为既有基线债务，不以本次新案例调参处理。下一步只能先解决完整门禁的重复索引
+执行成本或进行可审计分片；在此之前不准备新的 external holdout。
+
+## 2026-07-31 完整门禁共享 Fixture 执行
+
+`eval-context-capability` 保持原门面和参数不变，内部改为四层执行生命周期：按完整 source 对象
+物化源码并建立一次索引；按 task type 与完整 `context_setup` 建立只读准备态；每个展开后的查询
+变体再复制独立临时 memory snapshot。查询产生的 use count、last-used 时间和 query miss 写入不能
+污染基础索引、setup 准备态或其他案例。分组使用 canonical JSON 的 SHA-256 身份，不增加持久
+缓存、后台进程、数据库或用户开关。
+
+结果新增 `agent-context-capability-execution/v1` 审计段，记录 source/setup 分组、索引构建、案例
+快照、避免构建次数及各阶段实际耗时。3 个 evidence-funnel 场景与旧隔离执行均为 9/9；另选 6 个
+既有场景对照，修复前后均为 16/18。两组案例去除耗时字段后逐项完全一致。两个不同反思 setup
+与一个无 setup 场景为 9/9，审计正确记录三个 setup group 和 2/2/0 条反思，未发生状态串扰。
+
+完整 75 场景、225 变体首次在原 12 分钟边界内完成，batch 用时 316,578 ms。4 个 source group
+只执行 4 次索引，产生 6 个 setup group 和 225 个独立案例快照，避免 221 次重复索引。源码物化、
+索引、setup 和案例快照累计分别为 461、8,155、1,697 和 2,256 ms，剩余主要成本是真实查询。
+
+能力门禁真实结果为 173/225，稳定场景 39/75，未通过。52 个失败变体共包含 139 个失败检查：
+candidate generation 23、passage selection 44、ranking precision 68、abstention calibration 4。
+本阶段仅修复评估基础设施，没有修改检索排序或 Oracle；该结果成为后续独立开发复现的完整基线。
+CI 规模门禁在 10 万可查询实体和 30 万图边下通过，callable pool P95 为 5.349 ms，一跳 owner
+P95 为 5.764 ms。Context 测试 78 项与 benchmark/governance 测试 37 项通过，Python 编译、100 个
+评测 JSON、diff 和 500 行门禁通过。未读取或重跑任何已消费 external holdout；完整 development
+gate 通过前不晋级。
+
+## 2026-07-31 级联排序、目标意图与排除约束校准
+
+完整基线差分发现两个可复现回归：问题描述中的 `service` 会覆盖目标子句明确要求的
+`coordinator`；含排除子句时，本地化器为避免负向词污染而丢弃全部一阶段直接分数，正确文件虽
+位于第一名，仍可能被通用 reporter 或页面 callable 反超。
+
+实现保持 `context` 门面和 `HierarchicalLocalizerPort` 边界。显式目标角色优先于问题上下文角色，
+没有显式角色时保留原有全句相关性；目标基数独立识别单目标、chain/flow、并列目标以及中英文
+数量表达，只有显式单目标可以硬排序并收缩紧凑源码窗口。含排除子句的本地化查询额外执行一次
+既有正向检索，但继续用原始查询执行负向角色和完整标识符约束；因此使用的是无污染的正向直接
+分数，而不是恢复原始负向查询分数。无安全直接分数的防御路径使用 `k=10` 的平滑 RRF 先验。
+排序层只向证据层输出校准后的 `evidence_score`，不泄露内部先验字段。
+
+宽泛实现曾在完整门禁中产生 14 个历史回归，已拒绝。最终新增两个独立场景、6 个变体均通过。
+完整 development 门禁为 183/231、稳定场景 44/77，整体仍诚实标记为 fail；但历史 225 变体从
+173 提升到 177，零 pass-to-fail 回归。相对冻结 `b26de18` 从 168 提升到 177，九项改善、零
+回归。全量批次使用 5 次索引构建和 231 个隔离快照，避免 226 次重复构建，用时 354,771 ms。
+
+平均查询耗时从 672.6711 ms 增至 735.6364 ms，增加 9.36%；平均 Context 从 1,266.7289 增至
+1,291.1948 Token。Context 测试 81 项、查询/本地化测试 68 项、benchmark/governance 测试 91
+项均通过。CI 规模门禁在 10 万可查询实体和 30 万图边下通过，callable pool P95 为 4.286 ms，
+一跳 owner P95 为 5.141 ms；Python 编译、200 个评估 JSON、diff、固定 4 Skill 和 500 行门禁
+通过。未读取、修改或重跑已消费 external holdout，当前结果不具备外部晋级资格。
+
+## 2026-07-31 Typed File Candidate Fusion
+
+完整 183/231 基线中的 18 个 `candidate_file` 首次损失里，16 个是中文噪声变体。逐层审计表明，
+这些查询均已正确映射到语言无关行为标记，目标文件也已进入 SQLite `structural_fts`；实际丢失
+发生在层级定位器把文件与符号的异构分数直接混排后截取 8 个文件。另一个观测问题是 evaluator
+优先读取了明确标记为 `shadow`、不改变服务结果的 fielded passage 候选，使漏斗把后续损失错误
+归因到首阶段。
+
+`SQLiteHierarchicalLocalizer` 门面与 8 文件、12 callable、8 range、一跳图预算保持不变。文件
+候选融合被抽到独立策略模块：仅对行为查询依次保留精确身份、结构覆盖两条有界 lane，再按原分数
+补齐；所有 lane 共用目录多样性策略，最终候选仍按原分数顺序返回。结构保留只保证证据进入后续
+callable/range 比较，不直接宣称根因或最终锚点。行为标记集合每次查询只计算一次，避免候选循环
+重复扫描概念表。
+
+两个宽版本均被拒绝：结构 lane 先于身份会挤掉精确 callback owner；所有查询都启用身份 lane
+会降低多文件 property-flow 召回。最终策略仅在存在行为概念时激活身份与结构保留，callback、
+多文件 flow、排除条件和目录多样性契约同时保持。Evaluator 只有在
+`fielded_retrieval.mode=serving` 时才采用 fielded candidates，否则测量真实 serving refs；该修正
+只改变观测归因，不改变查询结果、Oracle 或阈值。
+
+最终完整 development gate 从 183/231 提升到 185/231，稳定场景从 44/77 提升到 46/77；两个
+失败变体转为通过，既有正式检查和分层指标零回退。层级 file/callable/range 召回从
+0.9271/0.9069/0.8995 提升到 0.9769/0.9632/0.9338，owner recall/precision 保持 1.0。整体门禁
+仍为 fail，不能晋级外部评估；剩余真实首损失主要位于 `evidence_primary`、`source_range` 和
+`callable`，不再继续按错误的 candidate-generation 方向调参。
+
+CI 规模门禁在 10 万可查询实体和 30 万图边下通过：候选命中/未命中 P95 为
+46.485/81.839 ms，callable pool 为 16.362 ms，一跳 owner 为 24.708 ms。大方法增量重建首次在
+残留负载下超过 SLO，负载收敛后的完整复跑为 2,821.429 ms/5,000 ms 并通过；查询计划和其余增量
+门禁也通过。相关查询/Context 测试 107 项、benchmark/governance 测试 97 项通过，Python 编译、
+评估 JSON、diff、固定 4 Skill 和 500 行检查通过。未读取、修改或重跑任何已消费 external
+holdout。
+
+## 2026-07-31 Callable 证据投影停止审计
+
+生命周期持久化、源替换状态等独立 development 场景证明了一个正式输出缺口：目标文件已通过
+file、callable 和 source-range 阶段，并成为 `bounded` callable primary，最终紧凑 Context
+仍可能只返回无关 wiki 或日志锚点。该问题位于检索证据到 Agent 可读源码的投影边界，不是候选
+召回缺陷。
+
+第一个实验为所有缺失的 `bounded` primary 保留一个紧凑候选位置。完整 231 变体从 185 降为
+178 个通过；虽然 4 个失败变体转为通过，但 13 个既有通过变体失败，23 个正式检查回退。多文件
+组件关系被收缩为单文件，正确的单 owner 上下文被错误 primary 污染，禁止文件与大文件方法窗口
+也发生回退。该实现已撤回。
+
+第二个实验保持排序不变，只从 direct-query `evidence_score` 中减去文件排名先验。聚焦门禁中，
+一个原本 `uncertain` 的双组件查询反而变成 `bounded`，随后两个正确锚点被收缩为一个。该实现及
+临时测试也已撤回。结果说明当前标量分数由异构 lane 组成，简单相减不构成 confidence
+calibration；`bounded` 只能描述当前排序间隔，不能证明查询是单目标或允许覆盖竞争图证据。
+
+本阶段没有接受服务行为改动，也没有修改权重、阈值、Oracle、预算、数据库、门面或 Skill。
+后续必须先建立 shadow evidence-set contract，显式表达目标基数、竞争支持、排除冲突和确定性
+依据，并在独立单 owner、多 owner、图路径和排除案例上校准；在此之前停止扩大 callable 投影。
+两个实验均未读取、修改或重跑任何已消费 external holdout。
+
+## 2026-07-31 Callable Evidence-Set Shadow
+
+在不改变 `context` 门面、SQLite、候选排序和 compact handoff 的前提下，新增
+`agent-callable-evidence-set/v1` shadow 契约。Provider 最多读取既有 12 个 callable、输出 3 个
+成员，分类记录显式单/多目标、同角色竞争、图支持、排除冲突、源码可定位性和确定性依据。结果
+只写入 full Context 的 `query_audit`，`serving_projection_changed=false`，不进入 1,500 Token
+compact Context，也不参与根因判断。
+
+能力评测新增 informational profile：目标基数准确率、集合成员召回、primary 精度和 calibration
+state 分布。它不增加正式 checks，不影响 `system_context_gate`。15 个 development 变体的初始
+shadow 结果为：目标基数准确率 0.3333、成员召回 0.7556、primary 精度 0.5333；状态包含
+10 个 unresolved、2 个 portfolio required、1 个 conflicted、1 个 insufficient 和 1 个 single
+candidate supported。低分作为后续校准基线，明确禁止当前契约控制 serving 投影。
+
+同一 15 变体与 185/231 接受基线逐项比较，正式状态、检查、主锚点、源码摘录和首次损失完全
+一致。完整 231 变体在既有 12 分钟有界窗口内未产出结果并被终止，不计为通过且未重跑。CI 规模
+运行的全部查询延迟与 SQL plan 门禁通过；同轮未修改的增量维护路径因高负载失败，大方法重建
+P95 为 9,854.305 ms，因此整体 scale 结果诚实记录为 fail，不调整 SLO 或实现。
+
+相关回归 102 项通过；Python 编译、100 个评测 JSON、固定 4 Skill、diff 和所有 Python 文件
+不超过 500 行门禁通过。未读取、修改或重跑任何已消费 external holdout。下一阶段只能使用新的
+独立校准 fixture 改善 evidence-set 分类；达到文档晋级条件前不得接管 compact projection。
+
+## 2026-07-31 Callable Evidence-Set 独立校准
+
+影子集合评测新增可选 `oracle.evidence_set_oracle`，显式标注 single/multiple/unknown 目标基数、
+预期成员、primary、禁止活跃成员和允许状态。它只生成 target-scope accuracy、active-member
+recall、primary precision、state accuracy、guarded exclusion 等 informational 指标，不新增正式
+check，也不改变 `system_context_gate`。
+
+开发组与校准组分别位于 `evidence-set-development` 和 `evidence-set-calibration` fixture group，
+使用不同路径、标识符和业务语义，各覆盖单 owner、多 owner、图竞争、排除 guard 和无证据五类，
+每类三种措辞。source 隔离保证它们不会改变现有 185/231 基线的索引统计。开发结果证明并修正了
+三类通用影子契约缺口：单数表达覆盖不足、lowerCamel 方法排除不可见，以及纯 semantic
+mechanism 相似度被误当成独立强证据。正式检索、排序、compact 投影、预算、Oracle 与阈值均未改动。
+
+Provider 冻结后，独立校准组只运行一次：15/15 变体、5/5 场景通过；目标基数准确率、成员召回、
+primary 精度和状态准确率均为 1.0。状态分布为 6 个 `single_candidate_supported`、6 个
+`portfolio_required`、3 个 `insufficient`；两个排除候选作为 guard 保留，活跃禁止成员为 0。
+治理状态为 `calibration/frozen/project_neutral`、`tuning_allowed=false`。该结果仍是合成影子校准，
+不具备 external promotion 资格，也不允许 evidence set 接管 compact source projection。
+
+相关主回归 105 项、查询排除与语义回归 10 项通过；Python 编译、102 个评测 JSON、固定 4 Skill、
+diff 和全仓 Python 500 行门禁通过。未读取、修改或重跑任何已消费 external holdout。
+
+## 2026-07-31 ClashBox 外部门禁基础设施无效
+
+新的 ClashBox 五案例包完成源码审阅和密封，密封摘要为
+`71378afa73fa6d46f201ca386d75c62ba0289a1bb9beac3361411e1aeb116c6b`。首次且唯一一次执行中，
+五个案例的 file、callable 和 range 候选数均为零。审计确认这不是检索退化：评测使用 filtered、
+未 checkout 的审阅 clone，`git archive` 无法物化历史 revision，而 workspace 层错误回退到了空工作树。
+
+该运行标记为 `invalid`，0/5 及其派生指标不得用于系统调参、能力结论或晋级。密封包已消费，不修改、
+不重跑。评测 workspace 已改为严格失败：working tree 仍可复制，任何 immutable revision 归档失败则
+立即终止，不再读取当前工作树。下一次外部验证必须使用新的未见项目，并在唯一执行前独立验证 revision
+可物化。审计记录位于 `docs/eval/clashbox-evidence-set-external-invalid-run.json`。
+
+## 2026-07-31 KeePassHO Evidence-Set 有效外部门禁
+
+在修复 revision 物化 fail-open 后，选择此前未使用的 GPL-3.0 项目 KeePassHO。源码包含 252 个
+ArkTS 文件；五个源码审阅案例覆盖回收站搜索、分布式 KV Value 解包、锁屏新 Intent、S3 multipart
+签名和 WebDAV 连接复用。五个 pre-fix revision 均在密封前完成独立 `git archive` 预检，案例包以
+`d3be3e541193749ea96a061838726f3290cc9773bec0f8641cebb796d2376ec3` 密封并只执行一次。
+
+本轮基础设施有效：五个 source group 全部物化并建立隔离索引，每案均产生 8 个 file 和 12 个
+callable 候选。正式 Context 门禁为 0/5；file recall 为 0.8，但 callable/range recall 均为 0，
+source-span recall 为 0.2。shadow evidence-set 的 target-scope accuracy 为 0.2、member recall 为
+0.5、primary precision 为 0.6、state accuracy 为 0，五案均降级为 `insufficient`。compactness 以
+平均 1,443.8 tokens 通过，`serving_projection_changed=false`，系统未把影子判断写入 Agent 上下文。
+
+结果证明合成校准的 1.0 指标不能外推到大型真实 ArkTS 工程。当前主要缺口不再是空索引或一般文件
+召回，而是 callable extraction/localization、方法范围契约和集合确定性证据的跨项目泛化。密封包与
+结果已消费，不修改、不重跑，也不直接用于调参。下一阶段必须在新的项目中立 development fixture
+中复现至少两个独立缺陷类，验证 serving 输出后才能准备另一个未见外部门禁。完整结果位于
+`docs/eval/keepassho-evidence-set-unseen-holdout-result.json`。
+
+运行后 93 项 workspace、Context、evidence-set、排除语义、callable、层级定位、源码窗口和日志
+契约回归全部通过；全仓 Python 编译、评测 JSON、diff、固定四 Skill 与 500 行门禁通过。
+
+## 2026-07-31 Callable 与源码区间跨项目泛化
+
+有效外部门禁暴露的 callable/range 缺口先在独立、可编辑的项目中立 fixture 中复现：多行 ArkTS
+方法头无法进入符号表，以及大文件尾部方法在评分前被源码前缀池截断。开发基线为 1/2，文件召回
+1.0，但 callable/range recall 均为 0。实现新增统一的有界 callable-header 前端，并让语义抽取与
+源码区间共用同一契约；候选生成改为固定预算的 direct-first、源码位置分层池。最终开发组 2/2，
+file/callable/range/source-span recall 均为 1.0，平均 compact tokens 从 1,482 降至 1,399。
+
+第一次完整回归虽然把 callable recall 从 0.9632 提高到 0.9804、range recall 从 0.9338 提高到
+0.9412，但整体从接受基线 185/231、46/77 降到 183/231、45/77。差分证明 SQLite 自增 ID 被用于
+路径 hash 和同分顺序；索引新增合法符号后，两条结构同分路径发生翻转，紧凑预算只留下其中一条。
+路径身份现改为源码路径、限定名、区间、日志身份和关系组成的稳定语义键；compact 投影在预算紧张
+时使用“完整主路径 + 去重备选入口”，让 Agent 继续对照真实日志筛选分支。
+
+最终 231 变体为 186/231、46/77，原有 185 个通过项无一回退，新增通过一项；平均 compact 为
+1,296.3/1,500 tokens。百万档 100 万可检索实体、300 万边、2.26 GB SQLite 的 latency、query-plan
+和 incremental-maintenance 门禁全部通过：callable pool P95 10.695 ms，candidate hit P95
+124.653 ms，大型方法文件增量 P95 3,479.244 ms，均低于既定 SLO。
+
+完整测试执行 802 项：受限沙箱中 799 项直接通过；两项 loopback server 因端口权限失败，授权本机
+回环后 3/3 通过；一个治理测试发现五个旧新增文件缺少指纹，补齐后相关 24 项通过。Python 编译、
+110 个评测 JSON、diff、固定四 Skill 和 500 行门禁通过。未读取、修改或重跑任何已消费 external
+holdout；新的外部门禁仍必须使用未来未见项目。
+
+## 2026-08-01 Cloudrs Callable/Range 有效外部门禁
+
+在实现和开发回归冻结后，选择此前未使用的 GPL-3.0 项目 Cloudrs。五个源码审阅案例分别来自批量
+面板短操作闪烁、相册组件重建、中文草稿键碰撞、过期签名 URL 下载恢复和设置弹层竞态。案例覆盖
+UI timing、组件生命周期、持久化身份、传输完整性和 lifecycle race，并包含大文件尾部方法、多行
+方法头与 ArkUI `@Builder`。十个 before/after 修订全部通过 `git archive` 预检，声明文件均属于
+真实 fix diff。案例包以
+`661cfe13bd116f6642651f9dc9ba460ab1fa64aff7734ed0822df2ff2564ac79` 密封并只执行一次。
+
+执行基础设施有效：5 个 source group 全部物化并建立隔离索引，每案都有 8 个 file、12 个 callable
+候选。正式 Context 门禁为 0/5；candidate-file recall@20 和 hierarchical file recall 均为 0.8，
+callable/range recall 均为 0.0。批量面板案例的最终 Context 找到正确文件与源码区间，MRR 和 span
+recall 均为 1.0，但 4 个锚点把 Oracle precision 降到 0.25，未达到 0.5 门槛；其他四案未返回目标
+源码区间。平均 Context 为 1,463.2/1,500 tokens，compactness 通过。
+
+evidence funnel 的首次损失分布为 callable 三案、candidate file 一案、localizer file 一案。这说明
+完整文件解析与 callable-header 支持虽已改善开发集，但仍未解决真实大项目中的方法候选排序和区间
+证据生成；不能继续把问题简化为追加语法正则。下一阶段只能在新的项目中立 development fixtures
+中复现“目标文件已命中但 callable/range 丢失”“语义描述无法进入目标文件候选”“正确 primary 被
+同域锚点稀释”三类机制，再从 typed retrieval、方法级检索和 evidence-set projection 的架构边界
+修复。不得读取、修改或重跑本 Cloudrs 密封包。
+
+shadow evidence set 的 member recall 与 primary precision 均为 0.6，五案全部保守降级为
+`insufficient`，`serving_projection_changed=false`。原始结果位于
+`docs/eval/cloudrs-callable-range-external-holdout-result.json`。运行后 benchmark workspace 与 Context
+runner 回归 29/29 通过；Python 编译、全部评测 JSON、diff、固定四 Skill 和 500 行门禁通过。
+
+## 2026-08-01 内联装饰 Callable 独立开发闭环
+
+在不访问已消费外部案例的前提下，新增五个项目中立 development 场景：inline `@Builder`、inline
+`@Styles`、大文件方法体证据、中英跨语言缓存键和同域 sheet 竞争。基线为 3/5。大文件方法和同域
+compact 投影已经通过，禁止继续修改；`@Styles` 的正式 handoff 已包含正确源码，但 shadow callable
+指标缺失，单独不能驱动服务改动；`@Builder` 则在正式输出中把窗口绑定到 `build`，目标 source-span
+recall 为 0，构成可修复的公共输出缺陷。
+
+实现复用现有 normalized callable-header 前端，只增加有界内联装饰器前缀扫描，再交给同一
+method/function grammar。它不硬编码 `Builder`、`Styles`、项目路径或任务词，也不增加新 Port、候选
+lane、权重、阈值和预算。修复后独立组为 4/5，两种装饰 callable 的 file/callable/range/source-span
+recall 均为 1.0。
+
+剩余中文案例在 candidate-file 首阶段失败。源码只有英文标识符，案例没有经过审阅的双语
+`business_terms`，而 Runtime 明确不使用向量或运行时 LLM；当前证据不足以支持通用跨语言架构，
+也不允许添加案例词表。该项保留为能力边界，使用已有 `learn-business` 录入项目业务语义后再查询，
+否则由 Agent 转入源码探索。
+
+完整 231 变体与接受基线逐项一致，仍为 186/231、46/77，正式 checks、锚点集合和分层指标零变化。
+百万档在 100 万可检索实体、300 万边和 2.26 GB SQLite 上通过，callable pool P95 为 8.213 ms，
+大方法增量刷新 P95 为 2,278.093/5,000 ms。聚焦测试 58/58 通过；全量受限环境 803/805，仅两项
+loopback socket 被沙箱阻止，授权回环模块 3/3 通过；编译、全部评测 JSON、diff、固定四 Skill 和
+500 行门禁通过。

@@ -268,6 +268,33 @@ class ContextSourceExcerptQualityTests(unittest.TestCase):
         self.assertEqual("query_term_window", focused["selection_reason"])
         self.assertNotIn("symbol", focused)
 
+    def test_bounded_callable_focus_cannot_drift_to_matching_import(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "ActivationCoordinator.ets"
+            source.write_text(
+                "import { TransportActivation } from './transport';\n\n"
+                "export class ActivationCoordinator {\n  private transport: Transport\n\n"
+                "  async activateWithGrant(): Promise<void> {\n"
+                "    const grant = await Gate.requestCode()\n"
+                "    if (!grant) return\n"
+                "    await this.transport.start()\n  }\n}\n",
+                encoding="utf-8",
+            )
+
+            focused = focused_source_range(
+                source,
+                {
+                    "symbol": "activateWithGrant",
+                    "start_line": 6,
+                    "end_line": 10,
+                    "selection_reason": "bounded_callable_primary",
+                },
+                "transport activation coordinator validates grant",
+            )
+
+        self.assertGreaterEqual(focused["start_line"], 6)
+        self.assertLessEqual(focused["end_line"], 10)
+
     def test_no_query_match_preserves_original_anchor_range(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             source = Path(directory) / "Profile.ets"
@@ -348,13 +375,34 @@ class ContextSourceExcerptQualityTests(unittest.TestCase):
                     }],
                     "path_context": {
                         "activated": True,
-                        "path_candidates": [path, {**path, "path_id": "second"}],
+                        "path_candidates": [
+                            path,
+                            {
+                                **path,
+                                "path_id": "second",
+                                "entry": {
+                                    "file_path": "src/ProfilePage.ets",
+                                    "name": "ProfilePage.aboutToAppear",
+                                },
+                                "nodes": [
+                                    {
+                                        "file_path": "src/ProfilePage.ets",
+                                        "name": "ProfilePage.aboutToAppear",
+                                    },
+                                    *path["nodes"][1:],
+                                ],
+                            },
+                        ],
                     },
                 },
             })
 
         anchors = compact["query_handoff"]["code_anchors"]
         self.assertTrue(anchors[0].get("source_excerpts"))
+        paths = compact["query_handoff"]["path_context"]["path_candidates"]
+        self.assertEqual(2, len(paths))
+        if paths[1].get("projection") == "alternate_entry":
+            self.assertNotIn("expected_logs", paths[1])
         self.assertLessEqual(compact["output_budget"]["estimated_tokens"], 1500)
 
 

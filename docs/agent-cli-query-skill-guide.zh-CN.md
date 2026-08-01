@@ -222,19 +222,27 @@ Runtime 到此只完成上下文供给。Agent 用当前源码确认调用关系
 | `verified` | “定向干预后，前后证据验证了该根因” |
 | `rejected` | “当前证据否定该候选” |
 
-### 5.5 记录紧凑 Incident，而不是归档完整日志
+### 5.5 记录 Agent 的结构化 Incident 结论
 
-需要跨任务保留定位结果时：
+Agent 直接读取临时日志、比对当前源码并完成因果推断。需要跨任务保留定位结果时，
+只把结构化结论提交给 Runtime：
 
 ```bash
 python tools/agent_memory.py incident-trace \
   --project . \
   --symptom "个人资料页首次进入白屏" \
-  --log-file /tmp/profile-runtime.log \
+  --scene state \
+  --diagnosis-summary "ProfileService 初始化早于会话恢复完成" \
+  --observed-event "PROFILE_LOAD_START" \
+  --observed-event "SESSION_RESTORE_DONE" \
+  --causal-step "页面创建 -> ProfileService 初始化 -> 会话恢复完成" \
+  --code-anchor "entry/src/main/ets/service/ProfileService.ets::initialize" \
   --json
 ```
 
-Incident 只保存短日志摘要、事件、代码锚点、关系证据和压缩 Span Graph。确认修复后记录三类不同信息：
+`incident-trace` 不接受日志文件或原始日志文本，也不会让 Runtime 生成根因或因果链。
+它只保存 Agent 给出的症状、诊断摘要、有限事件、因果步骤和当前索引可验证的代码锚点。
+确认修复后记录三类不同信息：
 
 ```bash
 python tools/agent_memory.py incident-trace-status \
@@ -247,7 +255,9 @@ python tools/agent_memory.py incident-trace-status \
   --json
 ```
 
-只有 resolution 没有 intervention 和 verification evidence 时，证据最多是 supported，不能升级为 verified。
+只有当前代码锚点、resolution、intervention 和 verification evidence 同时存在时，
+证据才能升级为 `verified`。旧版 Runtime 自动生成的 Incident 标记为
+`legacy_unverified`，不会进入普通查询，也不能自动晋升为经验。
 
 ### 5.6 修改前后检查影响范围
 

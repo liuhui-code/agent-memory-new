@@ -29,8 +29,15 @@ def assess_hierarchical_localization(
     owner_recall, missing_owners = span_recall(required_owners, owners)
     range_recall, missing_ranges = span_recall(required_ranges, ranges)
     owner_precision = span_precision(required_owners, owners)
+    projection = observation.get("hierarchical_projection_contract")
+    projection = projection if isinstance(projection, dict) else {}
     return {
         "observed": bool(observation.get("hierarchical_schema_version")),
+        "mode": str(observation.get("hierarchical_mode") or ""),
+        "serving_observed": (
+            observation.get("hierarchical_mode") == "serving"
+            and bool(projection.get("affects_serving_projection"))
+        ),
         "file_recall": recall(expected_files, files),
         "callable_recall": callable_recall,
         "owner_recall": owner_recall,
@@ -84,9 +91,10 @@ def localization_profile(scored: list[dict[str, Any]]) -> dict[str, Any]:
     values = [item["hierarchical_localization"] for item in scored]
     observed = [item for item in values if item["observed"]]
     return {
-        "status": "informational",
+        "status": "informational_serving_stage",
         "evaluated_cases": len(values),
         "observed_case_count": len(observed),
+        "serving_observed_case_count": sum(item["serving_observed"] for item in observed),
         "file_evaluated_case_count": measured_count(observed, "file_recall"),
         "callable_evaluated_case_count": measured_count(observed, "callable_recall"),
         "owner_evaluated_case_count": measured_count(observed, "owner_recall"),

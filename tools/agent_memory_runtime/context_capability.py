@@ -15,13 +15,12 @@ from .agent_benchmark_cases import (
     load_case_pack,
     require_executable_case_pack,
 )
-from .benchmark_context_setup import apply_context_setup
-from .benchmark_memory import prepare_isolated_memory
-from .benchmark_workspace import materialized_workspace
 from .context_capability_cases import expand_context_cases
 from .context_calibration import assess_calibration, calibration_contract
 from .context_capability_eval import OBSERVATION_SCHEMA, evaluate_context_capability
+from .context_capability_runner import collect_context_capability_batch
 from .context_log_path_quality import observe_log_paths
+from .context_evidence_set_observation import compact_callable_evidence_set
 from .context_sufficiency_metrics import sufficiency_profile
 from .evaluation_governance import assess_promotion_policy
 from .benchmark_case_seal import case_pack_seal_audit
@@ -61,8 +60,15 @@ def eval_context_capability_command(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     cases = expand_context_cases(scenario_cases)
-    observations = collect_context_capabilities(source, cases, int(args.runner_timeout))
+    batch = collect_context_capability_batch(
+        source,
+        cases,
+        int(args.runner_timeout),
+        collect_prepared_context_capability,
+    )
+    observations = batch["observations"]
     result = evaluate_context_capability(cases, observations)
+    result["execution"] = batch["execution"]
     result["capability_profile"]["sufficiency"] = sufficiency_profile(observations)
     contract = calibration_contract(pack)
     result["calibration"] = assess_calibration(cases, result["cases"], contract)
@@ -132,53 +138,31 @@ def limit_scenario_cases(
     return cases[: max(1, int(limit))]
 
 
-def collect_context_capabilities(
-    source: Path,
-    cases: list[dict[str, Any]],
-    timeout: int,
-) -> list[dict[str, Any]]:
-    return [collect_context_capability(source, case, timeout) for case in cases]
-
-
-def collect_context_capability(
-    source: Path,
+def collect_prepared_context_capability(
+    workspace: Path,
+    memory: dict[str, Any],
     case: dict[str, Any],
     timeout: int,
+    prepare_ms: int,
+    fixture_counts: dict[str, int],
 ) -> dict[str, Any]:
-    with materialized_workspace(source, case) as workspace:
-        started = time.monotonic()
-        memory_home = workspace.parent / "memory-home"
-        memory = prepare_isolated_memory(
-            workspace,
-            memory_home,
-            timeout,
-            case["task_type"],
-        )
-        fixture_counts = apply_context_setup(memory, case.get("context_setup"), timeout)
-        prepare_ms = elapsed_ms(started)
-        query_started = time.monotonic()
-        context = run_context_query(
-            memory.get("query_command"),
-            str(case.get("task", {}).get("description") or ""),
-            workspace,
-            timeout,
-        )
-        query_ms = elapsed_ms(query_started)
-        audit_started = time.monotonic()
-        audit_context = run_context_query(
-            memory.get("audit_query_command"),
-            str(case.get("task", {}).get("description") or ""),
-            workspace,
-            timeout,
-        )
-        audit_ms = elapsed_ms(audit_started)
-        observation = {
-            **summarize_context(
-                case["id"], context, prepare_ms, query_ms, audit_context, audit_ms,
-            ),
-            "fixture_counts": fixture_counts,
-        }
-        return observation
+    query = str(case.get("task", {}).get("description") or "")
+    query_started = time.monotonic()
+    context = run_context_query(
+        memory.get("query_command"), query, workspace, timeout,
+    )
+    query_ms = elapsed_ms(query_started)
+    audit_started = time.monotonic()
+    audit_context = run_context_query(
+        memory.get("audit_query_command"), query, workspace, timeout,
+    )
+    audit_ms = elapsed_ms(audit_started)
+    return {
+        **summarize_context(
+            case["id"], context, prepare_ms, query_ms, audit_context, audit_ms,
+        ),
+        "fixture_counts": fixture_counts,
+    }
 
 
 def run_context_query(
@@ -249,6 +233,8 @@ def summarize_context(
     budget = budget if isinstance(budget, dict) else {}
     log_anchors = records(handoff.get("log_anchors"))
     callable_evidence = handoff.get("callable_evidence")
+    query_audit = audit.get("query_audit")
+    query_audit = query_audit if isinstance(query_audit, dict) else {}
     return {
         "schema_version": OBSERVATION_SCHEMA,
         "case_id": case_id,
@@ -261,6 +247,9 @@ def summarize_context(
         ),
         "candidate_anchor_paths": candidate_paths,
         "callable_evidence": compact_callable_evidence(callable_evidence),
+        "callable_evidence_set": compact_callable_evidence_set(
+            query_audit.get("callable_evidence_set")
+        ),
         **localization,
         "hierarchical_audit_elapsed_ms": audit_ms,
         "excerpt_paths": unique_paths(
@@ -315,8 +304,13 @@ def candidate_paths_from_context(context: dict[str, Any]) -> list[str]:
     for table_name in ("code_files", "code_symbols"):
         table = tables.get(table_name) if isinstance(tables, dict) else {}
         fielded = table.get("fielded_retrieval") if isinstance(table, dict) else {}
-        selected = fielded.get("candidate_refs") if isinstance(fielded, dict) else None
-        refs.extend(records(selected or table.get("candidate_refs"))[:20] if isinstance(table, dict) else [])
+        fielded_serving = (
+            fielded.get("candidate_refs")
+            if isinstance(fielded, dict) and fielded.get("mode") == "serving"
+            else None
+        )
+        selected = fielded_serving or table.get("candidate_refs")
+        refs.extend(records(selected)[:20] if isinstance(table, dict) else [])
     return unique_paths(item.get("file_path") for item in refs)
 
 
@@ -343,6 +337,11 @@ def hierarchical_localization_from_context(context: dict[str, Any]) -> dict[str,
     ranges = records(localization.get("source_ranges"))
     return {
         "hierarchical_schema_version": str(localization.get("schema_version") or ""),
+        "hierarchical_mode": str(localization.get("mode") or ""),
+        "hierarchical_projection_contract": (
+            localization.get("projection_contract")
+            if isinstance(localization.get("projection_contract"), dict) else {}
+        ),
         "hierarchical_file_paths": unique_paths(
             item.get("file_path") for item in records(localization.get("file_candidates"))
         ),

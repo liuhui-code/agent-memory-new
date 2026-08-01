@@ -1,0 +1,243 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "docs/eval/fixtures/system-capability",
+  "cases": [
+    {
+      "id": "localization-inline-builder-callable",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "WorkspaceShell replaces the active document while preserving the previous document subtree. Locate the builder callable that renders the retained document state."
+      },
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "localization-contract-development"
+      },
+      "provenance": {
+        "kind": "reviewed_synthetic_context_fixture",
+        "source_family": "localization-contract-development/inline-builder",
+        "independence_basis": "project-neutral ArkUI component lifecycle fixture with controlled source behavior"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable"],
+        "artifact_roles": ["component"],
+        "mechanism_kinds": ["ui_state"]
+      },
+      "oracle": {
+        "expected_files": ["src/workspace/WorkspaceShell.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "decorated_callable_extraction",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "src/workspace/WorkspaceShell.ets", "start_line": 7, "end_line": 11}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "src/workspace/WorkspaceShell.ets", "start_line": 7, "end_line": 11}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/workspace/WorkspaceShell.ets", "start_line": 7, "end_line": 11}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "localization-inline-styles-callable",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "AlertSurface changes its background and border when a blocking error is active. Locate the reusable style callable that owns the conditional visual state."
+      },
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "localization-contract-development"
+      },
+      "provenance": {
+        "kind": "reviewed_synthetic_context_fixture",
+        "source_family": "localization-contract-development/inline-styles",
+        "independence_basis": "project-neutral ArkUI style-state fixture with controlled source behavior"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["component"],
+        "mechanism_kinds": ["ui_state"]
+      },
+      "oracle": {
+        "expected_files": ["src/theme/AlertSurface.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "decorated_callable_extraction",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "src/theme/AlertSurface.ets", "start_line": 5, "end_line": 8}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "src/theme/AlertSurface.ets", "start_line": 5, "end_line": 8}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/theme/AlertSurface.ets", "start_line": 5, "end_line": 8}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "localization-dense-method-body-evidence",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "TransferResumeCoordinator resumes a persisted transfer by obtaining a fresh endpoint and continuing from the validated partial payload size. Locate the owning callable."
+      },
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "localization-contract-development"
+      },
+      "provenance": {
+        "kind": "reviewed_synthetic_context_fixture",
+        "source_family": "localization-contract-development/dense-method",
+        "independence_basis": "project-neutral transfer-resume fixture with a controlled dense callable pool"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["service"],
+        "mechanism_kinds": ["resource_io", "async_control"]
+      },
+      "oracle": {
+        "expected_files": ["src/transfers/TransferResumeCoordinator.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "callable_body_ranking",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "src/transfers/TransferResumeCoordinator.ets", "start_line": 46, "end_line": 54}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "src/transfers/TransferResumeCoordinator.ets", "start_line": 46, "end_line": 54}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/transfers/TransferResumeCoordinator.ets", "start_line": 46, "end_line": 54}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "localization-cross-language-cache-key",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "两个中文账户别名写入同一个离线缓存槽位，定位生成缓存槽位键的方法。"
+      },
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "localization-contract-development"
+      },
+      "provenance": {
+        "kind": "reviewed_synthetic_context_fixture",
+        "source_family": "localization-contract-development/cross-language-cache-key",
+        "independence_basis": "project-neutral multilingual retrieval fixture with a deterministic lossy key function"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["utility", "store"],
+        "mechanism_kinds": ["persistence", "error_contract"]
+      },
+      "oracle": {
+        "expected_files": ["src/cache/OfflineProfileKey.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "cross_language_semantic_recall",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "src/cache/OfflineProfileKey.ets", "start_line": 2, "end_line": 9}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "src/cache/OfflineProfileKey.ets", "start_line": 2, "end_line": 9}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/cache/OfflineProfileKey.ets", "start_line": 2, "end_line": 9}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    },
+    {
+      "id": "localization-same-domain-anchor-dilution",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A settings sheet open request arrives while the previous close transition is active and must be queued until closing completes. Locate the callable that receives the open request."
+      },
+      "source": {
+        "before_revision": "working-tree",
+        "fixture_group": "localization-contract-development"
+      },
+      "provenance": {
+        "kind": "reviewed_synthetic_context_fixture",
+        "source_family": "localization-contract-development/same-domain-dilution",
+        "independence_basis": "project-neutral competing-sheet fixture with one controlled lifecycle owner"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable"],
+        "artifact_roles": ["service", "component"],
+        "mechanism_kinds": ["ui_state", "async_control"]
+      },
+      "oracle": {
+        "expected_files": ["src/sheets/SettingsTransitionCoordinator.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "same_domain_anchor_dilution",
+        "expected_causal_level": "association",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {"file_path": "src/sheets/SettingsTransitionCoordinator.ets", "start_line": 5, "end_line": 11}
+          ],
+          "hierarchical_callable_spans": [
+            {"file_path": "src/sheets/SettingsTransitionCoordinator.ets", "start_line": 5, "end_line": 11}
+          ],
+          "hierarchical_range_spans": [
+            {"file_path": "src/sheets/SettingsTransitionCoordinator.ets", "start_line": 5, "end_line": 11}
+          ],
+          "min_source_span_recall": 1.0
+        }
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "development",
+      "change_policy": "editable",
+      "source_isolation": "project_neutral"
+    }
+  }
+}

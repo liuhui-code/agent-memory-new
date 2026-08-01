@@ -4,13 +4,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import json
-from pathlib import PurePosixPath
 from typing import Any, Protocol
 
 from .models import Project
 from .query_behavior_concepts import behavior_marker_terms
 from .query_hierarchical_owners import load_one_hop_owners
-from .semantic_callable_profile import matching_owner_kind
+from .query_language import positive_retrieval_query
+from .query_localization_file_candidates import select_file_candidates
+from .semantic_callable_profile import matching_owner_kind, matching_target_owner_kind
 from .records import row_dict
 from .storage import connect
 from .text import json_list, query_tokens, score_weighted_fields, unique_list
@@ -18,7 +19,6 @@ from .text import json_list, query_tokens, score_weighted_fields, unique_list
 
 CALLABLE_TYPES = ("function", "method")
 MAX_FILES = 8
-MAX_FILES_PER_DIRECTORY = 2
 MAX_FILE_CALLABLE_POOL = 128
 MAX_DIRECT_CALLABLE_POOL = 32
 MAX_GRAPH_SEEDS = 6
@@ -27,7 +27,10 @@ MAX_CALLABLES = 12
 MAX_CALLABLES_PER_FILE = 2
 MAX_SOURCE_RANGES = 8
 EXPRESSION_RADIUS = 2
-
+FILE_RANK_PRIOR_MAX = 12.0
+FILE_RANK_PRIOR_K = 10.0
+LOCALIZATION_SCHEMA_VERSION = "agent-hierarchical-localization/v2"
+LOCALIZATION_PROVIDER = "sqlite_hierarchical_localizer/v2"
 
 class HierarchicalLocalizerPort(Protocol):
     def localize(
@@ -35,21 +38,27 @@ class HierarchicalLocalizerPort(Protocol):
         project: Project,
         query: str,
         matches: dict[str, list[dict[str, Any]]],
+        direct_scores_safe: bool = False,
     ) -> dict[str, Any]:
         ...
 
 
 @dataclass(frozen=True)
 class SQLiteHierarchicalLocalizer:
-    """Bounded shadow locator: fused files -> callables -> evidence ranges."""
+    """Bounded serving locator: fused files -> callables -> evidence ranges."""
 
     def localize(
         self,
         project: Project,
         query: str,
         matches: dict[str, list[dict[str, Any]]],
+        direct_scores_safe: bool = False,
     ) -> dict[str, Any]:
-        files = select_file_candidates(matches.get("wiki_matches") or [], MAX_FILES)
+        files = select_file_candidates(
+            matches.get("wiki_matches") or [],
+            MAX_FILES,
+            query,
+        )
         if not files:
             return empty_localization()
         direct_symbols = direct_symbol_candidates(matches.get("wiki_matches") or [], files)
@@ -59,19 +68,18 @@ class SQLiteHierarchicalLocalizer:
             list(direct_symbols)[:MAX_DIRECT_CALLABLE_POOL],
         )
         candidates = attach_candidate_metadata(rows, files, direct_symbols)
-        initial = rank_callables(candidates, query)
+        ranking_query = positive_retrieval_query(query)
+        use_direct_score = direct_scores_safe or ranking_query == " ".join(query.split())
+        initial = rank_callables(candidates, ranking_query, use_direct_score)
         graph_seeds = select_graph_seeds(initial, MAX_GRAPH_SEEDS)
         owners = load_one_hop_owners(
             project, [item["id"] for item in graph_seeds], MAX_GRAPH_OWNERS,
         )
-        ranked = rank_callables([*candidates, *owners], query)
+        ranked = rank_callables([*candidates, *owners], ranking_query, use_direct_score)
         selected = select_diverse_callables(ranked, MAX_CALLABLES)
-        ranges = valid_source_ranges(selected, query)
+        ranges = valid_source_ranges(selected, ranking_query)
         return {
-            "schema_version": "agent-hierarchical-localization/v1",
-            "provider": "sqlite_hierarchical_localizer/v1",
-            "mode": "shadow",
-            "serving_candidates_changed": False,
+            **localization_contract(),
             "limits": localization_limits(),
             "stage_counts": {
                 "file_candidates": len(files),
@@ -91,10 +99,7 @@ class SQLiteHierarchicalLocalizer:
 
 def empty_localization() -> dict[str, Any]:
     return {
-        "schema_version": "agent-hierarchical-localization/v1",
-        "provider": "sqlite_hierarchical_localizer/v1",
-        "mode": "shadow",
-        "serving_candidates_changed": False,
+        **localization_contract(),
         "limits": localization_limits(),
         "stage_counts": {
             "file_candidates": 0,
@@ -112,6 +117,19 @@ def empty_localization() -> dict[str, Any]:
     }
 
 
+def localization_contract() -> dict[str, Any]:
+    return {
+        "schema_version": LOCALIZATION_SCHEMA_VERSION,
+        "provider": LOCALIZATION_PROVIDER,
+        "mode": "serving",
+        "projection_contract": {
+            "candidate_recall_changed": False,
+            "affects_serving_projection": True,
+            "consumer": "query_handoff.callable_evidence",
+        },
+    }
+
+
 def localization_limits() -> dict[str, int]:
     return {
         "files": MAX_FILES,
@@ -122,62 +140,6 @@ def localization_limits() -> dict[str, int]:
         "callables": MAX_CALLABLES,
         "source_ranges": MAX_SOURCE_RANGES,
     }
-
-
-def select_file_candidates(
-    items: list[dict[str, Any]],
-    limit: int,
-) -> list[dict[str, Any]]:
-    grouped: dict[str, dict[str, Any]] = {}
-    for rank, item in enumerate(items, start=1):
-        if item.get("kind") not in {"file", "symbol"} or item.get("graph_depth"):
-            continue
-        path = str(item.get("file_path") or "")
-        if not path:
-            continue
-        candidate = grouped.setdefault(path, {
-            "file_path": path,
-            "score": 0.0,
-            "first_rank": rank,
-            "record_ids": [],
-            "direct_symbol_ids": [],
-            "match_reasons": [],
-            "recall_lanes": [],
-        })
-        score = float(item.get("score") or 0.0)
-        candidate["score"] = max(float(candidate["score"]), score)
-        candidate["first_rank"] = min(int(candidate["first_rank"]), rank)
-        record_id = int(item.get("id") or 0)
-        if record_id > 0 and record_id not in candidate["record_ids"]:
-            candidate["record_ids"].append(record_id)
-        if item.get("kind") == "symbol" and record_id > 0:
-            candidate["direct_symbol_ids"].append(record_id)
-        candidate["match_reasons"] = unique_list([
-            *candidate["match_reasons"],
-            *(str(value) for value in item.get("match_reasons") or []),
-        ])
-        candidate["recall_lanes"] = unique_list([
-            *candidate["recall_lanes"],
-            *(str(value) for value in item.get("recall_lanes") or []),
-        ])
-    ordered = sorted(
-        grouped.values(),
-        key=lambda item: (-float(item["score"]), int(item["first_rank"]), item["file_path"]),
-    )
-    selected: list[dict[str, Any]] = []
-    deferred: list[dict[str, Any]] = []
-    directories: dict[str, int] = {}
-    for item in ordered:
-        directory = str(PurePosixPath(item["file_path"]).parent)
-        if directories.get(directory, 0) >= MAX_FILES_PER_DIRECTORY:
-            deferred.append(item)
-            continue
-        selected.append(item)
-        directories[directory] = directories.get(directory, 0) + 1
-        if len(selected) >= limit:
-            return selected
-    selected.extend(deferred[: max(0, limit - len(selected))])
-    return selected[:limit]
 
 
 def direct_symbol_candidates(
@@ -215,17 +177,35 @@ def load_file_callables(
     with connect(project) as conn:
         rows = conn.execute(
             f"""
-            WITH ranked AS (
+            WITH ordered AS (
               SELECT code_symbols.*,
                      ROW_NUMBER() OVER (
                        PARTITION BY file_path
-                       ORDER BY {preference}, start_line, id
-                     ) AS file_pool_rank
+                       ORDER BY start_line, id
+                     ) AS source_rank,
+                     COUNT(*) OVER (PARTITION BY file_path) AS source_count,
+                     {preference} AS preferred_rank
               FROM code_symbols
               WHERE project_id = ? AND file_path IN ({placeholders})
                 AND symbol_type IN ({type_placeholders})
+            ), stratified AS (
+              SELECT ordered.*,
+                     ROW_NUMBER() OVER (
+                       PARTITION BY file_path,
+                         MIN(? - 1, CAST((source_rank - 1) * ? / source_count AS INTEGER))
+                       ORDER BY preferred_rank, source_rank, id
+                     ) AS stratum_rank
+              FROM ordered
+            ), bounded AS (
+              SELECT stratified.*,
+                     ROW_NUMBER() OVER (
+                       PARTITION BY file_path
+                       ORDER BY preferred_rank, stratum_rank, source_rank, id
+                     ) AS file_pool_rank
+              FROM stratified
+              WHERE preferred_rank = 0 OR stratum_rank = 1
             )
-            SELECT * FROM ranked
+            SELECT * FROM bounded
             WHERE file_pool_rank <= ?
             ORDER BY file_pool_rank, file_path, start_line, id
             LIMIT ?
@@ -235,6 +215,8 @@ def load_file_callables(
                 project.project_id,
                 *file_paths,
                 *CALLABLE_TYPES,
+                per_file_limit,
+                per_file_limit,
                 per_file_limit,
                 MAX_FILE_CALLABLE_POOL,
             ),
@@ -292,7 +274,11 @@ def graph_seed_priority(item: dict[str, Any]) -> tuple[float, int, int, float, i
     )
 
 
-def rank_callables(items: list[dict[str, Any]], query: str) -> list[dict[str, Any]]:
+def rank_callables(
+    items: list[dict[str, Any]],
+    query: str,
+    use_direct_score: bool = True,
+) -> list[dict[str, Any]]:
     terms = query_tokens(query)
     expanded_terms = set(terms)
     scored: list[dict[str, Any]] = []
@@ -312,12 +298,25 @@ def rank_callables(items: list[dict[str, Any]], query: str) -> list[dict[str, An
             [("exact_symbol", str(item.get("symbol") or ""), 12.0)],
         )
         mechanism_hits = matching_mechanisms(item.get("mechanism_evidence"), query)
-        score = lexical + min(9.0, float(item.get("direct_score") or 0.0) * 0.18)
-        score += max(0, MAX_FILES + 1 - int(item.get("file_rank") or MAX_FILES + 1))
+        direct_score = float(item.get("direct_score") or 0.0) if use_direct_score else 0.0
+        score = lexical + min(9.0, direct_score * 0.18)
+        file_rank = int(item.get("file_rank") or 0)
+        rank_prior = (
+            linear_file_rank_prior(file_rank)
+            if use_direct_score
+            else file_rank_prior(file_rank)
+        )
+        item["first_stage_rank_prior"] = rank_prior
+        score += rank_prior
+        if rank_prior:
+            reasons.append("first_stage_rank_prior")
         if mechanism_hits:
             score += min(9.0, 3.0 * len(mechanism_hits[0]["matched_terms"]))
             reasons.append("semantic_mechanism")
-        if matching_owner_kind(query, item.get("owner_kind")):
+        owner_kind_match = matching_owner_kind(query, item.get("owner_kind"))
+        item["owner_kind_match"] = owner_kind_match
+        item["target_owner_kind_match"] = matching_target_owner_kind(query, item.get("owner_kind"))
+        if owner_kind_match:
             score += 6.0
             reasons.append("structured_owner_kind")
         if item.get("graph_depth"):
@@ -327,6 +326,7 @@ def rank_callables(items: list[dict[str, Any]], query: str) -> list[dict[str, An
             score += 0.5
             reasons.append("source_locatable")
         item["localization_score"] = round(score, 3)
+        item["evidence_score"] = round(score - rank_prior if not use_direct_score else score, 3)
         item["localization_reasons"] = unique_list([
             *reasons,
             *(str(value) for value in item.get("direct_match_reasons") or []),
@@ -336,6 +336,7 @@ def rank_callables(items: list[dict[str, Any]], query: str) -> list[dict[str, An
     return sorted(
         scored,
         key=lambda item: (
+            -int(bool(item.get("target_owner_kind_match"))),
             -float(item["localization_score"]),
             int(item.get("graph_depth") or 0),
             str(item.get("file_path") or ""),
@@ -343,6 +344,16 @@ def rank_callables(items: list[dict[str, Any]], query: str) -> list[dict[str, An
             int(item.get("id") or 0),
         ),
     )
+
+
+def file_rank_prior(rank: int) -> float:
+    if rank <= 0 or rank > MAX_FILES:
+        return 0.0
+    return round(FILE_RANK_PRIOR_MAX * (FILE_RANK_PRIOR_K + 1) / (FILE_RANK_PRIOR_K + rank), 3)
+
+
+def linear_file_rank_prior(rank: int) -> float:
+    return float(max(0, MAX_FILES + 1 - rank)) if rank > 0 else 0.0
 
 
 def dedupe_callables(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -409,6 +420,7 @@ def compact_callable(item: dict[str, Any]) -> dict[str, Any]:
         "start_line": item.get("start_line"),
         "end_line": item.get("end_line"),
         "score": item.get("localization_score"),
+        "evidence_score": item.get("evidence_score"),
         "reasons": item.get("localization_reasons") or [],
         "graph_depth": item.get("graph_depth"),
         "graph_relations": item.get("graph_relations") or [],
@@ -416,6 +428,7 @@ def compact_callable(item: dict[str, Any]) -> dict[str, Any]:
         "owner_name": item.get("owner_name"),
         "owner_kind": item.get("owner_kind"),
         "callable_roles": json_list(item.get("callable_roles")),
+        **({"target_owner_kind_match": True} if item.get("target_owner_kind_match") else {}),
     }
 
 

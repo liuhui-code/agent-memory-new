@@ -18,8 +18,19 @@ def prepare_isolated_memory(
     common = ["--project", str(workspace), "--memory-home", str(memory_home)]
     run_runtime(runtime, ["init", *common], timeout)
     run_runtime(runtime, ["wiki-index", *common], timeout)
-    query_command = design_command(runtime, workspace, memory_home) if task_type == "design" else diagnosis_command(
-        runtime, workspace, memory_home
+    return isolated_memory_access(workspace, memory_home, task_type)
+
+
+def isolated_memory_access(
+    workspace: Path,
+    memory_home: Path,
+    task_type: str,
+) -> dict[str, Any]:
+    runtime = Path(__file__).resolve().parents[1] / "agent_memory.py"
+    query_command = (
+        design_command(runtime, workspace, memory_home)
+        if task_type == "design"
+        else diagnosis_command(runtime, workspace, memory_home)
     )
     return {
         "runtime": str(runtime),
