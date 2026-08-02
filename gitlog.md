@@ -8551,3 +8551,204 @@ Result:
   tuned through this query-only change.
 - Python compilation, JSON syntax, diff hygiene, exactly four Skills, and the 500-line
   limit pass. No consumed holdout was read, changed, or rerun.
+
+## 2026-08-02 - Bound incremental graph maintenance at million scale
+
+What changed:
+
+- Reproduced two independent maintenance defects outside the scale report: a
+  project-wide edge count in every refresh and lexical identifier expansion into
+  unrelated same-name symbols.
+- Added an exact rebuildable `project_counters` statistic. Graph writes collect edge
+  deltas with connection-local TEMP triggers and apply one aggregate update inside the
+  refresh transaction; no permanent per-edge trigger remains.
+- Kept every local symbol during scoped graph rebuild, but bounded external fallback to
+  masked import/type-owner names whose `(symbol, symbol_type)` identity is unique.
+  Precise semantic adapters remain authoritative and candidate cardinality is audited.
+- Added development tests for migration backfill, insert/delete/project-move deltas,
+  primary-key query plans, production refresh totals, local declarations, and ambiguous
+  global names. Updated Runtime, Schema, and the execution plan.
+
+Result:
+
+- The CI scale profile passes all gates. Single-file and 500-method incremental P95 are
+  710.654 ms and 3,335.938 ms.
+- The million profile passes all gates with 1,000,000 searchable entities, 3,000,000
+  edges, and a 2.26 GB archive. Candidate hit/miss P95 is 170.911/62.114 ms;
+  single-file and 500-method incremental P95 are 458.742/1,837.784 ms.
+- The focused refresh, graph, semantic, passage, method-evidence, and scale suites pass
+  49/49 without changing thresholds. No consumed holdout was read, changed, or rerun.
+- The restricted complete suite passes 809/811; its two loopback bind errors pass in
+  the complete 3/3 module with local permission. Python compilation, 154 JSON files,
+  diff hygiene, exactly four Skills, and the 500-line gate pass.
+
+## 2026-08-02 - Validate the longitudinal Skill loop and type Context intent
+
+What changed:
+
+- Ran a real development tracer across two ordered `wbbb0/wPlayer` ArkTS commits using
+  learn, query, reflect, changed-only refresh, verified experience usage, and maintain.
+- Recorded two source-grounded procedure experiences for bounded UI work and the later
+  cancellation-aware pipeline. Current source remained authoritative and governance did
+  not auto-promote either record.
+- Reproduced intent collisions in real Context output and an independent cache-refresh
+  fixture. Added optional `context --intent` with the existing seven v2 evidence lanes,
+  preserving inference when omitted and reporting `memory_intent_source` for audit.
+- Moved the typed intent contract into a bounded module, updated both Query Skill mirrors
+  and Runtime guidance, and kept the public product at exactly four Skills.
+
+Result:
+
+- Task B recalled Task A only under a procedure intent, the verified comparison marked
+  it helpful, and an unrelated playback-rendering query returned no experience.
+- Explicit intent resolves domain-word lane collisions without changing FTS candidate
+  generation. Pure cross-language candidate recall remains Agent-owned and is not
+  claimed as a Runtime capability.
+- Focused intent, experience, retrieval, Context, log-path, and repository-design suites
+  pass 73/73. The restricted complete run executed 813 tests: 810 passed, two failed on
+  the known loopback bind restriction, and one exposed the Query Skill 120-line gate.
+  After moving detail into progressive disclosure, that real failure passes 7/7.
+- CI scale passes at 100,000 searchable entities and 300,000 edges. Candidate hit/miss
+  P95 is 18.607/26.482 ms; single-file and 500-method incremental P95 is
+  215.076/1,076.572 ms. Python compilation, 193 JSON files, diff hygiene, exactly four
+  Skills, and the 500-line code gate pass.
+
+## 2026-08-02 - Repair installation and validate four-Skill activation
+
+What changed:
+
+- Reproduced a fresh-project installation failure: the stable entry was copied without
+  `agent_memory_runtime`, so `init` failed with `ModuleNotFoundError`.
+- Copied the complete Runtime package and moved repository/user Skill targets to the
+  Open Agent Skills discovery locations `.agents/skills` and `$HOME/.agents/skills`.
+  Legacy directories remain untouched during reinstall.
+- Standardized commands inside all four Skill packages on the required `python3`
+  interpreter after a real natural-activation run first failed on absent `python`.
+- Added an installed-product regression that runs `doctor` and `maintain-review` from
+  a fresh target and verifies exactly four discoverable Skills.
+- Reproduced `maintain-review` failing through the public entry with undefined
+  `build_review_data`. Restored the split-module call through a call-time import that
+  does not recreate the governance dependency cycle.
+- Added the Runtime-required narrow `trigger_condition` to the correction-experience
+  Skill contract after a natural Reflect activation exposed the omission.
+
+Result:
+
+- A generated no-user-source fixture implicitly activated Query, Learn, Reflect, and
+  Maintain in four separate Codex CLI calls. Query retrieved the synthetic semantic
+  fact, Learn indexed one requested file, Reflect persisted a scoped correction, and
+  Maintain completed health and review flows.
+- The corrected Query activation used `python3` directly with no interpreter retry.
+  The focused installation and governance suites pass 90/90.
+- The restricted complete run executed 815 tests: 812 passed, one installation-test
+  fingerprint failure was fixed and its focused gate passes 3/3, and two loopback bind
+  errors pass in the complete 3/3 module with local permission. Python compilation,
+  JSON validation, diff hygiene, exactly four Skills, and the 500-line gate pass.
+- A wPlayer external Agent call was rejected before execution because source-specific
+  disclosure approval was absent; no bypass was attempted. This stage makes no
+  real-task uplift, cross-project, Token, latency, or holdout claim.
+
+## 2026-08-02 - Freeze a longitudinal ArkTS incident value experiment
+
+What changed:
+
+- Added a development-only four-layer value protocol over the existing binary Agent
+  Runner: source-only, structural Context, Agent-authored experience, and reviewed ideal
+  experience. Context setup remains hidden from the Runner and is audited by count and
+  canonical digest.
+- Added a public `k2-fsa/sherpa-onnx` HarmonyOS incident case at frozen tag `v1.13.3`,
+  with earlier iOS issue history as the only experience source. Raw incident logs are
+  not persisted, and the posthoc ideal record is explicitly not an independent bound.
+- Introduced a shared benchmark workspace sanitization contract after immutable archive
+  and working-tree paths exposed availability and isolation defects. Internal symlinks
+  remain; external symlinks are omitted and audited; unsafe hardlinks still fail.
+
+Result:
+
+- The real Context gate executes after sanitization but passes 0/3. It recalls the exact
+  ArkTS wrapper and one source excerpt, while the C++ N-API boundary, C API constructor,
+  and HarmonyOS runtime build script never enter candidate generation. Anchor recall is
+  0.25, precision and MRR for the recalled anchor are 1.0, and average Context is 1,133
+  tokens.
+- The first proven loss is `candidate_file`. Agent A/B was intentionally not invoked,
+  because downstream reasoning cannot validate context that was never supplied.
+- This is a development observation only. Production language/artifact coverage remains
+  unchanged until an independent case reproduces both boundary-source and build-evidence
+  defects. The focused benchmark suites pass 52/52.
+- The restricted complete suite passes 818/820; both failures are the known loopback
+  bind restriction and the complete local Runner module passes 3/3 with that permission.
+  The CI scale profile passes at 100,000 searchable entities and 300,000 edges:
+  candidate hit/miss P95 is 14.321/21.497 ms and 500-method incremental P95 is
+  834.694 ms. Python compilation, 196 JSON files, diff hygiene, exactly four Skills,
+  and the 500-line code gate pass.
+
+## 2026-08-02 - Add cross-language source and build-artifact adapters
+
+What changed:
+
+- Added a language-neutral `SourceAdapter` classification port for C/C++ and common
+  Make, CMake, Shell, and package build artifacts. Existing language handling remains
+  the fallback and the public product remains exactly four Skills.
+- Added static C/C++ and Build Artifact `LanguageAdapter` implementations over the
+  existing semantic IR. Native extraction records common multiline callable spans,
+  conditional duplicate identities, bounded local calls, and native log ownership;
+  build extraction records targets, shell functions, and variable source locations.
+- Added bounded ArkTS native-module, CMake source, and HNP package/Make target boundary
+  edges. Query retention is activated only by explicit native/build/package intent;
+  graph-only rows still abstain and static `calls` remain outside the public one-hop
+  network whitelist.
+- Added long-query salience retrieval lanes with bounded score and file diversity,
+  independent fixture coverage, and documentation of the parser/provider replacement
+  boundary. Static evidence never claims runtime execution or exact compiler semantics.
+
+Result:
+
+- Focused adapter, semantic, query, Context, and relation regressions pass. The complete
+  run executed 829 tests: 823 initially passed, four contract regressions were repaired
+  and pass in the focused rerun, and the two loopback-restricted tests pass 3/3 outside
+  the sandbox. Python compilation, diff hygiene, exactly four Skills, and the 500-line
+  gate pass.
+- The unchanged Termony development case remains 0/1 with candidate-file recall 0.60,
+  hierarchical file recall 0.40, final anchor recall 0, and 1,496 Context tokens. Its
+  five-file Oracle exceeds the compact protocol's four-anchor maximum, so it is not a
+  valid compact promotion contract and was not edited or tuned.
+- The unchanged Sherpa three-stage development pack remains 0/3, but multiline native
+  parsing raises candidate-file recall from 0.25 to 0.50. Final anchor recall remains
+  0.25. Index preparation rises from about 25.3 seconds to 30.2 seconds for 2,872 files.
+  Both packs remain unsealed, legacy-unclassified, and promotion-ineligible.
+- The CI scale gate passes at 100,000 searchable entities and 300,000 edges; candidate
+  hit/miss P95 is 23.427/33.404 ms and single/500-method refresh P95 is
+  285.987/1,264.326 ms. The million gate passes at 1,000,000 entities, 3,000,000 edges,
+  and 2.263 GB; candidate hit/miss P95 is 200.235/66.103 ms and single/500-method
+  refresh P95 is 557.654/2,036.725 ms. All query plans pass.
+
+## 2026-08-02 - Close a staged real-task Context value gate
+
+What changed:
+
+- Added a backward-compatible `orientation` / `focused` investigation-stage contract
+  for Context capability query variants. Stage-local Oracles may narrow only files and
+  Context requirements; the base Agent A/B Oracle remains unchanged.
+- Added scenario and stage aggregation that requires every wording in a declared stage
+  to pass, plus independent tests for override isolation, invalid fields, and multi-wording
+  failure aggregation.
+- Froze three previously unused public ArkTS incident sources and persisted their sealed
+  case packs, raw model-free Context reports, a portfolio report, and governance audit.
+
+Result:
+
+- HPRichText is valid and consumed once: orientation fails, focused passes, and average
+  Context is 1,186.5 tokens. DSBridge is valid and consumed once: both stages fail at
+  1,467.5 average tokens. Their first proven loss layers differ, so no serving change is
+  allowed and Agent A/B remains blocked.
+- Melotopia was accidentally executed twice after a yielded command continued in a
+  background session. The source is explicitly invalidated as
+  `duplicate_holdout_execution`; its metrics cannot be interpreted, tuned, or promoted.
+- The affected evaluation/governance chain passes 98/98 tests. JSON, compilation, diff
+  hygiene, four Skills, and the 500-line gate pass. The CI scale profile passes on the
+  second independent run at 100,000 searchable entities and 300,000 edges; the first
+  near-threshold failure is retained as variance evidence. No serving or SQL code was
+  changed.
+- A full serial test discovery run was stopped in the existing high-cost
+  `test_agent_memory_part_12` group after sustained low throughput and no observed
+  failures. It is not reported as a full-suite pass.

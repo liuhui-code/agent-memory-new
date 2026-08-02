@@ -40,9 +40,22 @@ This creates:
     memory.db
     runtime/
     vault/
-.agent-skills/
-tools/agent_memory.py
+.agents/
+  skills/
+    agent-memory-learn/
+    agent-memory-query/
+    agent-memory-maintain/
+    agent-memory-reflect/
+tools/
+  agent_memory.py
+  agent_memory_runtime/
 ```
+
+Codex CLI scans repository skills from `.agents/skills`. The installer also
+copies the complete runtime package, so the installed entry point does not
+depend on the Agent Memory source repository being present on `PYTHONPATH`.
+Legacy `.agent-skills` copies are not deleted during reinstall; confirm the new
+four Skill directories before removing any legacy copy manually.
 
 The project directory is the code source. Memory data is stored in the current workspace `.agent-memory/` directory by default, next to `skills/` and `tools/`. Override it with `--memory-home <path>` or `AGENT_MEMORY_HOME=<path>`.
 

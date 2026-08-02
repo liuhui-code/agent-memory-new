@@ -14,11 +14,12 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `episodes`: task history and outcome summaries.
 - `semantic_facts`: durable facts, preferences, and project knowledge.
 - `reflections`: lessons, mistakes, and future rules.
-- `code_files`: lightweight file-level wiki index. ArkTS summaries may include at most 12 source-ordered chained operation names for lexical behavior lookup; operation arguments and source bodies are not stored.
-- `code_symbols`: lightweight symbol-level wiki index.
+- `code_files`: lightweight file-level wiki index. ArkTS summaries may include at most 12 source-ordered chained operation names for lexical behavior lookup. C/C++ and build-artifact summaries contain bounded symbol and literal terms; operation arguments and source bodies are not stored.
+- `code_symbols`: lightweight symbol-level wiki index, including static C/C++ callable spans and Make/CMake/Shell target or variable locations when available.
 - `code_log_statements`: log, print, and console statements extracted from learned source files.
 - `code_passages`: rebuildable file, symbol, and callable retrieval passages derived from current code rows.
 - `memory_edges`: lightweight relation edges between learned files, symbols, and log statements.
+- `project_counters`: rebuildable exact project statistics used by bounded maintenance hot paths.
 - `graph_runtime_state`: graph revision used to invalidate runtime graph-quality snapshots.
 - `impact_feedback`: compact change/test outcome summaries used to improve later test recommendations.
 - `design_outcomes`: bounded compact design-verification metrics used only for calibration.
@@ -37,6 +38,8 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 FTS5 tables are generated search indexes maintained incrementally by SQLite triggers. Their schema version is stored in `runtime_schema_versions`; they are rebuilt only on first creation, version migration, or explicit `maintain-rebuild-derived --target search`. `code_passage_fts` indexes the derived `code_passages` fields. Neither table is a second source of truth.
 
 `memory_edges` are generated from current code rows and source files. `maintain-rebuild-derived --target graph` may replace these derived rows while preserving code business fields and durable memory tables. Its graph audit reports relation counts, edges per node, and dominant-relation share so accidental edge amplification can be detected before the graph is trusted.
+
+`project_counters` is derived from source-of-truth tables. The `memory_edges` counter is backfilled once when missing. Graph refreshes collect insert/delete/project-move deltas through connection-local TEMP triggers, apply one aggregate update in the same transaction, and remove the temporary objects before commit. Persistent write triggers are intentionally avoided so bulk learning does not pay permanent per-edge write amplification. A counter can be rebuilt from `memory_edges` when recovery or migration requires it.
 
 ## Governance Fields
 
@@ -256,7 +259,7 @@ The ArkTS edges connect learned pages/components to imported project files, rout
 
 Known ArkUI Builder calls are excluded from function-symbol extraction without suppressing project-defined uppercase methods. Chained operation names in `code_files.summary` are retrieval metadata only and do not create nodes or relations.
 
-`code_symbols` also carries nullable `semantic-index/v1` metadata: `symbol_key`, `qualified_name`, `signature`, `start_line`, `end_line`, `semantic_adapter`, and `evidence_class`. ArkTS and TypeScript adapters may persist symbol-level `calls`, `reads_state`, `writes_state`, `implements`, `extends`, `overrides`, `registers_callback`, `exposes_api`, `consumes_api`, and `awaits` edges. The built-in adapters emit static evidence; exact compiler-derived evidence is reserved for future adapters.
+`code_symbols` also carries nullable `semantic-index/v1` metadata: `symbol_key`, `qualified_name`, `signature`, `start_line`, `end_line`, `semantic_adapter`, and `evidence_class`. ArkTS and TypeScript adapters may persist symbol-level `calls`, `reads_state`, `writes_state`, `implements`, `extends`, `overrides`, `registers_callback`, `exposes_api`, `consumes_api`, and `awaits` edges. The C/C++ fallback persists static definitions and locally resolved `calls`; the build-artifact fallback persists definitions only. Conditional duplicate definitions receive distinct stable keys. All built-in adapters emit static evidence; exact compiler-derived evidence is reserved for external providers.
 
 External provider run metrics are not SQLite memory records. Configured-provider attempts are mirrored to bounded `runtime/semantic_provider_runs.jsonl` operational telemetry with at most 200 compact rows. Raw ASTs, provider stdout, source content, and compiler diagnostics are not persisted.
 

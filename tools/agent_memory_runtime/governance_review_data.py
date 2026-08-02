@@ -56,7 +56,6 @@ from .usage_samples import record_governance_usage
 
 from .governance_corrections import build_experience_conflict_candidates, build_retrieval_interference_candidates
 from .governance_incidents import build_incident_strategy_candidates, build_log_design_gap_candidates, build_recurring_incident_fingerprint_candidates
-from .governance_review import reflection_quality_issues
 from .governance_skill_candidates import build_skill_pattern_candidates
 from .governance_utils import duplicate_candidates, fetch_memory_rows
 

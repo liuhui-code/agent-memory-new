@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from .agent_benchmark_cases import public_case
+from .benchmark_context_setup import apply_context_setup, context_setup_audit
 from .benchmark_memory import prepare_isolated_memory
 from .benchmark_workspace import materialized_workspace
 from .source_exploration import exploration_metrics_reported
@@ -33,6 +34,8 @@ def run_benchmark_agent(
 ) -> dict[str, Any]:
     executable = resolve_runner(runner)
     with materialized_workspace(root, case) as workspace:
+        setup = case.get("context_setup")
+        setup_audit = context_setup_audit(setup)
         request = {
             "schema_version": REQUEST_SCHEMA,
             "case_id": case["id"],
@@ -44,12 +47,16 @@ def run_benchmark_agent(
             "response_schema": response_template(case["id"], variant, trial_index),
         }
         if variant == "memory" and prepare_memory:
-            request["memory_access"] = prepare_isolated_memory(
+            memory = prepare_isolated_memory(
                 workspace,
                 workspace.parent / "memory-home",
                 timeout,
                 case["task_type"],
             )
+            apply_context_setup(memory, setup, timeout)
+            request["memory_access"] = memory
+        elif variant == "memory" and setup_audit["reflection_count"]:
+            raise SystemExit("context_setup requires benchmark-managed memory preparation")
         try:
             environment = os.environ.copy()
             environment.pop("AGENT_MEMORY_HOME", None)
@@ -75,7 +82,11 @@ def run_benchmark_agent(
         value = json.loads(process.stdout)
     except json.JSONDecodeError as exc:
         raise SystemExit(f"benchmark runner returned invalid JSON for {case['id']}:{variant}") from exc
-    return validate_observation(value, case["id"], variant, trial_index)
+    observation = validate_observation(value, case["id"], variant, trial_index)
+    observation["memory_setup"] = (
+        setup_audit if variant == "memory" else context_setup_audit(None)
+    )
+    return observation
 
 
 def load_observations(path: Path) -> list[dict[str, Any]]:

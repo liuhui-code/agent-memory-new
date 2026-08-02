@@ -12,13 +12,15 @@ from .ecma_callable_ranges import (
     callable_ranges_for_language,
     callable_symbols_by_line,
 )
-from .models import CODE_EXTENSIONS, IGNORE_DIRS
+from .models import IGNORE_DIRS
 from .log_api_catalog import (
     direct_log_pattern,
     log_receiver_bindings,
     parse_log_api_call,
 )
 from .source_call_scanner import scan_calls
+from .source_adapters import source_language_for
+from .source_static_extractors import extended_summary, extended_symbols, native_callable_ranges
 from .text import identifier_tokens, unique_list
 
 
@@ -37,7 +39,7 @@ def should_skip_dir(path: Path) -> bool:
 
 
 def language_for(path: Path) -> str | None:
-    return CODE_EXTENSIONS.get(path.suffix.lower())
+    return source_language_for(path)
 
 
 
@@ -47,6 +49,9 @@ def summarize_file(path: Path, language: str) -> str:
     except OSError:
         return ""
     lines = [line.strip() for line in text.splitlines() if line.strip()]
+    extended = extended_summary(path, language, text)
+    if extended is not None:
+        return extended
     if language == "Markdown":
         heading = next((line.lstrip("#").strip() for line in lines if line.startswith("#")), "")
         return heading or f"Markdown file with {len(lines)} non-empty lines"
@@ -82,7 +87,9 @@ def summarize_file(path: Path, language: str) -> str:
         for name, kind in symbols:
             grouped.setdefault(kind, []).append(name)
         parts = [f"HarmonyOS config with {len(lines)} non-empty lines"]
-        for kind in ("ability", "permission", "dependency", "page_profile"):
+        for kind in (
+            "ability", "permission", "dependency", "page_profile", "hnp_package",
+        ):
             names = grouped.get(kind, [])
             if names:
                 parts.append(f"{kind}s: " + ", ".join(sorted(set(names))[:5]))
@@ -117,6 +124,9 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
         text = path.read_text(encoding="utf-8", errors="ignore")
     except OSError:
         return []
+    extended = extended_symbols(path, language, text)
+    if extended is not None:
+        return extended
     symbols: list[tuple[str, str]] = []
     patterns: list[tuple[str, str]]
     if language == "Python":
@@ -184,6 +194,11 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
 
 def extract_arkts_reference_symbols(text: str) -> list[tuple[str, str]]:
     symbols: list[tuple[str, str]] = []
+    for match in re.finditer(
+        r"(?m)^\s*import\s+[A-Za-z_$][\w$]*\s+from\s+['\"]([^'\"]+\.so)['\"]",
+        text,
+    ):
+        symbols.append((match.group(1), "native_module"))
     for match in re.finditer(r"@(State|Prop|Link|Provide|Consume|ObjectLink|Local|Param)\s+([A-Za-z_][A-Za-z0-9_]*)", text):
         symbols.append((match.group(2), "state"))
     for match in re.finditer(r"@Event\s+([A-Za-z_][A-Za-z0-9_]*)", text):
@@ -208,6 +223,8 @@ def extract_arkts_reference_symbols(text: str) -> list[tuple[str, str]]:
 
 def extract_harmonyos_config_symbols(text: str) -> list[tuple[str, str]]:
     symbols: list[tuple[str, str]] = []
+    for match in re.finditer(r'"package"\s*:\s*"([^"\n]+\.hnp)"', text):
+        symbols.append((match.group(1), "hnp_package"))
     for match in re.finditer(r'"name"\s*:\s*"([^"]+)"', text):
         name = match.group(1)
         if "permission." in name:
@@ -236,10 +253,14 @@ def extract_log_statements(path: Path, language: str) -> list[dict[str, Any]]:
     functions_by_line: dict[int, str | None] = {}
     if language in {"ArkTS", "JavaScript", "TypeScript"}:
         functions_by_line.update(callable_symbols_by_line(lines, language))
+    elif language == "C/C++":
+        for item in native_callable_ranges(text):
+            for line_number in range(item["start_line"], item["end_line"] + 1):
+                functions_by_line[line_number] = str(item["symbol"])
     current_function: str | None = None
     current_indent = -1
     for line_number, line in enumerate(lines, start=1):
-        if language in {"ArkTS", "JavaScript", "TypeScript"}:
+        if language in {"ArkTS", "C/C++", "JavaScript", "TypeScript"}:
             continue
         symbol = function_symbol_on_line(line, language)
         if symbol:

@@ -10,6 +10,7 @@ from .code_wiki_design_edges import normalized_stem
 from .code_wiki_extractors import extract_arkts_reference_symbols
 from .code_wiki_imports import relative_project_path, resolve_arkts_router_targets, resolve_js_imports
 from .models import Project
+from .source_call_scanner import code_mask
 
 
 FILE_COLUMNS = "id, file_path, language"
@@ -17,6 +18,12 @@ CODE_EXTENSIONS = (".ets", ".ts", ".js", ".py", ".dart", ".swift")
 MODULE_MARKERS = ("oh-package.json5", "build-profile.json5", "package.json", "pyproject.toml")
 TEST_SUFFIXES = ("", "test", "tests", "spec", "specs", ".test", ".spec", "-test", "-spec", "_test", "_spec")
 SQL_CHUNK_SIZE = 300
+MAX_GRAPH_REFERENCE_NAMES = 256
+IMPORT_BLOCK_RE = re.compile(r"\bimport\s+(?:type\s+)?\{([^}]*)\}")
+REFERENCE_OWNER_RE = re.compile(
+    r"(?:\bnew\s+|\bextends\s+|\bimplements\s+|:\s*|\b)([A-Z][A-Za-z0-9_$]*)"
+    r"(?=\s*(?:\(|\.|[,;)=<{]))"
+)
 
 
 def load_rebuild_files(
@@ -65,6 +72,58 @@ def load_rebuild_files(
         selected,
     )
     return [selected[key] for key in sorted(selected)]
+
+
+def graph_reference_names(text: str) -> set[str]:
+    masked = code_mask(text)
+    ordered: list[str] = []
+    for match in IMPORT_BLOCK_RE.finditer(masked):
+        for item in match.group(1).split(","):
+            name = item.strip().split()[0] if item.strip() else ""
+            if name:
+                ordered.append(name)
+    ordered.extend(match.group(1) for match in REFERENCE_OWNER_RE.finditer(masked))
+    return set(unique_values(ordered)[:MAX_GRAPH_REFERENCE_NAMES])
+
+
+def load_unique_reference_symbols(
+    conn: sqlite3.Connection,
+    project_id: str,
+    names: set[str],
+    columns: str,
+) -> list[sqlite3.Row]:
+    rows: list[sqlite3.Row] = []
+    for chunk in chunks(sorted(names)):
+        placeholders = ",".join("?" for _ in chunk)
+        rows.extend(conn.execute(
+            f"""
+            SELECT cs.{columns.replace(', ', ', cs.')}
+            FROM code_symbols cs
+            JOIN (
+              SELECT symbol, symbol_type
+              FROM code_symbols
+              WHERE project_id = ? AND symbol IN ({placeholders})
+              GROUP BY symbol, symbol_type
+              HAVING COUNT(*) = 1
+            ) unique_symbol
+              ON unique_symbol.symbol = cs.symbol
+             AND unique_symbol.symbol_type IS cs.symbol_type
+            WHERE cs.project_id = ?
+            ORDER BY cs.id
+            """,
+            (project_id, *chunk, project_id),
+        ).fetchall())
+    return rows
+
+
+def unique_values(values: list[str]) -> list[str]:
+    result: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        if value and value not in seen:
+            seen.add(value)
+            result.append(value)
+    return result
 
 
 def add_exact_rows(

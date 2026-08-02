@@ -88,6 +88,8 @@ CANDIDATE_CHANNEL_WEIGHTS = {
     "behavior_method_fts": 1.35,
     "string_key_fts": 1.2,
     "semantic_mechanism_fts": 1.25,
+    "salient_file_fts": 1.45,
+    "salient_string_fts": 1.6,
     "passage_fts": 1.1,
     "like_fallback": 0.7,
 }

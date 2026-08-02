@@ -11,7 +11,7 @@ context. The Agent owns all design reasoning and decisions.
 2. Run an orientation query:
 
 ```bash
-python tools/agent_memory.py design-context --project . --query "<design goal>" --compact --json
+python3 tools/agent_memory.py design-context --project . --query "<design goal>" --compact --json
 ```
 
 3. Inspect `current_repository.source_anchors` in current source. Treat graph
@@ -23,7 +23,7 @@ python tools/agent_memory.py design-context --project . --query "<design goal>" 
 6. When context is broad, query again with Agent-confirmed concerns and anchors:
 
 ```bash
-python tools/agent_memory.py design-context --project . \
+python3 tools/agent_memory.py design-context --project . \
   --query "<same design goal>" \
   --concern modifiability --concern compatibility \
   --anchor "src/Feature.ets" \

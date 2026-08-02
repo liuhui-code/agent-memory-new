@@ -183,14 +183,16 @@ Skills should call the runtime script. They should not implement storage logic t
         Codebase Wiki/
         Daily/
 
-.agent-skills/
-  agent-memory-learn/
-  agent-memory-query/
-  agent-memory-maintain/
-  agent-memory-reflect/
+.agents/
+  skills/
+    agent-memory-learn/
+    agent-memory-query/
+    agent-memory-maintain/
+    agent-memory-reflect/
 
 tools/
   agent_memory.py
+  agent_memory_runtime/
 ```
 
 ## Development Rules

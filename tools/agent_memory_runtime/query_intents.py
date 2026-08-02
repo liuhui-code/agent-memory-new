@@ -5,6 +5,12 @@ from __future__ import annotations
 from typing import Any
 
 from .models import Project
+from .query_intent_contract import (
+    infer_memory_intent,
+    infer_memory_intent_v2,
+    legacy_memory_intent,
+    resolve_memory_intent,
+)
 from .records import row_dict
 from .storage import connect
 from .text import query_tokens
@@ -21,15 +27,6 @@ MEMORY_INTENTS = {
     "memory_maintenance",
     "incident_diagnosis",
     "general_context",
-}
-
-
-MEMORY_INTENT_ALIASES = {
-    "code_location": "code_current",
-    "code_business_semantics": "semantic_lookup",
-    "runtime_log_diagnosis": "incident_diagnosis",
-    "semantic_correction": "correction_guard",
-    "memory_maintenance": "general_context",
 }
 
 
@@ -53,42 +50,8 @@ MAIN_REFLECTION_BUDGETS = {
 
 
 
-def infer_memory_intent(query: str) -> str:
-    return legacy_memory_intent(infer_memory_intent_v2(query))
-
-
-
-def legacy_memory_intent(intent_v2: str) -> str:
-    return MEMORY_INTENT_ALIASES.get(intent_v2, intent_v2)
-
-
-
-def infer_memory_intent_v2(query: str) -> str:
-    lowered = query.lower()
-    if any(token in lowered for token in ("误导", "错误经验", "纠错", "冲突", "不要", "避免", "correction", "wrong", "misleading")):
-        return "semantic_correction"
-    if "what does" in lowered:
-        return "code_business_semantics"
-    if any(token in lowered for token in ("业务语义", "业务含义", "语义", "semantic", "business meaning", "business_summary", "business_terms", "补充")):
-        return "code_business_semantics"
-    if any(token in lowered for token in ("maintain", "治理", "维护", "淘汰", "刷新", "合并", "stale", "archive", "refresh")):
-        return "memory_maintenance"
-    if any(token in lowered for token in (
-        "日志", "报错", "错误", "异常", "失败", "崩溃", "incident", "log",
-        "traceback", "exception", "error", "failed", "failure",
-    )):
-        return "runtime_log_diagnosis"
-    if any(token in lowered for token in ("如何", "怎么", "步骤", "流程", "方案", "procedure", "playbook", "workflow", "how to")):
-        return "procedure_reuse"
-    if any(token in lowered for token in ("代码", "函数", "文件", "调用", "当前", "source", "code", "function", "file", "在哪里", "位置", "path")):
-        return "code_location"
-    return "general_context"
-
-
-
-def query_intent_profile(query: str) -> dict[str, Any]:
-    intent_v2 = infer_memory_intent_v2(query)
-    intent = legacy_memory_intent(intent_v2)
+def query_intent_profile(query: str, explicit_intent: str | None = None) -> dict[str, Any]:
+    intent, intent_v2, source = resolve_memory_intent(query, explicit_intent)
     preferred: dict[str, list[str]] = {
         "code_current": ["wiki_matches", "code_log_matches", "edge_matches", "semantic_patch"],
         "code_location": ["wiki_matches", "code_log_matches", "edge_matches"],
@@ -105,6 +68,7 @@ def query_intent_profile(query: str) -> dict[str, Any]:
     return {
         "intent": intent,
         "intent_v2": intent_v2,
+        "intent_source": source,
         "legacy_intent": intent,
         "preferred_lanes": preferred.get(intent_v2, preferred.get(intent, preferred["general_context"])),
         "interference_policy": {
@@ -344,9 +308,9 @@ def gate_matches_by_intent(
     project: Project,
     query: str,
     matches: dict[str, list[dict[str, Any]]],
+    explicit_intent: str | None = None,
 ) -> dict[str, Any]:
-    intent_v2 = infer_memory_intent_v2(query)
-    intent = legacy_memory_intent(intent_v2)
+    intent, intent_v2, intent_source = resolve_memory_intent(query, explicit_intent)
     gated_matches: dict[str, list[dict[str, Any]]] = {
         key: [dict(item) for item in value]
         for key, value in matches.items()
@@ -423,11 +387,12 @@ def gate_matches_by_intent(
     semantic_patch_notes.sort(key=lambda item: (item.get("gate_score", 0), item.get("id", 0)), reverse=True)
     gated_matches["reflections"] = main_reflections
     conflict_notes = matching_conflict_notes(project, query, REFLECTION_LANE_LIMITS["conflict_notes"])
-    intent_profile = query_intent_profile(query)
+    intent_profile = query_intent_profile(query, explicit_intent)
     return {
         "matches": gated_matches,
         "memory_intent": intent,
         "memory_intent_v2": intent_v2,
+        "memory_intent_source": intent_source,
         "retrieval_lanes": {
             "counts": lane_counts,
             "intent_profile": intent_profile,

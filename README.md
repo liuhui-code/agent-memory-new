@@ -367,6 +367,13 @@ Install into a project:
 python install.py --project . --local-skills
 ```
 
+This installs the stable runtime entry and its package under `tools/`, and the
+fixed four repository skills under `.agents/skills`, the Open Agent Skills
+location discovered by Codex CLI and compatible hosts.
+
+Reinstalling an older setup leaves the legacy `.agent-skills` directory
+untouched, but current Agents should discover the copies under `.agents/skills`.
+
 Optional custom memory home:
 
 ```bash

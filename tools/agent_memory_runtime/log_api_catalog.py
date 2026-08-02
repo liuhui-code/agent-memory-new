@@ -69,6 +69,14 @@ LOG_API_MODELS = (
     LogApiModel(("Swift",), ("NSLog",), logger="NSLog", fixed_level="log"),
     LogApiModel(("Swift",), ("os_log",), logger="os_log", fixed_level="log"),
     LogApiModel(("Swift",), ("logger",), ("debug", "info", "warning", "error"), "logger"),
+    LogApiModel(("C/C++",), ("LOG_DEBUG", "HILOG_DEBUG"), logger="native", fixed_level="debug"),
+    LogApiModel(("C/C++",), ("LOG_INFO", "HILOG_INFO"), logger="native", fixed_level="info"),
+    LogApiModel(("C/C++",), ("LOG_WARN", "HILOG_WARN"), logger="native", fixed_level="warning"),
+    LogApiModel(("C/C++",), ("LOG_ERROR", "HILOG_ERROR"), logger="native", fixed_level="error"),
+    LogApiModel(("C/C++",), ("LOG_FATAL", "HILOG_FATAL"), logger="native", fixed_level="fatal"),
+    LogApiModel(("C/C++",), ("printf",), logger="stdio", fixed_level="info"),
+    LogApiModel(("C/C++",), ("fprintf",), logger="stdio", fixed_level="error", message_argument=1),
+    LogApiModel(("C/C++",), ("OH_LOG_Print",), logger="hilog", fixed_level="log", message_argument=4),
 )
 
 NAMED_IMPORT_RE = re.compile(

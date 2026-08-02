@@ -40,6 +40,13 @@ DIRECT_GRAPH_OVERRIDE_REASONS = {
     "exact_symbol",
     "structural_behavior",
 }
+STRUCTURAL_BOUNDARY_REASONS = {
+    "graph_relation:configured_by", "graph_relation:imports",
+}
+STRUCTURAL_BOUNDARY_QUERY_MARKERS = (
+    ".so", "build", "cmake", "hnp", "makefile", "native", "package",
+    "构建", "原生", "打包", "跨语言",
+)
 
 
 def diverse_code_matches(
@@ -52,6 +59,7 @@ def diverse_code_matches(
     attach_file_source_locations(items)
     items = filter_query_role_candidates(items, query)
     items = interleave_graph_candidate(items, explicit_paths)
+    recalled_items = items
     focused, focused_candidates = focus_code_candidates(items, query)
     if explicit_paths:
         focused_ids = {id(item) for item in focused}
@@ -63,6 +71,11 @@ def diverse_code_matches(
         focused_candidates = True
     else:
         items = focused
+        if focused_candidates:
+            items = preserve_structural_boundary_neighbors(
+                items, recalled_items, query,
+            )
+            items = preserve_salient_evidence_candidates(items, recalled_items)
     selected: list[dict[str, Any]] = []
     deferred: list[dict[str, Any]] = []
     file_counts: dict[str, int] = {}
@@ -77,7 +90,9 @@ def diverse_code_matches(
         file_path = str(item.get("file_path") or "")
         terms = code_candidate_terms(item)
         reserved_graph_lane = is_graph_neighbor(item) and (
-            index == 1 or (index == 2 and is_component_flow_neighbor(item))
+            index == 1
+            or (index == 2 and is_component_flow_neighbor(item))
+            or is_structural_boundary_neighbor(item)
         )
         explicit_target = file_path in explicit_paths
         weak_graph_neighbor = (
@@ -85,7 +100,10 @@ def diverse_code_matches(
             and is_graph_neighbor(item)
             and (
                 seed_score <= 0.0
-                or float(item.get("score") or 0.0) < seed_score * 0.5
+                or (
+                    not is_structural_boundary_neighbor(item)
+                    and float(item.get("score") or 0.0) < seed_score * 0.5
+                )
             )
         )
         if weak_graph_neighbor and (seed_score <= 0.0 or len(selected) >= 2):
@@ -299,6 +317,67 @@ def is_component_flow_neighbor(item: dict[str, Any]) -> bool:
         reasons
         & {"graph_relation:passes_property", "graph_relation:renders_component"}
     )
+
+
+def is_structural_boundary_neighbor(item: dict[str, Any]) -> bool:
+    reasons = {str(reason) for reason in item.get("match_reasons") or []}
+    return bool(reasons & STRUCTURAL_BOUNDARY_REASONS)
+
+
+def preserve_structural_boundary_neighbors(
+    focused: list[dict[str, Any]], recalled: list[dict[str, Any]], query: str = "",
+) -> list[dict[str, Any]]:
+    if not structural_boundary_query(query):
+        return focused
+    selected = list(focused)
+    selected_paths = {str(item.get("file_path") or "") for item in selected}
+    seen_relations = {
+        reason
+        for item in focused
+        for reason in (str(value) for value in item.get("match_reasons") or [])
+        if reason in STRUCTURAL_BOUNDARY_REASONS
+    }
+    for item in recalled:
+        reasons = {str(reason) for reason in item.get("match_reasons") or []}
+        relation = next(
+            (reason for reason in STRUCTURAL_BOUNDARY_REASONS if reason in reasons),
+            None,
+        )
+        path = str(item.get("file_path") or "")
+        if relation is None or not path or path in selected_paths or relation in seen_relations:
+            continue
+        selected.append(item)
+        selected_paths.add(path)
+        seen_relations.add(relation)
+    return selected
+
+
+def structural_boundary_query(query: str) -> bool:
+    lowered = query.casefold()
+    return any(marker in lowered for marker in STRUCTURAL_BOUNDARY_QUERY_MARKERS)
+
+
+def preserve_salient_evidence_candidates(
+    focused: list[dict[str, Any]], recalled: list[dict[str, Any]], limit: int = 2,
+) -> list[dict[str, Any]]:
+    selected = list(focused)
+    selected_paths = {str(item.get("file_path") or "") for item in selected}
+    added = 0
+    for item in recalled:
+        reasons = {str(reason) for reason in item.get("match_reasons") or []}
+        path = str(item.get("file_path") or "")
+        if (
+            "salient_query_evidence" not in reasons
+            or not path
+            or path in selected_paths
+        ):
+            continue
+        selected.append(item)
+        selected_paths.add(path)
+        added += 1
+        if added >= limit:
+            break
+    return selected
 
 
 def code_candidate_terms(item: dict[str, Any]) -> set[str]:

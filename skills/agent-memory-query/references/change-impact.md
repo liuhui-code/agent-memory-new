@@ -11,8 +11,8 @@ Use this protocol for a current diff, affected-file review, regression risk, tes
 5. After tests, record compact feedback without raw diff or test output.
 
 ```bash
-python tools/agent_memory.py impact-scope --project . --base HEAD~1 --query "<change intent>" --json
-python tools/agent_memory.py impact-feedback --project . --outcome pass --executed-tests "<tests>" --json
+python3 tools/agent_memory.py impact-scope --project . --base HEAD~1 --query "<change intent>" --json
+python3 tools/agent_memory.py impact-feedback --project . --outcome pass --executed-tests "<tests>" --json
 ```
 
 Use `--files <path>` when no Git base is suitable. Read direct/supporting/advisory tiers, reverse dependents, outgoing dependencies, recommended tests, risk reasons, and evidence gaps.

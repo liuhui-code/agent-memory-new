@@ -305,7 +305,7 @@ def hard_trim(payload: dict[str, Any]) -> None:
     handoff = payload["query_handoff"]
     handoff["log_keywords"] = handoff["log_keywords"][:6]
     handoff["log_anchors"] = bounded_log_evidence(handoff["log_anchors"], 2)
-    handoff["code_anchors"] = handoff["code_anchors"][:2]
+    handoff["code_anchors"] = handoff["code_anchors"][:3]
     handoff["relation_hints"] = []
     handoff["experience_refs"] = []
     handoff["semantic_refs"] = []

@@ -10,6 +10,7 @@ from .text import ENGLISH_QUERY_STOPWORDS, tokenize
 
 NEGATION_CUES = ("without", "ignore", "excluding", "exclude", "不要", "排除", "忽略")
 NEGATION_FILLER = {"without", "following", "ignore", "excluding", "exclude", "noise"}
+PATH_BOUNDARY_RELATIONS = {"configured_by", "imports"}
 
 
 def relevant_log_anchors(logs: list[dict[str, Any]], query: Any) -> list[dict[str, Any]]:
@@ -95,7 +96,14 @@ def path_scoped_code_anchors(
             if isinstance(item, dict) and item.get("file_path")
         }
         scoped = [item for item in anchors if str(item.get("file_path") or "") in files]
-        return scoped or anchors
+        boundary = [
+            item for item in anchors
+            if item.get("graph_relation") in PATH_BOUNDARY_RELATIONS and item not in scoped
+        ]
+        boundary.sort(
+            key=lambda item: item.get("graph_relation") != "configured_by"
+        )
+        return [*scoped, *boundary[:2]] or anchors
     exact = [
         item for item in (log_anchors or []) if exact_log_identity(item, query)
     ]

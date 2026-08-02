@@ -1,0 +1,35 @@
+{
+  "schema_version": "agent-context-capability-invalid-run/v1",
+  "status": "invalid",
+  "evaluation_scope": "external_holdout",
+  "source_repository": "https://github.com/Chenlvin/Melotopia-HMOS.git",
+  "source_revision": "b72c3b8d4fe7b46d75ec479af522475f948b152f",
+  "case_file": "docs/eval/melotopia-staged-context-holdout-cases.sealed.json",
+  "case_seal": {
+    "status": "verified",
+    "digest": "a497869c5b9891152089c1c2e6be2a4fb85f264926794da9ae7f99c1e5eb5aa7",
+    "case_count": 1
+  },
+  "execution": {
+    "executed_once": false,
+    "execution_count": 2,
+    "first_recorded_at": "2026-08-02T12:44:31+00:00",
+    "second_recorded_at": "2026-08-02T12:45:43+00:00",
+    "observed_query_variant_count_per_execution": 2,
+    "formal_pass_count_per_execution": 0
+  },
+  "invalidation": {
+    "class": "duplicate_holdout_execution",
+    "reason": "A second evaluation was started while the first long-running process had already continued in a background session.",
+    "metric_interpretation_allowed": false,
+    "retrieval_failure_inference_allowed": false,
+    "promotion_eligible": false
+  },
+  "corrective_action": {
+    "contract": "A yielded evaluation process remains active until its session is explicitly observed to exit; do not infer completion from an empty initial output.",
+    "consumed_pack_may_be_rerun": false,
+    "consumed_pack_may_be_tuned": false,
+    "next_gate": "Use a different previously unused external source after independent development fixtures justify a serving change."
+  },
+  "recorded_at": "2026-08-02T12:50:00+00:00"
+}

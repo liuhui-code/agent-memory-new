@@ -1,0 +1,179 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-value-dsbridge",
+  "source_repository": "https://github.com/751496032/DSBridge-HarmonyOS.git",
+  "generated_at": "2026-08-02T00:00:00+08:00",
+  "generator": "reviewed-staged-context-holdout/v1",
+  "cases": [
+    {
+      "id": "dsbridge-undefined-native-method-exit",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Calling a native method that is not defined causes the HarmonyOS application to exit instead of returning an error to the web caller. Locate the bridge implementation that owns this behavior.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "query_variants": [
+        {
+          "id": "orientation",
+          "investigation_stage": "orientation",
+          "description": "Calling an undefined native method from the web bridge exits the HarmonyOS application. Locate the bridge entry that dispatches native calls.",
+          "oracle_override": {
+            "expected_files": [
+              "library/src/main/ets/entity/BaseBridge.ts"
+            ],
+            "context_requirements": {
+              "require_expected_anchors": true,
+              "require_source_excerpt": true,
+              "required_top_k": 3,
+              "min_anchor_precision": 0.3333,
+              "required_source_spans": [
+                {
+                  "file_path": "library/src/main/ets/entity/BaseBridge.ts",
+                  "start_line": 62,
+                  "end_line": 87
+                }
+              ],
+              "min_source_span_recall": 1.0
+            }
+          }
+        },
+        {
+          "id": "focused",
+          "investigation_stage": "focused",
+          "description": "The candidate bridge path uses Reflect.get and throws 'is not a method property' when the requested native method is undefined. Locate the callable and its error boundary.",
+          "oracle_override": {
+            "expected_files": [
+              "library/src/main/ets/entity/BaseBridge.ts"
+            ],
+            "context_requirements": {
+              "require_expected_anchors": true,
+              "require_source_excerpt": true,
+              "required_top_k": 2,
+              "min_anchor_precision": 0.5,
+              "required_source_spans": [
+                {
+                  "file_path": "library/src/main/ets/entity/BaseBridge.ts",
+                  "start_line": 68,
+                  "end_line": 98
+                }
+              ],
+              "hierarchical_callable_spans": [
+                {
+                  "file_path": "library/src/main/ets/entity/BaseBridge.ts",
+                  "start_line": 68,
+                  "end_line": 136
+                }
+              ],
+              "min_source_span_recall": 1.0
+            }
+          }
+        }
+      ],
+      "source": {
+        "before_revision": "cb883cd182896e4c3ae90335787243f58d751d29",
+        "after_revision": "f83458f9b074271b785ab01903d34a763e38cd66",
+        "changed_files": [
+          "library/src/main/ets/entity/BaseBridge.ts",
+          "library/src/main/ets/utils/ToastUtils.ts"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "public_issue_and_git_fix_reviewed",
+        "issue_urls": [
+          "https://github.com/751496032/DSBridge-HarmonyOS/issues/5",
+          "https://github.com/751496032/DSBridge-HarmonyOS/issues/7"
+        ],
+        "fix_commit": "f83458f9b074271b785ab01903d34a763e38cd66",
+        "commit_message": "fix: #5、#7",
+        "source_family": "751496032/DSBridge-HarmonyOS#5-#7",
+        "independence_basis": "previously unused external project and issues; reflective bridge error propagation is independent of parser collection safety and UI lifecycle subscription"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "adapter",
+          "service"
+        ],
+        "mechanism_kinds": [
+          "error_contract"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "library/src/main/ets/entity/BaseBridge.ts"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "uncaught_bridge_error",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "library/src/main/ets/entity/BaseBridge.ts",
+              "start_line": 68,
+              "end_line": 98
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 1,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-08-02T12:39:17+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 1,
+    "digest": "8532b2bab505f702c3ce06ee9b79d6b34010ca87f2a22aa18eec068961505691"
+  }
+}

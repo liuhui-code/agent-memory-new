@@ -29,6 +29,12 @@ from .semantic_refresh import load_business_semantics, restore_business_semantic
 from .scope_changes import git_head
 from .scope_boundaries import sync_scope_boundaries
 from .storage import connect, now_iso
+from .storage_project_counters import (
+    MEMORY_EDGE_COUNTER,
+    begin_memory_edge_tracking,
+    finish_memory_edge_tracking,
+    project_counter_value,
+)
 
 def file_sha256(path: Path) -> str:
     digest = hashlib.sha256()
@@ -287,6 +293,7 @@ def write_wiki_index(
             else {"code_files": {}, "code_symbols": {}, "code_log_statements": {}}
         )
         mark_phase("load_scope")
+        begin_memory_edge_tracking(conn)
         if replace:
             conn.execute("DELETE FROM code_files WHERE project_id = ?", (project.project_id,))
             conn.execute("DELETE FROM code_symbols WHERE project_id = ?", (project.project_id,))
@@ -375,13 +382,13 @@ def write_wiki_index(
         passage_stats = rebuild_code_passages(
             conn, project.project_id, None if replace else invalidated_file_paths
         )
+        finish_memory_edge_tracking(conn)
         mark_phase("rebuild_graph")
         refreshed_scope_ids = scope_node_ids(conn, project.project_id, affected_file_paths)
         edges_after = scoped_edge_summary(conn, project.project_id, refreshed_scope_ids)
-        memory_edges_total = conn.execute(
-            "SELECT COUNT(*) AS count FROM memory_edges WHERE project_id = ?",
-            (project.project_id,),
-        ).fetchone()["count"]
+        memory_edges_total = project_counter_value(
+            conn, project.project_id, MEMORY_EDGE_COUNTER
+        )
         mark_phase("summarize")
         activate_index_generation(
             conn,
@@ -414,6 +421,7 @@ def write_wiki_index(
         ),
         "phase_ms": phase_ms,
         "memory_edges_total": memory_edges_total,
+        "memory_edges_total_provider": "project-counter/v1",
         "index_generation": generation,
         "source_revision": revision,
     }

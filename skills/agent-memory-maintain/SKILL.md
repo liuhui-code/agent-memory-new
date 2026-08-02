@@ -12,15 +12,15 @@ Memory data is stored in the current workspace `.agent-memory/` by default, next
 ## Initialize Or Repair
 
 ```bash
-python tools/agent_memory.py init --project .
-python tools/agent_memory.py doctor --project .
+python3 tools/agent_memory.py init --project .
+python3 tools/agent_memory.py doctor --project .
 ```
 
 ## Health Check
 
 ```bash
-python tools/agent_memory.py doctor --project .
-python tools/agent_memory.py maintain-health --project . --json
+python3 tools/agent_memory.py doctor --project .
+python3 tools/agent_memory.py maintain-health --project . --json
 ```
 
 ## Refresh Learned Scopes
@@ -28,13 +28,13 @@ python tools/agent_memory.py maintain-health --project . --json
 When the project source has changed and the learned code wiki may be stale:
 
 ```bash
-python tools/agent_memory.py maintain-refresh-scope --project . --json
+python3 tools/agent_memory.py maintain-refresh-scope --project . --json
 ```
 
 To refresh one previously learned scope only:
 
 ```bash
-python tools/agent_memory.py maintain-refresh-scope --project . --scope-id 3 --json
+python3 tools/agent_memory.py maintain-refresh-scope --project . --scope-id 3 --json
 ```
 
 Use this before broad `learn-path --replace` or `wiki-index` resets. It replays previously learned scopes from SQLite, refreshes current file/symbol/log/edge structure, retires removed-file structure, and returns `semantic_review_targets` so we can decide whether a focused `learn-business` pass is needed next.
@@ -43,8 +43,8 @@ After refresh, run `maintain-plan --json` if you want the drift to be translated
 When FTS content or generated code/log edges are damaged, repair only derived data:
 
 ```bash
-python tools/agent_memory.py maintain-rebuild-derived --project . --target search --json
-python tools/agent_memory.py maintain-rebuild-derived --project . --target graph --json
+python3 tools/agent_memory.py maintain-rebuild-derived --project . --target search --json
+python3 tools/agent_memory.py maintain-rebuild-derived --project . --target graph --json
 ```
 
 For an external learned tree, pass its original `--source`. Check `preserved`, relation counts, edge amplification, relation dominance, semantic adapter errors, and provider runs before accepting the rebuilt graph. Do not use `wiki-index --replace` merely to repair derived indexes.
@@ -54,10 +54,10 @@ For an external learned tree, pass its original `--source`. Check `preserved`, r
 When the user asks to review, clean, govern, merge, or check memory quality:
 
 ```bash
-python tools/agent_memory.py maintain-review --project . --json
-python tools/agent_memory.py reflect-review --project . --json
-python tools/agent_memory.py miss-list --project . --status open --json
-python tools/agent_memory.py maintain-plan --project . --json
+python3 tools/agent_memory.py maintain-review --project . --json
+python3 tools/agent_memory.py reflect-review --project . --json
+python3 tools/agent_memory.py miss-list --project . --status open --json
+python3 tools/agent_memory.py maintain-plan --project . --json
 ```
 
 Use `maintain-plan` to propose grouped actions before changing records.
@@ -143,7 +143,7 @@ When `maintain-plan` returns `review_experience_conflict`, compare the older and
 When the grouped runtime-incident strategy is ready to be drafted into the repo, use:
 
 ```bash
-python tools/agent_memory.py maintain-incident-strategy-draft \
+python3 tools/agent_memory.py maintain-incident-strategy-draft \
   --project . \
   --strategy-name "<strategy-name>" \
   --json
@@ -153,7 +153,7 @@ This writes only `docs/incident-strategies/<strategy-name>.md`. It does not crea
 When the pattern is ready to be written into the repo as a draft document, use:
 
 ```bash
-python tools/agent_memory.py maintain-skill-draft \
+python3 tools/agent_memory.py maintain-skill-draft \
   --project . \
   --pattern-name "<pattern-name>" \
   --json
@@ -167,7 +167,7 @@ If a draft already carries human review metadata, rerunning `maintain-skill-draf
 To write every currently clustered draft in one pass, use:
 
 ```bash
-python tools/agent_memory.py maintain-skill-draft \
+python3 tools/agent_memory.py maintain-skill-draft \
   --project . \
   --pattern-name all \
   --json
@@ -176,7 +176,7 @@ python tools/agent_memory.py maintain-skill-draft \
 When a reviewed draft should move into a candidate skill package, use:
 
 ```bash
-python tools/agent_memory.py maintain-skill-package \
+python3 tools/agent_memory.py maintain-skill-package \
   --project . \
   --pattern-name "<pattern-name>" \
   --json
@@ -191,7 +191,7 @@ Formal promotion into `skills/<name>/` remains manual for now. Follow `docs/skil
 For a read-only final gate, use:
 
 ```bash
-python tools/agent_memory.py maintain-skill-promotion-status \
+python3 tools/agent_memory.py maintain-skill-promotion-status \
   --project . \
   --pattern-name "<pattern-name>" \
   --json
@@ -231,7 +231,7 @@ When `maintain-plan` returns `semantic_gap_targets`, treat them as the next enri
 When `maintain-plan` returns `learn_business_payload_template`, edit that template in place and send it to:
 
 ```bash
-python tools/agent_memory.py learn-business --project . --payload "<json>" --json
+python3 tools/agent_memory.py learn-business --project . --payload "<json>" --json
 ```
 
 Prefer filling the template over inventing a new payload shape. It keeps file, symbol, and log anchors aligned with the existing code wiki rows.
@@ -245,9 +245,9 @@ When `apply_command_template` is present on a conflict action, use it only after
 List or close semantic conflicts with:
 
 ```bash
-python tools/agent_memory.py list --project . --type semantic-conflict --json
-python tools/agent_memory.py conflict-status --project . --id "<id>" --status resolved --resolution "<why>"
-python tools/agent_memory.py conflict-apply --project . --id "<id>" --resolution "<why incoming summary is correct>" --decision-note "<evidence>" --replacement-source "<source anchor>"
+python3 tools/agent_memory.py list --project . --type semantic-conflict --json
+python3 tools/agent_memory.py conflict-status --project . --id "<id>" --status resolved --resolution "<why>"
+python3 tools/agent_memory.py conflict-apply --project . --id "<id>" --resolution "<why incoming summary is correct>" --decision-note "<evidence>" --replacement-source "<source anchor>"
 ```
 
 Use `conflict-apply` only after checking current source and deciding the incoming summary is the right replacement. It applies the stored incoming summary to the target file, symbol, or log and marks the conflict `applied`. The runtime now requires the target to resolve to exactly one stored row; ambiguous symbol or log targets are rejected for manual cleanup first.
@@ -257,7 +257,7 @@ Use `conflict-apply` only after checking current source and deciding the incomin
 Mark a record stale, archived, rejected, merged, or active:
 
 ```bash
-python tools/agent_memory.py maintain-status \
+python3 tools/agent_memory.py maintain-status \
   --project . \
   --type semantic \
   --id "<id>" \
@@ -268,7 +268,7 @@ python tools/agent_memory.py maintain-status \
 Merge duplicate semantic facts:
 
 ```bash
-python tools/agent_memory.py maintain-merge \
+python3 tools/agent_memory.py maintain-merge \
   --project . \
   --type semantic \
   --ids "3,8" \
@@ -279,7 +279,7 @@ python tools/agent_memory.py maintain-merge \
 Promote an episode into a durable semantic fact:
 
 ```bash
-python tools/agent_memory.py maintain-promote \
+python3 tools/agent_memory.py maintain-promote \
   --project . \
   --episode-id "<id>" \
   --fact "<durable fact>" \
@@ -289,7 +289,7 @@ python tools/agent_memory.py maintain-promote \
 Promote a high-quality reflection into a durable semantic fact:
 
 ```bash
-python tools/agent_memory.py maintain-promote \
+python3 tools/agent_memory.py maintain-promote \
   --project . \
   --reflection-id "<id>" \
   --fact "<durable fact>" \
@@ -299,7 +299,7 @@ python tools/agent_memory.py maintain-promote \
 Mark a query miss reviewed, resolved, or ignored:
 
 ```bash
-python tools/agent_memory.py miss-status \
+python3 tools/agent_memory.py miss-status \
   --project . \
   --id "<id>" \
   --status resolved \
@@ -319,7 +319,7 @@ Do not promote an outcome automatically. Check current source and the Agent's ev
 ## Refresh Indexes
 
 ```bash
-python tools/agent_memory.py wiki-index --project .
+python3 tools/agent_memory.py wiki-index --project .
 ```
 
 Refreshing the wiki also refreshes extracted code log statements and the generated file/function/log edges.
@@ -327,8 +327,8 @@ Refreshing the wiki also refreshes extracted code log statements and the generat
 ## Sync Obsidian Mirror
 
 ```bash
-python tools/agent_memory.py vault-export --project .
-python tools/agent_memory.py vault-index --project .
+python3 tools/agent_memory.py vault-export --project .
+python3 tools/agent_memory.py vault-index --project .
 ```
 
 Rules:

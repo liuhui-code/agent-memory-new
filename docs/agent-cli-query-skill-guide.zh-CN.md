@@ -19,10 +19,14 @@ python tools/agent_memory.py doctor --project .
 安装后应存在：
 
 ```text
-.agent-skills/agent-memory-query/
+.agents/skills/agent-memory-query/
 tools/agent_memory.py
+tools/agent_memory_runtime/
 .agent-memory/projects/<project_id>/memory.db
 ```
+
+Codex CLI 会从项目的 `.agents/skills` 扫描 Skill。安装器同时复制完整 Runtime
+包，目标项目不需要依赖 Agent Memory 源码仓的 `PYTHONPATH`。
 
 如果 Agent CLI 支持显式 Skill 名称，可以直接要求使用 `agent-memory-query`。如果不支持显式名称，只需在自然语言中同时说明“先查询当前代码、代码图、日志图和经验，再定位/设计”，Skill 的描述会触发路由。
 

@@ -1,0 +1,176 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-value-hprichtext",
+  "source_repository": "https://github.com/asasugar/HPRichText.git",
+  "generated_at": "2026-08-02T00:00:00+08:00",
+  "generator": "reviewed-staged-context-holdout/v1",
+  "cases": [
+    {
+      "id": "hprichtext-adjacent-font-node-crash",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Rendering adjacent font-tag rich text exits the application with 'Cannot read property push of undefined'. Locate the implementation that owns the failing parse and append behavior.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "query_variants": [
+        {
+          "id": "orientation",
+          "investigation_stage": "orientation",
+          "description": "Rendering adjacent font-tag rich text exits the application with 'Cannot read property push of undefined'. Locate the component and parser involved.",
+          "oracle_override": {
+            "expected_files": [
+              "library/src/main/ets/components/hprichtext/HPRichText.ets",
+              "library/src/main/ets/common/utils/html/html-parser.ts"
+            ],
+            "context_requirements": {
+              "require_expected_anchors": true,
+              "require_source_excerpt": true,
+              "required_top_k": 4,
+              "min_anchor_precision": 0.5,
+              "required_source_spans": [
+                {
+                  "file_path": "library/src/main/ets/components/hprichtext/HPRichText.ets",
+                  "start_line": 122,
+                  "end_line": 133
+                }
+              ],
+              "min_source_span_recall": 1.0
+            }
+          }
+        },
+        {
+          "id": "focused",
+          "investigation_stage": "focused",
+          "description": "The runtime stack reaches html2json, parseEndTag, and end before firstNodes[firstNodesLength - 1].nodes.push(node) raises 'Cannot read property push of undefined'. Locate the owning parser method.",
+          "oracle_override": {
+            "expected_files": [
+              "library/src/main/ets/common/utils/html/html-parser.ts"
+            ],
+            "context_requirements": {
+              "require_expected_anchors": true,
+              "require_source_excerpt": true,
+              "required_top_k": 2,
+              "min_anchor_precision": 0.5,
+              "required_source_spans": [
+                {
+                  "file_path": "library/src/main/ets/common/utils/html/html-parser.ts",
+                  "start_line": 365,
+                  "end_line": 408
+                }
+              ],
+              "hierarchical_callable_spans": [
+                {
+                  "file_path": "library/src/main/ets/common/utils/html/html-parser.ts",
+                  "start_line": 365,
+                  "end_line": 408
+                }
+              ],
+              "min_source_span_recall": 1.0
+            }
+          }
+        }
+      ],
+      "source": {
+        "before_revision": "0b34161763fc5ecc41b26bf1fdab1b512e0964e8",
+        "after_revision": "8ad85b85b542a69a5d3d5099bc249805cb11a00f",
+        "changed_files": [
+          "library/src/main/ets/common/utils/html/html-parser.ts"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "public_issue_and_git_fix_reviewed",
+        "issue_url": "https://github.com/asasugar/HPRichText/issues/36",
+        "fix_commit": "8ad85b85b542a69a5d3d5099bc249805cb11a00f",
+        "commit_message": "fix: 修复ts报错; closes #36",
+        "source_family": "asasugar/HPRichText#36",
+        "independence_basis": "previously unused external project and issue; parser child-collection failure is independent of bridge error handling and UI lifecycle subscription"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "component",
+          "utility"
+        ],
+        "mechanism_kinds": [
+          "error_contract"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "library/src/main/ets/common/utils/html/html-parser.ts"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "collection_guard",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "library/src/main/ets/common/utils/html/html-parser.ts",
+              "start_line": 365,
+              "end_line": 408
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 1,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-08-02T12:39:12+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 1,
+    "digest": "a2fd529ac67a1731100ccaf4d3d4bfafbda92ff16a2fc0af1b55c9ad05cfa6b8"
+  }
+}

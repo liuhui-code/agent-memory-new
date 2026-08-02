@@ -10,6 +10,10 @@ from .code_wiki_imports import project_for_learning_source
 from .models import Project
 from .records import output
 from .storage import connect, ensure_initialized, resolve_project
+from .storage_project_counters import (
+    begin_memory_edge_tracking,
+    finish_memory_edge_tracking,
+)
 from .storage_search_schema import rebuild_search_indexes
 
 
@@ -44,8 +48,10 @@ def rebuild_graph(project: Project) -> dict[str, Any]:
         business_before = business_snapshot(conn, project.project_id)
         memory_before = durable_memory_counts(conn, project.project_id)
         graph_before = graph_summary(conn, project.project_id)
+        begin_memory_edge_tracking(conn)
         conn.execute("DELETE FROM memory_edges WHERE project_id = ?", (project.project_id,))
         semantic_stats = rebuild_code_memory_edges(conn, project)
+        finish_memory_edge_tracking(conn)
         graph_after = graph_summary(conn, project.project_id)
         business_after = business_snapshot(conn, project.project_id)
         memory_after = durable_memory_counts(conn, project.project_id)

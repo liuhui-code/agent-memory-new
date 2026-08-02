@@ -10,11 +10,14 @@ from .storage import connect
 from .text import code_search_terms, json_list, matching_code_path_segments, query_tokens
 
 
-PROMOTABLE_RELATIONS = {"imports", "passes_property", "renders_component", "routes_to"}
+PROMOTABLE_RELATIONS = {
+    "configured_by", "imports", "passes_property", "renders_component", "routes_to",
+}
 MAX_GRAPH_NEIGHBORS = 2
 GRAPH_SCORE_DECAY = 0.82
 REVERSE_ROUTE_SCORE_DECAY = 0.9
 GRAPH_MAX_SEED_RATIO = {
+    "configured_by": 0.8,
     "imports": 0.75,
     "passes_property": 0.95,
     "renders_component": 0.85,
@@ -67,15 +70,46 @@ def collect_graph_neighbor_matches(
         return []
     resolved = resolve_candidates(project, candidates)
     resolved.sort(key=lambda item: float(item.get("score") or 0.0), reverse=True)
+    resolved = relation_diverse_neighbors(resolved, MAX_GRAPH_NEIGHBORS)
     existing_paths = existing_matches_by_path(wiki_matches)
     selected = []
-    for item in resolved[:MAX_GRAPH_NEIGHBORS]:
+    for item in resolved:
         file_path = str(item.get("file_path") or "")
         if file_path in existing_paths:
             boost_match(existing_paths[file_path], item)
         else:
             selected.append(item)
     return selected
+
+
+def relation_diverse_neighbors(
+    values: list[dict[str, Any]], limit: int,
+) -> list[dict[str, Any]]:
+    selected: list[dict[str, Any]] = []
+    seen_relations: set[str] = set()
+    for item in values:
+        relation = graph_relation(item)
+        if relation in seen_relations:
+            continue
+        selected.append(item)
+        seen_relations.add(relation)
+        if len(selected) >= limit:
+            return selected
+    selected_ids = {id(item) for item in selected}
+    selected.extend(item for item in values if id(item) not in selected_ids)
+    return selected[:limit]
+
+
+def graph_relation(item: dict[str, Any]) -> str:
+    prefix = "graph_relation:"
+    return next(
+        (
+            str(reason)[len(prefix):]
+            for reason in item.get("match_reasons") or []
+            if str(reason).startswith(prefix)
+        ),
+        "unknown",
+    )
 
 
 def existing_matches_by_path(

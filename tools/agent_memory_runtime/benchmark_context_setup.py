@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -37,6 +38,21 @@ def apply_context_setup(
             timeout,
         )
     return {"reflection_count": len(reflections)}
+
+
+def context_setup_audit(setup: Any) -> dict[str, Any]:
+    reflections = validated_reflections(setup)
+    encoded = json.dumps(
+        {"reflections": reflections},
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": len(reflections),
+        "sha256": hashlib.sha256(encoded).hexdigest(),
+    }
 
 
 def validated_reflections(setup: Any) -> list[dict[str, Any]]:

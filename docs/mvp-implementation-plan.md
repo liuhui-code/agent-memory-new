@@ -53,13 +53,15 @@ Installed project layout:
         Semantic Facts/
         Codebase Wiki/
         Daily/
-.agent-skills/
-  agent-memory-learn/
-  agent-memory-query/
-  agent-memory-maintain/
-  agent-memory-reflect/
+.agents/
+  skills/
+    agent-memory-learn/
+    agent-memory-query/
+    agent-memory-maintain/
+    agent-memory-reflect/
 tools/
   agent_memory.py
+  agent_memory_runtime/
 ```
 
 ## MVP Boundaries
@@ -73,7 +75,7 @@ Build:
 - Keyword search and context generation
 - Obsidian vault export
 - Lightweight codebase wiki
-- Six skills that call the runtime
+- Four skills that call the runtime
 - Installer and doctor command
 
 Do not build in MVP:
@@ -431,10 +433,16 @@ Python: def, class
 TS/JS: function, class, const name =
 ArkTS: .ets, struct components, class, function, lifecycle/build methods, router targets, resources
 HarmonyOS config: .json5 abilities, permissions, dependencies, page profiles
+C/C++: common source/header suffixes, classes, single-line and multiline callable spans, static calls, native log sites
+Build artifacts: Make/CMake targets, Shell functions, build variables, bounded literal terms
 Dart: class, Future<, void, Widget build
 Swift: class, struct, func
 Markdown: # headings
 ```
+
+- [x] Keep language-specific source classification behind `SourceAdapter` and semantic extraction behind `LanguageAdapter`.
+- [x] Persist ArkTS native import, CMake source, and HNP package/Make target boundaries as static `imports` or `configured_by` navigation edges.
+- [x] Keep compiler/LSP/SCIP providers replaceable; built-in native and build extraction remains `static` and cannot prove runtime execution.
 
 ## Phase 8: Skills
 
@@ -504,8 +512,8 @@ Resolve project path
 Create workspace memory home if missing
 Initialize memory.db
 Create vault/
-Copy tools/agent_memory.py to project tools/
-Copy skills to .agent-skills/
+Copy tools/agent_memory.py and tools/agent_memory_runtime/ to project tools/
+Copy skills to .agents/skills/
 Write workspace and per-project config.json
 Run doctor
 Print usage examples

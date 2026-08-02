@@ -36,15 +36,17 @@ Memory selection is an Agent workflow decision, not a Runtime diagnosis. Never s
 Use the compact historical query entry for L1 diagnosis and code understanding:
 
 ```bash
-python tools/agent_memory.py context --project . --query "<user problem or Agent-extracted term>" --compact --json
+python3 tools/agent_memory.py context --project . --query "<user problem or Agent-extracted term>" --compact --json
 ```
+
+When the lane is clear or domain words are ambiguous, pass typed `--intent`; load `references/evidence-policy.md` for values, audit fields, and cross-language handling.
 
 For L2 audit expansion, run the same focused query without `--compact`. The full view is not the default Agent injection path.
 
 For a design request, use the dedicated context facade:
 
 ```bash
-python tools/agent_memory.py design-context --project . --query "<design goal>" --compact --json
+python3 tools/agent_memory.py design-context --project . --query "<design goal>" --compact --json
 ```
 
 The Runtime returns repository facts, project constraints, quality questions,

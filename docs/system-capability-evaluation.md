@@ -202,7 +202,7 @@ python tools/agent_memory.py eval-context-capability \
 不允许 SQL、任意命令或生产记忆复制。Oracle 只供评分器读取，不进入 `context` 查询。
 
 每个场景还可以声明 1 至 5 个 `query_variants`。运行时在场景选择和 `--limit` 之后展开
-变体；每个变体使用独立工作区和临时记忆，但共享场景 Oracle。报告中的
+变体；每个变体使用独立工作区和临时记忆。普通措辞变体共享场景 Oracle。报告中的
 `capability_profile.query_robustness` 按场景聚合稳定性，任一变体失败仍会使总门禁失败。
 
 ```json
@@ -210,6 +210,35 @@ python tools/agent_memory.py eval-context-capability \
   {"id": "original", "description": "original task wording"},
   {"id": "en-paraphrase", "description": "equivalent English wording"},
   {"id": "zh-noise", "description": "中文表述，并包含需要排除的噪声"}
+]
+```
+
+真实排障也可以把查询声明为 `orientation` 或 `focused` 阶段，并通过
+`oracle_override` 只覆盖该轮的 `expected_files`、`forbidden_files` 和
+`context_requirements`。这用于评估 Agent 先定向、再围绕一个候选机制追查证据的会话，
+不会改写场景的最终 Agent Oracle。所有已声明阶段都通过，
+`capability_profile.investigation_stages` 才会通过。阶段覆盖不能修改任务、来源 revision、
+根因类别或 Agent A/B 的验收答案。
+
+```json
+"query_variants": [
+  {
+    "id": "orientation",
+    "investigation_stage": "orientation",
+    "description": "The application exits after an undefined bridge call.",
+    "oracle_override": {
+      "expected_files": ["src/BridgeEntry.ets"]
+    }
+  },
+  {
+    "id": "focused",
+    "investigation_stage": "focused",
+    "description": "Inspect the undefined-method branch in the bridge implementation.",
+    "oracle_override": {
+      "expected_files": ["src/BaseBridge.ets"],
+      "context_requirements": {"require_source_excerpt": true}
+    }
+  }
 ]
 ```
 

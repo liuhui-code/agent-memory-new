@@ -7,6 +7,7 @@ from collections.abc import Mapping
 from typing import Any
 
 from .models import VALID_MEMORY_STATUSES
+from .query_intent_contract import EXPLICIT_MEMORY_INTENTS
 from .incident_trace_models import ARKTS_SCENES
 from .cli_benchmark import add_benchmark_parsers
 from .cli_design import add_design_parsers
@@ -61,6 +62,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     p = sub.add_parser("context")
     add_project(p)
     p.add_argument("--query", required=True)
+    p.add_argument("--intent", choices=EXPLICIT_MEMORY_INTENTS)
     p.add_argument("--compact", action="store_true")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=command("context"))

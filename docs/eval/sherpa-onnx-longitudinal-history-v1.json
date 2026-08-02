@@ -1,0 +1,65 @@
+{
+  "schema_version": "agent-memory-longitudinal-history/v1",
+  "evidence_level": "development",
+  "project": "k2-fsa/sherpa-onnx",
+  "license": "Apache-2.0",
+  "history_cutoff": "2026-06-15T07:20:34Z",
+  "history_sources": [
+    "https://github.com/k2-fsa/sherpa-onnx/issues/3639"
+  ],
+  "target_source": "https://github.com/k2-fsa/sherpa-onnx/issues/3759",
+  "target_created_at": "2026-07-13T13:00:51Z",
+  "target_reviewed_before_ideal_freeze": true,
+  "raw_logs_persisted_to_memory": false,
+  "agent_authored": {
+    "origin": "structured_reflection_from_prior_public_incident",
+    "reflections": [
+      {
+        "experience_type": "procedure_experience",
+        "task_type": "diagnosis",
+        "task": "diagnose Supertonic 3 model load SIGABRT on iOS",
+        "summary": "The model load aborted when its ai.onnx.ml opset exceeded the ONNX Runtime version bundled by the platform package.",
+        "lesson": "For an uncaught Ort::Exception during model construction, compare every model opset import with the platform-specific bundled runtime before changing application code.",
+        "trigger_condition": "A native sherpa-onnx package aborts while loading an ONNX model and the fatal message names an unsupported opset domain.",
+        "repair_action": "Inspect the platform build script and native model-construction boundary, verify the bundled runtime version, and test the model with a compatible runtime.",
+        "anti_pattern": "Assuming all platform packages bundle the same ONNX Runtime or copying one platform's supported opset limit.",
+        "verification_method": "Confirm the platform runtime version, model opset imports, constructor stack, and successful load under a compatible runtime.",
+        "source_cases": [
+          "github_issue:k2-fsa/sherpa-onnx#3639",
+          "platform:iOS",
+          "package:sherpa_onnx_ios@1.13.2"
+        ],
+        "negative_preconditions": [
+          "Do not assume the iOS runtime version applies to HarmonyOS.",
+          "Do not treat a model metadata mismatch as proof that the ArkTS wrapper caused it."
+        ],
+        "confidence": 0.9
+      }
+    ]
+  },
+  "ideal": {
+    "origin": "reviewed_cross_platform_compaction",
+    "independence": "posthoc_development_only",
+    "reflections": [
+      {
+        "experience_type": "procedure_experience",
+        "task_type": "diagnosis",
+        "task": "trace a cross-platform native model-load abort",
+        "summary": "Separate model/runtime compatibility from exception-boundary behavior, then trace the language wrapper through NAPI and the C API constructor.",
+        "lesson": "A model-load abort needs two checks: the platform-specific runtime must support the model metadata, and native exceptions must not escape the language boundary uncaught.",
+        "trigger_condition": "An ArkTS or other language wrapper terminates during native ONNX model construction with an Ort::Exception or unsupported-opset message.",
+        "repair_action": "Follow the wrapper-to-native constructor path, inspect the platform runtime build version, compare model domain imports, and verify exception conversion separately from compatibility.",
+        "anti_pattern": "Stopping at the first wrapper stack frame or reusing another platform's runtime version as current evidence.",
+        "verification_method": "Verify the exact platform package revision, build script, native constructor, exception boundary, and model load with compatible metadata/runtime.",
+        "source_cases": [
+          "github_issue:k2-fsa/sherpa-onnx#3639"
+        ],
+        "negative_preconditions": [
+          "Static call paths do not prove the failing branch executed without the real log.",
+          "A newer runtime may change deployment requirements and must be validated independently."
+        ],
+        "confidence": 0.95
+      }
+    ]
+  }
+}

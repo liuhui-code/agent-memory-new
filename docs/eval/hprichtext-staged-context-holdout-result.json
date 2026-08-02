@@ -1,0 +1,777 @@
+{
+  "schema_version": "agent-context-capability-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 2,
+    "passed_case_count": 1,
+    "failed_case_count": 1,
+    "scenario_count": 1,
+    "stable_scenario_count": 0,
+    "query_variant_pass_rate": 0.5,
+    "staged_scenario_count": 1,
+    "complete_staged_scenario_count": 0,
+    "average_context_tokens": 1186.5,
+    "average_memory_prepare_ms": 17783.0,
+    "average_query_elapsed_ms": 7129.5
+  },
+  "capability_profile": {
+    "code_locator": {
+      "status": "fail",
+      "evaluated_cases": 2,
+      "anchor_recall": 0.75,
+      "primary_anchor_recall": 0.75,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "expected_anchor_mrr": 1.0
+    },
+    "source_evidence": {
+      "status": "pass",
+      "evaluated_cases": 2,
+      "observed_case_count": 2,
+      "source_excerpt_recall": 0.75,
+      "source_span_recall": 1.0
+    },
+    "log_graph": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "log_path_quality": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "average_path_recall": null,
+      "average_path_precision": null,
+      "truncated_case_count": 0
+    },
+    "experience": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "causal_context": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_path_case_count": 0,
+      "observed_relation_case_count": 0
+    },
+    "hierarchical_localization": {
+      "status": "informational_serving_stage",
+      "evaluated_cases": 2,
+      "observed_case_count": 2,
+      "serving_observed_case_count": 2,
+      "file_evaluated_case_count": 2,
+      "callable_evaluated_case_count": 2,
+      "owner_evaluated_case_count": 0,
+      "range_evaluated_case_count": 2,
+      "file_recall": 1.0,
+      "callable_recall": 0.5,
+      "owner_recall": null,
+      "owner_precision": null,
+      "range_recall": 0.5,
+      "average_audit_elapsed_ms": 7158.5
+    },
+    "abstention": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "compactness": {
+      "status": "pass",
+      "evaluated_cases": 2,
+      "average_context_tokens": 1186.5,
+      "token_budget": 1500
+    },
+    "query_robustness": {
+      "status": "fail",
+      "scenario_count": 1,
+      "stable_scenario_count": 0,
+      "variant_count": 2,
+      "passed_variant_count": 1,
+      "variant_pass_rate": 0.5,
+      "scenarios": [
+        {
+          "scenario_id": "hprichtext-adjacent-font-node-crash",
+          "status": "fail",
+          "variant_count": 2,
+          "passed_variant_count": 1,
+          "failed_variants": [
+            "orientation"
+          ]
+        }
+      ]
+    },
+    "investigation_stages": {
+      "status": "fail",
+      "scenario_count": 1,
+      "complete_scenario_count": 0,
+      "stages": {
+        "orientation": {
+          "status": "fail",
+          "case_count": 1,
+          "passed_case_count": 0,
+          "pass_rate": 0.0,
+          "failed_case_ids": [
+            "hprichtext-adjacent-font-node-crash::orientation"
+          ]
+        },
+        "focused": {
+          "status": "pass",
+          "case_count": 1,
+          "passed_case_count": 1,
+          "pass_rate": 1.0,
+          "failed_case_ids": []
+        }
+      },
+      "scenarios": [
+        {
+          "scenario_id": "hprichtext-adjacent-font-node-crash",
+          "status": "fail",
+          "stages": {
+            "orientation": "fail",
+            "focused": "pass"
+          }
+        }
+      ]
+    },
+    "evidence_funnel": {
+      "status": "informational",
+      "evaluated_cases": 2,
+      "first_loss_counts": {
+        "callable": 1,
+        "compact_primary": 1
+      },
+      "stage_pass_rates": {
+        "candidate_file": 1.0,
+        "localizer_file": 1.0,
+        "callable": 0.5,
+        "source_range": 0.5,
+        "evidence_primary": 1.0,
+        "compact_primary": 0.5,
+        "compact_anchor": 0.5
+      }
+    },
+    "evidence_set_calibration": {
+      "status": "informational",
+      "evaluated_cases": 2,
+      "observed_case_count": 2,
+      "target_scope_accuracy": 0.0,
+      "member_recall": 0.75,
+      "primary_precision": 1.0,
+      "calibration_state_accuracy": null,
+      "forbidden_member_hit_count": 0,
+      "guarded_exclusion_count": 0,
+      "calibration_state_counts": {
+        "insufficient": 1,
+        "single_candidate_supported": 1
+      },
+      "serving_projection_changed": false
+    },
+    "sufficiency": {
+      "status": "informational",
+      "evaluated_case_count": 2,
+      "missing_observation_count": 0,
+      "kind_counts": {
+        "diagnosis": 2
+      },
+      "readiness_status_counts": {
+        "ready_for_agent_inspection": 2
+      },
+      "reason_code_counts": {
+        "limited_code_anchor_diversity": 2,
+        "no_log_anchor": 2
+      },
+      "scope": "shadow_observation_not_a_context_gate"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "hprichtext-adjacent-font-node-crash::orientation",
+      "scenario_id": "hprichtext-adjacent-font-node-crash",
+      "query_variant": "orientation",
+      "investigation_stage": "orientation",
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 0.5,
+      "primary_anchor_recall": 0.5,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 0.5,
+      "source_span_recall": 1.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "library/src/main/ets/components/hprichtext/HPRichText.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "library/src/main/ets/components/hprichtext/HPRichText.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "library/src/main/ets/components/hprichtext/HPRichText.ets"
+      ],
+      "missing_expected_anchors": [
+        "library/src/main/ets/common/utils/html/html-parser.ts"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 1.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 1.0,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 14,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 7536
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": true,
+          "source_range": true,
+          "evidence_primary": true,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "compact_primary",
+        "candidate_file_count": 12,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "library/src/main/ets/components/hprichtext/HPRichText.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "single",
+        "target_scope_match": false,
+        "member_recall": 0.5,
+        "primary_precision": 1.0,
+        "calibration_state": "single_candidate_supported",
+        "primary_support_kinds": [
+          "typed_target_owner",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 1218,
+      "memory_prepare_ms": 17792,
+      "query_elapsed_ms": 6799,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 4,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "library/src/main/ets/components/hprichtext/HPRichText.ets",
+            "start_line": 122,
+            "end_line": 133
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "hprichtext-adjacent-font-node-crash::focused",
+      "scenario_id": "hprichtext-adjacent-font-node-crash",
+      "query_variant": "focused",
+      "investigation_stage": "focused",
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "minimum_source_span_recall_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": 1.0,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "library/src/main/ets/common/utils/html/html-parser.ts"
+      ],
+      "observed_primary_anchor_paths": [
+        "library/src/main/ets/common/utils/html/html-parser.ts"
+      ],
+      "observed_source_excerpt_paths": [
+        "library/src/main/ets/common/utils/html/html-parser.ts"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": 0.0,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": 0.0,
+        "missing_callables": [
+          {
+            "file_path": "library/src/main/ets/common/utils/html/html-parser.ts",
+            "start_line": 365,
+            "end_line": 408
+          }
+        ],
+        "missing_owners": [],
+        "missing_ranges": [
+          {
+            "file_path": "library/src/main/ets/common/utils/html/html-parser.ts",
+            "start_line": 365,
+            "end_line": 408
+          }
+        ],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 13,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 6781
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": false,
+          "source_range": false,
+          "evidence_primary": true,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "callable",
+        "candidate_file_count": 8,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "library/src/main/ets/common/utils/html/html-parser.ts"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "direct_identity"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 1155,
+      "memory_prepare_ms": 17774,
+      "query_elapsed_ms": 7460,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 2,
+        "min_anchor_precision": 0.5,
+        "required_source_spans": [
+          {
+            "file_path": "library/src/main/ets/common/utils/html/html-parser.ts",
+            "start_line": 365,
+            "end_line": 408
+          }
+        ],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [
+          {
+            "file_path": "library/src/main/ets/common/utils/html/html-parser.ts",
+            "start_line": 365,
+            "end_line": 408
+          }
+        ],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "scope": "context_supply_only"
+  },
+  "next_gate": "repair_context_supply",
+  "execution": {
+    "schema_version": "agent-context-capability-execution/v1",
+    "strategy": "shared-index-isolated-case-snapshot",
+    "expanded_case_count": 2,
+    "source_group_count": 1,
+    "setup_group_count": 1,
+    "index_build_count": 1,
+    "case_snapshot_count": 2,
+    "avoided_index_build_count": 1,
+    "source_materialize_ms": 740,
+    "index_prepare_ms": 17700,
+    "setup_prepare_ms": 0,
+    "case_snapshot_ms": 166,
+    "batch_elapsed_ms": 47404,
+    "source_groups": [
+      {
+        "source_digest": "421e4e23dbe2c043fec7113fbb7f4933dd90c0583d9e25e383bd26ff2da86643",
+        "case_count": 2,
+        "setup_group_count": 1,
+        "source_materialize_ms": 740,
+        "index_prepare_ms": 17700,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 166,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 2,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 166
+          }
+        ]
+      }
+    ]
+  },
+  "calibration": {
+    "schema_version": "agent-context-calibration/v1",
+    "status": "pass",
+    "target_domain": "native_arkts",
+    "profiled_case_count": 2,
+    "coverage": {
+      "target_levels": [
+        "callable",
+        "expression",
+        "file"
+      ],
+      "artifact_roles": [
+        "component",
+        "utility"
+      ],
+      "mechanism_kinds": [
+        "error_contract"
+      ]
+    },
+    "contract_gaps": [],
+    "macro_metrics": {
+      "artifact_roles": {
+        "pass_rate": 0.5,
+        "anchor_recall": 0.75,
+        "anchor_precision": 1.0,
+        "source_span_recall": 1.0
+      },
+      "target_levels": {
+        "pass_rate": 0.5,
+        "anchor_recall": 0.75,
+        "anchor_precision": 1.0,
+        "source_span_recall": 1.0
+      },
+      "mechanism_kinds": {
+        "pass_rate": 0.5,
+        "anchor_recall": 0.75,
+        "anchor_precision": 1.0,
+        "source_span_recall": 1.0
+      }
+    },
+    "strata": {
+      "artifact_roles": [
+        {
+          "label": "component",
+          "case_count": 2,
+          "pass_rate": 0.5,
+          "anchor_recall": 0.75,
+          "anchor_precision": 1.0,
+          "source_span_recall": 1.0
+        },
+        {
+          "label": "utility",
+          "case_count": 2,
+          "pass_rate": 0.5,
+          "anchor_recall": 0.75,
+          "anchor_precision": 1.0,
+          "source_span_recall": 1.0
+        }
+      ],
+      "target_levels": [
+        {
+          "label": "callable",
+          "case_count": 2,
+          "pass_rate": 0.5,
+          "anchor_recall": 0.75,
+          "anchor_precision": 1.0,
+          "source_span_recall": 1.0
+        },
+        {
+          "label": "expression",
+          "case_count": 2,
+          "pass_rate": 0.5,
+          "anchor_recall": 0.75,
+          "anchor_precision": 1.0,
+          "source_span_recall": 1.0
+        },
+        {
+          "label": "file",
+          "case_count": 2,
+          "pass_rate": 0.5,
+          "anchor_recall": 0.75,
+          "anchor_precision": 1.0,
+          "source_span_recall": 1.0
+        }
+      ],
+      "mechanism_kinds": [
+        {
+          "label": "error_contract",
+          "case_count": 2,
+          "pass_rate": 0.5,
+          "anchor_recall": 0.75,
+          "anchor_precision": 1.0,
+          "source_span_recall": 1.0
+        }
+      ]
+    },
+    "scope": "evaluation_only_not_injected_into_agent_context"
+  },
+  "calibration_gate": "not_required",
+  "case_seal": {
+    "status": "verified",
+    "required": true,
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "digest": "a2fd529ac67a1731100ccaf4d3d4bfafbda92ff16a2fc0af1b55c9ad05cfa6b8",
+    "sealed_at": "2026-08-02T12:39:12+00:00",
+    "case_count": 1
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 1,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "promotion_policy": {
+    "schema_version": "agent-context-promotion-policy/v1",
+    "eligible": false,
+    "reasons": [
+      "system_context_gate_failed"
+    ],
+    "next_gate": "repair_context_supply"
+  },
+  "promotion_eligible": false,
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 2,
+    "primary_failure_class": "ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 1,
+      "ranking_precision": 1
+    },
+    "failures": [
+      {
+        "case_id": "hprichtext-adjacent-font-node-crash::orientation",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "hprichtext-adjacent-font-node-crash::orientation",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout."
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/hprichtext-staged-context-holdout-cases.sealed.json",
+  "selected_scenario_ids": [
+    "hprichtext-adjacent-font-node-crash"
+  ],
+  "selected_case_ids": [
+    "hprichtext-adjacent-font-node-crash::orientation",
+    "hprichtext-adjacent-font-node-crash::focused"
+  ],
+  "source_project": "/private/tmp/agent-memory-value-hprichtext",
+  "recorded_at": "2026-08-02T12:41:02+00:00"
+}

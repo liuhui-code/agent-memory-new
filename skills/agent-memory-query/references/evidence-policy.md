@@ -5,12 +5,31 @@ Use this protocol when historical memory, semantic corrections, conflicts, or tr
 ## Commands
 
 ```bash
-python tools/agent_memory.py context --project . --query "<query>" --compact --json
-python tools/agent_memory.py search --project . --query "<query>" --json
+python3 tools/agent_memory.py context --project . --query "<query>" --compact --json
+python3 tools/agent_memory.py search --project . --query "<query>" --json
 ```
 
 `search` is paged and bounded. Follow `next_cursor` only when the current batch cannot answer the question.
 Remove `--compact` when the task specifically requires complete trust reasons, ranking audit, or full conflict records.
+
+## Typed Intent
+
+When the evidence lane is known, declare it instead of relying on lexical inference:
+
+```bash
+python3 tools/agent_memory.py context --project . --query "<goal plus source terms>" --intent procedure_reuse --compact --json
+```
+
+Allowed values are `code_location`, `code_business_semantics`,
+`runtime_log_diagnosis`, `procedure_reuse`, `semantic_correction`,
+`memory_maintenance`, and `general_context`. Use a typed intent when domain words such
+as `refresh`, `file`, or `maintenance` could describe either the business operation or
+the requested evidence lane. Omit it only when the purpose is unclear, and audit
+`memory_intent_source` for `explicit` versus `inferred` selection.
+
+Typed intent controls lanes, not candidate translation. When user and source languages
+differ, include a few Agent-extracted identifiers, source terms, or exact log phrases in
+the same query. Do not maintain a static synonym list.
 
 ## Retrieval Lanes
 
@@ -40,7 +59,7 @@ Use `experience_maturity`, `trust_level`, `trust_score`, `trust_cap`, `query_ris
 If retrieval trust was wrong, record bounded calibration feedback:
 
 ```bash
-python tools/agent_memory.py retrieval-feedback --project . --query "<query>" --type reflection --id <id> --reason overtrusted --json
+python3 tools/agent_memory.py retrieval-feedback --project . --query "<query>" --type reflection --id <id> --reason overtrusted --json
 ```
 
 If a memory was actually used, helpful, ignored, misleading, or superseded, record task-outcome feedback with `experience-usage`. Do not delete a record merely because it was wrong for one query.
@@ -50,9 +69,9 @@ If a memory was actually used, helpful, ignored, misleading, or superseded, reco
 Use existing project golden cases when changing retrieval behavior:
 
 ```bash
-python tools/agent_memory.py eval-retrieval --project . --cases <cases.json> --json
-python tools/agent_memory.py eval-calibration --project . --cases <cases.json> --json
-python tools/agent_memory.py eval-evidence-attribution --project . --cases <cases.json> --json
+python3 tools/agent_memory.py eval-retrieval --project . --cases <cases.json> --json
+python3 tools/agent_memory.py eval-calibration --project . --cases <cases.json> --json
+python3 tools/agent_memory.py eval-evidence-attribution --project . --cases <cases.json> --json
 ```
 
 Treat failures as regression evidence, not permission to rewrite memory automatically.

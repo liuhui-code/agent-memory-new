@@ -37,6 +37,7 @@ When recording `procedure_experience`, include `trigger_condition`, `repair_acti
 
 When recording `correction_experience`, include enough evidence for later guardrail governance:
 
+- a narrow `trigger_condition` that identifies when the correction should be considered
 - affected file, symbol, or log anchors in `source_cases` or `inspection_targets`
 - the misleading old understanding in `what_failed` or `misleading_followup_terms`
 - the corrected understanding in `lesson`, `future_rule`, and `repair_action`
@@ -80,7 +81,7 @@ When recent work already ran `context`, `search`, or `maintain-plan`, the runtim
 Use `--from-last-task` when the latest trace is the right starting point:
 
 ```bash
-python tools/agent_memory.py reflect --project . --from-last-task --task "<task>" --lesson "<lesson>" --json
+python3 tools/agent_memory.py reflect --project . --from-last-task --task "<task>" --lesson "<lesson>" --json
 ```
 
 Explicit payload values still win. The usage sample and task trace are runtime-side helpers and are closed after the reflection is written.
@@ -92,7 +93,7 @@ This does not add a fifth skill. It only helps `maintain-plan` route the reflect
 If the task used an existing semantic fact or reflection, record the usage outcome after reflection when the result clearly helped or misled the task:
 
 ```bash
-python tools/agent_memory.py experience-usage --project . --query "<query>" --type reflection --id "<id>" --outcome helpful --json
+python3 tools/agent_memory.py experience-usage --project . --query "<query>" --type reflection --id "<id>" --outcome helpful --json
 ```
 
 Use `helpful` for records that materially improved the task, `ignored` for records that were retrieved but not useful, `misleading` for records that pulled the Agent toward a wrong path, and `superseded` when a newer or current-source-backed record replaced the old guidance.
@@ -102,7 +103,7 @@ Use `helpful` for records that materially improved the task, `ignored` for recor
 Prefer this JSON payload form when the Agent has enough context:
 
 ```bash
-python tools/agent_memory.py reflect \
+python3 tools/agent_memory.py reflect \
   --project . \
   --payload '{
     "task_type": "diagnosis",
@@ -178,13 +179,13 @@ python tools/agent_memory.py reflect \
 For large payloads, write JSON to a temporary file and call:
 
 ```bash
-python tools/agent_memory.py reflect --project . --payload-file "<review.json>"
+python3 tools/agent_memory.py reflect --project . --payload-file "<review.json>"
 ```
 
 When the work mainly corrected code business semantics, prefer a focused `semantic_patch_experience`:
 
 ```bash
-python tools/agent_memory.py reflect \
+python3 tools/agent_memory.py reflect \
   --project . \
   --payload '{
     "experience_type": "semantic_patch_experience",
@@ -210,7 +211,7 @@ python tools/agent_memory.py reflect \
 
 After writing this reflection:
 
-1. Run `python tools/agent_memory.py maintain-plan --project . --json`
+1. Run `python3 tools/agent_memory.py maintain-plan --project . --json`
 2. Review the `review_semantic_patch` action
 3. Apply the returned `learn_business_payload_template` through `learn-business` if current source supports the patch
 
@@ -234,7 +235,7 @@ Valid `outcome` values:
 The argument form remains available for short reflections:
 
 ```bash
-python tools/agent_memory.py reflect \
+python3 tools/agent_memory.py reflect \
   --project . \
   --task "<task>" \
   --summary "<what happened>" \
@@ -254,7 +255,7 @@ python tools/agent_memory.py reflect \
 When this task reused earlier reflections, record the feedback:
 
 ```bash
-python tools/agent_memory.py reflect \
+python3 tools/agent_memory.py reflect \
   --project . \
   --task "<task>" \
   --lesson "<new lesson>" \
@@ -276,7 +277,7 @@ reflection made the current task worse; maintain can later mark it stale.
 ## Review Reflection Quality
 
 ```bash
-python tools/agent_memory.py reflect-review --project . --json
+python3 tools/agent_memory.py reflect-review --project . --json
 ```
 
 ## Remember Explicit User Fact
@@ -284,7 +285,7 @@ python tools/agent_memory.py reflect-review --project . --json
 When the user says "remember this" or gives a stable preference:
 
 ```bash
-python tools/agent_memory.py update \
+python3 tools/agent_memory.py update \
   --project . \
   --type semantic \
   --fact "<fact>" \
@@ -295,7 +296,7 @@ python tools/agent_memory.py update \
 ## Sync Review Mirror
 
 ```bash
-python tools/agent_memory.py vault-export --project .
+python3 tools/agent_memory.py vault-export --project .
 ```
 
 Rules:

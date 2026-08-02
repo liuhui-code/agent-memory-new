@@ -19,6 +19,7 @@ from .query_hierarchical_owners import load_one_hop_owners
 from .records import output
 from .scale_maintenance import benchmark_incremental_maintenance
 from .storage import connect, ensure_dirs, ensure_initialized, now_iso, resolve_project
+from .storage_project_counters import MEMORY_EDGE_COUNTER, set_project_counter
 
 
 BATCH_SIZE = 10_000
@@ -149,6 +150,10 @@ def seed_scale_data(project: Project, profile: ScaleProfile) -> dict[str, float]
                ) VALUES (?, ?, ?, ?, ?, ?, ?, 'scale', 0.9, ?, ?)""",
             edge_rows(profile, project.project_id),
         )
+        set_project_counter(
+            conn, project.project_id, MEMORY_EDGE_COUNTER, profile.edge_count
+        )
+        conn.commit()
         conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
     return timings
 

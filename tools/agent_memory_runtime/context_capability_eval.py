@@ -11,6 +11,7 @@ from .context_evidence_funnel import assess_evidence_funnel, evidence_funnel_pro
 from .context_evidence_set_metrics import assess_evidence_set, evidence_set_profile
 from .context_hierarchical_metrics import assess_hierarchical_localization, localization_profile
 from .context_log_path_quality import assess_log_path_quality, log_path_profile
+from .context_capability_stages import investigation_stage_profile
 
 OBSERVATION_SCHEMA = "agent-context-capability-observation/v1"
 RESULT_SCHEMA = "agent-context-capability-result/v1"
@@ -24,6 +25,7 @@ def evaluate_context_capability(
     scored = [score_case(case, by_case[case["id"]]) for case in cases]
     gate = "pass" if scored and all(item["status"] == "pass" for item in scored) else "fail"
     robustness = query_robustness_profile(scored)
+    stages = investigation_stage_profile(scored)
     return {
         "schema_version": RESULT_SCHEMA,
         "status": gate,
@@ -35,6 +37,8 @@ def evaluate_context_capability(
             "scenario_count": robustness["scenario_count"],
             "stable_scenario_count": robustness["stable_scenario_count"],
             "query_variant_pass_rate": robustness["variant_pass_rate"],
+            "staged_scenario_count": stages["scenario_count"],
+            "complete_staged_scenario_count": stages["complete_scenario_count"],
             "average_context_tokens": average(scored, "context_token_estimate"),
             "average_memory_prepare_ms": average(scored, "memory_prepare_ms"),
             "average_query_elapsed_ms": average(scored, "query_elapsed_ms"),
@@ -42,6 +46,7 @@ def evaluate_context_capability(
         "capability_profile": {
             **capability_profile(scored),
             "query_robustness": robustness,
+            "investigation_stages": stages,
             "evidence_funnel": evidence_funnel_profile(scored),
             "evidence_set_calibration": evidence_set_profile(scored),
         },
@@ -184,6 +189,7 @@ def score_case(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, A
         "case_id": case["id"],
         "scenario_id": case.get("scenario_id") or case["id"],
         "query_variant": case.get("query_variant") or "default",
+        "investigation_stage": case.get("investigation_stage"),
         "status": "pass" if all(checks.values()) else "fail",
         "checks": checks,
         "anchor_recall": recall(expected, anchors),

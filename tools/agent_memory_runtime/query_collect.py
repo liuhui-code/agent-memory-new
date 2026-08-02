@@ -29,6 +29,8 @@ from .query_candidate_recall import (
 from .query_caller_ownership import collect_bounded_caller_owners
 from .query_graph_neighbors import collect_result_graph_neighbors
 from .query_language import positive_retrieval_query
+from .query_salience import salient_query_tokens
+from .query_salience_score import apply_salience_score
 from .query_log_effects import attach_log_owner_ranges, collect_log_effect_matches
 from .records import memory_warning, row_dict
 from .retrieval_feedback import collect_feedback_adjustments
@@ -90,6 +92,7 @@ def collect_matches_with_audit(
     expanded_terms = set(tokens) - original_terms
     method_focus_terms = method_evidence_focus_terms(retrieval_query)
     behavior_terms = behavior_marker_terms(retrieval_query)
+    salient_terms = salient_query_tokens(retrieval_query)
     results: dict[str, list[dict[str, Any]]] = {
         "semantic_facts": [],
         "reflections": [],
@@ -235,6 +238,7 @@ def collect_matches_with_audit(
 
     for row in files:
         search_terms = code_search_terms("file", row)
+        file_lanes = recalled.lanes_by_id.get("code_files", {}).get(int(row["id"]), [])
         score, reasons = score_weighted_fields(
             retrieval_query,
             tokens,
@@ -261,6 +265,13 @@ def collect_matches_with_audit(
         )
         score, reasons = score_query_focus_coverage(
             retrieval_query, " ".join(search_terms), score, reasons
+        )
+        score, reasons, _salient_coverage = apply_salience_score(
+            salient_terms,
+            f"{row['file_path']} {row['summary'] or ''}",
+            score,
+            reasons,
+            "salient_file_fts" in file_lanes,
         )
         if score:
             item = row_dict(row)
@@ -317,6 +328,13 @@ def collect_matches_with_audit(
         score += score_identifier_identity(retrieval_query, row["symbol"])
         score, reasons = score_query_focus_coverage(
             retrieval_query, " ".join(search_terms), score, reasons
+        )
+        score, reasons, _salient_coverage = apply_salience_score(
+            salient_terms,
+            f"{row['method_evidence'] or ''} {row['string_evidence'] or ''}",
+            score,
+            reasons,
+            "salient_string_fts" in symbol_lanes,
         )
         score, reasons, behavior_coverage = score_symbol_behavior_match(
             row["method_evidence"] or "", behavior_terms, score, reasons

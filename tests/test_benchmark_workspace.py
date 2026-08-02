@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import subprocess
 import tempfile
 import unittest
@@ -112,6 +113,42 @@ class BenchmarkWorkspaceTests(unittest.TestCase):
                 "base",
                 (workspace / "src" / "Base.ets").read_text(encoding="utf-8"),
             )
+
+    def test_revision_omits_external_symlink_and_audits_it(self) -> None:
+        subprocess.run(["git", "init", "-q"], cwd=self.root, check=True)
+        external = self.root / "src" / "External.ets"
+        external.symlink_to("/private/unavailable/External.ets")
+        subprocess.run(["git", "add", "src"], cwd=self.root, check=True)
+        subprocess.run(
+            [
+                "git", "-c", "user.name=Benchmark",
+                "-c", "user.email=benchmark@example.invalid",
+                "commit", "-qm", "freeze external link",
+            ],
+            cwd=self.root,
+            check=True,
+        )
+        revision = subprocess.run(
+            ["git", "rev-parse", "HEAD"], cwd=self.root, text=True,
+            capture_output=True, check=True,
+        ).stdout.strip()
+
+        with materialized_workspace(
+            self.root, {"source": {"before_revision": revision}},
+        ) as workspace:
+            self.assertFalse((workspace / "src" / "External.ets").exists())
+            report = json.loads(
+                (workspace / ".agent-benchmark-sanitization.json").read_text()
+            )
+            self.assertEqual(["src/External.ets"], report["omitted_external_symlinks"])
+
+    def test_working_tree_omits_external_but_preserves_internal_symlink(self) -> None:
+        (self.root / "src" / "Internal.ets").symlink_to("Base.ets")
+        (self.root / "src" / "External.ets").symlink_to("/private/unavailable/External.ets")
+
+        with materialized_workspace(self.root, working_tree_case()) as workspace:
+            self.assertTrue((workspace / "src" / "Internal.ets").is_symlink())
+            self.assertFalse((workspace / "src" / "External.ets").exists())
 
 
 def working_tree_case(group: str = "") -> dict:

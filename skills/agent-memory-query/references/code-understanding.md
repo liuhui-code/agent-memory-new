@@ -11,8 +11,8 @@ Use this protocol to understand current files, symbols, routes, resources, confi
 5. Report missing learned coverage explicitly.
 
 ```bash
-python tools/agent_memory.py context --project . --query "<question>" --compact --json
-python tools/agent_memory.py wiki-search --project . --query "<file, symbol, route, or resource>" --json
+python3 tools/agent_memory.py context --project . --query "<question>" --compact --json
+python3 tools/agent_memory.py wiki-search --project . --query "<file, symbol, route, or resource>" --json
 ```
 
 Use compact anchors, relation hints, evidence gaps, and next queries to sharpen the next query. Remove `--compact` only when full match reasons, search terms, or ranking audit are necessary. Prefer route targets for navigation questions, resource keys for display questions, log templates for error questions, and config/permission anchors for configuration questions.

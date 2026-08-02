@@ -14,7 +14,7 @@ Prefer natural language from the user, then choose the narrowest runtime command
 For high-quality project learning, first read the target files and summarize business meaning in the required structure, then write it with `learn-business`. The runtime should store the Agent's structured understanding alongside the existing file, symbol, and log records.
 
 ```bash
-python tools/agent_memory.py learn-business --project . --payload "<json>" --json
+python3 tools/agent_memory.py learn-business --project . --payload "<json>" --json
 ```
 
 Payload shape:
@@ -99,13 +99,13 @@ After learning, inspect quality before broad querying:
 When the user names an entry file:
 
 ```bash
-python tools/agent_memory.py learn-entry --project . --entry "<file>" --depth 2 --json
+python3 tools/agent_memory.py learn-entry --project . --entry "<file>" --depth 2 --json
 ```
 
 For an external source tree:
 
 ```bash
-python tools/agent_memory.py learn-entry --project . --source "<external-project>" --entry "<file>" --depth 2 --json
+python3 tools/agent_memory.py learn-entry --project . --source "<external-project>" --entry "<file>" --depth 2 --json
 ```
 
 This merges the entry-related files into the existing codebase wiki by default. Use `--replace` only when the user asks to reset the learned code scope.
@@ -130,13 +130,13 @@ Learn the code around tools/agent_memory.py.
 When the user names a directory:
 
 ```bash
-python tools/agent_memory.py learn-path --project . --path "<directory>" --json
+python3 tools/agent_memory.py learn-path --project . --path "<directory>" --json
 ```
 
 For an external source tree:
 
 ```bash
-python tools/agent_memory.py learn-path --project . --source "<external-project>" --path "<directory>" --json
+python3 tools/agent_memory.py learn-path --project . --source "<external-project>" --path "<directory>" --json
 ```
 
 This merges the directory into the existing codebase wiki by default. Use `--replace` only when the user asks to replace the current learned scope.
@@ -158,13 +158,13 @@ Learn the skills directory.
 When the user asks to refresh the whole codebase wiki:
 
 ```bash
-python tools/agent_memory.py wiki-index --project .
+python3 tools/agent_memory.py wiki-index --project .
 ```
 
 For an external source tree:
 
 ```bash
-python tools/agent_memory.py wiki-index --project . --source "<external-project>"
+python3 tools/agent_memory.py wiki-index --project . --source "<external-project>"
 ```
 
 Rules:

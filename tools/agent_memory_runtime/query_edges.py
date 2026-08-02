@@ -17,8 +17,9 @@ FILE_BACKED_ENTITY_TABLES = {
 RELATION_PRIORITY = {
     "passes_property": 4,
     "renders_component": 3,
-    "routes_to": 2,
-    "imports": 1,
+    "routes_to": 3,
+    "configured_by": 2,
+    "imports": 2,
 }
 
 
@@ -87,6 +88,7 @@ def collect_related_edges(
                       WHEN relation = 'passes_property' THEN 4
                       WHEN relation = 'renders_component' THEN 3
                       WHEN relation = 'routes_to' THEN 2
+                      WHEN relation = 'configured_by' THEN 2
                       WHEN relation = 'imports' THEN 1
                       ELSE 0
                     END DESC, confidence DESC, id DESC
@@ -139,6 +141,8 @@ def evidence_reason(edge: dict[str, Any]) -> str:
         return "matched node contained by learned code file"
     if edge.get("relation") == "imports":
         return "matched file connected by ArkTS import"
+    if edge.get("relation") == "configured_by":
+        return "matched source or package connected to its build configuration"
     if edge.get("relation") == "routes_to":
         return "matched file connected by ArkTS router target"
     if edge.get("relation") == "passes_property":

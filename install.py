@@ -13,6 +13,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent
 RUNTIME_SOURCE = REPO_ROOT / "tools" / "agent_memory.py"
+RUNTIME_PACKAGE_SOURCE = REPO_ROOT / "tools" / "agent_memory_runtime"
 SKILLS_SOURCE = REPO_ROOT / "skills"
 
 
@@ -37,6 +38,14 @@ def copy_skill_dir(source: Path, target: Path, force: bool) -> None:
     print(f"installed {target}")
 
 
+def local_skill_root(project: Path) -> Path:
+    return project / ".agents" / "skills"
+
+
+def user_skill_root() -> Path:
+    return Path.home() / ".agents" / "skills"
+
+
 def run(cmd: list[str], cwd: Path) -> None:
     print("+ " + " ".join(cmd))
     subprocess.run(cmd, cwd=str(cwd), check=True)
@@ -51,11 +60,16 @@ def install(args: argparse.Namespace) -> None:
 
     runtime_target = project / "tools" / "agent_memory.py"
     copy_file(RUNTIME_SOURCE, runtime_target, args.force)
+    copy_skill_dir(
+        RUNTIME_PACKAGE_SOURCE,
+        project / "tools" / "agent_memory_runtime",
+        args.force,
+    )
 
     if args.global_skills:
-        skill_target_root = Path.home() / ".codex" / "skills"
+        skill_target_root = user_skill_root()
     else:
-        skill_target_root = project / ".agent-skills"
+        skill_target_root = local_skill_root(project)
 
     if SKILLS_SOURCE.exists():
         skill_target_root.mkdir(parents=True, exist_ok=True)
@@ -75,12 +89,12 @@ def install(args: argparse.Namespace) -> None:
     print("")
     print("Try:")
     option_hint = f" {' '.join(memory_args)}" if memory_args else ""
-    print(f"  python {runtime_target.relative_to(project)} update --project .{option_hint} --type semantic --fact \"用户偏好先做 MVP\" --source user --confidence 1.0")
-    print(f"  python {runtime_target.relative_to(project)} context --project .{option_hint} --query \"实现本地 agent memory\" --json")
-    print(f"  python {runtime_target.relative_to(project)} vault-export --project .{option_hint}")
+    print(f"  python3 {runtime_target.relative_to(project)} update --project .{option_hint} --type semantic --fact \"用户偏好先做 MVP\" --source user --confidence 1.0")
+    print(f"  python3 {runtime_target.relative_to(project)} context --project .{option_hint} --query \"实现本地 agent memory\" --json")
+    print(f"  python3 {runtime_target.relative_to(project)} vault-export --project .{option_hint}")
     print("")
     print("Optional shell alias:")
-    print(f"  alias agent-memory='python {runtime_target}'")
+    print(f"  alias agent-memory='python3 {runtime_target}'")
 
 
 def build_parser() -> argparse.ArgumentParser:

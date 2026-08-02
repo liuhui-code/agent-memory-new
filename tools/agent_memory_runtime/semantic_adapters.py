@@ -8,6 +8,7 @@ from typing import Protocol
 from .models import Project
 from .semantic_ecma import index_ecma_files
 from .semantic_models import SemanticBatch
+from .semantic_static_sources import StaticSourceSemanticAdapter
 
 
 class LanguageAdapter(Protocol):
@@ -47,6 +48,10 @@ class TypeScriptSemanticAdapter:
 
 ADAPTERS: dict[str, LanguageAdapter] = {
     "ArkTS": ArkTSSemanticAdapter(),
+    "Build Artifact": StaticSourceSemanticAdapter(
+        "build-artifact-static", "Build Artifact", "build"
+    ),
+    "C/C++": StaticSourceSemanticAdapter("cpp-static", "C/C++", "native"),
     "TypeScript": TypeScriptSemanticAdapter(),
 }
 

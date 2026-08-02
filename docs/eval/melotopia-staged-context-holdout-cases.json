@@ -1,0 +1,126 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-value-melotopia",
+  "source_repository": "https://github.com/Chenlvin/Melotopia-HMOS.git",
+  "generated_at": "2026-08-02T00:00:00+08:00",
+  "generator": "reviewed-staged-context-holdout/v1",
+  "cases": [
+    {
+      "id": "melotopia-landscape-lyric-update",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Lyrics stop updating in the landscape player after switching the player layout. Locate the component lifecycle that owns lyric update subscription and refresh.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "query_variants": [
+        {
+          "id": "orientation",
+          "investigation_stage": "orientation",
+          "description": "Lyrics stop updating in the landscape player after switching the player layout. Locate the lyric display component.",
+          "oracle_override": {
+            "expected_files": ["entry/src/main/ets/components/play/LyricComponent.ets"],
+            "context_requirements": {
+              "require_expected_anchors": true,
+              "require_source_excerpt": true,
+              "required_top_k": 3,
+              "min_anchor_precision": 0.3333,
+              "required_source_spans": [
+                {
+                  "file_path": "entry/src/main/ets/components/play/LyricComponent.ets",
+                  "start_line": 12,
+                  "end_line": 25
+                }
+              ],
+              "min_source_span_recall": 1.0
+            }
+          }
+        },
+        {
+          "id": "focused",
+          "investigation_stage": "focused",
+          "description": "Candidate cause: the EMITTER_LYRIC_UPDATE subscription is attached in component appearance and removed in component disappearance while the player switches layouts. Locate the lifecycle owner.",
+          "oracle_override": {
+            "expected_files": ["entry/src/main/ets/components/play/LyricComponent.ets"],
+            "context_requirements": {
+              "require_expected_anchors": true,
+              "require_source_excerpt": true,
+              "required_top_k": 2,
+              "min_anchor_precision": 0.5,
+              "required_source_spans": [
+                {
+                  "file_path": "entry/src/main/ets/components/play/LyricComponent.ets",
+                  "start_line": 36,
+                  "end_line": 60
+                }
+              ],
+              "hierarchical_callable_spans": [
+                {
+                  "file_path": "entry/src/main/ets/components/play/LyricComponent.ets",
+                  "start_line": 36,
+                  "end_line": 60
+                }
+              ],
+              "min_source_span_recall": 1.0
+            }
+          }
+        }
+      ],
+      "source": {
+        "before_revision": "b72c3b8256962dc3df5e3a9def39a80e72f29390",
+        "after_revision": "eb4ff38f7f7615f820da80c9d59c9587c0803afb",
+        "changed_files": ["entry/src/main/ets/components/play/LyricComponent.ets"],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "git_fix_reviewed",
+        "fix_commit": "eb4ff38f7f7615f820da80c9d59c9587c0803afb",
+        "commit_message": "fix: 修复横屏播放器歌词不更新的问题",
+        "source_family": "Chenlvin/Melotopia-HMOS@landscape-lyric-update",
+        "independence_basis": "previously unused external project and commit; component subscription lifecycle is independent of parser collection safety and reflective bridge errors"
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["component"],
+        "mechanism_kinds": ["event_binding", "ui_state", "async_control"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/components/play/LyricComponent.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "subscription_lifecycle",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 2,
+          "min_anchor_precision": 0.5,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/components/play/LyricComponent.ets",
+              "start_line": 36,
+              "end_line": 60
+            }
+          ],
+          "min_source_span_recall": 1.0
+        }
+      },
+      "review": {"source_diff_reviewed": true},
+      "leakage_guard": {
+        "hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    }
+  }
+}

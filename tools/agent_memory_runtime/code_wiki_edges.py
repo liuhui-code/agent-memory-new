@@ -8,7 +8,11 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-from .code_wiki_edge_candidates import load_rebuild_files
+from .code_wiki_edge_candidates import (
+    graph_reference_names,
+    load_rebuild_files,
+    load_unique_reference_symbols,
+)
 from .code_wiki_extractors import extract_arkts_reference_symbols
 from .code_wiki_design_edges import insert_design_edges
 from .code_wiki_imports import relative_project_path, resolve_arkts_router_targets, resolve_js_imports
@@ -17,6 +21,7 @@ from .log_effects import rebuild_log_effects
 from .graph_quality_snapshot import bump_graph_revision
 from .incremental_graph_scope import transitive_caller_paths
 from .semantic_index import persist_semantic_index
+from .source_boundary_edges import insert_source_boundary_edges
 from .storage import now_iso
 
 EDGE_EXTRACTOR_VERSION = "code-wiki:v4"
@@ -160,7 +165,10 @@ def rebuild_code_memory_edges(
     scoped_files = load_scoped_rows(
         conn, "code_files", "id, file_path, language", project_id, scoped_paths,
     )
-    symbols = load_rebuild_symbols(conn, project, scoped_files, scoped_paths)
+    candidate_audit: dict[str, int | str] = {}
+    symbols = load_rebuild_symbols(
+        conn, project, scoped_files, scoped_paths, candidate_audit
+    )
     files = load_rebuild_files(conn, project, scoped_files, scoped_paths, symbols)
     logs = load_scoped_rows(
         conn,
@@ -199,6 +207,7 @@ def rebuild_code_memory_edges(
 
     insert_arkts_knowledge_edges(conn, project, scoped_files, files, symbols, ts)
     insert_design_edges(conn, project, scoped_files, files, symbols, ts)
+    insert_source_boundary_edges(conn, project, scoped_files, files, ts)
     annotate_extracted_edges(conn, project, previous_edge_id, revision, ts)
     semantic_stats = persist_semantic_index(
         conn,
@@ -211,6 +220,7 @@ def rebuild_code_memory_edges(
         project,
         [str(row["file_path"]) for row in scoped_files] if scope_file_paths is not None else None,
     )
+    semantic_stats["graph_candidate_resolution"] = candidate_audit
     bump_graph_revision(conn, project_id)
     return semantic_stats
 
@@ -240,20 +250,29 @@ def load_rebuild_symbols(
     project: Project,
     scoped_files: list[sqlite3.Row],
     scoped_paths: set[str],
+    audit: dict[str, int | str] | None = None,
 ) -> list[sqlite3.Row]:
     columns = "id, file_path, symbol, symbol_type"
     if not scoped_paths:
         return load_scoped_rows(conn, "code_symbols", columns, project.project_id, set())
-    selected = {
+    local = {
         int(row["id"]): row
         for row in load_scoped_rows(conn, "code_symbols", columns, project.project_id, scoped_paths)
     }
-    for chunk in sql_chunks(sorted(referenced_symbol_names(project, scoped_files))):
-        rows = conn.execute(
-            f"SELECT {columns} FROM code_symbols WHERE project_id = ? AND symbol IN ({','.join('?' for _ in chunk)})",
-            (project.project_id, *chunk),
-        ).fetchall()
-        selected.update({int(row["id"]): row for row in rows})
+    names = referenced_symbol_names(project, scoped_files)
+    external = load_unique_reference_symbols(
+        conn, project.project_id, names, columns
+    )
+    selected = dict(local)
+    selected.update({int(row["id"]): row for row in external})
+    if audit is not None:
+        audit.update({
+            "provider": "scoped-unique-symbols/v1",
+            "local_symbol_count": len(local),
+            "reference_name_count": len(names),
+            "resolved_external_symbol_count": len(selected) - len(local),
+            "candidate_symbol_count": len(selected),
+        })
     return [selected[key] for key in sorted(selected)]
 
 
@@ -266,7 +285,7 @@ def referenced_symbol_names(project: Project, files: list[sqlite3.Row]) -> set[s
             text = (project.root / str(row["file_path"])).read_text(encoding="utf-8", errors="ignore")
         except OSError:
             continue
-        names.update(re.findall(r"[A-Za-z_$][A-Za-z0-9_$]*", text))
+        names.update(graph_reference_names(text))
     return names
 
 

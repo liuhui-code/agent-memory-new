@@ -90,10 +90,11 @@ def diverse_log_matches(
 def limited_context(
     project: Project,
     query: str,
+    explicit_intent: str | None = None,
 ) -> dict[str, Any]:
     collection = collect_matches_with_audit(project, query)
     matches = collection.matches
-    gated = gate_matches_by_intent(project, query, matches)
+    gated = gate_matches_by_intent(project, query, matches, explicit_intent)
     bounded = limited_matches(gated["matches"], CONTEXT_RESULT_LIMITS, query)
     bounded["code_log_matches"] = [
         {key: value for key, value in item.items() if key != "likely_causes"}
@@ -112,6 +113,7 @@ def limited_context(
         "query": query,
         "memory_intent": gated["memory_intent"],
         "memory_intent_v2": gated["memory_intent_v2"],
+        "memory_intent_source": gated["memory_intent_source"],
         "retrieval_lanes": gated["retrieval_lanes"],
         "memory_brief": gated["memory_brief"],
         "followup_focus": followup_focus,

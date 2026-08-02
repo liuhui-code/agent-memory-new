@@ -101,8 +101,13 @@ struct ProfilePage {
     def test_adapter_registry_keeps_language_specific_logic_out_of_core(self) -> None:
         manifest = registered_adapter_manifest()
 
-        self.assertEqual({"ArkTS", "TypeScript"}, {item["language"] for item in manifest})
-        self.assertTrue(all("calls" in item["capabilities"] for item in manifest))
+        by_language = {item["language"]: item for item in manifest}
+        self.assertEqual(
+            {"ArkTS", "Build Artifact", "C/C++", "TypeScript"},
+            set(by_language),
+        )
+        self.assertIn("calls", by_language["C/C++"]["capabilities"])
+        self.assertEqual(["definitions"], by_language["Build Artifact"]["capabilities"])
 
     def test_dispatch_catalog_crosses_batches_with_explicit_candidate_budget(self) -> None:
         self.write_file("dispatch/Contract.ets", "export interface Contract {\n}")

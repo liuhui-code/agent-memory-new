@@ -71,8 +71,8 @@ NETWORK_MAX_DEPTH = 1
 NETWORK_EDGE_LIMIT = 10
 EVIDENCE_CHAIN_LIMIT = 3
 QUERY_ALLOWED_EDGE_RELATIONS = {
-    "contains", "emits_log", "imports", "passes_property", "renders_component",
-    "routes_to", "uses_resource",
+    "configured_by", "contains", "emits_log", "imports",
+    "passes_property", "renders_component", "routes_to", "uses_resource",
 }
 QUERY_FTS_RECALL_LIMITS = {
     "semantic_facts": 120,

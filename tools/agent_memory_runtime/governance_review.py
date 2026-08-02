@@ -57,6 +57,8 @@ from .usage_samples import record_governance_usage
 from .governance_utils import fetch_memory_rows, stable_unique_strings
 
 def maintain_review(args: argparse.Namespace) -> None:
+    from .governance_review_data import build_review_data
+
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     data = build_review_data(project, args.limit)

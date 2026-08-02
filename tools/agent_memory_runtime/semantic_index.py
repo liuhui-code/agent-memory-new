@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from .models import Project
+from .semantic_adapters import adapter_for
 from .semantic_models import SemanticBatch, SemanticEntity, SemanticRelation
 from .semantic_mechanism_evidence import mechanism_evidence_payload
 from .semantic_dispatch_candidates import expand_dispatch_candidates_across_batches
@@ -37,7 +38,7 @@ def persist_semantic_index(
     for row in rows:
         language = str(row["language"])
         path = project.root / str(row["file_path"])
-        if language in {"ArkTS", "TypeScript"} and path.is_file():
+        if adapter_for(language) is not None and path.is_file():
             grouped[language].append(path)
     batches: list[SemanticBatch] = []
     provider_runs: list[dict[str, Any]] = []
@@ -170,6 +171,7 @@ def compatible_kind(stored: str, semantic: str) -> bool:
         return True
     return (stored, semantic) in {
         ("function", "method"), ("class", "interface"), ("component", "class"),
+        ("build_target", "function"),
     }
 
 

@@ -14,9 +14,9 @@ Use this protocol for symptoms, errors, runtime logs, crashes, blank pages, fail
 8. Execute discriminating checks and treat prior incidents and experience as historical advice only.
 
 ```bash
-python tools/agent_memory.py context --project . --query "<user symptom>" --compact --json
-python tools/agent_memory.py context --project . --query "<exact runtime-log phrase or error code>" --compact --json
-python tools/agent_memory.py context --project . --query "<one Agent candidate cause>" --compact --json
+python3 tools/agent_memory.py context --project . --query "<user symptom>" --compact --json
+python3 tools/agent_memory.py context --project . --query "<exact runtime-log phrase or error code>" --compact --json
+python3 tools/agent_memory.py context --project . --query "<one Agent candidate cause>" --compact --json
 ```
 
 Remove `--compact` only when a focused candidate requires full retrieval explanations, complete records, or conflict audit.

@@ -16,15 +16,15 @@ class ContextFacade:
     def __init__(
         self,
         project: Project,
-        base_context: Callable[[Project, str], dict[str, Any]],
+        base_context: Callable[[Project, str, str | None], dict[str, Any]],
         path_context: PathContextFacade,
     ) -> None:
         self.project = project
         self.base_context = base_context
         self.path_context = path_context
 
-    def execute(self, query: str) -> dict[str, Any]:
-        result = self.base_context(self.project, query)
+    def execute(self, query: str, explicit_intent: str | None = None) -> dict[str, Any]:
+        result = self.base_context(self.project, query, explicit_intent)
         path_payload = self.path_context.build(query)
         freshness = result.get("source_freshness") or {}
         path_payload, freshness = filter_fresh_path_context(

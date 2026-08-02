@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from .models import Project
+from .query_salience import salient_query_tokens
 from .text import bounded_query_tokens, unique_list
 
 
@@ -56,6 +57,19 @@ def fielded_passage_rankings(
             "candidate_count": len(ids),
             **weight_audit(spec),
         }
+    salient = salient_query_tokens(query)
+    salient_spec = salient_retriever(limit, source_type)
+    if salient and salient_spec is not None:
+        ids = passage_source_ids(conn, project, salient_spec, salient)
+        rankings[salient_spec.channel] = ids
+        channel_audit[salient_spec.channel] = {
+            "source_type": salient_spec.source_type,
+            "passage_kinds": list(salient_spec.passage_kinds),
+            "columns": list(salient_spec.columns),
+            "candidate_count": len(ids),
+            "query_term_count": len(salient),
+            **weight_audit(salient_spec),
+        }
     return FieldedPassageBatch(rankings, passage_audit(channel_audit))
 
 
@@ -78,6 +92,23 @@ def retriever_specs(limit: int) -> tuple[FieldedRetrieverSpec, ...]:
         spec("semantic_mechanism_fts", "code_symbol", ("symbol", "callable"),
              ("mechanism_terms",), (9.0,), secondary),
     )
+
+
+def salient_retriever(
+    limit: int, source_type: str | None,
+) -> FieldedRetrieverSpec | None:
+    selected_limit = max(8, min(limit // 3, 20))
+    if source_type == "code_symbol":
+        return spec(
+            "salient_string_fts", "code_symbol", ("callable",),
+            ("body_terms", "string_terms"), (3.0, 10.0), selected_limit,
+        )
+    if source_type == "code_file":
+        return spec(
+            "salient_file_fts", "code_file", ("file",),
+            ("file_path", "semantic_terms"), (3.0, 8.0), selected_limit,
+        )
+    return None
 
 
 def spec(

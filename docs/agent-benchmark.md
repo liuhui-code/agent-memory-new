@@ -42,6 +42,23 @@ fixture，但不调用模型。每个场景包含原始、英文改写和中文/
 冻结源码验证真实项目代码定位，最后才运行外部 Agent A/B。系统能力通过只说明 context
 供给满足 Oracle，不代表 Agent 已得到正确根因。
 
+### 纵向记忆价值归因
+
+案例可声明 `longitudinal.schema_version=agent-memory-longitudinal-stage/v1`，将同一真实任务
+组织为 `structural_context`、`agent_memory` 和 `ideal_memory` 三个阶段。每个阶段仍执行既有
+baseline/memory 配对，因此无需扩张 Runner 协议：baseline 是 source-only，三个 memory 组
+分别代表结构上下文、Agent 生成经验和审查后的理想经验。
+
+三阶段必须共享任务、源码、Oracle 和历史截止时间。结构阶段禁止注入反思，另外两阶段至少
+注入一条反思。`context_setup` 在隔离记忆构建后应用，不进入 `public_case` 或 Runner 请求；
+结果只记录数量和规范化摘要，用于验证输入一致性。摘要不能证明经验有效，目标案例审查后才
+编写的理想经验也不能称为独立上界。
+
+`eval-agent-benchmark` 在结果中增加 informational 的 `longitudinal_value`，分别报告结构
+收益、Agent 经验相对结构层的增量、理想经验相对 Agent 经验的差距，以及首个价值损失层。
+必须先运行 Context 门禁；候选生成失败时停止，不运行 Agent A/B。完整实验、来源和首次结果见
+[`docs/superpowers/plans/2026-08-02-flagship-arkts-longitudinal-value.md`](superpowers/plans/2026-08-02-flagship-arkts-longitudinal-value.md)。
+
 真实项目验证分为可迭代 development 案例和禁止调参的 sealed holdout。当前
 `docs/eval/gramony-context-holdout-cases.json` 首次运行 0/3，通过失败本身是有效结果；
 不得修改该集合的措辞或 Oracle 来提高分数。

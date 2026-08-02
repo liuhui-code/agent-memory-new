@@ -12,6 +12,7 @@ from tools.agent_memory_runtime.text import (
     score_identifier_identity,
     score_weighted_fields,
 )
+from tools.agent_memory_runtime.query_salience import salient_query_tokens
 
 
 class TextQueryNormalizationTests(unittest.TestCase):
@@ -53,6 +54,17 @@ class TextQueryNormalizationTests(unittest.TestCase):
 
         self.assertIn("messagerow", tokens)
         self.assertIn("quotedmessagepreview", tokens)
+
+    def test_salience_keeps_inline_runtime_failure_terms_from_long_query(self) -> None:
+        terms = salient_query_tokens(
+            "On a device with a long setup description, runtime reports "
+            "`EXEC FAILED: errno=13 (Permission denied)` while opening a shell."
+        )
+
+        self.assertEqual(
+            ["exec", "failed", "errno", "13", "permission", "denied"],
+            terms[:6],
+        )
 
     def test_generic_layer_terms_do_not_receive_path_identity_bonus(self) -> None:
         self.assertEqual(

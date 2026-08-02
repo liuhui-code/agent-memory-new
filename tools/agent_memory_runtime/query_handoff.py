@@ -125,9 +125,22 @@ def append_code_anchor(
         "start_line": item.get("start_line") or item.get("line"),
         "end_line": item.get("end_line") or item.get("line"),
         "graph_neighbor": "graph_neighbor" in item.get("match_reasons", []),
+        "graph_relation": graph_relation(item),
         "identity_match": source == "log_emitter" and strong_code_identity(item),
     })
     return True
+
+
+def graph_relation(item: dict[str, Any]) -> str | None:
+    prefix = "graph_relation:"
+    return next(
+        (
+            str(reason)[len(prefix):]
+            for reason in item.get("match_reasons") or []
+            if str(reason).startswith(prefix)
+        ),
+        None,
+    )
 
 
 def strong_code_identity(item: dict[str, Any]) -> bool:

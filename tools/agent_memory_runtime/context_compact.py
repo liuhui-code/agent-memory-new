@@ -42,6 +42,7 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
         "project_id": data.get("project_id"),
         "query": str(data.get("query") or "")[:240],
         "memory_intent": data.get("memory_intent_v2") or data.get("memory_intent"),
+        "memory_intent_source": data.get("memory_intent_source") or "inferred",
         "source_freshness": compact_freshness_report(data.get("source_freshness")),
         "query_handoff": compact,
         "correction_guards": compact_records(data.get("correction_guards"), 2),
@@ -198,6 +199,7 @@ def compact_code_anchor(item: dict[str, Any]) -> dict[str, Any]:
         (
             "source", "record_id", "file_path", "symbol", "symbol_type",
             "start_line", "end_line", "identity_match", "callable_focus",
+            "graph_relation",
         ),
     )
     record_id = result.get("record_id")

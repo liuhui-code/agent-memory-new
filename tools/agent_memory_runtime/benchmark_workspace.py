@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import shutil
 import subprocess
 import tarfile
@@ -17,6 +18,7 @@ from .models import IGNORE_DIRS
 CASE_FIXTURE_DIR = ".benchmark-fixtures"
 MAX_FIXTURE_FILES = 64
 MAX_FIXTURE_BYTES = 1_000_000
+SANITIZATION_REPORT = ".agent-benchmark-sanitization.json"
 
 
 @contextmanager
@@ -51,8 +53,9 @@ def git_archive(root: Path, revision: str, workspace: Path) -> bool:
         return False
     workspace.mkdir(parents=True, exist_ok=True)
     with tarfile.open(archive) as handle:
-        members = handle.getmembers()
-        for member in members:
+        safe_members = []
+        omitted_links = []
+        for member in handle.getmembers():
             target = (workspace / member.name).resolve()
             if workspace.resolve() not in target.parents and target != workspace.resolve():
                 raise SystemExit("unsafe path in Git archive")
@@ -60,8 +63,14 @@ def git_archive(root: Path, revision: str, workspace: Path) -> bool:
                 link_base = workspace if member.islnk() else target.parent
                 link_target = (link_base / member.linkname).resolve()
                 if workspace.resolve() not in link_target.parents and link_target != workspace.resolve():
-                    raise SystemExit("unsafe link in Git archive")
-        handle.extractall(workspace)
+                    if member.islnk():
+                        raise SystemExit("unsafe hard link in Git archive")
+                    omitted_links.append(member.name)
+                    continue
+            safe_members.append(member)
+        handle.extractall(workspace, members=safe_members)
+    omitted_links.extend(sanitize_workspace_symlinks(workspace))
+    write_sanitization_report(workspace, omitted_links)
     return True
 
 
@@ -71,6 +80,36 @@ def copy_working_tree(root: Path, workspace: Path) -> None:
         workspace,
         ignore=shutil.ignore_patterns(*sorted({*IGNORE_DIRS, CASE_FIXTURE_DIR})),
         symlinks=True,
+    )
+    write_sanitization_report(workspace, sanitize_workspace_symlinks(workspace))
+
+
+def sanitize_workspace_symlinks(workspace: Path) -> list[str]:
+    root = workspace.resolve()
+    omitted = []
+    for path in sorted(workspace.rglob("*")):
+        if not path.is_symlink():
+            continue
+        target = (path.parent / path.readlink()).resolve()
+        if target == root or root in target.parents:
+            continue
+        omitted.append(path.relative_to(workspace).as_posix())
+        path.unlink()
+    return omitted
+
+
+def write_sanitization_report(workspace: Path, omitted: list[str]) -> None:
+    unique = sorted(set(omitted))
+    if not unique:
+        return
+    report = {
+        "schema_version": "agent-benchmark-workspace-sanitization/v1",
+        "omitted_external_symlinks": unique[:100],
+        "omitted_count": len(unique),
+    }
+    (workspace / SANITIZATION_REPORT).write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
     )
 
 

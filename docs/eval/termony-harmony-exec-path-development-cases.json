@@ -1,0 +1,56 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "/path/to/termony-before-issue-142-fix",
+  "source_repository": "https://github.com/TermonyHQ/Termony",
+  "source_revision": "788c04647c6fb705e8a4a6ff1fcc6c36f1709ffd",
+  "source_license": "MIT",
+  "generated_at": "2026-08-02T00:00:00Z",
+  "generator": "source-reviewed-public-incident/v1",
+  "cases": [
+    {
+      "id": "termony-harmony-bash-exec-permission",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "On a HarmonyOS 6.0.0.115 SP7 MateBook Pro 2-in-1, a Termony app packaged through the documented flow opens with an unusable terminal. Manual runtime inspection reports `EXEC FAILED: errno=13 (Permission denied)`. Locate the ArkTS-to-native startup path and the HNP package/path contract that controls which bash executable is launched.",
+        "constraints": [
+          "Use only the supplied pre-fix source revision and the public incident text.",
+          "Do not inspect later Git history or infer that a static path executed beyond the supplied runtime log."
+        ]
+      },
+      "source": {
+        "before_revision": "788c04647c6fb705e8a4a6ff1fcc6c36f1709ffd",
+        "after_revision": "1fcb766ec7495ebba097c9dece256b14f6323dea"
+      },
+      "provenance": {
+        "kind": "public_issue_with_runtime_log_and_verified_fix",
+        "issue": "https://github.com/TermonyHQ/Termony/issues/142",
+        "fix_commit": "https://github.com/TermonyHQ/Termony/commit/1fcb766ec7495ebba097c9dece256b14f6323dea",
+        "log_observed": true,
+        "fix_verified_by_reporter": true
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Index.ets",
+          "entry/src/main/cpp/napi_init.cpp",
+          "entry/src/main/cpp/terminal.cpp",
+          "entry/src/main/module.json5",
+          "build-hnp/Makefile"
+        ],
+        "forbidden_files": [
+          "build-hnp/qemu/Makefile"
+        ],
+        "root_cause_category": "configuration",
+        "expected_causal_level": "verified"
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "raw_logs_persisted_to_memory": false,
+    "development_only": true,
+    "source_diff_reviewed": true,
+    "reporter_verified_fix": true
+  }
+}
