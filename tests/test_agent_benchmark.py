@@ -207,6 +207,15 @@ class AgentBenchmarkTests(AgentMemoryTestBase):
         self.assertEqual(4, payload["summary"]["observation_count"])
         self.assertEqual(2, payload["summary"]["trial_count"])
         self.assertEqual([1, 1, 2, 2], [item["trial_index"] for item in observations])
+        self.assertEqual(
+            ["baseline", "memory", "memory", "baseline"],
+            [item["variant"] for item in observations],
+        )
+        self.assertEqual("pass", payload["execution_order"]["status"])
+        self.assertEqual(
+            [1, 2, 1, 2],
+            [item["execution_order"]["variant_position"] for item in observations],
+        )
 
     def test_runner_response_rejects_private_reasoning_fields(self) -> None:
         value = observation("case-1", "memory", "route", ["src/Profile.ets"], 500)

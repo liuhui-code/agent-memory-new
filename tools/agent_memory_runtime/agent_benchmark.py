@@ -17,10 +17,12 @@ from .agent_benchmark_longitudinal import (
     evaluate_longitudinal_value,
     validate_longitudinal_cases,
 )
+from .agent_benchmark_schedule import pair_schedule
 from .agent_benchmark_protocol import RESPONSES_SCHEMA, load_observations, run_benchmark_agent
 from .agent_evidence_utility import evaluate_agent_evidence_utility
 from .benchmark_case_seal import case_pack_seal_audit
 from .benchmark_failure_analysis import analyze_agent_failures
+from .evaluation_run_ledger import evaluation_run_guard
 from .records import output
 from .storage import ensure_initialized, now_iso, resolve_project
 
@@ -41,46 +43,52 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
     validate_longitudinal_cases(cases)
     if bool(args.runner) == bool(args.responses):
         raise SystemExit("provide exactly one of --runner or --responses")
-    if args.responses:
-        observations = load_observations(Path(args.responses).expanduser())
-    else:
-        trials = bounded_trials(args.trials)
-        source = Path(args.source).expanduser().resolve() if args.source else Path(pack["project_path"]).resolve()
-        if not source.is_dir():
-            raise SystemExit(f"benchmark source directory not found: {source}")
-        observations = run_cases(
-            source,
-            cases,
-            args.runner,
-            int(args.runner_timeout),
-            not bool(args.skip_memory_prepare),
-            trials,
-        )
-    selected_ids = {case["id"] for case in cases}
-    observations = [item for item in observations if item["case_id"] in selected_ids]
-    result = evaluate_agent_benchmark(pack, cases, observations)
-    result["evidence_utility"] = evaluate_agent_evidence_utility(cases, observations)
-    longitudinal = evaluate_longitudinal_value(cases, observations, result)
-    if longitudinal is not None:
-        result["longitudinal_value"] = longitudinal
-    result["evaluation_governance"] = pack.get("evaluation_governance", {})
-    result["failure_analysis"] = analyze_agent_failures(result)
-    result["case_seal"] = case_pack_seal_audit(pack)
-    result.update({
-        "project_id": project.project_id,
-        "project_path": str(project.root),
-        "case_file": str(Path(args.cases).expanduser()),
-        "runner_mode": "external" if args.runner else "recorded_responses",
-        "selected_case_ids": [case["id"] for case in cases],
-        "requested_trials": (
-            bounded_trials(args.trials)
-            if args.runner else int(result["summary"].get("trial_count") or 1)
-        ),
-        "runner_configuration": runner_configuration(observations),
-    })
-    if args.output_responses:
-        write_responses(Path(args.output_responses).expanduser(), observations)
-    persist_benchmark_result(project, result)
+    with evaluation_run_guard(
+        project, pack, "agent_benchmark", Path(args.cases).expanduser()
+    ) as evaluation_run:
+        if args.responses:
+            observations = load_observations(Path(args.responses).expanduser())
+        else:
+            trials = bounded_trials(args.trials)
+            source = Path(args.source).expanduser().resolve() if args.source else Path(pack["project_path"]).resolve()
+            if not source.is_dir():
+                raise SystemExit(f"benchmark source directory not found: {source}")
+            observations = run_cases(
+                source,
+                cases,
+                args.runner,
+                int(args.runner_timeout),
+                not bool(args.skip_memory_prepare),
+                trials,
+            )
+        selected_ids = {case["id"] for case in cases}
+        observations = [item for item in observations if item["case_id"] in selected_ids]
+        result = evaluate_agent_benchmark(pack, cases, observations)
+        result["evidence_utility"] = evaluate_agent_evidence_utility(cases, observations)
+        longitudinal = evaluate_longitudinal_value(cases, observations, result)
+        if longitudinal is not None:
+            result["longitudinal_value"] = longitudinal
+        result["evaluation_governance"] = pack.get("evaluation_governance", {})
+        result["failure_analysis"] = analyze_agent_failures(result)
+        result["case_seal"] = case_pack_seal_audit(pack)
+        result.update({
+            "project_id": project.project_id,
+            "project_path": str(project.root),
+            "case_file": str(Path(args.cases).expanduser()),
+            "runner_mode": "external" if args.runner else "recorded_responses",
+            "selected_case_ids": [case["id"] for case in cases],
+            "requested_trials": (
+                bounded_trials(args.trials)
+                if args.runner else int(result["summary"].get("trial_count") or 1)
+            ),
+            "runner_configuration": runner_configuration(observations),
+        })
+        if args.output_responses:
+            write_responses(Path(args.output_responses).expanduser(), observations)
+        persist_benchmark_result(project, result)
+        if evaluation_run is not None:
+            evaluation_run["gate_status"] = result["quality_gate"]
+            evaluation_run["result"] = result
     output(result, args.json)
     if args.fail_on_fail and result["quality_gate"] == "fail":
         raise SystemExit(1)
@@ -132,12 +140,13 @@ def run_cases(
     trials: int = 1,
 ) -> list[dict[str, Any]]:
     observations: list[dict[str, Any]] = []
-    for case in cases:
+    for case_position, case in enumerate(cases, start=1):
         for trial_index in range(1, trials + 1):
-            for variant in ("baseline", "memory"):
+            for variant, execution_order in pair_schedule(case_position, trial_index):
                 observations.append(
                     run_benchmark_agent(
-                        source, case, variant, runner, timeout, prepare_memory, trial_index
+                        source, case, variant, runner, timeout, prepare_memory,
+                        trial_index, execution_order,
                     )
                 )
     return observations
@@ -165,7 +174,7 @@ def persist_benchmark_result(project: Any, result: dict[str, Any]) -> None:
             "selected_case_ids", "runner_configuration",
             "requested_trials", "failure_analysis", "case_seal",
             "evidence_utility", "evaluation_governance",
-            "longitudinal_value",
+            "longitudinal_value", "execution_order",
         )
     }
     compact["recorded_at"] = now_iso()

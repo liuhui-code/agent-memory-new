@@ -1,0 +1,2739 @@
+{
+  "schema_version": "agent-context-capability-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 10,
+    "passed_case_count": 2,
+    "failed_case_count": 8,
+    "scenario_count": 10,
+    "stable_scenario_count": 2,
+    "query_variant_pass_rate": 0.2,
+    "staged_scenario_count": 0,
+    "complete_staged_scenario_count": 0,
+    "average_context_tokens": 1466.5,
+    "average_memory_prepare_ms": 7717.0,
+    "average_query_elapsed_ms": 2182.6
+  },
+  "capability_profile": {
+    "code_locator": {
+      "status": "fail",
+      "evaluated_cases": 10,
+      "anchor_recall": 0.35,
+      "primary_anchor_recall": 0.35,
+      "candidate_file_recall_at_20": 0.95,
+      "oracle_anchor_precision": 0.2333,
+      "expected_anchor_mrr": 0.5
+    },
+    "source_evidence": {
+      "status": "fail",
+      "evaluated_cases": 10,
+      "observed_case_count": 10,
+      "source_excerpt_recall": 0.35,
+      "source_span_recall": null
+    },
+    "log_graph": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 10
+    },
+    "log_path_quality": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "average_path_recall": null,
+      "average_path_precision": null,
+      "truncated_case_count": 0
+    },
+    "experience": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "causal_context": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_path_case_count": 0,
+      "observed_relation_case_count": 0
+    },
+    "hierarchical_localization": {
+      "status": "informational_serving_stage",
+      "evaluated_cases": 10,
+      "observed_case_count": 10,
+      "serving_observed_case_count": 10,
+      "file_evaluated_case_count": 10,
+      "callable_evaluated_case_count": 0,
+      "owner_evaluated_case_count": 0,
+      "range_evaluated_case_count": 0,
+      "file_recall": 0.5333,
+      "callable_recall": null,
+      "owner_recall": null,
+      "owner_precision": null,
+      "range_recall": null,
+      "average_audit_elapsed_ms": 1596.4
+    },
+    "abstention": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "compactness": {
+      "status": "pass",
+      "evaluated_cases": 10,
+      "average_context_tokens": 1466.5,
+      "token_budget": 1500
+    },
+    "query_robustness": {
+      "status": "fail",
+      "scenario_count": 10,
+      "stable_scenario_count": 2,
+      "variant_count": 10,
+      "passed_variant_count": 2,
+      "variant_pass_rate": 0.2,
+      "scenarios": [
+        {
+          "scenario_id": "permission-app-label-await",
+          "status": "pass",
+          "variant_count": 1,
+          "passed_variant_count": 1,
+          "failed_variants": []
+        },
+        {
+          "scenario_id": "permission-dialog-cancel-result",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "permission-wearable-swipe-cleanup",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "permission-global-switch-result-contract",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "permission-toast-api-exception-boundary",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "permission-toast-font-range-fallback",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "permission-precise-location-grant-revoke",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "permission-wearable-isolated-page-guard",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "permission-floating-session-content-cleanup",
+          "status": "pass",
+          "variant_count": 1,
+          "passed_variant_count": 1,
+          "failed_variants": []
+        },
+        {
+          "scenario_id": "permission-language-refresh-clone-label",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        }
+      ]
+    },
+    "investigation_stages": {
+      "status": "not_declared",
+      "scenario_count": 0,
+      "complete_scenario_count": 0,
+      "stages": {},
+      "scenarios": []
+    },
+    "evidence_funnel": {
+      "status": "informational",
+      "evaluated_cases": 10,
+      "first_loss_counts": {
+        "candidate_file": 1,
+        "evidence_primary": 3,
+        "localizer_file": 6
+      },
+      "stage_pass_rates": {
+        "candidate_file": 0.9,
+        "localizer_file": 0.3,
+        "callable": null,
+        "source_range": null,
+        "evidence_primary": 0.0,
+        "compact_primary": 0.2,
+        "compact_anchor": 0.2
+      }
+    },
+    "evidence_set_calibration": {
+      "status": "informational",
+      "evaluated_cases": 10,
+      "observed_case_count": 10,
+      "target_scope_accuracy": 0.4,
+      "member_recall": 0.5333,
+      "primary_precision": 0.4,
+      "calibration_state_accuracy": null,
+      "forbidden_member_hit_count": 0,
+      "guarded_exclusion_count": 0,
+      "calibration_state_counts": {
+        "insufficient": 5,
+        "portfolio_required": 5
+      },
+      "serving_projection_changed": false
+    },
+    "sufficiency": {
+      "status": "informational",
+      "evaluated_case_count": 10,
+      "missing_observation_count": 0,
+      "kind_counts": {
+        "diagnosis": 10
+      },
+      "readiness_status_counts": {
+        "ready_for_agent_inspection": 10
+      },
+      "reason_code_counts": {
+        "limited_code_anchor_diversity": 1,
+        "no_strong_log_anchor": 10
+      },
+      "scope": "shadow_observation_not_a_context_gate"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "permission-app-label-await",
+      "scenario_id": "permission-app-label-await",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetDialog.ets",
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ets",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetDialog.ets",
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ets",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetDialog.ets",
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ets",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 3,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1682
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 27,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "multiple",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1462,
+      "memory_prepare_ms": 7631,
+      "query_elapsed_ms": 2422,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "permission-dialog-cancel-result",
+      "scenario_id": "permission-dialog-cancel-result",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 0.6667,
+      "primary_anchor_recall": 0.6667,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.6667,
+      "source_excerpt_recall": 0.6667,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetDialog.ets",
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ets",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetDialog.ets",
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ets",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetDialog.ets",
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ets",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "missing_expected_anchors": [
+        "permissionmanager/src/main/ets/common/utils/utils.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.6667,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 6,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1737
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 21,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "multiple",
+        "target_scope_match": true,
+        "member_recall": 0.6667,
+        "primary_precision": 1.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1482,
+      "memory_prepare_ms": 7492,
+      "query_elapsed_ms": 2060,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "permission-wearable-swipe-cleanup",
+      "scenario_id": "permission-wearable-swipe-cleanup",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ts"
+      ],
+      "observed_primary_anchor_paths": [
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ts"
+      ],
+      "observed_source_excerpt_paths": [
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ts"
+      ],
+      "missing_expected_anchors": [
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 3,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1309
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 19,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 3,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1387,
+      "memory_prepare_ms": 7326,
+      "query_elapsed_ms": 1392,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "permission-global-switch-result-contract",
+      "scenario_id": "permission-global-switch-result-contract",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 0.5,
+      "primary_anchor_recall": 0.5,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 0.5,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "permissionmanager/src/main/ets/GlobalExtAbility/GlobalDialogModel.ets",
+        "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetDialog.ets",
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetDialog.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "permissionmanager/src/main/ets/GlobalExtAbility/GlobalDialogModel.ets",
+        "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetDialog.ets",
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetDialog.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "permissionmanager/src/main/ets/GlobalExtAbility/GlobalDialogModel.ets",
+        "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetDialog.ets",
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetDialog.ets"
+      ],
+      "missing_expected_anchors": [
+        "permissionmanager/src/main/ets/common/utils/utils.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.5,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 0,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1704
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 22,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "multiple",
+        "target_scope_match": true,
+        "member_recall": 0.5,
+        "primary_precision": 1.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "direct_identity",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1446,
+      "memory_prepare_ms": 8265,
+      "query_elapsed_ms": 2530,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "permission-toast-api-exception-boundary",
+      "scenario_id": "permission-toast-api-exception-boundary",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ts",
+        "permissionmanager/src/main/ets/common/utils/utils.ets",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ts",
+        "permissionmanager/src/main/ets/common/utils/utils.ets",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ts",
+        "permissionmanager/src/main/ets/common/utils/utils.ets",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "missing_expected_anchors": [
+        "permissionmanager/src/main/ets/pages/securityToast.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 3,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1504
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 20,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 1,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1487,
+      "memory_prepare_ms": 7374,
+      "query_elapsed_ms": 1830,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "permission-toast-font-range-fallback",
+      "scenario_id": "permission-toast-font-range-fallback",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "permissionmanager/src/main/ets/common/components/alphabeticalIndex.ets",
+        "permissionmanager/src/main/ets/pages/dialogPlus.ets",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "permissionmanager/src/main/ets/common/components/alphabeticalIndex.ets",
+        "permissionmanager/src/main/ets/pages/dialogPlus.ets",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "permissionmanager/src/main/ets/common/components/alphabeticalIndex.ets",
+        "permissionmanager/src/main/ets/pages/dialogPlus.ets",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "missing_expected_anchors": [
+        "permissionmanager/src/main/ets/pages/securityToast.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 2,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1441
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 22,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 1,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1487,
+      "memory_prepare_ms": 8134,
+      "query_elapsed_ms": 1796,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "permission-precise-location-grant-revoke",
+      "scenario_id": "permission-precise-location-grant-revoke",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 0.5,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "permissionmanager/src/main/ets/common/components/location.ets",
+        "permissionmanager/src/main/ets/common/permissionGroupManager/LocationStrategy.ets",
+        "permissionmanager/src/main/ets/pages/dialogPlus.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "permissionmanager/src/main/ets/common/components/location.ets",
+        "permissionmanager/src/main/ets/common/permissionGroupManager/LocationStrategy.ets",
+        "permissionmanager/src/main/ets/pages/dialogPlus.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "permissionmanager/src/main/ets/common/components/location.ets",
+        "permissionmanager/src/main/ets/common/permissionGroupManager/LocationStrategy.ets",
+        "permissionmanager/src/main/ets/pages/dialogPlus.ets"
+      ],
+      "missing_expected_anchors": [
+        "permissionmanager/src/main/ets/common/utils/permissionUtils.ets",
+        "permissionmanager/src/main/ets/pages/application-tertiary.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 3,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1752
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 23,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "multiple",
+        "target_scope_match": true,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "structured_owner_kind",
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1468,
+      "memory_prepare_ms": 8245,
+      "query_elapsed_ms": 2281,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "permission-wearable-isolated-page-guard",
+      "scenario_id": "permission-wearable-isolated-page-guard",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 0.3333,
+      "primary_anchor_recall": 0.3333,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 0.3333,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetAbility.ets",
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetDialog.ets",
+        "permissionmanager/src/ohosTest/ets/test/PermissionStateSheetAbility.test.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetAbility.ets",
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetDialog.ets",
+        "permissionmanager/src/ohosTest/ets/test/PermissionStateSheetAbility.test.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetAbility.ets",
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetDialog.ets",
+        "permissionmanager/src/ohosTest/ets/test/PermissionStateSheetAbility.test.ets"
+      ],
+      "missing_expected_anchors": [
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetAbility.ets",
+        "permissionmanager/src/main/ets/ServiceExtAbility/ServiceExtAbility.ts"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.6667,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 4,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1693
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 22,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.6667,
+        "primary_precision": 1.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1486,
+      "memory_prepare_ms": 7578,
+      "query_elapsed_ms": 2701,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "permission-floating-session-content-cleanup",
+      "scenario_id": "permission-floating-session-content-cleanup",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.6667,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetAbility.ets",
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetAbility.ets",
+        "permissionmanager/src/ohosTest/ets/test/PermissionStateSheetAbility.test.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetAbility.ets",
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetAbility.ets",
+        "permissionmanager/src/ohosTest/ets/test/PermissionStateSheetAbility.test.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetAbility.ets",
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetAbility.ets",
+        "permissionmanager/src/ohosTest/ets/test/PermissionStateSheetAbility.test.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 4,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1599
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 21,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1493,
+      "memory_prepare_ms": 7408,
+      "query_elapsed_ms": 1765,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "permission-language-refresh-clone-label",
+      "scenario_id": "permission-language-refresh-clone-label",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetDialog.ets",
+        "permissionmanager/src/main/ets/pages/application-tertiary.ets",
+        "permissionmanager/src/main/ets/pages/dialogPlus.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetDialog.ets",
+        "permissionmanager/src/main/ets/pages/application-tertiary.ets",
+        "permissionmanager/src/main/ets/pages/dialogPlus.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetDialog.ets",
+        "permissionmanager/src/main/ets/pages/application-tertiary.ets",
+        "permissionmanager/src/main/ets/pages/dialogPlus.ets"
+      ],
+      "missing_expected_anchors": [
+        "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ts",
+        "permissionmanager/src/main/ets/pages/securityDialog.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.5,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 5,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 1543
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 20,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "multiple",
+        "target_scope_match": true,
+        "member_recall": 0.5,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1467,
+      "memory_prepare_ms": 7717,
+      "query_elapsed_ms": 3049,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "scope": "context_supply_only"
+  },
+  "next_gate": "repair_context_supply",
+  "execution": {
+    "schema_version": "agent-context-capability-execution/v1",
+    "strategy": "shared-index-isolated-case-snapshot",
+    "expanded_case_count": 10,
+    "source_group_count": 10,
+    "setup_group_count": 10,
+    "index_build_count": 10,
+    "case_snapshot_count": 10,
+    "avoided_index_build_count": 0,
+    "source_materialize_ms": 2231,
+    "index_prepare_ms": 77024,
+    "setup_prepare_ms": 0,
+    "case_snapshot_ms": 146,
+    "batch_elapsed_ms": 117856,
+    "source_groups": [
+      {
+        "source_digest": "7dc3693a69e063b2fd52613ea89bf7910ef33fb146a6f372f1795a9bef57d3f4",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 271,
+        "index_prepare_ms": 7614,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 17,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 17
+          }
+        ]
+      },
+      {
+        "source_digest": "ea2e0f8d445272d83545d05c8ce8347ac637f0f523a3406bd56e22aa69c4be89",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 232,
+        "index_prepare_ms": 7476,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 16,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 16
+          }
+        ]
+      },
+      {
+        "source_digest": "ffcccf3991400cc0bf18937841d7a317ac844295641a2e73e3d4e042f55e620d",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 226,
+        "index_prepare_ms": 7311,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 15,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 15
+          }
+        ]
+      },
+      {
+        "source_digest": "29df9008122882da503afcab702af32d10d9d9e5f8f38747ddd9ad4d612c7fd8",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 221,
+        "index_prepare_ms": 8251,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 14,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 14
+          }
+        ]
+      },
+      {
+        "source_digest": "2aa82b71e5b7ff330206d23507ab44355b2642ff7523d95bbcde117b6ce7665e",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 238,
+        "index_prepare_ms": 7359,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 15,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 15
+          }
+        ]
+      },
+      {
+        "source_digest": "ba66dcd87ca1c80aaba27e4fd8de1fac75ec7865d04b6151991bc90a7ce73fd6",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 261,
+        "index_prepare_ms": 8119,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 15,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 15
+          }
+        ]
+      },
+      {
+        "source_digest": "70b918a81be57af67afca70b6c5cd722602f328a143278038a371a00574d5154",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 243,
+        "index_prepare_ms": 8229,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 16,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 16
+          }
+        ]
+      },
+      {
+        "source_digest": "29661264d53090597b43e966073fd1adfb9117b9371f352fb0b5b0bfc22fc08c",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 231,
+        "index_prepare_ms": 7566,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 12,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 12
+          }
+        ]
+      },
+      {
+        "source_digest": "84ea3f73d9962bb582d738ea743150859f6c1e352f2eb302cb06db3567f1d81b",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 154,
+        "index_prepare_ms": 7396,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 12,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 12
+          }
+        ]
+      },
+      {
+        "source_digest": "9b2ba686e8a429aaff79660a65a44fe52fb2aa81ba7de05cd136b30e64b02250",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 154,
+        "index_prepare_ms": 7703,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 14,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 14
+          }
+        ]
+      }
+    ]
+  },
+  "calibration": {
+    "schema_version": "agent-context-calibration/v1",
+    "status": "pass",
+    "target_domain": "native_arkts",
+    "profiled_case_count": 10,
+    "coverage": {
+      "target_levels": [
+        "callable",
+        "expression",
+        "file"
+      ],
+      "artifact_roles": [
+        "page",
+        "service",
+        "utility"
+      ],
+      "mechanism_kinds": [
+        "async_control",
+        "error_contract",
+        "event_binding",
+        "persistence",
+        "platform_api",
+        "resource_io",
+        "ui_state"
+      ]
+    },
+    "contract_gaps": [],
+    "macro_metrics": {
+      "artifact_roles": {
+        "pass_rate": 0.125,
+        "anchor_recall": 0.3866,
+        "anchor_precision": 0.3056,
+        "source_span_recall": null
+      },
+      "target_levels": {
+        "pass_rate": 0.1407,
+        "anchor_recall": 0.3759,
+        "anchor_precision": 0.2753,
+        "source_span_recall": null
+      },
+      "mechanism_kinds": {
+        "pass_rate": 0.1238,
+        "anchor_recall": 0.2683,
+        "anchor_precision": 0.1873,
+        "source_span_recall": null
+      }
+    },
+    "strata": {
+      "artifact_roles": [
+        {
+          "label": "page",
+          "case_count": 8,
+          "pass_rate": 0.125,
+          "anchor_recall": 0.2708,
+          "anchor_precision": 0.1667,
+          "source_span_recall": null
+        },
+        {
+          "label": "service",
+          "case_count": 4,
+          "pass_rate": 0.25,
+          "anchor_recall": 0.5,
+          "anchor_precision": 0.4167,
+          "source_span_recall": null
+        },
+        {
+          "label": "utility",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.3889,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        }
+      ],
+      "target_levels": [
+        {
+          "label": "callable",
+          "case_count": 9,
+          "pass_rate": 0.2222,
+          "anchor_recall": 0.3889,
+          "anchor_precision": 0.2593,
+          "source_span_recall": null
+        },
+        {
+          "label": "expression",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.3889,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        },
+        {
+          "label": "file",
+          "case_count": 10,
+          "pass_rate": 0.2,
+          "anchor_recall": 0.35,
+          "anchor_precision": 0.2333,
+          "source_span_recall": null
+        }
+      ],
+      "mechanism_kinds": [
+        {
+          "label": "async_control",
+          "case_count": 3,
+          "pass_rate": 0.3333,
+          "anchor_recall": 0.3333,
+          "anchor_precision": 0.1111,
+          "source_span_recall": null
+        },
+        {
+          "label": "error_contract",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.3889,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        },
+        {
+          "label": "event_binding",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.3889,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        },
+        {
+          "label": "persistence",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": null
+        },
+        {
+          "label": "platform_api",
+          "case_count": 6,
+          "pass_rate": 0.3333,
+          "anchor_recall": 0.5,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        },
+        {
+          "label": "resource_io",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": null
+        },
+        {
+          "label": "ui_state",
+          "case_count": 5,
+          "pass_rate": 0.2,
+          "anchor_recall": 0.2667,
+          "anchor_precision": 0.2,
+          "source_span_recall": null
+        }
+      ]
+    },
+    "scope": "evaluation_only_not_injected_into_agent_context"
+  },
+  "calibration_gate": "not_required",
+  "case_seal": {
+    "status": "verified",
+    "required": true,
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "digest": "bc330f138584991aa230d53f026505b52a0c8b5b1ffe70d2d17bbf918333d9ce",
+    "sealed_at": "2026-08-03T01:46:45+00:00",
+    "case_count": 10
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 10,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "promotion_policy": {
+    "schema_version": "agent-context-promotion-policy/v1",
+    "eligible": false,
+    "reasons": [
+      "system_context_gate_failed"
+    ],
+    "next_gate": "repair_context_supply"
+  },
+  "promotion_eligible": false,
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 26,
+    "primary_failure_class": "ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 8,
+      "passage_selection": 5,
+      "ranking_precision": 13
+    },
+    "failures": [
+      {
+        "case_id": "permission-dialog-cancel-result",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-dialog-cancel-result",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-wearable-swipe-cleanup",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-wearable-swipe-cleanup",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-wearable-swipe-cleanup",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-wearable-swipe-cleanup",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-global-switch-result-contract",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-global-switch-result-contract",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-toast-api-exception-boundary",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-toast-api-exception-boundary",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-toast-api-exception-boundary",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-toast-api-exception-boundary",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-toast-font-range-fallback",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-toast-font-range-fallback",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-toast-font-range-fallback",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-toast-font-range-fallback",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-precise-location-grant-revoke",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-precise-location-grant-revoke",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-precise-location-grant-revoke",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-precise-location-grant-revoke",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-wearable-isolated-page-guard",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-wearable-isolated-page-guard",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-language-refresh-clone-label",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-language-refresh-clone-label",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-language-refresh-clone-label",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "permission-language-refresh-clone-label",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout."
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/permission-manager-agent-ab-cases.sealed.json",
+  "selected_scenario_ids": [
+    "permission-app-label-await",
+    "permission-dialog-cancel-result",
+    "permission-wearable-swipe-cleanup",
+    "permission-global-switch-result-contract",
+    "permission-toast-api-exception-boundary",
+    "permission-toast-font-range-fallback",
+    "permission-precise-location-grant-revoke",
+    "permission-wearable-isolated-page-guard",
+    "permission-floating-session-content-cleanup",
+    "permission-language-refresh-clone-label"
+  ],
+  "selected_case_ids": [
+    "permission-app-label-await",
+    "permission-dialog-cancel-result",
+    "permission-wearable-swipe-cleanup",
+    "permission-global-switch-result-contract",
+    "permission-toast-api-exception-boundary",
+    "permission-toast-font-range-fallback",
+    "permission-precise-location-grant-revoke",
+    "permission-wearable-isolated-page-guard",
+    "permission-floating-session-content-cleanup",
+    "permission-language-refresh-clone-label"
+  ],
+  "source_project": "/private/tmp/agent-memory-ab-permission-manager",
+  "recorded_at": "2026-08-03T01:48:57+00:00"
+}

@@ -60,6 +60,10 @@ class CodexBenchmarkRunnerTests(unittest.TestCase):
             self.assertTrue(result["cost_metrics_reported"])
             self.assertEqual("gpt-5.6-sol", result["runner_metadata"]["model"])
             self.assertEqual("low", result["runner_metadata"]["reasoning_effort"])
+            self.assertEqual(64, len(result["runner_metadata"]["prompt_protocol_digest"]))
+            manifest = result["runner_metadata"]["benchmark_protocol_manifest"]
+            self.assertEqual("agent-benchmark-protocol-manifest/v1", manifest["schema_version"])
+            self.assertGreaterEqual(len(manifest["components"]), 10)
             self.assertEqual("runner_preloaded", result["runner_metadata"]["memory_delivery"])
             self.assertEqual("isolated_home", result["runner_metadata"]["user_context"])
             self.assertEqual(
@@ -87,6 +91,10 @@ class CodexBenchmarkRunnerTests(unittest.TestCase):
             self.assertGreater(result["memory_context_bytes"], 0)
             self.assertGreater(result["memory_context_token_estimate"], 0)
             self.assertGreaterEqual(result["elapsed_ms"], 0)
+            self.assertGreaterEqual(result["end_to_end_elapsed_ms"], result["agent_elapsed_ms"])
+            self.assertGreaterEqual(result["memory_retrieval_elapsed_ms"], 0)
+            self.assertEqual("agent-benchmark-treatment/v2", result["treatment_metadata"]["schema_version"])
+            self.assertTrue(result["treatment_metadata"]["context_present"])
 
     def test_memory_prompt_contains_preloaded_context(self) -> None:
         module = load_runner_module()
@@ -123,7 +131,7 @@ class CodexBenchmarkRunnerTests(unittest.TestCase):
         self.assertIn("Runner derives expansion accounting", prompt)
         self.assertIn("Report source_search_count", prompt)
 
-    def test_memory_evidence_protocol_is_compact_and_memory_only(self) -> None:
+    def test_investigation_protocol_is_identical_in_both_treatments(self) -> None:
         module = load_runner_module()
         request = benchmark_request(Path("/workspace"))
         baseline = module.build_prompt(request)
@@ -132,12 +140,16 @@ class CodexBenchmarkRunnerTests(unittest.TestCase):
             {"query_handoff": {"source_exploration": {"limits": {}}}},
         )
 
-        self.assertNotIn("TRIAGE -> GAP -> VERIFY -> STOP", baseline)
+        self.assertEqual(1, baseline.count("TRIAGE -> GAP -> VERIFY -> STOP"))
         self.assertEqual(1, memory.count("TRIAGE -> GAP -> VERIFY -> STOP"))
+        self.assertEqual(1, baseline.count("SEARCH LEDGER"))
         self.assertEqual(1, memory.count("SEARCH LEDGER"))
+        self.assertEqual(1, baseline.count("READ PLAN"))
         self.assertEqual(1, memory.count("READ PLAN"))
         self.assertNotIn("read_paths", memory)
-        self.assertLessEqual(len(memory) - len(baseline), 1850)
+        self.assertIn("Agent Memory context payload: null", baseline)
+        self.assertIn('Agent Memory context payload: {', memory)
+        self.assertLessEqual(len(memory) - len(baseline), 1650)
 
     def test_memory_query_failure_stops_the_runner(self) -> None:
         module = load_runner_module()

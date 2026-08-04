@@ -38,6 +38,7 @@ def compact_candidate(item: dict[str, Any], ranges: dict[tuple[str, str], dict[s
         "owner_name": item.get("owner_name"),
         "owner_kind": item.get("owner_kind"),
         "target_owner_kind_match": item.get("target_owner_kind_match"),
+        "file_structural_coverage": item.get("file_structural_coverage"),
         "callable_roles": strings(item.get("callable_roles"))[:4],
         "score": item.get("score"),
         "evidence_score": item.get("evidence_score"),
@@ -46,6 +47,14 @@ def compact_candidate(item: dict[str, Any], ranges: dict[tuple[str, str], dict[s
     source_range = ranges.get((path, symbol))
     if source_range:
         result["source_range"] = source_range
+    if item.get("artifact_role_competition"):
+        result.update({
+            "artifact_role": item.get("artifact_role"),
+            "artifact_query_intent": item.get("artifact_query_intent"),
+            "artifact_role_competition": True,
+            "artifact_role_representative": item.get("artifact_role_representative"),
+            "artifact_role_shadow": item.get("artifact_role_shadow"),
+        })
     return {key: value for key, value in result.items() if value not in (None, "", [])}
 
 
@@ -72,6 +81,10 @@ def certainty(primary: dict[str, Any], alternatives: list[dict[str, Any]]) -> st
         item.get("owner_kind") != owner_kind for item in alternatives
     ):
         return "bounded"
+    if primary.get("target_owner_kind_match") and structurally_dominates(
+        primary, alternatives,
+    ):
+        return "bounded"
     if primary.get("target_owner_kind_match"):
         score = float(primary.get("score") or 0.0)
         next_score = float(alternatives[0].get("score") or 0.0) if alternatives else 0.0
@@ -79,6 +92,17 @@ def certainty(primary: dict[str, Any], alternatives: list[dict[str, Any]]) -> st
         score = calibrated_evidence_score(primary)
         next_score = calibrated_evidence_score(alternatives[0]) if alternatives else 0.0
     return "bounded" if score >= next_score + 2.0 else "uncertain"
+
+
+def structurally_dominates(
+    primary: dict[str, Any], alternatives: list[dict[str, Any]],
+) -> bool:
+    coverage = int(primary.get("file_structural_coverage") or 0)
+    competing = [
+        int(item.get("file_structural_coverage") or 0)
+        for item in alternatives if item.get("owner_kind") == primary.get("owner_kind")
+    ]
+    return coverage > 0 and bool(competing) and coverage > max(competing)
 
 
 def calibrated_evidence_score(item: dict[str, Any]) -> float:

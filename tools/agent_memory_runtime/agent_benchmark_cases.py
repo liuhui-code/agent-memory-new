@@ -10,6 +10,7 @@ from typing import Any
 from .benchmark_case_seal import case_pack_seal_audit
 from .context_calibration import normalize_evaluation_profile, validate_calibrated_holdout
 from .evaluation_governance import validate_evaluation_governance
+from .agent_benchmark_mechanism import normalize_mechanism_assertions
 
 
 CASE_SCHEMA = "agent-benchmark-cases/v1"
@@ -86,6 +87,16 @@ def validate_case(value: Any, index: int, seen: set[str]) -> dict[str, Any]:
         raise SystemExit(f"benchmark case {case_id} requires oracle.expected_files")
     forbidden = string_list(oracle.get("forbidden_files") or [], f"case {case_id} oracle.forbidden_files")
     profile = normalize_evaluation_profile(value.get("evaluation_profile"), case_id)
+    normalized_oracle = {
+        **oracle,
+        "expected_files": expected_files,
+        "forbidden_files": forbidden,
+    }
+    if "mechanism_assertions" in oracle:
+        normalized_oracle["mechanism_assertions"] = normalize_mechanism_assertions(
+            oracle.get("mechanism_assertions"),
+            f"case {case_id} oracle.mechanism_assertions",
+        )
     result = {
         **value,
         "id": case_id,
@@ -93,7 +104,7 @@ def validate_case(value: Any, index: int, seen: set[str]) -> dict[str, Any]:
         "review_status": review_status,
         "task": dict(task),
         "source": dict(source),
-        "oracle": {**oracle, "expected_files": expected_files, "forbidden_files": forbidden},
+        "oracle": normalized_oracle,
     }
     if profile is not None:
         result["evaluation_profile"] = profile

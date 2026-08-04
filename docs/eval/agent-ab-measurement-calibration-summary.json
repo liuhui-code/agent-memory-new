@@ -1,0 +1,112 @@
+{
+  "schema_version": "agent-ab-measurement-calibration/v1",
+  "status": "complete",
+  "scope": "development",
+  "promotion_eligible": false,
+  "protocol": {
+    "agent": "codex-cli 0.142.0",
+    "model": "gpt-5.5",
+    "reasoning_effort": "low",
+    "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+    "schedule": "alternating_case_trial_parity/v1",
+    "case_count": 3,
+    "trials_per_case": 3,
+    "pair_count": 9,
+    "observation_count": 18,
+    "baseline_first_pairs": 5,
+    "memory_first_pairs": 4,
+    "execution_order_audit": "pass",
+    "measurement_contract": "legacy_context_plus_protocol_confounded"
+  },
+  "context_summary": {
+    "passed_cases": 1,
+    "failed_cases": 2,
+    "pass_rate": 0.3333
+  },
+  "agent_summary": {
+    "baseline_outcome_score": 0.9111,
+    "memory_outcome_score": 0.9111,
+    "outcome_score_delta": 0.0,
+    "baseline_root_cause_accuracy": 0.7778,
+    "memory_root_cause_accuracy": 0.7778,
+    "average_trial_non_regression_rate": 0.8889,
+    "baseline_average_tokens": 119477.3333,
+    "memory_average_tokens": 64656.1111,
+    "token_savings_ratio": 0.4588,
+    "baseline_average_elapsed_ms": 42732.2222,
+    "memory_average_elapsed_ms": 30376.3333,
+    "elapsed_savings_ratio": 0.2891,
+    "baseline_average_source_searches": 3.1111,
+    "memory_average_source_searches": 0.7778,
+    "source_search_reduction_ratio": 0.75,
+    "baseline_average_source_reads": 6.7778,
+    "memory_average_source_reads": 3.3333,
+    "source_read_reduction_ratio": 0.5082
+  },
+  "cases": [
+    {
+      "case_id": "mutation-e94b869b178b",
+      "provenance": "mutation",
+      "context_gate": "pass",
+      "candidate_file_recall_at_20": 1.0,
+      "anchor_recall": 1.0,
+      "baseline_outcome_score": 1.0,
+      "memory_outcome_score": 1.0,
+      "outcome_delta": 0.0,
+      "trial_non_regression_rate": 1.0,
+      "baseline_tokens": 65660.3333,
+      "memory_tokens": 58698.6667,
+      "baseline_elapsed_ms": 40818.6667,
+      "memory_elapsed_ms": 29754.3333,
+      "matrix_cell": "context_pass_outcome_uplift_zero",
+      "governance_interpretation": "quality_ceiling_and_positive_efficiency_protocol_evidence_only"
+    },
+    {
+      "case_id": "youtube-media-page-array-merge",
+      "provenance": "reviewed_git_fix",
+      "context_gate": "fail",
+      "candidate_file_recall_at_20": 1.0,
+      "anchor_recall": 0.0,
+      "baseline_outcome_score": 0.7333,
+      "memory_outcome_score": 0.7333,
+      "outcome_delta": 0.0,
+      "trial_outcome_deltas": [0.4, -0.4, 0.0],
+      "trial_non_regression_rate": 0.6667,
+      "baseline_tokens": 59881.6667,
+      "memory_tokens": 66833.3333,
+      "baseline_elapsed_ms": 32144.3333,
+      "memory_elapsed_ms": 28902.0,
+      "matrix_cell": "context_fail_outcome_uplift_zero",
+      "governance_interpretation": "compact_retrieval_supply_deficiency_with_mixed_agent_efficiency"
+    },
+    {
+      "case_id": "dimina-harmony-tabbar-height",
+      "provenance": "reviewed_git_fix",
+      "context_gate": "fail",
+      "candidate_file_recall_at_20": 0.0,
+      "anchor_recall": 0.0,
+      "baseline_outcome_score": 1.0,
+      "memory_outcome_score": 1.0,
+      "outcome_delta": 0.0,
+      "trial_non_regression_rate": 1.0,
+      "baseline_tokens": 232890.0,
+      "memory_tokens": 68436.3333,
+      "baseline_elapsed_ms": 55233.6667,
+      "memory_elapsed_ms": 32472.6667,
+      "matrix_cell": "context_fail_outcome_uplift_zero",
+      "governance_interpretation": "near_neighbor_efficiency_hypothesis_confounded_by_memory_only_protocol"
+    }
+  ],
+  "governance_conclusion": {
+    "quality_uplift_demonstrated": false,
+    "aggregate_efficiency_utility_demonstrated": false,
+    "combined_treatment_efficiency_signal_observed": true,
+    "serving_change_authorized": false,
+    "context_gate_change_authorized": false,
+    "next_evidence": [
+      "Use agent-benchmark-treatment/v2 so Context is the only treatment variable.",
+      "Include Memory retrieval in end-to-end latency and report paired worst-case effects.",
+      "Use symptom-only Development cases with mechanism assertions and an even trial count."
+    ]
+  }
+}

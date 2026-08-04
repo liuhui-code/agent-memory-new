@@ -16,6 +16,7 @@ from .query_handoff import build_query_handoff
 from .query_hierarchical_localization import SQLiteHierarchicalLocalizer
 from .query_callable_evidence import callable_evidence
 from .query_callable_evidence_set import build_callable_evidence_set
+from .query_callable_passage_portfolio import build_callable_passage_portfolio
 from .query_intents import gate_matches_by_intent
 from .query_language import excluded_code_candidate, positive_retrieval_query
 from .storage import connect, now_iso
@@ -143,9 +144,15 @@ def limited_context(
         retrieval_stage_counts(matches, gated["matches"], bounded),
     )
     context["query_audit"]["hierarchical_localization"] = localization
-    context["query_audit"]["callable_evidence_set"] = build_callable_evidence_set(
+    evidence_set = build_callable_evidence_set(
         query, localization, evidence,
     )
+    context["query_audit"]["callable_evidence_set"] = evidence_set
+    passage_portfolio = build_callable_passage_portfolio(
+        query, localization, evidence,
+    )
+    evidence["passage_portfolio"] = passage_portfolio
+    context["query_audit"]["callable_passage_portfolio"] = passage_portfolio
     record_context_use(project, context)
     record_query_miss_if_empty(project, "context", query, context)
     return context

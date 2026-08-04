@@ -1,0 +1,34 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "docs/eval/fixtures/system-capability",
+  "cases": [
+    {
+      "id": "evidence-continuity-motion-definition",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "A page-aware motion target jumps when visibility changes. Inspect MotionGeometryPolicy viewportVisibility and frozenTargetX ownership."},
+      "source": {"before_revision": "working-tree", "fixture_group": "evidence-continuity-development"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture", "source_family": "evidence-continuity-development/motion", "independence_basis": "Project-neutral ArkTS object-literal geometry policy surrounded by three lexically dense consumers."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable"], "artifact_roles": ["service"], "mechanism_kinds": ["ui_state"]},
+      "oracle": {"expected_files": ["src/motion/ZMotionGeometry.ets"], "forbidden_files": [], "root_cause_category": "state", "expected_causal_level": "association", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}}
+    },
+    {
+      "id": "evidence-continuity-storage-definition",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "Checkpoint retries can retain staged state for too long. Inspect CheckpointRetryPolicy nextRetryDelay and shouldDiscardCheckpoint ownership."},
+      "source": {"before_revision": "working-tree", "fixture_group": "evidence-continuity-development"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture", "source_family": "evidence-continuity-development/storage", "independence_basis": "Project-neutral ArkTS object-literal retry policy surrounded by three lexically dense consumers."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable"], "artifact_roles": ["store"], "mechanism_kinds": ["persistence", "error_contract"]},
+      "oracle": {"expected_files": ["src/storage/ZCheckpointRules.ets"], "forbidden_files": [], "root_cause_category": "state", "expected_causal_level": "association", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}}
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "fixture_records_are_reviewed_and_synthetic": true,
+    "evaluation": {"schema_version": "agent-evaluation-governance/v1", "split": "development", "change_policy": "editable", "source_isolation": "project_neutral", "lineage_defaults": {"source_family": "evidence-continuity-development/v1", "independence_basis": "Independent motion and persistence evidence-continuity defect classes."}}
+  }
+}

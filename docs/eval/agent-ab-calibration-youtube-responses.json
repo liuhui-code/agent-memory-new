@@ -1,0 +1,1250 @@
+{
+  "schema_version": "agent-benchmark-responses/v1",
+  "generated_at": "2026-08-03T12:36:05+00:00",
+  "observations": [
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "mutation-e94b869b178b",
+      "variant": "baseline",
+      "trial_index": 1,
+      "root_cause_category": "route",
+      "predicted_files": [
+        "entry/src/main/ets/component/Album.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/resources/base/profile/main_pages.json",
+        "entry/src/main/ets/pages/Playlist.ets",
+        "entry/src/main/ets/pages/main/Explore.ets",
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/component/Album.ets",
+        "entry/src/main/resources/base/profile/main_pages.json",
+        "entry/src/main/ets/pages/Playlist.ets",
+        "entry/src/main/ets/pages/main/Explore.ets",
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 2,
+      "expansion_trace": [
+        {
+          "reason": "missing_route_target",
+          "files": [
+            "entry/src/main/resources/base/profile/main_pages.json",
+            "entry/src/main/ets/pages/Playlist.ets"
+          ]
+        },
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/pages/main/Explore.ets",
+            "entry/src/main/ets/component/MediaComponent.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/component/Album.ets",
+        "entry/src/main/resources/base/profile/main_pages.json",
+        "entry/src/main/ets/pages/Playlist.ets"
+      ],
+      "token_estimate": 60613,
+      "elapsed_ms": 36846,
+      "summary": "Album tile clicks navigate to `pages/Playlist__missing__`, but the registered page and implemented destination are `pages/Playlist`; this missing route target prevents the Playlist page from opening.",
+      "expansion_rounds": 3,
+      "expansion_reason_codes": [
+        "missing_route_target",
+        "missing_caller"
+      ],
+      "model_input_tokens": 59270,
+      "model_cached_input_tokens": 30208,
+      "model_uncached_input_tokens": 29062,
+      "model_output_tokens": 1343,
+      "model_reasoning_tokens": 259,
+      "usage_metrics_reported": true,
+      "command_count": 7,
+      "command_output_bytes": 29130,
+      "source_read_count": 5,
+      "source_read_output_bytes": 15250,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 5,
+      "expansion_file_count": 5,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 1,
+        "pair_index": 1000001,
+        "variant_position": 1,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "mutation-e94b869b178b",
+      "variant": "memory",
+      "trial_index": 1,
+      "root_cause_category": "route",
+      "predicted_files": [
+        "entry/src/main/ets/component/Album.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/resources/base/profile/main_pages.json",
+        "entry/src/main/ets/component/MediaComponent.ets",
+        "entry/src/main/ets/pages/Playlist.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/component/Album.ets",
+        "entry/src/main/resources/base/profile/main_pages.json",
+        "entry/src/main/ets/component/MediaComponent.ets",
+        "entry/src/main/ets/pages/Playlist.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 3,
+      "expansion_trace": [
+        {
+          "reason": "missing_route_target",
+          "files": [
+            "entry/src/main/resources/base/profile/main_pages.json",
+            "entry/src/main/ets/component/MediaComponent.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/component/Album.ets",
+        "entry/src/main/resources/base/profile/main_pages.json"
+      ],
+      "token_estimate": 82610,
+      "elapsed_ms": 38016,
+      "summary": "Album.ets pushes navigation to the non-existent route pages/Playlist__missing__. The route registry contains pages/Playlist, and another playlist navigation caller uses pages/Playlist, so tapping Album reaches a missing route target instead of opening the existing Playlist page.",
+      "expansion_rounds": 2,
+      "expansion_reason_codes": [
+        "missing_route_target"
+      ],
+      "model_input_tokens": 81347,
+      "model_cached_input_tokens": 65792,
+      "model_uncached_input_tokens": 15555,
+      "model_output_tokens": 1263,
+      "model_reasoning_tokens": 394,
+      "usage_metrics_reported": true,
+      "command_count": 6,
+      "command_output_bytes": 6394,
+      "source_read_count": 4,
+      "source_read_output_bytes": 5360,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 3003,
+      "memory_context_token_estimate": 751,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 3,
+      "expansion_file_count": 3,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 1,
+        "pair_index": 1000001,
+        "variant_position": 2,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "mutation-e94b869b178b",
+      "variant": "memory",
+      "trial_index": 2,
+      "root_cause_category": "route",
+      "predicted_files": [
+        "entry/src/main/ets/component/Album.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/resources/base/profile/main_pages.json"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/component/Album.ets",
+        "entry/src/main/resources/base/profile/main_pages.json"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 0,
+      "expansion_trace": [
+        {
+          "reason": "missing_route_target",
+          "files": [
+            "entry/src/main/resources/base/profile/main_pages.json"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/component/Album.ets",
+        "entry/src/main/resources/base/profile/main_pages.json"
+      ],
+      "token_estimate": 39280,
+      "elapsed_ms": 24141,
+      "summary": "Album card navigation pushes url pages/Playlist__missing__, but the registered page list contains pages/Playlist and not the injected missing target, so tapping the album reaches an unregistered route and the destination page cannot open.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_route_target"
+      ],
+      "model_input_tokens": 38559,
+      "model_cached_input_tokens": 26752,
+      "model_uncached_input_tokens": 11807,
+      "model_output_tokens": 721,
+      "model_reasoning_tokens": 267,
+      "usage_metrics_reported": true,
+      "command_count": 2,
+      "command_output_bytes": 1406,
+      "source_read_count": 2,
+      "source_read_output_bytes": 1406,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 3003,
+      "memory_context_token_estimate": 751,
+      "source_file_count": 2,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 1,
+      "expansion_file_count": 1,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 2,
+        "pair_index": 1000002,
+        "variant_position": 1,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "mutation-e94b869b178b",
+      "variant": "baseline",
+      "trial_index": 2,
+      "root_cause_category": "route",
+      "predicted_files": [
+        "entry/src/main/ets/component/Album.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/resources/base/profile/main_pages.json",
+        "entry/src/main/ets/pages/Playlist.ets",
+        "entry/src/main/ets/pages/main/Home.ets",
+        "entry/src/main/ets/pages/main/Explore.ets",
+        "entry/src/main/ets/pages/explore/NewDiscovery.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/component/Album.ets",
+        "entry/src/main/resources/base/profile/main_pages.json",
+        "entry/src/main/ets/pages/Playlist.ets",
+        "entry/src/main/ets/pages/main/Home.ets",
+        "entry/src/main/ets/pages/main/Explore.ets",
+        "entry/src/main/ets/pages/explore/NewDiscovery.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 3,
+      "expansion_trace": [
+        {
+          "reason": "missing_route_target",
+          "files": [
+            "entry/src/main/resources/base/profile/main_pages.json",
+            "entry/src/main/ets/pages/Playlist.ets"
+          ]
+        },
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/pages/main/Home.ets",
+            "entry/src/main/ets/pages/main/Explore.ets、entry/src/main/ets/pages/explore/NewDiscovery.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/component/Album.ets",
+        "entry/src/main/resources/base/profile/main_pages.json"
+      ],
+      "token_estimate": 59207,
+      "elapsed_ms": 42663,
+      "summary": "Album click navigation pushes url 'pages/Playlist__missing__', but the registered page profile contains 'pages/Playlist'. This makes album navigation target a nonexistent route, so the destination page cannot open.",
+      "expansion_rounds": 3,
+      "expansion_reason_codes": [
+        "missing_route_target",
+        "missing_caller"
+      ],
+      "model_input_tokens": 57737,
+      "model_cached_input_tokens": 40448,
+      "model_uncached_input_tokens": 17289,
+      "model_output_tokens": 1470,
+      "model_reasoning_tokens": 216,
+      "usage_metrics_reported": true,
+      "command_count": 7,
+      "command_output_bytes": 20018,
+      "source_read_count": 4,
+      "source_read_output_bytes": 6332,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 6,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 6,
+      "expansion_file_count": 6,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 2,
+        "pair_index": 1000002,
+        "variant_position": 2,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "mutation-e94b869b178b",
+      "variant": "baseline",
+      "trial_index": 3,
+      "root_cause_category": "route",
+      "predicted_files": [
+        "entry/src/main/ets/component/Album.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/resources/base/profile/main_pages.json",
+        "entry/src/main/ets/pages/Playlist.ets",
+        "entry/src/main/ets/pages/main/Home.ets",
+        "entry/src/main/ets/pages/main/Explore.ets",
+        "entry/src/main/ets/pages/explore/NewDiscovery.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/component/Album.ets",
+        "entry/src/main/resources/base/profile/main_pages.json",
+        "entry/src/main/ets/pages/Playlist.ets",
+        "entry/src/main/ets/pages/main/Home.ets",
+        "entry/src/main/ets/pages/main/Explore.ets",
+        "entry/src/main/ets/pages/explore/NewDiscovery.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 3,
+      "source_search_count": 3,
+      "expansion_trace": [
+        {
+          "reason": "missing_route_target",
+          "files": [
+            "entry/src/main/resources/base/profile/main_pages.json",
+            "entry/src/main/ets/pages/Playlist.ets"
+          ]
+        },
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/pages/main/Home.ets",
+            "entry/src/main/ets/pages/main/Explore.ets ja-JP"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/component/Album.ets",
+        "entry/src/main/resources/base/profile/main_pages.json"
+      ],
+      "token_estimate": 77161,
+      "elapsed_ms": 42947,
+      "summary": "Album navigation pushes url 'pages/Playlist__missing__', but the registered page route is 'pages/Playlist'. Album cards used from Home, Explore, and NewDiscovery therefore reach a missing route instead of opening the Playlist page.",
+      "expansion_rounds": 3,
+      "expansion_reason_codes": [
+        "missing_route_target",
+        "missing_caller"
+      ],
+      "model_input_tokens": 75596,
+      "model_cached_input_tokens": 54144,
+      "model_uncached_input_tokens": 21452,
+      "model_output_tokens": 1565,
+      "model_reasoning_tokens": 199,
+      "usage_metrics_reported": true,
+      "command_count": 9,
+      "command_output_bytes": 26425,
+      "source_read_count": 6,
+      "source_read_output_bytes": 13180,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 6,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 6,
+      "expansion_file_count": 6,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 3,
+        "pair_index": 1000003,
+        "variant_position": 1,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "mutation-e94b869b178b",
+      "variant": "memory",
+      "trial_index": 3,
+      "root_cause_category": "route",
+      "predicted_files": [
+        "entry/src/main/ets/component/Album.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/pages/Playlist.ets",
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/component/Album.ets",
+        "entry/src/main/ets/pages/Playlist.ets",
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_route_target",
+          "files": [
+            "entry/src/main/ets/pages/Playlist.ets",
+            "entry/src/main/ets/component/MediaComponent.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/component/Album.ets"
+      ],
+      "token_estimate": 54206,
+      "elapsed_ms": 27106,
+      "summary": "Album.ets pushes to the non-existent route `pages/Playlist__missing__` on click, so navigation reaches a missing target and the destination does not open. The actual page exists as `pages/Playlist`, and another component routes to that valid target.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_route_target"
+      ],
+      "model_input_tokens": 53280,
+      "model_cached_input_tokens": 39424,
+      "model_uncached_input_tokens": 13856,
+      "model_output_tokens": 926,
+      "model_reasoning_tokens": 219,
+      "usage_metrics_reported": true,
+      "command_count": 4,
+      "command_output_bytes": 5625,
+      "source_read_count": 3,
+      "source_read_output_bytes": 4611,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 3003,
+      "memory_context_token_estimate": 751,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 2,
+      "expansion_file_count": 2,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 3,
+        "pair_index": 1000003,
+        "variant_position": 2,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "youtube-media-page-array-merge",
+      "variant": "memory",
+      "trial_index": 1,
+      "root_cause_category": "state",
+      "predicted_files": [
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/pages/explore/RankList.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/pages/explore/RankList.ets",
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/component/MediaComponent.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "token_estimate": 60643,
+      "elapsed_ms": 29524,
+      "summary": "The pagination result owner is MediaComponent. In onLoadMore it fetches the next media page, then updates the accumulated @State data with `this.data += res.data['mediaList']`. Because data is a MediaModel array, `+=` violates the list merge contract by coercing/concatenating rather than appending array elements. The update should merge arrays, for example assigning a new array with existing items plus the returned mediaList.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_state_owner"
+      ],
+      "model_input_tokens": 59675,
+      "model_cached_input_tokens": 50688,
+      "model_uncached_input_tokens": 8987,
+      "model_output_tokens": 968,
+      "model_reasoning_tokens": 376,
+      "usage_metrics_reported": true,
+      "command_count": 3,
+      "command_output_bytes": 14948,
+      "source_read_count": 2,
+      "source_read_output_bytes": 7649,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 3747,
+      "memory_context_token_estimate": 937,
+      "source_file_count": 2,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 1,
+      "expansion_file_count": 1,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 1,
+        "pair_index": 2000001,
+        "variant_position": 1,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "youtube-media-page-array-merge",
+      "variant": "baseline",
+      "trial_index": 1,
+      "root_cause_category": "media",
+      "predicted_files": [
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/pages/main/Media.ets",
+        "entry/src/main/ets/models/mediaModel.ts"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/component/MediaComponent.ets",
+        "entry/src/main/ets/pages/main/Media.ets",
+        "entry/src/main/ets/models/mediaModel.ts"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 3,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/pages/main/Media.ets"
+          ]
+        },
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/models/mediaModel.ts"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "token_estimate": 64557,
+      "elapsed_ms": 34714,
+      "summary": "The pagination result owner is MediaComponent. Its onLoadMore handler updates the accumulated media array with `this.data += res.data['mediaList']`, which coerces arrays instead of merging list items; the collection update should append with an array merge such as spreading or concat.",
+      "expansion_rounds": 2,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "missing_state_owner"
+      ],
+      "model_input_tokens": 63074,
+      "model_cached_input_tokens": 29184,
+      "model_uncached_input_tokens": 33890,
+      "model_output_tokens": 1483,
+      "model_reasoning_tokens": 197,
+      "usage_metrics_reported": true,
+      "command_count": 7,
+      "command_output_bytes": 26485,
+      "source_read_count": 5,
+      "source_read_output_bytes": 13846,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 3,
+      "expansion_file_count": 3,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 1,
+        "pair_index": 2000001,
+        "variant_position": 2,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "youtube-media-page-array-merge",
+      "variant": "baseline",
+      "trial_index": 2,
+      "root_cause_category": "state",
+      "predicted_files": [
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/pages/main/Media.ets",
+        "entry/src/main/ets/models/mediaModel.ts"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/component/MediaComponent.ets",
+        "entry/src/main/ets/pages/main/Media.ets",
+        "entry/src/main/ets/models/mediaModel.ts"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/pages/main/Media.ets"
+          ]
+        },
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/models/mediaModel.ts"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "token_estimate": 57588,
+      "elapsed_ms": 30926,
+      "summary": "The pagination result owner is MediaComponent. Its onLoadMore handler updates the accumulated MediaModel[] with `this.data += res.data['mediaList']`, which coerces arrays rather than merging list elements. That violates the append contract and should be replaced with an array merge such as spreading or concat while preserving existing items.",
+      "expansion_rounds": 2,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "missing_state_owner"
+      ],
+      "model_input_tokens": 56510,
+      "model_cached_input_tokens": 36352,
+      "model_uncached_input_tokens": 20158,
+      "model_output_tokens": 1078,
+      "model_reasoning_tokens": 256,
+      "usage_metrics_reported": true,
+      "command_count": 5,
+      "command_output_bytes": 17713,
+      "source_read_count": 5,
+      "source_read_output_bytes": 12736,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 3,
+      "expansion_file_count": 3,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 2,
+        "pair_index": 2000002,
+        "variant_position": 1,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "youtube-media-page-array-merge",
+      "variant": "memory",
+      "trial_index": 2,
+      "root_cause_category": "media",
+      "predicted_files": [
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/pages/main/Media.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/pages/explore/RankList.ets",
+        "entry/src/main/ets/component/MediaComponent.ets",
+        "entry/src/main/ets/pages/main/Media.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/component/MediaComponent.ets",
+            "entry/src/main/ets/pages/main/Media.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "token_estimate": 78988,
+      "elapsed_ms": 31958,
+      "summary": "The pagination result owner is MediaComponent. Its onLoadMore handler fetches another media page, but updates the accumulated MediaModel[] state with `this.data += res.data['mediaList']`, which violates the list merge contract by using additive assignment instead of an array merge such as concat/spread append. Media.ets only hosts MediaComponent on the media page.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_state_owner"
+      ],
+      "model_input_tokens": 77904,
+      "model_cached_input_tokens": 67456,
+      "model_uncached_input_tokens": 10448,
+      "model_output_tokens": 1084,
+      "model_reasoning_tokens": 357,
+      "usage_metrics_reported": true,
+      "command_count": 4,
+      "command_output_bytes": 17009,
+      "source_read_count": 4,
+      "source_read_output_bytes": 17009,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 3747,
+      "memory_context_token_estimate": 937,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 2,
+      "expansion_file_count": 2,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 2,
+        "pair_index": 2000002,
+        "variant_position": 2,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "youtube-media-page-array-merge",
+      "variant": "memory",
+      "trial_index": 3,
+      "root_cause_category": "media",
+      "predicted_files": [
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/pages/explore/RankList.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/pages/explore/RankList.ets",
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/component/MediaComponent.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "token_estimate": 60869,
+      "elapsed_ms": 25224,
+      "summary": "The pagination result owner is MediaComponent.ets. Its onLoadMore handler fetches another /media page, but updates the accumulated MediaModel[] with `this.data += res.data['mediaList']`, which coerces arrays instead of merging list elements; this violates the append contract and corrupts the collection. The repair owner is the same file, replacing that update with an array merge such as assigning a new concatenated/spread array.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_state_owner"
+      ],
+      "model_input_tokens": 60097,
+      "model_cached_input_tokens": 45568,
+      "model_uncached_input_tokens": 14529,
+      "model_output_tokens": 772,
+      "model_reasoning_tokens": 157,
+      "usage_metrics_reported": true,
+      "command_count": 3,
+      "command_output_bytes": 15704,
+      "source_read_count": 2,
+      "source_read_output_bytes": 7649,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 3747,
+      "memory_context_token_estimate": 937,
+      "source_file_count": 2,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 1,
+      "expansion_file_count": 1,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 3,
+        "pair_index": 2000003,
+        "variant_position": 1,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "youtube-media-page-array-merge",
+      "variant": "baseline",
+      "trial_index": 3,
+      "root_cause_category": "media",
+      "predicted_files": [
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/pages/main/Media.ets",
+        "entry/src/main/ets/models/mediaModel.ts"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/component/MediaComponent.ets",
+        "entry/src/main/ets/pages/main/Media.ets",
+        "entry/src/main/ets/models/mediaModel.ts"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 2,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/pages/main/Media.ets"
+          ]
+        },
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/models/mediaModel.ts"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/component/MediaComponent.ets"
+      ],
+      "token_estimate": 57500,
+      "elapsed_ms": 30793,
+      "summary": "The pagination result owner is MediaComponent. Its onLoadMore handler updates the @State media collection with `this.data += res.data['mediaList']`, which coerces arrays instead of merging list items. The repair owner is the component state update, which should append returned media items with an array merge such as spread/concat while preserving MediaModel[].",
+      "expansion_rounds": 2,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "missing_state_owner"
+      ],
+      "model_input_tokens": 56398,
+      "model_cached_input_tokens": 40448,
+      "model_uncached_input_tokens": 15950,
+      "model_output_tokens": 1102,
+      "model_reasoning_tokens": 166,
+      "usage_metrics_reported": true,
+      "command_count": 6,
+      "command_output_bytes": 17996,
+      "source_read_count": 5,
+      "source_read_output_bytes": 12134,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 3,
+      "expansion_file_count": 3,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 3,
+        "pair_index": 2000003,
+        "variant_position": 2,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    }
+  ]
+}

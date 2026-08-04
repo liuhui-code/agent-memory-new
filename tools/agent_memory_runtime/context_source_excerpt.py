@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import math
 from pathlib import Path
 import re
 from typing import Any
@@ -27,6 +28,9 @@ ACTION_MARKERS = (
     ".onclick", ": this.", "@prop", "await ", "if (", "foreach(",
     "pushpath", "replacepath", "loaddata", ".fileaccess",
 )
+MEMORY_PRIORITY_INTENTS = {
+    "procedure_reuse", "semantic_correction", "memory_maintenance",
+}
 UI_OPERATION_RE = re.compile(r"\.[a-z][A-Za-z0-9_$]*\s*\(")
 COMPONENT_BINDING_RE = re.compile(r"\b[A-Z][A-Za-z0-9_$]*\s*\(\s*\{")
 
@@ -105,6 +109,39 @@ def has_source_excerpt_candidate(
         and bool(selected_ranges(anchor, source_path, str(payload.get("query") or "")))
         for anchor in primary_anchors(handoff)
     )
+
+
+def multi_excerpt_reserve_tokens(
+    payload: dict[str, Any], project_path: Any,
+) -> int:
+    if payload.get("memory_intent") in MEMORY_PRIORITY_INTENTS:
+        return 0
+    root = resolved_root(project_path)
+    handoff = payload.get("query_handoff")
+    if root is None or not isinstance(handoff, dict):
+        return 0
+    memory_evidence_count = len(handoff.get("experience_refs") or []) + sum(
+        len(payload.get(key) or []) for key in (
+            "correction_guards", "semantic_patch_notes", "blocked_memory_notes",
+        )
+    )
+    if memory_evidence_count >= 2:
+        return 0
+    query = str(payload.get("query") or "")
+    requested_chars: list[int] = []
+    for anchor in primary_anchors(handoff):
+        source_path = safe_source_path(root, anchor.get("file_path"))
+        if source_path is None:
+            continue
+        requested_chars.extend(
+            len(str(excerpt.get("content") or ""))
+            for source_range in selected_ranges(anchor, source_path, query)
+            if (excerpt := read_excerpt(source_path, source_range, MAX_EXCERPT_CHARS))
+        )
+    if len(requested_chars) <= 1:
+        return 0
+    bounded_chars = min(MAX_TOTAL_EXCERPT_CHARS, sum(requested_chars))
+    return TOKEN_RESERVE + math.ceil(bounded_chars / 3)
 
 
 def primary_anchors(handoff: dict[str, Any]) -> list[dict[str, Any]]:

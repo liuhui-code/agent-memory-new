@@ -75,6 +75,40 @@ class CallableEvidenceTests(unittest.TestCase):
 
         self.assertEqual("uncertain", evidence["certainty"])
 
+    def test_structural_coverage_dominance_is_bounded_for_same_owner_kind(self) -> None:
+        primary = candidate("src/widgets/NoticeRow.ets", "build", "component", 11.0)
+        primary.update({"target_owner_kind_match": True, "file_structural_coverage": 2})
+        alternative = candidate("src/views/FilterToggle.ets", "build", "component", 10.0)
+        alternative["file_structural_coverage"] = 1
+
+        evidence = callable_evidence({
+            "callable_candidates": [primary, alternative],
+            "source_ranges": [{
+                "file_path": "src/widgets/NoticeRow.ets", "symbol": "build",
+                "start_line": 3, "end_line": 9,
+                "selection_reason": "callable_symbol_range",
+            }],
+        })
+
+        self.assertEqual("bounded", evidence["certainty"])
+
+    def test_equal_structural_coverage_remains_uncertain(self) -> None:
+        primary = candidate("src/widgets/NoticeRow.ets", "build", "component", 11.0)
+        primary.update({"target_owner_kind_match": True, "file_structural_coverage": 1})
+        alternative = candidate("src/views/OtherRow.ets", "build", "component", 10.0)
+        alternative["file_structural_coverage"] = 1
+
+        evidence = callable_evidence({
+            "callable_candidates": [primary, alternative],
+            "source_ranges": [{
+                "file_path": "src/widgets/NoticeRow.ets", "symbol": "build",
+                "start_line": 3, "end_line": 9,
+                "selection_reason": "callable_symbol_range",
+            }],
+        })
+
+        self.assertEqual("uncertain", evidence["certainty"])
+
 
 def candidate(path: str, symbol: str, owner_kind: str, score: float) -> dict[str, object]:
     return {

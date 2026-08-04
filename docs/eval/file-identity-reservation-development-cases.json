@@ -1,0 +1,44 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "docs/eval/fixtures/system-capability",
+  "cases": [
+    {
+      "id": "file-identity-dense-layout-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "A landscape phone enters two-pane mode while too narrow. Inspect FullPlayerPagerSpec paneCount and its width boundary."},
+      "source": {"before_revision": "working-tree", "fixture_group": "file-identity-reservation-development"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture", "source_family": "file-identity-reservation-development/layout", "independence_basis": "Project-neutral dense UI directory with one explicitly named owner and several same-method siblings."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable"], "artifact_roles": ["service"], "mechanism_kinds": ["ui_state"]},
+      "oracle": {"expected_files": ["src/layout/ZPlayerMotion.ets"], "forbidden_files": [], "root_cause_category": "state", "expected_causal_level": "association", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}}
+    },
+    {
+      "id": "file-identity-dense-storage-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "A rejected checkpoint leaves staged state reusable. Locate CheckpointTransaction discardCheckpoint compensation ownership."},
+      "source": {"before_revision": "working-tree", "fixture_group": "file-identity-reservation-development"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture", "source_family": "file-identity-reservation-development/storage", "independence_basis": "Project-neutral dense persistence directory with an explicit transaction owner and same-method presentation siblings."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable"], "artifact_roles": ["store"], "mechanism_kinds": ["persistence", "error_contract"]},
+      "oracle": {"expected_files": ["src/storage/ZCheckpointTransaction.ets"], "forbidden_files": [], "root_cause_category": "state", "expected_causal_level": "association", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}}
+    },
+    {
+      "id": "file-identity-decoupled-security-owner",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "A credential renewal screen uses the wrong decision. Inspect CredentialRenewalPolicy shouldRenewCredential ownership."},
+      "source": {"before_revision": "working-tree", "fixture_group": "file-identity-reservation-development"},
+      "provenance": {"kind": "reviewed_synthetic_context_fixture", "source_family": "file-identity-reservation-development/security", "independence_basis": "Project-neutral security policy whose definition file name differs from its owner while several UI callers reference both identities."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable"], "artifact_roles": ["service"], "mechanism_kinds": ["error_contract", "persistence"]},
+      "oracle": {"expected_files": ["src/security/ZLeaseRules.ets"], "forbidden_files": [], "root_cause_category": "state", "expected_causal_level": "association", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}}
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "fixture_records_are_reviewed_and_synthetic": true,
+    "evaluation": {"schema_version": "agent-evaluation-governance/v1", "split": "development", "change_policy": "editable", "source_isolation": "project_neutral", "lineage_defaults": {"source_family": "file-identity-reservation-development/v1", "independence_basis": "Independent dense layout, persistence, and security owner-localization defect classes."}}
+  }
+}

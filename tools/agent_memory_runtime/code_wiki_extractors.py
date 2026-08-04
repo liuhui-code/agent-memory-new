@@ -136,7 +136,8 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
             (r"^\s*(?:export\s+)?(?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(", "function"),
             (r"^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)", "class"),
             (r"^\s*(?:export\s+)?interface\s+([A-Za-z_$][\w$]*)", "interface"),
-            (r"^\s*const\s+([A-Za-z_$][\w$]*)\s*=", "const"),
+            (r"^\s*(?:export\s+)?const\s+([A-Za-z_$][\w$]*)(?:\s*:[^=]+)?\s*=\s*\{", "object"),
+            (r"^\s*(?:export\s+)?const\s+([A-Za-z_$][\w$]*)\s*=", "const"),
             (r"^\s*(?:(?:private|public|protected|override|async|static)\s+)*([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{", "function"),
         ]
     elif language == "ArkTS":
@@ -145,6 +146,7 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
             (r"^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)", "class"),
             (r"^\s*(?:export\s+)?interface\s+([A-Za-z_$][\w$]*)", "interface"),
             (r"^\s*(?:export\s+)?struct\s+([A-Za-z_$][\w$]*)", "component"),
+            (r"^\s*(?:export\s+)?const\s+([A-Za-z_$][\w$]*)(?:\s*:[^=]+)?\s*=\s*\{", "object"),
             (r"^\s*(?:(?:private|public|protected|override|async|static)\s+)*([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*(?::\s*[^ {]+)?\s*\{", "function"),
         ]
     elif language == "Dart":

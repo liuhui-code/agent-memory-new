@@ -48,6 +48,18 @@ class CallableEvidenceSetTests(unittest.TestCase):
         self.assertEqual("portfolio_required", result["calibration"]["state"])
         self.assertTrue(result["competition"]["same_owner_kind_alternative"])
 
+    def test_command_clause_with_conjoined_targets_is_multiple(self) -> None:
+        result = build_callable_evidence_set(
+            "Return the timeout race and cancelled checks.",
+            localization([
+                candidate("src/Bootstrap.ets", "start", "controller"),
+                candidate("src/Bootstrap.ets", "finish", "controller"),
+            ]),
+            evidence("src/Bootstrap.ets", "start"),
+        )
+
+        self.assertEqual("multiple", result["target_scope"]["kind"])
+
     def test_graph_backed_alternative_keeps_competing_support_visible(self) -> None:
         graph_owner = candidate("src/Caller.ets", "onClick", "component")
         graph_owner.update({"graph_depth": 1, "graph_relations": ["calls"]})

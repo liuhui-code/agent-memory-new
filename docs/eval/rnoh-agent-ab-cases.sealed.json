@@ -1,0 +1,751 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-ab-rnoh-full",
+  "source_repository": "https://github.com/ohosgg/rnoh.git",
+  "generated_at": "2026-08-03T10:30:00+08:00",
+  "generator": "preregistered-reviewed-real-fix-agent-ab/v1",
+  "cases": [
+    {
+      "id": "rnoh-paragraph-ellipsis-padding",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A one-line paragraph with horizontal padding places the tail ellipsis too late or omits it. Locate the text-measurement owner that computes usable line width before ellipsis insertion.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "f19fb669b7e9490bc1468efa669f3261cd3f052c",
+        "after_revision": "dfa73a3bf72156abc8bd36c6b07dddf8b8f9c31b",
+        "changed_files": [
+          "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/ParagraphMeasurer.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNSimpleText.ets",
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/conversions.ets"
+        ],
+        "test_files": [
+          "tester/tests/TextTest.tsx"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "dfa73a3bf72156abc8bd36c6b07dddf8b8f9c31b",
+        "commit_message": "fix paragraph ellipsis with padding",
+        "source_family": "ohosgg/rnoh@paragraph-ellipsis-padding",
+        "independence_basis": "Previously unused repository and fix selected in the preregistered RNOH portfolio before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/ParagraphMeasurer.ts"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "tester/tests/TextTest.tsx"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "rnoh-paragraph-text-align-padding",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Centered and right-aligned paragraph fragments shift after left or right padding is added. Locate the paragraph alignment calculation that should use content width rather than outer width.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "dfa73a3bf72156abc8bd36c6b07dddf8b8f9c31b",
+        "after_revision": "133bd578ebdcbd19464e598145be796b9d136562",
+        "changed_files": [
+          "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/ParagraphMeasurer.ts"
+        ],
+        "test_files": [
+          "tester/tests/TextTest.tsx"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "133bd578ebdcbd19464e598145be796b9d136562",
+        "commit_message": "fix textAlign after adding padding for paragraph",
+        "source_family": "ohosgg/rnoh@paragraph-text-align-padding",
+        "independence_basis": "Previously unused repository and fix selected in the preregistered RNOH portfolio before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/ParagraphMeasurer.ts"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "tester/tests/TextTest.tsx"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "rnoh-image-invalid-source-switch",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After an Image changes from a valid URI to an invalid source, the previous good image remains visible. Locate the native ArkUI image owner that controls source replacement and error dispatch.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "49ad5a8c7b6e8b5ff788a13c4513eabe6df539c9",
+        "after_revision": "71afc5f51e972f69725d3f7a723cf18690745e06",
+        "changed_files": [
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNImage.ets"
+        ],
+        "test_files": [
+          "tester/tests/ImageTest.tsx"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "71afc5f51e972f69725d3f7a723cf18690745e06",
+        "commit_message": "Force Image to switch when source changes",
+        "source_family": "ohosgg/rnoh@image-invalid-source-switch",
+        "independence_basis": "Previously unused repository and fix selected in the preregistered RNOH portfolio before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "component"
+        ],
+        "mechanism_kinds": [
+          "resource_io",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNImage.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "tester/tests/ImageTest.tsx"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "rnoh-text-input-font-color",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "TextInput ignores a configured red text color and renders the default color. Locate the descriptor wrapper and raw-prop contract that translate the React Native color into ArkUI RGBA.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "955797c4a2e2ed4d9ebdcb793e38a7985a9eb0f7",
+        "after_revision": "19078222a90052f341fbdaf70c2bf333dc9177ef",
+        "changed_files": [
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNTextInput/TextInputDescriptorWrapper.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNTextInput/types.ts"
+        ],
+        "test_files": [
+          "tester/tests/TextInputTest.tsx"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "19078222a90052f341fbdaf70c2bf333dc9177ef",
+        "commit_message": "Fix font color in TextInput",
+        "source_family": "ohosgg/rnoh@text-input-font-color",
+        "independence_basis": "Previously unused repository and fix selected in the preregistered RNOH portfolio before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNTextInput/TextInputDescriptorWrapper.ts"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "tester/tests/TextInputTest.tsx"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "rnoh-transformed-touch-coordinates",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Rotated, translated, or mirrored views miss presses and report incorrect local touch coordinates. Locate the component manager that maps parent points and transformed child bounding boxes around the view center.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "ad730d87d6bcc7d7e8eec0f525966658ac9211ff",
+        "after_revision": "49ad5a8c7b6e8b5ff788a13c4513eabe6df539c9",
+        "changed_files": [
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/componentManagers/RNViewManager.ts"
+        ],
+        "test_files": [
+          "tester/tests/TouchHandlingTest.tsx"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "49ad5a8c7b6e8b5ff788a13c4513eabe6df539c9",
+        "commit_message": "Fix transform touches",
+        "source_family": "ohosgg/rnoh@transformed-touch-coordinates",
+        "independence_basis": "Previously unused repository and fix selected in the preregistered RNOH portfolio before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/componentManagers/RNViewManager.ts"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "tester/tests/TouchHandlingTest.tsx"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "rnoh-virtualized-list-initial-index",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "VirtualizedList initialScrollIndex can dispatch before its native ScrollView target registers, so the list starts at item zero instead of item 81. Locate the command delivery backlog and mount-time offset restoration owners.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "9d1bdfa26bbfe25e3020a30268261311d889beb6",
+        "after_revision": "c6c84fccef11dc5f29c1dd14c76229338957e941",
+        "changed_files": [
+          "tester/harmony/rnoh/src/main/ets/RNOH/RNComponentCommandHub.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNScrollView/RNScrollView.ets"
+        ],
+        "test_files": [
+          "tester/tests/VirtualizedListTest.tsx"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "c6c84fccef11dc5f29c1dd14c76229338957e941",
+        "commit_message": "Fix `VirtualizedList`'s `initialIndex`",
+        "source_family": "ohosgg/rnoh@virtualized-list-initial-index",
+        "independence_basis": "Previously unused repository and fix selected in the preregistered RNOH portfolio before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service",
+          "component"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "tester/harmony/rnoh/src/main/ets/RNOH/RNComponentCommandHub.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNScrollView/RNScrollView.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ordering",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "tester/tests/VirtualizedListTest.tsx"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "rnoh-pan-responder-scroll-lock",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Dragging a PanResponder inside a horizontal paged ScrollView also scrolls the container. Locate the ArkTS instance and view owners that lock native scrolling for the active JS responder and release it afterward.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "a54e4cbf3c4e7cfc8578d2b330034729bb7cf264",
+        "after_revision": "c116030b77a2c9cce68a97cdc643da03a7daf077",
+        "changed_files": [
+          "react-native-harmony/harmony/cpp/RNOH/SchedulerDelegate.h",
+          "tester/harmony/rnoh/src/main/ets/RNOH/RNInstance.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOH/RNOHContext.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOH/RNScrollLocker.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNScrollView.ets",
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNViewBase/RNViewBase.ets"
+        ],
+        "test_files": [
+          "tester/tests/PanResponderTest.tsx"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "c116030b77a2c9cce68a97cdc643da03a7daf077",
+        "commit_message": "Fix panning in scrollview",
+        "source_family": "ohosgg/rnoh@pan-responder-scroll-lock",
+        "independence_basis": "Previously unused repository and fix selected in the preregistered RNOH portfolio before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service",
+          "component"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNScrollView.ets",
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNViewBase/RNViewBase.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ordering",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "tester/tests/PanResponderTest.tsx"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "rnoh-trimmed-inline-view-crash",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A Text limited to one line can crash when an inline View is trimmed beyond the visible line. Locate the wrapping and attachment-layout owners that must preserve a result for every placeholder.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "2cd1f3e5b80e8f8d30ad5467874c35a84de032bf",
+        "after_revision": "053b0855b474e1b3af4b9f5c167783e879b55f56",
+        "changed_files": [
+          "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/UnhyphenatedWordWrapStrategy.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOH/NapiBridge.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOH/TextLayoutManager.ts"
+        ],
+        "test_files": [
+          "tester/tests/TextTest.tsx"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "053b0855b474e1b3af4b9f5c167783e879b55f56",
+        "commit_message": "Fix crashes caused by view inside text",
+        "source_family": "ohosgg/rnoh@trimmed-inline-view-crash",
+        "independence_basis": "Previously unused repository and fix selected in the preregistered RNOH portfolio before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "error_contract",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/UnhyphenatedWordWrapStrategy.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOH/TextLayoutManager.ts"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "bounds",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "tester/tests/TextTest.tsx"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "rnoh-inline-text-vertical-alignment",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Inline text fragments and embedded Views with different line heights are not vertically aligned within the same line. Locate the paragraph positioning owner and the ArkUI paragraph renderer that apply line-relative heights and placeholder offsets.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "5530effdda4c72995fd495948246f5a6922e6233",
+        "after_revision": "b893405c0bf3584552a9606bba9667570af6d9ee",
+        "changed_files": [
+          "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/ParagraphMeasurer.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNParagraph.ets"
+        ],
+        "test_files": [
+          "tester/jests/ParagraphMeasurer.test.ts",
+          "tester/tests/TextTest.tsx"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "b893405c0bf3584552a9606bba9667570af6d9ee",
+        "commit_message": "Fix: Vertical alignment inside text line",
+        "source_family": "ohosgg/rnoh@inline-text-vertical-alignment",
+        "independence_basis": "Previously unused repository and fix selected in the preregistered RNOH portfolio before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service",
+          "component"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/ParagraphMeasurer.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNParagraph.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "tester/jests/ParagraphMeasurer.test.ts",
+          "tester/tests/TextTest.tsx"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "rnoh-text-measurement-float-rounding",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Some text components become slightly taller or wider than the green View beneath them, and precision loss can trigger unnecessary wrapping. Locate the native text measurement boundary and paragraph manager sizing contract.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "c87c165316a0a6aaf3dd19321aa18fc6ca6c5f53",
+        "after_revision": "1f7d209b1a039353d443e063e40e3878811e4015",
+        "changed_files": [
+          "tester/harmony/rnoh/src/main/ets/RNOH/TextLayoutManager.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNParagraphManager.ts"
+        ],
+        "test_files": [
+          "tester/tests/TextTest.tsx"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "1f7d209b1a039353d443e063e40e3878811e4015",
+        "commit_message": "Fix text components sometimes having slightly bigger height than views underneath",
+        "source_family": "ohosgg/rnoh@text-measurement-float-rounding",
+        "independence_basis": "Previously unused repository and fix selected in the preregistered RNOH portfolio before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "tester/harmony/rnoh/src/main/ets/RNOH/TextLayoutManager.ts",
+          "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNParagraphManager.ts"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "precision",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "tester/tests/TextTest.tsx"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 10,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-08-03T00:28:44+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 10,
+    "digest": "d594346a45832eb120d7267fcf6755dedd11818c49644c485702a69d2f4584f6"
+  }
+}

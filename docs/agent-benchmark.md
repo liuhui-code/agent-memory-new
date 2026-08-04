@@ -15,12 +15,15 @@
 - Oracle、修复 commit 和 Mutation 原始位置不进入 Agent 请求。
 - Runner 不能返回 thoughts、reasoning 或 chain-of-thought 字段。
 - 根因、设计判断、受影响文件和验证结论都由外部 Agent Runner 产生；Runtime 不参与作答。
-- 评分由文件、根因类别、禁入方向、因果等级、验证状态、耗时和 Token 确定，不使用 LLM Judge。
+- 定位分由文件、根因类别、禁入方向和可核验机制范围确定，不使用 LLM Judge，也不把定位分
+  表述成完整诊断质量。
 - 最新结果只写入 runtime 快照和有界历史，不写入 SQLite 项目知识。
 - `legacy_unclassified`、`enforced: false`、shadow 或 informational 结果不得称为外部门禁，
   也不得直接驱动生产行为或架构改动。
 - `system_context_gate=pass` 只允许开发结论成立；只有 `promotion_policy.eligible=true` 才允许
   进入外部 Agent A/B 晋级链。
+- 已分类且密封的 holdout 由 SQLite `evaluation_runs` 原子预留。Context 失败、Runner 失败、
+  中断和并发冲突都不得重试；同一 seal 只有已完成且通过的 Context 记录才能预留 Agent A/B。
 
 ## 零、先测系统上下文能力
 
@@ -32,6 +35,9 @@
 详细命令、字段与 Gramony 五案例 development 结果见
 [`docs/system-capability-evaluation.md`](system-capability-evaluation.md)。系统门禁失败时先修
 上下文供给；通过后再运行本文件后续的 Agent A/B，验证 Agent 是否真正利用这些证据。
+Context observation 同时记录 `gate_full` 和 `agent_external` 两个 exposure manifest；前者
+对应系统门禁检查的完整摘录，后者对应外部 Codex Runner 去除源码正文后的实际投影。两者
+不一致时不得用 Agent A/B 反推 Context 门禁误判。
 
 仓库内置的 `docs/eval/system-capability-cases.json` 应作为第一层快速门禁。它用七十个最小
 ArkTS 案例分别检查日志、动态事件模板、嵌套回调日志 owner、经验、候选因果路径、跨组件召回、两跳组件属性流、查询条件化组件谱系、精确及抽象结构行为所有者、生命周期/回调/动作机制、可复用工具栏、媒体资源释放、键盘返回边界、归档 I/O、集合聚合、键盘焦点与颜色解析、剪贴板内容读取、权限请求与结果保护、进程输出读取循环、运行时能力探测、串行写入与最终屏障、超时取消、WebView 协议策略、容量淘汰、手势与索引触摸安全、条件数据加载、回调清理、横纵 Builder 布局、异步顺序保护、索引集合写入、事件状态交接、校验停止、持久化提交、命令绑定、对比页面目标状态、跨层错误契约、日志密集源码配额和无证据
@@ -201,6 +207,13 @@ Runner 响应：
   "stop_reason": "supported_cause_found",
   "evidence_basis": "direct_source_mechanism",
   "mechanism_evidence_files": ["entry/src/main/ets/pages/Profile.ets"],
+  "mechanism_evidence": [{
+    "file_path": "entry/src/main/ets/pages/Profile.ets",
+    "symbol": "aboutToAppear",
+    "start_line": 41,
+    "end_line": 48,
+    "claim": "The returned page replaces the accumulated list."
+  }],
   "source_file_count": 2,
   "memory_anchor_hit_count": 1,
   "primary_anchor_hit_count": 1,
@@ -221,7 +234,10 @@ Runner 响应：
   "source_read_error_count": 0,
   "other_tool_error_count": 0,
   "cost_metrics_reported": true,
-  "elapsed_ms": 22000,
+  "elapsed_ms": 22120,
+  "end_to_end_elapsed_ms": 22120,
+  "agent_elapsed_ms": 22000,
+  "memory_retrieval_elapsed_ms": 95,
   "summary": "The route target is invalid."
 }
 ```
@@ -341,6 +357,18 @@ python tools/agent_memory.py eval-agent-benchmark \
 `--trials` 范围为 1 到 10。Runtime 对每个案例按 trial 成对执行 Baseline 和
 Memory，不复用会话，也不挑选最好结果。每条响应携带 `trial_index`；多轮结果增加：
 
+`agent-benchmark-treatment/v2` 要求两组使用完全相同的调查、预算和停止提示，Baseline
+收到 `Agent Memory context payload: null`，Memory 收到外部投影后的对象。Runner 的
+`treatment_metadata` 记录共享调查合同摘要和 Context exposure；`benchmark_protocol_manifest`
+记录所有影响提示、计量与评分的组件摘要。v2 只允许 payload 不同，合同不一致直接失败。
+
+直接 Runner 模式使用 `alternating_case_trial_parity/v1` 交叉顺序，不再固定先跑
+Baseline。每条 observation 的 `execution_order` 记录 1-based 案例位置、trial、包内
+pair index、variant position 和 first variant；质量门禁拒绝缺失 observation、不完整 pair
+或 first variant 明显失衡。跨多个源码包汇总时，pair 身份按
+`(case_id, pair_index)` 判定，因为 `pair_index` 只在单个案例包内唯一。旧 response bundle
+没有该字段时仍可离线评分，但只能报告 `legacy_unreported`，不能声称顺序已平衡。
+
 - `trial_results`：每轮配对分数和 Delta。
 - `trial_non_regression_rate`：Memory 不低于同轮 Baseline 的比例。
 - `memory_root_cause_consistency`：Memory 根因类别众数占比。
@@ -370,8 +398,8 @@ Memory，不复用会话，也不挑选最好结果。每条响应携带 `trial_
 不回归，且 Memory 根因类别一致率至少三分之二。单轮仍可作为开发检查，但不能作为
 稳定性结论。
 
-内置 Codex Runner 使用 `anchor_first_deterministic_expansion_v8` 检索纪律，并将 Memory
-探索组织为 `TRIAGE -> GAP -> VERIFY -> STOP` 状态机。Agent 先检查最高排名的
+内置 Codex Runner 使用 `anchor_first_deterministic_expansion_v8` 检索纪律，并将两组
+探索都组织为 `TRIAGE -> GAP -> VERIFY -> STOP` 状态机。存在 Context 时，Agent 先检查最高排名的
 `role=primary` 锚点，不默认打开所有锚点；只有声明一个合法 evidence-gap reason 才能
 检查 `role=expansion` 或非锚点文件。每个文件先读取一个最多 180 行的窗口；仅当 Agent
 明确指出尚未解决的证据缺口时，允许同一文件追加一个窗口。一轮最多新增两个文件，
@@ -389,7 +417,7 @@ Agent 在每条命令前维护 `searches_used`：复合命令、管道中的每�
 边界确认，Agent 必须停止后续搜索和读取。源码读取放大率由
 `average_source_read_count / average_source_file_count` 计算，用于判断重复读取是否下降。
 `source_file_count`、锚点命中和非锚点文件数由 Runner 计算，不由模型自报。新 Runner
-上报完整探索指标时，任一预算、原因码、证据基础或停止原因违规都会使
+上报完整探索指标时，Baseline 或 Memory 任一预算、原因码、证据基础或停止原因违规都会使
 `source_exploration_within_budget` 门禁失败；旧响应保持兼容，但不能声明满足该门禁。
 v4 至 v8 的内置 Codex Runner 样本都必须提供 `runner_telemetry` 搜索计数；完整
 `turn.completed` 遥测且没有命令事件时，Runner 记录实测零搜索，而不是回退到模型自报。
@@ -408,26 +436,39 @@ v4-v7 仍按各自原协议回放。
   超过 Baseline 10%，平均耗时开销不超过 15%，源码搜索次数不回归，平均源码读取
   放大率不超过 2.0 且不高于 Baseline。相同 Token、耗时、搜索和读取规则还必须在
   每个案例独立通过，不能用一个案例的节省抵消另一个案例的回归。
+- `paired_effects` 按 `(case_id, trial_index)` 报告 Token、uncached input、output、端到端耗时、
+  搜索和读取的均值、中位数与最差开销比，避免一个高成本案例支配总量结论。
 - `promotion_gate` 只有在质量和效率同时通过时才通过。`status` 继续作为
   `quality_gate` 的兼容别名。
 
 内置 Codex Runner 从 JSONL `usage` 和完成的 `command_execution` 事件提取上述指标。
+`elapsed_ms` 与 `end_to_end_elapsed_ms` 都表示包含 Memory 查询和 Context 构建的端到端耗时；
+`agent_elapsed_ms` 和 `memory_retrieval_elapsed_ms` 用于分阶段归因。旧响应没有分阶段字段时
+只可按其原协议回放，不能与 v2 延迟直接纵向比较。
 缓存 Token 是输入 Token 的子集，不重复计入 `token_estimate`。Runner 仅写入聚合数值，
 不把命令正文、命令输出、源码内容或私有推理写入响应工件。
 
 ## 七、评分模型
 
-单次外部 Agent 结果分 `agent_outcome_score`：
+单次外部 Agent 的兼容定位分 `agent_outcome_score`：
 
 ```text
 40% 根因类别命中
 35% 预期文件召回
 15% 预测文件精度
-10% 因果等级校准
+10% 因果证据校准
 -25% 命中禁止方向
 ```
 
-同时独立报告：外部 Agent 根因准确率、文件召回与精度、禁止方向命中率、因果校准准确率、验证通过率、平均查询轮数、平均 Token、平均耗时，以及 Context 相对 Baseline 的 `context_uplift`。这些指标评价上下文供给效果，不表示 Runtime 具有诊断能力。
+没有 `oracle.mechanism_assertions` 的旧案例继续用 Agent 自报 causal level 计算兼容分，但结果
+标记为 `agent_reported_legacy`。新案例应预注册机制文件、符号和源码范围；Agent 的
+`mechanism_evidence` 必须与该范围相交，因果项才标记为 `oracle_mechanism_evidence`。这仍然
+验证证据定位，不验证自然语言 claim 的全部语义，完整诊断结论仍由 Agent 与回归测试负责。
+
+同时独立报告：外部 Agent 类别准确率、文件召回与精度、机制证据分、禁止方向命中率、验证
+状态、平均查询轮数、Token、端到端耗时，以及 Context 相对 Baseline 的 `context_uplift`。
+`evidence_segments` 将 Mutation/协议探针与真实案例分账。这些指标评价上下文供给效果，不表示
+Runtime 具有诊断能力。
 
 支持上下文成本上报的 Runner 还应返回 `memory_context_bytes` 和
 `memory_context_token_estimate`。Memory 样本超过 1,500 token 时质量门禁失败。
@@ -530,3 +571,59 @@ Memory 查询轮数从 2.1111 降到 1.2222，源码搜索从 2.6667 降到 1.0�
 的探索记账也不满足当前完整协议。因此质量、效率和 promotion gate 均保持 `fail`，主修复
 类为 `agent_efficiency`。完整发布决策见
 `docs/eval/real-project-capability-release-decision.json`。
+
+## 十四、wPlayer 可信 A/B 活动结论
+
+本轮先加入 SQLite 一次性评测账本，再依次执行密封 Context 门禁。最初的 PiP 单案例和后续四个
+10 案例组合均已消费；Agent 前置条件从未成立，因此 Agent 调用总数为 0，没有产生可解释的
+source-only 与 source-plus-context A/B 结果。
+
+四个 10 案例组合的 Context 通过数依次为 7/10、9/10、9/10、9/10。最后一个组合的候选文件和
+层级文件召回均为 1.0，但 `wplayer-responsive-morph-host-height` 在 primary evidence 阶段丢失
+`AppShellLayoutSpec.ets`，最终只返回 `ResponsiveNavigationShell.ets`、`MiniPlayerSurface.ets`
+和 `Index.ets`。该 seal 为
+`dc3c0abd4799223d2db73709fe1373d8d1bb83bdd8f6e33d0b48bc3e4b48d1c4`，结果为 9/10，平均
+Context 1,442.7 tokens。
+
+这些组合全部来自同一 wPlayer 来源族，属于相关观测而非四份独立泛化证据。连续换包已触及可选
+停止边界，活动在 v4 后终止，不创建 v5。下一次有效 A/B 必须使用新的 ArkTS 来源族、预注册固定
+案例组合与停止条件，并先一次性通过 Context 门禁。
+
+## 十五、RNOH 预注册活动
+
+新的来源族使用 [ohosgg/rnoh](https://github.com/ohosgg/rnoh)，在任何 Context 查询前固定 10 个
+案例、顺序、Runner、模型、推理档、三轮配对和停止条件。每例均有完整父 revision、真实修复提交、
+责任文件以及仓库自带 tester 或 Jest 回归用例。案例 seal 为
+`d594346a45832eb120d7267fcf6755dedd11818c49644c485702a69d2f4584f6`。
+
+唯一一次 Context gate 为 2/10。candidate-file recall@20 为 0.9，但 hierarchical file recall
+为 0.5、最终 anchor recall 为 0.4、MRR 为 0.4667；平均 Context 为 1,425.7/1,500 tokens。
+两个通过案例是 Image 无效源切换与变换触摸坐标。失败首次损失分布为 candidate-file 2 例、
+localizer-file 5 例、primary-evidence 2 例；多平台同名实现和多 owner 任务是待独立复现的假设，
+不能直接驱动调权。
+
+`promotion_eligible=false`，账本只有一条 `context_capability completed/fail`，没有
+`agent_benchmark` 行，因此 Agent 调用数为 0。RNOH seal 已消费，不修改、不重跑、不另选第二组。
+完整定义与结果见 `docs/superpowers/plans/2026-08-03-rnoh-agent-ab-campaign.md` 和
+`docs/eval/rnoh-agent-ab-context-result.json`。
+
+## 十六、OpenHarmony Permission Manager 预注册活动
+
+第三个独立来源族使用 OpenHarmony 官方
+[`applications_permission_manager`](https://github.com/openharmony/applications_permission_manager)。
+在查询前固定 10 个真实修复、顺序、Codex Runner、`gpt-5.5`、low reasoning、三轮配对和
+900 秒单调用上限。案例覆盖异步标签加载、取消结果契约、窗口清理、全局开关结果、平台 API
+异常、字体自适应、精确位置状态、设备隔离、浮窗会话和语言刷新；没有仓库回归测试的案例没有
+补造验证证据。seal 为
+`bc330f138584991aa230d53f026505b52a0c8b5b1ffe70d2d17bbf918333d9ce`。
+
+唯一 Context gate 为 2/10。candidate-file recall@20 为 0.95、hierarchical file recall 为
+0.5333、最终 anchor/source excerpt recall 均为 0.35、anchor precision 为 0.2333、MRR 为
+0.5；平均 Context 为 1,466.5/1,500 tokens。首次损失为 candidate-file 1 例、localizer-file
+6 例和 primary-evidence 3 例，说明宽候选召回较高，但冻结项目前三证据的局部化和组合仍不可靠。
+
+`promotion_eligible=false`，账本只有一条 `context_capability completed/fail`，没有同 seal 的
+`agent_benchmark` 行，因此 Agent 调用数为 0，不能宣称 source-only 与 Context A/B 的质量或
+成本差异。案例不得修改或重跑；完整定义与结果见
+`docs/superpowers/plans/2026-08-03-permission-manager-agent-ab-campaign.md` 和
+`docs/eval/permission-manager-agent-ab-context-result.json`。

@@ -1,0 +1,1327 @@
+{
+  "schema_version": "agent-benchmark-result/v1",
+  "execution_order": {
+    "schema_version": "agent-benchmark-execution-order/v1",
+    "status": "pass",
+    "enforced": true,
+    "schedule": "alternating_case_trial_parity/v1",
+    "observation_count": 12,
+    "reported_count": 12,
+    "pair_count": 6,
+    "complete_pairs": true,
+    "balanced_first_variant": true,
+    "first_variant_counts": {
+      "baseline": 3,
+      "memory": 3
+    }
+  },
+  "status": "pass",
+  "quality_gate": "pass",
+  "promotion_gate": "fail",
+  "summary": {
+    "case_count": 2,
+    "observation_count": 12,
+    "missing_observations": [],
+    "duplicate_observations": [],
+    "suite": "development",
+    "trial_count": 3,
+    "stability_evaluated": true
+  },
+  "metrics": {
+    "baseline": {
+      "sample_count": 2,
+      "agent_outcome_score": 0.8666,
+      "agent_root_cause_accuracy": 0.6666,
+      "expected_file_recall": 1.0,
+      "predicted_file_precision": 1.0,
+      "forbidden_direction_rate": 0.0,
+      "causal_calibration_accuracy": 1.0,
+      "verification_pass_rate": null,
+      "average_query_rounds": 2.1666,
+      "average_source_search_count": 2.3334,
+      "average_token_estimate": 62771.0,
+      "average_model_input_tokens": 61430.8334,
+      "average_model_cached_input_tokens": 38464.0,
+      "average_model_uncached_input_tokens": 22966.8334,
+      "average_model_output_tokens": 1340.1667,
+      "average_model_reasoning_tokens": 215.5,
+      "average_command_count": 6.8333,
+      "average_command_output_bytes": 22961.1666,
+      "average_source_read_count": 5.0,
+      "average_source_read_output_bytes": 12246.3333,
+      "average_tool_error_count": 0.0,
+      "average_source_search_miss_count": 0.0,
+      "average_source_search_error_count": 0.0,
+      "average_source_read_error_count": 0.0,
+      "average_other_tool_error_count": 0.0,
+      "average_memory_context_bytes": 0.0,
+      "average_memory_context_token_estimate": 0.0,
+      "average_elapsed_ms": 36481.5,
+      "average_source_file_count": 4.3333,
+      "average_memory_anchor_hit_count": 0.0,
+      "average_memory_anchor_hit_rate": null,
+      "average_primary_anchor_hit_count": 0.0,
+      "average_non_anchor_file_count": 4.3333,
+      "average_supporting_file_count": 4.0,
+      "average_expansion_rounds": 2.5,
+      "average_expansion_file_count": 4.3333,
+      "reported_stop_reasons": [
+        "supported_cause_found"
+      ]
+    },
+    "memory": {
+      "sample_count": 2,
+      "agent_outcome_score": 0.8666,
+      "agent_root_cause_accuracy": 0.6666,
+      "expected_file_recall": 1.0,
+      "predicted_file_precision": 1.0,
+      "forbidden_direction_rate": 0.0,
+      "causal_calibration_accuracy": 1.0,
+      "verification_pass_rate": null,
+      "average_query_rounds": 1.0,
+      "average_source_search_count": 1.1666,
+      "average_token_estimate": 62766.0,
+      "average_model_input_tokens": 61810.3334,
+      "average_model_cached_input_tokens": 49280.0,
+      "average_model_uncached_input_tokens": 12530.3333,
+      "average_model_output_tokens": 955.6667,
+      "average_model_reasoning_tokens": 295.0,
+      "average_command_count": 3.6666,
+      "average_command_output_bytes": 10181.0,
+      "average_source_read_count": 2.8334,
+      "average_source_read_output_bytes": 7280.6667,
+      "average_tool_error_count": 0.0,
+      "average_source_search_miss_count": 0.0,
+      "average_source_search_error_count": 0.0,
+      "average_source_read_error_count": 0.0,
+      "average_other_tool_error_count": 0.0,
+      "average_memory_context_bytes": 3375.0,
+      "average_memory_context_token_estimate": 844.0,
+      "average_elapsed_ms": 29328.1666,
+      "average_source_file_count": 2.6666,
+      "average_memory_anchor_hit_count": 1.0,
+      "average_memory_anchor_hit_rate": 0.4027,
+      "average_primary_anchor_hit_count": 1.0,
+      "average_non_anchor_file_count": 1.6666,
+      "average_supporting_file_count": 2.5,
+      "average_expansion_rounds": 1.1666,
+      "average_expansion_file_count": 1.6666,
+      "reported_stop_reasons": [
+        "supported_cause_found"
+      ]
+    }
+  },
+  "context_uplift": {
+    "agent_outcome_score_delta": 0.0,
+    "agent_root_cause_accuracy_delta": 0.0,
+    "expected_file_recall_delta": 0.0,
+    "predicted_file_precision_delta": 0.0,
+    "causal_calibration_accuracy_delta": 0.0,
+    "verification_pass_rate_delta": null,
+    "forbidden_direction_rate_delta": 0.0,
+    "token_savings": 5.0,
+    "elapsed_ms_savings": 7153.3334
+  },
+  "gate_checks": {
+    "minimum_cases": true,
+    "complete_pairs": true,
+    "context_agent_outcome_non_regression": true,
+    "context_agent_root_cause_non_regression": true,
+    "context_forbidden_direction_non_regression": true,
+    "every_case_outcome_non_regression": true,
+    "trial_stability_non_regression": true,
+    "memory_root_cause_trial_stability": true,
+    "runner_configuration_consistent": true,
+    "memory_context_within_budget": true,
+    "source_exploration_within_budget": true,
+    "counterbalanced_execution_order": true
+  },
+  "efficiency_gate": "fail",
+  "efficiency_gate_checks": {
+    "cost_attribution_complete": true,
+    "token_overhead_within_budget": true,
+    "elapsed_overhead_within_budget": true,
+    "source_search_non_regression": true,
+    "source_read_amplification_within_budget": true,
+    "source_read_amplification_non_regression": true,
+    "every_case_token_overhead_within_budget": false,
+    "every_case_elapsed_overhead_within_budget": true,
+    "every_case_source_search_non_regression": true,
+    "every_case_source_read_amplification_within_budget": true,
+    "every_case_source_read_amplification_non_regression": false
+  },
+  "efficiency_metrics": {
+    "cost_attribution_coverage": 1.0,
+    "token_overhead_ratio": -0.0001,
+    "elapsed_overhead_ratio": -0.1961,
+    "command_output_overhead_ratio": -0.5566,
+    "source_read_output_overhead_ratio": -0.4055,
+    "memory_cached_input_ratio": 0.7973,
+    "baseline_source_read_amplification": 1.1539,
+    "memory_source_read_amplification": 1.0626,
+    "per_case": [
+      {
+        "case_id": "mutation-e94b869b178b",
+        "token_overhead_ratio": -0.106,
+        "elapsed_overhead_ratio": -0.2711,
+        "baseline_source_read_amplification": 0.8824,
+        "memory_source_read_amplification": 1.0,
+        "checks": {
+          "token_overhead_within_budget": true,
+          "elapsed_overhead_within_budget": true,
+          "source_search_non_regression": true,
+          "source_read_amplification_within_budget": true,
+          "source_read_amplification_non_regression": false
+        }
+      },
+      {
+        "case_id": "youtube-media-page-array-merge",
+        "token_overhead_ratio": 0.1161,
+        "elapsed_overhead_ratio": -0.1009,
+        "baseline_source_read_amplification": 1.6667,
+        "memory_source_read_amplification": 1.1429,
+        "checks": {
+          "token_overhead_within_budget": false,
+          "elapsed_overhead_within_budget": true,
+          "source_search_non_regression": true,
+          "source_read_amplification_within_budget": true,
+          "source_read_amplification_non_regression": true
+        }
+      }
+    ]
+  },
+  "efficiency_limits": {
+    "token_overhead_ratio": 0.1,
+    "elapsed_overhead_ratio": 0.15,
+    "source_read_amplification": 2.0
+  },
+  "minimum_case_count": 1,
+  "cases": [
+    {
+      "case_id": "mutation-e94b869b178b",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "trial_count": 3,
+      "trial_non_regression_rate": 1.0,
+      "memory_root_cause_consistency": 1.0,
+      "memory_predicted_files_consistency": 1.0,
+      "variants": {
+        "baseline": {
+          "agent_outcome_score": 1.0,
+          "agent_root_cause_match": 1.0,
+          "predicted_root_cause_category": "route",
+          "expected_root_cause_category": "route",
+          "expected_file_recall": 1.0,
+          "predicted_file_precision": 1.0,
+          "forbidden_direction_hit": 0.0,
+          "forbidden_files": [],
+          "causal_level_match": 1.0,
+          "verification_status": "unknown",
+          "query_rounds": 2.3333,
+          "source_search_count": 2.6667,
+          "source_search_count_sources": [
+            "runner_telemetry"
+          ],
+          "model_input_tokens": 64201.0,
+          "model_cached_input_tokens": 41600.0,
+          "model_uncached_input_tokens": 22601.0,
+          "model_output_tokens": 1459.3333,
+          "model_reasoning_tokens": 224.6667,
+          "command_count": 7.6667,
+          "command_output_bytes": 25191.0,
+          "source_read_count": 5.0,
+          "source_read_output_bytes": 11587.3333,
+          "tool_error_count": 0.0,
+          "source_search_miss_count": 0.0,
+          "source_search_error_count": 0.0,
+          "source_read_error_count": 0.0,
+          "other_tool_error_count": 0.0,
+          "cost_metrics_reported": true,
+          "token_estimate": 65660.3333,
+          "memory_context_bytes": 0.0,
+          "memory_context_token_estimate": 0.0,
+          "elapsed_ms": 40818.6667,
+          "source_file_count": 5.6667,
+          "memory_anchor_hit_count": 0.0,
+          "memory_anchor_hit_rate": null,
+          "primary_anchor_hit_count": 0.0,
+          "non_anchor_file_count": 5.6667,
+          "expansion_rounds": 3.0,
+          "expansion_file_count": 5.6667,
+          "expansion_accounting_sources": [
+            "runner_investigated_files"
+          ],
+          "expansion_reason_codes": [
+            "missing_caller",
+            "missing_route_target"
+          ],
+          "stop_reason": "supported_cause_found",
+          "exploration_metrics_reported": true,
+          "predicted_files": [
+            "entry/src/main/ets/component/Album.ets"
+          ],
+          "supporting_files": [
+            "entry/src/main/ets/component/MediaComponent.ets",
+            "entry/src/main/ets/pages/Playlist.ets",
+            "entry/src/main/ets/pages/explore/NewDiscovery.ets",
+            "entry/src/main/ets/pages/main/Explore.ets",
+            "entry/src/main/ets/pages/main/Home.ets",
+            "entry/src/main/resources/base/profile/main_pages.json"
+          ]
+        },
+        "memory": {
+          "agent_outcome_score": 1.0,
+          "agent_root_cause_match": 1.0,
+          "predicted_root_cause_category": "route",
+          "expected_root_cause_category": "route",
+          "expected_file_recall": 1.0,
+          "predicted_file_precision": 1.0,
+          "forbidden_direction_hit": 0.0,
+          "forbidden_files": [],
+          "causal_level_match": 1.0,
+          "verification_status": "unknown",
+          "query_rounds": 1.0,
+          "source_search_count": 1.3333,
+          "source_search_count_sources": [
+            "runner_telemetry"
+          ],
+          "model_input_tokens": 57728.6667,
+          "model_cached_input_tokens": 43989.3333,
+          "model_uncached_input_tokens": 13739.3333,
+          "model_output_tokens": 970.0,
+          "model_reasoning_tokens": 293.3333,
+          "command_count": 4.0,
+          "command_output_bytes": 4475.0,
+          "source_read_count": 3.0,
+          "source_read_output_bytes": 3792.3333,
+          "tool_error_count": 0.0,
+          "source_search_miss_count": 0.0,
+          "source_search_error_count": 0.0,
+          "source_read_error_count": 0.0,
+          "other_tool_error_count": 0.0,
+          "cost_metrics_reported": true,
+          "token_estimate": 58698.6667,
+          "memory_context_bytes": 3003.0,
+          "memory_context_token_estimate": 751.0,
+          "elapsed_ms": 29754.3333,
+          "source_file_count": 3.0,
+          "memory_anchor_hit_count": 1.0,
+          "memory_anchor_hit_rate": 0.3611,
+          "primary_anchor_hit_count": 1.0,
+          "non_anchor_file_count": 2.0,
+          "expansion_rounds": 1.3333,
+          "expansion_file_count": 2.0,
+          "expansion_accounting_sources": [
+            "runner_investigated_files"
+          ],
+          "expansion_reason_codes": [
+            "missing_route_target"
+          ],
+          "stop_reason": "supported_cause_found",
+          "exploration_metrics_reported": true,
+          "predicted_files": [
+            "entry/src/main/ets/component/Album.ets"
+          ],
+          "supporting_files": [
+            "entry/src/main/ets/component/MediaComponent.ets",
+            "entry/src/main/ets/pages/Playlist.ets",
+            "entry/src/main/resources/base/profile/main_pages.json"
+          ]
+        }
+      },
+      "trial_results": [
+        {
+          "trial_index": 1,
+          "variants": {
+            "baseline": {
+              "agent_outcome_score": 1.0,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "route",
+              "expected_root_cause_category": "route",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "verification_status": "unknown",
+              "query_rounds": 2,
+              "source_search_count": 2,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 60613,
+              "model_input_tokens": 59270,
+              "model_cached_input_tokens": 30208,
+              "model_uncached_input_tokens": 29062,
+              "model_output_tokens": 1343,
+              "model_reasoning_tokens": 259,
+              "command_count": 7,
+              "command_output_bytes": 29130,
+              "source_read_count": 5,
+              "source_read_output_bytes": 15250,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 0,
+              "memory_context_token_estimate": 0,
+              "elapsed_ms": 36846,
+              "source_file_count": 5,
+              "memory_anchor_hit_count": 0,
+              "memory_anchor_hit_rate": null,
+              "primary_anchor_hit_count": 0,
+              "non_anchor_file_count": 5,
+              "expansion_rounds": 3,
+              "expansion_file_count": 5,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_route_target",
+                "missing_caller"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/component/Album.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/resources/base/profile/main_pages.json",
+                "entry/src/main/ets/pages/Playlist.ets",
+                "entry/src/main/ets/pages/main/Explore.ets",
+                "entry/src/main/ets/component/MediaComponent.ets"
+              ]
+            },
+            "memory": {
+              "agent_outcome_score": 1.0,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "route",
+              "expected_root_cause_category": "route",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "verification_status": "unknown",
+              "query_rounds": 1,
+              "source_search_count": 3,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 82610,
+              "model_input_tokens": 81347,
+              "model_cached_input_tokens": 65792,
+              "model_uncached_input_tokens": 15555,
+              "model_output_tokens": 1263,
+              "model_reasoning_tokens": 394,
+              "command_count": 6,
+              "command_output_bytes": 6394,
+              "source_read_count": 4,
+              "source_read_output_bytes": 5360,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 3003,
+              "memory_context_token_estimate": 751,
+              "elapsed_ms": 38016,
+              "source_file_count": 4,
+              "memory_anchor_hit_count": 1,
+              "memory_anchor_hit_rate": 0.25,
+              "primary_anchor_hit_count": 1,
+              "non_anchor_file_count": 3,
+              "expansion_rounds": 2,
+              "expansion_file_count": 3,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_route_target"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/component/Album.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/resources/base/profile/main_pages.json",
+                "entry/src/main/ets/component/MediaComponent.ets",
+                "entry/src/main/ets/pages/Playlist.ets"
+              ]
+            }
+          },
+          "context_outcome_delta": 0.0
+        },
+        {
+          "trial_index": 2,
+          "variants": {
+            "baseline": {
+              "agent_outcome_score": 1.0,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "route",
+              "expected_root_cause_category": "route",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "verification_status": "unknown",
+              "query_rounds": 2,
+              "source_search_count": 3,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 59207,
+              "model_input_tokens": 57737,
+              "model_cached_input_tokens": 40448,
+              "model_uncached_input_tokens": 17289,
+              "model_output_tokens": 1470,
+              "model_reasoning_tokens": 216,
+              "command_count": 7,
+              "command_output_bytes": 20018,
+              "source_read_count": 4,
+              "source_read_output_bytes": 6332,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 0,
+              "memory_context_token_estimate": 0,
+              "elapsed_ms": 42663,
+              "source_file_count": 6,
+              "memory_anchor_hit_count": 0,
+              "memory_anchor_hit_rate": null,
+              "primary_anchor_hit_count": 0,
+              "non_anchor_file_count": 6,
+              "expansion_rounds": 3,
+              "expansion_file_count": 6,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_route_target",
+                "missing_caller"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/component/Album.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/resources/base/profile/main_pages.json",
+                "entry/src/main/ets/pages/Playlist.ets",
+                "entry/src/main/ets/pages/main/Home.ets",
+                "entry/src/main/ets/pages/main/Explore.ets",
+                "entry/src/main/ets/pages/explore/NewDiscovery.ets"
+              ]
+            },
+            "memory": {
+              "agent_outcome_score": 1.0,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "route",
+              "expected_root_cause_category": "route",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "verification_status": "unknown",
+              "query_rounds": 1,
+              "source_search_count": 0,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 39280,
+              "model_input_tokens": 38559,
+              "model_cached_input_tokens": 26752,
+              "model_uncached_input_tokens": 11807,
+              "model_output_tokens": 721,
+              "model_reasoning_tokens": 267,
+              "command_count": 2,
+              "command_output_bytes": 1406,
+              "source_read_count": 2,
+              "source_read_output_bytes": 1406,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 3003,
+              "memory_context_token_estimate": 751,
+              "elapsed_ms": 24141,
+              "source_file_count": 2,
+              "memory_anchor_hit_count": 1,
+              "memory_anchor_hit_rate": 0.5,
+              "primary_anchor_hit_count": 1,
+              "non_anchor_file_count": 1,
+              "expansion_rounds": 1,
+              "expansion_file_count": 1,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_route_target"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/component/Album.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/resources/base/profile/main_pages.json"
+              ]
+            }
+          },
+          "context_outcome_delta": 0.0
+        },
+        {
+          "trial_index": 3,
+          "variants": {
+            "baseline": {
+              "agent_outcome_score": 1.0,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "route",
+              "expected_root_cause_category": "route",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "verification_status": "unknown",
+              "query_rounds": 3,
+              "source_search_count": 3,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 77161,
+              "model_input_tokens": 75596,
+              "model_cached_input_tokens": 54144,
+              "model_uncached_input_tokens": 21452,
+              "model_output_tokens": 1565,
+              "model_reasoning_tokens": 199,
+              "command_count": 9,
+              "command_output_bytes": 26425,
+              "source_read_count": 6,
+              "source_read_output_bytes": 13180,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 0,
+              "memory_context_token_estimate": 0,
+              "elapsed_ms": 42947,
+              "source_file_count": 6,
+              "memory_anchor_hit_count": 0,
+              "memory_anchor_hit_rate": null,
+              "primary_anchor_hit_count": 0,
+              "non_anchor_file_count": 6,
+              "expansion_rounds": 3,
+              "expansion_file_count": 6,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_route_target",
+                "missing_caller"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/component/Album.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/resources/base/profile/main_pages.json",
+                "entry/src/main/ets/pages/Playlist.ets",
+                "entry/src/main/ets/pages/main/Home.ets",
+                "entry/src/main/ets/pages/main/Explore.ets",
+                "entry/src/main/ets/pages/explore/NewDiscovery.ets"
+              ]
+            },
+            "memory": {
+              "agent_outcome_score": 1.0,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "route",
+              "expected_root_cause_category": "route",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "verification_status": "unknown",
+              "query_rounds": 1,
+              "source_search_count": 1,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 54206,
+              "model_input_tokens": 53280,
+              "model_cached_input_tokens": 39424,
+              "model_uncached_input_tokens": 13856,
+              "model_output_tokens": 926,
+              "model_reasoning_tokens": 219,
+              "command_count": 4,
+              "command_output_bytes": 5625,
+              "source_read_count": 3,
+              "source_read_output_bytes": 4611,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 3003,
+              "memory_context_token_estimate": 751,
+              "elapsed_ms": 27106,
+              "source_file_count": 3,
+              "memory_anchor_hit_count": 1,
+              "memory_anchor_hit_rate": 0.3333,
+              "primary_anchor_hit_count": 1,
+              "non_anchor_file_count": 2,
+              "expansion_rounds": 1,
+              "expansion_file_count": 2,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_route_target"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/component/Album.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/pages/Playlist.ets",
+                "entry/src/main/ets/component/MediaComponent.ets"
+              ]
+            }
+          },
+          "context_outcome_delta": 0.0
+        }
+      ],
+      "context_outcome_delta": 0.0
+    },
+    {
+      "case_id": "youtube-media-page-array-merge",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "trial_count": 3,
+      "trial_non_regression_rate": 0.6667,
+      "memory_root_cause_consistency": 0.6667,
+      "memory_predicted_files_consistency": 1.0,
+      "variants": {
+        "baseline": {
+          "agent_outcome_score": 0.7333,
+          "agent_root_cause_match": 0.3333,
+          "predicted_root_cause_category": "media",
+          "expected_root_cause_category": "state",
+          "expected_file_recall": 1.0,
+          "predicted_file_precision": 1.0,
+          "forbidden_direction_hit": 0.0,
+          "forbidden_files": [],
+          "causal_level_match": 1.0,
+          "verification_status": "unknown",
+          "query_rounds": 2.0,
+          "source_search_count": 2.0,
+          "source_search_count_sources": [
+            "runner_telemetry"
+          ],
+          "model_input_tokens": 58660.6667,
+          "model_cached_input_tokens": 35328.0,
+          "model_uncached_input_tokens": 23332.6667,
+          "model_output_tokens": 1221.0,
+          "model_reasoning_tokens": 206.3333,
+          "command_count": 6.0,
+          "command_output_bytes": 20731.3333,
+          "source_read_count": 5.0,
+          "source_read_output_bytes": 12905.3333,
+          "tool_error_count": 0.0,
+          "source_search_miss_count": 0.0,
+          "source_search_error_count": 0.0,
+          "source_read_error_count": 0.0,
+          "other_tool_error_count": 0.0,
+          "cost_metrics_reported": true,
+          "token_estimate": 59881.6667,
+          "memory_context_bytes": 0.0,
+          "memory_context_token_estimate": 0.0,
+          "elapsed_ms": 32144.3333,
+          "source_file_count": 3.0,
+          "memory_anchor_hit_count": 0.0,
+          "memory_anchor_hit_rate": null,
+          "primary_anchor_hit_count": 0.0,
+          "non_anchor_file_count": 3.0,
+          "expansion_rounds": 2.0,
+          "expansion_file_count": 3.0,
+          "expansion_accounting_sources": [
+            "runner_investigated_files"
+          ],
+          "expansion_reason_codes": [
+            "missing_caller",
+            "missing_state_owner"
+          ],
+          "stop_reason": "supported_cause_found",
+          "exploration_metrics_reported": true,
+          "predicted_files": [
+            "entry/src/main/ets/component/MediaComponent.ets"
+          ],
+          "supporting_files": [
+            "entry/src/main/ets/models/mediaModel.ts",
+            "entry/src/main/ets/pages/main/Media.ets"
+          ]
+        },
+        "memory": {
+          "agent_outcome_score": 0.7333,
+          "agent_root_cause_match": 0.3333,
+          "predicted_root_cause_category": "media",
+          "expected_root_cause_category": "state",
+          "expected_file_recall": 1.0,
+          "predicted_file_precision": 1.0,
+          "forbidden_direction_hit": 0.0,
+          "forbidden_files": [],
+          "causal_level_match": 1.0,
+          "verification_status": "unknown",
+          "query_rounds": 1.0,
+          "source_search_count": 1.0,
+          "source_search_count_sources": [
+            "runner_telemetry"
+          ],
+          "model_input_tokens": 65892.0,
+          "model_cached_input_tokens": 54570.6667,
+          "model_uncached_input_tokens": 11321.3333,
+          "model_output_tokens": 941.3333,
+          "model_reasoning_tokens": 296.6667,
+          "command_count": 3.3333,
+          "command_output_bytes": 15887.0,
+          "source_read_count": 2.6667,
+          "source_read_output_bytes": 10769.0,
+          "tool_error_count": 0.0,
+          "source_search_miss_count": 0.0,
+          "source_search_error_count": 0.0,
+          "source_read_error_count": 0.0,
+          "other_tool_error_count": 0.0,
+          "cost_metrics_reported": true,
+          "token_estimate": 66833.3333,
+          "memory_context_bytes": 3747.0,
+          "memory_context_token_estimate": 937.0,
+          "elapsed_ms": 28902.0,
+          "source_file_count": 2.3333,
+          "memory_anchor_hit_count": 1.0,
+          "memory_anchor_hit_rate": 0.4444,
+          "primary_anchor_hit_count": 1.0,
+          "non_anchor_file_count": 1.3333,
+          "expansion_rounds": 1.0,
+          "expansion_file_count": 1.3333,
+          "expansion_accounting_sources": [
+            "runner_investigated_files"
+          ],
+          "expansion_reason_codes": [
+            "missing_state_owner"
+          ],
+          "stop_reason": "supported_cause_found",
+          "exploration_metrics_reported": true,
+          "predicted_files": [
+            "entry/src/main/ets/component/MediaComponent.ets"
+          ],
+          "supporting_files": [
+            "entry/src/main/ets/pages/explore/RankList.ets",
+            "entry/src/main/ets/pages/main/Media.ets"
+          ]
+        }
+      },
+      "trial_results": [
+        {
+          "trial_index": 1,
+          "variants": {
+            "baseline": {
+              "agent_outcome_score": 0.6,
+              "agent_root_cause_match": false,
+              "predicted_root_cause_category": "media",
+              "expected_root_cause_category": "state",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "verification_status": "unknown",
+              "query_rounds": 2,
+              "source_search_count": 3,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 64557,
+              "model_input_tokens": 63074,
+              "model_cached_input_tokens": 29184,
+              "model_uncached_input_tokens": 33890,
+              "model_output_tokens": 1483,
+              "model_reasoning_tokens": 197,
+              "command_count": 7,
+              "command_output_bytes": 26485,
+              "source_read_count": 5,
+              "source_read_output_bytes": 13846,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 0,
+              "memory_context_token_estimate": 0,
+              "elapsed_ms": 34714,
+              "source_file_count": 3,
+              "memory_anchor_hit_count": 0,
+              "memory_anchor_hit_rate": null,
+              "primary_anchor_hit_count": 0,
+              "non_anchor_file_count": 3,
+              "expansion_rounds": 2,
+              "expansion_file_count": 3,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_caller",
+                "missing_state_owner"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/component/MediaComponent.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/pages/main/Media.ets",
+                "entry/src/main/ets/models/mediaModel.ts"
+              ]
+            },
+            "memory": {
+              "agent_outcome_score": 1.0,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "state",
+              "expected_root_cause_category": "state",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "verification_status": "unknown",
+              "query_rounds": 1,
+              "source_search_count": 1,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 60643,
+              "model_input_tokens": 59675,
+              "model_cached_input_tokens": 50688,
+              "model_uncached_input_tokens": 8987,
+              "model_output_tokens": 968,
+              "model_reasoning_tokens": 376,
+              "command_count": 3,
+              "command_output_bytes": 14948,
+              "source_read_count": 2,
+              "source_read_output_bytes": 7649,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 3747,
+              "memory_context_token_estimate": 937,
+              "elapsed_ms": 29524,
+              "source_file_count": 2,
+              "memory_anchor_hit_count": 1,
+              "memory_anchor_hit_rate": 0.5,
+              "primary_anchor_hit_count": 1,
+              "non_anchor_file_count": 1,
+              "expansion_rounds": 1,
+              "expansion_file_count": 1,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_state_owner"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/component/MediaComponent.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/pages/explore/RankList.ets"
+              ]
+            }
+          },
+          "context_outcome_delta": 0.4
+        },
+        {
+          "trial_index": 2,
+          "variants": {
+            "baseline": {
+              "agent_outcome_score": 1.0,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "state",
+              "expected_root_cause_category": "state",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "verification_status": "unknown",
+              "query_rounds": 2,
+              "source_search_count": 1,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 57588,
+              "model_input_tokens": 56510,
+              "model_cached_input_tokens": 36352,
+              "model_uncached_input_tokens": 20158,
+              "model_output_tokens": 1078,
+              "model_reasoning_tokens": 256,
+              "command_count": 5,
+              "command_output_bytes": 17713,
+              "source_read_count": 5,
+              "source_read_output_bytes": 12736,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 0,
+              "memory_context_token_estimate": 0,
+              "elapsed_ms": 30926,
+              "source_file_count": 3,
+              "memory_anchor_hit_count": 0,
+              "memory_anchor_hit_rate": null,
+              "primary_anchor_hit_count": 0,
+              "non_anchor_file_count": 3,
+              "expansion_rounds": 2,
+              "expansion_file_count": 3,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_caller",
+                "missing_state_owner"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/component/MediaComponent.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/pages/main/Media.ets",
+                "entry/src/main/ets/models/mediaModel.ts"
+              ]
+            },
+            "memory": {
+              "agent_outcome_score": 0.6,
+              "agent_root_cause_match": false,
+              "predicted_root_cause_category": "media",
+              "expected_root_cause_category": "state",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "verification_status": "unknown",
+              "query_rounds": 1,
+              "source_search_count": 1,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 78988,
+              "model_input_tokens": 77904,
+              "model_cached_input_tokens": 67456,
+              "model_uncached_input_tokens": 10448,
+              "model_output_tokens": 1084,
+              "model_reasoning_tokens": 357,
+              "command_count": 4,
+              "command_output_bytes": 17009,
+              "source_read_count": 4,
+              "source_read_output_bytes": 17009,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 3747,
+              "memory_context_token_estimate": 937,
+              "elapsed_ms": 31958,
+              "source_file_count": 3,
+              "memory_anchor_hit_count": 1,
+              "memory_anchor_hit_rate": 0.3333,
+              "primary_anchor_hit_count": 1,
+              "non_anchor_file_count": 2,
+              "expansion_rounds": 1,
+              "expansion_file_count": 2,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_state_owner"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/component/MediaComponent.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/pages/main/Media.ets"
+              ]
+            }
+          },
+          "context_outcome_delta": -0.4
+        },
+        {
+          "trial_index": 3,
+          "variants": {
+            "baseline": {
+              "agent_outcome_score": 0.6,
+              "agent_root_cause_match": false,
+              "predicted_root_cause_category": "media",
+              "expected_root_cause_category": "state",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "verification_status": "unknown",
+              "query_rounds": 2,
+              "source_search_count": 2,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 57500,
+              "model_input_tokens": 56398,
+              "model_cached_input_tokens": 40448,
+              "model_uncached_input_tokens": 15950,
+              "model_output_tokens": 1102,
+              "model_reasoning_tokens": 166,
+              "command_count": 6,
+              "command_output_bytes": 17996,
+              "source_read_count": 5,
+              "source_read_output_bytes": 12134,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 0,
+              "memory_context_token_estimate": 0,
+              "elapsed_ms": 30793,
+              "source_file_count": 3,
+              "memory_anchor_hit_count": 0,
+              "memory_anchor_hit_rate": null,
+              "primary_anchor_hit_count": 0,
+              "non_anchor_file_count": 3,
+              "expansion_rounds": 2,
+              "expansion_file_count": 3,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_caller",
+                "missing_state_owner"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/component/MediaComponent.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/pages/main/Media.ets",
+                "entry/src/main/ets/models/mediaModel.ts"
+              ]
+            },
+            "memory": {
+              "agent_outcome_score": 0.6,
+              "agent_root_cause_match": false,
+              "predicted_root_cause_category": "media",
+              "expected_root_cause_category": "state",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "verification_status": "unknown",
+              "query_rounds": 1,
+              "source_search_count": 1,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 60869,
+              "model_input_tokens": 60097,
+              "model_cached_input_tokens": 45568,
+              "model_uncached_input_tokens": 14529,
+              "model_output_tokens": 772,
+              "model_reasoning_tokens": 157,
+              "command_count": 3,
+              "command_output_bytes": 15704,
+              "source_read_count": 2,
+              "source_read_output_bytes": 7649,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 3747,
+              "memory_context_token_estimate": 937,
+              "elapsed_ms": 25224,
+              "source_file_count": 2,
+              "memory_anchor_hit_count": 1,
+              "memory_anchor_hit_rate": 0.5,
+              "primary_anchor_hit_count": 1,
+              "non_anchor_file_count": 1,
+              "expansion_rounds": 1,
+              "expansion_file_count": 1,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_state_owner"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/component/MediaComponent.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/pages/explore/RankList.ets"
+              ]
+            }
+          },
+          "context_outcome_delta": 0.0
+        }
+      ],
+      "context_outcome_delta": 0.0
+    }
+  ],
+  "audit": {
+    "llm_judge_used": false,
+    "oracle_hidden_during_run": true,
+    "reasoning_persisted": false,
+    "tool_output_persisted": false
+  },
+  "evidence_utility": {
+    "schema_version": "agent-evidence-utility/v1",
+    "status": "informational",
+    "promotion_eligible": false,
+    "case_count": 2,
+    "metrics": {
+      "baseline": {
+        "expected_evidence_seen_rate": 1.0,
+        "evidence_sufficiency_rate": 1.0,
+        "uncertainty_integrity_rate": 1.0,
+        "anchor_guidance_rate": 0.0,
+        "average_source_search_count": 2.3334,
+        "average_non_anchor_file_count": 4.3333
+      },
+      "memory": {
+        "expected_evidence_seen_rate": 1.0,
+        "evidence_sufficiency_rate": 1.0,
+        "uncertainty_integrity_rate": 1.0,
+        "anchor_guidance_rate": 1.0,
+        "average_source_search_count": 1.1666,
+        "average_non_anchor_file_count": 1.6666
+      }
+    },
+    "cases": [
+      {
+        "case_id": "mutation-e94b869b178b",
+        "variants": {
+          "baseline": {
+            "trial_count": 3,
+            "expected_evidence_seen_rate": 1.0,
+            "evidence_sufficiency_rate": 1.0,
+            "uncertainty_integrity_rate": 1.0,
+            "anchor_guidance_rate": 0.0,
+            "average_source_search_count": 2.6667,
+            "average_non_anchor_file_count": 5.6667
+          },
+          "memory": {
+            "trial_count": 3,
+            "expected_evidence_seen_rate": 1.0,
+            "evidence_sufficiency_rate": 1.0,
+            "uncertainty_integrity_rate": 1.0,
+            "anchor_guidance_rate": 1.0,
+            "average_source_search_count": 1.3333,
+            "average_non_anchor_file_count": 2.0
+          }
+        }
+      },
+      {
+        "case_id": "youtube-media-page-array-merge",
+        "variants": {
+          "baseline": {
+            "trial_count": 3,
+            "expected_evidence_seen_rate": 1.0,
+            "evidence_sufficiency_rate": 1.0,
+            "uncertainty_integrity_rate": 1.0,
+            "anchor_guidance_rate": 0.0,
+            "average_source_search_count": 2.0,
+            "average_non_anchor_file_count": 3.0
+          },
+          "memory": {
+            "trial_count": 3,
+            "expected_evidence_seen_rate": 1.0,
+            "evidence_sufficiency_rate": 1.0,
+            "uncertainty_integrity_rate": 1.0,
+            "anchor_guidance_rate": 1.0,
+            "average_source_search_count": 1.0,
+            "average_non_anchor_file_count": 1.3333
+          }
+        }
+      }
+    ],
+    "boundary": "offline_agent_evaluation_not_runtime_diagnosis"
+  },
+  "evaluation_governance": {
+    "status": "legacy_unclassified",
+    "enforced": false
+  },
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 2,
+    "primary_failure_class": "agent_efficiency",
+    "failure_class_counts": {
+      "agent_efficiency": 2
+    },
+    "failures": [
+      {
+        "case_id": "aggregate",
+        "failed_check": "every_case_token_overhead_within_budget",
+        "gate": "efficiency",
+        "failure_class": "agent_efficiency",
+        "owning_layer": "agent_context_consumption_and_cost",
+        "method_reference_ids": [
+          "swe_bench",
+          "agent_benchmark"
+        ],
+        "allowed_repair": "Reduce repeated searches, reads, context, or tool failures.",
+        "prohibited_shortcut": "Do not relax cost limits after observing the result.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "aggregate",
+        "failed_check": "every_case_source_read_amplification_non_regression",
+        "gate": "efficiency",
+        "failure_class": "agent_efficiency",
+        "owning_layer": "agent_context_consumption_and_cost",
+        "method_reference_ids": [
+          "swe_bench",
+          "agent_benchmark"
+        ],
+        "allowed_repair": "Reduce repeated searches, reads, context, or tool failures.",
+        "prohibited_shortcut": "Do not relax cost limits after observing the result.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout.",
+    "quality_failure_count": 0,
+    "efficiency_failure_count": 2
+  },
+  "case_seal": {
+    "status": "unsealed",
+    "required": false,
+    "case_count": 2
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/agent-ab-calibration-mutation-cases.json",
+  "runner_mode": "recorded_responses",
+  "selected_case_ids": [
+    "mutation-e94b869b178b",
+    "youtube-media-page-array-merge"
+  ],
+  "requested_trials": 3,
+  "runner_configuration": {
+    "reported": true,
+    "consistent": true,
+    "value": {
+      "runner": "codex_cli",
+      "runner_version": "codex-cli 0.142.0",
+      "model": "gpt-5.5",
+      "reasoning_effort": "low",
+      "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+      "sandbox": "read-only",
+      "session": "ephemeral",
+      "memory_delivery": "runner_preloaded",
+      "source_excerpt_delivery": "external_metadata_only",
+      "user_context": "isolated_home",
+      "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+    }
+  }
+}

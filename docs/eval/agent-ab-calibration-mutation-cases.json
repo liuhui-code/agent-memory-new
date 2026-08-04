@@ -1,0 +1,121 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "generated_at": "2026-08-03T09:51:12.557586+00:00",
+  "generator": "preregistered-calibration-and-real-fix-agent-ab/v1",
+  "project_path": "/private/tmp/agent-memory-ab-youtube-music",
+  "source_repository": "https://github.com/Charles-Stark/Youtube-Music-ArkTS-Clone",
+  "cases": [
+    {
+      "id": "mutation-e94b869b178b",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Navigation reaches a missing target and the destination page does not open.",
+        "constraints": [
+          "Locate the injected regression without reading the hidden oracle"
+        ]
+      },
+      "source": {
+        "before_revision": "f925981b8a5c4483be371bfd672722526b4986cf",
+        "mutation": {
+          "operator": "corrupt_route_target",
+          "file_path": "entry/src/main/ets/component/Album.ets",
+          "line": 37,
+          "source_digest": "29ee6effea066bfccdd3209b0d8f1961df892536be584af7b515f443647fca85",
+          "original": "pages/Playlist",
+          "replacement": "pages/Playlist__missing__",
+          "occurrence": 1
+        }
+      },
+      "provenance": {
+        "kind": "mutation",
+        "generator": "arkts-mutation/v1"
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/component/Album.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "route",
+        "expected_causal_level": "supported",
+        "verification_tests": []
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.mutation.original"
+        ]
+      }
+    },
+    {
+      "id": "youtube-media-page-array-merge",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Loading another media page corrupts the accumulated list instead of appending the returned media items. Locate the pagination result owner and identify the collection update that violates the list merge contract.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "6e6cd7681688eb3bedaf0fd7833c166554ede8b6",
+        "after_revision": "307fa705e6cbc0fe995fb7c6c39d412278aef7b4",
+        "changed_files": [
+          "entry/src/main/ets/component/MediaComponent.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "307fa705e6cbc0fe995fb7c6c39d412278aef7b4",
+        "commit_message": "修复列表获取合并问题",
+        "source_family": "Charles-Stark/Youtube-Music-ArkTS-Clone@media-page-array-merge",
+        "independence_basis": "Previously unused repository and one-line ArkTS collection fix selected and reviewed before any Runtime Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["component"],
+        "mechanism_kinds": ["ui_state", "async_control"]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/component/MediaComponent.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "verification_tests": [],
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "evidence_url": "https://github.com/Charles-Stark/Youtube-Music-ArkTS-Clone/commit/307fa705e6cbc0fe995fb7c6c39d412278aef7b4"
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "audit": {
+    "case_count": 2,
+    "source_modified": false,
+    "mutation_materialized": false,
+    "oracle_known_by_construction": true
+  }
+}

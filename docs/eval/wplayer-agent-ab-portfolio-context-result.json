@@ -1,0 +1,2511 @@
+{
+  "schema_version": "agent-context-capability-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 10,
+    "passed_case_count": 7,
+    "failed_case_count": 3,
+    "scenario_count": 10,
+    "stable_scenario_count": 7,
+    "query_variant_pass_rate": 0.7,
+    "staged_scenario_count": 0,
+    "complete_staged_scenario_count": 0,
+    "average_context_tokens": 1443.0,
+    "average_memory_prepare_ms": 48301.6,
+    "average_query_elapsed_ms": 5044.5
+  },
+  "capability_profile": {
+    "code_locator": {
+      "status": "fail",
+      "evaluated_cases": 10,
+      "anchor_recall": 0.7,
+      "primary_anchor_recall": 0.7,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.5,
+      "expected_anchor_mrr": 0.7
+    },
+    "source_evidence": {
+      "status": "fail",
+      "evaluated_cases": 10,
+      "observed_case_count": 10,
+      "source_excerpt_recall": 0.7,
+      "source_span_recall": null
+    },
+    "log_graph": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 10
+    },
+    "log_path_quality": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "average_path_recall": null,
+      "average_path_precision": null,
+      "truncated_case_count": 0
+    },
+    "experience": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "causal_context": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_path_case_count": 0,
+      "observed_relation_case_count": 0
+    },
+    "hierarchical_localization": {
+      "status": "informational_serving_stage",
+      "evaluated_cases": 10,
+      "observed_case_count": 10,
+      "serving_observed_case_count": 10,
+      "file_evaluated_case_count": 10,
+      "callable_evaluated_case_count": 0,
+      "owner_evaluated_case_count": 0,
+      "range_evaluated_case_count": 0,
+      "file_recall": 1.0,
+      "callable_recall": null,
+      "owner_recall": null,
+      "owner_precision": null,
+      "range_recall": null,
+      "average_audit_elapsed_ms": 4190.5
+    },
+    "abstention": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "compactness": {
+      "status": "pass",
+      "evaluated_cases": 10,
+      "average_context_tokens": 1443.0,
+      "token_budget": 1500
+    },
+    "query_robustness": {
+      "status": "fail",
+      "scenario_count": 10,
+      "stable_scenario_count": 7,
+      "variant_count": 10,
+      "passed_variant_count": 7,
+      "variant_pass_rate": 0.7,
+      "scenarios": [
+        {
+          "scenario_id": "wplayer-interruptible-player-morph",
+          "status": "pass",
+          "variant_count": 1,
+          "passed_variant_count": 1,
+          "failed_variants": []
+        },
+        {
+          "scenario_id": "wplayer-detail-selection-title-refresh",
+          "status": "pass",
+          "variant_count": 1,
+          "passed_variant_count": 1,
+          "failed_variants": []
+        },
+        {
+          "scenario_id": "wplayer-tab-reselection-root",
+          "status": "pass",
+          "variant_count": 1,
+          "passed_variant_count": 1,
+          "failed_variants": []
+        },
+        {
+          "scenario_id": "wplayer-api26-system-bar-capability",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "wplayer-playlist-detail-live-sync",
+          "status": "pass",
+          "variant_count": 1,
+          "passed_variant_count": 1,
+          "failed_variants": []
+        },
+        {
+          "scenario_id": "wplayer-full-player-system-bar-replay",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "wplayer-full-player-back-priority",
+          "status": "pass",
+          "variant_count": 1,
+          "passed_variant_count": 1,
+          "failed_variants": []
+        },
+        {
+          "scenario_id": "wplayer-gradient-touch-through",
+          "status": "pass",
+          "variant_count": 1,
+          "passed_variant_count": 1,
+          "failed_variants": []
+        },
+        {
+          "scenario_id": "wplayer-output-reconnect-resume-guard",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "wplayer-artwork-morph-handoff",
+          "status": "pass",
+          "variant_count": 1,
+          "passed_variant_count": 1,
+          "failed_variants": []
+        }
+      ]
+    },
+    "investigation_stages": {
+      "status": "not_declared",
+      "scenario_count": 0,
+      "complete_scenario_count": 0,
+      "stages": {},
+      "scenarios": []
+    },
+    "evidence_funnel": {
+      "status": "informational",
+      "evaluated_cases": 10,
+      "first_loss_counts": {
+        "evidence_primary": 10
+      },
+      "stage_pass_rates": {
+        "candidate_file": 1.0,
+        "localizer_file": 1.0,
+        "callable": null,
+        "source_range": null,
+        "evidence_primary": 0.0,
+        "compact_primary": 0.7,
+        "compact_anchor": 0.7
+      }
+    },
+    "evidence_set_calibration": {
+      "status": "informational",
+      "evaluated_cases": 10,
+      "observed_case_count": 10,
+      "target_scope_accuracy": 0.0,
+      "member_recall": 1.0,
+      "primary_precision": 0.7,
+      "calibration_state_accuracy": null,
+      "forbidden_member_hit_count": 0,
+      "guarded_exclusion_count": 0,
+      "calibration_state_counts": {
+        "insufficient": 2,
+        "portfolio_required": 2,
+        "unresolved": 6
+      },
+      "serving_projection_changed": false
+    },
+    "sufficiency": {
+      "status": "informational",
+      "evaluated_case_count": 10,
+      "missing_observation_count": 0,
+      "kind_counts": {
+        "diagnosis": 10
+      },
+      "readiness_status_counts": {
+        "ready_for_agent_inspection": 10
+      },
+      "reason_code_counts": {
+        "limited_code_anchor_diversity": 6,
+        "no_strong_log_anchor": 10
+      },
+      "scope": "shadow_observation_not_a_context_gate"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "wplayer-interruptible-player-morph",
+      "scenario_id": "wplayer-interruptible-player-morph",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/player/FullPlayerContent.ets",
+        "entry/src/main/ets/components/player/PlayerMorphController.ets",
+        "entry/src/main/ets/components/player/PlayerMorphOverlay.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/player/FullPlayerContent.ets",
+        "entry/src/main/ets/components/player/PlayerMorphController.ets",
+        "entry/src/main/ets/components/player/PlayerMorphOverlay.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/player/FullPlayerContent.ets",
+        "entry/src/main/ets/components/player/PlayerMorphController.ets",
+        "entry/src/main/ets/components/player/PlayerMorphOverlay.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 7,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 5972
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 21,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "unresolved",
+        "primary_support_kinds": [
+          "direct_identity",
+          "semantic_mechanism",
+          "graph_support",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1494,
+      "memory_prepare_ms": 63246,
+      "query_elapsed_ms": 11832,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "wplayer-detail-selection-title-refresh",
+      "scenario_id": "wplayer-detail-selection-title-refresh",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/navigation/ResponsiveNavigationRouteContent.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/navigation/ResponsiveNavigationRouteContent.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/navigation/ResponsiveNavigationRouteContent.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 11,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 11606
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 26,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "multiple",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "structured_owner_kind",
+          "direct_identity",
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1457,
+      "memory_prepare_ms": 71401,
+      "query_elapsed_ms": 10998,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "wplayer-tab-reselection-root",
+      "scenario_id": "wplayer-tab-reselection-root",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/library/IndexPlaylistSheet.ets",
+        "entry/src/main/ets/components/navigation/IndexNavigationController.ets",
+        "entry/src/main/ets/components/navigation/ResponsiveNavigationShell.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/library/IndexPlaylistSheet.ets",
+        "entry/src/main/ets/components/navigation/IndexNavigationController.ets",
+        "entry/src/main/ets/components/navigation/ResponsiveNavigationShell.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/library/IndexPlaylistSheet.ets",
+        "entry/src/main/ets/components/navigation/IndexNavigationController.ets",
+        "entry/src/main/ets/components/navigation/ResponsiveNavigationShell.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 3,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3529
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 23,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "unresolved",
+        "primary_support_kinds": [
+          "direct_identity",
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 1,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1386,
+      "memory_prepare_ms": 86416,
+      "query_elapsed_ms": 4350,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "wplayer-api26-system-bar-capability",
+      "scenario_id": "wplayer-api26-system-bar-capability",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/library/IndexPlaylistSheet.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/test/SystemBarStyleController.test.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/library/IndexPlaylistSheet.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/test/SystemBarStyleController.test.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/library/IndexPlaylistSheet.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/test/SystemBarStyleController.test.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/appearance/SystemBarStyleController.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 2,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 2164
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 20,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 0.0,
+        "calibration_state": "unresolved",
+        "primary_support_kinds": [
+          "direct_identity",
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 1,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1339,
+      "memory_prepare_ms": 46732,
+      "query_elapsed_ms": 2518,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "wplayer-playlist-detail-live-sync",
+      "scenario_id": "wplayer-playlist-detail-live-sync",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/navigation/ResponsiveNavigationRouteContent.ets",
+        "entry/src/main/ets/pages/library/PlaylistDetailPage.ets",
+        "entry/src/main/ets/playlist/store/PlaylistStore.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/navigation/ResponsiveNavigationRouteContent.ets",
+        "entry/src/main/ets/pages/library/PlaylistDetailPage.ets",
+        "entry/src/main/ets/playlist/store/PlaylistStore.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/navigation/ResponsiveNavigationRouteContent.ets",
+        "entry/src/main/ets/pages/library/PlaylistDetailPage.ets",
+        "entry/src/main/ets/playlist/store/PlaylistStore.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 13,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3389
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 25,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "unresolved",
+        "primary_support_kinds": [
+          "structured_owner_kind",
+          "direct_identity",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 1,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1391,
+      "memory_prepare_ms": 39227,
+      "query_elapsed_ms": 4165,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "wplayer-full-player-system-bar-replay",
+      "scenario_id": "wplayer-full-player-system-bar-replay",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/test/SystemBarStyleController.test.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/test/SystemBarStyleController.test.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/test/SystemBarStyleController.test.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/appearance/SystemBarStyleController.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 3,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3164
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 24,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 3,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1491,
+      "memory_prepare_ms": 40036,
+      "query_elapsed_ms": 3331,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "wplayer-full-player-back-priority",
+      "scenario_id": "wplayer-full-player-back-priority",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/player/PlayerMorphController.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/player/PlayerMorphController.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/player/PlayerMorphController.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 2,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3954
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 24,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "multiple",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 2,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1481,
+      "memory_prepare_ms": 34401,
+      "query_elapsed_ms": 4146,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "wplayer-gradient-touch-through",
+      "scenario_id": "wplayer-gradient-touch-through",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/layout/PageBottomGradient.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/layout/PageBottomGradient.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/layout/PageBottomGradient.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 4,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 2883
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 26,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "unresolved",
+        "primary_support_kinds": [
+          "direct_identity",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 3,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1446,
+      "memory_prepare_ms": 40282,
+      "query_elapsed_ms": 3098,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "wplayer-output-reconnect-resume-guard",
+      "scenario_id": "wplayer-output-reconnect-resume-guard",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "entry/src/test/OutputReconnectPolicy.test.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/test/OutputReconnectPolicy.test.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/test/OutputReconnectPolicy.test.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/playback/support/OutputReconnectPolicy.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 8,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 2428
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 21,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 3,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1488,
+      "memory_prepare_ms": 31179,
+      "query_elapsed_ms": 2559,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "wplayer-artwork-morph-handoff",
+      "scenario_id": "wplayer-artwork-morph-handoff",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/player/PlayerMorphController.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/components/player/PlayerMorphController.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/components/player/PlayerMorphController.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 7,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 2816
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 23,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "unresolved",
+        "primary_support_kinds": [
+          "direct_identity",
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 3,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1457,
+      "memory_prepare_ms": 30096,
+      "query_elapsed_ms": 3448,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "scope": "context_supply_only"
+  },
+  "next_gate": "repair_context_supply",
+  "execution": {
+    "schema_version": "agent-context-capability-execution/v1",
+    "strategy": "shared-index-isolated-case-snapshot",
+    "expanded_case_count": 10,
+    "source_group_count": 10,
+    "setup_group_count": 10,
+    "index_build_count": 10,
+    "case_snapshot_count": 10,
+    "avoided_index_build_count": 0,
+    "source_materialize_ms": 18470,
+    "index_prepare_ms": 481643,
+    "setup_prepare_ms": 0,
+    "case_snapshot_ms": 1373,
+    "batch_elapsed_ms": 595473,
+    "source_groups": [
+      {
+        "source_digest": "17e1c14c7ee87dc2f4952f9567d06630965d49f8898e3050372f542117a3857a",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 722,
+        "index_prepare_ms": 62272,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 974,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 974
+          }
+        ]
+      },
+      {
+        "source_digest": "c83cdf9d1d7550ca34e1dbdb10775ef64de771c0b7cf0659fbd3e9854a71ece1",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 12032,
+        "index_prepare_ms": 71266,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 135,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 135
+          }
+        ]
+      },
+      {
+        "source_digest": "2c5ea8fcc633eff1ad3e35865f94cb8d64b01d1bbcac19ae9e35a8da18cf1beb",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 2111,
+        "index_prepare_ms": 86384,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 32,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 32
+          }
+        ]
+      },
+      {
+        "source_digest": "3e03fcfc8bd538d367d53b6797c808d84efa1ce67ae4d045255d85a55f2ce3a8",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 639,
+        "index_prepare_ms": 46704,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 28,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 28
+          }
+        ]
+      },
+      {
+        "source_digest": "431a848d8857041a8eb15c23aeeea7f987db7cc209e4f681c53f570cda2d802d",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 630,
+        "index_prepare_ms": 39192,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 35,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 35
+          }
+        ]
+      },
+      {
+        "source_digest": "c7664327518c77b151d473e698983de7c71fa6376c247470bd465b9f8f23da32",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 593,
+        "index_prepare_ms": 40008,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 28,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 28
+          }
+        ]
+      },
+      {
+        "source_digest": "3842b11aa7ed1e087a95941c7ba77906953128a298fa5133defed0e5cf463261",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 484,
+        "index_prepare_ms": 34371,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 30,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 30
+          }
+        ]
+      },
+      {
+        "source_digest": "e455846aeb91e18d07eb87637762c259f00b78266f85bb54c9af4a9618fc71d7",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 619,
+        "index_prepare_ms": 40245,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 37,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 37
+          }
+        ]
+      },
+      {
+        "source_digest": "ea1ca104fe3b5b40245a3831e06cf7b8d7b2a0d47a225c958c31a0f1254470df",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 317,
+        "index_prepare_ms": 31137,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 42,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 42
+          }
+        ]
+      },
+      {
+        "source_digest": "ada343dbccec08190e71139a4f0ada88141892688e25bfe655cc24f4bc70333a",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 323,
+        "index_prepare_ms": 30064,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 32,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 32
+          }
+        ]
+      }
+    ]
+  },
+  "calibration": {
+    "schema_version": "agent-context-calibration/v1",
+    "status": "pass",
+    "target_domain": "native_arkts",
+    "profiled_case_count": 10,
+    "coverage": {
+      "target_levels": [
+        "callable",
+        "expression",
+        "file"
+      ],
+      "artifact_roles": [
+        "adapter",
+        "component",
+        "page",
+        "service"
+      ],
+      "mechanism_kinds": [
+        "async_control",
+        "error_contract",
+        "event_binding",
+        "navigation",
+        "persistence",
+        "platform_api",
+        "resource_io",
+        "ui_state"
+      ]
+    },
+    "contract_gaps": [],
+    "macro_metrics": {
+      "artifact_roles": {
+        "pass_rate": 0.6667,
+        "anchor_recall": 0.6667,
+        "anchor_precision": 0.4444,
+        "source_span_recall": null
+      },
+      "target_levels": {
+        "pass_rate": 0.6333,
+        "anchor_recall": 0.6333,
+        "anchor_precision": 0.463,
+        "source_span_recall": null
+      },
+      "mechanism_kinds": {
+        "pass_rate": 0.6597,
+        "anchor_recall": 0.6597,
+        "anchor_precision": 0.4861,
+        "source_span_recall": null
+      }
+    },
+    "strata": {
+      "artifact_roles": [
+        {
+          "label": "adapter",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": null
+        },
+        {
+          "label": "component",
+          "case_count": 2,
+          "pass_rate": 1.0,
+          "anchor_recall": 1.0,
+          "anchor_precision": 1.0,
+          "source_span_recall": null
+        },
+        {
+          "label": "page",
+          "case_count": 1,
+          "pass_rate": 1.0,
+          "anchor_recall": 1.0,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        },
+        {
+          "label": "service",
+          "case_count": 6,
+          "pass_rate": 0.6667,
+          "anchor_recall": 0.6667,
+          "anchor_precision": 0.4444,
+          "source_span_recall": null
+        }
+      ],
+      "target_levels": [
+        {
+          "label": "callable",
+          "case_count": 10,
+          "pass_rate": 0.7,
+          "anchor_recall": 0.7,
+          "anchor_precision": 0.5,
+          "source_span_recall": null
+        },
+        {
+          "label": "expression",
+          "case_count": 6,
+          "pass_rate": 0.5,
+          "anchor_recall": 0.5,
+          "anchor_precision": 0.3889,
+          "source_span_recall": null
+        },
+        {
+          "label": "file",
+          "case_count": 10,
+          "pass_rate": 0.7,
+          "anchor_recall": 0.7,
+          "anchor_precision": 0.5,
+          "source_span_recall": null
+        }
+      ],
+      "mechanism_kinds": [
+        {
+          "label": "async_control",
+          "case_count": 4,
+          "pass_rate": 0.5,
+          "anchor_recall": 0.5,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        },
+        {
+          "label": "error_contract",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": null
+        },
+        {
+          "label": "event_binding",
+          "case_count": 1,
+          "pass_rate": 1.0,
+          "anchor_recall": 1.0,
+          "anchor_precision": 1.0,
+          "source_span_recall": null
+        },
+        {
+          "label": "navigation",
+          "case_count": 2,
+          "pass_rate": 1.0,
+          "anchor_recall": 1.0,
+          "anchor_precision": 0.6666,
+          "source_span_recall": null
+        },
+        {
+          "label": "persistence",
+          "case_count": 1,
+          "pass_rate": 1.0,
+          "anchor_recall": 1.0,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        },
+        {
+          "label": "platform_api",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.0,
+          "anchor_precision": 0.0,
+          "source_span_recall": null
+        },
+        {
+          "label": "resource_io",
+          "case_count": 1,
+          "pass_rate": 1.0,
+          "anchor_recall": 1.0,
+          "anchor_precision": 1.0,
+          "source_span_recall": null
+        },
+        {
+          "label": "ui_state",
+          "case_count": 9,
+          "pass_rate": 0.7778,
+          "anchor_recall": 0.7778,
+          "anchor_precision": 0.5555,
+          "source_span_recall": null
+        }
+      ]
+    },
+    "scope": "evaluation_only_not_injected_into_agent_context"
+  },
+  "calibration_gate": "not_required",
+  "case_seal": {
+    "status": "verified",
+    "required": true,
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "digest": "86afa9a292e94a108453c8d08a0e99c142ea2f9365db767077fd264605867698",
+    "sealed_at": "2026-08-02T17:29:46+00:00",
+    "case_count": 10
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 10,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "promotion_policy": {
+    "schema_version": "agent-context-promotion-policy/v1",
+    "eligible": false,
+    "reasons": [
+      "system_context_gate_failed"
+    ],
+    "next_gate": "repair_context_supply"
+  },
+  "promotion_eligible": false,
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 12,
+    "primary_failure_class": "ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 3,
+      "passage_selection": 3,
+      "ranking_precision": 6
+    },
+    "failures": [
+      {
+        "case_id": "wplayer-api26-system-bar-capability",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "wplayer-api26-system-bar-capability",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "wplayer-api26-system-bar-capability",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "wplayer-api26-system-bar-capability",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "wplayer-full-player-system-bar-replay",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "wplayer-full-player-system-bar-replay",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "wplayer-full-player-system-bar-replay",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "wplayer-full-player-system-bar-replay",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "wplayer-output-reconnect-resume-guard",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "wplayer-output-reconnect-resume-guard",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "wplayer-output-reconnect-resume-guard",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "wplayer-output-reconnect-resume-guard",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout."
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/wplayer-agent-ab-portfolio-cases.sealed.json",
+  "selected_scenario_ids": [
+    "wplayer-interruptible-player-morph",
+    "wplayer-detail-selection-title-refresh",
+    "wplayer-tab-reselection-root",
+    "wplayer-api26-system-bar-capability",
+    "wplayer-playlist-detail-live-sync",
+    "wplayer-full-player-system-bar-replay",
+    "wplayer-full-player-back-priority",
+    "wplayer-gradient-touch-through",
+    "wplayer-output-reconnect-resume-guard",
+    "wplayer-artwork-morph-handoff"
+  ],
+  "selected_case_ids": [
+    "wplayer-interruptible-player-morph",
+    "wplayer-detail-selection-title-refresh",
+    "wplayer-tab-reselection-root",
+    "wplayer-api26-system-bar-capability",
+    "wplayer-playlist-detail-live-sync",
+    "wplayer-full-player-system-bar-replay",
+    "wplayer-full-player-back-priority",
+    "wplayer-gradient-touch-through",
+    "wplayer-output-reconnect-resume-guard",
+    "wplayer-artwork-morph-handoff"
+  ],
+  "source_project": "/private/tmp/agent-memory-ab-wplayer",
+  "recorded_at": "2026-08-02T17:39:58+00:00"
+}

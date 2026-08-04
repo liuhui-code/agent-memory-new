@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from .agent_benchmark_paired_cost import paired_effect_summary
+
 
 TOKEN_OVERHEAD_RATIO_LIMIT = 0.10
 ELAPSED_OVERHEAD_RATIO_LIMIT = 0.15
@@ -47,6 +49,7 @@ def evaluate_efficiency(
         "source_read_output_overhead_ratio": overhead_ratio(
             baseline, memory, "average_source_read_output_bytes"
         ),
+        "paired_effects": paired_effect_summary(observations),
         "memory_cached_input_ratio": cached_input_ratio(memory),
         "baseline_source_read_amplification": source_read_amplification(baseline),
         "memory_source_read_amplification": source_read_amplification(memory),

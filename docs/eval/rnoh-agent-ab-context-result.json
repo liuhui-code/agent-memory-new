@@ -1,0 +1,2648 @@
+{
+  "schema_version": "agent-context-capability-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 10,
+    "passed_case_count": 2,
+    "failed_case_count": 8,
+    "scenario_count": 10,
+    "stable_scenario_count": 2,
+    "query_variant_pass_rate": 0.2,
+    "staged_scenario_count": 0,
+    "complete_staged_scenario_count": 0,
+    "average_context_tokens": 1425.7,
+    "average_memory_prepare_ms": 36774.9,
+    "average_query_elapsed_ms": 4185.1
+  },
+  "capability_profile": {
+    "code_locator": {
+      "status": "fail",
+      "evaluated_cases": 10,
+      "anchor_recall": 0.4,
+      "primary_anchor_recall": 0.4,
+      "candidate_file_recall_at_20": 0.9,
+      "oracle_anchor_precision": 0.3333,
+      "expected_anchor_mrr": 0.4667
+    },
+    "source_evidence": {
+      "status": "fail",
+      "evaluated_cases": 10,
+      "observed_case_count": 10,
+      "source_excerpt_recall": 0.4,
+      "source_span_recall": null
+    },
+    "log_graph": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 4
+    },
+    "log_path_quality": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "average_path_recall": null,
+      "average_path_precision": null,
+      "truncated_case_count": 0
+    },
+    "experience": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "causal_context": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_path_case_count": 0,
+      "observed_relation_case_count": 0
+    },
+    "hierarchical_localization": {
+      "status": "informational_serving_stage",
+      "evaluated_cases": 10,
+      "observed_case_count": 10,
+      "serving_observed_case_count": 10,
+      "file_evaluated_case_count": 10,
+      "callable_evaluated_case_count": 0,
+      "owner_evaluated_case_count": 0,
+      "range_evaluated_case_count": 0,
+      "file_recall": 0.5,
+      "callable_recall": null,
+      "owner_recall": null,
+      "owner_precision": null,
+      "range_recall": null,
+      "average_audit_elapsed_ms": 3868.3
+    },
+    "abstention": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "compactness": {
+      "status": "pass",
+      "evaluated_cases": 10,
+      "average_context_tokens": 1425.7,
+      "token_budget": 1500
+    },
+    "query_robustness": {
+      "status": "fail",
+      "scenario_count": 10,
+      "stable_scenario_count": 2,
+      "variant_count": 10,
+      "passed_variant_count": 2,
+      "variant_pass_rate": 0.2,
+      "scenarios": [
+        {
+          "scenario_id": "rnoh-paragraph-ellipsis-padding",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "rnoh-paragraph-text-align-padding",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "rnoh-image-invalid-source-switch",
+          "status": "pass",
+          "variant_count": 1,
+          "passed_variant_count": 1,
+          "failed_variants": []
+        },
+        {
+          "scenario_id": "rnoh-text-input-font-color",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "rnoh-transformed-touch-coordinates",
+          "status": "pass",
+          "variant_count": 1,
+          "passed_variant_count": 1,
+          "failed_variants": []
+        },
+        {
+          "scenario_id": "rnoh-virtualized-list-initial-index",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "rnoh-pan-responder-scroll-lock",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "rnoh-trimmed-inline-view-crash",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "rnoh-inline-text-vertical-alignment",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "rnoh-text-measurement-float-rounding",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        }
+      ]
+    },
+    "investigation_stages": {
+      "status": "not_declared",
+      "scenario_count": 0,
+      "complete_scenario_count": 0,
+      "stages": {},
+      "scenarios": []
+    },
+    "evidence_funnel": {
+      "status": "informational",
+      "evaluated_cases": 10,
+      "first_loss_counts": {
+        "candidate_file": 2,
+        "evidence_primary": 2,
+        "localizer_file": 5
+      },
+      "stage_pass_rates": {
+        "candidate_file": 0.8,
+        "localizer_file": 0.3,
+        "callable": null,
+        "source_range": null,
+        "evidence_primary": 0.2,
+        "compact_primary": 0.2,
+        "compact_anchor": 0.2
+      }
+    },
+    "evidence_set_calibration": {
+      "status": "informational",
+      "evaluated_cases": 10,
+      "observed_case_count": 10,
+      "target_scope_accuracy": 0.5,
+      "member_recall": 0.3,
+      "primary_precision": 0.2,
+      "calibration_state_accuracy": null,
+      "forbidden_member_hit_count": 0,
+      "guarded_exclusion_count": 0,
+      "calibration_state_counts": {
+        "insufficient": 2,
+        "portfolio_required": 8
+      },
+      "serving_projection_changed": false
+    },
+    "sufficiency": {
+      "status": "informational",
+      "evaluated_case_count": 10,
+      "missing_observation_count": 0,
+      "kind_counts": {
+        "diagnosis": 10
+      },
+      "readiness_status_counts": {
+        "ready_for_agent_inspection": 10
+      },
+      "reason_code_counts": {
+        "limited_code_anchor_diversity": 4,
+        "no_log_anchor": 6,
+        "no_strong_log_anchor": 4
+      },
+      "scope": "shadow_observation_not_a_context_gate"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "rnoh-paragraph-ellipsis-padding",
+      "scenario_id": "rnoh-paragraph-ellipsis-padding",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/components/text/ParagraphEventEmitter.cpp"
+      ],
+      "observed_primary_anchor_paths": [
+        "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/components/text/ParagraphEventEmitter.cpp"
+      ],
+      "observed_source_excerpt_paths": [
+        "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/components/text/ParagraphEventEmitter.cpp"
+      ],
+      "missing_expected_anchors": [
+        "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/ParagraphMeasurer.ts"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 3,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 4201
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 26,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/components/text/ParagraphEventEmitter.cpp"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 1402,
+      "memory_prepare_ms": 31002,
+      "query_elapsed_ms": 4236,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "rnoh-paragraph-text-align-padding",
+      "scenario_id": "rnoh-paragraph-text-align-padding",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/FragmentUtils.ts"
+      ],
+      "observed_primary_anchor_paths": [
+        "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/FragmentUtils.ts"
+      ],
+      "observed_source_excerpt_paths": [
+        "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/FragmentUtils.ts"
+      ],
+      "missing_expected_anchors": [
+        "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/ParagraphMeasurer.ts"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 2,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3252
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 31,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/FragmentUtils.ts"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 1411,
+      "memory_prepare_ms": 34954,
+      "query_elapsed_ms": 3443,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "rnoh-image-invalid-source-switch",
+      "scenario_id": "rnoh-image-invalid-source-switch",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/imagemanager/platform/ios/react/renderer/imagemanager/RCTImagePrimitivesConversions.h",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNImage.ets",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/ets.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/imagemanager/platform/ios/react/renderer/imagemanager/RCTImagePrimitivesConversions.h",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNImage.ets",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/ets.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/imagemanager/platform/ios/react/renderer/imagemanager/RCTImagePrimitivesConversions.h",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNImage.ets",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/ets.ets"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 6,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3379
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 28,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "multiple",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 1,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1475,
+      "memory_prepare_ms": 36510,
+      "query_elapsed_ms": 3813,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "rnoh-text-input-font-color",
+      "scenario_id": "rnoh-text-input-font-color",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "react-native-harmony/harmony/cpp/RNOHAppNapiBridge.cpp",
+        "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/components/view/propsConversions.h",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNActivityIndicator.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "react-native-harmony/harmony/cpp/RNOHAppNapiBridge.cpp",
+        "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/components/view/propsConversions.h",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNActivityIndicator.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "react-native-harmony/harmony/cpp/RNOHAppNapiBridge.cpp",
+        "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/components/view/propsConversions.h",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNActivityIndicator.ets"
+      ],
+      "missing_expected_anchors": [
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNTextInput/TextInputDescriptorWrapper.ts"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 0,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 5383
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "evidence_primary",
+        "candidate_file_count": 31,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "multiple",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 1,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1461,
+      "memory_prepare_ms": 36763,
+      "query_elapsed_ms": 5546,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "rnoh-transformed-touch-coordinates",
+      "scenario_id": "rnoh-transformed-touch-coordinates",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "pass",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": true,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": true,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 1.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/componentManagers/RNViewManager.ts"
+      ],
+      "observed_primary_anchor_paths": [
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/componentManagers/RNViewManager.ts"
+      ],
+      "observed_source_excerpt_paths": [
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/componentManagers/RNViewManager.ts"
+      ],
+      "missing_expected_anchors": [],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 1.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 6,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 2882
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": true,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": true,
+          "compact_primary": true,
+          "compact_anchor": true
+        },
+        "first_loss": null,
+        "candidate_file_count": 25,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/componentManagers/RNViewManager.ts"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "single",
+        "target_scope_observed": "multiple",
+        "target_scope_match": false,
+        "member_recall": 1.0,
+        "primary_precision": 1.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "typed_target_owner",
+          "structured_owner_kind",
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "context_token_estimate": 1240,
+      "memory_prepare_ms": 36750,
+      "query_elapsed_ms": 3192,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "rnoh-virtualized-list-initial-index",
+      "scenario_id": "rnoh-virtualized-list-initial-index",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 0.5,
+      "primary_anchor_recall": 0.5,
+      "candidate_file_recall_at_20": 0.5,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 0.5,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 3,
+      "expected_anchor_mrr": 0.3333,
+      "observed_anchor_paths": [
+        "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/components/scrollview/RCTComponentViewHelpers.h",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNScrollView/RNScrollView.ets",
+        "tester/harmony/sample_package/index.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/components/scrollview/RCTComponentViewHelpers.h",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNScrollView/RNScrollView.ets",
+        "tester/harmony/sample_package/index.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "react-native-harmony/harmony/cpp/third-party/rn/ReactCommon/react/renderer/components/scrollview/RCTComponentViewHelpers.h",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNScrollView/RNScrollView.ets",
+        "tester/harmony/sample_package/index.ets"
+      ],
+      "missing_expected_anchors": [
+        "tester/harmony/rnoh/src/main/ets/RNOH/RNComponentCommandHub.ts"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.5,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 1,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 4882
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 23,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "multiple",
+        "target_scope_match": true,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 1,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 2,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1499,
+      "memory_prepare_ms": 36884,
+      "query_elapsed_ms": 5608,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "rnoh-pan-responder-scroll-lock",
+      "scenario_id": "rnoh-pan-responder-scroll-lock",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 0.5,
+      "primary_anchor_recall": 0.5,
+      "candidate_file_recall_at_20": 0.5,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 0.5,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "tester/harmony/entry/src/main/ets/pages/TouchDisplayer.ets",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNScrollView.ets",
+        "tester/harmony/text_scroll/src/main/ets/pages/Index.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "tester/harmony/entry/src/main/ets/pages/TouchDisplayer.ets",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNScrollView.ets",
+        "tester/harmony/text_scroll/src/main/ets/pages/Index.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "tester/harmony/entry/src/main/ets/pages/TouchDisplayer.ets",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNScrollView.ets",
+        "tester/harmony/text_scroll/src/main/ets/pages/Index.ets"
+      ],
+      "missing_expected_anchors": [
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNViewBase/RNViewBase.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.5,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 5,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 4037
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 31,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "multiple",
+        "target_scope_match": true,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1370,
+      "memory_prepare_ms": 39183,
+      "query_elapsed_ms": 4763,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "rnoh-trimmed-inline-view-crash",
+      "scenario_id": "rnoh-trimmed-inline-view-crash",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 0.5,
+      "primary_anchor_recall": 0.5,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 0.5,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 3,
+      "expected_anchor_mrr": 0.3333,
+      "observed_anchor_paths": [
+        "react-native-harmony/Libraries/Components/TextInput/TextInput.harmony.js",
+        "tester/harmony/rnoh/src/main/ets/RNOH/TextLayoutManager.ts",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNParagraphManager.ts"
+      ],
+      "observed_primary_anchor_paths": [
+        "react-native-harmony/Libraries/Components/TextInput/TextInput.harmony.js",
+        "tester/harmony/rnoh/src/main/ets/RNOH/TextLayoutManager.ts",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNParagraphManager.ts"
+      ],
+      "observed_source_excerpt_paths": [
+        "react-native-harmony/Libraries/Components/TextInput/TextInput.harmony.js",
+        "tester/harmony/rnoh/src/main/ets/RNOH/TextLayoutManager.ts",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNParagraphManager.ts"
+      ],
+      "missing_expected_anchors": [
+        "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/UnhyphenatedWordWrapStrategy.ts"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.5,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 5,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3748
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 29,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "multiple",
+        "target_scope_match": true,
+        "member_recall": 0.5,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1451,
+      "memory_prepare_ms": 38322,
+      "query_elapsed_ms": 3868,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "rnoh-inline-text-vertical-alignment",
+      "scenario_id": "rnoh-inline-text-vertical-alignment",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": null,
+      "expected_anchor_mrr": 0.0,
+      "observed_anchor_paths": [
+        "react-native-harmony/harmony/cpp/patches/react_native_core/react/renderer/components/textinput/TextInputProps.cpp",
+        "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/EllipsisInserter.ts",
+        "tester/harmony/rnoh/src/main/ets/RNOH/TextLayoutManager.ts"
+      ],
+      "observed_primary_anchor_paths": [
+        "react-native-harmony/harmony/cpp/patches/react_native_core/react/renderer/components/textinput/TextInputProps.cpp",
+        "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/EllipsisInserter.ts",
+        "tester/harmony/rnoh/src/main/ets/RNOH/TextLayoutManager.ts"
+      ],
+      "observed_source_excerpt_paths": [
+        "react-native-harmony/harmony/cpp/patches/react_native_core/react/renderer/components/textinput/TextInputProps.cpp",
+        "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/EllipsisInserter.ts",
+        "tester/harmony/rnoh/src/main/ets/RNOH/TextLayoutManager.ts"
+      ],
+      "missing_expected_anchors": [
+        "tester/harmony/rnoh/src/main/ets/ParagraphMeasurer/ParagraphMeasurer.ts",
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNParagraph.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.0,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 3,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3726
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 28,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "multiple",
+        "target_scope_match": true,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "semantic_mechanism",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1473,
+      "memory_prepare_ms": 40321,
+      "query_elapsed_ms": 4165,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "rnoh-text-measurement-float-rounding",
+      "scenario_id": "rnoh-text-measurement-float-rounding",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 0.5,
+      "primary_anchor_recall": 0.5,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 0.5,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNParagraphManager.ts"
+      ],
+      "observed_primary_anchor_paths": [
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNParagraphManager.ts"
+      ],
+      "observed_source_excerpt_paths": [
+        "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNParagraphManager.ts"
+      ],
+      "missing_expected_anchors": [
+        "tester/harmony/rnoh/src/main/ets/RNOH/TextLayoutManager.ts"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.5,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 1,
+        "range_candidate_count": 8,
+        "audit_elapsed_ms": 3193
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": true,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 24,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 8,
+        "evidence_certainty": "bounded",
+        "primary_file_path": "tester/harmony/rnoh/src/main/ets/RNOHCorePackage/components/RNText/RNParagraphManager.ts"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "multiple",
+        "target_scope_match": true,
+        "member_recall": 0.5,
+        "primary_precision": 1.0,
+        "calibration_state": "portfolio_required",
+        "primary_support_kinds": [
+          "typed_target_owner",
+          "structured_owner_kind",
+          "source_locatable"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 1,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 1,
+      "primary_anchor_count": 1,
+      "source_excerpt_count": 1,
+      "log_anchor_count": 3,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "context_token_estimate": 1475,
+      "memory_prepare_ms": 37060,
+      "query_elapsed_ms": 3217,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "scope": "context_supply_only"
+  },
+  "next_gate": "repair_context_supply",
+  "execution": {
+    "schema_version": "agent-context-capability-execution/v1",
+    "strategy": "shared-index-isolated-case-snapshot",
+    "expanded_case_count": 10,
+    "source_group_count": 10,
+    "setup_group_count": 10,
+    "index_build_count": 10,
+    "case_snapshot_count": 10,
+    "avoided_index_build_count": 0,
+    "source_materialize_ms": 26127,
+    "index_prepare_ms": 367290,
+    "setup_prepare_ms": 0,
+    "case_snapshot_ms": 459,
+    "batch_elapsed_ms": 480467,
+    "source_groups": [
+      {
+        "source_digest": "dfd74fa9f5009408e8529810183f6f0ae0b1fd9c2ce3c9889966a2070175abc1",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 2019,
+        "index_prepare_ms": 30958,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 44,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 44
+          }
+        ]
+      },
+      {
+        "source_digest": "3706c803d519169361801b5509ecb740ad8a05e98aa09b4aca42057b57bd125f",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 2439,
+        "index_prepare_ms": 34916,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 38,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 38
+          }
+        ]
+      },
+      {
+        "source_digest": "cbcb713af82e8d08be2587afb88e5e13876e7d9019c47efb991331f9429b3238",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 2485,
+        "index_prepare_ms": 36454,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 56,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 56
+          }
+        ]
+      },
+      {
+        "source_digest": "6da96a1e2bb9824ae53e26bc923ff61de4f4531cae838764bce94b081ee240fe",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 2698,
+        "index_prepare_ms": 36720,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 43,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 43
+          }
+        ]
+      },
+      {
+        "source_digest": "054e90fa3d36eb9df98dd4977ee8e760560cace2e1f312dcc86e19f0a533eafd",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 2589,
+        "index_prepare_ms": 36711,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 39,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 39
+          }
+        ]
+      },
+      {
+        "source_digest": "edde51f0d04251000467818c9e2edef04aebe3d136d9d43306485c644c4c36f0",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 2584,
+        "index_prepare_ms": 36839,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 45,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 45
+          }
+        ]
+      },
+      {
+        "source_digest": "b278c09572af97ebed036e985dd44819f53a1d17680178539f71b097d5c811ca",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 2708,
+        "index_prepare_ms": 39141,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 42,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 42
+          }
+        ]
+      },
+      {
+        "source_digest": "3ca745d596398be097dcab548a4eb860c7bc6899c14a19ae4d8c2025e9277b1e",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 2837,
+        "index_prepare_ms": 38278,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 44,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 44
+          }
+        ]
+      },
+      {
+        "source_digest": "924e948c9bd25e0d31bf13c2f5d0ae713ef726bf0d12556e5bf943ac1e1cd3c0",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 2792,
+        "index_prepare_ms": 40255,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 66,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 66
+          }
+        ]
+      },
+      {
+        "source_digest": "03de2f4e206f91423a33a41cc99a6b5dd4daef66c4c66bdf15d5224b11c4d080",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 2976,
+        "index_prepare_ms": 37018,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 42,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 42
+          }
+        ]
+      }
+    ]
+  },
+  "calibration": {
+    "schema_version": "agent-context-calibration/v1",
+    "status": "pass",
+    "target_domain": "native_arkts",
+    "profiled_case_count": 10,
+    "coverage": {
+      "target_levels": [
+        "callable",
+        "file"
+      ],
+      "artifact_roles": [
+        "component",
+        "service"
+      ],
+      "mechanism_kinds": [
+        "async_control",
+        "error_contract",
+        "resource_io",
+        "ui_state"
+      ]
+    },
+    "contract_gaps": [],
+    "macro_metrics": {
+      "artifact_roles": {
+        "pass_rate": 0.1805,
+        "anchor_recall": 0.4166,
+        "anchor_precision": 0.2916,
+        "source_span_recall": null
+      },
+      "target_levels": {
+        "pass_rate": 0.2,
+        "anchor_recall": 0.4,
+        "anchor_precision": 0.3333,
+        "source_span_recall": null
+      },
+      "mechanism_kinds": {
+        "pass_rate": 0.3,
+        "anchor_recall": 0.6,
+        "anchor_precision": 0.3333,
+        "source_span_recall": null
+      }
+    },
+    "strata": {
+      "artifact_roles": [
+        {
+          "label": "component",
+          "case_count": 4,
+          "pass_rate": 0.25,
+          "anchor_recall": 0.5,
+          "anchor_precision": 0.25,
+          "source_span_recall": null
+        },
+        {
+          "label": "service",
+          "case_count": 9,
+          "pass_rate": 0.1111,
+          "anchor_recall": 0.3333,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        }
+      ],
+      "target_levels": [
+        {
+          "label": "callable",
+          "case_count": 10,
+          "pass_rate": 0.2,
+          "anchor_recall": 0.4,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        },
+        {
+          "label": "file",
+          "case_count": 10,
+          "pass_rate": 0.2,
+          "anchor_recall": 0.4,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        }
+      ],
+      "mechanism_kinds": [
+        {
+          "label": "async_control",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.5,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        },
+        {
+          "label": "error_contract",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.5,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        },
+        {
+          "label": "resource_io",
+          "case_count": 1,
+          "pass_rate": 1.0,
+          "anchor_recall": 1.0,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        },
+        {
+          "label": "ui_state",
+          "case_count": 10,
+          "pass_rate": 0.2,
+          "anchor_recall": 0.4,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        }
+      ]
+    },
+    "scope": "evaluation_only_not_injected_into_agent_context"
+  },
+  "calibration_gate": "not_required",
+  "case_seal": {
+    "status": "verified",
+    "required": true,
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "digest": "d594346a45832eb120d7267fcf6755dedd11818c49644c485702a69d2f4584f6",
+    "sealed_at": "2026-08-03T00:28:44+00:00",
+    "case_count": 10
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 10,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "promotion_policy": {
+    "schema_version": "agent-context-promotion-policy/v1",
+    "eligible": false,
+    "reasons": [
+      "system_context_gate_failed"
+    ],
+    "next_gate": "repair_context_supply"
+  },
+  "promotion_eligible": false,
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 24,
+    "primary_failure_class": "ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 8,
+      "passage_selection": 4,
+      "ranking_precision": 12
+    },
+    "failures": [
+      {
+        "case_id": "rnoh-paragraph-ellipsis-padding",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-paragraph-ellipsis-padding",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-paragraph-ellipsis-padding",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-paragraph-ellipsis-padding",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-paragraph-text-align-padding",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-paragraph-text-align-padding",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-paragraph-text-align-padding",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-paragraph-text-align-padding",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-text-input-font-color",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-text-input-font-color",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-text-input-font-color",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-text-input-font-color",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-virtualized-list-initial-index",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-virtualized-list-initial-index",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-pan-responder-scroll-lock",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-pan-responder-scroll-lock",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-trimmed-inline-view-crash",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-trimmed-inline-view-crash",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-inline-text-vertical-alignment",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-inline-text-vertical-alignment",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-inline-text-vertical-alignment",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-inline-text-vertical-alignment",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-text-measurement-float-rounding",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "rnoh-text-measurement-float-rounding",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout."
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/rnoh-agent-ab-cases.sealed.json",
+  "selected_scenario_ids": [
+    "rnoh-paragraph-ellipsis-padding",
+    "rnoh-paragraph-text-align-padding",
+    "rnoh-image-invalid-source-switch",
+    "rnoh-text-input-font-color",
+    "rnoh-transformed-touch-coordinates",
+    "rnoh-virtualized-list-initial-index",
+    "rnoh-pan-responder-scroll-lock",
+    "rnoh-trimmed-inline-view-crash",
+    "rnoh-inline-text-vertical-alignment",
+    "rnoh-text-measurement-float-rounding"
+  ],
+  "selected_case_ids": [
+    "rnoh-paragraph-ellipsis-padding",
+    "rnoh-paragraph-text-align-padding",
+    "rnoh-image-invalid-source-switch",
+    "rnoh-text-input-font-color",
+    "rnoh-transformed-touch-coordinates",
+    "rnoh-virtualized-list-initial-index",
+    "rnoh-pan-responder-scroll-lock",
+    "rnoh-trimmed-inline-view-crash",
+    "rnoh-inline-text-vertical-alignment",
+    "rnoh-text-measurement-float-rounding"
+  ],
+  "source_project": "/private/tmp/agent-memory-ab-rnoh-full",
+  "recorded_at": "2026-08-03T00:37:12+00:00"
+}

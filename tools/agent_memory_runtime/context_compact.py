@@ -17,6 +17,7 @@ from .context_sufficiency import diagnosis_sufficiency
 from .context_source_excerpt import (
     attach_source_excerpts,
     has_source_excerpt_candidate,
+    multi_excerpt_reserve_tokens,
 )
 from .index_freshness import compact_freshness_report
 from .query_behavior_concepts import behavior_marker_terms
@@ -55,6 +56,9 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
             "use_when": "inspect ranking audit, full records, or one unresolved candidate",
         },
     }
+    excerpt_reserve = multi_excerpt_reserve_tokens(payload, data.get("project_path"))
+    if excerpt_reserve:
+        enforce_budget(payload, COMPACT_TOKEN_BUDGET, reserve_tokens=excerpt_reserve)
     excerpt_count = attach_source_excerpts(
         payload, data.get("project_path"), COMPACT_TOKEN_BUDGET
     )
@@ -81,8 +85,12 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
     code_candidates = path_scoped_code_anchors(
         records(handoff.get("code_anchors")), path_context, log_anchors, data.get("query"),
     )
+    projection_path = {
+        **path_context,
+        "wrapped_log_evidence": has_wrapped_log_anchor(candidate_logs),
+    }
     code_candidates = focus_callable_anchors(
-        code_candidates, callable_evidence, path_context["activated"],
+        code_candidates, callable_evidence, projection_path,
     )
     code_anchors = assign_anchor_roles(
         diverse_code_anchors(
@@ -97,7 +105,7 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
         "log_keywords": compact_keywords(handoff.get("log_keywords")),
         "log_anchors": [clean_record(item, LOG_FIELDS) for item in log_anchors],
         "code_anchors": code_anchors,
-        "callable_evidence": callable_evidence if isinstance(callable_evidence, dict) else {},
+        "callable_evidence": compact_callable_evidence(callable_evidence),
         "path_context": path_context,
         "relation_hints": relevant_relations(data.get("edge_matches"), code_anchors, log_anchors),
         "experience_refs": [compact_memory_ref(item) for item in records(handoff.get("experience_refs"))[:2]],
@@ -114,6 +122,12 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
             "runtime_selects_root_cause": False,
         },
     }
+
+
+def compact_callable_evidence(value: Any) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {}
+    return {key: item for key, item in value.items() if key != "passage_portfolio"}
 
 
 LOG_FIELDS = (

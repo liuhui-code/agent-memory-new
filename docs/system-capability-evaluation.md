@@ -1427,3 +1427,83 @@ recall 均为 1.0。
 大方法增量刷新 P95 为 2,278.093/5,000 ms。聚焦测试 58/58 通过；全量受限环境 803/805，仅两项
 loopback socket 被沙箱阻止，授权回环模块 3/3 通过；编译、全部评测 JSON、diff、固定四 Skill 和
 500 行门禁通过。
+
+## 2026-08-02 wPlayer Agent A/B 前置门禁
+
+从此前未使用的 `wbbb0/wPlayer` 冻结真实修复 `d064c4b953bd`：PiP 启动与销毁并发时，延迟完成
+可能继续最小化宿主窗口或让旧回调影响复用后的控制器。修复提交新增独立生命周期对象和 5 个回归
+场景；前后 revision 与 4 个声明变更文件均通过 Git 审计。案例 seal 为
+`42e8ce9655fcd48e2b71fa544705d58c5d31984bfda1975f74c4b10e70daf340`，只执行一次。
+
+两个预先冻结的查询变体都以 1.0 召回、1.0 precision 找到唯一预期文件并保持在 1,500 Token
+预算内，说明代码文件定位有效。源码区间召回分别为 0.3333 和 0.0；三个必要生命周期方法没有被
+组合进 Agent 可见证据，首次可证明损失位于 callable/passage selection。Context gate 为 0/2，
+`promotion_eligible=false`，因此 Agent 调用数为 0，未形成 Agent A/B 结论。案例、结果和计划分别
+保存在 `docs/eval/wplayer-pip-lifecycle-ab-holdout-cases.sealed.json`、
+`docs/eval/wplayer-pip-lifecycle-ab-context-result.json` 和
+`docs/superpowers/plans/2026-08-02-trustworthy-agent-ab.md`；不得修改、重跑或据此单点调参。
+正式 holdout Agent benchmark 还要求至少 10 个案例；后续必须预注册完整组合，不能通过连续筛选
+单案例直到某个 Context 通过来制造选择偏差。
+
+## 2026-08-02 Evidence Continuity 开发闭环与 wPlayer 停止结论
+
+PiP 的 passage 缺口没有直接用于调参。四个独立 development 组分别验证多 callable 组合、声明与
+引用身份、产物角色和对象字面量证据连续性，最终为 2/2、3/3、3/3、2/2。实现复用现有 ECMA
+语义适配器和层级定位契约，新增对象字面量容器、typed arrow property 范围、同 owner 多 passage
+组合、声明优先级以及 memory-aware compact 预算；没有增加候选 lane、项目别名或 Oracle 特例。
+
+完整 231 个能力变体从本轮接受基线 154/231 提升到 158/231，稳定场景保持 33/77；没有
+pass-to-fail，平均 Context 从 1,329.5281 降至 1,319.9004 tokens。新增通过项为 layout source
+focus、command-binding owner precision 和两个 fallback recovery 变体。procedure/guard、draft
+persistence 和 timeout cancellation 聚焦组均为 3/3。
+
+外部 wPlayer 10 案例组合 v1-v4 分别为 7/10、9/10、9/10、9/10。v4 seal
+`dc3c0abd4799223d2db73709fe1373d8d1bb83bdd8f6e33d0b48bc3e4b48d1c4` 的唯一失败发生在
+primary evidence：文件候选与 localizer 已命中 `AppShellLayoutSpec.ets`，但最终 compact primary
+没有保留它。由于四个组合来自同一仓库，不能算作独立外部复现；继续选择 v5 会构成门禁试探。
+Agent 前置门禁始终未通过，Agent 调用数为 0，本轮没有 Agent A/B 质量或成本结论。
+
+工程门禁通过：10 万与 100 万实体档的 latency、query-plan 和 incremental-maintenance 均通过。
+百万档包含 100 万可检索实体、300 万活跃边和 2.263 GB SQLite；candidate hit P95 95.420 ms，
+callable pool P95 8.231 ms，大方法增量 P95 1,103.362 ms。全仓 Python 编译、149 个评测 JSON、
+diff、固定四 Skill 和 500 行门禁通过。全量 863 项首次运行仅有新文件指纹契约失败和两个沙箱
+loopback 错误；补齐指纹后相关 86 项通过，授权回环模块 3/3 通过，最终授权全量 863/863 通过。
+
+## 2026-08-03 RNOH 独立 Context 前置门禁
+
+在 wPlayer 活动停止后，改用此前未出现在项目评测库存中的
+[ohosgg/rnoh](https://github.com/ohosgg/rnoh)。运行前固定 10 个真实修复，覆盖段落 padding、
+图像源切换、TextInput 颜色、变换触摸、VirtualizedList 初始位置、PanResponder 滚动锁定、
+inline View 截断和文本测量；每例均审计父/后 revision、完整 diff 和仓库 tester/Jest 用例。
+seal `d594346a45832eb120d7267fcf6755dedd11818c49644c485702a69d2f4584f6` 一次生成、一次执行。
+
+Context 结果为 2/10，平均 1,425.7 tokens，candidate-file recall@20 0.9、hierarchical file recall
+0.5、anchor recall 0.4、precision 0.3333、MRR 0.4667。Image 无效源切换和 transformed touch
+通过；其余首次损失为 candidate-file 2 例、localizer-file 5 例和 primary-evidence 2 例。
+这说明大多数目标已进入宽候选池，但多平台镜像、第三方同名实现、同目录辅助文件和多 owner
+任务在后续收窄中丢失。该解释是外部观测，不是可直接调参的开发证明。
+
+`promotion_eligible=false`，Agent 调用数为 0。SQLite 账本记录唯一
+`context_capability completed/fail`，结果摘要
+`42dcb9c129e6d64bd6cbfece6da06e9d9be4636f984a73d4bc096591c5461748`；不存在同 seal 的
+`agent_benchmark` 记录。案例和结果均已消费，后续只能在独立项目中立 development fixture
+复现至少两个缺陷类，不能读取结果调权、修改 Oracle、重跑或创建第二个 RNOH 组合。
+
+## 2026-08-03 Permission Manager 独立 Context 前置门禁
+
+在完成两个独立 development 复现并保持完整 231 案例回归 158/231、0 个 pass-to-fail 后，使用
+此前未进入评测库存的 OpenHarmony 官方
+[`applications_permission_manager`](https://github.com/openharmony/applications_permission_manager)。
+运行前审计并固定 10 个真实单父修复；seal
+`bc330f138584991aa230d53f026505b52a0c8b5b1ffe70d2d17bbf918333d9ce` 只生成一次、只执行一次。
+
+Context 结果为 2/10，平均 1,466.5 tokens。candidate-file recall@20 为 0.95，但 hierarchical
+file recall 为 0.5333，最终 anchor recall、primary recall 和 source excerpt recall 均为 0.35，
+precision 为 0.2333，MRR 为 0.5。两个通过案例是异步应用标签加载和浮窗会话清理。首次损失分布
+为 candidate-file 1 例、localizer-file 6 例、primary-evidence 3 例；compactness 单独通过。
+
+该结果表明前一阶段修复没有降低既有回归，但也没有在新的官方项目上形成足够的前三证据稳定性。
+`promotion_eligible=false`，Agent 调用数为 0；SQLite 账本只有唯一完成失败的 Context 记录，
+不存在同 seal Agent 记录。不得利用这份已消费结果调权、修改 Oracle 或重跑。下一步只能把多个
+外部来源共同指向的缺陷类转写成项目中立 development 契约，并继续要求实际 `query_handoff` 与
+完整回归同时证明问题，不能添加项目名、路径或任务措辞特例。

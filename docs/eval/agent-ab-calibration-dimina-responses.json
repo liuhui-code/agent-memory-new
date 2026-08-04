@@ -1,0 +1,620 @@
+{
+  "schema_version": "agent-benchmark-responses/v1",
+  "generated_at": "2026-08-03T12:42:16+00:00",
+  "observations": [
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "dimina-harmony-tabbar-height",
+      "variant": "baseline",
+      "trial_index": 1,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "supporting_files": [
+        "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets",
+        "harmony/dimina/src/main/ets/Bundle/Model/DMPBundleAppConfigNext.ets"
+      ],
+      "investigated_files": [
+        "docs/Experience-Review.md",
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets",
+        "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets",
+        "harmony/dimina/src/main/ets/DPages/DMPPageContainer.ets",
+        "harmony/dimina/src/main/ets/Bundle/Model/DMPBundleAppConfigNext.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 3,
+      "source_search_count": 4,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets",
+            "harmony/dimina/src/main/ets/DPages/DMPPageContainer.ets"
+          ]
+        },
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "harmony/dimina/src/main/ets/Bundle/Model/DMPBundleAppConfigNext.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "token_estimate": 203771,
+      "elapsed_ms": 56863,
+      "summary": "The fixed TabBar geometry is owned by DMPTabBar. Its tab-items Row is documented as 49vp to match WeChat mini-program 98rpx, but the ArkTS code sets .height(98), doubling the intended visible bar height; the dimension should be 49 rather than 98.",
+      "expansion_rounds": 3,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "missing_state_owner"
+      ],
+      "model_input_tokens": 201667,
+      "model_cached_input_tokens": 159744,
+      "model_uncached_input_tokens": 41923,
+      "model_output_tokens": 2104,
+      "model_reasoning_tokens": 477,
+      "usage_metrics_reported": true,
+      "command_count": 11,
+      "command_output_bytes": 71334,
+      "source_read_count": 8,
+      "source_read_output_bytes": 35482,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 5,
+      "expansion_file_count": 5,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 1,
+        "pair_index": 1000001,
+        "variant_position": 1,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "dimina-harmony-tabbar-height",
+      "variant": "memory",
+      "trial_index": 1,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "supporting_files": [
+        "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets"
+      ],
+      "investigated_files": [
+        "docs/Experience-Review.md",
+        "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets",
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 0,
+      "expansion_trace": [
+        {
+          "reason": "missing_resource_owner",
+          "files": [
+            "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "token_estimate": 55413,
+      "elapsed_ms": 37916,
+      "summary": "The fixed TabBar geometry is owned by DMPTabBar in harmony/dimina/src/main/ets/Components/DMPTabBar.ets. Its tab items row is documented as 49vp but sets .height(98), which doubles the intended bar height and causes excessive vertical space; the incorrect dimension is height(98), expected 49vp.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_resource_owner"
+      ],
+      "model_input_tokens": 53819,
+      "model_cached_input_tokens": 29824,
+      "model_uncached_input_tokens": 23995,
+      "model_output_tokens": 1594,
+      "model_reasoning_tokens": 444,
+      "usage_metrics_reported": true,
+      "command_count": 4,
+      "command_output_bytes": 28762,
+      "source_read_count": 4,
+      "source_read_output_bytes": 28762,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 5458,
+      "memory_context_token_estimate": 1365,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 2,
+      "expansion_file_count": 2,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 1,
+        "pair_index": 1000001,
+        "variant_position": 2,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "dimina-harmony-tabbar-height",
+      "variant": "memory",
+      "trial_index": 2,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "supporting_files": [
+        "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets"
+      ],
+      "investigated_files": [
+        "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets",
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 0,
+      "expansion_trace": [
+        {
+          "reason": "missing_resource_owner",
+          "files": [
+            "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "token_estimate": 96010,
+      "elapsed_ms": 31837,
+      "summary": "DMPTabBarContainerView owns placement of the container-level TabBar, but the fixed bar geometry is in DMPTabBar.ets. In DMPTabBar.build(), the tab items row is commented as 49vp, matching 微信小程序 98rpx, but the actual ArkUI dimension is .height(98), making the visible TabBar roughly twice the intended height. The incorrect dimension is the Row height of 98vp; it should be 49vp for the intended fixed bar height.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_resource_owner"
+      ],
+      "model_input_tokens": 94927,
+      "model_cached_input_tokens": 58240,
+      "model_uncached_input_tokens": 36687,
+      "model_output_tokens": 1083,
+      "model_reasoning_tokens": 238,
+      "usage_metrics_reported": true,
+      "command_count": 5,
+      "command_output_bytes": 31105,
+      "source_read_count": 5,
+      "source_read_output_bytes": 31105,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 5458,
+      "memory_context_token_estimate": 1365,
+      "source_file_count": 2,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 1,
+      "expansion_file_count": 1,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 2,
+        "pair_index": 1000002,
+        "variant_position": 1,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "dimina-harmony-tabbar-height",
+      "variant": "baseline",
+      "trial_index": 2,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "supporting_files": [
+        "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets",
+        "harmony/dimina/src/main/ets/DPages/DMPPage.ets",
+        "harmony/dimina/src/main/ets/DPages/DMPPageContainer.ets"
+      ],
+      "investigated_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets",
+        "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets",
+        "harmony/dimina/src/main/ets/DPages/DMPPage.ets",
+        "harmony/dimina/src/main/ets/DPages/DMPPageContainer.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 3,
+      "source_search_count": 7,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets",
+            "harmony/dimina/src/main/ets/DPages/DMPPage.ets"
+          ]
+        },
+        {
+          "reason": "contradicting_evidence",
+          "files": [
+            "harmony/dimina/src/main/ets/DPages/DMPPageContainer.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "token_estimate": 298319,
+      "elapsed_ms": 63500,
+      "summary": "The fixed TabBar geometry is owned by DMPTabBar. Its item row is documented as 49vp for 98rpx, but the ArkUI height is set to 98, making the Harmony mini-program TabBar render at roughly twice the intended height before safe-area expansion.",
+      "expansion_rounds": 2,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "contradicting_evidence"
+      ],
+      "model_input_tokens": 296323,
+      "model_cached_input_tokens": 257408,
+      "model_uncached_input_tokens": 38915,
+      "model_output_tokens": 1996,
+      "model_reasoning_tokens": 276,
+      "usage_metrics_reported": true,
+      "command_count": 12,
+      "command_output_bytes": 166681,
+      "source_read_count": 10,
+      "source_read_output_bytes": 65049,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 4,
+      "expansion_file_count": 4,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 2,
+        "pair_index": 1000002,
+        "variant_position": 2,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "dimina-harmony-tabbar-height",
+      "variant": "baseline",
+      "trial_index": 3,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "supporting_files": [
+        "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets",
+        "harmony/dimina/src/main/ets/DPages/DMPPage.ets",
+        "harmony/dimina/src/main/ets/DPages/DMPPageContainer.ets"
+      ],
+      "investigated_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets",
+        "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets",
+        "harmony/dimina/src/main/ets/DPages/DMPPage.ets",
+        "harmony/dimina/src/main/ets/DPages/DMPPageContainer.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 3,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets",
+            "harmony/dimina/src/main/ets/DPages/DMPPage.ets"
+          ]
+        },
+        {
+          "reason": "contradicting_evidence",
+          "files": [
+            "harmony/dimina/src/main/ets/DPages/DMPPageContainer.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "token_estimate": 196580,
+      "elapsed_ms": 45338,
+      "summary": "DMPTabBar.ets owns the fixed TabBar geometry. Its comment says the tab items row should be 49vp, matching 98rpx, but the actual ArkUI dimension is .height(98), making the Harmony TabBar twice the intended height before safe-area expansion.",
+      "expansion_rounds": 2,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "contradicting_evidence"
+      ],
+      "model_input_tokens": 194796,
+      "model_cached_input_tokens": 165504,
+      "model_uncached_input_tokens": 29292,
+      "model_output_tokens": 1784,
+      "model_reasoning_tokens": 418,
+      "usage_metrics_reported": true,
+      "command_count": 9,
+      "command_output_bytes": 78216,
+      "source_read_count": 13,
+      "source_read_output_bytes": 36118,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 4,
+      "expansion_file_count": 4,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 3,
+        "pair_index": 1000003,
+        "variant_position": 1,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "dimina-harmony-tabbar-height",
+      "variant": "memory",
+      "trial_index": 3,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "supporting_files": [
+        "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets"
+      ],
+      "investigated_files": [
+        "docs/Experience-Review.md",
+        "harmony/dimina/src/main/ets/Container/DMPTabBarContainerView.ets",
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 0,
+      "expansion_trace": [
+        {
+          "reason": "missing_emitter",
+          "files": [
+            "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "harmony/dimina/src/main/ets/Components/DMPTabBar.ets"
+      ],
+      "token_estimate": 53886,
+      "elapsed_ms": 27665,
+      "summary": "The fixed TabBar geometry is owned by DMPTabBar in harmony/dimina/src/main/ets/Components/DMPTabBar.ets. Its tab items row is documented as 49vp, matching 微信小程序 98rpx, but the actual ArkTS dimension is .height(98), which makes the bar render at twice the intended height.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_emitter"
+      ],
+      "model_input_tokens": 52892,
+      "model_cached_input_tokens": 32896,
+      "model_uncached_input_tokens": 19996,
+      "model_output_tokens": 994,
+      "model_reasoning_tokens": 402,
+      "usage_metrics_reported": true,
+      "command_count": 2,
+      "command_output_bytes": 28762,
+      "source_read_count": 4,
+      "source_read_output_bytes": 28762,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 5458,
+      "memory_context_token_estimate": 1365,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 2,
+      "expansion_file_count": 2,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "4c82a6334ab4ee2d7b50b6a0904406b3d0484222338e2dec0c9f402dfd826b66",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 3,
+        "pair_index": 1000003,
+        "variant_position": 2,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    }
+  ]
+}

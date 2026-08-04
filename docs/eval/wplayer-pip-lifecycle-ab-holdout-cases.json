@@ -1,0 +1,130 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-ab-wplayer",
+  "source_repository": "https://github.com/wbbb0/wPlayer.git",
+  "generated_at": "2026-08-02T00:00:00+08:00",
+  "generator": "reviewed-real-fix-agent-ab/v1",
+  "cases": [
+    {
+      "id": "wplayer-pip-startup-disposal-race",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Picture-in-picture entry can overlap teardown. A delayed startup may still minimize the host application or deliver callbacks after the playback runtime has disposed and then reused its PiP controller. Locate the lifecycle ownership defect and propose a safe boundary.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "query_variants": [
+        {
+          "id": "symptom",
+          "investigation_stage": "orientation",
+          "description": "Picture-in-picture startup races with teardown: delayed work can minimize the host app or mutate a reused controller after disposal. Locate the ArkTS owner."
+        },
+        {
+          "id": "mechanism",
+          "investigation_stage": "focused",
+          "description": "Locate the picture-in-picture lifecycle code that coordinates asynchronous controller creation, entry, callback ownership, and disposal."
+        }
+      ],
+      "source": {
+        "before_revision": "5e13c677f5b3e3b8b58d131f7f60574926ba8db8",
+        "after_revision": "d064c4b953bdc7ce458804a531909c4b68f44987",
+        "changed_files": [
+          "entry/src/main/ets/playback/pip/PlaybackPictureInPicture.ets",
+          "entry/src/main/ets/playback/pip/PlaybackPictureInPictureLifecycle.ets",
+          "entry/src/test/List.test.ets",
+          "entry/src/test/PlaybackPictureInPictureLifecycle.test.ets"
+        ],
+        "test_files": [
+          "entry/src/test/PlaybackPictureInPictureLifecycle.test.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "d064c4b953bdc7ce458804a531909c4b68f44987",
+        "commit_message": "fix: guard PiP startup disposal race",
+        "source_family": "wbbb0/wPlayer@pip-startup-disposal-race",
+        "independence_basis": "Previously unused external ArkTS repository and fix selected after the evaluation ledger design; the source and Oracle did not participate in retrieval implementation or threshold tuning."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "platform_api",
+          "event_binding"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/playback/pip/PlaybackPictureInPicture.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333,
+          "required_source_spans": [
+            {
+              "file_path": "entry/src/main/ets/playback/pip/PlaybackPictureInPicture.ets",
+              "start_line": 189,
+              "end_line": 210
+            },
+            {
+              "file_path": "entry/src/main/ets/playback/pip/PlaybackPictureInPicture.ets",
+              "start_line": 274,
+              "end_line": 305
+            },
+            {
+              "file_path": "entry/src/main/ets/playback/pip/PlaybackPictureInPicture.ets",
+              "start_line": 308,
+              "end_line": 325
+            }
+          ],
+          "min_source_span_recall": 0.6667
+        },
+        "verification_tests": [
+          "entry/src/test/PlaybackPictureInPictureLifecycle.test.ets"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "Run the frozen pre-fix source through the Context gate once, then run three paired Agent trials only if Context passes."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "require_seal": false,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  }
+}

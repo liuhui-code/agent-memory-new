@@ -8,6 +8,13 @@ from typing import Any, Protocol
 
 from .models import Project
 from .query_behavior_concepts import behavior_marker_terms
+from .query_definition_identity import explicit_owner_identity_match
+from .query_artifact_roles import (
+    annotate_artifact_roles,
+    artifact_role_rank_score,
+    artifact_role_shadow_priority,
+    artifact_role_tiebreak,
+)
 from .query_hierarchical_owners import load_one_hop_owners
 from .query_language import positive_retrieval_query
 from .query_localization_file_candidates import select_file_candidates
@@ -31,7 +38,6 @@ FILE_RANK_PRIOR_MAX = 12.0
 FILE_RANK_PRIOR_K = 10.0
 LOCALIZATION_SCHEMA_VERSION = "agent-hierarchical-localization/v2"
 LOCALIZATION_PROVIDER = "sqlite_hierarchical_localizer/v2"
-
 class HierarchicalLocalizerPort(Protocol):
     def localize(
         self,
@@ -41,7 +47,6 @@ class HierarchicalLocalizerPort(Protocol):
         direct_scores_safe: bool = False,
     ) -> dict[str, Any]:
         ...
-
 
 @dataclass(frozen=True)
 class SQLiteHierarchicalLocalizer:
@@ -230,11 +235,14 @@ def attach_candidate_metadata(
     direct_symbols: dict[int, dict[str, Any]],
 ) -> list[dict[str, Any]]:
     file_ranks = {str(item["file_path"]): index for index, item in enumerate(files, start=1)}
+    file_evidence = {str(item["file_path"]): item for item in files}
     result: list[dict[str, Any]] = []
     for row in rows:
         item = dict(row)
         direct = direct_symbols.get(int(item["id"]))
         item["file_rank"] = file_ranks.get(str(item.get("file_path") or ""), MAX_FILES + 1)
+        file_item = file_evidence.get(str(item.get("file_path") or ""), {})
+        item["file_structural_coverage"] = int(file_item.get("structural_coverage") or 0)
         item["direct_score"] = float(direct.get("score") or 0.0) if direct else 0.0
         item["direct_match_reasons"] = list(direct.get("match_reasons") or []) if direct else []
         item["direct_recall_lanes"] = list(direct.get("recall_lanes") or []) if direct else []
@@ -314,11 +322,15 @@ def rank_callables(
             score += min(9.0, 3.0 * len(mechanism_hits[0]["matched_terms"]))
             reasons.append("semantic_mechanism")
         owner_kind_match = matching_owner_kind(query, item.get("owner_kind"))
+        owner_identity_match = explicit_owner_identity_match(query, item.get("owner_name"))
         item["owner_kind_match"] = owner_kind_match
+        item["explicit_owner_identity_match"] = owner_identity_match
         item["target_owner_kind_match"] = matching_target_owner_kind(query, item.get("owner_kind"))
         if owner_kind_match:
             score += 6.0
             reasons.append("structured_owner_kind")
+        if owner_identity_match:
+            reasons.append("explicit_owner_identity")
         if item.get("graph_depth"):
             score += 3.0 + float(item.get("graph_confidence") or 0.0) * 3.0
             reasons.extend(f"graph_owner:{value}" for value in item.get("graph_relations") or [])
@@ -333,11 +345,15 @@ def rank_callables(
         ])
         item["mechanism_hits"] = mechanism_hits
         scored.append(item)
+    role_aware = annotate_artifact_roles(scored, query)
     return sorted(
-        scored,
+        role_aware,
         key=lambda item: (
+            artifact_role_shadow_priority(item),
+            -int(bool(item.get("explicit_owner_identity_match"))),
             -int(bool(item.get("target_owner_kind_match"))),
-            -float(item["localization_score"]),
+            -artifact_role_rank_score(item),
+            artifact_role_tiebreak(item),
             int(item.get("graph_depth") or 0),
             str(item.get("file_path") or ""),
             int(item.get("start_line") or 0),
@@ -427,7 +443,15 @@ def compact_callable(item: dict[str, Any]) -> dict[str, Any]:
         "recall_lanes": item.get("direct_recall_lanes") or [],
         "owner_name": item.get("owner_name"),
         "owner_kind": item.get("owner_kind"),
+        **({"file_structural_coverage": item.get("file_structural_coverage")}
+           if item.get("file_structural_coverage") else {}),
+        **({"explicit_owner_identity_match": True} if item.get("explicit_owner_identity_match") else {}),
         "callable_roles": json_list(item.get("callable_roles")),
+        "artifact_role": item.get("artifact_role"),
+        "artifact_query_intent": item.get("artifact_query_intent"),
+        **({"artifact_role_competition": True} if item.get("artifact_role_competition") else {}),
+        **({"artifact_role_representative": True} if item.get("artifact_role_representative") else {}),
+        **({"artifact_role_shadow": True} if item.get("artifact_role_shadow") else {}),
         **({"target_owner_kind_match": True} if item.get("target_owner_kind_match") else {}),
     }
 

@@ -31,6 +31,26 @@ class QueryLanguageExclusionTests(unittest.TestCase):
             query, {"file_path": "src/views/ArticleMarkupView.ets"},
         ))
 
+    def test_chinese_page_constraint_filters_page_not_component(self) -> None:
+        query = "定位复用组件的间距源码，不要返回列表页和详情页。"
+
+        self.assertTrue(excluded_code_candidate(
+            query, {"file_path": "src/pages/NotificationDetailsPage.ets"},
+        ))
+        self.assertFalse(excluded_code_candidate(
+            query, {"file_path": "src/widgets/NotificationRow.ets"},
+        ))
+
+    def test_chinese_service_constraint_filters_service_not_store(self) -> None:
+        query = "定位状态仓的提交所有者，不要返回服务或适配器。"
+
+        self.assertTrue(excluded_code_candidate(
+            query, {"file_path": "src/services/ProfileService.ets"},
+        ))
+        self.assertFalse(excluded_code_candidate(
+            query, {"file_path": "src/stores/ProfileStore.ets"},
+        ))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -5,6 +5,14 @@ from __future__ import annotations
 from typing import Any
 
 from .agent_benchmark_cost import COST_METRIC_FIELDS, evaluate_efficiency
+from .agent_benchmark_schedule import execution_order_audit
+from .agent_benchmark_mechanism import causal_level_satisfies, score_mechanism
+from .agent_benchmark_measurement import (
+    evidence_segments,
+    measurement_contract_audit,
+    memory_context_within_budget,
+    runner_configuration_consistent,
+)
 from .source_exploration import source_exploration_within_budget
 
 
@@ -20,10 +28,6 @@ CATEGORY_ALIASES = {
     "async": ("async", "await", "race", "ordering", "异步", "竞态", "时序"),
     "api": ("api", "interface", "endpoint", "接口"),
 }
-CAUSAL_LEVELS = {"association": 0, "supported": 1, "verified": 2}
-MEMORY_CONTEXT_TOKEN_BUDGET = 1500
-
-
 def evaluate_agent_benchmark(
     pack: dict[str, Any],
     cases: list[dict[str, Any]],
@@ -33,6 +37,8 @@ def evaluate_agent_benchmark(
     selected_observations = [
         item for item in observations if item.get("case_id") in selected_case_ids
     ]
+    order_audit = execution_order_audit(selected_observations)
+    measurement_audit = measurement_contract_audit(selected_observations)
     by_key: dict[tuple[str, str, int], dict[str, Any]] = {}
     duplicates: list[str] = []
     for item in observations:
@@ -70,11 +76,19 @@ def evaluate_agent_benchmark(
         "source_exploration_within_budget": source_exploration_within_budget(
             selected_observations
         ),
+        "counterbalanced_execution_order": (
+            not order_audit.get("enforced") or order_audit.get("status") == "pass"
+        ),
+        "measurement_contract_valid": (
+            not measurement_audit["enforced"] or measurement_audit["status"] == "pass"
+        ),
     }
     gate = "pass" if all(checks.values()) else "fail"
     efficiency = evaluate_efficiency(aggregates, selected_observations)
     return {
         "schema_version": "agent-benchmark-result/v1",
+        "execution_order": order_audit,
+        "measurement_contract": measurement_audit,
         "status": gate,
         "quality_gate": gate,
         "promotion_gate": (
@@ -98,6 +112,7 @@ def evaluate_agent_benchmark(
         **efficiency,
         "minimum_case_count": minimum,
         "cases": results,
+        "evidence_segments": evidence_segments(cases, results),
         "audit": {
             "llm_judge_used": False,
             "oracle_hidden_during_run": True,
@@ -178,6 +193,11 @@ def aggregate_trial_scores(values: list[dict[str, Any]]) -> dict[str, Any]:
             path for item in values for path in item["forbidden_files"]
         }),
         "causal_level_match": average(values, "causal_level_match"),
+        "mechanism_evidence_eligible": all(
+            item["mechanism_evidence_eligible"] for item in values
+        ),
+        "mechanism_evidence_score": average(values, "mechanism_evidence_score"),
+        "mechanism_grounded": average(values, "mechanism_grounded"),
         "verification_status": most_common(values, "verification_status"),
         "query_rounds": average(values, "query_rounds"),
         "source_search_count": average(values, "source_search_count"),
@@ -190,6 +210,9 @@ def aggregate_trial_scores(values: list[dict[str, Any]]) -> dict[str, Any]:
         "memory_context_bytes": average(values, "memory_context_bytes"),
         "memory_context_token_estimate": average(values, "memory_context_token_estimate"),
         "elapsed_ms": average(values, "elapsed_ms"),
+        "end_to_end_elapsed_ms": average(values, "end_to_end_elapsed_ms"),
+        "agent_elapsed_ms": average(values, "agent_elapsed_ms"),
+        "memory_retrieval_elapsed_ms": average(values, "memory_retrieval_elapsed_ms"),
         "source_file_count": average(values, "source_file_count"),
         "memory_anchor_hit_count": average(values, "memory_anchor_hit_count"),
         "memory_anchor_hit_rate": average(values, "memory_anchor_hit_rate"),
@@ -229,7 +252,12 @@ def score_observation(case: dict[str, Any], observation: dict[str, Any]) -> dict
     category_match = predicted_category == expected_category
     forbidden_hits = predicted & forbidden
     expected_level = str(oracle.get("expected_causal_level") or "")
-    causal_match = causal_level_satisfies(observation["causal_level"], expected_level)
+    mechanism = score_mechanism(oracle, observation)
+    causal_match = (
+        bool(mechanism["mechanism_grounded"])
+        if mechanism["mechanism_evidence_eligible"]
+        else causal_level_satisfies(observation["causal_level"], expected_level)
+    )
     quality = (
         0.4 * float(category_match)
         + 0.35 * recall
@@ -247,6 +275,11 @@ def score_observation(case: dict[str, Any], observation: dict[str, Any]) -> dict
         "forbidden_direction_hit": bool(forbidden_hits),
         "forbidden_files": sorted(forbidden_hits),
         "causal_level_match": causal_match,
+        "causal_level_source": (
+            "oracle_mechanism_evidence"
+            if mechanism["mechanism_evidence_eligible"] else "agent_reported_legacy"
+        ),
+        **mechanism,
         "verification_status": observation["verification_status"],
         "query_rounds": observation["query_rounds"],
         "source_search_count": observation.get("source_search_count", 0),
@@ -259,6 +292,13 @@ def score_observation(case: dict[str, Any], observation: dict[str, Any]) -> dict
         "memory_context_bytes": observation.get("memory_context_bytes", 0),
         "memory_context_token_estimate": observation.get("memory_context_token_estimate", 0),
         "elapsed_ms": observation["elapsed_ms"],
+        "end_to_end_elapsed_ms": observation.get(
+            "end_to_end_elapsed_ms", observation["elapsed_ms"]
+        ),
+        "agent_elapsed_ms": observation.get("agent_elapsed_ms", 0),
+        "memory_retrieval_elapsed_ms": observation.get(
+            "memory_retrieval_elapsed_ms", 0
+        ),
         "source_file_count": observation.get("source_file_count", 0),
         "memory_anchor_hit_count": observation.get("memory_anchor_hit_count", 0),
         "memory_anchor_hit_rate": anchor_hit_rate(observation),
@@ -287,18 +327,6 @@ def canonical_category(value: str) -> str:
     return lowered.replace(" ", "_")
 
 
-def causal_level_satisfies(observed: str, expected: str) -> bool:
-    if not expected:
-        return True
-    observed_level = str(observed or "").casefold()
-    expected_level = str(expected or "").casefold()
-    if observed_level == "rejected" or expected_level == "rejected":
-        return observed_level == expected_level
-    if observed_level not in CAUSAL_LEVELS or expected_level not in CAUSAL_LEVELS:
-        return observed_level == expected_level
-    return CAUSAL_LEVELS[observed_level] >= CAUSAL_LEVELS[expected_level]
-
-
 def aggregate_variant(results: list[dict[str, Any]], variant: str) -> dict[str, Any]:
     values = [item["variants"][variant] for item in results if variant in item["variants"]]
     return {
@@ -309,6 +337,7 @@ def aggregate_variant(results: list[dict[str, Any]], variant: str) -> dict[str, 
         "predicted_file_precision": average(values, "predicted_file_precision"),
         "forbidden_direction_rate": average(values, "forbidden_direction_hit"),
         "causal_calibration_accuracy": average(values, "causal_level_match"),
+        "mechanism_evidence_score": average(values, "mechanism_evidence_score"),
         "verification_pass_rate": value_rate(values, "verification_status", "pass"),
         "average_query_rounds": average(values, "query_rounds"),
         "average_source_search_count": average(values, "source_search_count"),
@@ -320,6 +349,11 @@ def aggregate_variant(results: list[dict[str, Any]], variant: str) -> dict[str, 
         "average_memory_context_bytes": average(values, "memory_context_bytes"),
         "average_memory_context_token_estimate": average(values, "memory_context_token_estimate"),
         "average_elapsed_ms": average(values, "elapsed_ms"),
+        "average_end_to_end_elapsed_ms": average(values, "end_to_end_elapsed_ms"),
+        "average_agent_elapsed_ms": average(values, "agent_elapsed_ms"),
+        "average_memory_retrieval_elapsed_ms": average(
+            values, "memory_retrieval_elapsed_ms"
+        ),
         "average_source_file_count": average(values, "source_file_count"),
         "average_memory_anchor_hit_count": average(values, "memory_anchor_hit_count"),
         "average_memory_anchor_hit_rate": average(values, "memory_anchor_hit_rate"),
@@ -453,36 +487,3 @@ def rounded_difference(left: Any, right: Any) -> float | None:
     if not isinstance(left, (int, float)) or not isinstance(right, (int, float)):
         return None
     return round(float(left) - float(right), 4)
-
-
-def runner_configuration_consistent(observations: list[dict[str, Any]]) -> bool:
-    values = [
-        item.get("runner_metadata")
-        for item in observations
-        if isinstance(item.get("runner_metadata"), dict)
-    ]
-    if not values:
-        return True
-    if len(values) != len(observations):
-        return False
-    return len({
-        repr(sorted(value.items()))
-        for value in values
-    }) == 1
-
-
-def memory_context_within_budget(observations: list[dict[str, Any]]) -> bool:
-    memory = [item for item in observations if item.get("variant") == "memory"]
-    reported = [
-        item for item in memory
-        if item.get(
-            "memory_context_metrics_reported",
-            "memory_context_token_estimate" in item,
-        )
-    ]
-    if not reported:
-        return True
-    return len(reported) == len(memory) and all(
-        0 < int(item["memory_context_token_estimate"]) <= MEMORY_CONTEXT_TOKEN_BUDGET
-        for item in reported
-    )

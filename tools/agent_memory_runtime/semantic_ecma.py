@@ -11,6 +11,7 @@ from .ecma_braces import block_end
 from .ecma_callable_headers import function_header, method_header
 from .models import Project
 from .semantic_ecma_callbacks import callback_callable_specs
+from .semantic_ecma_objects import object_container_specs
 from .semantic_ecma_mechanisms import extract_callable_mechanisms
 from .semantic_callable_profile import callable_roles, owner_kind
 from .semantic_dispatch_candidates import expand_dispatch_candidates
@@ -19,8 +20,6 @@ from .semantic_models import (
     SemanticRelation, source_digest, symbol_key,
 )
 from .source_call_scanner import call_argument_count, code_mask, scan_calls_masked
-
-
 CONTAINER_RE = re.compile(
     r"^\s*(export\s+)?(?:default\s+)?(class|struct|interface)\s+([A-Za-z_$][\w$]*)"
     r"(?:\s+extends\s+([A-Za-z_$][\w$]*))?(?:[^\n{]*?\s+implements\s+([^\n{]+))?"
@@ -33,8 +32,6 @@ IMPORT_RE = re.compile(r"(?m)^\s*import\s*\{([^}]+)\}\s*from\s*['\"]([^'\"]+)['\
 DEFAULT_IMPORT_RE = re.compile(
     r"(?m)^\s*import\s+([A-Za-z_$][\w$]*)\s+from\s*['\"]([^'\"]+)['\"]"
 )
-
-
 @dataclass
 class Container:
     name: str
@@ -45,8 +42,6 @@ class Container:
     extends: str | None
     implements: list[str]
     entity: SemanticEntity
-
-
 @dataclass
 class CallableBlock:
     owner: str | None
@@ -186,6 +181,13 @@ def parse_containers(lines: list[str], language: str, file_path: str) -> list[Co
             implements=[item.strip() for item in (implements or "").split(",") if item.strip()],
             entity=entity,
         ))
+    for spec in object_container_specs(lines):
+        entity = make_entity(language, file_path, spec.name, "object", spec.name,
+            f"const {spec.name}", spec.start + 1, spec.end + 1, spec.exported,
+            owner_kind=owner_kind(spec.name, "object", file_path))
+        result.append(Container(spec.name, "object", spec.start, spec.end,
+            spec.exported, None, [], entity))
+    result.sort(key=lambda item: item.start)
     return result
 
 

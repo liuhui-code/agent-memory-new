@@ -1,5 +1,74 @@
 # Local Development Log
 
+## 2026-08-03 - Isolate Context in Agent A/B Measurement v2
+
+What changed:
+- Replaced the Memory-only investigation prompt with one shared protocol and source
+  budget. Baseline receives a null Context payload; Memory receives the metadata-only
+  projection. A v2 treatment audit rejects Context or protocol parity violations.
+- Moved elapsed-time start ahead of Memory query and report end-to-end, Agent, and
+  retrieval latency separately. Added full protocol component and Context exposure
+  digests; Context capability records both full-gate and external-Agent projections.
+- Added optional Oracle mechanism spans and Agent mechanism evidence. New cases receive
+  causal credit only for matching file/symbol/range evidence; legacy self-reported causal
+  levels remain replayable but are labeled legacy.
+- Split Mutation/protocol calibration from real-case metrics and added paired mean,
+  median, and worst-case Token, uncached-input, output, latency, search, and read effects.
+- Corrected the prior 18-call report: its lower exploration cost is a combined Context
+  plus investigation-protocol signal, not demonstrated Context-only efficiency.
+
+Verification:
+- Added red-first tests for shared treatment, exposure redaction, measurement audit,
+  end-to-end fields, mechanism grounding, evidence segmentation, and paired cost tails.
+- Full suite passes 885/885 with loopback-only Runner tests executed outside the
+  socket-restricted sandbox. Compile, 167 evaluation JSON files, diff hygiene, four
+  Skills, and the repository-wide 500-line Python gate pass.
+- Existing consumed cases, Oracles, responses, and Runtime serving behavior were not
+  modified or rerun.
+
+## 2026-08-03 - Calibrate Paired Agent A/B Measurement
+
+Files changed:
+- Agent benchmark scheduling, protocol, evaluator, Codex Runner metadata, focused
+  tests, two Development case packs, Context results, and campaign design record.
+
+What changed:
+- Replaced the fixed Baseline-then-Memory order with a deterministic
+  `alternating_case_trial_parity/v1` schedule. Every observation records case,
+  trial, pair, variant position, and first variant; the evaluator rejects incomplete
+  or materially unbalanced reported pairs while retaining legacy response compatibility.
+- Added a stable prompt-protocol digest to Runner metadata and controlled scorer
+  calibration cases that order complete, over-predicted, wrong-category, and
+  unsupported answers.
+- Preregistered one construct-known route Mutation and two reviewed real ArkTS Git
+  fixes from Youtube Music ArkTS Clone and Dimina. Three trials produce nine pairs
+  with a 5:4 Baseline-first/Memory-first balance and 18 independent calls.
+- Ran the Context-only layer before Agent calls. The Mutation passes; the Youtube
+  list-merge and Dimina TabBar cases fail. Youtube loses the target after candidate
+  recall; Dimina selects the TabBar container instead of the concrete component.
+
+Verification:
+- Full non-sandbox suite passes 877/877. Focused schedule/scorer/fingerprint tests,
+  Python compilation, all evaluation JSON, diff hygiene, exactly four Skills, and
+  the repository-wide 500-line Python gate pass.
+- CI and million scale profiles pass latency, SQL-plan, and incremental-maintenance
+  gates. The million profile covers 1,000,000 searchable entities, 3,000,000 edges,
+  and a 2.26 GB SQLite database; candidate hit/miss P95 is 125.509/48.742 ms and
+  large-method incremental P95 is 1,292.558 ms.
+- Completed all 18 authorized Codex calls as nine complete pairs. Cross-pack order
+  audit passes with five Baseline-first and four Memory-first pairs; one model and
+  one prompt digest were used throughout. Offline replay reproduced the scores
+  without another Agent call.
+- Outcome quality is unchanged: Baseline and Memory both average 0.9111, so no
+  quality uplift or serving promotion is claimed. The old combined Memory treatment
+  reports Token -45.88%, Agent-only elapsed time -28.91%, searches -75.00%, and reads
+  -50.82%. Because only Memory received the strict investigation protocol and query
+  latency was excluded, these are not Context-only gains.
+- The Mutation is a quality ceiling. Youtube shows a compact target-loss defect with
+  mixed Agent utility. Dimina misses the exact owner Context gate and forms only a
+  near-neighbor efficiency hypothesis under a confounded treatment. No threshold or
+  serving behavior was changed from these results.
+
 ## 2026-08-01 - Converge Incident Memory On Agent-Structured Outcomes
 
 Files changed:
@@ -8752,3 +8821,110 @@ Result:
 - A full serial test discovery run was stopped in the existing high-cost
   `test_agent_memory_part_12` group after sustained low throughput and no observed
   failures. It is not reported as a full-suite pass.
+
+## 2026-08-02 - Enforce one-shot holdout runs and attempt a trustworthy Agent A/B
+
+What changed:
+
+- Added an atomic SQLite evaluation run ledger shared by Context capability and Agent
+  benchmark facades. Classified sealed holdouts reserve their seal before evaluation;
+  duplicate, concurrent, failed, and interrupted runs remain consumed.
+- Enforced a same-seal predecessor contract: Agent A/B cannot start unless the Context
+  run is completed and passing. Development and calibration evaluations remain repeatable.
+- Added six isolated ledger tests covering successful completion, result digests,
+  failure consumption, predecessor blocking, development bypass, and concurrent races.
+- Reviewed and sealed a previously unused real `wbbb0/wPlayer` PiP startup/disposal race,
+  then persisted its single model-free Context result and governance plan.
+
+Result:
+
+- The wPlayer Git revision audit verifies all four declared changed files. Seal digest is
+  `42e8ce9655fcd48e2b71fa544705d58c5d31984bfda1975f74c4b10e70daf340`.
+- Both frozen query variants find the only expected file at rank one with 1.0 recall and
+  precision, but source-span recall is 0.3333 and 0.0. The first proven loss is
+  callable/passage selection, while compactness passes at 1,378.5 average tokens.
+- Context gate is 0/2 and promotion-ineligible. Agent call count is zero; the case is
+  consumed and was not edited, rerun, or used to tune retrieval.
+- The production holdout Agent gate requires at least 10 cases. No second single-case
+  retry was attempted, because optional stopping would create selection bias and still
+  could not satisfy the benchmark contract.
+
+## 2026-08-02 - Close evidence-continuity development and stop correlated A/B retries
+
+What changed:
+
+- Added generic ECMA object-literal containers and typed arrow-property callable ranges.
+- Added definition/reference identity, artifact-role evidence, strict structural
+  dominance, and bounded same-owner multi-callable source passages.
+- Made compact source reservation evidence-aware so actual multi-passage size is bounded
+  and governed procedure/correction memory survives source pressure.
+- Added four independent development packs and documented external-campaign anti-gate-
+  shopping rules.
+
+Result:
+
+- Development packs pass 2/2, 3/3, 3/3, and 2/2. Full capability evaluation improves
+  from 154/231 to 158/231 with no pass-to-fail and lower average context size.
+- wPlayer portfolio Context gates v1-v4 are 7/10, 9/10, 9/10, and 9/10. v4 remains
+  promotion-ineligible, so Agent calls are zero and no Agent A/B claim is made.
+- The campaign stops at v4 because all portfolios share one source family. A new
+  preregistered source family is required; a v5 selection would be optional stopping.
+- CI and million scale gates pass. The million profile covers 1,000,000 searchable
+  entities and 3,000,000 edges in 2.263 GB, with candidate-hit P95 95.420 ms,
+  callable-pool P95 8.231 ms, and large-method refresh P95 1,103.362 ms.
+- Python compile, 149 evaluation JSON files, diff, four-Skill, and 500-line checks pass.
+- The final full suite passes 863/863 outside the socket-restricted sandbox.
+
+## 2026-08-03 - Preregister and consume the RNOH Context predecessor
+
+What changed:
+
+- Selected a previously unused ArkTS source family, `ohosgg/rnoh`, and reviewed ten
+  real fixes with full parent revisions, changed files, issue/commit symptoms, and
+  repository-owned tester or Jest regressions.
+- Preregistered case order, one Context attempt, Codex Runner, `gpt-5.5`, low reasoning,
+  three paired trials, 900-second timeout, and fail-closed stop rules before sealing.
+- Sealed the pack as
+  `d594346a45832eb120d7267fcf6755dedd11818c49644c485702a69d2f4584f6`
+  and executed the complete Context predecessor exactly once.
+
+Result:
+
+- Context passes 2/10 at 1,425.7 average tokens. Candidate-file recall@20 is 0.9,
+  hierarchical file recall is 0.5, final anchor recall is 0.4, and MRR is 0.4667.
+- First losses are candidate-file for two cases, localizer-file for five, and
+  primary-evidence for two. These are external hypotheses, not tuning evidence.
+- Promotion is ineligible. The ledger has one completed failed Context row and no
+  Agent row for this seal, so Agent calls remain zero and no A/B claim is made.
+- The RNOH pack is consumed and will not be changed, rerun, or replaced by another
+  same-source portfolio.
+
+## 2026-08-03 - Attempt a third independent ArkTS Agent A/B predecessor
+
+What changed:
+
+- Selected the previously unused official OpenHarmony
+  `applications_permission_manager` repository and reviewed ten real single-parent
+  behavior fixes across async initialization, callback contracts, lifecycle cleanup,
+  platform errors, UI fallback, permission state, device guards, and localization.
+- Preregistered the fixed case order, one Context attempt, Codex `gpt-5.5` low-reasoning
+  Runner, three paired trials, 900-second timeout, evidence boundary, and stop rules.
+- Audited every parent/fix relation and every declared changed/Oracle file, then sealed
+  the pack as
+  `bc330f138584991aa230d53f026505b52a0c8b5b1ffe70d2d17bbf918333d9ce`.
+
+Result:
+
+- The one-shot Context predecessor passes 2/10 at 1,466.5 average tokens. Candidate-file
+  recall@20 is 0.95, hierarchical file recall is 0.5333, final anchor and source excerpt
+  recall are 0.35, anchor precision is 0.2333, and MRR is 0.5.
+- First losses are candidate-file for one case, localizer-file for six, and
+  primary-evidence for three. Compactness passes; evidence selection does not.
+- Promotion is ineligible. SQLite contains one completed failed Context row and no
+  Agent row for this seal, so Agent calls remain zero and no source-only/Context A/B
+  quality or cost claim is made.
+- The pack and result are consumed, preserved, and prohibited from tuning or rerun.
+- Verification passes: all 158 evaluation JSON files parse, the six ledger tests pass,
+  Python compilation passes with a sandbox-local bytecode cache, `git diff --check`
+  passes, exactly four Skills remain, and all 395 Python files stay at or below 500
+  lines. The persisted result digest exactly matches the SQLite ledger digest.

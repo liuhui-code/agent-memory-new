@@ -30,6 +30,15 @@ EXCLUDED_ROLE_TERMS = {
     "record", "reporter", "repository", "service", "store", "type", "view", "viewmodel",
 }
 EXAMPLE_ROLE_TERMS = {"demo", "demos", "example", "examples", "sample", "samples"}
+NEGATIVE_ROLE_ALIASES = (
+    (re.compile(r"(?:列表|详情|设置|状态|加载)?(?:页|页面)"), "page"),
+    (re.compile(r"组件"), "component"),
+    (re.compile(r"服务"), "service"),
+    (re.compile(r"仓库"), "repository"),
+    (re.compile(r"适配器"), "adapter"),
+    (re.compile(r"视图模型"), "viewmodel"),
+    (re.compile(r"数据模型|模型"), "model"),
+)
 TARGET_ROLE_PATTERNS = (
     (re.compile(r"\beditor\b", re.I), "editor"),
     (re.compile(r"\b(?:edit|editing)\s+(?:screen|page|side)\b", re.I), "editor"),
@@ -86,6 +95,10 @@ def excluded_code_candidate(query: str, item: dict[str, object]) -> bool:
         term for clause in clauses for term in re.findall(r"[a-z]+", clause.casefold())
         if term in EXCLUDED_ROLE_TERMS
     }
+    roles.update(
+        role for clause in clauses for pattern, role in NEGATIVE_ROLE_ALIASES
+        if pattern.search(clause)
+    )
     normalized = re.sub(r"[^a-z0-9]", "", text.casefold())
     identifiers = {
         re.sub(r"[^a-z0-9]", "", value.casefold())

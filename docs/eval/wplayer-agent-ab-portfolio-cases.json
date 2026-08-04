@@ -1,0 +1,397 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-ab-wplayer",
+  "source_repository": "https://github.com/wbbb0/wPlayer.git",
+  "generated_at": "2026-08-03T01:30:00+08:00",
+  "generator": "reviewed-real-fix-agent-ab-portfolio/v1",
+  "cases": [
+    {
+      "id": "wplayer-interruptible-player-morph",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A full-player open or close animation can be interrupted by a new drag, leaving the presented position discontinuous. Inspect how PlayerMorphController beginMorphPhase and beginFullPlayerVerticalGesture transfer ownership between animation and gesture state.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "db8075c1cd5857229f55d8660364c6f2a5dc000c",
+        "after_revision": "918734aecef191174981e86f5f866f590785cb28",
+        "changed_files": ["entry/src/main/ets/components/player/PlayerMorphController.ets"],
+        "test_files": ["entry/src/test/PlayerMorphPolicy.test.ets"]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "918734aecef191174981e86f5f866f590785cb28",
+        "commit_message": "fix(player): make full-player motion interruptible",
+        "source_family": "wbbb0/wPlayer@interruptible-player-morph",
+        "independence_basis": "Previously unconsumed real fix selected as one member of a preregistered ten-case portfolio before any portfolio query was run."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["service"],
+        "mechanism_kinds": ["async_control", "ui_state"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/components/player/PlayerMorphController.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333},
+        "verification_tests": ["entry/src/test/PlayerMorphPolicy.test.ets"]
+      },
+      "review": {"source_diff_reviewed": true, "remaining_gate": "One-shot portfolio Context gate, then paired Agent A/B only on pass."},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-detail-selection-title-refresh",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Changing multi-selection on a library detail page does not refresh its title-bar actions. Inspect ResponsiveNavigationDestinationContent build and the detail title-menu callbacks that consume selection state.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "a035f49342fdd0c23933cd9e65f377ee5493f6a3",
+        "after_revision": "776aa7d3dd7a4192c1dc5c8c423177d5703c3dd2",
+        "changed_files": ["entry/src/main/ets/components/navigation/ResponsiveNavigationRouteContent.ets"]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "776aa7d3dd7a4192c1dc5c8c423177d5703c3dd2",
+        "commit_message": "fix detail multi-selection title-bar refresh",
+        "source_family": "wbbb0/wPlayer@detail-selection-title-refresh",
+        "independence_basis": "Previously unconsumed production fix selected before portfolio execution; no retrieval threshold or case output was observed."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable"],
+        "artifact_roles": ["component"],
+        "mechanism_kinds": ["ui_state"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/components/navigation/ResponsiveNavigationRouteContent.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}
+      },
+      "review": {"source_diff_reviewed": true, "remaining_gate": "One-shot portfolio Context gate, then paired Agent A/B only on pass."},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-tab-reselection-root",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After switching tabs, tapping the active tab again may fail to return that tab to its root. Inspect IndexNavigationController handleCompactTabBarClick and handleExpandedTabBarClick reselection state.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "4a6e473848354b44ecb3ca70ade9492eb9bae428",
+        "after_revision": "f8698bb447bea10b5f19a02e88c01db42c36b3d4",
+        "changed_files": ["entry/src/main/ets/components/navigation/IndexNavigationController.ets"],
+        "test_files": ["entry/src/test/TabReselection.test.ets"]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "f8698bb447bea10b5f19a02e88c01db42c36b3d4",
+        "commit_message": "fix tab reselection root behavior",
+        "source_family": "wbbb0/wPlayer@tab-reselection-root",
+        "independence_basis": "Previously unconsumed navigation fix and regression test selected before portfolio execution."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable"],
+        "artifact_roles": ["service"],
+        "mechanism_kinds": ["navigation", "ui_state"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/components/navigation/IndexNavigationController.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "route",
+        "expected_causal_level": "supported",
+        "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333},
+        "verification_tests": ["entry/src/test/TabReselection.test.ets"]
+      },
+      "review": {"source_diff_reviewed": true, "remaining_gate": "One-shot portfolio Context gate, then paired Agent A/B only on pass."},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-api26-system-bar-capability",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "On API 26 or a 2-in-1 device, system-bar calls may be unsupported and reject during startup. Inspect HarmonySystemBarWindow setSystemBarEnable and setSystemBarProperties capability boundaries.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "dd8cd315cfeb62fa0d62f8585a96ee23c05363cc",
+        "after_revision": "39c6e9aa7cd3b38b3de79adf5133f7983d2fe3fe",
+        "changed_files": ["entry/src/main/ets/appearance/SystemBarStyleController.ets"]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "39c6e9aa7cd3b38b3de79adf5133f7983d2fe3fe",
+        "commit_message": "fix: handle API 26 device compatibility",
+        "source_family": "wbbb0/wPlayer@api26-system-bar-capability",
+        "independence_basis": "Previously unconsumed compatibility fix selected before portfolio execution."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["adapter"],
+        "mechanism_kinds": ["platform_api", "error_contract"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/appearance/SystemBarStyleController.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "api",
+        "expected_causal_level": "supported",
+        "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}
+      },
+      "review": {"source_diff_reviewed": true, "remaining_gate": "One-shot portfolio Context gate, then paired Agent A/B only on pass."},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-playlist-detail-live-sync",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A playlist detail view can keep stale counts or item identity after another view changes the playlist. Inspect PlaylistDetailPage Header and list item-key consumption of the live store detail.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "753e9f990eca363f2928ed628ba16f1f3a6a3eee",
+        "after_revision": "8c6744f112dc1dda436f5766ad9bc59ef0f69f9c",
+        "changed_files": ["entry/src/main/ets/pages/library/PlaylistDetailPage.ets"],
+        "test_files": ["entry/src/test/LibraryListDataSource.test.ets"]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "8c6744f112dc1dda436f5766ad9bc59ef0f69f9c",
+        "commit_message": "fix: keep playlist views in sync",
+        "source_family": "wbbb0/wPlayer@playlist-detail-live-sync",
+        "independence_basis": "Previously unconsumed store/view synchronization fix selected before portfolio execution."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable"],
+        "artifact_roles": ["page"],
+        "mechanism_kinds": ["ui_state", "persistence"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/pages/library/PlaylistDetailPage.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333},
+        "verification_tests": ["entry/src/test/LibraryListDataSource.test.ets"]
+      },
+      "review": {"source_diff_reviewed": true, "remaining_gate": "One-shot portfolio Context gate, then paired Agent A/B only on pass."},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-full-player-system-bar-replay",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Full-player system-bar style can be lost across layout frames or stale async completion. Inspect SystemBarStyleController reapplyCurrentStyle and apply ordering around window replacement.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "639d6b2dbe891be2c20a43104bec1c685129f8e7",
+        "after_revision": "397212e076037d04c008289674cafdbd78dbf941",
+        "changed_files": ["entry/src/main/ets/appearance/SystemBarStyleController.ets"],
+        "test_files": ["entry/src/test/SystemBarStyleController.test.ets"]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "397212e076037d04c008289674cafdbd78dbf941",
+        "commit_message": "fix: stabilize full-player system bars",
+        "source_family": "wbbb0/wPlayer@full-player-system-bar-replay",
+        "independence_basis": "Previously unconsumed async style replay fix and regression test selected before portfolio execution."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["service"],
+        "mechanism_kinds": ["async_control", "platform_api", "ui_state"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/appearance/SystemBarStyleController.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333},
+        "verification_tests": ["entry/src/test/SystemBarStyleController.test.ets"]
+      },
+      "review": {"source_diff_reviewed": true, "remaining_gate": "One-shot portfolio Context gate, then paired Agent A/B only on pass."},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-full-player-back-priority",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Pressing Back while the full player is active can navigate the destination stack instead of closing the player. Inspect PlayerMorphController handleBackPress and the navigation-shell back boundary.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "f7df0e6ebdbb0c4074ba7a4011dd1059940910d5",
+        "after_revision": "3f56a9e0fcc6c39aae3255dcc5432c5ab267349d",
+        "changed_files": ["entry/src/main/ets/components/player/PlayerMorphController.ets"],
+        "test_files": ["entry/src/test/PlayerMorphPolicy.test.ets"]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "3f56a9e0fcc6c39aae3255dcc5432c5ab267349d",
+        "commit_message": "fix: prioritize full player back handling",
+        "source_family": "wbbb0/wPlayer@full-player-back-priority",
+        "independence_basis": "Previously unconsumed Back-routing fix and regression test selected before portfolio execution."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable"],
+        "artifact_roles": ["service"],
+        "mechanism_kinds": ["navigation", "ui_state"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/components/player/PlayerMorphController.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "route",
+        "expected_causal_level": "supported",
+        "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333},
+        "verification_tests": ["entry/src/test/PlayerMorphPolicy.test.ets"]
+      },
+      "review": {"source_diff_reviewed": true, "remaining_gate": "One-shot portfolio Context gate, then paired Agent A/B only on pass."},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-gradient-touch-through",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Buttons under the bottom player gradient cannot receive touches even though the overlay is visual-only. Inspect PageBottomGradient build and its hitTestBehavior contract.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "caa780c8c9f655816c81c3678e9b4bec1dcfc63b",
+        "after_revision": "5e75fe3512a8295edf118d9526a09d3ccd7c85a3",
+        "changed_files": ["entry/src/main/ets/components/layout/PageBottomGradient.ets"]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "5e75fe3512a8295edf118d9526a09d3ccd7c85a3",
+        "commit_message": "fix: pass touches through player overlays",
+        "source_family": "wbbb0/wPlayer@gradient-touch-through",
+        "independence_basis": "Previously unconsumed hit-testing fix selected before portfolio execution."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["component"],
+        "mechanism_kinds": ["event_binding", "ui_state"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/components/layout/PageBottomGradient.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}
+      },
+      "review": {"source_diff_reviewed": true, "remaining_gate": "One-shot portfolio Context gate, then paired Agent A/B only on pass."},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-output-reconnect-resume-guard",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Audio may resume long after an output device reconnects, or after the user has changed playback intent. Inspect OutputReconnectPolicy recordOutputUnavailable and shouldResume state ownership.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "cc4355a31feb323ff979da8357a41f558417ae3f",
+        "after_revision": "91ab52010f21dcc332c5d383c3badbb6b0e24be9",
+        "changed_files": ["entry/src/main/ets/playback/support/OutputReconnectPolicy.ets"],
+        "test_files": ["entry/src/test/OutputReconnectPolicy.test.ets"]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "91ab52010f21dcc332c5d383c3badbb6b0e24be9",
+        "commit_message": "Add guarded audio resume controls",
+        "source_family": "wbbb0/wPlayer@output-reconnect-resume-guard",
+        "independence_basis": "Previously unconsumed playback-intent fix and regression test selected before portfolio execution."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["service"],
+        "mechanism_kinds": ["async_control", "ui_state"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/playback/support/OutputReconnectPolicy.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333},
+        "verification_tests": ["entry/src/test/OutputReconnectPolicy.test.ets"]
+      },
+      "review": {"source_diff_reviewed": true, "remaining_gate": "One-shot portfolio Context gate, then paired Agent A/B only on pass."},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-artwork-morph-handoff",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Opening the full player can reveal a blank or stale artwork frame before the morph overlay is ready. Inspect PlayerMorphController freezeMorphArtworkSource and releaseMorphArtworkSource handoff ownership.",
+        "constraints": ["Do not inspect Git history or a later revision."]
+      },
+      "source": {
+        "before_revision": "3a788f9af1e98e2d5b1cb771723da45c224949bf",
+        "after_revision": "922573852f389d7477066fe346c0c777052be09e",
+        "changed_files": ["entry/src/main/ets/components/player/PlayerMorphController.ets"]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "922573852f389d7477066fe346c0c777052be09e",
+        "commit_message": "fix: stabilize player artwork handoff",
+        "source_family": "wbbb0/wPlayer@artwork-morph-handoff",
+        "independence_basis": "Previously unconsumed artwork-handoff fix selected before portfolio execution."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": ["file", "callable", "expression"],
+        "artifact_roles": ["service"],
+        "mechanism_kinds": ["resource_io", "async_control", "ui_state"]
+      },
+      "oracle": {
+        "expected_files": ["entry/src/main/ets/components/player/PlayerMorphController.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "resource",
+        "expected_causal_level": "supported",
+        "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}
+      },
+      "review": {"source_diff_reviewed": true, "remaining_gate": "One-shot portfolio Context gate, then paired Agent A/B only on pass."},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "require_seal": false,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  }
+}

@@ -47,9 +47,9 @@ def enforce_budget(
         lambda: [path.__setitem__("uncertainty", path.get("uncertainty", [])[:1]) for path in paths],
         lambda: handoff.__setitem__("code_anchors", handoff["code_anchors"][:3]),
         lambda: handoff.__setitem__("log_keywords", handoff["log_keywords"][:8]),
+        lambda: handoff.__setitem__("callable_evidence", {}),
         lambda: handoff.__setitem__("experience_refs", handoff["experience_refs"][:1]),
         lambda: handoff.__setitem__("semantic_refs", handoff["semantic_refs"][:1]),
-        lambda: handoff.__setitem__("callable_evidence", {}),
         lambda: handoff["path_context"].__setitem__("path_candidates", paths[:2]),
         lambda: payload.__setitem__("blocked_memory_notes", payload["blocked_memory_notes"][:1]),
         lambda: payload.__setitem__("conflict_notes", payload["conflict_notes"][:1]),
@@ -98,10 +98,13 @@ def reduce_final_payload(payload: dict[str, Any]) -> bool:
         return True
     if payload.pop("expansion", None) is not None:
         return True
-    excerpt = longest_excerpt(handoff, owner=False) or longest_excerpt(handoff, owner=True)
-    if excerpt and trim_excerpt(excerpt):
-        update_excerpt_policy(handoff)
+    if reduce_callable_evidence_metadata(handoff):
         return True
+    if memory_evidence_present(payload, handoff):
+        excerpt = longest_excerpt(handoff, owner=False) or longest_excerpt(handoff, owner=True)
+        if excerpt and trim_excerpt(excerpt):
+            update_excerpt_policy(handoff)
+            return True
     for key in ("relation_hints", "semantic_refs", "experience_refs"):
         if handoff.get(key):
             handoff[key] = handoff[key][:-1]
@@ -118,7 +121,40 @@ def reduce_final_payload(payload: dict[str, Any]) -> bool:
         return True
     if reduce_redundant_source_metadata(handoff):
         return True
+    excerpt = longest_excerpt(handoff, owner=False) or longest_excerpt(handoff, owner=True)
+    if excerpt and trim_excerpt(excerpt):
+        update_excerpt_policy(handoff)
+        return True
     return reduce_empty_or_optional_groups(payload)
+
+
+def memory_evidence_present(
+    payload: dict[str, Any], handoff: dict[str, Any],
+) -> bool:
+    if handoff.get("experience_refs"):
+        return True
+    return any(payload.get(key) for key in (
+        "correction_guards", "semantic_patch_notes", "blocked_memory_notes",
+    ))
+
+
+def reduce_callable_evidence_metadata(handoff: dict[str, Any]) -> bool:
+    evidence = handoff.get("callable_evidence")
+    if not isinstance(evidence, dict) or not evidence:
+        return False
+    alternatives = evidence.get("alternatives")
+    if isinstance(alternatives, list) and alternatives:
+        evidence["alternatives"] = alternatives[:-1]
+        return True
+    primary = evidence.get("primary")
+    if isinstance(primary, dict):
+        for key in (
+            "reasons", "callable_roles", "score", "evidence_score",
+            "file_structural_coverage", "owner_kind", "owner_name",
+        ):
+            if primary.pop(key, None) is not None:
+                return True
+    return False
 
 
 def longest_excerpt(handoff: dict[str, Any], owner: bool) -> dict[str, Any] | None:

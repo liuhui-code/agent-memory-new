@@ -1,0 +1,711 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-ab-permission-manager",
+  "source_repository": "https://github.com/openharmony/applications_permission_manager",
+  "generated_at": "2026-08-03T09:43:26+08:00",
+  "generator": "preregistered-reviewed-real-fix-agent-ab/v1",
+  "cases": [
+    {
+      "id": "permission-app-label-await",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The security permission dialog can open before the caller application label has loaded, leaving the initial name stale. Locate the asynchronous initialization owner that must finish clone identity and application label lookup before opening the dialog.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "5175f480168e4be468dbf13db0ee217768c6e768",
+        "after_revision": "f3b5e5890c613e53b1b1c3f4afe7753fddbba738",
+        "changed_files": [
+          "permissionmanager/src/main/ets/pages/securityDialog.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "f3b5e5890c613e53b1b1c3f4afe7753fddbba738",
+        "commit_message": "promise接口用await去等待",
+        "source_family": "openharmony/applications_permission_manager@app-label-await",
+        "independence_basis": "Previously unused official OpenHarmony repository and fix selected before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "page"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "platform_api"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "permissionmanager/src/main/ets/pages/securityDialog.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "permission-dialog-cancel-result",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Callers cannot distinguish a granted security dialog from cancellation or window-creation failure. Locate the callback result contract and the dialog actions that must return distinct outcomes while reclaiming RPC resources.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "13c4dbdf49a8579092e973af3792d2451d602472",
+        "after_revision": "9241a87d5aa40a8f1b5bd56395560db54879d645",
+        "changed_files": [
+          "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ets",
+          "permissionmanager/src/main/ets/common/model/definition.ets",
+          "permissionmanager/src/main/ets/common/utils/utils.ets",
+          "permissionmanager/src/main/ets/pages/securityDialog.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "9241a87d5aa40a8f1b5bd56395560db54879d645",
+        "commit_message": "add userCancelEvent",
+        "source_family": "openharmony/applications_permission_manager@dialog-cancel-result",
+        "independence_basis": "Previously unused official OpenHarmony repository and fix selected before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "service",
+          "utility",
+          "page"
+        ],
+        "mechanism_kinds": [
+          "event_binding",
+          "error_contract",
+          "platform_api"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ets",
+          "permissionmanager/src/main/ets/common/utils/utils.ets",
+          "permissionmanager/src/main/ets/pages/securityDialog.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "api",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "permission-wearable-swipe-cleanup",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Dismissing the wearable security dialog with the system swipe gesture leaves its window and dialog registration alive. Locate the custom-dialog cancellation path that must share the normal cleanup flow.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "2f927a0e3777490bce17d1b0c1057ca5a6f8c9ca",
+        "after_revision": "cafa400bf9f51e2e644bb272444cd37451265908",
+        "changed_files": [
+          "permissionmanager/src/main/ets/pages/securityDialog.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "cafa400bf9f51e2e644bb272444cd37451265908",
+        "commit_message": "右滑应用退出后，销毁窗口",
+        "source_family": "openharmony/applications_permission_manager@wearable-swipe-cleanup",
+        "independence_basis": "Previously unused official OpenHarmony repository and fix selected before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "page"
+        ],
+        "mechanism_kinds": [
+          "event_binding",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "permissionmanager/src/main/ets/pages/securityDialog.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "permission-global-switch-result-contract",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The half-modal global privacy switch returns the permission-array payload used by a different dialog, so callers read the wrong result field. Locate the global-switch completion and cancellation contract.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "2dc7b207278527c7c7d09b5fe898d959be82a0f2",
+        "after_revision": "3db359da3796d0c21fe4dfcbf7a0a6d0472f7996",
+        "changed_files": [
+          "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetDialog.ets",
+          "permissionmanager/src/main/ets/common/utils/utils.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "3db359da3796d0c21fe4dfcbf7a0a6d0472f7996",
+        "commit_message": "半模态全局弹窗返回值校正",
+        "source_family": "openharmony/applications_permission_manager@global-switch-result-contract",
+        "independence_basis": "Previously unused official OpenHarmony repository and fix selected before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "page",
+          "utility"
+        ],
+        "mechanism_kinds": [
+          "event_binding",
+          "error_contract"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetDialog.ets",
+          "permissionmanager/src/main/ets/common/utils/utils.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "api",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "permission-toast-api-exception-boundary",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A security toast can terminate initialization when display or window avoid-area APIs throw. Locate the toast lifecycle calls that need local exception boundaries so remaining setup can continue.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "3b2569eb465b0925b21a9127ae9d4287703dbe6a",
+        "after_revision": "4531dc338abb069c1a256e62eb4ee30aa28b1522",
+        "changed_files": [
+          "permissionmanager/src/main/ets/pages/securityToast.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "4531dc338abb069c1a256e62eb4ee30aa28b1522",
+        "commit_message": "API未使用try-catch或.catch捕获异常",
+        "source_family": "openharmony/applications_permission_manager@toast-api-exception-boundary",
+        "independence_basis": "Previously unused official OpenHarmony repository and fix selected before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "page"
+        ],
+        "mechanism_kinds": [
+          "platform_api",
+          "error_contract"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "permissionmanager/src/main/ets/pages/securityToast.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "api",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "permission-toast-font-range-fallback",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The security toast title can render with an abnormal size when the adaptive minimum and maximum font interval is invalid. Locate the text style that needs an explicit preferred size fallback.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "f1ac3bf9d05ab280412544f80ff07a47becedf4e",
+        "after_revision": "57a9fbb683e3c69fc782f2142490e3362c34f442",
+        "changed_files": [
+          "permissionmanager/src/main/ets/pages/securityToast.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "57a9fbb683e3c69fc782f2142490e3362c34f442",
+        "commit_message": "minFontSize至maxFontSize的区间出现异常后，执行fontSize的设置",
+        "source_family": "openharmony/applications_permission_manager@toast-font-range-fallback",
+        "independence_basis": "Previously unused official OpenHarmony repository and fix selected before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "expression"
+        ],
+        "artifact_roles": [
+          "page"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "permissionmanager/src/main/ets/pages/securityToast.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "permission-precise-location-grant-revoke",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The precise-location toggle and permission option rows can display state that diverges from grant or revoke results. Locate the shared permission operation boundary and the page state transitions that use it.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "12035d0f0f997a4cff626d247ccf4d00c8396e51",
+        "after_revision": "ecf6e41e54170a372761a22091dafa60a8946b79",
+        "changed_files": [
+          "permissionmanager/src/main/ets/common/model/typedef.ets",
+          "permissionmanager/src/main/ets/common/utils/permissionUtils.ets",
+          "permissionmanager/src/main/ets/pages/application-tertiary.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "ecf6e41e54170a372761a22091dafa60a8946b79",
+        "commit_message": "精确位置bug修复",
+        "source_family": "openharmony/applications_permission_manager@precise-location-grant-revoke",
+        "independence_basis": "Previously unused official OpenHarmony repository and fix selected before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "page",
+          "utility"
+        ],
+        "mechanism_kinds": [
+          "platform_api",
+          "ui_state",
+          "async_control"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "permissionmanager/src/main/ets/common/utils/permissionUtils.ets",
+          "permissionmanager/src/main/ets/pages/application-tertiary.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "permission-wearable-isolated-page-guard",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Permission sheet and service extension entry points can launch isolated dialog pages on wearable devices that do not support them. Locate the lifecycle boundaries that must terminate before session or window creation.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "b2cba4ee1d87a5e7fe64d3c24f038fbb9b828986",
+        "after_revision": "d7d4a11eba23c2770d80a99e48ea7f957564e777",
+        "changed_files": [
+          "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetAbility.ets",
+          "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetAbility.ets",
+          "permissionmanager/src/main/ets/ServiceExtAbility/ServiceExtAbility.ts"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "d7d4a11eba23c2770d80a99e48ea7f957564e777",
+        "commit_message": "隔离页面被拉起",
+        "source_family": "openharmony/applications_permission_manager@wearable-isolated-page-guard",
+        "independence_basis": "Previously unused official OpenHarmony repository and fix selected before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "platform_api",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetAbility.ets",
+          "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetAbility.ets",
+          "permissionmanager/src/main/ets/ServiceExtAbility/ServiceExtAbility.ts"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "permission-floating-session-content-cleanup",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "When a permission sheet falls back to a floating window, the original UI extension session can retain its content and background instead of becoming an empty transparent host. Locate the fallback window creation handoff.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "140e395e9ad64cfa1e3db3aaf9e72405946b5f36",
+        "after_revision": "f954b48d048f8adbd1cd29742c8d1c605a804a1a",
+        "changed_files": [
+          "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetAbility.ets",
+          "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetAbility.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "f954b48d048f8adbd1cd29742c8d1c605a804a1a",
+        "commit_message": "半模态弹窗自动销毁修复",
+        "source_family": "openharmony/applications_permission_manager@floating-session-content-cleanup",
+        "independence_basis": "Previously unused official OpenHarmony repository and fix selected before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state",
+          "platform_api"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "permissionmanager/src/main/ets/PermissionSheet/GlobalSwitchSheetAbility.ets",
+          "permissionmanager/src/main/ets/PermissionSheet/PermissionStateSheetAbility.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "permission-language-refresh-clone-label",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "After a language configuration change, the security dialog intermittently keeps an old application label, especially across primary and cloned applications. Locate the configuration persistence timing and label refresh branches.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "4855d5016df8f057570189455f83966d7ffb6ed9",
+        "after_revision": "03ce6a0be7a6417671848ea1db78d777fca6cd1b",
+        "changed_files": [
+          "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ts",
+          "permissionmanager/src/main/ets/pages/securityDialog.ets"
+        ],
+        "test_files": []
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "03ce6a0be7a6417671848ea1db78d777fca6cd1b",
+        "commit_message": "多语言切换有概率失败",
+        "source_family": "openharmony/applications_permission_manager@language-refresh-clone-label",
+        "independence_basis": "Previously unused official OpenHarmony repository and fix selected before any Context query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service",
+          "page"
+        ],
+        "mechanism_kinds": [
+          "persistence",
+          "async_control",
+          "resource_io"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "permissionmanager/src/main/ets/SecurityExtAbility/SecurityExtAbility.ts",
+          "permissionmanager/src/main/ets/pages/securityDialog.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 10,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-08-03T01:46:45+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 10,
+    "digest": "bc330f138584991aa230d53f026505b52a0c8b5b1ffe70d2d17bbf918333d9ce"
+  }
+}

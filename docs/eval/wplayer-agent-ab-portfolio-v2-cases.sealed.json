@@ -1,0 +1,706 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-ab-wplayer",
+  "source_repository": "https://github.com/wbbb0/wPlayer.git",
+  "generated_at": "2026-08-03T02:35:12+08:00",
+  "generator": "reviewed-real-fix-agent-ab-portfolio/v2",
+  "cases": [
+    {
+      "id": "wplayer-api23-mini-bar-layout",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "On API 23, compact or expanded mini-bar construction can fail when an unsupported horizontal layout option is forced. Inspect ResponsiveNavigationShell compactTabsFloatingStyle and expandedTabsFloatingStyle option construction.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "db5cb145f49970bf3567d6df5e845769b7ceebf2",
+        "after_revision": "95af627ac1d864239240ae76e3c7d19c71779938",
+        "changed_files": [
+          "entry/src/main/ets/components/navigation/ResponsiveNavigationShell.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "95af627ac1d864239240ae76e3c7d19c71779938",
+        "commit_message": "API23 compatibility fix",
+        "source_family": "wbbb0/wPlayer@api23-mini-bar-layout",
+        "independence_basis": "Previously unconsumed platform-compatibility fix selected before any v2 portfolio query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "component"
+        ],
+        "mechanism_kinds": [
+          "platform_api",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/navigation/ResponsiveNavigationShell.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "api",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "One-shot v2 Context gate, then paired Agent A/B only on pass."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-artwork-pixel-layout-colors",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Flattening semi-transparent artwork can shift rows or swap red and blue when the source PixelMap has padded stride. Inspect ArtworkCache flattenOntoWhite pixel reads and channel conversion.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "1ce10451480c601222e7a0005fa6acd9d27a74e5",
+        "after_revision": "54867f0f16331c09d8d42360ed0fb9869e2b39e9",
+        "changed_files": [
+          "entry/src/main/ets/library/artwork/ArtworkCache.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "54867f0f16331c09d8d42360ed0fb9869e2b39e9",
+        "commit_message": "fix: preserve artwork pixel layout and colors",
+        "source_family": "wbbb0/wPlayer@artwork-pixel-layout-colors",
+        "independence_basis": "Previously unconsumed image-buffer correctness fix selected before any v2 portfolio query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "resource_io",
+          "platform_api"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/library/artwork/ArtworkCache.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "resource",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "One-shot v2 Context gate, then paired Agent A/B only on pass."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-empty-playlist-actions",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "An empty playlist still exposes playback actions and provides no useful empty state. Inspect PlaylistDetailPage Header, PlaybackActions, and build state selection.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "9b56fcf6da4757c6aa5c81224b167f37801b381a",
+        "after_revision": "0f9bbd9065fe6e64ee1efae17183b5664c74f06c",
+        "changed_files": [
+          "entry/src/main/ets/pages/library/PlaylistDetailPage.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "0f9bbd9065fe6e64ee1efae17183b5664c74f06c",
+        "commit_message": "Hide playlist detail actions when empty",
+        "source_family": "wbbb0/wPlayer@empty-playlist-actions",
+        "independence_basis": "Previously unconsumed playlist empty-state fix selected before any v2 portfolio query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "page"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/library/PlaylistDetailPage.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "One-shot v2 Context gate, then paired Agent A/B only on pass."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-two-pane-width-threshold",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A landscape phone can enter full-player two-pane mode even though each pane is too narrow. Inspect FullPlayerPagerSpec paneCount and its width boundary.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "51ef3094a732511091ca40c3af00220933353717",
+        "after_revision": "c2413a2a87399edfc8bb93856ac031bcbbc973c3",
+        "changed_files": [
+          "entry/src/main/ets/components/player/PlayerMotion.ets"
+        ],
+        "test_files": [
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "c2413a2a87399edfc8bb93856ac031bcbbc973c3",
+        "commit_message": "fix: constrain full-player two-pane layout",
+        "source_family": "wbbb0/wPlayer@two-pane-width-threshold",
+        "independence_basis": "Previously unconsumed responsive-layout fix with regression coverage selected before any v2 portfolio query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/player/PlayerMotion.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "One-shot v2 Context gate, then paired Agent A/B only on pass."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-album-grid-minimum-columns",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A narrow album grid can collapse to one column instead of preserving two usable columns. Inspect PageLayoutSpec albumColumnsTemplate, albumColumnCount, and albumItemWidth.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "cb4bc40633c43d07885cde47d7b0e271657d304d",
+        "after_revision": "87ecd140ae63e7d653c37d7538e91ad07fb0f69a",
+        "changed_files": [
+          "entry/src/main/ets/components/layout/PageLayoutSpec.ets"
+        ],
+        "test_files": [
+          "entry/src/test/AlbumGridLayout.test.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "87ecd140ae63e7d653c37d7538e91ad07fb0f69a",
+        "commit_message": "fix: keep album grids at least two columns",
+        "source_family": "wbbb0/wPlayer@album-grid-minimum-columns",
+        "independence_basis": "Previously unconsumed album-layout policy fix with a dedicated regression test selected before any v2 portfolio query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/layout/PageLayoutSpec.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "entry/src/test/AlbumGridLayout.test.ets"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "One-shot v2 Context gate, then paired Agent A/B only on pass."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-system-bar-theme-sync",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "System-bar icon contrast can remain stale when artwork palette, appearance, window availability, or player morph phase changes. Inspect Index SystemBarContentSynchronizer and setSystemBarContentColor update ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "733e0639ef6eba4f241cfa250482ed5b8a05e008",
+        "after_revision": "4e496f2979e2307112088f40d26c2052fc5ce25f",
+        "changed_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "4e496f2979e2307112088f40d26c2052fc5ce25f",
+        "commit_message": "fix(ui): synchronize player system bar contrast",
+        "source_family": "wbbb0/wPlayer@system-bar-theme-sync",
+        "independence_basis": "Previously unconsumed system-bar state synchronization fix selected before any v2 portfolio query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "page"
+        ],
+        "mechanism_kinds": [
+          "platform_api",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/Index.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "One-shot v2 Context gate, then paired Agent A/B only on pass."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-restored-position-reset",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Restoring a persisted playback queue can erase its saved position before the track is loaded. Inspect PlaybackRuntime restoreQueue, beginTrack, loadAndPlayTrack, and persistProgress state ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "7531ce6ec9e798eee3fd784b54b24c5e722e2b60",
+        "after_revision": "09179df4b5d53f9a7e2c8aafaea239ac1c23f5a1",
+        "changed_files": [
+          "entry/src/main/ets/playback/PlaybackRuntime.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "09179df4b5d53f9a7e2c8aafaea239ac1c23f5a1",
+        "commit_message": "fix(player): persist only last playback position",
+        "source_family": "wbbb0/wPlayer@restored-position-reset",
+        "independence_basis": "Previously unconsumed playback-resume persistence fix selected before any v2 portfolio query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "persistence",
+          "async_control",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/playback/PlaybackRuntime.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "One-shot v2 Context gate, then paired Agent A/B only on pass."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-empty-artist-fallback",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "A loaded track with an empty artist displays the no-track prompt instead of the unknown-artist fallback in full-player headers. Inspect FullPlayerContent artist label rendering in LyricsHeader and CoverPage.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "f1cb992402a83b9d5510b65427cb50b3f7a6c0bc",
+        "after_revision": "6b2e806c42321c166efd3fb29d90d94aa2a2dd2c",
+        "changed_files": [
+          "entry/src/main/ets/components/player/FullPlayerContent.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "6b2e806c42321c166efd3fb29d90d94aa2a2dd2c",
+        "commit_message": "fix(player): preserve queue shadow and artist fallback",
+        "source_family": "wbbb0/wPlayer@empty-artist-fallback",
+        "independence_basis": "Previously unconsumed player-label fallback fix selected before any v2 portfolio query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "component"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/player/FullPlayerContent.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "One-shot v2 Context gate, then paired Agent A/B only on pass."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-pause-during-load",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Pausing while a track is still loading can be overwritten by the async completion and start playback anyway. Inspect PlaybackRuntime play, pause, onStateChanged, and loadAndPlayTrack intent flow.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "470050246d59ccd5e325037ee59a3fa52edb4459",
+        "after_revision": "f1cb992402a83b9d5510b65427cb50b3f7a6c0bc",
+        "changed_files": [
+          "entry/src/main/ets/playback/PlaybackRuntime.ets",
+          "entry/src/main/ets/playback/engine/PlaybackEngine.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "f1cb992402a83b9d5510b65427cb50b3f7a6c0bc",
+        "commit_message": "Stabilize optimistic playback state",
+        "source_family": "wbbb0/wPlayer@pause-during-load",
+        "independence_basis": "Previously unconsumed asynchronous playback-intent fix selected before any v2 portfolio query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/playback/PlaybackRuntime.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "One-shot v2 Context gate, then paired Agent A/B only on pass."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-lyrics-missing-fraction",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "LRC lines with minute-and-second timestamps but no fractional part can produce invalid timing instead of whole-second positions. Inspect LyricsParser parse fraction handling.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "07cf0a436676da76f8a41818f9788fef21daefcf",
+        "after_revision": "bcbaa4272e39c75e5c9eed1bfaaa2d3301aa6ad5",
+        "changed_files": [
+          "entry/src/main/ets/playback/lyrics/LyricsParser.ets"
+        ],
+        "test_files": [
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "bcbaa4272e39c75e5c9eed1bfaaa2d3301aa6ad5",
+        "commit_message": "fix: improve lyrics gestures and timing",
+        "source_family": "wbbb0/wPlayer@lyrics-missing-fraction",
+        "independence_basis": "Previously unconsumed lyrics timestamp parsing fix with regression coverage selected before any v2 portfolio query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable",
+          "expression"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "error_contract"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/playback/lyrics/LyricsParser.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "data",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "remaining_gate": "One-shot v2 Context gate, then paired Agent A/B only on pass."
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 10,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-08-02T18:39:03+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 10,
+    "digest": "48582098d3d36c8041c331c59cce1814144571dae38c9900f9f74c34b7b10518"
+  }
+}

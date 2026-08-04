@@ -247,6 +247,43 @@ export class Worker{index} implements Contract {{
         self.assertEqual("component", rows[0]["owner_kind"])
         self.assertIn("state_write", json.loads(rows[0]["callable_roles"]))
 
+    def test_object_literal_policy_owns_callable_properties(self) -> None:
+        self.write_file(
+            "policy/MotionGeometry.ets",
+            """
+export const MotionGeometryPolicy = {
+  viewportVisibility: (width: number): number => {
+    return width > 840 ? 1 : 0
+  },
+  frozenTargetX: (width: number): number => {
+    return MotionGeometryPolicy.viewportVisibility(width) * width
+  },
+}
+""",
+        )
+
+        self.learn_all()
+        rows = self.db_rows(
+            """
+            SELECT symbol, symbol_type, qualified_name, owner_name
+            FROM code_symbols
+            WHERE project_id = ? AND file_path = 'policy/MotionGeometry.ets'
+              AND semantic_adapter IS NOT NULL
+            ORDER BY start_line, symbol
+            """,
+            (self.project_id(self.project),),
+        )
+
+        by_symbol = {row["symbol"]: row for row in rows}
+        self.assertEqual("object", by_symbol["MotionGeometryPolicy"]["symbol_type"])
+        self.assertEqual(
+            "MotionGeometryPolicy.viewportVisibility@2",
+            by_symbol["viewportVisibility"]["qualified_name"],
+        )
+        self.assertEqual(
+            "MotionGeometryPolicy", by_symbol["frozenTargetX"]["owner_name"],
+        )
+
     def test_static_async_arkts_methods_receive_semantic_identity(self) -> None:
         self.write_file(
             "service/StaticService.ets",

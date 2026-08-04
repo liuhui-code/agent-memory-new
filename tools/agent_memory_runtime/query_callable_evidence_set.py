@@ -10,9 +10,8 @@ from .query_language import (
     excluded_code_candidate,
     excluded_result_identifiers,
     excluded_result_roles,
-    positive_retrieval_query,
 )
-from .semantic_callable_profile import MULTI_TARGET_RE
+from .query_target_scope import classify_target_scope
 from .text import identifier_tokens, unique_list
 
 
@@ -20,16 +19,6 @@ SCHEMA_VERSION = "agent-callable-evidence-set/v1"
 MAX_MEMBERS = 3
 IDENTITY_REASONS = {"exact_function", "exact_identifier", "exact_symbol"}
 PRIMARY_SUPPORT_KINDS = {"typed_target_owner", "direct_identity", "graph_support"}
-SINGLE_TARGET_RE = re.compile(
-    r"\b(?:return|locate|find|identify)\s+(?:only\b|(?:the\s+)?(?:one|single)\b)|"
-    r"\b(?:return|locate|find|identify)\s+the\s+"
-    r"(?:ability|class|component|controller|coordinator|implementation|method|owner|"
-    r"page|policy|repository|service|source|store|view|viewmodel)\b|"
-    r"只返回|唯一(?:的)?(?:源码|方法|所有者|组件|页面|服务|协调器)",
-    re.IGNORECASE,
-)
-
-
 class CallableEvidenceSetProvider(Protocol):
     def build(
         self,
@@ -56,7 +45,7 @@ class StaticCallableEvidenceSetProvider:
         members = [member(query, item, ranges, index) for index, item in enumerate(
             ordered[:MAX_MEMBERS], start=1,
         )]
-        scope = target_scope(query)
+        scope = classify_target_scope(query)
         competition = competition_facts(members)
         return {
             "schema_version": SCHEMA_VERSION,
@@ -76,15 +65,6 @@ def build_callable_evidence_set(
     evidence: dict[str, Any],
 ) -> dict[str, Any]:
     return StaticCallableEvidenceSetProvider().build(query, localization, evidence)
-
-
-def target_scope(query: str) -> dict[str, Any]:
-    positive = positive_retrieval_query(query)
-    if MULTI_TARGET_RE.search(positive):
-        return {"kind": "multiple", "basis": ["explicit_multi_target_cue"]}
-    if SINGLE_TARGET_RE.search(positive):
-        return {"kind": "single", "basis": ["explicit_single_target_cue"]}
-    return {"kind": "unknown", "basis": ["no_explicit_target_scope"]}
 
 
 def primary_first(
@@ -127,6 +107,12 @@ def member(
         "symbol": symbol,
         "owner_name": item.get("owner_name"),
         "owner_kind": item.get("owner_kind"),
+        "explicit_owner_identity_match": item.get("explicit_owner_identity_match"),
+        "artifact_role": item.get("artifact_role"),
+        "artifact_query_intent": item.get("artifact_query_intent"),
+        "artifact_role_competition": item.get("artifact_role_competition"),
+        "artifact_role_representative": item.get("artifact_role_representative"),
+        "artifact_role_shadow": item.get("artifact_role_shadow"),
         "source_locatable": source_locatable,
         "support_kinds": unique_list(support),
         "graph_relations": strings(item.get("graph_relations"))[:4],

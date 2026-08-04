@@ -6,12 +6,14 @@ from pathlib import PurePosixPath
 from typing import Any
 
 from .query_behavior_concepts import behavior_marker_terms
+from .query_definition_identity import explicit_definition_identity
 from .text import terms_from_text, unique_list
 
 
 MAX_FILES_PER_DIRECTORY = 2
 MAX_STRUCTURAL_FILE_RESERVATIONS = 3
 MAX_IDENTITY_FILE_RESERVATIONS = 3
+MAX_DEFINITION_FILE_RESERVATIONS = 3
 IDENTITY_REASONS = {
     "exact_file_path",
     "exact_identifier",
@@ -31,11 +33,13 @@ def select_file_candidates(
     if limit <= 0:
         return []
     behavior_query = bool(behavior_markers)
+    definitions = definition_reservations(ordered, limit)
     identity = identity_reservations(ordered, limit) if behavior_query else []
     reserved = structural_reservations(ordered, behavior_query, limit)
     selected, deferred = select_with_directory_limit(
-        [*identity, *reserved, *ordered],
+        [*definitions, *identity, *reserved, *ordered],
         limit,
+        {str(item["file_path"]) for item in definitions},
     )
     if len(selected) < limit:
         selected.extend(deferred[: limit - len(selected)])
@@ -76,6 +80,7 @@ def new_file_candidate(path: str, rank: int) -> dict[str, Any]:
         "match_reasons": [],
         "recall_lanes": [],
         "structural_coverage": 0,
+        "definition_identity": False,
     }
 
 
@@ -109,6 +114,17 @@ def merge_file_candidate(
         int(candidate["structural_coverage"]),
         structural_coverage(item, behavior_markers),
     )
+    candidate["definition_identity"] = bool(
+        candidate["definition_identity"] or explicit_definition_identity(item)
+    )
+
+
+def definition_reservations(
+    ordered: list[dict[str, Any]], limit: int,
+) -> list[dict[str, Any]]:
+    return [
+        item for item in ordered if item.get("definition_identity")
+    ][: min(limit, MAX_DEFINITION_FILE_RESERVATIONS)]
 
 
 def structural_coverage(
@@ -165,18 +181,20 @@ def identity_reservations(
 def select_with_directory_limit(
     items: list[dict[str, Any]],
     limit: int,
+    protected_paths: set[str] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     selected: list[dict[str, Any]] = []
     deferred: list[dict[str, Any]] = []
     selected_paths: set[str] = set()
     deferred_paths: set[str] = set()
     directories: dict[str, int] = {}
+    protected = protected_paths or set()
     for item in items:
         path = str(item["file_path"])
         if path in selected_paths or path in deferred_paths:
             continue
         directory = str(PurePosixPath(path).parent)
-        if directories.get(directory, 0) >= MAX_FILES_PER_DIRECTORY:
+        if path not in protected and directories.get(directory, 0) >= MAX_FILES_PER_DIRECTORY:
             deferred.append(item)
             deferred_paths.add(path)
             continue

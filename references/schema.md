@@ -29,6 +29,11 @@ Storage lives in a memory home, defaulting to the current workspace `./.agent-me
 - `experience_usage_events`: actual task-use observations for semantic facts and reflections.
 - `semantic_conflicts`: durable review records for conflicting business summaries.
 - `runtime_schema_versions`: component migration versions for FTS and derived edge metadata.
+- `evaluation_runs`: append-only control records for one-shot classified sealed holdout
+  Context and Agent runs. A unique `(project_id, run_kind, seal_digest)` reservation is
+  written before source or Runner access; `running`, `completed`, and `failed` are all
+  consumed states. Completed rows keep only gate status and a canonical result digest,
+  never source bodies, Oracle content, Runner output, or Agent reasoning.
 
 `code_files`, `code_symbols`, and `code_log_statements` also store Agent-authored business semantics:
 

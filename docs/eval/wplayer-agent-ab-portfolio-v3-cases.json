@@ -1,0 +1,115 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-ab-wplayer",
+  "source_repository": "https://github.com/wbbb0/wPlayer.git",
+  "generated_at": "2026-08-03T03:10:00+08:00",
+  "generator": "reviewed-real-fix-agent-ab-portfolio/v3",
+  "cases": [
+    {
+      "id": "wplayer-full-player-foreground-color",
+      "task_type": "diagnosis", "review_status": "holdout",
+      "task": {"description": "Full-player foreground controls can inherit a dark theme color and lose contrast over artwork. Inspect PlayerMotionSpec foreground color ownership and its full-player consumers.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "4d712de8582465c76d15902d7b03717d2babdd32", "after_revision": "d9bea79f375a0e5bd03e382c7aa981a162db6b6e", "changed_files": ["entry/src/main/ets/components/player/PlayerMotion.ets"], "test_files": ["entry/src/test/PlayerMorphPolicy.test.ets"]},
+      "provenance": {"kind": "git_fix_with_regression_tests", "fix_commit": "d9bea79f375a0e5bd03e382c7aa981a162db6b6e", "commit_message": "fix: keep full-player foreground white", "source_family": "wbbb0/wPlayer@full-player-foreground-color", "independence_basis": "Previously unconsumed visual-contrast fix selected before any v3 portfolio query."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable"], "artifact_roles": ["service"], "mechanism_kinds": ["ui_state"]},
+      "oracle": {"expected_files": ["entry/src/main/ets/components/player/PlayerMotion.ets"], "forbidden_files": [], "root_cause_category": "state", "expected_causal_level": "supported", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}, "verification_tests": ["entry/src/test/PlayerMorphPolicy.test.ets"]},
+      "review": {"source_diff_reviewed": true}, "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-file-check-cancellation-pipeline",
+      "task_type": "diagnosis", "review_status": "holdout",
+      "task": {"description": "Cancelling a large music-file check can leave scan or artwork work running and delay the final result. Inspect MediaImporter checkFiles cancellation, scan slots, artwork scheduling, and completion barriers.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "0be04a1b729170a87a8b7b3cd832862d3337abb0", "after_revision": "f6282246bc9d26d7f35ede5bd566a2bad0be93d7", "changed_files": ["entry/src/main/ets/library/importer/MediaImporter.ets"], "test_files": ["entry/src/test/RiskRegression.test.ets"]},
+      "provenance": {"kind": "git_fix_with_regression_tests", "fix_commit": "f6282246bc9d26d7f35ede5bd566a2bad0be93d7", "commit_message": "optimize music file-check pipeline and interruption", "source_family": "wbbb0/wPlayer@file-check-cancellation-pipeline", "independence_basis": "Previously unconsumed file-check cancellation fix selected before any v3 portfolio query."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable", "expression"], "artifact_roles": ["service"], "mechanism_kinds": ["async_control", "resource_io"]},
+      "oracle": {"expected_files": ["entry/src/main/ets/library/importer/MediaImporter.ets"], "forbidden_files": [], "root_cause_category": "resource", "expected_causal_level": "supported", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}, "verification_tests": ["entry/src/test/RiskRegression.test.ets"]},
+      "review": {"source_diff_reviewed": true}, "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-complete-playlist-detail-loading",
+      "task_type": "diagnosis", "review_status": "holdout",
+      "task": {"description": "A playlist detail or playback action can operate on only the first page instead of the complete playlist. Inspect PlaylistStore loadDetail, getAllTracks, and pagination completion behavior.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "1c7dee9ac6a1328628caf750f5402442ed2c23da", "after_revision": "d5d771c121e383a3b4cdc19009bacc4b1527c23c", "changed_files": ["entry/src/main/ets/playlist/store/PlaylistStore.ets"]},
+      "provenance": {"kind": "git_fix", "fix_commit": "d5d771c121e383a3b4cdc19009bacc4b1527c23c", "commit_message": "fix responsive previews and playlist loading", "source_family": "wbbb0/wPlayer@complete-playlist-detail-loading", "independence_basis": "Previously unconsumed complete-playlist loading fix selected before any v3 portfolio query."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable"], "artifact_roles": ["store"], "mechanism_kinds": ["persistence", "async_control"]},
+      "oracle": {"expected_files": ["entry/src/main/ets/playlist/store/PlaylistStore.ets"], "forbidden_files": [], "root_cause_category": "data", "expected_causal_level": "supported", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}},
+      "review": {"source_diff_reviewed": true}, "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-mini-player-gesture-priority",
+      "task_type": "diagnosis", "review_status": "holdout",
+      "task": {"description": "Dragging the mini-player capsule can compete with child gestures, producing unreliable open or back behavior. Inspect MiniPlayerSurface build gesture arbitration and pan ownership.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "93ed0ad6feedded7c963b8327d27254d452c7068", "after_revision": "b4af1f3fdbf71fb2c0259afc9310bdd90c7555c5", "changed_files": ["entry/src/main/ets/components/player/MiniPlayerSurface.ets"]},
+      "provenance": {"kind": "git_fix", "fix_commit": "b4af1f3fdbf71fb2c0259afc9310bdd90c7555c5", "commit_message": "fix player capsule gesture and back behavior", "source_family": "wbbb0/wPlayer@mini-player-gesture-priority", "independence_basis": "Previously unconsumed gesture-arbitration fix selected before any v3 portfolio query."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable", "expression"], "artifact_roles": ["component"], "mechanism_kinds": ["ui_state"]},
+      "oracle": {"expected_files": ["entry/src/main/ets/components/player/MiniPlayerSurface.ets"], "forbidden_files": [], "root_cause_category": "state", "expected_causal_level": "supported", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}},
+      "review": {"source_diff_reviewed": true}, "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-playback-button-page-morph",
+      "task_type": "diagnosis", "review_status": "holdout",
+      "task": {"description": "The playback button and artwork can jump when morphing from a side full-player page because the frozen target ignores page visibility. Inspect FullPlayerPagerSpec pageViewportVisibility and frozenMorphPageTargetX.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "73a55b7b14ecac7f42f7e7780f13051aad11649c", "after_revision": "ae4fc9eba852972acc41cc21faf459fa817d5efd", "changed_files": ["entry/src/main/ets/components/player/PlayerMotion.ets"], "test_files": ["entry/src/test/RiskRegression.test.ets"]},
+      "provenance": {"kind": "git_fix_with_regression_tests", "fix_commit": "ae4fc9eba852972acc41cc21faf459fa817d5efd", "commit_message": "fix: refine playback button morph", "source_family": "wbbb0/wPlayer@playback-button-page-morph", "independence_basis": "Previously unconsumed page-aware morph geometry fix selected before any v3 portfolio query."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable", "expression"], "artifact_roles": ["service"], "mechanism_kinds": ["ui_state"]},
+      "oracle": {"expected_files": ["entry/src/main/ets/components/player/PlayerMotion.ets"], "forbidden_files": [], "root_cause_category": "state", "expected_causal_level": "supported", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}, "verification_tests": ["entry/src/test/RiskRegression.test.ets"]},
+      "review": {"source_diff_reviewed": true}, "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-import-progress-throttling",
+      "task_type": "diagnosis", "review_status": "holdout",
+      "task": {"description": "Large imports and file checks can flood progress callbacks and starve UI work. Inspect MediaImporter notify, notifyFileCheck, shouldNotify, and yieldToUi boundaries.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "ef8b2abb8e607c8cf2abfb0bfd5d6cc070f060b6", "after_revision": "bf50aeec21f3de19347a3169a3ca6b4968a48fb0", "changed_files": ["entry/src/main/ets/library/importer/MediaImporter.ets"], "test_files": ["entry/src/test/RiskRegression.test.ets"]},
+      "provenance": {"kind": "git_fix_with_regression_tests", "fix_commit": "bf50aeec21f3de19347a3169a3ca6b4968a48fb0", "commit_message": "perf: keep import and file check responsive", "source_family": "wbbb0/wPlayer@import-progress-throttling", "independence_basis": "Previously unconsumed progress-throttling fix selected before any v3 portfolio query."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable", "expression"], "artifact_roles": ["service"], "mechanism_kinds": ["async_control"]},
+      "oracle": {"expected_files": ["entry/src/main/ets/library/importer/MediaImporter.ets"], "forbidden_files": [], "root_cause_category": "performance", "expected_causal_level": "supported", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}, "verification_tests": ["entry/src/test/RiskRegression.test.ets"]},
+      "review": {"source_diff_reviewed": true}, "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-import-artwork-backpressure",
+      "task_type": "diagnosis", "review_status": "holdout",
+      "task": {"description": "A large library import can enqueue unbounded artwork promises and retain too much work. Inspect MediaImporter file-check artwork requests and processArtworkWorks backpressure.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "95807368ad6f3f33280e0f5ac30cdce25019e8ad", "after_revision": "e77f8f94b4b5c5376330dc61bed7de603bf86089", "changed_files": ["entry/src/main/ets/library/importer/MediaImporter.ets"], "test_files": ["entry/src/test/ArtworkWorkSession.test.ets"]},
+      "provenance": {"kind": "git_fix_with_regression_tests", "fix_commit": "e77f8f94b4b5c5376330dc61bed7de603bf86089", "commit_message": "perf: bound artwork work during library import", "source_family": "wbbb0/wPlayer@import-artwork-backpressure", "independence_basis": "Previously unconsumed artwork backpressure fix with dedicated tests selected before any v3 portfolio query."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable"], "artifact_roles": ["service"], "mechanism_kinds": ["async_control", "resource_io"]},
+      "oracle": {"expected_files": ["entry/src/main/ets/library/importer/MediaImporter.ets"], "forbidden_files": [], "root_cause_category": "performance", "expected_causal_level": "supported", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}, "verification_tests": ["entry/src/test/ArtworkWorkSession.test.ets"]},
+      "review": {"source_diff_reviewed": true}, "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-async-queue-restoration",
+      "task_type": "diagnosis", "review_status": "holdout",
+      "task": {"description": "Restoring a large playback queue delays the current track and can publish a stale queue after another request. Inspect PlaybackRuntime restoreQueue, schedulePlaybackQueueRestore, and restorePlaybackQueue epochs.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "359e180391616f7b03205a984aadf2dce1bc87ad", "after_revision": "a0eaf72223293012fbb603ac31d95af6139f5f6d", "changed_files": ["entry/src/main/ets/playback/PlaybackRuntime.ets"], "test_files": ["entry/src/test/LibraryPaging.test.ets"]},
+      "provenance": {"kind": "git_fix_with_regression_tests", "fix_commit": "a0eaf72223293012fbb603ac31d95af6139f5f6d", "commit_message": "Optimize playback queue restoration", "source_family": "wbbb0/wPlayer@async-queue-restoration", "independence_basis": "Previously unconsumed asynchronous queue restoration fix selected before any v3 portfolio query."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable", "expression"], "artifact_roles": ["service"], "mechanism_kinds": ["async_control", "persistence"]},
+      "oracle": {"expected_files": ["entry/src/main/ets/playback/PlaybackRuntime.ets"], "forbidden_files": [], "root_cause_category": "state", "expected_causal_level": "supported", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}, "verification_tests": ["entry/src/test/LibraryPaging.test.ets"]},
+      "review": {"source_diff_reviewed": true}, "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-wide-mini-player-host-layout",
+      "task_type": "diagnosis", "review_status": "holdout",
+      "task": {"description": "In wide layout the mini-player host can be clipped or positioned outside the active tab content. Inspect ResponsiveNavigationShell ExpandedTabsContent and WideMiniPlayerHost ownership.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "7547563bcc55079e7feb6c9fd75bc114cac83d3b", "after_revision": "7677696f973784f67076977345a45ddd71f81993", "changed_files": ["entry/src/main/ets/components/navigation/ResponsiveNavigationShell.ets"]},
+      "provenance": {"kind": "git_fix", "fix_commit": "7677696f973784f67076977345a45ddd71f81993", "commit_message": "fix responsive library and mini player layout", "source_family": "wbbb0/wPlayer@wide-mini-player-host-layout", "independence_basis": "Previously unconsumed responsive host-layout fix selected before any v3 portfolio query."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable"], "artifact_roles": ["component"], "mechanism_kinds": ["ui_state"]},
+      "oracle": {"expected_files": ["entry/src/main/ets/components/navigation/ResponsiveNavigationShell.ets"], "forbidden_files": [], "root_cause_category": "state", "expected_causal_level": "supported", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}},
+      "review": {"source_diff_reviewed": true}, "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    },
+    {
+      "id": "wplayer-morph-overlay-transition",
+      "task_type": "diagnosis", "review_status": "holdout",
+      "task": {"description": "Opening or closing the full player can show stale side content or wait indefinitely for overlay preparation. Inspect PlayerMorphController beginMorphPhase, showFullPlayer, hideFullPlayer, and side-content readiness.", "constraints": ["Do not inspect Git history or a later revision."]},
+      "source": {"before_revision": "dcb7dcf167706e47e90cfc622d7bf7be04d055cd", "after_revision": "904c0801535f08cb1ae0eadc4d53c5fafbfc4508", "changed_files": ["entry/src/main/ets/components/player/PlayerMorphController.ets"]},
+      "provenance": {"kind": "git_fix", "fix_commit": "904c0801535f08cb1ae0eadc4d53c5fafbfc4508", "commit_message": "fix: refine player morph transition", "source_family": "wbbb0/wPlayer@morph-overlay-transition", "independence_basis": "Previously unconsumed morph-overlay transition fix selected before any v3 portfolio query."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable"], "artifact_roles": ["service"], "mechanism_kinds": ["async_control", "ui_state"]},
+      "oracle": {"expected_files": ["entry/src/main/ets/components/player/PlayerMorphController.ets"], "forbidden_files": [], "root_cause_category": "state", "expected_causal_level": "supported", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.3333}},
+      "review": {"source_diff_reviewed": true}, "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true, "source_bodies_persisted": false, "temporary_runtime_logs_persisted": false,
+    "evaluation": {"schema_version": "agent-evaluation-governance/v1", "split": "holdout", "change_policy": "sealed", "source_isolation": "external_holdout"},
+    "require_seal": false, "oracle_hidden_from_runner": true, "holdout_requires_review": true, "raw_logs_persisted": false
+  }
+}

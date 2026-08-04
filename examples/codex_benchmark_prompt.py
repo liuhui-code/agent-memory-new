@@ -16,6 +16,7 @@ from tools.agent_memory_runtime.source_exploration import (
     SOURCE_SEARCH_LIMIT,
     STOP_REASONS,
 )
+from tools.agent_memory_runtime.agent_benchmark_treatment import investigation_contract
 
 
 def build_prompt(
@@ -36,27 +37,33 @@ def build_prompt(
         lines.extend(f"- {item}" for item in constraints)
     lines.append("Benchmark rules:")
     lines.extend(f"- {item}" for item in request.get("instructions") or [])
-    if memory_context is not None:
-        lines.extend(memory_protocol(memory_context))
+    lines.extend(context_protocol(memory_context))
+    lines.extend(shared_investigation_protocol())
     lines.extend(common_response_protocol(request))
     return "\n".join(lines)
 
 
-def memory_protocol(memory_context: dict[str, Any]) -> list[str]:
+def context_protocol(memory_context: dict[str, Any] | None) -> list[str]:
     return [
         "Agent Memory context was queried once by the benchmark runner before this session:",
-        json.dumps(memory_context, ensure_ascii=False),
+        "Agent Memory context payload: " + json.dumps(memory_context, ensure_ascii=False),
         source_context_instruction(memory_context),
-        source_budget_instruction(memory_context),
+        "Use the payload when it is an object; when it is null, diagnose from current source alone.",
+    ]
+
+
+def shared_investigation_protocol() -> list[str]:
+    return [
+        source_budget_instruction(),
         "Evidence loop: TRIAGE -> GAP -> VERIFY -> STOP. TRIAGE: inspect the highest-ranked role=primary anchor first. Do not open every anchor by default.",
-        ledger_instruction(memory_context),
+        ledger_instruction(),
         "GAP: Name exactly one allowed gap before opening expansion/non-anchor files; at most two new files per round. Put up to two representative files in expansion_trace and every opened file in investigated_files. Runner derives expansion accounting from investigated_files.",
         "VERIFY/STOP: sufficient evidence is a causal or repair-owner file showing a concrete operation, branch, state transition, boundary, or API misuse that explains the symptom; mechanism_evidence_files must include it. Inspect one supporting boundary only when required. Once sufficient evidence exists, run no more source search or read and return supported_cause_found with direct_source_mechanism. Otherwise use inference_only/no_new_evidence, or budget_exhausted_report_uncertainty before exceeding a limit.",
     ]
 
 
-def source_context_instruction(memory_context: dict[str, Any]) -> str:
-    handoff = memory_context.get("query_handoff")
+def source_context_instruction(memory_context: dict[str, Any] | None) -> str:
+    handoff = memory_context.get("query_handoff") if isinstance(memory_context, dict) else None
     anchors = handoff.get("code_anchors") if isinstance(handoff, dict) else None
     has_bodies = any(
         isinstance(item, dict) and bool(item.get("source_excerpts"))
@@ -70,8 +77,8 @@ def source_context_instruction(memory_context: dict[str, Any]) -> str:
     return "Treat its output only as context. Verify all conclusions against current source."
 
 
-def ledger_instruction(memory_context: dict[str, Any]) -> str:
-    limits = source_limits(memory_context)
+def ledger_instruction() -> str:
+    limits = source_limits()
     return (
         "SEARCH LEDGER before every command: update searches_used. "
         "Count every rg/grep/egrep/fgrep/find/fd occurrence, including pipelines and "
@@ -83,10 +90,10 @@ def ledger_instruction(memory_context: dict[str, Any]) -> str:
     )
 
 
-def source_budget_instruction(memory_context: dict[str, Any]) -> str:
-    values = source_limits(memory_context)
+def source_budget_instruction() -> str:
+    values = source_limits()
     return (
-        "Hard Memory source limits: at most "
+        "Hard benchmark source limits: at most "
         f"{values['searches']} source-search invocations, "
         f"{values['files']} total investigated source files, "
         f"{values['rounds']} expansion rounds, "
@@ -96,11 +103,8 @@ def source_budget_instruction(memory_context: dict[str, Any]) -> str:
     )
 
 
-def source_limits(memory_context: dict[str, Any]) -> dict[str, int]:
-    handoff = memory_context.get("query_handoff")
-    exploration = handoff.get("source_exploration") if isinstance(handoff, dict) else None
-    limits = exploration.get("limits") if isinstance(exploration, dict) else None
-    values = limits if isinstance(limits, dict) else {}
+def source_limits() -> dict[str, int]:
+    values = investigation_contract()["limits"]
     return {
         "searches": int(values.get("searches") or SOURCE_SEARCH_LIMIT),
         "files": int(values.get("files") or SOURCE_FILE_LIMIT),
@@ -176,6 +180,21 @@ def benchmark_response_schema() -> dict[str, Any]:
         "mechanism_evidence_files": {
             "type": "array",
             "items": {"type": "string"},
+        },
+        "mechanism_evidence": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["file_path", "start_line", "end_line", "claim"],
+                "properties": {
+                    "file_path": {"type": "string"},
+                    "symbol": {"type": "string"},
+                    "start_line": {"type": "integer", "minimum": 1},
+                    "end_line": {"type": "integer", "minimum": 1},
+                    "claim": {"type": "string"},
+                },
+            },
         },
         "token_estimate": {"type": "integer", "minimum": 0},
         "elapsed_ms": {"type": "integer", "minimum": 0},

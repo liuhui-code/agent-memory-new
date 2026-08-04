@@ -13,6 +13,8 @@ from .agent_benchmark_cases import public_case
 from .benchmark_context_setup import apply_context_setup, context_setup_audit
 from .benchmark_memory import prepare_isolated_memory
 from .benchmark_workspace import materialized_workspace
+from .agent_benchmark_schedule import normalize_execution_order
+from .agent_benchmark_mechanism import normalize_mechanism_evidence
 from .source_exploration import exploration_metrics_reported
 
 
@@ -31,6 +33,7 @@ def run_benchmark_agent(
     timeout: int,
     prepare_memory: bool = True,
     trial_index: int = 1,
+    execution_order: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     executable = resolve_runner(runner)
     with materialized_workspace(root, case) as workspace:
@@ -41,6 +44,7 @@ def run_benchmark_agent(
             "case_id": case["id"],
             "variant": variant,
             "trial_index": trial_index,
+            **({"execution_order": execution_order} if execution_order else {}),
             "workspace": str(workspace),
             "case": public_case(case),
             "instructions": runner_instructions(variant),
@@ -83,6 +87,8 @@ def run_benchmark_agent(
     except json.JSONDecodeError as exc:
         raise SystemExit(f"benchmark runner returned invalid JSON for {case['id']}:{variant}") from exc
     observation = validate_observation(value, case["id"], variant, trial_index)
+    if execution_order is not None:
+        observation["execution_order"] = normalize_execution_order(execution_order)
     observation["memory_setup"] = (
         setup_audit if variant == "memory" else context_setup_audit(None)
     )
@@ -134,6 +140,9 @@ def validate_observation(
     mechanism_files = string_list(
         value.get("mechanism_evidence_files") or [], "mechanism_evidence_files"
     )
+    mechanism_evidence = normalize_mechanism_evidence(
+        value.get("mechanism_evidence") or [], "mechanism_evidence"
+    )
     trace_reported = "expansion_trace" in value
     expansion_trace = normalize_expansion_trace(value.get("expansion_trace") or [])
     deterministic_accounting = (
@@ -164,11 +173,13 @@ def validate_observation(
         key in value for key in ("memory_context_bytes", "memory_context_token_estimate")
     )
     exploration_reported = exploration_metrics_reported(value)
+    execution_order = normalize_execution_order(value.get("execution_order"))
     return {
         **value,
         "case_id": case_id,
         "variant": variant,
         "trial_index": trial_index,
+        **({"execution_order": execution_order} if execution_order else {}),
         "root_cause_category": str(value.get("root_cause_category") or "unknown").strip(),
         "predicted_files": files,
         "supporting_files": supporting,
@@ -222,10 +233,19 @@ def validate_observation(
         "stop_reason": str(value.get("stop_reason") or "unreported").strip(),
         "evidence_basis": str(value.get("evidence_basis") or "unreported").strip(),
         "mechanism_evidence_files": list(dict.fromkeys(mechanism_files)),
+        "mechanism_evidence": mechanism_evidence,
         "expansion_trace": expansion_trace,
         "expansion_trace_reported": trace_reported,
         "exploration_metrics_reported": exploration_reported,
         "elapsed_ms": nonnegative_int(value.get("elapsed_ms")),
+        "end_to_end_elapsed_ms": nonnegative_int(
+            value.get("end_to_end_elapsed_ms", value.get("elapsed_ms"))
+        ),
+        "agent_elapsed_ms": nonnegative_int(value.get("agent_elapsed_ms")),
+        "memory_retrieval_elapsed_ms": nonnegative_int(
+            value.get("memory_retrieval_elapsed_ms")
+        ),
+        "latency_metrics_reported": bool(value.get("latency_metrics_reported")),
         "source_file_count": nonnegative_int(
             value.get("source_file_count", len(investigated))
         ),
@@ -254,6 +274,7 @@ def response_template(case_id: str, variant: str, trial_index: int = 1) -> dict[
         "stop_reason": "supported_cause_found|direct_verification_settled|budget_exhausted_report_uncertainty|no_new_evidence",
         "evidence_basis": "direct_source_mechanism|runtime_verified_mechanism|inference_only",
         "mechanism_evidence_files": [],
+        "mechanism_evidence": [],
         "token_estimate": 0,
         "elapsed_ms": 0,
         "source_file_count": 0,
@@ -265,19 +286,13 @@ def response_template(case_id: str, variant: str, trial_index: int = 1) -> dict[
 
 
 def runner_instructions(variant: str) -> list[str]:
-    instructions = [
+    return [
         "Inspect only the supplied workspace and public case.",
         "Do not access Git history after the supplied revision or hidden benchmark oracle.",
         "You are the diagnosing/designing Agent; Agent Memory only supplies retrievable context and does not decide the answer.",
+        "Use preloaded Agent Memory context when present; do not invoke Memory, its database, generated vault, or skills from the workspace.",
         "Return only the requested JSON; do not return chain-of-thought.",
     ]
-    if variant == "memory":
-        instructions.append(
-            "Use the supplied isolated memory_access command as evidence context before doing your own source inspection and reasoning."
-        )
-    else:
-        instructions.append("Do not use Agent Memory, its database, generated vault, or memory skills.")
-    return instructions
 
 
 def resolve_runner(value: str) -> str:

@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import os
 import shutil
 import subprocess
@@ -22,9 +23,11 @@ if str(REPO_ROOT) not in sys.path:
 from tools.agent_memory_runtime.source_exploration import (  # noqa: E402
     FILES_PER_EXPANSION_LIMIT,
     POLICY_NAME,
+    PRIMARY_ANCHOR_LIMIT,
 )
-from tools.agent_memory_runtime.context_source_excerpt import (  # noqa: E402
-    redact_source_excerpt_bodies,
+from tools.agent_memory_runtime.agent_benchmark_treatment import (  # noqa: E402
+    external_context_projection,
+    treatment_metadata,
 )
 from examples.codex_benchmark_telemetry import (  # noqa: E402
     codex_cost_metrics,
@@ -40,6 +43,7 @@ RESPONSE_SCHEMA = "agent-benchmark-response/v1"
 
 
 def main() -> int:
+    total_started = time.monotonic()
     request = json.load(sys.stdin)
     workspace = Path(required_text(request, "workspace")).resolve()
     if not workspace.is_dir():
@@ -56,10 +60,12 @@ def main() -> int:
         result_path = temp / "last-message.json"
         codex_home = prepare_codex_home(temp)
         schema_path.write_text(json.dumps(output_schema(), indent=2) + "\n", encoding="utf-8")
+        retrieval_started = time.monotonic()
         memory_context = external_memory_context(load_memory_context(request, workspace))
+        retrieval_elapsed_ms = elapsed_ms(retrieval_started)
         prompt = build_prompt(request, memory_context)
         command = codex_command(workspace, schema_path, result_path)
-        started = time.monotonic()
+        agent_started = time.monotonic()
         process = subprocess.run(
             command,
             input=prompt,
@@ -69,7 +75,7 @@ def main() -> int:
             env=codex_environment(temp, codex_home),
             check=False,
         )
-        elapsed_ms = int((time.monotonic() - started) * 1000)
+        agent_elapsed_ms = elapsed_ms(agent_started)
         if process.returncode != 0:
             message = failure_output(process.stdout, process.stderr)
             raise SystemExit(f"Codex benchmark execution failed: {message}")
@@ -77,6 +83,7 @@ def main() -> int:
             result = json.loads(result_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as exc:
             raise SystemExit("Codex benchmark result is missing or invalid") from exc
+    end_to_end_elapsed_ms = elapsed_ms(total_started)
 
     result = normalize_exploration(normalize_file_roles(result))
     result.update({
@@ -86,11 +93,16 @@ def main() -> int:
         "trial_index": trial_index,
         "causal_level": cap_causal_level(result.get("causal_level")),
         "verification_status": "unknown",
-        "elapsed_ms": elapsed_ms,
+        "elapsed_ms": end_to_end_elapsed_ms,
+        "end_to_end_elapsed_ms": end_to_end_elapsed_ms,
+        "agent_elapsed_ms": agent_elapsed_ms,
+        "memory_retrieval_elapsed_ms": retrieval_elapsed_ms,
+        "latency_metrics_reported": True,
         **codex_cost_metrics(process.stdout),
         **memory_context_metrics(memory_context),
         **execution_metrics(result, memory_context),
         **source_search_metrics(process.stdout, result),
+        "treatment_metadata": treatment_metadata(variant, memory_context),
         "runner_metadata": runner_metadata(),
     })
     json.dump(result, sys.stdout, ensure_ascii=False)
@@ -163,7 +175,11 @@ def load_memory_context(request: dict[str, Any], workspace: Path) -> dict[str, A
 
 
 def external_memory_context(value: dict[str, Any] | None) -> dict[str, Any] | None:
-    return redact_source_excerpt_bodies(value) if isinstance(value, dict) else None
+    return external_context_projection(value)
+
+
+def elapsed_ms(started: float) -> int:
+    return max(0, int((time.monotonic() - started) * 1000))
 
 
 def substitute_query(value: Any, description: str) -> list[str]:
@@ -213,7 +229,11 @@ def execution_metrics(
     }
     anchors = memory_code_anchor_paths(memory_context)
     primary = memory_code_anchor_paths(memory_context, "primary")
-    expansion_files = len(investigated - primary)
+    expansion_files = (
+        len(investigated - primary)
+        if memory_context is not None
+        else max(0, len(investigated) - PRIMARY_ANCHOR_LIMIT)
+    )
     return {
         "source_file_count": len(investigated),
         "memory_anchor_hit_count": len(investigated & anchors),
@@ -318,7 +338,8 @@ def codex_environment(temp: Path, codex_home: Path) -> dict[str, str]:
     return environment
 
 
-def runner_metadata() -> dict[str, str]:
+def runner_metadata() -> dict[str, Any]:
+    protocol = benchmark_protocol_manifest()
     return {
         "runner": "codex_cli",
         "runner_version": os.environ.get("AGENT_BENCHMARK_CODEX_VERSION", "codex-cli 0.142.0"),
@@ -326,12 +347,50 @@ def runner_metadata() -> dict[str, str]:
         "reasoning_effort": os.environ.get(
             "AGENT_BENCHMARK_CODEX_REASONING_EFFORT", "unreported"
         ),
+        "prompt_protocol_digest": protocol["digest"],
+        "benchmark_protocol_manifest": protocol,
+        "measurement_contract": "context_only_shared_protocol/v2",
         "sandbox": "read-only",
         "session": "ephemeral",
         "memory_delivery": "runner_preloaded",
         "source_excerpt_delivery": "external_metadata_only",
         "user_context": "isolated_home",
         "retrieval_policy": POLICY_NAME,
+    }
+
+
+def prompt_protocol_digest() -> str:
+    return benchmark_protocol_manifest()["digest"]
+
+
+def benchmark_protocol_manifest() -> dict[str, Any]:
+    files = (
+        "examples/codex-agent-benchmark-runner.py",
+        "examples/codex_benchmark_prompt.py",
+        "examples/codex_benchmark_telemetry.py",
+        "tools/agent_memory_runtime/agent_benchmark_cost.py",
+        "tools/agent_memory_runtime/agent_benchmark_eval.py",
+        "tools/agent_memory_runtime/agent_benchmark_mechanism.py",
+        "tools/agent_memory_runtime/agent_benchmark_measurement.py",
+        "tools/agent_memory_runtime/agent_benchmark_paired_cost.py",
+        "tools/agent_memory_runtime/agent_benchmark_protocol.py",
+        "tools/agent_memory_runtime/agent_benchmark_treatment.py",
+        "tools/agent_memory_runtime/context_source_excerpt.py",
+        "tools/agent_memory_runtime/source_exploration.py",
+    )
+    components = {
+        name: hashlib.sha256((REPO_ROOT / name).read_bytes()).hexdigest()
+        for name in files
+    }
+    payload = json.dumps(
+        {"policy": POLICY_NAME, "components": components},
+        sort_keys=True, separators=(",", ":"),
+    ).encode("utf-8")
+    return {
+        "schema_version": "agent-benchmark-protocol-manifest/v1",
+        "policy": POLICY_NAME,
+        "components": components,
+        "digest": hashlib.sha256(payload).hexdigest(),
     }
 
 

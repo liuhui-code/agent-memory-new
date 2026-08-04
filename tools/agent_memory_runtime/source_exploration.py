@@ -88,11 +88,18 @@ def exploration_metrics_reported(observation: dict[str, Any]) -> bool:
 
 
 def source_exploration_within_budget(observations: list[dict[str, Any]]) -> bool:
-    memory = [item for item in observations if item.get("variant") == "memory"]
-    reported = [item for item in memory if item.get("exploration_metrics_reported")]
+    v2 = any(
+        item.get("treatment_metadata", {}).get("schema_version")
+        == "agent-benchmark-treatment/v2"
+        for item in observations
+    )
+    selected = observations if v2 else [
+        item for item in observations if item.get("variant") == "memory"
+    ]
+    reported = [item for item in selected if item.get("exploration_metrics_reported")]
     if not reported:
         return True
-    return len(reported) == len(memory) and all(
+    return len(reported) == len(selected) and all(
         observation_within_budget(item) for item in reported
     )
 
@@ -101,7 +108,15 @@ def observation_within_budget(observation: dict[str, Any]) -> bool:
     rounds = int(observation.get("expansion_rounds") or 0)
     source_files = int(observation.get("source_file_count") or 0)
     primary_hits = int(observation.get("primary_anchor_hit_count") or 0)
-    expanded_files = max(0, source_files - primary_hits)
+    baseline_v2 = (
+        observation.get("variant") == "baseline"
+        and observation.get("treatment_metadata", {}).get("schema_version")
+        == "agent-benchmark-treatment/v2"
+    )
+    expanded_files = (
+        int(observation.get("expansion_file_count") or 0)
+        if baseline_v2 else max(0, source_files - primary_hits)
+    )
     reasons = observation.get("expansion_reason_codes") or []
     stop_reason = str(observation.get("stop_reason") or "")
     evidence_basis = str(observation.get("evidence_basis") or "")
@@ -134,8 +149,11 @@ def observation_within_budget(observation: dict[str, Any]) -> bool:
         and int(observation.get("source_search_count") or 0) <= SOURCE_SEARCH_LIMIT
         and source_search_audit_valid(observation)
         and source_read_audit_valid(observation)
-        and int(observation.get("non_anchor_file_count") or 0)
-        <= rounds * FILES_PER_EXPANSION_LIMIT
+        and (
+            baseline_v2
+            or int(observation.get("non_anchor_file_count") or 0)
+            <= rounds * FILES_PER_EXPANSION_LIMIT
+        )
         and rounds <= EXPANSION_ROUND_LIMIT
         and expanded_files <= rounds * FILES_PER_EXPANSION_LIMIT
         and valid_reasons

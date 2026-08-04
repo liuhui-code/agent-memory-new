@@ -23,9 +23,14 @@ from .context_log_path_quality import observe_log_paths
 from .context_evidence_set_observation import compact_callable_evidence_set
 from .context_sufficiency_metrics import sufficiency_profile
 from .evaluation_governance import assess_promotion_policy
+from .evaluation_run_ledger import evaluation_run_guard
 from .benchmark_case_seal import case_pack_seal_audit
 from .benchmark_failure_analysis import analyze_context_failures
 from .performance_scoring import estimate_payload_tokens
+from .agent_benchmark_treatment import (
+    context_exposure_manifest,
+    external_context_projection,
+)
 from .records import output
 from .storage import ensure_initialized, now_iso, resolve_project
 
@@ -59,41 +64,47 @@ def eval_context_capability_command(args: argparse.Namespace) -> None:
     reject_overlapping_memory_home(args.memory_home, source)
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
-    cases = expand_context_cases(scenario_cases)
-    batch = collect_context_capability_batch(
-        source,
-        cases,
-        int(args.runner_timeout),
-        collect_prepared_context_capability,
-    )
-    observations = batch["observations"]
-    result = evaluate_context_capability(cases, observations)
-    result["execution"] = batch["execution"]
-    result["capability_profile"]["sufficiency"] = sufficiency_profile(observations)
-    contract = calibration_contract(pack)
-    result["calibration"] = assess_calibration(cases, result["cases"], contract)
-    result["calibration_gate"] = result["calibration"]["status"] if contract else "not_required"
-    result["case_seal"] = case_pack_seal_audit(pack)
-    result["evaluation_governance"] = pack.get("evaluation_governance", {})
-    result["promotion_policy"] = assess_promotion_policy(
-        result["system_context_gate"],
-        result["calibration_gate"],
-        result["evaluation_governance"],
-        result["case_seal"],
-    )
-    result["promotion_eligible"] = result["promotion_policy"]["eligible"]
-    result["next_gate"] = result["promotion_policy"]["next_gate"]
-    result["failure_analysis"] = analyze_context_failures(result)
-    result.update({
-        "project_id": project.project_id,
-        "project_path": str(project.root),
-        "case_file": str(case_path),
-        "selected_scenario_ids": [case["id"] for case in scenario_cases],
-        "selected_case_ids": [case["id"] for case in cases],
-        "source_project": str(source),
-        "recorded_at": now_iso(),
-    })
-    persist_context_capability(project, result)
+    with evaluation_run_guard(
+        project, pack, "context_capability", case_path
+    ) as evaluation_run:
+        cases = expand_context_cases(scenario_cases)
+        batch = collect_context_capability_batch(
+            source,
+            cases,
+            int(args.runner_timeout),
+            collect_prepared_context_capability,
+        )
+        observations = batch["observations"]
+        result = evaluate_context_capability(cases, observations)
+        result["execution"] = batch["execution"]
+        result["capability_profile"]["sufficiency"] = sufficiency_profile(observations)
+        contract = calibration_contract(pack)
+        result["calibration"] = assess_calibration(cases, result["cases"], contract)
+        result["calibration_gate"] = result["calibration"]["status"] if contract else "not_required"
+        result["case_seal"] = case_pack_seal_audit(pack)
+        result["evaluation_governance"] = pack.get("evaluation_governance", {})
+        result["promotion_policy"] = assess_promotion_policy(
+            result["system_context_gate"],
+            result["calibration_gate"],
+            result["evaluation_governance"],
+            result["case_seal"],
+        )
+        result["promotion_eligible"] = result["promotion_policy"]["eligible"]
+        result["next_gate"] = result["promotion_policy"]["next_gate"]
+        result["failure_analysis"] = analyze_context_failures(result)
+        result.update({
+            "project_id": project.project_id,
+            "project_path": str(project.root),
+            "case_file": str(case_path),
+            "selected_scenario_ids": [case["id"] for case in scenario_cases],
+            "selected_case_ids": [case["id"] for case in cases],
+            "source_project": str(source),
+            "recorded_at": now_iso(),
+        })
+        persist_context_capability(project, result)
+        if evaluation_run is not None:
+            evaluation_run["gate_status"] = result["system_context_gate"]
+            evaluation_run["result"] = result
     output(result, args.json)
     context_gate_failed = (
         result["system_context_gate"] != "pass"
@@ -239,6 +250,12 @@ def summarize_context(
         "schema_version": OBSERVATION_SCHEMA,
         "case_id": case_id,
         "context_schema_version": str(context.get("schema_version") or ""),
+        "context_exposure": {
+            "gate_full": context_exposure_manifest(context, "full"),
+            "agent_external": context_exposure_manifest(
+                external_context_projection(context), "external_metadata_only"
+            ),
+        },
         "anchor_paths": unique_paths(item.get("file_path") for item in anchors),
         "ordered_anchor_paths": unique_paths(item.get("file_path") for item in anchors),
         "anchor_count": len(anchors),

@@ -1,0 +1,719 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "holdout",
+  "project_path": "/private/tmp/agent-memory-ab-wplayer",
+  "source_repository": "https://github.com/wbbb0/wPlayer.git",
+  "generated_at": "2026-08-03T04:10:00+08:00",
+  "generator": "reviewed-real-fix-agent-ab-portfolio/v4",
+  "cases": [
+    {
+      "id": "wplayer-incremental-shuffle-queue-state",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Shuffle changes can lose duplicate-track identity or rebuild display order incorrectly. Inspect PlaybackQueue restore, setShuffle, selection identity, and state snapshot ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "cc730ed5eaf5be8b25ea51a5e661cb77b13db7da",
+        "after_revision": "075eb4a68b5d5aca64c10783c2bb80c38ad1562f",
+        "changed_files": [
+          "entry/src/main/ets/playback/queue/PlaybackQueue.ets"
+        ],
+        "test_files": [
+          "entry/src/test/PlaybackQueueRegression.test.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "075eb4a68b5d5aca64c10783c2bb80c38ad1562f",
+        "commit_message": "fix: project shuffled queue order incrementally",
+        "source_family": "wbbb0/wPlayer@incremental-shuffle-queue-state",
+        "independence_basis": "Previously unconsumed queue identity and projection fix selected before any v4 query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/playback/queue/PlaybackQueue.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "entry/src/test/PlaybackQueueRegression.test.ets"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-full-player-update-prefetch",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Full-player navigation can rebuild the whole queue and prefetch artwork before the current full artwork is ready. Inspect PlaybackRuntime queue cursor synchronization and prefetchCurrentWindow timing.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "de2cd008bf3c652d5123572de2f52bf7a56c4c20",
+        "after_revision": "7b221d2ad00222b0163928627ebc0002c22bf39c",
+        "changed_files": [
+          "entry/src/main/ets/playback/PlaybackRuntime.ets"
+        ],
+        "test_files": [
+          "entry/src/test/PlaybackCoordinator.test.ets",
+          "entry/src/test/PlaybackQueueRegression.test.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "7b221d2ad00222b0163928627ebc0002c22bf39c",
+        "commit_message": "perf: optimize full player playback updates",
+        "source_family": "wbbb0/wPlayer@full-player-update-prefetch",
+        "independence_basis": "Previously unconsumed queue-update and artwork-prefetch optimization selected before any v4 query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/playback/PlaybackRuntime.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "performance",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "entry/src/test/PlaybackCoordinator.test.ets",
+          "entry/src/test/PlaybackQueueRegression.test.ets"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-artwork-invalid-dimension-fallback",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Artwork with unknown or invalid source dimensions can collapse instead of using the available square slot. Inspect ArtworkLayout contained-size and fallback ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "6a67477ee289d860e3b152b4c64f3471b262075f",
+        "after_revision": "46f379fc658c326b745d45eb1dedc6bc72099750",
+        "changed_files": [
+          "entry/src/main/ets/components/artwork/ArtworkLayout.ets"
+        ],
+        "test_files": [
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "46f379fc658c326b745d45eb1dedc6bc72099750",
+        "commit_message": "fix(player): adapt full-player artwork layout",
+        "source_family": "wbbb0/wPlayer@artwork-invalid-dimension-fallback",
+        "independence_basis": "Previously unconsumed artwork sizing fallback selected before any v4 query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/artwork/ArtworkLayout.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-full-player-prominence-geometry",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Full-player controls and artwork lose prominence in short two-pane or ultra-compact layouts. Inspect FullPlayerPagerSpec paneCount and PlayerLayoutSpec playback sizing in PlayerMotion.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "06bd4756e1e93cbf576687eceb06279be3c1c274",
+        "after_revision": "c4a8eb77fcbe181e1eadade95eb9882a206c2950",
+        "changed_files": [
+          "entry/src/main/ets/components/player/PlayerMotion.ets"
+        ],
+        "test_files": [
+          "entry/src/test/PlayerMorphPolicy.test.ets",
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "c4a8eb77fcbe181e1eadade95eb9882a206c2950",
+        "commit_message": "fix: preserve full-player artwork prominence",
+        "source_family": "wbbb0/wPlayer@full-player-prominence-geometry",
+        "independence_basis": "Previously unconsumed compact and two-pane geometry fix selected before any v4 query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/player/PlayerMotion.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "entry/src/test/PlayerMorphPolicy.test.ets",
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-track-action-menu-boundaries",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Track menu playback, playlist, navigation, details, and removal actions run together without reliable section boundaries or empty-state handling. Inspect TrackActionMenu conditional grouping ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "ac55c85d886f756557691a7d2ff4683144f48fbd",
+        "after_revision": "45d212550c3c680f5f809756d0971a891a0eaee8",
+        "changed_files": [
+          "entry/src/main/ets/components/library/TrackActionMenu.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "45d212550c3c680f5f809756d0971a891a0eaee8",
+        "commit_message": "fix: organize action menu sections",
+        "source_family": "wbbb0/wPlayer@track-action-menu-boundaries",
+        "independence_basis": "Previously unconsumed action-menu grouping fix selected before any v4 query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "component"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/library/TrackActionMenu.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-library-database-resource-safety",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Library initialization or schema rebuild failures can mask the original error, skip rollback, or leak result sets. Inspect LibraryDatabase close, migrate, rebuildSchema, and query cleanup ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "ef9b511a9f9b471e7693968bded9718907d011e1",
+        "after_revision": "92e800ea1e3561688b7b0039bbc4a7a89a8d6e15",
+        "changed_files": [
+          "entry/src/main/ets/library/data/LibraryDatabase.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "92e800ea1e3561688b7b0039bbc4a7a89a8d6e15",
+        "commit_message": "fix: eliminate ArkTS compile warnings",
+        "source_family": "wbbb0/wPlayer@library-database-resource-safety",
+        "independence_basis": "Previously unconsumed transaction and ResultSet safety fix selected before any v4 query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "store"
+        ],
+        "mechanism_kinds": [
+          "persistence",
+          "error_contract"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/library/data/LibraryDatabase.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "resource",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-playback-progress-power-writes",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Position callbacks can persist resume state and update the playback session too frequently, while seeks and background transitions need immediate persistence. Inspect PlaybackRuntime onPositionChanged, persistProgress, and session synchronization.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "e0e71183370541a02f41078eb693a23fc8805341",
+        "after_revision": "fdea3d4e7e91beebd9b1b31821935976128b7e92",
+        "changed_files": [
+          "entry/src/main/ets/playback/PlaybackRuntime.ets"
+        ],
+        "test_files": [
+          "entry/src/test/PlaybackPowerPolicy.test.ets",
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "fdea3d4e7e91beebd9b1b31821935976128b7e92",
+        "commit_message": "Optimize playback power usage",
+        "source_family": "wbbb0/wPlayer@playback-progress-power-writes",
+        "independence_basis": "Previously unconsumed playback persistence throttling fix selected before any v4 query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "persistence"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/playback/PlaybackRuntime.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "performance",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "entry/src/test/PlaybackPowerPolicy.test.ets",
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-import-artwork-cleanup-tail",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Finishing or clearing a library import can block on artwork orphan cleanup or race a new import. Inspect MediaImporter import lifecycle, cleanupArtworkFiles, and cleanup serialization ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "ebc2838cb13c51aac36c9bd6e52b4f7dc5b1a45c",
+        "after_revision": "b046c810053ace5855cd52654061b5f2260eb930",
+        "changed_files": [
+          "entry/src/main/ets/library/importer/MediaImporter.ets"
+        ],
+        "test_files": [
+          "entry/src/test/ArtworkCleanupRegression.test.ets",
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "b046c810053ace5855cd52654061b5f2260eb930",
+        "commit_message": "Optimize library paging and runtime reliability",
+        "source_family": "wbbb0/wPlayer@import-artwork-cleanup-tail",
+        "independence_basis": "Previously unconsumed import cleanup serialization fix selected before any v4 query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "resource_io"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/library/importer/MediaImporter.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "resource",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "entry/src/test/ArtworkCleanupRegression.test.ets",
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-default-artwork-source-selection",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "The player hero artwork can duplicate fallback branches and select the wrong default source when PixelMap or URI artwork is unavailable. Inspect PlayerHeroArtwork source selection in PlayerArtworkViews.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "950459cea34691d647ac93271e48f0deb4b86f27",
+        "after_revision": "41cba5ae8efcdd136dd1339a0bd59ee09be68747",
+        "changed_files": [
+          "entry/src/main/ets/components/player/PlayerArtworkViews.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix",
+        "fix_commit": "41cba5ae8efcdd136dd1339a0bd59ee09be68747",
+        "commit_message": "Fix default player artwork and theme",
+        "source_family": "wbbb0/wPlayer@default-artwork-source-selection",
+        "independence_basis": "Previously unconsumed player artwork fallback fix selected before any v4 query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "component"
+        ],
+        "mechanism_kinds": [
+          "ui_state",
+          "resource_io"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/player/PlayerArtworkViews.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        }
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "wplayer-responsive-morph-host-height",
+      "task_type": "diagnosis",
+      "review_status": "holdout",
+      "task": {
+        "description": "Responsive player morph geometry can overlap the floating bar because wide mini-player host height omits the gradient mask and bottom margin. Inspect AppShellLayoutSpec floating-bar and host sizing ownership.",
+        "constraints": [
+          "Do not inspect Git history or a later revision."
+        ]
+      },
+      "source": {
+        "before_revision": "1eeb5143c69fd8bcc2e14d91c08d401d9b8287c8",
+        "after_revision": "17bfeea752a6b53b3cf5b86daebd0b3408a59a17",
+        "changed_files": [
+          "entry/src/main/ets/components/layout/AppShellLayoutSpec.ets"
+        ],
+        "test_files": [
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "git_fix_with_regression_tests",
+        "fix_commit": "17bfeea752a6b53b3cf5b86daebd0b3408a59a17",
+        "commit_message": "fix player morph on responsive layouts",
+        "source_family": "wbbb0/wPlayer@responsive-morph-host-height",
+        "independence_basis": "Previously unconsumed responsive shell geometry fix selected before any v4 query."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/layout/AppShellLayoutSpec.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "verification_tests": [
+          "entry/src/test/RiskRegression.test.ets"
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "holdout",
+      "change_policy": "sealed",
+      "source_isolation": "external_holdout"
+    },
+    "require_seal": true,
+    "oracle_hidden_from_runner": true,
+    "holdout_requires_review": true,
+    "raw_logs_persisted": false
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "holdout",
+    "change_policy": "sealed",
+    "source_isolation": "external_holdout",
+    "case_count": 10,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": false
+  },
+  "seal": {
+    "schema_version": "agent-benchmark-case-seal/v1",
+    "sealed_at": "2026-08-02T20:15:21+00:00",
+    "digest_algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-excluding-seal",
+    "case_count": 10,
+    "digest": "dc3c0abd4799223d2db73709fe1373d8d1bb83bdd8f6e33d0b48bc3e4b48d1c4"
+  }
+}

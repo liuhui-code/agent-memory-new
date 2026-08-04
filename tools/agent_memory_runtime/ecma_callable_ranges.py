@@ -13,7 +13,8 @@ MAX_CALLBACK_HEADER_LINES = 4
 MAX_CALLBACK_RANGES = 256
 PROPERTY_CALLBACK_RE = re.compile(
     r"^\s*(?:(?:public|private|protected|readonly|static)\s+)*"
-    r"([A-Za-z_$][\w$]*)\s*[:=]\s*(?:async\s*)?\([^)]*\)\s*=>\s*\{"
+    r"([A-Za-z_$][\w$]*)\s*[:=]\s*(?:async\s*)?\([^)]*\)"
+    r"(?:\s*:\s*[^=]+)?\s*=>\s*\{"
 )
 MEMBER_CALLBACK_RE = re.compile(r"\.(on(?:[A-Z][A-Za-z0-9_$]*)?)\s*\(")
 
