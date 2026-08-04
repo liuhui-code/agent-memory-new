@@ -1,0 +1,1337 @@
+{
+  "schema_version": "agent-benchmark-responses/v1",
+  "generated_at": "2026-08-04T09:13:01+00:00",
+  "observations": [
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "legado-change-source-results-delayed",
+      "variant": "baseline",
+      "trial_index": 1,
+      "root_cause_category": "async",
+      "predicted_files": [
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/Index.ets",
+        "entry/src/main/ets/pages/Search.ets",
+        "entry/src/main/ets/components/book/SearchBookResultList.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/Index.ets",
+        "entry/src/main/ets/components/book/SearchBookResultList.ets",
+        "entry/src/main/ets/pages/Search.ets",
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 3,
+      "expansion_trace": [
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/components/book/SearchBookResultList.ets"
+          ]
+        },
+        {
+          "reason": "missing_route_target",
+          "files": [
+            "entry/src/main/ets/pages/ReadBook.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/ReadBook.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "start_line": 93,
+          "end_line": 101,
+          "symbol": "SearchCoordinator.search.emitProgress",
+          "claim": "During an in-progress multi-source search, the coordinator sends newly found books through deltaResults while leaving results empty until finished."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2109,
+          "end_line": 2116,
+          "symbol": "searchChangeSource",
+          "claim": "The change-source callback updates changeSourceResults only from progress.results and never consumes progress.deltaResults, so intermediate candidates are ignored while only status updates advance."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2118,
+          "end_line": 2123,
+          "symbol": "searchChangeSource",
+          "claim": "After coordinator.search resolves, ReadBook.ets assigns the final returned results to changeSourceResults, which explains why candidates appear only after all sources finish."
+        }
+      ],
+      "token_estimate": 299842,
+      "elapsed_ms": 100399,
+      "summary": "Incremental change-source results are suppressed in ReadBook.ets: the coordinator emits in-flight candidates via deltaResults, but the change-source dialog callback reads only progress.results, which is intentionally populated only on the final finished callback. The regular search pages handle deltaResults, confirming the missing incremental path is specific to the change-source handler.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_state_owner",
+        "missing_route_target"
+      ],
+      "end_to_end_elapsed_ms": 100399,
+      "agent_elapsed_ms": 100370,
+      "memory_retrieval_elapsed_ms": 0,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 295960,
+      "model_cached_input_tokens": 253696,
+      "model_uncached_input_tokens": 42264,
+      "model_output_tokens": 3882,
+      "model_reasoning_tokens": 482,
+      "usage_metrics_reported": true,
+      "command_count": 10,
+      "command_output_bytes": 1148770,
+      "source_read_count": 7,
+      "source_read_output_bytes": 48852,
+      "tool_error_count": 1,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 1,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 5,
+      "expansion_file_count": 2,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "baseline",
+        "context_present": false,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "absent",
+          "context_present": false,
+          "payload_bytes": 4,
+          "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "shape_digest": "f072cbec3bf8841871d4284230c5e983dc211a56837aed862487148f947d1a1f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 1,
+        "pair_index": 1000001,
+        "variant_position": 1,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "legado-change-source-results-delayed",
+      "variant": "memory",
+      "trial_index": 1,
+      "root_cause_category": "async concurrency",
+      "predicted_files": [
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/Index.ets",
+        "entry/src/main/ets/components/book/SearchBookResultList.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/components/book/SearchBookResultList.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/ReadBook.ets",
+        "entry/src/main/ets/pages/Index.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/pages/ReadBook.ets",
+            "entry/src/main/ets/pages/Index.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/ReadBook.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/Index.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "start_line": 95,
+          "end_line": 101,
+          "symbol": "emitProgress",
+          "claim": "Non-final progress callbacks intentionally send newly completed source results through deltaResults while keeping results empty until finished."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2108,
+          "end_line": 2117,
+          "symbol": "searchChangeSource",
+          "claim": "The change-source callback updates changeSourceResults only from progress.results, so every non-final progress event clears or keeps the list empty and ignores deltaResults."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/Index.ets",
+          "start_line": 2942,
+          "end_line": 2947,
+          "symbol": "SearchCallback",
+          "claim": "The normal search page demonstrates the expected incremental handling by appending p.deltaResults on non-final progress events."
+        }
+      ],
+      "token_estimate": 127563,
+      "elapsed_ms": 65195,
+      "summary": "Incremental change-source results are suppressed in ReadBook.ets: searchChangeSource ignores SearchProgress.deltaResults and filters progress.results, but SearchCoordinator sends progress.results only on the final callback. Status advances because the callback still consumes progress.status; candidates appear only after await coordinator.search returns final sorted results.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_caller"
+      ],
+      "end_to_end_elapsed_ms": 65195,
+      "agent_elapsed_ms": 61904,
+      "memory_retrieval_elapsed_ms": 3253,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 125706,
+      "model_cached_input_tokens": 103040,
+      "model_uncached_input_tokens": 22666,
+      "model_output_tokens": 1857,
+      "model_reasoning_tokens": 249,
+      "usage_metrics_reported": true,
+      "command_count": 11,
+      "command_output_bytes": 31437,
+      "source_read_count": 13,
+      "source_read_output_bytes": 24301,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 4270,
+      "memory_context_token_estimate": 1068,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 2,
+      "primary_anchor_hit_count": 2,
+      "non_anchor_file_count": 2,
+      "expansion_file_count": 2,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "memory",
+        "context_present": true,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "external_metadata_only",
+          "context_present": true,
+          "payload_bytes": 4270,
+          "payload_digest": "fa69a9c25712cb11214ac611c074210353a578146a437b06969ed2276d55d11b",
+          "shape_digest": "a4da53de35fadd27fdc9358a9f064ff4fc069ae91a11ea1bcb580fb631cde517"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 1,
+        "pair_index": 1000001,
+        "variant_position": 2,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "legado-change-source-results-delayed",
+      "variant": "memory",
+      "trial_index": 2,
+      "root_cause_category": "async concurrency",
+      "predicted_files": [
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/Search.ets",
+        "entry/src/main/ets/components/book/SearchBookResultList.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/components/book/SearchBookResultList.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/ReadBook.ets",
+        "entry/src/main/ets/pages/Search.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 3,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/pages/ReadBook.ets",
+            "entry/src/main/ets/pages/Search.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/ReadBook.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/Search.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "start_line": 87,
+          "end_line": 103,
+          "symbol": "SearchCoordinator.search.emitProgress",
+          "claim": "During an unfinished multi-source search, SearchCoordinator emits newly found books only through deltaResults and intentionally sends results as an empty array until finished."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2108,
+          "end_line": 2118,
+          "symbol": "searchChangeSource",
+          "claim": "The change-source progress callback assigns changeSourceResults from progress.results on every progress event and never reads progress.deltaResults, so intermediate candidates are replaced with an empty filtered list until the final callback."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2121,
+          "end_line": 2124,
+          "symbol": "searchChangeSource",
+          "claim": "After coordinator.search resolves, the final returned results are filtered and assigned to changeSourceResults, explaining why candidates appear only when the full search completes."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/Search.ets",
+          "start_line": 315,
+          "end_line": 323,
+          "symbol": "search",
+          "claim": "The normal search page handles the same async contract by appending progress.deltaResults before completion, showing the expected incremental consumption pattern missing from change-source search."
+        }
+      ],
+      "token_estimate": 187139,
+      "elapsed_ms": 73516,
+      "summary": "Incremental change-source results are ignored in ReadBook.ets: SearchCoordinator emits partial results in deltaResults while progress.results stays empty until finished, but searchChangeSource filters and assigns only progress.results during progress callbacks. The dialog status advances because progress.status is consumed, while candidates are suppressed until the awaited final results assignment runs.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_caller"
+      ],
+      "end_to_end_elapsed_ms": 73516,
+      "agent_elapsed_ms": 70195,
+      "memory_retrieval_elapsed_ms": 3288,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 185094,
+      "model_cached_input_tokens": 141056,
+      "model_uncached_input_tokens": 44038,
+      "model_output_tokens": 2045,
+      "model_reasoning_tokens": 494,
+      "usage_metrics_reported": true,
+      "command_count": 9,
+      "command_output_bytes": 37333,
+      "source_read_count": 6,
+      "source_read_output_bytes": 30072,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 4270,
+      "memory_context_token_estimate": 1068,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 2,
+      "primary_anchor_hit_count": 2,
+      "non_anchor_file_count": 2,
+      "expansion_file_count": 2,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "memory",
+        "context_present": true,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "external_metadata_only",
+          "context_present": true,
+          "payload_bytes": 4270,
+          "payload_digest": "9dd1b90e09dcf417daedffdce587672c4103f77a19478980b8932d1b0d154a11",
+          "shape_digest": "a4da53de35fadd27fdc9358a9f064ff4fc069ae91a11ea1bcb580fb631cde517"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 2,
+        "pair_index": 1000002,
+        "variant_position": 1,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "legado-change-source-results-delayed",
+      "variant": "baseline",
+      "trial_index": 2,
+      "root_cause_category": "async concurrency",
+      "predicted_files": [
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/Search.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/pages/ReadBook.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/Search.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 3,
+      "expansion_trace": [
+        {
+          "reason": "missing_async_boundary",
+          "files": [
+            "entry/src/main/ets/core/book/SearchCoordinator.ts",
+            "entry/src/main/ets/pages/Search.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/ReadBook.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "start_line": 96,
+          "end_line": 101,
+          "symbol": "SearchCoordinator.search.emitProgress",
+          "claim": "Incremental search callbacks deliberately put newly completed source results in deltaResults while progress.results is empty until finished."
+        },
+        {
+          "file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "start_line": 121,
+          "end_line": 129,
+          "symbol": "SearchCoordinator.search.runWorker",
+          "claim": "Each async worker appends per-source displayBooks to pendingDeltaResults and emits progress before the whole multi-source search completes."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2108,
+          "end_line": 2113,
+          "symbol": "ReadBook.searchChangeSource",
+          "claim": "The change-source dialog progress callback ignores progress.deltaResults and replaces the selection list from progress.results, so interim candidates are dropped while the status still advances."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2121,
+          "end_line": 2123,
+          "symbol": "ReadBook.searchChangeSource",
+          "claim": "Only after coordinator.search resolves does ReadBook assign the final returned results to changeSourceResults, causing candidates to appear at completion."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/Search.ets",
+          "start_line": 316,
+          "end_line": 320,
+          "symbol": "Search page coordinator callback",
+          "claim": "The normal search page handles the same API by appending progress.deltaResults on unfinished progress, corroborating that ReadBook is the consumer ignoring incremental results."
+        }
+      ],
+      "token_estimate": 313417,
+      "elapsed_ms": 61229,
+      "summary": "Incremental change-source results are suppressed in ReadBook. SearchCoordinator emits interim candidates through progress.deltaResults and leaves progress.results empty until finished, but ReadBook.searchChangeSource updates changeSourceResults only from progress.results during progress callbacks. The list therefore stays empty until the final awaited results assignment after the multi-source search completes.",
+      "expansion_rounds": 0,
+      "expansion_reason_codes": [
+        "missing_async_boundary"
+      ],
+      "end_to_end_elapsed_ms": 61229,
+      "agent_elapsed_ms": 61198,
+      "memory_retrieval_elapsed_ms": 0,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 311303,
+      "model_cached_input_tokens": 264576,
+      "model_uncached_input_tokens": 46727,
+      "model_output_tokens": 2114,
+      "model_reasoning_tokens": 344,
+      "usage_metrics_reported": true,
+      "command_count": 12,
+      "command_output_bytes": 1167507,
+      "source_read_count": 12,
+      "source_read_output_bytes": 38388,
+      "tool_error_count": 1,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 1,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 3,
+      "expansion_file_count": 0,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "baseline",
+        "context_present": false,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "absent",
+          "context_present": false,
+          "payload_bytes": 4,
+          "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "shape_digest": "f072cbec3bf8841871d4284230c5e983dc211a56837aed862487148f947d1a1f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 2,
+        "pair_index": 1000002,
+        "variant_position": 2,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "legado-change-source-results-delayed",
+      "variant": "baseline",
+      "trial_index": 3,
+      "root_cause_category": "async",
+      "predicted_files": [
+        "entry/src/main/ets/pages/ReadBook.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts"
+      ],
+      "supporting_files": [],
+      "investigated_files": [
+        "entry/src/main/ets/pages/ReadBook.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 3,
+      "expansion_trace": [
+        {
+          "reason": "missing_async_boundary",
+          "files": [
+            "entry/src/main/ets/core/book/SearchCoordinator.ts"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/ReadBook.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "start_line": 80,
+          "end_line": 102,
+          "symbol": "SearchCoordinator.search.emitProgress",
+          "claim": "During in-flight multi-source search, progress callbacks carry newly found books only in deltaResults; progress.results is deliberately an empty array until finished, when it becomes filterAndSortSearchResults(all, ...)."
+        },
+        {
+          "file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "start_line": 114,
+          "end_line": 122,
+          "symbol": "SearchCoordinator.search.runWorker",
+          "claim": "Each completed source adds displayBooks to pendingDeltaResults and all, then emits progress before all sources finish, so incremental candidates exist at the producer boundary."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2108,
+          "end_line": 2114,
+          "symbol": "ReadBook.searchChangeSource",
+          "claim": "The change-source dialog progress callback assigns changeSourceResults from progress.results and ignores progress.deltaResults, so every non-final progress update replaces the list with an empty filtered array while only status advances."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2118,
+          "end_line": 2123,
+          "symbol": "ReadBook.searchChangeSource",
+          "claim": "After coordinator.search resolves, ReadBook assigns the final returned results to changeSourceResults, explaining why candidates appear only when the whole search finishes."
+        }
+      ],
+      "token_estimate": 148878,
+      "elapsed_ms": 66664,
+      "summary": "Incremental results are suppressed by a mismatch between SearchCoordinator's progress contract and ReadBook's change-source consumer. SearchCoordinator emits in-progress candidates as deltaResults while leaving progress.results empty until final completion, but ReadBook.searchChangeSource filters only progress.results and ignores deltaResults. The status updates on every callback, yet the selection list remains empty until the awaited final result assignment runs.",
+      "expansion_rounds": 0,
+      "expansion_reason_codes": [
+        "missing_async_boundary"
+      ],
+      "end_to_end_elapsed_ms": 66664,
+      "agent_elapsed_ms": 66634,
+      "memory_retrieval_elapsed_ms": 0,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 146150,
+      "model_cached_input_tokens": 120064,
+      "model_uncached_input_tokens": 26086,
+      "model_output_tokens": 2728,
+      "model_reasoning_tokens": 122,
+      "usage_metrics_reported": true,
+      "command_count": 5,
+      "command_output_bytes": 1116067,
+      "source_read_count": 2,
+      "source_read_output_bytes": 15406,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 2,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 2,
+      "expansion_file_count": 0,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "baseline",
+        "context_present": false,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "absent",
+          "context_present": false,
+          "payload_bytes": 4,
+          "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "shape_digest": "f072cbec3bf8841871d4284230c5e983dc211a56837aed862487148f947d1a1f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 3,
+        "pair_index": 1000003,
+        "variant_position": 1,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "legado-change-source-results-delayed",
+      "variant": "memory",
+      "trial_index": 3,
+      "root_cause_category": "async",
+      "predicted_files": [
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/core/book/SearchCoordinator.ts"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/components/book/SearchBookResultList.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 2,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/pages/ReadBook.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "start_line": 95,
+          "end_line": 103,
+          "symbol": "emitProgress",
+          "claim": "During in-progress multi-source search, SearchCoordinator emits newly found books in deltaResults while progress.results is deliberately empty until finished."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2108,
+          "end_line": 2117,
+          "symbol": "searchChangeSource",
+          "claim": "The change-source progress callback replaces changeSourceResults from progress.results only and ignores progress.deltaResults, so incremental candidates are discarded until the final callback/result path."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 1972,
+          "end_line": 1997,
+          "symbol": "changeSource dialog list",
+          "claim": "The selection list is rendered from changeSourceResults, so ignoring deltaResults keeps the list empty or stale while status text continues updating."
+        }
+      ],
+      "token_estimate": 172720,
+      "elapsed_ms": 68698,
+      "summary": "Incremental change-source candidates are not shown because ReadBook.ets handles SearchCoordinator progress by reading only progress.results. SearchCoordinator sends partial books through deltaResults and only fills results when finished, so status advances but the list bound to changeSourceResults updates only at completion.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_caller"
+      ],
+      "end_to_end_elapsed_ms": 68698,
+      "agent_elapsed_ms": 65331,
+      "memory_retrieval_elapsed_ms": 3341,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 170997,
+      "model_cached_input_tokens": 132864,
+      "model_uncached_input_tokens": 38133,
+      "model_output_tokens": 1723,
+      "model_reasoning_tokens": 396,
+      "usage_metrics_reported": true,
+      "command_count": 9,
+      "command_output_bytes": 24607,
+      "source_read_count": 7,
+      "source_read_output_bytes": 16180,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 4270,
+      "memory_context_token_estimate": 1068,
+      "source_file_count": 3,
+      "memory_anchor_hit_count": 2,
+      "primary_anchor_hit_count": 2,
+      "non_anchor_file_count": 1,
+      "expansion_file_count": 1,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "memory",
+        "context_present": true,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "external_metadata_only",
+          "context_present": true,
+          "payload_bytes": 4270,
+          "payload_digest": "a00257eee258d40cc0a9c988b05c47b4e68134a03084d6a2a7ccd1a03e2f745c",
+          "shape_digest": "a4da53de35fadd27fdc9358a9f064ff4fc069ae91a11ea1bcb580fb631cde517"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 3,
+        "pair_index": 1000003,
+        "variant_position": 2,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "legado-change-source-results-delayed",
+      "variant": "memory",
+      "trial_index": 4,
+      "root_cause_category": "async",
+      "predicted_files": [
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/Index.ets",
+        "entry/src/main/ets/pages/Search.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/components/book/SearchBookResultList.ets",
+        "entry/src/main/ets/pages/Index.ets",
+        "entry/src/main/ets/pages/Search.ets",
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 2,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/pages/Index.ets",
+            "entry/src/main/ets/pages/Search.ets"
+          ]
+        },
+        {
+          "reason": "missing_route_target",
+          "files": [
+            "entry/src/main/ets/pages/ReadBook.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/ReadBook.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "start_line": 96,
+          "end_line": 101,
+          "symbol": "emitProgress",
+          "claim": "Incremental search candidates are emitted only through deltaResults while progress.results is deliberately empty until the search is finished."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2108,
+          "end_line": 2117,
+          "symbol": "searchChangeSource",
+          "claim": "The change-source search callback updates changeSourceResults from progress.results and never consumes progress.deltaResults, so interim candidates are discarded until the final callback/return supplies all results."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 1972,
+          "end_line": 1996,
+          "symbol": "changeSourceDialog",
+          "claim": "The alternative-source selection list is rendered from changeSourceResults, so ignoring deltaResults keeps the list empty/loading even while status text advances."
+        }
+      ],
+      "token_estimate": 152974,
+      "elapsed_ms": 65515,
+      "summary": "The suppression is in ReadBook.ets change-source search handling: SearchCoordinator sends in-progress candidates via deltaResults and leaves progress.results empty until finished, but searchChangeSource filters only progress.results into changeSourceResults. The dialog list is bound to changeSourceResults, so status updates advance while candidates are ignored until the full multi-source search completes.",
+      "expansion_rounds": 2,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "missing_route_target"
+      ],
+      "end_to_end_elapsed_ms": 65515,
+      "agent_elapsed_ms": 62347,
+      "memory_retrieval_elapsed_ms": 3143,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 150785,
+      "model_cached_input_tokens": 130432,
+      "model_uncached_input_tokens": 20353,
+      "model_output_tokens": 2189,
+      "model_reasoning_tokens": 629,
+      "usage_metrics_reported": true,
+      "command_count": 10,
+      "command_output_bytes": 24429,
+      "source_read_count": 10,
+      "source_read_output_bytes": 20011,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 4270,
+      "memory_context_token_estimate": 1068,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 2,
+      "primary_anchor_hit_count": 2,
+      "non_anchor_file_count": 3,
+      "expansion_file_count": 3,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "memory",
+        "context_present": true,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "external_metadata_only",
+          "context_present": true,
+          "payload_bytes": 4270,
+          "payload_digest": "1dcc993a424459798d5f2f525f033b52e3e50b41d0feef43401ff44ce77a32aa",
+          "shape_digest": "a4da53de35fadd27fdc9358a9f064ff4fc069ae91a11ea1bcb580fb631cde517"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 4,
+        "pair_index": 1000004,
+        "variant_position": 1,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "legado-change-source-results-delayed",
+      "variant": "baseline",
+      "trial_index": 4,
+      "root_cause_category": "async",
+      "predicted_files": [
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/core/book/SearchCoordinator.ts"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 2,
+      "expansion_trace": [],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/ReadBook.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "start_line": 95,
+          "end_line": 101,
+          "symbol": "SearchCoordinator.search.emitProgress",
+          "claim": "Progress callbacks intentionally send an empty results array until the search is finished, while incremental candidates are exposed through deltaResults."
+        },
+        {
+          "file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "start_line": 123,
+          "end_line": 129,
+          "symbol": "SearchCoordinator.search.runWorker",
+          "claim": "Each worker adds newly matched books to pendingDeltaResults and emits progress before the whole multi-source search completes."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2108,
+          "end_line": 2113,
+          "symbol": "ReadBook.searchChangeSource",
+          "claim": "The change-source progress callback updates the selection list only from progress.results and ignores progress.deltaResults, so interim candidates are discarded because progress.results is empty until finished."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+          "start_line": 2121,
+          "end_line": 2123,
+          "symbol": "ReadBook.searchChangeSource",
+          "claim": "The selection list is finally populated from the awaited full results after coordinator.search resolves, matching the symptom that candidates appear only when the multi-source search finishes."
+        }
+      ],
+      "token_estimate": 160005,
+      "elapsed_ms": 59895,
+      "summary": "Incremental change-source results are ignored in ReadBook.searchChangeSource: SearchCoordinator emits interim matches via deltaResults while leaving progress.results empty until finished, but the dialog callback filters only progress.results. Status advances from the same progress object, so progress text updates while the list remains empty until the awaited final results are assigned.",
+      "expansion_rounds": 0,
+      "expansion_reason_codes": [],
+      "end_to_end_elapsed_ms": 59895,
+      "agent_elapsed_ms": 59876,
+      "memory_retrieval_elapsed_ms": 0,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 157730,
+      "model_cached_input_tokens": 122112,
+      "model_uncached_input_tokens": 35618,
+      "model_output_tokens": 2275,
+      "model_reasoning_tokens": 346,
+      "usage_metrics_reported": true,
+      "command_count": 7,
+      "command_output_bytes": 1124202,
+      "source_read_count": 8,
+      "source_read_output_bytes": 19892,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 2,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 2,
+      "expansion_file_count": 0,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "baseline",
+        "context_present": false,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "absent",
+          "context_present": false,
+          "payload_bytes": 4,
+          "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "shape_digest": "f072cbec3bf8841871d4284230c5e983dc211a56837aed862487148f947d1a1f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 4,
+        "pair_index": 1000004,
+        "variant_position": 2,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    }
+  ]
+}

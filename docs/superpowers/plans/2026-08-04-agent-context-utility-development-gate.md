@@ -54,3 +54,20 @@ commits and previously consumed projects were also rejected.
 No serving-path change is permitted from this run alone. A production change still
 requires reproduction in an independent fixture and the actual `query_handoff`, as
 required by `docs/evaluation-and-change-policy.md`.
+
+## Execution Closure
+
+User consent was received to send the frozen GPL source contexts. The full balanced
+schedule completed with 48 valid calls and 24 complete pairs. All counted observations
+used Codex `gpt-5.5`, low reasoning effort, and protocol digest
+`07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765`.
+
+The aggregate outcome score improves by 0.0257 and expected-file recall by 0.0347, but
+mechanism evidence falls by 0.0208. Two case means regress, trial stability fails, and
+the efficiency gate fails despite a 5.68% median paired token reduction because median
+end-to-end latency grows 13.04% and worst-pair token/latency overhead reaches 92.77% and
+78.70%. The registered decision is therefore `no-go`; no serving change is allowed.
+
+An initial pre-sample request failed with HTTP 400 due to an invalid strict nested JSON
+Schema. It returned no model output and was not counted. The schema contract was fixed
+and tested before the 48 valid observations; no gate threshold or Oracle was changed.

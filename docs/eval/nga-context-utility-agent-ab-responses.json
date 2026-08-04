@@ -1,0 +1,2870 @@
+{
+  "schema_version": "agent-benchmark-responses/v1",
+  "generated_at": "2026-08-04T09:36:22+00:00",
+  "observations": [
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-notification-seen-row-reuse",
+      "variant": "baseline",
+      "trial_index": 1,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/common/utils/NotificationPolicy.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/common/utils/NotificationPolicy.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/store/NotificationStore.ets",
+            "entry/src/main/ets/common/utils/NotificationPolicy.ets"
+          ]
+        },
+        {
+          "reason": "missing_resource_owner",
+          "files": [
+            "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+            "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 234,
+          "end_line": 287,
+          "symbol": "LazyForEach keyGenerator",
+          "claim": "The notification row renders unread styling from n.seen, but LazyForEach keys each row only by n.notificationId. When seen changes for the same notification ID, the list identity contract still treats it as the same row, allowing the rendered row to be reused with stale unread styling."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 54,
+          "end_line": 58,
+          "symbol": "syncFromStore",
+          "claim": "The panel refreshes the data source from store snapshots after state changes, so row identity is the boundary that must distinguish visual state changes if reused rows do not fully rerender."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/NotificationStore.ets",
+          "start_line": 275,
+          "end_line": 282,
+          "symbol": "markSeen",
+          "claim": "Marking a notification seen mutates cached notification state and publishes a version, then the panel syncs from this cache."
+        },
+        {
+          "file_path": "entry/src/main/ets/common/utils/NotificationPolicy.ets",
+          "start_line": 74,
+          "end_line": 86,
+          "symbol": "markNotificationSeen",
+          "claim": "The seen transition is a concrete mutation of notification.seen from false to true for an existing notificationId, so the row key remains unchanged while unread styling inputs change."
+        }
+      ],
+      "token_estimate": 143191,
+      "elapsed_ms": 64327,
+      "summary": "The stale unread row is caused by NotificationPanel's LazyForEach identity contract: it keys rows only by notificationId while the row's visual unread/read styling depends on n.seen. Because markSeen changes seen for the same notificationId, the rendered list item can be reused without a distinct identity for the visual state transition.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_state_owner",
+        "missing_resource_owner"
+      ],
+      "end_to_end_elapsed_ms": 64327,
+      "agent_elapsed_ms": 64302,
+      "memory_retrieval_elapsed_ms": 0,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 141619,
+      "model_cached_input_tokens": 107136,
+      "model_uncached_input_tokens": 34483,
+      "model_output_tokens": 1572,
+      "model_reasoning_tokens": 291,
+      "usage_metrics_reported": true,
+      "command_count": 6,
+      "command_output_bytes": 48522,
+      "source_read_count": 5,
+      "source_read_output_bytes": 25440,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 5,
+      "expansion_file_count": 2,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "baseline",
+        "context_present": false,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "absent",
+          "context_present": false,
+          "payload_bytes": 4,
+          "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "shape_digest": "f072cbec3bf8841871d4284230c5e983dc211a56837aed862487148f947d1a1f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 1,
+        "pair_index": 1000001,
+        "variant_position": 1,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-notification-seen-row-reuse",
+      "variant": "memory",
+      "trial_index": 1,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/common/utils/NotificationPolicy.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/common/utils/NotificationPolicy.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 0,
+      "expansion_trace": [
+        {
+          "reason": "missing_resource_owner",
+          "files": [
+            "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+            "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets"
+          ]
+        },
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/store/AppStore.ets",
+            "entry/src/main/ets/store/NotificationStore.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 225,
+          "end_line": 276,
+          "symbol": "LazyForEach notification keyGenerator",
+          "claim": "Notification row styling is derived from n.seen, but LazyForEach identities rows only by n.notificationId; when seen flips for the same notification id, the framework may reuse the row under the same key and keep stale unread-rendered state."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 182,
+          "end_line": 201,
+          "symbol": "handleNotificationClick",
+          "claim": "Clicking a notification calls appStore.markNotificationSeen(notification.notificationId) and immediately syncs from the store, changing seen state without changing notificationId."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 90,
+          "end_line": 96,
+          "symbol": "handleMarkAllSeen",
+          "claim": "Mark-all-seen changes notification seen state and resyncs the same list items, exercising the same row identity contract."
+        }
+      ],
+      "token_estimate": 194867,
+      "elapsed_ms": 72135,
+      "summary": "The stale unread styling is owned by NotificationPanel. Its LazyForEach key generator uses only notificationId, while the rendered row's unread indicator, opacity, color, and font weight depend on n.seen. Since mark-seen operations preserve notificationId, ArkUI can reuse the existing row identity after seen changes, leaving stale unread styling. The repair owner is the notification LazyForEach identity contract in NotificationPanel, likely by including seen or otherwise forcing item update on seen changes. datasource and store files only corroborate that the data source reloads and the store mutates seen while retaining stable notification ids.",
+      "expansion_rounds": 3,
+      "expansion_reason_codes": [
+        "missing_resource_owner",
+        "missing_state_owner"
+      ],
+      "end_to_end_elapsed_ms": 72135,
+      "agent_elapsed_ms": 70320,
+      "memory_retrieval_elapsed_ms": 1778,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 192561,
+      "model_cached_input_tokens": 157440,
+      "model_uncached_input_tokens": 35121,
+      "model_output_tokens": 2306,
+      "model_reasoning_tokens": 706,
+      "usage_metrics_reported": true,
+      "command_count": 9,
+      "command_output_bytes": 47012,
+      "source_read_count": 9,
+      "source_read_output_bytes": 47012,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 5135,
+      "memory_context_token_estimate": 1284,
+      "source_file_count": 6,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 5,
+      "expansion_file_count": 5,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "memory",
+        "context_present": true,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "external_metadata_only",
+          "context_present": true,
+          "payload_bytes": 5135,
+          "payload_digest": "a1f2ea23d5da4c49765d53223b701c8231723c83e47885d68dee84b07a74c8af",
+          "shape_digest": "4140958ee148179f7b28c76d1aa801b70bd24abe8b5b8adb3d5d5c0bf6801a61"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 1,
+        "pair_index": 1000001,
+        "variant_position": 2,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-notification-seen-row-reuse",
+      "variant": "memory",
+      "trial_index": 2,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/common/utils/NotificationPolicy.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/model/Notification.ets",
+        "entry/src/main/ets/common/utils/NotificationPolicy.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/store/NotificationStore.ets",
+            "entry/src/main/ets/common/utils/NotificationPolicy.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/common/utils/NotificationPolicy.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 234,
+          "end_line": 287,
+          "symbol": "LazyForEach notification row key",
+          "claim": "Notification row styling is derived from n.seen, but LazyForEach keys rows only by n.notificationId, so a seen-state flip keeps the same row identity and can reuse stale unread-rendered row content."
+        },
+        {
+          "file_path": "entry/src/main/ets/common/utils/NotificationPolicy.ets",
+          "start_line": 73,
+          "end_line": 84,
+          "symbol": "markNotificationSeen",
+          "claim": "Marking a notification seen mutates notification.seen from false to true for the same notificationId, creating exactly the state transition that the list key does not distinguish."
+        },
+        {
+          "file_path": "entry/src/main/ets/common/utils/NotificationPolicy.ets",
+          "start_line": 96,
+          "end_line": 104,
+          "symbol": "markAllNotificationsSeen",
+          "claim": "Mark-all-seen mutates existing notification records to seen=true, so multiple rows can retain the same notificationId while their styling inputs change."
+        }
+      ],
+      "token_estimate": 229460,
+      "elapsed_ms": 74842,
+      "summary": "The stale unread styling is owned by NotificationPanel.ets: LazyForEach renders seen-dependent row UI but uses only notificationId as the list identity key. Since the seen transition mutates the same notification record/id, ArkUI can reuse the existing row instead of rebuilding it for the unread-to-seen styling change. The key should include the seen state or otherwise force per-row data change for that state transition.",
+      "expansion_rounds": 3,
+      "expansion_reason_codes": [
+        "missing_state_owner"
+      ],
+      "end_to_end_elapsed_ms": 74842,
+      "agent_elapsed_ms": 73399,
+      "memory_retrieval_elapsed_ms": 1410,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 227336,
+      "model_cached_input_tokens": 193024,
+      "model_uncached_input_tokens": 34312,
+      "model_output_tokens": 2124,
+      "model_reasoning_tokens": 377,
+      "usage_metrics_reported": true,
+      "command_count": 11,
+      "command_output_bytes": 36409,
+      "source_read_count": 12,
+      "source_read_output_bytes": 33205,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 5135,
+      "memory_context_token_estimate": 1284,
+      "source_file_count": 6,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 5,
+      "expansion_file_count": 5,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "memory",
+        "context_present": true,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "external_metadata_only",
+          "context_present": true,
+          "payload_bytes": 5135,
+          "payload_digest": "615f714f08780c44db50ada6362e13d6f0690478cebf6eab8c7a663d14622671",
+          "shape_digest": "4140958ee148179f7b28c76d1aa801b70bd24abe8b5b8adb3d5d5c0bf6801a61"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 2,
+        "pair_index": 1000002,
+        "variant_position": 1,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-notification-seen-row-reuse",
+      "variant": "baseline",
+      "trial_index": 2,
+      "root_cause_category": "api",
+      "predicted_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/store/NotificationStore.ets",
+            "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 55,
+          "end_line": 58,
+          "symbol": "syncFromStore",
+          "claim": "NotificationPanel refreshes the LazyForEach data source from cached notifications after store changes."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 189,
+          "end_line": 207,
+          "symbol": "handleNotificationClick",
+          "claim": "Clicking a notification marks the same notificationId seen and immediately resyncs the list."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 234,
+          "end_line": 287,
+          "symbol": "LazyForEach keyGenerator",
+          "claim": "Unread styling is derived from n.seen, but the LazyForEach identity key is only n.notificationId, so a row keeps the same identity when seen changes."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/NotificationStore.ets",
+          "start_line": 275,
+          "end_line": 280,
+          "symbol": "markSeen",
+          "claim": "markSeen changes cached notification state and publishes notificationVersion, without changing notificationId."
+        },
+        {
+          "file_path": "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+          "start_line": 58,
+          "end_line": 63,
+          "symbol": "replaceAll",
+          "claim": "replaceAll reloads the data source with the new item list, leaving row reuse governed by LazyForEach item identity."
+        }
+      ],
+      "token_estimate": 153241,
+      "elapsed_ms": 66435,
+      "summary": "The stale unread row is caused by NotificationPanel's LazyForEach identity contract: the row key is n.notificationId while the rendered styling depends on n.seen. When markSeen flips seen for the same notificationId and syncFromStore reloads the data source, ArkUI can reuse the existing row under the unchanged key, leaving unread styling stale. The repair-owner is the NotificationPanel key contract, likely by including a seen/version component or otherwise forcing item identity/change notification to reflect seen-state changes.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_state_owner"
+      ],
+      "end_to_end_elapsed_ms": 66435,
+      "agent_elapsed_ms": 66410,
+      "memory_retrieval_elapsed_ms": 0,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 150965,
+      "model_cached_input_tokens": 108160,
+      "model_uncached_input_tokens": 42805,
+      "model_output_tokens": 2276,
+      "model_reasoning_tokens": 627,
+      "usage_metrics_reported": true,
+      "command_count": 9,
+      "command_output_bytes": 56753,
+      "source_read_count": 12,
+      "source_read_output_bytes": 34386,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 4,
+      "expansion_file_count": 1,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "baseline",
+        "context_present": false,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "absent",
+          "context_present": false,
+          "payload_bytes": 4,
+          "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "shape_digest": "f072cbec3bf8841871d4284230c5e983dc211a56837aed862487148f947d1a1f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 2,
+        "pair_index": 1000002,
+        "variant_position": 2,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-notification-seen-row-reuse",
+      "variant": "baseline",
+      "trial_index": 3,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/store/NotificationStore.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/store/NotificationStore.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+            "entry/src/main/ets/store/NotificationStore.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/store/NotificationStore.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 55,
+          "end_line": 58,
+          "symbol": "NotificationPanel.syncFromStore",
+          "claim": "The panel refreshes its local notifications array from the store and replaces the LazyForEach data source after notification state changes."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 234,
+          "end_line": 287,
+          "symbol": "NotificationPanel.build LazyForEach",
+          "claim": "Unread styling is rendered from n.seen, but the LazyForEach item identity key is only n.notificationId, so a row for the same notification keeps the same identity when seen changes."
+        },
+        {
+          "file_path": "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+          "start_line": 58,
+          "end_line": 64,
+          "symbol": "BaseLazyDataSource.replaceAll",
+          "claim": "replaceAll swaps the backing list and emits a reload, leaving LazyForEach to reconcile rows by its supplied key contract."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/NotificationStore.ets",
+          "start_line": 275,
+          "end_line": 281,
+          "symbol": "NotificationStore.markSeen",
+          "claim": "Changing seen state mutates the cached notification and publishes state, so the store transition exists and the stale styling is explained by row reuse rather than a missing state update."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/NotificationStore.ets",
+          "start_line": 407,
+          "end_line": 413,
+          "symbol": "NotificationStore.publishState",
+          "claim": "Publishing state bumps KEY_NOTIFICATION_VERSION, which triggers the panel watcher path that resyncs the list."
+        }
+      ],
+      "token_estimate": 173503,
+      "elapsed_ms": 48261,
+      "summary": "The stale unread style is caused by the LazyForEach identity contract in NotificationPanel: rows are keyed only by notificationId while their visual unread state depends on seen. When seen flips for the same notification, the reused row can keep stale styling; the repair owner is the list key/render contract in NotificationPanel.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_state_owner"
+      ],
+      "end_to_end_elapsed_ms": 48261,
+      "agent_elapsed_ms": 48235,
+      "memory_retrieval_elapsed_ms": 0,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 171824,
+      "model_cached_input_tokens": 148096,
+      "model_uncached_input_tokens": 23728,
+      "model_output_tokens": 1679,
+      "model_reasoning_tokens": 353,
+      "usage_metrics_reported": true,
+      "command_count": 6,
+      "command_output_bytes": 66496,
+      "source_read_count": 10,
+      "source_read_output_bytes": 25025,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 4,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 4,
+      "expansion_file_count": 1,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "baseline",
+        "context_present": false,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "absent",
+          "context_present": false,
+          "payload_bytes": 4,
+          "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "shape_digest": "f072cbec3bf8841871d4284230c5e983dc211a56837aed862487148f947d1a1f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 3,
+        "pair_index": 1000003,
+        "variant_position": 1,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-notification-seen-row-reuse",
+      "variant": "memory",
+      "trial_index": 3,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/NotificationStore.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/NotificationStore.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 0,
+      "expansion_trace": [
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+            "entry/src/main/ets/store/NotificationStore.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 234,
+          "end_line": 285,
+          "symbol": "LazyForEach keyGenerator",
+          "claim": "Notification rows render seen-dependent unread dot, opacity, colors, and font weight from n.seen, but LazyForEach keys each row only by n.notificationId. When the same notification changes seen state, the list identity remains unchanged, allowing the rendered row for that identity to be reused with stale unread styling."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 183,
+          "end_line": 209,
+          "symbol": "handleNotificationClick",
+          "claim": "Click handling marks a notification seen and immediately syncs the store snapshot back into the same data source, creating the seen-state transition that should restyle the existing row."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 90,
+          "end_line": 96,
+          "symbol": "handleMarkAllSeen",
+          "claim": "The mark-all path also changes seen state and resyncs the list without changing each row key, so reused list items can keep old unread presentation."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/NotificationStore.ets",
+          "start_line": 270,
+          "end_line": 289,
+          "symbol": "markSeen/markAllSeen",
+          "claim": "The store updates cached notification seen state and publishes/persists it; the stale row is therefore explained by the rendering identity contract, not by absence of a state transition."
+        },
+        {
+          "file_path": "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+          "start_line": 47,
+          "end_line": 53,
+          "symbol": "replaceAll",
+          "claim": "The data source replaces its list and issues a reload, but row identity is still governed by NotificationPanel's LazyForEach key generator."
+        }
+      ],
+      "token_estimate": 168694,
+      "elapsed_ms": 65615,
+      "summary": "The stale unread styling is caused by NotificationPanel's LazyForEach identity contract: rows are keyed only by notificationId while their visual state depends on seen. Marking a notification or all notifications seen updates the store and reloads the data source, but the unchanged key permits the same rendered row identity to be reused after seen changes. The repair owner is the notification list key contract in NotificationPanel. A key including the seen revision/state, or an explicit per-item change identity strategy, would force the row styling to refresh when seen changes.",
+      "expansion_rounds": 2,
+      "expansion_reason_codes": [
+        "missing_state_owner"
+      ],
+      "end_to_end_elapsed_ms": 65615,
+      "agent_elapsed_ms": 64058,
+      "memory_retrieval_elapsed_ms": 1525,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 166492,
+      "model_cached_input_tokens": 145792,
+      "model_uncached_input_tokens": 20700,
+      "model_output_tokens": 2202,
+      "model_reasoning_tokens": 637,
+      "usage_metrics_reported": true,
+      "command_count": 8,
+      "command_output_bytes": 42214,
+      "source_read_count": 8,
+      "source_read_output_bytes": 42214,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 5135,
+      "memory_context_token_estimate": 1284,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 4,
+      "expansion_file_count": 4,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "memory",
+        "context_present": true,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "external_metadata_only",
+          "context_present": true,
+          "payload_bytes": 5135,
+          "payload_digest": "335364de31f94fc36504835a4aee6a357701b91d81886087eca201dc70a8c043",
+          "shape_digest": "4140958ee148179f7b28c76d1aa801b70bd24abe8b5b8adb3d5d5c0bf6801a61"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 3,
+        "pair_index": 1000003,
+        "variant_position": 2,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-notification-seen-row-reuse",
+      "variant": "memory",
+      "trial_index": 4,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/store/AppStore.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/store/AppStore.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 0,
+      "expansion_trace": [
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+            "entry/src/main/ets/store/NotificationStore.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 55,
+          "end_line": 58,
+          "symbol": "syncFromStore",
+          "claim": "The panel refreshes its notification snapshot and replaces the LazyForEach data source after store changes."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 182,
+          "end_line": 207,
+          "symbol": "handleNotificationClick",
+          "claim": "Click handling marks a notification seen and immediately syncs the list, so row styling should be recomputed from the updated seen value."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 234,
+          "end_line": 287,
+          "symbol": "build",
+          "claim": "LazyForEach renders unread styling from n.seen, but its key generator returns only n.notificationId, so an item whose seen state changes keeps the same list identity and can reuse stale rendered row content."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/NotificationStore.ets",
+          "start_line": 275,
+          "end_line": 280,
+          "symbol": "markSeen",
+          "claim": "The store mutates cached notification seen state and publishes a notification version after a successful mark-seen operation."
+        },
+        {
+          "file_path": "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+          "start_line": 58,
+          "end_line": 64,
+          "symbol": "replaceAll",
+          "claim": "The data source replaces list items and issues a reload, leaving the LazyForEach key contract as the row identity boundary."
+        }
+      ],
+      "token_estimate": 200749,
+      "elapsed_ms": 91129,
+      "summary": "The stale unread styling is caused by the notification list identity in NotificationPanel. LazyForEach keys rows only by notificationId while the row's visual state depends on n.seen; when mark-seen updates the same notification's seen value and the data source reloads, ArkUI can reuse the row with the unchanged key and preserve stale unread styling. The repair owner is the LazyForEach key contract in NotificationPanel, which should include seen or otherwise force row identity/update when seen changes.",
+      "expansion_rounds": 2,
+      "expansion_reason_codes": [
+        "missing_state_owner"
+      ],
+      "end_to_end_elapsed_ms": 91129,
+      "agent_elapsed_ms": 89363,
+      "memory_retrieval_elapsed_ms": 1725,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 198608,
+      "model_cached_input_tokens": 165632,
+      "model_uncached_input_tokens": 32976,
+      "model_output_tokens": 2141,
+      "model_reasoning_tokens": 308,
+      "usage_metrics_reported": true,
+      "command_count": 11,
+      "command_output_bytes": 63417,
+      "source_read_count": 14,
+      "source_read_output_bytes": 63417,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 5135,
+      "memory_context_token_estimate": 1284,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 4,
+      "expansion_file_count": 4,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "memory",
+        "context_present": true,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "external_metadata_only",
+          "context_present": true,
+          "payload_bytes": 5135,
+          "payload_digest": "ab1561035f08c387a01918e2c6502a64251db617d06af471af0713d011fc3269",
+          "shape_digest": "4140958ee148179f7b28c76d1aa801b70bd24abe8b5b8adb3d5d5c0bf6801a61"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 4,
+        "pair_index": 1000004,
+        "variant_position": 1,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-notification-seen-row-reuse",
+      "variant": "baseline",
+      "trial_index": 4,
+      "root_cause_category": "ui_layout",
+      "predicted_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/common/utils/NotificationPolicy.ets",
+        "entry/src/main/ets/store/NotificationStore.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+        "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets",
+        "entry/src/main/ets/common/utils/NotificationPolicy.ets",
+        "entry/src/main/ets/store/NotificationStore.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_state_owner",
+          "files": [
+            "entry/src/main/ets/common/utils/NotificationPolicy.ets",
+            "entry/src/main/ets/store/NotificationStore.ets"
+          ]
+        },
+        {
+          "reason": "missing_resource_owner",
+          "files": [
+            "entry/src/main/ets/common/datasource/LazyDataSource.ets",
+            "entry/src/main/ets/common/datasource/BaseLazyDataSource.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/common/utils/NotificationPolicy.ets",
+        "entry/src/main/ets/store/NotificationStore.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 55,
+          "end_line": 57,
+          "symbol": "syncFromStore",
+          "claim": "The panel reloads the LazyForEach data source from cached notifications after store changes."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 234,
+          "end_line": 287,
+          "symbol": "LazyForEach key generator",
+          "claim": "Rows render unread styling from n.seen, but the LazyForEach identity key is only n.notificationId, so a seen-state change does not change row identity."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+          "start_line": 189,
+          "end_line": 206,
+          "symbol": "handleNotificationClick",
+          "claim": "Click handling marks the notification seen and immediately syncs the same list back into the data source."
+        },
+        {
+          "file_path": "entry/src/main/ets/common/utils/NotificationPolicy.ets",
+          "start_line": 73,
+          "end_line": 84,
+          "symbol": "markNotificationSeen",
+          "claim": "Seen state changes by mutating notification.seen to true for the same notificationId."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/NotificationStore.ets",
+          "start_line": 275,
+          "end_line": 280,
+          "symbol": "markSeen",
+          "claim": "The store applies the seen mutation and publishes state, preserving notification identity rather than creating a distinct UI key."
+        }
+      ],
+      "token_estimate": 259940,
+      "elapsed_ms": 74473,
+      "summary": "The stale unread styling is caused by NotificationPanel's LazyForEach identity contract: the row key is only notificationId while row visuals depend on n.seen. Marking a notification seen mutates seen for the same notificationId, then replaceAll reloads the data source, allowing ArkUI to reuse the existing row identity and keep stale unread styling. The repair owner is the notification list key/rendering contract in NotificationPanel. A key that includes the seen version/state, or an explicit row change notification strategy, would make the rendered row identity match the visual state.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_state_owner",
+        "missing_resource_owner"
+      ],
+      "end_to_end_elapsed_ms": 74473,
+      "agent_elapsed_ms": 74447,
+      "memory_retrieval_elapsed_ms": 0,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 257439,
+      "model_cached_input_tokens": 224384,
+      "model_uncached_input_tokens": 33055,
+      "model_output_tokens": 2501,
+      "model_reasoning_tokens": 394,
+      "usage_metrics_reported": true,
+      "command_count": 13,
+      "command_output_bytes": 68258,
+      "source_read_count": 14,
+      "source_read_output_bytes": 26866,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 5,
+      "expansion_file_count": 2,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "baseline",
+        "context_present": false,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "absent",
+          "context_present": false,
+          "payload_bytes": 4,
+          "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "shape_digest": "f072cbec3bf8841871d4284230c5e983dc211a56837aed862487148f947d1a1f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 1,
+        "trial_index": 4,
+        "pair_index": 1000004,
+        "variant_position": 2,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-auto-checkin-success-hidden",
+      "variant": "memory",
+      "trial_index": 1,
+      "root_cause_category": "async concurrency",
+      "predicted_files": [
+        "entry/src/main/ets/store/AppStore.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/store/SettingsStore.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/pages/MainPage.ets",
+        "entry/src/main/ets/common/feedback/ToastManager.ets",
+        "entry/src/main/ets/service/api/FavoriteApi.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/service/api/FavoriteApi.ets",
+        "entry/src/main/ets/store/SettingsStore.ets",
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/pages/MainPage.ets",
+        "entry/src/main/ets/common/feedback/ToastManager.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 2,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+            "entry/src/main/ets/service/api/FavoriteApi.ets"
+          ]
+        },
+        {
+          "reason": "missing_async_boundary",
+          "files": [
+            "entry/src/main/ets/store/AppStore.ets",
+            "entry/src/main/ets/entryability/EntryAbility.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/store/SettingsStore.ets",
+        "entry/src/main/ets/common/feedback/ToastManager.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+          "start_line": 23,
+          "end_line": 39,
+          "symbol": "autoCheckinIfNeeded",
+          "claim": "The domain method is asynchronous and resolves true after a successful check-in, recording lastCheckinDate and persisting settings."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/SettingsStore.ets",
+          "start_line": 172,
+          "end_line": 172,
+          "symbol": "autoCheckinIfNeeded",
+          "claim": "SettingsStore preserves the asynchronous boolean result by returning the Promise from CheckinSettings.autoCheckinIfNeeded()."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/AppStore.ets",
+          "start_line": 156,
+          "end_line": 156,
+          "symbol": "autoCheckinIfNeeded",
+          "claim": "AppStore changes the facade contract to void and calls settingsStore.autoCheckinIfNeeded() without returning, awaiting, or handling the resolved boolean, discarding successful startup completion before feedback can be shown."
+        },
+        {
+          "file_path": "entry/src/main/ets/common/feedback/ToastManager.ets",
+          "start_line": 11,
+          "end_line": 19,
+          "symbol": "show",
+          "claim": "The existing global feedback mechanism is ToastManager.show(), reachable through appStore.showToast(), but the discarded auto-check-in result is never bridged to it."
+        }
+      ],
+      "token_estimate": 156427,
+      "elapsed_ms": 66094,
+      "summary": "Automatic check-in succeeds in CheckinSettings.autoCheckinIfNeeded() and resolves true, but AppStore.autoCheckinIfNeeded() declares void and drops that Promise/result. Startup callers invoke the AppStore facade, so the success value never reaches appStore.showToast()/ToastManager for global feedback.",
+      "expansion_rounds": 4,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "missing_async_boundary"
+      ],
+      "end_to_end_elapsed_ms": 66094,
+      "agent_elapsed_ms": 64701,
+      "memory_retrieval_elapsed_ms": 1362,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 154211,
+      "model_cached_input_tokens": 135168,
+      "model_uncached_input_tokens": 19043,
+      "model_output_tokens": 2216,
+      "model_reasoning_tokens": 517,
+      "usage_metrics_reported": true,
+      "command_count": 10,
+      "command_output_bytes": 48863,
+      "source_read_count": 8,
+      "source_read_output_bytes": 24932,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 4425,
+      "memory_context_token_estimate": 1107,
+      "source_file_count": 8,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 7,
+      "expansion_file_count": 7,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "memory",
+        "context_present": true,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "external_metadata_only",
+          "context_present": true,
+          "payload_bytes": 4425,
+          "payload_digest": "eac549c2b7a586676889be6cc5c74436e3e0016460b501344b88036672221f54",
+          "shape_digest": "6838bfbde18f6d058dc97cab60800a1353134eb6fbe126746c1feb8be008483f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 1,
+        "pair_index": 2000001,
+        "variant_position": 1,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-auto-checkin-success-hidden",
+      "variant": "baseline",
+      "trial_index": 1,
+      "root_cause_category": "async concurrency",
+      "predicted_files": [
+        "entry/src/main/ets/store/AppStore.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/pages/MainPage.ets",
+        "entry/src/main/ets/pages/ProfilePanel.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/pages/MainPage.ets",
+        "entry/src/main/ets/pages/ProfilePanel.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 2,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/entryability/EntryAbility.ets",
+            "entry/src/main/ets/pages/MainPage.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+          "start_line": 23,
+          "end_line": 38,
+          "symbol": "CheckinSettings.autoCheckinIfNeeded",
+          "claim": "The domain method awaits the check-in request and returns true when result.ok is reached after recording lastCheckinDate."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/AppStore.ets",
+          "start_line": 156,
+          "end_line": 156,
+          "symbol": "AppStoreClass.autoCheckinIfNeeded",
+          "claim": "The AppStore facade declares void and calls settingsStore.autoCheckinIfNeeded() without returning or awaiting the Promise<boolean>, discarding the asynchronous success result before any global feedback can use it."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/AppStore.ets",
+          "start_line": 240,
+          "end_line": 246,
+          "symbol": "AppStoreClass.showToast",
+          "claim": "The existing global notification path is appStore.showToast(), but the auto-checkin facade does not bridge the successful async result to this mechanism."
+        }
+      ],
+      "token_estimate": 119504,
+      "elapsed_ms": 55820,
+      "summary": "Automatic check-in can succeed in CheckinSettings.autoCheckinIfNeeded(), but AppStore.autoCheckinIfNeeded() drops the returned Promise<boolean> by exposing a void fire-and-forget facade. Startup callers invoke that facade, so the success result never reaches appStore.showToast(), unlike the manual ProfilePanel check-in path.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_caller"
+      ],
+      "end_to_end_elapsed_ms": 55820,
+      "agent_elapsed_ms": 55774,
+      "memory_retrieval_elapsed_ms": 0,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 117634,
+      "model_cached_input_tokens": 78464,
+      "model_uncached_input_tokens": 39170,
+      "model_output_tokens": 1870,
+      "model_reasoning_tokens": 510,
+      "usage_metrics_reported": true,
+      "command_count": 8,
+      "command_output_bytes": 25908,
+      "source_read_count": 7,
+      "source_read_output_bytes": 14655,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 5,
+      "expansion_file_count": 2,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "baseline",
+        "context_present": false,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "absent",
+          "context_present": false,
+          "payload_bytes": 4,
+          "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "shape_digest": "f072cbec3bf8841871d4284230c5e983dc211a56837aed862487148f947d1a1f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 1,
+        "pair_index": 2000001,
+        "variant_position": 2,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-auto-checkin-success-hidden",
+      "variant": "baseline",
+      "trial_index": 2,
+      "root_cause_category": "async concurrency",
+      "predicted_files": [
+        "entry/src/main/ets/store/AppStore.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/store/SettingsStore.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/pages/MainPage.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/store/SettingsStore.ets",
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/pages/MainPage.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 2,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/store/AppStore.ets",
+            "entry/src/main/ets/entryability/EntryAbility.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+          "start_line": 23,
+          "end_line": 37,
+          "symbol": "CheckinSettings.autoCheckinIfNeeded",
+          "claim": "The domain store performs the async check-in and returns true when result.ok after persisting lastCheckinDate."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/SettingsStore.ets",
+          "start_line": 172,
+          "end_line": 172,
+          "symbol": "SettingsStore.autoCheckinIfNeeded",
+          "claim": "SettingsStore preserves the Promise<boolean> returned by CheckinSettings.autoCheckinIfNeeded."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/AppStore.ets",
+          "start_line": 156,
+          "end_line": 156,
+          "symbol": "AppStoreClass.autoCheckinIfNeeded",
+          "claim": "The AppStore facade changes the method to void and calls this.settingsStore.autoCheckinIfNeeded() without returning or awaiting the Promise<boolean>, discarding successful async completion before any toast can be shown."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/AppStore.ets",
+          "start_line": 242,
+          "end_line": 246,
+          "symbol": "AppStoreClass.showToast",
+          "claim": "The existing global toast notification mechanism is available on AppStore, but the auto-check-in facade never connects the async success result to showToast."
+        },
+        {
+          "file_path": "entry/src/main/ets/entryability/EntryAbility.ets",
+          "start_line": 99,
+          "end_line": 101,
+          "symbol": "EntryAbility.onForeground",
+          "claim": "Startup/foreground code invokes appStore.autoCheckinIfNeeded(), so it receives only the void facade and cannot observe the successful boolean result."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/MainPage.ets",
+          "start_line": 162,
+          "end_line": 164,
+          "symbol": "MainPage.checkAuth",
+          "claim": "Main page startup auth flow also invokes the void AppStore facade, confirming startup auto-check-in callers do not receive success feedback."
+        }
+      ],
+      "token_estimate": 155108,
+      "elapsed_ms": 86809,
+      "summary": "Automatic check-in succeeds in CheckinSettings.autoCheckinIfNeeded(), which returns true on result.ok, and SettingsStore preserves that Promise<boolean>. The result is discarded in AppStore.autoCheckinIfNeeded(): it is typed void and calls the async SettingsStore method without await/return or a showToast path. Startup callers in EntryAbility and MainPage invoke this void facade, so successful completion never reaches AppStore.showToast.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_caller"
+      ],
+      "end_to_end_elapsed_ms": 86809,
+      "agent_elapsed_ms": 86753,
+      "memory_retrieval_elapsed_ms": 0,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 152495,
+      "model_cached_input_tokens": 121216,
+      "model_uncached_input_tokens": 31279,
+      "model_output_tokens": 2613,
+      "model_reasoning_tokens": 566,
+      "usage_metrics_reported": true,
+      "command_count": 13,
+      "command_output_bytes": 51354,
+      "source_read_count": 14,
+      "source_read_output_bytes": 28971,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 5,
+      "expansion_file_count": 2,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "baseline",
+        "context_present": false,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "absent",
+          "context_present": false,
+          "payload_bytes": 4,
+          "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "shape_digest": "f072cbec3bf8841871d4284230c5e983dc211a56837aed862487148f947d1a1f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 2,
+        "pair_index": 2000002,
+        "variant_position": 1,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-auto-checkin-success-hidden",
+      "variant": "memory",
+      "trial_index": 2,
+      "root_cause_category": "async concurrency",
+      "predicted_files": [
+        "entry/src/main/ets/store/AppStore.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/pages/MainPage.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/common/feedback/ToastManager.ets",
+        "entry/src/main/ets/common/components/Toast.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/pages/MainPage.ets",
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/common/feedback/ToastManager.ets",
+        "entry/src/main/ets/common/components/Toast.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/store/AppStore.ets",
+            "entry/src/main/ets/store/settings/domain/CheckinSettings.ets"
+          ]
+        },
+        {
+          "reason": "missing_async_boundary",
+          "files": [
+            "entry/src/main/ets/entryability/EntryAbility.ets",
+            "entry/src/main/ets/common/feedback/ToastManager.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+          "start_line": 23,
+          "end_line": 38,
+          "symbol": "autoCheckinIfNeeded",
+          "claim": "The domain method is asynchronous and returns Promise<boolean>; on successful check-in it persists lastCheckinDate and returns true."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/AppStore.ets",
+          "start_line": 156,
+          "end_line": 156,
+          "symbol": "autoCheckinIfNeeded",
+          "claim": "The AppStore facade declares autoCheckinIfNeeded as void and calls settingsStore.autoCheckinIfNeeded() without returning or awaiting the Promise<boolean>, discarding the success result before notification code can react."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/AppStore.ets",
+          "start_line": 246,
+          "end_line": 246,
+          "symbol": "showToast",
+          "claim": "The existing global feedback mechanism is appStore.showToast(msg), but the discarded auto-check-in result is never routed to it."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/MainPage.ets",
+          "start_line": 164,
+          "end_line": 164,
+          "symbol": "checkAuth",
+          "claim": "Startup invokes appStore.autoCheckinIfNeeded() without observing a result; because the facade returns void, MainPage cannot trigger global success feedback."
+        },
+        {
+          "file_path": "entry/src/main/ets/entryability/EntryAbility.ets",
+          "start_line": 100,
+          "end_line": 100,
+          "symbol": "onForeground",
+          "claim": "Foreground startup path also invokes appStore.autoCheckinIfNeeded() as a fire-and-forget call, relying on the facade despite its discarded async result."
+        }
+      ],
+      "token_estimate": 232561,
+      "elapsed_ms": 89940,
+      "summary": "Automatic check-in can succeed in CheckinSettings, but AppStore.autoCheckinIfNeeded drops the returned Promise<boolean> by exposing a void facade and not returning or awaiting it. Startup callers therefore cannot observe true and no code bridges that success into the existing appStore.showToast notification mechanism.",
+      "expansion_rounds": 3,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "missing_async_boundary"
+      ],
+      "end_to_end_elapsed_ms": 89940,
+      "agent_elapsed_ms": 86338,
+      "memory_retrieval_elapsed_ms": 3532,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 230279,
+      "model_cached_input_tokens": 187904,
+      "model_uncached_input_tokens": 42375,
+      "model_output_tokens": 2282,
+      "model_reasoning_tokens": 448,
+      "usage_metrics_reported": true,
+      "command_count": 10,
+      "command_output_bytes": 41972,
+      "source_read_count": 9,
+      "source_read_output_bytes": 30166,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 4425,
+      "memory_context_token_estimate": 1107,
+      "source_file_count": 7,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 6,
+      "expansion_file_count": 6,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "memory",
+        "context_present": true,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "external_metadata_only",
+          "context_present": true,
+          "payload_bytes": 4425,
+          "payload_digest": "b1c84025121f6f62ef63fc03d5589a74b9684df433666abd3123ba2eb5a099e9",
+          "shape_digest": "6838bfbde18f6d058dc97cab60800a1353134eb6fbe126746c1feb8be008483f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 2,
+        "pair_index": 2000002,
+        "variant_position": 2,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-auto-checkin-success-hidden",
+      "variant": "memory",
+      "trial_index": 3,
+      "root_cause_category": "async concurrency",
+      "predicted_files": [
+        "entry/src/main/ets/store/AppStore.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/pages/MainPage.ets",
+        "entry/src/main/ets/pages/ProfilePanel.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/store/NotificationStore.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/pages/MainPage.ets",
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/pages/ProfilePanel.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 1,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/store/AppStore.ets",
+            "entry/src/main/ets/store/settings/domain/CheckinSettings.ets"
+          ]
+        },
+        {
+          "reason": "missing_emitter",
+          "files": [
+            "entry/src/main/ets/pages/ProfilePanel.ets",
+            "entry/src/main/ets/entryability/EntryAbility.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/pages/MainPage.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+          "start_line": 23,
+          "end_line": 38,
+          "symbol": "autoCheckinIfNeeded",
+          "claim": "The domain method is asynchronous and returns true after a successful check-in, preserving the success result at this layer."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/AppStore.ets",
+          "start_line": 156,
+          "end_line": 156,
+          "symbol": "autoCheckinIfNeeded",
+          "claim": "The AppStore facade declares void and calls settingsStore.autoCheckinIfNeeded() without returning or awaiting its Promise<boolean>, discarding the asynchronous success value."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/MainPage.ets",
+          "start_line": 162,
+          "end_line": 164,
+          "symbol": "checkAuth",
+          "claim": "Startup invokes appStore.autoCheckinIfNeeded() after auth/profile setup, but receives no result to pass to the toast notification mechanism."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ProfilePanel.ets",
+          "start_line": 483,
+          "end_line": 490,
+          "claim": "Manual check-in demonstrates the existing global notification path: it reads the checkin result and calls appStore.showToast(this.checkinResult)."
+        }
+      ],
+      "token_estimate": 107244,
+      "elapsed_ms": 63862,
+      "summary": "Automatic check-in succeeds inside CheckinSettings.autoCheckinIfNeeded(), which returns Promise<boolean>, but AppStore.autoCheckinIfNeeded() is typed void and drops the returned promise. Startup callers therefore cannot observe a true result and cannot route it to the existing appStore.showToast notification flow.",
+      "expansion_rounds": 3,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "missing_emitter"
+      ],
+      "end_to_end_elapsed_ms": 63862,
+      "agent_elapsed_ms": 60521,
+      "memory_retrieval_elapsed_ms": 3231,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 105085,
+      "model_cached_input_tokens": 82176,
+      "model_uncached_input_tokens": 22909,
+      "model_output_tokens": 2159,
+      "model_reasoning_tokens": 501,
+      "usage_metrics_reported": true,
+      "command_count": 10,
+      "command_output_bytes": 24550,
+      "source_read_count": 12,
+      "source_read_output_bytes": 17250,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 4425,
+      "memory_context_token_estimate": 1107,
+      "source_file_count": 6,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 5,
+      "expansion_file_count": 5,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "memory",
+        "context_present": true,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "external_metadata_only",
+          "context_present": true,
+          "payload_bytes": 4425,
+          "payload_digest": "24bdfa4396a0097dc5cb3765c1842c9d8d33d89ff0a97afd1c90180f8264dbe6",
+          "shape_digest": "6838bfbde18f6d058dc97cab60800a1353134eb6fbe126746c1feb8be008483f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 3,
+        "pair_index": 2000003,
+        "variant_position": 1,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-auto-checkin-success-hidden",
+      "variant": "baseline",
+      "trial_index": 3,
+      "root_cause_category": "async concurrency",
+      "predicted_files": [
+        "entry/src/main/ets/store/AppStore.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/store/SettingsStore.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/pages/MainPage.ets",
+        "entry/src/main/ets/pages/ProfilePanel.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/store/SettingsStore.ets",
+        "entry/src/main/ets/pages/MainPage.ets",
+        "entry/src/main/ets/pages/ProfilePanel.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 3,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/entryability/EntryAbility.ets",
+            "entry/src/main/ets/pages/MainPage.ets"
+          ]
+        },
+        {
+          "reason": "missing_async_boundary",
+          "files": [
+            "entry/src/main/ets/pages/ProfilePanel.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/store/SettingsStore.ets",
+        "entry/src/main/ets/pages/ProfilePanel.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+          "start_line": 23,
+          "end_line": 38,
+          "symbol": "CheckinSettings.autoCheckinIfNeeded",
+          "claim": "Automatic check-in returns Promise<boolean> and resolves true after a successful checkin and persistence."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/SettingsStore.ets",
+          "start_line": 170,
+          "end_line": 172,
+          "symbol": "SettingsStore.autoCheckinIfNeeded",
+          "claim": "SettingsStore correctly preserves the asynchronous boolean result by returning the Promise from CheckinSettings."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/AppStore.ets",
+          "start_line": 155,
+          "end_line": 156,
+          "symbol": "AppStoreClass.autoCheckinIfNeeded",
+          "claim": "The AppStore facade changes the method to void and calls settingsStore.autoCheckinIfNeeded() without returning, awaiting, or attaching a continuation, discarding the success result before any toast can be shown."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ProfilePanel.ets",
+          "start_line": 483,
+          "end_line": 490,
+          "symbol": "manual checkin onClick",
+          "claim": "The existing notification mechanism for check-in success is appStore.showToast(this.checkinResult), proving successful check-in feedback already flows through AppStore toast when the result is handled."
+        }
+      ],
+      "token_estimate": 135363,
+      "elapsed_ms": 97173,
+      "summary": "Automatic check-in succeeds in CheckinSettings and produces a true Promise result, but AppStore.autoCheckinIfNeeded() declares void and drops the Promise returned by SettingsStore. Startup callers invoke this facade, so the async success cannot reach the existing appStore.showToast path used by manual check-in.",
+      "expansion_rounds": 2,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "missing_async_boundary"
+      ],
+      "end_to_end_elapsed_ms": 97173,
+      "agent_elapsed_ms": 97072,
+      "memory_retrieval_elapsed_ms": 0,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 133113,
+      "model_cached_input_tokens": 118784,
+      "model_uncached_input_tokens": 14329,
+      "model_output_tokens": 2250,
+      "model_reasoning_tokens": 470,
+      "usage_metrics_reported": true,
+      "command_count": 10,
+      "command_output_bytes": 26758,
+      "source_read_count": 15,
+      "source_read_output_bytes": 15637,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 6,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 6,
+      "expansion_file_count": 3,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "baseline",
+        "context_present": false,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "absent",
+          "context_present": false,
+          "payload_bytes": 4,
+          "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "shape_digest": "f072cbec3bf8841871d4284230c5e983dc211a56837aed862487148f947d1a1f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 3,
+        "pair_index": 2000003,
+        "variant_position": 2,
+        "first_variant": "memory"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-auto-checkin-success-hidden",
+      "variant": "baseline",
+      "trial_index": 4,
+      "root_cause_category": "async concurrency",
+      "predicted_files": [
+        "entry/src/main/ets/store/AppStore.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/pages/ProfilePanel.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/pages/MainPage.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/pages/MainPage.ets",
+        "entry/src/main/ets/pages/ProfilePanel.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 2,
+      "source_search_count": 2,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/entryability/EntryAbility.ets",
+            "entry/src/main/ets/pages/MainPage.ets"
+          ]
+        },
+        {
+          "reason": "missing_emitter",
+          "files": [
+            "entry/src/main/ets/pages/ProfilePanel.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/pages/ProfilePanel.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+          "start_line": 23,
+          "end_line": 42,
+          "symbol": "CheckinSettings.autoCheckinIfNeeded",
+          "claim": "The auto-checkin operation is asynchronous and returns Promise<boolean>; on success it records today's date and returns true."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/AppStore.ets",
+          "start_line": 156,
+          "end_line": 156,
+          "symbol": "AppStoreClass.autoCheckinIfNeeded",
+          "claim": "The facade declares autoCheckinIfNeeded as void and calls settingsStore.autoCheckinIfNeeded() without returning or awaiting the Promise<boolean>, discarding the async success result before callers can notify globally."
+        },
+        {
+          "file_path": "entry/src/main/ets/pages/ProfilePanel.ets",
+          "start_line": 483,
+          "end_line": 495,
+          "symbol": "ProfilePanel checkin click handler",
+          "claim": "The existing notification mechanism for check-in success/failure is appStore.showToast(...), proving successful check-in results are expected to surface through the global toast path when the result is observed."
+        }
+      ],
+      "token_estimate": 121184,
+      "elapsed_ms": 56820,
+      "summary": "Automatic check-in succeeds inside CheckinSettings.autoCheckinIfNeeded(), but AppStoreClass.autoCheckinIfNeeded() is typed void and drops the returned Promise<boolean). Startup/foreground callers invoke that facade, so the success boolean never reaches the existing appStore.showToast notification mechanism used by manual check-in.",
+      "expansion_rounds": 1,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "missing_emitter"
+      ],
+      "end_to_end_elapsed_ms": 56820,
+      "agent_elapsed_ms": 56762,
+      "memory_retrieval_elapsed_ms": 0,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 119266,
+      "model_cached_input_tokens": 89728,
+      "model_uncached_input_tokens": 29538,
+      "model_output_tokens": 1918,
+      "model_reasoning_tokens": 328,
+      "usage_metrics_reported": true,
+      "command_count": 10,
+      "command_output_bytes": 29078,
+      "source_read_count": 11,
+      "source_read_output_bytes": 18425,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 0,
+      "memory_context_token_estimate": 0,
+      "source_file_count": 5,
+      "memory_anchor_hit_count": 0,
+      "primary_anchor_hit_count": 0,
+      "non_anchor_file_count": 5,
+      "expansion_file_count": 2,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "baseline",
+        "context_present": false,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "absent",
+          "context_present": false,
+          "payload_bytes": 4,
+          "payload_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "shape_digest": "f072cbec3bf8841871d4284230c5e983dc211a56837aed862487148f947d1a1f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 4,
+        "pair_index": 2000004,
+        "variant_position": 1,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    },
+    {
+      "schema_version": "agent-benchmark-response/v1",
+      "case_id": "nga-auto-checkin-success-hidden",
+      "variant": "memory",
+      "trial_index": 4,
+      "root_cause_category": "async",
+      "predicted_files": [
+        "entry/src/main/ets/store/AppStore.ets"
+      ],
+      "supporting_files": [
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/store/SettingsStore.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/pages/MainPage.ets",
+        "entry/src/main/ets/store/NotificationStore.ets"
+      ],
+      "investigated_files": [
+        "entry/src/main/ets/store/NotificationStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/SettingsStore.ets",
+        "entry/src/main/ets/entryability/EntryAbility.ets",
+        "entry/src/main/ets/pages/MainPage.ets"
+      ],
+      "causal_level": "supported",
+      "verification_status": "unknown",
+      "query_rounds": 1,
+      "source_search_count": 2,
+      "expansion_trace": [
+        {
+          "reason": "missing_caller",
+          "files": [
+            "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+            "entry/src/main/ets/store/AppStore.ets"
+          ]
+        },
+        {
+          "reason": "missing_async_boundary",
+          "files": [
+            "entry/src/main/ets/store/SettingsStore.ets",
+            "entry/src/main/ets/entryability/EntryAbility.ets"
+          ]
+        }
+      ],
+      "stop_reason": "supported_cause_found",
+      "evidence_basis": "direct_source_mechanism",
+      "mechanism_evidence_files": [
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+        "entry/src/main/ets/store/SettingsStore.ets"
+      ],
+      "mechanism_evidence": [
+        {
+          "file_path": "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+          "start_line": 23,
+          "end_line": 38,
+          "symbol": "autoCheckinIfNeeded",
+          "claim": "The domain check-in method is asynchronous and resolves true after a successful check-in, persisting lastCheckinDate before returning the success signal."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/SettingsStore.ets",
+          "start_line": 172,
+          "end_line": 172,
+          "symbol": "autoCheckinIfNeeded",
+          "claim": "SettingsStore preserves the Promise<boolean> by returning checkinSettings.autoCheckinIfNeeded()."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/AppStore.ets",
+          "start_line": 156,
+          "end_line": 156,
+          "symbol": "autoCheckinIfNeeded",
+          "claim": "AppStore changes the facade to void and calls settingsStore.autoCheckinIfNeeded() without returning or awaiting it, discarding the asynchronous success result."
+        },
+        {
+          "file_path": "entry/src/main/ets/store/AppStore.ets",
+          "start_line": 242,
+          "end_line": 246,
+          "symbol": "showToast",
+          "claim": "The existing global notification mechanism is appStore.showToast(), but the discarded auto-check-in result never reaches this toast facade."
+        }
+      ],
+      "token_estimate": 175815,
+      "elapsed_ms": 73221,
+      "summary": "Automatic check-in can succeed in CheckinSettings and resolves true, but AppStore.autoCheckinIfNeeded() declares void and drops the Promise returned by SettingsStore. Startup callers invoke only this AppStore facade, so the success boolean is lost before code can call the existing appStore.showToast() notification path.",
+      "expansion_rounds": 3,
+      "expansion_reason_codes": [
+        "missing_caller",
+        "missing_async_boundary"
+      ],
+      "end_to_end_elapsed_ms": 73221,
+      "agent_elapsed_ms": 70025,
+      "memory_retrieval_elapsed_ms": 3137,
+      "latency_metrics_reported": true,
+      "model_input_tokens": 173498,
+      "model_cached_input_tokens": 141696,
+      "model_uncached_input_tokens": 31802,
+      "model_output_tokens": 2317,
+      "model_reasoning_tokens": 578,
+      "usage_metrics_reported": true,
+      "command_count": 10,
+      "command_output_bytes": 35597,
+      "source_read_count": 13,
+      "source_read_output_bytes": 8403,
+      "tool_error_count": 0,
+      "source_search_miss_count": 0,
+      "source_search_error_count": 0,
+      "source_read_error_count": 0,
+      "other_tool_error_count": 0,
+      "cost_metrics_reported": true,
+      "memory_context_bytes": 4425,
+      "memory_context_token_estimate": 1107,
+      "source_file_count": 6,
+      "memory_anchor_hit_count": 1,
+      "primary_anchor_hit_count": 1,
+      "non_anchor_file_count": 5,
+      "expansion_file_count": 5,
+      "expansion_accounting_source": "runner_investigated_files",
+      "source_search_count_source": "runner_telemetry",
+      "treatment_metadata": {
+        "schema_version": "agent-benchmark-treatment/v2",
+        "variant": "memory",
+        "context_present": true,
+        "investigation_contract_digest": "864887221ea8e9a7abfda5ee453d398d0e64ff80b9f8488fffe9d73c803b0362",
+        "context_exposure": {
+          "schema_version": "context-exposure/v1",
+          "delivery": "external_metadata_only",
+          "context_present": true,
+          "payload_bytes": 4425,
+          "payload_digest": "08a29e4bb0d376b6a65ae3d09290ca6a134ca5a28b4e557b0b354de1d6e66351",
+          "shape_digest": "6838bfbde18f6d058dc97cab60800a1353134eb6fbe126746c1feb8be008483f"
+        }
+      },
+      "runner_metadata": {
+        "runner": "codex_cli",
+        "runner_version": "codex-cli 0.142.0",
+        "model": "gpt-5.5",
+        "reasoning_effort": "low",
+        "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+        "benchmark_protocol_manifest": {
+          "schema_version": "agent-benchmark-protocol-manifest/v1",
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "components": {
+            "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+            "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+            "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+            "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+            "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+            "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+            "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+            "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+            "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+            "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+            "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+            "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+          },
+          "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+        },
+        "measurement_contract": "context_only_shared_protocol/v2",
+        "sandbox": "read-only",
+        "session": "ephemeral",
+        "memory_delivery": "runner_preloaded",
+        "source_excerpt_delivery": "external_metadata_only",
+        "user_context": "isolated_home",
+        "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+      },
+      "memory_context_metrics_reported": true,
+      "expansion_trace_reported": true,
+      "exploration_metrics_reported": true,
+      "execution_order": {
+        "schema_version": "agent-benchmark-execution-order/v1",
+        "schedule": "alternating_case_trial_parity/v1",
+        "case_position": 2,
+        "trial_index": 4,
+        "pair_index": 2000004,
+        "variant_position": 2,
+        "first_variant": "baseline"
+      },
+      "memory_setup": {
+        "schema_version": "benchmark-memory-setup/v1",
+        "reflection_count": 0,
+        "sha256": "bb1951308410dbd562a37c8d0c856723c38c4f198756acbef172c852b25b66ba"
+      }
+    }
+  ]
+}

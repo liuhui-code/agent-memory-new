@@ -251,15 +251,44 @@
       ]
     }
   ],
+  "agent_ab": {
+    "status": "fail",
+    "quality_gate": "fail",
+    "efficiency_gate": "fail",
+    "promotion_gate": "fail",
+    "model": "gpt-5.5",
+    "reasoning_effort": "low",
+    "case_count": 6,
+    "trial_count": 4,
+    "observation_count": 48,
+    "pair_count": 24,
+    "balanced_first_variant": true,
+    "agent_outcome_score_delta": 0.0257,
+    "agent_root_cause_accuracy_delta": 0.0416,
+    "expected_file_recall_delta": 0.0347,
+    "predicted_file_precision_delta": -0.0208,
+    "mechanism_evidence_score_delta": -0.0208,
+    "average_token_savings": 11974.4583,
+    "average_elapsed_ms_overhead": 6538.4583,
+    "median_paired_token_overhead_ratio": -0.0568,
+    "worst_paired_token_overhead_ratio": 0.9277,
+    "median_paired_elapsed_overhead_ratio": 0.1304,
+    "worst_paired_elapsed_overhead_ratio": 0.787,
+    "protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+    "result_file": "docs/eval/context-utility-agent-ab-result.json"
+  },
   "decision": {
     "context_gate": "no_go",
-    "agent_ab": "pending_explicit_source_consent",
+    "agent_ab": "no_go",
     "serving_change_allowed": false,
     "reasons": [
       "five_of_six_context_cases_failed",
       "candidate_generation_loss_reproduced_in_three_cases",
       "localizer_loss_reproduced_in_two_independent_projects",
-      "agent_ab_external_source_transfer_not_yet_authorized"
+      "agent_ab_every_case_outcome_non_regression_failed",
+      "agent_ab_trial_stability_non_regression_failed",
+      "agent_ab_mechanism_evidence_regressed",
+      "agent_ab_efficiency_and_worst_case_cost_gates_failed"
     ]
   }
 }

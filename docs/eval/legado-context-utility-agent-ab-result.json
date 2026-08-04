@@ -1,0 +1,1180 @@
+{
+  "schema_version": "agent-benchmark-result/v1",
+  "execution_order": {
+    "schema_version": "agent-benchmark-execution-order/v1",
+    "status": "pass",
+    "enforced": true,
+    "schedule": "alternating_case_trial_parity/v1",
+    "observation_count": 8,
+    "reported_count": 8,
+    "pair_count": 4,
+    "complete_pairs": true,
+    "balanced_first_variant": true,
+    "first_variant_counts": {
+      "baseline": 2,
+      "memory": 2
+    }
+  },
+  "measurement_contract": {
+    "status": "pass",
+    "enforced": true,
+    "checks": {
+      "all_treatments_reported": true,
+      "shared_investigation_contract": true,
+      "baseline_context_absent": true,
+      "memory_context_present": true,
+      "latency_attribution_complete": true
+    }
+  },
+  "status": "fail",
+  "quality_gate": "fail",
+  "promotion_gate": "fail",
+  "summary": {
+    "case_count": 1,
+    "observation_count": 8,
+    "missing_observations": [],
+    "duplicate_observations": [],
+    "suite": "development",
+    "trial_count": 4,
+    "stability_evaluated": true
+  },
+  "metrics": {
+    "baseline": {
+      "sample_count": 1,
+      "agent_outcome_score": 0.8687,
+      "agent_root_cause_accuracy": 1.0,
+      "expected_file_recall": 0.625,
+      "predicted_file_precision": 1.0,
+      "forbidden_direction_rate": 0.0,
+      "causal_calibration_accuracy": 1.0,
+      "mechanism_evidence_score": 1.0,
+      "verification_pass_rate": null,
+      "average_query_rounds": 1.25,
+      "average_source_search_count": 2.75,
+      "average_token_estimate": 230535.5,
+      "average_model_input_tokens": 227785.75,
+      "average_model_cached_input_tokens": 190112.0,
+      "average_model_uncached_input_tokens": 37673.75,
+      "average_model_output_tokens": 2749.75,
+      "average_model_reasoning_tokens": 323.5,
+      "average_command_count": 8.5,
+      "average_command_output_bytes": 1139136.5,
+      "average_source_read_count": 7.25,
+      "average_source_read_output_bytes": 30634.5,
+      "average_tool_error_count": 0.5,
+      "average_source_search_miss_count": 0.0,
+      "average_source_search_error_count": 0.0,
+      "average_source_read_error_count": 0.5,
+      "average_other_tool_error_count": 0.0,
+      "average_memory_context_bytes": 0.0,
+      "average_memory_context_token_estimate": 0.0,
+      "average_elapsed_ms": 72046.75,
+      "average_end_to_end_elapsed_ms": 72046.75,
+      "average_agent_elapsed_ms": 72019.5,
+      "average_memory_retrieval_elapsed_ms": 0.0,
+      "average_source_file_count": 3.0,
+      "average_memory_anchor_hit_count": 0.0,
+      "average_memory_anchor_hit_rate": null,
+      "average_primary_anchor_hit_count": 0.0,
+      "average_non_anchor_file_count": 3.0,
+      "average_supporting_file_count": 4.0,
+      "average_expansion_rounds": 0.25,
+      "average_expansion_file_count": 0.5,
+      "reported_stop_reasons": [
+        "supported_cause_found"
+      ]
+    },
+    "memory": {
+      "sample_count": 1,
+      "agent_outcome_score": 0.825,
+      "agent_root_cause_accuracy": 1.0,
+      "expected_file_recall": 0.5,
+      "predicted_file_precision": 1.0,
+      "forbidden_direction_rate": 0.0,
+      "causal_calibration_accuracy": 1.0,
+      "mechanism_evidence_score": 1.0,
+      "verification_pass_rate": null,
+      "average_query_rounds": 1.25,
+      "average_source_search_count": 2.0,
+      "average_token_estimate": 160099.0,
+      "average_model_input_tokens": 158145.5,
+      "average_model_cached_input_tokens": 126848.0,
+      "average_model_uncached_input_tokens": 31297.5,
+      "average_model_output_tokens": 1953.5,
+      "average_model_reasoning_tokens": 442.0,
+      "average_command_count": 9.75,
+      "average_command_output_bytes": 29451.5,
+      "average_source_read_count": 9.0,
+      "average_source_read_output_bytes": 22641.0,
+      "average_tool_error_count": 0.0,
+      "average_source_search_miss_count": 0.0,
+      "average_source_search_error_count": 0.0,
+      "average_source_read_error_count": 0.0,
+      "average_other_tool_error_count": 0.0,
+      "average_memory_context_bytes": 4270.0,
+      "average_memory_context_token_estimate": 1068.0,
+      "average_elapsed_ms": 68231.0,
+      "average_end_to_end_elapsed_ms": 68231.0,
+      "average_agent_elapsed_ms": 64944.25,
+      "average_memory_retrieval_elapsed_ms": 3256.25,
+      "average_source_file_count": 4.0,
+      "average_memory_anchor_hit_count": 2.0,
+      "average_memory_anchor_hit_rate": 0.5167,
+      "average_primary_anchor_hit_count": 2.0,
+      "average_non_anchor_file_count": 2.0,
+      "average_supporting_file_count": 4.0,
+      "average_expansion_rounds": 1.25,
+      "average_expansion_file_count": 2.0,
+      "reported_stop_reasons": [
+        "supported_cause_found"
+      ]
+    }
+  },
+  "context_uplift": {
+    "agent_outcome_score_delta": -0.0437,
+    "agent_root_cause_accuracy_delta": 0.0,
+    "expected_file_recall_delta": -0.125,
+    "predicted_file_precision_delta": 0.0,
+    "causal_calibration_accuracy_delta": 0.0,
+    "verification_pass_rate_delta": null,
+    "forbidden_direction_rate_delta": 0.0,
+    "token_savings": 70436.5,
+    "elapsed_ms_savings": 3815.75
+  },
+  "gate_checks": {
+    "minimum_cases": true,
+    "complete_pairs": true,
+    "context_agent_outcome_non_regression": false,
+    "context_agent_root_cause_non_regression": true,
+    "context_forbidden_direction_non_regression": true,
+    "every_case_outcome_non_regression": false,
+    "trial_stability_non_regression": true,
+    "memory_root_cause_trial_stability": true,
+    "runner_configuration_consistent": true,
+    "memory_context_within_budget": true,
+    "source_exploration_within_budget": false,
+    "counterbalanced_execution_order": true,
+    "measurement_contract_valid": true
+  },
+  "efficiency_gate": "fail",
+  "efficiency_gate_checks": {
+    "cost_attribution_complete": true,
+    "token_overhead_within_budget": true,
+    "elapsed_overhead_within_budget": true,
+    "source_search_non_regression": true,
+    "source_read_amplification_within_budget": false,
+    "source_read_amplification_non_regression": true,
+    "every_case_token_overhead_within_budget": true,
+    "every_case_elapsed_overhead_within_budget": true,
+    "every_case_source_search_non_regression": true,
+    "every_case_source_read_amplification_within_budget": false,
+    "every_case_source_read_amplification_non_regression": true
+  },
+  "efficiency_metrics": {
+    "cost_attribution_coverage": 1.0,
+    "token_overhead_ratio": -0.3055,
+    "elapsed_overhead_ratio": -0.053,
+    "command_output_overhead_ratio": -0.9741,
+    "source_read_output_overhead_ratio": -0.2609,
+    "paired_effects": {
+      "pair_count": 4,
+      "metrics": {
+        "token_estimate": {
+          "reported_pairs": 4,
+          "mean_delta": -70436.5,
+          "median_delta": -66654.5,
+          "mean_overhead_ratio": -0.2153,
+          "median_overhead_ratio": -0.2234,
+          "worst_overhead_ratio": 0.1601
+        },
+        "model_uncached_input_tokens": {
+          "reported_pairs": 4,
+          "mean_delta": -6376.25,
+          "median_delta": -8977.0,
+          "mean_overhead_ratio": -0.122,
+          "median_overhead_ratio": -0.2431,
+          "worst_overhead_ratio": 0.4618
+        },
+        "model_output_tokens": {
+          "reported_pairs": 4,
+          "mean_delta": -796.25,
+          "median_delta": -545.5,
+          "mean_overhead_ratio": -0.2401,
+          "median_overhead_ratio": -0.2031,
+          "worst_overhead_ratio": -0.0326
+        },
+        "elapsed_ms": {
+          "reported_pairs": 4,
+          "mean_delta": -3815.75,
+          "median_delta": 3827.0,
+          "mean_overhead_ratio": -0.0064,
+          "median_overhead_ratio": 0.0622,
+          "worst_overhead_ratio": 0.2007
+        },
+        "source_search_count": {
+          "reported_pairs": 4,
+          "mean_delta": -0.75,
+          "median_delta": -0.5,
+          "mean_overhead_ratio": -0.25,
+          "median_overhead_ratio": -0.1667,
+          "worst_overhead_ratio": 0.0
+        },
+        "source_read_count": {
+          "reported_pairs": 4,
+          "mean_delta": 1.75,
+          "median_delta": 3.5,
+          "mean_overhead_ratio": 0.7768,
+          "median_overhead_ratio": 0.5536,
+          "worst_overhead_ratio": 2.5
+        }
+      }
+    },
+    "memory_cached_input_ratio": 0.8021,
+    "baseline_source_read_amplification": 2.4167,
+    "memory_source_read_amplification": 2.25,
+    "per_case": [
+      {
+        "case_id": "legado-change-source-results-delayed",
+        "token_overhead_ratio": -0.3055,
+        "elapsed_overhead_ratio": -0.053,
+        "baseline_source_read_amplification": 2.4167,
+        "memory_source_read_amplification": 2.25,
+        "checks": {
+          "token_overhead_within_budget": true,
+          "elapsed_overhead_within_budget": true,
+          "source_search_non_regression": true,
+          "source_read_amplification_within_budget": false,
+          "source_read_amplification_non_regression": true
+        }
+      }
+    ]
+  },
+  "efficiency_limits": {
+    "token_overhead_ratio": 0.1,
+    "elapsed_overhead_ratio": 0.15,
+    "source_read_amplification": 2.0
+  },
+  "minimum_case_count": 1,
+  "cases": [
+    {
+      "case_id": "legado-change-source-results-delayed",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "trial_count": 4,
+      "trial_non_regression_rate": 0.75,
+      "memory_root_cause_consistency": 1.0,
+      "memory_predicted_files_consistency": 1.0,
+      "variants": {
+        "baseline": {
+          "agent_outcome_score": 0.8687,
+          "agent_root_cause_match": 1.0,
+          "predicted_root_cause_category": "async",
+          "expected_root_cause_category": "async",
+          "expected_file_recall": 0.625,
+          "predicted_file_precision": 1.0,
+          "forbidden_direction_hit": 0.0,
+          "forbidden_files": [],
+          "causal_level_match": 1.0,
+          "mechanism_evidence_eligible": true,
+          "mechanism_evidence_score": 1.0,
+          "mechanism_grounded": 1.0,
+          "verification_status": "unknown",
+          "query_rounds": 1.25,
+          "source_search_count": 2.75,
+          "source_search_count_sources": [
+            "runner_telemetry"
+          ],
+          "model_input_tokens": 227785.75,
+          "model_cached_input_tokens": 190112.0,
+          "model_uncached_input_tokens": 37673.75,
+          "model_output_tokens": 2749.75,
+          "model_reasoning_tokens": 323.5,
+          "command_count": 8.5,
+          "command_output_bytes": 1139136.5,
+          "source_read_count": 7.25,
+          "source_read_output_bytes": 30634.5,
+          "tool_error_count": 0.5,
+          "source_search_miss_count": 0.0,
+          "source_search_error_count": 0.0,
+          "source_read_error_count": 0.5,
+          "other_tool_error_count": 0.0,
+          "cost_metrics_reported": true,
+          "token_estimate": 230535.5,
+          "memory_context_bytes": 0.0,
+          "memory_context_token_estimate": 0.0,
+          "elapsed_ms": 72046.75,
+          "end_to_end_elapsed_ms": 72046.75,
+          "agent_elapsed_ms": 72019.5,
+          "memory_retrieval_elapsed_ms": 0.0,
+          "source_file_count": 3.0,
+          "memory_anchor_hit_count": 0.0,
+          "memory_anchor_hit_rate": null,
+          "primary_anchor_hit_count": 0.0,
+          "non_anchor_file_count": 3.0,
+          "expansion_rounds": 0.25,
+          "expansion_file_count": 0.5,
+          "expansion_accounting_sources": [
+            "runner_investigated_files"
+          ],
+          "expansion_reason_codes": [
+            "missing_async_boundary",
+            "missing_route_target",
+            "missing_state_owner"
+          ],
+          "stop_reason": "supported_cause_found",
+          "exploration_metrics_reported": true,
+          "predicted_files": [
+            "entry/src/main/ets/core/book/SearchCoordinator.ts",
+            "entry/src/main/ets/pages/ReadBook.ets"
+          ],
+          "supporting_files": [
+            "entry/src/main/ets/components/book/SearchBookResultList.ets",
+            "entry/src/main/ets/core/book/SearchCoordinator.ts",
+            "entry/src/main/ets/pages/Index.ets",
+            "entry/src/main/ets/pages/Search.ets"
+          ]
+        },
+        "memory": {
+          "agent_outcome_score": 0.825,
+          "agent_root_cause_match": 1.0,
+          "predicted_root_cause_category": "async",
+          "expected_root_cause_category": "async",
+          "expected_file_recall": 0.5,
+          "predicted_file_precision": 1.0,
+          "forbidden_direction_hit": 0.0,
+          "forbidden_files": [],
+          "causal_level_match": 1.0,
+          "mechanism_evidence_eligible": true,
+          "mechanism_evidence_score": 1.0,
+          "mechanism_grounded": 1.0,
+          "verification_status": "unknown",
+          "query_rounds": 1.25,
+          "source_search_count": 2.0,
+          "source_search_count_sources": [
+            "runner_telemetry"
+          ],
+          "model_input_tokens": 158145.5,
+          "model_cached_input_tokens": 126848.0,
+          "model_uncached_input_tokens": 31297.5,
+          "model_output_tokens": 1953.5,
+          "model_reasoning_tokens": 442.0,
+          "command_count": 9.75,
+          "command_output_bytes": 29451.5,
+          "source_read_count": 9.0,
+          "source_read_output_bytes": 22641.0,
+          "tool_error_count": 0.0,
+          "source_search_miss_count": 0.0,
+          "source_search_error_count": 0.0,
+          "source_read_error_count": 0.0,
+          "other_tool_error_count": 0.0,
+          "cost_metrics_reported": true,
+          "token_estimate": 160099.0,
+          "memory_context_bytes": 4270.0,
+          "memory_context_token_estimate": 1068.0,
+          "elapsed_ms": 68231.0,
+          "end_to_end_elapsed_ms": 68231.0,
+          "agent_elapsed_ms": 64944.25,
+          "memory_retrieval_elapsed_ms": 3256.25,
+          "source_file_count": 4.0,
+          "memory_anchor_hit_count": 2.0,
+          "memory_anchor_hit_rate": 0.5167,
+          "primary_anchor_hit_count": 2.0,
+          "non_anchor_file_count": 2.0,
+          "expansion_rounds": 1.25,
+          "expansion_file_count": 2.0,
+          "expansion_accounting_sources": [
+            "runner_investigated_files"
+          ],
+          "expansion_reason_codes": [
+            "missing_caller",
+            "missing_route_target"
+          ],
+          "stop_reason": "supported_cause_found",
+          "exploration_metrics_reported": true,
+          "predicted_files": [
+            "entry/src/main/ets/pages/ReadBook.ets"
+          ],
+          "supporting_files": [
+            "entry/src/main/ets/components/book/SearchBookResultList.ets",
+            "entry/src/main/ets/core/book/SearchCoordinator.ts",
+            "entry/src/main/ets/pages/Index.ets",
+            "entry/src/main/ets/pages/Search.ets"
+          ]
+        }
+      },
+      "trial_results": [
+        {
+          "trial_index": 1,
+          "variants": {
+            "baseline": {
+              "agent_outcome_score": 0.825,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "async",
+              "expected_root_cause_category": "async",
+              "expected_file_recall": 0.5,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "causal_level_source": "oracle_mechanism_evidence",
+              "mechanism_evidence_eligible": true,
+              "mechanism_evidence_score": 1.0,
+              "mechanism_grounded": true,
+              "matched_mechanism_assertions": 2,
+              "expected_mechanism_assertions": 2,
+              "verification_status": "unknown",
+              "query_rounds": 2,
+              "source_search_count": 3,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 299842,
+              "model_input_tokens": 295960,
+              "model_cached_input_tokens": 253696,
+              "model_uncached_input_tokens": 42264,
+              "model_output_tokens": 3882,
+              "model_reasoning_tokens": 482,
+              "command_count": 10,
+              "command_output_bytes": 1148770,
+              "source_read_count": 7,
+              "source_read_output_bytes": 48852,
+              "tool_error_count": 1,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 1,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 0,
+              "memory_context_token_estimate": 0,
+              "elapsed_ms": 100399,
+              "end_to_end_elapsed_ms": 100399,
+              "agent_elapsed_ms": 100370,
+              "memory_retrieval_elapsed_ms": 0,
+              "source_file_count": 5,
+              "memory_anchor_hit_count": 0,
+              "memory_anchor_hit_rate": null,
+              "primary_anchor_hit_count": 0,
+              "non_anchor_file_count": 5,
+              "expansion_rounds": 1,
+              "expansion_file_count": 2,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_state_owner",
+                "missing_route_target"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/pages/ReadBook.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/core/book/SearchCoordinator.ts",
+                "entry/src/main/ets/pages/Index.ets",
+                "entry/src/main/ets/pages/Search.ets",
+                "entry/src/main/ets/components/book/SearchBookResultList.ets"
+              ]
+            },
+            "memory": {
+              "agent_outcome_score": 0.825,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "async",
+              "expected_root_cause_category": "async",
+              "expected_file_recall": 0.5,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "causal_level_source": "oracle_mechanism_evidence",
+              "mechanism_evidence_eligible": true,
+              "mechanism_evidence_score": 1.0,
+              "mechanism_grounded": true,
+              "matched_mechanism_assertions": 2,
+              "expected_mechanism_assertions": 2,
+              "verification_status": "unknown",
+              "query_rounds": 1,
+              "source_search_count": 1,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 127563,
+              "model_input_tokens": 125706,
+              "model_cached_input_tokens": 103040,
+              "model_uncached_input_tokens": 22666,
+              "model_output_tokens": 1857,
+              "model_reasoning_tokens": 249,
+              "command_count": 11,
+              "command_output_bytes": 31437,
+              "source_read_count": 13,
+              "source_read_output_bytes": 24301,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 4270,
+              "memory_context_token_estimate": 1068,
+              "elapsed_ms": 65195,
+              "end_to_end_elapsed_ms": 65195,
+              "agent_elapsed_ms": 61904,
+              "memory_retrieval_elapsed_ms": 3253,
+              "source_file_count": 4,
+              "memory_anchor_hit_count": 2,
+              "memory_anchor_hit_rate": 0.5,
+              "primary_anchor_hit_count": 2,
+              "non_anchor_file_count": 2,
+              "expansion_rounds": 1,
+              "expansion_file_count": 2,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_caller"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/pages/ReadBook.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/core/book/SearchCoordinator.ts",
+                "entry/src/main/ets/pages/Index.ets",
+                "entry/src/main/ets/components/book/SearchBookResultList.ets"
+              ]
+            }
+          },
+          "context_outcome_delta": 0.0
+        },
+        {
+          "trial_index": 2,
+          "variants": {
+            "baseline": {
+              "agent_outcome_score": 0.825,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "async",
+              "expected_root_cause_category": "async",
+              "expected_file_recall": 0.5,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "causal_level_source": "oracle_mechanism_evidence",
+              "mechanism_evidence_eligible": true,
+              "mechanism_evidence_score": 1.0,
+              "mechanism_grounded": true,
+              "matched_mechanism_assertions": 2,
+              "expected_mechanism_assertions": 2,
+              "verification_status": "unknown",
+              "query_rounds": 1,
+              "source_search_count": 3,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 313417,
+              "model_input_tokens": 311303,
+              "model_cached_input_tokens": 264576,
+              "model_uncached_input_tokens": 46727,
+              "model_output_tokens": 2114,
+              "model_reasoning_tokens": 344,
+              "command_count": 12,
+              "command_output_bytes": 1167507,
+              "source_read_count": 12,
+              "source_read_output_bytes": 38388,
+              "tool_error_count": 1,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 1,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 0,
+              "memory_context_token_estimate": 0,
+              "elapsed_ms": 61229,
+              "end_to_end_elapsed_ms": 61229,
+              "agent_elapsed_ms": 61198,
+              "memory_retrieval_elapsed_ms": 0,
+              "source_file_count": 3,
+              "memory_anchor_hit_count": 0,
+              "memory_anchor_hit_rate": null,
+              "primary_anchor_hit_count": 0,
+              "non_anchor_file_count": 3,
+              "expansion_rounds": 0,
+              "expansion_file_count": 0,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_async_boundary"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/pages/ReadBook.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/core/book/SearchCoordinator.ts",
+                "entry/src/main/ets/pages/Search.ets"
+              ]
+            },
+            "memory": {
+              "agent_outcome_score": 0.825,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "async",
+              "expected_root_cause_category": "async",
+              "expected_file_recall": 0.5,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "causal_level_source": "oracle_mechanism_evidence",
+              "mechanism_evidence_eligible": true,
+              "mechanism_evidence_score": 1.0,
+              "mechanism_grounded": true,
+              "matched_mechanism_assertions": 2,
+              "expected_mechanism_assertions": 2,
+              "verification_status": "unknown",
+              "query_rounds": 1,
+              "source_search_count": 3,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 187139,
+              "model_input_tokens": 185094,
+              "model_cached_input_tokens": 141056,
+              "model_uncached_input_tokens": 44038,
+              "model_output_tokens": 2045,
+              "model_reasoning_tokens": 494,
+              "command_count": 9,
+              "command_output_bytes": 37333,
+              "source_read_count": 6,
+              "source_read_output_bytes": 30072,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 4270,
+              "memory_context_token_estimate": 1068,
+              "elapsed_ms": 73516,
+              "end_to_end_elapsed_ms": 73516,
+              "agent_elapsed_ms": 70195,
+              "memory_retrieval_elapsed_ms": 3288,
+              "source_file_count": 4,
+              "memory_anchor_hit_count": 2,
+              "memory_anchor_hit_rate": 0.5,
+              "primary_anchor_hit_count": 2,
+              "non_anchor_file_count": 2,
+              "expansion_rounds": 1,
+              "expansion_file_count": 2,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_caller"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/pages/ReadBook.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/core/book/SearchCoordinator.ts",
+                "entry/src/main/ets/pages/Search.ets",
+                "entry/src/main/ets/components/book/SearchBookResultList.ets"
+              ]
+            }
+          },
+          "context_outcome_delta": 0.0
+        },
+        {
+          "trial_index": 3,
+          "variants": {
+            "baseline": {
+              "agent_outcome_score": 1.0,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "async",
+              "expected_root_cause_category": "async",
+              "expected_file_recall": 1.0,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "causal_level_source": "oracle_mechanism_evidence",
+              "mechanism_evidence_eligible": true,
+              "mechanism_evidence_score": 1.0,
+              "mechanism_grounded": true,
+              "matched_mechanism_assertions": 2,
+              "expected_mechanism_assertions": 2,
+              "verification_status": "unknown",
+              "query_rounds": 1,
+              "source_search_count": 3,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 148878,
+              "model_input_tokens": 146150,
+              "model_cached_input_tokens": 120064,
+              "model_uncached_input_tokens": 26086,
+              "model_output_tokens": 2728,
+              "model_reasoning_tokens": 122,
+              "command_count": 5,
+              "command_output_bytes": 1116067,
+              "source_read_count": 2,
+              "source_read_output_bytes": 15406,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 0,
+              "memory_context_token_estimate": 0,
+              "elapsed_ms": 66664,
+              "end_to_end_elapsed_ms": 66664,
+              "agent_elapsed_ms": 66634,
+              "memory_retrieval_elapsed_ms": 0,
+              "source_file_count": 2,
+              "memory_anchor_hit_count": 0,
+              "memory_anchor_hit_rate": null,
+              "primary_anchor_hit_count": 0,
+              "non_anchor_file_count": 2,
+              "expansion_rounds": 0,
+              "expansion_file_count": 0,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_async_boundary"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/pages/ReadBook.ets",
+                "entry/src/main/ets/core/book/SearchCoordinator.ts"
+              ],
+              "supporting_files": []
+            },
+            "memory": {
+              "agent_outcome_score": 0.825,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "async",
+              "expected_root_cause_category": "async",
+              "expected_file_recall": 0.5,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "causal_level_source": "oracle_mechanism_evidence",
+              "mechanism_evidence_eligible": true,
+              "mechanism_evidence_score": 1.0,
+              "mechanism_grounded": true,
+              "matched_mechanism_assertions": 2,
+              "expected_mechanism_assertions": 2,
+              "verification_status": "unknown",
+              "query_rounds": 1,
+              "source_search_count": 2,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 172720,
+              "model_input_tokens": 170997,
+              "model_cached_input_tokens": 132864,
+              "model_uncached_input_tokens": 38133,
+              "model_output_tokens": 1723,
+              "model_reasoning_tokens": 396,
+              "command_count": 9,
+              "command_output_bytes": 24607,
+              "source_read_count": 7,
+              "source_read_output_bytes": 16180,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 4270,
+              "memory_context_token_estimate": 1068,
+              "elapsed_ms": 68698,
+              "end_to_end_elapsed_ms": 68698,
+              "agent_elapsed_ms": 65331,
+              "memory_retrieval_elapsed_ms": 3341,
+              "source_file_count": 3,
+              "memory_anchor_hit_count": 2,
+              "memory_anchor_hit_rate": 0.6667,
+              "primary_anchor_hit_count": 2,
+              "non_anchor_file_count": 1,
+              "expansion_rounds": 1,
+              "expansion_file_count": 1,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_caller"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/pages/ReadBook.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/core/book/SearchCoordinator.ts"
+              ]
+            }
+          },
+          "context_outcome_delta": -0.175
+        },
+        {
+          "trial_index": 4,
+          "variants": {
+            "baseline": {
+              "agent_outcome_score": 0.825,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "async",
+              "expected_root_cause_category": "async",
+              "expected_file_recall": 0.5,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "causal_level_source": "oracle_mechanism_evidence",
+              "mechanism_evidence_eligible": true,
+              "mechanism_evidence_score": 1.0,
+              "mechanism_grounded": true,
+              "matched_mechanism_assertions": 2,
+              "expected_mechanism_assertions": 2,
+              "verification_status": "unknown",
+              "query_rounds": 1,
+              "source_search_count": 2,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 160005,
+              "model_input_tokens": 157730,
+              "model_cached_input_tokens": 122112,
+              "model_uncached_input_tokens": 35618,
+              "model_output_tokens": 2275,
+              "model_reasoning_tokens": 346,
+              "command_count": 7,
+              "command_output_bytes": 1124202,
+              "source_read_count": 8,
+              "source_read_output_bytes": 19892,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 0,
+              "memory_context_token_estimate": 0,
+              "elapsed_ms": 59895,
+              "end_to_end_elapsed_ms": 59895,
+              "agent_elapsed_ms": 59876,
+              "memory_retrieval_elapsed_ms": 0,
+              "source_file_count": 2,
+              "memory_anchor_hit_count": 0,
+              "memory_anchor_hit_rate": null,
+              "primary_anchor_hit_count": 0,
+              "non_anchor_file_count": 2,
+              "expansion_rounds": 0,
+              "expansion_file_count": 0,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/pages/ReadBook.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/core/book/SearchCoordinator.ts"
+              ]
+            },
+            "memory": {
+              "agent_outcome_score": 0.825,
+              "agent_root_cause_match": true,
+              "predicted_root_cause_category": "async",
+              "expected_root_cause_category": "async",
+              "expected_file_recall": 0.5,
+              "predicted_file_precision": 1.0,
+              "forbidden_direction_hit": false,
+              "forbidden_files": [],
+              "causal_level_match": true,
+              "causal_level_source": "oracle_mechanism_evidence",
+              "mechanism_evidence_eligible": true,
+              "mechanism_evidence_score": 1.0,
+              "mechanism_grounded": true,
+              "matched_mechanism_assertions": 2,
+              "expected_mechanism_assertions": 2,
+              "verification_status": "unknown",
+              "query_rounds": 2,
+              "source_search_count": 2,
+              "source_search_count_source": "runner_telemetry",
+              "token_estimate": 152974,
+              "model_input_tokens": 150785,
+              "model_cached_input_tokens": 130432,
+              "model_uncached_input_tokens": 20353,
+              "model_output_tokens": 2189,
+              "model_reasoning_tokens": 629,
+              "command_count": 10,
+              "command_output_bytes": 24429,
+              "source_read_count": 10,
+              "source_read_output_bytes": 20011,
+              "tool_error_count": 0,
+              "source_search_miss_count": 0,
+              "source_search_error_count": 0,
+              "source_read_error_count": 0,
+              "other_tool_error_count": 0,
+              "cost_metrics_reported": true,
+              "memory_context_bytes": 4270,
+              "memory_context_token_estimate": 1068,
+              "elapsed_ms": 65515,
+              "end_to_end_elapsed_ms": 65515,
+              "agent_elapsed_ms": 62347,
+              "memory_retrieval_elapsed_ms": 3143,
+              "source_file_count": 5,
+              "memory_anchor_hit_count": 2,
+              "memory_anchor_hit_rate": 0.4,
+              "primary_anchor_hit_count": 2,
+              "non_anchor_file_count": 3,
+              "expansion_rounds": 2,
+              "expansion_file_count": 3,
+              "expansion_accounting_source": "runner_investigated_files",
+              "expansion_reason_codes": [
+                "missing_caller",
+                "missing_route_target"
+              ],
+              "stop_reason": "supported_cause_found",
+              "exploration_metrics_reported": true,
+              "predicted_files": [
+                "entry/src/main/ets/pages/ReadBook.ets"
+              ],
+              "supporting_files": [
+                "entry/src/main/ets/core/book/SearchCoordinator.ts",
+                "entry/src/main/ets/pages/Index.ets",
+                "entry/src/main/ets/pages/Search.ets"
+              ]
+            }
+          },
+          "context_outcome_delta": 0.0
+        }
+      ],
+      "context_outcome_delta": -0.0437
+    }
+  ],
+  "evidence_segments": {
+    "protocol_calibration": {
+      "case_count": 0,
+      "mechanism_case_count": 0,
+      "baseline": {
+        "localization_outcome_score": null,
+        "root_cause_category_accuracy": null,
+        "mechanism_evidence_score": null
+      },
+      "memory": {
+        "localization_outcome_score": null,
+        "root_cause_category_accuracy": null,
+        "mechanism_evidence_score": null
+      }
+    },
+    "real_cases": {
+      "case_count": 1,
+      "mechanism_case_count": 1,
+      "baseline": {
+        "localization_outcome_score": 0.8687,
+        "root_cause_category_accuracy": 1.0,
+        "mechanism_evidence_score": 1.0
+      },
+      "memory": {
+        "localization_outcome_score": 0.825,
+        "root_cause_category_accuracy": 1.0,
+        "mechanism_evidence_score": 1.0
+      }
+    }
+  },
+  "audit": {
+    "llm_judge_used": false,
+    "oracle_hidden_during_run": true,
+    "reasoning_persisted": false,
+    "tool_output_persisted": false
+  },
+  "evidence_utility": {
+    "schema_version": "agent-evidence-utility/v1",
+    "status": "informational",
+    "promotion_eligible": false,
+    "case_count": 1,
+    "metrics": {
+      "baseline": {
+        "expected_evidence_seen_rate": 1.0,
+        "evidence_sufficiency_rate": 1.0,
+        "uncertainty_integrity_rate": 1.0,
+        "anchor_guidance_rate": 0.0,
+        "average_source_search_count": 2.75,
+        "average_non_anchor_file_count": 3.0
+      },
+      "memory": {
+        "expected_evidence_seen_rate": 1.0,
+        "evidence_sufficiency_rate": 1.0,
+        "uncertainty_integrity_rate": 1.0,
+        "anchor_guidance_rate": 1.0,
+        "average_source_search_count": 2.0,
+        "average_non_anchor_file_count": 2.0
+      }
+    },
+    "cases": [
+      {
+        "case_id": "legado-change-source-results-delayed",
+        "variants": {
+          "baseline": {
+            "trial_count": 4,
+            "expected_evidence_seen_rate": 1.0,
+            "evidence_sufficiency_rate": 1.0,
+            "uncertainty_integrity_rate": 1.0,
+            "anchor_guidance_rate": 0.0,
+            "average_source_search_count": 2.75,
+            "average_non_anchor_file_count": 3.0
+          },
+          "memory": {
+            "trial_count": 4,
+            "expected_evidence_seen_rate": 1.0,
+            "evidence_sufficiency_rate": 1.0,
+            "uncertainty_integrity_rate": 1.0,
+            "anchor_guidance_rate": 1.0,
+            "average_source_search_count": 2.0,
+            "average_non_anchor_file_count": 2.0
+          }
+        }
+      }
+    ],
+    "boundary": "offline_agent_evaluation_not_runtime_diagnosis"
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "development",
+    "change_policy": "editable",
+    "source_isolation": "independent_source",
+    "case_count": 1,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": true
+  },
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 5,
+    "primary_failure_class": "agent_protocol",
+    "failure_class_counts": {
+      "agent_efficiency": 2,
+      "agent_protocol": 2,
+      "evaluation_integrity": 1
+    },
+    "failures": [
+      {
+        "case_id": "aggregate",
+        "failed_check": "context_agent_outcome_non_regression",
+        "gate": "quality",
+        "failure_class": "agent_protocol",
+        "owning_layer": "agent_skill_and_runner_protocol",
+        "method_reference_ids": [
+          "swe_bench",
+          "agent_benchmark"
+        ],
+        "allowed_repair": "Improve Agent query iteration, evidence use, or stop conditions.",
+        "prohibited_shortcut": "Do not modify retrieval when the required context is present.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "aggregate",
+        "failed_check": "every_case_outcome_non_regression",
+        "gate": "quality",
+        "failure_class": "agent_protocol",
+        "owning_layer": "agent_skill_and_runner_protocol",
+        "method_reference_ids": [
+          "swe_bench",
+          "agent_benchmark"
+        ],
+        "allowed_repair": "Improve Agent query iteration, evidence use, or stop conditions.",
+        "prohibited_shortcut": "Do not modify retrieval when the required context is present.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "aggregate",
+        "failed_check": "source_exploration_within_budget",
+        "gate": "quality",
+        "failure_class": "evaluation_integrity",
+        "owning_layer": "evaluation_protocol",
+        "method_reference_ids": [
+          "trec",
+          "swe_bench"
+        ],
+        "allowed_repair": "Repair missing pairs, runner metadata, or evaluation coverage.",
+        "prohibited_shortcut": "Do not claim capability from incomplete observations.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "aggregate",
+        "failed_check": "source_read_amplification_within_budget",
+        "gate": "efficiency",
+        "failure_class": "agent_efficiency",
+        "owning_layer": "agent_context_consumption_and_cost",
+        "method_reference_ids": [
+          "swe_bench",
+          "agent_benchmark"
+        ],
+        "allowed_repair": "Reduce repeated searches, reads, context, or tool failures.",
+        "prohibited_shortcut": "Do not relax cost limits after observing the result.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "aggregate",
+        "failed_check": "every_case_source_read_amplification_within_budget",
+        "gate": "efficiency",
+        "failure_class": "agent_efficiency",
+        "owning_layer": "agent_context_consumption_and_cost",
+        "method_reference_ids": [
+          "swe_bench",
+          "agent_benchmark"
+        ],
+        "allowed_repair": "Reduce repeated searches, reads, context, or tool failures.",
+        "prohibited_shortcut": "Do not relax cost limits after observing the result.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout.",
+    "quality_failure_count": 3,
+    "efficiency_failure_count": 2
+  },
+  "case_seal": {
+    "status": "unsealed",
+    "required": false,
+    "case_count": 1
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/legado-context-utility-development-cases.json",
+  "runner_mode": "external",
+  "selected_case_ids": [
+    "legado-change-source-results-delayed"
+  ],
+  "requested_trials": 4,
+  "runner_configuration": {
+    "reported": true,
+    "consistent": true,
+    "value": {
+      "runner": "codex_cli",
+      "runner_version": "codex-cli 0.142.0",
+      "model": "gpt-5.5",
+      "reasoning_effort": "low",
+      "prompt_protocol_digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765",
+      "benchmark_protocol_manifest": {
+        "schema_version": "agent-benchmark-protocol-manifest/v1",
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "components": {
+          "examples/codex-agent-benchmark-runner.py": "8026b624bb1e3f381832f71022ceb7b8ff7e4dcd6395ea530e3b1acd344d47a8",
+          "examples/codex_benchmark_prompt.py": "de12379f2b5688cae073054426df0a29ad8d1f7bc90ba820fa24ec3367f8483f",
+          "examples/codex_benchmark_telemetry.py": "b8f57a5cb3bbcc75673d71f96457a8d916367316a264263573bccdd7bb62f9dd",
+          "tools/agent_memory_runtime/agent_benchmark_cost.py": "d21dc7ade6d23c65ab9c79900d1f06776ce7c9f2cb8c8073aaaf98860b771a9a",
+          "tools/agent_memory_runtime/agent_benchmark_eval.py": "5cda6e8ef8d8bcf00a39157b884b237a69ac9955895de08cc6c2bf657cb6274c",
+          "tools/agent_memory_runtime/agent_benchmark_mechanism.py": "5036978b0f58568e35e6ba87acca9f7a52b7e6e7efba134e489760277eaa0557",
+          "tools/agent_memory_runtime/agent_benchmark_measurement.py": "4b923f8a7a75e833a041ceb856bb4dba23fba67b9c912e1707ad7692616e740a",
+          "tools/agent_memory_runtime/agent_benchmark_paired_cost.py": "1f6f3c4229aa025f9f0ad32ad1c6c5f1f46aeccdd6b9fbe74a5878083b26fc36",
+          "tools/agent_memory_runtime/agent_benchmark_protocol.py": "7e78fa0a17b2cd2655602a0bd74f4a5e3b7b158a88f3b56cb3fcef12b006b7ae",
+          "tools/agent_memory_runtime/agent_benchmark_treatment.py": "265c2a678900e8f7c4dc7506420d41a571831bfad626621a36c940c05f56719b",
+          "tools/agent_memory_runtime/context_source_excerpt.py": "0f0de2da2e714fd4b754255f445dba525ae6e949f4ef9bae12c902d660ad5698",
+          "tools/agent_memory_runtime/source_exploration.py": "47733b917da6ed658fe691323a27245ba0733568813bf0ae021ddb1b90a0c6ea"
+        },
+        "digest": "07b27c526bd43c7625b942608efd4927b196c860c29911a645edfccda31cc765"
+      },
+      "measurement_contract": "context_only_shared_protocol/v2",
+      "sandbox": "read-only",
+      "session": "ephemeral",
+      "memory_delivery": "runner_preloaded",
+      "source_excerpt_delivery": "external_metadata_only",
+      "user_context": "isolated_home",
+      "retrieval_policy": "anchor_first_deterministic_expansion_v8"
+    }
+  }
+}

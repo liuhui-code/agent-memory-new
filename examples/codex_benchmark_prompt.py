@@ -186,10 +186,10 @@ def benchmark_response_schema() -> dict[str, Any]:
             "items": {
                 "type": "object",
                 "additionalProperties": False,
-                "required": ["file_path", "start_line", "end_line", "claim"],
+                "required": ["file_path", "symbol", "start_line", "end_line", "claim"],
                 "properties": {
                     "file_path": {"type": "string"},
-                    "symbol": {"type": "string"},
+                    "symbol": {"type": ["string", "null"]},
                     "start_line": {"type": "integer", "minimum": 1},
                     "end_line": {"type": "integer", "minimum": 1},
                     "claim": {"type": "string"},

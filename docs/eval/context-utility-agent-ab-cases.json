@@ -1,0 +1,513 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": ".",
+  "source_repository": "multiple licensed ArkTS development sources",
+  "generated_at": "2026-08-04T00:00:00Z",
+  "generator": "context-utility-development-aggregate/v1",
+  "cases": [
+    {
+      "id": "moonlight-manual-refresh-stops-mdns",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "On the PC list, tapping the manual network scan waits and reports completion, but the page then stops discovering newly available hosts for the rest of its lifetime. Locate the production path that causes the persistent discovery loss.",
+        "constraints": [
+          "Use only the supplied pre-fix source revision and symptom.",
+          "Do not inspect later Git history."
+        ]
+      },
+      "source": {
+        "before_revision": "4a57de14f88db6426afa443db03f21d2fd5fba02",
+        "after_revision": "3c4822a234fd84ecce1a475a401b6cc535b62736",
+        "changed_files": [
+          "entry/src/main/ets/pages/PcListPageV2.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "public_pr_with_reviewed_fix",
+        "issue": "https://github.com/AlkaidLab/moonlight-harmony/pull/51",
+        "fix_commit": "3c4822a234fd84ecce1a475a401b6cc535b62736",
+        "commit_message": "fix(pc-list): manual scan button refreshes state instead of killing mDNS (#51)",
+        "source_family": "AlkaidLab/moonlight-harmony@manual-refresh-mdns",
+        "independence_basis": "Previously unused licensed project and reviewed lifecycle fix selected before Runtime queries."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "component",
+          "service"
+        ],
+        "mechanism_kinds": [
+          "event_binding",
+          "async_control"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/PcListPageV2.ets",
+          "entry/src/main/ets/service/ComputerManager.ets",
+          "entry/src/main/ets/service/network/MdnsDiscovery.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "lifecycle",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "mechanism_assertions": [
+          {
+            "file_path": "entry/src/main/ets/pages/PcListPageV2.ets",
+            "start_line": 981,
+            "end_line": 993
+          },
+          {
+            "file_path": "entry/src/main/ets/service/ComputerManager.ets",
+            "start_line": 1091,
+            "end_line": 1106
+          },
+          {
+            "file_path": "entry/src/main/ets/service/network/MdnsDiscovery.ets",
+            "start_line": 243,
+            "end_line": 250
+          }
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "symptom_source_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "moonlight-pip-cropped-viewport",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "After a landscape stream enters picture-in-picture, the video remains centered but is cropped instead of scaling into the visible PiP area; zoom touch mapping can also drift after the viewport changes. Locate the sizing ownership that uses the wrong viewport.",
+        "constraints": [
+          "Use only the supplied pre-fix source revision and symptom.",
+          "Do not inspect later Git history."
+        ]
+      },
+      "source": {
+        "before_revision": "64b645deaf1df7fe24300d97d33ad48e5f135759",
+        "after_revision": "4a57de14f88db6426afa443db03f21d2fd5fba02",
+        "changed_files": [
+          "entry/src/main/ets/pages/StreamPage.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "public_pr_with_reviewed_fix",
+        "issue": "https://github.com/AlkaidLab/moonlight-harmony/pull/50",
+        "fix_commit": "4a57de14f88db6426afa443db03f21d2fd5fba02",
+        "commit_message": "fix(stream): use measured viewport for pip sizing (#50)",
+        "source_family": "AlkaidLab/moonlight-harmony@pip-viewport",
+        "independence_basis": "Independent layout defect in a previously unused licensed project, selected before Runtime queries."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "component",
+          "service"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/StreamPage.ets",
+          "entry/src/main/ets/service/streaming/StreamWindowManager.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "ui_layout",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "mechanism_assertions": [
+          {
+            "file_path": "entry/src/main/ets/pages/StreamPage.ets",
+            "start_line": 1042,
+            "end_line": 1070
+          },
+          {
+            "file_path": "entry/src/main/ets/pages/StreamPage.ets",
+            "start_line": 1209,
+            "end_line": 1240
+          }
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "symptom_source_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "moonlight-unsupported-qr-scan-entry",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "On a HarmonyOS MateBook Pro without the system ScanBarcode capability, tapping the QR action does not open a scanner and immediately reports cancellation or failure. Locate why unsupported devices can reach the scan path.",
+        "constraints": [
+          "Use only the supplied pre-fix source revision and symptom.",
+          "Do not inspect later Git history."
+        ]
+      },
+      "source": {
+        "before_revision": "cbc746d95830df3294a4ed6e16d9ec940e00fbdd",
+        "after_revision": "c5d3a99d5b39af02c8daa31098739cea765f1f3e",
+        "changed_files": [
+          "entry/src/main/ets/components/CustomKeyOverlay.ets",
+          "entry/src/main/ets/components/PcListTitleBar.ets",
+          "entry/src/main/ets/pages/PcListPageV2.ets",
+          "entry/src/main/ets/service/network/QrShareService.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "public_pr_with_build_validated_fix",
+        "issue": "https://github.com/AlkaidLab/moonlight-harmony/pull/48",
+        "fix_commit": "c5d3a99d5b39af02c8daa31098739cea765f1f3e",
+        "commit_message": "fix(scan): guard QR scanning on unsupported devices (#48)",
+        "source_family": "AlkaidLab/moonlight-harmony@scan-capability",
+        "independence_basis": "Independent capability-contract defect in a previously unused licensed project, selected before Runtime queries."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "component",
+          "service"
+        ],
+        "mechanism_kinds": [
+          "platform_api",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/components/CustomKeyOverlay.ets",
+          "entry/src/main/ets/components/PcListTitleBar.ets",
+          "entry/src/main/ets/pages/PcListPageV2.ets",
+          "entry/src/main/ets/service/network/QrShareService.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "api",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "mechanism_assertions": [
+          {
+            "file_path": "entry/src/main/ets/service/network/QrShareService.ets",
+            "start_line": 699,
+            "end_line": 725
+          },
+          {
+            "file_path": "entry/src/main/ets/pages/PcListPageV2.ets",
+            "start_line": 842,
+            "end_line": 850
+          },
+          {
+            "file_path": "entry/src/main/ets/components/CustomKeyOverlay.ets",
+            "start_line": 2208,
+            "end_line": 2215
+          }
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "symptom_source_reviewed": true,
+        "build_validation_reported": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "nga-notification-seen-row-reuse",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "A notification can keep stale unread styling after its seen state changes because the rendered row is reused. Locate the list identity contract responsible for the stale row.",
+        "constraints": [
+          "Use only the supplied pre-fix source revision and symptom.",
+          "Do not inspect later Git history."
+        ]
+      },
+      "source": {
+        "before_revision": "c189bbd25090aa6e3cc7848c820ad29cb2a52dda",
+        "after_revision": "433752b597353d171fa8c30eb87f3d822a5eaaa0",
+        "changed_files": [
+          "entry/src/main/ets/pages/NotificationPanel.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "433752b597353d171fa8c30eb87f3d822a5eaaa0",
+        "commit_message": "fix(NotificationPanel): adjust list item unique key",
+        "source_family": "apap6628114/nga_harmony@notification-seen-key",
+        "independence_basis": "Previously unused licensed project and focused two-line state fix selected before Runtime queries."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "component"
+        ],
+        "mechanism_kinds": [
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/pages/NotificationPanel.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "mechanism_assertions": [
+          {
+            "file_path": "entry/src/main/ets/pages/NotificationPanel.ets",
+            "start_line": 234,
+            "end_line": 287
+          }
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "symptom_source_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "nga-auto-checkin-success-hidden",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "Automatic check-in can complete successfully during startup, but the user receives no global success feedback. Locate where the asynchronous result is discarded before it reaches the existing notification mechanism.",
+        "constraints": [
+          "Use only the supplied pre-fix source revision and symptom.",
+          "Do not inspect later Git history."
+        ]
+      },
+      "source": {
+        "before_revision": "9d6b67375a8e7f53ed1529a6c1e8bfef162886b9",
+        "after_revision": "554ae7fd7cbe0ff288891bdfaa3cc9e1cddf1997",
+        "changed_files": [
+          "entry/src/main/ets/store/AppStore.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "554ae7fd7cbe0ff288891bdfaa3cc9e1cddf1997",
+        "commit_message": "fix(AppStore): show a global notification after automatic check-in succeeds",
+        "source_family": "apap6628114/nga_harmony@auto-checkin-feedback",
+        "independence_basis": "Independent async-result defect in a previously unused licensed project, selected before Runtime queries."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "store",
+          "service"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/store/AppStore.ets",
+          "entry/src/main/ets/store/SettingsStore.ets",
+          "entry/src/main/ets/store/settings/domain/CheckinSettings.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.3333
+        },
+        "mechanism_assertions": [
+          {
+            "file_path": "entry/src/main/ets/store/AppStore.ets",
+            "start_line": 156,
+            "end_line": 156
+          },
+          {
+            "file_path": "entry/src/main/ets/store/SettingsStore.ets",
+            "start_line": 172,
+            "end_line": 172
+          },
+          {
+            "file_path": "entry/src/main/ets/store/settings/domain/CheckinSettings.ets",
+            "start_line": 23,
+            "end_line": 55
+          }
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "symptom_source_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    },
+    {
+      "id": "legado-change-source-results-delayed",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {
+        "description": "While searching alternative book sources, the status advances but newly found candidates do not appear in the selection list until the entire multi-source search finishes. Locate where incremental results are suppressed or ignored.",
+        "constraints": [
+          "Use only the supplied pre-fix source revision and symptom.",
+          "Do not inspect later Git history."
+        ]
+      },
+      "source": {
+        "before_revision": "70fdb2bd621b50567808e2b9f787e5d3d153d0b6",
+        "after_revision": "8ea7778a347b28d23391b1b262bcaae3fcb348d1",
+        "changed_files": [
+          "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "entry/src/main/ets/pages/ReadBook.ets"
+        ]
+      },
+      "provenance": {
+        "kind": "reviewed_git_fix",
+        "fix_commit": "8ea7778a347b28d23391b1b262bcaae3fcb348d1",
+        "commit_message": "fix: update alternative-source candidates in real time",
+        "source_family": "wip3l/legado-harmony@change-source-delta",
+        "independence_basis": "Previously unused licensed project and focused incremental-result fix selected before Runtime queries."
+      },
+      "evaluation_profile": {
+        "target_domain": "native_arkts",
+        "target_levels": [
+          "file",
+          "callable"
+        ],
+        "artifact_roles": [
+          "service",
+          "component"
+        ],
+        "mechanism_kinds": [
+          "async_control",
+          "ui_state"
+        ]
+      },
+      "oracle": {
+        "expected_files": [
+          "entry/src/main/ets/core/book/SearchCoordinator.ts",
+          "entry/src/main/ets/pages/ReadBook.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "context_requirements": {
+          "require_expected_anchors": true,
+          "require_source_excerpt": true,
+          "required_top_k": 3,
+          "min_anchor_precision": 0.6666
+        },
+        "mechanism_assertions": [
+          {
+            "file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts",
+            "start_line": 84,
+            "end_line": 109
+          },
+          {
+            "file_path": "entry/src/main/ets/pages/ReadBook.ets",
+            "start_line": 2097,
+            "end_line": 2133
+          }
+        ]
+      },
+      "review": {
+        "source_diff_reviewed": true,
+        "symptom_source_reviewed": true
+      },
+      "leakage_guard": {
+        "hidden_fields": [
+          "oracle",
+          "source.after_revision",
+          "provenance.commit_message"
+        ]
+      }
+    }
+  ],
+  "governance": {
+    "oracle_hidden_from_agent": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "evaluation": {
+      "schema_version": "agent-evaluation-governance/v1",
+      "split": "development",
+      "change_policy": "editable",
+      "source_isolation": "independent_source"
+    }
+  }
+}

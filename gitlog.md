@@ -8954,3 +8954,35 @@ Result:
 - The Context decision is no-go and no serving change is authorized. The preregistered
   48-call Codex A/B remains unexecuted pending explicit consent to send these three new
   frozen GPL source contexts; no Agent uplift or cost claim is made.
+
+## 2026-08-04 - Complete the three-project Context utility Agent A/B
+
+What changed:
+
+- Received explicit authorization to send the frozen Moonlight Harmony, NGA Harmony,
+  and Legado Harmony GPL source contexts to Codex.
+- Executed the preregistered balanced v2 schedule: six cases, four paired trials per
+  case, 24 complete pairs, and 48 valid `gpt-5.5` low-reasoning calls.
+- Preserved all observations, project-level evaluations, the merged case pack, and the
+  aggregate quality, mechanism, execution-order, and end-to-end cost evaluation.
+- Corrected the benchmark's strict nested response schema after one pre-sample HTTP 400
+  request. The failed request produced no model output and was excluded; every counted
+  observation uses one consistent post-fix protocol digest.
+
+Result:
+
+- Aggregate outcome improves from 0.6809 to 0.7066 and expected-file recall from 0.5764
+  to 0.6111, while precision falls from 1.0000 to 0.9792 and mechanism evidence falls
+  from 0.8472 to 0.8264.
+- Average tokens fall 6.08% and source searches fall 25%, but end-to-end latency rises
+  9.28%. Median paired latency overhead is 13.04%; worst-pair token and latency overhead
+  are 92.77% and 78.70%.
+- Legado quality regresses, NGA gains no quality at higher token cost, and Moonlight's
+  average gain coexists with lower mechanism evidence and unstable per-case cost.
+- Quality, efficiency, and promotion gates all fail. The final decision remains no-go;
+  no Runtime serving-path change is authorized from this Development evidence.
+- Verification passes: all evaluation JSON parses, 60 benchmark protocol tests pass,
+  `git diff --check` passes, exactly four Skills remain, and all repository-owned code
+  files stay at or below 500 lines. The full suite runs 885 tests: 883 pass inside the
+  socket-restricted sandbox, while the loopback HTTP module passes 3/3 with local socket
+  binding enabled.

@@ -331,7 +331,8 @@ class CodexBenchmarkRunnerTests(unittest.TestCase):
 
     def test_output_schema_requires_exploration_audit(self) -> None:
         module = load_runner_module()
-        required = set(module.output_schema()["required"])
+        schema = module.output_schema()
+        required = set(schema["required"])
 
         self.assertTrue({
             "supporting_files",
@@ -341,6 +342,9 @@ class CodexBenchmarkRunnerTests(unittest.TestCase):
             "evidence_basis",
             "mechanism_evidence_files",
         }.issubset(required))
+        mechanism = schema["properties"]["mechanism_evidence"]["items"]
+        self.assertEqual(set(mechanism["properties"]), set(mechanism["required"]))
+        self.assertEqual(["string", "null"], mechanism["properties"]["symbol"]["type"])
 
     def test_runner_derives_expansion_audit_from_trace(self) -> None:
         module = load_runner_module()
