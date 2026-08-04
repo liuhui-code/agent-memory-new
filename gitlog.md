@@ -8928,3 +8928,29 @@ Result:
   Python compilation passes with a sandbox-local bytecode cache, `git diff --check`
   passes, exactly four Skills remain, and all 395 Python files stay at or below 500
   lines. The persisted result digest exactly matches the SQLite ledger digest.
+
+## 2026-08-04 - Establish the Context utility Development inventory
+
+What changed:
+
+- Froze six reviewed real fixes from three previously unused licensed ArkTS projects:
+  Moonlight Harmony, NGA Harmony, and Legado Harmony.
+- Preregistered symptom-only tasks, pre-fix revisions, independent lineage, changed
+  files, mechanism spans, a four-trial balanced v2 schedule, and fail-closed decisions.
+- Rejected mixed broad commits, previously consumed projects, and Tailscale-OHOS because
+  GitHub exposed no recognizable repository license.
+- Ran all six model-free Context capability cases in isolated Memory Homes and preserved
+  full per-project results plus a machine-readable aggregate.
+
+Result:
+
+- Context passes 1/6. Candidate recall@20 is 0.8056, final anchor recall is 0.4861,
+  primary recall and source excerpt recall are 0.4028, and precision is 0.4306.
+- First losses are candidate generation for three cases, localizer selection for two,
+  and primary evidence for one. PiP and Legado both retain every expected file at
+  candidate@20 but lose a required consumer/owner during compact evidence selection.
+- Context averages 1,428 tokens, 78.862 seconds of index preparation, and 8.284 seconds
+  of query time per case. The six-case local batch takes 571.550 seconds.
+- The Context decision is no-go and no serving change is authorized. The preregistered
+  48-call Codex A/B remains unexecuted pending explicit consent to send these three new
+  frozen GPL source contexts; no Agent uplift or cost claim is made.

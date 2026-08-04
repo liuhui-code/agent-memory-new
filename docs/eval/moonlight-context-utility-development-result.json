@@ -1,0 +1,1057 @@
+{
+  "schema_version": "agent-context-capability-result/v1",
+  "status": "fail",
+  "system_context_gate": "fail",
+  "summary": {
+    "case_count": 3,
+    "passed_case_count": 0,
+    "failed_case_count": 3,
+    "scenario_count": 3,
+    "stable_scenario_count": 0,
+    "query_variant_pass_rate": 0.0,
+    "staged_scenario_count": 0,
+    "complete_staged_scenario_count": 0,
+    "average_context_tokens": 1400.0,
+    "average_memory_prepare_ms": 95454.3333,
+    "average_query_elapsed_ms": 8542.6667
+  },
+  "capability_profile": {
+    "code_locator": {
+      "status": "fail",
+      "evaluated_cases": 3,
+      "anchor_recall": 0.4722,
+      "primary_anchor_recall": 0.3056,
+      "candidate_file_recall_at_20": 0.7222,
+      "oracle_anchor_precision": 0.4167,
+      "expected_anchor_mrr": 0.75
+    },
+    "source_evidence": {
+      "status": "fail",
+      "evaluated_cases": 3,
+      "observed_case_count": 3,
+      "source_excerpt_recall": 0.3056,
+      "source_span_recall": null
+    },
+    "log_graph": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "log_path_quality": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "average_path_recall": null,
+      "average_path_precision": null,
+      "truncated_case_count": 0
+    },
+    "experience": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "causal_context": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_path_case_count": 0,
+      "observed_relation_case_count": 0
+    },
+    "hierarchical_localization": {
+      "status": "informational_serving_stage",
+      "evaluated_cases": 3,
+      "observed_case_count": 3,
+      "serving_observed_case_count": 3,
+      "file_evaluated_case_count": 3,
+      "callable_evaluated_case_count": 0,
+      "owner_evaluated_case_count": 0,
+      "range_evaluated_case_count": 0,
+      "file_recall": 0.6389,
+      "callable_recall": null,
+      "owner_recall": null,
+      "owner_precision": null,
+      "range_recall": null,
+      "average_audit_elapsed_ms": 6413.6667
+    },
+    "abstention": {
+      "status": "informational",
+      "evaluated_cases": 0,
+      "observed_case_count": 0
+    },
+    "compactness": {
+      "status": "pass",
+      "evaluated_cases": 3,
+      "average_context_tokens": 1400.0,
+      "token_budget": 1500
+    },
+    "query_robustness": {
+      "status": "fail",
+      "scenario_count": 3,
+      "stable_scenario_count": 0,
+      "variant_count": 3,
+      "passed_variant_count": 0,
+      "variant_pass_rate": 0.0,
+      "scenarios": [
+        {
+          "scenario_id": "moonlight-manual-refresh-stops-mdns",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "moonlight-pip-cropped-viewport",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        },
+        {
+          "scenario_id": "moonlight-unsupported-qr-scan-entry",
+          "status": "fail",
+          "variant_count": 1,
+          "passed_variant_count": 0,
+          "failed_variants": [
+            "default"
+          ]
+        }
+      ]
+    },
+    "investigation_stages": {
+      "status": "not_declared",
+      "scenario_count": 0,
+      "complete_scenario_count": 0,
+      "stages": {},
+      "scenarios": []
+    },
+    "evidence_funnel": {
+      "status": "informational",
+      "evaluated_cases": 3,
+      "first_loss_counts": {
+        "candidate_file": 2,
+        "localizer_file": 1
+      },
+      "stage_pass_rates": {
+        "candidate_file": 0.3333,
+        "localizer_file": 0.0,
+        "callable": null,
+        "source_range": null,
+        "evidence_primary": 0.0,
+        "compact_primary": 0.0,
+        "compact_anchor": 0.0
+      }
+    },
+    "evidence_set_calibration": {
+      "status": "informational",
+      "evaluated_cases": 3,
+      "observed_case_count": 3,
+      "target_scope_accuracy": 0.0,
+      "member_recall": 0.3056,
+      "primary_precision": 0.3333,
+      "calibration_state_accuracy": null,
+      "forbidden_member_hit_count": 0,
+      "guarded_exclusion_count": 0,
+      "calibration_state_counts": {
+        "insufficient": 3
+      },
+      "serving_projection_changed": false
+    },
+    "sufficiency": {
+      "status": "informational",
+      "evaluated_case_count": 3,
+      "missing_observation_count": 0,
+      "kind_counts": {
+        "diagnosis": 3
+      },
+      "readiness_status_counts": {
+        "ready_for_agent_inspection": 3
+      },
+      "reason_code_counts": {
+        "no_log_anchor": 3
+      },
+      "scope": "shadow_observation_not_a_context_gate"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "moonlight-manual-refresh-stops-mdns",
+      "scenario_id": "moonlight-manual-refresh-stops-mdns",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 0.6667,
+      "primary_anchor_recall": 0.6667,
+      "candidate_file_recall_at_20": 0.6667,
+      "oracle_anchor_precision": 0.6667,
+      "source_excerpt_recall": 0.6667,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/PcListPageV2.ets",
+        "entry/src/main/ets/service/network/MdnsDiscovery.ets",
+        "entry/src/main/ets/viewmodel/PcListActions.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/pages/PcListPageV2.ets",
+        "entry/src/main/ets/service/network/MdnsDiscovery.ets",
+        "entry/src/main/ets/viewmodel/PcListActions.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/pages/PcListPageV2.ets",
+        "entry/src/main/ets/service/network/MdnsDiscovery.ets",
+        "entry/src/main/ets/viewmodel/PcListActions.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/service/ComputerManager.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.6667,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 0,
+        "range_candidate_count": 0,
+        "audit_elapsed_ms": 5891
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 21,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 0,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.6667,
+        "primary_precision": 1.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "direct_identity"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1443,
+      "memory_prepare_ms": 92378,
+      "query_elapsed_ms": 7782,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "moonlight-pip-cropped-viewport",
+      "scenario_id": "moonlight-pip-cropped-viewport",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": false,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": false
+      },
+      "anchor_recall": 0.5,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "source_excerpt_recall": 0.0,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 4,
+      "expected_anchor_mrr": 0.25,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/service/streaming/StreamIMEManager.ets",
+        "entry/src/main/ets/service/streaming/StreamLifecycleManager.ets",
+        "entry/src/main/ets/service/streaming/StreamWindowManager.ets",
+        "nativelib/src/main/cpp/video_decoder.cpp"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/service/streaming/StreamIMEManager.ets",
+        "entry/src/main/ets/service/streaming/StreamLifecycleManager.ets",
+        "nativelib/src/main/cpp/video_decoder.cpp"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/service/streaming/StreamIMEManager.ets",
+        "entry/src/main/ets/service/streaming/StreamLifecycleManager.ets",
+        "nativelib/src/main/cpp/video_decoder.cpp"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/StreamPage.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.5,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 1,
+        "range_candidate_count": 2,
+        "audit_elapsed_ms": 6026
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": true,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "localizer_file",
+        "candidate_file_count": 27,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 2,
+        "evidence_certainty": "uncertain",
+        "primary_file_path": "entry/src/main/ets/service/streaming/StreamIMEManager.ets"
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.0,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [
+          "direct_identity"
+        ],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 4,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1440,
+      "memory_prepare_ms": 93754,
+      "query_elapsed_ms": 6290,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    },
+    {
+      "case_id": "moonlight-unsupported-qr-scan-entry",
+      "scenario_id": "moonlight-unsupported-qr-scan-entry",
+      "query_variant": "default",
+      "investigation_stage": null,
+      "status": "fail",
+      "checks": {
+        "compact_schema_returned": true,
+        "context_within_budget": true,
+        "expected_anchors_within_top_k": false,
+        "minimum_anchor_precision_met": true,
+        "expected_anchors_recalled": false,
+        "forbidden_anchors_absent": true,
+        "expected_source_excerpt_returned": true
+      },
+      "anchor_recall": 0.25,
+      "primary_anchor_recall": 0.25,
+      "candidate_file_recall_at_20": 0.5,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 0.25,
+      "source_span_recall": null,
+      "first_expected_anchor_rank": 1,
+      "expected_anchor_mrr": 1.0,
+      "observed_anchor_paths": [
+        "entry/src/main/ets/service/input/DeviceSensorService.ets",
+        "entry/src/main/ets/service/input/GamepadManager.ets",
+        "entry/src/main/ets/service/network/QrShareService.ets"
+      ],
+      "observed_primary_anchor_paths": [
+        "entry/src/main/ets/service/input/DeviceSensorService.ets",
+        "entry/src/main/ets/service/input/GamepadManager.ets",
+        "entry/src/main/ets/service/network/QrShareService.ets"
+      ],
+      "observed_source_excerpt_paths": [
+        "entry/src/main/ets/service/input/DeviceSensorService.ets",
+        "entry/src/main/ets/service/input/GamepadManager.ets",
+        "entry/src/main/ets/service/network/QrShareService.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/components/CustomKeyOverlay.ets",
+        "entry/src/main/ets/components/PcListTitleBar.ets",
+        "entry/src/main/ets/pages/PcListPageV2.ets"
+      ],
+      "forbidden_anchor_hits": [],
+      "missing_required_log_keywords": [],
+      "missing_required_log_template_literals": [],
+      "runtime_observed_terms": [],
+      "missing_required_log_files": [],
+      "forbidden_log_keyword_hits": [],
+      "forbidden_log_file_hits": [],
+      "missing_required_experience_types": [],
+      "missing_required_main_experience": [],
+      "forbidden_main_experience_hits": [],
+      "missing_required_guard_experience": [],
+      "missing_required_path_files": [],
+      "missing_required_path_relations": [],
+      "forbidden_path_file_hits": [],
+      "missing_required_source_spans": [],
+      "missing_required_evidence_gaps": [],
+      "hierarchical_localization": {
+        "observed": true,
+        "mode": "serving",
+        "serving_observed": true,
+        "file_recall": 0.75,
+        "callable_recall": null,
+        "owner_recall": null,
+        "owner_precision": null,
+        "range_recall": null,
+        "missing_callables": [],
+        "missing_owners": [],
+        "missing_ranges": [],
+        "file_candidate_count": 8,
+        "callable_candidate_count": 12,
+        "owner_candidate_count": 2,
+        "range_candidate_count": 0,
+        "audit_elapsed_ms": 7324
+      },
+      "evidence_funnel": {
+        "schema_version": "agent-context-evidence-funnel/v1",
+        "stages": {
+          "candidate_file": false,
+          "localizer_file": false,
+          "callable": null,
+          "source_range": null,
+          "evidence_primary": false,
+          "compact_primary": false,
+          "compact_anchor": false
+        },
+        "first_loss": "candidate_file",
+        "candidate_file_count": 27,
+        "localizer_file_count": 8,
+        "callable_count": 12,
+        "range_count": 0,
+        "evidence_certainty": "unavailable",
+        "primary_file_path": null
+      },
+      "evidence_set": {
+        "observed": true,
+        "target_scope_expected": "multiple",
+        "target_scope_observed": "unknown",
+        "target_scope_match": false,
+        "member_recall": 0.25,
+        "primary_precision": 0.0,
+        "calibration_state": "insufficient",
+        "primary_support_kinds": [],
+        "calibration_state_match": null,
+        "forbidden_member_hits": [],
+        "guarded_exclusion_count": 0
+      },
+      "log_path_recall": 1.0,
+      "log_path_precision": null,
+      "missing_required_log_evidence_classes": [],
+      "missing_required_log_effect_paths": [],
+      "observed_log_path_count": 0,
+      "truncated_log_path_count": 0,
+      "abstention_observed": false,
+      "anchor_count": 3,
+      "primary_anchor_count": 3,
+      "source_excerpt_count": 3,
+      "log_anchor_count": 0,
+      "experience_ref_count": 0,
+      "semantic_ref_count": 0,
+      "path_candidate_count": 0,
+      "relation_hint_count": 0,
+      "evidence_gaps": [
+        "no_log_anchor"
+      ],
+      "context_token_estimate": 1317,
+      "memory_prepare_ms": 100231,
+      "query_elapsed_ms": 11556,
+      "requirements": {
+        "required_log_keywords": [],
+        "required_log_template_literals": [],
+        "runtime_observed_terms": [],
+        "required_log_files": [],
+        "forbidden_log_keywords": [],
+        "forbidden_log_files": [],
+        "required_experience_types": [],
+        "required_main_experience_phrases": [],
+        "forbidden_main_experience_phrases": [],
+        "required_guard_experience_phrases": [],
+        "required_path_files": [],
+        "required_path_relations": [],
+        "forbidden_path_files": [],
+        "min_relation_hints": 0,
+        "min_path_candidates": 0,
+        "require_source_excerpt": true,
+        "require_expected_anchors": true,
+        "required_top_k": 3,
+        "min_anchor_precision": 0.3333,
+        "required_source_spans": [],
+        "required_owner_spans": [],
+        "hierarchical_callable_spans": [],
+        "hierarchical_owner_spans": [],
+        "hierarchical_range_spans": [],
+        "min_source_span_recall": 1.0,
+        "require_abstention": false,
+        "required_evidence_gaps": [],
+        "required_log_evidence_classes": [],
+        "required_log_effect_paths": [],
+        "allowed_log_effect_paths": [],
+        "min_log_path_precision": null,
+        "max_log_path_candidates": 0,
+        "require_log_truncation_signal": false
+      }
+    }
+  ],
+  "audit": {
+    "agent_invoked": false,
+    "model_output_scored": false,
+    "oracle_hidden_during_query": true,
+    "source_bodies_persisted": false,
+    "temporary_runtime_logs_persisted": false,
+    "scope": "context_supply_only"
+  },
+  "next_gate": "repair_context_supply",
+  "execution": {
+    "schema_version": "agent-context-capability-execution/v1",
+    "strategy": "shared-index-isolated-case-snapshot",
+    "expanded_case_count": 3,
+    "source_group_count": 3,
+    "setup_group_count": 3,
+    "index_build_count": 3,
+    "case_snapshot_count": 3,
+    "avoided_index_build_count": 0,
+    "source_materialize_ms": 4125,
+    "index_prepare_ms": 286170,
+    "setup_prepare_ms": 0,
+    "case_snapshot_ms": 193,
+    "batch_elapsed_ms": 336251,
+    "source_groups": [
+      {
+        "source_digest": "e971fcd18c60f5346537255f4e43bebe87ffbbd141127a8c7cd6dd49f35ae742",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 1457,
+        "index_prepare_ms": 92319,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 59,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 59
+          }
+        ]
+      },
+      {
+        "source_digest": "0e410c4851f0e4b2a1ef40b67470c0413725cdb422ff512da64603764f09e993",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 1270,
+        "index_prepare_ms": 93686,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 68,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 68
+          }
+        ]
+      },
+      {
+        "source_digest": "52894ff1174edec907aa28dd3d9a11fd3648afadf41489d5d24dd7a21ddde587",
+        "case_count": 1,
+        "setup_group_count": 1,
+        "source_materialize_ms": 1398,
+        "index_prepare_ms": 100165,
+        "setup_prepare_ms": 0,
+        "case_snapshot_ms": 66,
+        "setup_groups": [
+          {
+            "setup_digest": "7eacd3999fd86927bb305419b3ac6dc4d420546fff4efa9d598fce36232d4096",
+            "task_type": "diagnosis",
+            "case_count": 1,
+            "reflection_count": 0,
+            "setup_prepare_ms": 0,
+            "case_snapshot_ms": 66
+          }
+        ]
+      }
+    ]
+  },
+  "calibration": {
+    "schema_version": "agent-context-calibration/v1",
+    "status": "pass",
+    "target_domain": "native_arkts",
+    "profiled_case_count": 3,
+    "coverage": {
+      "target_levels": [
+        "callable",
+        "file"
+      ],
+      "artifact_roles": [
+        "component",
+        "service"
+      ],
+      "mechanism_kinds": [
+        "async_control",
+        "event_binding",
+        "platform_api",
+        "ui_state"
+      ]
+    },
+    "contract_gaps": [],
+    "macro_metrics": {
+      "artifact_roles": {
+        "pass_rate": 0.0,
+        "anchor_recall": 0.4722,
+        "anchor_precision": 0.4167,
+        "source_span_recall": null
+      },
+      "target_levels": {
+        "pass_rate": 0.0,
+        "anchor_recall": 0.4722,
+        "anchor_precision": 0.4167,
+        "source_span_recall": null
+      },
+      "mechanism_kinds": {
+        "pass_rate": 0.0,
+        "anchor_recall": 0.4896,
+        "anchor_precision": 0.4896,
+        "source_span_recall": null
+      }
+    },
+    "strata": {
+      "artifact_roles": [
+        {
+          "label": "component",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.4722,
+          "anchor_precision": 0.4167,
+          "source_span_recall": null
+        },
+        {
+          "label": "service",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.4722,
+          "anchor_precision": 0.4167,
+          "source_span_recall": null
+        }
+      ],
+      "target_levels": [
+        {
+          "label": "callable",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.4722,
+          "anchor_precision": 0.4167,
+          "source_span_recall": null
+        },
+        {
+          "label": "file",
+          "case_count": 3,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.4722,
+          "anchor_precision": 0.4167,
+          "source_span_recall": null
+        }
+      ],
+      "mechanism_kinds": [
+        {
+          "label": "async_control",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.6667,
+          "anchor_precision": 0.6667,
+          "source_span_recall": null
+        },
+        {
+          "label": "event_binding",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.6667,
+          "anchor_precision": 0.6667,
+          "source_span_recall": null
+        },
+        {
+          "label": "platform_api",
+          "case_count": 1,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.25,
+          "anchor_precision": 0.3333,
+          "source_span_recall": null
+        },
+        {
+          "label": "ui_state",
+          "case_count": 2,
+          "pass_rate": 0.0,
+          "anchor_recall": 0.375,
+          "anchor_precision": 0.2916,
+          "source_span_recall": null
+        }
+      ]
+    },
+    "scope": "evaluation_only_not_injected_into_agent_context"
+  },
+  "calibration_gate": "not_required",
+  "case_seal": {
+    "status": "unsealed",
+    "required": false,
+    "case_count": 3
+  },
+  "evaluation_governance": {
+    "status": "classified",
+    "enforced": true,
+    "schema_version": "agent-evaluation-governance/v1",
+    "split": "development",
+    "change_policy": "editable",
+    "source_isolation": "independent_source",
+    "case_count": 3,
+    "lineage_mode": "case_explicit",
+    "tuning_allowed": true
+  },
+  "promotion_policy": {
+    "schema_version": "agent-context-promotion-policy/v1",
+    "eligible": false,
+    "reasons": [
+      "system_context_gate_failed",
+      "evaluation_split_not_holdout"
+    ],
+    "next_gate": "repair_context_supply"
+  },
+  "promotion_eligible": false,
+  "failure_analysis": {
+    "schema_version": "agent-benchmark-failure-analysis/v1",
+    "status": "repair_required",
+    "failure_count": 8,
+    "primary_failure_class": "ranking_precision",
+    "failure_class_counts": {
+      "candidate_generation": 3,
+      "passage_selection": 1,
+      "ranking_precision": 4
+    },
+    "failures": [
+      {
+        "case_id": "moonlight-manual-refresh-stops-mdns",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "moonlight-manual-refresh-stops-mdns",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "moonlight-pip-cropped-viewport",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "moonlight-pip-cropped-viewport",
+        "failed_check": "minimum_anchor_precision_met",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "moonlight-pip-cropped-viewport",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "moonlight-pip-cropped-viewport",
+        "failed_check": "expected_source_excerpt_returned",
+        "gate": "context",
+        "failure_class": "passage_selection",
+        "owning_layer": "query_focused_source_window",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Select evidence-backed symbol or line windows for the query.",
+        "prohibited_shortcut": "Do not return a larger arbitrary file prefix.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "moonlight-unsupported-qr-scan-entry",
+        "failed_check": "expected_anchors_within_top_k",
+        "gate": "context",
+        "failure_class": "ranking_precision",
+        "owning_layer": "ranking_and_evidence_fusion",
+        "method_reference_ids": [
+          "trec",
+          "beir",
+          "graphrag_local"
+        ],
+        "allowed_repair": "Improve field evidence, reranking, diversity, or bounded local expansion.",
+        "prohibited_shortcut": "Do not use unbounded graph expansion or relax the Oracle.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      },
+      {
+        "case_id": "moonlight-unsupported-qr-scan-entry",
+        "failed_check": "expected_anchors_recalled",
+        "gate": "context",
+        "failure_class": "candidate_generation",
+        "owning_layer": "index_adapter_or_candidate_recall",
+        "method_reference_ids": [
+          "trec",
+          "beir"
+        ],
+        "allowed_repair": "Improve extraction, lexical recall, or bounded candidate generation.",
+        "prohibited_shortcut": "Do not boost an absent candidate in final ranking.",
+        "next_validation": "Add an independent development reproduction, run focused regression, then evaluate a new sealed holdout."
+      }
+    ],
+    "method_references": {
+      "trec": "https://trec.nist.gov/howto.html",
+      "swe_bench": "https://arxiv.org/abs/2310.06770",
+      "beir": "https://arxiv.org/abs/2104.08663",
+      "graphrag_local": "https://microsoft.github.io/graphrag/query/overview/",
+      "context_boundary": "docs/context-provider-boundary.md",
+      "agent_benchmark": "docs/agent-benchmark.md"
+    },
+    "repair_policy": "Reproduce the primary class in independent development cases; never tune a sealed holdout."
+  },
+  "project_id": "f957c13e85505584",
+  "project_path": "/Users/liuhui/Documents/code/agent-memory-new",
+  "case_file": "docs/eval/moonlight-context-utility-development-cases.json",
+  "selected_scenario_ids": [
+    "moonlight-manual-refresh-stops-mdns",
+    "moonlight-pip-cropped-viewport",
+    "moonlight-unsupported-qr-scan-entry"
+  ],
+  "selected_case_ids": [
+    "moonlight-manual-refresh-stops-mdns",
+    "moonlight-pip-cropped-viewport",
+    "moonlight-unsupported-qr-scan-entry"
+  ],
+  "source_project": "/private/tmp/agent-memory-devgate-moonlight",
+  "recorded_at": "2026-08-04T00:46:11+00:00"
+}

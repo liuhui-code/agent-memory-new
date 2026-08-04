@@ -1,0 +1,24 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "project_path": "/private/tmp/agent-memory-devgate-legado",
+  "source_repository": "https://github.com/wip3l/legado-harmony.git",
+  "source_license": "GPL-3.0",
+  "generated_at": "2026-08-04T00:00:00Z",
+  "generator": "source-reviewed-context-utility-development/v1",
+  "cases": [
+    {
+      "id": "legado-change-source-results-delayed",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "task": {"description": "While searching alternative book sources, the status advances but newly found candidates do not appear in the selection list until the entire multi-source search finishes. Locate where incremental results are suppressed or ignored.", "constraints": ["Use only the supplied pre-fix source revision and symptom.", "Do not inspect later Git history."]},
+      "source": {"before_revision": "70fdb2bd621b50567808e2b9f787e5d3d153d0b6", "after_revision": "8ea7778a347b28d23391b1b262bcaae3fcb348d1", "changed_files": ["entry/src/main/ets/core/book/SearchCoordinator.ts", "entry/src/main/ets/pages/ReadBook.ets"]},
+      "provenance": {"kind": "reviewed_git_fix", "fix_commit": "8ea7778a347b28d23391b1b262bcaae3fcb348d1", "commit_message": "fix: update alternative-source candidates in real time", "source_family": "wip3l/legado-harmony@change-source-delta", "independence_basis": "Previously unused licensed project and focused incremental-result fix selected before Runtime queries."},
+      "evaluation_profile": {"target_domain": "native_arkts", "target_levels": ["file", "callable"], "artifact_roles": ["service", "component"], "mechanism_kinds": ["async_control", "ui_state"]},
+      "oracle": {"expected_files": ["entry/src/main/ets/core/book/SearchCoordinator.ts", "entry/src/main/ets/pages/ReadBook.ets"], "forbidden_files": [], "root_cause_category": "async", "expected_causal_level": "supported", "context_requirements": {"require_expected_anchors": true, "require_source_excerpt": true, "required_top_k": 3, "min_anchor_precision": 0.6666}, "mechanism_assertions": [{"file_path": "entry/src/main/ets/core/book/SearchCoordinator.ts", "start_line": 84, "end_line": 109}, {"file_path": "entry/src/main/ets/pages/ReadBook.ets", "start_line": 2097, "end_line": 2133}]},
+      "review": {"source_diff_reviewed": true, "symptom_source_reviewed": true},
+      "leakage_guard": {"hidden_fields": ["oracle", "source.after_revision", "provenance.commit_message"]}
+    }
+  ],
+  "governance": {"oracle_hidden_from_agent": true, "source_bodies_persisted": false, "temporary_runtime_logs_persisted": false, "evaluation": {"schema_version": "agent-evaluation-governance/v1", "split": "development", "change_policy": "editable", "source_isolation": "independent_source", "lineage_defaults": {"source_family": "wip3l/legado-harmony/context-utility-v1", "independence_basis": "Selected and reviewed before Runtime queries."}}}
+}

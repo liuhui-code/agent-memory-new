@@ -1,0 +1,265 @@
+{
+  "schema_version": "agent-context-utility-development-aggregate/v1",
+  "status": "context_no_go_agent_ab_pending_explicit_source_consent",
+  "project_count": 3,
+  "case_count": 6,
+  "passed_case_count": 1,
+  "failed_case_count": 5,
+  "metrics": {
+    "anchor_recall": 0.4861,
+    "primary_anchor_recall": 0.4028,
+    "candidate_file_recall_at_20": 0.8055666666666667,
+    "oracle_anchor_precision": 0.4305666666666666,
+    "source_excerpt_recall": 0.4028,
+    "average_context_tokens": 1428,
+    "average_memory_prepare_ms": 78861.49998333333,
+    "average_query_elapsed_ms": 8283.500016666667,
+    "total_batch_ms": 571550
+  },
+  "first_loss_counts": {
+    "candidate_file": 3,
+    "localizer_file": 2,
+    "evidence_primary": 1
+  },
+  "projects": [
+    {
+      "case_file": "docs/eval/moonlight-context-utility-development-cases.json",
+      "source_project": "/private/tmp/agent-memory-devgate-moonlight",
+      "status": "fail",
+      "summary": {
+        "case_count": 3,
+        "passed_case_count": 0,
+        "failed_case_count": 3,
+        "scenario_count": 3,
+        "stable_scenario_count": 0,
+        "query_variant_pass_rate": 0.0,
+        "staged_scenario_count": 0,
+        "complete_staged_scenario_count": 0,
+        "average_context_tokens": 1400.0,
+        "average_memory_prepare_ms": 95454.3333,
+        "average_query_elapsed_ms": 8542.6667
+      },
+      "code_locator": {
+        "status": "fail",
+        "evaluated_cases": 3,
+        "anchor_recall": 0.4722,
+        "primary_anchor_recall": 0.3056,
+        "candidate_file_recall_at_20": 0.7222,
+        "oracle_anchor_precision": 0.4167,
+        "expected_anchor_mrr": 0.75
+      },
+      "source_evidence": {
+        "status": "fail",
+        "evaluated_cases": 3,
+        "observed_case_count": 3,
+        "source_excerpt_recall": 0.3056,
+        "source_span_recall": null
+      },
+      "execution": {
+        "index_build_count": 3,
+        "index_prepare_ms": 286170,
+        "batch_elapsed_ms": 336251
+      }
+    },
+    {
+      "case_file": "docs/eval/nga-context-utility-development-cases.json",
+      "source_project": "/private/tmp/agent-memory-devgate-nga",
+      "status": "fail",
+      "summary": {
+        "case_count": 2,
+        "passed_case_count": 1,
+        "failed_case_count": 1,
+        "scenario_count": 2,
+        "stable_scenario_count": 1,
+        "query_variant_pass_rate": 0.5,
+        "staged_scenario_count": 0,
+        "complete_staged_scenario_count": 0,
+        "average_context_tokens": 1457.0,
+        "average_memory_prepare_ms": 57060.0,
+        "average_query_elapsed_ms": 5840.0
+      },
+      "code_locator": {
+        "status": "fail",
+        "evaluated_cases": 2,
+        "anchor_recall": 0.5,
+        "primary_anchor_recall": 0.5,
+        "candidate_file_recall_at_20": 0.8334,
+        "oracle_anchor_precision": 0.5,
+        "expected_anchor_mrr": 0.5
+      },
+      "source_evidence": {
+        "status": "fail",
+        "evaluated_cases": 2,
+        "observed_case_count": 2,
+        "source_excerpt_recall": 0.5,
+        "source_span_recall": null
+      },
+      "execution": {
+        "index_build_count": 2,
+        "index_prepare_ms": 113996,
+        "batch_elapsed_ms": 139926
+      }
+    },
+    {
+      "case_file": "docs/eval/legado-context-utility-development-cases.json",
+      "source_project": "/private/tmp/agent-memory-devgate-legado",
+      "status": "fail",
+      "summary": {
+        "case_count": 1,
+        "passed_case_count": 0,
+        "failed_case_count": 1,
+        "scenario_count": 1,
+        "stable_scenario_count": 0,
+        "query_variant_pass_rate": 0.0,
+        "staged_scenario_count": 0,
+        "complete_staged_scenario_count": 0,
+        "average_context_tokens": 1454.0,
+        "average_memory_prepare_ms": 72686.0,
+        "average_query_elapsed_ms": 12393.0
+      },
+      "code_locator": {
+        "status": "fail",
+        "evaluated_cases": 1,
+        "anchor_recall": 0.5,
+        "primary_anchor_recall": 0.5,
+        "candidate_file_recall_at_20": 1.0,
+        "oracle_anchor_precision": 0.3333,
+        "expected_anchor_mrr": 0.5
+      },
+      "source_evidence": {
+        "status": "pass",
+        "evaluated_cases": 1,
+        "observed_case_count": 1,
+        "source_excerpt_recall": 0.5,
+        "source_span_recall": null
+      },
+      "execution": {
+        "index_build_count": 1,
+        "index_prepare_ms": 72596,
+        "batch_elapsed_ms": 95373
+      }
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "moonlight-manual-refresh-stops-mdns",
+      "status": "fail",
+      "anchor_recall": 0.6667,
+      "primary_anchor_recall": 0.6667,
+      "candidate_file_recall_at_20": 0.6667,
+      "oracle_anchor_precision": 0.6667,
+      "source_excerpt_recall": 0.6667,
+      "first_loss": "candidate_file",
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/PcListPageV2.ets",
+        "entry/src/main/ets/service/network/MdnsDiscovery.ets",
+        "entry/src/main/ets/viewmodel/PcListActions.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/service/ComputerManager.ets"
+      ]
+    },
+    {
+      "case_id": "moonlight-pip-cropped-viewport",
+      "status": "fail",
+      "anchor_recall": 0.5,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.25,
+      "source_excerpt_recall": 0.0,
+      "first_loss": "localizer_file",
+      "observed_anchor_paths": [
+        "entry/src/main/ets/service/streaming/StreamIMEManager.ets",
+        "entry/src/main/ets/service/streaming/StreamLifecycleManager.ets",
+        "entry/src/main/ets/service/streaming/StreamWindowManager.ets",
+        "nativelib/src/main/cpp/video_decoder.cpp"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/StreamPage.ets"
+      ]
+    },
+    {
+      "case_id": "moonlight-unsupported-qr-scan-entry",
+      "status": "fail",
+      "anchor_recall": 0.25,
+      "primary_anchor_recall": 0.25,
+      "candidate_file_recall_at_20": 0.5,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 0.25,
+      "first_loss": "candidate_file",
+      "observed_anchor_paths": [
+        "entry/src/main/ets/service/input/DeviceSensorService.ets",
+        "entry/src/main/ets/service/input/GamepadManager.ets",
+        "entry/src/main/ets/service/network/QrShareService.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/components/CustomKeyOverlay.ets",
+        "entry/src/main/ets/components/PcListTitleBar.ets",
+        "entry/src/main/ets/pages/PcListPageV2.ets"
+      ]
+    },
+    {
+      "case_id": "nga-notification-seen-row-reuse",
+      "status": "pass",
+      "anchor_recall": 1.0,
+      "primary_anchor_recall": 1.0,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 1.0,
+      "source_excerpt_recall": 1.0,
+      "first_loss": "evidence_primary",
+      "observed_anchor_paths": [
+        "entry/src/main/ets/pages/NotificationPanel.ets"
+      ],
+      "missing_expected_anchors": []
+    },
+    {
+      "case_id": "nga-auto-checkin-success-hidden",
+      "status": "fail",
+      "anchor_recall": 0.0,
+      "primary_anchor_recall": 0.0,
+      "candidate_file_recall_at_20": 0.6667,
+      "oracle_anchor_precision": 0.0,
+      "source_excerpt_recall": 0.0,
+      "first_loss": "candidate_file",
+      "observed_anchor_paths": [
+        "entry/src/main/ets/model/Notification.ets",
+        "entry/src/main/ets/pages/NotificationPanel.ets",
+        "entry/src/main/ets/store/NotificationStore.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/store/AppStore.ets",
+        "entry/src/main/ets/store/SettingsStore.ets",
+        "entry/src/main/ets/store/settings/domain/CheckinSettings.ets"
+      ]
+    },
+    {
+      "case_id": "legado-change-source-results-delayed",
+      "status": "fail",
+      "anchor_recall": 0.5,
+      "primary_anchor_recall": 0.5,
+      "candidate_file_recall_at_20": 1.0,
+      "oracle_anchor_precision": 0.3333,
+      "source_excerpt_recall": 0.5,
+      "first_loss": "localizer_file",
+      "observed_anchor_paths": [
+        "entry/src/main/ets/components/book/SearchBookResultList.ets",
+        "entry/src/main/ets/core/book/SearchCoordinator.ts",
+        "entry/src/main/ets/pages/ExploreSourceSort.ets"
+      ],
+      "missing_expected_anchors": [
+        "entry/src/main/ets/pages/ReadBook.ets"
+      ]
+    }
+  ],
+  "decision": {
+    "context_gate": "no_go",
+    "agent_ab": "pending_explicit_source_consent",
+    "serving_change_allowed": false,
+    "reasons": [
+      "five_of_six_context_cases_failed",
+      "candidate_generation_loss_reproduced_in_three_cases",
+      "localizer_loss_reproduced_in_two_independent_projects",
+      "agent_ab_external_source_transfer_not_yet_authorized"
+    ]
+  }
+}
