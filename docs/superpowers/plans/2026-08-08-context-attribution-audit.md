@@ -56,6 +56,17 @@
 - 所有六个 A/B Memory 臂都报告了 Context，但没有与三份 Context 结果建立 digest 绑定，Agent 利用保持未决。
 - 因而没有 serving 或架构修改授权；更不应按项目名、文件名、关键词或 Oracle 做局部补丁。
 
+## Candidate Recall Development 复现
+
+`tests/test_candidate_recall_development_reproduction.py` 以项目无关的异步结果转交和状态展示
+文件为目标，并使用有界、同语义词面噪声模拟候选饱和。测试先验证两个目标文件已经进入
+`code_files`，随后通过实际 `context` 和 `context --compact` 读取候选审计与 `query_handoff`。
+
+当前基线中，两目标都不在候选集合，也不在 compact anchors。因此该测试证明的是
+`candidate_recall` 的公共输出缺失，而非 Learn 漏解析、localizer 或 compact 截断。它是可编辑
+Development 失败基线，不能进入 holdout，也不授权改变候选算法；localizer 仍须在另一个独立
+fixture 中单独验证。
+
 ## 后续阶段
 
 1. 为 `candidate_recall` 建立一个项目无关 Development fixture，先复现实际 `query_handoff` 缺失，再检查现有 candidate fusion 边界。

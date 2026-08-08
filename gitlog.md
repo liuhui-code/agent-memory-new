@@ -9132,3 +9132,19 @@ Result:
 - Focused evaluation tests pass 36/36; full discovery exits successfully; all evaluation
   JSON parses, Python compilation passes, `git diff --check` passes, and every Python
   source file remains at or below 500 lines.
+
+## 2026-08-08 - Reproduce candidate recall loss in public Context output
+
+What changed:
+
+- Added a project-neutral Development reproduction for the candidate-recall boundary.
+  The fixture keeps the result relay and status surface indexed, then exercises actual
+  full `context` candidate audit and compact `query_handoff` under bounded lexical noise.
+
+Result:
+
+- Both indexed target files are absent from the candidate set and compact anchors. This
+  proves a public candidate-recall loss rather than a Learn parsing, localizer, or compact
+  projection issue.
+- No retrieval behavior changed. The fixture is an editable Development baseline only;
+  localizer projection remains a separate verification track.
