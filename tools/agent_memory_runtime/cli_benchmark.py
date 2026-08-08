@@ -54,6 +54,7 @@ def add_benchmark_parsers(
     add_project(evaluate)
     evaluate.add_argument("--cases", required=True)
     evaluate.add_argument("--source")
+    evaluate.add_argument("--paired-replay-package")
     evaluate.add_argument("--runner")
     evaluate.add_argument("--responses")
     evaluate.add_argument("--runner-timeout", type=int, default=300)

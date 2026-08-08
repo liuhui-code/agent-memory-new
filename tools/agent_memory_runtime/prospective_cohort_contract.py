@@ -19,6 +19,7 @@ VERIFICATIONS = {"test", "build", "source_review", "user_confirmation", "unverif
 PRIVACY_FLAGS = {
     "persist_raw_task", "persist_raw_query", "persist_raw_logs", "persist_reasoning",
 }
+PAIRED_REPLAY_MODES = {"disabled", "first_eligible"}
 COHORT_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{2,63}$")
 
 
@@ -73,6 +74,7 @@ def validate_protocol(value: Any) -> dict[str, Any]:
     policy = require_object(value, "data_policy")
     if set(policy) != PRIVACY_FLAGS or any(policy.get(key) is not False for key in PRIVACY_FLAGS):
         raise SystemExit("prospective cohort cannot persist raw cohort data")
+    paired_replay = validate_paired_replay(value.get("paired_replay"))
     return {
         "schema_version": PROTOCOL_SCHEMA,
         "cohort_id": cohort_id,
@@ -89,6 +91,32 @@ def validate_protocol(value: Any) -> dict[str, Any]:
         "metrics": normalized_metrics,
         "stop_rule": {"type": "fixed_presented_count", "optional_stopping": False},
         "data_policy": {key: False for key in sorted(PRIVACY_FLAGS)},
+        "paired_replay": paired_replay,
+    }
+
+
+def validate_paired_replay(value: Any) -> dict[str, Any]:
+    if value is None:
+        return {"mode": "disabled"}
+    if not isinstance(value, dict) or str(value.get("mode") or "") not in PAIRED_REPLAY_MODES:
+        raise SystemExit("paired_replay requires a supported mode")
+    mode = str(value["mode"])
+    if mode == "disabled":
+        if set(value) != {"mode"}:
+            raise SystemExit("disabled paired_replay cannot include replay settings")
+        return {"mode": "disabled"}
+    candidates = value.get("max_candidates")
+    snapshot_bytes = value.get("max_snapshot_bytes")
+    retention_days = value.get("retention_days")
+    if not isinstance(candidates, int) or isinstance(candidates, bool) or not 1 <= candidates <= 10:
+        raise SystemExit("paired_replay.max_candidates must be between 1 and 10")
+    if not isinstance(snapshot_bytes, int) or isinstance(snapshot_bytes, bool) or not 1_000_000 <= snapshot_bytes <= 536_870_912:
+        raise SystemExit("paired_replay.max_snapshot_bytes must be between 1 MiB and 512 MiB")
+    if not isinstance(retention_days, int) or isinstance(retention_days, bool) or not 1 <= retention_days <= 365:
+        raise SystemExit("paired_replay.retention_days must be between 1 and 365")
+    return {
+        "mode": "first_eligible", "max_candidates": candidates,
+        "max_snapshot_bytes": snapshot_bytes, "retention_days": retention_days,
     }
 
 

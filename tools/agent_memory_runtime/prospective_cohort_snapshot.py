@@ -102,27 +102,42 @@ def verify_evidence_refs(
 
 def source_snapshot(root: Path) -> dict[str, Any]:
     revision = run_git(root, "rev-parse", "HEAD")
+    tree = run_git(root, "rev-parse", "HEAD^{tree}")
+    repository = run_git(root, "rev-parse", "--show-toplevel")
+    remote = run_git(root, "config", "--get", "remote.origin.url")
     status = run_git(root, "status", "--porcelain=v1", "-z")
-    if revision.returncode != 0 or status.returncode != 0:
+    if revision.returncode != 0 or tree.returncode != 0 or repository.returncode != 0 or status.returncode != 0:
         return {
             "schema_version": "prospective-source-snapshot/v1",
             "revision": "unversioned",
             "dirty": None,
             "status_digest": None,
             "changed_entry_count": None,
+            "tree_digest": None,
+            "repository_digest": None,
+            "identity_digest": None,
             "replay_eligible": False,
         }
     payload = status.stdout.encode("utf-8")
     changed = [item for item in status.stdout.split("\0") if item]
     clean = not changed
-    return {
+    repository_digest = hashlib.sha256(
+        (repository.stdout.strip() + "\0" + remote.stdout.strip()).encode("utf-8")
+    ).hexdigest()
+    value = {
         "schema_version": "prospective-source-snapshot/v1",
         "revision": revision.stdout.strip(),
         "dirty": not clean,
         "status_digest": hashlib.sha256(payload).hexdigest(),
         "changed_entry_count": len(changed),
+        "tree_digest": tree.stdout.strip(),
+        "repository_digest": repository_digest,
         "replay_eligible": clean,
     }
+    return {**value, "identity_digest": canonical_digest({
+        "revision": value["revision"], "tree_digest": value["tree_digest"],
+        "repository_digest": repository_digest,
+    })}
 
 
 def run_git(root: Path, *args: str) -> subprocess.CompletedProcess[str]:

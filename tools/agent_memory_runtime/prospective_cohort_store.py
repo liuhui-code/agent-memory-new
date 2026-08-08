@@ -13,6 +13,7 @@ JSON_FIELDS = {
     "evidence_refs_json": "evidence_refs",
     "memory_manifest_json": "memory_manifest",
     "source_snapshot_json": "source_snapshot",
+    "paired_replay_json": "paired_replay",
     "usage_metrics_json": "usage_metrics",
     "benchmark_metrics_json": "benchmark_metrics",
 }
@@ -95,7 +96,7 @@ def insert_task(conn: sqlite3.Connection, value: dict[str, Any]) -> dict[str, An
         "project_id", "cohort_pk", "sequence_no", "task_id", "task_digest",
         "eligibility", "exclusion_reason", "opportunity", "evidence_refs_json",
         "memory_available_at", "memory_manifest_json", "memory_manifest_digest",
-        "source_snapshot_json", "replay_eligible", "previous_entry_digest",
+        "source_snapshot_json", "paired_replay_json", "replay_eligible", "previous_entry_digest",
         "entry_digest", "status", "usage_sample_id", "enrolled_at",
     )
     params = {
@@ -103,6 +104,7 @@ def insert_task(conn: sqlite3.Connection, value: dict[str, Any]) -> dict[str, An
         "evidence_refs_json": encode(value["evidence_refs"]),
         "memory_manifest_json": encode(value["memory_manifest"]),
         "source_snapshot_json": encode(value["source_snapshot"]),
+        "paired_replay_json": encode(value["paired_replay"]),
     }
     placeholders = ", ".join("?" for _ in columns)
     try:

@@ -26,6 +26,8 @@ from .benchmark_failure_analysis import analyze_agent_failures
 from .evaluation_run_ledger import evaluation_run_guard
 from .records import output
 from .storage import ensure_initialized, now_iso, resolve_project
+from .paired_replay import build_attestation, file_digest, load_package, validate_case
+from .prospective_cohort_snapshot import canonical_digest
 
 
 BENCHMARK_HISTORY_LIMIT = 100
@@ -42,8 +44,12 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
     if not cases:
         raise SystemExit("no eligible benchmark cases; review drafts or pass --allow-drafts")
     validate_longitudinal_cases(cases)
+    replay = load_package(Path(args.paired_replay_package).expanduser()) if args.paired_replay_package else None
     if bool(args.runner) == bool(args.responses):
         raise SystemExit("provide exactly one of --runner or --responses")
+    if replay:
+        validate_paired_replay_request(args, cases, replay)
+    runner_digest = file_digest(Path(args.runner).expanduser().resolve()) if replay else None
     with evaluation_run_guard(
         project, pack, "agent_benchmark", Path(args.cases).expanduser()
     ) as evaluation_run:
@@ -51,7 +57,7 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
             observations = load_observations(Path(args.responses).expanduser())
         else:
             trials = bounded_trials(args.trials)
-            source = Path(args.source).expanduser().resolve() if args.source else Path(pack["project_path"]).resolve()
+            source = replay_source(args, pack, replay)
             if not source.is_dir():
                 raise SystemExit(f"benchmark source directory not found: {source}")
             observations = run_cases(
@@ -62,6 +68,7 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
                 not bool(args.skip_memory_prepare),
                 trials,
                 str(args.treatment_mode),
+                replay,
             )
         selected_ids = {case["id"] for case in cases}
         observations = [item for item in observations if item["case_id"] in selected_ids]
@@ -86,6 +93,12 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
             "runner_configuration": runner_configuration(observations),
             "treatment_mode": treatment_mode(observations, str(args.treatment_mode)),
         })
+        if replay:
+            result["paired_replay_attestation"] = build_attestation(
+                replay, str(Path(args.runner).expanduser().resolve()),
+                str(runner_digest),
+                str(args.treatment_mode), canonical_digest(pack),
+            )
         if args.output_responses:
             write_responses(Path(args.output_responses).expanduser(), observations)
         persist_benchmark_result(project, result)
@@ -142,6 +155,7 @@ def run_cases(
     prepare_memory: bool,
     trials: int = 1,
     treatment_mode: str = "preloaded-context",
+    replay_package: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     observations: list[dict[str, Any]] = []
     for case_position, case in enumerate(cases, start=1):
@@ -152,9 +166,29 @@ def run_cases(
                         source, case, variant, runner, timeout, prepare_memory,
                         trial_index, execution_order,
                         treatment_mode,
+                        replay_package,
                     )
                 )
     return observations
+
+
+def validate_paired_replay_request(
+    args: argparse.Namespace, cases: list[dict[str, Any]], package: dict[str, Any],
+) -> None:
+    if not args.runner or args.responses or args.skip_memory_prepare:
+        raise SystemExit("paired replay requires an external runner and benchmark-managed Memory")
+    if str(args.treatment_mode) != "selective-query-skill" or len(cases) != 1:
+        raise SystemExit("paired replay requires exactly one selective-query-skill case")
+    validate_case(package, cases[0])
+
+
+def replay_source(args: argparse.Namespace, pack: dict[str, Any], package: dict[str, Any] | None) -> Path:
+    source = Path(args.source).expanduser().resolve() if args.source else (
+        Path(package["source_root"]).resolve() if package else Path(pack["project_path"]).resolve()
+    )
+    if package and source != Path(package["source_root"]).resolve():
+        raise SystemExit("paired replay source must match the enrolled source root")
+    return source
 
 
 def write_responses(path: Path, observations: list[dict[str, Any]]) -> None:
@@ -181,6 +215,7 @@ def persist_benchmark_result(project: Any, result: dict[str, Any]) -> None:
             "evidence_utility", "evaluation_governance",
             "longitudinal_value", "execution_order",
             "selective_query", "treatment_mode",
+            "paired_replay_attestation",
         )
     }
     compact["recorded_at"] = now_iso()

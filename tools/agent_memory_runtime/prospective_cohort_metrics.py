@@ -44,7 +44,9 @@ def sanitize_usage_trace(trace: dict[str, Any], sample_id: str) -> dict[str, Any
     }
 
 
-def sanitize_benchmark_result(path: Path | None, case_id: str | None) -> dict[str, Any] | None:
+def sanitize_benchmark_result(
+    path: Path | None, case_id: str | None, paired_replay: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
     if path is None:
         return None
     try:
@@ -58,6 +60,7 @@ def sanitize_benchmark_result(path: Path | None, case_id: str | None) -> dict[st
     selected = [str(item) for item in raw.get("selected_case_ids") or []]
     if not case_id or selected != [case_id]:
         raise SystemExit("cohort benchmark result must contain exactly the linked case")
+    require_paired_attestation(raw, paired_replay)
     measurement = raw.get("measurement_contract")
     if not isinstance(measurement, dict) or measurement.get("status") != "pass":
         raise SystemExit("cohort benchmark measurement contract must pass")
@@ -69,6 +72,7 @@ def sanitize_benchmark_result(path: Path | None, case_id: str | None) -> dict[st
     return {
         "schema_version": "prospective-benchmark-metrics/v1",
         "result_digest": canonical_digest(raw),
+        "paired_replay_digest": paired_replay["package_digest"],
         "quality_gate": str(raw.get("quality_gate") or "unknown"),
         "efficiency_gate": str(raw.get("efficiency_gate") or "unknown"),
         "promotion_gate": str(raw.get("promotion_gate") or "unknown"),
@@ -82,6 +86,24 @@ def sanitize_benchmark_result(path: Path | None, case_id: str | None) -> dict[st
     }
 
 
+def require_paired_attestation(result: dict[str, Any], paired_replay: dict[str, Any] | None) -> None:
+    if not isinstance(paired_replay, dict) or paired_replay.get("status") != "ready":
+        raise SystemExit("cohort task has no enrolled paired replay package")
+    attestation = result.get("paired_replay_attestation")
+    expected = {
+        "package_digest": paired_replay.get("package_digest"),
+        "task_digest": paired_replay.get("task_digest"),
+        "source_identity_digest": paired_replay.get("source_identity_digest"),
+        "memory_snapshot_digest": paired_replay.get("memory_snapshot_digest"),
+    }
+    if not isinstance(attestation, dict) or any(attestation.get(key) != value for key, value in expected.items()):
+        raise SystemExit("cohort benchmark paired replay attestation does not match enrollment")
+    for key in ("skill_contract_digest", "runner_digest", "environment_digest", "case_pack_digest"):
+        value = attestation.get(key)
+        if not isinstance(value, str) or len(value) != 64:
+            raise SystemExit(f"cohort benchmark paired replay attestation is missing {key}")
+
+
 def build_cohort_report(
     cohort: dict[str, Any], tasks: list[dict[str, Any]], chain_valid: bool,
 ) -> dict[str, Any]:
@@ -89,7 +111,10 @@ def build_cohort_report(
     eligible = [item for item in tasks if item["eligibility"] == "eligible"]
     opportunity = [item for item in eligible if item["opportunity"] == "present"]
     completed = [item for item in eligible if item["status"] == "completed"]
-    benchmark_count = sum(bool(item.get("benchmark_metrics")) for item in completed)
+    benchmark_count = sum(
+        bool((item.get("benchmark_metrics") or {}).get("paired_replay_digest"))
+        for item in completed
+    )
     terminal = all(item["status"] in {"completed", "excluded"} for item in tasks)
     target_met = len(tasks) == int(cohort["target_presented_tasks"])
     trace_coverage = ratio(

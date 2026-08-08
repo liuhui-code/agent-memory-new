@@ -25,6 +25,7 @@ from .prospective_cohort_snapshot import (
     task_digest,
     verify_evidence_refs,
 )
+from .paired_replay import create_package, replay_selection
 from .prospective_cohort_store import (
     complete_task,
     get_cohort,
@@ -65,7 +66,6 @@ def eval_cohort_enroll_command(args: argparse.Namespace) -> None:
         ensure_cohort_usage_ready(project)
     enrolled_at = now_iso()
     with connect(project) as conn:
-        conn.execute("BEGIN IMMEDIATE")
         cohort = get_cohort(conn, project.project_id, args.cohort_id)
         require_open_cohort(cohort)
         enrollment = validate_enrollment(
@@ -84,6 +84,13 @@ def eval_cohort_enroll_command(args: argparse.Namespace) -> None:
         source = source_snapshot(project.root)
         sequence = len(tasks) + 1
         previous = str(cohort["chain_head_digest"])
+        replay = create_package(
+            project, conn, cohort,
+            {"sequence_no": sequence, "task_id": task_id, "task_digest": digest},
+            source, manifest_digest,
+            replay_selection(cohort["protocol"], tasks, args.eligibility),
+        )
+        conn.execute("BEGIN IMMEDIATE")
         sample_id = (
             f"cohort:{args.cohort_id}:{task_id}"
             if args.eligibility == "eligible" else None
@@ -91,6 +98,7 @@ def eval_cohort_enroll_command(args: argparse.Namespace) -> None:
         immutable = entry_payload(
             args.cohort_id, sequence, task_id, digest, enrollment,
             evidence, enrolled_at, manifest, manifest_digest, source, previous, sample_id,
+            replay,
         )
         entry_digest = canonical_digest(immutable)
         task = insert_task(conn, {
@@ -137,9 +145,9 @@ def eval_cohort_complete_command(args: argparse.Namespace) -> None:
         if not usage["reported"]:
             raise SystemExit("prospective cohort usage trace is missing or belongs to another task")
         benchmark_path = Path(args.benchmark_result).expanduser() if args.benchmark_result else None
-        benchmark = sanitize_benchmark_result(benchmark_path, args.case_id)
-        if benchmark and not task["replay_eligible"]:
-            raise SystemExit("dirty or unversioned cohort task cannot bind a paired benchmark")
+        benchmark = sanitize_benchmark_result(
+            benchmark_path, args.case_id, task.get("paired_replay"),
+        )
         completion_digest = canonical_digest({
             "task_entry_digest": task["entry_digest"],
             "outcome": args.outcome,
@@ -216,6 +224,7 @@ def entry_payload(
     source: dict[str, Any],
     previous: str,
     sample_id: str | None,
+    paired_replay: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "cohort_id": cohort_id,
@@ -230,6 +239,7 @@ def entry_payload(
         "memory_manifest": manifest,
         "memory_manifest_digest": manifest_digest,
         "source_snapshot": source,
+        "paired_replay": paired_replay,
         "previous_entry_digest": previous,
         "usage_sample_id": sample_id,
         "enrolled_at": enrolled_at,
@@ -246,6 +256,7 @@ def chain_valid(cohort: dict[str, Any], tasks: list[dict[str, Any]]) -> bool:
             task, task["evidence_refs"] or [], task["enrolled_at"],
             task["memory_manifest"], task["memory_manifest_digest"],
             task["source_snapshot"], previous, task.get("usage_sample_id"),
+            task.get("paired_replay") or {},
         )
         if canonical_digest(immutable) != task["entry_digest"]:
             return False
@@ -278,6 +289,7 @@ def task_projection(value: dict[str, Any]) -> dict[str, Any]:
         "memory_manifest_digest": value["memory_manifest_digest"],
         "entry_digest": value["entry_digest"],
         "replay_eligible": bool(value["replay_eligible"]),
+        "paired_replay": value.get("paired_replay") or {},
     }
     if value.get("usage_metrics") is not None:
         result["usage_metrics"] = value["usage_metrics"]

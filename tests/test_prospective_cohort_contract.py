@@ -41,6 +41,18 @@ class ProspectiveCohortContractTests(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "raw cohort data"):
             validate_protocol(value)
 
+    def test_protocol_freezes_bounded_paired_replay_selection(self) -> None:
+        value = protocol()
+        value["paired_replay"] = {
+            "mode": "first_eligible", "max_candidates": 1,
+            "max_snapshot_bytes": 2_000_000, "retention_days": 14,
+        }
+        normalized = validate_protocol(value)
+        self.assertEqual("first_eligible", normalized["paired_replay"]["mode"])
+        value["paired_replay"]["max_candidates"] = 0
+        with self.assertRaisesRegex(SystemExit, "max_candidates"):
+            validate_protocol(value)
+
     def test_excluded_task_requires_preregistered_reason(self) -> None:
         with self.assertRaisesRegex(SystemExit, "preregistered exclusion"):
             validate_enrollment(

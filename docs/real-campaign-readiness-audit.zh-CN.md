@@ -49,7 +49,7 @@
 
 | 能力 | 状态 | 可证明内容 |
 |---|---|---|
-| Cohort 控制面 | Pass | 固定数量、连续序号、排除项、时间快照、hash chain 和 finalize 可工作 |
+| Cohort 控制面 | Pass/Development | 固定数量、连续序号、排除项、时间快照、hash chain、自然观察与有界 replay package 可工作 |
 | 数据最小化 | Pass | Cohort SQLite 不保存原始任务、查询、日志、源码或推理 |
 | Codex Runner | Pass | Runner 可记录搜索、读取、Token、耗时、Memory 查询和锚点路径 |
 | v3 测量合同 | Pass/Calibration only | 生成 L0/L1/L2 能验证协议，不证明真实 Agent 能力 |
@@ -86,15 +86,13 @@ Cohort 只保存原始任务 SHA-256，这是正确的数据最小化，但 dige
 
 **关闭证据：** 指定 SQLite 之外的本地保管位置、负责人、保留期限和最小审计访问权限。
 
-### 5. Paired 结果尚未绑定同一 source revision
+### 5. Paired 合同已在 Development 层补齐，真实来源仍缺失
 
-入组时系统记录 Git revision 并标记 clean/dirty；完成时只要求任务 `replay_eligible=true`、结果为
-单 case 且 v3 measurement contract 通过。当前结果投影没有证明该 v3 运行使用了任务入组时的
-同一 revision。因此任何 paired 结论都应停止。
+`paired_replay` 现在会按冻结的首个 eligible 规则创建字节上限、只读的 task-start Memory
+snapshot。回放要求同一 task digest、Git revision/tree、Memory、Query Skill、Runner 和环境摘要；
+task/source/Memory 错绑 fixture 均由 `eval-cohort-complete` fail closed。旧 v3 结果不能补绑。
 
-**关闭证据：** 在独立 Development fixture 中证明错误绑定会被当前接口接受，然后让 v3 结果
-携带可核验的 source identity/revision，并在 cohort complete 时 fail closed。该改动属于评测
-合同，不属于 Runtime serving。
+这只关闭评测合同的 Development 缺口，不能证明真实活动的任务来源、连续性或效能。
 
 ### 6. 真实活动的指标和声明尚未冻结
 
@@ -125,7 +123,7 @@ Cohort 只保存原始任务 SHA-256，这是正确的数据最小化，但 dige
 - [ ] 原始任务由 SQLite 外部保管，隐私和留存责任明确；
 - [ ] 每项任务允许的客观验证方法已定义；
 - [ ] dirty 任务只进入 Natural 观察，不绑定 A/B；
-- [ ] paired v3 结果能够证明与 task-start revision 一致；
+- [x] paired v3 结果能够证明 task-start input identities 一致（Development fixture）；
 - [ ] feasibility、observational 和 paired 声明边界写入协议；
 - [ ] 样本理由和停止规则不依赖活动中间结果；
 - [ ] 用户明确允许将冻结源码上下文发送给所选 Agent Runner。

@@ -21,7 +21,7 @@ class ProspectiveCohortMetricsTests(unittest.TestCase):
             value["private_task"] = "SECRET_TASK_TEXT"
             path.write_text(json.dumps(value), encoding="utf-8")
 
-            result = sanitize_benchmark_result(path, "case-1")
+            result = sanitize_benchmark_result(path, "case-1", paired_replay())
 
         self.assertEqual("pass", result["quality_gate"])
         self.assertEqual([1], result["query_counts"])
@@ -35,13 +35,30 @@ class ProspectiveCohortMetricsTests(unittest.TestCase):
             value["selected_case_ids"] = ["case-1", "case-2"]
             path.write_text(json.dumps(value), encoding="utf-8")
             with self.assertRaisesRegex(SystemExit, "exactly the linked case"):
-                sanitize_benchmark_result(path, "case-1")
+                sanitize_benchmark_result(path, "case-1", paired_replay())
 
             value = benchmark_result()
             value["measurement_contract"]["status"] = "fail"
             path.write_text(json.dumps(value), encoding="utf-8")
             with self.assertRaisesRegex(SystemExit, "measurement contract"):
-                sanitize_benchmark_result(path, "case-1")
+                sanitize_benchmark_result(path, "case-1", paired_replay())
+
+    def test_task_source_and_memory_misbinding_are_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "result.json"
+            for key in ("task_digest", "source_identity_digest", "memory_snapshot_digest"):
+                value = benchmark_result()
+                value["paired_replay_attestation"][key] = "f" * 64
+                path.write_text(json.dumps(value), encoding="utf-8")
+                with self.assertRaisesRegex(SystemExit, "attestation does not match"):
+                    sanitize_benchmark_result(path, "case-1", paired_replay())
+
+    def test_legacy_v3_result_cannot_create_a_paired_claim(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "result.json"
+            path.write_text(json.dumps(benchmark_result()), encoding="utf-8")
+            with self.assertRaisesRegex(SystemExit, "no enrolled paired replay package"):
+                sanitize_benchmark_result(path, "case-1", {"status": "not_selected"})
 
     def test_report_separates_outcome_diagnostics_and_guardrails(self) -> None:
         benchmark = sanitize_from_value(benchmark_result())
@@ -82,12 +99,12 @@ def sanitize_from_value(value: dict) -> dict:
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory) / "result.json"
         path.write_text(json.dumps(value), encoding="utf-8")
-        result = sanitize_benchmark_result(path, "case-1")
+        result = sanitize_benchmark_result(path, "case-1", paired_replay())
     return result
 
 
 def benchmark_result() -> dict:
-    return {
+    value = {
         "schema_version": "agent-benchmark-result/v1",
         "treatment_mode": "selective-query-skill",
         "selected_case_ids": ["case-1"],
@@ -126,6 +143,24 @@ def benchmark_result() -> dict:
                 },
             },
         }],
+    }
+    value["paired_replay_attestation"] = {
+        "package_digest": "a" * 64,
+        "task_digest": "b" * 64,
+        "source_identity_digest": "c" * 64,
+        "memory_snapshot_digest": "d" * 64,
+        "skill_contract_digest": "e" * 64,
+        "runner_digest": "f" * 64,
+        "environment_digest": "1" * 64,
+        "case_pack_digest": "2" * 64,
+    }
+    return value
+
+
+def paired_replay() -> dict:
+    return {
+        "status": "ready", "package_digest": "a" * 64, "task_digest": "b" * 64,
+        "source_identity_digest": "c" * 64, "memory_snapshot_digest": "d" * 64,
     }
 
 

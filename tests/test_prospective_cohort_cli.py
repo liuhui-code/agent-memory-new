@@ -241,9 +241,12 @@ class ProspectiveCohortCliTests(AgentMemoryTestBase):
             self.init_git_project(root)
             value = protocol()
             value["target_presented_tasks"] = 1
+            value["paired_replay"] = {
+                "mode": "first_eligible", "max_candidates": 1,
+                "max_snapshot_bytes": 2_000_000, "retention_days": 14,
+            }
             protocol_path = self.write_json(base / "cohort.json", value)
             task_path = self.write_json(base / "task.json", {"description": "Task"})
-            result_path = self.write_json(base / "result.json", benchmark_result())
             self.run_memory(root, "init")
             self.json_command(root, "eval-cohort-create", "--protocol", str(protocol_path), "--json")
             enrolled = self.json_command(
@@ -257,6 +260,13 @@ class ProspectiveCohortCliTests(AgentMemoryTestBase):
                 "--json",
             )
             self.assertTrue(enrolled["replay_eligible"])
+            self.assertEqual("ready", enrolled["paired_replay"]["status"])
+            result = benchmark_result()
+            result["paired_replay_attestation"].update({
+                key: enrolled["paired_replay"][key]
+                for key in ("package_digest", "task_digest", "source_identity_digest", "memory_snapshot_digest")
+            })
+            result_path = self.write_json(base / "result.json", result)
             completed = self.json_command(
                 root,
                 "eval-cohort-complete",

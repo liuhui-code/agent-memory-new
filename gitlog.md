@@ -1,5 +1,26 @@
 # Local Development Log
 
+## 2026-08-08 - Bound Paired Replay To Task-Start Inputs
+
+What changed:
+- Split natural Cohort enrollment attestation from an optional pre-registered
+  paired replay package. The package has deterministic first-eligible selection,
+  byte and retention limits, a read-only SQLite task-start backup, and only
+  digest-level durable metadata.
+- Extended source identity from clean status to repository, revision and tree
+  digests. A replay requires the enrolled task digest, source revision, Memory
+  snapshot, Query Skill, Runner and environment identities.
+- Added the narrow `--paired-replay-package` evaluation adapter. It rejects
+  recorded responses, fixture/mutation source, mismatched cases and changed
+  snapshot/Skill/Runner inputs. Legacy v3 results cannot create paired cohort
+  conclusions.
+
+Verification:
+- Controlled task, source and Memory misbinding tests fail closed; package
+  snapshot/rebind and end-to-end external-runner attestation tests pass.
+- This is evaluation control-plane work only. Query serving, graph behavior,
+  diagnosis authority and the four user-facing Skills remain unchanged.
+
 ## 2026-08-03 - Isolate Context in Agent A/B Measurement v2
 
 What changed:

@@ -44,6 +44,7 @@ def create_prospective_cohort_schema(conn: sqlite3.Connection) -> None:
           memory_manifest_json TEXT NOT NULL,
           memory_manifest_digest TEXT NOT NULL,
           source_snapshot_json TEXT NOT NULL,
+          paired_replay_json TEXT NOT NULL DEFAULT '{}',
           replay_eligible INTEGER NOT NULL DEFAULT 0,
           previous_entry_digest TEXT NOT NULL,
           entry_digest TEXT NOT NULL,
@@ -67,3 +68,6 @@ def create_prospective_cohort_schema(conn: sqlite3.Connection) -> None:
         ON prospective_cohort_tasks(cohort_pk, status, sequence_no);
         """
     )
+    columns = {row["name"] for row in conn.execute("PRAGMA table_info(prospective_cohort_tasks)")}
+    if "paired_replay_json" not in columns:
+        conn.execute("ALTER TABLE prospective_cohort_tasks ADD COLUMN paired_replay_json TEXT NOT NULL DEFAULT '{}'")

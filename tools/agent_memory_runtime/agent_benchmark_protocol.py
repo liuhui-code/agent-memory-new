@@ -12,6 +12,7 @@ from typing import Any
 from .agent_benchmark_cases import public_case
 from .benchmark_context_setup import apply_context_setup, context_setup_audit
 from .benchmark_memory import prepare_isolated_memory
+from .paired_replay import prepare_replay_memory
 from .benchmark_workspace import materialized_workspace
 from .agent_benchmark_schedule import normalize_execution_order
 from .agent_benchmark_mechanism import normalize_mechanism_evidence
@@ -39,6 +40,7 @@ def run_benchmark_agent(
     trial_index: int = 1,
     execution_order: dict[str, Any] | None = None,
     treatment_mode: str = "preloaded-context",
+    replay_package: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     executable = resolve_runner(runner)
     with materialized_workspace(root, case) as workspace:
@@ -62,10 +64,11 @@ def run_benchmark_agent(
                 if treatment_mode == SELECTIVE_TREATMENT_MODE
                 else workspace.parent / "memory-home"
             )
-            memory = prepare_isolated_memory(
-                workspace, memory_home,
-                timeout,
-                case["task_type"],
+            memory = (
+                prepare_replay_memory(workspace, memory_home, replay_package, case["task_type"])
+                if replay_package else prepare_isolated_memory(
+                    workspace, memory_home, timeout, case["task_type"],
+                )
             )
             apply_context_setup(memory, setup, timeout)
             request["memory_access"] = memory
@@ -102,6 +105,8 @@ def run_benchmark_agent(
     observation["memory_setup"] = (
         setup_audit if variant == "memory" else context_setup_audit(None)
     )
+    if replay_package:
+        observation["paired_replay_package_digest"] = replay_package["package_digest"]
     return observation
 
 
