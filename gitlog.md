@@ -9167,3 +9167,21 @@ Result:
   candidate recall, Learn parsing and compact-only truncation.
 - No serving behavior changed. The fixture is a Development baseline and does not authorize
   removal or retuning of directory-diversity constraints.
+
+## 2026-08-08 - Close divergent Context-loss Development evidence
+
+What changed:
+
+- Recorded the mandatory decision boundary after independently reproducing candidate recall
+  and localizer projection losses in public Context output.
+- Corrected the candidate fixture description to state its opaque target identifiers and
+  record-granularity lexical saturation. This prevents a file-name match from disguising
+  the intended lexical-to-semantic recall boundary.
+
+Result:
+
+- Candidate loss occurs before candidate refs; localizer loss occurs after candidate refs
+  under an existing bounded directory-diversity projection. They do not demonstrate one
+  missing contract and therefore do not authorize a combined architecture or ranking change.
+- No unconsumed, independently sourced external pack is available for a one-shot validation.
+  Serving changes stop at the Development conclusion until such evidence exists.

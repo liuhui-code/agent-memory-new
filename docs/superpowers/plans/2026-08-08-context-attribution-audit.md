@@ -58,9 +58,10 @@
 
 ## Candidate Recall Development 复现
 
-`tests/test_candidate_recall_development_reproduction.py` 以项目无关的异步结果转交和状态展示
-文件为目标，并使用有界、同语义词面噪声模拟候选饱和。测试先验证两个目标文件已经进入
-`code_files`，随后通过实际 `context` 和 `context --compact` 读取候选审计与 `query_handoff`。
+`tests/test_candidate_recall_development_reproduction.py` 以项目无关的跨文件载荷转交和界面展示
+文件为目标，并使用有界、同语义词面噪声模拟候选饱和。目标路径和符号不携带查询词，避免
+文件名匹配掩盖候选边界。测试先验证两个目标文件已经进入 `code_files`，随后通过实际
+`context` 和 `context --compact` 读取候选审计与 `query_handoff`。
 
 当前基线中，两目标都不在候选集合，也不在 compact anchors。因此该测试证明的是
 `candidate_recall` 的公共输出缺失，而非 Learn 漏解析、localizer 或 compact 截断。它是可编辑
@@ -80,10 +81,29 @@ audit 中。fixture 再提供同目录的高分候选和跨目录的高分候选
 Learn 解析或 compact 截断。该结果只是可编辑的 Development 复现；它不证明现有目录多样性
 策略应被移除，也不授权 serving 修改。
 
+## Development 证据闭环与停止结论
+
+两个 fixture 都在正式公共输出中稳定复现了首次损失，但它们不满足“同一缺失契约”的架构
+修改条件：
+
+- candidate fixture 的首次损失是 bounded candidate fusion 之后目标根本不在 candidate refs；
+- localizer fixture 的首次损失是目标已在 candidate refs，但在既有的目录多样性和八文件预算
+  投影后不可见。
+
+因此，不得把二者合并解释为单一权重、目录配额或新抽象问题，也不得用 fixture 的路径、词面
+或 Oracle 作为例外条件修改 Runtime。当前只能证明两个 Development 边界，不能证明真实项目
+频率、用户影响、外部泛化，或任何修复会提升 Agent 定位质量。
+
+可用的外部 Context 结果均已参与本次归因和 fixture 设计，不能再作为一次性验证来源。下一次
+有效推进需要一个未参与开发、具有来源谱系和可审查 Oracle 的新来源；若无此来源，保持当前
+Development 结论并停止 serving 改动。与此同时，可单独修复不依赖这两个案例的评测基础设施
+问题，例如明确 pytest 运行环境或为其提供等价的标准库执行入口。
+
 ## 后续阶段
 
 1. [x] 为 `candidate_recall` 建立项目无关 Development fixture，复现实际 `query_handoff` 缺失。
 2. [x] 为 `localizer_projection` 建立独立 fixture，证明候选存在而 serving localizer 丢失目标；未复用候选 fixture 的目标或 Oracle。
-3. [x] 分别运行 focused 回归、相邻 Context 覆盖和 500 行检查。
+3. [x] 分别运行 focused 回归、相邻 Context supply 覆盖、编译和 500 行检查；未运行或声称
+   完整能力门禁，因为没有可重新执行且未被本阶段消费的外部案例。
 4. 只有两个独立缺陷类别指向同一个现有边界时，写出最小修复合同；否则记录分歧并停止，不扩张架构。
 5. 使用未参与开发的新来源进行一次性验证；没有合格来源时结论停留在 Development。
