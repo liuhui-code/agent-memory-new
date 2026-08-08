@@ -109,6 +109,7 @@ The project is especially optimized for:
 | Governance | Refresh, stale/merge/conflict/miss/feedback review, graph health, and action plans |
 | Change impact | Git changes mapped to symbols, dependents, logs, tests, history, and coverage gaps |
 | Quality evaluation | Retrieval, trust, log, graph, semantic, design-context, and Agent A/B checks |
+| Prospective evaluation | Preregistered consecutive real-task cohorts with temporal Memory cutoffs, privacy-safe telemetry, and fixed stopping |
 | Token control | Compact diagnosis and design contexts capped near 1,500 estimated tokens |
 | Human review | Generated Obsidian mirror plus health, review, and plan commands |
 

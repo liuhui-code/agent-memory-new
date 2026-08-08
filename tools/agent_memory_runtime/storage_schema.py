@@ -6,6 +6,7 @@ import sqlite3
 
 from .incident_trace_schema import create_incident_trace_schema
 from .evaluation_run_schema import create_evaluation_run_schema
+from .prospective_cohort_schema import create_prospective_cohort_schema
 from .storage_migrations import create_post_migration_indexes, migrate_schema
 from .storage_project_counters import create_project_counter_schema
 from .storage_search_schema import create_search_schema
@@ -428,6 +429,7 @@ def create_schema(conn: sqlite3.Connection) -> None:
     )
     create_incident_trace_schema(conn)
     create_evaluation_run_schema(conn)
+    create_prospective_cohort_schema(conn)
     migrate_schema(conn)
     create_project_counter_schema(conn)
     create_post_migration_indexes(conn)

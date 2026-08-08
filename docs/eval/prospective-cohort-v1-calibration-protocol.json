@@ -1,0 +1,46 @@
+{
+  "schema_version": "prospective-agent-cohort/v1",
+  "cohort_id": "generated-protocol-calibration-v1",
+  "title": "Generated consecutive-task protocol calibration",
+  "evidence_origin": "generated_protocol_calibration",
+  "task_type": "diagnosis",
+  "target_presented_tasks": 2,
+  "enrollment": {
+    "mode": "consecutive",
+    "source_scope": "generated-project-neutral-fixture",
+    "allowed_exclusion_reasons": [
+      "not_diagnosis",
+      "duplicate_task",
+      "environment_unavailable"
+    ]
+  },
+  "hypothesis": {
+    "primary": "The cohort control plane preserves consecutive enrollment, time availability, privacy, segmentation, and fixed stopping.",
+    "treatment_mode": "selective-query-skill"
+  },
+  "metrics": {
+    "overall": [
+      "verified_task_success"
+    ],
+    "diagnostic": [
+      "activation",
+      "anchor_utilization",
+      "first_observable_loss"
+    ],
+    "guardrails": [
+      "token_cost",
+      "latency",
+      "query_errors"
+    ]
+  },
+  "stop_rule": {
+    "type": "fixed_presented_count",
+    "optional_stopping": false
+  },
+  "data_policy": {
+    "persist_raw_task": false,
+    "persist_raw_query": false,
+    "persist_raw_logs": false,
+    "persist_reasoning": false
+  }
+}

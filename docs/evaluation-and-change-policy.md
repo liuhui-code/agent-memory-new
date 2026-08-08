@@ -192,6 +192,23 @@ Development 可以驱动实现，但不能证明外部泛化。
   查询成功数与错误数之和必须等于总调用数，完成事件缺失时 fail closed。
   生成式 L0/L1/L2 校准只证明协议可测，不证明真实任务质量、效率、泛化或晋级资格。
 
+### 前瞻性连续任务 Cohort
+
+- 真实使用 cohort 必须在首个任务到达前冻结可证伪假设、固定 presented 数量、连续入组规则、
+  排除原因、总体指标、局部诊断、成本护栏和非 optional stopping。
+- 每个到达任务都占一个不可复用序号；排除项也计入 presented 数量并只能使用预注册原因。
+  系统内部 hash chain 只能证明登记后的无替换和无缺口，外部连续性必须标记为 self-attested。
+- 任务开始时只保存原始任务 SHA-256、Git 状态摘要、Memory 高水位和时间。Memory Opportunity
+  必须在任务开始前引用已存在的类型化记录，禁止完成后依据答案回填。
+- Natural Cohort 与 Memory Opportunity 子集必须分账。机会案例收益不得表述为日常任务总体收益；
+  observational、mixed 和 paired 证据也不得混写。
+- Cohort 表不得保存原始任务、查询、临时日志、源码正文或 Agent 推理。滚动 usage trace 和 v3
+  结果只能通过有界聚合进入 SQLite。
+- Dirty 或 unversioned 任务可以进入自然观察，但不能绑定冻结源码 paired A/B。少量前瞻 cohort
+  只产生 Development 描述性结果，不能声明显著性、泛化或 promotion。
+- 没有合格连续任务来源时停止能力扩张；不得用精选历史修复、生成任务或事后重建的理想经验
+  代替真实前瞻队列。
+
 ## 强制工作流
 
 每次能力改动按以下顺序执行：

@@ -119,6 +119,31 @@ def load_task_trace(project: Project) -> dict[str, Any]:
     return data if isinstance(data, dict) else {}
 
 
+def ensure_cohort_usage_ready(project: Project) -> None:
+    sample = load_usage_sample(project)
+    if sample.get("closed_at") or sample.get("reflection_written"):
+        return
+    if sample.get("commands") or sample.get("queries") or int(sample.get("query_rounds") or 0):
+        raise SystemExit(
+            "close or reflect the current usage sample before enrolling a cohort task"
+        )
+
+
+def begin_cohort_usage_sample(project: Project, sample_id: str) -> None:
+    ensure_cohort_usage_ready(project)
+    sample = _empty_usage_sample(project)
+    sample["sample_id"] = sample_id
+    save_usage_sample(project, sample)
+
+
+def close_cohort_usage_sample(project: Project, sample_id: str) -> None:
+    sample = load_usage_sample(project)
+    if sample.get("sample_id") != sample_id:
+        raise SystemExit("cohort usage sample no longer matches the active task")
+    sample["closed_at"] = now_iso()
+    save_usage_sample(project, sample)
+
+
 def build_task_trace(project: Project, sample: dict[str, Any]) -> dict[str, Any]:
     runtime_log = sample.get("runtime_log") or {}
     governance = sample.get("governance") or {}

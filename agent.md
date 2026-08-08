@@ -83,6 +83,11 @@ python tools/agent_memory.py eval-semantic --project . --cases docs/eval/semanti
 python tools/agent_memory.py eval-harvest-history --project . --target /tmp/history-cases.json --json
 python tools/agent_memory.py eval-mutate-arkts --project . --target /tmp/mutation-cases.json --json
 python tools/agent_memory.py eval-agent-benchmark --project . --cases /tmp/mutation-cases.json --runner /path/to/runner --json
+python tools/agent_memory.py eval-cohort-create --project . --protocol cohort.json --json
+python tools/agent_memory.py eval-cohort-enroll --project . --cohort-id cohort-v1 --task-id task-001 --task-file task.json --eligibility eligible --opportunity unknown --json
+python tools/agent_memory.py eval-cohort-complete --project . --cohort-id cohort-v1 --task-id task-001 --outcome pass --verification test --json
+python tools/agent_memory.py eval-cohort-report --project . --cohort-id cohort-v1 --json
+python tools/agent_memory.py eval-cohort-finalize --project . --cohort-id cohort-v1 --json
 python tools/agent_memory.py eval-scale --project . --profile million --fail-on-slo --json
 python tools/agent_memory.py impact-scope --project . --base HEAD~1 --json
 python tools/agent_memory.py impact-feedback --project . --outcome pass --executed-tests "tests/test_profile.py" --json

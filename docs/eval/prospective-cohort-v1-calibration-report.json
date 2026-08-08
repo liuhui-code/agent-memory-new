@@ -1,0 +1,79 @@
+{
+  "schema_version": "prospective-agent-cohort-report/v1",
+  "cohort_id": "generated-protocol-calibration-v1",
+  "status": "completed",
+  "protocol_digest": "f7ba8cbccbdd22b32d6e98f5247fb9b18de0a206db13e61e7e94b1c9907dfd10",
+  "data_quality": {
+    "status": "pass",
+    "chain_valid": true,
+    "sequence_contiguous": true,
+    "target_met": true,
+    "terminal_complete": true,
+    "presented_count": 2,
+    "target_presented_tasks": 2,
+    "eligible_count": 1,
+    "excluded_count": 1,
+    "usage_trace_coverage": 1.0,
+    "benchmark_binding_coverage": 0.0,
+    "clean_source_replay_coverage": 1.0,
+    "opportunity_label_coverage": 1.0,
+    "exclusion_reasons": {
+      "not_diagnosis": 1
+    }
+  },
+  "segments": {
+    "natural": {
+      "eligible_count": 1,
+      "completed_count": 1,
+      "outcomes": {
+        "pass": 1
+      },
+      "verified_success_rate": 1.0,
+      "activation_rate": 1.0,
+      "average_query_count": 1.0,
+      "query_error_count": 0,
+      "paired_benchmark_count": 0,
+      "paired_quality_pass_rate": null,
+      "paired_efficiency_pass_rate": null,
+      "average_outcome_delta": null,
+      "first_observable_losses": {},
+      "average_memory_anchor_hit_count": null,
+      "average_token_overhead_ratio": null,
+      "average_elapsed_overhead_ratio": null,
+      "average_source_search_delta": null
+    },
+    "memory_opportunity": {
+      "eligible_count": 1,
+      "completed_count": 1,
+      "outcomes": {
+        "pass": 1
+      },
+      "verified_success_rate": 1.0,
+      "activation_rate": 1.0,
+      "average_query_count": 1.0,
+      "query_error_count": 0,
+      "paired_benchmark_count": 0,
+      "paired_quality_pass_rate": null,
+      "paired_efficiency_pass_rate": null,
+      "average_outcome_delta": null,
+      "first_observable_losses": {},
+      "average_memory_anchor_hit_count": null,
+      "average_token_overhead_ratio": null,
+      "average_elapsed_overhead_ratio": null,
+      "average_source_search_delta": null
+    }
+  },
+  "evidence_mode": "observational",
+  "evidence_origin": "generated_protocol_calibration",
+  "evidence_level": "protocol_calibration",
+  "capability_claim": "protocol_only",
+  "promotion_eligible": false,
+  "external_consecutiveness": "self_attested",
+  "statistical_scope": "descriptive_development_not_generalization",
+  "privacy": {
+    "raw_task_persisted": false,
+    "raw_query_persisted": false,
+    "raw_logs_persisted": false,
+    "reasoning_persisted": false
+  }
+}

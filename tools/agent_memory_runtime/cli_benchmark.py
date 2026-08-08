@@ -84,3 +84,48 @@ def add_benchmark_parsers(
     context.add_argument("--fail-on-fail", action="store_true")
     context.add_argument("--json", action="store_true")
     context.set_defaults(func=command("eval_context_capability_command"))
+
+    cohort_create = sub.add_parser("eval-cohort-create")
+    add_project(cohort_create)
+    cohort_create.add_argument("--protocol", required=True)
+    cohort_create.add_argument("--json", action="store_true")
+    cohort_create.set_defaults(func=command("eval_cohort_create_command"))
+
+    cohort_enroll = sub.add_parser("eval-cohort-enroll")
+    add_project(cohort_enroll)
+    cohort_enroll.add_argument("--cohort-id", required=True)
+    cohort_enroll.add_argument("--task-id", required=True)
+    cohort_enroll.add_argument("--task-file", required=True)
+    cohort_enroll.add_argument("--eligibility", choices=["eligible", "excluded"], required=True)
+    cohort_enroll.add_argument("--opportunity", choices=["present", "absent", "unknown"], required=True)
+    cohort_enroll.add_argument("--evidence-ref", action="append", default=[])
+    cohort_enroll.add_argument("--exclusion-reason")
+    cohort_enroll.add_argument("--json", action="store_true")
+    cohort_enroll.set_defaults(func=command("eval_cohort_enroll_command"))
+
+    cohort_complete = sub.add_parser("eval-cohort-complete")
+    add_project(cohort_complete)
+    cohort_complete.add_argument("--cohort-id", required=True)
+    cohort_complete.add_argument("--task-id", required=True)
+    cohort_complete.add_argument("--outcome", choices=["pass", "fail", "partial", "unknown"], required=True)
+    cohort_complete.add_argument(
+        "--verification",
+        choices=["test", "build", "source_review", "user_confirmation", "unverified"],
+        required=True,
+    )
+    cohort_complete.add_argument("--benchmark-result")
+    cohort_complete.add_argument("--case-id")
+    cohort_complete.add_argument("--json", action="store_true")
+    cohort_complete.set_defaults(func=command("eval_cohort_complete_command"))
+
+    cohort_report = sub.add_parser("eval-cohort-report")
+    add_project(cohort_report)
+    cohort_report.add_argument("--cohort-id", required=True)
+    cohort_report.add_argument("--json", action="store_true")
+    cohort_report.set_defaults(func=command("eval_cohort_report_command"))
+
+    cohort_finalize = sub.add_parser("eval-cohort-finalize")
+    add_project(cohort_finalize)
+    cohort_finalize.add_argument("--cohort-id", required=True)
+    cohort_finalize.add_argument("--json", action="store_true")
+    cohort_finalize.set_defaults(func=command("eval_cohort_finalize_command"))

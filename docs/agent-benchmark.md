@@ -661,3 +661,18 @@ localizer-file 5 例、primary-evidence 2 例；多平台同名实现和多 owne
 成本差异。案例不得修改或重跑；完整定义与结果见
 `docs/superpowers/plans/2026-08-03-permission-manager-agent-ab-campaign.md` 和
 `docs/eval/permission-manager-agent-ab-context-result.json`。
+
+## 十七、前瞻性真实连续任务队列
+
+历史修复案例与 sealed holdout 只能回答冻结案例上的能力，不能证明 Agent 在自然到达任务中会
+正确选择 Memory、处理无机会任务并获得净收益。`eval-cohort-*` 因此提供独立的前瞻性评测门面：
+首个任务前冻结协议，所有到达任务连续占序号，任务开始时冻结 Memory 高水位与 Git 状态，完成时
+只保存脱敏 usage/benchmark 聚合，并按 Natural 与 Memory Opportunity 分账。
+
+生成校准仅验证协议实现，必须声明 `evidence_origin=generated_protocol_calibration`，报告固定为
+`capability_claim=protocol_only` 且 `promotion_eligible=false`。真实队列使用
+`prospective_real_tasks`，但小样本仍只形成 Development 描述性证据。完整操作见
+`docs/prospective-cohort-guide.zh-CN.md`；设计、引用、校准协议和校准报告分别见
+`docs/superpowers/plans/2026-08-08-prospective-real-task-cohort.md`、
+`docs/eval/prospective-cohort-v1-calibration-protocol.json` 和
+`docs/eval/prospective-cohort-v1-calibration-report.json`。

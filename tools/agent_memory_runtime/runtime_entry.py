@@ -66,6 +66,13 @@ from .retrieval_eval import eval_retrieval_command
 from .retrieval_feedback import retrieval_feedback_command
 from .scale_benchmark import eval_scale_command
 from .semantic_eval import eval_semantic_command
+from .prospective_cohort import (
+    eval_cohort_complete_command,
+    eval_cohort_create_command,
+    eval_cohort_enroll_command,
+    eval_cohort_finalize_command,
+    eval_cohort_report_command,
+)
 from .vault import vault_export, vault_index, vault_init
 
 
@@ -89,6 +96,11 @@ def command_handlers() -> dict[str, object]:
         "eval_harvest_history_command": eval_harvest_history_command,
         "eval_seal_cases_command": eval_seal_cases_command,
         "eval_mutate_arkts_command": eval_mutate_arkts_command,
+        "eval_cohort_create_command": eval_cohort_create_command,
+        "eval_cohort_enroll_command": eval_cohort_enroll_command,
+        "eval_cohort_complete_command": eval_cohort_complete_command,
+        "eval_cohort_report_command": eval_cohort_report_command,
+        "eval_cohort_finalize_command": eval_cohort_finalize_command,
         "design_outcome_command": design_outcome_command,
         "eval_semantic_command": eval_semantic_command,
         "design_verify_command": design_verify_command,

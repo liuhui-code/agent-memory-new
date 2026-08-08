@@ -9023,3 +9023,37 @@ Result:
 - Runtime serving, retrieval ranking, SQL schema and the four-Skill product surface are
   unchanged. A new preregistered real Development campaign is still required before v3
   can support an Agent quality or efficiency conclusion.
+
+## 2026-08-08 - Add prospective consecutive-task evaluation cohorts
+
+What changed:
+
+- Added a preregistered prospective cohort control plane based on trustworthy
+  experimentation, fresh real-task benchmark, temporal-memory and telemetry
+  minimization practices. It keeps diagnosis in the Agent and does not alter Runtime
+  serving, ranking, graph, log, or experience behavior.
+- Added five `eval-cohort-*` commands behind `tools/agent_memory.py`, two isolated
+  SQLite tables, fixed-count consecutive enrollment, opaque task digests, append-only
+  hash chaining, Git/Memory start snapshots, and typed pre-task opportunity evidence.
+- Added privacy-safe usage and optional single-case v3 projections. Reports separate
+  Natural and Memory Opportunity cohorts, data quality, outcomes, diagnostics, costs,
+  evidence origin, and claim level; all cohort reports remain promotion-ineligible.
+- Added fail-closed trace binding and rollback-safe completion ordering so a missing or
+  mismatched usage trace cannot create an irreparable completed task.
+- Added the long-term design, Chinese operator guide, policy and README entries, plus a
+  generated protocol calibration that is explicitly classified as `protocol_only`.
+
+Result:
+
+- The generated two-task calibration passes sequence, hash-chain, fixed-stop, temporal
+  evidence, trace and privacy checks. It contains one eligible task and one preregistered
+  exclusion, and makes no real capability, statistical-generalization, or promotion claim.
+- Prospective cohort tests pass 16/16; adjacent ledger, reflection, usage, selective
+  Benchmark and scale tests pass 22/22. Python compilation, JSON parsing,
+  `git diff --check`, the four-Skill check and the 500-line gate pass.
+- The full suite runs 916 tests: 914 pass in the socket-restricted sandbox; the only two
+  errors are loopback bind denials, and the complete loopback module passes 3/3 with
+  local socket binding enabled.
+- The CI scale gate passes at 100,000 searchable entities and 300,000 edges. The million
+  gate passes at 1,000,000 searchable entities, 3,000,000 edges and 2.263 GB SQLite;
+  latency, query-plan and incremental-maintenance gates are all true.
