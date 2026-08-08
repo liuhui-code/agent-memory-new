@@ -67,10 +67,23 @@
 Development 失败基线，不能进入 holdout，也不授权改变候选算法；localizer 仍须在另一个独立
 fixture 中单独验证。
 
+## Localizer Projection Development 复现
+
+`tests/test_localizer_projection_development_reproduction.py` 建立了与候选召回 fixture 不同的
+项目无关场景：目标状态展示文件已被 Learn 录入，也确实位于实际 `context` 的 candidate
+audit 中。fixture 再提供同目录的高分候选和跨目录的高分候选，使真实 hierarchical localizer
+在 `MAX_FILES=8` 与每目录两项的投影约束下先填满局部化集合。
+
+当前基线中，目标文件仍在 candidate refs，却不在
+`query_audit.hierarchical_localization.file_candidates`，并因此不在 compact
+`query_handoff.code_anchors`。这将首次损失独立定位为 `localizer_projection`，而不是候选、
+Learn 解析或 compact 截断。该结果只是可编辑的 Development 复现；它不证明现有目录多样性
+策略应被移除，也不授权 serving 修改。
+
 ## 后续阶段
 
-1. 为 `candidate_recall` 建立一个项目无关 Development fixture，先复现实际 `query_handoff` 缺失，再检查现有 candidate fusion 边界。
-2. 为 `localizer_projection` 建立另一独立 fixture，证明候选存在而 serving localizer 丢失目标；不得复用同一项目或 Oracle 词汇。
-3. 每个 fixture 分别跑 focused 回归、完整 Context gate、性能和 500 行检查。
+1. [x] 为 `candidate_recall` 建立项目无关 Development fixture，复现实际 `query_handoff` 缺失。
+2. [x] 为 `localizer_projection` 建立独立 fixture，证明候选存在而 serving localizer 丢失目标；未复用候选 fixture 的目标或 Oracle。
+3. [x] 分别运行 focused 回归、相邻 Context 覆盖和 500 行检查。
 4. 只有两个独立缺陷类别指向同一个现有边界时，写出最小修复合同；否则记录分歧并停止，不扩张架构。
 5. 使用未参与开发的新来源进行一次性验证；没有合格来源时结论停留在 Development。

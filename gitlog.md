@@ -9148,3 +9148,22 @@ Result:
   projection issue.
 - No retrieval behavior changed. The fixture is an editable Development baseline only;
   localizer projection remains a separate verification track.
+
+## 2026-08-08 - Reproduce localizer projection loss in public Context output
+
+What changed:
+
+- Added an independent, project-neutral Development fixture for the localizer boundary.
+  It verifies that an indexed status-surface target is candidate-recalled before exercising
+  the actual hierarchical localizer and compact `query_handoff` outputs.
+- The controlled catalog combines same-directory and cross-directory high-scoring files so
+  the eight-file, per-directory-capped serving projection fills before the lower-scoring
+  target is selected.
+
+Result:
+
+- The target remains in public candidate refs but is absent from localized file candidates
+  and compact anchors. This isolates a serving localizer projection loss, independently of
+  candidate recall, Learn parsing and compact-only truncation.
+- No serving behavior changed. The fixture is a Development baseline and does not authorize
+  removal or retuning of directory-diversity constraints.
