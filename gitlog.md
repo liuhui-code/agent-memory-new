@@ -9102,3 +9102,33 @@ Result:
   not yet prove that the v3 result used the same frozen source revision. Paired claims
   therefore remain prohibited until independently reproduced and fixed in the evaluator.
 - No Runtime, retrieval, graph, log, experience, Skill or Agent-wrapper behavior changed.
+
+## 2026-08-08 - Add read-only Context attribution audit
+
+What changed:
+
+- Added `eval-context-attribution-audit` behind the existing `tools/agent_memory.py`
+  facade. It reads saved Context capability results, matching reviewed case packs, and an
+  optional Agent A/B result without querying a project, rebuilding an index, or writing
+  SQLite.
+- The audit requires one case pack per Context result, verifies case provenance and
+  source revision, records every input SHA-256, and refuses to overwrite its JSON target.
+- Each case is classified as candidate recall, localizer projection, compact/source
+  excerpt projection, non-gating funnel observation, or unresolved. Agent A/B data that
+  lacks a Context-result digest binding is explicitly `unresolved_unbound`.
+- Added the six-case Development audit artifact, a Chinese operator guide, a long-term
+  design record, public benchmark/runtime references, and focused unit coverage.
+
+Result:
+
+- The preserved Development evidence separates three cross-repository candidate recall
+  observations from two cross-repository localizer projection observations. The one
+  passing Context case has an `evidence_primary` funnel signal that is not a gate
+  failure. These are separate development reproduction candidates, not one ranking fix.
+- All supplied A/B records include Context, but none prove the same Context-result
+  digest; Agent utilization remains unassigned rather than being attributed to retrieval.
+- No serving or architecture change is authorized. The next valid implementation step is
+  a project-neutral `query_handoff` Development reproduction for each boundary.
+- Focused evaluation tests pass 36/36; full discovery exits successfully; all evaluation
+  JSON parses, Python compilation passes, `git diff --check` passes, and every Python
+  source file remains at or below 500 lines.

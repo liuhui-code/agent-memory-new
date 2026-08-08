@@ -86,6 +86,15 @@ def add_benchmark_parsers(
     context.add_argument("--json", action="store_true")
     context.set_defaults(func=command("eval_context_capability_command"))
 
+    attribution = sub.add_parser("eval-context-attribution-audit")
+    add_project(attribution)
+    attribution.add_argument("--context-result", action="append", required=True)
+    attribution.add_argument("--case-pack", action="append", required=True)
+    attribution.add_argument("--agent-result")
+    attribution.add_argument("--target", required=True)
+    attribution.add_argument("--json", action="store_true")
+    attribution.set_defaults(func=command("eval_context_attribution_audit_command"))
+
     cohort_create = sub.add_parser("eval-cohort-create")
     add_project(cohort_create)
     cohort_create.add_argument("--protocol", required=True)

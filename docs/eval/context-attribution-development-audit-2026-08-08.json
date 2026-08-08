@@ -1,0 +1,308 @@
+{
+  "case_count": 6,
+  "cases": [
+    {
+      "agent_utilization": {
+        "memory_anchor_hit_count": 2.0,
+        "memory_context_present": true,
+        "reason": "saved_agent_result_has_no_verified_context_result_digest_binding",
+        "status": "unresolved_unbound",
+        "trial_non_regression_rate": 0.75
+      },
+      "case_id": "legado-change-source-results-delayed",
+      "context_status": "fail",
+      "evidence_level": "development_observation",
+      "failed_context_checks": [
+        "expected_anchors_recalled",
+        "expected_anchors_within_top_k",
+        "minimum_anchor_precision_met"
+      ],
+      "first_loss_signal": "localizer_file",
+      "missing_expected_anchor_count": 1,
+      "observed_layer": "localizer_projection",
+      "oracle_review_status": "reviewed",
+      "reason_codes": [
+        "localizer_file_dropped_candidate"
+      ],
+      "scenario_id": "legado-change-source-results-delayed",
+      "source_family": "wip3l/legado-harmony@change-source-delta",
+      "source_repository": "https://github.com/wip3l/legado-harmony.git",
+      "source_revision": "70fdb2bd621b50567808e2b9f787e5d3d153d0b6",
+      "stage_observations": {
+        "callable": null,
+        "candidate_file": true,
+        "compact_anchor": false,
+        "compact_primary": false,
+        "evidence_primary": false,
+        "localizer_file": false,
+        "source_range": null
+      }
+    },
+    {
+      "agent_utilization": {
+        "memory_anchor_hit_count": 2.0,
+        "memory_context_present": true,
+        "reason": "saved_agent_result_has_no_verified_context_result_digest_binding",
+        "status": "unresolved_unbound",
+        "trial_non_regression_rate": 0.75
+      },
+      "case_id": "moonlight-manual-refresh-stops-mdns",
+      "context_status": "fail",
+      "evidence_level": "development_observation",
+      "failed_context_checks": [
+        "expected_anchors_recalled",
+        "expected_anchors_within_top_k"
+      ],
+      "first_loss_signal": "candidate_file",
+      "missing_expected_anchor_count": 1,
+      "observed_layer": "candidate_recall",
+      "oracle_review_status": "reviewed",
+      "reason_codes": [
+        "candidate_file_missing_expected_anchor"
+      ],
+      "scenario_id": "moonlight-manual-refresh-stops-mdns",
+      "source_family": "AlkaidLab/moonlight-harmony@manual-refresh-mdns",
+      "source_repository": "https://github.com/AlkaidLab/moonlight-harmony.git",
+      "source_revision": "4a57de14f88db6426afa443db03f21d2fd5fba02",
+      "stage_observations": {
+        "callable": null,
+        "candidate_file": false,
+        "compact_anchor": false,
+        "compact_primary": false,
+        "evidence_primary": false,
+        "localizer_file": false,
+        "source_range": null
+      }
+    },
+    {
+      "agent_utilization": {
+        "memory_anchor_hit_count": 3.0,
+        "memory_context_present": true,
+        "reason": "saved_agent_result_has_no_verified_context_result_digest_binding",
+        "status": "unresolved_unbound",
+        "trial_non_regression_rate": 0.75
+      },
+      "case_id": "moonlight-pip-cropped-viewport",
+      "context_status": "fail",
+      "evidence_level": "development_observation",
+      "failed_context_checks": [
+        "expected_anchors_recalled",
+        "expected_anchors_within_top_k",
+        "expected_source_excerpt_returned",
+        "minimum_anchor_precision_met"
+      ],
+      "first_loss_signal": "localizer_file",
+      "missing_expected_anchor_count": 1,
+      "observed_layer": "localizer_projection",
+      "oracle_review_status": "reviewed",
+      "reason_codes": [
+        "localizer_file_dropped_candidate"
+      ],
+      "scenario_id": "moonlight-pip-cropped-viewport",
+      "source_family": "AlkaidLab/moonlight-harmony@pip-viewport",
+      "source_repository": "https://github.com/AlkaidLab/moonlight-harmony.git",
+      "source_revision": "64b645deaf1df7fe24300d97d33ad48e5f135759",
+      "stage_observations": {
+        "callable": null,
+        "candidate_file": true,
+        "compact_anchor": false,
+        "compact_primary": false,
+        "evidence_primary": false,
+        "localizer_file": false,
+        "source_range": null
+      }
+    },
+    {
+      "agent_utilization": {
+        "memory_anchor_hit_count": 1.0,
+        "memory_context_present": true,
+        "reason": "saved_agent_result_has_no_verified_context_result_digest_binding",
+        "status": "unresolved_unbound",
+        "trial_non_regression_rate": 1.0
+      },
+      "case_id": "moonlight-unsupported-qr-scan-entry",
+      "context_status": "fail",
+      "evidence_level": "development_observation",
+      "failed_context_checks": [
+        "expected_anchors_recalled",
+        "expected_anchors_within_top_k"
+      ],
+      "first_loss_signal": "candidate_file",
+      "missing_expected_anchor_count": 3,
+      "observed_layer": "candidate_recall",
+      "oracle_review_status": "reviewed",
+      "reason_codes": [
+        "candidate_file_missing_expected_anchor"
+      ],
+      "scenario_id": "moonlight-unsupported-qr-scan-entry",
+      "source_family": "AlkaidLab/moonlight-harmony@scan-capability",
+      "source_repository": "https://github.com/AlkaidLab/moonlight-harmony.git",
+      "source_revision": "cbc746d95830df3294a4ed6e16d9ec940e00fbdd",
+      "stage_observations": {
+        "callable": null,
+        "candidate_file": false,
+        "compact_anchor": false,
+        "compact_primary": false,
+        "evidence_primary": false,
+        "localizer_file": false,
+        "source_range": null
+      }
+    },
+    {
+      "agent_utilization": {
+        "memory_anchor_hit_count": 1.0,
+        "memory_context_present": true,
+        "reason": "saved_agent_result_has_no_verified_context_result_digest_binding",
+        "status": "unresolved_unbound",
+        "trial_non_regression_rate": 0.5
+      },
+      "case_id": "nga-auto-checkin-success-hidden",
+      "context_status": "fail",
+      "evidence_level": "development_observation",
+      "failed_context_checks": [
+        "expected_anchors_recalled",
+        "expected_anchors_within_top_k",
+        "expected_source_excerpt_returned",
+        "minimum_anchor_precision_met"
+      ],
+      "first_loss_signal": "candidate_file",
+      "missing_expected_anchor_count": 3,
+      "observed_layer": "candidate_recall",
+      "oracle_review_status": "reviewed",
+      "reason_codes": [
+        "candidate_file_missing_expected_anchor"
+      ],
+      "scenario_id": "nga-auto-checkin-success-hidden",
+      "source_family": "apap6628114/nga_harmony@auto-checkin-feedback",
+      "source_repository": "https://github.com/apap6628114/nga_harmony.git",
+      "source_revision": "9d6b67375a8e7f53ed1529a6c1e8bfef162886b9",
+      "stage_observations": {
+        "callable": null,
+        "candidate_file": false,
+        "compact_anchor": false,
+        "compact_primary": false,
+        "evidence_primary": false,
+        "localizer_file": false,
+        "source_range": null
+      }
+    },
+    {
+      "agent_utilization": {
+        "memory_anchor_hit_count": 1.0,
+        "memory_context_present": true,
+        "reason": "saved_agent_result_has_no_verified_context_result_digest_binding",
+        "status": "unresolved_unbound",
+        "trial_non_regression_rate": 1.0
+      },
+      "case_id": "nga-notification-seen-row-reuse",
+      "context_status": "pass",
+      "evidence_level": "development_observation",
+      "failed_context_checks": [],
+      "first_loss_signal": "evidence_primary",
+      "missing_expected_anchor_count": 0,
+      "observed_layer": "non_gating_evidence_observation",
+      "oracle_review_status": "reviewed",
+      "reason_codes": [
+        "funnel_primary_is_not_a_context_gate"
+      ],
+      "scenario_id": "nga-notification-seen-row-reuse",
+      "source_family": "apap6628114/nga_harmony@notification-seen-key",
+      "source_repository": "https://github.com/apap6628114/nga_harmony.git",
+      "source_revision": "c189bbd25090aa6e3cc7848c820ad29cb2a52dda",
+      "stage_observations": {
+        "callable": null,
+        "candidate_file": true,
+        "compact_anchor": true,
+        "compact_primary": true,
+        "evidence_primary": false,
+        "localizer_file": true,
+        "source_range": null
+      }
+    }
+  ],
+  "cross_case": {
+    "agent_utilization_status": "unresolved_unbound",
+    "boundary_hypotheses": [
+      {
+        "case_ids": [
+          "moonlight-manual-refresh-stops-mdns",
+          "moonlight-unsupported-qr-scan-entry",
+          "nga-auto-checkin-success-hidden"
+        ],
+        "distinct_source_repositories": [
+          "https://github.com/AlkaidLab/moonlight-harmony.git",
+          "https://github.com/apap6628114/nga_harmony.git"
+        ],
+        "distinct_source_repository_count": 2,
+        "existing_boundary": "candidate_recall",
+        "independent_reproduction_candidate": true,
+        "repair_contract_authorized": false
+      },
+      {
+        "case_ids": [
+          "legado-change-source-results-delayed",
+          "moonlight-pip-cropped-viewport"
+        ],
+        "distinct_source_repositories": [
+          "https://github.com/AlkaidLab/moonlight-harmony.git",
+          "https://github.com/wip3l/legado-harmony.git"
+        ],
+        "distinct_source_repository_count": 2,
+        "existing_boundary": "localizer_projection",
+        "independent_reproduction_candidate": true,
+        "repair_contract_authorized": false
+      }
+    ],
+    "next_action": "Create one project-neutral Development reproduction for each boundary hypothesis before considering a serving repair; do not combine different observed layers into one contract.",
+    "observed_layer_counts": {
+      "candidate_recall": 3,
+      "localizer_projection": 2,
+      "non_gating_evidence_observation": 1
+    }
+  },
+  "input_artifacts": [
+    {
+      "file_name": "moonlight-context-utility-development-result.json",
+      "kind": "context_result",
+      "sha256": "069c1d7aced5b324c386089d3f29af7db296abb42cfe2185e5c84bbf24384cc4"
+    },
+    {
+      "file_name": "nga-context-utility-development-result.json",
+      "kind": "context_result",
+      "sha256": "6fb1f21a7eb16f1e35d61de53e1bef4106cd39420f7bdd8b54b0bf29eecb18c3"
+    },
+    {
+      "file_name": "legado-context-utility-development-result.json",
+      "kind": "context_result",
+      "sha256": "d774d4f42092046850ace9d7cf69a2cf3b072acf45b0c00ce7f9a33276bb0ac0"
+    },
+    {
+      "file_name": "moonlight-context-utility-development-cases.json",
+      "kind": "case_pack",
+      "sha256": "8258e9445c9ba4e0c1755312aa28622ae9525b0df92f25d9fed6ca1127e7f4f2"
+    },
+    {
+      "file_name": "nga-context-utility-development-cases.json",
+      "kind": "case_pack",
+      "sha256": "e899410a9084edb6ec494b60253cc6b95a976776de1efcfa88a8eee593759644"
+    },
+    {
+      "file_name": "legado-context-utility-development-cases.json",
+      "kind": "case_pack",
+      "sha256": "784d65842e224b4354349c9d86c941414977ce3aa02d5d6a7d97c257e90e2bc6"
+    },
+    {
+      "file_name": "context-utility-agent-ab-result.json",
+      "kind": "agent_result",
+      "sha256": "483be3b0aa69e4c12ffa8545260d265804e40660d8d88edabd8906252627d71d"
+    }
+  ],
+  "mode": "read_only_saved_development_observation",
+  "policy": {
+    "architecture_change_authorized": false,
+    "reason": "Saved Development observations classify visible loss layers only. They do not establish a root cause, change a consumed result, or authorize serving changes.",
+    "rerun_required": false,
+    "serving_change_authorized": false
+  },
+  "schema_version": "agent-context-attribution-audit/v1"
+}

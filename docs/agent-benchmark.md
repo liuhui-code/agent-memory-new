@@ -39,6 +39,12 @@ Context observation 同时记录 `gate_full` 和 `agent_external` 两个 exposur
 对应系统门禁检查的完整摘录，后者对应外部 Codex Runner 去除源码正文后的实际投影。两者
 不一致时不得用 Agent A/B 反推 Context 门禁误判。
 
+Context gate 失败后，先用 `eval-context-attribution-audit` 对已保存的结果做只读逐例归因。
+它按候选召回、localizer、compact/source-excerpt 投影、非门禁 funnel 信号和 Agent 未绑定状态
+拆分观察，并为每个输入记录 SHA-256。它不重跑结果、不改变 Runtime，也不授权修复；只有跨来源
+的同层观察才可成为独立 Development 复现候选。用法见
+[`docs/context-attribution-audit.zh-CN.md`](context-attribution-audit.zh-CN.md)。
+
 仓库内置的 `docs/eval/system-capability-cases.json` 应作为第一层快速门禁。它用七十个最小
 ArkTS 案例分别检查日志、动态事件模板、嵌套回调日志 owner、经验、候选因果路径、跨组件召回、两跳组件属性流、查询条件化组件谱系、精确及抽象结构行为所有者、生命周期/回调/动作机制、可复用工具栏、媒体资源释放、键盘返回边界、归档 I/O、集合聚合、键盘焦点与颜色解析、剪贴板内容读取、权限请求与结果保护、进程输出读取循环、运行时能力探测、串行写入与最终屏障、超时取消、WebView 协议策略、容量淘汰、手势与索引触摸安全、条件数据加载、回调清理、横纵 Builder 布局、异步顺序保护、索引集合写入、事件状态交接、校验停止、持久化提交、命令绑定、对比页面目标状态、跨层错误契约、日志密集源码配额和无证据
 abstention，允许受控的已审查反思
@@ -681,10 +687,10 @@ localizer-file 5 例、primary-evidence 2 例；多平台同名实现和多 owne
 
 前瞻控制面完成后，仓库级审计仍为 no-go。当前没有用户指定的活动 ArkTS 项目、未来连续任务
 负责人、客观验证策略或原始任务保管规则；唯一 selective-query-skill v3 结果是生成协议校准。
-此外，cohort complete 尚未证明绑定的 v3 结果来自 task-start 的同一 source revision，因此不能
-启动 paired 效能活动。
+Paired replay package 已在独立 Development fixture 中验证 task-start 的 task、source revision/tree、
+只读 Memory、Query Skill、Runner 和环境摘要绑定；旧未绑定 v3 结果仍不得补作 paired 结论。
 
 该结论不授权增加 Agent wrapper 或修改 Runtime serving。下一步只能先获得 Campaign Source
-Manifest，并在独立 Development fixture 中关闭 revision 绑定缺口。完整说明和机器结论见
+Manifest；paired binding 缺口已关闭，但真实输入、连续性和验证责任仍缺失。完整说明和机器结论见
 `docs/real-campaign-readiness-audit.zh-CN.md` 与
 `docs/eval/real-campaign-readiness-audit-2026-08-08.json`。

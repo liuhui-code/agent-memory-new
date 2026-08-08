@@ -7,6 +7,7 @@ import sys
 from .calibration_eval import eval_calibration_command
 from .agent_benchmark import eval_agent_benchmark_command
 from .context_capability import eval_context_capability_command
+from .context_attribution_audit import eval_context_attribution_audit_command
 from .benchmark_history import eval_harvest_history_command
 from .benchmark_mutations import eval_mutate_arkts_command
 from .benchmark_case_seal_command import eval_seal_cases_command
@@ -92,6 +93,7 @@ def command_handlers() -> dict[str, object]:
         "eval_design_command": eval_design_command,
         "eval_agent_benchmark_command": eval_agent_benchmark_command,
         "eval_context_capability_command": eval_context_capability_command,
+        "eval_context_attribution_audit_command": eval_context_attribution_audit_command,
         "eval_scale_command": eval_scale_command,
         "eval_harvest_history_command": eval_harvest_history_command,
         "eval_seal_cases_command": eval_seal_cases_command,
