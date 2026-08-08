@@ -9057,3 +9057,27 @@ Result:
 - The CI scale gate passes at 100,000 searchable entities and 300,000 edges. The million
   gate passes at 1,000,000 searchable entities, 3,000,000 edges and 2.263 GB SQLite;
   latency, query-plan and incremental-maintenance gates are all true.
+
+## 2026-08-08 - Audit real campaign readiness
+
+What changed:
+
+- Audited the repository at revision `0a13dc1921c40869dbcd5a8b4deec7c2f36462ad`
+  against prospective task-source, pre-task state, objective verification, privacy,
+  Runner, metric-claim and fixed-stop requirements.
+- Added a machine-readable readiness result and a Chinese audit guide with explicit
+  evidence, owners, closure conditions, claim boundaries and prohibited actions.
+- Added a mandatory readiness gate to evaluation policy and linked it from the cohort
+  guide, benchmark documentation, READMEs and the original cohort design.
+
+Result:
+
+- Decision is `no_go` for a prospective real Agent efficacy campaign. The cohort control
+  plane, privacy projection, Codex Runner and generated v3 calibration are ready.
+- No user-owned active ArkTS project, future consecutive task stream, objective verifier,
+  task-artifact custodian or source-specific protocol is currently designated. Known
+  Memory archives point only to this repository, fixtures and temporary workspaces.
+- Cohort paired binding checks start-time replay eligibility and case identity but does
+  not yet prove that the v3 result used the same frozen source revision. Paired claims
+  therefore remain prohibited until independently reproduced and fixed in the evaluator.
+- No Runtime, retrieval, graph, log, experience, Skill or Agent-wrapper behavior changed.

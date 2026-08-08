@@ -209,6 +209,19 @@ Development 可以驱动实现，但不能证明外部泛化。
 - 没有合格连续任务来源时停止能力扩张；不得用精选历史修复、生成任务或事后重建的理想经验
   代替真实前瞻队列。
 
+### 真实活动就绪门禁
+
+- 创建 `evidence_origin=prospective_real_tasks` 的协议前，必须有用户指定的活动项目、未来任务
+  来源及连续性负责人、任务前 Memory Home、客观验证策略、原始任务外部保管规则和固定停止条件。
+- Natural cohort 只能声明采用、机会率、错误和验证结果关联。没有随机或 paired 对照时，禁止
+  声明 Memory 导致结果改善、减少源码探索或降低 Agent 总成本。
+- Paired v3 结果必须可核验地绑定 task-start 的 source identity/revision。只证明入组时 Git clean、
+  case id 一致或结果摘要一致，不足以建立同 revision 测量合同。
+- Readiness no-go 是活动输入或评测合同边界，不是 Runtime serving 缺陷。关闭外部缺口前禁止
+  增加 Agent-specific wrapper、重复使用历史案例或修改检索行为。
+- Point-in-time readiness 审计必须绑定 revision，并分别列出 internal、external、campaign 和
+  evidence 状态；未知项不能自动按通过处理。
+
 ## 强制工作流
 
 每次能力改动按以下顺序执行：

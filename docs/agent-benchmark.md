@@ -676,3 +676,15 @@ localizer-file 5 例、primary-evidence 2 例；多平台同名实现和多 owne
 `docs/superpowers/plans/2026-08-08-prospective-real-task-cohort.md`、
 `docs/eval/prospective-cohort-v1-calibration-protocol.json` 和
 `docs/eval/prospective-cohort-v1-calibration-report.json`。
+
+## 十八、真实活动就绪审计
+
+前瞻控制面完成后，仓库级审计仍为 no-go。当前没有用户指定的活动 ArkTS 项目、未来连续任务
+负责人、客观验证策略或原始任务保管规则；唯一 selective-query-skill v3 结果是生成协议校准。
+此外，cohort complete 尚未证明绑定的 v3 结果来自 task-start 的同一 source revision，因此不能
+启动 paired 效能活动。
+
+该结论不授权增加 Agent wrapper 或修改 Runtime serving。下一步只能先获得 Campaign Source
+Manifest，并在独立 Development fixture 中关闭 revision 绑定缺口。完整说明和机器结论见
+`docs/real-campaign-readiness-audit.zh-CN.md` 与
+`docs/eval/real-campaign-readiness-audit-2026-08-08.json`。

@@ -1,0 +1,150 @@
+{
+  "schema_version": "real-campaign-readiness-audit/v1",
+  "audit_id": "real-campaign-readiness-2026-08-08",
+  "audited_revision": "0a13dc1921c40869dbcd5a8b4deec7c2f36462ad",
+  "audited_at": "2026-08-08",
+  "scope": "repository_local_evidence_only",
+  "decision": "no_go",
+  "decision_scope": "prospective_real_agent_efficacy_campaign",
+  "evidence_level": "repository_state_audit",
+  "promotion_eligible": false,
+  "serving_change_authorized": false,
+  "checks": [
+    {
+      "id": "cohort_control_plane",
+      "dimension": "internal",
+      "status": "pass",
+      "evidence": [
+        "docs/eval/prospective-cohort-v1-calibration-report.json",
+        "tests/test_prospective_cohort_cli.py"
+      ],
+      "finding": "Fixed enrollment, temporal snapshots, privacy projection, hash chaining and finalization are calibrated."
+    },
+    {
+      "id": "selective_query_runner",
+      "dimension": "internal",
+      "status": "pass",
+      "evidence": [
+        "examples/codex-agent-benchmark-runner.py",
+        "tests/test_codex_benchmark_runner.py",
+        "docs/eval/selective-query-skill-v3-calibration-result.json"
+      ],
+      "finding": "The Codex runner and v3 measurement contract exist, but the persisted v3 result is generated protocol calibration only."
+    },
+    {
+      "id": "real_selective_query_result",
+      "dimension": "evidence",
+      "status": "fail",
+      "evidence": [
+        "docs/eval/selective-query-skill-v3-calibration-cases.json"
+      ],
+      "finding": "No prospective real-task selective-query-skill v3 result exists."
+    },
+    {
+      "id": "active_arkts_project",
+      "dimension": "external",
+      "status": "fail",
+      "evidence": [
+        ".agent-memory/projects/*/config.json"
+      ],
+      "finding": "Known local Memory archives point to this repository, generated fixtures or temporary evaluation workspaces, not an active user-owned ArkTS project."
+    },
+    {
+      "id": "consecutive_task_stream",
+      "dimension": "external",
+      "status": "fail",
+      "evidence": [],
+      "finding": "No task queue owner, arrival boundary, enrollment attestation or future task source has been designated."
+    },
+    {
+      "id": "pre_task_memory_archive",
+      "dimension": "external",
+      "status": "unknown",
+      "evidence": [],
+      "finding": "No campaign project or pre-task Memory archive has been selected, so opportunity incidence cannot be audited."
+    },
+    {
+      "id": "objective_verification_plan",
+      "dimension": "external",
+      "status": "fail",
+      "evidence": [],
+      "finding": "No task-level test, build, reproduction or independent user-confirmation plan exists for a future real queue."
+    },
+    {
+      "id": "raw_task_custody",
+      "dimension": "external",
+      "status": "fail",
+      "evidence": [
+        "docs/prospective-cohort-guide.zh-CN.md"
+      ],
+      "finding": "SQLite data minimization is defined, but no external custodian, retention window or audit-access policy exists for original task artifacts."
+    },
+    {
+      "id": "paired_source_revision_binding",
+      "dimension": "internal",
+      "status": "fail",
+      "evidence": [
+        "tools/agent_memory_runtime/prospective_cohort.py",
+        "tools/agent_memory_runtime/prospective_cohort_metrics.py"
+      ],
+      "finding": "Cohort completion checks start-time replay eligibility and result case id, but does not prove that the bound v3 result used the same frozen source revision."
+    },
+    {
+      "id": "metric_claim_freeze",
+      "dimension": "campaign",
+      "status": "unknown",
+      "evidence": [
+        "docs/eval/prospective-cohort-v1-calibration-protocol.json"
+      ],
+      "finding": "The generated metric list is calibrated, but no source-specific hypothesis, supported metric set, sample rationale or claim matrix is frozen for a real campaign."
+    }
+  ],
+  "blocking_conditions": [
+    "active_arkts_project_missing",
+    "consecutive_task_stream_missing",
+    "objective_verification_plan_missing",
+    "raw_task_custody_missing",
+    "paired_source_revision_binding_unproven",
+    "real_campaign_protocol_missing"
+  ],
+  "claim_matrix": [
+    {
+      "question": "natural_adoption_and_reliability",
+      "evidence_source": "prospective_cohort_usage_trace",
+      "allowed_claim": "Query activation, query errors, opportunity incidence and verified-outcome association.",
+      "prohibited_claim": "Memory caused outcome improvement or reduced total Agent cost."
+    },
+    {
+      "question": "marginal_quality_and_cost",
+      "evidence_source": "revision_bound_selective_query_v3_pair",
+      "allowed_claim": "Within-case outcome, source exploration, token and latency deltas under the frozen paired protocol.",
+      "prohibited_claim": "Natural-use adoption, cross-project generalization or promotion from a Development cohort."
+    },
+    {
+      "question": "task_validity_and_verification",
+      "evidence_source": "external_original_task_and_objective_verifier",
+      "allowed_claim": "The task, pre-task state and result are authentic and auditable.",
+      "prohibited_claim": "Task validity inferred from a digest, seal, source review or generated Oracle alone."
+    }
+  ],
+  "next_action": {
+    "type": "obtain_and_review_campaign_source_manifest",
+    "requires": [
+      "user_owned_active_arkts_project",
+      "named_consecutive_task_stream_owner",
+      "future_arrival_boundary_and_fixed_stop_rule",
+      "pre_task_memory_home",
+      "objective_verification_policy",
+      "external_raw_task_custodian_and_retention",
+      "clean_revision_policy_for_paired_candidates",
+      "revision_bound_v3_result_contract"
+    ],
+    "prohibited_until_ready": [
+      "create_real_cohort_protocol",
+      "enroll_or_select_tasks",
+      "run_real_agent_ab",
+      "change_runtime_serving",
+      "reuse_consumed_or_generated_cases_as_prospective_evidence"
+    ]
+  }
+}

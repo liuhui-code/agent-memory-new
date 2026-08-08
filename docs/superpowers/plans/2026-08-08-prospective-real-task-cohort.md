@@ -242,3 +242,7 @@ python tools/agent_memory.py eval-cohort-finalize \
 - [x] finalize 固定停止且 hash chain 完整。
 - [x] 四 Skill、单入口、SQLite 和 500 行约束保持不变。
 - [x] Development 校准不产生真实能力或 promotion 声明。
+
+真实活动不是本控制面校准的自动下一步。当前 point-in-time readiness 结论和启动条件见
+`docs/real-campaign-readiness-audit.zh-CN.md` 与
+`docs/eval/real-campaign-readiness-audit-2026-08-08.json`。

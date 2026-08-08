@@ -3,6 +3,16 @@
 本指南用于验证 Agent Memory 在真实、连续到达的任务中是否提供净价值。它不是新的用户
 Skill，也不会让 Runtime 诊断问题。用户仍然使用固定四个 Skill；cohort 命令只负责评测治理。
 
+## 0. 先通过 Campaign Readiness Gate
+
+不要因为命令已经可用就直接创建真实 cohort。开始前先按
+`docs/real-campaign-readiness-audit.zh-CN.md` 核验活动项目、连续任务负责人、任务前 Memory、
+客观验证、原始任务保管、固定停止和 paired source revision 绑定。
+
+当前仓库审计结论为 no-go，见
+`docs/eval/real-campaign-readiness-audit-2026-08-08.json`。该结论只表示真实活动输入尚未就绪，
+不表示 Runtime 能力失败。历史 fixture、已消费 holdout 和生成校准不能用于关闭这些缺口。
+
 ## 适用场景
 
 当你准备在一个真实 ArkTS 项目中连续使用 Agent CLI，并希望回答以下问题时使用：

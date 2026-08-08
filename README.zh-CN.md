@@ -72,7 +72,7 @@ Agent Memory 的目标不是保存更多文本，而是向 Agent 提供**短、�
 | Skill 演化 | 多条已验证 procedure experience 可形成 Skill 候选和草案 |
 | 数据治理 | stale、merge、conflict、miss、feedback、refresh 和 review |
 | 质量门禁 | retrieval、trust、log signal、graph、design context 和 Agent A/B |
-| 真实使用验证 | 前瞻连续任务 Cohort、任务前 Memory 截断、Natural/Opportunity 分账和固定停止 |
+| 真实使用验证 | 已校准前瞻 Cohort 控制面；真实活动仍须通过项目、任务源、验证和 revision 就绪门禁 |
 | Token 控制 | `context --compact` 与 `design-context --compact` 约束首轮注入 |
 | 人工审查 | Obsidian Vault、maintain health/review/plan 和可解释治理动作 |
 
