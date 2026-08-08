@@ -357,6 +357,40 @@ python tools/agent_memory.py eval-agent-benchmark \
 `--trials` 范围为 1 到 10。Runtime 对每个案例按 trial 成对执行 Baseline 和
 Memory，不复用会话，也不挑选最好结果。每条响应携带 `trial_index`；多轮结果增加：
 
+### v2 固定 Context 与 v3 按需 Skill
+
+默认的 `preloaded-context` 保留 v2 语义：Runner 在 Agent 启动前查询一次 Context，Baseline
+收到 null payload，Memory 收到固定投影。它适合隔离“同一个 Context 是否有价值”，不代表
+用户实际使用 Query Skill 的方式。
+
+要评估 Agent 是否会在合适时机按需查询，使用：
+
+```bash
+python tools/agent_memory.py eval-agent-benchmark \
+  --project . \
+  --cases /tmp/arkts-cases.json \
+  --source /path/to/arkts-project \
+  --runner examples/codex-agent-benchmark-runner.py \
+  --treatment-mode selective-query-skill \
+  --trials 3 \
+  --json
+```
+
+v3 两组都没有预载 Context。Memory 组只在隔离 Agent Home 中安装仓库现有的
+`agent-memory-query` Skill，Agent 可选择 0 到 3 次 focused query；Baseline 不安装该 Skill。
+每次调用都计入总耗时与成本。Runner 记录调用计数、成功/错误、输出大小、查询 SHA-256 摘要
+及返回锚点路径，不记录原始查询词、命令、输出正文或推理。工作区在调用前后做源码摘要检查，
+发生修改时样本失败。
+
+案例可在隐藏 Oracle 中用 `query_skill_expectation` 预注册 required、forbidden 或 optional
+激活及更小的逐案例调用上限。`selective_query.first_observable_loss` 只归因可见的隔离、预算、
+遥测记账、执行、激活、路由和返回缺口，不推测 Agent 的隐藏思考。每个样本还必须满足
+`success_count + error_count = query_count`，缺少完成事件时 fail closed。
+
+生成式 L0/L1/L2 校准及完整边界见
+[`docs/superpowers/plans/2026-08-08-selective-query-skill-evaluation-v3.md`](superpowers/plans/2026-08-08-selective-query-skill-evaluation-v3.md)。
+该校准不调用模型，只证明协议与遥测正确，不能作为真实能力或效率提升证据。
+
 `agent-benchmark-treatment/v2` 要求两组使用完全相同的调查、预算和停止提示，Baseline
 收到 `Agent Memory context payload: null`，Memory 收到外部投影后的对象。Runner 的
 `treatment_metadata` 记录共享调查合同摘要和 Context exposure；`benchmark_protocol_manifest`

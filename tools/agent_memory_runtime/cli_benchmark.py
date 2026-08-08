@@ -60,6 +60,11 @@ def add_benchmark_parsers(
     evaluate.add_argument("--limit", type=int, default=20)
     evaluate.add_argument("--case-id", action="append", default=[])
     evaluate.add_argument("--trials", type=int, default=1)
+    evaluate.add_argument(
+        "--treatment-mode",
+        choices=["preloaded-context", "selective-query-skill"],
+        default="preloaded-context",
+    )
     evaluate.add_argument("--skip-memory-prepare", action="store_true")
     evaluate.add_argument("--output-responses")
     evaluate.add_argument("--allow-drafts", action="store_true")

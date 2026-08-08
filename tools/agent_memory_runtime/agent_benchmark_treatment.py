@@ -11,6 +11,10 @@ from .source_exploration import exploration_contract
 
 
 TREATMENT_SCHEMA = "agent-benchmark-treatment/v2"
+SELECTIVE_TREATMENT_SCHEMA = "agent-benchmark-treatment/v3"
+PRELOADED_TREATMENT_MODE = "preloaded-context"
+SELECTIVE_TREATMENT_MODE = "selective-query-skill"
+TREATMENT_MODES = (PRELOADED_TREATMENT_MODE, SELECTIVE_TREATMENT_MODE)
 EXPOSURE_SCHEMA = "context-exposure/v1"
 INVESTIGATION_SCHEMA = "shared-investigation/v1"
 
@@ -53,6 +57,28 @@ def treatment_metadata(variant: str, context: dict[str, Any] | None) -> dict[str
         "context_exposure": context_exposure_manifest(
             context, "external_metadata_only" if context is not None else "absent"
         ),
+    }
+
+
+def selective_treatment_metadata(
+    variant: str,
+    skill_digest: str | None,
+    query_limit: int,
+) -> dict[str, Any]:
+    contract = investigation_contract()
+    available = variant == "memory" and bool(skill_digest)
+    return {
+        "schema_version": SELECTIVE_TREATMENT_SCHEMA,
+        "variant": variant,
+        "context_present": False,
+        "preloaded_context": False,
+        "memory_delivery": "agent_selected_query_skill",
+        "query_skill_available": available,
+        "query_skill_digest": skill_digest if available else None,
+        "query_limit": max(0, int(query_limit)),
+        "investigation_contract_digest": hashlib.sha256(
+            canonical_json(contract)
+        ).hexdigest(),
     }
 
 

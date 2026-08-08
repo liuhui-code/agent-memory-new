@@ -8986,3 +8986,40 @@ Result:
   files stay at or below 500 lines. The full suite runs 885 tests: 883 pass inside the
   socket-restricted sandbox, while the loopback HTTP module passes 3/3 with local socket
   binding enabled.
+
+## 2026-08-08 - Add product-faithful selective Query Skill evaluation v3
+
+What changed:
+
+- Added `selective-query-skill` as an explicit Agent benchmark treatment while retaining
+  `preloaded-context` v2 as the default and preserving historical replay semantics.
+- The Memory arm now installs the repository's real `agent-memory-query` Skill in an
+  isolated Agent Home; neither arm receives preloaded Context, and Baseline has no
+  Memory access. Source files are hashed before and after the Agent call.
+- Added completed-tool-event telemetry for query count, success/errors, output cost,
+  query digests and anchor paths without persisting raw query text, command output,
+  source content or reasoning.
+- Added hidden required/forbidden/optional activation expectations, per-case query
+  budgets and first-observable-loss reporting across isolation, budget, Skill execution,
+  activation, routing and Context retrieval.
+- Added generated ArkTS L0/L1/L2 protocol fixtures, deterministic replay observations,
+  a persisted calibration result, public CLI coverage and the long-term v3 design and
+  policy documentation.
+
+Result:
+
+- The three generated calibration cases pass the v3 measurement and selective-query
+  gates: L0 uses zero calls, L1 one call and L2 two calls. This proves protocol behavior
+  only; no model was called and no real capability, efficiency or promotion claim is
+  made. Efficiency intentionally remains failed because generated observations do not
+  fabricate complete model/tool cost attribution.
+- Focused benchmark coverage passes 61/61. The full suite runs 899 tests: 897 pass in
+  the socket-restricted sandbox and the only two errors are loopback bind denials; the
+  complete loopback module passes 3/3 with local binding enabled.
+- The CI scale profile passes at 100,000 searchable entities, 80,000 symbols and 300,000
+  graph edges. All evaluation JSON parses, Python compilation and `git diff --check`
+  pass, exactly four Skills remain, and every repository-owned code file is at or below
+  500 lines.
+- Runtime serving, retrieval ranking, SQL schema and the four-Skill product surface are
+  unchanged. A new preregistered real Development campaign is still required before v3
+  can support an Agent quality or efficiency conclusion.

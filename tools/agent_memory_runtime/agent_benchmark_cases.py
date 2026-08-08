@@ -97,6 +97,10 @@ def validate_case(value: Any, index: int, seen: set[str]) -> dict[str, Any]:
             oracle.get("mechanism_assertions"),
             f"case {case_id} oracle.mechanism_assertions",
         )
+    if "query_skill_expectation" in oracle:
+        normalized_oracle["query_skill_expectation"] = normalize_query_skill_expectation(
+            oracle.get("query_skill_expectation"), case_id,
+        )
     result = {
         **value,
         "id": case_id,
@@ -109,6 +113,23 @@ def validate_case(value: Any, index: int, seen: set[str]) -> dict[str, Any]:
     if profile is not None:
         result["evaluation_profile"] = profile
     return result
+
+
+def normalize_query_skill_expectation(value: Any, case_id: str) -> dict[str, Any]:
+    label = f"case {case_id} oracle.query_skill_expectation"
+    if not isinstance(value, dict):
+        raise SystemExit(f"{label} must be an object")
+    activation = str(value.get("activation") or "")
+    if activation not in {"required", "forbidden", "optional"}:
+        raise SystemExit(
+            f"{label}.activation must be required, forbidden, or optional"
+        )
+    maximum = value.get("max_queries", 3)
+    if not isinstance(maximum, int) or isinstance(maximum, bool) or not 0 <= maximum <= 3:
+        raise SystemExit(f"{label}.max_queries must be an integer between 0 and 3")
+    if activation == "required" and maximum == 0:
+        raise SystemExit(f"{label}.max_queries must be positive when activation is required")
+    return {"activation": activation, "max_queries": maximum}
 
 
 def public_case(case: dict[str, Any]) -> dict[str, Any]:

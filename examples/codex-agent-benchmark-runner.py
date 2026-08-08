@@ -26,8 +26,17 @@ from tools.agent_memory_runtime.source_exploration import (  # noqa: E402
     PRIMARY_ANCHOR_LIMIT,
 )
 from tools.agent_memory_runtime.agent_benchmark_treatment import (  # noqa: E402
+    SELECTIVE_TREATMENT_MODE,
     external_context_projection,
+    selective_treatment_metadata,
     treatment_metadata,
+)
+from examples.codex_benchmark_memory_telemetry import memory_query_metrics  # noqa: E402
+from examples.codex_benchmark_selective import (  # noqa: E402
+    SELECTIVE_QUERY_LIMIT,
+    prepare_selective_query_skill,
+    telemetry_context,
+    workspace_source_digest,
 )
 from examples.codex_benchmark_telemetry import (  # noqa: E402
     codex_cost_metrics,
@@ -51,6 +60,8 @@ def main() -> int:
     case_id = required_text(request, "case_id")
     variant = required_text(request, "variant")
     trial_index = int(request.get("trial_index") or 1)
+    treatment_mode = str(request.get("treatment_mode") or "preloaded-context")
+    selective = treatment_mode == SELECTIVE_TREATMENT_MODE
     if variant not in {"baseline", "memory"}:
         raise SystemExit(f"unsupported benchmark variant: {variant}")
 
@@ -59,12 +70,26 @@ def main() -> int:
         schema_path = temp / "response-schema.json"
         result_path = temp / "last-message.json"
         codex_home = prepare_codex_home(temp)
+        home = temp / "home"
+        home.mkdir()
+        skill_digest = None
+        if selective and variant == "memory":
+            skill_digest = prepare_selective_query_skill(
+                home, request.get("memory_access") or {}, SELECTIVE_QUERY_LIMIT,
+            )
         schema_path.write_text(json.dumps(output_schema(), indent=2) + "\n", encoding="utf-8")
         retrieval_started = time.monotonic()
-        memory_context = external_memory_context(load_memory_context(request, workspace))
+        memory_context = (
+            None if selective
+            else external_memory_context(load_memory_context(request, workspace))
+        )
         retrieval_elapsed_ms = elapsed_ms(retrieval_started)
-        prompt = build_prompt(request, memory_context)
-        command = codex_command(workspace, schema_path, result_path)
+        prompt = build_prompt(request, memory_context, treatment_mode)
+        command = codex_command(
+            workspace, schema_path, result_path,
+            "workspace-write" if selective else "read-only",
+        )
+        source_digest = workspace_source_digest(workspace) if selective else None
         agent_started = time.monotonic()
         process = subprocess.run(
             command,
@@ -72,10 +97,12 @@ def main() -> int:
             text=True,
             capture_output=True,
             cwd=workspace,
-            env=codex_environment(temp, codex_home),
+            env=codex_environment(home, codex_home),
             check=False,
         )
         agent_elapsed_ms = elapsed_ms(agent_started)
+        if selective and workspace_source_digest(workspace) != source_digest:
+            raise SystemExit("Codex benchmark Agent modified source during selective query evaluation")
         if process.returncode != 0:
             message = failure_output(process.stdout, process.stderr)
             raise SystemExit(f"Codex benchmark execution failed: {message}")
@@ -86,6 +113,8 @@ def main() -> int:
     end_to_end_elapsed_ms = elapsed_ms(total_started)
 
     result = normalize_exploration(normalize_file_roles(result))
+    query_metrics = memory_query_metrics(process.stdout) if selective else {}
+    execution_context = telemetry_context(query_metrics) if selective else memory_context
     result.update({
         "schema_version": RESPONSE_SCHEMA,
         "case_id": case_id,
@@ -96,21 +125,27 @@ def main() -> int:
         "elapsed_ms": end_to_end_elapsed_ms,
         "end_to_end_elapsed_ms": end_to_end_elapsed_ms,
         "agent_elapsed_ms": agent_elapsed_ms,
-        "memory_retrieval_elapsed_ms": retrieval_elapsed_ms,
+        "memory_retrieval_elapsed_ms": 0 if selective else retrieval_elapsed_ms,
         "latency_metrics_reported": True,
         **codex_cost_metrics(process.stdout),
-        **memory_context_metrics(memory_context),
-        **execution_metrics(result, memory_context),
+        **(query_metrics if selective else memory_context_metrics(memory_context)),
+        **execution_metrics(result, execution_context),
         **source_search_metrics(process.stdout, result),
-        "treatment_metadata": treatment_metadata(variant, memory_context),
-        "runner_metadata": runner_metadata(),
+        **({"query_rounds": query_metrics["memory_query_count"]} if selective else {}),
+        "treatment_metadata": (
+            selective_treatment_metadata(variant, skill_digest, SELECTIVE_QUERY_LIMIT)
+            if selective else treatment_metadata(variant, memory_context)
+        ),
+        "runner_metadata": runner_metadata(treatment_mode),
     })
     json.dump(result, sys.stdout, ensure_ascii=False)
     sys.stdout.write("\n")
     return 0
 
 
-def codex_command(workspace: Path, schema_path: Path, result_path: Path) -> list[str]:
+def codex_command(
+    workspace: Path, schema_path: Path, result_path: Path, sandbox: str = "read-only",
+) -> list[str]:
     executable = os.environ.get("AGENT_BENCHMARK_CODEX", "codex")
     command = [
         executable,
@@ -124,7 +159,7 @@ def codex_command(workspace: Path, schema_path: Path, result_path: Path) -> list
         "--disable", "multi_agent",
         "--disable", "plugins",
         "--skip-git-repo-check",
-        "--sandbox", "read-only",
+        "--sandbox", sandbox,
         "--output-schema", str(schema_path),
         "--output-last-message", str(result_path),
         "--color", "never",
@@ -329,17 +364,16 @@ def prepare_codex_home(temp: Path) -> Path:
     return target
 
 
-def codex_environment(temp: Path, codex_home: Path) -> dict[str, str]:
+def codex_environment(home: Path, codex_home: Path) -> dict[str, str]:
     environment = clean_environment()
-    home = temp / "home"
-    home.mkdir()
     environment["HOME"] = str(home)
     environment["CODEX_HOME"] = str(codex_home)
     return environment
 
 
-def runner_metadata() -> dict[str, Any]:
+def runner_metadata(treatment_mode: str = "preloaded-context") -> dict[str, Any]:
     protocol = benchmark_protocol_manifest()
+    selective = treatment_mode == SELECTIVE_TREATMENT_MODE
     return {
         "runner": "codex_cli",
         "runner_version": os.environ.get("AGENT_BENCHMARK_CODEX_VERSION", "codex-cli 0.142.0"),
@@ -349,11 +383,13 @@ def runner_metadata() -> dict[str, Any]:
         ),
         "prompt_protocol_digest": protocol["digest"],
         "benchmark_protocol_manifest": protocol,
-        "measurement_contract": "context_only_shared_protocol/v2",
-        "sandbox": "read-only",
+        "measurement_contract": (
+            "selective_query_skill/v3" if selective else "context_only_shared_protocol/v2"
+        ),
+        "sandbox": "workspace-write-source-immutable" if selective else "read-only",
         "session": "ephemeral",
-        "memory_delivery": "runner_preloaded",
-        "source_excerpt_delivery": "external_metadata_only",
+        "memory_delivery": "agent_selected_query_skill" if selective else "runner_preloaded",
+        "source_excerpt_delivery": "agent_selected_runtime" if selective else "external_metadata_only",
         "user_context": "isolated_home",
         "retrieval_policy": POLICY_NAME,
     }
@@ -367,6 +403,8 @@ def benchmark_protocol_manifest() -> dict[str, Any]:
     files = (
         "examples/codex-agent-benchmark-runner.py",
         "examples/codex_benchmark_prompt.py",
+        "examples/codex_benchmark_memory_telemetry.py",
+        "examples/codex_benchmark_selective.py",
         "examples/codex_benchmark_telemetry.py",
         "tools/agent_memory_runtime/agent_benchmark_cost.py",
         "tools/agent_memory_runtime/agent_benchmark_eval.py",

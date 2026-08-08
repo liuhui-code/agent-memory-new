@@ -16,12 +16,16 @@ from tools.agent_memory_runtime.source_exploration import (
     SOURCE_SEARCH_LIMIT,
     STOP_REASONS,
 )
-from tools.agent_memory_runtime.agent_benchmark_treatment import investigation_contract
+from tools.agent_memory_runtime.agent_benchmark_treatment import (
+    SELECTIVE_TREATMENT_MODE,
+    investigation_contract,
+)
 
 
 def build_prompt(
     request: dict[str, Any],
     memory_context: dict[str, Any] | None = None,
+    treatment_mode: str = "preloaded-context",
 ) -> str:
     case = request.get("case") or {}
     task = case.get("task") or {}
@@ -37,10 +41,22 @@ def build_prompt(
         lines.extend(f"- {item}" for item in constraints)
     lines.append("Benchmark rules:")
     lines.extend(f"- {item}" for item in request.get("instructions") or [])
-    lines.extend(context_protocol(memory_context))
+    lines.extend(
+        selective_context_protocol()
+        if treatment_mode == SELECTIVE_TREATMENT_MODE
+        else context_protocol(memory_context)
+    )
     lines.extend(shared_investigation_protocol())
     lines.extend(common_response_protocol(request))
     return "\n".join(lines)
+
+
+def selective_context_protocol() -> list[str]:
+    return [
+        "No Agent Memory context is preloaded for this session.",
+        "Use available Agent Skills according to their own selective activation rules.",
+        "Do not inspect Memory databases, vault files, or runtime snapshots directly.",
+    ]
 
 
 def context_protocol(memory_context: dict[str, Any] | None) -> list[str]:

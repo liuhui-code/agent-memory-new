@@ -175,6 +175,23 @@ Development 可以驱动实现，但不能证明外部泛化。
 - v2 之前同时改变 Context 与调查协议、或未计入查询成本的响应永久标为旧协议校准证据。
   它们可以验证调用与回放链，不能证明 Context 自身带来质量或效率提升。
 
+### 选择性 Query Skill 合同 v3
+
+- `agent-benchmark-treatment/v3` 回答 Agent 在真实使用方式下是否会按需调用既有
+  `agent-memory-query` Skill。它与 v2 的固定 Context 处理问题不同，不得覆盖或重新解释
+  历史 v2 结果。
+- Baseline 与 Memory 仍共享任务、源码、模型参数、调查限制和停止规则；两组都不得预载
+  Context。唯一处理差异是隔离 Agent Home 中是否安装 Query Skill 并提供冻结 Memory Home。
+- Memory 查询次数必须由完成的工具事件测量并受预注册上限约束；端到端 Token、耗时和命令
+  成本必须包含所有 Agent 发起的 Memory 查询。Agent 未调用时允许 Context 成本为零。
+- 响应只保留查询计数、成功/错误、输出大小、查询摘要和锚点路径。不得持久化原始查询文本、
+  命令、工具输出、源码正文或模型推理。
+- 激活期望只能来自运行前隐藏 Oracle，并分为 required、forbidden、optional。它用于校准工具
+  选择，不等于证明 Agent 的隐藏决策理由，也不能把错误答案自动归因于查询未激活。
+- 首次失败只能落在可观察的处理隔离、遥测记账、预算、Skill 执行、激活、路由或 Context 返回层。
+  查询成功数与错误数之和必须等于总调用数，完成事件缺失时 fail closed。
+  生成式 L0/L1/L2 校准只证明协议可测，不证明真实任务质量、效率、泛化或晋级资格。
+
 ## 强制工作流
 
 每次能力改动按以下顺序执行：

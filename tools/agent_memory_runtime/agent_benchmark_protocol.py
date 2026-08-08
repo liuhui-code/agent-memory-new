@@ -16,6 +16,7 @@ from .benchmark_workspace import materialized_workspace
 from .agent_benchmark_schedule import normalize_execution_order
 from .agent_benchmark_mechanism import normalize_mechanism_evidence
 from .source_exploration import exploration_metrics_reported
+from .agent_benchmark_treatment import SELECTIVE_TREATMENT_MODE
 
 
 REQUEST_SCHEMA = "agent-benchmark-request/v1"
@@ -23,6 +24,9 @@ RESPONSE_SCHEMA = "agent-benchmark-response/v1"
 RESPONSES_SCHEMA = "agent-benchmark-responses/v1"
 MAX_OUTPUT_BYTES = 1_000_000
 FORBIDDEN_REASONING_FIELDS = {"thought", "thoughts", "reasoning", "chain_of_thought", "cot"}
+FORBIDDEN_MEMORY_TRACE_FIELDS = {
+    "memory_query_terms", "memory_query_text", "memory_query_outputs", "memory_tool_output",
+}
 
 
 def run_benchmark_agent(
@@ -34,6 +38,7 @@ def run_benchmark_agent(
     prepare_memory: bool = True,
     trial_index: int = 1,
     execution_order: dict[str, Any] | None = None,
+    treatment_mode: str = "preloaded-context",
 ) -> dict[str, Any]:
     executable = resolve_runner(runner)
     with materialized_workspace(root, case) as workspace:
@@ -44,16 +49,21 @@ def run_benchmark_agent(
             "case_id": case["id"],
             "variant": variant,
             "trial_index": trial_index,
+            "treatment_mode": treatment_mode,
             **({"execution_order": execution_order} if execution_order else {}),
             "workspace": str(workspace),
             "case": public_case(case),
-            "instructions": runner_instructions(variant),
+            "instructions": runner_instructions(variant, treatment_mode),
             "response_schema": response_template(case["id"], variant, trial_index),
         }
         if variant == "memory" and prepare_memory:
+            memory_home = (
+                workspace / ".agent-memory-benchmark"
+                if treatment_mode == SELECTIVE_TREATMENT_MODE
+                else workspace.parent / "memory-home"
+            )
             memory = prepare_isolated_memory(
-                workspace,
-                workspace.parent / "memory-home",
+                workspace, memory_home,
                 timeout,
                 case["task_type"],
             )
@@ -118,6 +128,8 @@ def validate_observation(
         raise SystemExit(f"benchmark observation must use {RESPONSE_SCHEMA}")
     if FORBIDDEN_REASONING_FIELDS & set(value):
         raise SystemExit("benchmark response must not contain chain-of-thought fields")
+    if FORBIDDEN_MEMORY_TRACE_FIELDS & set(value):
+        raise SystemExit("benchmark response must not contain Memory query text or output")
     case_id = text_field(value, "case_id")
     variant = text_field(value, "variant")
     if expected_case_id and case_id != expected_case_id:
@@ -224,6 +236,31 @@ def validate_observation(
         "memory_context_bytes": nonnegative_int(value.get("memory_context_bytes")),
         "memory_context_token_estimate": nonnegative_int(value.get("memory_context_token_estimate")),
         "memory_context_metrics_reported": memory_metrics_reported,
+        "memory_query_count": nonnegative_int(value.get("memory_query_count")),
+        "memory_query_success_count": nonnegative_int(
+            value.get("memory_query_success_count")
+        ),
+        "memory_query_error_count": nonnegative_int(value.get("memory_query_error_count")),
+        "memory_query_total_output_bytes": nonnegative_int(
+            value.get("memory_query_total_output_bytes")
+        ),
+        "memory_query_total_output_token_estimate": nonnegative_int(
+            value.get("memory_query_total_output_token_estimate")
+        ),
+        "memory_query_metrics_reported": bool(value.get("memory_query_metrics_reported")),
+        "memory_query_kinds": string_list(
+            value.get("memory_query_kinds") or [], "memory_query_kinds"
+        ),
+        "memory_query_digests": string_list(
+            value.get("memory_query_digests") or [], "memory_query_digests"
+        ),
+        "memory_query_anchor_paths": string_list(
+            value.get("memory_query_anchor_paths") or [], "memory_query_anchor_paths"
+        ),
+        "memory_query_primary_anchor_paths": string_list(
+            value.get("memory_query_primary_anchor_paths") or [],
+            "memory_query_primary_anchor_paths",
+        ),
         "expansion_rounds": expansion_rounds,
         "expansion_file_count": nonnegative_int(value.get("expansion_file_count")),
         "expansion_accounting_source": str(
@@ -285,7 +322,17 @@ def response_template(case_id: str, variant: str, trial_index: int = 1) -> dict[
     }
 
 
-def runner_instructions(variant: str) -> list[str]:
+def runner_instructions(
+    variant: str, treatment_mode: str = "preloaded-context",
+) -> list[str]:
+    if treatment_mode == SELECTIVE_TREATMENT_MODE:
+        return [
+            "Inspect only the supplied workspace and public case.",
+            "Do not access Git history after the supplied revision or hidden benchmark oracle.",
+            "No Agent Memory context is preloaded. Use an available Query Skill only when its selective retrieval policy calls for it.",
+            "Never inspect Agent Memory databases, generated vault files, or runtime snapshots directly.",
+            "Return only the requested JSON; do not return chain-of-thought.",
+        ]
     return [
         "Inspect only the supplied workspace and public case.",
         "Do not access Git history after the supplied revision or hidden benchmark oracle.",

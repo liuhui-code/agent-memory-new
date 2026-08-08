@@ -1,0 +1,92 @@
+{
+  "schema_version": "agent-benchmark-cases/v1",
+  "suite": "development",
+  "generated_at": "2026-08-08T00:00:00Z",
+  "generator": "selective-query-skill-v3-protocol-calibration",
+  "project_path": "tests/fixtures/selective_query_calibration",
+  "governance": {
+    "oracle_hidden_from_runner": true,
+    "raw_logs_persisted": false,
+    "purpose": "generated_protocol_calibration_not_real_incident_evidence"
+  },
+  "cases": [
+    {
+      "id": "selective-l0-direct-symbol",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "evaluation_role": "protocol_calibration",
+      "task": {
+        "description": "DirectOwner.load returns the wrong boolean value.",
+        "constraints": ["Inspect the named current-source owner first."]
+      },
+      "source": {"before_revision": "working-tree"},
+      "provenance": {
+        "kind": "generated_protocol_fixture",
+        "source_family": "selective-query-calibration"
+      },
+      "oracle": {
+        "expected_files": ["src/DirectOwner.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "state",
+        "expected_causal_level": "supported",
+        "query_skill_expectation": {
+          "activation": "forbidden",
+          "max_queries": 0
+        }
+      }
+    },
+    {
+      "id": "selective-l1-log-emitter",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "evaluation_role": "protocol_calibration",
+      "task": {
+        "description": "The runtime reports `request timeout`, but the emitting source is unknown.",
+        "constraints": ["Use the exact observed log phrase as evidence."]
+      },
+      "source": {"before_revision": "working-tree"},
+      "provenance": {
+        "kind": "generated_protocol_fixture",
+        "source_family": "selective-query-calibration"
+      },
+      "oracle": {
+        "expected_files": ["src/RequestService.ets"],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "query_skill_expectation": {
+          "activation": "required",
+          "max_queries": 1
+        }
+      }
+    },
+    {
+      "id": "selective-l2-competing-causes",
+      "task_type": "diagnosis",
+      "review_status": "validated",
+      "evaluation_role": "protocol_calibration",
+      "task": {
+        "description": "A retried request remains pending; both retry coordination and session state are plausible owners.",
+        "constraints": ["Investigate each candidate with a focused query."]
+      },
+      "source": {"before_revision": "working-tree"},
+      "provenance": {
+        "kind": "generated_protocol_fixture",
+        "source_family": "selective-query-calibration"
+      },
+      "oracle": {
+        "expected_files": [
+          "src/RetryCoordinator.ets",
+          "src/SessionState.ets"
+        ],
+        "forbidden_files": [],
+        "root_cause_category": "async",
+        "expected_causal_level": "supported",
+        "query_skill_expectation": {
+          "activation": "required",
+          "max_queries": 2
+        }
+      }
+    }
+  ]
+}

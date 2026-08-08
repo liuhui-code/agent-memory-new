@@ -6,6 +6,7 @@ from typing import Any
 
 from .agent_benchmark_cost import COST_METRIC_FIELDS, evaluate_efficiency
 from .agent_benchmark_schedule import execution_order_audit
+from .agent_benchmark_selective import selective_query_audit
 from .agent_benchmark_mechanism import causal_level_satisfies, score_mechanism
 from .agent_benchmark_measurement import (
     evidence_segments,
@@ -39,6 +40,7 @@ def evaluate_agent_benchmark(
     ]
     order_audit = execution_order_audit(selected_observations)
     measurement_audit = measurement_contract_audit(selected_observations)
+    selective_audit = selective_query_audit(cases, selected_observations)
     by_key: dict[tuple[str, str, int], dict[str, Any]] = {}
     duplicates: list[str] = []
     for item in observations:
@@ -82,6 +84,9 @@ def evaluate_agent_benchmark(
         "measurement_contract_valid": (
             not measurement_audit["enforced"] or measurement_audit["status"] == "pass"
         ),
+        "selective_query_protocol_valid": (
+            selective_audit is None or selective_audit["status"] == "pass"
+        ),
     }
     gate = "pass" if all(checks.values()) else "fail"
     efficiency = evaluate_efficiency(aggregates, selected_observations)
@@ -89,6 +94,7 @@ def evaluate_agent_benchmark(
         "schema_version": "agent-benchmark-result/v1",
         "execution_order": order_audit,
         "measurement_contract": measurement_audit,
+        **({"selective_query": selective_audit} if selective_audit else {}),
         "status": gate,
         "quality_gate": gate,
         "promotion_gate": (

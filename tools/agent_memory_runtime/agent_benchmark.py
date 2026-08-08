@@ -18,6 +18,7 @@ from .agent_benchmark_longitudinal import (
     validate_longitudinal_cases,
 )
 from .agent_benchmark_schedule import pair_schedule
+from .agent_benchmark_treatment import SELECTIVE_TREATMENT_SCHEMA
 from .agent_benchmark_protocol import RESPONSES_SCHEMA, load_observations, run_benchmark_agent
 from .agent_evidence_utility import evaluate_agent_evidence_utility
 from .benchmark_case_seal import case_pack_seal_audit
@@ -60,6 +61,7 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
                 int(args.runner_timeout),
                 not bool(args.skip_memory_prepare),
                 trials,
+                str(args.treatment_mode),
             )
         selected_ids = {case["id"] for case in cases}
         observations = [item for item in observations if item["case_id"] in selected_ids]
@@ -82,6 +84,7 @@ def eval_agent_benchmark_command(args: argparse.Namespace) -> None:
                 if args.runner else int(result["summary"].get("trial_count") or 1)
             ),
             "runner_configuration": runner_configuration(observations),
+            "treatment_mode": treatment_mode(observations, str(args.treatment_mode)),
         })
         if args.output_responses:
             write_responses(Path(args.output_responses).expanduser(), observations)
@@ -138,6 +141,7 @@ def run_cases(
     timeout: int,
     prepare_memory: bool,
     trials: int = 1,
+    treatment_mode: str = "preloaded-context",
 ) -> list[dict[str, Any]]:
     observations: list[dict[str, Any]] = []
     for case_position, case in enumerate(cases, start=1):
@@ -147,6 +151,7 @@ def run_cases(
                     run_benchmark_agent(
                         source, case, variant, runner, timeout, prepare_memory,
                         trial_index, execution_order,
+                        treatment_mode,
                     )
                 )
     return observations
@@ -175,6 +180,7 @@ def persist_benchmark_result(project: Any, result: dict[str, Any]) -> None:
             "requested_trials", "failure_analysis", "case_seal",
             "evidence_utility", "evaluation_governance",
             "longitudinal_value", "execution_order",
+            "selective_query", "treatment_mode",
         )
     }
     compact["recorded_at"] = now_iso()
@@ -184,6 +190,20 @@ def persist_benchmark_result(project: Any, result: dict[str, Any]) -> None:
     with history.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(compact, ensure_ascii=False, sort_keys=True) + "\n")
     trim_history(history)
+
+
+def treatment_mode(observations: list[dict[str, Any]], fallback: str) -> str:
+    treatment_schemas = {
+        str(item.get("treatment_metadata", {}).get("schema_version") or "")
+        for item in observations if isinstance(item.get("treatment_metadata"), dict)
+    }
+    if treatment_schemas == {SELECTIVE_TREATMENT_SCHEMA}:
+        return "selective-query-skill"
+    values = {
+        str(item.get("runner_metadata", {}).get("measurement_contract") or "")
+        for item in observations if isinstance(item.get("runner_metadata"), dict)
+    }
+    return "selective-query-skill" if values == {"selective_query_skill/v3"} else fallback
 
 
 def trim_history(path: Path) -> None:
