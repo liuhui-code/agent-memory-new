@@ -320,6 +320,8 @@ def candidate_paths_from_context(context: dict[str, Any]) -> list[str]:
     refs = []
     for table_name in ("code_files", "code_symbols"):
         table = tables.get(table_name) if isinstance(tables, dict) else {}
+        if not isinstance(table, dict):
+            continue
         fielded = table.get("fielded_retrieval") if isinstance(table, dict) else {}
         fielded_serving = (
             fielded.get("candidate_refs")
@@ -327,7 +329,7 @@ def candidate_paths_from_context(context: dict[str, Any]) -> list[str]:
             else None
         )
         selected = fielded_serving or table.get("candidate_refs")
-        refs.extend(records(selected)[:20] if isinstance(table, dict) else [])
+        refs.extend(records(selected)[:20])
     return unique_paths(item.get("file_path") for item in refs)
 
 

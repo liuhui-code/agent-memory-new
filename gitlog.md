@@ -9185,3 +9185,25 @@ Result:
   missing contract and therefore do not authorize a combined architecture or ranking change.
 - No unconsumed, independently sourced external pack is available for a one-shot validation.
   Serving changes stop at the Development conclusion until such evidence exists.
+
+## 2026-08-09 - Close unittest discovery and sparse Context audit handling
+
+What changed:
+
+- Migrated the only pytest-style top-level test module to the repository-standard `unittest`
+  discovery model and added an AST contract that rejects future silently uncollected top-level
+  `test_*` functions.
+- Corrected the stale hierarchical metric expectation from `informational` to the documented
+  `informational_serving_stage` contract.
+- Made Context capability summarization treat missing candidate-table entries as empty. This
+  fixes a controlled partial-audit evaluator failure without changing serving retrieval,
+  ranking, graph, log, experience, Skill or scoring behavior.
+- Restored the required public project fingerprint to seven Python files that the full suite
+  identified, including the new discovery contract and recent evaluation fixtures.
+
+Result:
+
+- Standard `unittest discover tests` now executes 933 tests; the only sandbox failures are
+  two denied loopback binds. The same Ollama runner module passes 3/3 with loopback enabled.
+- The next real capability-efficacy phase remains blocked on a user-provided Campaign Source
+  Manifest. No new cohort, A/B execution or serving change was created from Development data.
