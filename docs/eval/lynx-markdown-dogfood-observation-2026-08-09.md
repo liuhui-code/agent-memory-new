@@ -83,6 +83,14 @@ bundle rather than the Markdown artifact. It does not establish that this is the
 reporter's deployment, the only issue mechanism, or a device-side rendering root
 cause.
 
+## Design decision
+
+Keep `HarmonyEmptyProject` generic: it has one stable bootstrap resource name and
+should not be changed to hard-code a Markdown example entry. The deployment
+adapter maps the explicitly selected example artifact to that existing bootstrap
+name. This is a task-local resource replacement contract, not a Runtime feature,
+source-graph inference, or claim about the application's rendering behavior.
+
 ## Staging patch and verification
 
 The frozen host was copied to a separate temporary staging clone. The only change
