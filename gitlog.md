@@ -9207,3 +9207,19 @@ Result:
   two denied loopback binds. The same Ollama runner module passes 3/3 with loopback enabled.
 - The next real capability-efficacy phase remains blocked on a user-provided Campaign Source
   Manifest. No new cohort, A/B execution or serving change was created from Development data.
+
+## 2026-08-09 - Add Campaign Source Manifest draft template
+
+What changed:
+
+- Added a fillable, non-evidence Campaign Source Manifest template covering the active project,
+  continuous task source, task-start Memory Home, objective verification, raw-task custody,
+  fixed cohort rules, replay policy, Runner authorization and claim boundary.
+- Linked the template from the real-campaign no-go audit and the test-execution closure record.
+
+Result:
+
+- The template helps a project owner supply the exact external facts required for a prospective
+  campaign without inventing task, log, source or Oracle data.
+- It remains `draft_template_only`; no cohort, Agent A/B, serving change or promotion claim is
+  authorized until a human-owned manifest is reviewed against the documented readiness gate.

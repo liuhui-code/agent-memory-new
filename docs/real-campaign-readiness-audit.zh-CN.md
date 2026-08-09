@@ -142,3 +142,7 @@ task/source/Memory 错绑 fixture 均由 `eval-cohort-complete` fail closed。�
 - Runner、模型、trial 和数据发送授权。
 
 在该 Manifest 缺失前，不创建真实 cohort、不选择任务、不执行 Agent A/B，也不修改 serving。
+
+可从 `docs/eval/campaign-source-manifest.template.json` 创建本地草案。模板是待人工填写的
+治理输入，不是活动证据；`status` 保持 `draft_template_only`、占位符未被替换或授权为 false 时，
+不得据此创建 cohort。

@@ -1,0 +1,49 @@
+{
+  "schema_version": "campaign-source-manifest/v1-draft",
+  "status": "draft_template_only",
+  "campaign_id": "replace-with-bounded-campaign-id",
+  "project": {
+    "local_path": "/absolute/path/to/active-arkts-project",
+    "project_owner_role": "replace-with-project-owner-role",
+    "source_revision_policy": "clean_revision_required"
+  },
+  "task_stream": {
+    "source_description": "replace-with-future-consecutive-task-source",
+    "continuity_owner_role": "replace-with-continuity-owner-role",
+    "starts_at": "YYYY-MM-DDTHH:MM:SSZ"
+  },
+  "memory": {
+    "task_start_memory_home": "/absolute/path/to/memory-home",
+    "learn_maintain_health_required": true
+  },
+  "verification": {
+    "allowed_methods": ["test", "build", "source_review", "user_confirmation"],
+    "unknown_when_unverifiable": true
+  },
+  "raw_task_custody": {
+    "outside_sqlite_location": "replace-with-controlled-local-custody-location",
+    "custodian_role": "replace-with-custodian-role",
+    "retention_days": 30,
+    "audit_access_policy": "replace-with-minimum-audit-access-policy"
+  },
+  "cohort": {
+    "fixed_presented_count": 10,
+    "allowed_exclusion_reasons": ["not_diagnosis", "duplicate_task"],
+    "optional_stopping": false,
+    "dirty_task_policy": "natural_observation_only"
+  },
+  "paired_replay": {
+    "candidate_policy": "first_eligible_clean_revision_only",
+    "enabled": false
+  },
+  "runner": {
+    "runner_name": "replace-with-agent-runner",
+    "model": "replace-with-model-identifier",
+    "trials_per_arm": 1,
+    "frozen_source_context_sharing_authorized": false
+  },
+  "claims": {
+    "feasibility_only": true,
+    "no_generalization_or_promotion_claim": true
+  }
+}

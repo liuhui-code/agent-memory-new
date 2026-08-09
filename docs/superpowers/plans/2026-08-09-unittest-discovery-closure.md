@@ -62,3 +62,6 @@ active project, task-stream owner, task-arrival boundary, task-start Memory Home
 rule, external raw-task retention policy, stop rule, revision policy and Agent source-sharing
 authorization. Until it exists, do not create a real cohort, run a new A/B campaign, or change
 serving retrieval based on the current Development fixtures.
+
+`docs/eval/campaign-source-manifest.template.json` is the fillable draft template. It is not
+machine-generated evidence and deliberately cannot substitute for owner confirmation.
