@@ -98,6 +98,7 @@ def add_benchmark_parsers(
     cohort_create = sub.add_parser("eval-cohort-create")
     add_project(cohort_create)
     cohort_create.add_argument("--protocol", required=True)
+    cohort_create.add_argument("--campaign-manifest")
     cohort_create.add_argument("--json", action="store_true")
     cohort_create.set_defaults(func=command("eval_cohort_create_command"))
 

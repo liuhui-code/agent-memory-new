@@ -1,5 +1,28 @@
 # Local Development Log
 
+## 2026-08-09 - Bind Real Cohorts To Verified Campaign Input
+
+What changed:
+- Added a `campaign-source-manifest/v1` validation boundary for
+  `prospective_real_tasks` cohorts. Creation now requires a confirmed manifest
+  matching the active project, task-start Memory Home, fixed protocol count,
+  exclusions, stopping rule, verification/custody declaration, clean-source
+  policy, frozen-context authorization, and feasibility-only claim limits.
+- Persisted only a canonical manifest digest, campaign-id digest, schema version,
+  and verification status in the existing cohort protocol JSON. Manifest paths,
+  owners, task sources, custody details, logs, tasks, and reasoning are not
+  stored in SQLite.
+- Legacy real cohorts without this binding now fail closed for enrollment,
+  completion, and finalization. Reporting remains read-only and labels them
+  `unverified_campaign_input`, preventing quality, capability, efficiency, or
+  promotion interpretation. Generated protocol calibration is unchanged.
+
+Verification:
+- Added red-first unit and CLI coverage for required source binding, storage
+  redaction, generated-calibration compatibility, and legacy lifecycle blocking.
+- Cohort contract, metrics, and CLI regression suite passes 23/23. All changed
+  Python files remain below the repository's 500-line limit.
+
 ## 2026-08-08 - Bound Paired Replay To Task-Start Inputs
 
 What changed:

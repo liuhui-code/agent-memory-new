@@ -67,7 +67,7 @@ class ProspectiveCohortMetricsTests(unittest.TestCase):
             "status": "completed",
             "protocol_digest": "a" * 64,
             "target_presented_tasks": 1,
-            "protocol": {"evidence_origin": "prospective_real_tasks"},
+            "protocol": verified_real_protocol(),
         }
         tasks = [{
             "sequence_no": 1,
@@ -93,6 +93,21 @@ class ProspectiveCohortMetricsTests(unittest.TestCase):
         self.assertEqual(0.2, natural["average_token_overhead_ratio"])
         self.assertEqual(-1.0, natural["average_source_search_delta"])
         self.assertEqual({"none": 1}, natural["first_observable_losses"])
+
+    def test_legacy_real_cohort_report_is_labeled_without_a_claim(self) -> None:
+        cohort = {
+            "cohort_id": "legacy-v1", "status": "registered", "protocol_digest": "a" * 64,
+            "target_presented_tasks": 1,
+            "protocol": {"evidence_origin": "prospective_real_tasks"},
+        }
+
+        report = build_cohort_report(cohort, [], True)
+
+        self.assertEqual("unverified_campaign_input", report["campaign_input"]["status"])
+        self.assertEqual("unverified_campaign_input", report["data_quality"]["status"])
+        self.assertEqual("unverified_campaign_input", report["capability_claim"])
+        self.assertEqual("not_permitted", report["interpretation"]["efficiency_claim"])
+        self.assertFalse(report["promotion_eligible"])
 
 
 def sanitize_from_value(value: dict) -> dict:
@@ -161,6 +176,18 @@ def paired_replay() -> dict:
     return {
         "status": "ready", "package_digest": "a" * 64, "task_digest": "b" * 64,
         "source_identity_digest": "c" * 64, "memory_snapshot_digest": "d" * 64,
+    }
+
+
+def verified_real_protocol() -> dict:
+    return {
+        "evidence_origin": "prospective_real_tasks",
+        "campaign_input": {
+            "schema_version": "campaign-input-binding/v1",
+            "status": "verified",
+            "manifest_digest": "a" * 64,
+            "campaign_id_digest": "b" * 64,
+        },
     }
 
 

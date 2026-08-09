@@ -7,6 +7,11 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .campaign_input_contract import (
+    bind_campaign_input,
+    campaign_input_status,
+    require_campaign_input,
+)
 from .prospective_cohort_contract import (
     load_protocol,
     validate_completion,
@@ -48,6 +53,8 @@ def eval_cohort_create_command(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     protocol = load_protocol(Path(args.protocol).expanduser())
+    manifest = Path(args.campaign_manifest).expanduser() if args.campaign_manifest else None
+    protocol = bind_campaign_input(protocol, manifest, project.root, project.memory_home)
     digest = canonical_digest(protocol)
     with connect(project) as conn:
         conn.execute("BEGIN IMMEDIATE")
@@ -207,6 +214,7 @@ def eval_cohort_finalize_command(args: argparse.Namespace) -> None:
 
 
 def require_open_cohort(cohort: dict[str, Any]) -> None:
+    require_campaign_input(cohort["protocol"])
     if cohort["status"] == "completed":
         raise SystemExit("prospective cohort is finalized and immutable")
 
@@ -272,6 +280,7 @@ def cohort_projection(value: dict[str, Any]) -> dict[str, Any]:
         "task_type": value["task_type"],
         "target_presented_tasks": int(value["target_presented_tasks"]),
         "protocol_digest": value["protocol_digest"],
+        "campaign_input_status": campaign_input_status(value["protocol"]),
         "registered_at": value["registered_at"],
     }
 

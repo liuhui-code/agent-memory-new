@@ -7,6 +7,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from .campaign_input_contract import campaign_input_status
 from .prospective_cohort_snapshot import canonical_digest
 
 
@@ -108,6 +109,7 @@ def build_cohort_report(
     cohort: dict[str, Any], tasks: list[dict[str, Any]], chain_valid: bool,
 ) -> dict[str, Any]:
     evidence_origin = str(cohort.get("protocol", {}).get("evidence_origin") or "unknown")
+    input_status = campaign_input_status(cohort.get("protocol", {}))
     eligible = [item for item in tasks if item["eligibility"] == "eligible"]
     opportunity = [item for item in eligible if item["opportunity"] == "present"]
     completed = [item for item in eligible if item["status"] == "completed"]
@@ -128,7 +130,7 @@ def build_cohort_report(
         chain_valid and target_met and terminal
         and len(completed) == len(eligible) and trace_complete
     )
-    return {
+    report = {
         "schema_version": "prospective-agent-cohort-report/v1",
         "cohort_id": cohort["cohort_id"],
         "status": cohort["status"],
@@ -184,6 +186,18 @@ def build_cohort_report(
             "reasoning_persisted": False,
         },
     }
+    if input_status == "unverified_campaign_input":
+        report["campaign_input"] = {"status": input_status}
+        report["data_quality"]["status"] = input_status
+        report["evidence_level"] = input_status
+        report["capability_claim"] = input_status
+        report["interpretation"] = {
+            "efficiency_claim": "not_permitted",
+            "promotion_claim": "not_permitted",
+        }
+    else:
+        report["campaign_input"] = {"status": input_status}
+    return report
 
 
 def segment_metrics(tasks: list[dict[str, Any]]) -> dict[str, Any]:

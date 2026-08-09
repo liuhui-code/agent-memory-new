@@ -9,6 +9,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from tools.agent_memory_runtime.prospective_cohort_snapshot import canonical_digest
+from tools.agent_memory_runtime.prospective_cohort_store import insert_cohort
 from tests.agent_memory_test_base import AgentMemoryTestBase
 from tests.test_prospective_cohort_contract import protocol
 from tests.test_prospective_cohort_metrics import benchmark_result
@@ -122,6 +124,67 @@ class ProspectiveCohortCliTests(AgentMemoryTestBase):
                     "--evidence-ref", "reflection:999",
                     "--json",
                 )
+
+    def test_real_campaign_manifest_binds_creation_and_blocks_legacy_mutation(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "project"
+            self.init_git_project(root)
+            value = protocol("prospective_real_tasks")
+            protocol_path = self.write_json(root / "cohort.json", value)
+            task_path = self.write_json(root / "task.json", {"description": "Task"})
+            self.run_memory(root, "init")
+
+            with self.assertRaises(subprocess.CalledProcessError):
+                self.json_command(
+                    root, "eval-cohort-create", "--protocol", str(protocol_path), "--json"
+                )
+
+            manifest_path = self.write_json(
+                root / "campaign.json", campaign_manifest(root, self.memory_home(root)),
+            )
+            created = self.json_command(
+                root,
+                "eval-cohort-create",
+                "--protocol",
+                str(protocol_path),
+                "--campaign-manifest",
+                str(manifest_path),
+                "--json",
+            )
+            self.assertEqual("verified", created["campaign_input_status"])
+            with sqlite3.connect(self.database(root)) as conn:
+                conn.row_factory = sqlite3.Row
+                stored = conn.execute(
+                    "SELECT protocol_json FROM prospective_cohorts WHERE cohort_id = 'cohort-v1'"
+                ).fetchone()[0]
+                legacy = protocol("prospective_real_tasks")
+                legacy["cohort_id"] = "legacy-v1"
+                insert_cohort(conn, self.project_id(root), legacy, canonical_digest(legacy), "test")
+                conn.commit()
+            self.assertNotIn(str(root), stored)
+            self.assertNotIn("project-owner-secret", stored)
+
+            attempts = (
+                (
+                    "eval-cohort-enroll", "--cohort-id", "legacy-v1", "--task-id", "task-1",
+                    "--task-file", str(task_path), "--eligibility", "excluded",
+                    "--opportunity", "unknown", "--exclusion-reason", "not_diagnosis",
+                ),
+                (
+                    "eval-cohort-complete", "--cohort-id", "legacy-v1", "--task-id", "task-1",
+                    "--outcome", "pass", "--verification", "test",
+                ),
+                ("eval-cohort-finalize", "--cohort-id", "legacy-v1"),
+            )
+            for command in attempts:
+                with self.assertRaises(subprocess.CalledProcessError):
+                    self.json_command(root, *command, "--json")
+
+            report = self.json_command(
+                root, "eval-cohort-report", "--cohort-id", "legacy-v1", "--json"
+            )
+            self.assertEqual("unverified_campaign_input", report["campaign_input"]["status"])
+            self.assertEqual("unverified_campaign_input", report["data_quality"]["status"])
 
     def test_completed_usage_sample_allows_next_eligible_task(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -312,6 +375,36 @@ class ProspectiveCohortCliTests(AgentMemoryTestBase):
         subprocess.run(["git", "config", "user.name", "Test"], cwd=root, check=True)
         subprocess.run(["git", "add", "main.ets"], cwd=root, check=True)
         subprocess.run(["git", "commit", "-qm", "initial"], cwd=root, check=True)
+
+
+def campaign_manifest(root: Path, memory_home: Path) -> dict:
+    return {
+        "schema_version": "campaign-source-manifest/v1",
+        "status": "confirmed",
+        "campaign_id": "pilot-001",
+        "project": {
+            "local_path": str(root),
+            "project_owner_role": "project-owner-secret",
+            "source_revision_policy": "clean_revision_required",
+        },
+        "task_stream": {
+            "source_description": "future issue queue",
+            "continuity_owner_role": "queue-owner",
+            "starts_at": "2026-08-09T00:00:00Z",
+        },
+        "memory": {"task_start_memory_home": str(memory_home)},
+        "verification": {"allowed_methods": ["test"]},
+        "raw_task_custody": {"outside_sqlite_location": "controlled", "retention_days": 30},
+        "cohort": {
+            "fixed_presented_count": 2,
+            "allowed_exclusion_reasons": ["not_diagnosis", "duplicate_task"],
+            "optional_stopping": False,
+            "dirty_task_policy": "natural_observation_only",
+        },
+        "paired_replay": {"candidate_policy": "first_eligible_clean_revision_only"},
+        "runner": {"frozen_source_context_sharing_authorized": True},
+        "claims": {"feasibility_only": True, "no_generalization_or_promotion_claim": True},
+    }
 
 
 if __name__ == "__main__":

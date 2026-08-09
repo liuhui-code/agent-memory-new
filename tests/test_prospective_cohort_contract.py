@@ -74,12 +74,12 @@ class ProspectiveCohortContractTests(unittest.TestCase):
             )
 
 
-def protocol() -> dict:
+def protocol(evidence_origin: str = "generated_protocol_calibration") -> dict:
     return {
         "schema_version": "prospective-agent-cohort/v1",
         "cohort_id": "cohort-v1",
         "title": "Consecutive diagnosis tasks",
-        "evidence_origin": "prospective_real_tasks",
+        "evidence_origin": evidence_origin,
         "task_type": "diagnosis",
         "target_presented_tasks": 2,
         "enrollment": {
