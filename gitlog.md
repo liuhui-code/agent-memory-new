@@ -23,6 +23,11 @@ Verification:
 - Cohort contract, metrics, and CLI regression suite passes 23/23. All changed
   Python files remain below the repository's 500-line limit.
 
+Follow-up:
+- Updated the Chinese cohort guide, readiness audit, and command reference so
+  real-cohort creation includes the required confirmed Manifest while generated
+  calibration remains manifest-free.
+
 ## 2026-08-08 - Bound Paired Replay To Task-Start Inputs
 
 What changed:

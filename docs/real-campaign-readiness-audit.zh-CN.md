@@ -145,4 +145,7 @@ task/source/Memory 错绑 fixture 均由 `eval-cohort-complete` fail closed。�
 
 可从 `docs/eval/campaign-source-manifest.template.json` 创建本地草案。模板是待人工填写的
 治理输入，不是活动证据；`status` 保持 `draft_template_only`、占位符未被替换或授权为 false 时，
-不得据此创建 cohort。
+不得据此创建 cohort。真正创建时，草案必须经负责人确认并改为
+`schema_version=campaign-source-manifest/v1`、`status=confirmed`，再作为
+`eval-cohort-create --campaign-manifest` 的输入。Runtime 会核验它与当前项目、Memory Home、
+协议固定数量和排除规则的绑定，但 SQLite 只保存 manifest/campaign 的摘要与验证状态。

@@ -84,7 +84,7 @@ python tools/agent_memory.py eval-harvest-history --project . --target /tmp/hist
 python tools/agent_memory.py eval-mutate-arkts --project . --target /tmp/mutation-cases.json --json
 python tools/agent_memory.py eval-agent-benchmark --project . --cases /tmp/mutation-cases.json --runner /path/to/runner --json
 python tools/agent_memory.py eval-agent-benchmark --project . --cases /tmp/case.json --runner /path/to/runner --paired-replay-package .agent-memory/projects/<id>/runtime/paired-replay/<id>/manifest.json --treatment-mode selective-query-skill --json
-python tools/agent_memory.py eval-cohort-create --project . --protocol cohort.json --json
+python tools/agent_memory.py eval-cohort-create --project . --protocol cohort.json --campaign-manifest campaign-source-manifest.json --json  # prospective_real_tasks only
 python tools/agent_memory.py eval-cohort-enroll --project . --cohort-id cohort-v1 --task-id task-001 --task-file task.json --eligibility eligible --opportunity unknown --json
 python tools/agent_memory.py eval-cohort-complete --project . --cohort-id cohort-v1 --task-id task-001 --outcome pass --verification test --json
 python tools/agent_memory.py eval-cohort-report --project . --cohort-id cohort-v1 --json

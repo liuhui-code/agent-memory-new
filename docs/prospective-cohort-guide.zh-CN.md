@@ -7,7 +7,9 @@ Skill，也不会让 Runtime 诊断问题。用户仍然使用固定四个 Skill
 
 不要因为命令已经可用就直接创建真实 cohort。开始前先按
 `docs/real-campaign-readiness-audit.zh-CN.md` 核验活动项目、连续任务负责人、任务前 Memory、
-客观验证、原始任务保管、固定停止和 paired source revision 绑定。
+客观验证、原始任务保管、固定停止和 paired source revision 绑定。随后从
+`docs/eval/campaign-source-manifest.template.json` 建立本地草案；只有负责人确认后，才可改为
+`campaign-source-manifest/v1` 与 `status=confirmed`。
 
 当前仓库审计结论为 no-go，见
 `docs/eval/real-campaign-readiness-audit-2026-08-08.json`。该结论只表示真实活动输入尚未就绪，
@@ -41,16 +43,21 @@ Skill，也不会让 Runtime 诊断问题。用户仍然使用固定四个 Skill
 - 固定停止且禁止 optional stopping；
 - 原始任务、查询、日志和推理全部不持久化。
 
-创建：
+真实活动创建时必须同时提供已确认的 Campaign Source Manifest。Runtime 用它核验活动项目、
+任务前 Memory Home、固定数量、排除规则、停止规则和声明边界；SQLite 只保存 manifest 与
+campaign id 的摘要和验证状态，不保存路径、任务、日志、责任人或原始授权内容：
 
 ```bash
 python tools/agent_memory.py eval-cohort-create \
   --project /path/to/project \
   --protocol /path/to/cohort-protocol.json \
+  --campaign-manifest /private/path/campaign-source-manifest.json \
   --json
 ```
 
-创建后 protocol digest 固定，同一项目不能重复使用相同 `cohort_id`。
+缺失、草案或不匹配的 Manifest 会使真实 cohort 创建失败。生成校准
+`generated_protocol_calibration` 不应传入 Manifest。创建后 protocol digest 固定，同一项目不能
+重复使用相同 `cohort_id`。
 
 ## 2. 每个任务到达时立即入组
 
