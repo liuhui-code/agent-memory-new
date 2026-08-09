@@ -1,5 +1,32 @@
 # Local Development Log
 
+## 2026-08-09 - Record External ArkTS Dogfooding Evidence Boundary
+
+What changed:
+- Ran the four existing Skills against a frozen, public Apache-2.0 Lynx Harmony
+  host and Markdown example task in an isolated temporary archive. Recorded the
+  revisions, bounded learned-index counts, Context limitations, reflection, and
+  maintenance observation in a Development-only report.
+- Verified the example's locked build with Node 26.3.0 and pnpm 11.13.0. The
+  multi-entry output emits named `*.lynx.bundle` artifacts (such as
+  `basic.lynx.bundle`), while the frozen host requests `main.lynx.bundle` from
+  its raw-resource fetcher. This is a candidate deployment mismatch, not a
+  confirmed public-issue root cause.
+
+Why:
+- A real task should exercise the Skill and evidence handoff without allowing
+  static source proximity or one build observation to become a Runtime diagnosis,
+  an external evaluation claim, or an unverified source patch.
+
+Verification:
+- The external workspace completed `pnpm install --frozen-lockfile` and
+  `pnpm --filter @lynx-example/markdown build` with the source-declared pnpm
+  version. No external source files, Agent Memory serving behavior, evaluation
+  cases, Oracles, or thresholds were modified.
+- Harmony device/emulator evidence and the reporter's resource-placement details
+  remain unavailable, so the work stops as `development_observation` under the
+  evaluation-and-change policy.
+
 ## 2026-08-09 - Bind Real Cohorts To Verified Campaign Input
 
 What changed:
