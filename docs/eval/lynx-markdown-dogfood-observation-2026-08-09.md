@@ -70,21 +70,47 @@ pnpm --filter @lynx-example/markdown build
 ```
 
 The build listed 25 `*.lynx.bundle` files, including `basic.lynx.bundle`, and no
-`main.lynx.bundle`. In the frozen Harmony host, `Index.ets` sets the template URL
-to `main.lynx.bundle`; `ExampleTemplateResourceFetcher.ets` passes that URL to
+new `main.lynx.bundle`. The frozen Harmony host already contains a 1.1 MB default
+`rawfile/main.lynx.bundle`; `Index.ets` selects that name and
+`ExampleTemplateResourceFetcher.ets` passes it to
 `resourceManager.getRawFileContent`.
 
-This establishes a **candidate deployment contract mismatch**: copying an
-unrenamed Markdown output into the host raw-resource flow leaves the host asking
-for a file that this build does not create. It does not establish that this is the
+This establishes a **candidate deployment contract mismatch**: the public steps
+say to copy a Markdown bundle to the host, but do not state that the chosen named
+output must replace the host's fixed `main.lynx.bundle` (or that the host URL must
+change). Leaving the default rawfile untouched would continue to load the default
+bundle rather than the Markdown artifact. It does not establish that this is the
 reporter's deployment, the only issue mechanism, or a device-side rendering root
 cause.
 
+## Staging patch and verification
+
+The frozen host was copied to a separate temporary staging clone. The only change
+was a task-local deployment patch:
+
+```text
+examples/markdown/dist/basic.lynx.bundle
+  -> HarmonyEmptyProject/entry/src/main/resources/rawfile/main.lynx.bundle
+```
+
+The staged target and generated `basic.lynx.bundle` both have SHA-256
+`5f4d9797be25f0f2e58b6eb385705df4de558ac1fef6ec549642f5212eb4c093`.
+This verifies the artifact-to-host resource mapping and preserves the generic
+host URL. The staging clone has no other tracked changes and no external pull
+request was created.
+
+Hvigor task discovery was attempted using the installed DevEco Studio. The
+frozen project targets `6.0.0(20)`, while the local SDK reports API 24 only, so
+Hvigor stopped with `SDK component missing` before task enumeration or HAP
+assembly. `hdc list targets` also reported no reachable device. Therefore HAP
+packaging, installation, and rendered Markdown verification are not claimed.
+
 ## Intentionally unresolved evidence
 
-The observation does not include a HarmonyOS device/emulator run, a raw-resource
-packaging manifest, runtime logs, or a reporter-provided deployment procedure.
-Those missing facts prevent all of the following claims:
+The observation does not include a HarmonyOS device/emulator run, a HAP built
+against the project's API 20 SDK, a raw-resource packaging manifest, runtime
+logs, or a reporter-provided bundle-mapping procedure. Those missing facts
+prevent all of the following claims:
 
 - the public issue is reproduced;
 - the candidate is the root cause;
@@ -99,9 +125,11 @@ change was created.
 
 1. Freeze the exact Harmony raw-resource placement and the intended Markdown
    entry selected by the reproducer.
-2. Run that artifact on a HarmonyOS device or emulator and retain a bounded,
+2. Install the target API 20 SDK component, build the staged host HAP, and verify
+   that its packaged rawfile digest remains the staged Markdown digest.
+3. Run that artifact on a HarmonyOS device or emulator and retain a bounded,
    source-backed observation of the resource lookup/rendering result.
-3. Reproduce the same failure in an independent Development fixture and in the
+4. Reproduce the same failure in an independent Development fixture and in the
    public Context handoff before considering a general retrieval change.
-4. Only then evaluate a repository patch, with its build and device verification
+5. Only then evaluate a repository patch, with its build and device verification
    reported separately from Memory-system behavior.

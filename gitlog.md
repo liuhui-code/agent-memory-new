@@ -9,9 +9,11 @@ What changed:
   maintenance observation in a Development-only report.
 - Verified the example's locked build with Node 26.3.0 and pnpm 11.13.0. The
   multi-entry output emits named `*.lynx.bundle` artifacts (such as
-  `basic.lynx.bundle`), while the frozen host requests `main.lynx.bundle` from
-  its raw-resource fetcher. This is a candidate deployment mismatch, not a
-  confirmed public-issue root cause.
+  `basic.lynx.bundle`), while the frozen host carries a default
+  `main.lynx.bundle` that its raw-resource fetcher requests. A separate staging
+  clone replaced that resource with the generated `basic.lynx.bundle`; matching
+  SHA-256 digests verify the artifact mapping only. This is a candidate
+  deployment mismatch, not a confirmed public-issue root cause.
 
 Why:
 - A real task should exercise the Skill and evidence handoff without allowing
@@ -23,9 +25,10 @@ Verification:
   `pnpm --filter @lynx-example/markdown build` with the source-declared pnpm
   version. No external source files, Agent Memory serving behavior, evaluation
   cases, Oracles, or thresholds were modified.
-- Harmony device/emulator evidence and the reporter's resource-placement details
-  remain unavailable, so the work stops as `development_observation` under the
-  evaluation-and-change policy.
+- The local DevEco SDK only provides API 24 while the frozen source targets API
+  20, and no `hdc` device is reachable. HAP/device evidence and the reporter's
+  resource-placement details remain unavailable, so the work stops as
+  `development_observation` under the evaluation-and-change policy.
 
 ## 2026-08-09 - Bind Real Cohorts To Verified Campaign Input
 
