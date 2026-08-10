@@ -43,11 +43,11 @@ def enforce_budget(
     paths = handoff["path_context"]["path_candidates"]
     reductions: tuple[Callable[[], Any], ...] = (
         lambda: handoff.__setitem__("relation_hints", handoff["relation_hints"][:2]),
-        lambda: [path.__setitem__("expected_logs", path["expected_logs"][:2]) for path in paths],
+        lambda: [path.__setitem__("expected_logs", path.get("expected_logs", [])[:2]) for path in paths],
         lambda: [path.__setitem__("uncertainty", path.get("uncertainty", [])[:1]) for path in paths],
         lambda: handoff.__setitem__("code_anchors", handoff["code_anchors"][:3]),
         lambda: handoff.__setitem__("log_keywords", handoff["log_keywords"][:8]),
-        lambda: handoff.__setitem__("callable_evidence", {}),
+        lambda: minimize_callable_evidence(handoff),
         lambda: handoff.__setitem__("experience_refs", handoff["experience_refs"][:1]),
         lambda: handoff.__setitem__("semantic_refs", handoff["semantic_refs"][:1]),
         lambda: handoff["path_context"].__setitem__("path_candidates", paths[:2]),
@@ -155,6 +155,28 @@ def reduce_callable_evidence_metadata(handoff: dict[str, Any]) -> bool:
             if primary.pop(key, None) is not None:
                 return True
     return False
+
+
+def minimize_callable_evidence(handoff: dict[str, Any]) -> bool:
+    """Keep one locatable callable when compact Context must discard detail."""
+    evidence = handoff.get("callable_evidence")
+    if not isinstance(evidence, dict) or not isinstance(evidence.get("primary"), dict):
+        return False
+    primary = evidence["primary"]
+    compact_primary = {
+        key: primary[key]
+        for key in ("file_path", "symbol", "owner_kind", "source_range")
+        if primary.get(key) not in (None, "", [], {})
+    }
+    if not compact_primary:
+        return False
+    handoff["callable_evidence"] = {
+        "schema_version": evidence.get("schema_version"),
+        "certainty": evidence.get("certainty"),
+        "primary": compact_primary,
+        "alternatives": [],
+    }
+    return True
 
 
 def longest_excerpt(handoff: dict[str, Any], owner: bool) -> dict[str, Any] | None:

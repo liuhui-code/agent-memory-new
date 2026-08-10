@@ -1,5 +1,145 @@
 # Local Development Log
 
+## 2026-08-10 - Replay Scoped ArkTS-to-Native Context on Existing sherpa-onnx Development Source
+
+What changed:
+- Replayed the already-used Apache-2.0 `k2-fsa/sherpa-onnx` `v1.13.3`
+  Development source at its exact tag. The initial Harmony HAR Scope was
+  incrementally expanded with the explicit in-repository C API dependency, not a
+  whole-repository scan.
+
+Result:
+- The unchanged compact handoff returns the ArkTS `OfflineTts` constructor,
+  Harmony N-API wrapper and `SherpaOnnxCreateOfflineTtsOHOS` C API implementation
+  as current-source anchors. `relation_hints` remains empty and callable certainty
+  stays conservative; Runtime does not assert an execution path or root cause.
+
+Verification:
+- The frozen tag is `330609dab49be6ee8b30702918ca7abbbad1286a`. The first Scope
+  indexed 38 files and 431 static relations; the targeted C API Scope added the
+  stack-referenced dependency. This is contamination-explicit repeat evidence
+  only, not an independent source, Agent quality result, reproduction,
+  generalization claim, or serving-change justification.
+
+## 2026-08-09 - Validate Fresh TypeScript/ArkTS Development Source Boundary
+
+What changed:
+- Selected and froze a fresh MIT-licensed `FadingLight9291117/vscode-arkts`
+  source family for a four-Skill Development observation. Its only open issue was
+  reviewed and excluded because it concerns a README redirect rather than a
+  source-backed diagnosis task.
+
+Result:
+- Learning `src` indexed 18 files, 246 symbols, six code logs, and 404 active
+  edges. A source-derived language-server query returned a direct log anchor and
+  locatable callable primary with an explicit diversity gap; it did not generate a
+  diagnosis, execution-path claim, Agent A/B result, or serving change.
+
+Verification:
+- The isolated archive is clean at `468eaa7bac2980435247b5e85e5a584fa378c1ab`.
+  The compact public handoff reports `ready_for_agent_inspection` and leaves
+  `relation_hints` empty rather than fabricating a static path. This is a fresh
+  Development observation only, not a prospective cohort substitute.
+
+## 2026-08-09 - Stop Static Relation Serving Expansion Pending Agent Evidence
+
+What changed:
+- Recorded the qs-arkts static-call observation as a no-go serving decision.
+  The project now distinguishes an absent graph projection from a demonstrated
+  Agent investigation failure.
+- Defined the required project-neutral fixture, shared Agent investigation
+  contract, independent defect-class evidence, and fresh-source validation before
+  any primary-adjacent static relation projection may change serving behavior.
+
+Result:
+- No Runtime API, query ranking, compact output, graph traversal, evaluation
+  threshold, or Agent wrapper changed. The Runtime continues to provide code
+  anchors and static evidence only; the Agent CLI remains responsible for path
+  reconstruction and diagnosis.
+
+Verification:
+- Rechecked the frozen qs full handoff: it returns 10 `imports` edge matches and
+  no `calls`, while compact Context exposes locatable `merge`, `parseKeys`, and
+  `hasOwnKey` anchors. This proves only stage misalignment, not an Agent quality
+  regression, so the change policy requires a stop rather than a serving patch.
+
+## 2026-08-09 - Link Resolved Imported Module Calls
+
+What changed:
+- The ArkTS static Adapter now emits a cross-file `calls` edge for an unqualified
+  call only when its identifier exactly matches a resolved relative import alias.
+
+Verification:
+- A red-first Development fixture proves `parseQuery -> hasOwnKey`; the frozen
+  qs-arkts archive rebuild records `merge -> hasOwnKey` and `merge -> isProtoKey`.
+  The edge remains static evidence, not a diagnosis or execution-path conclusion.
+- Full discovery ran 945 tests with only two sandbox-blocked loopback binds;
+  the loopback runner passes 3/3 with permission.
+
+## 2026-08-09 - Index ArkTS Module-Level Arrow Callables
+
+What changed:
+- Extended the bounded ECMAScript callable-header contract to recognize direct
+  and typed top-level `const`/`let`/`var` arrow declarations, including
+  multi-line type and initializer headers.
+- Changed compact budgeting to preserve one locatable callable primary while
+  dropping alternatives and explanatory metadata first.
+
+Result:
+- In a frozen public `wgli-collab/qs-arkts#1` Development observation, Context
+  now supplies `merge`, `parseKeys`, and `hasOwnKey` source anchors instead of
+  promoting unrelated `SideChannel.has`. This is evidence retrieval only; the
+  Runtime does not diagnose the reported performance issue or infer a cause.
+
+Verification:
+- Added red-first coverage for direct and typed arrow headers, indexed/served
+  arrow callables, and callable-primary retention under compact budget pressure.
+- The external archive was rebuilt at its frozen revision and its compact
+  handoff retains `utils_merge.ets:merge` within the 1,500-token budget.
+- Full discovery ran 944 tests with only two sandbox-blocked loopback binds;
+  the runner module passes 3/3 with loopback permission. Compilation,
+  line-limit, and diff-hygiene checks pass.
+
+## 2026-08-09 - Correct Generic Callable Owner Identity Promotion
+
+What changed:
+- Reproduced the ArkTS callable-primary mismatch in both an independent
+  project-neutral Development fixture and the frozen archive's actual public
+  `query_handoff`.
+- Narrowed callable owner identity promotion to distinctive, standalone
+  compound identifiers. A generic one-word owner such as `Resource` can no
+  longer be promoted merely because ordinary query prose contains that word.
+
+Result:
+- The frozen focused ArkTS query now selects
+  `DiagnosticProviderImpl.getArktsDiagnostics` as its callable primary rather
+  than unrelated `Resource.getProduct`. Recall, graph traversal, Context
+  budgets, causal projection, and the Runtime/Agent diagnosis boundary are
+  unchanged.
+
+Verification:
+- Focused identity, development reproduction, hierarchical localization,
+  callable, and Context regressions pass 45/45. Full discovery ran 940 tests;
+  the only two sandbox errors were local loopback binds in Ollama runner tests,
+  which pass 3/3 when run with loopback permission. Python compilation,
+  repository line-limit, and diff-hygiene checks pass.
+
+## 2026-08-09 - Record External ArkTS Cross-Library Observation
+
+What changed:
+- Recorded a licensed, frozen `ohosvscode/arkTS#265` Development observation
+  using the four existing Skills and an isolated staging copy.
+- Preserved the red/green language-service regression result and explicitly
+  rejected the candidate patch because the upstream project model lacks a
+  resolved Library dependency graph.
+
+Result:
+- The public issue and source support a cross-library resource-resolution
+  hypothesis, but do not justify a workspace-wide module lookup or any Agent
+  Memory serving change. The next valid work is dependency-graph evidence in
+  the external project and an independent `query_handoff` fixture for the
+  observed callable-projection mismatch.
+
 ## 2026-08-09 - Record External ArkTS Dogfooding Evidence Boundary
 
 What changed:

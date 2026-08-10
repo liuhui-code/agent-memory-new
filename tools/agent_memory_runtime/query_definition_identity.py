@@ -10,6 +10,11 @@ TYPE_DEFINITION_KINDS = {
     "class", "component", "enum", "interface", "object", "struct",
 }
 DIRECT_IDENTITY_REASONS = {"exact_identifier", "exact_symbol"}
+OWNER_IDENTITY_TOKEN_RE = re.compile(
+    r"(?<![-a-z0-9_$/\.])[a-z_$][a-z0-9_$]*(?![-a-z0-9_$/\.])",
+    re.IGNORECASE,
+)
+OWNER_IDENTIFIER_PART_RE = re.compile(r"[A-Z]+(?=[A-Z][a-z]|$)|[A-Z]?[a-z]+|\d+")
 
 
 def explicit_definition_identity(item: dict[str, Any]) -> bool:
@@ -22,9 +27,15 @@ def explicit_definition_identity(item: dict[str, Any]) -> bool:
 
 
 def explicit_owner_identity_match(query: str, owner_name: object) -> bool:
+    """Accept only a distinctive, standalone owner identifier as explicit identity."""
     owner = str(owner_name or "").strip()
     if len(owner) < 3:
         return False
-    normalized_query = re.sub(r"[^a-z0-9_$]", " ", query.casefold())
+    if len(OWNER_IDENTIFIER_PART_RE.findall(owner)) < 2:
+        return False
     normalized_owner = re.sub(r"[^a-z0-9_$]", "", owner.casefold())
-    return bool(normalized_owner) and normalized_owner in normalized_query.split()
+    query_tokens = {
+        match.group(0).casefold()
+        for match in OWNER_IDENTITY_TOKEN_RE.finditer(query)
+    }
+    return bool(normalized_owner) and normalized_owner in query_tokens

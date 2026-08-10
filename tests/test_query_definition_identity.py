@@ -29,6 +29,16 @@ class QueryDefinitionIdentityTests(unittest.TestCase):
             "Inspect FullPlayerPagerSpecification", "FullPlayerPagerSpec",
         ))
 
+    def test_owner_identity_rejects_a_file_path_token_fragment(self) -> None:
+        self.assertFalse(explicit_owner_identity_match(
+            "resource-provider getArktsDiagnostics", "Resource",
+        ))
+
+    def test_owner_identity_rejects_a_generic_business_word(self) -> None:
+        self.assertFalse(explicit_owner_identity_match(
+            "Invalid resource scope", "Resource",
+        ))
+
     def test_definition_lane_bypasses_dense_directory_limit(self) -> None:
         values = [
             item("src/layout/APage.ets", "method", ["exact_symbol"], 30.0),

@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from .ecma_braces import block_end
-from .ecma_callable_headers import function_header, method_header
+from .ecma_callable_headers import method_header, top_level_callable_header
 from .models import Project
 from .semantic_ecma_callbacks import callback_callable_specs
 from .semantic_ecma_objects import object_container_specs
@@ -42,6 +42,8 @@ class Container:
     extends: str | None
     implements: list[str]
     entity: SemanticEntity
+
+
 @dataclass
 class CallableBlock:
     owner: str | None
@@ -49,7 +51,6 @@ class CallableBlock:
     end: int
     entity: SemanticEntity
     override: bool = False
-
 
 @dataclass
 class ParsedFile:
@@ -61,13 +62,11 @@ class ParsedFile:
     mechanisms: list[SemanticMechanism]
     gaps: list[dict[str, str]]
 
-
 @dataclass(frozen=True)
 class ParsedFileContext:
     fields_by_owner: dict[str, dict[str, str]]
     state_names_by_owner: dict[str, tuple[str, ...]]
     imported_paths: dict[str, str | None]
-
 
 def index_ecma_files(
     project: Project,
@@ -90,15 +89,12 @@ def index_ecma_files(
     expand_dispatch_candidates(batch)
     return batch.validate()
 
-
 def bounded_gaps(gaps: list[dict[str, str]]) -> list[dict[str, str]]:
     return gaps[:MAX_GAPS]
-
 
 def parse_file(project: Project, path: Path, language: str, state_annotations: bool) -> ParsedFile:
     text = path.read_text(encoding="utf-8", errors="ignore")
     return parse_source(project, path, text, language, state_annotations)
-
 
 def parse_source(
     project: Project,
@@ -161,7 +157,6 @@ def parse_source(
         gaps=gaps,
     )
 
-
 def parse_containers(lines: list[str], language: str, file_path: str) -> list[Container]:
     result: list[Container] = []
     for index, line in enumerate(lines):
@@ -189,7 +184,6 @@ def parse_containers(lines: list[str], language: str, file_path: str) -> list[Co
             spec.exported, None, [], entity))
     result.sort(key=lambda item: item.start)
     return result
-
 
 def parse_container_members(
     lines: list[str],
@@ -229,7 +223,6 @@ def parse_container_members(
         index += 1
     return methods, states
 
-
 def parse_top_level_functions(
     lines: list[str],
     language: str,
@@ -245,7 +238,7 @@ def parse_top_level_functions(
         if container_index < len(containers) and containers[container_index].start <= index:
             index = containers[container_index].end + 1
             continue
-        header = function_header(lines, index)
+        header = top_level_callable_header(lines, index)
         if not header:
             index += 1
             continue
@@ -261,7 +254,6 @@ def parse_top_level_functions(
         result.append(CallableBlock(None, index, end, entity))
         index = end + 1
     return result
-
 
 def inheritance_relations(container: Container, methods: list[CallableBlock]) -> list[SemanticRelation]:
     result: list[SemanticRelation] = []
@@ -286,7 +278,6 @@ def inheritance_relations(container: Container, methods: list[CallableBlock]) ->
                     line=method.start + 1, confidence=0.9, detail="explicit override",
                 ))
     return result
-
 
 def callable_relations(
     lines: list[str],
@@ -314,6 +305,16 @@ def callable_relations(
         target = by_qualified.get(local_prefix + name)
         if target:
             result.append(relation(block.entity.key, "calls", target.key, block.start + call_line, 0.95, "local method call"))
+    imported_calls = scan_calls_masked(body, mask, r"\b([A-Za-z_$][\w$]*)\s*\(")
+    for call_line, call in imported_calls:
+        name = re.search(r"\b([A-Za-z_$][\w$]*)", call).group(1)
+        target_path = imported_paths.get(name)
+        if target_path:
+            result.append(SemanticRelation(
+                source_key=block.entity.key, relation="calls", target_name=name,
+                target_file_path=target_path, line=block.start + call_line,
+                confidence=0.9, detail=f"imported module call; arity={call_argument_count(call)}",
+            ))
     typed_calls = scan_calls_masked(body, mask, r"\b(?:this\.)?([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\s*\(")
     for call_line, call in typed_calls:
         field_name, method_name = re.search(r"\b(?:this\.)?([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)", call).groups()

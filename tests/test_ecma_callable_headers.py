@@ -6,6 +6,7 @@ import unittest
 
 from tools.agent_memory_runtime.ecma_callable_headers import (
     MAX_HEADER_LINES,
+    arrow_function_header,
     function_header,
     method_header,
 )
@@ -50,6 +51,48 @@ class EcmaCallableHeaderTests(unittest.TestCase):
         self.assertTrue(header.exported)
         self.assertEqual("persistEnvelope", header.name)
         self.assertEqual(5, ranges[0]["end_line"])
+
+    def test_exported_arrow_function_has_callable_identity_and_range(self) -> None:
+        lines = [
+            "export const hasOwnKey = (",
+            "  obj: Object,",
+            "  key: string",
+            "): boolean => {",
+            "  return Object.keys(obj).indexOf(key) !== -1",
+            "}",
+        ]
+
+        header = arrow_function_header(lines, 0)
+        ranges = named_callable_ranges(lines)
+
+        self.assertIsNotNone(header)
+        assert header is not None
+        self.assertTrue(header.exported)
+        self.assertEqual("hasOwnKey", header.name)
+        self.assertEqual("obj: Object, key: string", header.params)
+        self.assertEqual("boolean", header.return_type)
+        self.assertEqual((1, 6), (ranges[0]["start_line"], ranges[0]["end_line"]))
+
+    def test_typed_exported_arrow_function_finds_initializer_after_type(self) -> None:
+        lines = [
+            "export const merge: (",
+            "  target: Object,",
+            "  source: Object",
+            ") => Object = (",
+            "  target: Object,",
+            "  source: Object",
+            "): Object => {",
+            "  return target",
+            "}",
+        ]
+
+        header = arrow_function_header(lines, 0)
+
+        self.assertIsNotNone(header)
+        assert header is not None
+        self.assertEqual("merge", header.name)
+        self.assertEqual("target: Object, source: Object", header.params)
+        self.assertEqual("Object", header.return_type)
 
     def test_interface_signature_without_body_is_not_callable_range(self) -> None:
         lines = [
