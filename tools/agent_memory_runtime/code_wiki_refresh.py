@@ -10,10 +10,13 @@ from pathlib import Path
 from typing import Any
 
 from .code_wiki_followup import semantic_followup_from_db
-from .code_wiki_imports import collect_entry_related_files, collect_path_files, resolve_target
+from .code_wiki_imports import (
+    collect_entry_related_files, collect_path_files, collect_project_files, resolve_target,
+)
 from .code_wiki_indexing import build_file_snapshot, file_sha256, load_learn_scopes, parse_stats_summary, write_wiki_scope
 from .code_wiki_extractors import language_for
 from .models import Project
+from .normative_index import NormativeSourceReadError
 from .records import output
 from .scope_boundaries import (
     apply_boundary_observations,
@@ -64,15 +67,19 @@ def files_for_scope(source_project: Project, scope_row: sqlite3.Row) -> list[Pat
     if scope_type == "path":
         target_path = str(scope_row["target_path"] or ".")
         target = resolve_target(source_project, target_path)
+        if not target.exists():
+            return []
         return collect_path_files(source_project, target)
     if scope_type == "entry":
         entry_path = str(scope_row["entry_path"] or "").strip()
         if not entry_path:
             raise SystemExit(f"learn scope {scope_row['id']} is missing entry_path")
         entry = resolve_target(source_project, entry_path)
+        if not entry.exists():
+            return []
         if not entry.is_file():
             raise SystemExit(f"learn scope entry no longer exists as file: {entry}")
-        depth = int(scope_row["depth"] or 2)
+        depth = int(scope_row["depth"] if scope_row["depth"] is not None else 2)
         return collect_entry_related_files(source_project, entry, depth)
     raise SystemExit(f"unsupported learn scope type: {scope_type}")
 
@@ -342,12 +349,16 @@ def maintain_refresh_scope(args: argparse.Namespace) -> None:
             files_to_refresh = scanned_files or []
         semantic_drift_before = load_refresh_semantic_snapshot(source_project, changed_files)
         if files_to_refresh or removed_files or not changed_only:
-            stats = write_wiki_scope(
-                source_project,
-                files_to_refresh,
-                replace=False,
-                retired_relative_files=removed_files,
-            )
+            try:
+                stats = write_wiki_scope(
+                    source_project,
+                    files_to_refresh,
+                    replace=False,
+                    retired_relative_files=removed_files,
+                )
+            except NormativeSourceReadError as error:
+                error.scope_id = int(scope_row["id"])
+                raise
         else:
             stats = {
                 "files_indexed": 0,

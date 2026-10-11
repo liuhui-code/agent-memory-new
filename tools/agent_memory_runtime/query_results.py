@@ -153,6 +153,13 @@ def limited_context(
     )
     evidence["passage_portfolio"] = passage_portfolio
     context["query_audit"]["callable_passage_portfolio"] = passage_portfolio
+    from .normative_context import collect_normative_context
+
+    anchors = [str(item["file_path"]) for item in context["query_handoff"].get("code_anchors", [])
+               if item.get("file_path")]
+    normative = collect_normative_context(project, query, anchors)
+    if normative:
+        context["query_handoff"]["normative_context"] = normative
     record_context_use(project, context)
     record_query_miss_if_empty(project, "context", query, context)
     return context
@@ -387,6 +394,9 @@ def normalize_query_miss(query: str) -> str:
 
 def record_query_miss_if_empty(project: Project, source: str, query: str, data: dict[str, Any]) -> None:
     counts = result_counts(data)
+    normative = (data.get("query_handoff") or {}).get("normative_context") or {}
+    if normative.get("document_refs"):
+        return
     if any(counts.values()):
         return
     normalized_query = normalize_query_miss(query)

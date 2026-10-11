@@ -24,6 +24,7 @@ from .vault_common import (
 )
 from .vault_governance import write_governance_dashboard
 from .vault_incident import write_incident_trace_vault_pages
+from .normative_vault import write_normative_vault
 
 def vault_init(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
@@ -225,6 +226,7 @@ def vault_export(args: argparse.Namespace) -> None:
 
     write_governance_dashboard(project, facts, reflections, episodes, query_misses, reflection_reuse_events, semantic_conflicts)
     write_incident_trace_vault_pages(project, incident_traces)
+    write_normative_vault(project)
     vault_index(args)
     print(f"vault exported to {project.vault_dir}")
 
@@ -248,6 +250,7 @@ def vault_index(args: argparse.Namespace) -> None:
     content += "- [[Codebase Wiki/memory-edges]]\n"
     content += "- [[Codebase Wiki/incident-traces]]\n"
     content += "- [[Codebase Wiki/query-misses]]\n"
+    content += "\n## Normative Context\n\n- [[Normative Context/index]]\n"
     content += "\n## Governance\n\n"
     content += "- [[Governance/Health]]\n"
     content += "- [[Governance/Review Queue]]\n"

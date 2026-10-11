@@ -61,7 +61,9 @@ from .impact_scope import impact_scope_command
 from .impact_feedback import impact_feedback_command
 from .incident_trace import incident_trace_command, incident_trace_status
 from .log_signal_eval import eval_log_signal_command
+from .normative_index import NormativeSourceReadError
 from .quality_gate_eval import eval_quality_command
+from .records import output
 from .reflection_commands import reflect
 from .retrieval_eval import eval_retrieval_command
 from .retrieval_feedback import retrieval_feedback_command
@@ -166,5 +168,27 @@ def main(argv: list[str] | None = None) -> int:
     configure_stdio()
     parser = build_parser(command_handlers())
     args = parser.parse_args(argv)
-    args.func(args)
+    try:
+        args.func(args)
+    except NormativeSourceReadError as error:
+        payload = {
+            "schema_version": "normative-learning-error/v1",
+            "status": "source_read_failed", "source_root": error.report["source_root"],
+            "scope_id": error.scope_id,
+            "failed_batch": {
+                "learning_transaction": "rolled_back", "scope_checkpoint_advanced": False,
+            },
+            "attempted_normative_index": error.report,
+            "next_action": "review_source_and_retry_same_scope", "approval_inferred": False,
+        }
+        if getattr(args, "json", False):
+            output(payload, True)
+        else:
+            print(str(error), file=sys.stderr)
+            for issue in error.report["read_issues"][:5]:
+                print(f"  {issue['file_path']}: {issue['reason']} ({issue['detail']})", file=sys.stderr)
+            shown = min(5, len(error.report["read_issues"]))
+            if error.report["read_issue_count"] > shown:
+                print(f"  Showing {shown} of {error.report['read_issue_count']} read issues.", file=sys.stderr)
+        return 1
     return 0

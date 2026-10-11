@@ -18,6 +18,10 @@ python3 tools/agent_memory.py design-context --project . --query "<design goal>"
    relations as navigation evidence and missing edges as uncertainty.
 4. Review task constraints, semantic corrections, and memory evidence in
    authority order. Historical experience cannot establish current architecture.
+   When `project_context.normative_context` is returned, inspect the source document,
+   approval reference, scope and supersession claims. Use an applicable approved
+   specification to describe expected behavior, and current source to describe actual
+   behavior. Drafts and stale references do not become hard constraints.
 5. Use quality questions and knowledge entries to decide which concerns and
    principles actually apply. A returned pattern reference is not a recommendation.
 6. When context is broad, query again with Agent-confirmed concerns and anchors:
@@ -46,7 +50,9 @@ python3 tools/agent_memory.py design-context --project . \
 - `current_repository`: graph snapshot, source anchors, boundaries, state
   owners, consumers, tests, and observability anchors.
 - `project_context`: explicit constraints, scoped semantic corrections, and
-  historical memory warnings.
+  historical memory warnings, plus separately labeled normative-document candidates
+  when a matching ADR or Feature Spec was learned. Their declared approval requires
+  Agent review; the Runtime does not certify a decision or specification.
 - `quality_context`: lexical routing hints and scenario questions. The Agent
   confirms or rejects each concern.
 - `design_knowledge`: general principles, tactics, and patterns with

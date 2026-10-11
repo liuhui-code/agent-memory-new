@@ -185,11 +185,14 @@ python tools/agent_memory.py design-context \
 
 ### 4.3 `project_context`
 
-包括三类信息：
+包括以下信息：
 
 - `task_constraints`：当前任务硬约束，优先级最高。
 - `semantic_corrections`：业务语义补充或纠正，只作为 guardrail。
 - `memory_evidence`：相关历史经验和语义事实，只作为提示或风险警告。
+- `normative_context`：已学习且与查询匹配的 ADR / Feature Spec 引用；没有匹配项时不返回。包含声明状态、scope、批准引用、源文新鲜度、Git 状态、取代声明及有界摘录。
+
+规范性文档接入为本次按理论编写的未验证实现，格式与边界见[接入说明](normative-context-adr-feature-spec-decision.zh-CN.md#本次理论实现未执行验证)。`approval_review_required` 始终为 true：元数据齐全、内容新鲜或 Git 已提交均不证明批准有效。Agent 需检查原文、批准依据、适用范围和取代关系，再区分预期契约与当前实现。草案只作假设，历史文档不能约束当前设计；compact 截断时展开同一查询或直接读源文。
 
 未验证纠正会标记：
 

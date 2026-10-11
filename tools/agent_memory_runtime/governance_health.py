@@ -34,6 +34,7 @@ from .experience_maturity import score_experience_maturity
 from .experience_usage import build_experience_usage_actions, fetch_experience_usage_summary
 from .memory_tiers import build_memory_tier_actions, build_memory_tiers
 from .models import ACTIVE_STATUS, GOVERNANCE_COLUMNS, Project, REVIEW_DUPLICATE_POOL_LIMIT, VALID_MEMORY_STATUSES
+from .normative_health import normative_index_health
 from .performance_scoring import (
     append_performance_sample,
     build_performance_sample,
@@ -174,6 +175,7 @@ def maintain_health(args: argparse.Namespace) -> None:
         ).fetchone()["count"]
         semantic_active_rows = fetch_memory_rows(conn, project, "semantic", active_only=True, limit=REVIEW_DUPLICATE_POOL_LIMIT)
         reflection_active_rows = fetch_memory_rows(conn, project, "reflection", active_only=True, limit=REVIEW_DUPLICATE_POOL_LIMIT)
+        normative_index = normative_index_health(conn, project)
 
     scope_health_rows = build_scope_health_rows(project)
     scope_missing_source = sum(1 for row in scope_health_rows if row["health_status"] == "missing_source")
@@ -217,6 +219,11 @@ def maintain_health(args: argparse.Namespace) -> None:
     stale_count = stale_semantic_count + stale_reflection_count
 
     recommended_actions: list[str] = []
+    if normative_index["duplicate_identity_count"] or normative_index["sample_review_document_count"]:
+        recommended_actions.append(
+            "Review normative_index source and metadata gaps against original Git documents; "
+            "refresh the affected learned scope without inferring approval or acceptance."
+        )
     if stale_count:
         recommended_actions.append("Review stale memories and archive, merge, or refresh them.")
     if duplicate_count:
@@ -286,6 +293,7 @@ def maintain_health(args: argparse.Namespace) -> None:
             "semantic_facts": semantic_count,
             "reflections": reflection_count,
             "episodes": episode_count,
+            "normative_documents": normative_index["document_count"],
             "stale": stale_count,
             "low_confidence": low_confidence_count,
             "duplicate_candidates": duplicate_count,
@@ -335,6 +343,7 @@ def maintain_health(args: argparse.Namespace) -> None:
         "context_capability": context_capability,
         "retrieval_observations": retrieval_observations,
         "code_index": code_index,
+        "normative_index": normative_index,
         "runtime_performance": build_runtime_performance_summary(project),
         "semantic_provider": provider_health,
         "recommended_actions": recommended_actions,

@@ -49,6 +49,53 @@ python3 tools/agent_memory.py maintain-rebuild-derived --project . --target grap
 
 For an external learned tree, pass its original `--source`. Check `preserved`, relation counts, edge amplification, relation dominance, semantic adapter errors, and provider runs before accepting the rebuilt graph. Do not use `wiki-index --replace` merely to repair derived indexes.
 
+ADR and Feature Spec documents follow the same previously learned scopes.
+`maintain-health.normative_index` reports stored document/status counts and duplicate
+identities, with a source/metadata sample of at most 20 recently indexed documents and
+at most five review references. Inspect unexamined counts and truncation; it does not
+certify approval, acceptance or the freshness of unsampled documents.
+Review items include record ID, indexed `source_digest` and the sample read's
+`observed_digest`, which is null when unavailable. The recorded revision still belongs
+to learning time. Comparing these digests does not refresh the stored document.
+Review references may include `replacement_lookup`: same-source-root cached targets,
+ambiguous IDs and reciprocal declaration gaps. Its linked targets are not additional
+checked source samples. Read both Git originals and approval evidence before deciding
+whether the relationship applies; refresh does not resolve or approve it automatically.
+`maintain-refresh-scope` refreshes their declared status, approval references, scope,
+replacement links and source digest; deleted files or removed/invalid normative markers
+retire the corresponding derived document rows. Refresh does not approve a document.
+An explicit `--replace` learning operation rebuilds normative rows for that source root;
+ordinary partial learning preserves other document scopes.
+Entry refresh preserves `--depth 0`. A deleted learned entry or path under an existing
+source root retires its cached scope; a missing source root remains a reported gap.
+After adopting updated normative parsing rules, fully refresh existing affected Scopes
+without `--changed-only` to reparse unchanged documents. Do not add `--replace` for this
+purpose; a search-only rebuild does not apply the parser to cached source text.
+Read `parse_stats.normative_index` for per-operation added/changed/unchanged paths,
+retirement reasons, source-read issues and bounded previews. Review its `next_action`
+before treating indexing as complete. A selected unreadable document retains its old
+cache and provenance for review: source-read errors in normative extraction now abort
+the current indexing batch, including replacement retirements, before Scope checkpoint
+updates. With `--json`, inspect `normative-learning-error/v1`, the failed Scope ID,
+`failed_batch` and `attempted_normative_index`; attempted counts are not committed changes.
+Restore or review the source and retry that same existing Scope. Earlier successful
+Scopes in the call remain committed; this is a batch rollback, not a command-wide one.
+Successful querying still requires current-source and approval checks. Earlier learning
+failures may abort before this structured normative report is returned.
+
+`maintain-rebuild-derived --target search` also repairs the normative FTS index from
+SQLite. It does not refresh Git content or validate approval. Change the reviewed Git
+document first, then refresh its learned scope. Query reports changed/missing sources
+and dirty/untracked Git documents as review gaps rather than silently reusing approval.
+`vault-export` writes a generated `Normative Context` reference index and snapshots;
+editing those mirrors never changes approval or synchronizes back to Git.
+Mirrors link the original local file and show source freshness in the index. Changed,
+missing or unverified source is explicitly marked before the retained old snapshot;
+do not use that snapshot as current-source evidence. Operational last-context caches
+retain normative excerpt positions without text and do not replace source review.
+Mirrors label indexed and export-time observed digests separately; an unavailable
+observation is explicit. Export does not approve or update the SQLite contract snapshot.
+
 ## Review Queue
 
 When the user asks to review, clean, govern, merge, or check memory quality:

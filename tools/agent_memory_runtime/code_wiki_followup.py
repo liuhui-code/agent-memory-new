@@ -369,7 +369,16 @@ def semantic_followup_from_db(project: Project, file_paths: list[str]) -> dict[s
         return None
     files: list[dict[str, Any]] = []
     with connect(project) as conn:
+        has_normative_index = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='normative_documents'"
+        ).fetchone() is not None
         for file_path in unique_paths:
+            if has_normative_index and file_path.lower().endswith(".md") and conn.execute(
+                """SELECT 1 FROM normative_documents
+                   WHERE project_id = ? AND source_root = ? AND file_path = ? LIMIT 1""",
+                (project.project_id, str(project.root.resolve()), file_path),
+            ).fetchone():
+                continue
             file_row = conn.execute(
                 """
                 SELECT file_path, summary, business_summary, business_terms

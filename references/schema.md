@@ -371,3 +371,113 @@ Legacy compatibility design commands may also use caller-owned or disposable JSO
 - `design-outcome/v1`: compact persisted calibration result.
 
 All design-context and legacy design artifacts except `design-outcome/v1` are ephemeral. Workbenches, candidate templates, and progress checkpoints are caller-owned or disposable and never enter SQLite. `design_outcomes` stores only candidate/contract ids, baseline/current graph revisions, status/outcome, four bounded metrics, failed-test count, replan count, and timestamp. It never stores requirements, context packs, proposals, progress, source, diffs, test logs, or reasoning; retention is capped at 1,000 rows per project. SQLite remains authoritative for current learned repository facts and compact governed outcomes.
+
+## Normative Document Index
+
+`normative_documents` is a separate, regenerable index of explicitly marked Git
+ADR and Feature Spec Markdown. It is not ordinary experience, temporary user
+intent, a generated proposal, or a source of approval decisions.
+
+- The row identity is `(project_id, source_root, file_path)`. `document_id` is a
+  declared stable identifier; duplicate identifiers within one source root are
+  retained and flagged for Agent review.
+- `kind`, normalized `status`, JSON `scopes`, JSON `approval`, `supersedes` and
+  `superseded_by` describe declarations in the source. Approval fields contain
+  owner, approver, date and review reference; their presence does not authenticate
+  approval or prove implementation acceptance.
+- `body` is a snapshot of at most a 64 KiB document, with `body_start_line`,
+  `source_digest`, observed `source_revision`, `index_generation` and `updated_at`.
+  The Git revision is the observed repository HEAD, not an approval-version seal.
+- `search_terms` feeds the derived `normative_document_fts` FTS5 table. Triggers
+  update the search rows within the learning transaction; search rebuild reads
+  SQLite and does not refresh or approve Git documents.
+
+Raw source limits count an optional UTF-8 BOM and original line endings: 65,536 bytes
+for the entire document and 4,096 bytes from file start through the closing frontmatter
+line ending (or its last byte at EOF). The closing line is within 48 LF/CRLF physical
+lines after the opening delimiter, including comments and blanks. Body text normalizes
+CRLF to LF for physical excerpt positions; the digest remains that of the original bytes.
+Parsing-rule changes require a full refresh of affected learned Scopes to reparse
+unchanged sources; rebuilding FTS alone does not update the cached document format.
+
+Scoped Learn/Maintain operations update or retire these records in the existing
+code-learning transaction. Replacement affects the selected source root. A
+removed marker, invalid metadata or a retired file removes its derived record;
+Git retains document history. Query checks only bounded matching source files,
+omits stale excerpts, and returns disposable `normative-context/v1` references
+under the existing `context` or `design-context` payload.
+
+This integration was written on 2026-10-11 at the user's request without tests,
+performance checks or efficacy evaluation. See the
+[normative context contract](../docs/normative-context-adr-feature-spec-decision.zh-CN.md)
+for the flat frontmatter format and Agent review boundary.
+
+`normative-index-health/v1` is a disposable maintenance projection, not another
+SQLite table. `document_count`, `declared_status_counts` and
+`duplicate_identity_count` describe stored declarations. `source_sample` describes
+at most 20 recently indexed files, their observed freshness and the number not
+examined; it explicitly records that Git state was not checked. `review_sample`
+returns at most five source/metadata gaps or claims awaiting review. Sample
+truncation is independent of index counts, and no field certifies approval,
+acceptance or the freshness of the entire catalog.
+
+`normative-context/v1` reports `examined_document_count` for inspected candidates,
+`candidate_limit_exceeded` when more matches remain outside that bound, and cumulative
+`omitted_document_count` / `omitted_evidence_gap_count` across full selection, compact
+projection and budget reduction. Omitted document counts cover examined candidates;
+they do not count unknown matches beyond the candidate limit. `truncated` also covers
+partial body excerpts. Full evidence gaps identify the source root/path and cached
+record ID; compact gaps retain record ID, document ID and reason.
+
+Document references include `scope_basis: document_source_root` and
+`source.matches_query_project`. The latter compares root directories, not task
+applicability. External source roots require Agent confirmation even for global scopes.
+
+`source.digest` identifies the indexed raw bytes; `source.observed_digest` identifies
+the query's bounded source read, or is null if a complete read was unavailable.
+Freshness uses that same observed digest, and compact retains both fields. These
+observations do not refresh the cached metadata. Learning previews expose
+`source_digest`, learning-time `observed_revision` and `index_generation`; maintenance
+review items expose record ID, indexed `source_digest` and the sample read's
+`observed_digest`. None of these fields binds approval or proves an atomic filesystem
+snapshot. Observed digests are disposable output, not additional persisted columns.
+
+`replacement_lookup` is a disposable projection of same-project, same-source-root
+cached declarations, shared by Query and Maintain. Forward targets expose
+`not_indexed`, `ambiguous` or `unique`, with at most two target references per field;
+reverse claims from documents declared approved expose at most three references.
+One extra row detects each preview's overflow. Type differences, reciprocal gaps
+and direct two-document cycle declarations are review warnings, not a validity verdict
+or a full graph audit. The lookup does not read target sources or authenticate approval;
+its `target_sources_checked`, per-target `source_checked` and `approval_verified` flags
+are false. Linked metadata does not add to inspected-candidate or source-sample counts.
+Compact projection retains forward IDs/states and overflow flags without full target
+previews. No additional persisted relationship table or automatic status change is added.
+
+Excerpts carry the actual displayed `start_line` and `end_line`, recomputed after
+character clipping. The operational `runtime/last_context.json` cache replaces
+normative `excerpt` text with `excerpt_metadata`, while the public command output can
+still contain a bounded excerpt. This does not alter the separate SQLite source
+snapshot, authenticate approval or guarantee future source freshness.
+
+`normative-index/v1` reports changes by cached path and raw digest, actual retirements
+by reason, independently bounded indexed/retired/error previews and `next_action`.
+Committed results describe actual mutations. Source-read errors during normative
+extraction abort the current learning transaction and retain its prior rows/provenance;
+the failed batch does not advance its Scope checkpoint. Stable Scope removal, invalid
+metadata or removed markers retire records in a successful batch. Replacement uses a
+temporary connection-local selection table to remove only unselected records in the
+source root before refreshing selected paths. This table is dropped within the learning
+operation; it is not a persisted project store. The caller controls commit/rollback.
+
+`normative-learning-error/v1` is a disposable error projection returned with a nonzero
+exit code for commands that already accept `--json`. It includes source root, optional
+failed maintenance Scope ID, `failed_batch` rollback/checkpoint metadata and
+`attempted_normative_index`. Attempted counts describe rolled-back work, not actual
+committed mutations; previews retain their normal bounds. Earlier Scope commits and
+initialization are outside this failed-batch boundary. No error table or retry queue
+is persisted, and no new command or automatic scope expansion is introduced.
+
+When `normative_document_fts` is newly created, initialization fills it from the stored
+document rows. It does not refresh Git or change approval declarations. Existing FTS
+tables still use the explicit derived-rebuild path for repairs.

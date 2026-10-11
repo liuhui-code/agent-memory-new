@@ -80,6 +80,7 @@ def search_counts(conn: Any) -> dict[str, int]:
         "code_file_fts",
         "code_symbol_fts",
         "code_log_fts",
+        "normative_document_fts",
     )
     return {
         table: int(conn.execute(f"SELECT COUNT(*) AS count FROM {table}").fetchone()["count"])

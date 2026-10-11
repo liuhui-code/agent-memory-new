@@ -113,7 +113,7 @@ Project-specific knowledge remains in SQLite:
 - code files, symbols, logs, and graph edges;
 - semantic facts and confirmed semantic corrections;
 - verified experience and failures;
-- project decisions when ADR ingestion is added;
+- derived ADR and Feature Spec snapshots with Git provenance and declared approval metadata;
 - explicit architecture constraints and fitness rules.
 
 Temporary user requirements and Agent reasoning are not persisted by default.
@@ -238,6 +238,13 @@ the general knowledge catalog or Runtime algorithms automatically.
    semantic enrichment.
 6. Build real repository design cases and run Agent A/B evaluation before each
    retrieval-policy change.
+
+On 2026-10-11, the user requested theoretical implementation without validation.
+The minimal document index now supplies optional `normative_context` through the
+existing Learn/Maintain and Context/Design Context paths. It exposes approval
+claims for Agent review and does not certify accepted constraints or acceptance
+results. This implementation does not complete Phase 2 validation or the efficacy
+phase; see [the normative context contract](../../normative-context-adr-feature-spec-decision.zh-CN.md).
 
 ## Acceptance Criteria For Phase 1
 

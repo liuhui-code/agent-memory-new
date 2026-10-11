@@ -12,6 +12,9 @@ from .records import output
 from .repository_model import build_repository_model, public_repository_model
 from .storage import ensure_initialized, resolve_project
 from .context_sufficiency import design_sufficiency
+from .normative_context import (
+    collect_normative_context, compact_normative_context, reduce_normative_context,
+)
 
 
 QUALITY_PROMPTS = {
@@ -90,12 +93,20 @@ def design_context_command(args: argparse.Namespace) -> None:
         knowledge_audit,
         args.compact,
     )
+    normative = collect_normative_context(project, knowledge_query, anchors)
+    if normative:
+        payload["project_context"]["normative_context"] = (
+            compact_normative_context(normative) if args.compact else normative
+        )
     if args.compact:
         enforce_compact_budget(payload)
     output(payload, args.json)
 
 
 def enforce_compact_budget(payload: dict[str, Any], token_budget: int = 1500) -> None:
+    normative = payload["project_context"].get("normative_context")
+    while estimate_payload_tokens(payload) > token_budget and reduce_normative_context(normative):
+        pass
     reductions = (
         lambda: payload["quality_context"].pop("vocabulary_source", None),
         lambda: payload.__setitem__("expansion_hints", payload["expansion_hints"][:1]),

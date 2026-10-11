@@ -972,3 +972,149 @@ Compact budgeting reserves only the actual bounded size of selected multi-passag
 evidence. When procedure or correction memory is present, source excerpts are trimmed
 before that governed memory is discarded. These rules preserve the fixed 1,500-token
 contract and do not infer a diagnosis, call path, or repair.
+
+## Normative Document Context
+
+Existing scoped Learn and Maintain commands recognize Markdown with explicit
+`type: adr` or `type: feature-spec` frontmatter. They store a separate derived
+SQLite snapshot and FTS index in the learning transaction. The first version
+supports flat metadata, a scalar or single-line JSON array for scope and one document
+ID per replacement field. The whole document is at most 65,536 original UTF-8 bytes;
+frontmatter is at most 4,096 original bytes from file start through the closing line
+ending, including an optional leading BOM, delimiters and actual LF/CRLF bytes.
+Closing at EOF counts through the delimiter's last byte but still requires body content.
+The closing delimiter must appear within 48 physical lines after the opening line,
+at source line 49 or earlier; comments, blanks and the closing line count. LF and CRLF
+are structural line endings. Bare CR and Unicode paragraph separators do not create
+extra structural lines. Ordinary Markdown retains its existing wiki behavior.
+Normative extraction reads a 4 KiB prefix and, only for an explicitly marked document,
+the remaining bounded content through the same file handle. It does not reopen the
+file between recognition and parsing; unmarked Markdown does not load the remainder
+in this phase. The document digest, body and metadata share the read bytes, which
+still do not establish an atomic filesystem snapshot.
+Partial lines cut at the prefix byte boundary cannot establish type markers. The
+reserved type value is literal `adr` or `feature-spec`, optionally quoted. Parsed
+body text normalizes CRLF to LF for physical excerpt positions, while size bounds
+and source digests retain the original bytes.
+
+Existing cached rows are not automatically reparsed when these format rules change.
+Fully refresh affected learned Scopes without `--changed-only` to apply the parser to
+unchanged files as well. Derived search rebuild only consumes SQLite records.
+
+`parse_stats.normative_index` reports added, digest-updated and digest-unchanged
+cached paths, actual retirements by reason, metadata review counts and `next_action`.
+Indexed/retired/metadata-error/read-error previews each contain at most 20 entries
+and carry independent truncation flags. Successfully read unchanged content still
+receives the new observed revision and generation; these are not approval results.
+Indexed previews retain `source_digest`, learning-time `observed_revision` and
+`index_generation` so the operation's source binding can be cited separately from a
+later query observation. The generation identifies a SQLite learning batch, not an
+atomic filesystem snapshot or an approved source version.
+Indexed normative documents in the selected source root are excluded from automatic
+business-semantic follow-up templates; mixed scopes still return code follow-ups.
+
+An I/O failure during normative extraction aborts the current learning transaction
+before commit or Scope checkpoint updates, including when a selected file disappears
+after selection. Attempted code/document/FTS changes and replacement retirements roll
+back; existing rows and provenance remain. Stable Scope removals, successfully read
+invalid metadata and removed markers retire their cache in a successful batch.
+Replacement uses a connection-local selection table in that same transaction.
+
+For commands with an existing `--json` option, the Runtime returns
+`normative-learning-error/v1` and exit code 1. `failed_batch` identifies the rolled-back
+learning transaction and unchanged Scope checkpoint. `attempted_normative_index`
+contains the extraction report's bounded diagnostics and attempted mutation counts;
+these are not committed changes. `scope_id` identifies the failed maintenance Scope
+when known. JSON read-issue previews remain capped at 20; text errors show at most
+five on stderr. Review sources and retry the same scope without automatically widening
+it or adding replacement. Earlier completed maintenance Scopes and initialization
+are outside this rollback boundary. Earlier code-learning failures or later Scope
+registration retain their existing error paths, not a universal structured-error contract.
+Creating a missing normative FTS table fills it from SQLite records without reading
+Git or changing declared status; initialization does not routinely rebuild an existing
+table or certify its integrity.
+
+`context` may return `query_handoff.normative_context`; `design-context` may
+return `project_context.normative_context`. The optional `normative-context/v1`
+contains up to six references from at most twelve candidates; compact projection
+contains up to two and reduces new excerpts and references first under the shared
+budget. Truncation requires expansion or direct source reading.
+
+References distinguish `source.digest` for indexed raw bytes from
+`source.observed_digest` for the current query's bounded read. Freshness and the
+observed digest use the same read, and compact keeps both fields. A null observed
+digest means the complete document could not be read within the source contract.
+Changed documents retain both digests without refreshing cached metadata or returning
+an old excerpt. Git path state is observed separately; the stored revision remains
+the learning-time repository observation. These fields do not certify approval or
+an atomic repository snapshot.
+
+The projection reports examined candidates, additional matches beyond the candidate
+limit, and cumulative omissions of examined documents and known gaps. These counts
+survive full-to-compact projection and subsequent budget reduction; examined counts
+do not represent the total matching catalog. Full gaps retain source root/path and
+record identity; compact gaps retain record ID, document ID and reason. Unknown
+status is an explicit review gap. Excerpt end lines follow the text actually emitted
+after character clipping, and partial body text contributes to `truncated`.
+
+The operational `last_context.json` cache replaces normative excerpt bodies with
+line/truncation metadata, using the existing source-excerpt redaction path. Public
+output still exposes bounded text. Neither cache metadata nor an earlier freshness
+observation certifies the current document's approval or later source state.
+
+References separate declared status and approval from source freshness, Git path
+state, scope matching and replacement claims. Approved, current, applicable
+metadata can produce `expected_contract_candidate`, but every record still
+requires Agent approval review. Drafts are hypothesis material; superseded,
+withdrawn or rejected documents are historical references. Changed or missing
+source does not supply an old excerpt. Anchors in the archive project do not
+confirm a document's scope in a different learned source tree. `scope_basis` is
+`document_source_root`; `source.matches_query_project` compares root directories only.
+External roots require Agent applicability confirmation even for global scope.
+
+`replacement_lookup` exposes cached declarations in the same project/source root.
+Forward states (`not_indexed`, `ambiguous`, `unique`) describe the cache, with at most
+two references per target field; reverse claims from documents declared approved have
+at most three references. Previews detect overflow with one additional row. Reciprocal
+gaps, kind differences and direct two-document cycle declarations request source review;
+they do not certify invalidity, authenticate a replacement or audit the complete graph.
+This lookup does not read target sources or check their Git state, and its source-check
+and approval flags remain false. Separately selected candidates can have their own
+observations. Linked metadata is not added to inspected-candidate counts. Compact
+output retains forward IDs/states and overflow flags without full target previews.
+
+The Runtime does not authenticate approval, approve a changed contract, adjudicate
+expected-versus-actual behavior or mark acceptance complete. Search rebuild
+restores the derived FTS from SQLite; Vault export creates read-only mirrors.
+Refresh must use the existing learned scope to read new Git content.
+
+Normative Vault pages link the original Git file. Their index shows observed source
+freshness, and a changed, missing or unverified source adds an explicit notice before
+the indexed snapshot. The retained snapshot is not promoted into current-source
+evidence or an approval result.
+
+`maintain-health` adds `counts.normative_documents` and a
+`normative-index-health/v1` projection under `normative_index`. Stored document,
+declared-status and duplicate-identity counts cover the index; source/metadata
+observations cover at most 20 recently indexed documents. Up to five review
+references are returned. Unexamined counts and truncation remain explicit, and
+this projection does not check Git state, certify approval or establish overall
+freshness. It only suggests reviewing originals and refreshing known scopes.
+Its review references reuse the same cached replacement lookup; linked targets are
+not additional checked source samples. Review both originals before resolving claims.
+Review items include record ID, indexed `source_digest` and the sample read's
+`observed_digest`, or null if unavailable. Vault mirrors likewise label indexed and
+export-time observed digests separately, using `unavailable` when needed. The shared
+source observer reuses each consumer's bounded read and does not update document rows.
+
+Scope refresh preserves entry depth zero. If the source root still exists, a
+removed entry or path produces an empty scope and retires its cached records;
+missing source roots remain unresolved instead of silently purging their index.
+The installer continues copying complete package and Skill directories, including
+the Learn Skill's document-format reference. A source directory is not removed
+when it is also the install destination, even with `--force`.
+
+The minimal integration was written on 2026-10-11 without validation at the user's
+request. Tests, performance and Agent efficacy have not been evaluated for this
+change. The document format and provenance contract are recorded in
+[the normative context document](normative-context-adr-feature-spec-decision.zh-CN.md).

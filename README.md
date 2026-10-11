@@ -104,6 +104,7 @@ The project is especially optimized for:
 | Code and log graph | Files, symbols, code logs, and versioned typed `memory_edges` |
 | Incident context | Log keywords, source anchors, candidate call paths, corrections, experience, and gaps |
 | Design context | Repository structure, task/project constraints, quality questions, design knowledge, and provenance |
+| Normative context | Derived Git ADR/Feature Spec references with status, scope, approval claims, freshness and supersession; implementation unverified |
 | Experience model | Procedure, correction, and semantic-patch experience lanes |
 | Skill evolution | Reviewed multi-case procedure experience can become a Skill candidate or package |
 | Governance | Refresh, stale/merge/conflict/miss/feedback review, graph health, and action plans |
@@ -570,11 +571,13 @@ python tools/agent_memory.py vault-export --project .
 - `docs/templates/memory-query-answer-skill-template.md`: copyable skill template for query, logs, recursive search, and final answers.
 - `docs/superpowers/specs/2026-07-16-long-term-data-governance-kernel.md`: long-term observation, stable-signal, and governance architecture.
 - `docs/superpowers/specs/2026-07-16-design-context-provider.md`: long-term Agent-owned design-context architecture and industry references.
+- `docs/normative-context-adr-feature-spec-decision.zh-CN.md`: ADR/Feature Spec contract, authority boundaries, and the unvalidated minimal derived-index implementation.
+- `docs/normative-context-acceptance-plan.zh-CN.md`: planned Development acceptance matrix, real-trial material gaps and result-recording rules; all scenarios are unexecuted.
 - `gitlog.md`: local development log and rollback notes.
 
 ## Roadmap
 
-- Ingest accepted and superseded ADRs as project design constraints.
+- Apply reviewed ADR and Feature Spec context after Agent approval/scope review; the minimal derived index is implemented without validation.
 - Split legacy design scoring from objective source/API/graph/test validation.
 - Improve stable symbol identity and language-neutral semantic providers.
 - Expand real-repository Agent A/B cases for diagnosis and design quality.

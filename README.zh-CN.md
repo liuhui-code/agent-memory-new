@@ -67,6 +67,7 @@ Agent Memory 的目标不是保存更多文本，而是向 Agent 提供**短、�
 | 日志图 | 日志模板、logger、级别、函数、业务事件、阶段和相邻关键词 |
 | 问题定位上下文 | 用户问题到日志关键词、代码锚点、候选调用路径和历史警告 |
 | 设计上下文 | 代码结构、项目约束、质量属性问题、设计知识和证据缺口 |
+| 规范性上下文 | Git ADR/Feature Spec 的类型、状态、范围、批准声明、时效与取代引用；本次实现尚未验证 |
 | 影响范围 | Git 变更到依赖方、符号、日志、测试和覆盖缺口 |
 | 经验系统 | procedure、correction、semantic patch 三类经验 |
 | Skill 演化 | 多条已验证 procedure experience 可形成 Skill 候选和草案 |
@@ -557,6 +558,8 @@ python tools/agent_memory.py vault-export --project .
 - [SQLite Schema](references/schema.md)
 - [长期数据治理内核](docs/superpowers/specs/2026-07-16-long-term-data-governance-kernel.md)
 - [Design Context Provider](docs/superpowers/specs/2026-07-16-design-context-provider.md)
+- [ADR / Feature Spec 规范性上下文设计与未验证实现](docs/normative-context-adr-feature-spec-decision.zh-CN.md)
+- [规范性上下文验收矩阵与真实试用材料清单（未执行）](docs/normative-context-acceptance-plan.zh-CN.md)
 
 ## 一句话概括
 

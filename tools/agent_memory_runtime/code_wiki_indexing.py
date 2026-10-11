@@ -25,6 +25,7 @@ from .index_freshness import activate_index_generation, next_index_generation
 from .incremental_dispatch_scope import dispatch_rebuild_paths
 from .code_passages import rebuild_code_passages
 from .models import Project
+from .normative_index import NormativeSourceReadError, sync_normative_index
 from .semantic_refresh import load_business_semantics, restore_business_semantics
 from .scope_changes import git_head
 from .scope_boundaries import sync_scope_boundaries
@@ -372,6 +373,13 @@ def write_wiki_index(
             log_rows,
         )
         mark_phase("insert_rows")
+        normative_stats = sync_normative_index(
+            conn, project, [path for path, _, _, _ in relative_files],
+            retired_file_paths, generation, revision, ts, replace,
+        )
+        if normative_stats["read_issue_count"]:
+            # The connection context rolls this batch back before callers advance a Scope.
+            raise NormativeSourceReadError(normative_stats)
         business_semantics_restored = restore_business_semantics(conn, project.project_id, business_snapshot)
         mark_phase("restore_business")
         semantic_stats = rebuild_code_memory_edges(
@@ -411,6 +419,7 @@ def write_wiki_index(
         "business_semantics_restored": business_semantics_restored,
         "semantic_index": semantic_stats,
         "passage_index": passage_stats,
+        "normative_index": normative_stats,
         "reverse_dependents_reindexed": reverse_dependents,
         "dispatch_dependents_reindexed": dispatch_dependents,
         "edge_rebuild": edge_rebuild_metrics(
@@ -429,9 +438,18 @@ def write_wiki_index(
 
 
 def parse_stats_summary(stats: dict[str, Any]) -> str:
-    return (
+    summary = (
         f"parsed files={stats.get('files_indexed', 0)}, "
         f"symbols={stats.get('symbols_total', 0)}, "
         f"logs={stats.get('code_logs_total', 0)}, "
         f"edges={stats.get('memory_edges_total', 0)}"
     )
+    normative = stats.get("normative_index") or {}
+    indexed = int(normative.get("documents_indexed") or 0)
+    retired = int(normative.get("documents_retired") or 0)
+    issues = sum(int(normative.get(key) or 0) for key in (
+        "metadata_issue_count", "read_issue_count", "documents_requiring_metadata_review",
+    ))
+    if indexed or retired or issues:
+        summary += f", normative={indexed}, normative_retired={retired}, normative_review={issues}"
+    return summary

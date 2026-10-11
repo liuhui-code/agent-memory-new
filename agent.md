@@ -58,6 +58,7 @@ Responsibilities:
 - Natural language plus skills is the intended user interface; direct CLI usage is the backend and debugging interface.
 - The Runtime retrieves, ranks, correlates, and compresses evidence. The local Agent CLI owns hypotheses, diagnosis, design reasoning, interventions, and verification; graph paths and experience are context, not Runtime conclusions.
 - `semantic-index/v1` adapters run only during learning; normalized symbol metadata and edges remain in SQLite for language-neutral design, impact, and Incident consumers.
+- Explicitly marked Git ADRs and Feature Specs may be learned into a separate derived document index. `context` and `design-context` return bounded references with declared approval, scope, supersession and source freshness; the Agent reviews the original document and approval evidence before treating it as an applicable contract. This minimal integration was written on 2026-10-11 without validation; see [the normative context contract](docs/normative-context-adr-feature-spec-decision.zh-CN.md).
 
 ## Runtime Commands
 

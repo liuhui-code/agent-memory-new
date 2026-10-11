@@ -15,6 +15,14 @@ A reflection is an experience candidate, not accepted experience. The Agent must
 the assumptions, invalid cases, verification method, source cases, and reuse feedback
 needed for future Agents to decide whether the lesson should transfer.
 
+Keep normative documents separate from experience. If an ADR or Feature Spec informed
+the task, cite its document ID, Git path and version in the existing source/context
+references, and record only the reusable lesson. Do not copy the full specification
+into a semantic fact or reflection, infer approval from a successful task, or rewrite
+an unverified draft as a verified project decision. Changes to stable requirements or
+architecture decisions belong to reviewed Git documents and are refreshed by Learn or
+Maintain; Reflect does not approve or synchronize those documents.
+
 When the task included multiple query rounds or inspection pivots, also capture the
 compressed trace-case fields instead of a long transcript:
 

@@ -28,6 +28,7 @@ REQUIRED_TABLES = {
     "semantic_conflicts",
     "impact_feedback",
     "design_outcomes",
+    "normative_documents",
 }
 
 VAULT_DIRS = [
@@ -35,6 +36,7 @@ VAULT_DIRS = [
     "Reflections",
     "Semantic Facts",
     "Codebase Wiki",
+    "Normative Context",
     "Governance",
     "Daily",
 ]

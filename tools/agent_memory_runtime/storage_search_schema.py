@@ -266,6 +266,9 @@ def create_search_triggers(conn: sqlite3.Connection) -> None:
 
 
 def rebuild_search_indexes(conn: sqlite3.Connection) -> None:
+    from .normative_schema import rebuild_normative_search
+
+    rebuild_normative_search(conn)
     tables = (
         "semantic_fact_fts",
         "reflection_fts",

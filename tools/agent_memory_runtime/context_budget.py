@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any, Callable
 
 from .performance_scoring import estimate_payload_tokens
+from .normative_context import reduce_normative_context
 
 
 MINIMAL_GUARD_FIELDS = (
@@ -41,6 +42,10 @@ def enforce_budget(
 ) -> None:
     handoff = payload["query_handoff"]
     paths = handoff["path_context"]["path_candidates"]
+    normative = handoff.get("normative_context")
+    while (estimate_payload_tokens(payload) > token_budget - reserve_tokens
+           and reduce_normative_context(normative)):
+        pass
     reductions: tuple[Callable[[], Any], ...] = (
         lambda: handoff.__setitem__("relation_hints", handoff["relation_hints"][:2]),
         lambda: [path.__setitem__("expected_logs", path.get("expected_logs", [])[:2]) for path in paths],
@@ -93,6 +98,8 @@ def synchronize_estimate(payload: dict[str, Any]) -> None:
 
 def reduce_final_payload(payload: dict[str, Any]) -> bool:
     handoff = payload["query_handoff"]
+    if reduce_normative_context(handoff.get("normative_context")):
+        return True
     if handoff.get("next_queries"):
         handoff["next_queries"] = []
         return True

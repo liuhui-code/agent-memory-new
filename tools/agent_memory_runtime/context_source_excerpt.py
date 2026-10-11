@@ -456,6 +456,14 @@ def redact_source_excerpt_bodies(payload: dict[str, Any]) -> dict[str, Any]:
         metadata = [excerpt_metadata(item) for item in excerpts if isinstance(item, dict)]
         if metadata:
             anchor["source_excerpt_metadata"] = metadata
+    normative = handoff.get("normative_context")
+    if isinstance(normative, dict):
+        for ref in normative.get("document_refs") or []:
+            if not isinstance(ref, dict):
+                continue
+            excerpt = ref.pop("excerpt", None)
+            if isinstance(excerpt, dict):
+                ref["excerpt_metadata"] = excerpt_metadata(excerpt)
     return sanitized
 
 

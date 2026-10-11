@@ -147,6 +147,40 @@ python tools/agent_memory.py learn-path --project . --path skills --replace --js
 
 Each `wiki-index`, `learn-path`, and `learn-entry` run now also records a persistent learn-scope manifest in SQLite. That gives `agent-memory-maintain` a stable way to refresh those exact learned scopes later when the project changes, without asking the user to restate every path or entry file.
 
+### ADR And Feature Spec Documents
+
+Ask the Agent to learn an existing decision or stable requirement document. The
+Learn Skill includes a [portable format reference](../skills/agent-memory-learn/references/normative-documents.md)
+that is copied into installed Skill directories. Only Markdown explicitly marked
+`type: adr` or `type: feature-spec` enters the separate derived document index.
+Use `learn-entry --depth 0` for one known document, or `learn-path` for its smallest
+relevant directory. Partial learning preserves other records; avoid `--replace`
+for a normal document update.
+
+Read `parse_stats.normative_index` for indexed counts and metadata gaps. Then use
+existing `context` or `design-context` queries by real document ID or requirement
+terms. Their optional `normative_context` references are bounded and require
+original-source, approval and scope review. Status labels and Git commits do not
+prove approval or implementation acceptance. Read the original if references are
+absent or truncated.
+
+After an authorized source edit or deletion, refresh its existing learned scope.
+Entry depth zero is retained. A deleted entry/path in a present source root retires
+its cached scope, while a missing source root remains a reported gap. The existing
+`maintain-health` command reports `normative_index`: exact cached status counts and
+duplicate IDs, plus a source/metadata sample of at most 20 recently indexed files.
+Its unexamined counts and truncation must not be interpreted as a whole-catalog audit.
+
+This integration is implemented without validation at the user's request. No
+installation, tests, performance checks or efficacy evaluation were executed for
+this change. The [normative context contract](normative-context-adr-feature-spec-decision.zh-CN.md)
+records the implementation and review boundary.
+The [acceptance plan](normative-context-acceptance-plan.zh-CN.md) defines controlled
+scenarios, real-trial material gaps and version-bound result records. Its cases are
+all `not_run`; the plan does not certify correctness or launch an efficacy campaign.
+
+### Code Logs And Business Semantics
+
 Learning also stores code log statements such as `print(...)`, `logger.error(...)`, `console.warn(...)`, and ArkTS `hilog.info(...)`. These are connected to learned files and nearest detected functions through `memory_edges`.
 
 For HarmonyOS projects, learning also indexes `.json5` config files, ArkTS router targets, and `$r(...)` resource references as code wiki symbols. `learn-entry` can follow ArkTS router targets such as `router.pushUrl({ url: 'pages/Detail' })` to the related `.ets` page.

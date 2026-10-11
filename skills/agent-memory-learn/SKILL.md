@@ -11,6 +11,38 @@ Prefer natural language from the user, then choose the narrowest runtime command
 
 `--project` selects the current memory archive and query context. If the code to learn lives elsewhere, pass that external source root with `--source`; learned data is still archived under `--project`.
 
+## ADR And Feature Spec Documents
+
+Read [the document format and workflow](references/normative-documents.md) when
+learning ADRs or Feature Specs. This reference is included in installed Skill copies.
+
+When the user asks to learn project decisions or stable requirements, use the existing
+`learn-entry --depth 0` or `learn-path` command on the smallest relevant Git document
+scope. Markdown explicitly marked `type: adr` or `type: feature-spec` in flat frontmatter
+is indexed into a separate derived SQLite document table during the same learning
+transaction. Ordinary Markdown remains ordinary code-wiki context.
+
+Read `parse_stats.normative_index` for indexed document counts, metadata issues and
+truncation. Follow its `next_action` for the document pass: repair actual source/metadata
+gaps, inspect the retirement summary, or query the real indexed IDs on the same archive.
+Added/updated/unchanged counts describe cached paths and raw source digests, not approval.
+Each indexed/retired/issue preview is bounded independently; read its truncation flag.
+An unreadable selected document retains its prior cache for review; do not infer that it
+was removed or approved. Indexed normative documents from that source tree are excluded
+from automatic business-semantic follow-ups. Apply mixed-scope `semantic_followup` only
+to actual code meaning, and never copy a contract into business summaries to fill a gap.
+The document requires a stable `id`, explicit status, repository-relative
+scope and source content. Approval metadata is a claim from the source, not an approval
+performed by Learn. Never invent an owner, approver, review reference or acceptance result,
+or change `proposed`/`draft` to `accepted`/`approved` merely to make indexing succeed.
+Use real Git documents; do not manufacture a catalog or rewrite ADRs as reflections.
+
+Document status, approval and replacement references belong to the reviewed Git source.
+Runtime query returns candidates for Agent review. Learning does not establish that the
+specification is implemented or that an architecture decision is still applicable.
+
+## Code And Business Semantics
+
 For high-quality project learning, first read the target files and summarize business meaning in the required structure, then write it with `learn-business`. The runtime should store the Agent's structured understanding alongside the existing file, symbol, and log records.
 
 ```bash

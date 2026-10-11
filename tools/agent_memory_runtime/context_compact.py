@@ -23,6 +23,7 @@ from .index_freshness import compact_freshness_report
 from .query_behavior_concepts import behavior_marker_terms
 from .source_exploration import assign_anchor_roles, exploration_contract
 from .text import ENGLISH_QUERY_STOPWORDS
+from .normative_context import compact_normative_context
 
 
 COMPACT_TOKEN_BUDGET = 1500
@@ -102,6 +103,8 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
     )
     return {
         "schema_version": "agent-query-handoff-compact/v1",
+        **({"normative_context": compact_normative_context(handoff["normative_context"])}
+           if handoff.get("normative_context") else {}),
         "log_keywords": compact_keywords(handoff.get("log_keywords")),
         "log_anchors": [clean_record(item, LOG_FIELDS) for item in log_anchors],
         "code_anchors": code_anchors,

@@ -1,6 +1,6 @@
 ---
 name: agent-memory-query
-description: Use when the user asks to query, search, recall, inspect, design against, or retrieve project memory, current code structure, logs, incidents, impact evidence, or codebase wiki context.
+description: Use when the user asks to query, search, recall, inspect, design against, or retrieve project memory, code, logs, incidents, impact evidence, ADRs, Feature Specs, or codebase wiki context.
 ---
 
 # Agent Memory Query
@@ -55,6 +55,53 @@ pattern or produce a design. Load `references/code-design.md`; the Agent owns
 concern selection, alternatives, tradeoffs, the final design, and its plan.
 
 Use `search` or `wiki-search` only when the selected protocol calls for a broader or code-only view. Do not pass temporary runtime-log files to Agent Memory.
+
+## Normative Context
+
+Inspect omission counts when this lane is present. `examined_document_count` covers
+bounded candidates, while `candidate_limit_exceeded` marks additional unexamined
+matches. `omitted_document_count` and `omitted_evidence_gap_count` accumulate known
+omissions across selection, compact projection and budget reduction. Do not treat
+those counts as total matching-document coverage. `truncated` also covers partial
+body text; read the original for a complete contract. Full gap provenance and cached
+record IDs distinguish documents from different source roots.
+
+For stable product behavior or architecture decisions, inspect
+`query_handoff.normative_context` in `context`, or
+`project_context.normative_context` in `design-context`. Use the existing task route;
+do not query every ADR and specification for an unrelated local task.
+
+- Read the document's source root, path, digest, declared status, scope, approval
+  reference, replacement references, freshness and `allowed_use`.
+- `source.digest` identifies indexed raw bytes; `source.observed_digest` identifies
+  this query's bounded read, or is null when unavailable. Compare the two without
+  treating an observation as refreshed metadata or authenticated approval. The
+  recorded revision belongs to learning time; Git state and bytes are separate
+  observations rather than an atomic repository snapshot.
+- Scope belongs to `scope_basis: document_source_root`. `source.matches_query_project`
+  compares roots only. Confirm external-tree applicability against the current task,
+  including global scopes marked `source_root_requires_agent_confirmation`.
+- `expected_contract_candidate` means the metadata and current source permit review;
+  it is not independently verified approval. Read the original Git document and its
+  approval evidence before treating it as an applicable project constraint.
+- Keep drafts as hypotheses and superseded/withdrawn/rejected documents as historical
+  references. Resolve duplicate IDs and replacement claims before applying either.
+- `replacement_lookup` describes bounded cached metadata in the same source root;
+  `not_indexed`, `ambiguous` and `unique` refer only to that cache. Read both original
+  documents for approval, scope and reciprocal claims. Target-source and approval flags
+  remain false in this lookup; a linked record is not an inspected source or an approved
+  replacement merely because it appears. Metadata gaps do not adjudicate invalidity.
+- Changed, missing, untracked or modified documents require source/approval review.
+  A fresh digest or a Git commit alone never proves approval.
+- When `truncated` is true or an omission count is greater than zero, expand the same
+  focused query without `--compact`, or read the cited source. An excerpt is not the
+  full contract; candidate overflow also leaves matches unexamined.
+- Report expected behavior and observed implementation separately when they disagree.
+  The Agent owns diagnosis and design; Runtime does not choose which side is correct.
+
+If a relevant document has not been learned, read it directly or use the existing Learn
+Skill on that explicit scope. Keep the current task intent temporary; do not synthesize
+an approved Feature Spec from the user's prompt or current implementation.
 
 ## Authority
 

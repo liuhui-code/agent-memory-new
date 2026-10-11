@@ -29,6 +29,8 @@ def copy_file(source: Path, target: Path, force: bool) -> None:
 
 
 def copy_skill_dir(source: Path, target: Path, force: bool) -> None:
+    if target.exists() and source.resolve() == target.resolve():
+        return
     if target.exists():
         if not force:
             print(f"skip existing {target}")

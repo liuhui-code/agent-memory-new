@@ -33,6 +33,7 @@ CLI 的项目上下文层：从 SQLite 中检索历史经验、业务语义纠�
 - 返回文件、符号、函数和行号等源码锚点。
 - 返回有界的原始代码图、日志图和 Incident 关系边。
 - 标注来源、时效、权威性、冲突、覆盖缺口和匹配原因。
+- 返回已学习的 ADR / Feature Spec 引用、声明状态、批准字段、适用范围和源文状态；批准真实性与契约适用性由 Agent 核查。
 - 在 `query_handoff` 中给出下一轮查询契约。
 
 排序只决定 Agent 先看什么。原始边只说明存储中存在某种关系；它不是当前
@@ -55,6 +56,7 @@ CLI 的项目上下文层：从 SQLite 中检索历史经验、业务语义纠�
 - `code_anchors`：当前调查建议优先读取的源码位置。
 - `experience_refs`：相关历史经验引用，只作提示或约束。
 - `semantic_refs`：业务语义事实和纠正引用。
+- `normative_context`：可选的规范性文档引用；字段是待审查的来源声明，不是 Runtime 确认的批准或验收结论。
 - `next_query_contract`：要求候选原因逐个调用 `context`。
 - `role_boundary`：明确 Runtime 不读临时日志、不构建因果链。
 
@@ -90,3 +92,10 @@ Runtime 不推荐设计模式，不生成或比较候选，不选择方案，也
 Agent CLI 阅读当前源码，判断适用原则，分析候选与权衡，并负责最终设计和验证。
 长期协议与业界依据见
 [`Design Context Provider`](superpowers/specs/2026-07-16-design-context-provider.md)。
+
+`context.query_handoff` 与 `design-context.project_context` 可包含
+`normative_context`。ADR 和 Feature Spec 原文及批准依据在 Git 中维护，SQLite
+只保存可再生成的索引和有界快照，Obsidian 只镜像这些记录。Runtime 不认证批准，
+不推断验收通过，也不裁决源码与规格冲突。草案只能形成假设，历史规格不能作为
+当前硬约束；截断引用需展开查询或读取原文。此最小接入按用户要求编写，未执行
+验证，完整契约见[规范性上下文文档](normative-context-adr-feature-spec-decision.zh-CN.md)。

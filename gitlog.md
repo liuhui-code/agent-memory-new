@@ -9421,3 +9421,369 @@ Result:
   campaign without inventing task, log, source or Oracle data.
 - It remains `draft_template_only`; no cohort, Agent A/B, serving change or promotion claim is
   authorized until a human-owned manifest is reviewed against the documented readiness gate.
+
+## 2026-10-11 - Record normative context decision proposal
+
+What changed:
+
+- Added a Chinese decision document on when reviewed ADRs and Feature Specs can help the local
+  Agent, how they differ from current source, task intent and historical experience, and how to
+  validate a future Runtime integration against the existing evaluation policy.
+- Linked the decision proposal from the README document index.
+- Corrected unsupported assumptions in the supplied research report; no fabricated ADRs,
+  feature entries, benchmark results, or new Runtime APIs were adopted.
+
+Result:
+
+- Documentation only. The four Skills, SQLite source of truth, existing entry point, query
+  behavior, and real-campaign no-go status are unchanged.
+
+## 2026-10-11 - Review normative context proposal against project contracts
+
+What changed:
+
+- Reviewed the proposal against implementation baseline
+  `9f7bed27ff4a754b503d5e457584908ba9eea6c0`, the project mission, Query Skill,
+  Design Context Provider, and mandatory evaluation policy.
+- Made the existing authority order explicit, separated semantic corrections from historical
+  experience, and clarified how the Agent investigates expected-versus-actual behavior.
+- Bound historical readiness claims to their audit date and revision; distinguished the old
+  machine-readable audit from the subsequent Development paired-contract closure.
+- Replaced unsupported fabrication labels with unverified-source wording, added approval and
+  revision provenance, and separated specification approval from implementation acceptance.
+- Distinguished a proposed capability from a reproduced serving defect, prioritized reuse of
+  existing contracts, and left future storage details to evidence-backed integration review.
+- Replaced generic OpenSpec and Cucumber references with specific official pages.
+
+Validation:
+
+- All 24 local links and referenced heading anchors resolve. The four external reference pages
+  were opened and reviewed.
+- Authority order matches the implementation; historical audit date and revision match the JSON
+  record. Markdown whitespace, table widths, code fences, and `git diff --check` pass.
+
+Result:
+
+- Documentation review and corrections only. The document remains a design proposal; this
+  review does not approve Runtime integration, rerun readiness or efficacy evaluation, or
+  supply evidence of improved Agent outcomes.
+
+## 2026-10-11 - Implement minimal normative document context without validation
+
+What changed:
+
+- Implemented a separate derived SQLite / FTS5 index for explicitly marked Git ADRs and
+  Feature Specs, with bounded flat frontmatter, source snapshots, stable IDs, declared
+  approval metadata, scopes, replacement references, digests and learning generations.
+- Integrated document updates and retirement with the existing scoped code-learning
+  transaction and derived search rebuild; no new Skill or Runtime entry point was added.
+- Added optional bounded document context to `context` and `design-context`, distinguishing
+  draft, historical and reviewable expected-contract candidates. Current bytes and selected
+  Git path states inform freshness; they do not certify approval or acceptance. External
+  source scopes require review against their own tree.
+- Added compact projection and shared-budget reduction with visible truncation, plus
+  generated Obsidian document mirrors. Git remains authoritative for reviewed normative
+  content; SQLite is the Runtime's derived machine-readable record.
+- Updated all four Skill workflows, the normative context document, Runtime/schema/Vault
+  references, project boundaries and usage documentation to describe the implemented contract.
+
+Validation status:
+
+- The user explicitly requested skipping verification and implementing the theoretical
+  optimization. No tests, compilation, smoke runs, performance gates, readiness audits or
+  Agent efficacy evaluations were executed for this change.
+- No Runtime command was run to ingest documents or mutate an existing Memory database.
+  No ADR, Feature Spec approval, evaluation result, campaign evidence or gain was fabricated.
+
+Result:
+
+- The minimal implementation is written and remains unvalidated. This does not establish
+  correctness, lower cost, passed readiness, general Agent gains or a promotion claim.
+- Existing evaluation assets and consumed holdouts were not changed or rerun; the normal
+  evidence policy remains applicable to future validation and claims.
+
+## 2026-10-11 - Complete normative context installation and maintenance workflow
+
+What changed:
+
+- Added a Learn Skill reference with the exact flat document format, status vocabulary,
+  bounded fields, approval-review requirements and existing learn/query/refresh workflow.
+  It ships through the installer's existing whole-directory Skill copy.
+- Extended `maintain-health` with stored document/status and duplicate-identity counts,
+  a source/metadata sample of at most 20 recently indexed documents and at most five
+  review references. Unexamined and truncated samples are explicit; approval, acceptance
+  and overall freshness are never certified by the maintenance projection.
+- Preserved recorded entry depth zero during refresh. Deleted selected entries or paths
+  under an existing source root now produce an empty scope for cached-record retirement;
+  missing source roots continue to report unresolved gaps. Restored the project-file
+  collector import used by full-scope refresh.
+- Prevented a forced installation from deleting a directory that is also its own source.
+  No new commands, Skills, background services or external dependencies were introduced.
+- Updated Runtime, schema, normative-context, Skill and usage documentation for the
+  completed installation and maintenance flow.
+
+Validation status:
+
+- Continued under the user's instruction to skip verification. No tests, compilation,
+  installer run, Runtime commands, performance gates or efficacy evaluations were executed.
+- Existing Memory databases, campaign data and consumed evaluation packs were not changed.
+
+Result:
+
+- Installation and maintenance integration is written and remains unvalidated. No
+  correctness, approval, readiness, cost reduction or Agent-outcome gain is claimed.
+
+## 2026-10-11 - Preserve normative citation gaps and truncation provenance
+
+What changed:
+
+- Added inspected-candidate and candidate-overflow metadata plus cumulative document/gap
+  omission counts through full selection, compact projection and shared-budget reduction.
+  Counts describe known omissions and do not claim coverage of unexamined matches.
+- Bound full evidence gaps to source root/path and cached record identity; retained record
+  IDs in compact references/gaps and made unknown document status an explicit review gap.
+- Added actual excerpt end lines, recalculated after character clipping, and marked partial
+  document text in the parent truncation signal.
+- Extended the existing operational source-excerpt redaction path to replace normative
+  excerpt bodies with position/truncation metadata in `last_context.json`. Public output
+  and the separate bounded SQLite source snapshot retain their existing responsibilities.
+- Added original Git-file links and index freshness labels to generated normative Vault
+  pages; changed, missing or unverified source explicitly marks the indexed snapshot as
+  unsuitable for current-source evidence.
+- Updated the normative contract, schema/Runtime/Vault references and Learn/Query/Maintain
+  workflows for these output and cache semantics.
+
+Validation status:
+
+- Continued under the user's request to skip verification. No tests, compilation, Runtime
+  commands, Vault export, performance gates or efficacy evaluations were executed.
+- No actual Memory ingestion, approval, campaign or holdout data was changed.
+
+Result:
+
+- Citation, truncation and cache behavior is written and remains unvalidated. Retrieval
+  candidates and authority order were not retuned; no correctness or effectiveness gain
+  is claimed from these theoretical changes.
+
+## 2026-10-11 - Describe normative learning changes and preserve unreadable selected records
+
+What changed:
+
+- Extended normative learning statistics with added/digest-updated/digest-unchanged paths,
+  actual retirement reasons, metadata review counts and a next-action hint. Indexed,
+  retired, format-error and read-error previews each have their own 20-entry bound and
+  truncation metadata; CLI parse summaries include normative activity when present.
+- Distinguished source read failures from definitive removal or invalid metadata. Selected
+  unreadable records retain their previous cache/provenance, including during replacement.
+  Replacement retires unselected paths through a connection-local temporary selection
+  table; no normative operation independently commits the caller's learning transaction.
+- Excluded indexed normative documents in the selected source root from automatic code
+  business-semantic follow-up templates, preserving the separate contract workflow.
+- Filled newly created normative FTS tables from existing SQLite records without rereading
+  Git, altering document approval declarations or routinely rebuilding existing tables.
+- Updated Learn/Maintain protocols and the normative, Runtime and schema documentation.
+
+Validation status:
+
+- Continued under the user's request to skip verification. No tests, compilation, Runtime
+  commands, migration/repair runs, performance checks or efficacy evaluations were executed.
+- Earlier learning steps can fail before normative statistics are returned; no complete
+  failure-recovery or index-integrity claim is supported by this implementation alone.
+- Existing Memory databases, approval records and evaluation assets were not changed.
+
+Result:
+
+- Learning feedback and selected-record preservation are implemented in code and remain
+  unvalidated. These changes establish no approval, acceptance, readiness or measured gain.
+
+## 2026-10-11 - Expose source applicability and cached replacement declaration gaps
+
+What changed:
+
+- Bound scope interpretation to each document's original source root and exposed the
+  root comparison separately from task applicability. External-tree documents now
+  require Agent confirmation even when they declare project-wide scope.
+- Added a shared bounded cached-metadata lookup for Query and Maintain. Forward targets
+  report missing/ambiguous/unique cached matches with at most two references per field;
+  reverse claims from documents declared approved show at most three references. Each
+  preview has an overflow flag and retains cached provenance without reading target bodies.
+- Exposed duplicate IDs, kind differences, reciprocal declaration gaps, direct two-document
+  cycle claims and replacement approval-status gaps as review material. These observations
+  do not adjudicate validity, authenticate approval or automatically change document status.
+- Kept target-source and approval verification flags false in relationship lookups. Linked
+  metadata does not enlarge inspected-candidate or maintenance source-sample counts;
+  compact output retains lookup states and bounded reverse-reference identity.
+- Updated the normative contract, schema/Runtime documentation and Learn/Query/Maintain
+  instructions. No new public command, persisted relationship table or dependency was added.
+
+Validation status:
+
+- Continued under the user's request to skip verification. No tests, compilation, Runtime
+  commands, migration/repair runs, performance checks or efficacy evaluations were executed.
+- Existing Memory databases, approval records and evaluation assets were not changed.
+
+Result:
+
+- Source applicability and cached relationship review are implemented in code and remain
+  unvalidated. No correctness, approval, acceptance, readiness or measured gain is claimed.
+
+## 2026-10-11 - Separate indexed and observed normative source digests
+
+What changed:
+
+- Moved the shared bounded source observer into the document module. Query, Maintain
+  and Vault now derive freshness and an observed raw-byte digest from the same read,
+  without adding a second read solely for the new metadata.
+- Added `source.observed_digest` beside the existing indexed digest in full and compact
+  normative references. Unavailable reads return null; changed documents still omit
+  old excerpts and do not refresh cached declarations during querying.
+- Added source digest, learning-time repository revision and generation to bounded
+  learning previews. Maintenance review references retain record identity plus indexed
+  and observed digests; generated Vault pages label the two digest sources separately.
+- Documented that revision observations and SQLite generations do not authenticate
+  approval or establish an atomic repository filesystem snapshot. Source-check bounds,
+  declared status, replacement handling and approval review retain their existing roles.
+- Updated the normative contract, Runtime/schema/Vault references and Learn/Query/Maintain
+  protocols. No new CLI command, persisted column or dependency was added.
+
+Validation status:
+
+- Continued under the user's request to skip verification. No tests, compilation, Runtime
+  commands, Vault export, migration/repair runs, performance checks or efficacy evaluations
+  were executed. Existing Memory databases, approval records and evaluation assets were
+  not changed.
+
+Result:
+
+- Digest provenance is implemented in code and remains unvalidated. No correctness,
+  approval, acceptance, readiness, cost reduction or measured Agent gain is claimed.
+
+## 2026-10-11 - Abort normative source-read failures before learning checkpoints advance
+
+What changed:
+
+- Added a bounded same-handle normative reader: it recognizes the explicit marker from
+  a 4 KiB prefix and reads the remainder only for marked documents, without reopening
+  the source between recognition and parsing. Parsed metadata/body and raw-byte digest
+  use that read buffer; ordinary unmarked Markdown stops after the prefix in this phase.
+- Made reported source-read failures in normative extraction abort the current indexing
+  transaction before commit, graph rebuild or generation activation. Attempted code,
+  document and FTS changes, including replacement retirements, roll back; callers do
+  not advance the failed batch's learn Scope checkpoint.
+- Added a nonzero Runtime error path with bounded diagnostics. Existing JSON-capable
+  commands return `normative-learning-error/v1`, a known failed maintenance Scope ID,
+  explicit failed-batch rollback/checkpoint metadata and `attempted_normative_index`.
+  Attempted counts are not reported as committed changes. Text errors show at most five
+  read issues on stderr; JSON retains the existing 20-entry preview and total count.
+- Kept rollback local to the failed learning batch: earlier completed maintenance Scopes,
+  initialization, earlier code-read errors and later Scope registration have separate
+  boundaries. Stable removals and parsed metadata retirement remain successful-batch work.
+- Updated the normative contract, Learn/Maintain protocols and Runtime/schema references.
+  No new command, persisted error table, retry queue or dependency was introduced.
+
+Validation status:
+
+- Continued under the user's request to skip verification. No tests, compilation, Runtime
+  commands, ingestion, migration/repair runs, performance checks or efficacy evaluations
+  were executed. Existing Memory databases, approval records and evaluation assets were
+  not changed.
+
+Result:
+
+- Same-handle extraction and failed-batch error handling are implemented in code and
+  remain unvalidated. No end-to-end recovery, correctness, approval, acceptance,
+  readiness or measured Agent gain is claimed.
+
+## 2026-10-11 - Define normative acceptance matrix and real-trial material gaps
+
+What changed:
+
+- Added a Chinese acceptance plan with 22 planned mechanism scenarios covering document
+  recognition, declared authority, scope, cached replacement claims, source digests,
+  incremental learning, retirement, failed-batch rollback, retry, FTS recovery, same-handle
+  extraction, excerpt redaction, bounds, budgets, maintenance, Vault and installation.
+- Defined the public CLI observation points, controlled-fault boundary and required
+  data comparisons. Attempted mutations and failed-batch rollback are distinguished
+  from committed changes and command-wide atomicity.
+- Recorded the observed Git HEAD as a planning baseline only. The implementation has
+  uncommitted worktree changes and is not a frozen executable version. BOM/CRLF and
+  delimiter accounting for the frontmatter byte bound require an explicit expected
+  definition before those boundary variants are executed.
+- Listed real-trial project, source document, approval, future task, task-start state,
+  validation and Skill-protocol materials without inventing owners, approvals or tasks.
+  Existing design documents remain background candidates, not approved normative records.
+- Added variant-level result-record fields and separated planned Development mechanisms,
+  descriptive real-task observations and future governed efficacy activities. All cases
+  remain `not_run`; no evaluation pack, holdout, campaign or actual run record was created.
+- Linked the plan from the normative contract, English/Chinese README and usage guide.
+
+Validation status:
+
+- Continued under the user's instruction to skip verification. This turn read repository
+  source, documentation and Git metadata and wrote documentation only. No tests,
+  compilation, installer or Runtime commands, database operations, ingestion, performance
+  gates or efficacy evaluations were executed.
+- Existing Memory data, approval records and evaluation assets were not changed.
+
+Result:
+
+- The acceptance design and material checklist are documented and reviewable. Actual
+  mechanism acceptance, version freezing, real-trial inputs and execution remain pending;
+  no correctness, readiness, performance or Agent efficacy result is claimed.
+
+## 2026-10-11 - Define raw frontmatter bounds and physical source lines
+
+What changed:
+
+- Resolved the N16 accounting definition in the theoretical document contract. Whole
+  documents count up to 65,536 original UTF-8 bytes; frontmatter counts up to 4,096
+  original bytes from file start through the closing line ending, including a leading
+  BOM, delimiters and actual LF/CRLF bytes. The closing delimiter is within 48 physical
+  lines after the opening line, including comments, blanks and the closing line.
+- Aligned the normative reader and parser with original-byte accounting and shared
+  physical LF/CRLF line handling. A line cut at the bounded prefix edge does not establish
+  a marker. Source digests retain original bytes; derived body/excerpt positions use
+  physical lines without splitting Unicode paragraph separators into extra source rows.
+- Kept the actual parsed type limited to ADR/Feature Spec and made whole-document bounds
+  explicit in the parser as well as the reader. No database column or public command was added.
+- Added ten independently defined N16 boundary variants for future controlled inputs,
+  all still `not_run`. No fixture, source digest or runtime result was generated.
+- Documented full refresh of affected existing Scopes without changed-only mode after
+  adopting parser changes; FTS rebuild alone does not reparse unchanged document bytes.
+- Updated the normative contract, acceptance plan, Learn/Maintain protocols and Runtime/schema
+  references. Real documents, approval evidence, future task inputs and frozen execution
+  versions remain pending rather than being inferred from these definitions.
+
+Validation status:
+
+- Continued under the user's instruction to skip verification. No tests, compilation,
+  Runtime commands, ingestion, Scope refresh, migration/repair, performance gates or
+  efficacy evaluations were executed. Existing Memory databases, approvals and evaluation
+  assets were not changed.
+
+Result:
+
+- The accounting contract and its implementation are written and remain unvalidated.
+  Boundary expectations are explicit, but no correctness, acceptance, readiness,
+  performance or Agent efficacy result is claimed.
+
+## 2026-10-12 - Record normative context implementation on main
+
+What changed:
+
+- Prepared the normative document Runtime modules, integration changes, four Skill
+  protocols and supporting documentation for a single commit on the existing main
+  branch, following the user's request to bring the code onto main.
+- Clarified that the acceptance plan's original HEAD and dirty-worktree observations
+  describe its 2026-10-11 planning baseline. Delivery source identity is the actual
+  commit containing the implementation; installed and acceptance-run versions still
+  need their own bindings.
+- Kept the pre-existing untracked `memory.md` outside this commit's scope.
+
+Validation status:
+
+- Continued under the user's instruction to skip verification. No tests, compilation,
+  installer or Runtime commands, database operations, ingestion, Scope refresh,
+  performance gates or efficacy evaluations were executed.
+- All planned acceptance cases remain `not_run`. Recording the source in Git does
+  not establish approval, correctness, acceptance, readiness or Agent efficacy.
