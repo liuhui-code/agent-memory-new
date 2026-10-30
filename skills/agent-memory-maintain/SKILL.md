@@ -1,11 +1,30 @@
 ---
 name: agent-memory-maintain
-description: Use when the user asks to initialize, check health, update, repair, refresh, or sync the Agent Memory system or Obsidian vault.
+description: Use when the user asks to initialize, check health, update, repair, refresh, or sync Agent Memory or its Obsidian vault, or review a system-change proposal.
 ---
 
 # Agent Memory Maintain
 
 Use this skill for memory system health and maintenance.
+
+## System-Change Proposals
+
+For a proposal to change Agent Memory's rules, implementation or data model, or an
+explicit meta-review follow-up, read
+[references/system-evolution.md](references/system-evolution.md) before the ordinary
+health/review workflow. It covers rule, Query, Learn, Reflect, evaluator and data-model
+changes, development artifacts, check states, compatibility and separate code/data recovery.
+
+Do not automatically run health, eval or database-changing commands just to consume a
+proposal. Use available evidence and current authorization; a skip-verification instruction
+keeps checks unexecuted. The new explicit governance commands persist and read isolated
+reviews/proposals, record limited state changes and optionally execute an explicit bounded
+check plan. Read [references/system-checks.md](references/system-checks.md) only for that
+authorized checking step, and [references/system-candidates.md](references/system-candidates.md)
+when preparing an isolated Git-patch subject. For reviewed acceptance, explicit application,
+post-application checks, schema migration or rollback, read
+[references/system-lifecycle.md](references/system-lifecycle.md). These source commands
+have controlled regression coverage; no automatic release or expanded permission is implied.
 
 Memory data is stored in the current workspace `.agent-memory/` by default, next to `skills/` and `tools/`, not in the learned external source directory. Use `--memory-home <path>` when the user configured a custom location; otherwise the runtime uses `AGENT_MEMORY_HOME` or `./.agent-memory`.
 
@@ -396,3 +415,12 @@ Rules:
 - Treat `review_query_miss` actions as low-risk signals that may require learning a missing path, adding business terms, rewriting a reflection, or ignoring noise.
 - Treat `add_business_terms` actions as targeted enrichment work; prefer patching the listed semantic gaps over re-indexing large code scopes.
 - Vault export includes generated code log statement, memory edge, incident trace, query miss, semantic conflict, reflection quality, and experience candidate pages for review.
+
+## Task-End System Review Handoff
+
+For an ordinary maintenance task that closes with an observed Memory system signal, hand
+bounded observations and the retained task identity to Reflect's installed
+[system-review protocol](../agent-memory-reflect/references/system-meta-review.md).
+Do not recursively review meta-review/system-improvement work or treat every health call
+as a task boundary. Respect stops/budgets; a missing reference is a capability gap, not
+evidence that an automatic hook or review ran.

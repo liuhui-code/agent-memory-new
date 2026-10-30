@@ -12,6 +12,7 @@ from .incident_trace_models import ARKTS_SCENES
 from .cli_benchmark import add_benchmark_parsers
 from .cli_design import add_design_parsers
 from .cli_semantic import add_semantic_parsers
+from .cli_system import add_system_parsers
 
 
 def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
@@ -93,6 +94,7 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     add_design_parsers(sub, add_project, command)
     add_benchmark_parsers(sub, add_project, command)
     add_semantic_parsers(sub, add_project, command)
+    add_system_parsers(sub, add_project, command)
     p = sub.add_parser("eval-retrieval")
     add_project(p)
     p.add_argument("--cases", required=True)

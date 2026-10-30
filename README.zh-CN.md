@@ -72,6 +72,7 @@ Agent Memory 的目标不是保存更多文本，而是向 Agent 提供**短、�
 | 经验系统 | procedure、correction、semantic patch 三类经验 |
 | Skill 演化 | 多条已验证 procedure experience 可形成 Skill 候选和草案 |
 | 数据治理 | stale、merge、conflict、miss、feedback、refresh 和 review |
+| 系统元反思 | 用户 Agent 评审、绑定验收、显式应用/观察/回退与治理迁移；隔离回归和真实 Codex 示例通过，不自动发布 |
 | 质量门禁 | retrieval、trust、log signal、graph、design context 和 Agent A/B |
 | 真实使用验证 | 已校准前瞻 Cohort 控制面；真实活动仍须通过项目、任务源、验证和 revision 就绪门禁 |
 | Token 控制 | `context --compact` 与 `design-context --compact` 约束首轮注入 |
@@ -555,6 +556,15 @@ python tools/agent_memory.py vault-export --project .
 - [外部 Semantic Provider](docs/semantic-provider.md)
 - [Agent A/B 自验证](docs/agent-benchmark.md)
 - [Runtime 协议](docs/runtime.md)
+- [系统元反思设计与触发规则](docs/system-meta-reflection-design.zh-CN.md)
+- [系统元反思治理记录与提案状态](docs/system-meta-reflection-runtime.zh-CN.md)
+- [系统提案显式检查计划与执行记录](docs/system-meta-reflection-checks.zh-CN.md)
+- [任务收尾触发判断与一次评审名额](docs/system-meta-reflection-triggers.zh-CN.md)
+- [独立候选副本与检查计划 v2 主体绑定](docs/system-meta-reflection-candidates.zh-CN.md)
+- [元反思合成隔离验证结果与未覆盖项](docs/system-meta-reflection-design.zh-CN.md#9-隔离验证记录)
+- [系统变更晋级、实际应用、迁移与回退](docs/system-meta-reflection-lifecycle.zh-CN.md)
+- [本轮完成证据、真实宿主记录与交付边界](docs/system-meta-reflection-completion.zh-CN.md)
+- [当前实现上下文](CONTEXT.md)与[生命周期 ADR 记录](docs/adr/0001-system-meta-reflection-lifecycle.zh-CN.md)
 - [SQLite Schema](references/schema.md)
 - [长期数据治理内核](docs/superpowers/specs/2026-07-16-long-term-data-governance-kernel.md)
 - [Design Context Provider](docs/superpowers/specs/2026-07-16-design-context-provider.md)

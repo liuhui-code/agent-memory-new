@@ -1118,3 +1118,57 @@ The minimal integration was written on 2026-10-11 without validation at the user
 request. Tests, performance and Agent efficacy have not been evaluated for this
 change. The document format and provenance contract are recorded in
 [the normative context document](normative-context-adr-feature-spec-decision.zh-CN.md).
+
+## System Meta-Review Governance
+
+The new `reflect-system`, `maintain-system`, `maintain-system-status` and `maintain-system-check` commands use
+the existing Runtime entry point to save, inspect and track isolated advisory system
+reviews and change proposals. Related synthetic isolation regressions have passed; see
+the [dedicated protocol and limits](system-meta-reflection-runtime.zh-CN.md) and
+[current completion evidence](system-meta-reflection-completion.zh-CN.md).
+The [initial verification record](system-meta-reflection-design.zh-CN.md#9-隔离验证记录)
+retains the earlier 37-case scope.
+
+`reflect-system-trigger` separately filters declared real-task boundaries/signals and,
+only with authorized `--claim`, allocates one review slot before model generation. It
+does not invoke a model or discover host task boundaries. The source Skills contain
+conditional task-end handoffs, not a background hook. Slots can exist before report
+tables; `maintain-system --trigger-id` inspects the typed request and linked report.
+See [the trigger contract](system-meta-reflection-triggers.zh-CN.md). Synthetic decision/slot
+regressions have passed. A real Codex controlled ordinary task also executed the installed
+Query/Reflect handoff, observed a genuine fixture I/O failure and saved one advisory review.
+
+`maintain-system-candidate` can preview or explicitly prepare a separate Git baseline plus
+the bound patch in a fresh authorized directory. It does not change the source index or
+installed product. Check plan v2 binds that candidate, runs in its directory and observes
+its Git state plus all patch-changed bytes; v1 retains its declared-file semantics.
+Synthetic candidate/table preparation and check regressions have passed. See
+[the candidate contract](system-meta-reflection-candidates.zh-CN.md).
+Command cwd/source identity does not itself prove test coverage or actual source use;
+the dedicated [lifecycle entries](system-meta-reflection-lifecycle.zh-CN.md) additionally
+require pre-bound acceptance, v3 result observations and current-Agent review. Explicit
+accept/apply/follow-up/rollback entries advance advanced states without granting external
+release eligibility. Apply supports source and installed layouts, retained recovery images,
+per-file atomic replacement and explicit resume; code rollback preserves later archive writes.
+
+`maintain-system-migrate` explicitly upgrades/downgrades the governance v1/v2 constraint
+with backup, preservation and integrity checks. The ordinary query/init path never performs
+this migration. Advanced states block an incompatible downgrade. `maintain-system
+--operation-key` exposes bounded receipts; no raw checked-command argv/stdout/stderr is stored.
+
+Only explicit saving initializes the optional governance tables in an already registered
+archive. The read command uses a read-only connection without initialization. Reports
+are immutable revisions, idempotent by review-key/revision/content; proposals and state
+events remain separate from ordinary project facts, reflections, FTS and ranking.
+
+The current writer supports proposed/needs_evidence/prepared/rejected/superseded.
+Prepared records contain bounded artifact byte observations and a caller-declared base,
+not executed checks or authenticated source snapshots. Verified/application transitions
+remain rejected until complete review and application conditions have an implementation.
+An [explicit check plan](system-meta-reflection-checks.zh-CN.md) can preview or, with
+`--execute`, run authorized bounded commands and record declared file bindings plus actual
+process exits. Its optional check-run table is created only for explicit execution;
+`maintain-system --run-key` reads the stored record without rerunning or revalidating it.
+The runner does not certify assertions or advance the proposal. It is not a sandbox;
+check commands may have their own side effects. No LLM, automatic hook, migration/release
+entry or change to the existing query payload is introduced.

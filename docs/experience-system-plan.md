@@ -136,6 +136,48 @@ After phase one is stable:
 1. Consider an `experiences` table only after reflection candidates have proven useful.
 2. Generate `skill_candidate` drafts from repeatedly successful accepted experience.
 
+### System Meta-Reflection And Evolution Proposal
+
+See [the research-backed system meta-reflection plan](system-meta-reflection-research-and-plan.zh-CN.md)
+for evidence-driven changes to Agent Memory itself using the user's current Agent model.
+Targets include system/Skill rules, Query, Learn, Reflect, evaluators and data structures,
+alongside local memory maintenance. The proposed sequence is bounded observation and
+layer attribution, a version-bound change proposal, development-copy artifacts, the
+appropriate checks, then controlled application and follow-up. Model opinions, task
+success, source/test observations and measured Memory benefit remain separate claims.
+
+The [v1 design](system-meta-reflection-design.zh-CN.md) and initial Reflect/Maintain client
+protocols are written, and the supporting Runtime has passed synthetic isolation regressions.
+An [isolated governance registry](system-meta-reflection-runtime.zh-CN.md)
+is now also written for explicit saves, bounded inspection and limited proposal-state
+audits in the existing SQLite archive, without a background task hook. Ordinary
+reflection types, ranking and query handlers are unchanged. A saved report and proposal
+remain advisory. An [explicit check runner](system-meta-reflection-checks.zh-CN.md) is
+also written for bounded process observations and declared-file bindings, without automatic
+promotion; its synthetic regressions have passed. A complete improvement must produce a rule/Skill diff,
+implementation patch or justified structural change, with compatibility, validation and
+rollback records. Schema evolution includes old/new reader-writer compatibility,
+migration/backfill, derived rebuilding and data recovery; it is a first-class target.
+The explicit [lifecycle implementation](system-meta-reflection-lifecycle.zh-CN.md) now
+supports reviewed acceptance, source/installed file application, actual-directory checks,
+code rollback and governance v1/v2 migration. Its scoped evidence does not certify arbitrary
+future schema changes or external release eligibility.
+Compatible query contracts allow explicitly evaluated algorithm improvements across
+versions. Governance persistence, serving changes and new abstractions retain their
+separate prerequisites under the evaluation-and-change policy.
+
+The [trigger decision/slot path](system-meta-reflection-triggers.zh-CN.md) now also has
+source and passing synthetic regression cases. Conditional task-end handoffs across the four Skills
+feed bounded declared signals to Reflect; explicit claims reserve one task/thread without
+calling the model or creating ordinary project memory. A real Codex controlled ordinary
+task has executed this installed handoff; other host behavior is not inferred.
+
+The [candidate/v2 check path](system-meta-reflection-candidates.zh-CN.md) now also has
+source and passing synthetic controlled fixtures. It prepares the proposed patch against an actual
+Git base in a distinct directory and binds checking to that subject without changing the
+source/installed copy or promoting the proposal. It does not authenticate test coverage,
+untracked inputs or complete execution environment; actual improvement remains unproven.
+
 ## Success Criteria
 
 - Agents can write experience-candidate structure after diagnosis, design, execution, or workflow attempts.

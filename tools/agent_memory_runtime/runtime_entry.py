@@ -65,6 +65,12 @@ from .normative_index import NormativeSourceReadError
 from .quality_gate_eval import eval_quality_command
 from .records import output
 from .reflection_commands import reflect
+from .system_evolution import reflect_system, maintain_system, maintain_system_status, maintain_system_check
+from .system_evolution import reflect_system_trigger
+from .system_evolution import maintain_system_candidate
+from .system_evolution import maintain_system_migrate
+from .system_evolution import maintain_system_lifecycle
+from .system_evolution_contract import SystemEvolutionError
 from .retrieval_eval import eval_retrieval_command
 from .retrieval_feedback import retrieval_feedback_command
 from .scale_benchmark import eval_scale_command
@@ -123,6 +129,14 @@ def command_handlers() -> dict[str, object]:
         "retrieval_feedback_command": retrieval_feedback_command,
         "experience_usage_command": experience_usage_command,
         "reflect": reflect,
+        "reflect_system": reflect_system,
+        "reflect_system_trigger": reflect_system_trigger,
+        "maintain_system_candidate": maintain_system_candidate,
+        "maintain_system_migrate": maintain_system_migrate,
+        "maintain_system_lifecycle": maintain_system_lifecycle,
+        "maintain_system": maintain_system,
+        "maintain_system_status": maintain_system_status,
+        "maintain_system_check": maintain_system_check,
         "reflect_review": reflect_review,
         "list_records": list_records,
         "miss_list": miss_list,
@@ -170,6 +184,14 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         args.func(args)
+    except SystemEvolutionError as error:
+        if getattr(args, "json", False):
+            output({"schema_version": "system-evolution-error/v1", "status": "error",
+                    "code": error.code, "message": str(error), "evidence_verified": False,
+                    "application_performed": False}, True)
+        else:
+            print(f"{error.code}: {error}", file=sys.stderr)
+        return 1
     except NormativeSourceReadError as error:
         payload = {
             "schema_version": "normative-learning-error/v1",

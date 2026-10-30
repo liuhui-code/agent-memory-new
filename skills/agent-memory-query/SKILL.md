@@ -165,3 +165,12 @@ in the evidence trail but must not be presented as causal owners.
 ## Output
 
 Return only query results needed for the selected intent. Cite inspectable files, symbols, stored edges, code-log templates, or record ids. Separate current code, historical advice, and search misses. The local Agent CLI must summarize the user log, form competing causes, reconstruct call/causal chains from source, and verify its conclusion.
+
+## Task-End System Review Handoff
+
+At the end of a real Memory-related logical task with an observed system signal, hand
+the bounded observations and retained task identity to the installed Reflect Skill's
+[system-review protocol](../agent-memory-reflect/references/system-meta-review.md).
+Do this after the task, not per query or inside the query response. Respect current stops,
+budgets and the no-recursion rule; ordinary empty/freshness results alone do not trigger it.
+If that Skill/reference is absent, retain the limitation instead of assuming a hook ran.

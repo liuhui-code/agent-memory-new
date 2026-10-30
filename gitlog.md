@@ -9787,3 +9787,587 @@ Validation status:
   performance gates or efficacy evaluations were executed.
 - All planned acceptance cases remain `not_run`. Recording the source in Git does
   not establish approval, correctness, acceptance, readiness or Agent efficacy.
+
+## 2026-10-30 - Research system meta-reflection and refine the improvement plan
+
+What changed:
+
+- Researched primary papers on verbal reflection, iterative refinement, context
+  curation, reflective prompt optimization, episodic utility learning, model judging,
+  self-correction and code-level self-improvement, plus official LangSmith/Langfuse
+  production-evaluation documentation. Context7 lookup requests failed to connect;
+  the product-practice review used official web documentation instead.
+- Added a Chinese research and design document separating source findings from
+  project-specific inferences. Refined the plan into bounded Agent-side review,
+  maintenance-side isolation, evidence-backed candidates and independently checked
+  changes, while retaining the existing CLI, Skill and query contracts.
+- Documented the integration boundary: existing reflection enums do not include a
+  system-review type, and feedback stability/verified flags are not evidence-content
+  validators. Model opinions must not automatically become ranking adjustments.
+- Defined future record semantics, trigger/cost/calibration rules, incremental patch
+  and rollback boundaries, implementation stages and nine planned acceptance scenarios.
+- Added an Agent-side review prompt and empty draft report format for later workflow
+  integration; they are documentation templates, not accepted Runtime payloads or runs.
+- Linked the proposal from the reflection-quality loop and experience-system plan.
+
+Validation status:
+
+- Continued under the user's instruction to skip verification. This work performed
+  web research and static source/document reads and changed documentation only.
+- No tests, compilation, Runtime/installer commands, evaluation Runner/model API calls,
+  database writes, task ingestion, performance gates or efficacy evaluations were
+  executed. Planned cases are `not_run`.
+- Runtime code, Skills, query outputs, existing Memory data and evaluation assets were
+  not modified. The pre-existing untracked `memory.md` was left untouched.
+
+Result:
+
+- The research and revised proposal are documented; meta-reflection collection,
+  isolated persistence, MCP integration and autonomous improvement remain unimplemented.
+  No correctness, readiness, causal improvement or release-eligibility claim is made.
+
+## 2026-10-30 - Expand meta-reflection into a complete system-evolution proposal
+
+What changed:
+
+- Refined the proposal following the user's clarification that the intended targets
+  include system rules, query, learning, reflection and data structures, with memory
+  maintenance only one change category. Added evaluator and delivery boundaries.
+- Defined a version-bound system-change proposal with evidence, layer attribution,
+  alternatives, rule/code/structural artifacts, checks, application and rollback.
+  A completed review report is not treated as a completed system improvement.
+- Distinguished same-version query equivalence across adapters/review execution from
+  intended algorithm changes in new versions that retain the public protocol contract.
+- Added a data-evolution path covering runtime/persistent/derived/projection structures,
+  old/new reader-writer support, source and identity mapping, backfill, initialization
+  migration paths, derived rebuilding, interruption and separate code/data recovery.
+- Extended the roadmap so rule/mechanism and structural candidates can proceed by
+  their own evidence and prerequisites. Added eight planned scenarios for a total of
+  17, and synchronized the reflection-quality and experience-system documents.
+
+Validation status:
+
+- Continued under the user's instruction to skip verification. This pass used static
+  source/document and Git metadata reads and changed documentation only.
+- No Runtime, installer, migration, model API, test, compilation, ingestion, performance
+  or efficacy commands were executed. All planned acceptance scenarios remain `not_run`.
+- Existing Runtime code, Skill files, Memory data and evaluation assets remain unchanged;
+  the pre-existing untracked `memory.md` was left untouched.
+
+Result:
+
+- The expanded system-evolution design is reviewable. No rule, algorithm, schema,
+  query protocol or installed product was changed, and no improvement is claimed verified.
+
+## 2026-10-30 - Complete the v1 design and add client meta-review/evolution workflows
+
+What changed:
+
+- Added a concrete v1 design specification covering trigger precedence, real task
+  association, no recursive review, conservative limits, report/proposal semantics,
+  check/application states, data evolution and protocol compatibility.
+- Used skill-creator's progressive-disclosure approach to add portable references to
+  the existing Reflect and Maintain Skills. Reflect routes system reviews before any
+  ordinary memory save; Maintain consumes proposals before ordinary health/eval work.
+- Fixed v1 defaults: manual and concrete-signal task-end review, success sampling off,
+  at most one automatic review, eight evidence references, five assertions, one proposal,
+  4,000 emitted Unicode characters and zero automatic retries. These are unvalidated
+  client instructions, not Runtime-enforced limits.
+- Preserved the separation between advisory model review, actual checks and applied
+  changes. No new command, model service, task hook, SQLite registry or MCP tool was added.
+- Synchronized research/experience/reflection documents and added nine trigger scenarios
+  alongside the existing 17 mechanism scenarios. Installed Skill copies were not updated.
+
+Validation status:
+
+- Continued under the user's request to skip verification. No Skill validator, tests,
+  compilation, installer, Runtime, migration, model API or efficacy runs were executed.
+- Static source/document and Git metadata reads accompanied edits to documentation and
+  the two Skill instruction packages only. No Runtime code, Query/Learn Skill, database,
+  approval or evaluation asset was changed; `memory.md` remains untouched.
+
+Result:
+
+- The requested design and first client-protocol slice are written. Actual host activation,
+  budget compliance, task-end behavior and downstream improvement remain unverified;
+  persistent automation, MCP and product/data changes remain separate future work.
+
+## 2026-10-30 - Add isolated system-review persistence and limited proposal-state auditing
+
+What changed:
+
+- Registered `reflect-system`, `maintain-system` and `maintain-system-status` through
+  the existing `tools/agent_memory.py` entry point, retaining four user-facing Skills.
+  The Runtime records advisory reviews; the user's current Agent still owns review,
+  diagnosis and development. No model connection or automatic task hook was added.
+- Added strict bounded `system-meta-review/v1` input handling with duplicate-key/type/
+  Unicode checks, reference/assertion/proposal limits and explicit unknown costs.
+  Saved pass/fail labels remain caller assertions, not authenticated execution evidence.
+- Added three optional governance tables in the existing SQLite archive and a component
+  schema version. Only explicit saving creates them, within a writer transaction and
+  after checking the existing project identity; reads do not initialize or repair archives.
+  Ordinary initialization, required-table checks, retrieval, FTS, graph and Vault readers
+  do not gain system-review integration.
+- Made report revisions immutable and consecutive with content-based idempotent retries,
+  fixed task association and one review thread per declared task key. New revisions keep
+  separate proposal snapshots. Revision/thread/proposal counts do not establish independent
+  real tasks, source lineage or prospective enrollment.
+- Added bounded inspection, optimistic state revisions and transactional audit events for
+  proposed/needs_evidence/prepared/rejected/superseded. Prepared observes one to three
+  relative files inside an explicit development root, at most 1 MiB each, retaining raw
+  byte digests and metadata only. The base remains caller-declared, with no authenticated
+  repository snapshot, executed check or proof that a patch applies.
+- Refused checked/applied/monitoring/closed/rolled_back transitions until actual execution
+  receipts can be bound. No patch, SQL, data migration, installation, rollback or release
+  is performed by these commands. Existing query payloads and serving handlers were not edited.
+- Wrote controlled synthetic regression cases for isolation, no-create reads, idempotency,
+  immutable revisions, strict inputs, optimistic conflicts, artifact observations and
+  transaction failure boundaries. These fixtures are not real tasks, approval or Oracle evidence.
+- Updated Reflect/Maintain portable references, Runtime/schema documentation, project
+  mission, README indexes and the research/design/experience/reflection plans to state
+  the current code boundary and distinguish original proposal snapshots from current state.
+- Context7 documentation resolution failed with a transport error; consulted official
+  Python sqlite3 and SQLite transaction documentation as a fallback. No library was installed.
+
+Validation status:
+
+- Continued under the user's instruction to skip verification. Source/document and Git
+  metadata reads accompanied edits; no tests, compilation, Runtime/help, installer,
+  database/migration, ingestion, model API, performance or efficacy commands were executed.
+- New regression cases remain unrun; all 17 mechanism and nine trigger acceptance scenarios
+  remain `not_run`. No real review, proposal, approval, applied change or measured benefit
+  was manufactured or recorded in a database.
+- Existing Memory data and evaluation assets were not modified. The pre-existing untracked
+  `memory.md` remains untouched. Changes have not been committed, pushed or installed.
+
+Result:
+
+- Explicit governance persistence and a limited proposal audit path are written for review,
+  without execution evidence. Host activation, storage/transaction behavior, compatibility
+  and system-level improvement remain unverified. Automatic triggers, actual-check receipts,
+  change execution and MCP integration remain future work.
+
+## 2026-10-30 - Add explicit system-check plans and observed execution receipts
+
+What changed:
+
+- Continued the active whole-system meta-reflection goal from the current worktree.
+  Added `maintain-system-check` through the existing Runtime entry point: its default
+  mode previews declared bindings; only explicit `--execute` reserves a run and starts
+  caller-authorized commands. Ordinary query/learning/ranking handlers and evaluators
+  were not edited. No second model, task hook, daemon or Agent wrapper was introduced.
+- Added strict `system-change-check-plan/v1` parsing for a prepared proposal/revision,
+  stable artifact identity and 1-100 declared source/test file digests. Plans are bounded
+  at 32 KiB, files at 1 MiB, checks at five, each timeout at 300 seconds and combined
+  declared timeout at 600 seconds. Assertion-index mappings remain caller declarations.
+- Bound artifact identity to the resolved development root, declared base and sorted
+  file identities, excluding observation time. Reobserved declared source/artifact bytes
+  before and after checks; drift, nonzero exits, timeout and process errors stop later
+  checks. These are scoped observations, not whole-repository snapshots or proof that
+  the candidate has been applied.
+- Added optional `system_change_check_runs` and its separate `system_evolution_checks`
+  schema component, created only by explicit execution. Reservation/progress transactions
+  do not hold a SQLite write lock during process execution. One running reservation per
+  proposal blocks concurrent checking and proposal-state changes.
+- Made terminal same-key/same-plan retries return history without rerunning or validating
+  today's files. Conflicting keys and unresolved running records fail rather than retry.
+  Hard-crash recovery remains unimplemented; elapsed time alone cannot retire a run.
+- Wrote the subprocess path with argument lists, shell=False, DEVNULL streams and finite
+  process waits. POSIX uses a new session and process-group cleanup; other platforms
+  control the direct child. This is not a command sandbox or proof of read-only behavior.
+- Stored only bounded identities, argument digests, mappings, file observations, times,
+  actual exit codes and outcomes, never raw argv/output/log bodies. Runtime-phase elapsed
+  time explicitly excludes preflight/plan generation/final persistence; unknown Token
+  cost remains null. Incomplete execution observations remain unknown on interruption.
+- Kept proposal states separate: even all_exit_zero does not produce checked, promotion
+  eligibility, verified evidence or application. Complete assertion/coverage/environment
+  review and application/rollback controls remain missing.
+- Added controlled synthetic regression cases for preview/no-create behavior, actual
+  process observations, idempotency, drift, nonzero exits, timeout, invalid plans and
+  unresolved reservations. Updated portable Maintain check instructions, Reflect handoff,
+  contracts, schema/Runtime docs, project mission and README indexes.
+- Context7 Python documentation resolution again failed with a transport error; used
+  official Python subprocess documentation as the fallback, without installing packages.
+
+Validation status:
+
+- Preserved the user's instruction to skip verification. This turn used static source,
+  documentation and Git metadata reads, public documentation browsing and source edits.
+- No tests, compilation, check-plan preview/execution, Runtime/help, installer, database,
+  ingestion, migration, model API, performance or efficacy commands were executed.
+  New regression cases and all existing meta-reflection acceptance scenarios remain unrun.
+- No real review, running check, receipt, approval or product improvement was invented or
+  inserted into an archive. Existing Memory data, sealed/evaluation assets and the
+  pre-existing untracked `memory.md` were left untouched; no install, commit or push occurred.
+
+Result:
+
+- The explicit checking source path now connects a prepared proposal to observed local
+  execution records, but its runtime behavior remains unvalidated. The complete goal
+  remains active: reliable host triggers, full promotion evidence, controlled application,
+  structural migration/recovery, follow-up and verified system improvement are incomplete.
+
+## 2026-10-30 - Add deterministic task-end decisions and optional review-slot allocation
+
+What changed:
+
+- Continued the whole-system meta-reflection goal with a source-level trigger path.
+  Added `reflect-system-trigger` under the sole Runtime entry point. It filters bounded
+  caller-declared task state, current stop/enable/budget switches and concrete signals;
+  it does not discover host boundaries, invoke a model or classify functionality as correct.
+- Encoded priority for current stop/disable/budget, explicit manual requests, recursion
+  suppression, task closure, observed/requested Memory, retained identity and a concrete
+  signal. Successful signal-free tasks remain unsampled. Repeated gaps need distinct
+  observed round references; final task failure or ordinary empty/freshness output alone
+  does not qualify.
+- Added strict `system-meta-trigger/v1` input with bounded Unicode/JSON, real-task
+  association shape, typed switches, unique signal kinds and eight distinct references.
+  Returned partial report bindings are not executed reviews or complete save payloads.
+- Kept default decisions read-only, including absent archives. Authorized `--claim`
+  separately creates `system_meta_review_triggers` and its schema component, reserving
+  one slot per project/declared task before automatic generation. It does not create
+  the report/check tables or initialize an archive. BEGIN IMMEDIATE and unique keys
+  serialize competing claims; this concurrency behavior is written, not measured.
+- Distinguished reserved/recorded from process state: allocation is not proof of a model
+  call, report completion or a verified result. Repeated automatic claims/reviews skip;
+  manual continuation retains the original thread and next continuous report revision.
+  Missing identity permits only an explicitly requested conversation review, without
+  inventing a claim or durable task guarantee. No time-based automatic reclaim was added.
+- Bound report saving to an existing claimed task/key/automatic slot and updated the
+  linked report pointer in the save transaction. Later explicit report revisions use
+  manual trigger; unchanged historical retries return before the new-claim checks so
+  a later manual claim cannot invalidate their idempotency. Unclaimed legacy explicit
+  saving remains available without claiming durable generation deduplication.
+- Extended `maintain-system` with bounded slot summaries and --trigger-id inspection,
+  including archives where only a slot exists and no report has been saved yet.
+- Added conditional real-task-end handoffs in the existing four Skills and a portable
+  Reflect trigger reference. Query/Learn/Maintain hand off only after the logical task,
+  not on each command/chunk; meta-review and system-evolution work do not recurse.
+  Installed copies were not changed, and a Skill instruction is not a host hook guarantee.
+- Wrote unrun synthetic regressions for priority, read-only/no-create behavior, concurrent
+  allocation, report association, manual revisions, historical retries, identity/key
+  bypass attempts and repeated-gap inputs. Updated design/research/Runtime/schema docs,
+  project mission, README links and capability boundaries.
+
+Validation status:
+
+- Preserved the user's skip-verification instruction. This turn used static source,
+  documentation and Git metadata reads plus source edits. No Runtime/help/trigger/claim,
+  tests, compilation, installer, database, ingestion, migration, model API, performance
+  or efficacy commands were executed. Synthetic tests and acceptance scenarios are unrun.
+- No real task, tool event, review slot, report, model invocation, approval or improvement
+  was manufactured or written to a database. Existing Memory data, sealed/evaluation
+  assets and pre-existing untracked `memory.md` remain untouched. No commit/push occurred.
+- Retrieval, ranking, learning extraction, evaluation code and query payload fields were
+  not edited. Query/Learn Skill source now has the conditional post-task handoff; actual
+  host behavior, extra cost and compatibility remain unverified.
+
+Result:
+
+- Task-end decision/slot source now connects the Skill workflow to bounded report
+  generation without claiming host automation or verified outcomes. The overall goal
+  stays active: reliable real-use invocation, complete promotion evidence, controlled
+  application, schema migration/recovery, follow-up and demonstrated system improvement
+  are still incomplete.
+
+## 2026-10-30 - Bind checks to isolated baseline-plus-patch candidate subjects
+
+What changed:
+
+- Inspected the current trigger/review/artifact/check path and continued the complete
+  meta-reflection goal. Existing v1 execution facts cannot show that a bound patch was
+  applied to the checked directory. Added an explicit candidate-preparation path rather
+  than treating those observations as full checked/application evidence.
+- Registered `maintain-system-candidate` under the same Runtime entry point. Its default
+  preview reads the declared artifact and Git baseline; authorized --execute reserves a
+  candidate and creates a fresh private copy under an explicit existing candidate-home
+  outside the source tree and Memory Home. Source/installed application is not performed.
+- Required a full locally observed base commit OID and a current bound Git patch. The
+  new copy has no shared hardlinks/alternates; fixed Git commands check out the base,
+  apply the exact captured patch to its index/worktree and record the resulting tree.
+  Hooks, fsmonitor, external diff/textconv, inherited Git overrides, global/system Git
+  config and automatic maintenance are disabled; no network transport or submodule
+  initialization is requested. Gitlink changes are rejected as unsupported.
+- Added optional system_change_candidates plus its independent schema component. Its
+  preparing/ready/failed/interrupted states describe preparation only. Transactions
+  reserve/finalize metadata without spanning Git operations. Preparing blocks parent
+  state changes and new checks. Same-key terminal retries return historical material,
+  not a new clone or a fresh validation; unresolved work never restarts on elapsed time.
+- Added bounded Git output collection, wait/cleanup limits and changed-file observations:
+  up to 100 paths, 16 MiB per file/link and 256 MiB total. Symlink targets are hashed
+  without dereferencing; deletes remain explicit absent observations. Candidate code
+  and Git objects stay in the authorized copy, never in SQLite review/receipt fields.
+- Added check-plan/v2 with explicit candidate key/digest, preserving v1 declared-file
+  semantics. V2 executes in the candidate root, compares current HEAD/index/worktree
+  and local config, and reobserves every patch-changed path plus declared inputs before
+  and after each command. Its preview/execution payloads carry v2 format markers.
+- Kept source-use, environment, coverage, Oracle, functionality, causality and product
+  promotion separate. A process cwd does not prove its imports/entrypoints use that
+  code; command_source_use_verified remains false. Git/cache/byte observations remain
+  non-atomic and do not authenticate untracked/ignored inputs or submodule internals.
+- Wrote unrun synthetic Git/SQLite regressions for modification/add/delete isolation,
+  no-create preview, cached retries, actual v2 cwd, changed-file/config drift, failed
+  patches, unresolved preparation and protected candidate-home placement. Added a
+  portable Maintain candidate guide and synchronized contracts, schema/Runtime docs,
+  design/research/experience/reflection plans, project mission and README links.
+- Context7 Git documentation resolution failed with a transport error; consulted the
+  official Git clone/apply/diff-index/diff-files documentation as the fallback.
+
+Validation status:
+
+- The earlier user instruction to skip verification remains in force. No Runtime/help,
+  candidate/check preview or execution, tests, compilation, clone/apply/checkout, installer,
+  migration, real task ingestion, model API, performance or efficacy commands were run.
+- Asked asynchronously whether isolated new regressions and a temporary-archive/synthetic
+  Git end-to-end path may now run. Until an answer arrives, no verification permission
+  is inferred. All new cases and planned acceptance scenarios remain unrun.
+- Static source/document and Git metadata reads accompanied source edits. Existing Memory
+  data, evaluation/sealed assets and pre-existing untracked memory.md were untouched;
+  no source checkout, install, commit or push was performed. Retrieval, ranking, learning
+  extraction, evaluator behavior and public query fields were not edited.
+
+Result:
+
+- Candidate preparation and v2 subject binding are written, not runtime-proven. The
+  overall goal remains active and incomplete: reliable real-use activation, complete
+  check/promotion evidence, controlled product/data application, recovery/follow-up and
+  demonstrated system improvement still require work and actual evidence.
+
+## 2026-10-30 - Preserve candidate retry semantics at the reservation boundary
+
+What changed:
+
+- Static inspection identified an inconsistent retry branch: two callers can both read
+  an unused candidate key before preparation, but a delayed writer rejected the key even
+  when the first caller had already completed the same request. A subsequently advanced
+  parent state could also hide that terminal history behind a state conflict.
+- Shared the external-request comparison between read and write paths. The reservation
+  transaction now looks up the key before current-parent guards, returns matching terminal
+  history and reports whether it inserted a new record. The caller returns reused history
+  before creating another directory. Different requests and unresolved preparing records
+  retain their explicit conflicts.
+- Wrote an unrun controlled regression that captures an old pre-read context, completes
+  the first preparation, advances the parent and then resumes the delayed request. Its
+  expected result is the same candidate, one directory and unchanged advanced parent;
+  it deliberately fails on any attempt to create another directory. This models an
+  interleaving and does not claim observed multiprocess concurrency.
+- Clarified request identity in the candidate contract and added an overall delivery-gap
+  table to the existing design, covering real invocation, checks, promotion, application,
+  data recovery and follow-up.
+
+Validation status:
+
+- The user's skip-verification instruction remains in force; the earlier asynchronous
+  clarification has no answer. Only static source/document reads and edits were performed
+  in this increment. No tests, compilation, Runtime execution, candidate preparation,
+  database access, migration, installation, model calls or benefit evaluation were run.
+- Existing Memory data, evaluation/sealed assets and pre-existing memory.md were untouched.
+  No commit or push was performed. The overall meta-reflection goal remains incomplete.
+
+## 2026-10-30 - Write a synthetic review-to-candidate integration regression
+
+What changed:
+
+- Re-read the current mission, implementation plan, governance/check contracts and source
+  boundaries. Previous progress changed candidate reservation source and remains unrun.
+  The next necessary evidence is a real execution of the existing connected path, not a
+  model-written promotion flag or additional production states.
+- Extended the temporary candidate fixture to optionally allocate a synthetic task slot
+  and use its returned report binding before saving/preparing the proposal. Existing
+  isolated candidate cases keep their manual-review setup.
+- Wrote a combined regression through the public Runtime entry point: allocate and consume
+  one automatic slot, associate its report/proposal, prepare a separate Git candidate and
+  execute a v2 plan. Expected assertions link the proposal's review ID, candidate digest
+  and run metadata; terminal retries must preserve one history and must not rerun a check
+  or create a second directory. A sentinel makes an unwanted rerun observable.
+- The same case expects checked-state promotion to remain refused after a zero exit, keeps
+  ordinary semantic/episode/reflection records empty, checks the public query_handoff for
+  absence of governance anchors and leaves the controlled source value unchanged without
+  writing the check's execution marker into the source directory. This limited
+  isolation assertion is not complete query equivalence, real host activation or a claim
+  that the entire meta-reflection lifecycle is implemented.
+- Updated the existing design/candidate documents to distinguish the unrun synthetic
+  integration scope from real-model, product application and efficacy evidence.
+
+Validation status:
+
+- Continued honoring the skip-verification instruction. No tests, compilation, Runtime
+  commands, candidate/check execution, database access, migrations, installer, model calls
+  or evaluation gates were run. The previously asked isolated-verification clarification
+  remains unanswered. The integration sequence exists only as test source, not an observed
+  task, process receipt, model run, successful check or authorization record.
+- Existing Memory data, sealed assets and the pre-existing memory.md remain untouched.
+  No commit/push occurred. Complete promotion, actual application/data recovery and real
+  follow-up remain outstanding; the overall goal stays active.
+
+## 2026-10-30 - Execute isolated meta-reflection regressions after explicit authorization
+
+What changed:
+
+- The user explicitly allowed isolated verification, lifting the earlier skip constraint
+  for temporary archives and synthetic Git repositories. Inspected the four new modules
+  and their explicit project/Memory Home routing before execution. An outer private
+  /private/tmp root also contained each fixture's sibling Memory Home; TMPDIR,
+  tempfile.tempdir and a fallback AGENT_MEMORY_HOME pointed inside that root.
+- The first run executed 36 tests: 35 passed and one integration assertion failed. Its
+  expected report trigger was incorrectly written as error, while the documented and
+  validated contract is memory_error. Corrected that test assertion only; no Runtime
+  trigger behavior, retrieval/ranking algorithm or evaluator was changed.
+- The corrected review-to-candidate integration case passed, then all four modules passed
+  together. This actually exercised synthetic slot/report/proposal association, separate
+  baseline-plus-patch candidates, v2 checks, historical retries, protected state refusal
+  and empty-archive public query isolation, in addition to the existing bounded failure
+  and concurrency cases.
+- Added and ran one positive query compatibility regression. It retrieves a seeded semantic
+  fact, saves a governance proposal containing the same query terms, prepares its artifact
+  and reads its audit, then compares the public context key set and complete nonempty
+  query_handoff before/after. They match and ordinary record counts remain unchanged.
+  This is one controlled public-output check, not complete protocol equivalence evidence.
+- Updated current design/contracts, research/experience/reflection plans, Runtime docs,
+  README, mission and portable Skill references to distinguish passed synthetic mechanism
+  coverage from unverified real-host invocation and incomplete product application. Kept
+  prior gitlog entries as historical records. The design now contains a reproducible
+  isolated runner and the exact observed run sequence.
+
+Validation results:
+
+- Environment: Darwin x86_64, Python 3.9.6, SQLite 3.51.0, Git 2.43.0.
+- Initial four-module run: 36 tests in 92.580 seconds; one assertion failure, no errors.
+- Corrected integration case: one passed in 9.400 seconds.
+- Four-module rerun: 36 passed in 108.407 seconds; zero failures, errors or skips.
+- Additional nonempty public-query case: one passed in 4.971 seconds.
+- Thus 37 distinct current cases have passing results (governance 9, checks 9, triggers 9,
+  candidates/v2 10), obtained as the 36-case suite plus the later targeted query case;
+  no single 37-case suite run is claimed. Test timings are not product performance or
+  model efficacy measurements. Later header/docstring edits changed documentation only.
+- git diff --check passed. A static check resolved 58 local links across the 11 dedicated
+  meta-reflection documents/references, with no missing file or validation-section target.
+  No installed-copy update, user/archive migration, model API,
+  release gate, sealed-pack evaluation, upstream commit or push was performed. All Git
+  clone/apply/checkout and test commits were confined to synthetic temporary repositories.
+  Dedicated temporary roots were cleaned on exit; existing Memory data and the pre-existing
+  untracked memory.md were not accessed or modified by the verification workflow.
+
+Result:
+
+- The previously unrun mechanism now has actual bounded synthetic execution evidence,
+  including a complete temporary review-to-check path and one nonempty query invariant.
+  The broader goal remains incomplete: real-host activation, complete promotion evidence,
+  controlled product/data application, recovery and real follow-up still require work.
+
+## 2026-10-30 - Complete the authorized system meta-reflection lifecycle
+
+What changed:
+
+- Continued under explicit isolated-verification authorization and the subsequent request
+  to finish acceptance, application, migration/recovery, installed copies and real-host
+  triggering. This supersedes the earlier skip-verification boundary for this work.
+  Kept the single Runtime, four Skills, SQLite truth and independent advisory governance;
+  ordinary retrieval/ranking/learning implementations were not changed.
+- Added explicit governance v1/v2 migration with backup, writer exclusion, transactional
+  constraint rebuild and audit. Supported downgrade preserves post-upgrade ordinary
+  writes; advanced states prevent incompatible downgrade. No arbitrary generated SQL or
+  whole-archive restoration over newer data is provided.
+- Added v3 fresh check outputs and acceptance bound to the prepared plan, candidate,
+  execution, every criterion/policy gate and the current Agent's bounded source-use review.
+  Reviewer/Oracle authenticity is not asserted; checked retains evidence_verified and
+  promotion_eligible false.
+- Added operation history, application, monitoring, closure, invalidation, rollback,
+  resume and explicit non-application abort. Application retains durable before/after
+  material and permissions, uses a POSIX target lock, per-file atomic replacement and
+  checkpoints. Source/installed layouts are explicit; installed delivery updates only
+  managed Runtime/four-Skill paths and reports skipped files. Recovery refuses user drift
+  and does not infer process death from elapsed time or model assertions.
+- Added a lifecycle specification, proposed ADR, CONTEXT, portable Maintain reference
+  and completion matrix; synchronized research/design, Runtime/schema, READMEs, mission
+  and Skill references. Approval fields remain empty without creating a new approval gate
+  for the work already requested by the user.
+
+Observed defects and corrections:
+
+- A monitor exiting 7 without its declared artifact lost the actual exit during output
+  collection. The red regression failed in 6.348 seconds; the fix retains process and
+  artifact facts and keeps the proposal applied. Two focused cases passed in 19.517 seconds.
+- Application widened an existing executable from 0744 to 0755. The red case failed in
+  5.738 seconds; preserving original mode bits when the executable flag is unchanged
+  fixed it. Three permission/application/delivery cases passed in 28.982 seconds.
+- Closing audit reproduced valid recovery preview exiting 1 because its returned original
+  operation was running (one error in 5.067 seconds). Dispatch now distinguishes a valid
+  preview/completed abort from successful original work. Four focused cases passed in
+  36.030 seconds: resume preview, abort retry, checked invalidation, unknown-child refusal,
+  active lock/hard-exit recovery, failed monitoring and full application/rollback.
+
+Validation and evidence:
+
+- Migration/installer: 5 passed in 10.600 seconds. Initial complete checkpoint: 48 passed
+  in 148.252 seconds. Expanded checkpoints: 54 discovered (53 passed, host opt-in skipped;
+  197.476 seconds), then 55 discovered (54 passed, host opt-in skipped; 204.798 seconds).
+  Current final counters, test IDs and exact source manifest are recorded in
+  docs/evidence/system-meta-reflection/regression-final.json.
+- Final recorded batch after the closing-audit fix: 56 discovered, 55 ordinary isolated
+  regressions passed, zero failures/errors and one deliberately skipped real-host case.
+  Test execution took 214.189 seconds (214.401 seconds including recorder/cleanup).
+  Runtime/Skill/test manifests observed before and after were identical. Real-host
+  execution was separately observed, not inferred from the skip.
+- Closing read-only audit matched all 320 current Runtime/Skill/test files to that final
+  manifest (44a63811eaed22b2883fc1f8d9f9a02fd28ba72b6686330d975ed52b28e3116d).
+  All 89 local links in 16 dedicated documents resolved; all 31 new/modified Python files
+  retained their project fingerprint and remained within 500 lines (maximum 480).
+  git diff --check passed; normative approval fields remain blank. These observed
+  summaries do not constitute source freezing, reviewer authentication or an external seal.
+- Installed full lifecycle and actual installed-path delivery/rollback: 2 passed in
+  30.150 seconds. Actual Git-baseline ordinary read/write compatibility: 1 passed in
+  5.736 seconds. A live writer rejected recovery, actually exited 77, then resumed without
+  rewriting the already written file (1 passed in 7.359 seconds; later suites include it).
+- Positive compact/full public query: 1 passed in 5.145 seconds. Migration interruption
+  was strengthened to raise after actual table rebuild, then confirm transactional
+  rollback and a valid pre-migration backup (3 passed in 6.362 seconds).
+- Existing Codex CLI 0.165.0 ran with an isolated installation and synthetic facts. An
+  actual directory obstruction made context exit 1 with IsADirectoryError. The host read
+  project-local Query/Reflect Skills and completed trigger/save with exit 0, creating
+  one claim and one advisory memory_error review. Final explicit host case: passed in
+  96.919 seconds; earlier ordinary-task case: passed in 102.170 seconds. Source and
+  installed bundle digests matched at each recorded host-run snapshot.
+- Preserved the initial sandbox-start failure and the first completed host attempt with
+  no review; its cause remains unknown. Sanitized records retain outcomes and whole-turn
+  usage, not raw transcripts, commands, private reasoning or authentication. These
+  timings/usage are neither incremental meta-review cost nor product efficacy.
+- All validation project/archive/Git mutations stayed in private temporary roots. Real
+  host startup used the existing configured CLI and an inner workspace-write sandbox.
+  Host evidence precedes later lifecycle-only permission/dispatch fixes; the current
+  ordinary source manifest covers those fixes. The host trigger protocol is unchanged.
+
+Delivery scope:
+
+- Current-repository implementation, the declared full lifecycle, controlled installation
+  and real-host acceptance are delivered. An additional business deployment needs its
+  target/Memory Home and is optional; an earlier preference question does not block this
+  task. Other hosts, arbitrary future schemas, production efficacy and upstream release
+  remain separate scopes.
+- No commit/push or installation into an unspecified live project occurred. Existing
+  Memory data, consumed sealed assets and the pre-existing untracked memory.md were not
+  read or modified. The current requirement-to-evidence map and retained failures are in
+  docs/system-meta-reflection-completion.zh-CN.md.
+
+## 2026-10-30 - Prepare verified meta-reflection delivery on main
+
+- The user explicitly requested completion of the commit and push. Fetched origin/main;
+  it matched the local starting main at 2ade686f12373c214d7b9c3809f0e8821d770944.
+- Delivery review found that the old-reader regression archived HEAD. Advancing HEAD
+  would make that test compare the new reader with itself. Fixed its baseline to the
+  complete pre-meta commit ID, and recorded compatibility_baseline_revision explicitly
+  in the latest regression artifact. Runtime/Skill behavior was unchanged by this fix.
+- Re-ran all related isolated modules after this test change: 56 discovered, 55 passed,
+  zero failures/errors and one explicit real-host skip, in 251.775 seconds (252.070 seconds
+  including recording/cleanup). The actual fixed Git-baseline reader/writer passed, and
+  all 320 Runtime/Skill/test file digests were unchanged during the run. The real-host
+  protocol is unchanged; its separate successful and failed records are preserved.
+- Updated CONTEXT, design and completion evidence so they remain accurate after HEAD
+  advances; historical uncommitted-phase records remain explicitly historical.
+- Reviewed a 64-file delivery containing implementation, tests, portable Skill references,
+  specifications, ADR/context and execution evidence. The only unrelated untracked path
+  is memory.md; it is excluded without reading its contents. Existing Memory archives
+  and consumed sealed assets remain outside this version-control delivery.
+- Dedicated-document link checks (16 documents, 89 links), project fingerprints and the
+  500-line check (31 Python files, maximum 480 lines) passed. Commit identity and actual
+  remote delivery are established by Git history and the final remote-reference check.

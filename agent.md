@@ -59,6 +59,10 @@ Responsibilities:
 - The Runtime retrieves, ranks, correlates, and compresses evidence. The local Agent CLI owns hypotheses, diagnosis, design reasoning, interventions, and verification; graph paths and experience are context, not Runtime conclusions.
 - `semantic-index/v1` adapters run only during learning; normalized symbol metadata and edges remain in SQLite for language-neutral design, impact, and Incident consumers.
 - Explicitly marked Git ADRs and Feature Specs may be learned into a separate derived document index. `context` and `design-context` return bounded references with declared approval, scope, supersession and source freshness; the Agent reviews the original document and approval evidence before treating it as an applicable contract. This minimal integration was written on 2026-10-11 without validation; see [the normative context contract](docs/normative-context-adr-feature-spec-decision.zh-CN.md).
+- System meta-reviews use the user's current Agent model. Explicit commands save advisory reviews outside ordinary retrieval, bind candidates/check outputs and, after current-Agent review, support acceptance, authorized file application, monitoring, rollback and governance schema migration. Controlled regressions and a real Codex ordinary-task handoff have passed; external release eligibility and general efficacy are separate claims. See [the lifecycle contract](docs/system-meta-reflection-lifecycle.zh-CN.md) and [current context](CONTEXT.md).
+- Skill task-end handoffs may use a deterministic trigger decision and an authorized once-per-task review slot before model generation. Slots do not authenticate task identity or prove host/model execution; see [the trigger contract](docs/system-meta-reflection-triggers.zh-CN.md).
+- Explicit candidate preparation can copy a Git baseline and apply a bound patch in an isolated authorized directory. Check plan v2 observes that candidate without changing the source or installed product. Synthetic Git/SQLite regressions have passed; these results do not establish promotion eligibility. See [the candidate contract](docs/system-meta-reflection-candidates.zh-CN.md).
+- Check plan v3 adds fresh result-file observations for complete bounded acceptance. Governance v2 is an explicit backup-backed migration; ordinary query/init never auto-upgrades it. Source/installed application uses retained images and POSIX file locks; code rollback preserves later Memory writes. Real deployment remains bound to the user's specified project and archive.
 
 ## Runtime Commands
 
@@ -96,6 +100,18 @@ python tools/agent_memory.py impact-feedback --project . --outcome pass --execut
 python tools/agent_memory.py search --project . --query "..." --json
 python tools/agent_memory.py reflect --project . --task "..." --summary "..." --lesson "..."
 python tools/agent_memory.py reflect-review --project . --json
+python tools/agent_memory.py reflect-system-trigger --project . --payload-file "<trigger.json>" --json  # read-only; authorized slot allocation uses --claim
+python tools/agent_memory.py reflect-system --project . --review-key "<review-key>" --payload-file "<review.json>" --json
+python tools/agent_memory.py maintain-system --project . --limit 5 --json
+python tools/agent_memory.py maintain-system-status --project . --id 1 --expected-revision 1 --status needs_evidence --note "<evidence-gap>" --json
+python tools/agent_memory.py maintain-system-check --project . --id 1 --expected-revision 2 --run-key "<run-key>" --plan-file "<plan.json>" --json  # preview only; execution requires --execute
+python tools/agent_memory.py maintain-system-candidate --project . --id 1 --expected-revision 2 --candidate-key "<candidate-key>" --patch-file "<patch-file>" --candidate-home "<authorized-directory>" --json  # preview only
+python tools/agent_memory.py maintain-system-migrate --project . --target-version system-evolution-v2 --backup-file "<new-backup.db>" --json  # preview only
+python tools/agent_memory.py maintain-system-accept --project . --id 1 --expected-revision 2 --operation-key "<accept-key>" --acceptance-file "<acceptance.json>" --review-file "<review.json>" --json  # preview only
+python tools/agent_memory.py maintain-system-apply --project . --id 1 --expected-revision 3 --operation-key "<apply-key>" --target-root "<authorized-target>" --recovery-home "<recovery-directory>" --layout installed --json  # preview only
+python tools/agent_memory.py maintain-system-follow-up --project . --id 1 --expected-revision 4 --operation-key "<monitor-key>" --status monitoring --note "<scope>" --json  # preview only
+python tools/agent_memory.py maintain-system-rollback --project . --id 1 --expected-revision 5 --operation-key "<rollback-key>" --application-key "<apply-key>" --json  # preview only
+python tools/agent_memory.py maintain-system-resume --project . --operation-key "<unfinished-apply-key>" --json  # preview only
 python tools/agent_memory.py vault-export --project .
 python tools/agent_memory.py learn-entry --project . --entry "<file>" --depth 2 --json
 python tools/agent_memory.py learn-entry --project . --source "<external-project>" --entry "<file>" --depth 2 --json

@@ -1,0 +1,26 @@
+{
+  "schema_version": "system-meta-host-smoke/v1",
+  "scope": "real_host_controlled_fixture",
+  "production_task": false,
+  "model_selection": "existing_configured_default",
+  "raw_transcript_stored_in_repository": false,
+  "outcome": "not_completed",
+  "host_version": "codex-cli 0.165.0",
+  "installed_runtime_digest": "621647390667a9f8810f476abd012712420b306e4307cfb42169acf4efc290b8",
+  "installed_query_skill_digest": "04fd8422abe62474aff8861c6c6cb4867f9bf40acc24656d47963505dc1bd6d8",
+  "process_returncode": 0,
+  "event_types": [
+    "item.completed",
+    "item.started",
+    "thread.started",
+    "turn.completed",
+    "turn.started"
+  ],
+  "runtime_operations_seen": {
+    "context": true,
+    "reflect-system-trigger": false,
+    "reflect-system": false
+  },
+  "stderr_digest": "9cee6279e0cc8721eeba04ffadddb5d54f7239297b544d24f357937a84c557a8",
+  "host_error_category": "other_or_none"
+}

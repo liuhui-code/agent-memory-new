@@ -1,11 +1,32 @@
 ---
 name: agent-memory-reflect
-description: Use after completing, failing, debugging, or changing a local agent task to save reflections, lessons, durable facts, and reusable project knowledge.
+description: Use after completing, failing, debugging, or changing a local agent task to save durable lessons, facts and project knowledge, or to review Agent Memory itself after an explicit request or a concrete system-related issue.
 ---
 
 # Agent Memory Reflect
 
-Use this skill to write durable lessons after work.
+Use this skill for task lessons or a bounded review of Agent Memory itself.
+
+## Choose The Reflection Target
+
+- For ordinary project lessons and facts, follow the existing save workflows below.
+- For an explicit system-review request, or a completed/failed/blocked Memory-related
+  task with a concrete system signal, read [references/system-meta-review.md](references/system-meta-review.md)
+  before any save command. It covers rules, Query, Learn, Reflect and data structures.
+- The system-review path emits an advisory conversation report and at most one change
+  proposal. Keep it outside ordinary reflection/fact/feedback writes. Manual review can
+  cover an unfinished task; the automatic path is once per associated logical task.
+- Do not start a review for every chat turn, ordinary empty result or expected freshness
+  warning. Automatic success sampling is off in v1. Follow cancellation and user budgets.
+
+The supporting Runtime has passed isolated regressions; a real Codex ordinary-task fixture
+also executed the installed handoff. Other host/client behavior still needs its own evidence.
+The reference describes optional `reflect-system` saving when authorized and supported
+by the installed version, plus [trigger decisions and optional review slots](references/system-trigger.md)
+before system-review generation. Ordinary reflection writes remain separate; no task-end hook
+or host-invocation guarantee is added.
+
+## Ordinary Task Reflection
 
 The local Agent CLI must lead the reflection. After one successful or failed diagnosis,
 design, execution, or workflow attempt, first organize the task into structured data.

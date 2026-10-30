@@ -216,3 +216,12 @@ Rules:
 - Do not treat the wiki as a complete call graph.
 - Treat `code_log_matches` and `edge_matches` as diagnosis hints, not runtime traces.
 - Treat learned code context as evidence for future reflections and semantic facts.
+
+## Task-End System Review Handoff
+
+When a real Memory-related task closes with an observed system signal, hand bounded
+observations and its retained task identity to Reflect's installed
+[system-review protocol](../agent-memory-reflect/references/system-meta-review.md).
+Do not review every learning command/chunk or trigger on ordinary empty coverage alone.
+Respect current stop/budget instructions and avoid recursive review of system-improvement
+work. If the reference is unavailable, report the capability gap without inventing a hook.

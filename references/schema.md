@@ -481,3 +481,80 @@ is persisted, and no new command or automatic scope expansion is introduced.
 When `normative_document_fts` is newly created, initialization fills it from the stored
 document rows. It does not refresh Git or change approval declarations. Existing FTS
 tables still use the explicit derived-rebuild path for repairs.
+
+## Optional System Governance Registry
+
+`reflect-system` initializes these tables only during an explicit save to an existing
+registered archive. They are not part of ordinary initialization or REQUIRED_TABLES and
+have no ordinary retrieval, FTS, feedback, graph or Vault-export integration.
+
+| Table | Role |
+|---|---|
+| `system_meta_reviews` | Immutable canonical JSON, digest and task association; unique project/review-key/revision |
+| `system_change_proposals` | Per-review-revision candidate snapshot, advisory state/revision and optional artifact manifest |
+| `system_change_events` | Append-only state-change metadata with unique proposal/state-revision |
+
+The existing `runtime_schema_versions` gains component `system_evolution`, initially
+`system-evolution-v1` on explicit creation; explicit migration also supports v2. Table presence/version mismatches fail
+without automatic repair. Individual DDL statements and record writes run inside the
+explicit writer transaction; no intermediate executescript commit is used.
+
+V1 stored states are proposed, needs_evidence, prepared, rejected and superseded. V2 adds
+checked/applied/monitoring/closed/rolled_back through dedicated lifecycle writers; the
+original status writer still refuses direct advanced-state claims. Immutable describes the
+writer's API behavior, not proof against out-of-band SQLite edits or authenticated evidence.
+Artifact manifests store relative paths, sizes and raw-byte digests, never file bodies;
+the base is caller-declared and no product or data patch is executed. See
+[the detailed Runtime contract](../docs/system-meta-reflection-runtime.zh-CN.md).
+
+Lifecycle execution explicitly creates `system_change_operations`, with component
+system_evolution_operations/system-operations-v1. It binds operation keys, proposal IDs,
+request digests, running/completed/failed/interrupted states and bounded receipts. A partial
+unique index prevents two unresolved operations for one proposal. State/event completion
+and operation finalization are transactional; file progress is checkpointed between writes.
+`system_schema_migrations` is created only on explicit migration and retains version,
+backup file/digest and timestamp. These tables are outside ordinary FTS/retrieval.
+Migration preserves IDs, references and supported post-upgrade writes; v2 advanced states
+block an incompatible downgrade. Code rollback never restores an older user database.
+
+`maintain-system-check --execute` separately initializes the optional
+`system_change_check_runs` table and schema component `system_evolution_checks` with
+version `system-checks-v1`. Preview, ordinary initialization and governance reads do not
+create this table. Run keys are unique per project; a partial unique index permits at
+most one running reservation per project/proposal. State is running/completed/interrupted,
+separate from the proposal state and from the observed command outcome.
+
+Rows bind the proposal/prepared revision, artifact identity, plan digest, bounded plan
+summary and bounded execution progress/receipt. Raw argv, stdout and stderr are not
+stored. Reservation and progress writes are short transactions; no SQLite write lock is
+held across process execution. A running or unresolved reservation blocks proposal-state
+updates and repeat execution. Source observations cover declared files only; rows do not
+authenticate test coverage, whole-repository identity or promotion eligibility. See
+[the explicit check contract](../docs/system-meta-reflection-checks.zh-CN.md).
+
+`reflect-system-trigger --claim` separately creates `system_meta_review_triggers` with
+component `system_evolution_triggers` / version `system-triggers-v1`. The default trigger
+decision is read-only. This table can exist before the report/check tables and is excluded
+from normal initialization, required-table checks, retrieval, FTS and Vault export.
+
+Unique project/task-origin/task-key and project/review-key constraints reserve one review
+slot. Rows keep the typed bounded request and digest, policy version, chosen trigger,
+reserved/recorded state and latest report pointer. The report writer checks identity/key/
+automatic-slot binding and updates the pointer in its own transaction; there is no foreign
+key to a report table that may not exist yet. Historical identical saves remain idempotent.
+Metadata is not authenticated task identity, observed model execution or an independent
+real-task count. `maintain-system` lists bounded slots, and --trigger-id reads one bounded
+request and report association. See [the trigger contract](../docs/system-meta-reflection-triggers.zh-CN.md).
+
+`maintain-system-candidate --execute` separately creates `system_change_candidates` and
+component `system_evolution_candidates` / version `system-candidates-v1`. It stores the
+proposal/prepared revision, immutable request identity, explicit candidate-home/operation
+paths and bounded Git/changed-file observations. No patch/source body is stored in SQLite;
+the independently copied repository stays in the authorized candidate directory.
+
+Preparing reservations are unique per project/proposal and block state mutation/new
+checks. Ready/failed/interrupted are preparation history, not check or application states.
+No SQLite write lock spans Git cloning/applying. Check plan v2 binds a ready candidate
+from the same proposal/revision/artifact, while v1 retains its declared-file semantics.
+Reads and normal initialization do not create the candidate table. See
+[the candidate contract](../docs/system-meta-reflection-candidates.zh-CN.md).

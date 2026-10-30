@@ -1,0 +1,108 @@
+{
+  "schema_version": "system-meta-host-smoke/v1",
+  "scope": "real_host_controlled_fixture",
+  "production_task": false,
+  "model_selection": "existing_configured_default",
+  "raw_transcript_stored_in_repository": false,
+  "outcome": "passed",
+  "host_version": "codex-cli 0.165.0",
+  "installed_runtime_digest": "621647390667a9f8810f476abd012712420b306e4307cfb42169acf4efc290b8",
+  "installed_query_skill_digest": "04fd8422abe62474aff8861c6c6cb4867f9bf40acc24656d47963505dc1bd6d8",
+  "source_bundle_digest": "07e411dc4d1e9b7613e26e014305d10531e87d258a3eb3b889802dad6e06b2fd",
+  "installed_bundle_digest": "07e411dc4d1e9b7613e26e014305d10531e87d258a3eb3b889802dad6e06b2fd",
+  "process_returncode": 0,
+  "event_types": [
+    "item.completed",
+    "item.started",
+    "thread.started",
+    "turn.completed",
+    "turn.started"
+  ],
+  "runtime_operations_seen": {
+    "context": true,
+    "reflect-system-trigger": true,
+    "reflect-system": true
+  },
+  "skill_reads_observed": {
+    "agent-memory-query": true,
+    "agent-memory-reflect": true,
+    "system-meta-review": true,
+    "system-trigger": true
+  },
+  "project_local_skill_reads": {
+    "agent-memory-query": true,
+    "agent-memory-reflect": true
+  },
+  "usage": {
+    "input_tokens": 233569,
+    "cached_input_tokens": 197632,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 3521,
+    "reasoning_output_tokens": 1639
+  },
+  "usage_scope": "whole_host_smoke_turn_not_meta_review_only",
+  "runtime_invocations": [
+    {
+      "operations": [
+        "context"
+      ],
+      "exit_code": null,
+      "error_classes": []
+    },
+    {
+      "operations": [
+        "context"
+      ],
+      "exit_code": 1,
+      "error_classes": [
+        "IsADirectoryError"
+      ]
+    },
+    {
+      "operations": [
+        "reflect-system-trigger"
+      ],
+      "exit_code": null,
+      "error_classes": []
+    },
+    {
+      "operations": [
+        "reflect-system-trigger"
+      ],
+      "exit_code": 0,
+      "error_classes": []
+    },
+    {
+      "operations": [
+        "context",
+        "reflect-system"
+      ],
+      "exit_code": null,
+      "error_classes": []
+    },
+    {
+      "operations": [
+        "context",
+        "reflect-system"
+      ],
+      "exit_code": 0,
+      "error_classes": []
+    }
+  ],
+  "public_agent_messages": [
+    "我会使用本项目的 `agent-memory-query` 查询该短语，仅依据工具实际返回作答，并保留故意设置的缓存障碍。\n",
+    "查询失败：工具写入 `runtime/last_context.json` 时返回 `IsADirectoryError`，退出码为 1，未返回颜色结果。我会按查询技能要求检查 `agent-memory-reflect` 的任务结束审查流程，不修复缓存障碍。\n",
+    "查询失败（退出码 1）：工具写入 `runtime/last_context.json` 时返回 `IsADirectoryError`，该路径是目录。未返回颜色结果，无法确定 `synthetic release color`。\n\n未修改缓存障碍。已按技能记录系统审查 #1，无修复提案。"
+  ],
+  "stderr_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "host_error_category": "other_or_none",
+  "review_table_present": true,
+  "review": {
+    "id": 1,
+    "trigger": "memory_error",
+    "status": "completed",
+    "advisory_only": true,
+    "task_origin": "client_local"
+  },
+  "claim_count": 1
+}

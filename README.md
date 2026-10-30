@@ -108,6 +108,7 @@ The project is especially optimized for:
 | Experience model | Procedure, correction, and semantic-patch experience lanes |
 | Skill evolution | Reviewed multi-case procedure experience can become a Skill candidate or package |
 | Governance | Refresh, stale/merge/conflict/miss/feedback review, graph health, and action plans |
+| System meta-review | Agent-led review, bound acceptance, explicit application/monitoring/rollback and governance migration; controlled regressions and a real Codex example passed, no automatic release |
 | Change impact | Git changes mapped to symbols, dependents, logs, tests, history, and coverage gaps |
 | Quality evaluation | Retrieval, trust, log, graph, semantic, design-context, and Agent A/B checks |
 | Prospective evaluation | Calibrated cohort control plane with temporal cutoffs and fixed stopping; real campaigns remain readiness-gated |
@@ -506,8 +507,8 @@ Normal usage should go through four skills:
 |---|---|---|
 | `agent-memory-learn` | Add project code context to memory | `learn-entry`, `learn-path`, `wiki-index` |
 | `agent-memory-query` | Retrieve memory, log/code anchors, impact, and design context | `context`, `design-context`, `impact-scope`, `search` |
-| `agent-memory-maintain` | Initialize, check, review, govern, and export memory | `doctor`, `maintain-plan`, `vault-export` |
-| `agent-memory-reflect` | Save lessons, facts, and reflection feedback | `reflect`, `reflect-review`, `update` |
+| `agent-memory-maintain` | Initialize, review, govern, export, and follow up system proposals | `doctor`, `maintain-plan`, `maintain-system`, `vault-export` |
+| `agent-memory-reflect` | Save lessons/facts and review Agent Memory itself | `reflect`, `reflect-review`, `reflect-system`, `update` |
 
 The CLI is the stable backend API and debugging escape hatch.
 
@@ -564,6 +565,13 @@ python tools/agent_memory.py vault-export --project .
 - `docs/phase-2-memory-governance-plan.md`: memory governance plan.
 - `docs/guided-memory-review-workflow.md`: guided review workflow.
 - `docs/reflection-quality-loop.md`: reflection quality loop.
+- [System meta-reflection design](docs/system-meta-reflection-design.zh-CN.md) and [governance registry contract](docs/system-meta-reflection-runtime.zh-CN.md): client triggers, isolated records and limited proposal states; [synthetic verification scope and remaining gaps](docs/system-meta-reflection-design.zh-CN.md#9-隔离验证记录).
+- [Explicit system checks](docs/system-meta-reflection-checks.zh-CN.md): bounded plan execution and file/process observations; synthetic regressions passed, no automatic promotion.
+- [Task-end trigger decisions and slots](docs/system-meta-reflection-triggers.zh-CN.md): conditional Skill handoff and once-per-task allocation; controlled regressions and one real Codex ordinary-task handoff passed.
+- [Isolated candidate and v2 check subjects](docs/system-meta-reflection-candidates.zh-CN.md): a bound patch on an actual Git base; synthetic regressions passed without source/product installation changes.
+- [System-change lifecycle](docs/system-meta-reflection-lifecycle.zh-CN.md): v3 result binding, Agent-reviewed acceptance, source/installed application, actual-directory follow-up, migration and code/data recovery boundaries.
+- [Completion evidence](docs/system-meta-reflection-completion.zh-CN.md): current regression/installed-copy results, real-host observations and retained failures.
+- [Implementation context](CONTEXT.md) and [lifecycle decision record](docs/adr/0001-system-meta-reflection-lifecycle.zh-CN.md).
 - `docs/query-miss-feedback-loop.md`: query miss feedback loop.
 - `docs/code-log-statement-network.md`: code log statement extraction and memory edges.
 - `docs/templates/diagnosis-memory-query-template.md`: recursive diagnosis template.
