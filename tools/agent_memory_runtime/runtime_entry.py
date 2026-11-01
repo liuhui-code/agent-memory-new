@@ -87,12 +87,14 @@ from .prospective_cohort import (
     eval_cohort_report_command,
 )
 from .vault import vault_export, vault_index, vault_init
+from .review_server import review_ui
 
 
 def command_handlers() -> dict[str, object]:
     return {
         "init_project": init_project,
         "doctor": doctor,
+        "review_ui": review_ui,
         "update": update,
         "search": search,
         "context": context,

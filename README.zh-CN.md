@@ -76,7 +76,7 @@ Agent Memory 的目标不是保存更多文本，而是向 Agent 提供**短、�
 | 质量门禁 | retrieval、trust、log signal、graph、design context 和 Agent A/B |
 | 真实使用验证 | 已校准前瞻 Cohort 控制面；真实活动仍须通过项目、任务源、验证和 revision 就绪门禁 |
 | Token 控制 | `context --compact` 与 `design-context --compact` 约束首轮注入 |
-| 人工审查 | Obsidian Vault、maintain health/review/plan 和可解释治理动作 |
+| 人工审查 | 本地浏览器工作台：搜索、分页、详情、批量审查、归档 / 恢复与备份后删除；保留 Obsidian 镜像 |
 
 ## 为什么重点支持 ArkTS
 
@@ -506,6 +506,42 @@ python tools/agent_memory.py vault-export --project .
 ```
 
 正常使用应由 Agent 自动调用四个 Skill。CLI 是稳定后台接口和调试入口。
+
+## 记忆审查工作台
+
+打开当前项目的人工管理界面：
+
+```bash
+python3 tools/agent_memory.py review-ui --project . --open
+```
+
+支持中文搜索、类型 / 状态筛选、分页、详情与批量审查。事实、反思和经历可以归档、恢复，
+归档后可在自动备份的保护下永久删除；源码索引只读。使用自定义存储时添加原有的
+`--memory-home <path>`。只监听本机、前台运行，`Ctrl+C` 结束，不需要额外依赖。
+
+操作直接保存到 SQLite；整理后用 `vault-export` 重新生成 Obsidian 镜像。
+详见[工作台说明](docs/memory-review-workbench.zh-CN.md)。
+
+## 基础检查
+
+在仓库根目录运行：
+
+```bash
+python3 -m tests.run_basic_checks
+```
+
+复用现有拆分测试，覆盖初始化、项目隔离、学习/刷新、搜索、反思、治理、安装/doctor、
+Vault 导出、中文输出和越界路径。项目、临时文件及默认 Memory Home 均隔离并在结束后清理，
+不调用模型或执行已密封评测集。
+
+需要 JSON 结果时，在已有目录中指定一个新文件：
+
+```bash
+python3 -m tests.run_basic_checks --report /tmp/agent-memory-basic-001.json
+```
+
+报告包含实际计数、失败用例 ID 和源码摘要。旧的 `tests.test_agent_memory` 是空的兼容占位，
+请使用上述入口执行实际基础检查。
 
 ## 数据与隐私边界
 

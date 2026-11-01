@@ -113,7 +113,7 @@ The project is especially optimized for:
 | Quality evaluation | Retrieval, trust, log, graph, semantic, design-context, and Agent A/B checks |
 | Prospective evaluation | Calibrated cohort control plane with temporal cutoffs and fixed stopping; real campaigns remain readiness-gated |
 | Token control | Compact diagnosis and design contexts capped near 1,500 estimated tokens |
-| Human review | Generated Obsidian mirror plus health, review, and plan commands |
+| Human review | Local browser workbench with search, pagination, details, batch review, archive / restore and backup-protected deletion; Obsidian mirror retained |
 
 ## Memory System Design
 
@@ -498,6 +498,46 @@ Export the review vault:
 ```bash
 python tools/agent_memory.py vault-export --project .
 ```
+
+## Memory Review Workbench
+
+Open the human review interface for an initialized project:
+
+```bash
+python3 tools/agent_memory.py review-ui --project . --open
+```
+
+Browse six record types with literal search, filters, pagination and full record details.
+Review, archive and restore facts, reflections and episodes; permanently delete archived
+records after an automatic SQLite backup. Source-derived code indexes remain read-only.
+Use the existing `--memory-home <path>` when storage is customized. The foreground server
+only listens on loopback; stop it with Ctrl+C. No extra dependencies are required.
+
+Actions update SQLite. Regenerate the Obsidian mirror with `vault-export` after organizing.
+See the [workbench guide](docs/memory-review-workbench.zh-CN.md) for deletion and backup boundaries.
+
+## Basic Checks
+
+Run from the repository root:
+
+```bash
+python3 -m tests.run_basic_checks
+```
+
+This runs the existing split basic tests for initialization, project isolation, learning,
+search, reflection, governance, installation/doctor, Vault export, Chinese output and
+invalid source paths. Projects, temporary files and fallback Memory Home are isolated
+and cleaned up. It does not invoke a model or run sealed evaluation packs.
+
+To save a JSON result, choose a new file in an existing directory:
+
+```bash
+python3 -m tests.run_basic_checks --report /tmp/agent-memory-basic-001.json
+```
+
+The report records actual counts, failed test IDs and source digests. The old
+`tests.test_agent_memory` module is an empty compatibility placeholder; use the command
+above to execute the active basic tests.
 
 ## How To Use
 

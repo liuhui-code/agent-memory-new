@@ -1,0 +1,36 @@
+{
+  "schema_version": "memory-review-closing-audit/v1",
+  "recorded_at": "2026-11-01T08:05:23.888047+00:00",
+  "source_files": 339,
+  "source_manifest_digest": "c74ac160b2cb061bf92976082f5e3f9add27fdb961c042ab52137077ecd9ebcd",
+  "source_matches_final_regression": true,
+  "preview_server_stopped": true,
+  "loopback_listener_closed": true,
+  "browser_session_closed": true,
+  "preview_archive_integrity": {
+    "final_archive": {
+      "semantic_facts": 71,
+      "episodes": 24,
+      "reflections": 30,
+      "code_files": 1200,
+      "code_symbols": 800,
+      "code_log_statements": 240
+    },
+    "fixed_predelete_backup": {
+      "semantic_facts": 72,
+      "episodes": 24,
+      "reflections": 30,
+      "code_files": 1200,
+      "code_symbols": 800,
+      "code_log_statements": 240
+    }
+  },
+  "fixed_backup_standalone_readonly_integrity": "ok",
+  "preview_archive_and_both_generated_backups_removed": true,
+  "basic_and_review_suite_cleanup_completed": true,
+  "scale_fixture_cleanup_completed": true,
+  "existing_business_archives_read_or_modified": false,
+  "preexisting_memory_md_read_or_modified": false,
+  "browser_tool_cache_retained_in_tmp": true,
+  "commit_or_push_performed": false
+}

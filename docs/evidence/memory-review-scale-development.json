@@ -1,0 +1,67 @@
+{
+  "schema_version": "memory-review-scale-development/v1",
+  "origin": "generated development fixture",
+  "records": 100000,
+  "counts": {
+    "semantic": 25000,
+    "reflection": 0,
+    "episode": 0,
+    "code-file": 0,
+    "code-symbol": 75000,
+    "code-log": 0
+  },
+  "population_seconds": 4.289,
+  "overview_milliseconds": 21.714,
+  "measurements": [
+    {
+      "name": "first_page_all",
+      "params": {
+        "limit": "100"
+      },
+      "milliseconds": 158.323,
+      "returned": 100,
+      "matching": 100000,
+      "json_bytes": 35849
+    },
+    {
+      "name": "second_page_all",
+      "milliseconds": 158.67,
+      "returned": 100
+    },
+    {
+      "name": "source_symbols",
+      "params": {
+        "kind": "code-symbol",
+        "limit": "100"
+      },
+      "milliseconds": 137.876,
+      "returned": 100,
+      "matching": 75000,
+      "json_bytes": 34552
+    },
+    {
+      "name": "chinese_literal_search",
+      "params": {
+        "q": "中文审查样本 024999"
+      },
+      "milliseconds": 95.587,
+      "returned": 1,
+      "matching": 1,
+      "json_bytes": 413
+    },
+    {
+      "name": "pending_review",
+      "params": {
+        "view": "pending",
+        "limit": "100"
+      },
+      "milliseconds": 24.991,
+      "returned": 100,
+      "matching": 25000,
+      "json_bytes": 35848
+    }
+  ],
+  "claimed_million_record_slo": false,
+  "iterations_per_scenario": 1,
+  "temporary_root_cleanup_completed": true
+}

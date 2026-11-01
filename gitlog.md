@@ -10684,3 +10684,93 @@ Delivery scope:
   retain their exact scopes. Dedicated links, fingerprints, line bounds, normative
   metadata and whitespace are checked before staging. Actual commit identity and
   successful remote delivery are established by Git history and the final remote check.
+
+## 2026-11-01 - Run and expose isolated basic checks
+
+- The user requested a practical way to test basic problems. Inspected the existing split
+  tests and found tests/test_agent_memory.py is only an empty compatibility placeholder;
+  selecting that module alone discovers no active cases. Added tests/run_basic_checks.py
+  to select the actual basic profile and reject zero-case discovery.
+- Reused existing initialization/Memory Home/project isolation, learning/refresh/search,
+  reflection/governance, installer/doctor, Vault, Chinese JSON, empty-result and invalid
+  source-path cases. The driver isolates TMPDIR, tempfile.tempdir and fallback Memory
+  Home, restores process state, cleans temporary roots and does not invoke a model or
+  consume sealed evaluation packs. Optional reports require a new file.
+- Actual basic run: 35 discovered, 35 passed, zero failures/errors/skips, in 70.670 seconds
+  (70.904 with recording/cleanup), Python 3.9.6. No basic defect was found in these cases.
+  Retained docs/evidence/basic-checks-41d9a30.json with baseline commit
+  41d9a308bf86f112d766d3d4f7bfb521557c574d and the exact worktree source manifest.
+- All 331 selected Runtime/Skill/installer/test source hashes matched before/after and
+  at closing; digest 93304890b01c76bf8d527d51f8ce6b47db8b083a9c7d78076c8cc25798b349af.
+  Temporary-root cleanup completed. A separate existing-report invocation correctly
+  exited 2 before running tests, leaving the report bytes unchanged.
+- Added the reproducible command/report instructions to both READMEs and current context.
+  The new driver retains the project fingerprint and remains within 500 lines;
+  git diff --check passes. Product Runtime/Skills and evaluation rules were unchanged.
+  Existing business Memory and the pre-existing untracked memory.md were not read or
+  modified. The new test entry, report and documentation remain local/uncommitted.
+
+## 2026-11-01 - Add the local human Memory review workbench
+
+- Added `review-ui` to the single Runtime entry. The explicit foreground server binds
+  loopback only, serves bundled HTML/CSS/JS without external dependencies, and reads the
+  selected project/archive without initialization or governance migration. The interface
+  uses an archive-workbench design with type navigation, literal Chinese search, status /
+  review filters, stable cursor pagination, record details and a mobile inspector.
+- Human facts, episodes and reflections support single/page-batch reviewed, archive and
+  restore actions. Permanent deletion requires prior archival and an exact confirmation;
+  a durable, checked SQLite backup is retained first. Complete-row CAS and one write
+  transaction reject stale or partially invalid batches. FTS triggers and direct edge /
+  counter/revision cleanup are honored. Historical events/references remain; source-derived
+  indexes are read-only. Existing query/ranking/model responsibilities were not changed.
+- Guarded writes with the launch session token, loopback Host/Origin/Fetch Metadata,
+  bounded JSON and fixed asset routes. Rendered stored content as text, kept access logs
+  free of searches/tokens and documented backup, Vault freshness and local-only limits.
+  Installed-copy asset checks and ordinary search archive/restore/delete behavior passed.
+- First controlled run: 22 discovered, 17 passed, five HTTP initialization errors because
+  the default sandbox prohibited loopback bind (7.280 seconds). After permission, those
+  five passed in 3.070 seconds. The first combined 58-case success remains recorded at
+  87.983 seconds / 88.246 with recording/cleanup; it predates the backup correction below.
+  Final combined run: all 59 passed (35 basics + 24 new checks), zero failures/errors/skips,
+  99.560 seconds / 99.844 including recording/cleanup. Its 339-file source/static manifest
+  stayed stable; digest c74ac160b2cb061bf92976082f5e3f9add27fdb961c042ab52137077ecd9ebcd.
+- Real Chromium development UI flow passed 22 checks against 2,366 generated records.
+  After readability/notice/toast polish, six additional HTML injection, two-window stale
+  selection and mobile checks passed. Visually inspected desktop/mobile/delete screenshots;
+  the only conflict-flow console error was the deliberately induced HTTP 409. After the
+  backup fix, five more browser deletion checks passed and the new backup opened read-only
+  with integrity ok (33 browser checks across the declared phases). No model or
+  real-use cohort was invoked, and these observations are not efficacy/release evidence.
+- A closing read-only check exposed a backup defect missed by the initial suite: backup()
+  copied a WAL-mode header, while publication renamed the database but left old-name
+  .partial-wal/.partial-shm files. An independent public-action fixture failed as expected
+  (one test, 0.139 seconds). Explicitly convert the destination to journal_mode=DELETE
+  before checking/fsync/publication, then clean partial-name sidecars. Eight focused action
+  tests passed in 1.047 seconds; retained the reproduction and all earlier results.
+- A separate 100,000-record generated archive measured first/next pages at 158.323 /
+  158.670 ms, source symbols at 137.876 ms, literal Chinese search at 95.587 ms and pending
+  review at 24.991 ms (one observation each). This bounds returned content, not a million-
+  record SLO. Preserved scoped regression/browser/scale/closing evidence under docs/evidence.
+- Updated both READMEs, agent mission, MVP direction, Maintain instructions, current context,
+  Vault reference and the workbench guide. Python syntax/fingerprints/500-line bounds,
+  JavaScript parsing, local links and whitespace checks passed. Stopped the temporary
+  server/browser and removed preview/scale/test archives and generated deletion backup.
+  Existing business Memory, consumed sealed assets and original untracked memory.md were
+  not read or modified. Prior uncommitted basic-check work is preserved; no commit/push.
+
+## 2026-11-01 - Deliver the Memory review workbench on main
+
+- The user explicitly requested merging to main and pushing. The checkout was already
+  main; fetched origin/main and checked it against the existing 41d9a30 baseline before
+  staging. No separate feature-branch merge or force push is needed.
+- Deliver the workbench, reusable basic-check entry, bilingual instructions, scoped
+  development evidence and all eight browser artifacts referenced by that evidence.
+  Remove only the eight generated diagnostic byproducts that are not evidence inputs.
+  Exclude the original untracked memory.md without reading it and leave business Memory
+  and consumed sealed assets untouched.
+- Delivery changes affect documentation only. The final 339-file source/static manifest
+  still matches the 59-case regression, including the standalone SQLite backup fix;
+  browser artifact hashes also match. Preserve earlier sandbox failures, the pre-fix
+  58-case run, the controlled backup reproduction and single-observation scale limits.
+- Check whitespace and the explicit staging list before committing. Actual commit identity
+  and successful remote delivery are established by Git history and the final remote check.

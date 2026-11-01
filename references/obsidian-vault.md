@@ -2,6 +2,12 @@
 
 The vault is a generated Markdown mirror of SQLite data.
 
+For interactive human browsing and review, run
+`python3 tools/agent_memory.py review-ui --project . --open` with the existing Memory
+Home. The [local workbench](../docs/memory-review-workbench.zh-CN.md) updates SQLite
+directly; archive, restore and deletion do not immediately rewrite exported Markdown.
+Run `vault-export` with the same project and Memory Home after organizing.
+
 Path:
 
 ```text

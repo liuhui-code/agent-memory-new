@@ -45,6 +45,14 @@ python3 tools/agent_memory.py doctor --project .
 
 ## Health Check
 
+For a user requesting a human browsing/review/delete interface, start the foreground
+local workbench with `python3 tools/agent_memory.py review-ui --project . --open`,
+using the user's existing `--memory-home` when configured. Report the printed local URL
+and stop method. Do not initialize, migrate, collect real activities or delete records
+merely to open it. The page supports review/archive/restore and backup-protected deletion
+of archived facts, episodes and reflections; code indexes are read-only. Regenerate the
+Vault after organizing if requested. Keep ordinary Agent retrieval on the Query Skill.
+
 ```bash
 python3 tools/agent_memory.py doctor --project .
 python3 tools/agent_memory.py maintain-health --project . --json

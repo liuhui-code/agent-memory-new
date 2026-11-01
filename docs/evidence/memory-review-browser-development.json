@@ -1,0 +1,104 @@
+{
+  "schema_version": "memory-review-browser-development/v1",
+  "recorded_at": "2026-11-01T07:53:05.367618+00:00",
+  "scope": "controlled generated temporary archive; actual local Chromium via Playwright CLI",
+  "fixture_initial_records": 2366,
+  "core_flow": {
+    "passed": 22,
+    "checks": [
+      "initial fixture count is 2366",
+      "initial DOM contains only 30 rows",
+      "second page has no first-page records",
+      "pagination shows page two",
+      "back navigation returns stable page",
+      "empty search has meaningful UI",
+      "Chinese search finds the expected literal matches",
+      "low-confidence filter returns 18 facts",
+      "detail exposes source and full body",
+      "review updates pending count",
+      "batch selection counts two records",
+      "archive dialog enumerates selected records",
+      "batch archive updates summary",
+      "archive area contains five rows",
+      "restoration returns one archived record to active",
+      "permanent deletion is disabled before explicit phrase",
+      "permanent deletion reduces library count by exactly one",
+      "deletion reports a retained backup",
+      "source indexes cannot be selected",
+      "source detail offers no delete action",
+      "mobile viewport has no horizontal overflow",
+      "mobile detail sidepanel is visible"
+    ],
+    "result_observed_in_tool_output": true,
+    "initial_records": 2366,
+    "final_records_after_one_permanent_delete": 2365,
+    "scope_note": "Ran before final dismissible-notice and non-intercepting-toast polish; core runtime and destructive operations unchanged."
+  },
+  "final_guard_flow": {
+    "passed": 6,
+    "checks": [
+      "untrusted HTML is visible as literal text",
+      "untrusted HTML does not create DOM or execute",
+      "stale browser selection fails visibly without archival",
+      "conflicting record remains active",
+      "mobile toast cannot intercept clicks",
+      "final mobile layout has no horizontal overflow"
+    ],
+    "fixture_origin": "generated development records",
+    "added_controlled_html_record": true,
+    "final_records": 2366,
+    "source_manifest_digest": "e5a204654ce8944234a6b3aac724b5ed7c27bc343de0dbfa49b468914144758e"
+  },
+  "console": {
+    "after_core_flow": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "after_intentional_two_window_conflict": {
+      "errors": 1,
+      "warnings": 0,
+      "expected_error": "HTTP 409 at /api/actions; stale selection correctly refused",
+      "observed_page_script_exceptions": 0
+    }
+  },
+  "viewports": {
+    "desktop": {
+      "width": 1480,
+      "height": 1040
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844
+    }
+  },
+  "artifacts": {
+    "output/playwright/memory-review/browser-smoke.js": "5d3537f2775e8037349c9177b7bfdb089e2e9bf7477e5718c9649546e910f550",
+    "output/playwright/memory-review/browser-guards.js": "1b021aa8e9d5af706481e612c9745cffb1c2f7e57ceb14eafb48a5beca1e39bc",
+    "output/playwright/memory-review/desktop-final.png": "ff43b38b05fa7c589ec61645689482b75e734421d5345011d7c1ca30112dd6f4",
+    "output/playwright/memory-review/mobile-final.png": "a3b5cd0e25cdddc4189b18368718a03551789c93e2e28b99acd3039e05467605",
+    "output/playwright/memory-review/mobile-detail-final.png": "852dc9609adffb32fc478f6186146fbeec35e8ef00645dc3a46ece308059747c",
+    "output/playwright/memory-review/delete-confirmation.png": "cad133c8e1756b57426f1c3ec1d00615df4a085287634f67e492c2518197ea4b",
+    "output/playwright/memory-review/browser-backup-fix.js": "09b2ebc7dec84ee321377343b29165e9505be9dbdc36fd004abb5e77a4b6790f",
+    "output/playwright/memory-review/backup-fix-delete.png": "c5ab9d7b36458b8c31d7b3919a4c96059c5477a8b6435bab818803590ade9eed"
+  },
+  "screenshots_visually_inspected": true,
+  "model_invoked": false,
+  "production_or_sealed_evaluation": false,
+  "cleanup_record": "See final cleanup evidence; preview server is temporary.",
+  "post_fix_delete_flow": {
+    "passed": 5,
+    "checks": [
+      "fixed runtime archives controlled record",
+      "delete remains disabled without exact phrase",
+      "fixed runtime removes only the selected generated record",
+      "fixed runtime returns backup path",
+      "result notice can be dismissed"
+    ],
+    "backup_notice": "删除前备份：/private/tmp/memory-workbench-preview-4qgp6jpz/memory-home/projects/525c3bfa1489bbaf/runtime/review-backups/before-delete-1361603bd1b8468d9e84e69733ef94ad.db。SQLite 已更新；现有 Obsidian 镜像需通过 vault-export 重新导出。",
+    "final_count": 2365,
+    "source_manifest_digest": "c74ac160b2cb061bf92976082f5e3f9add27fdb961c042ab52137077ecd9ebcd",
+    "standalone_backup_readonly_integrity": "ok",
+    "standalone_backup_journal_header": "0101"
+  },
+  "total_observed_checks": 33
+}

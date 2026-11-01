@@ -1,0 +1,25 @@
+{
+  "schema_version": "memory-review-backup-reproduction/v1",
+  "recorded_at": "2026-11-01T07:59:44.918579+00:00",
+  "scope": "independent temporary development archive; no real Memory",
+  "public_operation": "archive then permanent delete via apply_action",
+  "reproducer": "tests.test_review_library.ReviewActionTests.test_delete_backup_is_standalone_readonly_without_wal_sidecars",
+  "before_fix": {
+    "tests_run": 1,
+    "failures": 1,
+    "errors": 0,
+    "elapsed_seconds": 0.139,
+    "observed": "Published backup retained a WAL header and old .partial-wal / .partial-shm sidecars; standalone mode=ro open failed in preview cleanup",
+    "runtime_hash": "e0529094106354cb7351ebdf4e185190b2cb93d2f2b3b9b89d4f25f620a16bc4"
+  },
+  "fix": "After SQLite backup(), explicitly switch destination to journal_mode=DELETE before quick_check, fsync and publication; remove partial-name sidecars after close",
+  "focused_after_fix": {
+    "tests_run": 8,
+    "passed": 8,
+    "failures": 0,
+    "errors": 0
+  },
+  "reproducer_hash": "c77ed251a85357f437f258cb0ad4aeee09fedf7482288d22f205f305fb91404b",
+  "fixed_runtime_hash": "286a9f2841b16a2c669271223fc990228a70d1cef5ce3bb87364e86aa82c976b",
+  "original_58_case_result_retained": true
+}

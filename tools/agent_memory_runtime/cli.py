@@ -34,6 +34,12 @@ def build_parser(commands: Mapping[str, Any]) -> argparse.ArgumentParser:
     add_project(p)
     p.set_defaults(func=command("doctor"))
 
+    p = sub.add_parser("review-ui", help="Open a local human Memory review workbench")
+    add_project(p)
+    p.add_argument("--port", type=int, default=0, help="Loopback port; 0 selects an available port")
+    p.add_argument("--open", action="store_true", help="Open the browser after starting")
+    p.set_defaults(func=command("review_ui"))
+
     p = sub.add_parser("update")
     add_project(p)
     p.add_argument("--type", required=True, choices=["semantic", "episode"])

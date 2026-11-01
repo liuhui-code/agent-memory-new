@@ -101,6 +101,10 @@ After the first MVP, the next layer is memory governance and consolidation. Keep
 - query miss feedback for completely failed retrievals
 - manual merge and episode-to-fact promotion
 - generated Obsidian governance dashboard pages
+- an explicit foreground `review-ui` for human browsing, bounded pagination, review,
+  archival/restoration and backup-protected deletion of ordinary Memory records;
+  see [the workbench guide](memory-review-workbench.zh-CN.md). SQLite remains authoritative,
+  source indexes stay read-only, and the existing four-Skill/query protocol is retained.
 
 See `docs/phase-2-memory-governance-plan.md`.
 See `docs/experience-system-plan.md` for the experience layer direction above raw memory.
