@@ -70,6 +70,10 @@ from .system_evolution import reflect_system_trigger
 from .system_evolution import maintain_system_candidate
 from .system_evolution import maintain_system_migrate
 from .system_evolution import maintain_system_lifecycle
+from .system_evolution import maintain_system_outcome
+from .system_evolution import maintain_system_round, maintain_system_round_record
+from .system_evolution import maintain_system_round_handoff
+from .system_evolution import maintain_system_campaign_readiness
 from .system_evolution_contract import SystemEvolutionError
 from .retrieval_eval import eval_retrieval_command
 from .retrieval_feedback import retrieval_feedback_command
@@ -134,6 +138,11 @@ def command_handlers() -> dict[str, object]:
         "maintain_system_candidate": maintain_system_candidate,
         "maintain_system_migrate": maintain_system_migrate,
         "maintain_system_lifecycle": maintain_system_lifecycle,
+        "maintain_system_outcome": maintain_system_outcome,
+        "maintain_system_round": maintain_system_round,
+        "maintain_system_round_record": maintain_system_round_record,
+        "maintain_system_round_handoff": maintain_system_round_handoff,
+        "maintain_system_campaign_readiness": maintain_system_campaign_readiness,
         "maintain_system": maintain_system,
         "maintain_system_status": maintain_system_status,
         "maintain_system_check": maintain_system_check,

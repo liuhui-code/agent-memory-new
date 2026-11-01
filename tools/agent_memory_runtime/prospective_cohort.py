@@ -51,11 +51,11 @@ from .usage_samples import (
 
 def eval_cohort_create_command(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
-    ensure_initialized(project)
     protocol = load_protocol(Path(args.protocol).expanduser())
     manifest = Path(args.campaign_manifest).expanduser() if args.campaign_manifest else None
     protocol = bind_campaign_input(protocol, manifest, project.root, project.memory_home)
     digest = canonical_digest(protocol)
+    ensure_initialized(project)
     with connect(project) as conn:
         conn.execute("BEGIN IMMEDIATE")
         cohort = insert_cohort(conn, project.project_id, protocol, digest, now_iso())

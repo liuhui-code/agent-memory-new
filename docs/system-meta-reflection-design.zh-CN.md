@@ -46,6 +46,8 @@ v1 是用户当前 Agent 主导的前台工作流。Runtime 增加 `reflect-syst
 交接，Reflect 可调用确定性触发判断；有授权时先占位再生成。若客户端没有
 task-end hook，仍通过 Agent 收尾步骤执行；未加载/遵循 Skill 时不能保证调用。
 当前用户指令优先，正在执行元反思时禁止递归发起自动元反思。
+后续[跨版本递归草案](system-meta-reflection-recursive-evolution.zh-CN.md)利用新的任务结果和冻结窗口
+复核改进方法；它不修改这里的 v1 自动跳过、成功抽样为 0 和一次任务评审规则。
 
 | 优先级 | 条件 | v1 决定 |
 |---|---|---|
@@ -302,3 +304,17 @@ with tempfile.TemporaryDirectory(prefix='agent-memory-meta-verify-', dir='/priva
 sys.exit(0 if succeeded else 1)
 PY
 ```
+
+## 10. 跨任务和跨版本演进的下一阶段草案
+
+[递归演进方案](system-meta-reflection-recursive-evolution.zh-CN.md)补齐长期反馈、父版本和观察窗口、
+正常任务审计、稳定判定、预算/停止及代码/数据回退，研究与决策记录见
+[ADR 0002](adr/0002-bounded-recursive-evolution.zh-CN.md)。该草案基于成熟持续改进、SRE/实验实践
+以及有范围的 AI 自改工作，不承诺自动单调提升。
+
+2026-11-01 已实现 [R1 只读结果关联](system-meta-reflection-outcomes.zh-CN.md)和
+[R2 持久轮次](system-meta-reflection-rounds.zh-CN.md)，随后增加
+[R3 宿主窗口交接](system-meta-reflection-handoffs.zh-CN.md)；没有自动下一候选或部署。
+第 9 节历史回归及后续 55 项通过只覆盖此前实现；新方案 RE01–RE14 整场景仍为 not_run，
+R1/R2/R3 局部机制另有独立用例。结果关联、不可变轮次记录和有界宿主交接已落地，
+真实活动需要独立来源和预声明合同，不把草案或机制完成当作长期效能结果。

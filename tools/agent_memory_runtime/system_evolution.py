@@ -18,6 +18,37 @@ from .system_evolution_acceptance import accept_change
 from .system_evolution_application import apply_change, resume_application, rollback_change
 from .system_evolution_follow_up import follow_up_change, resolve_nonapplication
 from .system_evolution_contract import SystemEvolutionError
+from .system_evolution_outcomes import outcome_context
+from .system_evolution_rounds import read_round, record_round
+from .system_evolution_rounds_contract import load_round_record
+from .system_evolution_handoff_contract import load_handoff
+from .system_evolution_handoffs import handoff_round
+from .system_evolution_campaign_readiness import campaign_readiness
+
+
+def maintain_system_campaign_readiness(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    output(campaign_readiness(project, args.protocol_file, args.campaign_manifest, args.intent), args.json)
+
+
+def maintain_system_round_handoff(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    output(handoff_round(project, load_handoff(args.payload_file), args.execute), args.json)
+
+
+def maintain_system_round(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    output(read_round(project, args.round_key, args.revision, args.limit), args.json)
+
+
+def maintain_system_round_record(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    output(record_round(project, load_round_record(args.payload_file), args.execute), args.json)
+
+
+def maintain_system_outcome(args: argparse.Namespace) -> None:
+    project = resolve_project(args.project, args.memory_home)
+    output(outcome_context(project, args.id, args.application_key, args.plan_file, args.observations_file), args.json)
 
 
 def maintain_system_lifecycle(args: argparse.Namespace) -> None:

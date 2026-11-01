@@ -1,0 +1,97 @@
+{
+  "schema_version": "system-meta-r4-development-readiness-record/v1",
+  "recorded_at": "2026-11-01T03:08:34.439338+00:00",
+  "user_scope": "development_contracts_and_isolated_validation_only",
+  "workspace_is_designated_campaign_project": false,
+  "campaign_project": null,
+  "campaign_memory_home": null,
+  "future_task_source": null,
+  "real_tasks_collected_in_this_slice": 0,
+  "probe_memory_home_policy": "explicit_temporary_uninitialized_directory_not_business_archive",
+  "probe_memory_home_created": false,
+  "temporary_root_cleanup_completed": true,
+  "audit": {
+    "schema_version": "system-meta-campaign-readiness/v1",
+    "decision": "no_go",
+    "intent": "system_evolution",
+    "observed_project_id": "f957c13e85505584",
+    "target_source": {
+      "available": true,
+      "revision": "4d5e068e68a107437aee2df7edd39acb595d311f",
+      "tree": "9fcaf4b4d6fb971101a4d36efb27be2d0c64c74f",
+      "dirty": true,
+      "status_digest": "cc6ab33a598c332fd9227839bc72a7bd61e9c06e8122983837af30b5cde42596"
+    },
+    "runtime_identity": {
+      "code_digest": "8e4ecc08b536df6773a2c860eeb3948e0ff5fd555357b6cc0fa00d740e7a0f3f",
+      "file_count": 301,
+      "hosting_checkout": {
+        "available": true,
+        "revision": "4d5e068e68a107437aee2df7edd39acb595d311f",
+        "tree": "9fcaf4b4d6fb971101a4d36efb27be2d0c64c74f",
+        "dirty": true,
+        "status_digest": "cc6ab33a598c332fd9227839bc72a7bd61e9c06e8122983837af30b5cde42596"
+      },
+      "atomic_snapshot": false,
+      "scope": "runtime_python_only_not_model_skills_or_environment"
+    },
+    "atomic_snapshot": false,
+    "sections": {
+      "internal": {
+        "status": "unsupported",
+        "supported_contract": "diagnosis/selective-query-skill/v1",
+        "archive_file_present": false,
+        "archive_identity_checked": false
+      },
+      "external": {
+        "status": "missing",
+        "missing_requirements": [
+          "campaign_project",
+          "future_task_stream",
+          "task_start_memory_home",
+          "objective_verification",
+          "raw_task_custody",
+          "fixed_stopping_rule"
+        ],
+        "source_authenticated": false,
+        "continuity_authenticated": false
+      },
+      "campaign": {
+        "protocol": {
+          "status": "not_supplied",
+          "digest": null
+        },
+        "manifest": {
+          "status": "not_supplied",
+          "digest": null
+        },
+        "target_presented": null
+      },
+      "evidence": {
+        "status": "not_assessed",
+        "existing_task_records_read": false,
+        "causal_effect_established": false,
+        "miss_rate": null
+      }
+    },
+    "blockers": [
+      "missing_campaign_project",
+      "missing_future_task_stream",
+      "missing_task_start_memory_home",
+      "missing_objective_verification",
+      "missing_raw_task_custody",
+      "missing_fixed_stopping_rule",
+      "frozen_protocol_unavailable",
+      "campaign_manifest_unavailable",
+      "unsupported_campaign_contract"
+    ],
+    "records_written": false,
+    "archive_initialized": false,
+    "activity_started": false,
+    "execution_authorized": false,
+    "model_invoked": false,
+    "evidence_verified": false,
+    "efficacy_verified": false,
+    "promotion_eligible": false
+  }
+}

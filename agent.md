@@ -63,6 +63,10 @@ Responsibilities:
 - Skill task-end handoffs may use a deterministic trigger decision and an authorized once-per-task review slot before model generation. Slots do not authenticate task identity or prove host/model execution; see [the trigger contract](docs/system-meta-reflection-triggers.zh-CN.md).
 - Explicit candidate preparation can copy a Git baseline and apply a bound patch in an isolated authorized directory. Check plan v2 observes that candidate without changing the source or installed product. Synthetic Git/SQLite regressions have passed; these results do not establish promotion eligibility. See [the candidate contract](docs/system-meta-reflection-candidates.zh-CN.md).
 - Check plan v3 adds fresh result-file observations for complete bounded acceptance. Governance v2 is an explicit backup-backed migration; ordinary query/init never auto-upgrades it. Source/installed application uses retained images and POSIX file locks; code rollback preserves later Memory writes. Real deployment remains bound to the user's specified project and archive.
+- `maintain-system-outcome` supplies read-only R1 feedback context linking the pre-bound hypothesis, actual application and later operations/task declarations. It performs no writes or efficacy decisions; see [the outcome contract](docs/system-meta-reflection-outcomes.zh-CN.md).
+- R2 stores immutable round/assessment/advisory-decision events in the existing SQLite archive, installed only by an explicit backup-backed system-rounds-v1 migration. It does not generate models or deploy code; see [the round contract](docs/system-meta-reflection-rounds.zh-CN.md).
+- R3 supplies an explicit once-per-round window handoff to the current host model, using a pre-bound policy, atomic generation-slot allocation and R2 completion. Optional system-handoffs-v1 installation is backup-backed; Runtime does not call a model or deploy. See [the host contract](docs/system-meta-reflection-handoffs.zh-CN.md).
+- R4 preparation supplies read-only campaign readiness and validates cohort inputs before initialization. The current diagnosis contract stays bounded; actual R4/R5 activities have not started. See [the readiness contract](docs/system-meta-reflection-campaign-readiness.zh-CN.md).
 
 ## Runtime Commands
 
@@ -103,6 +107,11 @@ python tools/agent_memory.py reflect-review --project . --json
 python tools/agent_memory.py reflect-system-trigger --project . --payload-file "<trigger.json>" --json  # read-only; authorized slot allocation uses --claim
 python tools/agent_memory.py reflect-system --project . --review-key "<review-key>" --payload-file "<review.json>" --json
 python tools/agent_memory.py maintain-system --project . --limit 5 --json
+python tools/agent_memory.py maintain-system-outcome --project . --id 1 --application-key "<apply-key>" --plan-file "<bound-outcome-plan.json>" --json  # read-only feedback context
+python tools/agent_memory.py maintain-system-round --project . --round-key "<round-key>" --json
+python tools/agent_memory.py maintain-system-round-handoff --project . --payload-file "<handoff.json>" --json  # preview/inspect; authorized writes use --execute
+python tools/agent_memory.py maintain-system-campaign-readiness --project . --json  # read-only input/scope audit; never starts an activity
+python tools/agent_memory.py maintain-system-round-record --project . --payload-file "<round-record.json>" --json  # preview; authorized recording uses --execute
 python tools/agent_memory.py maintain-system-status --project . --id 1 --expected-revision 1 --status needs_evidence --note "<evidence-gap>" --json
 python tools/agent_memory.py maintain-system-check --project . --id 1 --expected-revision 2 --run-key "<run-key>" --plan-file "<plan.json>" --json  # preview only; execution requires --execute
 python tools/agent_memory.py maintain-system-candidate --project . --id 1 --expected-revision 2 --candidate-key "<candidate-key>" --patch-file "<patch-file>" --candidate-home "<authorized-directory>" --json  # preview only

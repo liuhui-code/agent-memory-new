@@ -564,6 +564,11 @@ python tools/agent_memory.py vault-export --project .
 - [元反思合成隔离验证结果与未覆盖项](docs/system-meta-reflection-design.zh-CN.md#9-隔离验证记录)
 - [系统变更晋级、实际应用、迁移与回退](docs/system-meta-reflection-lifecycle.zh-CN.md)
 - [本轮完成证据、真实宿主记录与交付边界](docs/system-meta-reflection-completion.zh-CN.md)
+- [跨任务、跨版本递归演进方案](docs/system-meta-reflection-recursive-evolution.zh-CN.md)：成熟理论与实践、稳定评价和有界迭代；R1/R2/R3 已提供结果关联、持久轮次及有界宿主交接，自动候选/部署和长期效能仍待后续工作。
+- [R2 轮次持久化](docs/system-meta-reflection-rounds.zh-CN.md)：显式备份迁移、不可变快照、修订/次数预算守卫和决策保留；不自动部署或启动循环。
+- [R3 窗口交接](docs/system-meta-reflection-handoffs.zh-CN.md)：事先许可、当前宿主一次复核名额、共享任务去重和原子保存评估；不启动后台模型或自动部署。
+- [R4 开发就绪准备](docs/system-meta-reflection-campaign-readiness.zh-CN.md)：只读检查资料/支持范围，非法 Cohort 创建在初始化前拒绝；按用户要求暂不开真实活动。
+- [两轮开发闭环演练](docs/system-meta-reflection-development-journey.zh-CN.md)：安装版 R1–R4 组合操作、晚到反馈、停止、代码恢复及 Memory 保留；仅为受控开发证据。
 - [当前实现上下文](CONTEXT.md)与[生命周期 ADR 记录](docs/adr/0001-system-meta-reflection-lifecycle.zh-CN.md)
 - [SQLite Schema](references/schema.md)
 - [长期数据治理内核](docs/superpowers/specs/2026-07-16-long-term-data-governance-kernel.md)

@@ -25,6 +25,14 @@ when preparing an isolated Git-patch subject. For reviewed acceptance, explicit 
 post-application checks, schema migration or rollback, read
 [references/system-lifecycle.md](references/system-lifecycle.md). These source commands
 have controlled regression coverage; no automatic release or expanded permission is implied.
+For reviewing an applied proposal against its original hypothesis and later results, read
+[references/system-outcomes.md](references/system-outcomes.md); its context reader is read-only.
+For authorized durable round snapshots, assessment history and advisory decisions, read
+[references/system-rounds.md](references/system-rounds.md); installation is an explicit backup-backed migration.
+For a known authorized round reaching its predeclared observation window, read
+[references/system-handoffs.md](references/system-handoffs.md) before one current-host assessment.
+Before a proposed real-task activity, read
+[references/system-campaign-readiness.md](references/system-campaign-readiness.md) and report missing inputs.
 
 Memory data is stored in the current workspace `.agent-memory/` by default, next to `skills/` and `tools/`, not in the learned external source directory. Use `--memory-home <path>` when the user configured a custom location; otherwise the runtime uses `AGENT_MEMORY_HOME` or `./.agent-memory`.
 

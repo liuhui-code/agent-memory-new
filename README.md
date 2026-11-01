@@ -571,6 +571,11 @@ python tools/agent_memory.py vault-export --project .
 - [Isolated candidate and v2 check subjects](docs/system-meta-reflection-candidates.zh-CN.md): a bound patch on an actual Git base; synthetic regressions passed without source/product installation changes.
 - [System-change lifecycle](docs/system-meta-reflection-lifecycle.zh-CN.md): v3 result binding, Agent-reviewed acceptance, source/installed application, actual-directory follow-up, migration and code/data recovery boundaries.
 - [Completion evidence](docs/system-meta-reflection-completion.zh-CN.md): current regression/installed-copy results, real-host observations and retained failures.
+- [Cross-task/version recursive evolution proposal](docs/system-meta-reflection-recursive-evolution.zh-CN.md): research, stable evaluation and bounded iteration. R1/R2/R3 provide linked outcomes, durable rounds and bounded host handoffs; autonomous candidates/deployment and long-term efficacy remain separate work.
+- [R2 persistent rounds](docs/system-meta-reflection-rounds.zh-CN.md): backup-backed optional SQLite component, immutable snapshots, revision/budget guards and advisory decisions; no automatic deployment or loop.
+- [R3 window handoffs](docs/system-meta-reflection-handoffs.zh-CN.md): pre-bound permission, a single current-host review slot, shared task deduplication and atomic assessment recording; no background model or deployment.
+- [R4 development readiness](docs/system-meta-reflection-campaign-readiness.zh-CN.md): read-only input/scope audit and validation before cohort initialization; real activities remain stopped as requested.
+- [Two-round development walkthrough](docs/system-meta-reflection-development-journey.zh-CN.md): installed R1–R4 integration, historical feedback, stops, code recovery and Memory preservation; controlled development evidence.
 - [Implementation context](CONTEXT.md) and [lifecycle decision record](docs/adr/0001-system-meta-reflection-lifecycle.zh-CN.md).
 - `docs/query-miss-feedback-loop.md`: query miss feedback loop.
 - `docs/code-log-statement-network.md`: code log statement extraction and memory edges.

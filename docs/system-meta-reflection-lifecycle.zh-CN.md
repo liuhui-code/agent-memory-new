@@ -60,6 +60,12 @@ closed 还需该当前应用/修订的成功监测、未变的代码/输入和�
 分别保留，不能关闭。关闭仅满足声明的后续检查范围，不代表长期效能或因果收益。
 checked 可显式退回 needs_evidence，重新准备时需重新绑定检查。
 
+后续结果与原假设、父版本的只读关联由
+[R1 效果上下文](system-meta-reflection-outcomes.zh-CN.md)实现；它不扩展 closed 的语义。
+R2 保存持久轮次，R3 提供[有界宿主窗口交接](system-meta-reflection-handoffs.zh-CN.md)；它们
+均不扩展 closed 的效能含义。完整目标见[递归演进草案](system-meta-reflection-recursive-evolution.zh-CN.md)，
+正常任务独立审计、自动候选/部署和长期效能仍需后续实现与实际材料。
+
 ## 数据兼容和恢复
 
 `maintain-system-migrate` 支持治理 system-evolution-v1/v2，默认预览。执行前要求新

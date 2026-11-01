@@ -1,0 +1,21 @@
+{
+  "schema_version": "system-meta-development-journey/v1",
+  "outcome": "failed",
+  "recorded_at": "2026-11-01T03:20:44.140947+00:00",
+  "scope": "controlled_two_round_installed_runtime",
+  "production_or_sealed_evaluation": false,
+  "task_material": "synthetic_declarations_not_independent_efficacy_samples",
+  "model_invoked_by_driver": false,
+  "efficacy_verified": false,
+  "stages": [
+    {
+      "name": "installed_parent_application",
+      "state": "monitoring",
+      "bundle_matched": true
+    }
+  ],
+  "current_step": "install_and_apply_parent",
+  "runtime_skill_bundle_digest": "a392047dd8e0bf322572fccd4af05ec9888a5363c504fc6a53bde728d4d50962",
+  "failure_type": "CalledProcessError",
+  "temporary_root_cleanup_completed": true
+}

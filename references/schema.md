@@ -558,3 +558,31 @@ No SQLite write lock spans Git cloning/applying. Check plan v2 binds a ready can
 from the same proposal/revision/artifact, while v1 retains its declared-file semantics.
 Reads and normal initialization do not create the candidate table. See
 [the candidate contract](../docs/system-meta-reflection-candidates.zh-CN.md).
+
+R1 outcome feedback adds no SQLite tables or schema version. `maintain-system-outcome`
+reads the existing proposal/candidate/acceptance/application linkage and later operation
+records. Pre-bound outcome plans and optional task declarations are bounded development
+inputs, not a parallel product database. The reader changes no stored state or efficacy
+flag; see [the outcome contract](../docs/system-meta-reflection-outcomes.zh-CN.md).
+
+R2 adds optional component system_evolution_rounds/system-rounds-v1, installed only by
+the explicit backup-backed migration. system_evolution_round_events stores project/study/
+round, revision, kind, record_key, strict request/receipt JSON and SHA-256 digests, and
+created_at. Project/round/revision and project/record_key are unique; update/delete guards
+keep API events append-only. Request/receipt byte caps are 32/128 KiB. Reader history is
+bounded and works after input files disappear. No efficacy flag or ordinary query index is
+updated; see [the round contract](../docs/system-meta-reflection-rounds.zh-CN.md).
+
+R3 adds optional system_evolution_handoffs/system-handoffs-v1 after governance v2 and R2.
+Its system_evolution_handoff_events table stores immutable claim/finish events, task identity,
+bounded request/receipt JSON with digests and creation time. Each project/round has at most
+one event per phase; a partial unique index permits one claim per project/task. Update/delete
+guards preserve API history. Requests/receipts remain capped at 32/128 KiB. A completion and
+its R2 assessment commit in the same transaction. Slots never auto-expire or imply host/model
+execution, and normal initialization/queries do not install this component. See
+[the handoff contract](../docs/system-meta-reflection-handoffs.zh-CN.md).
+
+R4 readiness adds no table or schema version and never opens the archive. It observes only
+archive-file presence, bounded supplied declarations and Git/Runtime identity. Existing
+cohort protocol/source validation now precedes initialization on creation; valid supported
+inputs keep the same schema and evaluation behavior. See [the preparation contract](../docs/system-meta-reflection-campaign-readiness.zh-CN.md).

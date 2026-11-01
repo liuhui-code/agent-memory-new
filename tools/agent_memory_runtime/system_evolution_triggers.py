@@ -9,6 +9,7 @@ from .models import Project
 from .storage import now_iso
 from .system_evolution_contract import canonical_json, content_digest, require
 from .system_evolution_schema import registry_available
+from .system_evolution_handoff_schema import task_handoff_claimed
 from .system_evolution_store import registry_connection
 from .system_evolution_trigger_contract import trigger_choice, validate_trigger
 from .system_evolution_trigger_schema import (
@@ -78,6 +79,9 @@ def decide_trigger(project: Project, request: dict[str, Any], claim_requested: b
         return allow_review(result, request, trigger, key, 1)
     with registry_connection(project, write=claim_requested) as conn:
         claimed, latest = task_records(conn, project.project_id, task)
+        if trigger != "manual" and task_handoff_claimed(conn, project.project_id, task):
+            result.update(reason="round_handoff_already_claimed", review_key=key)
+            return result
         if claimed is not None:
             key = claimed["review_key"]
             result["claim"] = trigger_view(claimed)

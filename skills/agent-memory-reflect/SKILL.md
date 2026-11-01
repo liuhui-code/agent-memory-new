@@ -26,6 +26,11 @@ by the installed version, plus [trigger decisions and optional review slots](ref
 before system-review generation. Ordinary reflection writes remain separate; no task-end hook
 or host-invocation guarantee is added.
 
+When this task contributes to an already known R2 round with a pre-bound host-review
+policy, hand off its window follow-up to `agent-memory-maintain` and read the installed
+Maintain Skill's `references/system-handoffs.md`. Do not invent v1 signals/manual requests,
+discover windows through extra queries, or automatically review system-evolution work.
+
 ## Ordinary Task Reflection
 
 The local Agent CLI must lead the reflection. After one successful or failed diagnosis,

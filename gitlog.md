@@ -10371,3 +10371,316 @@ Delivery scope:
 - Dedicated-document link checks (16 documents, 89 links), project fingerprints and the
   500-line check (31 Python files, maximum 480 lines) passed. Commit identity and actual
   remote delivery are established by Git history and the final remote-reference check.
+
+## 2026-10-30 - Research and complete the bounded recursive-evolution proposal
+
+- Interpreted the user's request as research into mature theory and practical experience,
+  followed by a complete revision of the cross-task/version evolution plan. The completed
+  implementation baseline is main commit 4d5e068e68a107437aee2df7edd39acb595d311f.
+- Reviewed primary papers and official institutional/team publications: double-loop
+  learning, Deming PDSA, IBM autonomic computing/MAPE-K, Google SRE postmortem follow-up
+  and canarying, Microsoft ExP metrics and experiment design, Reflexion, GEPA, ACE, DGM,
+  AlphaEvolve's paper and May 2026 production report, intrinsic self-correction limits,
+  and a recent topic-disjoint prompt-optimization preprint. Distinguished classic methods,
+  production practices, scoped research results and author/vendor self-reports.
+- Added docs/system-meta-reflection-recursive-evolution.zh-CN.md and proposed ADR 0002.
+  The plan covers outcome feedback into the original hypothesis, parent/version lineage,
+  task and window cadences, normal-task/missed-issue audit, fixed evaluator rules, explicit
+  denominators/unknowns, end-to-end versus incremental costs, isolated comparisons,
+  finite budgets/stops, code/data recovery and separate evaluation of evaluator changes.
+- Kept the one-review v1 trigger contract unchanged. Proposed normal-task auto-sampling
+  needs a new typed contract; it cannot manufacture a v1 error signal or manual request.
+  Existing cohort v1 is diagnosis-only and is not declared a generic development-task
+  efficacy protocol. R1 starts with existing proposal/operation references and bounded
+  artifacts; persistence/orchestration follow demonstrated contract needs.
+- Synchronized the main research/design/lifecycle documents, CONTEXT, completion scope
+  and both README indexes. R1-R5 are future implementation slices; RE01-RE14 remain
+  not_run. ADR/spec approval fields are blank and do not fabricate acceptance.
+- Documented source-access limits: HBR's web preview, the IBM 2004 PDF fetch timeout
+  (cross-checked against the readable original 2003 paper), and vendor-reported production
+  results. No production gains, convergence, causal benefit or broad autonomy are claimed.
+- Static checks passed: 109 local links in 18 dedicated documents; normative document
+  and header size/status bounds; all 14 planned acceptance IDs remain explicitly unrun;
+  git diff --check. All 320 Runtime/Skill/test digests still match the prior regression
+  manifest (159e85381343f9ce0119c32d9f0fa866afe409e03edf0da20034dfabb78b5844).
+  No Runtime/Skill/test behavior changed, so no redundant model, regression, installation,
+  database migration or efficacy run was performed. Existing Memory data, sealed assets
+  and the pre-existing untracked memory.md were not read or modified.
+
+## 2026-11-01 - Implement R1 read-only post-application outcome feedback
+
+- Continued with the first recursive-evolution slice under the user's go-on instruction.
+  Added maintain-system-outcome to the single Runtime, reusing existing governance and
+  lifecycle records without introducing a table, migration, scheduler or separate database.
+- A strict bounded outcome plan must match a prepared artifact belonging to the actual
+  accepted candidate/application. The reader binds the original hypothesis/proposal,
+  parent base declaration and later monitoring/closure/rollback operations, retaining
+  actual exits, drift, unavailable target images, truncation and unresolved work.
+- Optional later task declarations bind the project, proposal, round, plan digest and
+  application. Validate contiguous identities/sequences, explicit exclusion reasons,
+  verification references, unknown outcomes and nullable bounded costs. Task truth and
+  external continuity remain unauthenticated; declared_complete is only a file count.
+- The current Agent receives evidence context and interprets the hypothesis. No state,
+  ranking signal, file, model call or efficacy/promotion decision is produced by reading.
+  A repeat read observes current input/digests, not an immutable round ledger; R2-R5 remain
+  future work. Existing query and once-per-task trigger behavior are unchanged.
+- Added two small Runtime modules, a portable Maintain reference, the R1 feature contract
+  and completion record. Synchronized recursive design/research, ADR implementation note,
+  CONTEXT, lifecycle/completion scope, schema/Runtime docs, mission and README indexes.
+  Approval fields remain blank and full RE01-RE14 scenarios are not promoted to passed.
+- Added seven independent development cases. They use actual temporary candidate,
+  acceptance, apply, monitor and rollback operations, a real installed copy, database
+  byte/table and nonempty query comparisons, input refusals and explicit unknown/truncated
+  history. Extra history-limit rows are controlled storage metadata, not executions.
+- Initial loading found a Python 3.9 annotation problem; the subsequent six-case attempt
+  had one pass and five harness errors (0.763 seconds) from borrowing a method containing
+  super(). Fixed only test annotation/method binding. Six cases then passed in 49.466
+  seconds; the expanded partial-window/history pair passed in 32.056 seconds, covering
+  seven distinct final cases. No Runtime assertion was relaxed to pass these harness fixes.
+- The full related regression is recorded separately in
+  docs/evidence/system-meta-reflection/regression-r1-outcomes.json; the earlier lifecycle
+  regression-final.json and original real-host records retain their historical scope.
+  All Runtime commands used explicit temporary projects/Memory Homes. Existing user data,
+  sealed assets and the original untracked memory.md were not read or modified.
+- Final R1 batch: 63 discovered, 62 passed, zero failures/errors and one opt-in host skip.
+  Test execution took 288.562 seconds (289.113 including recording/cleanup); Runtime,
+  Skill and test manifests observed before/after matched. This is controlled development
+  evidence, not a new real-host/model or longitudinal efficacy result.
+- Closing audit matched all 324 current payload files to that record
+  (c941a3775aa28133cf8af4753f26266f6aeab3c2a3e26403160778a7663373fd).
+  All 122 local links in 21 dedicated documents resolved; 34 Python files retained project
+  fingerprints and stayed within 500 lines (maximum 480). Normative header/status/empty
+  approval checks and git diff --check passed. These changes remain in the working tree;
+  no additional real deployment, commit or push is claimed for this slice.
+
+## 2026-11-01 - Implement R2 immutable cross-session round records
+
+- Continued with the next bounded recursive-evolution slice. Added the optional
+  system-rounds-v1 component and one append-only event table in the existing SQLite
+  archive. Reused the explicit governance migration entry, new external backup,
+  transaction and integrity checks; installation requires governance v2. Ordinary
+  initialization/query/read/record commands never install the component implicitly.
+- Added typed open/assessment/decision requests and historical reads through the single
+  Runtime. Enforced immutable idempotency keys, revision compare-and-swap, serial parent
+  lineage, frozen study/assessment record-count budgets and unresolved-work guards.
+  These limits bound recorded work, not actual model calls, tokens or tool costs.
+- Bound snapshots to the predeclared R1 plan and actual proposal/candidate/application.
+  Retained old unknown/negative declarations and decisions after later input changes or
+  source-file removal. New context may append a late assessment to a non-stop decided
+  round without replacing its decision or reopening it; stop prevents continuation.
+  Parent ordering uses the fixed round index even after a late parent assessment.
+- Decision records remain current-Agent advice. Adoption recommendations additionally
+  require complete, unchanged, nonnegative declared context, but never authenticate
+  task truth, calculate causal gains, deploy changes or grant external promotion.
+  SQL update/delete guards and content digests do not authenticate database history.
+- Added nine independent development cases covering actual concurrent writers,
+  interrupted DDL rollback, backup contents, immutable/historical reads, count budgets,
+  parent/child applications, late feedback, terminal stops, unresolved metadata,
+  unsupported versions, an installed copy and actual baseline 4d5e068 ordinary reads
+  and writes. Nonempty query_handoff comparisons remained identical. Synthetic task,
+  Agent-opinion and unresolved-operation declarations are identified as such.
+- Initial seven cases passed in 80.160 seconds. After strengthening parent/stop/version
+  and old-query coverage, three focused cases passed in 45.162 seconds; after adding
+  late assessments, those three passed in 37.124 seconds. These runs cover nine distinct
+  current cases and are not represented as one nine-case execution.
+- Added the portable Maintain reference, R2 feature and completion records, and updated
+  recursive design/research, proposed ADR, CONTEXT, Runtime/schema docs, mission and
+  README indexes. Approval fields stay blank; complete RE01-RE14 scenarios and R3-R5
+  are not marked complete. Historical v1/R1 regression and real-host records are retained.
+- The final related batch is recorded separately in
+  docs/evidence/system-meta-reflection/regression-r2-rounds.json. All Runtime commands
+  use temporary project/Memory Homes. Existing business archives, sealed assets and
+  the pre-existing untracked memory.md were not read or modified. Changes remain in
+  the working tree; no new real-host/model execution, deployment, commit or push is claimed.
+- Final related batch: 72 discovered, 71 passed, zero failures/errors and one explicit
+  opt-in host skip, including all nine current R2 cases. Execution took 423.085 seconds
+  (423.361 including recording/cleanup), using Python 3.9.6 and SQLite 3.51.0. The temporary
+  root was cleaned. All 329 Runtime/Skill/test digests matched before/after and at closing;
+  manifest a20ff5679e9245e47e2ed4ff557bd912b4eee6071b72fc2c6e7d1f2cc14f94c5.
+- Closing checks passed: 141 local links in 24 dedicated documents; fingerprints and
+  the 500-line limit for 38 Python files (maximum 480); normative byte/header bounds,
+  draft/proposed declarations, empty approval fields and git diff --check. The metadata
+  audit checks both declared proposed and its existing normalized draft status; no
+  normative parser or approval semantics were changed.
+
+## 2026-11-01 - Implement R3 bounded current-host window handoffs
+
+- Continued the user's next recursive-evolution slice. Added outcome-plan/v2 with a
+  pre-bound authorization reference, one reserved generation attempt, zero automatic
+  retries and a canonical report-character budget. Existing v1 plans retain manual
+  feedback but gain no automatic window permission. The observed endpoint remains the
+  original presented-task count, not elapsed wall time or a fabricated v1 signal.
+- Added maintain-system-round-handoff inspect/claim/complete/fail. Only a newly executed
+  atomic claim grants should_review=true. Every round and current host task can consume
+  one automatic slot, shared with current v1 trigger/report history. Repeats, lost replies,
+  failed/unknown work, recursive activities, incomplete windows and exhausted budgets do
+  not launch another generation. No timer, daemon, extra reviewer or fifth Skill was added.
+- Added the independent system-handoffs-v1 optional component with one append-only
+  claim/finish table. Installation reuses backup-backed migration after governance v2/R2;
+  ordinary init/query/handoff never installs it. Frozen context and assessment bindings
+  are rechecked; R2 assessment and finish append in one caller-owned transaction. Drift
+  refuses completion and explicit failure preserves consumed slots/unknown actual work.
+- Routed installed Maintain/Reflect Skills to one current-host assessment of an already
+  known window. Runtime does not invoke a model, authenticate authorization/task claims,
+  infer long-term gains, modify a decision, produce an automatic candidate or deploy.
+  Count/output limits do not pretend to meter actual host Token/tool costs.
+- First ten independent isolation cases passed in 159.707 seconds. After adding minimal
+  report-budget preflight, missing-guard refusal and actual 4d5e068 ordinary read/write
+  preservation, four focused cases passed in 75.083 seconds, covering eleven distinct
+  current cases. Actual concurrent claims, DDL interruption and a failure after actual
+  assessment insertion verified transaction/budget behavior; nonempty query output stayed
+  unchanged. Synthetic task/Agent/unknown-operation declarations remain identified.
+- Added a separate opt-in installed Codex host integration test and machine evidence.
+  First default-sandbox attempt exited 1 with permission category and no model/tool/usage
+  events; retained real-host-r3-handoff.attempt-1.json. Continued the existing isolated
+  host authorization with Codex's own workspace-write sandbox, limited to the temporary
+  project and explicit sibling Memory Home. Subsequent actual result is recorded separately.
+- Context7 resolution failed with an HTTP transport error. Checked local Codex 0.165.0
+  help and opened official noninteractive/CLI documentation for the test parameters;
+  no credentials were read and the configured default model was retained. Skill Creator's
+  quick validator could not start because PyYAML is absent. Did not add a project dependency;
+  separately verified unchanged frontmatter, bounded names/descriptions and no scaffold,
+  and retained actual installer/host discovery checks without relabeling the unavailable
+  validator as passed.
+- Added R3 specification/completion evidence and synchronized recursive design, proposed
+  ADR, context, Runtime/schema docs and README indexes. Approval fields stay blank;
+  full RE01-RE14 scenarios, normal-task automatic audit, automatic candidates/deployment
+  and R4/R5 long-term efficacy are not declared passed. Existing business archives,
+  consumed sealed assets and the original untracked memory.md were not read or modified.
+- The separate real Codex 0.165.0 host test passed in 111.541 seconds; retained
+  real-host-r3-handoff.attempt-2.json. Local Maintain Skill/reference reads and completed
+  Runtime tool events were observed. The actual archive held one claim, a recorded finish
+  and one inconclusive assessment, with review tokens/elapsed_ms still null; no decision
+  or proposal-state change occurred, and another claim was denied. Source/installed
+  Runtime/Skill bundle digests matched
+  70190d2eca83c6a3b165523346519dcacb48ee280b2c74452b5ed697f33807d6.
+- Preserved host whole-turn usage (564042 input, including 464768 cached; 5026 output,
+  1857 reasoning output). These fields are not incremental meta-review costs, billing
+  estimates or a performance/efficacy verdict. Tool-event fragments include both started
+  and completed entries, so their list length is not claimed as the total invocation count.
+- Final related batch: 84 discovered, 82 passed, zero failures/errors and two opt-in host
+  skips. All eleven current R3 cases passed within that batch; the separate R3 host pass
+  is not inferred from a skip. Execution took 588.376 seconds (588.641 with recording/
+  cleanup), Python 3.9.6 and SQLite 3.51.0. The temporary root was cleaned; all 335 payload
+  digests matched before/after and at closing, recorded in regression-r3-handoffs.json:
+  30e748ef9d10283cddc09db28256348d1625499523e7eee5d8f0d1271581ba7b.
+- Closing audit: current Runtime/Skills match the actual passed host's installed bundle;
+  all 165 local links in 27 dedicated documents resolve; 43 Python files retain project
+  fingerprints and stay within 500 lines (maximum 480). Five updated normative documents
+  pass the existing parser's byte/header/status bounds with blank approval fields;
+  git diff --check passes. R1/R2/R3 and the recursive proposal remain in the working tree;
+  no additional commit, push or business-project deployment was performed.
+
+## 2026-11-01 - Complete R4 development readiness without starting real activity
+
+- Continued toward R4 and asked for the genuinely missing real-project/source inputs
+  while inspecting independent work. The user explicitly selected development contracts
+  and isolation checks only, with real activity left unstarted. Retained that scope;
+  no real task queue, normal-task audit pipeline, model execution or efficacy campaign
+  was created, and no source/continuity/verification facts were invented.
+- Independently reproduced two actual eval-cohort-create rejection paths in temporary
+  projects: missing real-source manifest and unsupported workflow task type. Both exited
+  1 but had already initialized Memory Home/memory.db. Retained
+  readiness-preflight-reproduction.json. The first failing layer was initialization before
+  validation. Moved the existing protocol/source checks ahead of ensure_initialized,
+  without changing validator rules, supported task types, scoring or serving behavior.
+- Added read-only maintain-system-campaign-readiness with bounded unique-key JSON input,
+  reused existing protocol/manifest validation and internal/external/campaign/evidence
+  sections. It never opens SQLite or starts an activity. General system_evolution remains
+  no_go/unsupported; complete legacy diagnosis declarations yield inputs_valid_only,
+  without granting execution permission or authenticating task provenance/continuity.
+- Bound observations to target Git revision/tree/status and actual Runtime Python code
+  digests, with bounded local Git calls and non-atomic scope declared. The hosting checkout
+  revision is not an installed Runtime release identity; no model/Skill/environment
+  completeness is inferred. Owner/path/source details are not echoed in audit output.
+- Added eight controlled development cases for no-write/no-init behavior, contract and
+  source boundaries, invalid JSON/archive bindings, privacy, actual SQLite-open refusal,
+  nonempty query invariance, installed-copy identity and target Git dirty observations.
+  The first focus run passed 41 cases in 73.672 seconds, including ten candidate cases
+  accidentally discovered via an imported TestCase class. Changed that helper import to
+  a module; the final selected batch contains no such duplicate discovery.
+- Final impact-area batch: 43 passed, zero failures/errors/skips, including all eight new
+  cases, campaign input, Cohort contract/CLI/metrics, base governance, fixed old-reader
+  compatibility and installer checks. Execution took 79.712 seconds (79.917 including
+  recording/cleanup), Python 3.9.6 and SQLite 3.51.0. This is not a rerun of the entire
+  prior R3 lifecycle/model suite. Retained regression-r4-readiness.json separately.
+- All 342 Runtime/Skill/test file digests matched before/after and at closing:
+  ecf0438adb1acce1d92ca8593564680395b96c57c3f49b4248cba25f17057178.
+  The temporary root was cleaned. A real CLI development-workspace readiness probe used
+  an explicitly temporary uninitialized Memory Home, created no archive and recorded
+  six missing external groups/no_go. readiness-r4-development.json labels the workspace
+  and probe archive as undesignated for real activity, with zero real tasks collected.
+  Its current Runtime code digest matched at closing:
+  8e4ecc08b536df6773a2c860eeb3948e0ff5fd555357b6cc0fa00d740e7a0f3f.
+- Added the readiness specification, portable Maintain reference and completion evidence;
+  synchronized context, recursive design/research, proposed ADR, Runtime/schema, mission
+  and README indexes. R3 records now explicitly retain historical source scope after R4
+  changes; they are not used as a current R4 host pass. Approval fields stay empty and
+  full RE01-RE14, real R4/R5 activity and long-term efficacy remain unclaimed.
+- Closing checks passed: 181 local links in 30 dedicated documents; fingerprints and
+  500-line limits for 50 related Python files (maximum 480); six normative document
+  parser bounds/status/empty approvals; git diff --check. Existing business archives,
+  consumed sealed assets and the pre-existing untracked memory.md were not read or
+  modified. All changes remain in the working tree; no new commit, push or deployment.
+
+## 2026-11-01 - Verify the installed two-round R1–R4 development journey
+
+- Continued within the user's development-only scope, keeping real activities unstarted.
+  Added one composed installed-Runtime integration case instead of expanding product
+  capabilities without a real source. The subject is a controlled three-file layout;
+  task outcomes/Agent opinions remain synthetic declarations, not efficacy samples.
+- Reused the actual candidate/check/accept/apply/monitor/rollback commands in two linked
+  rounds, with pre-bound v2 plans and separate later observations. Recorded nine actual
+  stages: parent installation/application, assessment/advisory rollback, physical rollback,
+  new child application/lineage, shared task deduplication, late parent counter-declaration,
+  child completion/stop, recovery/history, and unchanged query/R4 no-go behavior.
+- Verified that a parent advisory decision does not itself revert files; late parent
+  feedback retains the original decision/revision and actual rollback history; a frozen
+  child handoff completes after parent feedback; stopped writes and a third round are
+  refused. Two Memory writes made after the respective applications survive physical
+  recovery. Original unknown snapshots and identical completion retries remain readable
+  after temporary input deletion. Nonempty query_handoff stays identical; readiness
+  leaves database bytes unchanged and real activity stopped.
+- The first one-case attempt errored after 16.634 seconds because the new driver passed
+  unsupported --json to update. A separate static review also corrected ownership of
+  the reused candidate fixture. Changed only the new test, retaining
+  development-journey.attempt-1.json. The corrected one-case run passed in 47.748 seconds;
+  development-journey.attempt-2.json records its two completed rounds, nine stages, two
+  preserved writes and completed temporary-root cleanup. No additional model was invoked.
+- The post-run source audit compared all 342 files from regression-r4-readiness.json with
+  the current worktree: every baseline file remains identical; only the new integration
+  test is added. The 343-file manifest digest is
+  25661923b1f3fcfb73944d36f266ffd443176ff1d3ce2ea14f14e19ed1b5fd47.
+  This is an explicitly post-run source audit, not another before/after full regression
+  record or a claim that all prior modules were rerun. Runtime Python digest remains
+  8e4ecc08b536df6773a2c860eeb3948e0ff5fd555357b6cc0fa00d740e7a0f3f;
+  actual source/installed Runtime+Skill bundle digest matches
+  a392047dd8e0bf322572fccd4af05ec9888a5363c504fc6a53bde728d4d50962.
+- Added the bounded walkthrough/reproduction instructions and synchronized context,
+  recursive plan, proposed ADR, completion references and README indexes. One composite
+  test/nine stages are not presented as nine tests, independent tasks, complete RE01–RE14,
+  a real cohort or long-term benefit. Existing v1/R1–R4 and host records retain their scope.
+- Closing checks passed: 194 local links in 31 dedicated documents; fingerprints and the
+  500-line limit for 51 related Python files (maximum 480); six normative parser/status/
+  blank-approval checks; git diff --check. Existing business Memory, consumed sealed assets
+  and the original untracked memory.md were not read or modified. Changes remain in the
+  worktree without a new commit, push or real-project deployment.
+
+## 2026-11-01 - Deliver recursive-evolution development work on main
+
+- The user explicitly requested merging to the main branch and pushing the remote.
+  The checkout was already main; fetched origin/main and verified both it and local HEAD
+  were 4d5e068e68a107437aee2df7edd39acb595d311f, with no divergence. No separate branch
+  merge or force update is needed.
+- Prepared a 61-file delivery of the recursive proposal, R1/R2/R3 implementation,
+  development-only R4 readiness, installed two-round journey and their scoped success/
+  failure evidence. Explicitly exclude the pre-existing untracked memory.md without
+  reading it; business Memory archives and consumed sealed assets stay outside staging.
+- Updated current-context/delivery wording so pre-commit slice notes are clearly
+  historical. Preserved all recorded test source identities, compatibility baselines,
+  failed attempts, blank normative approvals and the user's no-real-activity constraint.
+- Delivery-only edits affect documentation. Runtime/Skill/test source matches the
+  343-file post-journey audit; previous R4 43-case and one two-round journey results
+  retain their exact scopes. Dedicated links, fingerprints, line bounds, normative
+  metadata and whitespace are checked before staging. Actual commit identity and
+  successful remote delivery are established by Git history and the final remote check.

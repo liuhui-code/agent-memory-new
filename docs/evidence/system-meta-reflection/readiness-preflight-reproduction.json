@@ -1,0 +1,23 @@
+{
+  "schema_version": "system-meta-readiness-preflight-reproduction/v1",
+  "real_campaign_started": false,
+  "cases": [
+    {
+      "case": "missing_real_manifest",
+      "fixture_origin": "controlled_development",
+      "exit_code": 1,
+      "stderr": "prospective real cohort requires verified campaign input",
+      "memory_home_created_after_rejection": true,
+      "database_created_after_rejection": true
+    },
+    {
+      "case": "unsupported_task_type",
+      "fixture_origin": "controlled_development",
+      "exit_code": 1,
+      "stderr": "prospective cohort v1 supports diagnosis tasks only",
+      "memory_home_created_after_rejection": true,
+      "database_created_after_rejection": true
+    }
+  ],
+  "temporary_root_cleanup_completed": true
+}

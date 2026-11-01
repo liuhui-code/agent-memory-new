@@ -85,3 +85,33 @@ PY
 若需要部署到当前仓库本地或其他真实项目，将先绑定该目标及 Memory Home，保存必要备份，再用相同版本复制、
 运行已授权的安装/检查和必要治理迁移，保留实际安装证据；不覆盖升级后写入或自动发布。
 当前没有读取或改动未指定项目的 Memory 数据，原有未跟踪的 memory.md 未被纳入本任务。
+
+## 后续递归演进的研究交付
+
+在实现提交 4d5e068 之后，按用户指示再次调研成熟理论与实际实践，补充
+[跨任务、跨版本完整方案](system-meta-reflection-recursive-evolution.zh-CN.md)和
+[拟议 ADR](adr/0002-bounded-recursive-evolution.zh-CN.md)，并同步总体方案与上下文。
+这些是后续设计产物：RE01–RE14 均为 not_run，不能继承上面的 55 项回归或真实宿主结果。
+该次研究没有改变 Runtime/Skill/测试，既有机器快照和失败记录保留。
+
+2026-11-01 随后的 R1 实现已新增[只读效果上下文](system-meta-reflection-outcomes.zh-CN.md)。
+独立隔离验证及范围见[R1 完成记录](system-meta-reflection-outcomes-completion.zh-CN.md)，
+不覆盖此前生命周期快照，也不将局部机制验证标为整个 RE01–RE14 或长期效能通过。
+
+随后 R2 增加[持久轮次](system-meta-reflection-rounds.zh-CN.md)，显式安装可选组件，保存
+不可变快照和决策/晚到评估；其[完成记录](system-meta-reflection-rounds-completion.zh-CN.md)
+与 R1、生命周期分账，不继承旧快照为当前源码验证，也不声称自动递归或长期效能完成。
+
+R3 随后提供[宿主窗口交接](system-meta-reflection-handoffs.zh-CN.md)，保存一次生成名额，
+原子完成 R2 评估。其[完成记录](system-meta-reflection-handoffs-completion.zh-CN.md)单独区分
+机制、真实宿主及尚无的长期效能结论，不覆盖以前的成功/失败快照。
+
+R4 按用户选择完成[开发准备](system-meta-reflection-campaign-readiness-completion.zh-CN.md)：只读
+就绪审计及非法创建输入不初始化的修复，未启动真实活动，不继承此前宿主或长期效能结论。
+
+随后以[两轮开发演练](system-meta-reflection-development-journey.zh-CN.md)串起 R1–R4。一次安装版
+集成用例核对跨轮次反馈、历史保留、停止和代码/Memory 恢复；现有运行时不变，真实活动未启动。
+
+后续主分支交付统一包含上述 R1–R4 开发代码、Skill、测试、规范及原范围证据。各切片的
+“尚未提交”描述属于其收尾时的历史状态；实际交付提交和推送结果以 Git 日志及远端 main
+核对为准。真实活动仍未启动，原有未跟踪 memory.md 未纳入交付。

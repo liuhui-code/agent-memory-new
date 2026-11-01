@@ -14,6 +14,8 @@ from .storage import now_iso
 from .system_evolution_contract import EDITABLE_STATES, PROTECTED_STATES, SystemEvolutionError, require
 from .system_evolution_schema import SUPPORTED_VERSIONS, registry_available
 from .system_evolution_store import registry_connection
+from .system_evolution_rounds_schema import VERSION as ROUNDS_VERSION, create_rounds_schema, rounds_available
+from .system_evolution_handoff_schema import VERSION as HANDOFFS_VERSION, create_handoffs_schema, handoffs_available
 
 
 def version(conn: sqlite3.Connection) -> str:
@@ -61,9 +63,14 @@ def rebuild_proposals(conn: sqlite3.Connection, target: str) -> int:
 
 
 def migrate_governance(project: Project, target: str, backup_file: str, execute: bool = False) -> dict[str, Any]:
-    require(target in SUPPORTED_VERSIONS, "Unsupported governance schema target.", "invalid_request")
+    component = {ROUNDS_VERSION: (rounds_available, create_rounds_schema),
+                 HANDOFFS_VERSION: (handoffs_available, create_handoffs_schema)}.get(target)
+    require(target in SUPPORTED_VERSIONS or component is not None, "Unsupported governance schema target.", "invalid_request")
     with registry_connection(project) as conn:
-        current = version(conn)
+        governance = version(conn)
+        require(component is None or governance == "system-evolution-v2", "Migrate governance to v2 before installing optional storage.", "schema_upgrade_required")
+        require(target != HANDOFFS_VERSION or rounds_available(conn), "Install round storage before host handoffs.", "schema_upgrade_required")
+        current = (target if component[0](conn) else "not_installed") if component else governance
         no_active_work(conn)
     result = {"schema_version": "system-schema-migration/v1", "from_version": current, "to_version": target,
               "migration_performed": False, "user_data_restore_performed": False}
@@ -87,7 +94,8 @@ def migrate_governance(project: Project, target: str, backup_file: str, execute:
         # OFF must precede BEGIN; the separate backup reader sees the locked committed state.
         conn.execute("PRAGMA foreign_keys=OFF")
         conn.execute("BEGIN IMMEDIATE")
-        require(version(conn) == current, "Schema changed before migration.", "state_conflict")
+        observed = (target if component[0](conn) else "not_installed") if component else version(conn)
+        require(observed == current and version(conn) == governance, "Schema changed before migration.", "state_conflict")
         require(conn.execute("SELECT 1 FROM projects WHERE project_id=?", (project.project_id,)).fetchone() is not None,
                 "Archive project identity changed.", "archive_identity_mismatch")
         no_active_work(conn)
@@ -109,8 +117,12 @@ def migrate_governance(project: Project, target: str, backup_file: str, execute:
         with backup.open("rb") as handle:
             for chunk in iter(lambda: handle.read(1_048_576), b""):
                 digest.update(chunk)
-        count = rebuild_proposals(conn, target)
-        conn.execute("UPDATE runtime_schema_versions SET version=? WHERE component='system_evolution'", (target,))
+        if component:
+            count = conn.execute("SELECT COUNT(*) FROM system_change_proposals").fetchone()[0]
+            component[1](conn)
+        else:
+            count = rebuild_proposals(conn, target)
+            conn.execute("UPDATE runtime_schema_versions SET version=? WHERE component='system_evolution'", (target,))
         require(conn.execute("PRAGMA foreign_key_check").fetchone() is None, "Migration broke a foreign key.", "schema_integrity_failed")
         require(conn.execute("PRAGMA integrity_check").fetchone()[0] == "ok", "Migration integrity check failed.", "schema_integrity_failed")
         conn.execute("""CREATE TABLE IF NOT EXISTS system_schema_migrations(

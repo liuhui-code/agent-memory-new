@@ -1,0 +1,86 @@
+{
+  "schema_version": "system-meta-handoff-host-smoke/v1",
+  "outcome": "passed",
+  "scope": "real_host_controlled_fixture",
+  "production_task": false,
+  "model_selection": "existing_configured_default",
+  "precise_model_identity": null,
+  "raw_transcript_stored_in_repository": false,
+  "efficacy_verified": false,
+  "source_bundle_digest": "70190d2eca83c6a3b165523346519dcacb48ee280b2c74452b5ed697f33807d6",
+  "installed_bundle_digest": "70190d2eca83c6a3b165523346519dcacb48ee280b2c74452b5ed697f33807d6",
+  "host_version": "codex-cli 0.165.0",
+  "process_returncode": 0,
+  "event_types": [
+    "item.completed",
+    "item.started",
+    "thread.started",
+    "turn.completed",
+    "turn.started"
+  ],
+  "usage": {
+    "input_tokens": 564042,
+    "cached_input_tokens": 464768,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 5026,
+    "reasoning_output_tokens": 1857
+  },
+  "usage_scope": "whole_host_turn_not_incremental_meta_cost",
+  "local_maintain_skill_read": true,
+  "handoff_reference_read": true,
+  "runtime_invocations": [
+    {
+      "operation": "maintain-system-round-handoff",
+      "exit_code": null
+    },
+    {
+      "operation": "maintain-system-round-handoff",
+      "exit_code": 0
+    },
+    {
+      "operation": "maintain-system-round-handoff",
+      "exit_code": null
+    },
+    {
+      "operation": "maintain-system-round-handoff",
+      "exit_code": 0
+    },
+    {
+      "operation": "maintain-system-round-handoff",
+      "exit_code": null
+    },
+    {
+      "operation": "maintain-system-round-handoff",
+      "exit_code": 0
+    },
+    {
+      "operation": "maintain-system-round-handoff",
+      "exit_code": null
+    },
+    {
+      "operation": "maintain-system-round-handoff",
+      "exit_code": 0
+    },
+    {
+      "operation": "maintain-system-round-handoff",
+      "exit_code": null
+    },
+    {
+      "operation": "maintain-system-round-handoff",
+      "exit_code": 0
+    }
+  ],
+  "stderr_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "host_error_category": "other_or_none",
+  "claim_count": 1,
+  "finish_state": "recorded",
+  "assessment_count": 1,
+  "finding": "inconclusive",
+  "declared_review_cost": {
+    "elapsed_ms": null,
+    "tokens": null
+  },
+  "claim_receipt_digest": "1525013e6450d323397cdc38b32e5428ea888265264633645b9598a8c9215c71",
+  "finish_receipt_digest": "de9b4f3a0fb14e5ebdbdc2c31ef8586b566288c6713db41c2ef76aa67f8166d2",
+  "post_completion_generation_suppressed": true
+}

@@ -1129,6 +1129,38 @@ the [dedicated protocol and limits](system-meta-reflection-runtime.zh-CN.md) and
 The [initial verification record](system-meta-reflection-design.zh-CN.md#9-隔离验证记录)
 retains the earlier 37-case scope.
 
+`maintain-system-outcome` provides [read-only outcome feedback](system-meta-reflection-outcomes.zh-CN.md)
+for a completed application. A pre-bound plan links the original hypothesis, accepted candidate,
+application and later operations; optional bounded task declarations retain unknowns,
+exclusions and missing costs. It creates no tables, writes no state, runs no checks and
+makes no efficacy decision. The current Agent reviews the context; task declarations remain unauthenticated.
+
+[R2 round recording](system-meta-reflection-rounds.zh-CN.md) adds maintain-system-round
+and maintain-system-round-record. The independent system-rounds-v1 component requires
+an explicit backup-backed migration; reads/normal init do not install it. One append-only
+event table retains typed plans/context, assessments and advisory decisions. Revisions,
+idempotency, parent lineage, frozen count budgets and unresolved-work guards are enforced;
+non-stop decided rounds may append new-context assessments without replacing the decision.
+These are recorded-work limits, not model/Token metering, deployment or automatic iteration.
+
+[R3 host handoffs](system-meta-reflection-handoffs.zh-CN.md) add maintain-system-round-handoff
+with typed inspect/claim/complete/fail requests. A pre-bound outcome-plan/v2 policy permits
+one generation attempt when the declared task-count window has new known-result declarations.
+The optional system-handoffs-v1 component requires an explicit backup-backed migration after R2.
+Only a newly executed claim returns should_review=true; previews and repeated claims do not.
+R2 assessment/finish writes are atomic, input drift refuses completion, and failures consume
+the slot without resetting actual operations. Current v1/R3 automatic paths share task deduplication.
+The installed Maintain/Reflect Skills route the current host model; Runtime runs no model,
+daemon, automatic candidate or deployment. Host Token/tool costs are not hard-metered here.
+
+[R4 preparation](system-meta-reflection-campaign-readiness.zh-CN.md) adds read-only
+maintain-system-campaign-readiness. It reports internal/external/campaign/evidence inputs,
+bounded document digests/errors, target Git metadata and actual Runtime Python code identity.
+It never opens Memory SQLite or starts an activity. The default system-evolution intent
+remains no_go; valid legacy diagnosis declarations yield inputs_valid_only without granting
+permission or certifying provenance. eval-cohort-create now runs the same existing protocol/
+manifest checks before initialization, so rejected inputs do not create Memory archives.
+
 `reflect-system-trigger` separately filters declared real-task boundaries/signals and,
 only with authorized `--claim`, allocates one review slot before model generation. It
 does not invoke a model or discover host task boundaries. The source Skills contain

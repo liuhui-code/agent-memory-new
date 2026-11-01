@@ -1,0 +1,68 @@
+{
+  "schema_version": "system-meta-development-journey/v1",
+  "outcome": "passed",
+  "recorded_at": "2026-11-01T03:21:34.445399+00:00",
+  "scope": "controlled_two_round_installed_runtime",
+  "production_or_sealed_evaluation": false,
+  "task_material": "synthetic_declarations_not_independent_efficacy_samples",
+  "model_invoked_by_driver": false,
+  "efficacy_verified": false,
+  "stages": [
+    {
+      "name": "installed_parent_application",
+      "state": "monitoring",
+      "bundle_matched": true
+    },
+    {
+      "name": "parent_assessment_and_advisory_decision",
+      "round_revision": 3,
+      "actual_code_still_applied": true
+    },
+    {
+      "name": "actual_parent_rollback",
+      "code_restored": true,
+      "later_memory_write_preserved": true
+    },
+    {
+      "name": "actual_child_application_and_linkage",
+      "proposal_id": 2,
+      "round_index": 2,
+      "distinct_task_declarations": true
+    },
+    {
+      "name": "distinct_window_claim",
+      "same_task_rejected": true,
+      "new_task_granted_once": true
+    },
+    {
+      "name": "late_parent_counter_declaration",
+      "original_decision_retained": true,
+      "actual_rollback_retained": true
+    },
+    {
+      "name": "child_completion_and_stop",
+      "parent_feedback_did_not_invalidate_child": true,
+      "stopped_round_rejected": true,
+      "third_round_budget_rejected": true
+    },
+    {
+      "name": "code_recovery_and_historical_reads",
+      "both_later_memory_writes_preserved": true,
+      "deleted_inputs_did_not_break_history": true,
+      "old_unknown_retained": true
+    },
+    {
+      "name": "readiness_and_query_isolation",
+      "readiness": "no_go",
+      "readiness_did_not_write": true,
+      "query_handoff_unchanged": true,
+      "real_activity_started": false
+    }
+  ],
+  "current_step": "r4_no_go_and_query_isolation",
+  "runtime_skill_bundle_digest": "a392047dd8e0bf322572fccd4af05ec9888a5363c504fc6a53bde728d4d50962",
+  "completed_rounds": 2,
+  "semantic_writes_preserved": 2,
+  "runtime_code_digest": "8e4ecc08b536df6773a2c860eeb3948e0ff5fd555357b6cc0fa00d740e7a0f3f",
+  "temporary_root_cleanup_completed": true
+}

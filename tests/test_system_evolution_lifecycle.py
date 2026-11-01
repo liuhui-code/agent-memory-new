@@ -1,6 +1,8 @@
 # Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
 """Synthetic file-rule lifecycle, actual file/SQLite effects, no real-user case claims."""
 
+from __future__ import annotations
+
 import hashlib
 import json
 import os
@@ -54,7 +56,8 @@ class SystemEvolutionLifecycleTests(AgentMemoryTestBase):
         return subprocess.run([sys.executable, str(runtime), *args, "--project", str(project),
                                "--memory-home", str(self.memory_home(project))], text=True, capture_output=True, check=True)
 
-    def fixture(self, directory: str, *, monitor_fails: bool = False) -> tuple[Path, Path, dict, dict]:
+    def fixture(self, directory: str, *, monitor_fails: bool = False,
+                prepared_artifacts: dict[str, dict] | None = None) -> tuple[Path, Path, dict, dict]:
         root, home, change = self.base_fixture(directory, check_script=CHECK,
                                                baseline_files=getattr(self, "baseline_files", None),
                                                candidate_files=getattr(self, "candidate_files", None),
@@ -76,10 +79,14 @@ class SystemEvolutionLifecycleTests(AgentMemoryTestBase):
                        "assertion_indices": [0], "timeout_seconds": 5, "result_files": ["monitor.json"]}],
                        "close_condition": "One declared synthetic layout check passes on the actual applied directory; no efficacy claim."}}
         (root / "acceptance.json").write_text(json.dumps(accept), encoding="utf-8")
+        extra = []
+        for name, document in (prepared_artifacts or {}).items():
+            (root / name).write_text(json.dumps(document), encoding="utf-8")
+            extra.extend(["--artifact-file", name])
         change = self.command(root, "maintain-system-status", "--id", str(change["id"]), "--expected-revision", "2",
                               "--status", "prepared", "--note", "Predeclare synthetic acceptance and follow-up.",
                               "--development-root", str(root), "--base-version", change["artifact_manifest"]["base_version"],
-                              "--artifact-file", "candidate.patch", "--artifact-file", "acceptance.json")["change"]
+                              "--artifact-file", "candidate.patch", "--artifact-file", "acceptance.json", *extra)["change"]
         candidate = self.candidate(root, home, change, execute=True)["candidate"]
         plan = {"schema_version": "system-change-check-plan/v3", "proposal_id": change["id"], "prepared_state_revision": 3,
                 "artifact_digest": change["artifact_digest"], "candidate_key": candidate["candidate_key"],
