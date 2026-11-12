@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Protocol
 
+from .query_explicit_owner_certificate import CertifiedPortfolio, certificate_members
 from .query_same_owner_retention import retain_named_owner_methods
 from .query_callable_range_identity import ambiguous_portfolio_ranges
 from .query_certified_portfolio_bounds import MARKER, certify_selected_bounds
@@ -41,6 +42,7 @@ class StaticCallablePassagePortfolioProvider:
         query: str,
         localization: dict[str, Any],
         evidence: dict[str, Any],
+        *, project=None, symbol_receipts=(),
     ) -> dict[str, Any]:
         primary = evidence.get("primary") if isinstance(evidence, dict) else None
         if not isinstance(primary, dict) or not primary.get("source_range"):
@@ -59,6 +61,20 @@ class StaticCallablePassagePortfolioProvider:
             and query_supported(item, query)
             and identity(item) in ranges
         ]
+        if not cross_file:
+            certified_members = certificate_members(
+                query, primary, candidates, records(localization.get("source_ranges")),
+                eligible_candidates, project, symbol_receipts,
+            )
+            if certified_members is not None:
+                return CertifiedPortfolio({
+                    "schema_version": SCHEMA_VERSION, "mode": "serving", "state": "composed",
+                    "target_scope": "multiple", "members": certified_members,
+                    "selection_basis": ["existing_localization", "explicit_cross_file_targets",
+                                        "indexed_explicit_owner_methods"],
+                    "candidate_recall_changed": False,
+                    "boundary": "source_passage_composition_not_diagnosis",
+                }).bind(primary)
         if ambiguous_portfolio_ranges(eligible_candidates, records(localization.get("source_ranges"))):
             return inactive("ambiguous_callable_identity")
         eligible = [passage(item, ranges, query) for item in eligible_candidates]
@@ -125,9 +141,10 @@ def build_callable_passage_portfolio(
     query: str,
     localization: dict[str, Any],
     evidence: dict[str, Any],
+    *, project=None, symbol_receipts=(),
 ) -> dict[str, Any]:
     return StaticCallablePassagePortfolioProvider().build(
-        query, localization, evidence,
+        query, localization, evidence, project=project, symbol_receipts=symbol_receipts,
     )
 
 

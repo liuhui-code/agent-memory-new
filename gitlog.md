@@ -11020,3 +11020,12 @@ Isolated post-cap code-only stable subset using existing predicate. Preserve log
 - Budget planning and actual reads share the same bounded context choice; full object must fit existing line/character limits and current budget, otherwise retain callback-only behavior. Deduplicate already-covered binding objects, without increasing token/excerpt limits.
 - No label names or project strings hard-coded. Class/control bodies, nested/neighbor scalar evidence, comments/literals, unsupported object members, exact callable/log-owner sources and insufficient budgets remain conservative.
 - 17 focused controls and 500-line gate passed. Actual label-to-call evidence and forbidden anchors must be measured separately from frozen overlap-only scores; aggregate checks pending.
+
+## 2026-11-09 isolated explicit-owner certificate candidate (not promoted)
+- Added narrowly anchored two-owner/exact-method portfolio permission backed by one explicit read-only indexed SQLite snapshot, same-call symbol version receipts, and live digest checks.
+- Complete exact-name counts conservatively include all symbol kinds; duplicate or incomplete identities fail closed. Focus consumes only internally bound passages after existing path/log/graph/identity guards; no ranking, recall or budget change.
+- Focused 19 new tests and 33 related tests pass; Python 500-line gate passes. Public, independent review and full/performance gates pending. Snapshot/index completeness is not whole-source or future-state proof.
+
+## 2026-11-09 explicit-owner v2 isolated consumer repair (not promoted)
+- Reject copied/mutated indexed-owner certificates before legacy cross-file and uncertain-primary consumers. Preserve unmarked legacy behavior.
+- 56 focused/related tests pass, including JSON/dict copy cross-product and valid deepcopy control; 144 unmarked legacy controls are field-identical to v1. Python 500-line gate passes. No SQL/grammar/certificate producer expansion.

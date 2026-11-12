@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from .query_explicit_owner_certificate import CertifiedPortfolio
 from .query_certified_portfolio_bounds import certified_projection
 
 
@@ -22,6 +23,21 @@ def focus_callable_anchors(
     portfolio = evidence.get("passage_portfolio")
     if not isinstance(primary, dict):
         return anchors
+    # Recognize this provenance before every legacy consumer, including the
+    # uncertain-primary path. JSON/dict copies lose private authority, not the
+    # provenance marker; they must never inherit older cross-file permission.
+    indexed_owner = isinstance(portfolio, dict) and "indexed_explicit_owner_methods" in (
+        portfolio.get("selection_basis") or []
+    )
+    if indexed_owner or isinstance(portfolio, CertifiedPortfolio):
+        if (not indexed_owner or not isinstance(portfolio, CertifiedPortfolio)
+                or portfolio.get("state") != "composed"
+                or evidence.get("certainty") != "bounded"
+                or not portfolio.valid_for(primary) or primary.get("typed_contract_match")
+                or any(item.get("graph_neighbor") or item.get("graph_relation") or item.get("identity_match") for item in anchors)):
+            return anchors
+        projected = [callable_anchor(member, None) for member in portfolio["members"]]
+        return merge_incomplete_path(projected, anchors, path_activated) if activated else projected
     if evidence.get("certainty") != "bounded":
         return (
             reserve_uncertain_primary(anchors, primary)

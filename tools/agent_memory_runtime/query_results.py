@@ -16,6 +16,7 @@ from .query_handoff import build_query_handoff
 from .query_hierarchical_localization import SQLiteHierarchicalLocalizer
 from .query_callable_evidence import callable_evidence
 from .query_callable_evidence_set import build_callable_evidence_set
+from .query_explicit_owner_certificate import request_targets
 from .query_callable_passage_portfolio import build_callable_passage_portfolio
 from .query_intents import gate_matches_by_intent
 from .query_language import excluded_code_candidate, positive_retrieval_query
@@ -149,7 +150,9 @@ def limited_context(
     )
     context["query_audit"]["callable_evidence_set"] = evidence_set
     passage_portfolio = build_callable_passage_portfolio(
-        query, localization, evidence,
+        query, localization, evidence, project=project,
+        symbol_receipts=[*(matches.get("wiki_matches") or []),
+                         *(localization_matches.get("wiki_matches") or [])] if request_targets(query) else (),
     )
     evidence["passage_portfolio"] = passage_portfolio
     context["query_audit"]["callable_passage_portfolio"] = passage_portfolio
