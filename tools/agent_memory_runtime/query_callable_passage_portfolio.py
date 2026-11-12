@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Any, Protocol
 
 from .query_same_owner_retention import retain_named_owner_methods
+from .query_callable_range_identity import ambiguous_portfolio_ranges
 from .query_certified_portfolio_bounds import MARKER, certify_selected_bounds
 from .query_language import excluded_code_candidate
 from .query_target_scope import classify_target_scope, permits_cross_file_portfolio
@@ -52,13 +53,15 @@ class StaticCallablePassagePortfolioProvider:
         ranges = range_lookup(records(localization.get("source_ranges")))
         primary_identity = identity(primary)
         ordered = sorted(candidates, key=lambda item: identity(item) != primary_identity)
-        eligible = [
-            passage(item, ranges, query)
-            for item in ordered
+        eligible_candidates = [
+            item for item in ordered
             if not excluded_code_candidate(query, item)
             and query_supported(item, query)
             and identity(item) in ranges
         ]
+        if ambiguous_portfolio_ranges(eligible_candidates, records(localization.get("source_ranges"))):
+            return inactive("ambiguous_callable_identity")
+        eligible = [passage(item, ranges, query) for item in eligible_candidates]
         eligible = dedupe(eligible)
         owner_eligible = [
             item for item in eligible if same_owner_scope(item, primary)

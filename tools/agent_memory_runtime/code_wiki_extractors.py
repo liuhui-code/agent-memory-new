@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +13,7 @@ from .ecma_callable_ranges import (
     callable_ranges_for_language,
     callable_symbols_by_line,
 )
+from .source_call_scanner import code_mask
 from .models import IGNORE_DIRS
 from .log_api_catalog import (
     direct_log_pattern,
@@ -182,14 +184,40 @@ def extract_symbols(path: Path, language: str) -> list[tuple[str, str]]:
     if language == "ArkTS":
         symbols.extend(extract_arkts_reference_symbols(text))
     if language in {"ArkTS", "JavaScript", "TypeScript"}:
-        known = set(symbols)
-        for item in callable_ranges_for_language(text.splitlines(), language):
+        existing = Counter(symbols)
+        ranged: Counter[tuple[str, str]] = Counter()
+        seen_ranges: set[tuple[str, int, int]] = set()
+        raw_ranges = callable_ranges_for_language(text.splitlines(), language)
+        identity = lambda item: (str(item["symbol"]), int(item["start_line"]), int(item["end_line"]))
+        raw_ids = {identity(item) for item in raw_ranges}
+        counts = Counter(item[0] for item in raw_ids)
+        needs_expansion = any(count > max(existing[(name, "function")], 1)
+                              and not (language == "ArkTS" and name in ARKTS_BUILDER_COMPONENTS)
+                              for name, count in counts.items())
+        unsafe_names: set[str] = set()
+        if needs_expansion:
+            mask = code_mask(text)
+            # The scanner may mask comment newlines; preserve original positions.
+            mask = "".join(char if char in "\r\n" else masked
+                           for char, masked in zip(text, mask))
+            masked_ranges = callable_ranges_for_language(mask.splitlines(), language)
+            masked_ids = {identity(item) for item in masked_ranges}
+            unsafe_names = {item[0] for item in raw_ids ^ masked_ids}
+        for item in raw_ranges:
             candidate = (str(item["symbol"]), "function")
             if language == "ArkTS" and candidate[0] in ARKTS_BUILDER_COMPONENTS:
                 continue
-            if candidate not in known:
-                known.add(candidate)
+            identity = (candidate[0], int(item["start_line"]), int(item["end_line"]))
+            if identity in seen_ranges:
+                continue
+            seen_ranges.add(identity)
+            ranged[candidate] += 1
+            # A contaminated same-name semantic queue could consume the wrong
+            # new row. Preserve old set behavior for that entire name instead.
+            desired = 1 if candidate[0] in unsafe_names else ranged[candidate]
+            if desired > existing[candidate]:
                 symbols.append(candidate)
+                existing[candidate] += 1
     return symbols
 
 

@@ -11006,3 +11006,11 @@ Isolated post-cap code-only stable subset using existing predicate. Preserve log
 - Existing same-call Development trace shows budget prefix trim removed a correctly projected bounded primary at position four.
 - Reserve that already-projected, range-covered anchor only by replacing an unprotected prefix slot. Preserve graph/identity slots, active or retained paths, multi-target requests and the original three-slot/1500-token budget.
 - Eight focused controls pass. Independent three-query fixture did not reproduce the original bug and remains negative evidence. Full gates and public A/B pending.
+
+## 2026-11-09 isolated callback occurrence preservation candidate
+- Preserve distinct existing callable range identities when seeding raw code-symbol rows, so semantic enrichment can retain repeated same-name callbacks.
+- Do not change parsing grammar, ranking, schema, budgets or enrichment. Expand only a name whose raw and code-masked range identity sets agree; names contaminated by literal/comment ranges retain previous behavior.
+- Single callbacks and existing ordinary same-name methods retain their multiplicity; repeated indexing/update/delete consistency remains under public verification.
+- Independent public list lost the second callback identity before this change, but class-based compact context still returned its body. Do not describe this as proven loss of all source context or a complete command-binding fix.
+- Follow-up identity audit found existing (file,symbol) range overwrite after repeated callback rows became visible. Candidate v3 binds ranges by exact stored symbol ID/path/name within callable bounds; no public ID payload added. Legacy ID-less inputs only use unambiguous pair lookup.
+- Same-name multi-entity portfolio composition is deliberately inactive rather than silently merging identities. A clearly disjoint existing source record is not inherited by a focused anchor. Public v3 and aggregate checks remain pending.

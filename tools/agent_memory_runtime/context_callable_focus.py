@@ -149,6 +149,10 @@ def callable_anchor(
     existing: dict[str, Any] | None,
 ) -> dict[str, Any]:
     source_range = primary["source_range"]
+    if (isinstance(existing, dict) and valid_retained_range(existing)
+            and valid_retained_range(source_range)
+            and not existing["start_line"] <= source_range["start_line"] <= source_range["end_line"] <= existing["end_line"]):
+        existing = None
     anchor = dict(existing or {
         "source": "callable_evidence",
         "file_path": primary["file_path"],

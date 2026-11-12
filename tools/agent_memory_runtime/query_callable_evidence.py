@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 from typing import Any
+from .query_callable_range_identity import resolve_candidate_range
 
 
 def callable_evidence(localization: dict[str, Any]) -> dict[str, Any]:
     """Project bounded callable ranking as Agent evidence, never as diagnosis."""
     candidates = records(localization.get("callable_candidates"))
-    ranges = range_lookup(records(localization.get("source_ranges")))
+    ranges = records(localization.get("source_ranges"))
     prepared = [compact_candidate(item, ranges) for item in candidates]
     if not prepared:
         return {
@@ -32,7 +33,7 @@ def callable_evidence(localization: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def compact_candidate(item: dict[str, Any], ranges: dict[tuple[str, str], dict[str, Any]]) -> dict[str, Any]:
+def compact_candidate(item: dict[str, Any], ranges: list[dict[str, Any]]) -> dict[str, Any]:
     path = str(item.get("file_path") or "")
     symbol = str(item.get("symbol") or "")
     result = {
@@ -48,9 +49,9 @@ def compact_candidate(item: dict[str, Any], ranges: dict[tuple[str, str], dict[s
         "evidence_score": item.get("evidence_score"),
         "reasons": strings(item.get("reasons"))[:4],
     }
-    source_range = ranges.get((path, symbol))
+    source_range = resolve_candidate_range(item, ranges)
     if source_range:
-        result["source_range"] = source_range
+        result["source_range"] = {key: source_range.get(key) for key in ("start_line", "end_line", "selection_reason")}
     if item.get("artifact_role_competition"):
         result.update({
             "artifact_role": item.get("artifact_role"),
