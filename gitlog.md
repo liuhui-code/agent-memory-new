@@ -11057,3 +11057,9 @@ messages, with direct TypeScript output and complete body/path controls. Three
 other reconstruction probes are negative and remain unmodified; no locator or
 window patch. Freeze narrow source-kind protection and exact controlled-test
 corrections before implementation. No historical177/194 recovery claim or push.
+
+Red regression on unchanged runtime reproduces fixed/template public errors,
+empty/placeholder sink overwrites and the two source-false existing expectations.
+18 tests finish with6 expected failures and32 missing-helper errors. New tests
+preserve original queries, call paths and exact full method bodies; the dynamic
+second-parameter failure remains explicit. Frozen fixture/helper hashes retained.

@@ -238,14 +238,15 @@ export class CrossProfileService {
 
         self.assertEqual(1, len(refreshed))
         self.assertNotEqual(old_sink_id, int(refreshed[0]["sink_log_id"]))
-        self.assertEqual("cross profile failed", refreshed[0]["message_template"])
+        self.assertEqual("sink implementation changed", refreshed[0]["message_template"])
         context = json.loads(self.run_memory(
             self.project, "context", "--query", "cross profile failed",
             "--compact", "--json",
         ).stdout)
         anchor = next(
             item for item in context["query_handoff"]["log_anchors"]
-            if item.get("message_template") == "cross profile failed"
+            if item.get("message_template") == "sink implementation changed"
+            and item.get("function") == "load"
         )
         self.assertEqual(
             "cross/log/DomainLogger.ets#report",

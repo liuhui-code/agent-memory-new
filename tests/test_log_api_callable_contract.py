@@ -206,7 +206,7 @@ export struct EditorPanel {
         self.assertTrue(all(row["start_line"] and row["end_line"] for row in callbacks))
         self.assertTrue(all(row["semantic_adapter"] for row in callbacks))
         self.assertEqual(
-            [("onImageReady", "image ready:"), ("onPageEnd", "page load completed")],
+            [("onImageReady", "platform log sink"), ("onPageEnd", "platform log sink")],
             [(row["function"], row["message_template"]) for row in effects],
         )
         self.assertTrue(all(row["evidence_class"] == "static_wrapped" for row in effects))
@@ -218,7 +218,8 @@ export struct EditorPanel {
         handoff = context["query_handoff"]
         log_anchor = next(
             item for item in handoff["log_anchors"]
-            if item.get("message_template") == "page load completed"
+            if item.get("message_template") == "platform log sink"
+            and item.get("function") == "onPageEnd"
         )
         code_anchor = next(
             item for item in handoff["code_anchors"]
