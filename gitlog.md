@@ -11048,3 +11048,12 @@ Cloned verified-repair-resumed.bundle into an independent canonical checkout at
 Development baseline is running; later177/231 and194/231 reports are historical
 leads, not recovered current results. No unavailable artifact retrieval, original
 repository mutation, or push. See docs/local-reconstruction-plan-20261111.md.
+
+## 2026-11-11 — Freeze rebuilt sink-message source contract
+
+Fresh baseline reproduced157/231 with74fail. New frozen five-project public
+raw/compact probe proves caller business literals overwrite fixed/template sink
+messages, with direct TypeScript output and complete body/path controls. Three
+other reconstruction probes are negative and remain unmodified; no locator or
+window patch. Freeze narrow source-kind protection and exact controlled-test
+corrections before implementation. No historical177/194 recovery claim or push.

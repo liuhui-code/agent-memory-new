@@ -1,0 +1,185 @@
+{
+  "schema_version": "independent-sink-development/v1",
+  "classification": "development",
+  "source_family": "new synthetic project-neutral TypeScript fixtures",
+  "independence_basis": "New authored minimal projects outside restored repository. No consumed holdout, historical fixture, or historical result loaded. Five cases are independent workspaces testing the same known defect family, not independent external populations.",
+  "created_at_utc": "2026-11-11T09:50:10.867907+00:00",
+  "runtime_repo": "/workspace/scratch/dcdb41e16594/reconstruct-local-20261111/agent-memory-new",
+  "runtime_head": "58986fbcff818ea28ac00037fe88ffe4f01afdec",
+  "baseline_runtime_commit": "25ae6ba",
+  "runtime_tools_tree": "a15447d3a1f4196c9fb65560344b92959e8391c7",
+  "baseline_tools_tree": "a15447d3a1f4196c9fb65560344b92959e8391c7",
+  "repo_status_before": "",
+  "query_rationale": "Frozen neutral token query includes actual sink event text, actual business argument, and caller/wrapper names. It does not claim east-region alone was a runtime log.",
+  "run_policy": {
+    "direct_typescript_executions_per_case": 1,
+    "public_commands_per_case": {
+      "init": 1,
+      "wiki-index": 1,
+      "context_raw": 1,
+      "context_compact": 1
+    },
+    "timeout_seconds_per_command": 120,
+    "retry_allowed": false,
+    "source_query_expectation_edits_after_freeze": false,
+    "runtime_edits": false,
+    "full_231_run": false,
+    "network_or_space_or_library": false
+  },
+  "interpretation": {
+    "message_check": "Compare direct sink and wrapped public message fields separately with source-derived static contract and direct TypeScript output. Preserving symbolic template is valid; resolving simple interpolation fully is optional.",
+    "call_path_check": "Require static call path run -> refresh -> logger.info separately from message correctness. A static edge is not proof of arbitrary runtime execution.",
+    "sourcebody_check": "Verify source ranges/excerpts against exact frozen source, and report coverage of refresh and run method bodies independently of message/path.",
+    "promotion_eligible": false,
+    "historical_commit_restoration_claim": false,
+    "fresh_231_comparison": "Not run or inferred; parent supplied 157/74 baseline is background only."
+  },
+  "cases": [
+    {
+      "id": "fixed_sink",
+      "purpose": "Fixed sink message and ordinary caller business argument",
+      "source": "projects/fixed_sink/CatalogService.ts",
+      "source_sha256": "b77c8474f88bfeac07925b7ece974204088649406d27939743d15f3a00f7be47",
+      "query": "catalog refreshed east-region CatalogService run refresh Logger.info",
+      "query_sha256": "38bd5c6fe01295908016abd4bf059313f91d88846f5d1e47c2925b33c7349078",
+      "expected_stdout": "catalog refreshed\n",
+      "expected_direct_static_template": "catalog refreshed",
+      "expected_effect_static_template": "catalog refreshed",
+      "acceptable_effect_templates": [
+        "catalog refreshed"
+      ],
+      "expected_static_call_path": [
+        "run",
+        "refresh",
+        "logger.info"
+      ],
+      "required_source_ranges": {
+        "refresh": {
+          "start_line": 8,
+          "end_line": 11
+        },
+        "run": {
+          "start_line": 13,
+          "end_line": 15
+        }
+      }
+    },
+    {
+      "id": "template_sink",
+      "purpose": "Sink template with ordinary caller business argument",
+      "source": "projects/template_sink/CatalogService.ts",
+      "source_sha256": "ece5775e0a432daee6a0453445628d43e8956fe183045d022d07be075eb52896",
+      "query": "catalog refreshed east-region CatalogService run refresh Logger.info",
+      "query_sha256": "38bd5c6fe01295908016abd4bf059313f91d88846f5d1e47c2925b33c7349078",
+      "expected_stdout": "catalog refreshed: east-region\n",
+      "expected_direct_static_template": "catalog refreshed: ${bucket}",
+      "expected_effect_static_template": "catalog refreshed: ${bucket}",
+      "acceptable_effect_templates": [
+        "catalog refreshed: ${bucket}",
+        "catalog refreshed: east-region"
+      ],
+      "expected_static_call_path": [
+        "run",
+        "refresh",
+        "logger.info"
+      ],
+      "required_source_ranges": {
+        "refresh": {
+          "start_line": 8,
+          "end_line": 10
+        },
+        "run": {
+          "start_line": 12,
+          "end_line": 14
+        }
+      }
+    },
+    {
+      "id": "first_message_parameter",
+      "purpose": "First parameter reaches sink; second is ordinary business argument",
+      "source": "projects/first_message_parameter/CatalogService.ts",
+      "source_sha256": "82ef44fc77b9f00ec347229da7b230062f1c24d88d5d015092ae2dce5c4ec02d",
+      "query": "catalog refreshed east-region CatalogService run refresh Logger.info",
+      "query_sha256": "38bd5c6fe01295908016abd4bf059313f91d88846f5d1e47c2925b33c7349078",
+      "expected_stdout": "catalog refreshed\n",
+      "expected_direct_static_template": "{message}",
+      "expected_effect_static_template": "catalog refreshed",
+      "acceptable_effect_templates": [
+        "catalog refreshed"
+      ],
+      "expected_static_call_path": [
+        "run",
+        "refresh",
+        "logger.info"
+      ],
+      "required_source_ranges": {
+        "refresh": {
+          "start_line": 8,
+          "end_line": 11
+        },
+        "run": {
+          "start_line": 13,
+          "end_line": 15
+        }
+      }
+    },
+    {
+      "id": "second_message_parameter",
+      "purpose": "Second parameter reaches sink; first is ordinary business argument",
+      "source": "projects/second_message_parameter/CatalogService.ts",
+      "source_sha256": "6d2204546f60089e13b07860954a050e7bdb106f13876dbe9ac11c1c930daca7",
+      "query": "catalog refreshed east-region CatalogService run refresh Logger.info",
+      "query_sha256": "38bd5c6fe01295908016abd4bf059313f91d88846f5d1e47c2925b33c7349078",
+      "expected_stdout": "catalog refreshed\n",
+      "expected_direct_static_template": "{message}",
+      "expected_effect_static_template": "catalog refreshed",
+      "acceptable_effect_templates": [
+        "catalog refreshed"
+      ],
+      "expected_static_call_path": [
+        "run",
+        "refresh",
+        "logger.info"
+      ],
+      "required_source_ranges": {
+        "refresh": {
+          "start_line": 8,
+          "end_line": 11
+        },
+        "run": {
+          "start_line": 13,
+          "end_line": 15
+        }
+      }
+    },
+    {
+      "id": "no_literal_caller",
+      "purpose": "No literal in wrapper call, fixed sink control",
+      "source": "projects/no_literal_caller/CatalogService.ts",
+      "source_sha256": "d390a8d4cbc4fea75d53c48a597e5e22b6d14dcfe750779ed5a21aef962b13d4",
+      "query": "catalog refreshed east-region CatalogService run refresh Logger.info",
+      "query_sha256": "38bd5c6fe01295908016abd4bf059313f91d88846f5d1e47c2925b33c7349078",
+      "expected_stdout": "catalog refreshed\n",
+      "expected_direct_static_template": "catalog refreshed",
+      "expected_effect_static_template": "catalog refreshed",
+      "acceptable_effect_templates": [
+        "catalog refreshed"
+      ],
+      "expected_static_call_path": [
+        "run",
+        "refresh",
+        "logger.info"
+      ],
+      "required_source_ranges": {
+        "refresh": {
+          "start_line": 8,
+          "end_line": 11
+        },
+        "run": {
+          "start_line": 13,
+          "end_line": 16
+        }
+      }
+    }
+  ]
+}
