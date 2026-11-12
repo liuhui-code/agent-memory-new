@@ -11040,3 +11040,11 @@ Isolated post-cap code-only stable subset using existing predicate. Preserve log
 ## 2026-11-09 explicit-owner v2 isolated consumer repair (not promoted)
 - Reject copied/mutated indexed-owner certificates before legacy cross-file and uncertain-primary consumers. Preserve unmarked legacy behavior.
 - 56 focused/related tests pass, including JSON/dict copy cross-product and valid deepcopy control; 144 unmarked legacy controls are field-identical to v1. Python 500-line gate passes. No SQL/grammar/certificate producer expansion.
+
+## 2026-11-11 — Freeze independent local reconstruction baseline
+
+Cloned verified-repair-resumed.bundle into an independent canonical checkout at
+25ae6ba. All tracked source files match the untouched original. Fresh231
+Development baseline is running; later177/231 and194/231 reports are historical
+leads, not recovered current results. No unavailable artifact retrieval, original
+repository mutation, or push. See docs/local-reconstruction-plan-20261111.md.
