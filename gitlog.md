@@ -11073,3 +11073,12 @@ repeated suffix copies. Dynamic binding, unknown aliases and complex syntax
 retain prior behavior. All18 focused tests and Python500-line/diff checks pass.
 Full231/regression/performance/fan-in gates pending; not yet an accepted recovery
 stage. No original repository change or push.
+
+## 2026-11-11 — Preserve frozen scripts as archival text
+
+The first full run completed1304 tests with1 failure and3 skips: two original
+frozen investigation scripts lacked the public project fingerprint. Preserve
+their original bytes as `.py.txt` evidence, leave freeze.json unchanged, and
+verify every frozen file through an explicit archive mapping in the regression.
+No runtime, fixture source, query, expected result or repository guard changes.
+The failed run is retained; a complete rerun is required.

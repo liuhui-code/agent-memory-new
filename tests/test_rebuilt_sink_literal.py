@@ -16,8 +16,12 @@ class RebuiltSinkLiteralTests(AgentMemoryTestBase):
     def test_frozen_public_messages_keep_paths_and_complete_bodies(self):
         manifest = json.loads((FIXTURE / 'manifest.json').read_text())
         frozen = json.loads((FIXTURE / 'freeze.json').read_text())
-        self.assertEqual(frozen['files']['manifest.json'],
-                         hashlib.sha256((FIXTURE / 'manifest.json').read_bytes()).hexdigest())
+        archived_scripts = {'prepare.py', 'run_once.py'}
+        for original_name, expected_hash in frozen['files'].items():
+            archive_name = (original_name + '.txt' if original_name in archived_scripts
+                            else original_name)
+            self.assertEqual(expected_hash, hashlib.sha256(
+                (FIXTURE / archive_name).read_bytes()).hexdigest(), original_name)
         with tempfile.TemporaryDirectory() as directory:
             for case in manifest['cases']:
                 with self.subTest(case=case['id']):
