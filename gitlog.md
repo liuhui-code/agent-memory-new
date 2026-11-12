@@ -11082,3 +11082,15 @@ their original bytes as `.py.txt` evidence, leave freeze.json unchanged, and
 verify every frozen file through an explicit archive mapping in the regression.
 No runtime, fixture source, query, expected result or repository guard changes.
 The failed run is retained; a complete rerun is required.
+
+## 2026-11-11: Verify reconstructed sink repair stage
+
+Runtime remains df3f9df. Full rerun passes 1304 tests with 3 optional skips;
+18 focused tests, CI/million scale, 2001-caller fan-in and line limits pass.
+Unchanged Development remains 157/231, 74 failures, no new failed check or
+recall/precision/MRR decrease. Twenty-one changed cases reproduce exactly;
+84 excerpts match source, zero target body loss. Fourteen pre-existing required
+spans remain incomplete. One non-target public wrapped path is replaced while
+its indexed fields remain intact; this exception is explicitly recorded.
+Original repository and frozen inputs remain untouched. No push or later
+historical-score recovery claim. See local-reconstruction-result-20261111.md.
