@@ -8,6 +8,7 @@ from typing import Any, Protocol
 
 from .models import Project
 from .query_behavior_concepts import behavior_marker_terms
+from .query_typed_contract import classify_contract, match_candidate
 from .query_definition_identity import explicit_owner_identity_match
 from .query_artifact_roles import (
     annotate_artifact_roles,
@@ -101,7 +102,6 @@ class SQLiteHierarchicalLocalizer:
             "source_ranges": ranges,
         }
 
-
 def empty_localization() -> dict[str, Any]:
     return {
         **localization_contract(),
@@ -121,7 +121,6 @@ def empty_localization() -> dict[str, Any]:
         "source_ranges": [],
     }
 
-
 def localization_contract() -> dict[str, Any]:
     return {
         "schema_version": LOCALIZATION_SCHEMA_VERSION,
@@ -134,7 +133,6 @@ def localization_contract() -> dict[str, Any]:
         },
     }
 
-
 def localization_limits() -> dict[str, int]:
     return {
         "files": MAX_FILES,
@@ -145,7 +143,6 @@ def localization_limits() -> dict[str, int]:
         "callables": MAX_CALLABLES,
         "source_ranges": MAX_SOURCE_RANGES,
     }
-
 
 def direct_symbol_candidates(
     items: list[dict[str, Any]],
@@ -161,7 +158,6 @@ def direct_symbol_candidates(
             continue
         result[record_id] = item
     return result
-
 
 def load_file_callables(
     project: Project,
@@ -228,7 +224,6 @@ def load_file_callables(
         ).fetchall()
     return [row_dict(row) for row in rows]
 
-
 def attach_candidate_metadata(
     rows: list[dict[str, Any]],
     files: list[dict[str, Any]],
@@ -289,8 +284,11 @@ def rank_callables(
 ) -> list[dict[str, Any]]:
     terms = query_tokens(query)
     expanded_terms = set(terms)
+    contract = classify_contract(query)
     scored: list[dict[str, Any]] = []
     for item in dedupe_callables(items):
+        item["typed_contract_match"] = match_candidate(item, contract)
+        item["typed_contract_weak"] = bool(contract and (contract.get("operation") or contract.get("kind") == "literal"))
         lexical, reasons = score_weighted_fields(
             query,
             terms,
@@ -349,6 +347,7 @@ def rank_callables(
     return sorted(
         role_aware,
         key=lambda item: (
+            -int(bool(item.get("typed_contract_match"))),
             artifact_role_shadow_priority(item),
             -int(bool(item.get("explicit_owner_identity_match"))),
             -int(bool(item.get("target_owner_kind_match"))),
@@ -429,6 +428,7 @@ def matching_mechanisms(payload: Any, query: str) -> list[dict[str, Any]]:
 
 def compact_callable(item: dict[str, Any]) -> dict[str, Any]:
     return {
+        **({"typed_contract_match": True, "typed_contract_weak": bool(item.get("typed_contract_weak"))} if item.get("typed_contract_match") else {}),
         "symbol_id": item.get("id"),
         "file_path": item.get("file_path"),
         "symbol": item.get("symbol"),
@@ -467,7 +467,7 @@ def source_range(item: dict[str, Any], query: str) -> dict[str, Any]:
         "callable_end_line": end,
     }
     hits = matching_mechanisms(item.get("mechanism_evidence"), query)
-    if hits and start > 0 and end >= start:
+    if hits and not item.get("typed_contract_match") and start > 0 and end >= start:
         hit = hits[0]
         line = min(end, max(start, int(hit["line"])))
         return {

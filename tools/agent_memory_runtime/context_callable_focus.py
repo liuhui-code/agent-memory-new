@@ -25,7 +25,7 @@ def focus_callable_anchors(
     if evidence.get("certainty") != "bounded":
         return (
             reserve_uncertain_primary(anchors, primary)
-            if activated else anchors
+            if activated or primary.get("typed_contract_match") else anchors
         )
     composed = isinstance(portfolio, dict) and portfolio.get("state") == "composed"
     cross_file = composed and "explicit_cross_file_targets" in set(
@@ -48,6 +48,8 @@ def focus_callable_anchors(
     if not path or not isinstance(source_range, dict):
         return anchors
     focused = [item for item in anchors if str(item.get("file_path") or "") == path]
+    if primary.get("typed_contract_match"):
+        return [callable_anchor(primary, focused[0] if focused else None)]
     if composed and cross_file:
         retained = same_owner_retained_portfolio(portfolio, primary)
         if retained is not None:

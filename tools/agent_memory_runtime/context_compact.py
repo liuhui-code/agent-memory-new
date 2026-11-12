@@ -12,6 +12,7 @@ from .context_anchor_selection import (
 )
 from .context_budget import enforce_budget, finalize_budget, minimize_guards
 from .context_callable_focus import focus_callable_anchors
+from .context_typed_contract import declaration_projection
 from .context_event_owner import bind_event_owner_ranges
 from .context_sufficiency import diagnosis_sufficiency
 from .context_source_excerpt import (
@@ -96,9 +97,13 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
         **path_context,
         "wrapped_log_evidence": has_wrapped_log_anchor(candidate_logs),
     }
-    code_candidates = focus_callable_anchors(
-        code_candidates, callable_evidence, projection_path,
-    )
+    declaration = declaration_projection(code_candidates, str(data.get("query") or ""), projection_path)
+    if declaration is not None:
+        code_candidates, callable_evidence = declaration, None
+    else:
+        code_candidates = focus_callable_anchors(
+            code_candidates, callable_evidence, projection_path,
+        )
     code_anchors = assign_anchor_roles(
         diverse_code_anchors(
             code_candidates, path_context["activated"], str(data.get("query") or "")

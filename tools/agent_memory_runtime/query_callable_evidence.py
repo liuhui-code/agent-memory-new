@@ -20,9 +20,12 @@ def callable_evidence(localization: dict[str, Any]) -> dict[str, Any]:
         }
     primary = prepared[0]
     alternatives = diverse_alternatives(prepared[1:], primary)
+    certainty_value = certainty(primary, alternatives)
+    if primary.get("typed_contract_match") and sum(bool(item.get("typed_contract_match")) for item in prepared) > 1:
+        certainty_value = "uncertain"
     return {
         "schema_version": "agent-callable-evidence/v1",
-        "certainty": certainty(primary, alternatives),
+        "certainty": certainty_value,
         "primary": primary,
         "alternatives": alternatives,
         "boundary": "retrieval_evidence_not_root_cause",
@@ -35,6 +38,7 @@ def compact_candidate(item: dict[str, Any], ranges: dict[tuple[str, str], dict[s
     result = {
         "file_path": path,
         "symbol": symbol,
+        **({"typed_contract_match": True, "typed_contract_weak": bool(item.get("typed_contract_weak"))} if item.get("typed_contract_match") else {}),
         "owner_name": item.get("owner_name"),
         "owner_kind": item.get("owner_kind"),
         "target_owner_kind_match": item.get("target_owner_kind_match"),
@@ -75,6 +79,10 @@ def diverse_alternatives(items: list[dict[str, Any]], primary: dict[str, Any]) -
 def certainty(primary: dict[str, Any], alternatives: list[dict[str, Any]]) -> str:
     if not primary.get("source_range"):
         return "uncertain"
+    if primary.get("typed_contract_weak"):
+        return "uncertain"
+    if primary.get("typed_contract_match"):
+        return "uncertain" if any(item.get("typed_contract_match") for item in alternatives) else "bounded"
     reasons = set(strings(primary.get("reasons")))
     owner_kind = primary.get("owner_kind")
     if (primary.get("target_owner_kind_match") or "structured_owner_kind" in reasons) and all(

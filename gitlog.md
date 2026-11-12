@@ -10994,3 +10994,10 @@ Preserve candidate-verified callable bounds after existing non-cross-file admiss
 ## 2026-11-08: conservative compact code exclusion projection
 
 Isolated post-cap code-only stable subset using existing predicate. Preserve logs/path, guards, file-only and merged identity; no refill, scores or language changes. Frozen30 controls; public/regression acceptance pending.
+
+## 2026-11-09 isolated typed-relation candidate (not promoted)
+- Explicit distinctive type queries distinguish declaration, parameter, return type and literal evidence; absent or ambiguous relation leaves existing path unchanged.
+- Exact structured signature relation priority is separate from lexical scores; selected signature evidence retains full callable range.
+- Multiple matching callables remain uncertain, including same-owner alternatives.
+- Typed parameter non-use is not inferred from missing bounded method tokens.
+- Original native natural-language contract remains unresolved; new isolated Development controls and existing full gates pending.
