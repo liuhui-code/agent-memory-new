@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from typing import Any
 
 from .semantic_models import SemanticMechanism
+from .platform_noncode_eligibility import confirmed_noncode_lines
 from .source_call_scanner import balanced_call_end, code_mask
 from .text import identifier_tokens, unique_list
 
@@ -42,6 +43,7 @@ class OperationScan:
     chains: dict[int, list[str]]
     end_lines: dict[int, list[int]]
     unbalanced_lines: set[int]
+    platform_noncode_lines: list[bytes]
 
 
 def scan_operation_source(lines: list[str]) -> OperationScan:
@@ -63,7 +65,7 @@ def scan_operation_source(lines: list[str]) -> OperationScan:
             continue
         chains.setdefault(line, []).append(text[match.start(1):match.end(1)])
         ends.setdefault(line, []).append(line + text.count("\n", match.start(), end))
-    return OperationScan(chains, ends, unbalanced)
+    return OperationScan(chains, ends, unbalanced, confirmed_noncode_lines(lines))
 
 
 def operation_gap_reason(lines: list[str], start: int, end: int, scan: OperationScan) -> str:
@@ -125,7 +127,8 @@ def extract_callable_mechanisms(
                 source_key, "callback_binding", callback, line,
                 ("callback", "binding", "event"), f"callback:{callback}",
             ))
-        if PLATFORM_RE.search(source):
+        if any(not scan.platform_noncode_lines[index][match.start()]
+               for match in PLATFORM_RE.finditer(source)):
             mechanisms.append(mechanism(
                 source_key, "platform_predicate", source, line,
                 ("platform", "predicate", "capability", "device"),
