@@ -10,6 +10,7 @@ from typing import Any
 
 from .performance_scoring import estimate_payload_tokens
 from .source_line_window import read_source_interval
+from .context_callback_binding import binding_context_range
 from .source_range_focus import mechanism_callable_ranges, mechanism_coverage
 from .text import query_tokens, score_text
 
@@ -67,8 +68,8 @@ def attach_source_excerpts(
             str(payload.get("query") or ""),
         ):
             char_budget = min(anchor_remaining, remaining_chars)
-            excerpt = read_excerpt(source_path, source_range, char_budget)
-            if not excerpt:
+            excerpt = read_binding_excerpt(source_path, source_range, char_budget)
+            if not excerpt or binding_context_covers(excerpts, excerpt):
                 continue
             excerpts.append(excerpt)
             used = len(str(excerpt.get("content") or ""))
@@ -133,11 +134,12 @@ def multi_excerpt_reserve_tokens(
         source_path = safe_source_path(root, anchor.get("file_path"))
         if source_path is None:
             continue
-        requested_chars.extend(
-            len(str(excerpt.get("content") or ""))
-            for source_range in selected_ranges(anchor, source_path, query)
-            if (excerpt := read_excerpt(source_path, source_range, MAX_EXCERPT_CHARS))
-        )
+        planned: list[dict[str, Any]] = []
+        for source_range in selected_ranges(anchor, source_path, query):
+            excerpt = read_binding_excerpt(source_path, source_range, MAX_EXCERPT_CHARS)
+            if excerpt and not binding_context_covers(planned, excerpt):
+                planned.append(excerpt)
+                requested_chars.append(len(str(excerpt.get("content") or "")))
     if len(requested_chars) <= 1:
         return 0
     bounded_chars = min(MAX_TOTAL_EXCERPT_CHARS, sum(requested_chars))
@@ -480,3 +482,17 @@ def excerpt_metadata(item: dict[str, Any]) -> dict[str, Any]:
         )
         if item.get(key) not in (None, "")
     }
+
+
+def read_binding_excerpt(path: Path, source_range: dict[str, Any], char_budget: int) -> dict[str, Any] | None:
+    if source_range.get("selection_reason") != "ecma_property_callback_window":
+        return read_excerpt(path, source_range, char_budget)
+    expanded = binding_context_range(path.suffix, read_source_lines(path), source_range, MAX_EXCERPT_LINES, char_budget)
+    return read_excerpt(path, expanded or source_range, char_budget)
+
+
+def binding_context_covers(existing: list[dict[str, Any]], excerpt: dict[str, Any]) -> bool:
+    return any(item.get("selection_reason") == "callback_binding_context"
+               and item.get("truncated") is False
+               and int(item["start_line"]) <= int(excerpt["start_line"]) <= int(excerpt["end_line"]) <= int(item["end_line"])
+               for item in existing)

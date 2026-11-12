@@ -11014,3 +11014,9 @@ Isolated post-cap code-only stable subset using existing predicate. Preserve log
 - Independent public list lost the second callback identity before this change, but class-based compact context still returned its body. Do not describe this as proven loss of all source context or a complete command-binding fix.
 - Follow-up identity audit found existing (file,symbol) range overwrite after repeated callback rows became visible. Candidate v3 binds ranges by exact stored symbol ID/path/name within callable bounds; no public ID payload added. Legacy ID-less inputs only use unambiguous pair lookup.
 - Same-name multi-entity portfolio composition is deliberately inactive rather than silently merging identities. A clearly disjoint existing source record is not inherited by a focused anchor. Public v3 and aggregate checks remain pending.
+
+## 2026-11-09 isolated callback binding excerpt candidate
+- Keep callable identities and scored ranges unchanged; only a verified property callback inside a small complete object literal with direct scalar siblings may receive a wider source excerpt.
+- Budget planning and actual reads share the same bounded context choice; full object must fit existing line/character limits and current budget, otherwise retain callback-only behavior. Deduplicate already-covered binding objects, without increasing token/excerpt limits.
+- No label names or project strings hard-coded. Class/control bodies, nested/neighbor scalar evidence, comments/literals, unsupported object members, exact callable/log-owner sources and insufficient budgets remain conservative.
+- 17 focused controls and 500-line gate passed. Actual label-to-call evidence and forbidden anchors must be measured separately from frozen overlap-only scores; aggregate checks pending.
