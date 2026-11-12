@@ -1,5 +1,16 @@
 # Local Development Log
 
+## 2026-11-09 - Resume verified repair branch and record evidence boundary
+
+- Restore the delivered Git history at d0b82c5 and verify all 1,270 snapshot
+  files against the retained manifest; git fsck passes, no remote configured.
+- Recheck the legacy cross-file focus branch against retained same-request
+  positive and counterexample reports. No safe new serving rule established.
+- Run 55 focused portfolio/focus/owner-certificate tests, all pass. Do not
+  present these as a fresh full gate or an improvement over 157/231.
+- Commit this diagnostic record instead of keeping only an untracked archive.
+  Details: docs/verified-repair-resumption-20261109.md. No runtime changes.
+
 ## 2026-11-04 - Restore Query Skill progressive disclosure without dropping policy
 
 - Reproduced the existing 176-line Query Skill failure against the unchanged
