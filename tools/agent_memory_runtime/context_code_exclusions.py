@@ -3,6 +3,7 @@
 from __future__ import annotations
 from typing import Any
 from .context_anchor_selection import exact_log_identity
+from .context_directory_role import excluded_directory_role
 from .query_language import NEGATIVE_RESULT_CLAUSE_RE, excluded_code_candidate
 
 QUOTATION_CHARACTERS = frozenset('"\'`“”‘’')
@@ -36,8 +37,8 @@ def project_code_exclusions(
         members = [item for item in raw_candidates if item.get("file_path") == path]
         if not members:
             return anchors
-        decision = excluded_code_candidate(query, anchor)
-        if any(excluded_code_candidate(query, item) != decision for item in members):
+        decision = excluded_code_candidate(query, anchor) or excluded_directory_role(query, anchor)
+        if any((excluded_code_candidate(query, item) or excluded_directory_role(query, item)) != decision for item in members):
             return anchors
         if "source_ranges" in anchor:
             ranges = anchor["source_ranges"]
