@@ -11063,3 +11063,13 @@ empty/placeholder sink overwrites and the two source-false existing expectations
 18 tests finish with6 expected failures and32 missing-helper errors. New tests
 preserve original queries, call paths and exact full method bodies; the dynamic
 second-parameter failure remains explicit. Frozen fixture/helper hashes retained.
+
+## 2026-11-11 — Rebuild proven literal sink protection
+
+Only log_effects.py changes: preserve complete source-backed canonical ECMA
+literal/template messages, including empty strings, after strict positional and
+indexed-content checks. Cache once per sink and match interpolation without
+repeated suffix copies. Dynamic binding, unknown aliases and complex syntax
+retain prior behavior. All18 focused tests and Python500-line/diff checks pass.
+Full231/regression/performance/fan-in gates pending; not yet an accepted recovery
+stage. No original repository change or push.

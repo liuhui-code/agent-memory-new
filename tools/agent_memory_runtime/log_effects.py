@@ -11,7 +11,8 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-from .code_wiki_extractors import string_literals
+from .code_wiki_extractors import language_for, split_arguments, string_literals
+from .log_api_catalog import ECMA_LANGUAGES, parse_log_api_call
 from .models import Project
 from .source_call_scanner import scan_calls
 from .storage import now_iso
@@ -21,6 +22,9 @@ MAX_WRAPPER_DEPTH = 3
 MAX_EFFECTS_PER_CALLER = 32
 PATH_SEARCH_LIMIT = MAX_EFFECTS_PER_CALLER + 1
 FORWARD_EXPANSION_LIMIT = 2000
+_SIMPLE_INTERPOLATION = re.compile(
+    r"\$\{[ \t]*[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*[ \t]*\}"
+)
 
 
 def rebuild_log_effects(
@@ -33,12 +37,17 @@ def rebuild_log_effects(
     candidates = wrapper_call_candidates(conn, project.project_id, paths)
     rows = []
     source_cache: dict[str, list[str]] = {}
+    literal_sinks: dict[int, bool] = {}
     for item in candidates:
         message, raw_call = call_message(project.root, item, source_cache)
+        sink_id = int(item["sink_log_id"])
+        if sink_id not in literal_sinks:
+            literal_sinks[sink_id] = has_source_literal_message(item)
+        message = item["sink_template"] if literal_sinks[sink_id] else message or item["sink_template"]
         rows.append((
             project.project_id, item["file_path"], item["line"], item["caller"],
             item["wrapper"], item["sink_log_id"], item["level"], item["logger"],
-            message or item["sink_template"], item["evidence_class"], item["wrapper_depth"],
+            message, item["evidence_class"], item["wrapper_depth"],
             int(bool(item.get("truncated"))),
             json.dumps(item["call_path"]), json.dumps(item["call_path_locations"]),
             raw_call, item["source_digest"], item["index_generation"], now_iso(),
@@ -181,7 +190,7 @@ def query_direct_sinks(
         SELECT wrapper.id AS wrapper_id, wrapper.symbol AS wrapper,
                wrapper.file_path AS wrapper_file_path, log.file_path AS sink_file_path,
                direct.target_id AS sink_log_id, log.level, log.logger,
-               log.message_template AS sink_template
+               log.message_template AS sink_template, log.raw_statement AS sink_statement
         FROM memory_edges direct
         JOIN code_symbols wrapper ON wrapper.id = direct.source_id
           AND direct.source_type = 'code_symbol'
@@ -288,6 +297,58 @@ def sink_paths(
             if len(result) >= PATH_SEARCH_LIMIT:
                 return result
     return result
+
+
+def has_source_literal_message(item: dict[str, Any]) -> bool:
+    """Protect only complete source-backed messages, not inferred bindings."""
+    language = language_for(Path(str(item.get("sink_file_path", ""))))
+    if language not in ECMA_LANGUAGES:
+        return False
+    parsed = parse_log_api_call(str(item.get("sink_statement") or ""), language)
+    if parsed is None:
+        return False
+    arguments = split_arguments(parsed.args_text)
+    if parsed.message_argument >= len(arguments):
+        return False
+    # The shared splitter does not parse comments, regexes or generic syntax.
+    # Prove every preceding argument is simple before trusting its position.
+    for prefix in arguments[:parsed.message_argument]:
+        if prefix[:1] in ("'", '"') and complete_message_literal(prefix):
+            continue
+        if not re.fullmatch(
+            r"[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*|"
+            r"[+-]?(?:0[xX][0-9a-fA-F]+|(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?)",
+            prefix,
+        ):
+            return False
+    expression = arguments[parsed.message_argument]
+    return (complete_message_literal(expression)
+            and expression[1:-1] == item.get("sink_template"))
+
+
+def complete_message_literal(expression: str) -> bool:
+    """A conservative literal subset, not a full ECMAScript parser."""
+    if len(expression) < 2 or expression[0] not in "\"'`":
+        return False
+    quote = expression[0]
+    index = 1
+    while index < len(expression):
+        char = expression[index]
+        if char == "\\":
+            index += 2
+            continue
+        if char == quote:
+            return index == len(expression) - 1
+        if quote != "`" and char in "\r\n":
+            return False
+        if quote == "`" and expression.startswith("${", index):
+            match = _SIMPLE_INTERPOLATION.match(expression, index)
+            if match is None:
+                return False
+            index = match.end()
+        else:
+            index += 1
+    return False
 
 
 def call_message(
