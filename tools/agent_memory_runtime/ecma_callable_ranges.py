@@ -6,6 +6,7 @@ import re
 from typing import Any
 
 from .ecma_braces import block_end
+from .ecma_callable_body import callable_block_end
 from .ecma_callable_headers import CONTROL_NAMES, named_callable_header
 
 
@@ -49,7 +50,7 @@ def named_callable_ranges(lines: list[str]) -> list[dict[str, Any]]:
         if header is None:
             continue
         result.append(source_range(
-            header.name, index, block_end(lines, index), "callable_mechanism_window",
+            header.name, index, callable_block_end(lines, index, header), "callable_mechanism_window",
         ))
     return result
 

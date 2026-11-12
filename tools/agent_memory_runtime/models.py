@@ -59,6 +59,8 @@ CODE_EXTENSIONS = {
     ".tsx": "TypeScript",
     ".ets": "ArkTS",
     ".js": "JavaScript",
+    ".mjs": "JavaScript",
+    ".cjs": "JavaScript",
     ".jsx": "JavaScript",
     ".dart": "Dart",
     ".swift": "Swift",

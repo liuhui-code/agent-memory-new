@@ -403,7 +403,23 @@ python tools/agent_memory.py learn-entry --project . --source /path/to/app --ent
 python tools/agent_memory.py learn-path --project . --source /path/to/app --path entry/src/main/ets --json
 ```
 
-Learning returns `parse_stats` with file, language, symbol, log, edge, and `semantic_index` coverage counts. It also records log-like statements in code, such as `logger.error(...)`, `console.warn(...)`, ArkTS `hilog.info(...)`, and `print(...)`, then connects them to the learned file and nearest detected function. ArkTS and TypeScript adapters add bounded symbol-level calls, state flow, callbacks, inheritance, API boundaries, and async relations through the language-neutral `semantic-index/v1` contract. Callable source ranges also contribute bounded member-call terms to a separate sparse FTS5 lane; multi-term evidence can recall a generic owner such as `execute` without changing ordinary symbol ranking. Known preview, cache, and generated source directories are excluded during learning; query-time path classification also protects archives created before that policy. Explicit language terms such as ArkTS, TypeScript, Python, Dart, and Swift select matching implementations only when the query names one language. For HarmonyOS projects, learning also indexes `.json5` module/package config, ArkTS router targets, and `$r(...)` resource references. See [Semantic Index](docs/semantic-index.md).
+Learning returns `parse_stats` with file, language, symbol, log, edge, and `semantic_index` coverage counts.
+The additive `parse_stats.skipped_by_reason` map reports encountered source-selection
+and indexing exclusions, including `unsupported_extension`, `ignored_directory`,
+`outside_source_root`, `missing_path`, `not_regular_file`, `symlink_directory`, and
+`unreadable_directory`. Counts describe excluded paths: an ignored or linked directory
+counts once, and its contents are not scanned or counted. An empty map means no skips
+were observed, not that every import was resolved. Explicit unsupported or ignored
+`--entry` / file `--path` targets fail before an index replacement and name the reason.
+Replacement also fails when no indexable files remain and skips were observed. An
+explicit replacement from a genuinely empty directory with no skips still clears the index.
+A reported unreadable directory blocks replacement even when other files were selected,
+so a partial scan cannot silently replace previously learned files.
+`.mjs` and `.cjs` use the same lightweight JavaScript file, symbol, log and relative-import
+handling as `.js`; they do not gain an exact parser or a JavaScript semantic adapter.
+Rust source (`.rs`) is still unsupported. `wiki-index` reports skip counts in its text summary.
+
+It also records log-like statements in code, such as `logger.error(...)`, `console.warn(...)`, ArkTS `hilog.info(...)`, and `print(...)`, then connects them to the learned file and nearest detected function. ArkTS and TypeScript adapters add bounded symbol-level calls, state flow, callbacks, inheritance, API boundaries, and async relations through the language-neutral `semantic-index/v1` contract. Callable source ranges also contribute bounded member-call terms to a separate sparse FTS5 lane; multi-term evidence can recall a generic owner such as `execute` without changing ordinary symbol ranking. Known preview, cache, and generated source directories are excluded during learning; query-time path classification also protects archives created before that policy. Explicit language terms such as ArkTS, TypeScript, Python, Dart, and Swift select matching implementations only when the query names one language. For HarmonyOS projects, learning also indexes `.json5` module/package config, ArkTS router targets, and `$r(...)` resource references. See [Semantic Index](docs/semantic-index.md).
 
 The optional `providers/arkts-arkanalyzer` package builds a real ArkAnalyzer Scene, runs type inference, and emits validated `exact` batches. Configure it only through `AGENT_MEMORY_SEMANTIC_PROVIDER_ARKTS`; missing dependencies or analysis failure remain visible and fall back to the built-in static adapter. Use `eval-semantic` before relying on exact mode. See [External Semantic Provider](docs/semantic-provider.md).
 

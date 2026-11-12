@@ -207,8 +207,15 @@ def symbol_key(language: str, file_path: str, qualified_name: str, signature: st
     return "symbol:" + hashlib.sha256(identity.encode("utf-8")).hexdigest()[:24]
 
 
-def source_digest(text: str) -> str:
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+def source_text(raw: bytes) -> str:
+    """Preserve the existing universal-newline parser view, separate from identity."""
+    return raw.decode("utf-8", errors="ignore").replace("\r\n", "\n").replace("\r", "\n")
+
+
+def source_digest(source: str | bytes) -> str:
+    """Hash file bytes unchanged; text is for synthetic/revision-only callers."""
+    raw = source.encode("utf-8") if isinstance(source, str) else source
+    return hashlib.sha256(raw).hexdigest()
 
 
 def require_object_list(value: Any, label: str) -> list[dict[str, Any]]:

@@ -1,0 +1,9 @@
+# Operation source validity, isolated A
+
+Supported callable ranges use the existing whole-source string/comment mask and balanced-call primitive to identify operation starts, preserving original line provenance. Source masking is done once per file; bookkeeping uses incremental newline offsets rather than repeated full-prefix counts. Other mechanism kinds, localizer/focus/ranking, caps, lower-key identity normalization and detail remain unchanged in A.
+
+A callable containing a backtick remains outside this limited certification coverage. Its entire legacy operation behavior is retained, including existing limitations, so real template-interpolation calls are not silently lost. This fallback is callable-local: an adjacent ordinary method is still filtered. Unbalanced code-call prefixes, including calls that can only balance beyond the current callable, also retain legacy behavior. These paths emit existing `gaps` entries with symbol/range; normal MAX_GAPS limits apply, so not every unsupported span is guaranteed a public gap entry in a very large file. No new parser/schema or universal execution certification is introduced.
+
+Quoted literal and comment calls in supported methods no longer become operation records. Empty output in unsupported/unknown syntax is not proof of absence. B identity fidelity, if separately applied, must retain full old behavior on these unsupported paths, use lower rather than casefold keys and change neither caps nor normalized detail. Formal-list correction does not promise the main compact query or broader capability metrics improve.
+
+Review compatibility constraint: callee and opening parenthesis must share an original source line, as in the legacy line extractor. Parameters may span lines. No broader split-call-head syntax is newly admitted. Once-per-file masking and incremental line bookkeeping do not imply worst-case linear complexity: nested balanced scans may overlap.

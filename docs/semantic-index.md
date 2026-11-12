@@ -20,7 +20,7 @@ Learning remains the only automatic indexing entry point. There is no fifth Skil
 
 ## Stable Contract
 
-A batch declares its schema, adapter identity/version, language, capabilities, source digests, entities, relations, and explicit gaps. Entities use deterministic symbol keys and include qualified name, signature, source span, export status, and evidence class. Relations use normalized names:
+A batch declares its schema, adapter identity/version, language, capabilities, source digests, entities, relations, and explicit gaps. File source digests are SHA-256 over the original bytes, before newline normalization or text decoding; all derived rows and freshness checks use the same byte identity. Entities use deterministic symbol keys and include qualified name, signature, source span, export status, and evidence class. Relations use normalized names:
 
 - `calls`
 - `reads_state` / `writes_state`
@@ -61,3 +61,18 @@ Partial learning captures existing reverse dependents before replacing symbol ro
 An exact es2panda, language-server, or SCIP provider can be added later by implementing `LanguageAdapter`, declaring capabilities/toolchain version, emitting source digests, and passing the same conformance suite. Registration is the only core change; graph, storage, design, impact, and Incident logic remain language-neutral.
 
 The process-level provider contract is now available through `semantic-provider-request/v1` and `semantic-provider-result/v1`. Normal learning selects it in `auto` mode when the language environment variable is configured, otherwise it retains the built-in adapter. Details are in `docs/semantic-provider.md`.
+
+## Repairing previously normalized source digests
+
+Older indexes could store normalized-text digests for semantic symbols while file/log
+rows retained raw-byte digests. CRLF files could therefore appear stale immediately
+after learning. Queries still fail closed for such mismatches; there is no automatic
+query-time rewrite or relaxation of freshness. After installing the fix, run
+`learn-path --path <affected-scope>` with the same project, Memory Home, and optional
+`--source` to merge-relearn affected files. Do not add `--replace`: ordinary facts and
+business annotations are retained by the merge path. An unchanged-source
+`maintain-refresh-scope --changed-only` does not repair existing digest rows.
+
+Byte-only changes, including LF/CRLF conversions and ignored invalid UTF-8 bytes,
+continue to invalidate learned anchors until relearned. This is a source-identity
+repair, not a schema migration or a claim of atomic filesystem snapshot isolation.

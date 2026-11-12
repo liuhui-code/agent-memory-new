@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from .required_source_reads import read_source_bytes
+
 import re
 from pathlib import Path
 
 from .models import Project
-from .semantic_models import SemanticBatch, SemanticEntity, SemanticRelation, source_digest, symbol_key
+from .semantic_models import SemanticBatch, SemanticEntity, SemanticRelation, source_digest, source_text, symbol_key
 from .source_static_extractors import build_target_ranges, native_callable_ranges
 
 
@@ -25,11 +27,12 @@ class StaticSourceSemanticAdapter:
         emitted_keys: set[str] = set()
         for path in sorted(set(files)):
             try:
-                text = path.read_text(encoding="utf-8", errors="ignore")
+                raw = read_source_bytes(path)
+                text = source_text(raw)
                 relative = path.resolve().relative_to(project.root.resolve()).as_posix()
             except (OSError, ValueError):
                 continue
-            digests[relative] = source_digest(text)
+            digests[relative] = source_digest(raw)
             ranges = native_callable_ranges(text) if self.kind == "native" else build_target_ranges(text)
             lines = text.splitlines()
             for item in ranges:

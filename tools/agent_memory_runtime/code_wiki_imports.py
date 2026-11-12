@@ -7,7 +7,8 @@ import os
 from dataclasses import replace
 from pathlib import Path
 
-from .models import IGNORE_DIRS, Project
+from .models import Project
+from .learning_coverage import record_skip, source_skip_reason
 from .code_wiki_extractors import extract_arkts_reference_symbols, language_for, should_skip_dir
 
 def resolve_learning_source(project: Project, raw_source: str | None) -> Path:
@@ -40,63 +41,80 @@ def resolve_target(project: Project, raw_path: str) -> Path:
 
 
 
-def collect_project_files(project: Project) -> list[Path]:
-    files_to_index: list[Path] = []
-    for root, dirs, files in os.walk(project.root):
-        root_path = Path(root)
-        dirs[:] = [d for d in dirs if d not in IGNORE_DIRS]
-        if should_skip_dir(root_path.relative_to(project.root) if root_path != project.root else Path("")):
-            continue
-        for filename in files:
-            path = root_path / filename
-            rel = path.relative_to(project.root)
-            if should_skip_dir(rel):
-                continue
-            if language_for(path):
-                files_to_index.append(path)
-    return files_to_index
+def collect_project_files(
+    project: Project, skipped_by_reason: dict[str, int] | None = None,
+) -> list[Path]:
+    return collect_path_files(project, project.root, skipped_by_reason)
 
 
 
-def collect_path_files(project: Project, target: Path) -> list[Path]:
+def collect_path_files(
+    project: Project, target: Path, skipped_by_reason: dict[str, int] | None = None,
+) -> list[Path]:
     if not target.exists():
         raise SystemExit(f"path does not exist: {target}")
     if target.is_file():
-        return [target] if language_for(target) else []
+        reason = source_skip_reason(project, target)
+        if reason:
+            record_skip(skipped_by_reason, reason)
+            return []
+        return [target]
     files_to_index: list[Path] = []
-    for root, dirs, files in os.walk(target):
+
+    def on_walk_error(_error: OSError) -> None:
+        record_skip(skipped_by_reason, "unreadable_directory")
+
+    for root, dirs, files in os.walk(target, onerror=on_walk_error):
         root_path = Path(root)
-        dirs[:] = [d for d in dirs if d not in IGNORE_DIRS]
-        rel_root = root_path.relative_to(project.root)
-        if should_skip_dir(rel_root):
+        if should_skip_dir(root_path.relative_to(project.root)):
+            record_skip(skipped_by_reason, "ignored_directory")
+            dirs[:] = []
             continue
+        retained_dirs = []
+        for name in dirs:
+            directory = root_path / name
+            if should_skip_dir(directory.relative_to(project.root)):
+                record_skip(skipped_by_reason, "ignored_directory")
+            elif directory.is_symlink():
+                # os.walk does not follow directory links; make that omission visible.
+                record_skip(skipped_by_reason, "symlink_directory")
+            else:
+                retained_dirs.append(name)
+        dirs[:] = retained_dirs
         for filename in files:
             path = root_path / filename
-            rel = path.relative_to(project.root)
-            if should_skip_dir(rel):
-                continue
-            if language_for(path):
+            reason = source_skip_reason(project, path)
+            if reason:
+                record_skip(skipped_by_reason, reason)
+            else:
                 files_to_index.append(path)
     return files_to_index
 
 
 
-def collect_entry_related_files(project: Project, entry: Path, depth: int) -> list[Path]:
+def collect_entry_related_files(
+    project: Project, entry: Path, depth: int,
+    skipped_by_reason: dict[str, int] | None = None,
+) -> list[Path]:
     seen: set[Path] = set()
+    selected: set[Path] = set()
     frontier: list[tuple[Path, int]] = [(entry.resolve(), 0)]
     while frontier:
         current, current_depth = frontier.pop(0)
         if current in seen:
             continue
-        if not current.exists() or not current.is_file() or not language_for(current):
-            continue
         seen.add(current)
+        reason = source_skip_reason(project, current)
+        if reason:
+            record_skip(skipped_by_reason, reason)
+            continue
+        selected.add(current)
         if current_depth >= depth:
             continue
         for imported in resolve_project_imports(project, current):
             if imported not in seen:
                 frontier.append((imported, current_depth + 1))
-    return sorted(seen)
+    return sorted(selected)
 
 
 
@@ -182,7 +200,7 @@ def resolve_js_imports(
 ) -> list[Path]:
     imports = re.findall(r"(?:from\s+|import\s*\(|require\s*\()\s*['\"]([^'\"]+)['\"]", text)
     candidates: list[Path] = []
-    extensions = extensions or [".ts", ".tsx", ".js", ".jsx"]
+    extensions = extensions or [".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"]
     for spec in imports:
         if spec.startswith("."):
             candidates.extend(resolve_relative_spec(path.parent / spec, extensions))

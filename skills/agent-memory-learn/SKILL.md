@@ -144,7 +144,13 @@ This merges the entry-related files into the existing codebase wiki by default. 
 
 Learning also extracts code log statements and rebuilds lightweight file/function/log edges. This happens automatically through the same command.
 
-Read the returned `parse_stats` field. If `files_indexed`, `symbols_total`, and `code_logs_total` are unexpectedly low, tell the user what scope was learned and suggest a narrower entry file or a broader directory.
+Read the returned `parse_stats` field, including `skipped_by_reason`. Report unsupported
+extensions and other selection gaps before claiming coverage. Skip counts are excluded
+paths, not a census of files inside pruned directories. Explicit unsupported or ignored
+file targets fail before replacing the index. Replacement also fails when no indexable
+files remain and skips were observed; a genuinely empty directory can still be an
+explicit reset. A reported unreadable directory always blocks replacement. `.mjs` / `.cjs` use existing lightweight
+JavaScript extraction, not exact semantic analysis; `.rs` remains unsupported. If `files_indexed`, `symbols_total`, and `code_logs_total` are unexpectedly low, tell the user what scope was learned and suggest a narrower entry file or a broader directory.
 When `semantic_followup` is present, use it immediately as the next `learn-business` task for the learned files. If `truncated` is `true`, finish the visible batch first, then rerun learning or maintenance to fetch the next semantic batch.
 Use `hint_terms` as seed vocabulary for `business_terms`, and use `hint_context` as the raw code anchor list you should read before writing the second-pass semantic summary.
 

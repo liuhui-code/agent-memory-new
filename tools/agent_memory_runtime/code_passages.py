@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import sqlite3
+from .transactional_schema import execute_schema
 from typing import Any, Iterable
 
 from .semantic_mechanism_evidence import mechanism_search_terms
@@ -22,7 +23,7 @@ REQUIRED_PASSAGE_COLUMNS = {
 
 def create_code_passage_schema(conn: sqlite3.Connection) -> None:
     drop_stale_code_passage_schema(conn)
-    conn.executescript(
+    execute_schema(conn,
         """
         CREATE TABLE IF NOT EXISTS code_passages (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -118,7 +119,7 @@ def drop_stale_code_passage_schema(conn: sqlite3.Connection) -> None:
         return
     if REQUIRED_PASSAGE_COLUMNS.issubset(columns) and "mechanism_terms" in fts_columns:
         return
-    conn.executescript(
+    execute_schema(conn,
         """
         DROP TRIGGER IF EXISTS code_passage_fts_ai;
         DROP TRIGGER IF EXISTS code_passage_fts_ad;

@@ -8,16 +8,18 @@ from pathlib import Path
 from typing import Any
 
 from .ecma_braces import block_end
+from .ecma_callable_body import callable_block_end
 from .ecma_callable_headers import method_header, top_level_callable_header
+from .required_source_reads import read_source_bytes
 from .models import Project
 from .semantic_ecma_callbacks import callback_callable_specs
 from .semantic_ecma_objects import object_container_specs
-from .semantic_ecma_mechanisms import extract_callable_mechanisms
+from .semantic_ecma_mechanisms import extract_file_mechanisms
 from .semantic_callable_profile import callable_roles, owner_kind
 from .semantic_dispatch_candidates import expand_dispatch_candidates
 from .semantic_models import (
     MAX_GAPS, SemanticBatch, SemanticEntity, SemanticMechanism,
-    SemanticRelation, source_digest, symbol_key,
+    SemanticRelation, source_digest, source_text, symbol_key,
 )
 from .source_call_scanner import call_argument_count, code_mask, scan_calls_masked
 CONTAINER_RE = re.compile(
@@ -42,7 +44,6 @@ class Container:
     extends: str | None
     implements: list[str]
     entity: SemanticEntity
-
 
 @dataclass
 class CallableBlock:
@@ -93,16 +94,17 @@ def bounded_gaps(gaps: list[dict[str, str]]) -> list[dict[str, str]]:
     return gaps[:MAX_GAPS]
 
 def parse_file(project: Project, path: Path, language: str, state_annotations: bool) -> ParsedFile:
-    text = path.read_text(encoding="utf-8", errors="ignore")
-    return parse_source(project, path, text, language, state_annotations)
+    return parse_source(project, path, read_source_bytes(path), language, state_annotations)
 
 def parse_source(
     project: Project,
     path: Path,
-    text: str,
+    text: str | bytes,
     language: str,
     state_annotations: bool,
 ) -> ParsedFile:
+    digest = source_digest(text)
+    text = source_text(text) if isinstance(text, bytes) else text
     rel_path = path.relative_to(project.root).as_posix()
     lines = text.splitlines()
     entities: list[SemanticEntity] = []
@@ -140,17 +142,12 @@ def parse_source(
         relations.extend(callable_relations(
             lines, block, context, by_qualified, by_name, gaps, callables,
         ))
-    mechanisms = [
-        mechanism
-        for block in callables
-        for mechanism in extract_callable_mechanisms(
-            lines, block.entity.key, block.start, block.end
-        )
-    ]
+    mechanisms, operation_gaps = extract_file_mechanisms(lines, callables)
+    gaps.extend(operation_gaps)
     return ParsedFile(
         path=rel_path,
         text=text,
-        digest=source_digest(text),
+        digest=digest,
         entities=dedupe_entities(entities),
         relations=dedupe_relations(relations),
         mechanisms=mechanisms,
@@ -200,7 +197,7 @@ def parse_container_members(
         method = method_header(lines, index)
         if method:
             name, params, return_type = method.name, method.params, method.return_type
-            end = min(block_end(lines, index), container.end)
+            end = min(callable_block_end(lines, index, method), container.end)
             qualified = f"{container.name}.{name}"
             signature = callable_signature(name, params, return_type, method.async_value)
             exported = container.exported and method.visibility != "private"
@@ -243,7 +240,7 @@ def parse_top_level_functions(
             index += 1
             continue
         name, params, return_type = header.name, header.params, header.return_type
-        end = block_end(lines, index)
+        end = callable_block_end(lines, index, header)
         signature = callable_signature(name, params, return_type, header.async_value)
         source = "\n".join(lines[index:end + 1])
         entity = make_entity(
@@ -365,7 +362,6 @@ def callable_relations(
         ))
     return result
 
-
 def build_file_context(
     lines: list[str],
     containers: list[Container],
@@ -387,7 +383,6 @@ def build_file_context(
         state_names_by_owner={owner: tuple(names) for owner, names in state_names.items()},
         imported_paths={alias: path for _name, alias, path in imports},
     )
-
 
 def parse_imports(project: Project, path: Path, text: str, language: str) -> list[tuple[str, str, str | None]]:
     result: list[tuple[str, str, str | None]] = []

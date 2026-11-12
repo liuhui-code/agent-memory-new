@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from .required_source_reads import read_source_text
+
 import re
 import sqlite3
 import subprocess
@@ -282,7 +284,7 @@ def referenced_symbol_names(project: Project, files: list[sqlite3.Row]) -> set[s
         if row["language"] != "ArkTS":
             continue
         try:
-            text = (project.root / str(row["file_path"])).read_text(encoding="utf-8", errors="ignore")
+            text = read_source_text(project.root / str(row["file_path"]))
         except OSError:
             continue
         names.update(graph_reference_names(text))
@@ -360,7 +362,7 @@ def insert_arkts_knowledge_edges(
         source_id = row["id"]
         source_abs = project.root / source_rel
         try:
-            text = source_abs.read_text(encoding="utf-8", errors="ignore")
+            text = read_source_text(source_abs)
         except OSError:
             continue
 

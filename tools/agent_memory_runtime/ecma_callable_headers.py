@@ -5,6 +5,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 import re
 
+from .ecma_callable_body import (
+    expression_start, signature_terminator, source_position, without_comments,
+)
+from .source_call_scanner import code_mask
+
 
 CONTROL_NAMES = {"if", "for", "while", "switch", "catch"}
 MAX_HEADER_LINES = 12
@@ -33,6 +38,8 @@ class CallableHeader:
     visibility: str | None = None
     override: bool = False
     exported: bool = False
+    body_start: tuple[int, int] | None = None
+    header_end: int | None = None
 
 
 def named_callable_header(lines: list[str], start: int) -> CallableHeader | None:
@@ -54,7 +61,7 @@ def method_header(lines: list[str], start: int) -> CallableHeader | None:
     completed = complete_header(lines, start, offset + match.end() - 1)
     if completed is None:
         return None
-    params, return_type = completed
+    params, return_type, body_start, header_end = completed
     visibility = next(
         (value for value in ("public", "private", "protected") if value in parts),
         None,
@@ -62,6 +69,8 @@ def method_header(lines: list[str], start: int) -> CallableHeader | None:
     return CallableHeader(
         name=match.group("name"),
         params=params,
+        body_start=body_start,
+        header_end=header_end,
         return_type=return_type,
         async_value="async" in parts,
         visibility=visibility,
@@ -79,10 +88,12 @@ def function_header(lines: list[str], start: int) -> CallableHeader | None:
     completed = complete_header(lines, start, offset + match.end() - 1)
     if completed is None:
         return None
-    params, return_type = completed
+    params, return_type, body_start, header_end = completed
     return CallableHeader(
         name=match.group("name"),
         params=params,
+        body_start=body_start,
+        header_end=header_end,
         return_type=return_type,
         async_value=bool(match.group("async")),
         exported=bool(match.group("export")),
@@ -101,10 +112,12 @@ def arrow_function_header(lines: list[str], start: int) -> CallableHeader | None
     completed = complete_arrow_header(lines, start, opening)
     if completed is None:
         return None
-    params, return_type = completed
+    params, return_type, body_start, header_end = completed
     return CallableHeader(
         name=match.group("name"),
         params=params,
+        body_start=body_start,
+        header_end=header_end,
         return_type=return_type,
         async_value=arrow_initializer_is_async(lines, start, opening),
         exported=bool(match.group("export")),
@@ -134,37 +147,38 @@ def callable_declaration_offset(line: str) -> int:
 
 def complete_header(
     lines: list[str], start: int, opening_column: int,
-) -> tuple[str, str | None] | None:
-    header = lines[start]
+) -> tuple[str, str | None, tuple[int, int] | None, int] | None:
+    header = lines[start].rstrip("\r\n")
     for index in range(start, min(len(lines), start + MAX_HEADER_LINES)):
         if index > start:
-            header += "\n" + lines[index]
+            header += "\n" + lines[index].rstrip("\r\n")
         if len(header) > MAX_HEADER_CHARS:
             return None
         closing = closing_parenthesis(header, opening_column)
         if closing is None:
             continue
         tail = header[closing + 1:]
-        brace = tail.find("{")
-        terminator = tail.find(";")
-        if terminator >= 0 and (brace < 0 or terminator < brace):
-            return None
-        if brace < 0:
+        brace = signature_terminator(tail)
+        if brace is None:
+            if ";" in tail:
+                masked_tail = code_mask(tail)
+                if ";" in masked_tail and "{" not in masked_tail:
+                    return None
             continue
         params = normalize_space(header[opening_column + 1:closing])
-        suffix = normalize_space(tail[:brace])
+        suffix = normalize_space(without_comments(tail[:brace]))
         if suffix and not suffix.startswith(":"):
             return None
         return_type = normalize_return_type(suffix)
-        return params, return_type
+        return params, return_type, source_position(header, start, closing + 1 + brace), index
     return None
 
 
 def arrow_initializer_opening(lines: list[str], start: int, prefix_end: int) -> int | None:
-    header = lines[start]
+    header = lines[start].rstrip("\r\n")
     for index in range(start, min(len(lines), start + MAX_HEADER_LINES)):
         if index > start:
-            header += "\n" + lines[index]
+            header += "\n" + lines[index].rstrip("\r\n")
         if len(header) > MAX_HEADER_CHARS:
             return None
         assignment = top_level_assignment_index(header, prefix_end)
@@ -178,7 +192,7 @@ def arrow_initializer_opening(lines: list[str], start: int, prefix_end: int) -> 
 
 
 def arrow_initializer_is_async(lines: list[str], start: int, opening: int) -> bool:
-    header = "\n".join(lines[start:min(len(lines), start + MAX_HEADER_LINES)])
+    header = "\n".join(line.rstrip("\r\n") for line in lines[start:min(len(lines), start + MAX_HEADER_LINES)])
     prefix = header[:opening]
     return bool(re.search(r"=\s*async\s*$", prefix))
 
@@ -218,36 +232,41 @@ def top_level_assignment_index(value: str, start: int) -> int | None:
 
 def complete_arrow_header(
     lines: list[str], start: int, opening_column: int,
-) -> tuple[str, str | None] | None:
-    header = lines[start]
+) -> tuple[str, str | None, tuple[int, int] | None, int] | None:
+    header = lines[start].rstrip("\r\n")
     for index in range(start, min(len(lines), start + MAX_HEADER_LINES)):
         if index > start:
-            header += "\n" + lines[index]
+            header += "\n" + lines[index].rstrip("\r\n")
         if len(header) > MAX_HEADER_CHARS:
             return None
         closing = closing_parenthesis(header, opening_column)
         if closing is None:
             continue
         tail = header[closing + 1:]
-        arrow = tail.find("=>")
-        if arrow < 0:
+        arrow = signature_terminator(tail, arrow=True)
+        if arrow is None:
             continue
-        suffix = normalize_space(tail[:arrow])
+        suffix = normalize_space(without_comments(tail[:arrow]))
         if suffix and not suffix.startswith(":"):
             return None
-        expression = tail[arrow + 2:].strip()
-        if not expression:
+        expression_offset = closing + 1 + arrow + 2
+        expression = expression_start(header[expression_offset:])
+        if expression is None:
             continue
+        offset = expression_offset + expression
+        body_start = source_position(header, start, offset)
         params = normalize_space(header[opening_column + 1:closing])
-        return params, normalize_return_type(suffix)
+        return params, normalize_return_type(suffix), body_start, index
     return None
 
 
 def closing_parenthesis(value: str, opening: int) -> int | None:
+    """Match parameters without masking or scanning unrelated text after them."""
     depth = 0
     quote = ""
-    index = opening
-    while index < len(value):
+    index = 0
+    length = len(value)
+    while index < length:
         char = value[index]
         if quote:
             if char == "\\":
@@ -257,12 +276,24 @@ def closing_parenthesis(value: str, opening: int) -> int | None:
                 quote = ""
         elif char in {"'", '"', "`"}:
             quote = char
-        elif char == "(":
-            depth += 1
-        elif char == ")":
-            depth -= 1
-            if depth == 0:
-                return index
+        elif char == "/" and value.startswith("//", index):
+            newline = value.find("\n", index + 2)
+            if newline < 0:
+                return None
+            index = newline
+        elif char == "/" and value.startswith("/*", index):
+            closing = value.find("*/", index + 2)
+            if closing < 0:
+                return None
+            index = closing + 2
+            continue
+        elif index >= opening:
+            if char == "(":
+                depth += 1
+            elif char == ")":
+                depth -= 1
+                if depth == 0:
+                    return index
         index += 1
     return None
 

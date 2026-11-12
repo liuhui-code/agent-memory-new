@@ -233,7 +233,7 @@ function collectModel(scene, request) {
 async function validateSources(request) {
   const result = {};
   for (const item of request.files) {
-    const source = await readFile(path.join(request.project_root, item.path), "utf8");
+    const source = await readFile(path.join(request.project_root, item.path));
     const actual = digest(source);
     if (actual !== item.digest) throw new Error(`stale requested source: ${item.path}`);
     result[item.path] = actual;

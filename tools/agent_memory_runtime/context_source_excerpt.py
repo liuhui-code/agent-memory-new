@@ -410,6 +410,7 @@ def read_excerpt(
     lines: list[str] = []
     actual_end = start - 1
     char_truncated = False
+    line_truncated = False
     used_chars = 0
     try:
         with path.open("r", encoding="utf-8", errors="replace") as handle:
@@ -417,6 +418,9 @@ def read_excerpt(
                 if line_number < start:
                     continue
                 if line_number > line_end:
+                    # A window beyond EOF omits nothing. Only a real source line
+                    # still inside the requested range proves line-cap clipping.
+                    line_truncated = line_number <= requested_end
                     break
                 if "\x00" in line:
                     return {}
@@ -440,7 +444,7 @@ def read_excerpt(
         "source": "current_worktree",
         "selection_reason": source_range.get("selection_reason") or "anchor_range",
         "focus_line": source_range.get("focus_line"),
-        "truncated": char_truncated or actual_end < requested_end,
+        "truncated": char_truncated or line_truncated,
     }
 
 

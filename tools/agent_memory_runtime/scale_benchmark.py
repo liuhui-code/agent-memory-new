@@ -97,6 +97,8 @@ def run_scale_benchmark(profile: ScaleProfile) -> dict[str, Any]:
     maintenance_pass = maintenance["status"] == "pass"
     return {
         "schema_version": "scale-benchmark/v1",
+        "fixture_version": "scale-fixture/v2",
+        "count_snapshot": "synthetic primitives before real maintenance setup",
         "profile": profile.name,
         "status": "pass" if latency_pass and plan_pass and maintenance_pass else "fail",
         "configured_counts": profile_counts(profile),

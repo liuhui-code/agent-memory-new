@@ -13,14 +13,16 @@ from .code_wiki_indexing import record_learn_scope, write_wiki_index, parse_stat
 from .code_wiki_refresh import add_episode_from_values
 from .query import collect_matches, record_query_miss_if_empty
 from .records import output
+from .learning_coverage import require_learning_target
 from .storage import ensure_initialized, resolve_project
 
 def wiki_index(args: argparse.Namespace) -> None:
     project = resolve_project(args.project, args.memory_home)
     ensure_initialized(project)
     source_project = project_for_learning_source(project, args.source)
-    files = collect_project_files(source_project)
-    stats = write_wiki_index(source_project, files, replace=True)
+    skipped: dict[str, int] = {}
+    files = collect_project_files(source_project, skipped)
+    stats = write_wiki_index(source_project, files, replace=True, skipped_by_reason=skipped)
     record_learn_scope(
         project,
         source_project.root,
@@ -38,8 +40,10 @@ def learn_path(args: argparse.Namespace) -> None:
     ensure_initialized(project)
     source_project = project_for_learning_source(project, args.source)
     target = resolve_target(source_project, args.path)
-    files = collect_path_files(source_project, target)
-    stats = write_wiki_index(source_project, files, replace=args.replace)
+    require_learning_target(source_project, target)
+    skipped: dict[str, int] = {}
+    files = collect_path_files(source_project, target, skipped)
+    stats = write_wiki_index(source_project, files, replace=args.replace, skipped_by_reason=skipped)
     rel_target = str(target.relative_to(source_project.root))
     scope_id = record_learn_scope(
         project,
@@ -85,8 +89,10 @@ def learn_entry(args: argparse.Namespace) -> None:
     entry = resolve_target(source_project, args.entry)
     if not entry.is_file():
         raise SystemExit(f"entry must be a file: {entry}")
-    files = collect_entry_related_files(source_project, entry, args.depth)
-    stats = write_wiki_index(source_project, files, replace=args.replace)
+    require_learning_target(source_project, entry)
+    skipped: dict[str, int] = {}
+    files = collect_entry_related_files(source_project, entry, args.depth, skipped)
+    stats = write_wiki_index(source_project, files, replace=args.replace, skipped_by_reason=skipped)
     rel_files = [str(path.relative_to(source_project.root)) for path in sorted(files)]
     rel_entry = str(entry.relative_to(source_project.root))
     scope_id = record_learn_scope(

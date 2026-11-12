@@ -1,0 +1,5 @@
+# Explicit same-owner passage retention
+
+Only the existing cross-file portfolio branch may retain multiple directly named methods of its primary file and nonempty owner despite unrelated-file diversity. All named localized candidates are validated before range/cap filtering; conflicting single-target cues, absent/invalid ranges, conflicting duplicates, or more than three names preserve old behavior. Whole source symbol spelling uses case-sensitive identifier boundaries, not split token overlap. Existing exclusion/comparison clauses are removed without query expansion; this is not general natural-language negation understanding.
+
+All other directly named targets must already belong to the old selected set and are retained. No cross-file candidate is newly promoted. Original eligible ordering, MAX_MEMBERS=3, ranking/focus/recall and budget remain unchanged. Unchanged branches return exactly old members/metadata. Unsupported requests retain old bounded behavior, not a completeness promise. This is independent of rejected B identity fidelity and broad multifile promotion.

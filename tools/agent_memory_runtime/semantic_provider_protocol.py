@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from .required_source_reads import read_source_bytes, resolve_source_path
+
 import hashlib
 import json
 import re
@@ -35,10 +37,9 @@ def build_provider_request(project: Project, language: str, files: list[Path]) -
     if len(set(files)) > MAX_FILES:
         raise ProviderFailure("request_too_large", f"provider request exceeds {MAX_FILES} files")
     requested: list[dict[str, str]] = []
-    for path in sorted(set(item.resolve() for item in files)):
+    for path in sorted(set(resolve_source_path(item) for item in files)):
         relative = safe_project_path(project, path)
-        text = path.read_text(encoding="utf-8", errors="ignore")
-        requested.append({"path": relative, "digest": source_digest(text)})
+        requested.append({"path": relative, "digest": source_digest(read_source_bytes(path))})
     material = json.dumps({"language": language, "files": requested}, sort_keys=True, separators=(",", ":"))
     request_id = hashlib.sha256(material.encode("utf-8")).hexdigest()[:24]
     return {

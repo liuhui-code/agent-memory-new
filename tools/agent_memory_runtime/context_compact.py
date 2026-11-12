@@ -22,6 +22,7 @@ from .context_source_excerpt import (
 from .index_freshness import compact_freshness_report
 from .query_behavior_concepts import behavior_marker_terms
 from .source_exploration import assign_anchor_roles, exploration_contract
+from .context_code_exclusions import project_code_exclusions
 from .text import ENGLISH_QUERY_STOPWORDS
 from .normative_context import compact_normative_context
 
@@ -57,21 +58,26 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
             "use_when": "inspect ranking audit, full records, or one unresolved candidate",
         },
     }
+    budget_truncated = False
     excerpt_reserve = multi_excerpt_reserve_tokens(payload, data.get("project_path"))
     if excerpt_reserve:
-        enforce_budget(payload, COMPACT_TOKEN_BUDGET, reserve_tokens=excerpt_reserve)
+        budget_truncated = enforce_budget(
+            payload, COMPACT_TOKEN_BUDGET, reserve_tokens=excerpt_reserve,
+        )
     excerpt_count = attach_source_excerpts(
         payload, data.get("project_path"), COMPACT_TOKEN_BUDGET
     )
     if not excerpt_count and has_source_excerpt_candidate(payload, data.get("project_path")):
-        enforce_budget(payload, SOURCE_EXCERPT_PRE_BUDGET, reserve_tokens=0)
+        budget_truncated = enforce_budget(
+            payload, SOURCE_EXCERPT_PRE_BUDGET, reserve_tokens=0,
+        ) or budget_truncated
         attach_source_excerpts(payload, data.get("project_path"), COMPACT_TOKEN_BUDGET)
-    enforce_budget(payload, COMPACT_TOKEN_BUDGET)
+    budget_truncated = enforce_budget(payload, COMPACT_TOKEN_BUDGET) or budget_truncated
     payload["evidence_gaps"] = evidence_gaps(payload["query_handoff"])
     payload["sufficiency"] = diagnosis_sufficiency(
         payload["query_handoff"], payload["evidence_gaps"], payload["source_freshness"],
     )
-    finalize_budget(payload, COMPACT_TOKEN_BUDGET)
+    finalize_budget(payload, COMPACT_TOKEN_BUDGET, truncated=budget_truncated)
     return payload
 
 
@@ -100,6 +106,10 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
     )
     code_anchors = bind_event_owner_ranges(
         code_anchors, log_anchors, str(data.get("query") or "")
+    )
+    code_anchors = project_code_exclusions(
+        code_anchors, str(data.get("query") or ""), code_candidates,
+        records(handoff.get("log_anchors")), path_context,
     )
     return {
         "schema_version": "agent-query-handoff-compact/v1",

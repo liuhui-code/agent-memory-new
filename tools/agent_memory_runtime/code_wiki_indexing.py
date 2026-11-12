@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from .required_source_reads import required_source_reads, require_rebuild_sources
+
 import hashlib
 import json
 import sqlite3
@@ -13,18 +15,20 @@ from typing import Any
 
 from .code_wiki_edges import (
     delete_edges_for_scope,
-    dependent_file_paths_for_scope,
     rebuild_code_memory_edges,
     source_revision,
     scope_node_ids,
     sql_chunks,
 )
-from .code_wiki_extractors import extract_log_statements, extract_symbols, language_for, should_skip_dir, summarize_file, summarize_symbol
+from .code_wiki_extractors import extract_log_statements, extract_symbols, language_for, summarize_file, summarize_symbol
 from .graph_refresh_metrics import edge_rebuild_metrics, scoped_edge_summary
 from .index_freshness import activate_index_generation, next_index_generation
-from .incremental_dispatch_scope import dispatch_rebuild_paths
+from .complete_dependency_scope import (
+    DiscoveryBudget, complete_reverse_paths, complete_dispatch_paths,
+)
 from .code_passages import rebuild_code_passages
 from .models import Project
+from .learning_coverage import record_skip, require_indexable_replacement, source_skip_reason
 from .normative_index import NormativeSourceReadError, sync_normative_index
 from .semantic_refresh import load_business_semantics, restore_business_semantics
 from .scope_changes import git_head
@@ -225,6 +229,7 @@ def write_wiki_index(
     files: list[Path],
     replace: bool = False,
     retired_relative_files: list[str] | None = None,
+    skipped_by_reason: dict[str, int] | None = None,
 ) -> dict[str, Any]:
     operation_started = time.perf_counter()
     phase_started = operation_started
@@ -239,17 +244,15 @@ def write_wiki_index(
     ts = now_iso()
     unique_files = sorted({path.resolve() for path in files})
     relative_files: list[tuple[Path, Path, str, str]] = []
+    skipped = dict(skipped_by_reason or {})
     for path in unique_files:
-        try:
-            rel = path.relative_to(project.root)
-        except ValueError:
+        reason = source_skip_reason(project, path)
+        if reason:
+            record_skip(skipped, reason)
             continue
-        if should_skip_dir(rel):
-            continue
-        language = language_for(path)
-        if not language:
-            continue
-        relative_files.append((path, rel, str(rel), language))
+        rel = path.relative_to(project.root)
+        relative_files.append((path, rel, str(rel), language_for(path)))
+    require_indexable_replacement(len(relative_files), replace, skipped)
 
     language_counts: Counter[str] = Counter()
     symbol_type_counts: Counter[str] = Counter()
@@ -273,21 +276,29 @@ def write_wiki_index(
     affected_file_paths = [rel_text for _, _, rel_text, _ in relative_files]
     retired_file_paths = sorted(set(retired_relative_files or []))
     invalidated_file_paths = sorted(set(affected_file_paths) | set(retired_file_paths))
-    with connect(project) as conn:
+    with connect(project) as conn, required_source_reads() as required_sources:
+        conn.execute("BEGIN IMMEDIATE")
         generation = next_index_generation(conn, project.project_id)
         revision = source_revision(project)
         previous_scope_ids = scope_node_ids(conn, project.project_id, invalidated_file_paths)
         edges_before = scoped_edge_summary(conn, project.project_id, previous_scope_ids)
+        discovery_budget = DiscoveryBudget()
         reverse_dependents = (
-            [] if replace else dependent_file_paths_for_scope(conn, project.project_id, previous_scope_ids)
+            [] if replace else complete_reverse_paths(
+                conn, project.project_id, previous_scope_ids, discovery_budget
+            )
         )
         dispatch_dependents = (
-            [] if replace else dispatch_rebuild_paths(
-                conn, project, invalidated_file_paths, previous_scope_ids["code_symbol"],
+            [] if replace else complete_dispatch_paths(
+                conn, project, affected_file_paths, previous_scope_ids["code_symbol"], discovery_budget,
             )
         )
         reverse_dependents = sorted(set(reverse_dependents) | set(dispatch_dependents))
         rebuild_paths = sorted(set(invalidated_file_paths) | set(reverse_dependents))
+        require_rebuild_sources(
+            required_sources, conn, project.project_id, project.root,
+            sorted(set(rebuild_paths) - set(retired_file_paths)), digests_by_file,
+        )
         business_snapshot = (
             load_business_semantics(conn, project.project_id, affected_file_paths)
             if not replace
@@ -411,6 +422,7 @@ def write_wiki_index(
     phase_ms["total"] = round((time.perf_counter() - operation_started) * 1000.0, 3)
     return {
         "files_indexed": len(relative_files),
+        "skipped_by_reason": dict(sorted(skipped.items())),
         "languages": dict(sorted(language_counts.items())),
         "symbols_total": sum(symbol_type_counts.values()),
         "symbols_by_type": dict(sorted(symbol_type_counts.items())),
@@ -444,6 +456,9 @@ def parse_stats_summary(stats: dict[str, Any]) -> str:
         f"logs={stats.get('code_logs_total', 0)}, "
         f"edges={stats.get('memory_edges_total', 0)}"
     )
+    skipped = stats.get("skipped_by_reason") or {}
+    if skipped:
+        summary += ", skipped: " + ", ".join(f"{key}={value}" for key, value in sorted(skipped.items()))
     normative = stats.get("normative_index") or {}
     indexed = int(normative.get("documents_indexed") or 0)
     retired = int(normative.get("documents_retired") or 0)

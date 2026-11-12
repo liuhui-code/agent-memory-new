@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from .required_source_reads import read_source_text
+
 import json
 import re
 import sqlite3
@@ -294,9 +296,7 @@ def call_message(
     file_path = str(item["file_path"])
     if file_path not in source_cache:
         try:
-            source_cache[file_path] = (root / file_path).read_text(
-                encoding="utf-8", errors="ignore"
-            ).splitlines(keepends=True)
+            source_cache[file_path] = read_source_text(root / file_path).splitlines(keepends=True)
         except OSError:
             source_cache[file_path] = []
     line = int(item["line"])

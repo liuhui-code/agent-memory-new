@@ -5,6 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Protocol
 
+from .query_same_owner_retention import retain_named_owner_methods
+from .query_certified_portfolio_bounds import MARKER, certify_selected_bounds
 from .query_language import excluded_code_candidate
 from .query_target_scope import classify_target_scope, permits_cross_file_portfolio
 from .text import identifier_tokens, query_tokens
@@ -70,8 +72,16 @@ class StaticCallablePassagePortfolioProvider:
             if STRUCTURAL_PASSAGE_REASONS.issubset(set(item["support_reasons"]))
         ]
         cross_file = cross_file and len({item["file_path"] for item in eligible}) >= 2
+        retained = False
         if cross_file:
-            members = diverse_files(eligible)[:MAX_MEMBERS]
+            original = diverse_files(eligible)[:MAX_MEMBERS]
+            members = retain_named_owner_methods(
+                query, primary, candidates,
+                records(localization.get("source_ranges")), eligible, original, MAX_MEMBERS,
+            )
+            retained = members != original
+            if retained:
+                cross_file = len({item["file_path"] for item in members}) >= 2
         else:
             owner_explicit = [item for item in explicit if item in owner_eligible]
             owner_structural = [item for item in structural if item in owner_eligible]
@@ -79,6 +89,14 @@ class StaticCallablePassagePortfolioProvider:
             members = supported[:MAX_MEMBERS]
         if len(members) < 2:
             return inactive("fewer_than_two_supported_callable_identities")
+        certified = None
+        if not cross_file and not retained:
+            certified = certify_selected_bounds(
+                members, primary, candidates,
+                records(localization.get("source_ranges")),
+            )
+            if certified is not None:
+                members = certified
         basis = (
             "explicit_cross_file_targets" if cross_file
             else "explicit_callable_identity" if len(explicit) >= 2
@@ -93,7 +111,8 @@ class StaticCallablePassagePortfolioProvider:
             "selection_basis": [
                 "existing_localization", "same_owner_scope",
                 basis, "bounded_passage_diversity",
-            ],
+            ] + (["same_owner_named_retention"] if retained else [])
+              + ([MARKER] if certified is not None else []),
             "candidate_recall_changed": False,
             "boundary": "source_passage_composition_not_diagnosis",
         }

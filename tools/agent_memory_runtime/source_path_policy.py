@@ -17,7 +17,7 @@ GENERATED_SOURCE_DIRS = {
 LANGUAGE_SUFFIXES = {
     "ArkTS": {".ets"},
     "Dart": {".dart"},
-    "JavaScript": {".js", ".jsx"},
+    "JavaScript": {".js", ".jsx", ".mjs", ".cjs"},
     "Python": {".py"},
     "Swift": {".swift"},
     "TypeScript": {".ts", ".tsx"},
@@ -25,7 +25,7 @@ LANGUAGE_SUFFIXES = {
 LANGUAGE_HINTS = {
     "ArkTS": re.compile(r"\b(?:arkts|harmonyos|openharmony)\b|\.ets\b", re.I),
     "Dart": re.compile(r"\b(?:dart|flutter)\b|\.dart\b", re.I),
-    "JavaScript": re.compile(r"\bjavascript\b|\.jsx?\b", re.I),
+    "JavaScript": re.compile(r"\bjavascript\b|\.(?:jsx?|mjs|cjs)\b", re.I),
     "Python": re.compile(r"\bpython\b|\.py\b", re.I),
     "Swift": re.compile(r"\bswift\b|\.swift\b", re.I),
     "TypeScript": re.compile(r"\btypescript\b|\.tsx?\b", re.I),

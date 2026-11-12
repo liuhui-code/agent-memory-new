@@ -17,7 +17,7 @@ from tools.agent_memory_runtime.storage import connect, ensure_initialized, reso
 
 class ReviewFixture(unittest.TestCase):
     def setUp(self) -> None:
-        self.temporary = tempfile.TemporaryDirectory(prefix="memory-review-", dir="/private/tmp")
+        self.temporary = tempfile.TemporaryDirectory(prefix="memory-review-")
         self.addCleanup(self.temporary.cleanup)
         root = Path(self.temporary.name)
         (root / "project").mkdir()

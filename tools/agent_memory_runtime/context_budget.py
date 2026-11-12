@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from copy import deepcopy
 from typing import Any, Callable
 
 from .performance_scoring import estimate_payload_tokens
@@ -39,7 +40,11 @@ def enforce_budget(
     payload: dict[str, Any],
     token_budget: int,
     reserve_tokens: int = 60,
-) -> None:
+) -> bool:
+    """Return whether budget enforcement removed projected content or metadata."""
+    if estimate_payload_tokens(payload) <= token_budget - reserve_tokens:
+        return False
+    before = deepcopy(payload)
     handoff = payload["query_handoff"]
     paths = handoff["path_context"]["path_candidates"]
     normative = handoff.get("normative_context")
@@ -70,13 +75,31 @@ def enforce_budget(
         if estimate_payload_tokens(payload) <= token_budget - reserve_tokens:
             break
         reduce_payload()
+    return payload_was_reduced(before, payload)
 
 
-def finalize_budget(payload: dict[str, Any], token_budget: int) -> None:
+def payload_was_reduced(before: Any, after: Any) -> bool:
+    """Ignore normalization that only adds empty fields during a no-op pass."""
+    if isinstance(before, dict) and isinstance(after, dict):
+        return any(
+            key not in after or payload_was_reduced(value, after[key])
+            for key, value in before.items()
+        )
+    if isinstance(before, list) and isinstance(after, list):
+        return len(after) < len(before) or any(
+            payload_was_reduced(left, right) for left, right in zip(before, after)
+        )
+    return isinstance(before, str) and isinstance(after, str) and len(after) < len(before)
+
+
+def finalize_budget(
+    payload: dict[str, Any], token_budget: int, *, truncated: bool = False,
+) -> None:
+    previous = payload.get("output_budget") or {}
     payload["output_budget"] = {
         "estimated_tokens": 0,
         "target_tokens": token_budget,
-        "truncated": True,
+        "truncated": bool(truncated or previous.get("truncated")),
     }
     for _ in range(80):
         synchronize_estimate(payload)
@@ -84,6 +107,7 @@ def finalize_budget(payload: dict[str, Any], token_budget: int) -> None:
             return
         if not reduce_final_payload(payload):
             break
+        payload["output_budget"]["truncated"] = True
     synchronize_estimate(payload)
 
 

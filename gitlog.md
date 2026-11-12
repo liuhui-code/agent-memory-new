@@ -1,5 +1,125 @@
 # Local Development Log
 
+## 2026-11-04 - Restore Query Skill progressive disclosure without dropping policy
+
+- Reproduced the existing 176-line Query Skill failure against the unchanged
+  120-line gate. Move the complete 47-line Normative Context block and 16-line
+  Authority block verbatim into the existing evidence-policy reference; retain
+  all five references and reduce the entry to 119 lines without changing the gate.
+- Keep explicit must-read triggers and direct section links in the entry. Clarify
+  that shared evidence policy applies alongside the selected task protocol. Keep
+  L0/L1/L2 routing, explicit Memory requests, compact/design commands, source
+  exploration budgets, diagnosis boundaries and task-end review handoff in place.
+- An exact content map accounts for all 176 original entry lines: 175 remain
+  byte-identical in the entry/reference, and only the routing sentence is clarified.
+  The nine explicit commands and the reference's existing command/trust/feedback/
+  evaluation sections are unchanged. Four new regressions cover policy triggers,
+  normative safeguards, authority order and byte-identical installed references.
+- Related controlled regressions pass (72 tests); the unchanged line-limit gate,
+  Python compilation and 500-line check pass. The first direct module invocation
+  hit an existing test import assumption; using PYTHONPATH=tests:. resolved it
+  without modifying the test. Both observations are retained in development evidence.
+- The basic profile ran 35 tests, with 34 passing and one inherited fingerprint
+  failure in tests/test_path_suffix_candidates.py. The integration original lacks
+  the same marker; this separate issue is not changed here. Do not interpret these
+  focused results as a complete aggregate gate or proof of Agent behavioral parity.
+- Work and evidence are isolated in the sibling query-skill-gate-repair workspace.
+  Runtime, evaluator assertions, the integration source and remotes are unchanged;
+  no consumed sealed evaluation was inspected, edited or executed.
+
+## 2026-11-04 - Keep semantic index freshness bound to original source bytes
+
+- Reproduced a fresh CRLF TypeScript learn as stale in an independent development
+  fixture and the actual compact CLI query_handoff before changing production code:
+  partial_current, four blocked rows, transfer.ts stale, and no code anchors. Semantic
+  extraction had hashed newline-normalized text and overwritten raw-byte symbol digests.
+- Hash original bytes before decoding in ECMA and native/build semantic adapters and
+  external-provider requests; the optional ArkAnalyzer provider also hashes its raw read.
+  Preserve the prior universal-newline parsing view independently, including CRLF and
+  bare CR, so symbol identities, build signatures and import parsing do not change.
+  Freshness filtering, ranking, schema and mismatch blocking are unchanged.
+- Eight new development regressions pass: LF/CRLF public handoffs, byte-derived rows
+  and semantic-call edges, four adapter families, provider requests/exact test provider,
+  newline-only and ignored-invalid-UTF-8 byte edits, and merge repair of legacy rows.
+  An early candidate changed build signatures by exposing CRLF to parsing; its failing
+  development observation is retained and the parser normalization repair is verified.
+- A separate archive created by the unmodified baseline runtime remained stale after
+  code installation, then became current at generation 2 after merge learn-path. Its
+  fact fields and business summary were preserved; ordinary query usage counters may
+  change. Existing malformed digests are not rewritten by queries, and changed-only
+  maintenance does not repair files whose raw bytes have not changed. Document the
+  explicit same-scope merge relearn, without --replace, as the upgrade procedure.
+- The related suite ran 80 tests successfully with one existing optional ArkAnalyzer
+  dependency skip. Python compilation, Node syntax, whitespace and 500-line checks
+  passed. Evidence is retained under the separate crlf-evidence development workspace.
+  No sealed holdout, real user archive, remote operation, commit or push was involved.
+  This focused validation is not a full aggregate gate or an external promotion claim;
+  the optional ArkAnalyzer dependency path and concurrent filesystem writes remain
+  outside the verified end-to-end scope.
+
+## 2026-11-04 - Make Review Tests Use the System Temporary Directory
+
+- Remove the macOS-specific `/private/tmp` assumption from the shared Review test fixture.
+- The isolated Linux replay passed all 24 Review library and server tests, including security checks.
+- Production Review security logic is unchanged. The separate Query Skill line-limit failure was reproduced on the unchanged baseline.
+
+## 2026-11-04 - Report Learning Exclusions and Support JavaScript Module Suffixes
+
+What changed:
+- Register `.mjs` and `.cjs` with the existing lightweight JavaScript source profile,
+  relative-import discovery and explicit-language suffix policy. No JavaScript
+  semantic adapter or Rust source support is added.
+- Add `parse_stats.skipped_by_reason` without removing existing payload fields.
+  Count encountered excluded paths; each pruned directory counts once without
+  scanning its contents. Unresolved imports are not a coverage census.
+- Reject explicitly unsupported/ignored targets before changing the index. Reject
+  replacement when every candidate is skipped, or any directory scan is unreadable.
+  A genuinely empty directory with no observed skips retains explicit reset behavior.
+
+Development evidence:
+- Independent public CLI fixtures reproduced `.mjs` success with zero indexed files
+  and empty `query_handoff` anchors. The same fixture now returns its source-backed
+  symbol and log anchors.
+- Controlled replacement fixtures reproduced existing-index loss for unsupported
+  files, unsupported-only directories and a partially unreadable source tree. The
+  corresponding operations now fail before database mutation.
+- The initial eight regressions failed before implementation; two empty-replacement
+  regressions and one permission regression also failed before their narrow guards.
+
+Verification and limits:
+- 18 focused development regressions pass, including the actual public handoff,
+  compatibility fields, lightweight module imports, skip counts, exclusion guards,
+  directory permissions and the explicit-empty reset case.
+- Final basic profile passes 35/35 and the final related suite passes 73/73
+  (18 new plus 55 existing tests), with no skips. Tested files match the patch.
+- Python compilation, the 500-line check and patch application check pass. Command
+  logs are retained with the local report; no sealed holdout was executed.
+- These are controlled development results, not external generalization, exact JS
+  analysis, comprehensive import resolution or release-promotion evidence.
+
+## 2026-11-04 - Report Actual Context Truncation
+
+What changed:
+- Reproduced both defects in independent Development fixtures and the public
+  `context --compact --json` handoff before changing the runtime: an empty
+  archive reported 543/1500 tokens as truncated, and a complete three-line
+  TypeScript excerpt reported truncation because its window extended past EOF.
+- Count source truncation only when a real requested line or character budget
+  omission is observed. Propagate actual pre-final budget reductions into the
+  final budget metadata instead of equating the compact projection with clipping.
+- Retain the existing JSON keys and schema versions, document each flag's scope,
+  and add isolated CLI and unit regressions without changing retrieval ranking.
+
+Verification:
+- Initial 12-test regression run: six failures on the unchanged baseline.
+- Fixed 17-test regression suite passed, including real truncation, exact fits,
+  EOF/line-cap boundaries, budget no-ops, early reductions and finalizer reentry.
+- Final combined gate: 114 tests passed in 87.828 seconds, including the 17 new
+  regressions, Context/source/callable/capability coverage and existing query
+  performance suites. Python compilation and the 500-line gate passed.
+- Development evidence only. No consumed sealed holdout was read or rerun;
+  no external generalization, Agent quality or release eligibility claim is made.
+
 ## 2026-08-10 - Replay Scoped ArkTS-to-Native Context on Existing sherpa-onnx Development Source
 
 What changed:
@@ -10774,3 +10894,103 @@ Delivery scope:
   58-case run, the controlled backup reproduction and single-observation scale limits.
 - Check whitespace and the explicit staging list before committing. Actual commit identity
   and successful remote delivery are established by Git history and the final remote check.
+
+## 2026-11-04 - Preserve ECMA callable bodies beyond parameter and type braces
+
+- Reproduced the defect in an independent DispatchRouter development fixture and
+  the real compact CLI query_handoff before changing runtime behavior: the callable
+  range ended inside the destructured/defaulted parameter list instead of its body.
+- Carry the body's source position from bounded callable-header parsing into both
+  semantic indexing and source-range extraction. Distinguish return-type braces and
+  function-type arrows, ignore signature comments, normalize LF/CRLF inputs, and
+  retain balanced multiline expression-arrow ranges without consuming adjacent code.
+- Add development regressions for nested defaults, decorators, return types, comments,
+  adjacent methods/bodyless signatures, expression arrows and actual CLI handoffs.
+  Independent review found expression-arrow and retained-newline regressions in the
+  initial candidate; preserve their failing reproductions and repair them before delivery.
+- Recheck historical LocalPackageResolver.resolve as a development regression only:
+  the indexed and public handoff range changes from 75-83 to 75-156, while neighboring
+  projectFor and invalidate ranges remain 65-73 and 158-167. This is not a holdout,
+  cross-project efficacy result or release-promotion claim.
+- Existing persisted indexes require a merge relearn of the affected scope with
+  learn-path, without --replace. A copied development archive retained its semantic
+  fact while the stored callable range changed from 2-7 to 2-12 after that relearn.
+  No existing business archive, sealed evaluation input, remote branch or repository
+  history was changed. Full aggregate validation is separate from this focused repair.
+
+## 2026-11-04 - Avoid repeated callable-header masking after body-range repair
+
+- Profiled the repaired extractor on a fixed 178-file TypeScript/ArkTS development
+  snapshot: repeated full-header and full-tail masking dominated the named-range scan.
+- Match parameter parentheses lazily, retaining quote/comment handling but stopping at
+  the matching close. Only mask a rejected signature's tail when its raw text contains
+  a semicolon, and reuse that one mask. No grammar, header bound or output contract changed.
+- Added two deterministic scan-cost regressions and a 1,000-case lexical differential
+  test against the prior mask-based implementation. All 124 focused and performance
+  tests passed; syntax and 500-line checks passed. All headers and ranges for the 178
+  source files are byte-identical before/after optimization.
+- Profiling mask calls fell from 11,479 to 70. Four interleaved unprofiled observations
+  per variant measured a named-range median of 0.725s before and 0.332s after. These are
+  development component measurements on a shared host, not end-to-end or release claims.
+  Full same-input indexing and combined regression checks remain a separate validation.
+
+
+## 2026-11-04 — Development-only suffix candidate cost optimization
+
+- Replaced suffix-set iteration in `path_has_suffix` with set lookups at slash boundaries, preserving lowercase-path, full-path, nested-suffix, empty-suffix, and exact slash semantics. No FTS, graph relation, scope, threshold, or evaluator change.
+- Added six independent development tests: 24,336 exhaustive pairs, 3,000 seeded random nested/Unicode cases, boundary/exception contracts, FTS/project isolation, public scoped relearn/query_handoff, and deterministic suffix work counts. Baseline passed five semantic tests and failed only the operation-count guard; optimized passed all six.
+- Retained eight serial fixed-workload CLI runs and all outputs under the sibling `agent-memory-suffix-development` evidence directory. Six SQLite tables are identical after explicit timestamp normalization preserving NULL/empty/populated validity states.
+- Full 552-file workload mean was 27.565s baseline vs 21.773s optimized (-21.0%). Common 416-file workload mean was 16.498s vs 18.691s (+13.3%), with an unexcluded 26.266s optimized outlier; no common speedup claim or causal attribution. Two samples per condition cannot establish significance or p95.
+- Original runtime/source remained unchanged; no consumed sealed holdout read or run, no remote publication. Broader integration/scale checks remain the integrating task's responsibility.
+
+## 2026-11-08 — independent complete-discovery reconstruction
+
+- Added writer-only stable pagination to EOF with aggregate discovery budgets;
+  preserved legacy bounded read APIs and three-hop call traversal policy.
+- Kept discovery and mutation in one writer transaction; removed passage-schema
+  implicit commits so late errors can roll back index mutations.
+- Added focused width/dispatch/budget/schema/rollback controls. This is a new
+  isolated candidate on an older local baseline, not a recovered prior patch.
+  Real CLI, related regressions and release gates are tracked separately.
+
+## 2026-11-08: fail closed on required graph source read errors
+
+Independent reconstruction follow-up: writer-required non-retired rebuild sources are checked before mutation and guarded at actual graph/semantic reads; missing files cannot silently lose edges. Optional reads outside the required writer scope preserve their prior behavior. Explicit retirement remains permitted. New candidate, not modification of frozen fan2001/scale candidate.
+
+The read-safe follow-up also rejects undeclared dependent digest changes and actual-read races, preserving the prior database snapshot rather than mixing symbol/file generations.
+
+Strict-read review found a symlink retarget bypass in resolved-only policy keys. The rejected snapshot is preserved separately; stable lexical keys plus recorded target identity now reject retargeting at real reads, including provider request and semantic-evidence path resolution.
+
+## 2026-11-08: explicitly version the scale maintenance fixture repair
+
+Controlled reproduction found the old scale fixture had 49/50 missing sources and 50/50 missing source digests; its target collided with a synthetic graph node. Required-source refusal is correct. Fixture v2 retains primitive counts, thresholds, repetitions and existing assertions, but puts real writer-initialized maintenance source in an independent namespace within the same large database. Reports expose before/setup/final totals and added rows. Maintenance timings are not directly comparable to v1 and this does not cover synthetic reverse dependencies; real fan2001 covers that independently. Production strict-read files remain identical to the frozen read-safe candidate.
+
+## 2026-11-08: isolated A, operation-source validity only
+
+Formal public list evidence established false operation records in quoted literals and block comments. Reuse full-source mask/balanced-call scanning once per file for supported callables, retaining lines, caps, lower-key detail/token behavior and existing dedupe. Unsupported template/unbalanced-call callables retain legacy operation behavior with existing bounded gaps; adjacent supported callables remain filtered. No global scanner, other mechanism, rank/focus/threshold changes. B identity fidelity is not included in A.
+
+A review retained legacy unsupported split call-head behavior (callee/newline/open parenthesis). Whole-file scanning must not silently admit it. Parameter multiline support and old line provenance remain unchanged.
+
+## 2026-11-08: isolated same-owner named passage retention
+
+A baseline public output independently still omitted the explicitly requested stop method. Add a narrow per-file diversity exception for a primary-owner directly named method pair; preserve existing other named selections and refuse ambiguous/cap/range conflicts. No rank, focus, budget or cross-file admission change. Original failures and rejected candidates remain separate.
+
+## 2026-11-08: consume retained primary-owner method subset
+
+Producer-only public candidate remained failed. Exact-output same-invocation trace proved focus ignored retained same-owner pair because unrelated cross-file membership prevented projection. Add only marked same-primary-file/owner projection after existing vetoes, preserving all untriggered behavior; do not project other-file members or claim third-target coverage.
+
+## 2026-11-08: retain certified callable bounds separately from semantic windows
+
+Same-invocation v2 trace proved full callable endpoints were dropped and narrow semantic windows mislabeled complete. Preserve validated original callable bounds only for admitted named-owner subset and consume them atomically in its projection. Semantic windows remain unchanged; invalid/missing provenance falls back to unchanged v2, still potentially incomplete. No budget or Oracle change.
+
+## 2026-11-08: preserve report-path case in shared evidence loader
+
+Independent public and original tests confirmed lowercasing report paths loses existing file identity. Replace only reports normalization with stable exact trimmed deduplication. Preserve provenance/legacy/global helper and20path cap. Original failed evidence retained.
+
+## 2026-11-08: certified bounds for existing same-owner portfolios
+
+Preserve candidate-verified callable bounds after existing non-cross-file admission, keeping semantic windows typed and unchanged. Strict consumer validation uses existing v3 expansion/exact-metadata projection; never lend another method record metadata. No ranking/admission/budget changes. Isolated candidate only; public/full gates pending.
+
+## 2026-11-08: conservative compact code exclusion projection
+
+Isolated post-cap code-only stable subset using existing predicate. Preserve logs/path, guards, file-only and merged identity; no refill, scores or language changes. Frozen30 controls; public/regression acceptance pending.

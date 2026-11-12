@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 
-def block_end(lines: list[str], start: int) -> int:
-    """Return the closing line for a block, ignoring literal and comment braces."""
+def block_end(lines: list[str], start: int, opening_column: int = 0) -> int:
+    """Return the closing line from a block opening, ignoring literals/comments."""
     depth = 0
     opened = False
     state = {"quote": "", "block_comment": False}
     for index in range(start, len(lines)):
-        opens, closes = structural_braces(lines[index], state)
+        segment = lines[index][opening_column:] if index == start else lines[index]
+        opens, closes = structural_braces(segment, state)
         depth += opens - closes
         opened = opened or bool(opens)
         if opened and depth <= 0:

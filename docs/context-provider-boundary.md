@@ -65,6 +65,19 @@ Query Skill 使用选择性渐进披露。精确的源码局部问题先执行�
 在 1500 Token 估算预算内保留锚点、候选路径、纠正、关系提示和缺口。同一个精确
 查询去掉 `--compact` 即为完整审计展开，但不会改变 Runtime 的权限边界。
 
+截断标记与紧凑投影分开解释，现有 JSON 字段和 schema 版本不变：
+
+- `agent-context-compact/v1` 表示固定的紧凑视图，包括字段投影和条数上限；
+  不因使用这个视图就把 `output_budget.truncated` 设为 `true`。
+- `output_budget.truncated` 只表示紧凑视图在本次输出预算处理时实际发生了进一步
+  缩减，包括为源码摘录预留空间时的缩减。预算内且未进一步缩减时为 `false`。
+  该值不是“超过目标预算”的状态；应另比较 `estimated_tokens` 与 `target_tokens`。
+- `source_excerpts[].truncated` 表示请求的源码窗口中确有内容因行数或字符预算被省略。
+  请求窗口延伸到文件末尾之外，但实际存在的内容完整返回时为 `false`。
+  `start_line` / `end_line` 仍指向实际返回的源码范围。
+- 两类标记作用域不同：预算标记不是摘录标记的汇总，`false` 也不证明返回了完整
+  检索记录、完整源码文件或整个仓库。紧凑视图、摘录选择和检索本身仍有各自边界。
+
 ## 自验证边界
 
 A/B Benchmark 比较同一个外部 Agent：

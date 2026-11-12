@@ -1,0 +1,3137 @@
+[
+  {
+    "name": "01_unactivated_wrapped_excluded",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "new_projection"
+  },
+  {
+    "name": "02_no_negative",
+    "input": {
+      "query": "Return parser implementation.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "03_unrelated_negative",
+    "input": {
+      "query": "Return parser implementation; exclude repository.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "04_unknown_or_quoted_3",
+    "input": {
+      "query": "Page parsing does not return a record.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "04_unknown_or_quoted_4",
+    "input": {
+      "query": "Avoid pages while finding parser.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "04_unknown_or_quoted_5",
+    "input": {
+      "query": "Return text \"exclude page\" from the source.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "05_exact_log_identity_conflict",
+    "input": {
+      "query": "BOUNDARY_EVENT_9Q request failed; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "06_activated_complete",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": true,
+        "path_candidates": [
+          {
+            "complete": true,
+            "truncated": false,
+            "entry": {
+              "file_path": "src/NoisePage.ets"
+            }
+          }
+        ]
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "07_activated_incomplete_wrapped",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": true,
+        "wrapped_log_evidence": true,
+        "path_candidates": [
+          {
+            "complete": false
+          }
+        ]
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "08_protected_log_identity_match",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "log_identity_match": true
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "08_protected_graph_neighbor",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "graph_neighbor": true
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "08_protected_graph_relation",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "graph_relation": "configured_by"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "08_protected_identity_match",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "identity_match": true
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "09_ordinary_wiki_excluded",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wiki",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wiki",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wiki",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "new_projection"
+  },
+  {
+    "name": "10_direct_log_projection_only",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "log_emitter",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "log_emitter",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "direct",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [],
+          "call_path_locations": [],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "log_emitter",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "new_projection"
+  },
+  {
+    "name": "11_all_excluded",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "12_malformed_identity",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": null,
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": null,
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": null,
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": null,
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "13_uncertain_not_exempt",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ],
+      "callable_certainty": "uncertain"
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "new_projection"
+  },
+  {
+    "name": "14_samepath_different_symbols",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "other",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "other",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "other",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "new_projection"
+  },
+  {
+    "name": "15_samefile_mixed_member_predicate",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        },
+        {
+          "file_path": "src/Shared.ets",
+          "symbol": "first",
+          "source": "wiki"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        },
+        {
+          "file_path": "src/Shared.ets",
+          "symbol": "first",
+          "owner_name": "SharedPage"
+        },
+        {
+          "file_path": "src/Shared.ets",
+          "symbol": "second",
+          "owner_name": "SharedWorker"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      },
+      {
+        "file_path": "src/Shared.ets",
+        "symbol": "first",
+        "source": "wiki"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      },
+      {
+        "file_path": "src/Shared.ets",
+        "symbol": "first",
+        "source": "wiki"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "16_missing_raw_identity_for_final",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "17_valid_merged_ranges_exact_raw",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting",
+          "source_ranges": [
+            {
+              "symbol": "show",
+              "start_line": 3,
+              "end_line": 7
+            },
+            {
+              "symbol": "refresh",
+              "start_line": 9,
+              "end_line": 12
+            }
+          ]
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "refresh",
+          "source": "wrapped_log_caller"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          {
+            "symbol": "show",
+            "start_line": 3,
+            "end_line": 7
+          },
+          {
+            "symbol": "refresh",
+            "start_line": 9,
+            "end_line": 12
+          }
+        ]
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "new_projection"
+  },
+  {
+    "name": "18_unmatched_range_symbol",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting",
+          "source_ranges": [
+            {
+              "symbol": "show",
+              "start_line": 3,
+              "end_line": 7
+            },
+            {
+              "symbol": "missing",
+              "start_line": 9,
+              "end_line": 12
+            }
+          ]
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "refresh",
+          "source": "wrapped_log_caller"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          {
+            "symbol": "show",
+            "start_line": 3,
+            "end_line": 7
+          },
+          {
+            "symbol": "missing",
+            "start_line": 9,
+            "end_line": 12
+          }
+        ]
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          {
+            "symbol": "show",
+            "start_line": 3,
+            "end_line": 7
+          },
+          {
+            "symbol": "missing",
+            "start_line": 9,
+            "end_line": 12
+          }
+        ]
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "19_malformed_ranges_container_dict",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting",
+          "source_ranges": {
+            "symbol": "show"
+          }
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": {
+          "symbol": "show"
+        }
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": {
+          "symbol": "show"
+        }
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "19_malformed_ranges_container_string",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting",
+          "source_ranges": "show"
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": "show"
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": "show"
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "19_malformed_ranges_member_null",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting",
+          "source_ranges": [
+            null
+          ]
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          null
+        ]
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          null
+        ]
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "19_malformed_ranges_member_string",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting",
+          "source_ranges": [
+            "show"
+          ]
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          "show"
+        ]
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          "show"
+        ]
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "19_malformed_ranges_symbol_integer",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting",
+          "source_ranges": [
+            {
+              "symbol": 123
+            }
+          ]
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          {
+            "symbol": 123
+          }
+        ]
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          {
+            "symbol": 123
+          }
+        ]
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "19_malformed_ranges_symbol_null",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting",
+          "source_ranges": [
+            {
+              "symbol": null
+            }
+          ]
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          {
+            "symbol": null
+          }
+        ]
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          {
+            "symbol": null
+          }
+        ]
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  },
+  {
+    "name": "19_malformed_ranges_symbol_missing",
+    "input": {
+      "query": "Return parser implementation; exclude page.",
+      "code_anchors": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting",
+          "source_ranges": [
+            {
+              "start_line": 3,
+              "end_line": 7
+            }
+          ]
+        }
+      ],
+      "guard_candidates": [
+        {
+          "file_path": "src/ParserWorker.ets",
+          "symbol": "parse",
+          "start_line": 4,
+          "end_line": 8,
+          "source": "wiki",
+          "role": "primary"
+        },
+        {
+          "file_path": "src/NoisePage.ets",
+          "symbol": "show",
+          "start_line": 3,
+          "end_line": 7,
+          "source": "wrapped_log_caller",
+          "role": "supporting"
+        }
+      ],
+      "path_context": {
+        "activated": false,
+        "path_candidates": []
+      },
+      "raw_log_anchors": [
+        {
+          "file_path": "src/NoisePage.ets",
+          "function": "show",
+          "message_template": "BOUNDARY_EVENT_9Q request failed",
+          "evidence_class": "static_wrapped",
+          "effect_id": 31,
+          "log_id": 21,
+          "call_path": [
+            "show",
+            "emit"
+          ],
+          "call_path_locations": [
+            "src/NoisePage.ets#show",
+            "src/Emitter.ets#emit"
+          ],
+          "truncated": false
+        }
+      ]
+    },
+    "expected_baseline_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          {
+            "start_line": 3,
+            "end_line": 7
+          }
+        ]
+      }
+    ],
+    "expected_candidate_code_anchors": [
+      {
+        "file_path": "src/ParserWorker.ets",
+        "symbol": "parse",
+        "start_line": 4,
+        "end_line": 8,
+        "source": "wiki",
+        "role": "primary"
+      },
+      {
+        "file_path": "src/NoisePage.ets",
+        "symbol": "show",
+        "start_line": 3,
+        "end_line": 7,
+        "source": "wrapped_log_caller",
+        "role": "supporting",
+        "source_ranges": [
+          {
+            "start_line": 3,
+            "end_line": 7
+          }
+        ]
+      }
+    ],
+    "all_raw_logs_paths_inputs_unchanged": true,
+    "mode": "exact_old_fallback"
+  }
+]

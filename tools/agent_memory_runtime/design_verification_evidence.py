@@ -28,7 +28,7 @@ def load_test_evidence(
 ) -> dict[str, Any]:
     legacy = unique_list(legacy_commands or [])
     normalized = load_structured_evidence(path) if path else []
-    reports = unique_list(report_paths or [])
+    reports = list(dict.fromkeys(value.strip() for value in (report_paths or []) if value.strip()))
     provenance = load_verification_provenance(verification_run, project_root, reports)
     if len(reports) > MAX_REPORTS:
         raise SystemExit(f"test reports must contain at most {MAX_REPORTS} paths")

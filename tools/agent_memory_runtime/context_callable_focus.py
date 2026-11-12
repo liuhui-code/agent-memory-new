@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from .query_certified_portfolio_bounds import certified_projection
+
 
 def focus_callable_anchors(
     anchors: list[dict[str, Any]], evidence: Any, path_activated: Any,
@@ -46,7 +48,13 @@ def focus_callable_anchors(
     if not path or not isinstance(source_range, dict):
         return anchors
     focused = [item for item in anchors if str(item.get("file_path") or "") == path]
+    if composed and cross_file:
+        retained = same_owner_retained_portfolio(portfolio, primary)
+        if retained is not None:
+            return retained_owner_anchors(retained, focused)
     if composed and not cross_file:
+        if certified_projection(portfolio, primary):
+            return retained_owner_anchors(portfolio, focused)
         return portfolio_anchors(portfolio, focused)
     if not primary.get("target_owner_kind_match") and not preferred_artifact:
         return focused or anchors
@@ -150,3 +158,71 @@ def callable_anchor(
             anchor[key] = source_range[key]
     anchor["callable_focus"] = True
     return anchor
+
+
+def same_owner_retained_portfolio(portfolio: dict[str, Any], primary: dict[str, Any]) -> dict[str, Any] | None:
+    """Consume only the producer's certified same-owner subset, never other files."""
+    if "same_owner_named_retention" not in set(portfolio.get("selection_basis") or []):
+        return None
+    path, owner = primary.get("file_path"), primary.get("owner_name")
+    if not path or not owner or not valid_retained_range(primary.get("source_range")):
+        return None
+    members = portfolio.get("members")
+    if not isinstance(members, list):
+        return None
+    selected: dict[str, dict[str, Any]] = {}
+    spans = set()
+    for member in members:
+        if not isinstance(member, dict) or member.get("file_path") != path or member.get("owner_name") != owner:
+            continue
+        symbol, source_range = member.get("symbol"), member.get("source_range")
+        if not isinstance(symbol, str) or not symbol or not valid_retained_range(source_range):
+            return None
+        span = (source_range["start_line"], source_range["end_line"])
+        if symbol in selected:
+            previous = selected[symbol]["source_range"]
+            if span != (previous["start_line"], previous["end_line"]):
+                return None
+            continue
+        selected[symbol] = member
+        spans.add(span)
+    if len(selected) < 2 or len(spans) < 2 or primary.get("symbol") not in selected:
+        return None
+    return {**portfolio, "members": list(selected.values())}
+
+
+def valid_retained_range(value: Any) -> bool:
+    if not isinstance(value, dict):
+        return False
+    start, end = value.get("start_line"), value.get("end_line")
+    return type(start) is int and type(end) is int and 0 < start <= end
+
+
+def retained_owner_anchors(portfolio: dict[str, Any], existing: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    result = []
+    members = complete_retained_members(portfolio["members"])
+    for member in members:
+        source_range = member["source_range"]
+        matched = next((anchor for anchor in existing if (
+            anchor.get("file_path") == member["file_path"]
+            and anchor.get("symbol") == member["symbol"]
+            and type(anchor.get("start_line")) is int
+            and type(anchor.get("end_line")) is int
+            and anchor["start_line"] == source_range["start_line"]
+            and anchor["end_line"] == source_range["end_line"]
+        )), None)
+        result.append(callable_anchor(member, matched))
+    return result
+
+
+def complete_retained_members(members: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    expanded = []
+    for member in members:
+        window = member["source_range"]
+        bounds = {"start_line": window.get("callable_start_line"), "end_line": window.get("callable_end_line")}
+        if not valid_retained_range(bounds) or not valid_retained_range(window):
+            return members
+        if not bounds["start_line"] <= window["start_line"] <= window["end_line"] <= bounds["end_line"]:
+            return members
+        expanded.append({**member, "source_range": {**window, **bounds}})
+    return expanded

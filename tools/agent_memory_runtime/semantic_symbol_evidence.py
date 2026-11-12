@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from .required_source_reads import read_source_text, source_is_file, resolve_source_path
+
 import re
 from pathlib import Path
 
@@ -42,9 +44,7 @@ def load_semantic_source_lines(
         if source is None:
             continue
         try:
-            loaded[file_path] = source.read_text(
-                encoding="utf-8", errors="ignore"
-            ).splitlines()
+            loaded[file_path] = read_source_text(source).splitlines()
         except OSError:
             continue
     return loaded
@@ -127,9 +127,9 @@ def safe_source_path(project: Project, file_path: str) -> Path | None:
     relative = Path(file_path)
     if relative.is_absolute():
         return None
-    source = (project.root / relative).resolve()
+    source = resolve_source_path(project.root / relative)
     try:
         source.relative_to(project.root.resolve())
     except ValueError:
         return None
-    return source if source.is_file() else None
+    return source if source_is_file(source) else None

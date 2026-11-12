@@ -3,8 +3,11 @@
 from __future__ import annotations
 
 import re
+from dataclasses import dataclass
+from typing import Any
 
 from .semantic_models import SemanticMechanism
+from .source_call_scanner import balanced_call_end, code_mask
 from .text import identifier_tokens, unique_list
 
 
@@ -34,16 +37,77 @@ READ_METHOD_RE = re.compile(r"^(?:get|read|load|restore|find|query)", re.IGNOREC
 WRITE_METHOD_RE = re.compile(r"^(?:set|put|write|save|persist|insert|update|commit|flush)", re.IGNORECASE)
 
 
+@dataclass
+class OperationScan:
+    chains: dict[int, list[str]]
+    end_lines: dict[int, list[int]]
+    unbalanced_lines: set[int]
+
+
+def scan_operation_source(lines: list[str]) -> OperationScan:
+    text = "\n".join(lines)
+    mask = code_mask(text)
+    chains: dict[int, list[str]] = {}
+    ends: dict[int, list[int]] = {}
+    unbalanced: set[int] = set()
+    line, previous = 1, 0
+    # Same mask/balancing primitives as scan_calls_masked, preserving source offsets.
+    for match in CALL_CHAIN_RE.finditer(mask):
+        line += text.count("\n", previous, match.start())
+        previous = match.start()
+        if "\n" in text[match.end(1):match.end()]:
+            continue  # Legacy extraction does not support a call head split across lines.
+        end = balanced_call_end(mask, match.end() - 1)
+        if end is None:
+            unbalanced.add(line)
+            continue
+        chains.setdefault(line, []).append(text[match.start(1):match.end(1)])
+        ends.setdefault(line, []).append(line + text.count("\n", match.start(), end))
+    return OperationScan(chains, ends, unbalanced)
+
+
+def operation_gap_reason(lines: list[str], start: int, end: int, scan: OperationScan) -> str:
+    if any("`" in line for line in lines[start:end + 1]):
+        return "operation_syntax_unverified_template"
+    if any(line in scan.unbalanced_lines or any(last > end + 1 for last in scan.end_lines.get(line, []))
+           for line in range(start + 1, min(end + 2, len(lines) + 1))):
+        return "operation_syntax_unverified_unbalanced_call"
+    return ""
+
+
+def extract_file_mechanisms(
+    lines: list[str], callables: list[Any],
+) -> tuple[list[SemanticMechanism], list[dict[str, str]]]:
+    scan = scan_operation_source(lines)
+    mechanisms: list[SemanticMechanism] = []
+    gaps: list[dict[str, str]] = []
+    for block in callables:
+        reason = operation_gap_reason(lines, block.start, block.end, scan)
+        if reason:
+            gaps.append({"kind": reason, "file_path": block.entity.file_path,
+                         "symbol": block.entity.qualified_name,
+                         "start_line": str(block.start + 1), "end_line": str(block.end + 1)})
+        mechanisms.extend(extract_callable_mechanisms(
+            lines, block.entity.key, block.start, block.end, scan,
+        ))
+    return mechanisms, gaps
+
+
 def extract_callable_mechanisms(
-    lines: list[str], source_key: str, start: int, end: int
+    lines: list[str], source_key: str, start: int, end: int,
+    operation_scan: OperationScan | None = None,
 ) -> list[SemanticMechanism]:
     mechanisms: list[SemanticMechanism] = []
+    scan = operation_scan if operation_scan is not None else scan_operation_source(lines)
+    legacy = bool(operation_gap_reason(lines, start, end, scan))
     for index in range(start, min(end + 1, len(lines))):
         source = strip_line_comment(lines[index])
         if not source.strip():
             continue
         line = index + 1
-        mechanisms.extend(operation_mechanisms(source_key, source, line))
+        mechanisms.extend(operation_mechanisms(
+            source_key, source, line, scan.chains.get(line, []), legacy=legacy,
+        ))
         guard = GUARD_RE.search(source)
         if guard:
             mechanisms.append(mechanism(
@@ -72,14 +136,21 @@ def extract_callable_mechanisms(
 
 
 def operation_mechanisms(
-    source_key: str, source: str, line: int
+    source_key: str, source: str, line: int, chains: list[str] | None = None,
+    *, legacy: bool = False,
 ) -> list[SemanticMechanism]:
+    if chains is None and not legacy:
+        lines = source.splitlines()
+        scan = scan_operation_source(lines)
+        legacy = bool(operation_gap_reason(lines, 0, len(lines) - 1, scan))
+        chains = [chain for number in sorted(scan.chains) for chain in scan.chains[number]]
+    selected = CALL_CHAIN_RE.findall(source) if legacy else (chains or [])
     return [
         mechanism(
             source_key, "operation", chain, line,
             ("operation", "call"), f"call:{chain.replace('this.', '', 1)}",
         )
-        for chain in unique_list(CALL_CHAIN_RE.findall(source))[:8]
+        for chain in unique_list(selected)[:8]
     ]
 
 

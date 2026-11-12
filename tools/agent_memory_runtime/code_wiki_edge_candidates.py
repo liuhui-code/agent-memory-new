@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from .required_source_reads import read_source_text
+
 import re
 import sqlite3
 from pathlib import Path
@@ -51,7 +53,7 @@ def load_rebuild_files(
             continue
         source = project.root / path
         try:
-            content = source.read_text(encoding="utf-8", errors="ignore")
+            content = read_source_text(source)
         except OSError:
             continue
         for target in resolve_js_imports(project, source, content, [".ets", ".ts", ".js"]):
@@ -174,7 +176,16 @@ def fts_terms(suffixes: set[str]) -> set[str]:
 
 def path_has_suffix(file_path: str, suffixes: set[str]) -> bool:
     normalized = file_path.lower()
-    return normalized in suffixes or any(normalized.endswith(f"/{suffix}") for suffix in suffixes)
+    if normalized in suffixes:
+        return True
+    # Every slash-delimited suffix starts immediately after one slash. Probe
+    # those boundaries rather than scanning all route/test suffix candidates.
+    boundary = normalized.find("/")
+    while boundary != -1:
+        if normalized[boundary + 1:] in suffixes:
+            return True
+        boundary = normalized.find("/", boundary + 1)
+    return False
 
 
 def route_suffixes(names: set[str]) -> set[str]:

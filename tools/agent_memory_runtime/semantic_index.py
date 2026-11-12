@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from .required_source_reads import source_is_file, source_read_failed
+
 import json
 import sqlite3
 from collections import defaultdict
@@ -38,7 +40,7 @@ def persist_semantic_index(
     for row in rows:
         language = str(row["language"])
         path = project.root / str(row["file_path"])
-        if adapter_for(language) is not None and path.is_file():
+        if adapter_for(language) is not None and source_is_file(path):
             grouped[language].append(path)
     batches: list[SemanticBatch] = []
     provider_runs: list[dict[str, Any]] = []
@@ -52,6 +54,9 @@ def persist_semantic_index(
                 provider_runs.append(telemetry)
                 append_provider_metric(project, telemetry)
             except (OSError, UnicodeError, ValueError) as exc:
+                if isinstance(exc, OSError):
+                    for path in file_batch:
+                        source_read_failed(path, exc)
                 errors.append({"language": language, "batch": str(batch_index), "error": str(exc)[:240]})
     emitted = 0
     unresolved = 0

@@ -1,0 +1,5 @@
+# Conservative compact code-only exclusions
+
+After existing diversity/cap, roles and event owner binding, stable-remove only code result projections recognized by the existing negative-code predicate. Never refill, rerank or change log/event/path evidence. Exact log identity, any activated/nonempty path, identity/graph flags, ambiguous quotation, malformed file/member identity, mixed merged-file predicate or an all-excluded result preserves the old entire code list. File-only locators do not require method ranges. Raw/final identity decisions must agree; source-range symbols require exact raw mapping. No new language aliases, thresholds or budgets.
+
+These guards intentionally leave some explicit exclusions unmet, including protected path/log conflicts and quoted input. This is not an authentication boundary. Actual wrapped-log provenance remains valid even when its duplicate code projection is omitted; original log evidence stays separately available. Public downstream budget preservation and full Development require independent verification; neither unit tests nor this document assert all75 capability failures resolved.

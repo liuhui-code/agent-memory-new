@@ -10,13 +10,14 @@ import time
 from pathlib import Path
 from typing import Any, Callable
 
-from .code_wiki_indexing import record_learn_scope
+from .code_wiki_indexing import record_learn_scope, write_wiki_index
 from .code_wiki_refresh import maintain_refresh_scope
 from .models import Project
+from .storage import connect
 from .scope_changes import GitChangeError, run_git
 
 
-TARGET_PATH = "src/domain01/Service1.ets"
+TARGET_PATH = "maintenance_fixture/Service1.ets"
 NOISE_PATH = "noise/Unrelated.ets"
 MAINTENANCE_SLO_MS = {
     "incremental_no_change": 500.0,
@@ -30,7 +31,9 @@ def benchmark_incremental_maintenance(
     project: Project,
     repetitions: int,
 ) -> dict[str, Any]:
+    before = maintenance_counts(project)
     scope_id = prepare_git_scope(project)
+    initialized = maintenance_counts(project)
     operations = {
         "incremental_no_change": measure_refreshes(
             project,
@@ -68,6 +71,16 @@ def benchmark_incremental_maintenance(
     return {
         "status": "pass" if all(item["pass"] for item in operations.values()) else "fail",
         "scope_id": scope_id,
+        "fixture": {
+            "version": "scale-maintenance-fixture/v2",
+            "target_path": TARGET_PATH,
+            "coverage": "real indexed source in the same synthetic-scale database; no synthetic reverse dependencies",
+            "historical_comparability": "not directly comparable with v1 maintenance timings",
+            "counts_before_setup": before,
+            "counts_after_setup": initialized,
+            "rows_added_at_setup": {key: initialized[key] - before[key] for key in before},
+            "counts_after_operations": maintenance_counts(project),
+        },
         "operations": operations,
     }
 
@@ -81,6 +94,7 @@ def prepare_git_scope(project: Project) -> int:
     noise.write_text("export const unrelated = 0\n", encoding="utf-8")
     initialize_git(project.root)
     commit_all(project.root, "initial scale maintenance scope")
+    write_wiki_index(project, [target])
     return record_learn_scope(
         project,
         project.root,
@@ -89,6 +103,18 @@ def prepare_git_scope(project: Project) -> int:
         [target],
         target_path=TARGET_PATH,
     )
+
+
+def maintenance_counts(project: Project) -> dict[str, int]:
+    with connect(project) as conn:
+        result = {
+            table: int(conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0])
+            for table in ("code_files", "code_symbols", "code_log_statements", "memory_edges")
+        }
+    result["searchable_entities"] = sum(result[key] for key in (
+        "code_files", "code_symbols", "code_log_statements",
+    ))
+    return result
 
 
 def initialize_git(root: Path) -> None:

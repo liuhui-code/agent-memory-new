@@ -49,7 +49,7 @@ The executable runs once per language and learned scope, with the source project
 }
 ```
 
-Entities and source digests may cover only requested relative files. A relation target may use a safe project-relative path outside the current scope so it can bind to an already indexed symbol. The provider reads requested sources from cwd; source content and ASTs are not copied into the request or persisted by Agent Memory.
+Entities and source digests may cover only requested relative files. Each digest is SHA-256 over the exact file bytes, without newline normalization or decode/re-encode; providers must preserve that identity even when parsing decoded text. Older third-party providers that hash normalized text must switch to raw bytes: a CRLF mismatch is rejected as `stale_source`, with static fallback in auto mode and an error in forced external mode. A relation target may use a safe project-relative path outside the current scope so it can bind to an already indexed symbol. The provider reads requested sources from cwd; source content and ASTs are not copied into the request or persisted by Agent Memory.
 
 ## Result
 

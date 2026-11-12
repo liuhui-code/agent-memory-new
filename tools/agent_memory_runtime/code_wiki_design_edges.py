@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from .required_source_reads import read_source_text
+
 import re
 import sqlite3
 from pathlib import Path
@@ -53,7 +55,7 @@ def insert_design_edges(
 
 def read_source(project: Project, path: str) -> str | None:
     try:
-        return (project.root / path).read_text(encoding="utf-8", errors="ignore")
+        return read_source_text(project.root / path)
     except OSError:
         return None
 
