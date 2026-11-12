@@ -12,6 +12,7 @@ from .context_anchor_selection import (
 )
 from .context_budget import enforce_budget, finalize_budget, minimize_guards
 from .context_callable_focus import focus_callable_anchors
+from .context_primary_budget import projected_guards
 from .context_typed_contract import declaration_projection
 from .context_event_owner import bind_event_owner_ranges
 from .context_sufficiency import diagnosis_sufficiency
@@ -40,6 +41,7 @@ KEYWORD_STOPWORDS = ENGLISH_QUERY_STOPWORDS | {
 
 def compact_context(data: dict[str, Any]) -> dict[str, Any]:
     handoff = data.get("query_handoff") if isinstance(data.get("query_handoff"), dict) else {}
+    protected_paths = projected_guards(handoff)
     compact = compact_handoff(handoff, data)
     payload = {
         "schema_version": "agent-context-compact/v1",
@@ -63,17 +65,17 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
     excerpt_reserve = multi_excerpt_reserve_tokens(payload, data.get("project_path"))
     if excerpt_reserve:
         budget_truncated = enforce_budget(
-            payload, COMPACT_TOKEN_BUDGET, reserve_tokens=excerpt_reserve,
+            payload, COMPACT_TOKEN_BUDGET, reserve_tokens=excerpt_reserve, protected_paths=protected_paths,
         )
     excerpt_count = attach_source_excerpts(
         payload, data.get("project_path"), COMPACT_TOKEN_BUDGET
     )
     if not excerpt_count and has_source_excerpt_candidate(payload, data.get("project_path")):
         budget_truncated = enforce_budget(
-            payload, SOURCE_EXCERPT_PRE_BUDGET, reserve_tokens=0,
+            payload, SOURCE_EXCERPT_PRE_BUDGET, reserve_tokens=0, protected_paths=protected_paths,
         ) or budget_truncated
         attach_source_excerpts(payload, data.get("project_path"), COMPACT_TOKEN_BUDGET)
-    budget_truncated = enforce_budget(payload, COMPACT_TOKEN_BUDGET) or budget_truncated
+    budget_truncated = enforce_budget(payload, COMPACT_TOKEN_BUDGET, protected_paths=protected_paths) or budget_truncated
     payload["evidence_gaps"] = evidence_gaps(payload["query_handoff"])
     payload["sufficiency"] = diagnosis_sufficiency(
         payload["query_handoff"], payload["evidence_gaps"], payload["source_freshness"],

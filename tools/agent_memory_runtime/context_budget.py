@@ -7,6 +7,7 @@ from typing import Any, Callable
 
 from .performance_scoring import estimate_payload_tokens
 from .normative_context import reduce_normative_context
+from .context_primary_budget import bounded_primary_prefix
 
 
 MINIMAL_GUARD_FIELDS = (
@@ -40,6 +41,7 @@ def enforce_budget(
     payload: dict[str, Any],
     token_budget: int,
     reserve_tokens: int = 60,
+    protected_paths: frozenset[str] = frozenset(),
 ) -> bool:
     """Return whether budget enforcement removed projected content or metadata."""
     if estimate_payload_tokens(payload) <= token_budget - reserve_tokens:
@@ -55,7 +57,7 @@ def enforce_budget(
         lambda: handoff.__setitem__("relation_hints", handoff["relation_hints"][:2]),
         lambda: [path.__setitem__("expected_logs", path.get("expected_logs", [])[:2]) for path in paths],
         lambda: [path.__setitem__("uncertainty", path.get("uncertainty", [])[:1]) for path in paths],
-        lambda: handoff.__setitem__("code_anchors", handoff["code_anchors"][:3]),
+        lambda: handoff.__setitem__("code_anchors", bounded_primary_prefix(handoff, str(payload.get("query") or ""), 3, protected_paths)),
         lambda: handoff.__setitem__("log_keywords", handoff["log_keywords"][:8]),
         lambda: minimize_callable_evidence(handoff),
         lambda: handoff.__setitem__("experience_refs", handoff["experience_refs"][:1]),
@@ -69,7 +71,7 @@ def enforce_budget(
         lambda: compress_primary_path_duplicates(handoff),
         lambda: compress_alternate_path_branches(handoff),
         lambda: handoff["path_context"].__setitem__("path_candidates", paths[:1]),
-        lambda: hard_trim(payload),
+        lambda: hard_trim(payload, protected_paths),
     )
     for reduce_payload in reductions:
         if estimate_payload_tokens(payload) <= token_budget - reserve_tokens:
@@ -390,11 +392,11 @@ def minimize_guards(payload: dict[str, Any]) -> None:
         payload[key] = [clean_record(item, MINIMAL_GUARD_FIELDS) for item in payload[key]]
 
 
-def hard_trim(payload: dict[str, Any]) -> None:
+def hard_trim(payload: dict[str, Any], protected_paths: frozenset[str] = frozenset()) -> None:
     handoff = payload["query_handoff"]
     handoff["log_keywords"] = handoff["log_keywords"][:6]
     handoff["log_anchors"] = bounded_log_evidence(handoff["log_anchors"], 2)
-    handoff["code_anchors"] = handoff["code_anchors"][:3]
+    handoff["code_anchors"] = bounded_primary_prefix(handoff, str(payload.get("query") or ""), 3, protected_paths)
     handoff["relation_hints"] = []
     handoff["experience_refs"] = []
     handoff["semantic_refs"] = []

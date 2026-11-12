@@ -11001,3 +11001,8 @@ Isolated post-cap code-only stable subset using existing predicate. Preserve log
 - Multiple matching callables remain uncertain, including same-owner alternatives.
 - Typed parameter non-use is not inferred from missing bounded method tokens.
 - Original native natural-language contract remains unresolved; new isolated Development controls and existing full gates pending.
+
+## 2026-11-09 isolated bounded-primary budget candidate (not promoted)
+- Existing same-call Development trace shows budget prefix trim removed a correctly projected bounded primary at position four.
+- Reserve that already-projected, range-covered anchor only by replacing an unprotected prefix slot. Preserve graph/identity slots, active or retained paths, multi-target requests and the original three-slot/1500-token budget.
+- Eight focused controls pass. Independent three-query fixture did not reproduce the original bug and remains negative evidence. Full gates and public A/B pending.
