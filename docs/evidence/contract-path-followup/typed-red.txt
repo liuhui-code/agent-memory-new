@@ -1,0 +1,37 @@
+FFE
+======================================================================
+ERROR: test_types_survive_projection_and_merging (tests.test_context_typed_references.TypedReferenceUnitTests.test_types_survive_projection_and_merging)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/contract-path-followup-work/tests/test_context_typed_references.py", line 47, in test_types_survive_projection_and_merging
+    self.assertEqual([['code_file',7],['code_symbol',7]],projected[0]['record_refs'])
+                                                         ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'record_refs'
+
+======================================================================
+FAIL: test_file_projection_keeps_real_import_relation (tests.test_context_typed_references.TypedReferencePublicTests.test_file_projection_keeps_real_import_relation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/contract-path-followup-work/tests/test_context_typed_references.py", line 31, in test_file_projection_keeps_real_import_relation
+    self.assertTrue(any(e['relation']=='imports' and e['source_type']=='code_file' and e['source_id']==file['id'] for e in compact['query_handoff']['relation_hints']))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_collision_unknown_and_correct_endpoints (tests.test_context_typed_references.TypedReferenceUnitTests.test_collision_unknown_and_correct_endpoints)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/contract-path-followup-work/tests/test_context_typed_references.py", line 39, in test_collision_unknown_and_correct_endpoints
+    self.assertEqual([t],[e['source_type'] for e in out])
+AssertionError: Lists differ: ['code_file'] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+'code_file'
+
+- ['code_file']
++ []
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.624s
+
+FAILED (failures=2, errors=1)
