@@ -35,11 +35,14 @@ def callable_behavior_hints(entity: Any, source: str) -> list[str]:
     """Return bounded, source-proven callable behavior labels for retrieval."""
     name = str(getattr(entity, "name", "") or "").casefold()
     hints: list[str] = []
+    masked = (callback_mask_lines(source.splitlines())
+              if Path(str(getattr(entity, "file_path", ""))).suffix in {".ts", ".ets"} else None)
+    operation_source = "\n".join(masked) if masked is not None else source
     if name in LIFECYCLE_NAMES:
         hints.extend(("lifecyclehook", "lifecycleactivation", "lifecycle"))
     if DEFERRED_EXECUTION_RE.search(source):
         hints.extend(("deferredexecution", "deferred", "schedule"))
-    if INSTANCE_WRITE_RE.search(source):
+    if INSTANCE_WRITE_RE.search(operation_source):
         hints.extend(("statewrite", "state", "write"))
     reads = set(INSTANCE_READ_RE.findall(source))
     if reads:
@@ -50,7 +53,7 @@ def callable_behavior_hints(entity: Any, source: str) -> list[str]:
         hints.extend(("persistencewrite", "persistence", "write"))
     if ASYNC_CALLABLE_RE.search(source):
         hints.extend(("asyncboundary", "async"))
-    if EARLY_RETURN_GUARD_RE.search(source):
+    if EARLY_RETURN_GUARD_RE.search(operation_source):
         hints.extend(("guardreturn", "guard"))
     hints.extend(event_collection_hints(entity, source))
     return list(dict.fromkeys(hints))

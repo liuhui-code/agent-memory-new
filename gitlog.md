@@ -11816,3 +11816,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   Fresh scope is correct; ordinary merge clears false import edges but deliberately
   retains previously learned extra file records. Installation alone changes neither.
 - Evidence: docs/eval/import-traversal-current. No full or original-pack run.
+
+## 2026-11-13 - Avoid two synthesized callable hints from verified noncode
+
+- Public .ts method identities/ranges are valid but text-only bodies wrongly
+  synthesize statewrite/guardreturn. Only these two checks now use strict known
+  code; unknown and non-.ts/.ets retain original input. Raw retrieval text stays.
+-38 focused tests pass; normal re-learning removes6 false marker occurrences;
+  source identity/range/digest/string evidence unchanged. Validation original1/3
+  unchanged. Equality and the separate regex container-range issue are not repaired.
+- TIMELINE discloses diagnostic observations before formal Git freeze; formal red
+  followeda66b520. Evidence: docs/evidence/validation-mechanism/README.md.

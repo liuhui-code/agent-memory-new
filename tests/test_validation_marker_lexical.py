@@ -1,5 +1,8 @@
 # Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
 import json,tempfile,unittest
+from types import SimpleNamespace
+from unittest.mock import patch
+from tools.agent_memory_runtime.callable_behavior_hints import callable_behavior_hints
 from pathlib import Path
 from tests.agent_memory_test_base import AgentMemoryTestBase
 D=Path(__file__).resolve().parents[1]/'docs/evidence/validation-mechanism'
@@ -34,5 +37,18 @@ class ValidationMarkerStringControls(AgentMemoryTestBase):
    for name in p['unchanged_no_guardreturn']:self.assertNotIn('guardreturn',actual[name]['method_evidence'].split())
    self.assertIn('waiting',actual['StringValueControls.assign']['string_evidence'])
    self.assertIn('invalid',actual['StringValueControls.guardReturn']['string_evidence'])
+
+class ValidationMarkerBoundaries(unittest.TestCase):
+ def test_unknown_lexer_and_other_languages_keep_legacy_hints(self):
+  sources=['m(){const p=/"/; if(!ready){return} this.count=2}', 'm(){return `${this.count=2}`}', 'm(){const s="unfinished; this.count=2}']
+  for source in sources:
+   entity=SimpleNamespace(name='m',file_path='Known.ts')
+   with patch('tools.agent_memory_runtime.callable_behavior_hints.callback_mask_lines',return_value=None):old=callable_behavior_hints(entity,source)
+   self.assertEqual(old,callable_behavior_hints(entity,source))
+  for suffix in ['.py','.cpp','.java','.js','']:
+   entity=SimpleNamespace(name='m',file_path='Other'+suffix)
+   source='m(){return "if(!ready){return} this.count=1"}'
+   with patch('tools.agent_memory_runtime.callable_behavior_hints.callback_mask_lines',return_value=None):old=callable_behavior_hints(entity,source)
+   self.assertEqual(old,callable_behavior_hints(entity,source))
 
 if __name__=='__main__':unittest.main()

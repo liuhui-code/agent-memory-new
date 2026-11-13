@@ -1,0 +1,20 @@
+import json,tempfile,subprocess
+from pathlib import Path
+D=Path('docs/evidence/validation-mechanism');p=json.loads((D/'supported-protocol.json').read_text());pos=json.loads((D/'string-controls.json').read_text());old=Path('/tmp/validation-marker-baseline/tools/agent_memory.py');new=Path.cwd()/'tools/agent_memory.py'
+with tempfile.TemporaryDirectory()as d:
+ root=Path(d)/'source';root.mkdir()
+ for f,s in {**p['sources'],'StringValueControls.ts':pos['source']}.items():(root/f).write_text(s)
+ def run(script,*args):
+  r=subprocess.run(['python',str(script),*args,'--project',str(root),'--memory-home',d+'/memory'],capture_output=True,text=True,check=True);return json.loads(r.stdout)if '--json'in args else r.stdout
+ def snap(script):return {r['qualified_name']:r for r in run(script,'list','--type','code-symbol','--limit','100','--json')if r.get('qualified_name')}
+ run(old,'init');run(old,'learn-path','--path',str(root));out={'before':snap(old),'code_only':snap(new)};run(new,'learn-path','--path',str(root));out['after_merge']=snap(new)
+ for name in p['no_markers']:
+  assert set(p['synthetic_markers'])<=set(out['before'][name]['method_evidence'].split())
+  assert out['before'][name]['method_evidence']==out['code_only'][name]['method_evidence']
+  assert not set(p['synthetic_markers'])&set(out['after_merge'][name]['method_evidence'].split())
+ for name in p['real_markers']:assert set(p['synthetic_markers'])<=set(out['after_merge'][name]['method_evidence'].split())
+ for name,row in out['before'].items():
+  for key in ['file_path','qualified_name','symbol_key','start_line','end_line','source_digest','string_evidence']:
+   assert row.get(key)==out['after_merge'][name].get(key),(name,key)
+ out['summary']='six false synthesized marker occurrences removed only after normal merge; source identity/range/digest/string evidence unchanged'
+ (D/'activation.json').write_text(json.dumps(out,indent=2));print(out['summary'])
