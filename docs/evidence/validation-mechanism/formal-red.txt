@@ -1,0 +1,32 @@
+FFF
+======================================================================
+FAIL: test_public_synthetic_markers_require_executable_lexical_text (tests.test_validation_marker_lexical.ValidationMarkerLexicalTests.test_public_synthetic_markers_require_executable_lexical_text) (name='ValidationSamples.literal')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/validation-mechanism-current/tests/test_validation_marker_lexical.py", line 23, in test_public_synthetic_markers_require_executable_lexical_text
+    with self.subTest(name=name):self.assertFalse(set(p['synthetic_markers'])&set(actual[name]['method_evidence'].split()))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'statewrite', 'guardreturn'} is not false
+
+======================================================================
+FAIL: test_public_synthetic_markers_require_executable_lexical_text (tests.test_validation_marker_lexical.ValidationMarkerLexicalTests.test_public_synthetic_markers_require_executable_lexical_text) (name='ValidationSamples.comment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/validation-mechanism-current/tests/test_validation_marker_lexical.py", line 23, in test_public_synthetic_markers_require_executable_lexical_text
+    with self.subTest(name=name):self.assertFalse(set(p['synthetic_markers'])&set(actual[name]['method_evidence'].split()))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'statewrite', 'guardreturn'} is not false
+
+======================================================================
+FAIL: test_public_synthetic_markers_require_executable_lexical_text (tests.test_validation_marker_lexical.ValidationMarkerLexicalTests.test_public_synthetic_markers_require_executable_lexical_text) (name='ValidationSamples.template')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/validation-mechanism-current/tests/test_validation_marker_lexical.py", line 23, in test_public_synthetic_markers_require_executable_lexical_text
+    with self.subTest(name=name):self.assertFalse(set(p['synthetic_markers'])&set(actual[name]['method_evidence'].split()))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'statewrite', 'guardreturn'} is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.828s
+
+FAILED (failures=3)

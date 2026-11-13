@@ -1,0 +1,15 @@
+{
+  "classification": "supplemental positive controls frozen before lexical candidate",
+  "source": "export class StringValueControls {\n assign(): void {\n  this.status = 'waiting'\n }\n guardReturn(ready: boolean): string {\n  if (!ready) { return 'invalid request' }\n  return 'ok'\n }\n guardThrow(ready: boolean): string {\n  if (!ready) { throw new Error('invalid request') }\n  return 'ok'\n }\n}\n",
+  "expected": {
+    "StringValueControls.assign": [
+      "statewrite"
+    ],
+    "StringValueControls.guardReturn": [
+      "guardreturn"
+    ]
+  },
+  "unchanged_no_guardreturn": [
+    "StringValueControls.guardThrow"
+  ]
+}

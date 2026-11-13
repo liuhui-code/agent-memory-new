@@ -22,4 +22,17 @@ class ValidationMarkerLexicalTests(AgentMemoryTestBase):
    for name in p['no_markers']:
     with self.subTest(name=name):self.assertFalse(set(p['synthetic_markers'])&set(actual[name]['method_evidence'].split()))
 
+class ValidationMarkerStringControls(AgentMemoryTestBase):
+ def test_string_values_do_not_hide_real_operations(self):
+  p=json.loads((D/'string-controls.json').read_text())
+  with tempfile.TemporaryDirectory()as d:
+   root=Path(d);(root/'StringValueControls.ts').write_text(p['source'])
+   self.run_memory(root,'init');self.run_memory(root,'learn-path','--path','.')
+   rows=json.loads(self.run_memory(root,'list','--type','code-symbol','--limit','100','--json').stdout)
+   actual={r['qualified_name']:r for r in rows if r.get('qualified_name')}
+   for name,markers in p['expected'].items():self.assertTrue(set(markers)<=set(actual[name]['method_evidence'].split()))
+   for name in p['unchanged_no_guardreturn']:self.assertNotIn('guardreturn',actual[name]['method_evidence'].split())
+   self.assertIn('waiting',actual['StringValueControls.assign']['string_evidence'])
+   self.assertIn('invalid',actual['StringValueControls.guardReturn']['string_evidence'])
+
 if __name__=='__main__':unittest.main()
