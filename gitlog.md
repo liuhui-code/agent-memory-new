@@ -11460,3 +11460,21 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Existing typed relation contract intentionally does not infer callback dataflow;
   no weight/scope/unknown/serving/oracle changes justified. Required proof boundaries
   and evidence saved in docs/eval/native-listener-current-20261114. No full suite.
+## 2026-11-14 — Propagate bounded same-method event/state handoff hint
+
+- Freeze independent public Chinese selection handoff failure before changing code.
+  Existing file statehandoff conjunction was absent from direct callable evidence;
+  partial state-only handler tied coverage2. New method hint raises only the full
+  same-method combination to coverage3 and returns its complete source.
+- Scope admission is conservative and only applies to the new hint: lexical unknown
+  declines, nested braces must be known control blocks, quoted/computed object
+  methods/templates/callbacks cannot donate operations. Ordinary if/for controls
+  remain usable. No score/scope/schema/selector or old-label changes.
+- Final51 related tests pass. Original event-state2/3->3/3; validation-stop1/3 remains.
+  Independent explicit dual-source retention is unchanged; its old extra owner is
+  still a precision failure. Do not describe the conjunction as value-flow or a
+  unique-owner certificate. Evidence: docs/eval/event-validation-current/README.md.
+- No full aggregate, original oracle edits, new holdout or remote publication.
+- Existing-index check: unchanged source learned under e760097 retains old result
+  with new code until ordinary learn-path refresh; after refresh Chinese independent
+  result becomes correct. No schema migration or old-record certification added.

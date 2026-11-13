@@ -1,0 +1,1528 @@
+[
+  {
+    "label": "old-index-old-code",
+    "paths": [
+      "SelectionBridge.ets",
+      "SelectionHint.ets"
+    ],
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "1ce3d4cd95146971",
+      "query": "选择另一行却打开之前条目，请定位事件到状态交接源码。",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "选择另一行却打开之前条目",
+          "选择",
+          "择另",
+          "另一",
+          "一行",
+          "行却",
+          "却打",
+          "打开",
+          "开之",
+          "之前",
+          "前条",
+          "条目"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "SelectionBridge.ets",
+            "symbol": "onItemSelected",
+            "symbol_type": "function",
+            "record_ids": [
+              5
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "onItemSelected",
+                "start_line": 3,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 3,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "onItemSelected",
+                "start_line": 3,
+                "end_line": 6,
+                "content": " onItemSelected(entry: Entry): void {\n  this.currentId = entry.id\n  this.openEditor()\n }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          },
+          {
+            "file_path": "SelectionHint.ets",
+            "symbol": "onClick",
+            "symbol_type": "function",
+            "record_ids": [
+              8
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "onClick",
+                "start_line": 3,
+                "end_line": 5
+              }
+            ],
+            "read_window": {
+              "start_line": 3,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "onClick",
+                "start_line": 3,
+                "end_line": 5,
+                "content": " onClick(): void {\n  this.selected = !this.selected\n }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "uncertain",
+          "primary": {
+            "file_path": "SelectionBridge.ets",
+            "symbol": "onItemSelected",
+            "owner_name": "SelectionBridge",
+            "owner_kind": "class",
+            "file_structural_coverage": 3,
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 10.66,
+            "evidence_score": 10.66,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable",
+              "semantic_behavior"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "SelectionHint.ets",
+              "symbol": "onClick",
+              "owner_name": "SelectionHint",
+              "owner_kind": "class",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "score": 9.66,
+              "evidence_score": 9.66,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "SplitSelection.ets",
+              "symbol": "onItemSelected",
+              "owner_name": "SplitSelection",
+              "owner_kind": "class",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "score": 8.66,
+              "evidence_score": 8.66,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 2,
+          "excerpt_chars": 142
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1198,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "label": "old-index-new-code",
+    "paths": [
+      "SelectionBridge.ets",
+      "SelectionHint.ets"
+    ],
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "1ce3d4cd95146971",
+      "query": "选择另一行却打开之前条目，请定位事件到状态交接源码。",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "选择另一行却打开之前条目",
+          "选择",
+          "择另",
+          "另一",
+          "一行",
+          "行却",
+          "却打",
+          "打开",
+          "开之",
+          "之前",
+          "前条",
+          "条目"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "SelectionBridge.ets",
+            "symbol": "onItemSelected",
+            "symbol_type": "function",
+            "record_ids": [
+              5
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "onItemSelected",
+                "start_line": 3,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 3,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "onItemSelected",
+                "start_line": 3,
+                "end_line": 6,
+                "content": " onItemSelected(entry: Entry): void {\n  this.currentId = entry.id\n  this.openEditor()\n }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          },
+          {
+            "file_path": "SelectionHint.ets",
+            "symbol": "onClick",
+            "symbol_type": "function",
+            "record_ids": [
+              8
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "onClick",
+                "start_line": 3,
+                "end_line": 5
+              }
+            ],
+            "read_window": {
+              "start_line": 3,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "onClick",
+                "start_line": 3,
+                "end_line": 5,
+                "content": " onClick(): void {\n  this.selected = !this.selected\n }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "uncertain",
+          "primary": {
+            "file_path": "SelectionBridge.ets",
+            "symbol": "onItemSelected",
+            "owner_name": "SelectionBridge",
+            "owner_kind": "class",
+            "file_structural_coverage": 3,
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 10.66,
+            "evidence_score": 10.66,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable",
+              "semantic_behavior"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "SelectionHint.ets",
+              "symbol": "onClick",
+              "owner_name": "SelectionHint",
+              "owner_kind": "class",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "score": 9.66,
+              "evidence_score": 9.66,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "SplitSelection.ets",
+              "symbol": "onItemSelected",
+              "owner_name": "SplitSelection",
+              "owner_kind": "class",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "score": 8.66,
+              "evidence_score": 8.66,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 2,
+          "excerpt_chars": 142
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1198,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "label": "normal-learn-new-code",
+    "learn_result": {
+      "source": "/tmp/tmpop_hkm2b/project",
+      "path": ".",
+      "scope_id": 1,
+      "mode": "merge",
+      "files": [
+        "PanelLauncher.ets",
+        "SelectionBridge.ets",
+        "SelectionHint.ets",
+        "SplitSelection.ets"
+      ],
+      "count": 4,
+      "summary": "Merged 4 files from .",
+      "parse_stats": {
+        "files_indexed": 4,
+        "skipped_by_reason": {},
+        "languages": {
+          "ArkTS": 4
+        },
+        "symbols_total": 11,
+        "symbols_by_type": {
+          "class": 4,
+          "function": 7
+        },
+        "code_logs_total": 0,
+        "code_logs_by_level": {},
+        "business_semantics_restored": {
+          "code_files": 0,
+          "code_symbols": 0,
+          "code_log_statements": 0
+        },
+        "semantic_index": {
+          "schema_version": "semantic-index/v1",
+          "adapters": [
+            {
+              "id": "arkts-static",
+              "version": "1.2",
+              "language": "ArkTS"
+            }
+          ],
+          "capabilities": [
+            "api_boundaries",
+            "async_flow",
+            "callbacks",
+            "calls",
+            "definitions",
+            "inheritance",
+            "mechanisms",
+            "references",
+            "state_flow",
+            "types"
+          ],
+          "files_indexed": 4,
+          "entities": 11,
+          "relations_extracted": 13,
+          "mechanisms_extracted": 2,
+          "relations_emitted": 13,
+          "unresolved_relations": 0,
+          "method_summaries_enriched": 7,
+          "gaps": [],
+          "adapter_errors": [],
+          "provider_runs": [
+            {
+              "language": "ArkTS",
+              "mode": "auto",
+              "status": "static",
+              "selected": "static",
+              "provider_configured": false,
+              "duration_ms": 0.0,
+              "output_bytes": 0,
+              "batch": 1,
+              "batch_files": 4
+            }
+          ],
+          "log_effects": {
+            "schema_version": "log-effect/v1",
+            "wrappers_resolved": 0,
+            "effects_emitted": 0,
+            "truncated": false,
+            "max_wrapper_depth": 0
+          },
+          "graph_candidate_resolution": {
+            "provider": "scoped-unique-symbols/v1",
+            "local_symbol_count": 11,
+            "reference_name_count": 5,
+            "resolved_external_symbol_count": 0,
+            "candidate_symbol_count": 11
+          }
+        },
+        "passage_index": {
+          "schema_version": "code-passages-v2",
+          "files_written": 4,
+          "symbols_written": 11,
+          "passages_written": 15
+        },
+        "normative_index": {
+          "schema_version": "normative-index/v1",
+          "source_root": "/tmp/tmpop_hkm2b/project",
+          "documents_indexed": 0,
+          "documents_added": 0,
+          "documents_updated": 0,
+          "documents_unchanged": 0,
+          "documents_retired": 0,
+          "retirement_counts": {},
+          "retirement_sample": [],
+          "retirement_sample_truncated": false,
+          "indexed_sample": [],
+          "indexed_sample_truncated": false,
+          "documents_requiring_metadata_review": 0,
+          "metadata_issues": [],
+          "metadata_issue_count": 0,
+          "metadata_issues_truncated": false,
+          "read_issues": [],
+          "read_issue_count": 0,
+          "read_issues_truncated": false,
+          "next_action": "no_normative_change",
+          "approval_inferred": false
+        },
+        "reverse_dependents_reindexed": [
+          "PanelLauncher.ets",
+          "SelectionBridge.ets",
+          "SelectionHint.ets",
+          "SplitSelection.ets"
+        ],
+        "dispatch_dependents_reindexed": [],
+        "edge_rebuild": {
+          "mode": "merge",
+          "scope_file_count": 4,
+          "scope_files": [
+            "PanelLauncher.ets",
+            "SelectionBridge.ets",
+            "SelectionHint.ets",
+            "SplitSelection.ets"
+          ],
+          "before": {
+            "node_counts": {
+              "code_file": 4,
+              "code_log_statement": 0,
+              "code_symbol": 11
+            },
+            "edge_count": 26,
+            "relation_counts": {
+              "calls": 4,
+              "contains": 11,
+              "exposes_api": 11
+            }
+          },
+          "after": {
+            "node_counts": {
+              "code_file": 4,
+              "code_log_statement": 0,
+              "code_symbol": 11
+            },
+            "edge_count": 26,
+            "relation_counts": {
+              "calls": 4,
+              "contains": 11,
+              "exposes_api": 11
+            }
+          },
+          "edges_deleted_estimate": 26,
+          "edges_inserted_estimate": 26,
+          "edge_delta": 0
+        },
+        "phase_ms": {
+          "extract": 2.906,
+          "load_scope": 4.905,
+          "invalidate": 1.185,
+          "prepare_rows": 2.434,
+          "insert_rows": 0.574,
+          "restore_business": 0.056,
+          "rebuild_graph": 19.19,
+          "summarize": 0.183,
+          "commit": 0.189,
+          "total": 31.636
+        },
+        "memory_edges_total": 30,
+        "memory_edges_total_provider": "project-counter/v1",
+        "index_generation": 2,
+        "source_revision": "unversioned"
+      },
+      "semantic_followup": {
+        "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+        "workflow_steps": [
+          "Read the listed files, symbols, and logs in current source.",
+          "Fill missing business_summary and business_terms in followup_payload_template.",
+          "Write the completed payload with learn-business.",
+          "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+        ],
+        "recommended_next_action": "run_learn_business_now",
+        "truncated": false,
+        "returned_counts": {
+          "files": 4,
+          "symbols": 11,
+          "logs": 0
+        },
+        "remaining_counts": {
+          "files": 0,
+          "symbols": 0,
+          "logs": 0
+        },
+        "followup_payload_template": {
+          "files": [
+            {
+              "file_path": "SplitSelection.ets",
+              "summary": "ArkTS file with 7 non-empty lines; behavior: eventboundary, statehandoff, statewrite",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "openEditor",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method openEditor in SplitSelection.ets; identifier terms: open editor",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "splitselection",
+                    "ets",
+                    "openeditor",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "open",
+                    "editor",
+                    "split",
+                    "selection",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "SplitSelection.ets",
+                    "openEditor",
+                    "function",
+                    "ArkTS function or lifecycle method openEditor in SplitSelection.ets; identifier terms: open editor"
+                  ]
+                },
+                {
+                  "symbol": "onItemSelected",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method onItemSelected in SplitSelection.ets; identifier terms: on item selected",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "splitselection",
+                    "ets",
+                    "onitemselected",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "on",
+                    "item",
+                    "selected",
+                    "split",
+                    "selection",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "SplitSelection.ets",
+                    "onItemSelected",
+                    "function",
+                    "ArkTS function or lifecycle method onItemSelected in SplitSelection.ets; identifier terms: on item selected"
+                  ]
+                },
+                {
+                  "symbol": "SplitSelection",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class SplitSelection declared in SplitSelection.ets; identifier terms: split selection",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "splitselection",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "split",
+                    "selection",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "SplitSelection.ets",
+                    "SplitSelection",
+                    "class",
+                    "ArkTS class SplitSelection declared in SplitSelection.ets; identifier terms: split selection"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 80,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "splitselection",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "7",
+                "non",
+                "empty",
+                "lines",
+                "behavior",
+                "eventboundary",
+                "statehandoff",
+                "statewrite",
+                "openeditor",
+                "onitemselected",
+                "split",
+                "selection",
+                "ark",
+                "ts",
+                "open",
+                "editor",
+                "on",
+                "item",
+                "selected"
+              ],
+              "hint_context": [
+                "SplitSelection.ets",
+                "ArkTS file with 7 non-empty lines; behavior: eventboundary, statehandoff, statewrite",
+                "openEditor onItemSelected SplitSelection"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "SelectionBridge.ets",
+              "summary": "ArkTS file with 8 non-empty lines; behavior: eventboundary, statehandoff, statewrite",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "openEditor",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method openEditor in SelectionBridge.ets; identifier terms: open editor",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "selectionbridge",
+                    "ets",
+                    "openeditor",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "open",
+                    "editor",
+                    "selection",
+                    "bridge",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "SelectionBridge.ets",
+                    "openEditor",
+                    "function",
+                    "ArkTS function or lifecycle method openEditor in SelectionBridge.ets; identifier terms: open editor"
+                  ]
+                },
+                {
+                  "symbol": "onItemSelected",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method onItemSelected in SelectionBridge.ets; identifier terms: on item selected",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "selectionbridge",
+                    "ets",
+                    "onitemselected",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "on",
+                    "item",
+                    "selected",
+                    "selection",
+                    "bridge",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "SelectionBridge.ets",
+                    "onItemSelected",
+                    "function",
+                    "ArkTS function or lifecycle method onItemSelected in SelectionBridge.ets; identifier terms: on item selected"
+                  ]
+                },
+                {
+                  "symbol": "SelectionBridge",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class SelectionBridge declared in SelectionBridge.ets; identifier terms: selection bridge",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "selectionbridge",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "selection",
+                    "bridge",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "SelectionBridge.ets",
+                    "SelectionBridge",
+                    "class",
+                    "ArkTS class SelectionBridge declared in SelectionBridge.ets; identifier terms: selection bridge"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 80,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "selectionbridge",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "8",
+                "non",
+                "empty",
+                "lines",
+                "behavior",
+                "eventboundary",
+                "statehandoff",
+                "statewrite",
+                "openeditor",
+                "onitemselected",
+                "selection",
+                "bridge",
+                "ark",
+                "ts",
+                "open",
+                "editor",
+                "on",
+                "item",
+                "selected"
+              ],
+              "hint_context": [
+                "SelectionBridge.ets",
+                "ArkTS file with 8 non-empty lines; behavior: eventboundary, statehandoff, statewrite",
+                "openEditor onItemSelected SelectionBridge"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "PanelLauncher.ets",
+              "summary": "ArkTS file with 6 non-empty lines; behavior: eventboundary",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "openEditor",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method openEditor in PanelLauncher.ets; identifier terms: open editor",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "panellauncher",
+                    "ets",
+                    "openeditor",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "open",
+                    "editor",
+                    "panel",
+                    "launcher",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "PanelLauncher.ets",
+                    "openEditor",
+                    "function",
+                    "ArkTS function or lifecycle method openEditor in PanelLauncher.ets; identifier terms: open editor"
+                  ]
+                },
+                {
+                  "symbol": "onItemSelected",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method onItemSelected in PanelLauncher.ets; identifier terms: on item selected",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "panellauncher",
+                    "ets",
+                    "onitemselected",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "on",
+                    "item",
+                    "selected",
+                    "panel",
+                    "launcher",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "PanelLauncher.ets",
+                    "onItemSelected",
+                    "function",
+                    "ArkTS function or lifecycle method onItemSelected in PanelLauncher.ets; identifier terms: on item selected"
+                  ]
+                },
+                {
+                  "symbol": "PanelLauncher",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class PanelLauncher declared in PanelLauncher.ets; identifier terms: panel launcher",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "panellauncher",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "panel",
+                    "launcher",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "PanelLauncher.ets",
+                    "PanelLauncher",
+                    "class",
+                    "ArkTS class PanelLauncher declared in PanelLauncher.ets; identifier terms: panel launcher"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 80,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "panellauncher",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "6",
+                "non",
+                "empty",
+                "lines",
+                "behavior",
+                "eventboundary",
+                "openeditor",
+                "onitemselected",
+                "panel",
+                "launcher",
+                "ark",
+                "ts",
+                "open",
+                "editor",
+                "on",
+                "item",
+                "selected"
+              ],
+              "hint_context": [
+                "PanelLauncher.ets",
+                "ArkTS file with 6 non-empty lines; behavior: eventboundary",
+                "openEditor onItemSelected PanelLauncher"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            },
+            {
+              "file_path": "SelectionHint.ets",
+              "summary": "ArkTS file with 6 non-empty lines; behavior: eventboundary, statewrite",
+              "business_summary": "",
+              "business_terms": [],
+              "symbols": [
+                {
+                  "symbol": "onClick",
+                  "symbol_type": "function",
+                  "summary": "ArkTS function or lifecycle method onClick in SelectionHint.ets; identifier terms: on click",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "selectionhint",
+                    "ets",
+                    "onclick",
+                    "function",
+                    "arkts",
+                    "or",
+                    "lifecycle",
+                    "method",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "on",
+                    "click",
+                    "selection",
+                    "hint",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "SelectionHint.ets",
+                    "onClick",
+                    "function",
+                    "ArkTS function or lifecycle method onClick in SelectionHint.ets; identifier terms: on click"
+                  ]
+                },
+                {
+                  "symbol": "SelectionHint",
+                  "symbol_type": "class",
+                  "summary": "ArkTS class SelectionHint declared in SelectionHint.ets; identifier terms: selection hint",
+                  "business_summary": "",
+                  "business_terms": [],
+                  "priority_score": 20,
+                  "priority_reasons": [
+                    "missing_symbol_semantics",
+                    "missing_symbol_business_summary",
+                    "missing_symbol_business_terms"
+                  ],
+                  "hint_terms": [
+                    "selectionhint",
+                    "ets",
+                    "class",
+                    "arkts",
+                    "declared",
+                    "in",
+                    "identifier",
+                    "terms",
+                    "selection",
+                    "hint",
+                    "ark",
+                    "ts"
+                  ],
+                  "hint_context": [
+                    "SelectionHint.ets",
+                    "SelectionHint",
+                    "class",
+                    "ArkTS class SelectionHint declared in SelectionHint.ets; identifier terms: selection hint"
+                  ]
+                }
+              ],
+              "logs": [],
+              "priority_score": 60,
+              "priority_reasons": [
+                "arkts_page_or_module",
+                "missing_file_business_summary",
+                "missing_file_business_terms",
+                "missing_symbol_semantics",
+                "missing_symbol_business_summary",
+                "missing_symbol_business_terms"
+              ],
+              "hint_terms": [
+                "selectionhint",
+                "ets",
+                "arkts",
+                "file",
+                "with",
+                "6",
+                "non",
+                "empty",
+                "lines",
+                "behavior",
+                "eventboundary",
+                "statewrite",
+                "onclick",
+                "selection",
+                "hint",
+                "ark",
+                "ts",
+                "on",
+                "click"
+              ],
+              "hint_context": [
+                "SelectionHint.ets",
+                "ArkTS file with 6 non-empty lines; behavior: eventboundary, statewrite",
+                "onClick SelectionHint"
+              ],
+              "truncated_counts": {
+                "symbols": 0,
+                "logs": 0
+              }
+            }
+          ]
+        }
+      }
+    },
+    "paths": [
+      "SelectionBridge.ets"
+    ],
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "1ce3d4cd95146971",
+      "query": "选择另一行却打开之前条目，请定位事件到状态交接源码。",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 2
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "选择另一行却打开之前条目",
+          "选择",
+          "择另",
+          "另一",
+          "一行",
+          "行却",
+          "却打",
+          "打开",
+          "开之",
+          "之前",
+          "前条",
+          "条目"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "SelectionBridge.ets",
+            "symbol": "onItemSelected",
+            "symbol_type": "function",
+            "record_ids": [
+              16
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "onItemSelected",
+                "start_line": 3,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 3,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "onItemSelected",
+                "start_line": 3,
+                "end_line": 6,
+                "content": " onItemSelected(entry: Entry): void {\n  this.currentId = entry.id\n  this.openEditor()\n }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "uncertain",
+          "primary": {
+            "file_path": "SelectionBridge.ets",
+            "symbol": "onItemSelected",
+            "owner_name": "SelectionBridge",
+            "owner_kind": "class",
+            "file_structural_coverage": 3,
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 11.2,
+            "evidence_score": 11.2,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable",
+              "semantic_behavior"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "SelectionHint.ets",
+              "symbol": "onClick",
+              "owner_name": "SelectionHint",
+              "owner_kind": "class",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "score": 9.66,
+              "evidence_score": 9.66,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "SplitSelection.ets",
+              "symbol": "onItemSelected",
+              "owner_name": "SplitSelection",
+              "owner_kind": "class",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "score": 8.66,
+              "evidence_score": 8.66,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 88
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1062,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  }
+]

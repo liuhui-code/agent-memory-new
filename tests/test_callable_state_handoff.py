@@ -13,6 +13,13 @@ class CallableStateHandoffTests(unittest.TestCase):
     def test_same_callable_conjunction(self):
         for suffix in ('.ets','.ts'):
             self.assertIn('statehandoff',self.hints('this.selected = entry.id; this.openPanel();',suffix=suffix))
+    def test_control_blocks_remain_same_callable(self):
+        for body in [
+            'if (entry.ready) { this.selected = entry.id; this.openPanel(); }',
+            'for (let i = 0; i < count; i++) { this.selected = entries[i].id; this.openPanel(); }',
+            'if (ready()) { if (entry.ready) { this.selected = entry.id; this.openPanel(); } }',
+        ]:
+            with self.subTest(body=body):self.assertIn('statehandoff',self.hints(body))
     def test_partial_or_other_callable_not_unioned(self):
         for body,name in [('this.selected = entry.id;','onSelected'),('this.openPanel();','onSelected'),('this.selected = entry.id; this.openPanel();','saveSelection')]:
             self.assertNotIn('statehandoff',self.hints(body,name))
@@ -20,8 +27,17 @@ class CallableStateHandoffTests(unittest.TestCase):
         self.assertNotIn('statehandoff',event_collection_hints(SimpleNamespace(name='onSelected',file_path='x.ets'),source))
     def test_non_code_and_nested_are_not_current_method(self):
         body='this.selected = entry.id; this.openPanel();'
-        for source in ['// '+body, '/* '+body+' */', 'const text = "'+body+'"', 'const text = `'+body+'`', 'const r = /'+body+'/', 'later(() => { '+body+' });','const o = { run() { '+body+' } };','const o = { get value() { '+body+' } };']:
+        for source in ['// '+body, '/* '+body+' */', 'const text = "'+body+'"', 'const text = `'+body+'`', 'const r = /'+body+'/', 'later(() => { '+body+' });','const o = { run() { '+body+' } };','const o = { get value() { '+body+' } };', 'const o = { ["run"]() { '+body+' } };', 'const o = { "run"() { '+body+' } };', 'const o = { set value(v) { '+body+' } };']:
             with self.subTest(source=source):self.assertNotIn('statehandoff',self.hints(source))
+    def test_nested_and_interpolated_templates_do_not_create_new_hint(self):
+        for body in [
+            'const s = `${flag ? `this.selected = row.id; this.openPanel();` : ""}`;',
+            'const s = `${"`"}`; this.selected = row.id; this.openPanel();',
+            'const s = `${handler(() => { this.selected = row.id; this.openPanel(); })}`;',
+            'const s = `this.selected = row.id; this.openPanel();`;',
+        ]:
+            with self.subTest(body=body):self.assertNotIn('statehandoff',self.hints(body))
+
     def test_comparisons_and_unverified_language_not_writes(self):
         for op in ('==','===','!=','!==','<=','>='):
             self.assertNotIn('statehandoff',self.hints(f'if (this.selected {op} entry.id) {{ this.openPanel(); }}'))
