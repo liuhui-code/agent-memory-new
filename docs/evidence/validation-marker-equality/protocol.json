@@ -1,0 +1,22 @@
+{
+  "classification": "independent Development operator stage after lexical fix881aab8",
+  "sources": {
+    "PulseCounter.ts": "export class PulseCounter {\n count: number = 0\n loose(): boolean {\n  return this.count == 2\n }\n strict(): boolean {\n  return this.count === 2\n }\n assign(): void {\n  this.count = 2\n }\n add(): void {\n  this.count += 2\n }\n subtract(): void {\n  this.count -= 2\n }\n increment(): void {\n  this.count++\n }\n decrement(): void {\n  this.count--\n }\n mixed(): void {\n  if (this.count === 2) { this.count = 3 }\n }\n}\n"
+  },
+  "no_statewrite": [
+    "PulseCounter.loose",
+    "PulseCounter.strict"
+  ],
+  "statewrite": [
+    "PulseCounter.assign",
+    "PulseCounter.add",
+    "PulseCounter.subtract",
+    "PulseCounter.increment",
+    "PulseCounter.decrement",
+    "PulseCounter.mixed"
+  ],
+  "queries": [
+    "Locate PulseCounter.loose implementation.",
+    "Locate PulseCounter.assign implementation."
+  ]
+}
