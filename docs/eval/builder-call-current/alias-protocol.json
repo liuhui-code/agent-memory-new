@@ -1,0 +1,31 @@
+{
+  "classification": "independent Development frozen imported-builder alias identity",
+  "sources": {
+    "RowBuilders.ets": "@Builder\nexport function paintLine(label: string) {\n Row() { Text(label) }\n}\nexport function renderLine(label: string): string {\n return 'not the imported function'\n}\n",
+    "AliasView.ets": "import { paintLine as renderLine } from './RowBuilders'\n@Component\nstruct AliasView {\n build() {\n  Column() { renderLine(this.formatLabel('A')) }\n }\n formatLabel(value: string): string { return value }\n}\n",
+    "DirectView.ets": "import { paintLine } from './RowBuilders'\n@Component\nstruct DirectView {\n build() {\n  Column() { paintLine(this.formatLabel('B')) }\n }\n formatLabel(value: string): string { return value }\n}\n"
+  },
+  "required_calls": [
+    [
+      "AliasView.build",
+      "paintLine"
+    ],
+    [
+      "AliasView.build",
+      "AliasView.formatLabel"
+    ],
+    [
+      "DirectView.build",
+      "paintLine"
+    ],
+    [
+      "DirectView.build",
+      "DirectView.formatLabel"
+    ]
+  ],
+  "forbidden_call": [
+    "AliasView.build",
+    "renderLine"
+  ],
+  "query": "Find callers of paintLine in RowBuilders.ets."
+}
