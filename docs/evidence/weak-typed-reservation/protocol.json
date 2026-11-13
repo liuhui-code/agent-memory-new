@@ -1,0 +1,21 @@
+{
+  "sources": {
+    "DeliverySink.ts": "export interface DeliverySink {\n  rejected(reason: string): void\n}\n",
+    "Pair.ts": "import { DeliverySink } from './DeliverySink'\nexport class CommentOnly {\n  forward(target: DeliverySink): void {\n    // target.rejected('documentation only')\n    record(target)\n  }\n}\n\nexport class Direct {\n  forward(target: DeliverySink): void {\n    target.rejected('bad payload')\n  }\n}\n",
+    "Direct.ts": "import { DeliverySink } from './DeliverySink'\nexport class Direct {\n  forward(target: DeliverySink): void {\n    target.rejected('bad payload')\n  }\n}\n",
+    "CommentOnly.ts": "import { DeliverySink } from './DeliverySink'\nexport class CommentOnly {\n  forward(target: DeliverySink): void {\n    // target.rejected('documentation only')\n    record(target)\n  }\n}\n"
+  },
+  "query": "Find the callable that accepts DeliverySink and invokes rejected on that parameter.",
+  "cohorts": {
+    "samefile": [
+      "DeliverySink.ts",
+      "Pair.ts"
+    ],
+    "crossfile": [
+      "DeliverySink.ts",
+      "CommentOnly.ts",
+      "Direct.ts"
+    ]
+  },
+  "expected": "Only assess actual raw->compact loss of different existing callable range; weak lexical match is not asserted false. No exclusivity oracle. Samefile may preserve both or narrow correctly; do not assume primary before running."
+}
