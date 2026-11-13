@@ -1,0 +1,285 @@
+[
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [
+        {
+          "file_path": "src/sharing/SharedRecordCollector.ets",
+          "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+          "score": 44.6,
+          "symbol": "SharedRecordCollector"
+        }
+      ],
+      true
+    ],
+    "query": "A batch of shared records is reduced to its last value; return the record iteration and accumulator owner rather than the composer page.",
+    "input": [
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "symbol": "SharedRecordCollector",
+        "summary": "ArkTS class SharedRecordCollector declared in src/sharing/SharedRecordCollector.ets; identifier terms: shared record collector",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 55.0
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "sharedRecord",
+        "summary": "state sharedRecord in src/components/RecordPreview.ets; identifier terms: shared record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 51.0
+      },
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "symbol": "collect",
+        "summary": "ArkTS function or lifecycle method collect in src/sharing/SharedRecordCollector.ets",
+        "method_evidence": "record kind convertmarkup convert markup content stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 48.0
+      },
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "score": 44.6,
+        "symbol": "SharedRecordCollector"
+      },
+      {
+        "file_path": "src/pages/ShareComposerPage.ets",
+        "symbol": "sharedRecords",
+        "summary": "state sharedRecords in src/pages/ShareComposerPage.ets; identifier terms: shared records",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.25
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "RecordPreview",
+        "summary": "ArkTS component RecordPreview declared in src/components/RecordPreview.ets; identifier terms: record preview",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/components/RecordPreview.ets",
+        "method_evidence": "sharedrecord shared record content text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: RecordPreview; component terms: record, preview",
+        "score": 28.8,
+        "symbol": "RecordPreview"
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "commitSelectedLedgerBatch",
+        "summary": "ArkTS function or lifecycle method commitSelectedLedgerBatch in src/pages/LedgerMaintenancePage.ets; identifier terms: commit selected ledger batch",
+        "method_evidence": "pendingcount pending count ledgerstore ledger store validatependingbatch validate batch commitpendingbatch commit statustext status text selected statewrite state write stateread read statebranch branch conditional asyncboundary async guardreturn guard",
+        "callable_roles": "[\"async\", \"guard\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 25.75
+      },
+      {
+        "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+        "symbol": "recordSuccessfulUse",
+        "summary": "ArkTS function or lifecycle method recordSuccessfulUse in src/coordinators/SessionUsageCoordinator.ets; identifier terms: record successful use",
+        "method_evidence": "session usagecount usage count lastusedat last used date now sessionstore store save record successful use stateread state read persistencewrite persistence write asyncboundary async",
+        "callable_roles": "[\"async\", \"persistence_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 23.75
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WarehouseFacetPage.ets",
+        "method_evidence": "facets facet value pagestack stack pushpathbyname push path name list foreach each listitem item text onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 14.25
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "toggleRecording",
+        "summary": "ArkTS function or lifecycle method toggleRecording in src/pages/VoiceMessagePage.ets; identifier terms: toggle recording",
+        "method_evidence": "recording toggle statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 14.0
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "symbol": "ProductSearchPage",
+        "summary": "ArkTS component ProductSearchPage declared in src/pages/ProductSearchPage.ets; identifier terms: product search page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+        "symbol": "SessionRecord",
+        "summary": "interface SessionRecord in src/coordinators/SessionUsageCoordinator.ets; identifier terms: session record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "recording",
+        "summary": "state recording in src/pages/VoiceMessagePage.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "lastX",
+        "summary": "state lastX in src/views/PlaybackTouchSurface.ets; identifier terms: last x",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.5
+      },
+      {
+        "file_path": "src/io/ClipboardContentReader.ets",
+        "symbol": "readPlainText",
+        "summary": "ArkTS function or lifecycle method readPlainText in src/io/ClipboardContentReader.ets; identifier terms: read plain text",
+        "method_evidence": "pasteboard getsystempasteboard get system board getdata data getrecordcount record count getrecordat read plain text asyncboundary async guardreturn guard",
+        "callable_roles": "[\"async\", \"guard\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/VoiceMessagePage.ets",
+        "method_evidence": "recording button stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/pages/ShareComposerPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ShareComposerPage.ets",
+        "method_evidence": "sharedrecords shared records length text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 8.25
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "onClick",
+        "summary": "ArkTS function or lifecycle method onClick in src/pages/WarehouseFacetPage.ets; identifier terms: on click",
+        "method_evidence": "facet value pagestack stack pushpathbyname push path name text click stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/theme/SystemBarColorAdapter.ets",
+        "symbol": "parseNativeColor",
+        "summary": "ArkTS function or lifecycle method parseNativeColor in src/theme/SystemBarColorAdapter.ets; identifier terms: parse native color",
+        "method_evidence": "color trim includes substring length values map value parse native split parseint int join",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/LedgerMaintenancePage.ets",
+        "method_evidence": "commitselectedledgerbatch commit selected ledger batch statustext status text button onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      }
+    ]
+  },
+  {
+    "function": "preserve_structural_boundary_neighbors",
+    "result": [
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "score": 44.6,
+        "symbol": "SharedRecordCollector"
+      }
+    ],
+    "query": "A batch of shared records is reduced to its last value; return the record iteration and accumulator owner rather than the composer page.",
+    "input": null
+  },
+  {
+    "function": "preserve_salient_evidence_candidates",
+    "result": [
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "score": 44.6,
+        "symbol": "SharedRecordCollector"
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/components/RecordPreview.ets",
+        "method_evidence": "sharedrecord shared record content text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+        "symbol": "recordSuccessfulUse",
+        "summary": "ArkTS function or lifecycle method recordSuccessfulUse in src/coordinators/SessionUsageCoordinator.ets; identifier terms: record successful use",
+        "method_evidence": "session usagecount usage count lastusedat last used date now sessionstore store save record successful use stateread state read persistencewrite persistence write asyncboundary async",
+        "callable_roles": "[\"async\", \"persistence_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 23.75
+      }
+    ],
+    "query": "A batch of shared records is reduced to its last value; return the record iteration and accumulator owner rather than the composer page.",
+    "input": null
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "score": 44.6,
+        "symbol": "SharedRecordCollector"
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/components/RecordPreview.ets",
+        "method_evidence": "sharedrecord shared record content text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+        "symbol": "recordSuccessfulUse",
+        "summary": "ArkTS function or lifecycle method recordSuccessfulUse in src/coordinators/SessionUsageCoordinator.ets; identifier terms: record successful use",
+        "method_evidence": "session usagecount usage count lastusedat last used date now sessionstore store save record successful use stateread state read persistencewrite persistence write asyncboundary async",
+        "callable_roles": "[\"async\", \"persistence_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 23.75
+      }
+    ],
+    "query": "A batch of shared records is reduced to its last value; return the record iteration and accumulator owner rather than the composer page.",
+    "input": [
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "score": 44.6,
+        "symbol": "SharedRecordCollector"
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/components/RecordPreview.ets",
+        "method_evidence": "sharedrecord shared record content text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+        "symbol": "recordSuccessfulUse",
+        "summary": "ArkTS function or lifecycle method recordSuccessfulUse in src/coordinators/SessionUsageCoordinator.ets; identifier terms: record successful use",
+        "method_evidence": "session usagecount usage count lastusedat last used date now sessionstore store save record successful use stateread state read persistencewrite persistence write asyncboundary async",
+        "callable_roles": "[\"async\", \"persistence_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 23.75
+      }
+    ]
+  }
+]

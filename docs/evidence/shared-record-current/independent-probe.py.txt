@@ -1,0 +1,14 @@
+import json,subprocess,tempfile
+from pathlib import Path
+from tools.agent_memory_runtime.arkts_behavior_markers import extract_arkts_behavior_markers
+from tools.agent_memory_runtime.query_behavior_concepts import behavior_marker_terms
+from tools.agent_memory_runtime.query_target_scope import classify_target_scope
+p=Path('docs/evidence/shared-record-current');proto=json.loads((p/'independent-protocol.json').read_text());out={'producer':{k:extract_arkts_behavior_markers(v) for k,v in proto['sources'].items()}}
+with tempfile.TemporaryDirectory() as d:
+ root=Path(d)/'src';root.mkdir()
+ for name,source in proto['sources'].items():(root/name).write_text(source)
+ def run(*a):
+  r=subprocess.run(['python','tools/agent_memory.py',*a,'--project',str(root),'--memory-home',d+'/mem'],capture_output=True,text=True,check=True);return json.loads(r.stdout) if '--json' in a else r.stdout
+ run('init');run('learn-path','--path','.')
+ out['queries']={q:{'expected_markers':behavior_marker_terms(q),'scope':classify_target_scope(q),'raw':run('context','--query',q,'--json'),'compact':run('context','--query',q,'--compact','--json')} for q in proto['queries']}
+(p/'independent-results.json').write_text(json.dumps(out,indent=2))

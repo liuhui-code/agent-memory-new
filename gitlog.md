@@ -11439,3 +11439,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   their red observations; no original assertions were weakened.
 - 66 focused regressions pass. Three original groups remain 4/9, no gain claimed.
   See docs/evidence/binding-recovery-preview/README.md. No full gate was run.
+
+## 2026-11-14 - Audit shared-record aggregation without speculative changes
+
+- Re-evaluate only its three original variants at e760097: still 1/3.
+- Trace correct initial focus, lexical salient supplements, exact method range,
+  and English budget-truncated tail; typed identities are not the failure layer.
+- Freeze independent direct-loop, after-loop assignment and deferred-write public
+  controls. Existing collectionfold is a lexical hint, not value-flow proof.
+- Record missing source/consumer contract; no serving, test or oracle changes.
+  Evidence: docs/evidence/shared-record-current/README.md.

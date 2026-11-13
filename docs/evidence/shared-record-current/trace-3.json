@@ -1,0 +1,445 @@
+[
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [
+        {
+          "file_path": "src/sharing/SharedRecordCollector.ets",
+          "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+          "score": 39.4,
+          "symbol": "SharedRecordCollector"
+        }
+      ],
+      true
+    ],
+    "query": "Combining multiple shared records preserves only the final item. Locate collection aggregation ownership.",
+    "input": [
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "symbol": "SharedRecordCollector",
+        "summary": "ArkTS class SharedRecordCollector declared in src/sharing/SharedRecordCollector.ets; identifier terms: shared record collector",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 44.0
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "sharedRecord",
+        "summary": "state sharedRecord in src/components/RecordPreview.ets; identifier terms: shared record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 40.0
+      },
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "score": 39.4,
+        "symbol": "SharedRecordCollector"
+      },
+      {
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "symbol": "items",
+        "summary": "state items in src/viewmodels/FolderCollectionLoader.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 34.0
+      },
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "symbol": "collect",
+        "summary": "ArkTS function or lifecycle method collect in src/sharing/SharedRecordCollector.ets",
+        "method_evidence": "record kind convertmarkup convert markup content stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 33.0
+      },
+      {
+        "file_path": "src/pages/CollectionPage.ets",
+        "symbol": "CollectionPage",
+        "summary": "ArkTS component CollectionPage declared in src/pages/CollectionPage.ets; identifier terms: collection page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "symbol": "FolderCollectionLoader",
+        "summary": "ArkTS class FolderCollectionLoader declared in src/viewmodels/FolderCollectionLoader.ets; identifier terms: folder collection loader",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "RecordPreview",
+        "summary": "ArkTS component RecordPreview declared in src/components/RecordPreview.ets; identifier terms: record preview",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "symbol": "loadFolder",
+        "summary": "ArkTS function or lifecycle method loadFolder in src/viewmodels/FolderCollectionLoader.ets; identifier terms: load folder",
+        "method_evidence": "folderid folder length items assetsource asset source getassets get assets load statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 30.5
+      },
+      {
+        "file_path": "src/pages/CollectionPage.ets",
+        "summary": "ArkTS file with 13 non-empty lines; components: CollectionPage; behavior: conditionalbranch, statewrite",
+        "score": 28.8,
+        "symbol": "CollectionPage"
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/components/RecordPreview.ets",
+        "method_evidence": "sharedrecord shared record content text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 28.0
+      },
+      {
+        "file_path": "src/pages/CollectionPage.ets",
+        "symbol": "updateFolder",
+        "summary": "ArkTS function or lifecycle method updateFolder in src/pages/CollectionPage.ets; identifier terms: update folder",
+        "method_evidence": "folderid folder length update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/pages/CollectionPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/CollectionPage.ets",
+        "method_evidence": "column",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/pages/CollectionPage.ets",
+        "symbol": "folderId",
+        "summary": "state folderId in src/pages/CollectionPage.ets; identifier terms: folder id",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/pages/ShareComposerPage.ets",
+        "symbol": "sharedRecords",
+        "summary": "state sharedRecords in src/pages/ShareComposerPage.ets; identifier terms: shared records",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 26.25
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: RecordPreview; component terms: record, preview",
+        "score": 24.8,
+        "symbol": "RecordPreview"
+      },
+      {
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "summary": "ArkTS file with 9 non-empty lines; behavior: conditionalbranch, datasourceboundary, statewrite, asyncboundary",
+        "score": 23.8,
+        "symbol": "FolderCollectionLoader"
+      },
+      {
+        "file_path": "src/widgets/WorkCard.ets",
+        "symbol": "item",
+        "summary": "state item in src/widgets/WorkCard.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 21.5
+      },
+      {
+        "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+        "symbol": "recordSuccessfulUse",
+        "summary": "ArkTS function or lifecycle method recordSuccessfulUse in src/coordinators/SessionUsageCoordinator.ets; identifier terms: record successful use",
+        "method_evidence": "session usagecount usage count lastusedat last used date now sessionstore store save record successful use stateread state read persistencewrite persistence write asyncboundary async",
+        "callable_roles": "[\"async\", \"persistence_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 18.25
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ProductSearchPage.ets",
+        "method_evidence": "query submitsearch submit search products product name column onsubmit list foreach each listitem item text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 14.25
+      },
+      {
+        "file_path": "src/models/WorkspaceSchema.ets",
+        "symbol": "describePreviousItem",
+        "summary": "ArkTS function or lifecycle method describePreviousItem in src/models/WorkspaceSchema.ets; identifier terms: describe previous item",
+        "method_evidence": "selecteditem selected item describe previous stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 13.5
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryItem.ets",
+        "method_evidence": "text",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 13.0
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "InventoryItem",
+        "summary": "ArkTS component InventoryItem declared in src/views/InventoryItem.ets; identifier terms: inventory item",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 11.5
+      },
+      {
+        "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+        "symbol": "SessionRecord",
+        "summary": "interface SessionRecord in src/coordinators/SessionUsageCoordinator.ets; identifier terms: session record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "toggleRecording",
+        "summary": "ArkTS function or lifecycle method toggleRecording in src/pages/VoiceMessagePage.ets; identifier terms: toggle recording",
+        "method_evidence": "recording toggle statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "recording",
+        "summary": "state recording in src/pages/VoiceMessagePage.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "summary": "ArkTS file with 6 non-empty lines; components: InventoryItem; component terms: inventory, item",
+        "score": 8.8,
+        "symbol": "InventoryItem"
+      },
+      {
+        "file_path": "src/pages/DraftStatusPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/DraftStatusPage.ets",
+        "method_evidence": "checkpointstatus checkpoint status column text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "symbol": "onSeatTapped",
+        "summary": "ArkTS function or lifecycle method onSeatTapped in src/controllers/SeatMapController.ets; identifier terms: on seat tapped",
+        "method_evidence": "seats seat tapped stateread state read eventboundary collectionwrite",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "symbol": "onSubmit",
+        "summary": "ArkTS function or lifecycle method onSubmit in src/pages/ProductSearchPage.ets; identifier terms: on submit",
+        "method_evidence": "query submitsearch submit search products product name list foreach each listitem item text stateread state read eventboundary",
+        "callable_roles": "[]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/ShipmentTimelinePage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ShipmentTimelinePage.ets",
+        "method_evidence": "shipments shipment label axis vertical column list foreach each listitem item text listdirection direction height stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/TimelinePage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/TimelinePage.ets",
+        "method_evidence": "entries shouldshowheader show header list foreach each listitem item timelinerow timeline row stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WarehouseFacetPage.ets",
+        "method_evidence": "facets facet value pagestack stack pushpathbyname push path name list foreach each listitem item text onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/stores/SeatStore.ets",
+        "symbol": "replaceSeat",
+        "summary": "ArkTS function or lifecycle method replaceSeat in src/stores/SeatStore.ets; identifier terms: replace seat",
+        "method_evidence": "selectedseats selected seats replace seat stateread state read collectionwrite",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryList.ets",
+        "method_evidence": "rows color gray list foreach each listitem item text divider stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryOverlayPanel.ets",
+        "method_evidence": "color white column grid griditem item text row textinput input shadow backgroundcolor background",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/views/WorkGalleryPage.ets",
+        "symbol": "renderWorkGallery",
+        "summary": "ArkTS function or lifecycle method renderWorkGallery in src/views/WorkGalleryPage.ets; identifier terms: render work gallery",
+        "method_evidence": "works axis horizontal render work gallery list foreach each listitem item workcard card listdirection direction height stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/widgets/WorkCard.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/WorkCard.ets",
+        "method_evidence": "item title column text height padding stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: eventboundary, indexedread, collectionwrite",
+        "score": 5.8,
+        "symbol": "onSeatTapped"
+      },
+      {
+        "file_path": "src/stores/SeatStore.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: indexedread, collectionwrite",
+        "score": 5.8,
+        "symbol": "replaceSeat"
+      },
+      {
+        "file_path": "src/io/ClipboardContentReader.ets",
+        "symbol": "readPlainText",
+        "summary": "ArkTS function or lifecycle method readPlainText in src/io/ClipboardContentReader.ets; identifier terms: read plain text",
+        "method_evidence": "pasteboard getsystempasteboard get system board getdata data getrecordcount record count getrecordat read plain text asyncboundary async guardreturn guard",
+        "callable_roles": "[\"async\", \"guard\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/VoiceMessagePage.ets",
+        "method_evidence": "recording button stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/ShareComposerPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ShareComposerPage.ets",
+        "method_evidence": "sharedrecords shared records length text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 4.25
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "TimelineRow",
+        "summary": "ArkTS component TimelineRow declared in src/views/TimelineRow.ets; identifier terms: timeline row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 2.85
+      }
+    ]
+  },
+  {
+    "function": "preserve_structural_boundary_neighbors",
+    "result": [
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "score": 39.4,
+        "symbol": "SharedRecordCollector"
+      }
+    ],
+    "query": "Combining multiple shared records preserves only the final item. Locate collection aggregation ownership.",
+    "input": null
+  },
+  {
+    "function": "preserve_salient_evidence_candidates",
+    "result": [
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "score": 39.4,
+        "symbol": "SharedRecordCollector"
+      },
+      {
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "symbol": "loadFolder",
+        "summary": "ArkTS function or lifecycle method loadFolder in src/viewmodels/FolderCollectionLoader.ets; identifier terms: load folder",
+        "method_evidence": "folderid folder length items assetsource asset source getassets get assets load statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 30.5
+      },
+      {
+        "file_path": "src/pages/CollectionPage.ets",
+        "summary": "ArkTS file with 13 non-empty lines; components: CollectionPage; behavior: conditionalbranch, statewrite",
+        "score": 28.8,
+        "symbol": "CollectionPage"
+      }
+    ],
+    "query": "Combining multiple shared records preserves only the final item. Locate collection aggregation ownership.",
+    "input": null
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "score": 39.4,
+        "symbol": "SharedRecordCollector"
+      },
+      {
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "symbol": "loadFolder",
+        "summary": "ArkTS function or lifecycle method loadFolder in src/viewmodels/FolderCollectionLoader.ets; identifier terms: load folder",
+        "method_evidence": "folderid folder length items assetsource asset source getassets get assets load statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 30.5
+      },
+      {
+        "file_path": "src/pages/CollectionPage.ets",
+        "summary": "ArkTS file with 13 non-empty lines; components: CollectionPage; behavior: conditionalbranch, statewrite",
+        "score": 28.8,
+        "symbol": "CollectionPage"
+      }
+    ],
+    "query": "Combining multiple shared records preserves only the final item. Locate collection aggregation ownership.",
+    "input": [
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "score": 39.4,
+        "symbol": "SharedRecordCollector"
+      },
+      {
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "symbol": "loadFolder",
+        "summary": "ArkTS function or lifecycle method loadFolder in src/viewmodels/FolderCollectionLoader.ets; identifier terms: load folder",
+        "method_evidence": "folderid folder length items assetsource asset source getassets get assets load statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 30.5
+      },
+      {
+        "file_path": "src/pages/CollectionPage.ets",
+        "summary": "ArkTS file with 13 non-empty lines; components: CollectionPage; behavior: conditionalbranch, statewrite",
+        "score": 28.8,
+        "symbol": "CollectionPage"
+      }
+    ]
+  }
+]

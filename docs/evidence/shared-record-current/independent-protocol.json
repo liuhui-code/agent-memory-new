@@ -1,0 +1,18 @@
+{
+  "purpose": "Independent frozen mechanism controls, not an oracle change or serving proposal",
+  "sources": {
+    "ChunkAssembler.ts": "export class ChunkAssembler {\n assemble(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   merged = merged + chunk\n  }\n  return merged\n }\n}\n",
+    "AfterIteration.ts": "export class AfterIteration {\n summarize(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   console.log(chunk)\n  }\n  merged = 'finished'\n  return merged\n }\n}\n",
+    "DeferredAssembly.ts": "export class DeferredAssembly {\n schedule(chunks: string[]): string {\n  let merged = ''\n  for (const chunk of chunks) {\n   queueMicrotask(() => { merged = chunk })\n  }\n  return merged\n }\n}\n"
+  },
+  "queries": [
+    "Locate the record iteration and accumulator implementation.",
+    "Locate ChunkAssembler.assemble implementation.",
+    "Locate AfterIteration.summarize implementation.",
+    "Locate DeferredAssembly.schedule implementation."
+  ],
+  "expectations": [
+    "Direct accumulator producer must not be confused with assignment after loop or deferred callback if used as a source-operation certificate.",
+    "Exact source identities/ranges must remain locatable; broad query is exploratory and not assumed to be a failing acceptance case."
+  ]
+}
