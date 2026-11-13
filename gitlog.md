@@ -12072,3 +12072,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   permission, selection/fallback, and actual-operation or uniqueness certification.
 - Record explicit/literal/log/mixed/unknown/default-parameter protections and a
   gated validation plan. No runtime, new fixtures, queries or oracle changes.
+
+## Sole-literal callable design feasibility
+
+- Read-only source fact/consumer/freshness review. Existing v2.1 does not certify
+  generic cache/output operation intent; a negative body-shape fact cannot become
+  a positive unique-owner source_operation_match.
+- Header side effects, literal-return task targets, stale/unknown index provenance
+  and separate query authority documented. No producer or consumer change executed.
