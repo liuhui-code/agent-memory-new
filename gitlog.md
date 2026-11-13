@@ -11486,3 +11486,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Explicit code_location still reproduces both errors. Frozen real console and
   named hilog controls pass; generic hilog precision is already red and preserved.
 - No production change yet. The lexical inference/intent contract remains untouched.
+
+## 2026-11-14 - Reject global error-only expansion after genuine output regression
+
+- Narrow candidate fixed two independent nonlog error-query owner failures but broke
+  two previously passing requests explicitly asking to record/output errors without
+  the word 日志: ConsoleSink source became empty. Required guard/oracles unchanged.
+- Reverted all runtime and existing-test changes. Candidate tests/patch and before/
+  after outputs retained as diagnostic evidence, not green tests. Legacy intent stays
+  unchanged. No original validation rerun or new improvement count. No full suite.

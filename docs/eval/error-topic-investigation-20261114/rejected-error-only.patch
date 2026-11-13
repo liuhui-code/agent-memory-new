@@ -1,0 +1,29 @@
+diff --git a/tests/test_locate_intent_expansion.py b/tests/test_locate_intent_expansion.py
+index e0bb1b6..6adf90e 100644
+--- a/tests/test_locate_intent_expansion.py
++++ b/tests/test_locate_intent_expansion.py
+@@ -32,7 +32,8 @@ class LocateIntentExpansionTests(unittest.TestCase):
+         self.assertFalse(tokens & {'log','logger','console','hilog','error','warning','exception','failed','failure','debug'})
+     def test_all_existing_explicit_diagnostic_triggers_remain(self):
+         expected={'log','logger','console','hilog','error','warning','exception','failed','failure','debug'}
+-        for trigger in ['日志','报错','错误','异常','失败','崩溃','打印']:
++        # Generic error now translates to error; legacy intent inference stays intact.
++        for trigger in ['日志','报错','异常','失败','崩溃','打印']:
+             self.assertTrue(expected <= set(query_tokens('请定位'+trigger)),trigger)
+     def test_explicit_logger_identifier_is_still_recalled_literally(self):
+         self.assertIn('error',query_tokens('请定位 ErrorConsoleSink.writeWarning'))
+diff --git a/tools/agent_memory_runtime/text.py b/tools/agent_memory_runtime/text.py
+index 162d260..f38f1de 100644
+--- a/tools/agent_memory_runtime/text.py
++++ b/tools/agent_memory_runtime/text.py
+@@ -17,8 +17,9 @@ QUERY_EXPANSION_RULES = [
+         ("资源", "图片", "图标", "文案", "字符串", "显示不出来", "不显示", "找不到资源"),
+         ("resource", "resources", "media", "image", "string", "app.media", "app.string", "$r"),
+     ),
++    (("错误",), ("error",)),
+     (
+-        ("日志", "报错", "错误", "异常", "失败", "崩溃", "打印"),
++        ("日志", "报错", "异常", "失败", "崩溃", "打印"),
+         ("log", "logger", "console", "hilog", "error", "warning", "exception", "failed", "failure", "debug"),
+     ),
+     (("数据",), ("data",)),

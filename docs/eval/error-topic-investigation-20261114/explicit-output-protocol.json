@@ -1,0 +1,43 @@
+{
+  "classification": "independent Development",
+  "scenarios": [
+    {
+      "sources": {
+        "BadgeEditor.ts": "export class BadgeEditor {\n  validateBadge(name: string): boolean {\n    if (name.length === 0) {\n      this.errorMessage = 'required badge name'\n      return false\n    }\n    this.errorMessage = ''\n    return true\n  }\n}\n",
+        "PacketDecoder.ts": "export class PacketDecoder {\n  decodePacket(bytes: Uint8Array): object {\n    if (bytes.length < 2) {\n      return { error: 'invalid packet' }\n    }\n    return { value: bytes[0] }\n  }\n}\n",
+        "ConsoleSink.ts": "export class ConsoleSink {\n  report(message: string): void {\n    console.error('logger log debug warning exception failed failure', message)\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "query": "查找记录错误的实现。",
+          "expected": "ConsoleSink.ts",
+          "body": "console.error"
+        },
+        {
+          "query": "错误在哪里输出？",
+          "expected": "ConsoleSink.ts",
+          "body": "console.error"
+        }
+      ]
+    },
+    {
+      "sources": {
+        "BadgeEditor.ts": "export class BadgeEditor {\n  validateBadge(name: string): boolean {\n    if (name.length === 0) {\n      this.errorMessage = 'required badge name'\n      return false\n    }\n    this.errorMessage = ''\n    return true\n  }\n}\n",
+        "PacketDecoder.ts": "export class PacketDecoder {\n  decodePacket(bytes: Uint8Array): object {\n    if (bytes.length < 2) {\n      return { error: 'invalid packet' }\n    }\n    return { value: bytes[0] }\n  }\n}\n",
+        "RuntimeSink.ts": "export class RuntimeSink {\n  write(message: string): void {\n    hilog.error(1, 'runtime', message)\n  }\n}\n"
+      },
+      "queries": [
+        {
+          "query": "查找记录错误的实现。",
+          "expected": "RuntimeSink.ts",
+          "body": "hilog.error"
+        },
+        {
+          "query": "错误在哪里输出？",
+          "expected": "RuntimeSink.ts",
+          "body": "hilog.error"
+        }
+      ]
+    }
+  ]
+}
