@@ -1,5 +1,12 @@
 # Local Development Log
 
+## 2026-11-14 — Review focus/localizer conflict without approving architecture
+
+- Verify saved history-action trace has actual early focus and later bounded exclusive source loss.
+- Distinguish scroll's uncertain wrong-primary failure: both real sources are already retained, and raw first position is not an observed focus certificate.
+- Do not count these as two independent exclusive-loss classes. Record missing reverse-conflict controls, identity/authority and unchanged-budget boundaries; forbid fixed two-anchor oracle fitting.
+- Docs-only review, no new queries/tests/runtime changes or architecture approval. See docs/eval/focus-localizer-disagreement-review/README.md.
+
 ## 2026-11-14 — Recheck post-action primary alignment and actual source completeness
 
 - Current selected group remains 2/3: English precision 1/3 and LightingStore excerpt lines 1–9 omit required 10–13 despite overlap metric passing.
