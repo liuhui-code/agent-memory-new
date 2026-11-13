@@ -1,0 +1,36 @@
+{
+  "classification": "independent Development, explicit parameter invocation identity",
+  "sources": {
+    "DeliverySink.ts": "export interface DeliverySink {\n  rejected(reason: string): void\n}\n",
+    "Direct.ts": "import { DeliverySink } from './DeliverySink'\nexport class Direct {\n  forward(target: DeliverySink): void {\n    target.rejected('bad payload')\n  }\n}\n",
+    "OtherReceiver.ts": "import { DeliverySink } from './DeliverySink'\nexport class OtherReceiver {\n  forward(target: DeliverySink): void {\n    fallback.rejected(target)\n  }\n}\n",
+    "CommentOnly.ts": "import { DeliverySink } from './DeliverySink'\nexport class CommentOnly {\n  forward(target: DeliverySink): void {\n    // target.rejected('documentation only')\n    record(target)\n  }\n}\n",
+    "DifferentParameter.ts": "import { DeliverySink } from './DeliverySink'\nexport class DifferentParameter {\n  forward(target: DeliverySink, other: OtherSink): void {\n    record(target)\n    other.rejected('bad payload')\n  }\n}\n"
+  },
+  "query": "Find the callable that accepts DeliverySink and invokes rejected on that parameter.",
+  "cohorts": {
+    "Direct.ts": [
+      "DeliverySink.ts",
+      "Direct.ts"
+    ],
+    "OtherReceiver.ts": [
+      "DeliverySink.ts",
+      "OtherReceiver.ts"
+    ],
+    "CommentOnly.ts": [
+      "DeliverySink.ts",
+      "CommentOnly.ts"
+    ],
+    "DifferentParameter.ts": [
+      "DeliverySink.ts",
+      "DifferentParameter.ts"
+    ]
+  },
+  "positive": "Direct.ts",
+  "negative": [
+    "OtherReceiver.ts",
+    "CommentOnly.ts",
+    "DifferentParameter.ts"
+  ],
+  "oracle": "Direct static receiver invocation may match; the other three must not gain typed_contract_match for invocation on target. A normal retrieval fallback is allowed; no absence or exclusive code-anchor oracle. Generic binds-contract unchanged; no causal or runtime identity proof."
+}
