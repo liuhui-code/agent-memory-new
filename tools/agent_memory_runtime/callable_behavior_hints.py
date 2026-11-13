@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from .arkts_behavior_markers import CALLBACK_CLEANUP_RE
+from .arkts_behavior_markers import CALLBACK_CLEANUP_RE, ASYNC_ORDER_GUARD_RE
 
 
 LIFECYCLE_NAMES = {
@@ -87,6 +87,8 @@ def event_collection_hints(entity: Any, source: str) -> list[str]:
             and not re.search(r"\b(?:function|class)\b", body)):
         if INDEX_WRITE_RE.search(body):
             result.append("collectionwrite")
+        if ASYNC_ORDER_GUARD_RE.search(body) and re.search(r"\basync\b|\bawait\b", code):
+            result.append("orderingguard")
         if CALLBACK_CLEANUP_RE.search(body):
             result.append("callbackcleanup")
     return result
