@@ -105,3 +105,82 @@ request contract that is genuinely supported by existing semantics or propose it
 explicitly as new. Current inspected code does not provide that generic contract
 for cache/output. This review identifies a precise missing authority rather than
 claiming all remaining tasks impossible. No v3 revival, new score or query change.
+
+## Follow-up: a falsifiable next design, not only a refusal
+
+Read sibling reports now integrated as235fb51:
+`docs/eval/cache-contract-review/LITERAL-NEGATIVE-REVIEW.md` and
+`docs/eval/sole-literal-contract-review/README.md`. They establish two independent
+operation-domain competitions worth investigating. They do not establish positive
+request authority, and output's SingleRead or cache's FIFO remain legitimate rivals.
+
+### Reuse assessment
+
+behavior_marker_terms can be reused **unchanged as a shadow diagnostic input**.
+TARGET_CUE, existing explicit/typed identity detection, multiple scope and non-source/
+quoted request vetoes can likewise be reused. Their conjunction is a testable
+hypothesis about requests, not an existing permission contract. Markers are emitted
+from retrieval expansion and broad concepts; `read`, SQL, HTML/config, documented
+algorithm descriptions and artifact-return implementations can legitimately share
+operation words. More vetoes cannot turn absence of literal keywords into a proof.
+Do not add or whitelist cache/output marker names merely because those cases fail.
+The current v2.1 supported subset cannot be broadened by calling these inputs intent.
+
+### Stage A: freeze request-authority truth table before source classifier
+
+Propose one finite, separately reviewed table, before any runtime implementation:
+1. Include the exact already-frozen cache/output failing queries and original
+   strict oracles unchanged. Record actual existing marker set and veto outputs;
+   do not rewrite them if the proposed gate is inactive.
+2. Protect explicit label, real emitted log, requested literal/text/config/declaration,
+   mixed source-plus-description and multiple-target queries from the existing
+   protocols. A green control with the gate inactive is recorded as such, not as
+   tested behavior inside the changed branch.
+3. Add a small *pre-execution* adversarial group whose desired implementation returns
+   constant SQL, HTML, program text or configuration, but whose natural request
+   describes the artifact's read/iteration/deletion behavior without saying
+   `literal`/`string`. Also include ordinary descriptive-label behavior and a
+   no-explicit-name artifact-return request. An independent reviewer must label
+   intended target roles from the fixed source and request, not gate outputs.
+4. Add ambiguous historical operation, quoted instructions, negated operation,
+   unknown language/intent and one-owner-two-actions versus two-owner mixed requests.
+   These are unknown/refuse-new-authority, not inferred negatives.
+
+Freeze the candidate gate specification: an existing retrieval target cue, nonempty
+unchanged behavior_marker_terms, and all current explicit/typed/quoted/multiple/
+non-source vetoes passing. Evaluate it read-only as a **shadow classifier**, not by
+changing serving outputs. This gate is deliberately allowed to be falsified.
+Stop if either mandatory original query is not admitted (no expansion to force it),
+or if any artifact/mixed/ambiguous protected request is admitted as executable-only.
+Report the semantic counterexample; do not patch it with SQL/HTML/label exceptions.
+A table with false positives cannot authorize producer-to-consumer integration.
+If all pass, that is bounded Development evidence for review, not proof of universal
+intent and not permission to bypass unknowns.
+
+### Stage B, only if separately approved after A
+
+Freeze exact sole-return syntax/identity facts and controls already enumerated above,
+including default-parameter effects, ASI return/newline, malformed bounds/digest,
+old-index/version, same-file methods and executable interpolation. Verify the fact
+through actual public learned records, normal-merge activation and unknown behavior.
+Do not generate a source_operation_match or classify another method as positive.
+
+### Stage C needs an explicit fallback decision before any candidate
+
+A negative-only fact cannot choose a replacement or increase certainty. The safest
+initial consumer experiment would record a query/source conflict and refuse *new*
+exclusive primary authority, preserving existing source evidence under the unchanged
+budget. It must not silently rerank to SingleRead/FIFO or assign boundedness to an
+unknown alternative. If this produces no correct primary or violates an existing
+strict public oracle, it is a failed repair, not success renamed as abstention.
+Choosing a different executable owner would require an additional positive proof
+contract; that is outside this negative-fact hypothesis and must not be slipped in.
+
+Predeclare acceptance as both unchanged cache/output required public outcomes plus
+all protected controls, actual full required source and current budgets. Stop if
+retention alone cannot meet these strict outcomes. This may falsify the proposal's
+usefulness even when source classification is correct. No score/marker/threshold
+changes, added noise, relaxed oracle, or post-result query revisions are allowed.
+
+This sequence has an actionable cheap first decision: test request authority before
+investing in a parser or schema. No part of A/B/C has been executed or approved here.

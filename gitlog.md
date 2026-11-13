@@ -12080,3 +12080,6 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   a positive unique-owner source_operation_match.
 - Header side effects, literal-return task targets, stale/unknown index provenance
   and separate query authority documented. No producer or consumer change executed.
+- Added a finite request-authority shadow-test proposal using unchanged existing
+  inputs, with artifact-return adversarial controls and mandatory stop conditions;
+  no serving authority inferred from retrieval marker presence. No experiment run.
