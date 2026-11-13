@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/keyboard-fixed-evidence-work/docs/eval/keyboard-fixed-evidence/run.py", line 22, in <module>
+    run(['init','--json']);run(['learn-path','--path','.','--json'])
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/recovery-current/keyboard-fixed-evidence-work/docs/eval/keyboard-fixed-evidence/run.py", line 20, in run
+    if r.returncode:raise RuntimeError(r.stderr)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: usage: agent_memory.py [-h]
+                       {init,doctor,review-ui,update,search,context,impact-scope,impact-feedback,design-context,design-assist,design-prepare,design-check,design-compare,design-progress,design-verify,eval-design,design-outcome,eval-scale,eval-harvest-history,eval-seal-cases,eval-mutate-arkts,eval-agent-benchmark,eval-context-capability,eval-context-attribution-audit,eval-cohort-create,eval-cohort-enroll,eval-cohort-complete,eval-cohort-report,eval-cohort-finalize,eval-semantic,maintain-system-campaign-readiness,maintain-system-round-handoff,maintain-system-round,maintain-system-round-record,maintain-system-outcome,maintain-system-migrate,reflect-system,maintain-system,maintain-system-status,maintain-system-check,reflect-system-trigger,maintain-system-candidate,maintain-system-accept,maintain-system-apply,maintain-system-rollback,maintain-system-follow-up,maintain-system-resume,maintain-system-resolve,eval-retrieval,eval-calibration,eval-experience-evidence,eval-log-signal,eval-graph-signal,eval-evidence-attribution,eval-governance,eval-quality,eval-seed-cases,eval-draft-cases,retrieval-feedback,experience-usage,reflect,reflect-review,list,miss-list,miss-status,incident-trace,incident-trace-status,conflict-status,conflict-apply,mark-stale,maintain-health,maintain-review,maintain-plan,maintain-status,maintain-merge,maintain-promote,maintain-skill-draft,maintain-skill-package,maintain-incident-strategy-draft,maintain-incident-fingerprint-draft,maintain-skill-promotion-status,maintain-refresh-scope,maintain-rebuild-derived,vault-init,vault-export,vault-index,wiki-index,wiki-search,learn-path,learn-entry,learn-business}
+                       ...
+agent_memory.py: error: unrecognized arguments: --json
+

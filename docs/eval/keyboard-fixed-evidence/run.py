@@ -7,8 +7,8 @@ E=REPO.parent/'keyboard-fixed-evidence'
 protocol=json.loads((D/'protocol.json').read_text());manifest=json.loads((D/'frozen-manifest.json').read_text())
 assert hashlib.sha256((D/'protocol.json').read_bytes()).hexdigest()==manifest['protocol_sha256']
 root=E/'project';home=E/'memory'
-assert not root.exists(), 'Do not rerun an already materialized fixed pass'
-root.mkdir(parents=True)
+assert not (D/'public.json').exists(), 'Do not rerun a completed fixed pass'
+root.mkdir(parents=True, exist_ok=True)
 for name,source in protocol['sources'].items():
  assert hashlib.sha256(source.encode()).hexdigest()==manifest['source_sha256'][name]
  (root/name).write_text(source)
@@ -18,8 +18,8 @@ def run(args):
  r=subprocess.run(cmd,cwd=REPO,text=True,capture_output=True)
  commands.append({'command':cmd,'returncode':r.returncode,'stdout':r.stdout,'stderr':r.stderr})
  if r.returncode:raise RuntimeError(r.stderr)
- return json.loads(r.stdout)
-run(['init','--json']);run(['learn-path','--path','.','--json'])
+ return r.stdout if args[0]=='init' else json.loads(r.stdout)
+run(['init']);run(['learn-path','--path','.','--json'])
 results=[]
 for case in protocol['queries']:
  raw=run(['context','--query',case['query'],'--json']);compact=run(['context','--query',case['query'],'--compact','--json'])
