@@ -12,4 +12,6 @@ with tempfile.TemporaryDirectory() as tmp, materialized_workspace(Path(p['source
     run('init', 'init')
     run('learn', 'learn-path', '--path', '.')
     out = {mode: run(mode, 'context', '--query', p['query']['description'], *(['--compact'] if mode == 'compact' else []), '--json') for mode in ('raw', 'compact')}
+    out['symbols'] = run('symbols', 'list', '--type', 'code-symbol', '--limit', '2000', '--json')
+    out['edges'] = run('edges', 'list', '--type', 'code-edge', '--limit', '3000', '--json')
     (D / 'public.json').write_text(json.dumps(out, indent=2) + '\n')
