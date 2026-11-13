@@ -1,5 +1,11 @@
 # Local Development Log
 
+## 2026-11-14 — Summarize thirty remaining categories with bounded next actions
+
+- Reconcile both fifteen-category ledgers with fallback first-loss, rejected literal intent gate and WebView exact range audit.
+- Distinguish matched public reds, missing evidence, falsified candidates and new source/request authority. Prioritize cross-preview provenance contract review, not another synonym or marker patch.
+- Keep cumulative original repairs at 20 and no aggregate run/score claim. Read-only report, no new queries, tests or runtime edits; docs/eval/remaining-next-actions-review/README.md.
+
 ## 2026-11-14 — Correct cache task scope: scan/delete, not access-recency proof
 
 - Read all three original cache queries and all four independent fixed queries. None requests LRU or access recency; the target is oldest-key/timestamp scan and delete implementation.
