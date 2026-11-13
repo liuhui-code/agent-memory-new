@@ -1,5 +1,11 @@
 # Local Development Log
 
+## 2026-11-14 — Trace reactive aggregate loss without changing ranking
+
+- Five independently frozen public numeric/UI/traversal queries retain required source and owners; no same-layer missing-owner red was manufactured.
+- Original aggregate remains 1/3. Correct entity and two state writes exist and the target is recalled; actual trace identifies tied semantic coverage's two-file focus truncation, not a producer absence.
+- Keep missing arithmetic authority separate from existing state write evidence. No runtime/tests/oracle changes or full gate. Details: docs/eval/reactive-aggregate-audit/README.md.
+
 ## 2026-11-14 — Admit state declarations only from supported code regions
 
 - Freeze actual public symbol API red: literal/comment/template decorators created four ghost states and polluted two same-name true owners' source positions.
