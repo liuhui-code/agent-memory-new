@@ -1,0 +1,971 @@
+[
+  {
+    "function": "filter_query_role_candidates",
+    "result": [
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "summary": "ArkTS file with 16 non-empty lines; components: InventoryOverlayPanel; component terms: inventory, overlay, panel; operations: shadow, backgroundColor",
+        "score": 47.6,
+        "symbol": "InventoryOverlayPanel"
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "selectedCategory",
+        "summary": "state selectedCategory in src/views/InventoryOverlayPanel.ets; identifier terms: selected category",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 46.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryOverlayPanel.ets",
+        "method_evidence": "color white column grid griditem item text row textinput input shadow backgroundcolor background",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 40.0
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "replaceSource",
+        "summary": "ArkTS function or lifecycle method replaceSource in src/coordinators/SourceSwapCoordinator.ets; identifier terms: replace source",
+        "method_evidence": "phase sourcephase source idle loader opensource open replace statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 36.0
+      },
+      {
+        "file_path": "src/entities/InventoryRecord.ets",
+        "symbol": "InventoryRecord",
+        "summary": "ArkTS class InventoryRecord declared in src/entities/InventoryRecord.ets; identifier terms: inventory record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "InventoryItem",
+        "summary": "ArkTS component InventoryItem declared in src/views/InventoryItem.ets; identifier terms: inventory item",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "InventoryList",
+        "summary": "ArkTS component InventoryList declared in src/views/InventoryList.ets; identifier terms: inventory list",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "InventoryOverlayPanel",
+        "summary": "ArkTS component InventoryOverlayPanel declared in src/views/InventoryOverlayPanel.ets; identifier terms: inventory overlay panel",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "SourceLoader",
+        "summary": "interface SourceLoader in src/coordinators/SourceSwapCoordinator.ets; identifier terms: source loader",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "SourceSwapCoordinator",
+        "summary": "ArkTS class SourceSwapCoordinator declared in src/coordinators/SourceSwapCoordinator.ets; identifier terms: source swap coordinator",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "symbol": "AssetSource",
+        "summary": "ArkTS class AssetSource declared in src/services/AssetSource.ets; identifier terms: asset source",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryItem.ets",
+        "method_evidence": "text",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 29.0
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "summary": "ArkTS file with 18 non-empty lines; behavior: statewrite, asyncboundary",
+        "score": 27.8,
+        "symbol": "SourceSwapCoordinator"
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "constructor",
+        "summary": "ArkTS function or lifecycle method constructor in src/coordinators/SourceSwapCoordinator.ets",
+        "method_evidence": "",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "symbol": "getAssets",
+        "summary": "ArkTS function or lifecycle method getAssets in src/services/AssetSource.ets; identifier terms: get assets",
+        "method_evidence": "medialibrary media library queryassets query assets get stateread state read asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryList.ets",
+        "method_evidence": "rows color gray list foreach each listitem item text divider stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "rows",
+        "summary": "state rows in src/views/InventoryList.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+        "symbol": "onBackground",
+        "summary": "ArkTS function or lifecycle method onBackground in src/abilities/ProfileBootstrapAbility.ets; identifier terms: on background",
+        "method_evidence": "context background saveprofiledata save profile data stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 25.5
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: datasourceboundary, asyncboundary",
+        "score": 24.8,
+        "symbol": "AssetSource"
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "summary": "ArkTS file with 6 non-empty lines; components: InventoryItem; component terms: inventory, item",
+        "score": 24.8,
+        "symbol": "InventoryItem"
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "summary": "ArkTS file with 14 non-empty lines; components: InventoryList; component terms: inventory, list; operations: divider",
+        "score": 24.8,
+        "symbol": "InventoryList"
+      },
+      {
+        "file_path": "src/entities/InventoryRecord.ets",
+        "summary": "ArkTS file with 3 non-empty lines",
+        "score": 23.8,
+        "symbol": "InventoryRecord"
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/web/SecureDocumentBrowser.ets",
+        "symbol": "sourceUrl",
+        "summary": "state sourceUrl in src/web/SecureDocumentBrowser.ets; identifier terms: source url",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/models/ProfileList.ets",
+        "symbol": "ProfileList",
+        "summary": "ArkTS class ProfileList declared in src/models/ProfileList.ets; identifier terms: profile list",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.562
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WarehouseFacetPage.ets",
+        "method_evidence": "facets facet value pagestack stack pushpathbyname push path name list foreach each listitem item text onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "onClick",
+        "summary": "ArkTS function or lifecycle method onClick in src/pages/WarehouseFacetPage.ets; identifier terms: on click",
+        "method_evidence": "facet value pagestack stack pushpathbyname push path name text click stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/BoardGestureSurface.ets",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety stack gesture pangesture pan onactionupdate action update stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/CanvasInteractionSurface.ets",
+        "method_evidence": "activehandle active handle event fingerlist finger list stack canvas gesture pangesture pan onactionstart action start onactionupdate update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/PlaybackTouchSurface.ets",
+        "method_evidence": "event touches lastx last firstpointer first pointer stack ontouch touch statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "onTouch",
+        "summary": "ArkTS function or lifecycle method onTouch in src/widgets/TouchOverlay.ets; identifier terms: on touch",
+        "method_evidence": "showoverlay show overlay touch stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/pages/WorkspaceLoadingPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WorkspaceLoadingPage.ets",
+        "method_evidence": "timeoutmessage timeout message column text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "symbol": "loadFolder",
+        "summary": "ArkTS function or lifecycle method loadFolder in src/viewmodels/FolderCollectionLoader.ets; identifier terms: load folder",
+        "method_evidence": "folderid folder length items assetsource asset source getassets get assets load statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/web/SecureDocumentBrowser.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/web/SecureDocumentBrowser.ets",
+        "method_evidence": "sourceurl source url controller event data getrequesturl get request blocked some startswith starts column web fileaccess file access onloadintercept load intercept trim tolowercase lower stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/examples/ThumbnailPoolExample.ets",
+        "symbol": "runThumbnailPoolExample",
+        "summary": "ArkTS function or lifecycle method runThumbnailPoolExample in src/examples/ThumbnailPoolExample.ets; identifier terms: run thumbnail pool example",
+        "method_evidence": "pool storethumbnail store thumbnail png run example thumbnailpool persistencewrite persistence write",
+        "callable_roles": "[\"persistence_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: TouchOverlay; component terms: touch, overlay; operations: onTouch; behavior: callbackboundary, touchboundary, uicallbackbinding",
+        "score": 4.0,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/entities/FacetRecord.ets",
+        "symbol": "FacetRecord",
+        "summary": "ArkTS class FacetRecord declared in src/entities/FacetRecord.ets; identifier terms: facet record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 3.375
+      }
+    ],
+    "query": "The category layer covers the inventory keypad. Return the stacking or background styling source.",
+    "input": [
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "summary": "ArkTS file with 16 non-empty lines; components: InventoryOverlayPanel; component terms: inventory, overlay, panel; operations: shadow, backgroundColor",
+        "score": 47.6,
+        "symbol": "InventoryOverlayPanel"
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "selectedCategory",
+        "summary": "state selectedCategory in src/views/InventoryOverlayPanel.ets; identifier terms: selected category",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 46.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryOverlayPanel.ets",
+        "method_evidence": "color white column grid griditem item text row textinput input shadow backgroundcolor background",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 40.0
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "replaceSource",
+        "summary": "ArkTS function or lifecycle method replaceSource in src/coordinators/SourceSwapCoordinator.ets; identifier terms: replace source",
+        "method_evidence": "phase sourcephase source idle loader opensource open replace statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 36.0
+      },
+      {
+        "file_path": "src/entities/InventoryRecord.ets",
+        "symbol": "InventoryRecord",
+        "summary": "ArkTS class InventoryRecord declared in src/entities/InventoryRecord.ets; identifier terms: inventory record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "InventoryItem",
+        "summary": "ArkTS component InventoryItem declared in src/views/InventoryItem.ets; identifier terms: inventory item",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "InventoryList",
+        "summary": "ArkTS component InventoryList declared in src/views/InventoryList.ets; identifier terms: inventory list",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "InventoryOverlayPanel",
+        "summary": "ArkTS component InventoryOverlayPanel declared in src/views/InventoryOverlayPanel.ets; identifier terms: inventory overlay panel",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "SourceLoader",
+        "summary": "interface SourceLoader in src/coordinators/SourceSwapCoordinator.ets; identifier terms: source loader",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "SourceSwapCoordinator",
+        "summary": "ArkTS class SourceSwapCoordinator declared in src/coordinators/SourceSwapCoordinator.ets; identifier terms: source swap coordinator",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "symbol": "AssetSource",
+        "summary": "ArkTS class AssetSource declared in src/services/AssetSource.ets; identifier terms: asset source",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryItem.ets",
+        "method_evidence": "text",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 29.0
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "summary": "ArkTS file with 18 non-empty lines; behavior: statewrite, asyncboundary",
+        "score": 27.8,
+        "symbol": "SourceSwapCoordinator"
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "constructor",
+        "summary": "ArkTS function or lifecycle method constructor in src/coordinators/SourceSwapCoordinator.ets",
+        "method_evidence": "",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "symbol": "getAssets",
+        "summary": "ArkTS function or lifecycle method getAssets in src/services/AssetSource.ets; identifier terms: get assets",
+        "method_evidence": "medialibrary media library queryassets query assets get stateread state read asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryList.ets",
+        "method_evidence": "rows color gray list foreach each listitem item text divider stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "rows",
+        "summary": "state rows in src/views/InventoryList.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+        "symbol": "onBackground",
+        "summary": "ArkTS function or lifecycle method onBackground in src/abilities/ProfileBootstrapAbility.ets; identifier terms: on background",
+        "method_evidence": "context background saveprofiledata save profile data stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 25.5
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: datasourceboundary, asyncboundary",
+        "score": 24.8,
+        "symbol": "AssetSource"
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "summary": "ArkTS file with 6 non-empty lines; components: InventoryItem; component terms: inventory, item",
+        "score": 24.8,
+        "symbol": "InventoryItem"
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "summary": "ArkTS file with 14 non-empty lines; components: InventoryList; component terms: inventory, list; operations: divider",
+        "score": 24.8,
+        "symbol": "InventoryList"
+      },
+      {
+        "file_path": "src/entities/InventoryRecord.ets",
+        "summary": "ArkTS file with 3 non-empty lines",
+        "score": 23.8,
+        "symbol": "InventoryRecord"
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/web/SecureDocumentBrowser.ets",
+        "symbol": "sourceUrl",
+        "summary": "state sourceUrl in src/web/SecureDocumentBrowser.ets; identifier terms: source url",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/models/ProfileList.ets",
+        "symbol": "ProfileList",
+        "summary": "ArkTS class ProfileList declared in src/models/ProfileList.ets; identifier terms: profile list",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.562
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WarehouseFacetPage.ets",
+        "method_evidence": "facets facet value pagestack stack pushpathbyname push path name list foreach each listitem item text onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "onClick",
+        "summary": "ArkTS function or lifecycle method onClick in src/pages/WarehouseFacetPage.ets; identifier terms: on click",
+        "method_evidence": "facet value pagestack stack pushpathbyname push path name text click stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/BoardGestureSurface.ets",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety stack gesture pangesture pan onactionupdate action update stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/CanvasInteractionSurface.ets",
+        "method_evidence": "activehandle active handle event fingerlist finger list stack canvas gesture pangesture pan onactionstart action start onactionupdate update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/PlaybackTouchSurface.ets",
+        "method_evidence": "event touches lastx last firstpointer first pointer stack ontouch touch statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "onTouch",
+        "summary": "ArkTS function or lifecycle method onTouch in src/widgets/TouchOverlay.ets; identifier terms: on touch",
+        "method_evidence": "showoverlay show overlay touch stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/pages/WorkspaceLoadingPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WorkspaceLoadingPage.ets",
+        "method_evidence": "timeoutmessage timeout message column text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "symbol": "loadFolder",
+        "summary": "ArkTS function or lifecycle method loadFolder in src/viewmodels/FolderCollectionLoader.ets; identifier terms: load folder",
+        "method_evidence": "folderid folder length items assetsource asset source getassets get assets load statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/web/SecureDocumentBrowser.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/web/SecureDocumentBrowser.ets",
+        "method_evidence": "sourceurl source url controller event data getrequesturl get request blocked some startswith starts column web fileaccess file access onloadintercept load intercept trim tolowercase lower stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/examples/ThumbnailPoolExample.ets",
+        "symbol": "runThumbnailPoolExample",
+        "summary": "ArkTS function or lifecycle method runThumbnailPoolExample in src/examples/ThumbnailPoolExample.ets; identifier terms: run thumbnail pool example",
+        "method_evidence": "pool storethumbnail store thumbnail png run example thumbnailpool persistencewrite persistence write",
+        "callable_roles": "[\"persistence_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: TouchOverlay; component terms: touch, overlay; operations: onTouch; behavior: callbackboundary, touchboundary, uicallbackbinding",
+        "score": 4.0,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/entities/FacetRecord.ets",
+        "symbol": "FacetRecord",
+        "summary": "ArkTS class FacetRecord declared in src/entities/FacetRecord.ets; identifier terms: facet record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 3.375
+      }
+    ]
+  },
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [
+        {
+          "file_path": "src/widgets/TouchOverlay.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+          "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 12.0
+        }
+      ],
+      true
+    ],
+    "query": "The category layer covers the inventory keypad. Return the stacking or background styling source.",
+    "input": [
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "summary": "ArkTS file with 16 non-empty lines; components: InventoryOverlayPanel; component terms: inventory, overlay, panel; operations: shadow, backgroundColor",
+        "score": 47.6,
+        "symbol": "InventoryOverlayPanel"
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "selectedCategory",
+        "summary": "state selectedCategory in src/views/InventoryOverlayPanel.ets; identifier terms: selected category",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 46.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryOverlayPanel.ets",
+        "method_evidence": "color white column grid griditem item text row textinput input shadow backgroundcolor background",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 40.0
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "replaceSource",
+        "summary": "ArkTS function or lifecycle method replaceSource in src/coordinators/SourceSwapCoordinator.ets; identifier terms: replace source",
+        "method_evidence": "phase sourcephase source idle loader opensource open replace statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 36.0
+      },
+      {
+        "file_path": "src/entities/InventoryRecord.ets",
+        "symbol": "InventoryRecord",
+        "summary": "ArkTS class InventoryRecord declared in src/entities/InventoryRecord.ets; identifier terms: inventory record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "InventoryItem",
+        "summary": "ArkTS component InventoryItem declared in src/views/InventoryItem.ets; identifier terms: inventory item",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "InventoryList",
+        "summary": "ArkTS component InventoryList declared in src/views/InventoryList.ets; identifier terms: inventory list",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "InventoryOverlayPanel",
+        "summary": "ArkTS component InventoryOverlayPanel declared in src/views/InventoryOverlayPanel.ets; identifier terms: inventory overlay panel",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "SourceLoader",
+        "summary": "interface SourceLoader in src/coordinators/SourceSwapCoordinator.ets; identifier terms: source loader",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "SourceSwapCoordinator",
+        "summary": "ArkTS class SourceSwapCoordinator declared in src/coordinators/SourceSwapCoordinator.ets; identifier terms: source swap coordinator",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "symbol": "AssetSource",
+        "summary": "ArkTS class AssetSource declared in src/services/AssetSource.ets; identifier terms: asset source",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryItem.ets",
+        "method_evidence": "text",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 29.0
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "summary": "ArkTS file with 18 non-empty lines; behavior: statewrite, asyncboundary",
+        "score": 27.8,
+        "symbol": "SourceSwapCoordinator"
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "constructor",
+        "summary": "ArkTS function or lifecycle method constructor in src/coordinators/SourceSwapCoordinator.ets",
+        "method_evidence": "",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "symbol": "getAssets",
+        "summary": "ArkTS function or lifecycle method getAssets in src/services/AssetSource.ets; identifier terms: get assets",
+        "method_evidence": "medialibrary media library queryassets query assets get stateread state read asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryList.ets",
+        "method_evidence": "rows color gray list foreach each listitem item text divider stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "rows",
+        "summary": "state rows in src/views/InventoryList.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+        "symbol": "onBackground",
+        "summary": "ArkTS function or lifecycle method onBackground in src/abilities/ProfileBootstrapAbility.ets; identifier terms: on background",
+        "method_evidence": "context background saveprofiledata save profile data stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 25.5
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: datasourceboundary, asyncboundary",
+        "score": 24.8,
+        "symbol": "AssetSource"
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "summary": "ArkTS file with 6 non-empty lines; components: InventoryItem; component terms: inventory, item",
+        "score": 24.8,
+        "symbol": "InventoryItem"
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "summary": "ArkTS file with 14 non-empty lines; components: InventoryList; component terms: inventory, list; operations: divider",
+        "score": 24.8,
+        "symbol": "InventoryList"
+      },
+      {
+        "file_path": "src/entities/InventoryRecord.ets",
+        "summary": "ArkTS file with 3 non-empty lines",
+        "score": 23.8,
+        "symbol": "InventoryRecord"
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/web/SecureDocumentBrowser.ets",
+        "symbol": "sourceUrl",
+        "summary": "state sourceUrl in src/web/SecureDocumentBrowser.ets; identifier terms: source url",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/models/ProfileList.ets",
+        "symbol": "ProfileList",
+        "summary": "ArkTS class ProfileList declared in src/models/ProfileList.ets; identifier terms: profile list",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.562
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WarehouseFacetPage.ets",
+        "method_evidence": "facets facet value pagestack stack pushpathbyname push path name list foreach each listitem item text onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "onClick",
+        "summary": "ArkTS function or lifecycle method onClick in src/pages/WarehouseFacetPage.ets; identifier terms: on click",
+        "method_evidence": "facet value pagestack stack pushpathbyname push path name text click stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/BoardGestureSurface.ets",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety stack gesture pangesture pan onactionupdate action update stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/CanvasInteractionSurface.ets",
+        "method_evidence": "activehandle active handle event fingerlist finger list stack canvas gesture pangesture pan onactionstart action start onactionupdate update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/PlaybackTouchSurface.ets",
+        "method_evidence": "event touches lastx last firstpointer first pointer stack ontouch touch statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "onTouch",
+        "summary": "ArkTS function or lifecycle method onTouch in src/widgets/TouchOverlay.ets; identifier terms: on touch",
+        "method_evidence": "showoverlay show overlay touch stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/pages/WorkspaceLoadingPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WorkspaceLoadingPage.ets",
+        "method_evidence": "timeoutmessage timeout message column text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "symbol": "loadFolder",
+        "summary": "ArkTS function or lifecycle method loadFolder in src/viewmodels/FolderCollectionLoader.ets; identifier terms: load folder",
+        "method_evidence": "folderid folder length items assetsource asset source getassets get assets load statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/web/SecureDocumentBrowser.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/web/SecureDocumentBrowser.ets",
+        "method_evidence": "sourceurl source url controller event data getrequesturl get request blocked some startswith starts column web fileaccess file access onloadintercept load intercept trim tolowercase lower stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/examples/ThumbnailPoolExample.ets",
+        "symbol": "runThumbnailPoolExample",
+        "summary": "ArkTS function or lifecycle method runThumbnailPoolExample in src/examples/ThumbnailPoolExample.ets; identifier terms: run thumbnail pool example",
+        "method_evidence": "pool storethumbnail store thumbnail png run example thumbnailpool persistencewrite persistence write",
+        "callable_roles": "[\"persistence_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: TouchOverlay; component terms: touch, overlay; operations: onTouch; behavior: callbackboundary, touchboundary, uicallbackbinding",
+        "score": 4.0,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/entities/FacetRecord.ets",
+        "symbol": "FacetRecord",
+        "summary": "ArkTS class FacetRecord declared in src/entities/FacetRecord.ets; identifier terms: facet record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 3.375
+      }
+    ]
+  },
+  {
+    "function": "preserve_structural_boundary_neighbors",
+    "result": [
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      }
+    ],
+    "query": "The category layer covers the inventory keypad. Return the stacking or background styling source.",
+    "input": null
+  },
+  {
+    "function": "preserve_salient_evidence_candidates",
+    "result": [
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "summary": "ArkTS file with 16 non-empty lines; components: InventoryOverlayPanel; component terms: inventory, overlay, panel; operations: shadow, backgroundColor",
+        "score": 47.6,
+        "symbol": "InventoryOverlayPanel"
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "replaceSource",
+        "summary": "ArkTS function or lifecycle method replaceSource in src/coordinators/SourceSwapCoordinator.ets; identifier terms: replace source",
+        "method_evidence": "phase sourcephase source idle loader opensource open replace statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 36.0
+      }
+    ],
+    "query": "The category layer covers the inventory keypad. Return the stacking or background styling source.",
+    "input": null
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "summary": "ArkTS file with 16 non-empty lines; components: InventoryOverlayPanel; component terms: inventory, overlay, panel; operations: shadow, backgroundColor",
+        "score": 47.6,
+        "symbol": "InventoryOverlayPanel"
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "replaceSource",
+        "summary": "ArkTS function or lifecycle method replaceSource in src/coordinators/SourceSwapCoordinator.ets; identifier terms: replace source",
+        "method_evidence": "phase sourcephase source idle loader opensource open replace statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 36.0
+      }
+    ],
+    "query": "The category layer covers the inventory keypad. Return the stacking or background styling source.",
+    "input": [
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "summary": "ArkTS file with 16 non-empty lines; components: InventoryOverlayPanel; component terms: inventory, overlay, panel; operations: shadow, backgroundColor",
+        "score": 47.6,
+        "symbol": "InventoryOverlayPanel"
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "replaceSource",
+        "summary": "ArkTS function or lifecycle method replaceSource in src/coordinators/SourceSwapCoordinator.ets; identifier terms: replace source",
+        "method_evidence": "phase sourcephase source idle loader opensource open replace statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 36.0
+      }
+    ]
+  }
+]

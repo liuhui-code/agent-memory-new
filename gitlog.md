@@ -11610,3 +11610,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   declaration/member controls work; nested forwarding relation remains weak.
 - Retain wrong-fixture initial trace as excluded, rerun correct group. No serving
   change, altered oracle or full-gate claim. See docs/evidence/commit-gesture-current.
+
+## 2026-11-14 — Trace visual-overlap first loss without changing ranking
+
+- Chinese target is recalled into focus; max semantic coverage selects real
+  Stack/showOverlay (2 alternative layout markers) over backgroundColor (1).
+  This precedes structural selection and diversity, not a parser/range loss.
+- Freeze independent AmountSurface/GestureLayer public red; exact two methods and
+  explicit pair controls pass. Preserve full outputs and original three-query
+  return traces. No score/threshold/concept changes or accepted repair.
+- Evidence: docs/eval/visual-overlap-current.

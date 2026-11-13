@@ -1,0 +1,38 @@
+{
+  "classification": "independent Development, frozen before public calls; no serving candidate",
+  "sources": {
+    "AmountSurface.ets": "@Component\nexport struct AmountSurface {\n build() {\n  Column() {\n   Grid() { GridItem() { Text('Category picker') } }\n   Row() { TextInput({ placeholder: 'Amount' }) }\n    .shadow({ radius: 7 })\n    .backgroundColor(Color.White)\n  }\n }\n}\n",
+    "GestureLayer.ets": "@Component\nexport struct GestureLayer {\n build() {\n  Stack() {}\n   .onTouch(() => { this.showOverlay() })\n }\n}\n"
+  },
+  "queries": [
+    [
+      "background",
+      "分类选择区遮挡金额输入控件，请定位负责层叠背景的 ArkTS 视图。",
+      [
+        "AmountSurface.ets"
+      ]
+    ],
+    [
+      "named",
+      "Locate AmountSurface.build source.",
+      [
+        "AmountSurface.ets"
+      ]
+    ],
+    [
+      "stack",
+      "Locate GestureLayer.build source.",
+      [
+        "GestureLayer.ets"
+      ]
+    ],
+    [
+      "both",
+      "Locate AmountSurface.build and GestureLayer.build source.",
+      [
+        "AmountSurface.ets",
+        "GestureLayer.ets"
+      ]
+    ]
+  ]
+}

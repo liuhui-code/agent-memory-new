@@ -1,0 +1,1293 @@
+[
+  {
+    "function": "filter_query_role_candidates",
+    "result": [
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "selectedCategory",
+        "summary": "state selectedCategory in src/views/InventoryOverlayPanel.ets; identifier terms: selected category",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 65.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryOverlayPanel.ets",
+        "method_evidence": "color white column grid griditem item text row textinput input shadow backgroundcolor background",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 62.5
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/BoardGestureSurface.ets",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety stack gesture pangesture pan onactionupdate action update stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 44.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/CanvasInteractionSurface.ets",
+        "method_evidence": "activehandle active handle event fingerlist finger list stack canvas gesture pangesture pan onactionstart action start onactionupdate update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 44.5
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/PlaybackTouchSurface.ets",
+        "method_evidence": "event touches lastx last firstpointer first pointer stack ontouch touch statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 44.5
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "InventoryItem",
+        "summary": "ArkTS component InventoryItem declared in src/views/InventoryItem.ets; identifier terms: inventory item",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "InventoryList",
+        "summary": "ArkTS component InventoryList declared in src/views/InventoryList.ets; identifier terms: inventory list",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "InventoryOverlayPanel",
+        "summary": "ArkTS component InventoryOverlayPanel declared in src/views/InventoryOverlayPanel.ets; identifier terms: inventory overlay panel",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "BoardGestureSurface",
+        "summary": "ArkTS component BoardGestureSurface declared in src/views/BoardGestureSurface.ets; identifier terms: board gesture surface",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "CanvasInteractionSurface",
+        "summary": "ArkTS component CanvasInteractionSurface declared in src/views/CanvasInteractionSurface.ets; identifier terms: canvas interaction surface",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "PlaybackTouchSurface",
+        "summary": "ArkTS component PlaybackTouchSurface declared in src/views/PlaybackTouchSurface.ets; identifier terms: playback touch surface",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "summary": "ArkTS file with 16 non-empty lines; components: InventoryOverlayPanel; component terms: inventory, overlay, panel; operations: shadow, backgroundColor",
+        "score": 41.8,
+        "symbol": "InventoryOverlayPanel"
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryItem.ets",
+        "method_evidence": "text",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 40.0
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: BoardGestureSurface; component terms: board, gesture, surface; operations: gesture, onActionUpdate; behavior: callbackboundary, gestureboundary",
+        "score": 39.8,
+        "symbol": "BoardGestureSurface"
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "summary": "ArkTS file with 18 non-empty lines; components: CanvasInteractionSurface; component terms: canvas, interaction, surface; operations: gesture, onActionStart, onActionUpdate; behavior: callbackboundary, gestureboundary, indexedread, statewrite",
+        "score": 39.8,
+        "symbol": "CanvasInteractionSurface"
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: PlaybackTouchSurface; component terms: playback, touch, surface; operations: onTouch; behavior: callbackboundary, touchboundary, indexedread, statewrite, uicallbackbinding",
+        "score": 39.8,
+        "symbol": "PlaybackTouchSurface"
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "onActionUpdate",
+        "summary": "ArkTS function or lifecycle method onActionUpdate in src/views/BoardGestureSurface.ets; identifier terms: on action update",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety pangesture pan gesture action update stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "activeHandle",
+        "summary": "state activeHandle in src/views/CanvasInteractionSurface.ets; identifier terms: active handle",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "onActionStart",
+        "summary": "ArkTS function or lifecycle method onActionStart in src/views/CanvasInteractionSurface.ets; identifier terms: on action start",
+        "method_evidence": "activehandle active handle event fingerlist finger list action start statewrite state write stateread read eventboundary",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "onActionUpdate",
+        "summary": "ArkTS function or lifecycle method onActionUpdate in src/views/CanvasInteractionSurface.ets; identifier terms: on action update",
+        "method_evidence": "activehandle active handle event fingerlist finger list action update statewrite state write stateread read eventboundary",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryList.ets",
+        "method_evidence": "rows color gray list foreach each listitem item text divider stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "rows",
+        "summary": "state rows in src/views/InventoryList.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "lastX",
+        "summary": "state lastX in src/views/PlaybackTouchSurface.ets; identifier terms: last x",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "onTouch",
+        "summary": "ArkTS function or lifecycle method onTouch in src/views/PlaybackTouchSurface.ets; identifier terms: on touch",
+        "method_evidence": "event touches lastx last firstpointer first pointer touch statewrite state write stateread read eventboundary",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "summary": "ArkTS file with 6 non-empty lines; components: InventoryItem; component terms: inventory, item",
+        "score": 35.8,
+        "symbol": "InventoryItem"
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "summary": "ArkTS file with 14 non-empty lines; components: InventoryList; component terms: inventory, list; operations: divider",
+        "score": 35.8,
+        "symbol": "InventoryList"
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "symbol": "SeatMapController",
+        "summary": "ArkTS class SeatMapController declared in src/controllers/SeatMapController.ets; identifier terms: seat map controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "WorkspaceSelectionController",
+        "summary": "ArkTS class WorkspaceSelectionController declared in src/controllers/WorkspaceSelectionController.ets; identifier terms: workspace selection controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/dialogs/ConfirmationDialogController.ets",
+        "symbol": "ConfirmationDialogController",
+        "summary": "ArkTS class ConfirmationDialogController declared in src/dialogs/ConfirmationDialogController.ets; identifier terms: confirmation dialog controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+        "symbol": "DeadlineBootstrapController",
+        "summary": "ArkTS class DeadlineBootstrapController declared in src/lifecycle/DeadlineBootstrapController.ets; identifier terms: deadline bootstrap controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/runtime/LeaseController.ets",
+        "symbol": "LeaseController",
+        "summary": "ArkTS class LeaseController declared in src/runtime/LeaseController.ets; identifier terms: lease controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/web/DesktopEditorFocusController.ets",
+        "symbol": "DesktopEditorFocusController",
+        "summary": "ArkTS class DesktopEditorFocusController declared in src/web/DesktopEditorFocusController.ets; identifier terms: desktop editor focus controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WarehouseFacetPage.ets",
+        "method_evidence": "facets facet value pagestack stack pushpathbyname push path name list foreach each listitem item text onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "onClick",
+        "summary": "ArkTS function or lifecycle method onClick in src/pages/WarehouseFacetPage.ets; identifier terms: on click",
+        "method_evidence": "facet value pagestack stack pushpathbyname push path name text click stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "onTouch",
+        "summary": "ArkTS function or lifecycle method onTouch in src/widgets/TouchOverlay.ets; identifier terms: on touch",
+        "method_evidence": "showoverlay show overlay touch stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "symbol": "SeatState",
+        "summary": "interface SeatState in src/controllers/SeatMapController.ets; identifier terms: seat state",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "symbol": "onSeatTapped",
+        "summary": "ArkTS function or lifecycle method onSeatTapped in src/controllers/SeatMapController.ets; identifier terms: on seat tapped",
+        "method_evidence": "seats seat tapped stateread state read eventboundary collectionwrite",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "WorkspaceRow",
+        "summary": "interface WorkspaceRow in src/controllers/WorkspaceSelectionController.ets; identifier terms: workspace row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "onEditRequested",
+        "summary": "ArkTS function or lifecycle method onEditRequested in src/controllers/WorkspaceSelectionController.ets; identifier terms: on edit requested",
+        "method_evidence": "selectedid selected row selectedschema schema openeditpanel open edit panel requested statewrite state write stateread read eventboundary statehandoff",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "openEditPanel",
+        "summary": "ArkTS function or lifecycle method openEditPanel in src/controllers/WorkspaceSelectionController.ets; identifier terms: open edit panel",
+        "method_evidence": "open edit panel",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "selectedId",
+        "summary": "state selectedId in src/controllers/WorkspaceSelectionController.ets; identifier terms: selected id",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "selectedSchema",
+        "summary": "state selectedSchema in src/controllers/WorkspaceSelectionController.ets; identifier terms: selected schema",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/pages/ReconciliationPage.ets",
+        "symbol": "ReconciliationPage",
+        "summary": "ArkTS component ReconciliationPage declared in src/pages/ReconciliationPage.ets; identifier terms: reconciliation page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 4.594
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: TouchOverlay; component terms: touch, overlay; operations: onTouch; behavior: callbackboundary, touchboundary, uicallbackbinding",
+        "score": 4.0,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: eventboundary, indexedread, collectionwrite",
+        "score": 3.8,
+        "symbol": "SeatMapController"
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "summary": "ArkTS file with 14 non-empty lines; behavior: eventboundary, statehandoff, statewrite",
+        "score": 3.8,
+        "symbol": "WorkspaceSelectionController"
+      },
+      {
+        "file_path": "src/dialogs/ConfirmationDialogController.ets",
+        "summary": "ArkTS file with 7 non-empty lines",
+        "score": 3.8,
+        "symbol": "ConfirmationDialogController"
+      },
+      {
+        "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+        "summary": "ArkTS file with 27 non-empty lines; behavior: timeoutboundary, cancellationguard, conditionalbranch, datasourceboundary, statewrite, asyncboundary",
+        "score": 3.8,
+        "symbol": "DeadlineBootstrapController"
+      },
+      {
+        "file_path": "src/runtime/LeaseController.ets",
+        "summary": "ArkTS file with 16 non-empty lines; behavior: conditionalbranch, resourcerelease, statewrite",
+        "score": 3.8,
+        "symbol": "LeaseController"
+      },
+      {
+        "file_path": "src/web/DesktopEditorFocusController.ets",
+        "summary": "ArkTS file with 12 non-empty lines; behavior: keyboardvisibility, focusstate, conditionalbranch, statewrite",
+        "score": 3.8,
+        "symbol": "DesktopEditorFocusController"
+      }
+    ],
+    "query": "The inventory category chooser overlaps the numeric quantity controls. Locate the visual surface owner.",
+    "input": [
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "selectedCategory",
+        "summary": "state selectedCategory in src/views/InventoryOverlayPanel.ets; identifier terms: selected category",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 65.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryOverlayPanel.ets",
+        "method_evidence": "color white column grid griditem item text row textinput input shadow backgroundcolor background",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 62.5
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/BoardGestureSurface.ets",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety stack gesture pangesture pan onactionupdate action update stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 44.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/CanvasInteractionSurface.ets",
+        "method_evidence": "activehandle active handle event fingerlist finger list stack canvas gesture pangesture pan onactionstart action start onactionupdate update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 44.5
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/PlaybackTouchSurface.ets",
+        "method_evidence": "event touches lastx last firstpointer first pointer stack ontouch touch statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 44.5
+      },
+      {
+        "file_path": "src/entities/InventoryRecord.ets",
+        "symbol": "InventoryRecord",
+        "summary": "ArkTS class InventoryRecord declared in src/entities/InventoryRecord.ets; identifier terms: inventory record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "InventoryItem",
+        "summary": "ArkTS component InventoryItem declared in src/views/InventoryItem.ets; identifier terms: inventory item",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "InventoryList",
+        "summary": "ArkTS component InventoryList declared in src/views/InventoryList.ets; identifier terms: inventory list",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "InventoryOverlayPanel",
+        "summary": "ArkTS component InventoryOverlayPanel declared in src/views/InventoryOverlayPanel.ets; identifier terms: inventory overlay panel",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "BoardGestureSurface",
+        "summary": "ArkTS component BoardGestureSurface declared in src/views/BoardGestureSurface.ets; identifier terms: board gesture surface",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "CanvasInteractionSurface",
+        "summary": "ArkTS component CanvasInteractionSurface declared in src/views/CanvasInteractionSurface.ets; identifier terms: canvas interaction surface",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "PlaybackTouchSurface",
+        "summary": "ArkTS component PlaybackTouchSurface declared in src/views/PlaybackTouchSurface.ets; identifier terms: playback touch surface",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "summary": "ArkTS file with 16 non-empty lines; components: InventoryOverlayPanel; component terms: inventory, overlay, panel; operations: shadow, backgroundColor",
+        "score": 41.8,
+        "symbol": "InventoryOverlayPanel"
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryItem.ets",
+        "method_evidence": "text",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 40.0
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: BoardGestureSurface; component terms: board, gesture, surface; operations: gesture, onActionUpdate; behavior: callbackboundary, gestureboundary",
+        "score": 39.8,
+        "symbol": "BoardGestureSurface"
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "summary": "ArkTS file with 18 non-empty lines; components: CanvasInteractionSurface; component terms: canvas, interaction, surface; operations: gesture, onActionStart, onActionUpdate; behavior: callbackboundary, gestureboundary, indexedread, statewrite",
+        "score": 39.8,
+        "symbol": "CanvasInteractionSurface"
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: PlaybackTouchSurface; component terms: playback, touch, surface; operations: onTouch; behavior: callbackboundary, touchboundary, indexedread, statewrite, uicallbackbinding",
+        "score": 39.8,
+        "symbol": "PlaybackTouchSurface"
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "onActionUpdate",
+        "summary": "ArkTS function or lifecycle method onActionUpdate in src/views/BoardGestureSurface.ets; identifier terms: on action update",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety pangesture pan gesture action update stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "activeHandle",
+        "summary": "state activeHandle in src/views/CanvasInteractionSurface.ets; identifier terms: active handle",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "onActionStart",
+        "summary": "ArkTS function or lifecycle method onActionStart in src/views/CanvasInteractionSurface.ets; identifier terms: on action start",
+        "method_evidence": "activehandle active handle event fingerlist finger list action start statewrite state write stateread read eventboundary",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "onActionUpdate",
+        "summary": "ArkTS function or lifecycle method onActionUpdate in src/views/CanvasInteractionSurface.ets; identifier terms: on action update",
+        "method_evidence": "activehandle active handle event fingerlist finger list action update statewrite state write stateread read eventboundary",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryList.ets",
+        "method_evidence": "rows color gray list foreach each listitem item text divider stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "rows",
+        "summary": "state rows in src/views/InventoryList.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "lastX",
+        "summary": "state lastX in src/views/PlaybackTouchSurface.ets; identifier terms: last x",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "onTouch",
+        "summary": "ArkTS function or lifecycle method onTouch in src/views/PlaybackTouchSurface.ets; identifier terms: on touch",
+        "method_evidence": "event touches lastx last firstpointer first pointer touch statewrite state write stateread read eventboundary",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "summary": "ArkTS file with 6 non-empty lines; components: InventoryItem; component terms: inventory, item",
+        "score": 35.8,
+        "symbol": "InventoryItem"
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "summary": "ArkTS file with 14 non-empty lines; components: InventoryList; component terms: inventory, list; operations: divider",
+        "score": 35.8,
+        "symbol": "InventoryList"
+      },
+      {
+        "file_path": "src/entities/InventoryRecord.ets",
+        "summary": "ArkTS file with 3 non-empty lines",
+        "score": 34.8,
+        "symbol": "InventoryRecord"
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "symbol": "SeatMapController",
+        "summary": "ArkTS class SeatMapController declared in src/controllers/SeatMapController.ets; identifier terms: seat map controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "WorkspaceSelectionController",
+        "summary": "ArkTS class WorkspaceSelectionController declared in src/controllers/WorkspaceSelectionController.ets; identifier terms: workspace selection controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/dialogs/ConfirmationDialogController.ets",
+        "symbol": "ConfirmationDialogController",
+        "summary": "ArkTS class ConfirmationDialogController declared in src/dialogs/ConfirmationDialogController.ets; identifier terms: confirmation dialog controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+        "symbol": "DeadlineBootstrapController",
+        "summary": "ArkTS class DeadlineBootstrapController declared in src/lifecycle/DeadlineBootstrapController.ets; identifier terms: deadline bootstrap controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/runtime/LeaseController.ets",
+        "symbol": "LeaseController",
+        "summary": "ArkTS class LeaseController declared in src/runtime/LeaseController.ets; identifier terms: lease controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/web/DesktopEditorFocusController.ets",
+        "symbol": "DesktopEditorFocusController",
+        "summary": "ArkTS class DesktopEditorFocusController declared in src/web/DesktopEditorFocusController.ets; identifier terms: desktop editor focus controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WarehouseFacetPage.ets",
+        "method_evidence": "facets facet value pagestack stack pushpathbyname push path name list foreach each listitem item text onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "onClick",
+        "summary": "ArkTS function or lifecycle method onClick in src/pages/WarehouseFacetPage.ets; identifier terms: on click",
+        "method_evidence": "facet value pagestack stack pushpathbyname push path name text click stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "onTouch",
+        "summary": "ArkTS function or lifecycle method onTouch in src/widgets/TouchOverlay.ets; identifier terms: on touch",
+        "method_evidence": "showoverlay show overlay touch stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "symbol": "SeatState",
+        "summary": "interface SeatState in src/controllers/SeatMapController.ets; identifier terms: seat state",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "symbol": "onSeatTapped",
+        "summary": "ArkTS function or lifecycle method onSeatTapped in src/controllers/SeatMapController.ets; identifier terms: on seat tapped",
+        "method_evidence": "seats seat tapped stateread state read eventboundary collectionwrite",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "WorkspaceRow",
+        "summary": "interface WorkspaceRow in src/controllers/WorkspaceSelectionController.ets; identifier terms: workspace row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "onEditRequested",
+        "summary": "ArkTS function or lifecycle method onEditRequested in src/controllers/WorkspaceSelectionController.ets; identifier terms: on edit requested",
+        "method_evidence": "selectedid selected row selectedschema schema openeditpanel open edit panel requested statewrite state write stateread read eventboundary statehandoff",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "openEditPanel",
+        "summary": "ArkTS function or lifecycle method openEditPanel in src/controllers/WorkspaceSelectionController.ets; identifier terms: open edit panel",
+        "method_evidence": "open edit panel",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "selectedId",
+        "summary": "state selectedId in src/controllers/WorkspaceSelectionController.ets; identifier terms: selected id",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "selectedSchema",
+        "summary": "state selectedSchema in src/controllers/WorkspaceSelectionController.ets; identifier terms: selected schema",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/pages/ReconciliationPage.ets",
+        "symbol": "ReconciliationPage",
+        "summary": "ArkTS component ReconciliationPage declared in src/pages/ReconciliationPage.ets; identifier terms: reconciliation page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 4.594
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: TouchOverlay; component terms: touch, overlay; operations: onTouch; behavior: callbackboundary, touchboundary, uicallbackbinding",
+        "score": 4.0,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: eventboundary, indexedread, collectionwrite",
+        "score": 3.8,
+        "symbol": "SeatMapController"
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "summary": "ArkTS file with 14 non-empty lines; behavior: eventboundary, statehandoff, statewrite",
+        "score": 3.8,
+        "symbol": "WorkspaceSelectionController"
+      },
+      {
+        "file_path": "src/dialogs/ConfirmationDialogController.ets",
+        "summary": "ArkTS file with 7 non-empty lines",
+        "score": 3.8,
+        "symbol": "ConfirmationDialogController"
+      },
+      {
+        "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+        "summary": "ArkTS file with 27 non-empty lines; behavior: timeoutboundary, cancellationguard, conditionalbranch, datasourceboundary, statewrite, asyncboundary",
+        "score": 3.8,
+        "symbol": "DeadlineBootstrapController"
+      },
+      {
+        "file_path": "src/runtime/LeaseController.ets",
+        "summary": "ArkTS file with 16 non-empty lines; behavior: conditionalbranch, resourcerelease, statewrite",
+        "score": 3.8,
+        "symbol": "LeaseController"
+      },
+      {
+        "file_path": "src/web/DesktopEditorFocusController.ets",
+        "summary": "ArkTS file with 12 non-empty lines; behavior: keyboardvisibility, focusstate, conditionalbranch, statewrite",
+        "score": 3.8,
+        "symbol": "DesktopEditorFocusController"
+      },
+      {
+        "file_path": "src/entities/FacetRecord.ets",
+        "symbol": "FacetRecord",
+        "summary": "ArkTS class FacetRecord declared in src/entities/FacetRecord.ets; identifier terms: facet record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 3.375
+      }
+    ]
+  },
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [
+        {
+          "file_path": "src/widgets/TouchOverlay.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+          "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 12.0
+        }
+      ],
+      true
+    ],
+    "query": "The inventory category chooser overlaps the numeric quantity controls. Locate the visual surface owner.",
+    "input": [
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "selectedCategory",
+        "summary": "state selectedCategory in src/views/InventoryOverlayPanel.ets; identifier terms: selected category",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 65.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryOverlayPanel.ets",
+        "method_evidence": "color white column grid griditem item text row textinput input shadow backgroundcolor background",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 62.5
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/BoardGestureSurface.ets",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety stack gesture pangesture pan onactionupdate action update stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 44.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/CanvasInteractionSurface.ets",
+        "method_evidence": "activehandle active handle event fingerlist finger list stack canvas gesture pangesture pan onactionstart action start onactionupdate update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 44.5
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/PlaybackTouchSurface.ets",
+        "method_evidence": "event touches lastx last firstpointer first pointer stack ontouch touch statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 44.5
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "InventoryItem",
+        "summary": "ArkTS component InventoryItem declared in src/views/InventoryItem.ets; identifier terms: inventory item",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "InventoryList",
+        "summary": "ArkTS component InventoryList declared in src/views/InventoryList.ets; identifier terms: inventory list",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "InventoryOverlayPanel",
+        "summary": "ArkTS component InventoryOverlayPanel declared in src/views/InventoryOverlayPanel.ets; identifier terms: inventory overlay panel",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "BoardGestureSurface",
+        "summary": "ArkTS component BoardGestureSurface declared in src/views/BoardGestureSurface.ets; identifier terms: board gesture surface",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "CanvasInteractionSurface",
+        "summary": "ArkTS component CanvasInteractionSurface declared in src/views/CanvasInteractionSurface.ets; identifier terms: canvas interaction surface",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "PlaybackTouchSurface",
+        "summary": "ArkTS component PlaybackTouchSurface declared in src/views/PlaybackTouchSurface.ets; identifier terms: playback touch surface",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "summary": "ArkTS file with 16 non-empty lines; components: InventoryOverlayPanel; component terms: inventory, overlay, panel; operations: shadow, backgroundColor",
+        "score": 41.8,
+        "symbol": "InventoryOverlayPanel"
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryItem.ets",
+        "method_evidence": "text",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 40.0
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: BoardGestureSurface; component terms: board, gesture, surface; operations: gesture, onActionUpdate; behavior: callbackboundary, gestureboundary",
+        "score": 39.8,
+        "symbol": "BoardGestureSurface"
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "summary": "ArkTS file with 18 non-empty lines; components: CanvasInteractionSurface; component terms: canvas, interaction, surface; operations: gesture, onActionStart, onActionUpdate; behavior: callbackboundary, gestureboundary, indexedread, statewrite",
+        "score": 39.8,
+        "symbol": "CanvasInteractionSurface"
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: PlaybackTouchSurface; component terms: playback, touch, surface; operations: onTouch; behavior: callbackboundary, touchboundary, indexedread, statewrite, uicallbackbinding",
+        "score": 39.8,
+        "symbol": "PlaybackTouchSurface"
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "onActionUpdate",
+        "summary": "ArkTS function or lifecycle method onActionUpdate in src/views/BoardGestureSurface.ets; identifier terms: on action update",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety pangesture pan gesture action update stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "activeHandle",
+        "summary": "state activeHandle in src/views/CanvasInteractionSurface.ets; identifier terms: active handle",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "onActionStart",
+        "summary": "ArkTS function or lifecycle method onActionStart in src/views/CanvasInteractionSurface.ets; identifier terms: on action start",
+        "method_evidence": "activehandle active handle event fingerlist finger list action start statewrite state write stateread read eventboundary",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "onActionUpdate",
+        "summary": "ArkTS function or lifecycle method onActionUpdate in src/views/CanvasInteractionSurface.ets; identifier terms: on action update",
+        "method_evidence": "activehandle active handle event fingerlist finger list action update statewrite state write stateread read eventboundary",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryList.ets",
+        "method_evidence": "rows color gray list foreach each listitem item text divider stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "rows",
+        "summary": "state rows in src/views/InventoryList.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "lastX",
+        "summary": "state lastX in src/views/PlaybackTouchSurface.ets; identifier terms: last x",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/PlaybackTouchSurface.ets",
+        "symbol": "onTouch",
+        "summary": "ArkTS function or lifecycle method onTouch in src/views/PlaybackTouchSurface.ets; identifier terms: on touch",
+        "method_evidence": "event touches lastx last firstpointer first pointer touch statewrite state write stateread read eventboundary",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "summary": "ArkTS file with 6 non-empty lines; components: InventoryItem; component terms: inventory, item",
+        "score": 35.8,
+        "symbol": "InventoryItem"
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "summary": "ArkTS file with 14 non-empty lines; components: InventoryList; component terms: inventory, list; operations: divider",
+        "score": 35.8,
+        "symbol": "InventoryList"
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "symbol": "SeatMapController",
+        "summary": "ArkTS class SeatMapController declared in src/controllers/SeatMapController.ets; identifier terms: seat map controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "WorkspaceSelectionController",
+        "summary": "ArkTS class WorkspaceSelectionController declared in src/controllers/WorkspaceSelectionController.ets; identifier terms: workspace selection controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/dialogs/ConfirmationDialogController.ets",
+        "symbol": "ConfirmationDialogController",
+        "summary": "ArkTS class ConfirmationDialogController declared in src/dialogs/ConfirmationDialogController.ets; identifier terms: confirmation dialog controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+        "symbol": "DeadlineBootstrapController",
+        "summary": "ArkTS class DeadlineBootstrapController declared in src/lifecycle/DeadlineBootstrapController.ets; identifier terms: deadline bootstrap controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/runtime/LeaseController.ets",
+        "symbol": "LeaseController",
+        "summary": "ArkTS class LeaseController declared in src/runtime/LeaseController.ets; identifier terms: lease controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/web/DesktopEditorFocusController.ets",
+        "symbol": "DesktopEditorFocusController",
+        "summary": "ArkTS class DesktopEditorFocusController declared in src/web/DesktopEditorFocusController.ets; identifier terms: desktop editor focus controller",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WarehouseFacetPage.ets",
+        "method_evidence": "facets facet value pagestack stack pushpathbyname push path name list foreach each listitem item text onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "symbol": "onClick",
+        "summary": "ArkTS function or lifecycle method onClick in src/pages/WarehouseFacetPage.ets; identifier terms: on click",
+        "method_evidence": "facet value pagestack stack pushpathbyname push path name text click stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "onTouch",
+        "summary": "ArkTS function or lifecycle method onTouch in src/widgets/TouchOverlay.ets; identifier terms: on touch",
+        "method_evidence": "showoverlay show overlay touch stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "symbol": "SeatState",
+        "summary": "interface SeatState in src/controllers/SeatMapController.ets; identifier terms: seat state",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "symbol": "onSeatTapped",
+        "summary": "ArkTS function or lifecycle method onSeatTapped in src/controllers/SeatMapController.ets; identifier terms: on seat tapped",
+        "method_evidence": "seats seat tapped stateread state read eventboundary collectionwrite",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "WorkspaceRow",
+        "summary": "interface WorkspaceRow in src/controllers/WorkspaceSelectionController.ets; identifier terms: workspace row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "onEditRequested",
+        "summary": "ArkTS function or lifecycle method onEditRequested in src/controllers/WorkspaceSelectionController.ets; identifier terms: on edit requested",
+        "method_evidence": "selectedid selected row selectedschema schema openeditpanel open edit panel requested statewrite state write stateread read eventboundary statehandoff",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "openEditPanel",
+        "summary": "ArkTS function or lifecycle method openEditPanel in src/controllers/WorkspaceSelectionController.ets; identifier terms: open edit panel",
+        "method_evidence": "open edit panel",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "selectedId",
+        "summary": "state selectedId in src/controllers/WorkspaceSelectionController.ets; identifier terms: selected id",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "selectedSchema",
+        "summary": "state selectedSchema in src/controllers/WorkspaceSelectionController.ets; identifier terms: selected schema",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/pages/ReconciliationPage.ets",
+        "symbol": "ReconciliationPage",
+        "summary": "ArkTS component ReconciliationPage declared in src/pages/ReconciliationPage.ets; identifier terms: reconciliation page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 4.594
+      },
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: TouchOverlay; component terms: touch, overlay; operations: onTouch; behavior: callbackboundary, touchboundary, uicallbackbinding",
+        "score": 4.0,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: eventboundary, indexedread, collectionwrite",
+        "score": 3.8,
+        "symbol": "SeatMapController"
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "summary": "ArkTS file with 14 non-empty lines; behavior: eventboundary, statehandoff, statewrite",
+        "score": 3.8,
+        "symbol": "WorkspaceSelectionController"
+      },
+      {
+        "file_path": "src/dialogs/ConfirmationDialogController.ets",
+        "summary": "ArkTS file with 7 non-empty lines",
+        "score": 3.8,
+        "symbol": "ConfirmationDialogController"
+      },
+      {
+        "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+        "summary": "ArkTS file with 27 non-empty lines; behavior: timeoutboundary, cancellationguard, conditionalbranch, datasourceboundary, statewrite, asyncboundary",
+        "score": 3.8,
+        "symbol": "DeadlineBootstrapController"
+      },
+      {
+        "file_path": "src/runtime/LeaseController.ets",
+        "summary": "ArkTS file with 16 non-empty lines; behavior: conditionalbranch, resourcerelease, statewrite",
+        "score": 3.8,
+        "symbol": "LeaseController"
+      },
+      {
+        "file_path": "src/web/DesktopEditorFocusController.ets",
+        "summary": "ArkTS file with 12 non-empty lines; behavior: keyboardvisibility, focusstate, conditionalbranch, statewrite",
+        "score": 3.8,
+        "symbol": "DesktopEditorFocusController"
+      }
+    ]
+  },
+  {
+    "function": "preserve_structural_boundary_neighbors",
+    "result": [
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      }
+    ],
+    "query": "The inventory category chooser overlaps the numeric quantity controls. Locate the visual surface owner.",
+    "input": null
+  },
+  {
+    "function": "preserve_salient_evidence_candidates",
+    "result": [
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryOverlayPanel.ets",
+        "method_evidence": "color white column grid griditem item text row textinput input shadow backgroundcolor background",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 62.5
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: BoardGestureSurface; component terms: board, gesture, surface; operations: gesture, onActionUpdate; behavior: callbackboundary, gestureboundary",
+        "score": 39.8,
+        "symbol": "BoardGestureSurface"
+      }
+    ],
+    "query": "The inventory category chooser overlaps the numeric quantity controls. Locate the visual surface owner.",
+    "input": null
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryOverlayPanel.ets",
+        "method_evidence": "color white column grid griditem item text row textinput input shadow backgroundcolor background",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 62.5
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: BoardGestureSurface; component terms: board, gesture, surface; operations: gesture, onActionUpdate; behavior: callbackboundary, gestureboundary",
+        "score": 39.8,
+        "symbol": "BoardGestureSurface"
+      }
+    ],
+    "query": "The inventory category chooser overlaps the numeric quantity controls. Locate the visual surface owner.",
+    "input": [
+      {
+        "file_path": "src/widgets/TouchOverlay.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/TouchOverlay.ets",
+        "method_evidence": "showoverlay show overlay stack ontouch touch stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryOverlayPanel.ets",
+        "method_evidence": "color white column grid griditem item text row textinput input shadow backgroundcolor background",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 62.5
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: BoardGestureSurface; component terms: board, gesture, surface; operations: gesture, onActionUpdate; behavior: callbackboundary, gestureboundary",
+        "score": 39.8,
+        "symbol": "BoardGestureSurface"
+      }
+    ]
+  }
+]
