@@ -35,3 +35,12 @@ class SourceOperationAnchorIdentityTests(AgentMemoryTestBase):
                 self.assertEqual('\n'.join(file.read_text().splitlines()[start-1:end]),excerpt['content'])
                 label=query('Locate RuntimeInspector.label.',True)
                 self.assertIn('label',{a['symbol'] for a in label['code_anchors']})
+
+    def test_multiple_operation_owners_do_not_gain_unique_projection(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)
+            for name in ('RuntimeInspector','BackupInspector'):
+                (root/(name+'.ts')).write_text(PROTOCOL['source'].replace('RuntimeInspector',name))
+            self.run_memory(root,'init');self.run_memory(root,'learn-path','--path','.')
+            raw=json.loads(self.run_memory(root,'context','--query',PROTOCOL['query'],'--json').stdout)['query_handoff']
+            self.assertNotIn('"source_operation_match": true',json.dumps(raw))

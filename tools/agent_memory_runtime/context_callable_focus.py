@@ -68,7 +68,7 @@ def focus_callable_anchors(
     if not path or not isinstance(source_range, dict):
         return anchors
     focused = [item for item in anchors if str(item.get("file_path") or "") == path]
-    if primary.get("typed_contract_match"):
+    if primary.get("typed_contract_match") or primary.get("source_operation_match"):
         return [callable_anchor(primary, focused[0] if focused else None)]
     if composed and cross_file:
         retained = same_owner_retained_portfolio(portfolio, primary)

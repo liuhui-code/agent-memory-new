@@ -11282,3 +11282,12 @@ inconsistency is still open. See docs/evidence/owner-integration/RESULT.md.
   Relearning restores verified roles; ordinary retrieval remains available.
 - 20 focused regressions pass; original capability group remains 3/3.
   No full suite or archive/loop feature mixed into this hotfix.
+
+## 2026-11-13 — Align certified operation anchor identity with its actual excerpt
+
+- Public same-file probe/label fixture reproduces certified inspect body paired
+  with a label anchor. Project existing certified callable range consistently.
+- Check real symbol range, current source digest and excerpt bytes; disjoint old
+  record ID is not reused. Explicit labels, multiowners and path guards remain.
+- 36 focused tests pass; capability3/3 and restore1/3 remain unchanged.
+  No v3 extension, full suite or original archive/output repair claim.
