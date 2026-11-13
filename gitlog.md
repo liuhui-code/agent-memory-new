@@ -11100,3 +11100,11 @@ historical-score recovery claim. See local-reconstruction-result-20261111.md.
 Freeze new ArchiveReporter public-output reproduction and red test evidence.
 Unmatched opaque event identifiers currently admit unrelated log anchors.
 No serving change yet; full historical candidate was not recovered.
+
+## Rebuild opaque event admission with focused verification
+
+Constrain log candidates before edge expansion when a query carries an opaque
+identifier: require literal identity or compatible source-template text. Keep
+independently requested qualified methods and explicit source paths. Existing
+abstention Development variants pass 3/3 versus baseline 1/3. No full evaluation
+rerun; the pre-existing compact dynamic-template gap stays explicitly open.

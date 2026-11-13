@@ -183,11 +183,22 @@ def filter_opaque_identifier_candidates(
         return items
     exact = [
         item for item in items
-        if identifiers & opaque_identifiers_in_candidate(item)
+        if identifiers & opaque_identifiers_in_candidate(item) or explicitly_named_candidate(item, query)
     ]
     if exact:
         return exact
     return [item for item in items if is_graph_neighbor(item)]
+
+
+def explicitly_named_candidate(item: dict[str, Any], query: str) -> bool:
+    """Keep an independently requested qualified symbol, not lexical neighbors."""
+    symbol = str(item.get("symbol") or "")
+    owner = str(item.get("owner_name") or "")
+    qualified = symbol if "." in symbol else (f"{owner}.{symbol}" if owner and symbol else "")
+    if qualified and re.search(r"(?<![\w$])" + re.escape(qualified) + r"(?![\w$])", query):
+        return True
+    path = str(item.get("file_path") or "")
+    return bool(path and re.search(r"(?<![\w/])" + re.escape(path) + r"(?![\w/])", query))
 
 
 def opaque_identifiers_in_candidate(item: dict[str, Any]) -> set[str]:

@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_public_missing_and_real_event_identity (tests.test_opaque_log_admission.OpaqueLogAdmissionTests.test_public_missing_and_real_event_identity) (query='Locate archive copy failed event=RUNTIME_EVENT_64D2', compact=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/agent-memory-new/tests/test_opaque_log_admission.py", line 52, in test_public_missing_and_real_event_identity
+    self.assertEqual(present, bool(anchors), handoff)
+AssertionError: True != False : {'schema_version': 'agent-query-handoff-compact/v1', 'log_keywords': ['locate', 'archive', 'copy', 'failed', 'event', 'runtime_event_64d2', 'console', 'dynamic', 'id', 'error'], 'log_anchors': [], 'code_anchors': [], 'callable_evidence': {'schema_version': 'agent-callable-evidence/v1', 'certainty': 'bounded', 'primary': {'file_path': 'ArchiveReporter.ts', 'symbol': 'report', 'owner_name': 'ArchiveReporter', 'owner_kind': 'class', 'score': 29.0, 'evidence_score': 29.0, 'reasons': ['expanded_query:summary', 'expanded_query:string_evidence', 'first_stage_rank_prior', 'source_locatable'], 'source_range': {'start_line': 2, 'end_line': 4, 'selection_reason': 'callable_symbol_range'}}, 'alternatives': [], 'boundary': 'retrieval_evidence_not_root_cause'}, 'path_context': {'activated': False, 'activation_reason': 'no_strong_log_anchor', 'graph_revision': None, 'path_candidates': [], 'gaps': {}}, 'relation_hints': [], 'experience_refs': [], 'semantic_refs': [], 'source_exploration': {'policy': 'anchor_first_deterministic_expansion_v8', 'limits': {'primary': 3, 'rounds': 2, 'round_files': 2, 'searches': 3, 'files': 7, 'reads_per_file': 2, 'read_lines': 180}}, 'next_queries': [], 'role_boundary': {'runtime': 'retrieval_and_current_graph_context_only', 'agent_cli': 'temporary_log_analysis_diagnosis_and_verification', 'runtime_reads_temporary_logs': False, 'runtime_selects_root_cause': False}}
+
+----------------------------------------------------------------------
+Ran 1 test in 3.458s
+
+FAILED (failures=1)

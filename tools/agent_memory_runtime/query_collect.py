@@ -13,6 +13,7 @@ from .incident_trace_query import collect_incident_trace_matches
 from .index_freshness import filter_scored_derived_matches
 from .log_event_identity import has_literal_event_identity
 from .log_signal_quality import score_log_signal
+from .query_log_admission import admits_opaque_log
 from .models import Project
 from .quality_scoring import score_reflection_quality, score_semantic_quality
 from .query_edges import collect_related_edge_candidates
@@ -359,6 +360,8 @@ def collect_matches_with_audit(
             results["wiki_matches"].append(item)
 
     for row in logs:
+        if not admits_opaque_log(row, retrieval_query):
+            continue
         search_terms = code_search_terms("log_statement", row)
         score, reasons = score_weighted_fields(
             retrieval_query,
