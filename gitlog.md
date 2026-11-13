@@ -11874,3 +11874,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - No new variants, thresholds, serving edits or full tests. Preserve mismatched
   red rather than repurpose it as proof of the earlier compact hypothesis.
 - Evidence: docs/eval/official-component-development.
+
+## 2026-11-13 — Separate relationship evidence and retention design gaps
+
+- Document original strong-endpoint provenance suppression versus official weak
+  relationship raw filtering as distinct first losses, without new execution.
+- The two-independent-defect-class architecture gate is not satisfied: original
+  branch lacks independent public reproduction and request-to-relation admission
+  remains unspecified. Define separate evidence-identity and conditional-retention
+  review gates, with identity, ambiguity, source and budget refusal boundaries.
+- No runtime, source, query, oracle or threshold changes; no new gain or full gate.
+- Report: docs/eval/official-component-development/DESIGN-GAP.md.
