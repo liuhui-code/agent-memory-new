@@ -5,6 +5,23 @@ or test executions. The cache design reviewed is commit `9f0c525`,
 `docs/eval/cache-contract-review/PLAN.md`. This review does not approve a new
 runtime abstraction, schema, consumer privilege or architecture.
 
+## Correction: actual requested task, not an added LRU requirement
+
+Follow-up inspection of `docs/eval/system-capability-cases.json`, scenario
+`context-bounded-cache-eviction-owner`, confirms none of the three original
+queries requests LRU, least-recently-used behavior or access recency. The original
+asks for oldest-key executable eviction scan ownership; English explicitly asks
+for timestamp scan and delete implementation; Chinese likewise asks for timestamp
+iteration and candidate-key deletion. The two independent generic queries in
+`docs/evidence/cache-eviction-current/protocol.json` ask for executable eviction
+scan and timestamp scan/delete. The other two explicitly name FIFO and monitor.
+
+The earlier review's emphasis on access recency could imply an extra acceptance
+requirement. That implication is withdrawn. Access-time refresh paths and proof
+that final size is within capacity are NOT prerequisites for these localization
+tasks. The limits below prohibit extra policy claims only; they must not falsely
+block finding the requested scan/delete source. No frozen query or oracle changed.
+
 ## Cache: observations versus policy claims
 
 Inputs: `docs/evidence/cache-eviction-current/{protocol.json,README.md,
@@ -33,8 +50,10 @@ immediate method-local scan/select/delete chain.
 The rejected hint adds a conjunction of size, for-of, delete and age tokens inside
 one controlled body. It binds neither receivers nor selected keys nor execution
 conditions. Its producer test passed while both public red queries remained red;
-that is not a reusable policy certificate. In particular, a generic eviction
-witness cannot be reported as satisfying a request for access recency or LRU.
+that is not a reusable policy certificate. A bounded timestamp scan/select/delete
+witness is relevant to the actual requested localization task. Do not promote it
+to an unsolicited access-recency/LRU correctness guarantee; no such guarantee is
+required by the original or independent queries.
 
 Required design counterexamples, NOT newly created or executed tests: size on A,
 iteration over B and deletion from C; unrelated deletion argument; maximum rather
@@ -89,8 +108,10 @@ permission and unique-primary permission remain distinct decisions.
 For cache, a proposed witness still needs exact receiver/field binding, ordered
 key/value definitions, same expression/selected-key use, guard/control scope and
 intervening-write/escape handling, bound to actual indexed bytes and identity.
-A recency claim additionally needs cross-method access-time update and call-order
-facts, which the frozen fixture does not contain. For shared-record, direct loop
+Only an additional, unsolicited access-recency policy claim would need cross-method
+access-time update and call-order facts. Their absence does not block the current
+oldest-key/timestamp scan/delete localization task. Likewise, proving one deletion
+fully restores capacity is not a condition of this task. For shared-record, direct loop
 writes and returned accumulator binding could be studied separately, but no frozen
 same-layer public acceptance red or source-bound request-role mapping currently
 justifies claiming that study repairs the observed failure.

@@ -1,5 +1,11 @@
 # Local Development Log
 
+## 2026-11-14 — Correct cache task scope: scan/delete, not access-recency proof
+
+- Read all three original cache queries and all four independent fixed queries. None requests LRU or access recency; the target is oldest-key/timestamp scan and delete implementation.
+- Withdraw the implication that access-time refresh or guaranteed final capacity is required for this localization task. These are limits on extra policy claims only, not acceptance gates.
+- Keep true FIFO non-absence and the separate missing shared-record cross-class evidence finding. No new queries, tests, runtime changes or architecture approval.
+
 ## 2026-11-14 — Challenge cache policy claims and shared-record architecture premise
 
 - Distinguish timestamp scan/select/remove from access recency or LRU; one delete does not guarantee size <= limit. Preserve real FIFO, literal and indirect implementations as evidence rather than absence.
