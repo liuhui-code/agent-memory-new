@@ -1,0 +1,112 @@
+{
+  "classification": "internal saved-input helper replay; not new public execution",
+  "registry_candidates": [
+    {
+      "source_operation_match": null,
+      "symbol_id": 370,
+      "file_path": "src/runtime/TransportRegistry.ets",
+      "symbol": "selectRepository",
+      "qualified_name": "TransportRegistry.selectRepository",
+      "start_line": 4,
+      "end_line": 10,
+      "score": 13.03,
+      "evidence_score": 13.03,
+      "reasons": [
+        "expanded_query:summary",
+        "first_stage_rank_prior",
+        "source_locatable",
+        "file_path",
+        "symbol_summary",
+        "search_terms",
+        "exact_path_segment",
+        "semantic_behavior"
+      ],
+      "graph_depth": 0,
+      "graph_relations": [],
+      "recall_lanes": [
+        "symbol_identity_fts",
+        "symbol_semantic_fts"
+      ],
+      "owner_name": "TransportRegistry",
+      "owner_kind": "class",
+      "file_structural_coverage": 3,
+      "callable_roles": [
+        "state_write",
+        "source_operation_checked:v2.1",
+        "source_operation_unresolved:persistenceread"
+      ],
+      "artifact_role": "production",
+      "artifact_query_intent": "implementation"
+    }
+  ],
+  "registry_checks": [
+    {
+      "symbol": "selectRepository",
+      "excluded": false,
+      "support_reasons": [],
+      "identity_has_range": false,
+      "range": null
+    }
+  ],
+  "replayed_portfolio": {
+    "schema_version": "agent-callable-passage-portfolio/v1",
+    "mode": "serving",
+    "state": "composed",
+    "target_scope": "multiple",
+    "members": [
+      {
+        "file_path": "src/stores/DeviceSyncStore.ets",
+        "symbol": "syncFromCompanion",
+        "owner_name": "DeviceSyncStore",
+        "source_range": {
+          "start_line": 5,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "file_path": "src/pools/ThumbnailPool.ets",
+        "symbol": "storeThumbnail",
+        "owner_name": "ThumbnailPool",
+        "source_range": {
+          "start_line": 6,
+          "end_line": 13,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "commitSelectedLedgerBatch",
+        "owner_name": "LedgerMaintenancePage",
+        "source_range": {
+          "start_line": 486,
+          "end_line": 490,
+          "selection_reason": "semantic_mechanism_window",
+          "mechanism_kind": "persistence_write",
+          "mechanism_terms": [
+            "store"
+          ]
+        },
+        "support_reasons": [
+          "salient_query_evidence",
+          "semantic_mechanism"
+        ]
+      }
+    ],
+    "selection_basis": [
+      "existing_localization",
+      "same_owner_scope",
+      "explicit_cross_file_targets",
+      "bounded_passage_diversity"
+    ],
+    "candidate_recall_changed": false,
+    "boundary": "source_passage_composition_not_diagnosis"
+  },
+  "matches_public": true
+}

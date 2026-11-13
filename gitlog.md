@@ -12019,3 +12019,8 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   entries, not a lost registry/store identity certificate. Public typed edge reads
   do not prove a connection between owners. No production or oracle change.
 - Evidence: docs/evidence/fallback-consumer-current.
+
+- Fallback addendum: unchanged saved-input portfolio helper replay equals public.
+  Registry is ninth under the eight-range cap and independently lacks supported
+  portfolio reasons; not ambiguous identity, same-owner filtering or member cap.
+  Legacy no-path projection policy/counterexamples and exact test limits recorded.
