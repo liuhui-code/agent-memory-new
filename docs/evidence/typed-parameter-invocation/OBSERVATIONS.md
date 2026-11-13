@@ -1,0 +1,11 @@
+# Observations before any serving change
+
+Base 452c597; original four-cohort protocol frozen at 803d53f and public results saved before the separate same-file protocol was frozen at fb6436e. No query/source revisions after each freeze.
+
+The initial expectation overstated existing authority: `test_receiver_operation_is_lexical_evidence_only` explicitly permits a token-level match. Direct and CommentOnly public output both have typed_contract_match=true **and typed_contract_weak=true, certainty=uncertain**. OtherReceiver and DifferentParameter do not match because their actual extracted method evidence lacks the complete pair. This is not proof of a strong static receiver certificate bug; no parser repair is justified by these four controls.
+
+Consumer inspection: lexical typed matches are first-key ranked, but certainty explicitly downgrades weak evidence. Uncertain compact paths reserve a primary instead of cross-file narrowing. Reservation does replace all same-file anchors with one range, which motivated a separately frozen two-cohort control. No ranking or pipeline changes were made.
+
+The same-file control exposes an earlier, different loss: raw wiki contains Pair.ts forward ID3 (CommentOnly,3–6) and ID5 (Direct,10–12), both kind=symbol/type=function, same source digest db7f19200e46dca0d9d9ea5fccc32b94cf992d05dec3358dc680d55014f61bb7. Raw query_handoff code_anchors includes only the former range. `query_handoff.append_code_anchor` keys by (file_path,symbol), so the second distinct source entity collides before compact reservation. Existing two-per-file cap could hold both, but the identity key discards one. Cross-file cohort retains both methods in raw and compact. This is a producer-to-handoff projection issue, not proof that typed weak evidence should become strong or that the original listener contract is repaired.
+
+A possible repair needs separate identity/duplicate controls: genuine same-entity duplicate projections should still coalesce, distinct known source ranges should not be treated as one identity, missing range remains conservative, and the existing per-file/global budget remains unchanged. Compact uncertain reservation must then be audited independently so preserving raw evidence is not falsely called a full compact repair. No proposed runtime change has been accepted or made at this checkpoint.
