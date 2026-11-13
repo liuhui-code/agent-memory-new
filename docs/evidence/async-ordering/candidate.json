@@ -1,0 +1,621 @@
+[
+  {
+    "case": {
+      "query": "An older asynchronous read must not overwrite the current tab text after switching. Locate the state assignment guarded by the pending request.",
+      "required": "TabReader.ets",
+      "excluded": [
+        "EntryWriter.ets",
+        "TabIndicator.ets"
+      ]
+    },
+    "paths": [
+      "TabIndicator.ets"
+    ],
+    "passed": false,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "dc9c80743f5291ff",
+      "query": "An older asynchronous read must not overwrite the current tab text after switching. Locate the state assignment guarded by the pending request.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "older",
+          "asynchronous",
+          "read",
+          "must",
+          "overwrite",
+          "current",
+          "tab",
+          "text",
+          "after",
+          "switching",
+          "locate",
+          "state"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "TabIndicator.ets",
+            "symbol": "setPending",
+            "symbol_type": "function",
+            "record_ids": [
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "setPending",
+                "start_line": 3,
+                "end_line": 3
+              }
+            ],
+            "read_window": {
+              "start_line": 3,
+              "end_line": 3
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "setPending",
+                "start_line": 3,
+                "end_line": 3,
+                "content": "  setPending(tab: number): void { this.pending = tab }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "TabIndicator.ets",
+            "symbol": "setPending",
+            "owner_name": "TabIndicator",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "state_write"
+            ],
+            "score": 29.0,
+            "evidence_score": 29.0,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 3,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "TabReader.ets",
+              "symbol": "select",
+              "owner_name": "TabReader",
+              "owner_kind": "class",
+              "file_structural_coverage": 4,
+              "callable_roles": [
+                "async",
+                "guard",
+                "state_write"
+              ],
+              "score": 26.0,
+              "evidence_score": 26.0,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 4,
+                "end_line": 11,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "EntryWriter.ets",
+              "symbol": "save",
+              "owner_name": "EntryWriter",
+              "owner_kind": "class",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "async",
+                "state_write",
+                "persistence_write"
+              ],
+              "score": 15.785,
+              "evidence_score": 15.785,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "method_evidence"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 54
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1089,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "\u8fde\u7eed\u5207\u6362\u540e\u51fa\u73b0\u9648\u65e7\u5185\u5bb9\uff0c\u8bf7\u5b9a\u4f4d\u5f02\u6b65\u52a0\u8f7d\u540e\u68c0\u67e5\u5f53\u524d\u8bf7\u6c42\u5e76\u66f4\u65b0\u72b6\u6001\u7684\u65b9\u6cd5\u3002",
+      "required": "TabReader.ets",
+      "excluded": [
+        "EntryWriter.ets",
+        "TabIndicator.ets"
+      ]
+    },
+    "paths": [
+      "TabReader.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "dc9c80743f5291ff",
+      "query": "\u8fde\u7eed\u5207\u6362\u540e\u51fa\u73b0\u9648\u65e7\u5185\u5bb9\uff0c\u8bf7\u5b9a\u4f4d\u5f02\u6b65\u52a0\u8f7d\u540e\u68c0\u67e5\u5f53\u524d\u8bf7\u6c42\u5e76\u66f4\u65b0\u72b6\u6001\u7684\u65b9\u6cd5\u3002",
+      "memory_intent": "code_location",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "\u8fde\u7eed\u5207\u6362\u540e\u51fa\u73b0\u9648\u65e7\u5185\u5bb9",
+          "\u8fde\u7eed",
+          "\u7eed\u5207",
+          "\u5207\u6362",
+          "\u6362\u540e",
+          "\u540e\u51fa",
+          "\u51fa\u73b0",
+          "\u73b0\u9648",
+          "\u9648\u65e7",
+          "\u65e7\u5185",
+          "\u5185\u5bb9",
+          "\u8bf7\u5b9a\u4f4d\u5f02\u6b65\u52a0\u8f7d\u540e\u68c0\u67e5\u5f53\u524d\u8bf7\u6c42\u5e76\u66f4\u65b0\u72b6\u6001\u7684\u65b9\u6cd5"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "TabReader.ets",
+            "symbol": "select",
+            "symbol_type": "function",
+            "record_ids": [
+              6
+            ],
+            "source_ranges": [
+              {
+                "symbol": "select",
+                "start_line": 4,
+                "end_line": 11
+              }
+            ],
+            "read_window": {
+              "start_line": 4,
+              "end_line": 11
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "select",
+                "start_line": 4,
+                "end_line": 11,
+                "content": "  async select(tab: number): Promise<void> {\n    this.pending = tab\n    const text = await provider.read(tab)\n    if (tab !== this.pending) {\n      return\n    }\n    this.text = text\n  }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "uncertain",
+          "primary": {
+            "file_path": "TabReader.ets",
+            "symbol": "select",
+            "owner_name": "TabReader",
+            "owner_kind": "class",
+            "file_structural_coverage": 3,
+            "callable_roles": [
+              "async",
+              "guard",
+              "state_write"
+            ],
+            "score": 11.2,
+            "evidence_score": 11.2,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable",
+              "semantic_behavior"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 11,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "EntryWriter.ets",
+              "symbol": "save",
+              "owner_name": "EntryWriter",
+              "owner_kind": "class",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "async",
+                "state_write",
+                "persistence_write"
+              ],
+              "score": 9.66,
+              "evidence_score": 9.66,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "TabIndicator.ets",
+              "symbol": "setPending",
+              "owner_name": "TabIndicator",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "state_write"
+              ],
+              "score": 8.12,
+              "evidence_score": 8.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 3,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 185
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1059,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Find EntryWriter.save.",
+      "required": "EntryWriter.ets",
+      "excluded": []
+    },
+    "paths": [
+      "EntryWriter.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "dc9c80743f5291ff",
+      "query": "Find EntryWriter.save.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "entrywriter",
+          "save"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "EntryWriter.ets",
+            "symbol": "save",
+            "symbol_type": "function",
+            "record_ids": [
+              2,
+              1
+            ],
+            "source_ranges": [
+              {
+                "symbol": "save",
+                "start_line": 3,
+                "end_line": 6
+              },
+              {
+                "symbol": "EntryWriter",
+                "start_line": 1,
+                "end_line": 7
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 7
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "save",
+                "start_line": 1,
+                "end_line": 7,
+                "content": "export class EntryWriter {\n  private text: string = ''\n  async save(text: string): Promise<void> {\n    await repository.save(text)\n    this.text = text\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "EntryWriter.ets",
+            "symbol": "save",
+            "owner_name": "EntryWriter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "async",
+              "state_write",
+              "persistence_write"
+            ],
+            "score": 42.5,
+            "evidence_score": 42.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "semantic_mechanism_window"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 157
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 848,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  }
+]

@@ -11178,3 +11178,11 @@ published source-tail stage. 74 related tests: 73 pass, one existing expected
 failure. Adjacent-collection scenario passes 3/3, including two former English
 failures. Full evaluation remains deferred; independent callable-primary metadata
 inconsistency is still open. See docs/evidence/owner-integration/RESULT.md.
+
+## 2026-11-13 — Restore callable-local async ordering marker
+
+- Base 43921fc independent competing fixture reproduces guarded async owner lost to unguarded writer/state setter.
+- Reuse existing orderingguard syntax at masked bounded method scope; no vocabulary or scoring adjustment.
+- Independent Chinese/public body passes in TS/ETS; English remains explicitly failed. 46 focused tests =45 pass +1 expected failure.
+- Existing async-navigation three variants improve 1/3 to 2/3, fixing zh-noise only; original extra-anchor precision failure remains. No full eval.
+- Lifecycle-persistence competing and split-owner fixtures pass without edits; original scenario remains 1/3.
