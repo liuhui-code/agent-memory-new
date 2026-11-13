@@ -11658,3 +11658,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Field initializer and nested-member representation remain unimplemented. Freeze
   correction and remaining presentation limits are documented in
   docs/evidence/initializer-scope-current/README.md.
+
+## Bounded local binding proposal, no producer change
+
+- Correct evidence prerequisite: render has an independent public red; keyboard currently has only original-case/replay evidence, not a confirmed independent public red.
+- Distinguish render return-value data dependency from keyboard callback-guard control dependency. Shared lexical/identity infrastructure is not a shared proof contract.
+- Record existing typed-relation limits and a fixed four-query keyboard evidence pass with positive, negative, unknown, multi-owner, budget and stop controls.
+- No implementation, new producer/schema, tests or original-pack rerun. This proposal does not declare all remaining failures blocked or the task complete.
+- See docs/eval/local-binding-proposal/README.zh-CN.md.
