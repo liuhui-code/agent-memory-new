@@ -1,0 +1,23 @@
+FF
+======================================================================
+FAIL: test_public_comparison_is_not_a_synthesized_write (tests.test_validation_marker_equality.ValidationMarkerEqualityTests.test_public_comparison_is_not_a_synthesized_write) (name='PulseCounter.loose')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/validation-mechanism-current/tests/test_validation_marker_equality.py", line 21, in test_public_comparison_is_not_a_synthesized_write
+    self.assertNotIn('statewrite',row['method_evidence'].split());self.assertIn('stateread',row['method_evidence'].split())
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in ['count', 'statewrite', 'state', 'write', 'stateread', 'read']
+
+======================================================================
+FAIL: test_public_comparison_is_not_a_synthesized_write (tests.test_validation_marker_equality.ValidationMarkerEqualityTests.test_public_comparison_is_not_a_synthesized_write) (name='PulseCounter.strict')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/validation-mechanism-current/tests/test_validation_marker_equality.py", line 21, in test_public_comparison_is_not_a_synthesized_write
+    self.assertNotIn('statewrite',row['method_evidence'].split());self.assertIn('stateread',row['method_evidence'].split())
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'statewrite' unexpectedly found in ['count', 'statewrite', 'state', 'write', 'stateread', 'read']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.861s
+
+FAILED (failures=2)

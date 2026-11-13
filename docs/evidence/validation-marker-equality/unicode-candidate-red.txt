@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_ascii_field_recognition_is_not_expanded (tests.test_validation_marker_equality.ValidationWriteOperatorTests.test_ascii_field_recognition_is_not_expanded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/validation-mechanism-current/tests/test_validation_marker_equality.py", line 35, in test_ascii_field_recognition_is_not_expanded
+    self.assertNotIn("statewrite",self.hints("sample(){this."+field+"=2}"))
+AssertionError: 'statewrite' unexpectedly found in ['statewrite', 'state', 'write']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

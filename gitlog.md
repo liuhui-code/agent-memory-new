@@ -11827,3 +11827,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   unchanged. Equality and the separate regex container-range issue are not repaired.
 - TIMELINE discloses diagnostic observations before formal Git freeze; formal red
   followeda66b520. Evidence: docs/evidence/validation-mechanism/README.md.
+
+## 2026-11-13 - Separate comparison from synthesized callable state writes
+
+- Independent public ==/=== methods incorrectly receive statewrite. Only .ts/.ets
+  use a dedicated original-ASCII predicate with strict bare= boundary; other
+  languages and sharedDIRECT/event logic retain their old behavior.
+- Retain reviewer candidate Unicode-scope regression, corrected without widening
+  fields. Unknown lexical input remains raw, not certified safe.
+-46 focused tests pass; normal merge removes2 false hints,6 true-write controls
+  remain. Originalvalidation1/3/comparison2/3 unchanged. No aggregate claim.
+- Evidence: docs/evidence/validation-marker-equality/README.md.

@@ -20,4 +20,25 @@ class ValidationMarkerEqualityTests(AgentMemoryTestBase):
      row=actual[name];self.assertTrue(row['symbol_key']);self.assertEqual(3,row['end_line']-row['start_line']+1)
      self.assertNotIn('statewrite',row['method_evidence'].split());self.assertIn('stateread',row['method_evidence'].split())
 
+class ValidationWriteOperatorTests(unittest.TestCase):
+ def hints(self,source,path='Source.ts'):
+  return callable_behavior_hints(SimpleNamespace(name='sample',file_path=path),source)
+ def test_existing_read_comparisons_and_arrow_are_not_assignment(self):
+  for op in ['==','===','!=','!==','<=','>=','=>']:
+   for space in ['', ' ', '\n']:
+    with self.subTest(op=op,space=space):self.assertNotIn('statewrite',self.hints('sample(){return this.count'+space+op+'2}'))
+ def test_true_assignment_arrow_value_and_mixed_operation_survive(self):
+  for source in ['sample(){ this.callback = () => run() }','sample(){if(this.count===2){this.count=3}}','sample(){this.count += 1}','sample(){this.count--}']:
+   self.assertIn('statewrite',self.hints(source))
+ def test_unknown_lexical_source_still_uses_operator_boundary_without_proof(self):
+  self.assertNotIn("statewrite",self.hints('sample(){const p=/"/; return this.count===2}'))
+  self.assertIn("statewrite",self.hints('sample(){const p=/"/; this.count=2}'))
+  self.assertIn("statewrite",self.hints("sample(){return /this.count=2/}"))
+ def test_ascii_field_recognition_is_not_expanded(self):
+  for field in ["café","a变量"]:
+   self.assertNotIn("statewrite",self.hints("sample(){this."+field+"=2}"))
+ def test_unvalidated_languages_keep_their_old_comparison_hint(self):
+  for suffix in ['.py','.cpp','.java','.js','']:
+   self.assertIn('statewrite',self.hints('sample(){return this.count==2}','Other'+suffix))
+
 if __name__=='__main__':unittest.main()
