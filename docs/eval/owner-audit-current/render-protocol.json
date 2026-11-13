@@ -1,0 +1,51 @@
+{
+  "classification": "independent Development",
+  "sources": {
+    "MessageSurface.ets": "@Component\nexport struct MessageSurface {\n  content: string = ''\n  build() {\n    Column() { Text(this.plainBody()) }\n  }\n  plainBody(): string {\n    return this.content.replace('<p>', '').replace('</p>', '')\n  }\n}\n",
+    "MessageRecord.ets": "export class MessageRecord {\n  content: string = ''\n  title: string = ''\n}\n",
+    "DetailPanel.ets": "@Component\nexport struct DetailPanel {\n  build() {\n    Column() { Text('Message details') }\n  }\n}\n",
+    "DisplaySettings.ets": "export class DisplaySettings {\n  displayName: string = ''\n  saveName(): void {\n    this.displayName = this.displayName.trim()\n  }\n}\n"
+  },
+  "queries": [
+    [
+      "generic",
+      "Message details still display markup tags. Locate the UI rendering cleanup owner rather than the message data entity.",
+      [
+        "MessageSurface.ets"
+      ],
+      [
+        "DetailPanel.ets",
+        "DisplaySettings.ets",
+        "MessageRecord.ets"
+      ]
+    ],
+    [
+      "explicit",
+      "Locate MessageSurface.plainBody source.",
+      [
+        "MessageSurface.ets"
+      ],
+      [
+        "DetailPanel.ets",
+        "DisplaySettings.ets"
+      ]
+    ],
+    [
+      "two",
+      "Locate MessageSurface.plainBody and DetailPanel.build source.",
+      [
+        "MessageSurface.ets",
+        "DetailPanel.ets"
+      ],
+      []
+    ],
+    [
+      "literal",
+      "Find the literal Message details.",
+      [
+        "DetailPanel.ets"
+      ],
+      []
+    ]
+  ]
+}

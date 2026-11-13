@@ -1,0 +1,90 @@
+{
+  "domain-model-versus-render-owner": {
+    "old_baseline": "7850d2a",
+    "old_pass": 2,
+    "current_baseline": "134cfcb",
+    "current_pass": 2,
+    "current_failures": [
+      {
+        "variant": "original",
+        "paths": [
+          "src/pages/AccountSettingsPage.ets",
+          "src/pages/NotificationDetailsPage.ets",
+          "src/views/ArticleMarkupView.ets"
+        ],
+        "missing_spans": [],
+        "checks": {
+          "compact_schema_returned": true,
+          "context_within_budget": true,
+          "expected_anchors_within_top_k": true,
+          "minimum_anchor_precision_met": false,
+          "minimum_source_span_recall_met": true,
+          "expected_anchors_recalled": true,
+          "forbidden_anchors_absent": true,
+          "expected_source_excerpt_returned": true
+        }
+      }
+    ]
+  },
+  "query-conditioned-component-lineage": {
+    "old_baseline": "7850d2a",
+    "old_pass": 2,
+    "current_baseline": "134cfcb",
+    "current_pass": 3,
+    "current_failures": []
+  },
+  "keyboard-focus-state-owner": {
+    "old_baseline": "7850d2a",
+    "old_pass": 2,
+    "current_baseline": "134cfcb",
+    "current_pass": 2,
+    "current_failures": [
+      {
+        "variant": "original",
+        "paths": [
+          "src/components/KeyboardFocusHint.ets",
+          "src/pages/EditorKeyboardPage.ets",
+          "src/web/DesktopEditorFocusController.ets"
+        ],
+        "missing_spans": [],
+        "checks": {
+          "compact_schema_returned": true,
+          "context_within_budget": true,
+          "expected_anchors_within_top_k": true,
+          "minimum_anchor_precision_met": false,
+          "minimum_source_span_recall_met": true,
+          "expected_anchors_recalled": true,
+          "forbidden_anchors_absent": false,
+          "expected_source_excerpt_returned": true
+        }
+      }
+    ]
+  },
+  "comparison-target-visual-state-owner": {
+    "old_baseline": "7850d2a",
+    "old_pass": 2,
+    "current_baseline": "134cfcb",
+    "current_pass": 2,
+    "current_failures": [
+      {
+        "variant": "zh-noise",
+        "paths": [
+          "src/pages/EditorKeyboardPage.ets",
+          "src/pages/RuleEditorPage.ets",
+          "src/web/DesktopEditorFocusController.ets"
+        ],
+        "missing_spans": [],
+        "checks": {
+          "compact_schema_returned": true,
+          "context_within_budget": true,
+          "expected_anchors_within_top_k": true,
+          "minimum_anchor_precision_met": false,
+          "minimum_source_span_recall_met": true,
+          "expected_anchors_recalled": true,
+          "forbidden_anchors_absent": true,
+          "expected_source_excerpt_returned": true
+        }
+      }
+    ]
+  }
+}

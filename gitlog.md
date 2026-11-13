@@ -11396,3 +11396,15 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   Stop serving changes rather than lowering proof or multi-target protections.
 - Retain focused evidence in docs/eval/restore-current-20261114. No runtime/test
   edits, full aggregate, holdout rerun, remote publication or new repair claim.
+
+## 2026-11-14 — Audit render, lineage, keyboard and comparison remaining groups
+
+- Recheck four requested scenarios on 134cfcb separately: render2/3, keyboard2/3,
+  comparison2/3; lineage3/3. Prior23e00f1 runtime already lineage3/3, so no new
+  stage attribution or repair count. All current failed variants contain required spans.
+- Freeze and run independent render-vs-record/details/name-trim public fixture:
+  generic fails, explicit callable/literal and requested dual-source retention hold.
+  Class-level lexical evidence has no proved cleanup-to-render flow; do not add weights.
+- Record per-group first observed admission and missing event-callback/state-binding
+  contracts in docs/eval/owner-audit-current/README.md. No runtime/oracle changes,
+  full suite, new holdout or remote write. All new Python files retain fingerprint.
