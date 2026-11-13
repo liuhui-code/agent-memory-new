@@ -1,0 +1,146 @@
+{
+  "operation": "copy-only application of existing minimize_callable_evidence; no serving change",
+  "before_estimated_tokens": 1490,
+  "after_estimated_tokens": 1144,
+  "before": {
+    "schema_version": "agent-callable-evidence/v1",
+    "certainty": "bounded",
+    "primary": {
+      "file_path": "src/stores/LightingStore.ets",
+      "symbol": "refreshState",
+      "owner_name": "LightingStore",
+      "owner_kind": "store",
+      "file_structural_coverage": 4,
+      "callable_roles": [
+        "async",
+        "state_write",
+        "source_operation_checked:v2.1",
+        "source_operation:persistenceread"
+      ],
+      "score": 34.0,
+      "evidence_score": 34.0,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 9,
+        "end_line": 12,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "alternatives": [
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "symbol": "dispatchCommit",
+        "owner_name": "OrderActionButton",
+        "owner_kind": "class",
+        "file_structural_coverage": 1,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 24.5,
+        "evidence_score": 24.5,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 6,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "onActionStart",
+        "owner_name": "CanvasInteractionSurface",
+        "owner_kind": "component",
+        "file_structural_coverage": 1,
+        "callable_roles": [
+          "state_write",
+          "source_operation_checked:v2.1"
+        ],
+        "score": 23.02,
+        "evidence_score": 23.02,
+        "reasons": [
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence",
+          "first_stage_rank_prior"
+        ],
+        "source_range": {
+          "start_line": 11,
+          "end_line": 13,
+          "selection_reason": "semantic_mechanism_window"
+        }
+      }
+    ],
+    "boundary": "retrieval_evidence_not_root_cause"
+  },
+  "after": {
+    "schema_version": "agent-callable-evidence/v1",
+    "certainty": "bounded",
+    "primary": {
+      "file_path": "src/stores/LightingStore.ets",
+      "symbol": "refreshState",
+      "owner_kind": "store",
+      "source_range": {
+        "start_line": 9,
+        "end_line": 12,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "alternatives": []
+  },
+  "removed_primary_fields": {
+    "owner_name": "LightingStore",
+    "file_structural_coverage": 4,
+    "callable_roles": [
+      "async",
+      "state_write",
+      "source_operation_checked:v2.1",
+      "source_operation:persistenceread"
+    ],
+    "score": 34.0,
+    "evidence_score": 34.0,
+    "reasons": [
+      "expanded_query:symbol",
+      "expanded_query:summary",
+      "expanded_query:method_evidence",
+      "first_stage_rank_prior"
+    ]
+  },
+  "lost_alternative_identities_not_in_anchors": [
+    {
+      "file_path": "src/actions/OrderActionButton.ets",
+      "symbol": "dispatchCommit",
+      "owner_name": "OrderActionButton",
+      "source_range": {
+        "start_line": 6,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    {
+      "file_path": "src/views/CanvasInteractionSurface.ets",
+      "symbol": "onActionStart",
+      "owner_name": "CanvasInteractionSurface",
+      "source_range": {
+        "start_line": 11,
+        "end_line": 13,
+        "selection_reason": "semantic_mechanism_window"
+      }
+    }
+  ],
+  "untouched_groups": [
+    "code_anchors",
+    "log_anchors",
+    "path_context",
+    "source_freshness"
+  ]
+}

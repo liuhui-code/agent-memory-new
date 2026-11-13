@@ -11365,3 +11365,11 @@ Evidence: `docs/eval/data-topic-expansion-20261114/README.md`.
 
 - Restrict inferred reference types to known wiki/log source tags; a future/unknown source tag must not default to code_log_statement. Keep legacy record_ids, and add a collision regression ensuring unknown provenance cannot select a log relation.
 - No known caller behavior changes; focused integrated tests are rerun before publication.
+
+
+## 2026-11-14 — Audit partial-source budget strategy admission
+
+Existing metadata fallback would remove unique alternative identities/ranges and
+primary operation roles. Copy-only loss audit fails required identity/mechanism
+retention; stopped before runtime implementation. No lossless or repaired claim.
+See `docs/eval/partial-source-budget-feasibility-20261114/README.md`.
