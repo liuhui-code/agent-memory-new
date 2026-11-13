@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from .text import json_list, tokenize, unique_list
+from .query_log_owner_admission import admitted_log_owners
 
 
 MAX_KEYWORDS = 20
@@ -23,7 +24,7 @@ def build_query_handoff(query: str, data: dict[str, list[dict[str, Any]]]) -> di
         "input_query": query,
         "log_keywords": log_keywords(query, logs),
         "log_anchors": [compact_log_anchor(item) for item in logs[:MAX_ANCHORS]],
-        "code_anchors": code_anchors(wiki, logs),
+        "code_anchors": code_anchors(wiki, admitted_log_owners(wiki, logs, query)),
         "experience_refs": [compact_experience(item) for item in reflections[:MAX_ANCHORS]],
         "semantic_refs": [compact_semantic(item) for item in semantics[:MAX_ANCHORS]],
         "next_query_contract": {
