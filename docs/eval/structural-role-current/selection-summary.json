@@ -1,0 +1,342 @@
+[
+  {
+    "stage": "preserve_structural_boundary_neighbors",
+    "query": "Native color parsing mishandles an opaque system-bar value; return the conversion method rather than appearance settings.",
+    "structural_boundary_query": true,
+    "target_scope": {
+      "kind": "unknown",
+      "basis": [
+        "no_explicit_target_scope"
+      ]
+    },
+    "additions": [
+      {
+        "kind": "symbol",
+        "file_path": "src/entities/FacetRecord.ets",
+        "symbol": "FacetRecord",
+        "owner_name": "",
+        "start_line": 1,
+        "end_line": 4,
+        "method_evidence": "",
+        "string_evidence": "",
+        "match_reasons": [
+          "graph_neighbor",
+          "graph_relation:imports"
+        ],
+        "graph_depth": 1,
+        "score": 3.188,
+        "semantic_behavior_coverage": null,
+        "source_fields_present": true,
+        "source_matches": [],
+        "redundant": false
+      }
+    ]
+  },
+  {
+    "stage": "preserve_salient_evidence_candidates",
+    "query": "Native color parsing mishandles an opaque system-bar value; return the conversion method rather than appearance settings.",
+    "structural_boundary_query": true,
+    "target_scope": {
+      "kind": "unknown",
+      "basis": [
+        "no_explicit_target_scope"
+      ]
+    },
+    "additions": [
+      {
+        "kind": "file",
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "symbol": "MessageActionBar",
+        "owner_name": null,
+        "start_line": 2,
+        "end_line": 9,
+        "method_evidence": null,
+        "string_evidence": null,
+        "match_reasons": [
+          "file_summary",
+          "search_terms",
+          "exact_path_segment",
+          "salient_query_evidence"
+        ],
+        "graph_depth": null,
+        "score": 25.8,
+        "semantic_behavior_coverage": null,
+        "source_fields_present": false,
+        "source_matches": [],
+        "redundant": false
+      },
+      {
+        "kind": "symbol",
+        "file_path": "src/io/ClipboardContentReader.ets",
+        "symbol": "readPlainText",
+        "owner_name": "ClipboardContentReader",
+        "start_line": 4,
+        "end_line": 11,
+        "method_evidence": "pasteboard getsystempasteboard get system board getdata data getrecordcount record count getrecordat read plain text asyncboundary async guardreturn guard",
+        "string_evidence": "",
+        "match_reasons": [
+          "symbol_summary",
+          "search_terms",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 12.5,
+        "semantic_behavior_coverage": 0,
+        "source_fields_present": true,
+        "source_matches": [
+          "system-bar"
+        ],
+        "redundant": false
+      }
+    ]
+  },
+  {
+    "stage": "preserve_structural_boundary_neighbors",
+    "query": "Native color parsing mishandles an opaque system-bar value; return the conversion method rather than appearance settings.",
+    "structural_boundary_query": true,
+    "target_scope": {
+      "kind": "unknown",
+      "basis": [
+        "no_explicit_target_scope"
+      ]
+    },
+    "additions": [
+      {
+        "kind": "symbol",
+        "file_path": "src/entities/FacetRecord.ets",
+        "symbol": "FacetRecord",
+        "owner_name": "",
+        "start_line": 1,
+        "end_line": 4,
+        "method_evidence": "",
+        "string_evidence": "",
+        "match_reasons": [
+          "graph_neighbor",
+          "graph_relation:imports"
+        ],
+        "graph_depth": 1,
+        "score": 3.188,
+        "semantic_behavior_coverage": null,
+        "source_fields_present": true,
+        "source_matches": [],
+        "redundant": false
+      }
+    ]
+  },
+  {
+    "stage": "preserve_salient_evidence_candidates",
+    "query": "Native color parsing mishandles an opaque system-bar value; return the conversion method rather than appearance settings.",
+    "structural_boundary_query": true,
+    "target_scope": {
+      "kind": "unknown",
+      "basis": [
+        "no_explicit_target_scope"
+      ]
+    },
+    "additions": [
+      {
+        "kind": "file",
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "symbol": "MessageActionBar",
+        "owner_name": null,
+        "start_line": 2,
+        "end_line": 9,
+        "method_evidence": null,
+        "string_evidence": null,
+        "match_reasons": [
+          "file_summary",
+          "search_terms",
+          "exact_path_segment",
+          "salient_query_evidence"
+        ],
+        "graph_depth": null,
+        "score": 25.8,
+        "semantic_behavior_coverage": null,
+        "source_fields_present": false,
+        "source_matches": [],
+        "redundant": false
+      },
+      {
+        "kind": "symbol",
+        "file_path": "src/io/ClipboardContentReader.ets",
+        "symbol": "readPlainText",
+        "owner_name": "ClipboardContentReader",
+        "start_line": 4,
+        "end_line": 11,
+        "method_evidence": "pasteboard getsystempasteboard get system board getdata data getrecordcount record count getrecordat read plain text asyncboundary async guardreturn guard",
+        "string_evidence": "",
+        "match_reasons": [
+          "symbol_summary",
+          "search_terms",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 12.5,
+        "semantic_behavior_coverage": 0,
+        "source_fields_present": true,
+        "source_matches": [
+          "system-bar"
+        ],
+        "redundant": false
+      }
+    ]
+  },
+  {
+    "stage": "preserve_structural_boundary_neighbors",
+    "query": "The embedded document WebView permits dangerous file and script URL schemes. Locate executable access and navigation policy ownership.",
+    "structural_boundary_query": false,
+    "target_scope": {
+      "kind": "multiple",
+      "basis": [
+        "conjoined_evidence_cue"
+      ]
+    },
+    "additions": []
+  },
+  {
+    "stage": "preserve_salient_evidence_candidates",
+    "query": "The embedded document WebView permits dangerous file and script URL schemes. Locate executable access and navigation policy ownership.",
+    "structural_boundary_query": false,
+    "target_scope": {
+      "kind": "multiple",
+      "basis": [
+        "conjoined_evidence_cue"
+      ]
+    },
+    "additions": [
+      {
+        "kind": "symbol",
+        "file_path": "src/pages/DocumentBrowserSettingsPage.ets",
+        "symbol": "build",
+        "owner_name": "DocumentBrowserSettingsPage",
+        "start_line": 3,
+        "end_line": 8,
+        "method_evidence": "column text",
+        "string_evidence": "embedded browser url scheme policy file and script access are disabled",
+        "match_reasons": [
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 67.0,
+        "semantic_behavior_coverage": 0,
+        "source_fields_present": true,
+        "source_matches": [
+          "access",
+          "policy",
+          "schemes"
+        ],
+        "redundant": false
+      },
+      {
+        "kind": "file",
+        "file_path": "src/components/NavigationToolbar.ets",
+        "symbol": "NavigationToolbar",
+        "owner_name": null,
+        "start_line": 2,
+        "end_line": 16,
+        "method_evidence": null,
+        "string_evidence": null,
+        "match_reasons": [
+          "file_path",
+          "file_summary",
+          "search_terms",
+          "exact_path_segment",
+          "salient_query_evidence"
+        ],
+        "graph_depth": null,
+        "score": 30.6,
+        "semantic_behavior_coverage": null,
+        "source_fields_present": false,
+        "source_matches": [],
+        "redundant": false
+      }
+    ]
+  },
+  {
+    "stage": "preserve_structural_boundary_neighbors",
+    "query": "The embedded document WebView permits dangerous file and script URL schemes. Locate executable access and navigation policy ownership.",
+    "structural_boundary_query": false,
+    "target_scope": {
+      "kind": "multiple",
+      "basis": [
+        "conjoined_evidence_cue"
+      ]
+    },
+    "additions": []
+  },
+  {
+    "stage": "preserve_salient_evidence_candidates",
+    "query": "The embedded document WebView permits dangerous file and script URL schemes. Locate executable access and navigation policy ownership.",
+    "structural_boundary_query": false,
+    "target_scope": {
+      "kind": "multiple",
+      "basis": [
+        "conjoined_evidence_cue"
+      ]
+    },
+    "additions": [
+      {
+        "kind": "symbol",
+        "file_path": "src/pages/DocumentBrowserSettingsPage.ets",
+        "symbol": "build",
+        "owner_name": "DocumentBrowserSettingsPage",
+        "start_line": 3,
+        "end_line": 8,
+        "method_evidence": "column text",
+        "string_evidence": "embedded browser url scheme policy file and script access are disabled",
+        "match_reasons": [
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 67.0,
+        "semantic_behavior_coverage": 0,
+        "source_fields_present": true,
+        "source_matches": [
+          "access",
+          "policy",
+          "schemes"
+        ],
+        "redundant": false
+      },
+      {
+        "kind": "file",
+        "file_path": "src/components/NavigationToolbar.ets",
+        "symbol": "NavigationToolbar",
+        "owner_name": null,
+        "start_line": 2,
+        "end_line": 16,
+        "method_evidence": null,
+        "string_evidence": null,
+        "match_reasons": [
+          "file_path",
+          "file_summary",
+          "search_terms",
+          "exact_path_segment",
+          "salient_query_evidence"
+        ],
+        "graph_depth": null,
+        "score": 30.6,
+        "semantic_behavior_coverage": null,
+        "source_fields_present": false,
+        "source_matches": [],
+        "redundant": false
+      }
+    ]
+  }
+]

@@ -11533,3 +11533,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   substring were rerun on baseline and candidate (9 variants). Both are 7/9,
   every individual pass/fail unchanged; no prior pass regressed. See affected
   before/after evidence in the same directory.
+
+
+## Structural role ownership diagnostic (Development)
+
+- Rechecked only native-color and WebView-policy three-variant groups on a6c1d93: each 2/3; no runtime changes or new repair attribution.
+- Traced exact structural/salient additions without altering public anchor outputs; WebView does not activate the structural predicate.
+- Froze and ran independent operation, declaration, composite and logging controls; retained two red boundaries instead of changing weights or oracles.
+- Corrected source-span reporting: overlap success is not full excerpt delivery; compact excerpts remain budget-truncated.
+- 20 existing related tests pass; no full evaluation. Details: docs/eval/structural-role-current/README.md.
