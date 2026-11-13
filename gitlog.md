@@ -11244,3 +11244,14 @@ inconsistency is still open. See docs/evidence/owner-integration/RESULT.md.
 - Verify AST equivalence and preserve all original bytes after the header.
 - Fingerprint, path-suffix and structural query exclusion focused checks: 11 pass.
   No full gate run. Evidence: docs/evidence/fingerprint-followup/result.md.
+
+## 2026-11-13 — Preserve output-loop competition diagnosis, reject marker-only fix
+
+- Independent public competition returns a descriptive label over a real reader
+  loop. Existing process-output group remains 1/3.
+- Existing method-marker trial improves neither; revert it and retain its patch.
+- Trace the real collector through recall/focus to loss at diversity/budget
+  selection, distinct from archive's strong-identity focus loss.
+- Freeze protocol and observations without modifying original case expectations,
+  selection thresholds, or runtime. No full suite run.
+  See docs/evidence/output-loop-followup/result.md.

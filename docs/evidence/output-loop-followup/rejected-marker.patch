@@ -1,0 +1,23 @@
+diff --git a/tools/agent_memory_runtime/callable_behavior_hints.py b/tools/agent_memory_runtime/callable_behavior_hints.py
+index 8c7e437..3667c7f 100644
+--- a/tools/agent_memory_runtime/callable_behavior_hints.py
++++ b/tools/agent_memory_runtime/callable_behavior_hints.py
+@@ -6,7 +6,7 @@ import re
+ from pathlib import Path
+ from typing import Any
+ 
+-from .arkts_behavior_markers import CALLBACK_CLEANUP_RE, ASYNC_ORDER_GUARD_RE
++from .arkts_behavior_markers import CALLBACK_CLEANUP_RE, ASYNC_ORDER_GUARD_RE, OUTPUT_LOOP_RE, OUTPUT_READ_RE, OUTPUT_ACCUMULATION_RE
+ 
+ 
+ LIFECYCLE_NAMES = {
+@@ -85,6 +85,9 @@ def event_collection_hints(entity: Any, source: str) -> list[str]:
+     # Abstain for ambiguous slash-containing bodies rather than index its text.
+     if ("=>" not in body and "/" not in body and nested_method is None
+             and not re.search(r"\b(?:function|class)\b", body)):
++        if (OUTPUT_LOOP_RE.search(body) and OUTPUT_READ_RE.search(body)
++                and OUTPUT_ACCUMULATION_RE.search(body)):
++            result.append("outputreadloop")
+         if INDEX_WRITE_RE.search(body):
+             result.append("collectionwrite")
+         if ASYNC_ORDER_GUARD_RE.search(body) and re.search(r"\basync\b|\bawait\b", code):
