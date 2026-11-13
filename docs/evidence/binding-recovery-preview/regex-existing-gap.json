@@ -1,0 +1,20 @@
+{
+  "source": "const pattern = /\\.onClick(() => {})/;",
+  "baseline": [
+    {
+      "symbol": "onClick",
+      "start_line": 1,
+      "end_line": 1,
+      "selection_reason": "arkts_dsl_callback_window"
+    }
+  ],
+  "candidate": [
+    {
+      "symbol": "onClick",
+      "start_line": 1,
+      "end_line": 1,
+      "selection_reason": "arkts_dsl_callback_window"
+    }
+  ],
+  "classification": "existing unsupported regex-literal lexical gap; not fixed; not a new regression"
+}

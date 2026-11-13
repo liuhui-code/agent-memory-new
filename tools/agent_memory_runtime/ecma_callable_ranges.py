@@ -6,6 +6,7 @@ import re
 from typing import Any
 
 from .ecma_braces import block_end
+from .ecma_callback_mask import callback_mask_lines
 from .ecma_callable_body import callable_block_end
 from .ecma_callable_headers import CONTROL_NAMES, named_callable_header
 
@@ -71,15 +72,18 @@ def property_callback_ranges(lines: list[str]) -> list[dict[str, Any]]:
 
 def member_callback_ranges(lines: list[str]) -> list[dict[str, Any]]:
     result: list[dict[str, Any]] = []
-    for index, line in enumerate(lines):
+    masked = callback_mask_lines(lines)
+    if masked is None:
+        masked = lines
+    for index, line in enumerate(masked):
         match = MEMBER_CALLBACK_RE.search(line)
         if match is None:
             continue
-        arrow_line = callback_arrow_line(lines, index, match.start())
+        arrow_line = callback_arrow_line(masked, index, match.start())
         if arrow_line is None:
             continue
         result.append(source_range(
-            match.group(1), index, block_end(lines, arrow_line), "arkts_dsl_callback_window",
+            match.group(1), index, block_end(masked, arrow_line), "arkts_dsl_callback_window",
         ))
         if len(result) >= MAX_CALLBACK_RANGES:
             break

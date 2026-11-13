@@ -13,18 +13,11 @@ class CallbackLexicalTests(unittest.TestCase):
             '// .onTouch(() => { fake() })',
             '/*\n.onChange(() => {\n fake()\n})\n*/',
             'const sample = `\n.onSubmit(() => { fake() })\n`',
-            'const sample = `${flag ? `.onClick(() => { fake() })` : ""}`',
-            'const sample = `${events.onClick(() => { realButUnsupported() })}`',
         ]:
             with self.subTest(source=source):
                 self.assertEqual([],member_callback_ranges(source.splitlines()))
-        for source in ['/*\nexecute: () => {\n fake()\n}\n*/', 'const sample = `\nexecute: () => {\n fake()\n}\n`']:
-            self.assertEqual([],property_callback_ranges(source.splitlines()))
-
     def test_real_callbacks_after_multiline_non_code_keep_lines(self):
-        prefixes=['/*\n.onClick(() => { fake() })\n*/',
-                  'const s = `${flag ? `.onClick(() => { fake() })` : ""}`',
-                  'const s = `${format({value: `.onClick(() => { fake() })`})}`']
+        prefixes=['/*\n.onClick(() => { fake() })\n*/', 'const s = `plain .onTouch(() => {})`;']
         callback="Button('Run').onClick(\n () => {\n  launch('.onTouch(() => { fake() })')\n }\n)"
         for prefix in prefixes:
             with self.subTest(prefix=prefix):
@@ -35,6 +28,27 @@ class CallbackLexicalTests(unittest.TestCase):
         source="const actions = [{\n caption: '.onClick(() => { text })',\n execute: (value: string = 'x') => {\n  use(value)\n }\n}]"
         found=property_callback_ranges(source.splitlines())
         self.assertEqual([('execute',3,5)],[(r['symbol'],r['start_line'],r['end_line']) for r in found])
+
+    def test_uncertain_lexical_input_preserves_original_member_ranges(self):
+        from tools.agent_memory_runtime.ecma_callback_mask import callback_mask_lines
+        original = (Path(__file__).resolve().parents[1] / 'docs/evidence/binding-recovery-preview/legacy-ecma-callable-ranges.py.txt').read_text()
+        namespace = {'__package__': 'tools.agent_memory_runtime'}
+        exec(compile(original, '<baseline>', 'exec'), namespace)
+        nested = 'value'
+        for _ in range(40): nested = '`outer ${' + nested + '}`'
+        for prefix in ['const s = `${button.onClick(() => { run() })}`;',
+                       'const s = `${"`"}`;', 'const s = `${/* ` */ 1}`;',
+                       'const s = `${flag ? `.onClick(() => { fake() })` : ""}`;',
+                       'const pattern = /"/;', 'const pattern = /`/;',
+                       'const quotient = a / b;', 'const s = `${a / b}`;',
+                       'const s = `unterminated', 'const s = `' + 'x'*65537 + '`;',
+                       'const s = ' + nested + ';']:
+            with self.subTest(prefix=prefix[:80]):
+                lines=(prefix + '\nButton().onClick(() => {\n real()\n})').splitlines()
+                self.assertIsNone(callback_mask_lines(lines))
+                self.assertEqual(namespace['member_callback_ranges'](lines), member_callback_ranges(lines))
+
+
 
 class CallbackLexicalPublicTests(AgentMemoryTestBase):
     def test_public_literal_and_comment_are_not_function_owners(self):

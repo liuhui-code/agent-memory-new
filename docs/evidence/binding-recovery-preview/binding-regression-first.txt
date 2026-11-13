@@ -1,0 +1,17 @@
+.....E.......
+======================================================================
+ERROR: test_fake_callback_in_comment_or_template_rejected (tests.test_context_callback_binding.CallbackBindingContextTests.test_fake_callback_in_comment_or_template_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_context_callback_binding.py", line 46, in test_fake_callback_in_comment_or_template_rejected
+    self.assertIsNone(self.expand(wrapper % "const action = {\n caption: 'Fake',\n execute: () => {\n }\n}"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_context_callback_binding.py", line 11, in expand
+    selected=next(x for x in property_callback_ranges(lines) if x['symbol']=='execute')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.004s
+
+FAILED (errors=1)

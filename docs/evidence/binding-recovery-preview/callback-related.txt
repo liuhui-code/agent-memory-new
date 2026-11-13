@@ -1,0 +1,62 @@
+........................FFFFFF..........F.............................
+======================================================================
+FAIL: test_contaminated_same_name_keeps_old_behavior (tests.test_callback_symbol_multiplicity.CallbackSymbolMultiplicityTests.test_contaminated_same_name_keeps_old_behavior) (language='ArkTS', source='execute: () => {\n}\n/*\nexecute: () => {\n}\n*/\nexecute: () => {\n}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_symbol_multiplicity.py", line 110, in test_contaminated_same_name_keeps_old_behavior
+    self.assertEqual(1, Counter(self.extract(source, language))['execute', 'function'])
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_contaminated_same_name_keeps_old_behavior (tests.test_callback_symbol_multiplicity.CallbackSymbolMultiplicityTests.test_contaminated_same_name_keeps_old_behavior) (language='ArkTS', source='execute: () => {\n}\nconst message = `\nexecute: () => {\n}\n`;\nexecute: () => {\n}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_symbol_multiplicity.py", line 110, in test_contaminated_same_name_keeps_old_behavior
+    self.assertEqual(1, Counter(self.extract(source, language))['execute', 'function'])
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_contaminated_same_name_keeps_old_behavior (tests.test_callback_symbol_multiplicity.CallbackSymbolMultiplicityTests.test_contaminated_same_name_keeps_old_behavior) (language='TypeScript', source='execute: () => {\n}\n/*\nexecute: () => {\n}\n*/\nexecute: () => {\n}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_symbol_multiplicity.py", line 110, in test_contaminated_same_name_keeps_old_behavior
+    self.assertEqual(1, Counter(self.extract(source, language))['execute', 'function'])
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_contaminated_same_name_keeps_old_behavior (tests.test_callback_symbol_multiplicity.CallbackSymbolMultiplicityTests.test_contaminated_same_name_keeps_old_behavior) (language='TypeScript', source='execute: () => {\n}\nconst message = `\nexecute: () => {\n}\n`;\nexecute: () => {\n}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_symbol_multiplicity.py", line 110, in test_contaminated_same_name_keeps_old_behavior
+    self.assertEqual(1, Counter(self.extract(source, language))['execute', 'function'])
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_contaminated_same_name_keeps_old_behavior (tests.test_callback_symbol_multiplicity.CallbackSymbolMultiplicityTests.test_contaminated_same_name_keeps_old_behavior) (language='JavaScript', source='execute: () => {\n}\n/*\nexecute: () => {\n}\n*/\nexecute: () => {\n}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_symbol_multiplicity.py", line 110, in test_contaminated_same_name_keeps_old_behavior
+    self.assertEqual(1, Counter(self.extract(source, language))['execute', 'function'])
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_contaminated_same_name_keeps_old_behavior (tests.test_callback_symbol_multiplicity.CallbackSymbolMultiplicityTests.test_contaminated_same_name_keeps_old_behavior) (language='JavaScript', source='execute: () => {\n}\nconst message = `\nexecute: () => {\n}\n`;\nexecute: () => {\n}\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_symbol_multiplicity.py", line 110, in test_contaminated_same_name_keeps_old_behavior
+    self.assertEqual(1, Counter(self.extract(source, language))['execute', 'function'])
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_unrelated_contaminated_name_does_not_block_real_multiplicity (tests.test_callback_symbol_multiplicity.CallbackSymbolMultiplicityTests.test_unrelated_contaminated_name_does_not_block_real_multiplicity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_symbol_multiplicity.py", line 116, in test_unrelated_contaminated_name_does_not_block_real_multiplicity
+    self.assertEqual(1, counts['other', 'function'])  # unchanged legacy behavior
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0
+
+----------------------------------------------------------------------
+Ran 65 tests in 3.543s
+
+FAILED (failures=7)

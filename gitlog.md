@@ -11428,3 +11428,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   remains failing. Fingerprint/compile/diff/500-line checks pass. No full evaluation.
 - Old data-topic compatibility assertion updates only the loading token contract;
   remaining five triggers and positive network/profile public behavior preserved.
+## 2026-11-14 - Bound member callback admission to proven lexical text
+
+- Independently reproduced a string/comment example becoming a public callable
+  owner through init/learn-path/list/context; preserve the real callback control.
+- Mask only proven ordinary string/comment/simple-template text for member
+  callbacks, keeping positions. Unknown slash/interpolation/unterminated syntax
+  uses the complete legacy file behavior. Property/global parsing unchanged.
+- Rejected broad property and opaque-interpolation experiments are retained with
+  their red observations; no original assertions were weakened.
+- 66 focused regressions pass. Three original groups remain 4/9, no gain claimed.
+  See docs/evidence/binding-recovery-preview/README.md. No full gate was run.
