@@ -1,0 +1,40 @@
+{
+  "classification": "Development prespecified prop-name equivalence control: content to text, relation and queries unchanged",
+  "sources": {
+    "ArticleTile.ets": "import { CitationBlurb } from './CitationBlurb'\n@Component\nexport struct ArticleTile {\n @Prop body: string = ''\n @Prop citation: string = ''\n build() {\n  Column() {\n   Text(this.body).fontSize(18)\n   CitationBlurb({ text: this.citation })\n  }\n }\n}\n",
+    "CitationBlurb.ets": "@Component\nexport struct CitationBlurb {\n @Prop text: string = ''\n build() {\n  Row() { Text(this.text).fontSize(11) }\n }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "natural",
+      "text": "Article tiles and citation blurbs show different text sizes. Return both UI source contexts.",
+      "required": [
+        "ArticleTile.ets",
+        "CitationBlurb.ets"
+      ]
+    },
+    {
+      "id": "typography",
+      "text": "Locate the typography code for article tiles and citation blurbs.",
+      "required": [
+        "ArticleTile.ets",
+        "CitationBlurb.ets"
+      ]
+    },
+    {
+      "id": "named",
+      "text": "Return both ArticleTile and CitationBlurb component sources.",
+      "required": [
+        "ArticleTile.ets",
+        "CitationBlurb.ets"
+      ]
+    },
+    {
+      "id": "single",
+      "text": "Find CitationBlurb component source.",
+      "required": [
+        "CitationBlurb.ets"
+      ]
+    }
+  ]
+}

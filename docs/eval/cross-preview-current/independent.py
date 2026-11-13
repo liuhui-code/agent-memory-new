@@ -4,7 +4,7 @@ from pathlib import Path
 D=Path(__file__).resolve().parent
 sys.path.insert(0,str(D.parents[2]))
 from tests.agent_memory_test_base import AgentMemoryTestBase
-p=json.loads((D/'independent-protocol.json').read_text());b=AgentMemoryTestBase();out={}
+p=json.loads((D/(sys.argv[1] if len(sys.argv)>1 else 'independent-protocol.json')).read_text());b=AgentMemoryTestBase();out={}
 with tempfile.TemporaryDirectory() as tmp:
  root=Path(tmp)
  for name,text in p['sources'].items():(root/name).write_text(text)
@@ -16,4 +16,4 @@ with tempfile.TemporaryDirectory() as tmp:
   row=dict(query=q)
   for mode,flags in [('raw',[]),('compact',['--compact'])]:row[mode]=json.loads(b.run_memory(root,'context','--query',q['text'],*flags,'--json').stdout)
   paths=[a['file_path'] for a in row['compact']['query_handoff']['code_anchors']];row['paths']=paths;row['required_retained']=set(q['required'])<=set(paths);out['queries'].append(row);print(q['id'],paths,row['required_retained'])
-(D/'independent-before.json').write_text(json.dumps(out,indent=2))
+(D/(sys.argv[2] if len(sys.argv)>2 else 'independent-before.json')).write_text(json.dumps(out,indent=2))
