@@ -21,7 +21,37 @@ class SameFileAmbiguityTests(unittest.TestCase):
         self.assertEqual('bounded',callable_evidence(localization(second_score=12))['certainty'])
         self.assertEqual('uncertain',callable_evidence(localization(second_path='Other.ts'))['certainty'])
     def test_same_range_duplicate_does_not_create_ambiguity(self):
-        self.assertEqual('bounded',callable_evidence(localization(second_start=2))['certainty'])
+        data=localization();data['callable_candidates'][1]=copy.deepcopy(data['callable_candidates'][0]);data['source_ranges']=data['source_ranges'][:1]
+        self.assertEqual('bounded',callable_evidence(data)['certainty'])
+
+    def test_equal_range_different_typed_ids_are_not_same_entity(self):
+        self.assertEqual('uncertain',callable_evidence(localization(second_start=2))['certainty'])
+
+    def test_missing_and_legacy_ranges_do_not_invent_identity(self):
+        self.assertEqual('uncertain',callable_evidence(localization(missing=True))['certainty'])
+        data=localization()
+        for row in data['callable_candidates']:row.pop('symbol_id')
+        # Two legacy same-name range rows cannot be bound to one candidate safely.
+        self.assertEqual('uncertain',callable_evidence(data)['certainty'])
+        data=localization();data['callable_candidates'][1]['symbol_id']=True
+        self.assertEqual('uncertain',callable_evidence(data)['certainty'])
+
+    def test_legacy_owner_kind_disagreement_is_not_deduped(self):
+        data=localization();first=data['callable_candidates'][0]
+        first.pop('symbol_id');second=copy.deepcopy(first);second['owner_kind']='object'
+        data['callable_candidates']=[first,second];data['source_ranges']=data['source_ranges'][:1]
+        self.assertEqual('uncertain',callable_evidence(data)['certainty'])
+        second['owner_kind']=first['owner_kind']
+        self.assertEqual('bounded',callable_evidence(data)['certainty'])
+
+    def test_trusted_source_and_typed_precedence_unchanged(self):
+        for flag in ['source_operation_match','typed_contract_match']:
+            data=localization();data['callable_candidates'][0][flag]=True
+            self.assertEqual('bounded',callable_evidence(data)['certainty'])
+        data=localization()
+        for row in data['callable_candidates']:row['typed_contract_match']=True
+        self.assertEqual('uncertain',callable_evidence(data)['certainty'])
+
 
 class SameFileAmbiguityPublicTests(AgentMemoryTestBase):
     def test_unqualified_is_uncertain_but_named_owners_still_resolve(self):

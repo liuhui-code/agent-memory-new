@@ -11647,3 +11647,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Post-action fresh trace confirms absent-primary/selected-anchor mismatch; old independent green lacked that condition and was read, not rerun as a new result.
 - Preserve exact-method, real retry and log controls; identify limited next evidence rather than declaring every remaining category blocked.
 - Targeted contracts/focus and fingerprint checks pass. No full evaluation; see docs/eval/error-contract-first-loss.
+## 2026-11-14 - Keep full source competition when deriving callable certainty
+
+- Independent public unqualified same-file callbacks reveal display diversity
+  erasing a real equal-scored competitor and falsely producing bounded certainty.
+- Separate internal distinct source candidates from capped display alternatives;
+  retain existing score/typed/source-operation branches and output display limits.
+- 71+46 focused tests pass without expected failures; targeted original command,
+  listener and causal groups remain1/3,2/3,3/3. No original-failure gain claimed.
+- Field initializer and nested-member representation remain unimplemented. Freeze
+  correction and remaining presentation limits are documented in
+  docs/evidence/initializer-scope-current/README.md.

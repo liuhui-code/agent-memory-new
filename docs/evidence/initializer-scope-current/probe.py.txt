@@ -1,0 +1,16 @@
+import json,tempfile,subprocess
+from pathlib import Path
+p=Path('docs/evidence/initializer-scope-current');protocol=json.loads((p/'protocol.json').read_text());results={}
+for scenario in protocol['scenarios']:
+ with tempfile.TemporaryDirectory() as d:
+  root=Path(d)/'source';root.mkdir()
+  for name,source in scenario['sources'].items():(root/name).write_text(source)
+  def run(*a):
+   r=subprocess.run(['python','tools/agent_memory.py',*a,'--project',str(root),'--memory-home',d+'/memory'],capture_output=True,text=True,check=True);return json.loads(r.stdout) if '--json' in a else r.stdout
+  run('init');run('learn-path','--path','.')
+  results[scenario['id']]={'symbols':run('list','--type','code-symbol','--json'),'queries':{q:run('context','--query',q,'--compact','--json') for q in scenario['queries']}}
+(p/'public.json').write_text(json.dumps(results,indent=2))
+for k,v in results.items():
+ print(k,[(s['symbol'],s['symbol_type'],s['owner_name'],s['start_line'],s['end_line']) for s in v['symbols']])
+ for q,out in v['queries'].items():
+  h=out['query_handoff'];print(q,h.get('callable_evidence'),[(a['file_path'],a.get('source_ranges')) for a in h['code_anchors']])

@@ -1,0 +1,2024 @@
+{
+  "instance-command-field": {
+    "symbols": [
+      {
+        "id": 5,
+        "project_id": "168f5a9fa340b192",
+        "file_path": "TransferWorker.ts",
+        "symbol": "sendDraft",
+        "symbol_type": "function",
+        "summary": "function sendDraft in TransferWorker.ts; identifier terms: send draft",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:fbc7264a7ef10ce5024799c6",
+        "qualified_name": "TransferWorker.sendDraft",
+        "signature": "sendDraft():void",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "2c9c516b0e6f266cb103864d28c55ae6e4a360b096fbfcdd39e7303b413ce999",
+        "evidence_class": "static",
+        "method_evidence": "transport send draft stateread state read",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:transport.send\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":3,\"source_key\":\"symbol:fbc7264a7ef10ce5024799c6\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "TransferWorker",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:40+00:00"
+      },
+      {
+        "id": 4,
+        "project_id": "168f5a9fa340b192",
+        "file_path": "TransferWorker.ts",
+        "symbol": "TransferWorker",
+        "symbol_type": "class",
+        "summary": "class TransferWorker in TransferWorker.ts; identifier terms: transfer worker",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:dc9fdeac7b5507686628f2c9",
+        "qualified_name": "TransferWorker",
+        "signature": "class TransferWorker",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "2c9c516b0e6f266cb103864d28c55ae6e4a360b096fbfcdd39e7303b413ce999",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:40+00:00"
+      },
+      {
+        "id": 3,
+        "project_id": "168f5a9fa340b192",
+        "file_path": "ActionDeck.ts",
+        "symbol": "execute",
+        "symbol_type": "function",
+        "summary": "function execute in ActionDeck.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:8982465278f79f7e6acf7fc6",
+        "qualified_name": "ActionDeck.execute@11",
+        "signature": "callback execute@11",
+        "start_line": 11,
+        "end_line": 13,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0cbe7b0dfb2b503858549f178360a36eaf2b674254ae5d19833ea18c4afbd592",
+        "evidence_class": "static",
+        "method_evidence": "service cleardraft clear draft stateread state read",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:service.cleardraft\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":12,\"source_key\":\"symbol:8982465278f79f7e6acf7fc6\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "ActionDeck",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:40+00:00"
+      },
+      {
+        "id": 2,
+        "project_id": "168f5a9fa340b192",
+        "file_path": "ActionDeck.ts",
+        "symbol": "execute",
+        "symbol_type": "function",
+        "summary": "function execute in ActionDeck.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:8e87b56be838b5b6f2661afc",
+        "qualified_name": "ActionDeck.execute@5",
+        "signature": "callback execute@5",
+        "start_line": 5,
+        "end_line": 7,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0cbe7b0dfb2b503858549f178360a36eaf2b674254ae5d19833ea18c4afbd592",
+        "evidence_class": "static",
+        "method_evidence": "service senddraft send draft stateread state read",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:service.senddraft\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:8e87b56be838b5b6f2661afc\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "ActionDeck",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:40+00:00"
+      },
+      {
+        "id": 1,
+        "project_id": "168f5a9fa340b192",
+        "file_path": "ActionDeck.ts",
+        "symbol": "ActionDeck",
+        "symbol_type": "class",
+        "summary": "class ActionDeck in ActionDeck.ts; identifier terms: action deck",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:1cf6a859cc6effdcfa9e8680",
+        "qualified_name": "ActionDeck",
+        "signature": "class ActionDeck",
+        "start_line": 1,
+        "end_line": 16,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0cbe7b0dfb2b503858549f178360a36eaf2b674254ae5d19833ea18c4afbd592",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:40+00:00"
+      }
+    ],
+    "queries": {
+      "Locate the Upload draft command title and its execute binding.": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "168f5a9fa340b192",
+        "query": "Locate the Upload draft command title and its execute binding.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "locate",
+            "upload",
+            "draft",
+            "command",
+            "title",
+            "execute",
+            "binding"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "ActionDeck.ts",
+              "symbol": "execute",
+              "symbol_type": "function",
+              "record_ids": [
+                2
+              ],
+              "record_type": "code_symbol",
+              "source_ranges": [
+                {
+                  "symbol": "execute",
+                  "start_line": 5,
+                  "end_line": 7
+                }
+              ],
+              "read_window": {
+                "start_line": 5,
+                "end_line": 7
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "execute",
+                  "start_line": 1,
+                  "end_line": 14,
+                  "content": "export class ActionDeck {\n commands = [\n  {\n   title: 'Upload draft',\n   execute: () => {\n    this.service.sendDraft()\n   }\n  },\n  {\n   title: 'Discard draft',\n   execute: () => {\n    this.service.clearDraft()\n   }\n  }",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            },
+            {
+              "file_path": "TransferWorker.ts",
+              "symbol": "sendDraft",
+              "symbol_type": "function",
+              "record_ids": [
+                5
+              ],
+              "record_type": "code_symbol",
+              "source_ranges": [
+                {
+                  "symbol": "sendDraft",
+                  "start_line": 2,
+                  "end_line": 4
+                }
+              ],
+              "read_window": {
+                "start_line": 2,
+                "end_line": 4
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "sendDraft",
+                  "start_line": 1,
+                  "end_line": 5,
+                  "content": "export class TransferWorker {\n sendDraft(): void {\n  this.transport.send()\n }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "uncertain",
+            "primary": {
+              "file_path": "ActionDeck.ts",
+              "symbol": "execute",
+              "owner_name": "ActionDeck",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 34.705,
+              "evidence_score": 34.705,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence"
+              ],
+              "source_range": {
+                "start_line": 5,
+                "end_line": 7,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [
+              {
+                "file_path": "TransferWorker.ts",
+                "symbol": "sendDraft",
+                "owner_name": "TransferWorker",
+                "owner_kind": "class",
+                "callable_roles": [
+                  "source_operation_checked:v2.1"
+                ],
+                "score": 19.455,
+                "evidence_score": 19.455,
+                "reasons": [
+                  "expanded_query:symbol",
+                  "expanded_query:summary",
+                  "expanded_query:method_evidence",
+                  "first_stage_rank_prior"
+                ],
+                "source_range": {
+                  "start_line": 2,
+                  "end_line": 4,
+                  "selection_reason": "callable_symbol_range"
+                }
+              }
+            ],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 2,
+            "excerpt_chars": 297
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 1130,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      },
+      "Locate ActionDeck.commands field initializer.": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "168f5a9fa340b192",
+        "query": "Locate ActionDeck.commands field initializer.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "locate",
+            "actiondeck",
+            "commands",
+            "field",
+            "initializer"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "ActionDeck.ts",
+              "symbol": "ActionDeck",
+              "symbol_type": "class",
+              "record_ids": [
+                1,
+                2
+              ],
+              "source_ranges": [
+                {
+                  "symbol": "ActionDeck",
+                  "start_line": 1,
+                  "end_line": 16
+                },
+                {
+                  "symbol": "execute",
+                  "start_line": 5,
+                  "end_line": 7
+                }
+              ],
+              "record_type": "code_symbol",
+              "read_window": {
+                "start_line": 1,
+                "end_line": 16
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": null,
+                  "start_line": 1,
+                  "end_line": 9,
+                  "content": "export class ActionDeck {\n commands = [\n  {\n   title: 'Upload draft',\n   execute: () => {\n    this.service.sendDraft()\n   }\n  },\n  {",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "uncertain",
+            "primary": {
+              "file_path": "ActionDeck.ts",
+              "symbol": "execute",
+              "owner_name": "ActionDeck",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 22.0,
+              "evidence_score": 22.0,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "expanded_query:file_path"
+              ],
+              "source_range": {
+                "start_line": 5,
+                "end_line": 7,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 132
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 861,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      },
+      "Locate TransferWorker.sendDraft.": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "168f5a9fa340b192",
+        "query": "Locate TransferWorker.sendDraft.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "locate",
+            "transferworker",
+            "senddraft"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "TransferWorker.ts",
+              "symbol": "sendDraft",
+              "symbol_type": "function",
+              "record_ids": [
+                5,
+                4
+              ],
+              "source_ranges": [
+                {
+                  "symbol": "sendDraft",
+                  "start_line": 2,
+                  "end_line": 4
+                },
+                {
+                  "symbol": "TransferWorker",
+                  "start_line": 1,
+                  "end_line": 5
+                }
+              ],
+              "record_type": "code_symbol",
+              "read_window": {
+                "start_line": 1,
+                "end_line": 5
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "sendDraft",
+                  "start_line": 1,
+                  "end_line": 5,
+                  "content": "export class TransferWorker {\n sendDraft(): void {\n  this.transport.send()\n }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "TransferWorker.ts",
+              "symbol": "sendDraft",
+              "owner_name": "TransferWorker",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 54.5,
+              "evidence_score": 54.5,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [
+              {
+                "file_path": "ActionDeck.ts",
+                "symbol": "execute",
+                "owner_name": "ActionDeck",
+                "owner_kind": "class",
+                "callable_roles": [
+                  "source_operation_checked:v2.1"
+                ],
+                "score": 14.58,
+                "evidence_score": 14.58,
+                "reasons": [
+                  "expanded_query:method_evidence",
+                  "first_stage_rank_prior",
+                  "source_locatable",
+                  "salient_query_evidence"
+                ],
+                "source_range": {
+                  "start_line": 5,
+                  "end_line": 7,
+                  "selection_reason": "callable_symbol_range"
+                }
+              }
+            ],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 79
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 948,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    }
+  },
+  "nested-object-owner": {
+    "symbols": [
+      {
+        "id": 4,
+        "project_id": "4a6e21bc357b2dc1",
+        "file_path": "OperationPlan.ts",
+        "symbol": "execute",
+        "symbol_type": "function",
+        "summary": "function execute in OperationPlan.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:fa45649f91ace2c7fc9a9155",
+        "qualified_name": "OperationPlan.execute@10",
+        "signature": "callback execute@10",
+        "start_line": 10,
+        "end_line": 12,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "95136eb4d2d7d1d3bb4337efa27dd9b3d60623d4627daab542a4df51b9586f0d",
+        "evidence_class": "static",
+        "method_evidence": "cleardraft clear draft",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "OperationPlan",
+        "owner_kind": "module",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:42+00:00"
+      },
+      {
+        "id": 3,
+        "project_id": "4a6e21bc357b2dc1",
+        "file_path": "OperationPlan.ts",
+        "symbol": "execute",
+        "symbol_type": "function",
+        "summary": "function execute in OperationPlan.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:248e4af1edb4c00373d980b3",
+        "qualified_name": "OperationPlan.execute@4",
+        "signature": "callback execute@4",
+        "start_line": 4,
+        "end_line": 6,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "95136eb4d2d7d1d3bb4337efa27dd9b3d60623d4627daab542a4df51b9586f0d",
+        "evidence_class": "static",
+        "method_evidence": "senddraft send draft",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "OperationPlan",
+        "owner_kind": "module",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:42+00:00"
+      },
+      {
+        "id": 2,
+        "project_id": "4a6e21bc357b2dc1",
+        "file_path": "OperationPlan.ts",
+        "symbol": "OperationPlan",
+        "symbol_type": "const",
+        "summary": "const OperationPlan in OperationPlan.ts; identifier terms: operation plan",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": null,
+        "qualified_name": null,
+        "signature": null,
+        "start_line": null,
+        "end_line": null,
+        "semantic_adapter": null,
+        "source_digest": "95136eb4d2d7d1d3bb4337efa27dd9b3d60623d4627daab542a4df51b9586f0d",
+        "evidence_class": null,
+        "method_evidence": null,
+        "string_evidence": null,
+        "mechanism_evidence": null,
+        "owner_name": null,
+        "owner_kind": null,
+        "callable_roles": null,
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:42+00:00"
+      },
+      {
+        "id": 1,
+        "project_id": "4a6e21bc357b2dc1",
+        "file_path": "OperationPlan.ts",
+        "symbol": "OperationPlan",
+        "symbol_type": "object",
+        "summary": "object OperationPlan in OperationPlan.ts; identifier terms: operation plan",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:91b210df99c0d7494fca6f98",
+        "qualified_name": "OperationPlan",
+        "signature": "const OperationPlan",
+        "start_line": 1,
+        "end_line": 14,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "95136eb4d2d7d1d3bb4337efa27dd9b3d60623d4627daab542a4df51b9586f0d",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "module",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:42+00:00"
+      }
+    ],
+    "queries": {
+      "Locate OperationPlan.upload.execute.": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "4a6e21bc357b2dc1",
+        "query": "Locate OperationPlan.upload.execute.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "locate",
+            "operationplan",
+            "upload",
+            "execute"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "OperationPlan.ts",
+              "symbol": "execute",
+              "symbol_type": "function",
+              "record_ids": [
+                3,
+                1
+              ],
+              "source_ranges": [
+                {
+                  "symbol": "execute",
+                  "start_line": 4,
+                  "end_line": 6
+                },
+                {
+                  "symbol": "OperationPlan",
+                  "start_line": 1,
+                  "end_line": 14
+                }
+              ],
+              "record_type": "code_symbol",
+              "read_window": {
+                "start_line": 1,
+                "end_line": 14
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": null,
+                  "start_line": 1,
+                  "end_line": 9,
+                  "content": "export const OperationPlan = {\n upload: {\n  title: 'Upload draft',\n  execute: () => {\n   sendDraft()\n  }\n },\n discard: {\n  title: 'Discard draft',",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "uncertain",
+            "primary": {
+              "file_path": "OperationPlan.ts",
+              "symbol": "execute",
+              "owner_name": "OperationPlan",
+              "owner_kind": "module",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 39.5,
+              "evidence_score": 39.5,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 4,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 146
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 861,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      },
+      "Locate OperationPlan.discard.execute.": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "4a6e21bc357b2dc1",
+        "query": "Locate OperationPlan.discard.execute.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "locate",
+            "operationplan",
+            "discard",
+            "execute"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "OperationPlan.ts",
+              "symbol": "execute",
+              "symbol_type": "function",
+              "record_ids": [
+                3,
+                1
+              ],
+              "source_ranges": [
+                {
+                  "symbol": "execute",
+                  "start_line": 4,
+                  "end_line": 6
+                },
+                {
+                  "symbol": "OperationPlan",
+                  "start_line": 1,
+                  "end_line": 14
+                }
+              ],
+              "record_type": "code_symbol",
+              "read_window": {
+                "start_line": 1,
+                "end_line": 14
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "execute",
+                  "start_line": 1,
+                  "end_line": 13,
+                  "content": "export const OperationPlan = {\n upload: {\n  title: 'Upload draft',\n  execute: () => {\n   sendDraft()\n  }\n },\n discard: {\n  title: 'Discard draft',\n  execute: () => {\n   clearDraft()\n  }\n }",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "uncertain",
+            "primary": {
+              "file_path": "OperationPlan.ts",
+              "symbol": "execute",
+              "owner_name": "OperationPlan",
+              "owner_kind": "module",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 39.5,
+              "evidence_score": 39.5,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 4,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 188
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 875,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      },
+      "Locate the Upload draft title and its execute binding.": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "4a6e21bc357b2dc1",
+        "query": "Locate the Upload draft title and its execute binding.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "locate",
+            "upload",
+            "draft",
+            "title",
+            "execute",
+            "binding"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "OperationPlan.ts",
+              "symbol": "execute",
+              "symbol_type": "function",
+              "record_ids": [
+                3
+              ],
+              "record_type": "code_symbol",
+              "source_ranges": [
+                {
+                  "symbol": "execute",
+                  "start_line": 4,
+                  "end_line": 6
+                }
+              ],
+              "read_window": {
+                "start_line": 4,
+                "end_line": 6
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "execute",
+                  "start_line": 1,
+                  "end_line": 14,
+                  "content": "export const OperationPlan = {\n upload: {\n  title: 'Upload draft',\n  execute: () => {\n   sendDraft()\n  }\n },\n discard: {\n  title: 'Discard draft',\n  execute: () => {\n   clearDraft()\n  }\n }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "uncertain",
+            "primary": {
+              "file_path": "OperationPlan.ts",
+              "symbol": "execute",
+              "owner_name": "OperationPlan",
+              "owner_kind": "module",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 34.705,
+              "evidence_score": 34.705,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence"
+              ],
+              "source_range": {
+                "start_line": 4,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 190
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 869,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      },
+      "Locate OperationPlan.": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "4a6e21bc357b2dc1",
+        "query": "Locate OperationPlan.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "locate",
+            "operationplan"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "OperationPlan.ts",
+              "symbol": "OperationPlan",
+              "symbol_type": "object",
+              "record_ids": [
+                1,
+                3
+              ],
+              "source_ranges": [
+                {
+                  "symbol": "OperationPlan",
+                  "start_line": 1,
+                  "end_line": 14
+                },
+                {
+                  "symbol": "execute",
+                  "start_line": 4,
+                  "end_line": 6
+                }
+              ],
+              "record_type": "code_symbol",
+              "read_window": {
+                "start_line": 1,
+                "end_line": 14
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": null,
+                  "start_line": 1,
+                  "end_line": 9,
+                  "content": "export const OperationPlan = {\n upload: {\n  title: 'Upload draft',\n  execute: () => {\n   sendDraft()\n  }\n },\n discard: {\n  title: 'Discard draft',",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "uncertain",
+            "primary": {
+              "file_path": "OperationPlan.ts",
+              "symbol": "execute",
+              "owner_name": "OperationPlan",
+              "owner_kind": "module",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 22.0,
+              "evidence_score": 22.0,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "expanded_query:file_path"
+              ],
+              "source_range": {
+                "start_line": 4,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 146
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 855,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    }
+  },
+  "same-file-declared-owners": {
+    "symbols": [
+      {
+        "id": 4,
+        "project_id": "95448f26c7828b69",
+        "file_path": "TwinHandlers.ts",
+        "symbol": "execute",
+        "symbol_type": "function",
+        "summary": "function execute in TwinHandlers.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:addffc5084d88f26d72cf577",
+        "qualified_name": "DiscardHandler.execute@7",
+        "signature": "callback execute@7",
+        "start_line": 7,
+        "end_line": 9,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "6f9df2321ee179bce10a0fd0125b1b7f3b60055936300f605cec8a36c9e146a6",
+        "evidence_class": "static",
+        "method_evidence": "discarddraft discard draft",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "DiscardHandler",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:43+00:00"
+      },
+      {
+        "id": 3,
+        "project_id": "95448f26c7828b69",
+        "file_path": "TwinHandlers.ts",
+        "symbol": "execute",
+        "symbol_type": "function",
+        "summary": "function execute in TwinHandlers.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:1d2d7d02a9fde19669696456",
+        "qualified_name": "UploadHandler.execute@2",
+        "signature": "callback execute@2",
+        "start_line": 2,
+        "end_line": 4,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "6f9df2321ee179bce10a0fd0125b1b7f3b60055936300f605cec8a36c9e146a6",
+        "evidence_class": "static",
+        "method_evidence": "uploaddraft upload draft",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "UploadHandler",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:43+00:00"
+      },
+      {
+        "id": 2,
+        "project_id": "95448f26c7828b69",
+        "file_path": "TwinHandlers.ts",
+        "symbol": "DiscardHandler",
+        "symbol_type": "class",
+        "summary": "class DiscardHandler in TwinHandlers.ts; identifier terms: discard handler",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:c254cc63ff49597710c1a11a",
+        "qualified_name": "DiscardHandler",
+        "signature": "class DiscardHandler",
+        "start_line": 6,
+        "end_line": 10,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "6f9df2321ee179bce10a0fd0125b1b7f3b60055936300f605cec8a36c9e146a6",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:43+00:00"
+      },
+      {
+        "id": 1,
+        "project_id": "95448f26c7828b69",
+        "file_path": "TwinHandlers.ts",
+        "symbol": "UploadHandler",
+        "symbol_type": "class",
+        "summary": "class UploadHandler in TwinHandlers.ts; identifier terms: upload handler",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:9f131453d96afa87d14f4f9e",
+        "qualified_name": "UploadHandler",
+        "signature": "class UploadHandler",
+        "start_line": 1,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "6f9df2321ee179bce10a0fd0125b1b7f3b60055936300f605cec8a36c9e146a6",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T14:12:43+00:00"
+      }
+    ],
+    "queries": {
+      "Locate UploadHandler.execute implementation.": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "95448f26c7828b69",
+        "query": "Locate UploadHandler.execute implementation.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "locate",
+            "uploadhandler",
+            "execute",
+            "implementation"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "TwinHandlers.ts",
+              "symbol": "UploadHandler",
+              "symbol_type": "class",
+              "record_ids": [
+                1,
+                3
+              ],
+              "source_ranges": [
+                {
+                  "symbol": "UploadHandler",
+                  "start_line": 1,
+                  "end_line": 5
+                },
+                {
+                  "symbol": "execute",
+                  "start_line": 2,
+                  "end_line": 4
+                }
+              ],
+              "record_type": "code_symbol",
+              "read_window": {
+                "start_line": 1,
+                "end_line": 5
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "execute",
+                  "start_line": 1,
+                  "end_line": 10,
+                  "content": "export class UploadHandler {\n execute = () => {\n  uploadDraft()\n }\n}\nexport class DiscardHandler {\n execute = () => {\n  discardDraft()\n }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "TwinHandlers.ts",
+              "symbol": "execute",
+              "owner_name": "UploadHandler",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 36.475,
+              "evidence_score": 36.475,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 139
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 867,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      },
+      "Locate DiscardHandler.execute implementation.": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "95448f26c7828b69",
+        "query": "Locate DiscardHandler.execute implementation.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "locate",
+            "discardhandler",
+            "execute",
+            "implementation"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "TwinHandlers.ts",
+              "symbol": "DiscardHandler",
+              "symbol_type": "class",
+              "record_ids": [
+                2,
+                3
+              ],
+              "source_ranges": [
+                {
+                  "symbol": "DiscardHandler",
+                  "start_line": 6,
+                  "end_line": 10
+                },
+                {
+                  "symbol": "execute",
+                  "start_line": 2,
+                  "end_line": 4
+                }
+              ],
+              "record_type": "code_symbol",
+              "read_window": {
+                "start_line": 2,
+                "end_line": 10
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "execute",
+                  "start_line": 1,
+                  "end_line": 10,
+                  "content": "export class UploadHandler {\n execute = () => {\n  uploadDraft()\n }\n}\nexport class DiscardHandler {\n execute = () => {\n  discardDraft()\n }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "TwinHandlers.ts",
+              "symbol": "execute",
+              "owner_name": "DiscardHandler",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 36.475,
+              "evidence_score": 36.475,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence"
+              ],
+              "source_range": {
+                "start_line": 7,
+                "end_line": 9,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 139
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 869,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      },
+      "Locate execute implementation.": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "95448f26c7828b69",
+        "query": "Locate execute implementation.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "locate",
+            "execute",
+            "implementation"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "TwinHandlers.ts",
+              "symbol": "execute",
+              "symbol_type": "function",
+              "record_ids": [
+                3
+              ],
+              "record_type": "code_symbol",
+              "source_ranges": [
+                {
+                  "symbol": "execute",
+                  "start_line": 2,
+                  "end_line": 4
+                }
+              ],
+              "read_window": {
+                "start_line": 2,
+                "end_line": 4
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "execute",
+                  "start_line": 1,
+                  "end_line": 10,
+                  "content": "export class UploadHandler {\n execute = () => {\n  uploadDraft()\n }\n}\nexport class DiscardHandler {\n execute = () => {\n  discardDraft()\n }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "uncertain",
+            "primary": {
+              "file_path": "TwinHandlers.ts",
+              "symbol": "execute",
+              "owner_name": "UploadHandler",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 32.525,
+              "evidence_score": 32.525,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 139
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 841,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    }
+  }
+}

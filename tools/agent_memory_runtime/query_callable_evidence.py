@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Any
-from .query_callable_range_identity import resolve_candidate_range
+from .query_callable_range_identity import resolve_candidate_range, valid_window
 
 
 def callable_evidence(localization: dict[str, Any]) -> dict[str, Any]:
@@ -21,7 +21,7 @@ def callable_evidence(localization: dict[str, Any]) -> dict[str, Any]:
         }
     primary = prepared[0]
     alternatives = diverse_alternatives(prepared[1:], primary)
-    certainty_value = certainty(primary, alternatives)
+    certainty_value = certainty(primary, certainty_alternatives(candidates, prepared))
     if primary.get("typed_contract_match") and sum(bool(item.get("typed_contract_match")) for item in prepared) > 1:
         certainty_value = "uncertain"
     return {
@@ -31,6 +31,39 @@ def callable_evidence(localization: dict[str, Any]) -> dict[str, Any]:
         "alternatives": alternatives,
         "boundary": "retrieval_evidence_not_root_cause",
     }
+
+
+def certainty_alternatives(candidates: list[dict[str, Any]], prepared: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Display diversity cannot erase distinct competing source identities."""
+    seen = set()
+    result = []
+    for index, (candidate, projected) in enumerate(zip(candidates, prepared)):
+        key = callable_identity(candidate, projected)
+        if key is not None:
+            if key in seen:
+                continue
+            seen.add(key)
+        # Unknown identities are not evidence that two rows are the same entity.
+        if index:
+            result.append(projected)
+    return result
+
+
+def callable_identity(candidate: dict[str, Any], projected: dict[str, Any]) -> tuple | None:
+    path, symbol = candidate.get('file_path'), candidate.get('symbol')
+    if not isinstance(path, str) or not path or not isinstance(symbol, str) or not symbol:
+        return None
+    identifier = candidate.get('symbol_id')
+    if identifier is not None:
+        if type(identifier) is not int or identifier <= 0 or not valid_window(candidate):
+            return None
+        return ('symbol', path, symbol, identifier, candidate['start_line'], candidate['end_line'])
+    bounds = projected.get('source_range')
+    owner, kind = candidate.get('owner_name'), candidate.get('owner_kind')
+    if (not isinstance(owner, str) or not owner or not isinstance(kind, str) or not kind
+            or not isinstance(bounds, dict) or not valid_window(bounds)):
+        return None
+    return ('legacy', path, symbol, owner, kind, bounds['start_line'], bounds['end_line'])
 
 
 def compact_candidate(item: dict[str, Any], ranges: list[dict[str, Any]]) -> dict[str, Any]:
