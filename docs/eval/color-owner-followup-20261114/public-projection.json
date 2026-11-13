@@ -1,0 +1,120 @@
+{
+  "query": "Native color parsing mishandles an opaque system-bar value; return the conversion method rather than appearance settings.",
+  "anchors": [
+    {
+      "source": "wiki",
+      "record_id": 431,
+      "file_path": "src/theme/SystemBarColorAdapter.ets",
+      "symbol": "parseNativeColor",
+      "symbol_type": "function",
+      "summary": "ArkTS function or lifecycle method parseNativeColor in src/theme/SystemBarColorAdapter.ets; identifier terms: parse native color",
+      "start_line": 2,
+      "end_line": 12,
+      "graph_neighbor": false,
+      "graph_relation": null,
+      "identity_match": false
+    },
+    {
+      "source": "wiki",
+      "record_id": 85,
+      "file_path": "src/entities/FacetRecord.ets",
+      "symbol": "FacetRecord",
+      "symbol_type": "class",
+      "summary": "ArkTS class FacetRecord declared in src/entities/FacetRecord.ets; identifier terms: facet record",
+      "start_line": 1,
+      "end_line": 4,
+      "graph_neighbor": true,
+      "graph_relation": "imports",
+      "identity_match": false
+    },
+    {
+      "source": "wiki",
+      "record_id": 152,
+      "file_path": "src/widgets/MessageActionBar.ets",
+      "symbol": "MessageActionBar",
+      "symbol_type": "component",
+      "summary": "ArkTS file with 9 non-empty lines; components: MessageActionBar; component terms: message, action, bar",
+      "start_line": 2,
+      "end_line": 9,
+      "graph_neighbor": false,
+      "graph_relation": null,
+      "identity_match": false
+    },
+    {
+      "source": "wiki",
+      "record_id": 98,
+      "file_path": "src/io/ClipboardContentReader.ets",
+      "symbol": "readPlainText",
+      "symbol_type": "function",
+      "summary": "ArkTS function or lifecycle method readPlainText in src/io/ClipboardContentReader.ets; identifier terms: read plain text",
+      "start_line": 4,
+      "end_line": 11,
+      "graph_neighbor": false,
+      "graph_relation": null,
+      "identity_match": false
+    }
+  ],
+  "wiki": [
+    {
+      "file_path": "src/theme/SystemBarColorAdapter.ets",
+      "symbol": "parseNativeColor",
+      "kind": "symbol",
+      "score": 88.0,
+      "match_reasons": [
+        "file_path",
+        "symbol",
+        "symbol_summary",
+        "search_terms",
+        "method_evidence",
+        "exact_path_segment",
+        "query_focus_coverage",
+        "multi_concept_coverage",
+        "salient_query_evidence",
+        "source_locatable",
+        "multi_term_method_evidence"
+      ],
+      "method_evidence": "color trim includes substring length values map value parse native split parseint int join",
+      "string_evidence": "rgb"
+    },
+    {
+      "file_path": "src/entities/FacetRecord.ets",
+      "symbol": "FacetRecord",
+      "kind": "symbol",
+      "score": 3.188,
+      "match_reasons": [
+        "graph_neighbor",
+        "graph_relation:imports"
+      ],
+      "method_evidence": "",
+      "string_evidence": ""
+    },
+    {
+      "file_path": "src/widgets/MessageActionBar.ets",
+      "symbol": "MessageActionBar",
+      "kind": "file",
+      "score": 25.8,
+      "match_reasons": [
+        "file_summary",
+        "search_terms",
+        "exact_path_segment",
+        "salient_query_evidence"
+      ],
+      "method_evidence": null,
+      "string_evidence": null
+    },
+    {
+      "file_path": "src/io/ClipboardContentReader.ets",
+      "symbol": "readPlainText",
+      "kind": "symbol",
+      "score": 12.5,
+      "match_reasons": [
+        "symbol_summary",
+        "search_terms",
+        "salient_query_evidence",
+        "source_locatable"
+      ],
+      "method_evidence": "pasteboard getsystempasteboard get system board getdata data getrecordcount record count getrecordat read plain text asyncboundary async guardreturn guard",
+      "string_evidence": ""
+    }
+  ]
+}

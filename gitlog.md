@@ -11297,3 +11297,11 @@ inconsistency is still open. See docs/evidence/owner-integration/RESULT.md.
   record ID is not reused. Explicit labels, multiowners and path guards remain.
 - 36 focused tests pass; capability3/3 and restore1/3 remain unchanged.
   No v3 extension, full suite or original archive/output repair claim.
+
+
+## 2026-11-14 — Record native-color precision boundary
+
+Selected native-color variants remain 2/3. Correct source and excerpt are already
+present; graph/file/salient supplements violate precision. Existing retention guards
+protect these evidence classes, so no speculative runtime change was made. See
+`docs/eval/color-owner-followup-20261114/README.md`. No full gate or remote write.
