@@ -1,0 +1,38 @@
+{
+  "classification": "independent Development frozen prior to observation",
+  "source": "@Component\nstruct CounterBoard {\n @State count: number = 0\n fakeText(): string {\n  return \"this.count = 7; this.count\"\n }\n fakeComment(): void {\n  // this.count += 1\n  /* observe this.count */\n }\n fakeTemplate(): string {\n  return `this.count = 4; this.count`\n }\n realWrite(): void {\n  this.count = 1\n }\n realRead(): number {\n  return this.count\n }\n ordinaryIdentifier(): string {\n  const count = 'count'\n  return count\n }\n nestedUnknown(): void {\n  const nested = { run() { this.count = 9 } }\n }\n interpolationUnknown(): string {\n  return `${this.count}`\n }\n slashUnknown(): number {\n  return this.count / 2\n }\n}\n@Component\nstruct OtherBoard {\n @State count: number = 0\n realWrite(): void {\n  this.count = 3\n }\n realRead(): number {\n  return this.count\n }\n}\n",
+  "expected_no_state_edges": [
+    "CounterBoard.fakeText",
+    "CounterBoard.fakeComment",
+    "CounterBoard.fakeTemplate",
+    "CounterBoard.ordinaryIdentifier"
+  ],
+  "expected_edges": [
+    [
+      "CounterBoard.realWrite",
+      "writes_state",
+      "CounterBoard.count"
+    ],
+    [
+      "CounterBoard.realRead",
+      "reads_state",
+      "CounterBoard.count"
+    ],
+    [
+      "OtherBoard.realWrite",
+      "writes_state",
+      "OtherBoard.count"
+    ],
+    [
+      "OtherBoard.realRead",
+      "reads_state",
+      "OtherBoard.count"
+    ]
+  ],
+  "unknown_legacy_controls": [
+    "CounterBoard.nestedUnknown",
+    "CounterBoard.interpolationUnknown",
+    "CounterBoard.slashUnknown"
+  ],
+  "query": "Locate CounterBoard.fakeText and its state relationships."
+}

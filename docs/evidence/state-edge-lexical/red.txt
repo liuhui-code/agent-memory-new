@@ -1,0 +1,32 @@
+FFF
+======================================================================
+FAIL: test_public_state_edges_exclude_noncode_but_keep_real_identity (tests.test_state_edge_lexical.StateEdgeLexicalTests.test_public_state_edges_exclude_noncode_but_keep_real_identity) (name='CounterBoard.fakeText')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/state-edge-lexical-current/tests/test_state_edge_lexical.py", line 22, in test_public_state_edges_exclude_noncode_but_keep_real_identity
+    with self.subTest(name=name):self.assertFalse(any(s==name for s,r,t in actual))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_public_state_edges_exclude_noncode_but_keep_real_identity (tests.test_state_edge_lexical.StateEdgeLexicalTests.test_public_state_edges_exclude_noncode_but_keep_real_identity) (name='CounterBoard.fakeComment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/state-edge-lexical-current/tests/test_state_edge_lexical.py", line 22, in test_public_state_edges_exclude_noncode_but_keep_real_identity
+    with self.subTest(name=name):self.assertFalse(any(s==name for s,r,t in actual))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_public_state_edges_exclude_noncode_but_keep_real_identity (tests.test_state_edge_lexical.StateEdgeLexicalTests.test_public_state_edges_exclude_noncode_but_keep_real_identity) (name='CounterBoard.fakeTemplate')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/state-edge-lexical-current/tests/test_state_edge_lexical.py", line 22, in test_public_state_edges_exclude_noncode_but_keep_real_identity
+    with self.subTest(name=name):self.assertFalse(any(s==name for s,r,t in actual))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 1.168s
+
+FAILED (failures=3)
