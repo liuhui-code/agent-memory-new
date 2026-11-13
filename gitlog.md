@@ -11415,3 +11415,16 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   and unmodified source assertions reproduce the error before serving changes.
 - User-profile and explicitly named network controls are retained. The generic
   network-only request is already red and remains a separately recorded limitation.
+
+## 2026-11-14 - Keep generic loading translation separate from user/network topics
+
+- Split only Chinese 加载 into load; preserve the five explicit request/interface/
+  network/user/profile trigger relations. No score, owner or scope changes.
+- Frozen independent texture/scene public requests recover actual owner snippets;
+  positive user/network loading controls retained. Two network precision controls
+  were already red and remain red, with unchanged expected owners and outputs.
+- Focused50:47pass,3expectedFailure (2 retained network +1 historical weak-log).
+  Source-replacement original group1/3->2/3, only Chinese improved; original English
+  remains failing. Fingerprint/compile/diff/500-line checks pass. No full evaluation.
+- Old data-topic compatibility assertion updates only the loading token contract;
+  remaining five triggers and positive network/profile public behavior preserved.

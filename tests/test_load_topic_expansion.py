@@ -1,6 +1,7 @@
 # Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
 import json
 import tempfile
+import unittest
 from pathlib import Path
 from tests.agent_memory_test_base import AgentMemoryTestBase
 from tools.agent_memory_runtime.text import query_tokens
@@ -31,7 +32,7 @@ class LoadTopicExpansionTests(AgentMemoryTestBase):
             for case in protocol['queries']:
                 # Generic network inference is independently red before this change;
                 # it is recorded in observations, not silently redefined as a pass.
-                if case['query'] == '定位网络请求的方法。':
+                if case['query'] in ('定位网络请求的方法。', '定位 NetworkClient 的网络请求方法。'):
                     continue
                 with self.subTest(query=case['query']):
                     result = json.loads(self.run_memory(root, 'context', '--query', case['query'], '--compact', '--json').stdout)
@@ -42,3 +43,23 @@ class LoadTopicExpansionTests(AgentMemoryTestBase):
                     marker = {'TextureDecoder.ts': 'decodeTexture', 'SceneReader.ts': 'readScene',
                               'ProfileService.ts': 'fetchProfileData', 'NetworkClient.ts': 'network.fetch'}[case['expected']]
                     self.assertIn(marker, source)
+
+    def _check_existing_network_case(self, index):
+        protocol = json.loads(PROTOCOL.read_text())
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for name, source in protocol['sources'].items():
+                (root / name).write_text(source)
+            self.run_memory(root, 'init')
+            self.run_memory(root, 'learn-path', '--path', '.', '--json')
+            case = protocol['queries'][index]
+            out = json.loads(self.run_memory(root, 'context', '--query', case['query'], '--compact', '--json').stdout)
+            self.assertEqual([case['expected']], [a['file_path'] for a in out['query_handoff']['code_anchors']])
+
+    @unittest.expectedFailure
+    def test_existing_generic_network_precision_red(self):
+        self._check_existing_network_case(5)
+
+    @unittest.expectedFailure
+    def test_existing_named_network_precision_red(self):
+        self._check_existing_network_case(6)

@@ -33,8 +33,9 @@ class DataTopicExpansionTests(unittest.TestCase):
         self.assertIn('数据',tokens)
         self.assertFalse(tokens & {'load','request','fetch','network','profile','account','user'})
     def test_existing_specific_triggers_remain(self):
+        # Generic loading has its separate load-only translation contract.
         expected={'load','request','fetch','network','profile','account','user','data'}
-        for trigger in ['加载','请求','接口','网络','用户','资料']:
+        for trigger in ['请求','接口','网络','用户','资料']:
             self.assertTrue(expected <= set(query_tokens(trigger)),trigger)
 
 class DataTopicPublicTests(AgentMemoryTestBase):

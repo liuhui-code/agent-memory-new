@@ -22,8 +22,9 @@ QUERY_EXPANSION_RULES = [
         ("log", "logger", "console", "hilog", "error", "warning", "exception", "failed", "failure", "debug"),
     ),
     (("数据",), ("data",)),
+    (("加载",), ("load",)),
     (
-        ("加载", "请求", "接口", "网络", "用户", "资料"),
+        ("请求", "接口", "网络", "用户", "资料"),
         ("load", "request", "fetch", "network", "profile", "account", "user", "data"),
     ),
     (
