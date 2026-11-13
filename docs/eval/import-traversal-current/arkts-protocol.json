@@ -1,0 +1,26 @@
+{
+  "classification": "independent Development ArkTS file import graph addendum",
+  "sources": {
+    "Entry.ets": "import { value } from './Actual'\nconst lazy = import('./Dynamic')\nconst old = require('./Required')\n/*\nimport { ghost } from './CommentOnly'\n*/\nconst guide = `\nimport { ghost } from './TemplateOnly'\n`;\nconst message = \"require('./StringOnly')\";\nexport function run() { return value }\n",
+    "Actual.ets": "export const value = \"Actual\";\n",
+    "Dynamic.ets": "export const value = \"Dynamic\";\n",
+    "Required.ets": "export const value = \"Required\";\n",
+    "CommentOnly.ets": "export const value = \"CommentOnly\";\n",
+    "TemplateOnly.ets": "export const value = \"TemplateOnly\";\n",
+    "StringOnly.ets": "export const value = \"StringOnly\";\n"
+  },
+  "entry": "Entry.ets",
+  "depth": 1,
+  "expected_files": [
+    "Actual.ets",
+    "Dynamic.ets",
+    "Entry.ets",
+    "Required.ets"
+  ],
+  "forbidden_files": [
+    "CommentOnly.ets",
+    "TemplateOnly.ets",
+    "StringOnly.ets"
+  ],
+  "query": "Find TemplateOnly source."
+}
