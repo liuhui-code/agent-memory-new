@@ -1,0 +1,7 @@
+{
+  "classification": "independent Development",
+  "base": "5c62f65",
+  "source": "export class RuntimeInspector {\n  inspect(): boolean {\n    return canIUse('Example.Feature')\n  }\n  label(): string {\n    return 'executable runtime capability inspection source'\n  }\n}\n",
+  "query": "Find executable runtime capability inspection source.",
+  "expectation": "The certified inspect primary, compact anchor name/range and actual excerpt must refer to the same method. Explicit label query must remain label."
+}
