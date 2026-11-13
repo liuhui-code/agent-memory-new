@@ -1,0 +1,27 @@
+{
+  "classification": "independent Development import lexical admission",
+  "sources": {
+    "Painter.ts": "export function paint(value: string) { return value }\nexport function render(value: string) { return value }\n",
+    "RealNamed.ts": "import { paint as render } from './Painter'\nexport class RealNamed {\n run() { return render(\"value\") }\n}\n",
+    "CommentNamed.ts": "/*\nimport { paint as render } from './Painter'\n*/\nexport class CommentNamed {\n run() { return render(\"value\") }\n}\n",
+    "TemplateNamed.ts": "const guide = `\nimport { paint as render } from './Painter'\n`;\nexport class TemplateNamed {\n run() { return render(\"value\") }\n}\n",
+    "RealDefault.ts": "import render from './Painter'\nexport class RealDefault {\n run() { return render(\"value\") }\n}\n",
+    "CommentDefault.ts": "/*\nimport render from './Painter'\n*/\nexport class CommentDefault {\n run() { return render(\"value\") }\n}\n",
+    "TemplateDefault.ts": "const guide = `\nimport render from './Painter'\n`;\nexport class TemplateDefault {\n run() { return render(\"value\") }\n}\n"
+  },
+  "expected_named_call": [
+    "RealNamed.run",
+    "paint"
+  ],
+  "expected_legacy_default_call": [
+    "RealDefault.run",
+    "render"
+  ],
+  "forbidden_call_sources": [
+    "CommentNamed.run",
+    "TemplateNamed.run",
+    "CommentDefault.run",
+    "TemplateDefault.run"
+  ],
+  "query": "Find callers of Painter.paint."
+}
