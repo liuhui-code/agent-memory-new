@@ -1,0 +1,85 @@
+{
+  "classification": "independent Development",
+  "sources": {
+    "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+    "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+    "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n"
+  },
+  "queries": [
+    [
+      "ui-language",
+      "Find the ArkTS glyph divider implementation.",
+      "GlyphList.ets"
+    ],
+    [
+      "ui-plain",
+      "Find the glyph divider implementation.",
+      "GlyphList.ets"
+    ],
+    [
+      "algorithm-language",
+      "Locate the ArkTS checksum computation implementation.",
+      "ByteMixer.ts"
+    ],
+    [
+      "algorithm-plain",
+      "Locate the checksum computation implementation.",
+      "ByteMixer.ts"
+    ],
+    [
+      "ets-algorithm",
+      "Locate the ets checksum computation implementation.",
+      "ByteMixer.ts"
+    ],
+    [
+      "ability",
+      "Find the Ability Stage lifecycle implementation.",
+      "EntryAbility.ets"
+    ],
+    [
+      "platform",
+      "定位鸿蒙 Stage 页面加载的实现。",
+      "EntryAbility.ets"
+    ],
+    [
+      "qualified",
+      "Find EntryAbility.onWindowStageCreate source.",
+      "EntryAbility.ets"
+    ],
+    [
+      "arkts-ability",
+      "Locate the ArkTS Ability Stage implementation.",
+      "EntryAbility.ets"
+    ],
+    [
+      "algorithm-byte-language",
+      "Locate the ArkTS byte mixing implementation.",
+      "ByteMixer.ts"
+    ],
+    [
+      "algorithm-byte-plain",
+      "Locate the byte mixing implementation.",
+      "ByteMixer.ts"
+    ],
+    [
+      "platform-stage",
+      "Find the HarmonyOS stage lifecycle implementation.",
+      "EntryAbility.ets"
+    ],
+    [
+      "platform-ability",
+      "Find the 鸿蒙 ability lifecycle implementation.",
+      "EntryAbility.ets"
+    ],
+    [
+      "language-lifecycle",
+      "Find the ArkTS lifecycle implementation.",
+      "EntryAbility.ets"
+    ],
+    [
+      "ets-stage",
+      "Find the ets onWindowStageCreate implementation.",
+      "EntryAbility.ets"
+    ]
+  ]
+}

@@ -1,0 +1,48 @@
+test_language_does_not_imply_lifecycle_roles (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_language_does_not_imply_lifecycle_roles) ... FAIL
+test_platform_and_explicit_roles_remain (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_platform_and_explicit_roles_remain) ... ok
+test_public_language_and_real_platform_controls (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_public_language_and_real_platform_controls) ... 
+  test_public_language_and_real_platform_controls (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_public_language_and_real_platform_controls) (query='Find the ArkTS glyph divider implementation.') ... FAIL
+  test_public_language_and_real_platform_controls (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_public_language_and_real_platform_controls) (query='Locate the ArkTS byte mixing implementation.') ... FAIL
+
+======================================================================
+FAIL: test_language_does_not_imply_lifecycle_roles (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_language_does_not_imply_lifecycle_roles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/arkts-language-investigation/tests/test_arkts_language_expansion.py", line 10, in test_language_does_not_imply_lifecycle_roles
+    self.assertFalse(tokens & {'entry','ability','stage','harmonyos'})
+AssertionError: {'entry', 'stage', 'harmonyos', 'ability'} is not false
+
+======================================================================
+FAIL: test_public_language_and_real_platform_controls (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_public_language_and_real_platform_controls) (query='Find the ArkTS glyph divider implementation.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/arkts-language-investigation/tests/test_arkts_language_expansion.py", line 26, in test_public_language_and_real_platform_controls
+    self.assertEqual([expected],[a['file_path'] for a in out['code_anchors']])
+AssertionError: Lists differ: ['GlyphList.ets'] != ['EntryAbility.ets']
+
+First differing element 0:
+'GlyphList.ets'
+'EntryAbility.ets'
+
+- ['GlyphList.ets']
++ ['EntryAbility.ets']
+
+======================================================================
+FAIL: test_public_language_and_real_platform_controls (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_public_language_and_real_platform_controls) (query='Locate the ArkTS byte mixing implementation.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/arkts-language-investigation/tests/test_arkts_language_expansion.py", line 26, in test_public_language_and_real_platform_controls
+    self.assertEqual([expected],[a['file_path'] for a in out['code_anchors']])
+AssertionError: Lists differ: ['ByteMixer.ts'] != ['EntryAbility.ets']
+
+First differing element 0:
+'ByteMixer.ts'
+'EntryAbility.ets'
+
+- ['ByteMixer.ts']
++ ['EntryAbility.ets']
+
+----------------------------------------------------------------------
+Ran 3 tests in 3.616s
+
+FAILED (failures=3)
