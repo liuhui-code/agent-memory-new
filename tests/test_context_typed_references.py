@@ -6,7 +6,7 @@ from pathlib import Path
 from tests.agent_memory_test_base import AgentMemoryTestBase
 from tests.test_nested_callable_identity import SOURCE
 from tools.agent_memory_runtime.context_compact import relevant_relations, compact_code_anchor, merge_anchor_evidence
-from tools.agent_memory_runtime.query_handoff import code_anchors
+from tools.agent_memory_runtime.query_handoff import code_anchors, append_code_anchor
 
 QUERY='Locate the component method that validates the empty name and returns before dispatching updates.'
 class TypedReferencePublicTests(AgentMemoryTestBase):
@@ -60,3 +60,13 @@ class TypedReferenceUnitTests(unittest.TestCase):
         raw=code_anchors([], [{'id':4,'file_path':'Logger.ts','function':'emit'}, {'id':4,'kind':'log_effect','file_path':'Caller.ts','function':'call'}])
         self.assertEqual(['code_log_statement','code_log_effect'],[a['record_type'] for a in raw])
         self.assertEqual([4],compact_code_anchor(raw[0])['record_ids'])
+
+    def test_unknown_source_is_not_assumed_to_be_a_log_statement(self):
+        raw=[]
+        append_code_anchor(raw,set(),{'id':4,'file_path':'Other.ts','symbol':'run'},'future_source')
+        self.assertIsNone(raw[0]['record_type'])
+        projected=compact_code_anchor(raw[0])
+        self.assertEqual([4],projected['record_ids'])
+        self.assertNotIn('record_type',projected)
+        edge={'source_type':'code_log_statement','source_id':4,'relation':'calls','target_type':'code_symbol','target_id':99}
+        self.assertEqual([],relevant_relations([edge],[projected],[]))

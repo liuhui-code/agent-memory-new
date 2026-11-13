@@ -11360,3 +11360,8 @@ Evidence: `docs/eval/data-topic-expansion-20261114/README.md`.
 - Focused validation: 47 pass, 1 historical expected failure; causal profile path
   remains 3/3 under 1500. No full gate and no inferred original failure reductions.
 - Evidence: docs/evidence/contract-path-followup/typed-reference-result.md.
+
+## Integration: preserve unknown provenance
+
+- Restrict inferred reference types to known wiki/log source tags; a future/unknown source tag must not default to code_log_statement. Keep legacy record_ids, and add a collision regression ensuring unknown provenance cannot select a log relation.
+- No known caller behavior changes; focused integrated tests are rerun before publication.

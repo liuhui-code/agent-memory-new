@@ -120,8 +120,8 @@ def append_code_anchor(
         "source": source,
         "record_id": item.get("id"),
         "record_type": ({"file": "code_file", "symbol": "code_symbol"}.get(item.get("kind"))
-                        if source == "wiki" else "code_log_effect"
-                        if source == "wrapped_log_caller" else "code_log_statement"),
+                        if source == "wiki" else {"wrapped_log_caller": "code_log_effect",
+                                                  "log_emitter": "code_log_statement"}.get(source)),
         "file_path": file_path,
         "symbol": symbol,
         "symbol_type": item.get("symbol_type"),
