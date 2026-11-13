@@ -74,12 +74,15 @@ missing. References to FIFO elsewhere in this plan denote that frozen first-key
 removal control, not a verified global eviction policy.
 
 Consequently this proposal is ONLY a static deletion-chain witness. It cannot
-claim to satisfy the original cache task's access-recency or final-capacity
-requirements, even if the independent scan queries later pass. A reversed maximum
+claim access-recency or final-capacity guarantees. These are NOT requirements of
+the frozen original queries: those ask to locate oldest-key eviction / timestamp
+scan and delete implementation, not to verify LRU access refresh or whole-policy
+correctness. Missing access-update provenance is therefore not a blocker to the
+requested implementation-location task. A reversed maximum
 comparison, unrelated delete parameter, reassigned chosen key, or size/iteration/
-delete on different receivers must fail the minimum-selection witness. Proving
-actual recency would require separately sourced access/update linkage and its
-unknown controls; no such expansion or new fixture is authorized in this stage.
+delete on different receivers must fail the minimum-selection witness. Only a separately requested access-recency correctness claim would require
+access/update linkage and its unknown controls; no such expansion or new fixture
+is authorized or needed for the current location request.
 
 The witness can support inclusion of the actual method/source as operation evidence.
 It cannot by itself authorize deleting other owners, choosing a unique primary,
@@ -209,3 +212,14 @@ consumer privilege. Serving implementation is not yet justified because existing
 fields do not express the full witness and request-conditioned retention/selection
 permission is missing. This is a concrete testable design boundary, not a claim that
 cache is permanently blocked or a proposal to repeat the rejected marker experiment.
+
+## Correction to the challenge clarification
+
+The earlier ee66aef phrase "original cache task's access-recency or final-capacity
+requirements" was incorrect. Re-reading all three original queries in
+`docs/eval/system-capability-cases.json` and all four frozen independent queries
+confirms they ask executable eviction scanning / timestamp scan and deletion
+location. They do not require LRU refresh or proof of eventual capacity restoration.
+The original capacity symptom must not be converted into a stronger acceptance
+condition. Above wording is corrected; these algorithm guarantees remain only
+limits on extra claims, not barriers imposed on the actual task.

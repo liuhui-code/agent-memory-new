@@ -12044,3 +12044,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Existing design already excludes LRU/runtime-success claims; add explicit
   original-task non-closure and reversed-max/different-receiver/rebound-key limits.
 - Documentation only, no new fixture, query, runtime or validation execution.
+
+## 2026-11-13 — Correct cache request scope and review literal-body negative evidence
+
+- Correct erroneous claim that original cache requests require access recency or
+  final-capacity proof: they ask oldest-key/timestamp scan-delete implementation.
+- Compare frozen cache and output-loop literal-primary public reds without new
+  execution. Specify a source-bound whole-body literal fact, separate from request
+  permission, selection/fallback, and actual-operation or uniqueness certification.
+- Record explicit/literal/log/mixed/unknown/default-parameter protections and a
+  gated validation plan. No runtime, new fixtures, queries or oracle changes.
