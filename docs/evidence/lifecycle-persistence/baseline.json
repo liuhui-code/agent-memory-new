@@ -1,0 +1,656 @@
+[
+  {
+    "case": {
+      "query": "Find the owner combining lifecycle restore, current text state and storage commit after restart.",
+      "required": "BufferSession.ets",
+      "excluded": [
+        "WriteQueue.ets",
+        "TextPanel.ets"
+      ]
+    },
+    "paths": [
+      "BufferSession.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "c62b167ec3fbc89f",
+      "query": "Find the owner combining lifecycle restore, current text state and storage commit after restart.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "owner",
+          "combining",
+          "lifecycle",
+          "restore",
+          "current",
+          "text",
+          "state",
+          "storage",
+          "commit",
+          "after",
+          "restart"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "BufferSession.ets",
+            "symbol": "onMount",
+            "symbol_type": "function",
+            "record_ids": [
+              1
+            ],
+            "source_ranges": [
+              {
+                "symbol": "onMount",
+                "start_line": 3,
+                "end_line": 5
+              }
+            ],
+            "summary": "ArkTS file with 12 non-empty lines; behavior: eventboundary, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+            "read_window": {
+              "start_line": 3,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "reload",
+                "start_line": 6,
+                "end_line": 8,
+                "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              },
+              {
+                "symbol": "onMount",
+                "start_line": 3,
+                "end_line": 5,
+                "content": "  onMount(): void {\n    this.reload()\n  }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "BufferSession.ets",
+            "symbol": "commit",
+            "owner_name": "BufferSession",
+            "owner_kind": "class",
+            "file_structural_coverage": 2,
+            "callable_roles": [
+              "async",
+              "persistence_write"
+            ],
+            "score": 39.5,
+            "evidence_score": 39.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 9,
+              "end_line": 11,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "WriteQueue.ets",
+              "symbol": "commit",
+              "owner_name": "WriteQueue",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "async",
+                "persistence_write"
+              ],
+              "score": 33.15,
+              "evidence_score": 33.15,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "TextPanel.ets",
+              "symbol": "setText",
+              "owner_name": "TextPanel",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "state_write"
+              ],
+              "score": 28.5,
+              "evidence_score": 28.5,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 2,
+          "excerpt_chars": 113
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1164,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "\u91cd\u542f\u540e\u6062\u590d\u6587\u672c\uff0c\u8bf7\u5b9a\u4f4d\u540c\u65f6\u8d1f\u8d23\u751f\u547d\u5468\u671f\u6062\u590d\u3001\u72b6\u6001\u66f4\u65b0\u548c\u6301\u4e45\u5316\u7684\u6e90\u7801\u3002",
+      "required": "BufferSession.ets",
+      "excluded": [
+        "WriteQueue.ets",
+        "TextPanel.ets"
+      ]
+    },
+    "paths": [
+      "BufferSession.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "c62b167ec3fbc89f",
+      "query": "\u91cd\u542f\u540e\u6062\u590d\u6587\u672c\uff0c\u8bf7\u5b9a\u4f4d\u540c\u65f6\u8d1f\u8d23\u751f\u547d\u5468\u671f\u6062\u590d\u3001\u72b6\u6001\u66f4\u65b0\u548c\u6301\u4e45\u5316\u7684\u6e90\u7801\u3002",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "\u91cd\u542f\u540e\u6062\u590d\u6587\u672c",
+          "\u91cd\u542f",
+          "\u542f\u540e",
+          "\u540e\u6062",
+          "\u6062\u590d",
+          "\u590d\u6587",
+          "\u6587\u672c",
+          "\u8bf7\u5b9a\u4f4d\u540c\u65f6\u8d1f\u8d23\u751f\u547d\u5468\u671f\u6062\u590d",
+          "\u8bf7\u5b9a",
+          "\u5b9a\u4f4d",
+          "\u4f4d\u540c",
+          "\u540c\u65f6"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "BufferSession.ets",
+            "symbol": "reload",
+            "symbol_type": "function",
+            "record_ids": [
+              1
+            ],
+            "source_ranges": [
+              {
+                "symbol": "reload",
+                "start_line": 6,
+                "end_line": 8
+              }
+            ],
+            "summary": "ArkTS file with 12 non-empty lines; behavior: eventboundary, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+            "read_window": {
+              "start_line": 6,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "reload",
+                "start_line": 6,
+                "end_line": 8,
+                "content": "  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              },
+              {
+                "symbol": "onMount",
+                "start_line": 3,
+                "end_line": 5,
+                "content": "  onMount(): void {\n    this.reload()\n  }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "uncertain",
+          "primary": {
+            "file_path": "BufferSession.ets",
+            "symbol": "reload",
+            "owner_name": "BufferSession",
+            "owner_kind": "class",
+            "file_structural_coverage": 2,
+            "callable_roles": [
+              "async",
+              "state_write"
+            ],
+            "score": 10.12,
+            "evidence_score": 10.12,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable",
+              "semantic_behavior"
+            ],
+            "source_range": {
+              "start_line": 6,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "TextPanel.ets",
+              "symbol": "setText",
+              "owner_name": "TextPanel",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "state_write"
+              ],
+              "score": 9.12,
+              "evidence_score": 9.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "WriteQueue.ets",
+              "symbol": "commit",
+              "owner_name": "WriteQueue",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "async",
+                "persistence_write"
+              ],
+              "score": 8.12,
+              "evidence_score": 8.12,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 2,
+          "excerpt_chars": 113
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1112,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Find WriteQueue.commit.",
+      "required": "WriteQueue.ets",
+      "excluded": []
+    },
+    "paths": [
+      "WriteQueue.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "c62b167ec3fbc89f",
+      "query": "Find WriteQueue.commit.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "writequeue",
+          "commit"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "WriteQueue.ets",
+            "symbol": "commit",
+            "symbol_type": "function",
+            "record_ids": [
+              8
+            ],
+            "source_ranges": [
+              {
+                "symbol": "commit",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 4
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "commit",
+                "start_line": 1,
+                "end_line": 5,
+                "content": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "WriteQueue.ets",
+            "symbol": "commit",
+            "owner_name": "WriteQueue",
+            "owner_kind": "class",
+            "callable_roles": [
+              "async",
+              "persistence_write"
+            ],
+            "score": 41.5,
+            "evidence_score": 41.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "BufferSession.ets",
+              "symbol": "commit",
+              "owner_name": "BufferSession",
+              "owner_kind": "class",
+              "callable_roles": [
+                "async",
+                "persistence_write"
+              ],
+              "score": 33.48,
+              "evidence_score": 33.48,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence"
+              ],
+              "source_range": {
+                "start_line": 9,
+                "end_line": 11,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 104
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 920,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  }
+]
