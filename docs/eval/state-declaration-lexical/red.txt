@@ -1,0 +1,39 @@
+FF.
+======================================================================
+FAIL: test_legacy_state_only_mask_preserves_other_contracts (tests.test_state_declaration_lexical.StateDeclarationLexicalTests.test_legacy_state_only_mask_preserves_other_contracts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/state-declaration-lexical/tests/test_state_declaration_lexical.py", line 26, in test_legacy_state_only_mask_preserves_other_contracts
+    self.assertEqual([('live', 'state'), ('live', 'state')], extract_arkts_reference_symbols(source))
+AssertionError: Lists differ: [('live', 'state'), ('live', 'state')] != [('live', 'state'), ('stringGhost', 'state'), ('lineGhost', 'st[111 chars]te')]
+
+First differing element 1:
+('live', 'state')
+('stringGhost', 'state')
+
+Second list contains 6 additional elements.
+First extra element 2:
+('lineGhost', 'state')
+
+- [('live', 'state'), ('live', 'state')]
++ [('live', 'state'),
++  ('stringGhost', 'state'),
++  ('lineGhost', 'state'),
++  ('blockGhost', 'state'),
++  ('templateGhost', 'state'),
++  ('live', 'state'),
++  ('live', 'state'),
++  ('live', 'state')]
+
+======================================================================
+FAIL: test_public_only_real_state_identity_and_exact_positions (tests.test_state_declaration_lexical.StateDeclarationLexicalTests.test_public_only_real_state_identity_and_exact_positions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/state-declaration-lexical/tests/test_state_declaration_lexical.py", line 20, in test_public_only_real_state_identity_and_exact_positions
+    self.assertEqual(2, len(states))
+AssertionError: 2 != 8
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.853s
+
+FAILED (failures=2)
