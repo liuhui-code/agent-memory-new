@@ -12091,3 +12091,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   return implementation is falsely granted executable-only permission by existing
   layout markers. Stop without adding words/veto exceptions or changing serving.
 - docs/evidence/literal-intent-shadow retains sources, origins, gate and all results.
+## 2026-11-13 — Audit WebView nested excerpt and recovery identity limits
+
+- Historical original callable primary is DocumentBrowserSettingsPage, while
+  SecureDocumentBrowser build8..18 displays nested Column9..13. Distinguish the
+  actual selected primary from multiple display primary roles.
+- English component/method/nested-range mismatch and Chinese complete nested
+  snippet are recorded separately. Nested source focus is an existing contract;
+  same-interval partial recovery cannot authorize enclosing-source substitution.
+- No matching independent identity-violation red or safe relaxed recovery found.
+  No queries, production edits or original-result changes.
+- Evidence: docs/eval/webview-range-contract-audit/README.md.
