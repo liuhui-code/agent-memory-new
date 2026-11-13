@@ -1,0 +1,88 @@
+{
+  "classification": "independent Development diagnostic; no promotion",
+  "base": "a6c1d93",
+  "purpose": "Operation adjective versus structural and logging target roles; expected owners fixed by source responsibilities, not original fixture. No runtime change proposed.",
+  "sources": {
+    "UnitSpec.ts": "export interface UnitSpec {\n  factor: number;\n}\n",
+    "PacketScaler.ts": "import { UnitSpec } from './UnitSpec';\nexport class PacketScaler {\n  scaleNativePacket(value: number, spec: UnitSpec): number {\n    return Math.round(value * spec.factor);\n  }\n}\n",
+    "GateRules.ts": "export class GateRules {\n  allowScheme(uri: string): boolean {\n    const scheme = uri.split(':')[0].toLowerCase();\n    return scheme === 'https';\n  }\n}\n",
+    "AccessTelemetry.ts": "export class AccessTelemetry {\n  reportPolicy(uri: string): void {\n    console.error('navigation policy denied access', uri);\n  }\n}\n",
+    "SchemaRecord.ts": "export interface SchemaRecord {\n  scheme: string;\n  policy: string;\n}\n"
+  },
+  "queries": [
+    {
+      "id": "native-operation",
+      "query": "Locate the native packet scaling implementation.",
+      "expected": [
+        "PacketScaler.ts"
+      ],
+      "body": "Math.round",
+      "check": "exact unique path set; non-empty body marker if specified"
+    },
+    {
+      "id": "plain-operation",
+      "query": "Locate the packet scaling implementation.",
+      "expected": [
+        "PacketScaler.ts"
+      ],
+      "body": "Math.round",
+      "check": "exact unique path set; non-empty body marker if specified"
+    },
+    {
+      "id": "native-structure",
+      "query": "Find both PacketScaler and UnitSpec native import boundary.",
+      "expected": [
+        "PacketScaler.ts",
+        "UnitSpec.ts"
+      ],
+      "body": "",
+      "check": "exact unique path set; non-empty body marker if specified"
+    },
+    {
+      "id": "policy-operation",
+      "query": "Find the URL scheme access policy implementation.",
+      "expected": [
+        "GateRules.ts"
+      ],
+      "body": "scheme === 'https'",
+      "check": "exact unique path set; non-empty body marker if specified"
+    },
+    {
+      "id": "named-operation",
+      "query": "Find GateRules.allowScheme.",
+      "expected": [
+        "GateRules.ts"
+      ],
+      "body": "scheme === 'https'",
+      "check": "exact unique path set; non-empty body marker if specified"
+    },
+    {
+      "id": "schema-target",
+      "query": "Find the SchemaRecord declaration.",
+      "expected": [
+        "SchemaRecord.ts"
+      ],
+      "body": "interface SchemaRecord",
+      "check": "exact unique path set; non-empty body marker if specified"
+    },
+    {
+      "id": "two-roles",
+      "query": "Find both GateRules and AccessTelemetry.",
+      "expected": [
+        "GateRules.ts",
+        "AccessTelemetry.ts"
+      ],
+      "body": "",
+      "check": "exact unique path set; non-empty body marker if specified"
+    },
+    {
+      "id": "true-log",
+      "query": "Find the navigation policy denied access console error log.",
+      "expected": [
+        "AccessTelemetry.ts"
+      ],
+      "body": "console.error",
+      "check": "exact unique path set; non-empty body marker if specified"
+    }
+  ]
+}
