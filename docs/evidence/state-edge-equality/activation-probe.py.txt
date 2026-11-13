@@ -1,0 +1,17 @@
+import json,tempfile,subprocess
+from pathlib import Path
+D=Path('docs/evidence/state-edge-equality');p=json.loads((D/'protocol.json').read_text()); current=Path.cwd()/'tools/agent_memory.py';old=Path('/tmp/state-equality-baseline/tools/agent_memory.py')
+with tempfile.TemporaryDirectory() as d:
+ root=Path(d)/'source';root.mkdir();(root/'CounterBoard.ets').write_text(p['source'])
+ def run(script,*args):
+  r=subprocess.run(['python',str(script),*args,'--project',str(root),'--memory-home',d+'/memory'],capture_output=True,text=True,check=True);return json.loads(r.stdout) if '--json' in args else r.stdout
+ def snap(script):
+  syms=run(script,'list','--type','code-symbol','--limit','300','--json');edges=run(script,'list','--type','memory-edge','--limit','300','--json');byid={r['id']:r['qualified_name']for r in syms};return {'symbols':syms,'edges':edges,'state_edges':sorted([byid[e['source_id']],e['relation'],byid[e['target_id']]]for e in edges if e['source_type']=='code_symbol'and e['target_type']=='code_symbol'and e['relation']in ['reads_state','writes_state']and e.get('valid_to')is None)}
+ run(old,'init');run(old,'learn-path','--path',str(root));out={'before':snap(old),'code_only':snap(current)}
+ out['merge']=run(current,'learn-path','--path',str(root),'--json');out['after_merge']=snap(current)
+ assert out['before']['state_edges']==out['code_only']['state_edges']
+ for n in p['read_only']:
+  assert [n,'reads_state','EqualityBoard.count'] in out['after_merge']['state_edges']
+  assert [n,'writes_state','EqualityBoard.count'] not in out['after_merge']['state_edges']
+ for n in p['write_only']:assert [n,'writes_state','EqualityBoard.count'] in out['after_merge']['state_edges']
+ (D/'activation.json').write_text(json.dumps(out,indent=2));print('state edge counts',[(k,len(out[k]['state_edges']))for k in ['before','code_only','after_merge']])

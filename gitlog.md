@@ -11716,3 +11716,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 -47 focused tests pass. Same-index merge13→7 edges, while code-only leaves13.
   Original comparison group2/3 unchanged. No cause/order or nested-scope claim.
 - Evidence: docs/evidence/state-edge-lexical/README.md.
+
+## 2026-11-13 - Keep equality state accesses as reads
+
+- Independent public red proves ==/=== incorrectly produce only writes_state.
+  Restrict only bare assignment '=' to exclude the next '=' in write/read regexes.
+-55 related tests and2 final operator tests pass; same-index refresh independently
+  replaces2 incorrect write edges with reads. Five true write forms remain unchanged.
+  Comparison original group2/3 unchanged, no original231 improvement claim.
+- Evidence: docs/evidence/state-edge-equality/README.md. Separate from lexical stage.

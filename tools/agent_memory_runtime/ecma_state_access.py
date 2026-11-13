@@ -6,10 +6,10 @@ from .ecma_callback_mask import callback_mask_lines
 
 def state_accesses(body: str, names):
     masked = callback_mask_lines(body.splitlines())
-    # Unsupported syntax preserves legacy relations, not an absence proof.
+    # Unsupported syntax retains unmasked-body extraction, not an absence proof.
     source = "\n".join(masked) if masked is not None else body
     for name in names:
-        if re.search(rf"\bthis\.{re.escape(name)}\s*(?:=|\+=|-=|\+\+|--)", source):
+        if re.search(rf"\bthis\.{re.escape(name)}\s*(?:=(?!=)|\+=|-=|\+\+|--)", source):
             yield name, "writes_state", 0.95, "state assignment"
-        if re.search(rf"\bthis\.{re.escape(name)}\b(?!\s*(?:=|\+=|-=|\+\+|--))", source):
+        if re.search(rf"\bthis\.{re.escape(name)}\b(?!\s*(?:=(?!=)|\+=|-=|\+\+|--))", source):
             yield name, "reads_state", 0.9, "state read"
