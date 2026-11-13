@@ -1,0 +1,35 @@
+FFFx
+======================================================================
+FAIL: test_bounded_marker_controls (tests.test_async_ordering_owner_public.AsyncOrderingOwnerTests.test_bounded_marker_controls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/lifecycle-persistence-work/tests/test_async_ordering_owner_public.py", line 45, in test_bounded_marker_controls
+    self.assertIn('orderingguard',event_collection_hints(entity,good))
+AssertionError: 'orderingguard' not found in []
+
+======================================================================
+FAIL: test_chinese_owner_and_explicit_writer (tests.test_async_ordering_owner_public.AsyncOrderingOwnerTests.test_chinese_owner_and_explicit_writer) (suffix='.ts', index=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/lifecycle-persistence-work/tests/test_async_ordering_owner_public.py", line 36, in test_chinese_owner_and_explicit_writer
+    with self.subTest(suffix=suffix,index=index):self.check_public(index,suffix)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/lifecycle-persistence-work/tests/test_async_ordering_owner_public.py", line 27, in check_public
+    self.assertFalse({Path(p).stem for p in case['excluded']} & paths)
+AssertionError: {'EntryWriter'} is not false
+
+======================================================================
+FAIL: test_chinese_owner_and_explicit_writer (tests.test_async_ordering_owner_public.AsyncOrderingOwnerTests.test_chinese_owner_and_explicit_writer) (suffix='.ets', index=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/lifecycle-persistence-work/tests/test_async_ordering_owner_public.py", line 36, in test_chinese_owner_and_explicit_writer
+    with self.subTest(suffix=suffix,index=index):self.check_public(index,suffix)
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/dcdb41e16594/lifecycle-persistence-work/tests/test_async_ordering_owner_public.py", line 27, in check_public
+    self.assertFalse({Path(p).stem for p in case['excluded']} & paths)
+AssertionError: {'EntryWriter'} is not false
+
+----------------------------------------------------------------------
+Ran 3 tests in 3.873s
+
+FAILED (failures=3, expected failures=1)
