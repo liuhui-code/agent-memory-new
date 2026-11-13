@@ -1,0 +1,69 @@
+{
+  "classification": "independent Development",
+  "base": "a6c1d93",
+  "sources": {
+    "UnitSpec.ts": "export interface UnitSpec {\n  factor: number;\n}\n",
+    "PacketScaler.ts": "import { UnitSpec } from './UnitSpec';\nexport class PacketScaler {\n  scaleNativePacket(value: number, spec: UnitSpec): number {\n    return Math.round(value * spec.factor);\n  }\n}\n",
+    "GateRules.ts": "export class GateRules {\n  allowScheme(uri: string): boolean {\n    const scheme = uri.split(':')[0].toLowerCase();\n    return scheme === 'https';\n  }\n}\n",
+    "AccessTelemetry.ts": "export class AccessTelemetry {\n  reportPolicy(uri: string): void {\n    console.error('navigation policy denied access', uri);\n  }\n}\n",
+    "SchemaRecord.ts": "export interface SchemaRecord {\n  scheme: string;\n  policy: string;\n}\n"
+  },
+  "queries": [
+    {
+      "id": "named-class-interface",
+      "query": "Find both PacketScaler and UnitSpec native import boundary.",
+      "required": [
+        "PacketScaler.ts",
+        "UnitSpec.ts"
+      ],
+      "expectation": "required path identities and current source"
+    },
+    {
+      "id": "interface-only",
+      "query": "Find the UnitSpec interface declaration.",
+      "required": [
+        "UnitSpec.ts"
+      ],
+      "expectation": "required path identities and current source"
+    },
+    {
+      "id": "two-callables",
+      "query": "Find both PacketScaler.scaleNativePacket and GateRules.allowScheme.",
+      "required": [
+        "PacketScaler.ts",
+        "GateRules.ts"
+      ],
+      "expectation": "required path identities and current source"
+    },
+    {
+      "id": "two-actions",
+      "query": "Find packet scaling and URL scheme filtering implementation.",
+      "required": null,
+      "expectation": "unchanged path identities versus baseline, not a success claim"
+    },
+    {
+      "id": "generic-multiple",
+      "query": "Find multiple native import boundaries.",
+      "required": null,
+      "expectation": "unchanged path identities versus baseline, not a success claim"
+    },
+    {
+      "id": "negative-interface",
+      "query": "Find PacketScaler implementation, not UnitSpec.",
+      "required": null,
+      "expectation": "unchanged path identities versus baseline, not a success claim"
+    },
+    {
+      "id": "quoted-text",
+      "query": "Find the strings \"PacketScaler\" and \"UnitSpec\".",
+      "required": null,
+      "expectation": "unchanged path identities versus baseline, not a success claim"
+    }
+  ],
+  "ambiguous_variant": {
+    "extra_file": "other/UnitSpec.ts",
+    "source": "export interface UnitSpec {\n  offset: number;\n}\n",
+    "query": "Find both PacketScaler and UnitSpec native import boundary.",
+    "expectation": "same-name multiple paths must not authorize new retention; baseline behavior unchanged"
+  }
+}
