@@ -1,0 +1,17 @@
+{
+  "classification": "independent Development",
+  "base": "7850d2a",
+  "sources": {
+    "AuditService.ets": "import hilog from '@ohos.hilog'\nexport class AuditService {\n  refresh(): void {\n    hilog.error(0, 'AuditService', 'checkpoint refresh denied expired token')\n  }\n}\n",
+    "StartupCoordinator.ets": "import { AuditService } from './AuditService'\nexport class StartupCoordinator {\n  private audit: AuditService = new AuditService()\n  onCreate(): void {\n    this.audit.refresh()\n  }\n}\n",
+    "SessionPanel.ets": "import { AuditService } from './AuditService'\n@Entry\n@Component\nexport struct SessionPanel {\n  private audit: AuditService = new AuditService()\n  aboutToAppear(): void {\n    this.audit.refresh()\n  }\n  build() {}\n}\n"
+  },
+  "query": "Given observed log checkpoint refresh denied expired token, show the bounded caller-to-emitter source paths.",
+  "expected_entries": [
+    "StartupCoordinator.ets",
+    "SessionPanel.ets"
+  ],
+  "emitter": "AuditService.ets",
+  "budget": 1500,
+  "contract": "Preserve both already reconstructed same-emitter caller branches if they fit the existing budget after lossless duplicate metadata removal; no extra paths, roots, source changes or numeric budget increases."
+}
