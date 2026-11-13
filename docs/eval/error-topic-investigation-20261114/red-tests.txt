@@ -1,0 +1,82 @@
+test_existing_hilog_precision_red_is_not_claimed_fixed (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_existing_hilog_precision_red_is_not_claimed_fixed) ... expected failure
+test_explicit_code_lane_does_not_override_token_semantics (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_explicit_code_lane_does_not_override_token_semantics) ... 
+  test_explicit_code_lane_does_not_override_token_semantics (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_explicit_code_lane_does_not_override_token_semantics) (query='查找 badge 校验错误提示的实现。', intent='code_location') ... FAIL
+  test_explicit_code_lane_does_not_override_token_semantics (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_explicit_code_lane_does_not_override_token_semantics) (query='查找 packet 错误返回的实现。', intent='code_location') ... FAIL
+test_generic_error_word_does_not_invent_logging_apis (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_generic_error_word_does_not_invent_logging_apis) ... FAIL
+test_legacy_intent_and_explicit_diagnostic_words_stay (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_legacy_intent_and_explicit_diagnostic_words_stay) ... ok
+test_public_ui_and_value_errors_and_genuine_log_controls (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_public_ui_and_value_errors_and_genuine_log_controls) ... 
+  test_public_ui_and_value_errors_and_genuine_log_controls (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_public_ui_and_value_errors_and_genuine_log_controls) (query='查找 badge 校验错误提示的实现。', intent=None) ... FAIL
+  test_public_ui_and_value_errors_and_genuine_log_controls (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_public_ui_and_value_errors_and_genuine_log_controls) (query='查找 packet 错误返回的实现。', intent=None) ... FAIL
+
+======================================================================
+FAIL: test_explicit_code_lane_does_not_override_token_semantics (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_explicit_code_lane_does_not_override_token_semantics) (query='查找 badge 校验错误提示的实现。', intent='code_location')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/error-translation-investigation/tests/test_error_topic_expansion.py", line 42, in _check_cases
+    self.assertEqual([case['expected']], [a['file_path'] for a in anchors])
+AssertionError: Lists differ: ['BadgeEditor.ts'] != ['ConsoleSink.ts']
+
+First differing element 0:
+'BadgeEditor.ts'
+'ConsoleSink.ts'
+
+- ['BadgeEditor.ts']
++ ['ConsoleSink.ts']
+
+======================================================================
+FAIL: test_explicit_code_lane_does_not_override_token_semantics (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_explicit_code_lane_does_not_override_token_semantics) (query='查找 packet 错误返回的实现。', intent='code_location')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/error-translation-investigation/tests/test_error_topic_expansion.py", line 42, in _check_cases
+    self.assertEqual([case['expected']], [a['file_path'] for a in anchors])
+AssertionError: Lists differ: ['PacketDecoder.ts'] != ['ConsoleSink.ts']
+
+First differing element 0:
+'PacketDecoder.ts'
+'ConsoleSink.ts'
+
+- ['PacketDecoder.ts']
++ ['ConsoleSink.ts']
+
+======================================================================
+FAIL: test_generic_error_word_does_not_invent_logging_apis (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_generic_error_word_does_not_invent_logging_apis)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/error-translation-investigation/tests/test_error_topic_expansion.py", line 16, in test_generic_error_word_does_not_invent_logging_apis
+    self.assertFalse(tokens & {'log', 'logger', 'console', 'hilog', 'warning', 'exception', 'failed', 'failure', 'debug'})
+AssertionError: {'warning', 'debug', 'failed', 'hilog', 'console', 'log', 'failure', 'exception', 'logger'} is not false
+
+======================================================================
+FAIL: test_public_ui_and_value_errors_and_genuine_log_controls (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_public_ui_and_value_errors_and_genuine_log_controls) (query='查找 badge 校验错误提示的实现。', intent=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/error-translation-investigation/tests/test_error_topic_expansion.py", line 42, in _check_cases
+    self.assertEqual([case['expected']], [a['file_path'] for a in anchors])
+AssertionError: Lists differ: ['BadgeEditor.ts'] != ['ConsoleSink.ts']
+
+First differing element 0:
+'BadgeEditor.ts'
+'ConsoleSink.ts'
+
+- ['BadgeEditor.ts']
++ ['ConsoleSink.ts']
+
+======================================================================
+FAIL: test_public_ui_and_value_errors_and_genuine_log_controls (tests.test_error_topic_expansion.ErrorTopicExpansionTests.test_public_ui_and_value_errors_and_genuine_log_controls) (query='查找 packet 错误返回的实现。', intent=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/error-translation-investigation/tests/test_error_topic_expansion.py", line 42, in _check_cases
+    self.assertEqual([case['expected']], [a['file_path'] for a in anchors])
+AssertionError: Lists differ: ['PacketDecoder.ts'] != ['ConsoleSink.ts']
+
+First differing element 0:
+'PacketDecoder.ts'
+'ConsoleSink.ts'
+
+- ['PacketDecoder.ts']
++ ['ConsoleSink.ts']
+
+----------------------------------------------------------------------
+Ran 5 tests in 5.386s
+
+FAILED (failures=5, expected failures=1)

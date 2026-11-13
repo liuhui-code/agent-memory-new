@@ -11478,3 +11478,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Existing-index check: unchanged source learned under e760097 retains old result
   with new code until ordinary learn-path refresh; after refresh Chinese independent
   result becomes correct. No schema migration or old-record certification added.
+## 2026-11-14 - Freeze generic error versus logging-topic Development evidence
+
+- Independent UI badge validation and packet error-return requests are displaced by
+  ConsoleSink when Chinese 错误 injects broad logging API terms. Equivalent English
+  error requests succeed despite identical legacy runtime_log_diagnosis intent.
+- Explicit code_location still reproduces both errors. Frozen real console and
+  named hilog controls pass; generic hilog precision is already red and preserved.
+- No production change yet. The lexical inference/intent contract remains untouched.
