@@ -1,0 +1,239 @@
+{
+  "classification": "Development shadow intent table; no serving/public retrieval experiment",
+  "base": "235fb51",
+  "cases": [
+    {
+      "id": "cache-0",
+      "query": "Locate executable eviction scan ownership when a cache remains above its entry limit.",
+      "expected_admit": true,
+      "explanation": "Existing frozen operation request; needed branch coverage, not a unique-owner oracle.",
+      "sources": {
+        "ExpiryStore.ts": "export class ExpiryStore {\n  private records: Map<string, Entry> = new Map()\n  trim(limit: number): void {\n    if (this.records.size <= limit) { return }\n    let chosen: string | undefined = undefined\n    let earliest = Number.MAX_SAFE_INTEGER\n    for (const [name, record] of this.records) {\n      if (record.updatedAt < earliest) {\n        earliest = record.updatedAt\n        chosen = name\n      }\n    }\n    if (chosen !== undefined) { this.records.delete(chosen) }\n  }\n}\n",
+        "CacheMonitor.ts": "export class CacheMonitor {\n  render(): string {\n    return 'full result cache above entry limit oldest key eviction scan'\n  }\n}\n",
+        "ImagePool.ts": "export class ImagePool {\n  private entries: Map<string, string> = new Map()\n  remove(key: string): void {\n    this.entries.delete(key)\n  }\n}\n",
+        "ArrivalPool.ts": "export class ArrivalPool {\n private entries: Map<string,string> = new Map()\n trim(limit: number): void {\n  if (this.entries.size > limit) {\n   const first = this.entries.keys().next().value\n   this.entries.delete(first)\n  }\n }\n}\n",
+        "SplitExpiry.ts": "export class SplitExpiry {\n private records: Map<string,Entry> = new Map()\n inspect(limit: number): void {\n  if (this.records.size > limit) {\n   for (const record of this.records.values()) { console.log(record.updatedAt) }\n  }\n }\n remove(key: string): void {\n  this.records.delete(key)\n }\n}\n",
+        "DeferredExpiry.ts": "export class DeferredExpiry {\n private records: Map<string,Entry> = new Map()\n schedule(limit: number): void {\n  queueMicrotask(() => {\n   if (this.records.size > limit) {\n    for (const [key,record] of this.records) {\n     if (record.updatedAt < 100) { this.records.delete(key) }\n    }\n   }\n  })\n }\n}\n"
+      },
+      "origin": "docs/evidence/cache-eviction-current/protocol.json",
+      "candidates": [
+        {
+          "symbol": "trim",
+          "owner_name": "ExpiryStore"
+        },
+        {
+          "symbol": "render",
+          "owner_name": "CacheMonitor"
+        }
+      ]
+    },
+    {
+      "id": "cache-1",
+      "query": "Locate the timestamp scan and delete implementation for a cache exceeding capacity.",
+      "expected_admit": true,
+      "explanation": "Existing frozen operation request; needed branch coverage, not a unique-owner oracle.",
+      "sources": {
+        "ExpiryStore.ts": "export class ExpiryStore {\n  private records: Map<string, Entry> = new Map()\n  trim(limit: number): void {\n    if (this.records.size <= limit) { return }\n    let chosen: string | undefined = undefined\n    let earliest = Number.MAX_SAFE_INTEGER\n    for (const [name, record] of this.records) {\n      if (record.updatedAt < earliest) {\n        earliest = record.updatedAt\n        chosen = name\n      }\n    }\n    if (chosen !== undefined) { this.records.delete(chosen) }\n  }\n}\n",
+        "CacheMonitor.ts": "export class CacheMonitor {\n  render(): string {\n    return 'full result cache above entry limit oldest key eviction scan'\n  }\n}\n",
+        "ImagePool.ts": "export class ImagePool {\n  private entries: Map<string, string> = new Map()\n  remove(key: string): void {\n    this.entries.delete(key)\n  }\n}\n",
+        "ArrivalPool.ts": "export class ArrivalPool {\n private entries: Map<string,string> = new Map()\n trim(limit: number): void {\n  if (this.entries.size > limit) {\n   const first = this.entries.keys().next().value\n   this.entries.delete(first)\n  }\n }\n}\n",
+        "SplitExpiry.ts": "export class SplitExpiry {\n private records: Map<string,Entry> = new Map()\n inspect(limit: number): void {\n  if (this.records.size > limit) {\n   for (const record of this.records.values()) { console.log(record.updatedAt) }\n  }\n }\n remove(key: string): void {\n  this.records.delete(key)\n }\n}\n",
+        "DeferredExpiry.ts": "export class DeferredExpiry {\n private records: Map<string,Entry> = new Map()\n schedule(limit: number): void {\n  queueMicrotask(() => {\n   if (this.records.size > limit) {\n    for (const [key,record] of this.records) {\n     if (record.updatedAt < 100) { this.records.delete(key) }\n    }\n   }\n  })\n }\n}\n"
+      },
+      "origin": "docs/evidence/cache-eviction-current/protocol.json",
+      "candidates": [
+        {
+          "symbol": "trim",
+          "owner_name": "ExpiryStore"
+        },
+        {
+          "symbol": "render",
+          "owner_name": "CacheMonitor"
+        }
+      ]
+    },
+    {
+      "id": "output",
+      "query": "Locate command output iteration and accumulation ownership when the process line reader has data.",
+      "expected_admit": true,
+      "explanation": "Existing frozen reader iteration/accumulation request unchanged.",
+      "sources": {
+        "PipeCollector.ts": "export class PipeCollector {\n  collect(stream: LineStream): string {\n    const chunks: string[] = []\n    let current = stream.readLine()\n    while (current !== null) {\n      chunks.push(current)\n      current = stream.readLine()\n    }\n    return chunks.join(' ')\n  }\n  label(): string {\n    return 'process output line reader accumulation'\n  }\n}\n",
+        "OutputDescription.ts": "export class OutputDescription {\n  label(): string {\n    return 'command output process produces lines'\n  }\n}\n",
+        "SingleRead.ts": "export class SingleRead {\n  read(stream: LineStream): string {\n    return stream.readLine()\n  }\n}\n"
+      },
+      "origin": "docs/evidence/output-loop-followup/protocol.json",
+      "candidates": [
+        {
+          "symbol": "collect",
+          "owner_name": "PipeCollector"
+        },
+        {
+          "symbol": "label",
+          "owner_name": "OutputDescription"
+        }
+      ]
+    },
+    {
+      "id": "explicit",
+      "query": "Locate CacheMonitor.render.",
+      "expected_admit": false,
+      "explanation": "Explicit real description method must remain a valid target.",
+      "sources": {
+        "ExpiryStore.ts": "export class ExpiryStore {\n  private records: Map<string, Entry> = new Map()\n  trim(limit: number): void {\n    if (this.records.size <= limit) { return }\n    let chosen: string | undefined = undefined\n    let earliest = Number.MAX_SAFE_INTEGER\n    for (const [name, record] of this.records) {\n      if (record.updatedAt < earliest) {\n        earliest = record.updatedAt\n        chosen = name\n      }\n    }\n    if (chosen !== undefined) { this.records.delete(chosen) }\n  }\n}\n",
+        "CacheMonitor.ts": "export class CacheMonitor {\n  render(): string {\n    return 'full result cache above entry limit oldest key eviction scan'\n  }\n}\n",
+        "ImagePool.ts": "export class ImagePool {\n  private entries: Map<string, string> = new Map()\n  remove(key: string): void {\n    this.entries.delete(key)\n  }\n}\n",
+        "ArrivalPool.ts": "export class ArrivalPool {\n private entries: Map<string,string> = new Map()\n trim(limit: number): void {\n  if (this.entries.size > limit) {\n   const first = this.entries.keys().next().value\n   this.entries.delete(first)\n  }\n }\n}\n",
+        "SplitExpiry.ts": "export class SplitExpiry {\n private records: Map<string,Entry> = new Map()\n inspect(limit: number): void {\n  if (this.records.size > limit) {\n   for (const record of this.records.values()) { console.log(record.updatedAt) }\n  }\n }\n remove(key: string): void {\n  this.records.delete(key)\n }\n}\n",
+        "DeferredExpiry.ts": "export class DeferredExpiry {\n private records: Map<string,Entry> = new Map()\n schedule(limit: number): void {\n  queueMicrotask(() => {\n   if (this.records.size > limit) {\n    for (const [key,record] of this.records) {\n     if (record.updatedAt < 100) { this.records.delete(key) }\n    }\n   }\n  })\n }\n}\n"
+      },
+      "origin": "docs/evidence/cache-eviction-current/protocol.json",
+      "candidates": [
+        {
+          "symbol": "render",
+          "owner_name": "CacheMonitor"
+        }
+      ]
+    },
+    {
+      "id": "sql-artifact",
+      "query": "Locate the implementation returning the SQL query that reads ready entries from storage.",
+      "expected_admit": false,
+      "explanation": "The desired source returns SQL; body need not perform the SQL read.",
+      "sources": {
+        "StatementProvider.ts": "export class StatementProvider {\n statement(): string { return 'SELECT id FROM entries WHERE ready = 1' }\n}\n"
+      },
+      "origin": "new synthetic request-role control; frozen before execution",
+      "candidates": [
+        {
+          "symbol": "statement",
+          "owner_name": "StatementProvider"
+        }
+      ]
+    },
+    {
+      "id": "html-artifact",
+      "query": "Locate the implementation returning the HTML for the vertical list of ready entries.",
+      "expected_admit": false,
+      "explanation": "The requested result is HTML, not execution of layout by this callable.",
+      "sources": {
+        "MarkupProvider.ts": "export class MarkupProvider {\n markup(): string { return '<ul><li>ready</li></ul>' }\n}\n"
+      },
+      "origin": "new synthetic request-role control; frozen before execution",
+      "candidates": [
+        {
+          "symbol": "markup",
+          "owner_name": "MarkupProvider"
+        }
+      ]
+    },
+    {
+      "id": "program-artifact",
+      "query": "Locate the implementation returning the program for command output iteration and accumulation.",
+      "expected_admit": false,
+      "explanation": "The requested result is executable program text; producer returns a constant program and is correct.",
+      "sources": {
+        "ScriptProvider.ts": "export class ScriptProvider {\n program(): string { return 'while (line !== null) { chunks.push(line); line = stream.readLine(); }' }\n}\n"
+      },
+      "origin": "new synthetic request-role control; frozen before execution",
+      "candidates": [
+        {
+          "symbol": "program",
+          "owner_name": "ScriptProvider"
+        }
+      ]
+    },
+    {
+      "id": "real-log",
+      "query": "Locate the code emitting CACHE_LIMIT_REACHED when a cache exceeds its limit.",
+      "expected_admit": false,
+      "explanation": "Actual emitted log is a legitimate target, not executable-only cache implementation.",
+      "sources": {
+        "FailureSink.ts": "export class FailureSink {\n report(): void { console.error('CACHE_LIMIT_REACHED') }\n}\n"
+      },
+      "origin": "new synthetic request-role control; frozen before execution",
+      "candidates": [
+        {
+          "symbol": "report",
+          "owner_name": "FailureSink"
+        }
+      ]
+    },
+    {
+      "id": "text",
+      "query": "Find text describing cache eviction and command output accumulation.",
+      "expected_admit": false,
+      "explanation": "Explicit text target.",
+      "sources": {
+        "ExpiryStore.ts": "export class ExpiryStore {\n  private records: Map<string, Entry> = new Map()\n  trim(limit: number): void {\n    if (this.records.size <= limit) { return }\n    let chosen: string | undefined = undefined\n    let earliest = Number.MAX_SAFE_INTEGER\n    for (const [name, record] of this.records) {\n      if (record.updatedAt < earliest) {\n        earliest = record.updatedAt\n        chosen = name\n      }\n    }\n    if (chosen !== undefined) { this.records.delete(chosen) }\n  }\n}\n",
+        "CacheMonitor.ts": "export class CacheMonitor {\n  render(): string {\n    return 'full result cache above entry limit oldest key eviction scan'\n  }\n}\n",
+        "ImagePool.ts": "export class ImagePool {\n  private entries: Map<string, string> = new Map()\n  remove(key: string): void {\n    this.entries.delete(key)\n  }\n}\n",
+        "ArrivalPool.ts": "export class ArrivalPool {\n private entries: Map<string,string> = new Map()\n trim(limit: number): void {\n  if (this.entries.size > limit) {\n   const first = this.entries.keys().next().value\n   this.entries.delete(first)\n  }\n }\n}\n",
+        "SplitExpiry.ts": "export class SplitExpiry {\n private records: Map<string,Entry> = new Map()\n inspect(limit: number): void {\n  if (this.records.size > limit) {\n   for (const record of this.records.values()) { console.log(record.updatedAt) }\n  }\n }\n remove(key: string): void {\n  this.records.delete(key)\n }\n}\n",
+        "DeferredExpiry.ts": "export class DeferredExpiry {\n private records: Map<string,Entry> = new Map()\n schedule(limit: number): void {\n  queueMicrotask(() => {\n   if (this.records.size > limit) {\n    for (const [key,record] of this.records) {\n     if (record.updatedAt < 100) { this.records.delete(key) }\n    }\n   }\n  })\n }\n}\n"
+      },
+      "origin": "new protected control",
+      "candidates": [
+        {
+          "symbol": "render",
+          "owner_name": "CacheMonitor"
+        }
+      ]
+    },
+    {
+      "id": "multiple",
+      "query": "Locate both ExpiryStore.trim and CacheMonitor.render.",
+      "expected_admit": false,
+      "explanation": "Operation plus description both required.",
+      "sources": {
+        "ExpiryStore.ts": "export class ExpiryStore {\n  private records: Map<string, Entry> = new Map()\n  trim(limit: number): void {\n    if (this.records.size <= limit) { return }\n    let chosen: string | undefined = undefined\n    let earliest = Number.MAX_SAFE_INTEGER\n    for (const [name, record] of this.records) {\n      if (record.updatedAt < earliest) {\n        earliest = record.updatedAt\n        chosen = name\n      }\n    }\n    if (chosen !== undefined) { this.records.delete(chosen) }\n  }\n}\n",
+        "CacheMonitor.ts": "export class CacheMonitor {\n  render(): string {\n    return 'full result cache above entry limit oldest key eviction scan'\n  }\n}\n",
+        "ImagePool.ts": "export class ImagePool {\n  private entries: Map<string, string> = new Map()\n  remove(key: string): void {\n    this.entries.delete(key)\n  }\n}\n",
+        "ArrivalPool.ts": "export class ArrivalPool {\n private entries: Map<string,string> = new Map()\n trim(limit: number): void {\n  if (this.entries.size > limit) {\n   const first = this.entries.keys().next().value\n   this.entries.delete(first)\n  }\n }\n}\n",
+        "SplitExpiry.ts": "export class SplitExpiry {\n private records: Map<string,Entry> = new Map()\n inspect(limit: number): void {\n  if (this.records.size > limit) {\n   for (const record of this.records.values()) { console.log(record.updatedAt) }\n  }\n }\n remove(key: string): void {\n  this.records.delete(key)\n }\n}\n",
+        "DeferredExpiry.ts": "export class DeferredExpiry {\n private records: Map<string,Entry> = new Map()\n schedule(limit: number): void {\n  queueMicrotask(() => {\n   if (this.records.size > limit) {\n    for (const [key,record] of this.records) {\n     if (record.updatedAt < 100) { this.records.delete(key) }\n    }\n   }\n  })\n }\n}\n"
+      },
+      "origin": "new protected control",
+      "candidates": [
+        {
+          "symbol": "trim",
+          "owner_name": "ExpiryStore"
+        },
+        {
+          "symbol": "render",
+          "owner_name": "CacheMonitor"
+        }
+      ]
+    },
+    {
+      "id": "unknown-history",
+      "query": "A cache eviction happened earlier. Locate the current owner.",
+      "expected_admit": false,
+      "explanation": "Historical action does not establish current executable-only target.",
+      "sources": {
+        "ExpiryStore.ts": "export class ExpiryStore {\n  private records: Map<string, Entry> = new Map()\n  trim(limit: number): void {\n    if (this.records.size <= limit) { return }\n    let chosen: string | undefined = undefined\n    let earliest = Number.MAX_SAFE_INTEGER\n    for (const [name, record] of this.records) {\n      if (record.updatedAt < earliest) {\n        earliest = record.updatedAt\n        chosen = name\n      }\n    }\n    if (chosen !== undefined) { this.records.delete(chosen) }\n  }\n}\n",
+        "CacheMonitor.ts": "export class CacheMonitor {\n  render(): string {\n    return 'full result cache above entry limit oldest key eviction scan'\n  }\n}\n",
+        "ImagePool.ts": "export class ImagePool {\n  private entries: Map<string, string> = new Map()\n  remove(key: string): void {\n    this.entries.delete(key)\n  }\n}\n",
+        "ArrivalPool.ts": "export class ArrivalPool {\n private entries: Map<string,string> = new Map()\n trim(limit: number): void {\n  if (this.entries.size > limit) {\n   const first = this.entries.keys().next().value\n   this.entries.delete(first)\n  }\n }\n}\n",
+        "SplitExpiry.ts": "export class SplitExpiry {\n private records: Map<string,Entry> = new Map()\n inspect(limit: number): void {\n  if (this.records.size > limit) {\n   for (const record of this.records.values()) { console.log(record.updatedAt) }\n  }\n }\n remove(key: string): void {\n  this.records.delete(key)\n }\n}\n",
+        "DeferredExpiry.ts": "export class DeferredExpiry {\n private records: Map<string,Entry> = new Map()\n schedule(limit: number): void {\n  queueMicrotask(() => {\n   if (this.records.size > limit) {\n    for (const [key,record] of this.records) {\n     if (record.updatedAt < 100) { this.records.delete(key) }\n    }\n   }\n  })\n }\n}\n"
+      },
+      "origin": "new ambiguous control",
+      "candidates": [
+        {
+          "symbol": "trim",
+          "owner_name": "ExpiryStore"
+        },
+        {
+          "symbol": "render",
+          "owner_name": "CacheMonitor"
+        }
+      ]
+    }
+  ],
+  "old_protocol_sha256": {
+    "docs/evidence/cache-eviction-current/protocol.json": "f1d6fb1a62597f53b0e409bbaeba328c4fcb68acd731861113ace71dbb7af862",
+    "docs/evidence/output-loop-followup/protocol.json": "5f64a14dc256e045a1dc861c78e1914820e5fda5556ddd3738cdf9c3c91a7cba"
+  },
+  "stop": "One fixed pass through table; any protected admission or mandatory operation refusal rejects gate. No edits or reruns to fix outcomes."
+}
