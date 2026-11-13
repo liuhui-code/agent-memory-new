@@ -11638,3 +11638,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   candidate run, preserve first10 results and patch, restore tools/tests exactly.
 - No original pack tests, accepted runtime change, or new repair count. Evidence:
   docs/eval/semantic-focus-contract/{PLAN.md,protocol.json,RESULT.md}.
+
+
+## Cross-layer error and post-action bounded closeout
+
+- Current 3bb2e4c selected groups remain cross-layer 1/3 and post-action 2/3; no runtime changes.
+- Cross-layer original raw preserves both owners, wrong localizer primary leads compact elsewhere. Independent generic red fails earlier in raw, explicitly not same-layer proof for a projection patch.
+- Post-action fresh trace confirms absent-primary/selected-anchor mismatch; old independent green lacked that condition and was read, not rerun as a new result.
+- Preserve exact-method, real retry and log controls; identify limited next evidence rather than declaring every remaining category blocked.
+- Targeted contracts/focus and fingerprint checks pass. No full evaluation; see docs/eval/error-contract-first-loss.

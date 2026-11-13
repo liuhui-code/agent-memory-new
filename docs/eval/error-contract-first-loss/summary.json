@@ -1,0 +1,2675 @@
+{
+  "trace_parity": {
+    "context-cross-layer-error-contract-owner": [
+      true,
+      true
+    ],
+    "context-post-action-refresh-owner": [
+      true,
+      true
+    ]
+  },
+  "post_old_control": {
+    "source": "docs/evidence/post-action-precision/independent-public.json (retained old observation, not rerun)",
+    "raw_paths": [
+      "ThermostatStore.ets",
+      "PointerState.ets",
+      "CommandPanel.ets"
+    ],
+    "primary": {
+      "file_path": "ThermostatStore.ets",
+      "symbol": "reloadState",
+      "owner_name": "ThermostatStore",
+      "owner_kind": "store",
+      "file_structural_coverage": 3,
+      "callable_roles": [
+        "async",
+        "state_write",
+        "source_operation_checked:v2.1",
+        "source_operation_unresolved:persistenceread"
+      ],
+      "score": 34.0,
+      "evidence_score": 34.0,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 7,
+        "end_line": 10,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "compact_paths": [
+      "ThermostatStore.ets"
+    ]
+  },
+  "selection_steps": [
+    {
+      "query": "A command succeeds while the lighting view stays stale; find the command and state reload owner.",
+      "stage": "focus_code_candidates",
+      "before": [
+        {
+          "path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "title"
+        },
+        {
+          "path": "src/pages/CommandOutputPage.ets",
+          "symbol": "output"
+        },
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "runCommand"
+        },
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "refreshState"
+        },
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        },
+        {
+          "path": "src/models/InteractionState.ets",
+          "symbol": "selectPointer"
+        },
+        {
+          "path": "src/pages/CommandOutputPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "SnapshotCommandRow"
+        },
+        {
+          "path": "src/actions/BackupCommandPanel.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/DraftPage.ets",
+          "symbol": "reloadPreview"
+        },
+        {
+          "path": "src/actions/BackupCommandPanel.ets",
+          "symbol": "BackupCommandPanel"
+        },
+        {
+          "path": "src/models/InteractionState.ets",
+          "symbol": "InteractionState"
+        },
+        {
+          "path": "src/pages/CommandOutputPage.ets",
+          "symbol": "CommandOutputPage"
+        },
+        {
+          "path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "SnapshotCommandRow"
+        },
+        {
+          "path": "src/actions/BackupCommandPanel.ets",
+          "symbol": "BackupCommand"
+        },
+        {
+          "path": "src/actions/BackupCommandPanel.ets",
+          "symbol": "BackupCommandPanel"
+        },
+        {
+          "path": "src/config/CommandOutputProfile.ets",
+          "symbol": "CommandOutputProfile"
+        },
+        {
+          "path": "src/pages/CommandOutputPage.ets",
+          "symbol": "CommandOutputPage"
+        },
+        {
+          "path": "src/runtime/CommandEligibility.ets",
+          "symbol": "CommandEligibility"
+        },
+        {
+          "path": "src/config/CommandOutputProfile.ets",
+          "symbol": "CommandOutputProfile"
+        },
+        {
+          "path": "src/models/BoardState.ets",
+          "symbol": "BoardState"
+        },
+        {
+          "path": "src/models/InteractionState.ets",
+          "symbol": "InteractionState"
+        },
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "current"
+        },
+        {
+          "path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/runtime/CommandEligibility.ets",
+          "symbol": "canSeek"
+        },
+        {
+          "path": "src/runtime/CommandEligibility.ets",
+          "symbol": "canAdjustVolume"
+        },
+        {
+          "path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "invoke"
+        },
+        {
+          "path": "src/runtime/CommandEligibility.ets",
+          "symbol": "CommandEligibility"
+        },
+        {
+          "path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "reloadSummary"
+        },
+        {
+          "path": "src/models/BoardState.ets",
+          "symbol": "BoardState"
+        },
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        },
+        {
+          "path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "sys.symbol.archivebox"
+        },
+        {
+          "path": "src/stores/DeviceSyncStore.ets",
+          "symbol": "devices"
+        },
+        {
+          "path": "src/viewmodels/FolderCollectionLoader.ets",
+          "symbol": "FolderCollectionLoader"
+        },
+        {
+          "path": "src/runtime/TransportRegistry.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/streaming/ConversationDraftStore.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/components/RecordPreview.ets",
+          "symbol": "sharedRecord"
+        },
+        {
+          "path": "src/viewmodels/FolderCollectionLoader.ets",
+          "symbol": "items"
+        },
+        {
+          "path": "src/views/ArticleMarkupView.ets",
+          "symbol": "article"
+        },
+        {
+          "path": "src/views/CanvasInteractionSurface.ets",
+          "symbol": "activeHandle"
+        },
+        {
+          "path": "src/views/CatalogFilterPanel.ets",
+          "symbol": "denseMode"
+        },
+        {
+          "path": "src/views/EventBubble.ets",
+          "symbol": "entry"
+        },
+        {
+          "path": "src/views/EventBubble.ets",
+          "symbol": "showHeader"
+        },
+        {
+          "path": "src/views/FilterToggle.ets",
+          "symbol": "denseMode"
+        },
+        {
+          "path": "src/views/InventoryList.ets",
+          "symbol": "rows"
+        },
+        {
+          "path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "selectedCategory"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "label"
+        },
+        {
+          "path": "src/views/MessageRow.ets",
+          "symbol": "messageText"
+        },
+        {
+          "path": "src/views/MessageRow.ets",
+          "symbol": "quotedText"
+        },
+        {
+          "path": "src/views/PlaybackTouchSurface.ets",
+          "symbol": "lastX"
+        },
+        {
+          "path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "text"
+        },
+        {
+          "path": "src/views/TimelineRow.ets",
+          "symbol": "entry"
+        },
+        {
+          "path": "src/views/TimelineRow.ets",
+          "symbol": "showHeader"
+        },
+        {
+          "path": "src/controllers/WorkspaceSelectionController.ets",
+          "symbol": "onEditRequested"
+        },
+        {
+          "path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "updateLabel"
+        },
+        {
+          "path": "src/coordinators/SourceSwapCoordinator.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/models/CanvasSelection.ets",
+          "symbol": "selectHandle"
+        },
+        {
+          "path": "src/pages/CollectionPage.ets",
+          "symbol": "updateFolder"
+        },
+        {
+          "path": "src/runtime/LeaseController.ets",
+          "symbol": "attach"
+        },
+        {
+          "path": "src/services/DispatchProfileService.ets",
+          "symbol": "constructor"
+        },
+        {
+          "path": "src/stores/DocumentSelectionStore.ets",
+          "symbol": "selectEntry"
+        },
+        {
+          "path": "src/web/DesktopEditorFocusController.ets",
+          "symbol": "attach"
+        },
+        {
+          "path": "src/abilities/SnapshotTransferAbility.ets",
+          "symbol": "persistTransferState"
+        },
+        {
+          "path": "src/controllers/SeatMapController.ets",
+          "symbol": "SeatState"
+        },
+        {
+          "path": "src/views/CanvasInteractionSurface.ets",
+          "symbol": "CanvasInteractionSurface"
+        },
+        {
+          "path": "src/views/PlaybackTouchSurface.ets",
+          "symbol": "PlaybackTouchSurface"
+        },
+        {
+          "path": "src/coordinators/DraftSessionCoordinator.ets",
+          "symbol": "draftText"
+        },
+        {
+          "path": "src/pages/CallbackAuditPage.ets",
+          "symbol": "refreshNow"
+        },
+        {
+          "path": "src/pages/DraftPage.ets",
+          "symbol": "aboutToAppear"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "retryPending"
+        },
+        {
+          "path": "src/pages/ProductSearchPage.ets",
+          "symbol": "query"
+        },
+        {
+          "path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "reloadSummary"
+        },
+        {
+          "path": "src/components/KeyboardFocusHint.ets",
+          "symbol": "focusMessage"
+        },
+        {
+          "path": "src/controllers/WorkspaceSelectionController.ets",
+          "symbol": "selectedId"
+        },
+        {
+          "path": "src/controllers/WorkspaceSelectionController.ets",
+          "symbol": "selectedSchema"
+        },
+        {
+          "path": "src/coordinators/DraftSessionCoordinator.ets",
+          "symbol": "draftText"
+        },
+        {
+          "path": "src/pages/AccountSettingsPage.ets",
+          "symbol": "displayName"
+        },
+        {
+          "path": "src/pages/AppearanceSettingsPage.ets",
+          "symbol": "statusBarColor"
+        },
+        {
+          "path": "src/pages/CacheInspectorPage.ets",
+          "symbol": "oldestEntryLabel"
+        },
+        {
+          "path": "src/pages/CallbackAuditPage.ets",
+          "symbol": "private"
+        },
+        {
+          "path": "src/pages/CatalogPage.ets",
+          "symbol": "compactFilters"
+        },
+        {
+          "path": "src/pages/CollectionPage.ets",
+          "symbol": "folderId"
+        },
+        {
+          "path": "src/pages/DisclosureAppearancePage.ets",
+          "symbol": "private"
+        },
+        {
+          "path": "src/pages/DraftPage.ets",
+          "symbol": "draftText"
+        },
+        {
+          "path": "src/pages/DraftStatusPage.ets",
+          "symbol": "checkpointStatus"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "pendingCount"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "statusText"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "retryPending"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "failureMessage"
+        },
+        {
+          "path": "src/pages/PasteImportPage.ets",
+          "symbol": "clipboardText"
+        },
+        {
+          "path": "src/pages/ProductSearchPage.ets",
+          "symbol": "query"
+        },
+        {
+          "path": "src/pages/ProductSearchPage.ets",
+          "symbol": "products"
+        },
+        {
+          "path": "src/pages/QuotaRecoveryPage.ets",
+          "symbol": "retryEnabled"
+        },
+        {
+          "path": "src/pages/QuotaRecoveryPage.ets",
+          "symbol": "recoveryNotice"
+        },
+        {
+          "path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "selectedQuarter"
+        },
+        {
+          "path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "revenueTotal"
+        },
+        {
+          "path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "costTotal"
+        },
+        {
+          "path": "src/pages/RuleCreatorPage.ets",
+          "symbol": "private"
+        },
+        {
+          "path": "src/pages/RuleEditorPage.ets",
+          "symbol": "private"
+        },
+        {
+          "path": "src/pages/ShareComposerPage.ets",
+          "symbol": "sharedRecords"
+        },
+        {
+          "path": "src/pages/ShipmentTimelinePage.ets",
+          "symbol": "shipments"
+        },
+        {
+          "path": "src/pages/ThemePreferencesPage.ets",
+          "symbol": "selectedMode"
+        },
+        {
+          "path": "src/pages/TimelinePage.ets",
+          "symbol": "entries"
+        },
+        {
+          "path": "src/pages/UpgradeStatusPage.ets",
+          "symbol": "archiveStatus"
+        },
+        {
+          "path": "src/pages/VoiceMessagePage.ets",
+          "symbol": "recording"
+        },
+        {
+          "path": "src/pages/WarehouseFacetPage.ets",
+          "symbol": "facets"
+        },
+        {
+          "path": "src/pages/WorkspaceLoadingPage.ets",
+          "symbol": "timeoutMessage"
+        },
+        {
+          "path": "src/stores/DeviceSyncStore.ets",
+          "symbol": "devices"
+        },
+        {
+          "path": "src/web/SecureDocumentBrowser.ets",
+          "symbol": "sourceUrl"
+        },
+        {
+          "path": "src/widgets/NotificationRow.ets",
+          "symbol": "title"
+        },
+        {
+          "path": "src/widgets/SeatCell.ets",
+          "symbol": "selected"
+        },
+        {
+          "path": "src/widgets/WorkCard.ets",
+          "symbol": "item"
+        },
+        {
+          "path": "src/components/KeyboardFocusHint.ets",
+          "symbol": "updateFocusMessage"
+        },
+        {
+          "path": "src/lifecycle/DeadlineBootstrapController.ets",
+          "symbol": "initializeWorkspace"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment1"
+        },
+        {
+          "path": "src/pages/QuotaRecoveryPage.ets",
+          "symbol": "retryEnabled"
+        },
+        {
+          "path": "src/pages/RuleCreatorPage.ets",
+          "symbol": "private"
+        },
+        {
+          "path": "src/pages/RuleEditorPage.ets",
+          "symbol": "onClick"
+        },
+        {
+          "path": "src/pages/ThemePreferencesPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/VoiceMessagePage.ets",
+          "symbol": "toggleRecording"
+        },
+        {
+          "path": "src/widgets/SeatCell.ets",
+          "symbol": "onCellTapped"
+        },
+        {
+          "path": "src/viewmodels/FolderCollectionLoader.ets",
+          "symbol": "loadFolder"
+        },
+        {
+          "path": "src/views/CanvasInteractionSurface.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/CanvasInteractionSurface.ets",
+          "symbol": "onActionStart"
+        },
+        {
+          "path": "src/views/CanvasInteractionSurface.ets",
+          "symbol": "onActionUpdate"
+        },
+        {
+          "path": "src/views/PlaybackTouchSurface.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/PlaybackTouchSurface.ets",
+          "symbol": "onTouch"
+        },
+        {
+          "path": "src/controllers/WorkspaceSelectionController.ets",
+          "symbol": "onEditRequested"
+        },
+        {
+          "path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "updateLabel"
+        },
+        {
+          "path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "resetIndicator"
+        },
+        {
+          "path": "src/lifecycle/DeadlineBootstrapController.ets",
+          "symbol": "initializeWorkspace"
+        },
+        {
+          "path": "src/models/CanvasSelection.ets",
+          "symbol": "selectHandle"
+        },
+        {
+          "path": "src/pages/CallbackAuditPage.ets",
+          "symbol": "refreshNow"
+        },
+        {
+          "path": "src/runtime/LeaseController.ets",
+          "symbol": "attach"
+        },
+        {
+          "path": "src/runtime/LeaseController.ets",
+          "symbol": "releaseLease"
+        },
+        {
+          "path": "src/services/DispatchProfileService.ets",
+          "symbol": "constructor"
+        },
+        {
+          "path": "src/widgets/SeatCell.ets",
+          "symbol": "onCellTapped"
+        },
+        {
+          "path": "src/pages/DraftPage.ets",
+          "symbol": "aboutToAppear"
+        },
+        {
+          "path": "src/viewmodels/GalleryListViewModel.ets",
+          "symbol": "GalleryListViewModel"
+        },
+        {
+          "path": "src/views/ArticleMarkupView.ets",
+          "symbol": "ArticleMarkupView"
+        },
+        {
+          "path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "QuotedMessagePreview"
+        },
+        {
+          "path": "src/views/EventBubble.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/ThemePreferencesPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/ThemePreferencesPage.ets",
+          "symbol": "$selectedIndex"
+        },
+        {
+          "path": "src/components/KeyboardFocusHint.ets",
+          "symbol": "updateFocusMessage"
+        },
+        {
+          "path": "src/pages/CollectionPage.ets",
+          "symbol": "updateFolder"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment1"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment2"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment3"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment4"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment5"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment6"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment7"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment8"
+        },
+        {
+          "path": "src/pages/RuleEditorPage.ets",
+          "symbol": "onClick"
+        },
+        {
+          "path": "src/pages/VoiceMessagePage.ets",
+          "symbol": "toggleRecording"
+        },
+        {
+          "path": "src/stores/DocumentSelectionStore.ets",
+          "symbol": "selectEntry"
+        },
+        {
+          "path": "src/web/DesktopEditorFocusController.ets",
+          "symbol": "attach"
+        },
+        {
+          "path": "src/web/DesktopEditorFocusController.ets",
+          "symbol": "on"
+        },
+        {
+          "path": "src/viewmodels/FolderCollectionLoader.ets",
+          "symbol": "FolderCollectionLoader"
+        },
+        {
+          "path": "src/viewmodels/GalleryListViewModel.ets",
+          "symbol": "visibleWorks"
+        },
+        {
+          "path": "src/views/ArticleMarkupView.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/ArticleMarkupView.ets",
+          "symbol": "cleanedBody"
+        },
+        {
+          "path": "src/views/BoardGestureSurface.ets",
+          "symbol": "BoardGestureSurface"
+        },
+        {
+          "path": "src/views/BoardGestureSurface.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/BoardGestureSurface.ets",
+          "symbol": "onActionUpdate"
+        },
+        {
+          "path": "src/views/CanvasInteractionSurface.ets",
+          "symbol": "CanvasInteractionSurface"
+        },
+        {
+          "path": "src/views/CatalogFilterPanel.ets",
+          "symbol": "CatalogFilterPanel"
+        },
+        {
+          "path": "src/views/CatalogFilterPanel.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/CatalogFilterSuggestion.ets",
+          "symbol": "CatalogFilterSuggestion"
+        },
+        {
+          "path": "src/views/CatalogFilterSuggestion.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/EventBubble.ets",
+          "symbol": "TimelineEntry"
+        },
+        {
+          "path": "src/views/EventBubble.ets",
+          "symbol": "EventBubble"
+        },
+        {
+          "path": "src/views/FilterToggle.ets",
+          "symbol": "FilterToggle"
+        },
+        {
+          "path": "src/views/FilterToggle.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/InventoryItem.ets",
+          "symbol": "InventoryItem"
+        },
+        {
+          "path": "src/views/InventoryItem.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/InventoryList.ets",
+          "symbol": "InventoryList"
+        },
+        {
+          "path": "src/views/InventoryList.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "InventoryOverlayPanel"
+        },
+        {
+          "path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "JobDispatchButton"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/MessageRow.ets",
+          "symbol": "MessageRow"
+        },
+        {
+          "path": "src/views/MessageRow.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/PlaybackTouchSurface.ets",
+          "symbol": "PlaybackTouchSurface"
+        },
+        {
+          "path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/TimelineRow.ets",
+          "symbol": "TimelineEntry"
+        },
+        {
+          "path": "src/views/TimelineRow.ets",
+          "symbol": "TimelineRow"
+        },
+        {
+          "path": "src/views/TimelineRow.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/WorkGalleryPage.ets",
+          "symbol": "WorkGalleryPage"
+        },
+        {
+          "path": "src/views/WorkGalleryPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/WorkGalleryPage.ets",
+          "symbol": "renderWorkGallery"
+        },
+        {
+          "path": "src/services/ParcelDeliveryService.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/views/ArticleMarkupView.ets",
+          "symbol": "ArticleMarkupView"
+        },
+        {
+          "path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "QuotedMessagePreview"
+        },
+        {
+          "path": "src/abilities/SnapshotTransferAbility.ets",
+          "symbol": "persistTransferState"
+        },
+        {
+          "path": "src/actions/OrderActionButton.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/coordinators/OrderCommitCoordinator.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/pages/AccountSettingsPage.ets",
+          "symbol": "displayName"
+        },
+        {
+          "path": "src/pages/DownloadsPage.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/pages/SnapshotAuditPage.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/repositories/ParcelRepository.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/services/SnapshotCoordinator.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/viewmodels/GalleryListViewModel.ets",
+          "symbol": "GalleryListViewModel"
+        },
+        {
+          "path": "src/views/BoardGestureSurface.ets",
+          "symbol": "BoardGestureSurface"
+        },
+        {
+          "path": "src/views/CatalogFilterPanel.ets",
+          "symbol": "CatalogFilterPanel"
+        },
+        {
+          "path": "src/views/CatalogFilterSuggestion.ets",
+          "symbol": "CatalogFilterSuggestion"
+        },
+        {
+          "path": "src/views/EventBubble.ets",
+          "symbol": "EventBubble"
+        },
+        {
+          "path": "src/views/FilterToggle.ets",
+          "symbol": "FilterToggle"
+        },
+        {
+          "path": "src/views/InventoryItem.ets",
+          "symbol": "InventoryItem"
+        },
+        {
+          "path": "src/views/InventoryList.ets",
+          "symbol": "InventoryList"
+        },
+        {
+          "path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "InventoryOverlayPanel"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "JobDispatchButton"
+        },
+        {
+          "path": "src/views/MessageRow.ets",
+          "symbol": "MessageRow"
+        },
+        {
+          "path": "src/views/TimelineRow.ets",
+          "symbol": "TimelineRow"
+        },
+        {
+          "path": "src/views/WorkGalleryPage.ets",
+          "symbol": "WorkGalleryPage"
+        },
+        {
+          "path": "src/pages/WorkspacePage.ets",
+          "symbol": "aboutToDisappear"
+        }
+      ],
+      "after": [
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        }
+      ]
+    },
+    {
+      "query": "A command succeeds while the lighting view stays stale; find the command and state reload owner.",
+      "stage": "preserve_structural_boundary_neighbors",
+      "before": [
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        }
+      ],
+      "after": [
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        }
+      ]
+    },
+    {
+      "query": "A command succeeds while the lighting view stays stale; find the command and state reload owner.",
+      "stage": "preserve_salient_evidence_candidates",
+      "before": [
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        }
+      ],
+      "after": [
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        },
+        {
+          "path": "src/models/InteractionState.ets",
+          "symbol": "selectPointer"
+        },
+        {
+          "path": "src/pages/CommandOutputPage.ets",
+          "symbol": "build"
+        }
+      ]
+    },
+    {
+      "query": "A command succeeds while the lighting view stays stale; find the command and state reload owner.",
+      "stage": "focus_code_candidates",
+      "before": [
+        {
+          "path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "title"
+        },
+        {
+          "path": "src/pages/CommandOutputPage.ets",
+          "symbol": "output"
+        },
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "runCommand"
+        },
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "refreshState"
+        },
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        },
+        {
+          "path": "src/models/InteractionState.ets",
+          "symbol": "selectPointer"
+        },
+        {
+          "path": "src/pages/CommandOutputPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "SnapshotCommandRow"
+        },
+        {
+          "path": "src/actions/BackupCommandPanel.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/DraftPage.ets",
+          "symbol": "reloadPreview"
+        },
+        {
+          "path": "src/actions/BackupCommandPanel.ets",
+          "symbol": "BackupCommandPanel"
+        },
+        {
+          "path": "src/models/InteractionState.ets",
+          "symbol": "InteractionState"
+        },
+        {
+          "path": "src/pages/CommandOutputPage.ets",
+          "symbol": "CommandOutputPage"
+        },
+        {
+          "path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "SnapshotCommandRow"
+        },
+        {
+          "path": "src/actions/BackupCommandPanel.ets",
+          "symbol": "BackupCommand"
+        },
+        {
+          "path": "src/actions/BackupCommandPanel.ets",
+          "symbol": "BackupCommandPanel"
+        },
+        {
+          "path": "src/config/CommandOutputProfile.ets",
+          "symbol": "CommandOutputProfile"
+        },
+        {
+          "path": "src/pages/CommandOutputPage.ets",
+          "symbol": "CommandOutputPage"
+        },
+        {
+          "path": "src/runtime/CommandEligibility.ets",
+          "symbol": "CommandEligibility"
+        },
+        {
+          "path": "src/config/CommandOutputProfile.ets",
+          "symbol": "CommandOutputProfile"
+        },
+        {
+          "path": "src/models/BoardState.ets",
+          "symbol": "BoardState"
+        },
+        {
+          "path": "src/models/InteractionState.ets",
+          "symbol": "InteractionState"
+        },
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "current"
+        },
+        {
+          "path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/runtime/CommandEligibility.ets",
+          "symbol": "canSeek"
+        },
+        {
+          "path": "src/runtime/CommandEligibility.ets",
+          "symbol": "canAdjustVolume"
+        },
+        {
+          "path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "invoke"
+        },
+        {
+          "path": "src/runtime/CommandEligibility.ets",
+          "symbol": "CommandEligibility"
+        },
+        {
+          "path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "reloadSummary"
+        },
+        {
+          "path": "src/models/BoardState.ets",
+          "symbol": "BoardState"
+        },
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        },
+        {
+          "path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "sys.symbol.archivebox"
+        },
+        {
+          "path": "src/stores/DeviceSyncStore.ets",
+          "symbol": "devices"
+        },
+        {
+          "path": "src/viewmodels/FolderCollectionLoader.ets",
+          "symbol": "FolderCollectionLoader"
+        },
+        {
+          "path": "src/runtime/TransportRegistry.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/streaming/ConversationDraftStore.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/components/RecordPreview.ets",
+          "symbol": "sharedRecord"
+        },
+        {
+          "path": "src/viewmodels/FolderCollectionLoader.ets",
+          "symbol": "items"
+        },
+        {
+          "path": "src/views/ArticleMarkupView.ets",
+          "symbol": "article"
+        },
+        {
+          "path": "src/views/CanvasInteractionSurface.ets",
+          "symbol": "activeHandle"
+        },
+        {
+          "path": "src/views/CatalogFilterPanel.ets",
+          "symbol": "denseMode"
+        },
+        {
+          "path": "src/views/EventBubble.ets",
+          "symbol": "entry"
+        },
+        {
+          "path": "src/views/EventBubble.ets",
+          "symbol": "showHeader"
+        },
+        {
+          "path": "src/views/FilterToggle.ets",
+          "symbol": "denseMode"
+        },
+        {
+          "path": "src/views/InventoryList.ets",
+          "symbol": "rows"
+        },
+        {
+          "path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "selectedCategory"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "label"
+        },
+        {
+          "path": "src/views/MessageRow.ets",
+          "symbol": "messageText"
+        },
+        {
+          "path": "src/views/MessageRow.ets",
+          "symbol": "quotedText"
+        },
+        {
+          "path": "src/views/PlaybackTouchSurface.ets",
+          "symbol": "lastX"
+        },
+        {
+          "path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "text"
+        },
+        {
+          "path": "src/views/TimelineRow.ets",
+          "symbol": "entry"
+        },
+        {
+          "path": "src/views/TimelineRow.ets",
+          "symbol": "showHeader"
+        },
+        {
+          "path": "src/controllers/WorkspaceSelectionController.ets",
+          "symbol": "onEditRequested"
+        },
+        {
+          "path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "updateLabel"
+        },
+        {
+          "path": "src/coordinators/SourceSwapCoordinator.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/models/CanvasSelection.ets",
+          "symbol": "selectHandle"
+        },
+        {
+          "path": "src/pages/CollectionPage.ets",
+          "symbol": "updateFolder"
+        },
+        {
+          "path": "src/runtime/LeaseController.ets",
+          "symbol": "attach"
+        },
+        {
+          "path": "src/services/DispatchProfileService.ets",
+          "symbol": "constructor"
+        },
+        {
+          "path": "src/stores/DocumentSelectionStore.ets",
+          "symbol": "selectEntry"
+        },
+        {
+          "path": "src/web/DesktopEditorFocusController.ets",
+          "symbol": "attach"
+        },
+        {
+          "path": "src/abilities/SnapshotTransferAbility.ets",
+          "symbol": "persistTransferState"
+        },
+        {
+          "path": "src/controllers/SeatMapController.ets",
+          "symbol": "SeatState"
+        },
+        {
+          "path": "src/views/CanvasInteractionSurface.ets",
+          "symbol": "CanvasInteractionSurface"
+        },
+        {
+          "path": "src/views/PlaybackTouchSurface.ets",
+          "symbol": "PlaybackTouchSurface"
+        },
+        {
+          "path": "src/coordinators/DraftSessionCoordinator.ets",
+          "symbol": "draftText"
+        },
+        {
+          "path": "src/pages/CallbackAuditPage.ets",
+          "symbol": "refreshNow"
+        },
+        {
+          "path": "src/pages/DraftPage.ets",
+          "symbol": "aboutToAppear"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "retryPending"
+        },
+        {
+          "path": "src/pages/ProductSearchPage.ets",
+          "symbol": "query"
+        },
+        {
+          "path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "reloadSummary"
+        },
+        {
+          "path": "src/components/KeyboardFocusHint.ets",
+          "symbol": "focusMessage"
+        },
+        {
+          "path": "src/controllers/WorkspaceSelectionController.ets",
+          "symbol": "selectedId"
+        },
+        {
+          "path": "src/controllers/WorkspaceSelectionController.ets",
+          "symbol": "selectedSchema"
+        },
+        {
+          "path": "src/coordinators/DraftSessionCoordinator.ets",
+          "symbol": "draftText"
+        },
+        {
+          "path": "src/pages/AccountSettingsPage.ets",
+          "symbol": "displayName"
+        },
+        {
+          "path": "src/pages/AppearanceSettingsPage.ets",
+          "symbol": "statusBarColor"
+        },
+        {
+          "path": "src/pages/CacheInspectorPage.ets",
+          "symbol": "oldestEntryLabel"
+        },
+        {
+          "path": "src/pages/CallbackAuditPage.ets",
+          "symbol": "private"
+        },
+        {
+          "path": "src/pages/CatalogPage.ets",
+          "symbol": "compactFilters"
+        },
+        {
+          "path": "src/pages/CollectionPage.ets",
+          "symbol": "folderId"
+        },
+        {
+          "path": "src/pages/DisclosureAppearancePage.ets",
+          "symbol": "private"
+        },
+        {
+          "path": "src/pages/DraftPage.ets",
+          "symbol": "draftText"
+        },
+        {
+          "path": "src/pages/DraftStatusPage.ets",
+          "symbol": "checkpointStatus"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "pendingCount"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "statusText"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "retryPending"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "failureMessage"
+        },
+        {
+          "path": "src/pages/PasteImportPage.ets",
+          "symbol": "clipboardText"
+        },
+        {
+          "path": "src/pages/ProductSearchPage.ets",
+          "symbol": "query"
+        },
+        {
+          "path": "src/pages/ProductSearchPage.ets",
+          "symbol": "products"
+        },
+        {
+          "path": "src/pages/QuotaRecoveryPage.ets",
+          "symbol": "retryEnabled"
+        },
+        {
+          "path": "src/pages/QuotaRecoveryPage.ets",
+          "symbol": "recoveryNotice"
+        },
+        {
+          "path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "selectedQuarter"
+        },
+        {
+          "path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "revenueTotal"
+        },
+        {
+          "path": "src/pages/RevenueQuarterPage.ets",
+          "symbol": "costTotal"
+        },
+        {
+          "path": "src/pages/RuleCreatorPage.ets",
+          "symbol": "private"
+        },
+        {
+          "path": "src/pages/RuleEditorPage.ets",
+          "symbol": "private"
+        },
+        {
+          "path": "src/pages/ShareComposerPage.ets",
+          "symbol": "sharedRecords"
+        },
+        {
+          "path": "src/pages/ShipmentTimelinePage.ets",
+          "symbol": "shipments"
+        },
+        {
+          "path": "src/pages/ThemePreferencesPage.ets",
+          "symbol": "selectedMode"
+        },
+        {
+          "path": "src/pages/TimelinePage.ets",
+          "symbol": "entries"
+        },
+        {
+          "path": "src/pages/UpgradeStatusPage.ets",
+          "symbol": "archiveStatus"
+        },
+        {
+          "path": "src/pages/VoiceMessagePage.ets",
+          "symbol": "recording"
+        },
+        {
+          "path": "src/pages/WarehouseFacetPage.ets",
+          "symbol": "facets"
+        },
+        {
+          "path": "src/pages/WorkspaceLoadingPage.ets",
+          "symbol": "timeoutMessage"
+        },
+        {
+          "path": "src/stores/DeviceSyncStore.ets",
+          "symbol": "devices"
+        },
+        {
+          "path": "src/web/SecureDocumentBrowser.ets",
+          "symbol": "sourceUrl"
+        },
+        {
+          "path": "src/widgets/NotificationRow.ets",
+          "symbol": "title"
+        },
+        {
+          "path": "src/widgets/SeatCell.ets",
+          "symbol": "selected"
+        },
+        {
+          "path": "src/widgets/WorkCard.ets",
+          "symbol": "item"
+        },
+        {
+          "path": "src/components/KeyboardFocusHint.ets",
+          "symbol": "updateFocusMessage"
+        },
+        {
+          "path": "src/lifecycle/DeadlineBootstrapController.ets",
+          "symbol": "initializeWorkspace"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment1"
+        },
+        {
+          "path": "src/pages/QuotaRecoveryPage.ets",
+          "symbol": "retryEnabled"
+        },
+        {
+          "path": "src/pages/RuleCreatorPage.ets",
+          "symbol": "private"
+        },
+        {
+          "path": "src/pages/RuleEditorPage.ets",
+          "symbol": "onClick"
+        },
+        {
+          "path": "src/pages/ThemePreferencesPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/VoiceMessagePage.ets",
+          "symbol": "toggleRecording"
+        },
+        {
+          "path": "src/widgets/SeatCell.ets",
+          "symbol": "onCellTapped"
+        },
+        {
+          "path": "src/viewmodels/FolderCollectionLoader.ets",
+          "symbol": "loadFolder"
+        },
+        {
+          "path": "src/views/CanvasInteractionSurface.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/CanvasInteractionSurface.ets",
+          "symbol": "onActionStart"
+        },
+        {
+          "path": "src/views/CanvasInteractionSurface.ets",
+          "symbol": "onActionUpdate"
+        },
+        {
+          "path": "src/views/PlaybackTouchSurface.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/PlaybackTouchSurface.ets",
+          "symbol": "onTouch"
+        },
+        {
+          "path": "src/controllers/WorkspaceSelectionController.ets",
+          "symbol": "onEditRequested"
+        },
+        {
+          "path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "updateLabel"
+        },
+        {
+          "path": "src/coordinators/DocumentNavigationCoordinator.ets",
+          "symbol": "resetIndicator"
+        },
+        {
+          "path": "src/lifecycle/DeadlineBootstrapController.ets",
+          "symbol": "initializeWorkspace"
+        },
+        {
+          "path": "src/models/CanvasSelection.ets",
+          "symbol": "selectHandle"
+        },
+        {
+          "path": "src/pages/CallbackAuditPage.ets",
+          "symbol": "refreshNow"
+        },
+        {
+          "path": "src/runtime/LeaseController.ets",
+          "symbol": "attach"
+        },
+        {
+          "path": "src/runtime/LeaseController.ets",
+          "symbol": "releaseLease"
+        },
+        {
+          "path": "src/services/DispatchProfileService.ets",
+          "symbol": "constructor"
+        },
+        {
+          "path": "src/widgets/SeatCell.ets",
+          "symbol": "onCellTapped"
+        },
+        {
+          "path": "src/pages/DraftPage.ets",
+          "symbol": "aboutToAppear"
+        },
+        {
+          "path": "src/viewmodels/GalleryListViewModel.ets",
+          "symbol": "GalleryListViewModel"
+        },
+        {
+          "path": "src/views/ArticleMarkupView.ets",
+          "symbol": "ArticleMarkupView"
+        },
+        {
+          "path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "QuotedMessagePreview"
+        },
+        {
+          "path": "src/views/EventBubble.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/ThemePreferencesPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/ThemePreferencesPage.ets",
+          "symbol": "$selectedIndex"
+        },
+        {
+          "path": "src/components/KeyboardFocusHint.ets",
+          "symbol": "updateFocusMessage"
+        },
+        {
+          "path": "src/pages/CollectionPage.ets",
+          "symbol": "updateFolder"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment1"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment2"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment3"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment4"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment5"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment6"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment7"
+        },
+        {
+          "path": "src/pages/LedgerMaintenancePage.ets",
+          "symbol": "inspectLedgerSegment8"
+        },
+        {
+          "path": "src/pages/RuleEditorPage.ets",
+          "symbol": "onClick"
+        },
+        {
+          "path": "src/pages/VoiceMessagePage.ets",
+          "symbol": "toggleRecording"
+        },
+        {
+          "path": "src/stores/DocumentSelectionStore.ets",
+          "symbol": "selectEntry"
+        },
+        {
+          "path": "src/web/DesktopEditorFocusController.ets",
+          "symbol": "attach"
+        },
+        {
+          "path": "src/web/DesktopEditorFocusController.ets",
+          "symbol": "on"
+        },
+        {
+          "path": "src/viewmodels/FolderCollectionLoader.ets",
+          "symbol": "FolderCollectionLoader"
+        },
+        {
+          "path": "src/viewmodels/GalleryListViewModel.ets",
+          "symbol": "visibleWorks"
+        },
+        {
+          "path": "src/views/ArticleMarkupView.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/ArticleMarkupView.ets",
+          "symbol": "cleanedBody"
+        },
+        {
+          "path": "src/views/BoardGestureSurface.ets",
+          "symbol": "BoardGestureSurface"
+        },
+        {
+          "path": "src/views/BoardGestureSurface.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/BoardGestureSurface.ets",
+          "symbol": "onActionUpdate"
+        },
+        {
+          "path": "src/views/CanvasInteractionSurface.ets",
+          "symbol": "CanvasInteractionSurface"
+        },
+        {
+          "path": "src/views/CatalogFilterPanel.ets",
+          "symbol": "CatalogFilterPanel"
+        },
+        {
+          "path": "src/views/CatalogFilterPanel.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/CatalogFilterSuggestion.ets",
+          "symbol": "CatalogFilterSuggestion"
+        },
+        {
+          "path": "src/views/CatalogFilterSuggestion.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/EventBubble.ets",
+          "symbol": "TimelineEntry"
+        },
+        {
+          "path": "src/views/EventBubble.ets",
+          "symbol": "EventBubble"
+        },
+        {
+          "path": "src/views/FilterToggle.ets",
+          "symbol": "FilterToggle"
+        },
+        {
+          "path": "src/views/FilterToggle.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/InventoryItem.ets",
+          "symbol": "InventoryItem"
+        },
+        {
+          "path": "src/views/InventoryItem.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/InventoryList.ets",
+          "symbol": "InventoryList"
+        },
+        {
+          "path": "src/views/InventoryList.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "InventoryOverlayPanel"
+        },
+        {
+          "path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "JobDispatchButton"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/MessageRow.ets",
+          "symbol": "MessageRow"
+        },
+        {
+          "path": "src/views/MessageRow.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/PlaybackTouchSurface.ets",
+          "symbol": "PlaybackTouchSurface"
+        },
+        {
+          "path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/TimelineRow.ets",
+          "symbol": "TimelineEntry"
+        },
+        {
+          "path": "src/views/TimelineRow.ets",
+          "symbol": "TimelineRow"
+        },
+        {
+          "path": "src/views/TimelineRow.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/WorkGalleryPage.ets",
+          "symbol": "WorkGalleryPage"
+        },
+        {
+          "path": "src/views/WorkGalleryPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/WorkGalleryPage.ets",
+          "symbol": "renderWorkGallery"
+        },
+        {
+          "path": "src/services/ParcelDeliveryService.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/views/ArticleMarkupView.ets",
+          "symbol": "ArticleMarkupView"
+        },
+        {
+          "path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "QuotedMessagePreview"
+        },
+        {
+          "path": "src/abilities/SnapshotTransferAbility.ets",
+          "symbol": "persistTransferState"
+        },
+        {
+          "path": "src/actions/OrderActionButton.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/coordinators/OrderCommitCoordinator.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/pages/AccountSettingsPage.ets",
+          "symbol": "displayName"
+        },
+        {
+          "path": "src/pages/DownloadsPage.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/pages/SnapshotAuditPage.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/repositories/ParcelRepository.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/services/SnapshotCoordinator.ets",
+          "symbol": null
+        },
+        {
+          "path": "src/viewmodels/GalleryListViewModel.ets",
+          "symbol": "GalleryListViewModel"
+        },
+        {
+          "path": "src/views/BoardGestureSurface.ets",
+          "symbol": "BoardGestureSurface"
+        },
+        {
+          "path": "src/views/CatalogFilterPanel.ets",
+          "symbol": "CatalogFilterPanel"
+        },
+        {
+          "path": "src/views/CatalogFilterSuggestion.ets",
+          "symbol": "CatalogFilterSuggestion"
+        },
+        {
+          "path": "src/views/EventBubble.ets",
+          "symbol": "EventBubble"
+        },
+        {
+          "path": "src/views/FilterToggle.ets",
+          "symbol": "FilterToggle"
+        },
+        {
+          "path": "src/views/InventoryItem.ets",
+          "symbol": "InventoryItem"
+        },
+        {
+          "path": "src/views/InventoryList.ets",
+          "symbol": "InventoryList"
+        },
+        {
+          "path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "InventoryOverlayPanel"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "JobDispatchButton"
+        },
+        {
+          "path": "src/views/MessageRow.ets",
+          "symbol": "MessageRow"
+        },
+        {
+          "path": "src/views/TimelineRow.ets",
+          "symbol": "TimelineRow"
+        },
+        {
+          "path": "src/views/WorkGalleryPage.ets",
+          "symbol": "WorkGalleryPage"
+        },
+        {
+          "path": "src/pages/WorkspacePage.ets",
+          "symbol": "aboutToDisappear"
+        }
+      ],
+      "after": [
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        }
+      ]
+    },
+    {
+      "query": "A command succeeds while the lighting view stays stale; find the command and state reload owner.",
+      "stage": "preserve_structural_boundary_neighbors",
+      "before": [
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        }
+      ],
+      "after": [
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        }
+      ]
+    },
+    {
+      "query": "A command succeeds while the lighting view stays stale; find the command and state reload owner.",
+      "stage": "preserve_salient_evidence_candidates",
+      "before": [
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        }
+      ],
+      "after": [
+        {
+          "path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore"
+        },
+        {
+          "path": "src/models/InteractionState.ets",
+          "symbol": "selectPointer"
+        },
+        {
+          "path": "src/pages/CommandOutputPage.ets",
+          "symbol": "build"
+        }
+      ]
+    },
+    {
+      "query": "A failed background job reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+      "stage": "focus_code_candidates",
+      "before": [
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "retryFailedParcel"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        },
+        {
+          "path": "src/logging/ConsoleFailureReporter.ets",
+          "symbol": "report"
+        },
+        {
+          "path": "src/logging/FileFailureReporter.ets",
+          "symbol": "report"
+        },
+        {
+          "path": "src/config/JobFailureMessages.ets",
+          "symbol": "JobFailureMessages"
+        },
+        {
+          "path": "src/logging/ConsoleFailureReporter.ets",
+          "symbol": "ConsoleFailureReporter"
+        },
+        {
+          "path": "src/logging/FailureReporter.ets",
+          "symbol": "FailureReporter"
+        },
+        {
+          "path": "src/logging/FileFailureReporter.ets",
+          "symbol": "FileFailureReporter"
+        },
+        {
+          "path": "src/services/ParcelDeliveryService.ets",
+          "symbol": "retryFailedParcel"
+        },
+        {
+          "path": "src/config/JobFailureMessages.ets",
+          "symbol": "JobFailureMessages"
+        },
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "DispatchButton"
+        },
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "onClick"
+        },
+        {
+          "path": "src/logging/FailureReporter.ets",
+          "symbol": "FailureReporter"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "submit"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "JobDispatchButton"
+        },
+        {
+          "path": "src/abilities/ProfileBootstrapAbility.ets",
+          "symbol": "onBackground"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        },
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "JobDispatchButton"
+        },
+        {
+          "path": "src/logging/ConsoleFailureReporter.ets",
+          "symbol": "ConsoleFailureReporter"
+        },
+        {
+          "path": "src/logging/FileFailureReporter.ets",
+          "symbol": "FileFailureReporter"
+        },
+        {
+          "path": "src/services/AttachmentService.ets",
+          "symbol": "loadAttachment"
+        },
+        {
+          "path": "src/services/ProfileService.ets",
+          "symbol": "loadProfile"
+        },
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "showBanner"
+        },
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "label"
+        },
+        {
+          "path": "src/services/DispatchProfileService.ets",
+          "symbol": "run"
+        },
+        {
+          "path": "src/services/PaymentService.ets",
+          "symbol": "chargeOrder"
+        },
+        {
+          "path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/services/WrappedProfileService.ets",
+          "symbol": "load"
+        },
+        {
+          "path": "src/services/AccountUpdateService.ets",
+          "symbol": "AccountUpdateService"
+        },
+        {
+          "path": "src/services/AttachmentService.ets",
+          "symbol": "AttachmentService"
+        },
+        {
+          "path": "src/services/AudioPermissionService.ets",
+          "symbol": "AudioPermissionService"
+        },
+        {
+          "path": "src/services/CacheService.ets",
+          "symbol": "CacheService"
+        },
+        {
+          "path": "src/services/DispatchProfileService.ets",
+          "symbol": "DispatchProfileService"
+        },
+        {
+          "path": "src/services/ParcelDeliveryService.ets",
+          "symbol": "ParcelDeliveryService"
+        },
+        {
+          "path": "src/services/PaymentService.ets",
+          "symbol": "PaymentService"
+        },
+        {
+          "path": "src/services/ProductSearchService.ets",
+          "symbol": "ProductSearchService"
+        },
+        {
+          "path": "src/services/ProfileService.ets",
+          "symbol": "ProfileService"
+        },
+        {
+          "path": "src/services/WrappedProfileService.ets",
+          "symbol": "WrappedProfileService"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "failureMessage"
+        },
+        {
+          "path": "src/automation/ReceiptExportCoordinator.ets",
+          "symbol": "exportForHarmonyScreen"
+        },
+        {
+          "path": "src/services/AssetSource.ets",
+          "symbol": "AssetSource"
+        },
+        {
+          "path": "src/services/AttachmentService.ets",
+          "symbol": "AttachmentService"
+        },
+        {
+          "path": "src/services/AudioPermissionService.ets",
+          "symbol": "AudioPermissionService"
+        },
+        {
+          "path": "src/services/DocumentLoader.ets",
+          "symbol": "DocumentLoader"
+        },
+        {
+          "path": "src/services/ParcelDeliveryService.ets",
+          "symbol": "ParcelDeliveryService"
+        },
+        {
+          "path": "src/services/ProductSearchService.ets",
+          "symbol": "ProductSearchService"
+        },
+        {
+          "path": "src/services/SnapshotCoordinator.ets",
+          "symbol": "SnapshotCoordinator"
+        },
+        {
+          "path": "src/models/ProfileList.ets",
+          "symbol": "ProfileList"
+        },
+        {
+          "path": "src/pages/StartupStatusPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/WorkspaceLoadingPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/services/AccountUpdateService.ets",
+          "symbol": "AccountUpdateService"
+        },
+        {
+          "path": "src/services/CacheService.ets",
+          "symbol": "CacheService"
+        },
+        {
+          "path": "src/services/DispatchProfileService.ets",
+          "symbol": "DispatchProfileService"
+        },
+        {
+          "path": "src/services/PaymentService.ets",
+          "symbol": "PaymentService"
+        },
+        {
+          "path": "src/services/ProfileService.ets",
+          "symbol": "ProfileService"
+        },
+        {
+          "path": "src/services/WrappedProfileService.ets",
+          "symbol": "WrappedProfileService"
+        },
+        {
+          "path": "src/services/AccountUpdateService.ets",
+          "symbol": "dispatchUpdate"
+        },
+        {
+          "path": "src/services/AssetSource.ets",
+          "symbol": "AssetSource"
+        },
+        {
+          "path": "src/services/AssetSource.ets",
+          "symbol": "getAssets"
+        },
+        {
+          "path": "src/services/AttachmentService.ets",
+          "symbol": "writeCache"
+        },
+        {
+          "path": "src/services/AudioPermissionService.ets",
+          "symbol": "requestMicrophone"
+        },
+        {
+          "path": "src/services/CacheService.ets",
+          "symbol": "clearCache"
+        },
+        {
+          "path": "src/services/DispatchProfileService.ets",
+          "symbol": "constructor"
+        },
+        {
+          "path": "src/services/DocumentLoader.ets",
+          "symbol": "DocumentLoader"
+        },
+        {
+          "path": "src/services/DocumentLoader.ets",
+          "symbol": "loadEntry"
+        },
+        {
+          "path": "src/services/ProductSearchService.ets",
+          "symbol": "search"
+        },
+        {
+          "path": "src/services/ProductSearchService.ets",
+          "symbol": "queryProducts"
+        },
+        {
+          "path": "src/services/SnapshotCoordinator.ets",
+          "symbol": "SnapshotCoordinator"
+        },
+        {
+          "path": "src/services/SnapshotCoordinator.ets",
+          "symbol": "restoreSnapshot"
+        },
+        {
+          "path": "src/io/AssetArchiveInstaller.ets",
+          "symbol": "installBundle"
+        },
+        {
+          "path": "src/logging/LogSink.ets",
+          "symbol": "emit"
+        },
+        {
+          "path": "src/network/NetworkClient.ets",
+          "symbol": "request"
+        },
+        {
+          "path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "onClick"
+        }
+      ],
+      "after": [
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        }
+      ]
+    },
+    {
+      "query": "A failed background job reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+      "stage": "preserve_structural_boundary_neighbors",
+      "before": [
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        }
+      ],
+      "after": [
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        }
+      ]
+    },
+    {
+      "query": "A failed background job reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+      "stage": "preserve_salient_evidence_candidates",
+      "before": [
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        }
+      ],
+      "after": [
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "retryFailedParcel"
+        },
+        {
+          "path": "src/logging/ConsoleFailureReporter.ets",
+          "symbol": "report"
+        }
+      ]
+    },
+    {
+      "query": "A failed background job reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+      "stage": "focus_code_candidates",
+      "before": [
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "retryFailedParcel"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        },
+        {
+          "path": "src/logging/ConsoleFailureReporter.ets",
+          "symbol": "report"
+        },
+        {
+          "path": "src/logging/FileFailureReporter.ets",
+          "symbol": "report"
+        },
+        {
+          "path": "src/config/JobFailureMessages.ets",
+          "symbol": "JobFailureMessages"
+        },
+        {
+          "path": "src/logging/ConsoleFailureReporter.ets",
+          "symbol": "ConsoleFailureReporter"
+        },
+        {
+          "path": "src/logging/FailureReporter.ets",
+          "symbol": "FailureReporter"
+        },
+        {
+          "path": "src/logging/FileFailureReporter.ets",
+          "symbol": "FileFailureReporter"
+        },
+        {
+          "path": "src/services/ParcelDeliveryService.ets",
+          "symbol": "retryFailedParcel"
+        },
+        {
+          "path": "src/config/JobFailureMessages.ets",
+          "symbol": "JobFailureMessages"
+        },
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "DispatchButton"
+        },
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "onClick"
+        },
+        {
+          "path": "src/logging/FailureReporter.ets",
+          "symbol": "FailureReporter"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "submit"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "JobDispatchButton"
+        },
+        {
+          "path": "src/abilities/ProfileBootstrapAbility.ets",
+          "symbol": "onBackground"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        },
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "JobDispatchButton"
+        },
+        {
+          "path": "src/logging/ConsoleFailureReporter.ets",
+          "symbol": "ConsoleFailureReporter"
+        },
+        {
+          "path": "src/logging/FileFailureReporter.ets",
+          "symbol": "FileFailureReporter"
+        },
+        {
+          "path": "src/services/AttachmentService.ets",
+          "symbol": "loadAttachment"
+        },
+        {
+          "path": "src/services/ProfileService.ets",
+          "symbol": "loadProfile"
+        },
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "showBanner"
+        },
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/views/JobDispatchButton.ets",
+          "symbol": "label"
+        },
+        {
+          "path": "src/services/DispatchProfileService.ets",
+          "symbol": "run"
+        },
+        {
+          "path": "src/services/PaymentService.ets",
+          "symbol": "chargeOrder"
+        },
+        {
+          "path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/services/WrappedProfileService.ets",
+          "symbol": "load"
+        },
+        {
+          "path": "src/services/AccountUpdateService.ets",
+          "symbol": "AccountUpdateService"
+        },
+        {
+          "path": "src/services/AttachmentService.ets",
+          "symbol": "AttachmentService"
+        },
+        {
+          "path": "src/services/AudioPermissionService.ets",
+          "symbol": "AudioPermissionService"
+        },
+        {
+          "path": "src/services/CacheService.ets",
+          "symbol": "CacheService"
+        },
+        {
+          "path": "src/services/DispatchProfileService.ets",
+          "symbol": "DispatchProfileService"
+        },
+        {
+          "path": "src/services/ParcelDeliveryService.ets",
+          "symbol": "ParcelDeliveryService"
+        },
+        {
+          "path": "src/services/PaymentService.ets",
+          "symbol": "PaymentService"
+        },
+        {
+          "path": "src/services/ProductSearchService.ets",
+          "symbol": "ProductSearchService"
+        },
+        {
+          "path": "src/services/ProfileService.ets",
+          "symbol": "ProfileService"
+        },
+        {
+          "path": "src/services/WrappedProfileService.ets",
+          "symbol": "WrappedProfileService"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "failureMessage"
+        },
+        {
+          "path": "src/automation/ReceiptExportCoordinator.ets",
+          "symbol": "exportForHarmonyScreen"
+        },
+        {
+          "path": "src/services/AssetSource.ets",
+          "symbol": "AssetSource"
+        },
+        {
+          "path": "src/services/AttachmentService.ets",
+          "symbol": "AttachmentService"
+        },
+        {
+          "path": "src/services/AudioPermissionService.ets",
+          "symbol": "AudioPermissionService"
+        },
+        {
+          "path": "src/services/DocumentLoader.ets",
+          "symbol": "DocumentLoader"
+        },
+        {
+          "path": "src/services/ParcelDeliveryService.ets",
+          "symbol": "ParcelDeliveryService"
+        },
+        {
+          "path": "src/services/ProductSearchService.ets",
+          "symbol": "ProductSearchService"
+        },
+        {
+          "path": "src/services/SnapshotCoordinator.ets",
+          "symbol": "SnapshotCoordinator"
+        },
+        {
+          "path": "src/models/ProfileList.ets",
+          "symbol": "ProfileList"
+        },
+        {
+          "path": "src/pages/StartupStatusPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/WorkspaceLoadingPage.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/services/AccountUpdateService.ets",
+          "symbol": "AccountUpdateService"
+        },
+        {
+          "path": "src/services/CacheService.ets",
+          "symbol": "CacheService"
+        },
+        {
+          "path": "src/services/DispatchProfileService.ets",
+          "symbol": "DispatchProfileService"
+        },
+        {
+          "path": "src/services/PaymentService.ets",
+          "symbol": "PaymentService"
+        },
+        {
+          "path": "src/services/ProfileService.ets",
+          "symbol": "ProfileService"
+        },
+        {
+          "path": "src/services/WrappedProfileService.ets",
+          "symbol": "WrappedProfileService"
+        },
+        {
+          "path": "src/services/AccountUpdateService.ets",
+          "symbol": "dispatchUpdate"
+        },
+        {
+          "path": "src/services/AssetSource.ets",
+          "symbol": "AssetSource"
+        },
+        {
+          "path": "src/services/AssetSource.ets",
+          "symbol": "getAssets"
+        },
+        {
+          "path": "src/services/AttachmentService.ets",
+          "symbol": "writeCache"
+        },
+        {
+          "path": "src/services/AudioPermissionService.ets",
+          "symbol": "requestMicrophone"
+        },
+        {
+          "path": "src/services/CacheService.ets",
+          "symbol": "clearCache"
+        },
+        {
+          "path": "src/services/DispatchProfileService.ets",
+          "symbol": "constructor"
+        },
+        {
+          "path": "src/services/DocumentLoader.ets",
+          "symbol": "DocumentLoader"
+        },
+        {
+          "path": "src/services/DocumentLoader.ets",
+          "symbol": "loadEntry"
+        },
+        {
+          "path": "src/services/ProductSearchService.ets",
+          "symbol": "search"
+        },
+        {
+          "path": "src/services/ProductSearchService.ets",
+          "symbol": "queryProducts"
+        },
+        {
+          "path": "src/services/SnapshotCoordinator.ets",
+          "symbol": "SnapshotCoordinator"
+        },
+        {
+          "path": "src/services/SnapshotCoordinator.ets",
+          "symbol": "restoreSnapshot"
+        },
+        {
+          "path": "src/io/AssetArchiveInstaller.ets",
+          "symbol": "installBundle"
+        },
+        {
+          "path": "src/logging/LogSink.ets",
+          "symbol": "emit"
+        },
+        {
+          "path": "src/network/NetworkClient.ets",
+          "symbol": "request"
+        },
+        {
+          "path": "src/views/InventoryOverlayPanel.ets",
+          "symbol": "build"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "onClick"
+        }
+      ],
+      "after": [
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        }
+      ]
+    },
+    {
+      "query": "A failed background job reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+      "stage": "preserve_structural_boundary_neighbors",
+      "before": [
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        }
+      ],
+      "after": [
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        }
+      ]
+    },
+    {
+      "query": "A failed background job reaches the screen as an unhelpful raw error value. Locate both the service return boundary and the UI failure presentation contract.",
+      "stage": "preserve_salient_evidence_candidates",
+      "before": [
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        }
+      ],
+      "after": [
+        {
+          "path": "src/pages/JobDispatchPage.ets",
+          "symbol": "JobDispatchPage"
+        },
+        {
+          "path": "src/gateways/JobTransport.ets",
+          "symbol": "JobTransport"
+        },
+        {
+          "path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "retryFailedParcel"
+        },
+        {
+          "path": "src/logging/ConsoleFailureReporter.ets",
+          "symbol": "report"
+        }
+      ]
+    }
+  ]
+}
