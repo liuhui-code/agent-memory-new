@@ -32,3 +32,8 @@ The template matcher uses ordered literal searches rather than regex wildcards.
 Focused controls cover adjacent placeholders, multiword values, trailing
 placeholders, repeated literals, and wrong identifier prefixes. The explicit
 code guard accepts both split owner/symbol and already-qualified symbol fields.
+
+Final related run: 17 tests, 16 passes and 1 explicit expected failure, 10.739s.
+The expected failure is the unchanged compact dynamic-template omission described
+above, not a newly accepted regression. Modified Runtime modules have 495, 406,
+and 50 lines; `git diff --check` passes. No remote operation was performed.
