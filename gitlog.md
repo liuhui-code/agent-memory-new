@@ -11940,3 +11940,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Preserve 3/5 complete passes, with dual-target identity retained but source span
   incomplete. Stop without tuning, extra variants, production edits or repair claim.
 - Evidence: docs/eval/restore-owner-retention-before/README.md.
+
+## 2026-11-13 — Bound the fixed dual-target excerpt omission
+
+- Saved reader identity/range is complete, but displayed excerpt is explicitly
+  truncated at 1–7 under a 1491/1500 budget. Same-output append copy estimates 1522.
+- Current primary-only recovery cannot bind the multi-range Panel primary, and
+  does not authorize filling the reader alternative. No missing private receipt
+  or safe contract application established; exact allocation/trim step untraced.
+- Read-only addendum: docs/eval/restore-owner-retention-before/SOURCE-BUDGET-AUDIT.md.
