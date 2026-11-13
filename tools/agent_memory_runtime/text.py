@@ -281,7 +281,12 @@ def score_weighted_fields(
     reasons: list[str] = []
     for reason, value, weight in exact_fields:
         lowered = value.lower()
-        if query_lower and lowered and (query_lower in lowered or lowered in query_lower):
+        exact = bool(query_lower and lowered and (query_lower in lowered or lowered in query_lower))
+        if reason == "exact_symbol":
+            exact = bool(lowered and re.search(
+                r"(?<![\w$])" + re.escape(lowered) + r"(?![\w$])", query_lower,
+            ))
+        if exact:
             score += weight
             reasons.append(reason)
     for reason, value, weight in weighted_fields:

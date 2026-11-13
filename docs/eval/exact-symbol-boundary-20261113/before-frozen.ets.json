@@ -1,0 +1,25 @@
+{
+  "revision": "6c666abb66fcfee25216843e3957439c5c4d4380",
+  "files": {
+    "StripPanel.ets": "@Component\nstruct StripPanel {\n  build() {\n    Column() {\n      this.renderStrip()\n    }\n  }\n  @Builder\n  renderStrip() {\n    List() {\n      ForEach(this.tiles, (tile: Tile) => {\n        ListItem() { TileView({ tile: tile }) }\n      })\n    }\n    .listDirection(Axis.Horizontal)\n    .height(180)\n  }\n}\n",
+    "TileView.ets": "@Component\nstruct TileView {\n  build() {\n    Column() { Text(this.title) }\n    .height(70)\n  }\n}\n",
+    "StripModel.ets": "export class StripModel {\n  getTiles(): Tile[] {\n    return this.tiles\n  }\n}\n",
+    "SplitPanel.ets": "@Component\nstruct SplitPanel {\n  @Builder\n  renderDirection() {\n    List() { Text('direction') }\n    .listDirection(Axis.Horizontal)\n  }\n  @Builder\n  renderSize() {\n    List() { Text('size') }\n    .height(180)\n  }\n}\n"
+  },
+  "queries": [
+    "A horizontal media list clips tiles in its viewport. Locate the Builder method that owns list direction and height.",
+    "Tiles are cut off in a horizontally scrolling strip; return the reusable list Builder rather than a tile or data model.",
+    "横向媒体列表中的方块被裁剪，请返回设置列表方向和高度的 Builder 源码，不要返回方块或数据模型。",
+    "Locate TileView.build source.",
+    "Locate StripModel.getTiles source.",
+    "Locate SplitPanel.renderDirection source."
+  ],
+  "expected": [
+    "StripPanel",
+    "StripPanel",
+    "StripPanel",
+    "TileView",
+    "StripModel",
+    "SplitPanel"
+  ]
+}

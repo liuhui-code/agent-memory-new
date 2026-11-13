@@ -1,0 +1,42 @@
+diff --git a/tools/agent_memory_runtime/callable_behavior_hints.py b/tools/agent_memory_runtime/callable_behavior_hints.py
+index 4007073..de9b4b9 100644
+--- a/tools/agent_memory_runtime/callable_behavior_hints.py
++++ b/tools/agent_memory_runtime/callable_behavior_hints.py
+@@ -6,7 +6,7 @@ import re
+ from pathlib import Path
+ from typing import Any
+ 
+-from .arkts_behavior_markers import CALLBACK_CLEANUP_RE
++from .arkts_behavior_markers import CALLBACK_CLEANUP_RE, HORIZONTAL_AXIS_RE, VERTICAL_AXIS_RE
+ 
+ 
+ LIFECYCLE_NAMES = {
+@@ -89,4 +89,28 @@ def event_collection_hints(entity: Any, source: str) -> list[str]:
+             result.append("collectionwrite")
+         if CALLBACK_CLEANUP_RE.search(body):
+             result.append("callbackcleanup")
++    outer = direct_body_text(body)
++    if "/" not in outer and "=>" not in outer:
++        if HORIZONTAL_AXIS_RE.search(outer):
++            result.append("horizontalaxis")
++        if VERTICAL_AXIS_RE.search(outer):
++            result.append("verticalaxis")
+     return result
++
++
++def direct_body_text(body: str) -> str:
++    """Keep only the supplied callable's outer block, masking nested blocks."""
++    depth = 1
++    result = []
++    for char in body:
++        if char == "{":
++            depth += 1
++            result.append(" ")
++        elif char == "}":
++            depth -= 1
++            result.append(" ")
++            if depth == 0:
++                break
++        else:
++            result.append(char if depth == 1 else " ")
++    return "".join(result)

@@ -1,5 +1,14 @@
 # Local Development Log
 
+## 2026-11-13 - Require identifier boundaries for exact-symbol scoring
+
+- Independent frozen ETS Builder competition reproduced a false exact_symbol claim: Builder role text awarded plain build() an exact-identity bonus and compact projection selected the wrong owner.
+- Bound only exact_symbol scoring to a complete literal symbol. Preserve lexical recall, other exact-field behavior, case-insensitivity and qualified identifiers. Cover $/underscore/Unicode/multiword positive and negative controls.
+- Existing Builder scenario improves 1/3 to 2/3: English paraphrase fixed, Chinese remains a precision failure. Independent Chinese role control is fixed, but two other frozen controls remain unresolved; no broad Builder completion claim.
+- 130 focused tests pass, including typed contracts and existing owner repairs. No full suite or consumed holdout run. Axis evidence experiment rolled back rather than combined speculatively.
+- Evidence: docs/eval/exact-symbol-boundary-20261113/README.md. Local commit only; publication remains with the coordinating worker.
+
+
 ## 2026-11-13 - Preserve already-supplied explicit cross-file targets in compact focus
 
 - Caught and fixed a regression introduced by stronger lifecycle method evidence: raw context retained two explicitly requested owners but bounded compact focus removed one.
