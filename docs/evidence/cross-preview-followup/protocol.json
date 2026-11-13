@@ -1,0 +1,31 @@
+{
+  "classification": "independent Development",
+  "base": "85534be",
+  "sources": {
+    "EntryTile.ets": "import { CitationPanel } from './CitationPanel'\n@Component\nexport struct EntryTile {\n  @Prop body: string = ''\n  @Prop citation: string = ''\n  build() {\n    Column() {\n      Text(this.body).fontSize(18)\n      CitationPanel({ text: this.citation })\n    }\n  }\n}\n",
+    "CitationPanel.ets": "@Component\nexport struct CitationPanel {\n  @Prop text: string = ''\n  build() {\n    Row() {\n      Text(this.text).fontSize(11)\n    }\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "query": "Entry tiles and nested citation panels render inconsistent text sizes. Return both UI source contexts.",
+      "required": [
+        "EntryTile.ets",
+        "CitationPanel.ets"
+      ]
+    },
+    {
+      "query": "Locate typography code for entry tiles and nested citation panels.",
+      "required": [
+        "EntryTile.ets",
+        "CitationPanel.ets"
+      ]
+    },
+    {
+      "query": "Locate EntryTile and CitationPanel source.",
+      "required": [
+        "EntryTile.ets",
+        "CitationPanel.ets"
+      ]
+    }
+  ]
+}
