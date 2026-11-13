@@ -1,0 +1,1362 @@
+[
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [
+        {
+          "file_path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "QuotedMessagePreview",
+          "summary": "ArkTS component QuotedMessagePreview declared in src/views/QuotedMessagePreview.ets; identifier terms: quoted message preview",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 86.5
+        },
+        {
+          "file_path": "src/views/QuotedMessagePreview.ets",
+          "summary": "ArkTS file with 12 non-empty lines; components: QuotedMessagePreview; component terms: quoted, message, preview; operations: fontSize, maxLines, width",
+          "score": 80.4,
+          "symbol": "QuotedMessagePreview"
+        },
+        {
+          "file_path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/views/QuotedMessagePreview.ets",
+          "method_evidence": "text row fontsize font size maxlines max lines width stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 69.5
+        },
+        {
+          "file_path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "text",
+          "summary": "state text in src/views/QuotedMessagePreview.ets",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 69.5
+        },
+        {
+          "file_path": "src/views/MessageRow.ets",
+          "symbol": "quotedText",
+          "summary": "state quotedText in src/views/MessageRow.ets; identifier terms: quoted text",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 67.5
+        },
+        {
+          "file_path": "src/views/MessageRow.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/views/MessageRow.ets",
+          "method_evidence": "messagetext message text quotedtext quoted length column fontsize font size quotedmessagepreview preview stateread state read statebranch branch conditional",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 57.25
+        },
+        {
+          "file_path": "src/views/MessageRow.ets",
+          "symbol": "MessageRow",
+          "summary": "ArkTS component MessageRow declared in src/views/MessageRow.ets; identifier terms: message row",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 47.75
+        },
+        {
+          "file_path": "src/views/MessageRow.ets",
+          "summary": "ArkTS file with 15 non-empty lines; components: MessageRow; component terms: message, row; operations: fontSize; behavior: conditionalbranch",
+          "score": 47.6,
+          "symbol": "MessageRow"
+        },
+        {
+          "file_path": "src/views/MessageRow.ets",
+          "symbol": "messageText",
+          "summary": "state messageText in src/views/MessageRow.ets; identifier terms: message text",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 46.25
+        },
+        {
+          "file_path": "src/pages/VoiceMessagePage.ets",
+          "symbol": "VoiceMessagePage",
+          "summary": "ArkTS component VoiceMessagePage declared in src/pages/VoiceMessagePage.ets; identifier terms: voice message page",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 43.25
+        },
+        {
+          "file_path": "src/widgets/MessageActionBar.ets",
+          "symbol": "MessageActionBar",
+          "summary": "ArkTS component MessageActionBar declared in src/widgets/MessageActionBar.ets; identifier terms: message action bar",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 43.25
+        },
+        {
+          "file_path": "src/widgets/MessageActionBar.ets",
+          "summary": "ArkTS file with 9 non-empty lines; components: MessageActionBar; component terms: message, action, bar",
+          "score": 39.8,
+          "symbol": "MessageActionBar"
+        },
+        {
+          "file_path": "src/pages/VoiceMessagePage.ets",
+          "symbol": "recording",
+          "summary": "state recording in src/pages/VoiceMessagePage.ets",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 37.5
+        },
+        {
+          "file_path": "src/widgets/MessageActionBar.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/widgets/MessageActionBar.ets",
+          "method_evidence": "row button",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 37.5
+        },
+        {
+          "file_path": "src/pages/VoiceMessagePage.ets",
+          "summary": "ArkTS file with 11 non-empty lines; components: VoiceMessagePage; behavior: statewrite, asyncboundary",
+          "score": 35.8,
+          "symbol": "VoiceMessagePage"
+        },
+        {
+          "file_path": "src/crypto/SessionCodeGenerator.ets",
+          "symbol": "generateSessionCode",
+          "summary": "ArkTS function or lifecycle method generateSessionCode in src/crypto/SessionCodeGenerator.ets; identifier terms: generate session code",
+          "method_evidence": "secret slice generate session code",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 35.5
+        },
+        {
+          "file_path": "src/components/RecordPreview.ets",
+          "symbol": "RecordPreview",
+          "summary": "ArkTS component RecordPreview declared in src/components/RecordPreview.ets; identifier terms: record preview",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 32.25
+        },
+        {
+          "file_path": "src/crypto/SessionCodeGenerator.ets",
+          "symbol": "SessionCodeGenerator",
+          "summary": "ArkTS class SessionCodeGenerator declared in src/crypto/SessionCodeGenerator.ets; identifier terms: session code generator",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 31.5
+        },
+        {
+          "file_path": "src/components/RecordPreview.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/components/RecordPreview.ets",
+          "method_evidence": "sharedrecord shared record content text stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 26.5
+        },
+        {
+          "file_path": "src/components/RecordPreview.ets",
+          "symbol": "sharedRecord",
+          "summary": "state sharedRecord in src/components/RecordPreview.ets; identifier terms: shared record",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 26.5
+        },
+        {
+          "file_path": "src/components/KeyboardFocusHint.ets",
+          "symbol": "updateFocusMessage",
+          "summary": "ArkTS function or lifecycle method updateFocusMessage in src/components/KeyboardFocusHint.ets; identifier terms: update focus message",
+          "method_evidence": "focusmessage focus message update statewrite state write stateread read",
+          "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+          "score": 25.25
+        },
+        {
+          "file_path": "src/components/RecordPreview.ets",
+          "summary": "ArkTS file with 7 non-empty lines; components: RecordPreview; component terms: record, preview",
+          "score": 24.8,
+          "symbol": "RecordPreview"
+        },
+        {
+          "file_path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "SnapshotCommandRow",
+          "summary": "ArkTS component SnapshotCommandRow declared in src/views/SnapshotCommandRow.ets; identifier terms: snapshot command row",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 24.5
+        },
+        {
+          "file_path": "src/views/TimelineRow.ets",
+          "symbol": "TimelineRow",
+          "summary": "ArkTS component TimelineRow declared in src/views/TimelineRow.ets; identifier terms: timeline row",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 24.5
+        },
+        {
+          "file_path": "src/widgets/NotificationRow.ets",
+          "symbol": "NotificationRow",
+          "summary": "ArkTS component NotificationRow declared in src/widgets/NotificationRow.ets; identifier terms: notification row",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 24.5
+        },
+        {
+          "file_path": "src/crypto/SessionCodeGenerator.ets",
+          "summary": "ArkTS file with 5 non-empty lines",
+          "score": 23.8,
+          "symbol": "SessionCodeGenerator"
+        },
+        {
+          "file_path": "src/config/JobFailureMessages.ets",
+          "symbol": "JobFailureMessages",
+          "summary": "object JobFailureMessages in src/config/JobFailureMessages.ets; identifier terms: job failure messages",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 23.25
+        },
+        {
+          "file_path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "title",
+          "summary": "state title in src/views/SnapshotCommandRow.ets",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 23.0
+        },
+        {
+          "file_path": "src/views/TimelineRow.ets",
+          "symbol": "TimelineEntry",
+          "summary": "interface TimelineEntry in src/views/TimelineRow.ets; identifier terms: timeline entry",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 23.0
+        },
+        {
+          "file_path": "src/views/TimelineRow.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/views/TimelineRow.ets",
+          "method_evidence": "entry showheader show header eventbubble event bubble stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 23.0
+        },
+        {
+          "file_path": "src/views/TimelineRow.ets",
+          "symbol": "entry",
+          "summary": "state entry in src/views/TimelineRow.ets",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 23.0
+        },
+        {
+          "file_path": "src/views/TimelineRow.ets",
+          "symbol": "showHeader",
+          "summary": "state showHeader in src/views/TimelineRow.ets; identifier terms: show header",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 23.0
+        },
+        {
+          "file_path": "src/widgets/NotificationRow.ets",
+          "symbol": "title",
+          "summary": "state title in src/widgets/NotificationRow.ets",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 23.0
+        },
+        {
+          "file_path": "src/views/SnapshotCommandRow.ets",
+          "summary": "ArkTS file with 11 non-empty lines; components: SnapshotCommandRow; component terms: snapshot, command, row; resources: sys.symbol.archivebox; behavior: callbackboundary, commandbinding, uicallbackbinding",
+          "score": 21.8,
+          "symbol": "SnapshotCommandRow"
+        },
+        {
+          "file_path": "src/views/TimelineRow.ets",
+          "summary": "ArkTS file with 17 non-empty lines; components: TimelineRow; component terms: timeline, row",
+          "score": 21.8,
+          "symbol": "TimelineRow"
+        },
+        {
+          "file_path": "src/widgets/NotificationRow.ets",
+          "summary": "ArkTS file with 13 non-empty lines; components: NotificationRow; component terms: notification, row; resources: app.media.chevron; operations: layoutWeight, margin, padding",
+          "score": 21.8,
+          "symbol": "NotificationRow"
+        },
+        {
+          "file_path": "src/views/InventoryList.ets",
+          "symbol": "rows",
+          "summary": "state rows in src/views/InventoryList.ets",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 21.5
+        },
+        {
+          "file_path": "src/components/KeyboardFocusHint.ets",
+          "symbol": "focusMessage",
+          "summary": "state focusMessage in src/components/KeyboardFocusHint.ets; identifier terms: focus message",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 21.25
+        },
+        {
+          "file_path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "failureMessage",
+          "summary": "state failureMessage in src/pages/ParcelRetryPage.ets; identifier terms: failure message",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 21.25
+        },
+        {
+          "file_path": "src/pages/WorkspaceLoadingPage.ets",
+          "symbol": "timeoutMessage",
+          "summary": "state timeoutMessage in src/pages/WorkspaceLoadingPage.ets; identifier terms: timeout message",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 21.25
+        },
+        {
+          "file_path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "invoke",
+          "summary": "event invoke in src/views/SnapshotCommandRow.ets",
+          "method_evidence": null,
+          "callable_roles": null,
+          "score": 21.0
+        },
+        {
+          "file_path": "src/config/JobFailureMessages.ets",
+          "summary": "ArkTS file with 4 non-empty lines",
+          "score": 14.8,
+          "symbol": "JobFailureMessages"
+        },
+        {
+          "file_path": "src/views/SnapshotCommandRow.ets",
+          "symbol": "sys.symbol.archivebox",
+          "summary": "ArkTS resource sys.symbol.archivebox referenced by src/views/SnapshotCommandRow.ets",
+          "method_evidence": null,
+          "callable_roles": null,
+          "score": 13.0
+        },
+        {
+          "file_path": "src/widgets/NotificationRow.ets",
+          "symbol": "app.media.chevron",
+          "summary": "ArkTS resource app.media.chevron referenced by src/widgets/NotificationRow.ets",
+          "method_evidence": null,
+          "callable_roles": null,
+          "score": 13.0
+        },
+        {
+          "file_path": "src/views/EventBubble.ets",
+          "symbol": "EventBubble",
+          "summary": "ArkTS component EventBubble declared in src/views/EventBubble.ets; identifier terms: event bubble",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 11.637
+        },
+        {
+          "file_path": "src/pages/DraftPage.ets",
+          "symbol": "reloadPreview",
+          "summary": "ArkTS function or lifecycle method reloadPreview in src/pages/DraftPage.ets; identifier terms: reload preview",
+          "method_evidence": "drafttext draft text reload preview statewrite state write stateread read",
+          "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+          "score": 10.25
+        },
+        {
+          "file_path": "src/views/EventBubble.ets",
+          "symbol": "EventBubble",
+          "summary": "ArkTS component EventBubble declared in src/views/EventBubble.ets; identifier terms: event bubble",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 9.188
+        },
+        {
+          "file_path": "src/pages/KeyboardWorkspacePage.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/pages/KeyboardWorkspacePage.ets",
+          "method_evidence": "column navigationtoolbar navigation toolbar textinput text input",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 8.5
+        },
+        {
+          "file_path": "src/pages/ShortcutSearchPage.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/pages/ShortcutSearchPage.ets",
+          "method_evidence": "event keycode key code keycode_back back column textinput text input onkeyevent guardreturn guard",
+          "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+          "score": 8.5
+        },
+        {
+          "file_path": "src/pages/ShortcutSearchPage.ets",
+          "symbol": "onKeyEvent",
+          "summary": "ArkTS function or lifecycle method onKeyEvent in src/pages/ShortcutSearchPage.ets; identifier terms: on key event",
+          "method_evidence": "event keycode key code keycode_back back guardreturn guard eventboundary",
+          "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+          "score": 8.5
+        },
+        {
+          "file_path": "src/views/InventoryList.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/views/InventoryList.ets",
+          "method_evidence": "rows color gray list foreach each listitem item text divider stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 6.75
+        },
+        {
+          "file_path": "src/components/KeyboardHint.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/components/KeyboardHint.ets",
+          "method_evidence": "event keycode key code text stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+          "score": 6.0
+        },
+        {
+          "file_path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "retryFailedParcel",
+          "summary": "ArkTS function or lifecycle method retryFailedParcel in src/pages/ParcelRetryPage.ets; identifier terms: retry failed parcel",
+          "method_evidence": "retrypending retry pending parceldeliveryservice parcel delivery service failed failuremessage failure message statewrite state write stateread read statebranch branch conditional asyncboundary async guardreturn guard",
+          "callable_roles": "[\"async\", \"guard\", \"state_write\", \"source_operation_checked:v2.1\"]",
+          "score": 6.0
+        },
+        {
+          "file_path": "src/pages/ParcelRetryPage.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/pages/ParcelRetryPage.ets",
+          "method_evidence": "retrypending retry pending retryfailedparcel failed parcel failuremessage failure message button enabled onclick click text stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 6.0
+        },
+        {
+          "file_path": "src/pages/WorkspaceLoadingPage.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/pages/WorkspaceLoadingPage.ets",
+          "method_evidence": "timeoutmessage timeout message column text stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 6.0
+        },
+        {
+          "file_path": "src/controllers/WorkspaceSelectionController.ets",
+          "symbol": "WorkspaceRow",
+          "summary": "interface WorkspaceRow in src/controllers/WorkspaceSelectionController.ets; identifier terms: workspace row",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 4.5
+        }
+      ],
+      false
+    ],
+    "query": "Locate the typography code for message rows and quoted message previews.",
+    "input": [
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "QuotedMessagePreview",
+        "summary": "ArkTS component QuotedMessagePreview declared in src/views/QuotedMessagePreview.ets; identifier terms: quoted message preview",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 86.5
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: QuotedMessagePreview; component terms: quoted, message, preview; operations: fontSize, maxLines, width",
+        "score": 80.4,
+        "symbol": "QuotedMessagePreview"
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/QuotedMessagePreview.ets",
+        "method_evidence": "text row fontsize font size maxlines max lines width stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 69.5
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "text",
+        "summary": "state text in src/views/QuotedMessagePreview.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 69.5
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "quotedText",
+        "summary": "state quotedText in src/views/MessageRow.ets; identifier terms: quoted text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 67.5
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/MessageRow.ets",
+        "method_evidence": "messagetext message text quotedtext quoted length column fontsize font size quotedmessagepreview preview stateread state read statebranch branch conditional",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 57.25
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "MessageRow",
+        "summary": "ArkTS component MessageRow declared in src/views/MessageRow.ets; identifier terms: message row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 47.75
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: MessageRow; component terms: message, row; operations: fontSize; behavior: conditionalbranch",
+        "score": 47.6,
+        "symbol": "MessageRow"
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "messageText",
+        "summary": "state messageText in src/views/MessageRow.ets; identifier terms: message text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 46.25
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "VoiceMessagePage",
+        "summary": "ArkTS component VoiceMessagePage declared in src/pages/VoiceMessagePage.ets; identifier terms: voice message page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "symbol": "MessageActionBar",
+        "summary": "ArkTS component MessageActionBar declared in src/widgets/MessageActionBar.ets; identifier terms: message action bar",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: MessageActionBar; component terms: message, action, bar",
+        "score": 39.8,
+        "symbol": "MessageActionBar"
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "recording",
+        "summary": "state recording in src/pages/VoiceMessagePage.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/MessageActionBar.ets",
+        "method_evidence": "row button",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "summary": "ArkTS file with 11 non-empty lines; components: VoiceMessagePage; behavior: statewrite, asyncboundary",
+        "score": 35.8,
+        "symbol": "VoiceMessagePage"
+      },
+      {
+        "file_path": "src/crypto/SessionCodeGenerator.ets",
+        "symbol": "generateSessionCode",
+        "summary": "ArkTS function or lifecycle method generateSessionCode in src/crypto/SessionCodeGenerator.ets; identifier terms: generate session code",
+        "method_evidence": "secret slice generate session code",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 35.5
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "RecordPreview",
+        "summary": "ArkTS component RecordPreview declared in src/components/RecordPreview.ets; identifier terms: record preview",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.25
+      },
+      {
+        "file_path": "src/crypto/SessionCodeGenerator.ets",
+        "symbol": "SessionCodeGenerator",
+        "summary": "ArkTS class SessionCodeGenerator declared in src/crypto/SessionCodeGenerator.ets; identifier terms: session code generator",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 31.5
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/components/RecordPreview.ets",
+        "method_evidence": "sharedrecord shared record content text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "sharedRecord",
+        "summary": "state sharedRecord in src/components/RecordPreview.ets; identifier terms: shared record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/components/KeyboardFocusHint.ets",
+        "symbol": "updateFocusMessage",
+        "summary": "ArkTS function or lifecycle method updateFocusMessage in src/components/KeyboardFocusHint.ets; identifier terms: update focus message",
+        "method_evidence": "focusmessage focus message update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 25.25
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: RecordPreview; component terms: record, preview",
+        "score": 24.8,
+        "symbol": "RecordPreview"
+      },
+      {
+        "file_path": "src/views/SnapshotCommandRow.ets",
+        "symbol": "SnapshotCommandRow",
+        "summary": "ArkTS component SnapshotCommandRow declared in src/views/SnapshotCommandRow.ets; identifier terms: snapshot command row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 24.5
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "TimelineRow",
+        "summary": "ArkTS component TimelineRow declared in src/views/TimelineRow.ets; identifier terms: timeline row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 24.5
+      },
+      {
+        "file_path": "src/widgets/NotificationRow.ets",
+        "symbol": "NotificationRow",
+        "summary": "ArkTS component NotificationRow declared in src/widgets/NotificationRow.ets; identifier terms: notification row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 24.5
+      },
+      {
+        "file_path": "src/crypto/SessionCodeGenerator.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 23.8,
+        "symbol": "SessionCodeGenerator"
+      },
+      {
+        "file_path": "src/config/JobFailureMessages.ets",
+        "symbol": "JobFailureMessages",
+        "summary": "object JobFailureMessages in src/config/JobFailureMessages.ets; identifier terms: job failure messages",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.25
+      },
+      {
+        "file_path": "src/views/SnapshotCommandRow.ets",
+        "symbol": "title",
+        "summary": "state title in src/views/SnapshotCommandRow.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "TimelineEntry",
+        "summary": "interface TimelineEntry in src/views/TimelineRow.ets; identifier terms: timeline entry",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/TimelineRow.ets",
+        "method_evidence": "entry showheader show header eventbubble event bubble stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "entry",
+        "summary": "state entry in src/views/TimelineRow.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "showHeader",
+        "summary": "state showHeader in src/views/TimelineRow.ets; identifier terms: show header",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/widgets/NotificationRow.ets",
+        "symbol": "title",
+        "summary": "state title in src/widgets/NotificationRow.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/views/SnapshotCommandRow.ets",
+        "summary": "ArkTS file with 11 non-empty lines; components: SnapshotCommandRow; component terms: snapshot, command, row; resources: sys.symbol.archivebox; behavior: callbackboundary, commandbinding, uicallbackbinding",
+        "score": 21.8,
+        "symbol": "SnapshotCommandRow"
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "summary": "ArkTS file with 17 non-empty lines; components: TimelineRow; component terms: timeline, row",
+        "score": 21.8,
+        "symbol": "TimelineRow"
+      },
+      {
+        "file_path": "src/widgets/NotificationRow.ets",
+        "summary": "ArkTS file with 13 non-empty lines; components: NotificationRow; component terms: notification, row; resources: app.media.chevron; operations: layoutWeight, margin, padding",
+        "score": 21.8,
+        "symbol": "NotificationRow"
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "rows",
+        "summary": "state rows in src/views/InventoryList.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 21.5
+      },
+      {
+        "file_path": "src/components/KeyboardFocusHint.ets",
+        "symbol": "focusMessage",
+        "summary": "state focusMessage in src/components/KeyboardFocusHint.ets; identifier terms: focus message",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 21.25
+      },
+      {
+        "file_path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "failureMessage",
+        "summary": "state failureMessage in src/pages/ParcelRetryPage.ets; identifier terms: failure message",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 21.25
+      },
+      {
+        "file_path": "src/pages/WorkspaceLoadingPage.ets",
+        "symbol": "timeoutMessage",
+        "summary": "state timeoutMessage in src/pages/WorkspaceLoadingPage.ets; identifier terms: timeout message",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 21.25
+      },
+      {
+        "file_path": "src/views/SnapshotCommandRow.ets",
+        "symbol": "invoke",
+        "summary": "event invoke in src/views/SnapshotCommandRow.ets",
+        "method_evidence": null,
+        "callable_roles": null,
+        "score": 21.0
+      },
+      {
+        "file_path": "src/config/JobFailureMessages.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "score": 14.8,
+        "symbol": "JobFailureMessages"
+      },
+      {
+        "file_path": "src/views/SnapshotCommandRow.ets",
+        "symbol": "sys.symbol.archivebox",
+        "summary": "ArkTS resource sys.symbol.archivebox referenced by src/views/SnapshotCommandRow.ets",
+        "method_evidence": null,
+        "callable_roles": null,
+        "score": 13.0
+      },
+      {
+        "file_path": "src/widgets/NotificationRow.ets",
+        "symbol": "app.media.chevron",
+        "summary": "ArkTS resource app.media.chevron referenced by src/widgets/NotificationRow.ets",
+        "method_evidence": null,
+        "callable_roles": null,
+        "score": 13.0
+      },
+      {
+        "file_path": "src/views/EventBubble.ets",
+        "symbol": "EventBubble",
+        "summary": "ArkTS component EventBubble declared in src/views/EventBubble.ets; identifier terms: event bubble",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 11.637
+      },
+      {
+        "file_path": "src/pages/DraftPage.ets",
+        "symbol": "reloadPreview",
+        "summary": "ArkTS function or lifecycle method reloadPreview in src/pages/DraftPage.ets; identifier terms: reload preview",
+        "method_evidence": "drafttext draft text reload preview statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 10.25
+      },
+      {
+        "file_path": "src/views/EventBubble.ets",
+        "symbol": "EventBubble",
+        "summary": "ArkTS component EventBubble declared in src/views/EventBubble.ets; identifier terms: event bubble",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.188
+      },
+      {
+        "file_path": "src/pages/KeyboardWorkspacePage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/KeyboardWorkspacePage.ets",
+        "method_evidence": "column navigationtoolbar navigation toolbar textinput text input",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/pages/ShortcutSearchPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ShortcutSearchPage.ets",
+        "method_evidence": "event keycode key code keycode_back back column textinput text input onkeyevent guardreturn guard",
+        "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/pages/ShortcutSearchPage.ets",
+        "symbol": "onKeyEvent",
+        "summary": "ArkTS function or lifecycle method onKeyEvent in src/pages/ShortcutSearchPage.ets; identifier terms: on key event",
+        "method_evidence": "event keycode key code keycode_back back guardreturn guard eventboundary",
+        "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryList.ets",
+        "method_evidence": "rows color gray list foreach each listitem item text divider stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.75
+      },
+      {
+        "file_path": "src/components/KeyboardHint.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/components/KeyboardHint.ets",
+        "method_evidence": "event keycode key code text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "retryFailedParcel",
+        "summary": "ArkTS function or lifecycle method retryFailedParcel in src/pages/ParcelRetryPage.ets; identifier terms: retry failed parcel",
+        "method_evidence": "retrypending retry pending parceldeliveryservice parcel delivery service failed failuremessage failure message statewrite state write stateread read statebranch branch conditional asyncboundary async guardreturn guard",
+        "callable_roles": "[\"async\", \"guard\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ParcelRetryPage.ets",
+        "method_evidence": "retrypending retry pending retryfailedparcel failed parcel failuremessage failure message button enabled onclick click text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/WorkspaceLoadingPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WorkspaceLoadingPage.ets",
+        "method_evidence": "timeoutmessage timeout message column text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "WorkspaceRow",
+        "summary": "interface WorkspaceRow in src/controllers/WorkspaceSelectionController.ets; identifier terms: workspace row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 4.5
+      }
+    ]
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "QuotedMessagePreview",
+        "summary": "ArkTS component QuotedMessagePreview declared in src/views/QuotedMessagePreview.ets; identifier terms: quoted message preview",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 86.5
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: QuotedMessagePreview; component terms: quoted, message, preview; operations: fontSize, maxLines, width",
+        "score": 80.4,
+        "symbol": "QuotedMessagePreview"
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "quotedText",
+        "summary": "state quotedText in src/views/MessageRow.ets; identifier terms: quoted text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 67.5
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/MessageRow.ets",
+        "method_evidence": "messagetext message text quotedtext quoted length column fontsize font size quotedmessagepreview preview stateread state read statebranch branch conditional",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 57.25
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "VoiceMessagePage",
+        "summary": "ArkTS component VoiceMessagePage declared in src/pages/VoiceMessagePage.ets; identifier terms: voice message page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      }
+    ],
+    "query": "Locate the typography code for message rows and quoted message previews.",
+    "input": [
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "QuotedMessagePreview",
+        "summary": "ArkTS component QuotedMessagePreview declared in src/views/QuotedMessagePreview.ets; identifier terms: quoted message preview",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 86.5
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: QuotedMessagePreview; component terms: quoted, message, preview; operations: fontSize, maxLines, width",
+        "score": 80.4,
+        "symbol": "QuotedMessagePreview"
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/QuotedMessagePreview.ets",
+        "method_evidence": "text row fontsize font size maxlines max lines width stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 69.5
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "text",
+        "summary": "state text in src/views/QuotedMessagePreview.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 69.5
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "quotedText",
+        "summary": "state quotedText in src/views/MessageRow.ets; identifier terms: quoted text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 67.5
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/MessageRow.ets",
+        "method_evidence": "messagetext message text quotedtext quoted length column fontsize font size quotedmessagepreview preview stateread state read statebranch branch conditional",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 57.25
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "MessageRow",
+        "summary": "ArkTS component MessageRow declared in src/views/MessageRow.ets; identifier terms: message row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 47.75
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: MessageRow; component terms: message, row; operations: fontSize; behavior: conditionalbranch",
+        "score": 47.6,
+        "symbol": "MessageRow"
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "messageText",
+        "summary": "state messageText in src/views/MessageRow.ets; identifier terms: message text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 46.25
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "VoiceMessagePage",
+        "summary": "ArkTS component VoiceMessagePage declared in src/pages/VoiceMessagePage.ets; identifier terms: voice message page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "symbol": "MessageActionBar",
+        "summary": "ArkTS component MessageActionBar declared in src/widgets/MessageActionBar.ets; identifier terms: message action bar",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: MessageActionBar; component terms: message, action, bar",
+        "score": 39.8,
+        "symbol": "MessageActionBar"
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "recording",
+        "summary": "state recording in src/pages/VoiceMessagePage.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/MessageActionBar.ets",
+        "method_evidence": "row button",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "summary": "ArkTS file with 11 non-empty lines; components: VoiceMessagePage; behavior: statewrite, asyncboundary",
+        "score": 35.8,
+        "symbol": "VoiceMessagePage"
+      },
+      {
+        "file_path": "src/crypto/SessionCodeGenerator.ets",
+        "symbol": "generateSessionCode",
+        "summary": "ArkTS function or lifecycle method generateSessionCode in src/crypto/SessionCodeGenerator.ets; identifier terms: generate session code",
+        "method_evidence": "secret slice generate session code",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 35.5
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "RecordPreview",
+        "summary": "ArkTS component RecordPreview declared in src/components/RecordPreview.ets; identifier terms: record preview",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.25
+      },
+      {
+        "file_path": "src/crypto/SessionCodeGenerator.ets",
+        "symbol": "SessionCodeGenerator",
+        "summary": "ArkTS class SessionCodeGenerator declared in src/crypto/SessionCodeGenerator.ets; identifier terms: session code generator",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 31.5
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/components/RecordPreview.ets",
+        "method_evidence": "sharedrecord shared record content text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "sharedRecord",
+        "summary": "state sharedRecord in src/components/RecordPreview.ets; identifier terms: shared record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/components/KeyboardFocusHint.ets",
+        "symbol": "updateFocusMessage",
+        "summary": "ArkTS function or lifecycle method updateFocusMessage in src/components/KeyboardFocusHint.ets; identifier terms: update focus message",
+        "method_evidence": "focusmessage focus message update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 25.25
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: RecordPreview; component terms: record, preview",
+        "score": 24.8,
+        "symbol": "RecordPreview"
+      },
+      {
+        "file_path": "src/views/SnapshotCommandRow.ets",
+        "symbol": "SnapshotCommandRow",
+        "summary": "ArkTS component SnapshotCommandRow declared in src/views/SnapshotCommandRow.ets; identifier terms: snapshot command row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 24.5
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "TimelineRow",
+        "summary": "ArkTS component TimelineRow declared in src/views/TimelineRow.ets; identifier terms: timeline row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 24.5
+      },
+      {
+        "file_path": "src/widgets/NotificationRow.ets",
+        "symbol": "NotificationRow",
+        "summary": "ArkTS component NotificationRow declared in src/widgets/NotificationRow.ets; identifier terms: notification row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 24.5
+      },
+      {
+        "file_path": "src/crypto/SessionCodeGenerator.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 23.8,
+        "symbol": "SessionCodeGenerator"
+      },
+      {
+        "file_path": "src/config/JobFailureMessages.ets",
+        "symbol": "JobFailureMessages",
+        "summary": "object JobFailureMessages in src/config/JobFailureMessages.ets; identifier terms: job failure messages",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.25
+      },
+      {
+        "file_path": "src/views/SnapshotCommandRow.ets",
+        "symbol": "title",
+        "summary": "state title in src/views/SnapshotCommandRow.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "TimelineEntry",
+        "summary": "interface TimelineEntry in src/views/TimelineRow.ets; identifier terms: timeline entry",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/TimelineRow.ets",
+        "method_evidence": "entry showheader show header eventbubble event bubble stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "entry",
+        "summary": "state entry in src/views/TimelineRow.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "showHeader",
+        "summary": "state showHeader in src/views/TimelineRow.ets; identifier terms: show header",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/widgets/NotificationRow.ets",
+        "symbol": "title",
+        "summary": "state title in src/widgets/NotificationRow.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/views/SnapshotCommandRow.ets",
+        "summary": "ArkTS file with 11 non-empty lines; components: SnapshotCommandRow; component terms: snapshot, command, row; resources: sys.symbol.archivebox; behavior: callbackboundary, commandbinding, uicallbackbinding",
+        "score": 21.8,
+        "symbol": "SnapshotCommandRow"
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "summary": "ArkTS file with 17 non-empty lines; components: TimelineRow; component terms: timeline, row",
+        "score": 21.8,
+        "symbol": "TimelineRow"
+      },
+      {
+        "file_path": "src/widgets/NotificationRow.ets",
+        "summary": "ArkTS file with 13 non-empty lines; components: NotificationRow; component terms: notification, row; resources: app.media.chevron; operations: layoutWeight, margin, padding",
+        "score": 21.8,
+        "symbol": "NotificationRow"
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "rows",
+        "summary": "state rows in src/views/InventoryList.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 21.5
+      },
+      {
+        "file_path": "src/components/KeyboardFocusHint.ets",
+        "symbol": "focusMessage",
+        "summary": "state focusMessage in src/components/KeyboardFocusHint.ets; identifier terms: focus message",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 21.25
+      },
+      {
+        "file_path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "failureMessage",
+        "summary": "state failureMessage in src/pages/ParcelRetryPage.ets; identifier terms: failure message",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 21.25
+      },
+      {
+        "file_path": "src/pages/WorkspaceLoadingPage.ets",
+        "symbol": "timeoutMessage",
+        "summary": "state timeoutMessage in src/pages/WorkspaceLoadingPage.ets; identifier terms: timeout message",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 21.25
+      },
+      {
+        "file_path": "src/views/SnapshotCommandRow.ets",
+        "symbol": "invoke",
+        "summary": "event invoke in src/views/SnapshotCommandRow.ets",
+        "method_evidence": null,
+        "callable_roles": null,
+        "score": 21.0
+      },
+      {
+        "file_path": "src/config/JobFailureMessages.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "score": 14.8,
+        "symbol": "JobFailureMessages"
+      },
+      {
+        "file_path": "src/views/SnapshotCommandRow.ets",
+        "symbol": "sys.symbol.archivebox",
+        "summary": "ArkTS resource sys.symbol.archivebox referenced by src/views/SnapshotCommandRow.ets",
+        "method_evidence": null,
+        "callable_roles": null,
+        "score": 13.0
+      },
+      {
+        "file_path": "src/widgets/NotificationRow.ets",
+        "symbol": "app.media.chevron",
+        "summary": "ArkTS resource app.media.chevron referenced by src/widgets/NotificationRow.ets",
+        "method_evidence": null,
+        "callable_roles": null,
+        "score": 13.0
+      },
+      {
+        "file_path": "src/views/EventBubble.ets",
+        "symbol": "EventBubble",
+        "summary": "ArkTS component EventBubble declared in src/views/EventBubble.ets; identifier terms: event bubble",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 11.637
+      },
+      {
+        "file_path": "src/pages/DraftPage.ets",
+        "symbol": "reloadPreview",
+        "summary": "ArkTS function or lifecycle method reloadPreview in src/pages/DraftPage.ets; identifier terms: reload preview",
+        "method_evidence": "drafttext draft text reload preview statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 10.25
+      },
+      {
+        "file_path": "src/views/EventBubble.ets",
+        "symbol": "EventBubble",
+        "summary": "ArkTS component EventBubble declared in src/views/EventBubble.ets; identifier terms: event bubble",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.188
+      },
+      {
+        "file_path": "src/pages/KeyboardWorkspacePage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/KeyboardWorkspacePage.ets",
+        "method_evidence": "column navigationtoolbar navigation toolbar textinput text input",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/pages/ShortcutSearchPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ShortcutSearchPage.ets",
+        "method_evidence": "event keycode key code keycode_back back column textinput text input onkeyevent guardreturn guard",
+        "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/pages/ShortcutSearchPage.ets",
+        "symbol": "onKeyEvent",
+        "summary": "ArkTS function or lifecycle method onKeyEvent in src/pages/ShortcutSearchPage.ets; identifier terms: on key event",
+        "method_evidence": "event keycode key code keycode_back back guardreturn guard eventboundary",
+        "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryList.ets",
+        "method_evidence": "rows color gray list foreach each listitem item text divider stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.75
+      },
+      {
+        "file_path": "src/components/KeyboardHint.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/components/KeyboardHint.ets",
+        "method_evidence": "event keycode key code text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "retryFailedParcel",
+        "summary": "ArkTS function or lifecycle method retryFailedParcel in src/pages/ParcelRetryPage.ets; identifier terms: retry failed parcel",
+        "method_evidence": "retrypending retry pending parceldeliveryservice parcel delivery service failed failuremessage failure message statewrite state write stateread read statebranch branch conditional asyncboundary async guardreturn guard",
+        "callable_roles": "[\"async\", \"guard\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ParcelRetryPage.ets",
+        "method_evidence": "retrypending retry pending retryfailedparcel failed parcel failuremessage failure message button enabled onclick click text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/WorkspaceLoadingPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WorkspaceLoadingPage.ets",
+        "method_evidence": "timeoutmessage timeout message column text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "symbol": "WorkspaceRow",
+        "summary": "interface WorkspaceRow in src/controllers/WorkspaceSelectionController.ets; identifier terms: workspace row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 4.5
+      }
+    ]
+  },
+  {
+    "function": "focus_callable_anchors",
+    "result": [
+      {
+        "record_type": "code_symbol",
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "quotedText",
+        "summary": "state quotedText in src/views/MessageRow.ets; identifier terms: quoted text"
+      },
+      {
+        "record_type": "code_symbol",
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/MessageRow.ets"
+      }
+    ],
+    "query": "Locate the typography code for message rows and quoted message previews.",
+    "input": null
+  }
+]

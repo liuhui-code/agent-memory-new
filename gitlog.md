@@ -11845,3 +11845,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Froze four independent sources, six queries and three cohorts at 419fcdc before public execution. Pre-execution mechanism review found Chinese control unactivated; retained it unchanged rather than tuning phrasing.
 - Executed 18 raw/compact public probe cells: 10 applicable retention passes, one localization loss, four absent-source N/A, three generic ambiguity controls. English same-mechanism target stays present. Chinese logger loss is a different first layer, not proof of original focus defect.
 - Stopped without runtime candidate, oracle change, full gate or original failure improvement. Details: docs/evidence/validation-competition/README.md.
+
+## 2026-11-13 — Recheck cross-component preview current first-loss boundary
+
+- Single Development group remains1/3. Unlike old ledger, both English raw results
+  now contain the parent and child; loss occurs in compact callable narrowing.
+- Public relations already include import/render/property/call evidence. Original
+  graph trace shows boost-score gating suppresses graph provenance for both strong
+  lexical endpoints, while compact treats graph provenance as retention evidence.
+- Independent four-query parent/child controls and one frozen equivalent-property
+  rename control both pass4/4. This is not a new red; no serving fix is proposed.
+- Evidence: docs/eval/cross-preview-current. No full gate or production changes.

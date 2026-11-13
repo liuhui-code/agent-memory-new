@@ -1,0 +1,817 @@
+[
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [
+        {
+          "file_path": "src/views/MessageRow.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/views/MessageRow.ets",
+          "method_evidence": "messagetext message text quotedtext quoted length column fontsize font size quotedmessagepreview preview stateread state read statebranch branch conditional",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 54.25
+        },
+        {
+          "file_path": "src/views/QuotedMessagePreview.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in src/views/QuotedMessagePreview.ets",
+          "method_evidence": "text row fontsize font size maxlines max lines width stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 52.75
+        }
+      ],
+      true
+    ],
+    "query": "Message rows and quoted-message previews render inconsistent text sizes. Return both UI source contexts.",
+    "input": [
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "text",
+        "summary": "state text in src/views/QuotedMessagePreview.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 70.0
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "QuotedMessagePreview",
+        "summary": "ArkTS component QuotedMessagePreview declared in src/views/QuotedMessagePreview.ets; identifier terms: quoted message preview",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 67.5
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "quotedText",
+        "summary": "state quotedText in src/views/MessageRow.ets; identifier terms: quoted text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 56.0
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: QuotedMessagePreview; component terms: quoted, message, preview; operations: fontSize, maxLines, width",
+        "score": 55.2,
+        "symbol": "QuotedMessagePreview"
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/MessageRow.ets",
+        "method_evidence": "messagetext message text quotedtext quoted length column fontsize font size quotedmessagepreview preview stateread state read statebranch branch conditional",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 54.25
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "messageText",
+        "summary": "state messageText in src/views/MessageRow.ets; identifier terms: message text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 53.75
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/QuotedMessagePreview.ets",
+        "method_evidence": "text row fontsize font size maxlines max lines width stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 52.75
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "MessageRow",
+        "summary": "ArkTS component MessageRow declared in src/views/MessageRow.ets; identifier terms: message row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 47.75
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "VoiceMessagePage",
+        "summary": "ArkTS component VoiceMessagePage declared in src/pages/VoiceMessagePage.ets; identifier terms: voice message page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "symbol": "MessageActionBar",
+        "summary": "ArkTS component MessageActionBar declared in src/widgets/MessageActionBar.ets; identifier terms: message action bar",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: MessageRow; component terms: message, row; operations: fontSize; behavior: conditionalbranch",
+        "score": 41.4,
+        "symbol": "MessageRow"
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/MessageActionBar.ets",
+        "method_evidence": "row button",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "replaceSource",
+        "summary": "ArkTS function or lifecycle method replaceSource in src/coordinators/SourceSwapCoordinator.ets; identifier terms: replace source",
+        "method_evidence": "phase sourcephase source idle loader opensource open replace statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 36.0
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "summary": "ArkTS file with 11 non-empty lines; components: VoiceMessagePage; behavior: statewrite, asyncboundary",
+        "score": 35.8,
+        "symbol": "VoiceMessagePage"
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: MessageActionBar; component terms: message, action, bar",
+        "score": 35.8,
+        "symbol": "MessageActionBar"
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "rows",
+        "summary": "state rows in src/views/InventoryList.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.5
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "RecordPreview",
+        "summary": "ArkTS component RecordPreview declared in src/components/RecordPreview.ets; identifier terms: record preview",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.25
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "SourceLoader",
+        "summary": "interface SourceLoader in src/coordinators/SourceSwapCoordinator.ets; identifier terms: source loader",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "SourceSwapCoordinator",
+        "summary": "ArkTS class SourceSwapCoordinator declared in src/coordinators/SourceSwapCoordinator.ets; identifier terms: source swap coordinator",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "symbol": "AssetSource",
+        "summary": "ArkTS class AssetSource declared in src/services/AssetSource.ets; identifier terms: asset source",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/components/RecordPreview.ets",
+        "method_evidence": "sharedrecord shared record content text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 30.5
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "summary": "ArkTS file with 18 non-empty lines; behavior: statewrite, asyncboundary",
+        "score": 27.8,
+        "symbol": "SourceSwapCoordinator"
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "symbol": "sharedRecord",
+        "summary": "state sharedRecord in src/components/RecordPreview.ets; identifier terms: shared record",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "constructor",
+        "summary": "ArkTS function or lifecycle method constructor in src/coordinators/SourceSwapCoordinator.ets",
+        "method_evidence": "",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "symbol": "getAssets",
+        "summary": "ArkTS function or lifecycle method getAssets in src/services/AssetSource.ets; identifier terms: get assets",
+        "method_evidence": "medialibrary media library queryassets query assets get stateread state read asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/web/SecureDocumentBrowser.ets",
+        "symbol": "sourceUrl",
+        "summary": "state sourceUrl in src/web/SecureDocumentBrowser.ets; identifier terms: source url",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 25.5
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: RecordPreview; component terms: record, preview",
+        "score": 24.8,
+        "symbol": "RecordPreview"
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: datasourceboundary, asyncboundary",
+        "score": 24.8,
+        "symbol": "AssetSource"
+      },
+      {
+        "file_path": "src/views/SnapshotCommandRow.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/SnapshotCommandRow.ets",
+        "method_evidence": "title sys symbol archivebox invoke row text symbolglyph glyph onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 24.5
+      },
+      {
+        "file_path": "src/widgets/NotificationRow.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/NotificationRow.ets",
+        "method_evidence": "title app media chevron row text layoutweight layout weight image margin padding stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 24.5
+      },
+      {
+        "file_path": "src/views/SnapshotCommandRow.ets",
+        "summary": "ArkTS file with 11 non-empty lines; components: SnapshotCommandRow; component terms: snapshot, command, row; resources: sys.symbol.archivebox; behavior: callbackboundary, commandbinding, uicallbackbinding",
+        "score": 23.6,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/widgets/NotificationRow.ets",
+        "summary": "ArkTS file with 13 non-empty lines; components: NotificationRow; component terms: notification, row; resources: app.media.chevron; operations: layoutWeight, margin, padding",
+        "score": 23.6,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/config/JobFailureMessages.ets",
+        "symbol": "JobFailureMessages",
+        "summary": "object JobFailureMessages in src/config/JobFailureMessages.ets; identifier terms: job failure messages",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.25
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "entry",
+        "summary": "state entry in src/views/TimelineRow.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/widgets/NotificationRow.ets",
+        "symbol": "title",
+        "summary": "state title in src/widgets/NotificationRow.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 23.0
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "summary": "ArkTS file with 17 non-empty lines; components: TimelineRow; component terms: timeline, row",
+        "score": 21.8,
+        "symbol": "entry"
+      },
+      {
+        "file_path": "src/web/SecureDocumentBrowser.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/web/SecureDocumentBrowser.ets",
+        "method_evidence": "sourceurl source url controller event data getrequesturl get request blocked some startswith starts column web fileaccess file access onloadintercept load intercept trim tolowercase lower stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 21.5
+      },
+      {
+        "file_path": "src/components/KeyboardFocusHint.ets",
+        "symbol": "updateFocusMessage",
+        "summary": "ArkTS function or lifecycle method updateFocusMessage in src/components/KeyboardFocusHint.ets; identifier terms: update focus message",
+        "method_evidence": "focusmessage focus message update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 21.25
+      },
+      {
+        "file_path": "src/components/KeyboardFocusHint.ets",
+        "symbol": "focusMessage",
+        "summary": "state focusMessage in src/components/KeyboardFocusHint.ets; identifier terms: focus message",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 21.25
+      },
+      {
+        "file_path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "failureMessage",
+        "summary": "state failureMessage in src/pages/ParcelRetryPage.ets; identifier terms: failure message",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 21.25
+      },
+      {
+        "file_path": "src/pages/WorkspaceLoadingPage.ets",
+        "symbol": "timeoutMessage",
+        "summary": "state timeoutMessage in src/pages/WorkspaceLoadingPage.ets; identifier terms: timeout message",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 21.25
+      },
+      {
+        "file_path": "src/config/JobFailureMessages.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "score": 14.8,
+        "symbol": "JobFailureMessages"
+      },
+      {
+        "file_path": "src/pages/DraftPage.ets",
+        "symbol": "reloadPreview",
+        "summary": "ArkTS function or lifecycle method reloadPreview in src/pages/DraftPage.ets; identifier terms: reload preview",
+        "method_evidence": "drafttext draft text reload preview statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 11.75
+      },
+      {
+        "file_path": "src/views/CatalogFilterSuggestion.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/CatalogFilterSuggestion.ets",
+        "method_evidence": "text fontsize font size",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 11.5
+      },
+      {
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "symbol": "loadFolder",
+        "summary": "ArkTS function or lifecycle method loadFolder in src/viewmodels/FolderCollectionLoader.ets; identifier terms: load folder",
+        "method_evidence": "folderid folder length items assetsource asset source getassets get assets load statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 11.0
+      },
+      {
+        "file_path": "src/views/EventBubble.ets",
+        "symbol": "EventBubble",
+        "summary": "ArkTS component EventBubble declared in src/views/EventBubble.ets; identifier terms: event bubble",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 10.925
+      },
+      {
+        "file_path": "src/views/WorkGalleryPage.ets",
+        "symbol": "renderWorkGallery",
+        "summary": "ArkTS function or lifecycle method renderWorkGallery in src/views/WorkGalleryPage.ets; identifier terms: render work gallery",
+        "method_evidence": "works axis horizontal render work gallery list foreach each listitem item workcard card listdirection direction height stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "draftText",
+        "summary": "state draftText in src/coordinators/DraftSessionCoordinator.ets; identifier terms: draft text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.5
+      },
+      {
+        "file_path": "src/io/ClipboardContentReader.ets",
+        "symbol": "readPlainText",
+        "summary": "ArkTS function or lifecycle method readPlainText in src/io/ClipboardContentReader.ets; identifier terms: read plain text",
+        "method_evidence": "pasteboard getsystempasteboard get system board getdata data getrecordcount record count getrecordat read plain text asyncboundary async guardreturn guard",
+        "callable_roles": "[\"async\", \"guard\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 9.5
+      },
+      {
+        "file_path": "src/pages/DisclosureAppearancePage.ets",
+        "symbol": "symbolSize",
+        "summary": "state symbolSize in src/pages/DisclosureAppearancePage.ets; identifier terms: symbol size",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.5
+      },
+      {
+        "file_path": "src/pages/DraftPage.ets",
+        "symbol": "draftText",
+        "summary": "state draftText in src/pages/DraftPage.ets; identifier terms: draft text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "statusText",
+        "summary": "state statusText in src/pages/LedgerMaintenancePage.ets; identifier terms: status text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.5
+      },
+      {
+        "file_path": "src/pages/PasteImportPage.ets",
+        "symbol": "clipboardText",
+        "summary": "state clipboardText in src/pages/PasteImportPage.ets; identifier terms: clipboard text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.5
+      },
+      {
+        "file_path": "src/pages/TimelinePage.ets",
+        "symbol": "TimelinePage",
+        "summary": "ArkTS component TimelinePage declared in src/pages/TimelinePage.ets; identifier terms: timeline page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 8.625
+      },
+      {
+        "file_path": "src/pages/KeyboardWorkspacePage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/KeyboardWorkspacePage.ets",
+        "method_evidence": "column navigationtoolbar navigation toolbar textinput text input",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/pages/PasteImportPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/PasteImportPage.ets",
+        "method_evidence": "clipboardtext clipboard text column stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 8.5
+      },
+      {
+        "file_path": "src/views/InventoryOverlayPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryOverlayPanel.ets",
+        "method_evidence": "color white column grid griditem item text row textinput input shadow backgroundcolor background",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 7.5
+      },
+      {
+        "file_path": "src/cache/BoundedResultCache.ets",
+        "symbol": "put",
+        "summary": "ArkTS function or lifecycle method put in src/cache/BoundedResultCache.ets",
+        "method_evidence": "entries set date now size capacity max_safe_integer max safe integer candidate updatedat updated delete stateread state read statebranch branch conditional guardreturn guard",
+        "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+        "score": 7.0
+      },
+      {
+        "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+        "symbol": "commitOrder",
+        "summary": "ArkTS function or lifecycle method commitOrder in src/coordinators/OrderCommitCoordinator.ets; identifier terms: commit order",
+        "method_evidence": "order customerid customer trim promptaction prompt action showtoast show toast dispatchcommit dispatch commit orderstore store save stateread state read persistencewrite persistence write asyncboundary async",
+        "callable_roles": "[\"async\", \"persistence_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 7.0
+      },
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "saveAccount",
+        "summary": "ArkTS function or lifecycle method saveAccount in src/pages/AccountSettingsPage.ets; identifier terms: save account",
+        "method_evidence": "displayname display name trim promptaction prompt action showtoast show toast updateservice update service dispatchupdate dispatch save account stateread state read statebranch branch conditional",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 7.0
+      },
+      {
+        "file_path": "src/pages/CollectionPage.ets",
+        "symbol": "updateFolder",
+        "summary": "ArkTS function or lifecycle method updateFolder in src/pages/CollectionPage.ets; identifier terms: update folder",
+        "method_evidence": "folderid folder length update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 7.0
+      },
+      {
+        "file_path": "src/pools/ThumbnailPool.ets",
+        "symbol": "storeThumbnail",
+        "summary": "ArkTS function or lifecycle method storeThumbnail in src/pools/ThumbnailPool.ets; identifier terms: store thumbnail",
+        "method_evidence": "thumbnails set size capacity keys delete store thumbnail next stateread state read statebranch branch conditional guardreturn guard",
+        "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+        "score": 7.0
+      },
+      {
+        "file_path": "src/services/SnapshotCoordinator.ets",
+        "symbol": "restoreSnapshot",
+        "summary": "ArkTS function or lifecycle method restoreSnapshot in src/services/SnapshotCoordinator.ets; identifier terms: restore snapshot",
+        "method_evidence": "payload length preferences get controller restore snapshot stateread state read asyncboundary async guardreturn guard",
+        "callable_roles": "[\"async\", \"guard\", \"source_operation_checked:v2.1\", \"source_operation:persistenceread\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 7.0
+      },
+      {
+        "file_path": "src/theme/SystemBarColorAdapter.ets",
+        "symbol": "parseNativeColor",
+        "summary": "ArkTS function or lifecycle method parseNativeColor in src/theme/SystemBarColorAdapter.ets; identifier terms: parse native color",
+        "method_evidence": "color trim includes substring length values map value parse native split parseint int join",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 7.0
+      },
+      {
+        "file_path": "src/validation/OrderValidator.ets",
+        "symbol": "validate",
+        "summary": "ArkTS function or lifecycle method validate in src/validation/OrderValidator.ets",
+        "method_evidence": "order customerid customer trim console error",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 7.0
+      },
+      {
+        "file_path": "src/components/KeyboardHint.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/components/KeyboardHint.ets",
+        "method_evidence": "event keycode key code text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/AppearanceSettingsPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/AppearanceSettingsPage.ets",
+        "method_evidence": "statusbarcolor status bar color textinput text input stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/CapabilitySettingsPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/CapabilitySettingsPage.ets",
+        "method_evidence": "column text",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/EditorKeyboardPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/EditorKeyboardPage.ets",
+        "method_evidence": "text",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/NotificationDetailsPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/NotificationDetailsPage.ets",
+        "method_evidence": "column text padding",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/NotificationListPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/NotificationListPage.ets",
+        "method_evidence": "column text margin",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/ShareComposerPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ShareComposerPage.ets",
+        "method_evidence": "sharedrecords shared records length text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/ShortcutSearchPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ShortcutSearchPage.ets",
+        "method_evidence": "event keycode key code keycode_back back column textinput text input onkeyevent guardreturn guard",
+        "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/StartupStatusPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/StartupStatusPage.ets",
+        "method_evidence": "column text",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/UpgradeStatusPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/UpgradeStatusPage.ets",
+        "method_evidence": "archivestatus archive status text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/views/InventoryItem.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryItem.ets",
+        "method_evidence": "text",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/widgets/WorkCard.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/WorkCard.ets",
+        "method_evidence": "item title column text height padding stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/ThemePreferencesPage.ets",
+        "summary": "ArkTS file with 25 non-empty lines; components: ThemePreferencesPage; operations: getHostContext, setColorMode; behavior: statewrite, platformsensitiveui",
+        "score": 3.6
+      },
+      {
+        "file_path": "src/components/NavigationToolbar.ets",
+        "symbol": "buildToolbar",
+        "summary": "ArkTS function or lifecycle method buildToolbar in src/components/NavigationToolbar.ets; identifier terms: build toolbar",
+        "method_evidence": "build toolbar row button text height width",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 3.5
+      },
+      {
+        "file_path": "src/pages/DisclosureAppearancePage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/DisclosureAppearancePage.ets",
+        "method_evidence": "symbolsize symbol size column text slider stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 3.5
+      },
+      {
+        "file_path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ParcelRetryPage.ets",
+        "method_evidence": "retrypending retry pending retryfailedparcel failed parcel failuremessage failure message button enabled onclick click text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 3.5
+      },
+      {
+        "file_path": "src/pages/WorkspaceLoadingPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/WorkspaceLoadingPage.ets",
+        "method_evidence": "timeoutmessage timeout message column text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 3.5
+      },
+      {
+        "file_path": "src/views/CatalogFilterPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/CatalogFilterPanel.ets",
+        "method_evidence": "densemode dense mode row text filtertoggle filter toggle stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 3.5
+      },
+      {
+        "file_path": "src/views/InventoryList.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/InventoryList.ets",
+        "method_evidence": "rows color gray list foreach each listitem item text divider stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 3.5
+      },
+      {
+        "file_path": "src/pages/QuotaRecoveryPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/QuotaRecoveryPage.ets",
+        "method_evidence": "applyquotarecovery apply quota recovery recoverynotice notice button onclick click text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 2.75
+      },
+      {
+        "file_path": "src/views/CatalogFilterSuggestion.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: CatalogFilterSuggestion; component terms: catalog, filter, suggestion; operations: fontSize",
+        "score": 1.8,
+        "symbol": "build"
+      }
+    ]
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "text",
+        "summary": "state text in src/views/QuotedMessagePreview.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 70.0
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "QuotedMessagePreview",
+        "summary": "ArkTS component QuotedMessagePreview declared in src/views/QuotedMessagePreview.ets; identifier terms: quoted message preview",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 67.5
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "quotedText",
+        "summary": "state quotedText in src/views/MessageRow.ets; identifier terms: quoted text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 56.0
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/MessageRow.ets",
+        "method_evidence": "messagetext message text quotedtext quoted length column fontsize font size quotedmessagepreview preview stateread state read statebranch branch conditional",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 54.25
+      }
+    ],
+    "query": "Message rows and quoted-message previews render inconsistent text sizes. Return both UI source contexts.",
+    "input": [
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "text",
+        "summary": "state text in src/views/QuotedMessagePreview.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 70.0
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "QuotedMessagePreview",
+        "summary": "ArkTS component QuotedMessagePreview declared in src/views/QuotedMessagePreview.ets; identifier terms: quoted message preview",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 67.5
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "quotedText",
+        "summary": "state quotedText in src/views/MessageRow.ets; identifier terms: quoted text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 56.0
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: QuotedMessagePreview; component terms: quoted, message, preview; operations: fontSize, maxLines, width",
+        "score": 55.2,
+        "symbol": "QuotedMessagePreview"
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/MessageRow.ets",
+        "method_evidence": "messagetext message text quotedtext quoted length column fontsize font size quotedmessagepreview preview stateread state read statebranch branch conditional",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 54.25
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "messageText",
+        "summary": "state messageText in src/views/MessageRow.ets; identifier terms: message text",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 53.75
+      },
+      {
+        "file_path": "src/views/QuotedMessagePreview.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/QuotedMessagePreview.ets",
+        "method_evidence": "text row fontsize font size maxlines max lines width stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 52.75
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "MessageRow",
+        "summary": "ArkTS component MessageRow declared in src/views/MessageRow.ets; identifier terms: message row",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 47.75
+      },
+      {
+        "file_path": "src/views/MessageRow.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: MessageRow; component terms: message, row; operations: fontSize; behavior: conditionalbranch",
+        "score": 41.4,
+        "symbol": "MessageRow"
+      }
+    ]
+  },
+  {
+    "function": "focus_callable_anchors",
+    "result": [
+      {
+        "record_type": "code_symbol",
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "quotedText",
+        "summary": "state quotedText in src/views/MessageRow.ets; identifier terms: quoted text"
+      },
+      {
+        "record_type": "code_symbol",
+        "file_path": "src/views/MessageRow.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/MessageRow.ets"
+      }
+    ],
+    "query": "Message rows and quoted-message previews render inconsistent text sizes. Return both UI source contexts.",
+    "input": null
+  }
+]
