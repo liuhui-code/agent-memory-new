@@ -1,0 +1,4192 @@
+[
+  {
+    "query": "The action completes but state remains unchanged. Locate action dispatch and authoritative refresh ownership.",
+    "compact": false,
+    "payload": {
+      "project_id": "87d564a2078dbed9",
+      "project_path": "/workspace/scratch/dcdb41e16594/recovery-current/partial-source-budget-evidence/header-after-fixture",
+      "query": "The action completes but state remains unchanged. Locate action dispatch and authoritative refresh ownership.",
+      "memory_intent": "general_context",
+      "memory_intent_v2": "memory_maintenance",
+      "memory_intent_source": "inferred",
+      "retrieval_lanes": {
+        "counts": {
+          "main_reflections": 0,
+          "correction_guards": 0,
+          "semantic_patch_notes": 0,
+          "blocked_memory_notes": 0
+        },
+        "intent_profile": {
+          "intent": "general_context",
+          "intent_v2": "memory_maintenance",
+          "intent_source": "inferred",
+          "legacy_intent": "general_context",
+          "preferred_lanes": [
+            "blocked_memory_notes",
+            "semantic_patch",
+            "correction_guard",
+            "semantic_facts"
+          ],
+          "interference_policy": "prefer governance notes and records needing review"
+        },
+        "lane_budgets": {
+          "main_reflections": 0,
+          "correction_guards": 4,
+          "semantic_patch_notes": 6,
+          "blocked_memory_notes": 8
+        },
+        "policy": {
+          "procedure_experience": "main context only when the query intent can reuse a procedure",
+          "correction_experience": "guardrail lane; not injected as the main task direction by default",
+          "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+        }
+      },
+      "memory_brief": {
+        "intent": "general_context",
+        "intent_v2": "memory_maintenance",
+        "main_reflection_count": 0,
+        "correction_guard_count": 0,
+        "semantic_patch_count": 0,
+        "blocked_count": 0,
+        "conflict_count": 0
+      },
+      "followup_focus": "log",
+      "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+      "semantic_facts": [],
+      "reflections": [],
+      "episodes": [],
+      "wiki_matches": [
+        {
+          "id": 5,
+          "project_id": "87d564a2078dbed9",
+          "file_path": "RefreshStore.ets",
+          "summary": "ArkTS file with 33 non-empty lines; behavior: actiondispatch, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+          "language": "ArkTS",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "2e893b2b5153ab396f68d2a5ccde28c2693e41662256fe498d403e4cfd4702ba",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T12:26:04+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "structural_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.09918033,
+            "best_rank": 1,
+            "channel_count": 5,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "structural_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 75.2,
+          "search_terms": [
+            "refreshstore.ets",
+            "arkts",
+            "arkts file with 33 non-empty lines; behavior: actiondispatch, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+            "refreshstore",
+            "ets",
+            "file",
+            "with",
+            "33",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "actiondispatch",
+            "lifecyclesync",
+            "datasourceboundary",
+            "statewrite",
+            "asyncboundary",
+            "refresh",
+            "store",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "file_path",
+            "file_summary",
+            "search_terms",
+            "exact_path_segment",
+            "structural_behavior",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "RefreshStore",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 33,
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.65",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "wiki_matches",
+            "score": 75.2,
+            "rerank_score": null,
+            "match_reasons": [
+              "file_path",
+              "file_summary",
+              "search_terms",
+              "exact_path_segment",
+              "structural_behavior",
+              "query_focus_coverage",
+              "multi_concept_coverage",
+              "salient_query_evidence"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 4,
+          "project_id": "87d564a2078dbed9",
+          "file_path": "GesturePanel.ets",
+          "symbol": "onActionStart",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method onActionStart in GesturePanel.ets; identifier terms: on action start",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:e8f12280d48558c5acd8f364",
+          "qualified_name": "GesturePanel.onActionStart",
+          "signature": "onActionStart():void",
+          "start_line": 2,
+          "end_line": 4,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "3953a320efc6b19aa7f89d91c2650647f9f2a15caa9e723da9c8e7d4a15257a8",
+          "evidence_class": "static",
+          "method_evidence": "active action start statewrite state write stateread read eventboundary",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "GesturePanel",
+          "owner_kind": "class",
+          "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T12:26:04+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "behavior_method_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.11409543,
+            "best_rank": 1,
+            "channel_count": 6,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 4,
+                "weight": 1.0,
+                "score": 0.015625
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 3,
+                "weight": 0.8,
+                "score": 0.01269841
+              },
+              {
+                "channel": "behavior_method_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 3,
+                "weight": 1.45,
+                "score": 0.02301587
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 4,
+                "weight": 1.0,
+                "score": 0.015625
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 4,
+                "weight": 1.6,
+                "score": 0.025
+              }
+            ]
+          },
+          "method_evidence_coverage": 2,
+          "semantic_behavior_coverage": 1,
+          "kind": "symbol",
+          "score": 33.5,
+          "search_terms": [
+            "gesturepanel.ets",
+            "arkts function or lifecycle method onactionstart in gesturepanel.ets; identifier terms: on action start",
+            "onactionstart",
+            "function",
+            "gesturepanel",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "on",
+            "action",
+            "start",
+            "gesture",
+            "panel",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "method_evidence",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "semantic_behavior",
+            "source_locatable"
+          ],
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.65",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "wiki_matches",
+            "score": 33.5,
+            "rerank_score": null,
+            "match_reasons": [
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "method_evidence",
+              "query_focus_coverage",
+              "salient_query_evidence",
+              "semantic_behavior",
+              "source_locatable"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 2,
+          "project_id": "87d564a2078dbed9",
+          "file_path": "CommitButton.ets",
+          "symbol": "dispatchCommit",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method dispatchCommit in CommitButton.ets; identifier terms: dispatch commit",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:3a4252216d1902f0d1354521",
+          "qualified_name": "CommitButton.dispatchCommit",
+          "signature": "dispatchCommit(value: string):void",
+          "start_line": 2,
+          "end_line": 4,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "16498fe17c90769fb6403ea832c6dce4b4babf04f876f51f2da6c35f239d2dfd",
+          "evidence_class": "static",
+          "method_evidence": "service submit dispatch commit stateread state read",
+          "string_evidence": "",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:service.submit\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":3,\"source_key\":\"symbol:3a4252216d1902f0d1354521\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "CommitButton",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T12:26:04+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.09374654,
+            "best_rank": 1,
+            "channel_count": 5,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 3,
+                "weight": 1.0,
+                "score": 0.01587302
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 4,
+                "weight": 1.45,
+                "score": 0.02265625
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 3,
+                "weight": 1.0,
+                "score": 0.01587302
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 2,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 16.0,
+          "search_terms": [
+            "commitbutton.ets",
+            "arkts function or lifecycle method dispatchcommit in commitbutton.ets; identifier terms: dispatch commit",
+            "dispatchcommit",
+            "function",
+            "commitbutton",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "dispatch",
+            "commit",
+            "button",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "method_evidence",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.65",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "wiki_matches",
+            "score": 16.0,
+            "rerank_score": null,
+            "match_reasons": [
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "method_evidence",
+              "salient_query_evidence",
+              "source_locatable"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        }
+      ],
+      "code_log_matches": [
+        {
+          "id": 1,
+          "project_id": "87d564a2078dbed9",
+          "file_path": "NoticeSink.ets",
+          "line": 3,
+          "function": "report",
+          "level": "info",
+          "logger": "console",
+          "message_template": "cached content remains usable after updating",
+          "raw_statement": "console.info('cached content remains usable after updating')",
+          "business_summary": null,
+          "business_terms": [],
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": null,
+          "process_hint": null,
+          "neighbor_terms": null,
+          "source_digest": "2143b22b137f7c51a88ae7b5b05089cd2dd01e11dbb8b312636a2f9542895f25",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T12:26:04+00:00",
+          "start_line": 2,
+          "end_line": 4,
+          "recall_lanes": [
+            "broad_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.01639344,
+            "best_rank": 1,
+            "channel_count": 1,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "kind": "log_statement",
+          "score": 10.4,
+          "search_terms": [
+            "noticesink.ets",
+            "info",
+            "console",
+            "cached content remains usable after updating",
+            "report",
+            "noticesink",
+            "ets",
+            "cached",
+            "content",
+            "remains",
+            "usable",
+            "after",
+            "updating",
+            "notice",
+            "sink",
+            "arkts",
+            "harmonyos",
+            "component",
+            "page",
+            "log",
+            "logger",
+            "hilog",
+            "debug",
+            "error",
+            "warning",
+            "failed",
+            "failure"
+          ],
+          "match_reasons": [
+            "expanded_query:log_message",
+            "expanded_query:log_context",
+            "expanded_query:search_terms"
+          ],
+          "log_signal_score": 0.35,
+          "log_signal_band": "poor",
+          "present_signals": [
+            "level",
+            "logger",
+            "route_or_resource",
+            "entity_id_or_key",
+            "neighbor_context"
+          ],
+          "missing_signals": [
+            "timestamp",
+            "process",
+            "event_type",
+            "stage",
+            "business_event",
+            "error_code",
+            "reason",
+            "request_or_session_id",
+            "action_result"
+          ],
+          "suggested_log_fields": [
+            "timestamp",
+            "process",
+            "event_type",
+            "stage",
+            "business_event",
+            "error_code",
+            "reason",
+            "request_id",
+            "session_id",
+            "result"
+          ],
+          "observability_gaps": [
+            "missing_time",
+            "missing_process",
+            "missing_event_name",
+            "missing_stage",
+            "missing_reason",
+            "missing_correlation",
+            "missing_result"
+          ],
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.65",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "code_log_matches",
+            "score": 10.4,
+            "rerank_score": null,
+            "match_reasons": [
+              "expanded_query:log_message",
+              "expanded_query:log_context",
+              "expanded_query:search_terms"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 1,
+          "project_id": "87d564a2078dbed9",
+          "file_path": "NoticeRelay.ets",
+          "line": 4,
+          "function": "notify",
+          "wrapper_symbol": "report",
+          "sink_log_id": 1,
+          "level": "info",
+          "logger": "console",
+          "message_template": "cached content remains usable after updating",
+          "evidence_class": "static_wrapped",
+          "wrapper_depth": 1,
+          "truncated": 0,
+          "call_path": [
+            "notify",
+            "report",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "NoticeRelay.ets#notify",
+            "NoticeSink.ets#report",
+            "NoticeSink.ets#console.info"
+          ],
+          "raw_call": "logger.report(command)",
+          "source_digest": "107626743d3a55760e10b8ae1422bb5e881f75e2639d170d7064dae96d30f4e5",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T12:26:04+00:00",
+          "kind": "log_effect",
+          "raw_statement": "logger.report(command)",
+          "business_summary": "",
+          "business_terms": [],
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": "[]",
+          "process_hint": "",
+          "neighbor_terms": "[]",
+          "recall_lanes": [
+            "log_effect_fts"
+          ],
+          "recall_fusion": {},
+          "start_line": 3,
+          "end_line": 5,
+          "score": 7.2,
+          "search_terms": [
+            "noticerelay.ets",
+            "info",
+            "console",
+            "cached content remains usable after updating",
+            "notify",
+            "noticerelay",
+            "ets",
+            "cached",
+            "content",
+            "remains",
+            "usable",
+            "after",
+            "updating",
+            "logger",
+            "report",
+            "command",
+            "notice",
+            "relay",
+            "arkts",
+            "harmonyos",
+            "component",
+            "page",
+            "log",
+            "hilog",
+            "debug",
+            "error",
+            "warning",
+            "failed",
+            "failure"
+          ],
+          "match_reasons": [
+            "expanded_query:log_message",
+            "expanded_query:search_terms",
+            "static_wrapped"
+          ],
+          "log_signal_score": 0.35,
+          "log_signal_band": "poor",
+          "present_signals": [
+            "level",
+            "logger",
+            "route_or_resource",
+            "entity_id_or_key",
+            "neighbor_context"
+          ],
+          "missing_signals": [
+            "timestamp",
+            "process",
+            "event_type",
+            "stage",
+            "business_event",
+            "error_code",
+            "reason",
+            "request_or_session_id",
+            "action_result"
+          ],
+          "suggested_log_fields": [
+            "timestamp",
+            "process",
+            "event_type",
+            "stage",
+            "business_event",
+            "error_code",
+            "reason",
+            "request_id",
+            "session_id",
+            "result"
+          ],
+          "observability_gaps": [
+            "missing_time",
+            "missing_process",
+            "missing_event_name",
+            "missing_stage",
+            "missing_reason",
+            "missing_correlation",
+            "missing_result"
+          ],
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.623,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.65",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "code_log_matches",
+            "score": 7.2,
+            "rerank_score": null,
+            "match_reasons": [
+              "expanded_query:log_message",
+              "expanded_query:search_terms",
+              "static_wrapped"
+            ],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": null,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        }
+      ],
+      "edge_matches": [
+        {
+          "id": 15,
+          "project_id": "87d564a2078dbed9",
+          "source_type": "code_file",
+          "source_id": 4,
+          "relation": "contains",
+          "target_type": "code_log_statement",
+          "target_id": 2,
+          "evidence": "NoticeSink.ets:6",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-13T12:26:04+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-13T12:26:04+00:00",
+          "created_at": "2026-11-13T12:26:04+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 13,
+          "project_id": "87d564a2078dbed9",
+          "source_type": "code_file",
+          "source_id": 4,
+          "relation": "contains",
+          "target_type": "code_log_statement",
+          "target_id": 1,
+          "evidence": "NoticeSink.ets:3",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-13T12:26:04+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-13T12:26:04+00:00",
+          "created_at": "2026-11-13T12:26:04+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 12,
+          "project_id": "87d564a2078dbed9",
+          "source_type": "code_file",
+          "source_id": 5,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 12,
+          "evidence": "RefreshStore.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-13T12:26:04+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-13T12:26:04+00:00",
+          "created_at": "2026-11-13T12:26:04+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 11,
+          "project_id": "87d564a2078dbed9",
+          "source_type": "code_file",
+          "source_id": 5,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 11,
+          "evidence": "RefreshStore.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-13T12:26:04+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-13T12:26:04+00:00",
+          "created_at": "2026-11-13T12:26:04+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 10,
+          "project_id": "87d564a2078dbed9",
+          "source_type": "code_file",
+          "source_id": 5,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 10,
+          "evidence": "RefreshStore.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-13T12:26:04+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-13T12:26:04+00:00",
+          "created_at": "2026-11-13T12:26:04+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 9,
+          "project_id": "87d564a2078dbed9",
+          "source_type": "code_file",
+          "source_id": 4,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 9,
+          "evidence": "NoticeSink.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-13T12:26:04+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-13T12:26:04+00:00",
+          "created_at": "2026-11-13T12:26:04+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 8,
+          "project_id": "87d564a2078dbed9",
+          "source_type": "code_file",
+          "source_id": 4,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 8,
+          "evidence": "NoticeSink.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-13T12:26:04+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-13T12:26:04+00:00",
+          "created_at": "2026-11-13T12:26:04+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 7,
+          "project_id": "87d564a2078dbed9",
+          "source_type": "code_file",
+          "source_id": 4,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 7,
+          "evidence": "NoticeSink.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-13T12:26:04+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-13T12:26:04+00:00",
+          "created_at": "2026-11-13T12:26:04+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 4,
+          "project_id": "87d564a2078dbed9",
+          "source_type": "code_file",
+          "source_id": 2,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 4,
+          "evidence": "GesturePanel.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-13T12:26:04+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-13T12:26:04+00:00",
+          "created_at": "2026-11-13T12:26:04+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        },
+        {
+          "id": 3,
+          "project_id": "87d564a2078dbed9",
+          "source_type": "code_file",
+          "source_id": 2,
+          "relation": "contains",
+          "target_type": "code_symbol",
+          "target_id": 3,
+          "evidence": "GesturePanel.ets",
+          "confidence": 0.9,
+          "source_revision": "unversioned",
+          "extractor_version": "code-wiki:v4",
+          "valid_from": "2026-11-13T12:26:04+00:00",
+          "valid_to": null,
+          "evidence_kind": "static_containment",
+          "last_verified_at": "2026-11-13T12:26:04+00:00",
+          "created_at": "2026-11-13T12:26:04+00:00",
+          "query_risk_flags": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "trust_score": 0.87,
+          "trust_level": "source_truth",
+          "trust_reasons": [
+            "confidence=0.9",
+            "has explicit evidence",
+            "source-like code/log evidence"
+          ],
+          "retrieval_explanation": {
+            "group": "edge_matches",
+            "score": null,
+            "rerank_score": null,
+            "match_reasons": [],
+            "gate_score": null,
+            "gate_reasons": [],
+            "quality_score": null,
+            "quality_band": null,
+            "experience_maturity": null,
+            "experience_maturity_score": null,
+            "feedback_penalty": 0.0,
+            "feedback_reasons": [],
+            "calibration_feedback_bonus": 0.0,
+            "calibration_feedback_penalty": 0.0,
+            "calibration_feedback_reasons": [],
+            "query_risk_flags": [],
+            "intent_alignment": null,
+            "interference_penalty": 0.0,
+            "interference_reasons": [],
+            "trust_cap": null,
+            "trust_cap_reasons": [],
+            "status": null,
+            "confidence": 0.9,
+            "experience_evidence_profile": null,
+            "source_case_quality": null
+          }
+        }
+      ],
+      "incident_trace_matches": [],
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "suggested_followup_terms": [
+        "log",
+        "logger",
+        "hilog",
+        "error",
+        "warning",
+        "failed",
+        "arkts function or lifecycle method onactionstart in gesturepanel.ets; identifier terms: on action start",
+        "arkts function or lifecycle method dispatchcommit in commitbutton.ets; identifier terms: dispatch commit",
+        "cached content remains usable after updating",
+        "report",
+        "info",
+        "console"
+      ],
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "The action completes but state remains unchanged. Locate action dispatch and authoritative refresh ownership.",
+        "log_keywords": [
+          "the",
+          "action",
+          "completes",
+          "but",
+          "state",
+          "remains",
+          "unchanged",
+          "locate",
+          "dispatch",
+          "and",
+          "authoritative",
+          "refresh",
+          "ownership",
+          "console",
+          "report",
+          "cached",
+          "content",
+          "usable",
+          "after",
+          "updating"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "cached content remains usable after updating",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "NoticeSink.ets",
+            "function": "report",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          },
+          {
+            "log_id": 1,
+            "effect_id": 1,
+            "message_template": "cached content remains usable after updating",
+            "logger": "console",
+            "business_event": "",
+            "trigger_stage": "",
+            "symptom_terms": [],
+            "process_hint": "",
+            "file_path": "NoticeRelay.ets",
+            "function": "notify",
+            "line": 4,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "report",
+            "wrapper_depth": 1,
+            "truncated": false,
+            "call_path": [
+              "notify",
+              "report",
+              "console.info"
+            ],
+            "call_path_locations": [
+              "NoticeRelay.ets#notify",
+              "NoticeSink.ets#report",
+              "NoticeSink.ets#console.info"
+            ]
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 5,
+            "record_type": "code_file",
+            "file_path": "RefreshStore.ets",
+            "symbol": "RefreshStore",
+            "symbol_type": "class",
+            "summary": "ArkTS file with 33 non-empty lines; behavior: actiondispatch, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+            "start_line": 1,
+            "end_line": 33,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 4,
+            "record_type": "code_symbol",
+            "file_path": "GesturePanel.ets",
+            "symbol": "onActionStart",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method onActionStart in GesturePanel.ets; identifier terms: on action start",
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 2,
+            "record_type": "code_symbol",
+            "file_path": "CommitButton.ets",
+            "symbol": "dispatchCommit",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method dispatchCommit in CommitButton.ets; identifier terms: dispatch commit",
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "log_emitter",
+            "record_id": 1,
+            "record_type": "code_log_statement",
+            "file_path": "NoticeSink.ets",
+            "symbol": "report",
+            "symbol_type": null,
+            "summary": null,
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wrapped_log_caller",
+            "record_id": 1,
+            "record_type": "code_log_effect",
+            "file_path": "NoticeRelay.ets",
+            "symbol": "notify",
+            "symbol_type": null,
+            "summary": null,
+            "start_line": 3,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "RefreshStore.ets",
+            "symbol": "dispatch",
+            "owner_name": "RefreshStore",
+            "owner_kind": "store",
+            "file_structural_coverage": 3,
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 40.5,
+            "evidence_score": 40.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 26,
+              "end_line": 28,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "GesturePanel.ets",
+              "symbol": "onActionStart",
+              "owner_name": "GesturePanel",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "score": 23.03,
+              "evidence_score": 23.03,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "CommitButton.ets",
+              "symbol": "dispatchCommit",
+              "owner_name": "CommitButton",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 18.88,
+              "evidence_score": 18.88,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "fewer_than_two_supported_callable_identities"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      },
+      "network_limits": {
+        "max_depth": 1,
+        "edge_limit": 10,
+        "evidence_chain_limit": 3,
+        "allowed_relations": [
+          "configured_by",
+          "contains",
+          "emits_log",
+          "imports",
+          "passes_property",
+          "renders_component",
+          "routes_to",
+          "uses_resource"
+        ]
+      },
+      "source_freshness": {
+        "schema_version": "source-freshness/v1",
+        "status": "current",
+        "generation": 1,
+        "source_revision": "unversioned",
+        "extractor_version": "code-derived:v1",
+        "candidate_file_count": 5,
+        "checked_file_count": 5,
+        "current_file_count": 5,
+        "blocked_rows": 0,
+        "blocked_rows_by_table": {
+          "code_files": 0,
+          "code_symbols": 0,
+          "code_log_statements": 0
+        },
+        "stale_paths": [],
+        "missing_paths": [],
+        "unverified_paths": [],
+        "boundary_drift_scope_ids": [],
+        "policy": "digest_mismatch_and_missing_source_blocked"
+      },
+      "memory_use_policy": {
+        "mode": "advisory",
+        "authority_order": [
+          "current_source",
+          "explicit_user_instruction",
+          "source_truth",
+          "verified_experience",
+          "usable_hint",
+          "weak_hint"
+        ],
+        "rules": [
+          "Current source files and explicit user instructions override stored memory.",
+          "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+          "Use weak hints only to choose what to inspect next.",
+          "Do not let recency override evidence, status, confidence, or feedback penalties."
+        ]
+      },
+      "query_audit": {
+        "result_counts": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 3,
+          "code_log_matches": 2,
+          "edge_matches": 10,
+          "incident_trace_matches": 0
+        },
+        "candidate_recall": {
+          "schema_version": "agent-candidate-recall-audit/v1",
+          "source_freshness": {
+            "schema_version": "source-freshness/v1",
+            "status": "current",
+            "generation": 1,
+            "source_revision": "unversioned",
+            "extractor_version": "code-derived:v1",
+            "candidate_file_count": 5,
+            "checked_file_count": 5,
+            "current_file_count": 5,
+            "blocked_rows": 0,
+            "blocked_rows_by_table": {
+              "code_files": 0,
+              "code_symbols": 0,
+              "code_log_statements": 0
+            },
+            "stale_paths": [],
+            "missing_paths": [],
+            "unverified_paths": [],
+            "boundary_drift_scope_ids": [],
+            "policy": "digest_mismatch_and_missing_source_blocked"
+          },
+          "provider": "sqlite_fts5_passage_rrf/v4",
+          "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+          "tables": {
+            "semantic_facts": {
+              "requested_limit": 120,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "reflections": {
+              "requested_limit": 120,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "episodes": {
+              "requested_limit": 80,
+              "candidate_count": 0,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 2,
+                "channel_counts": {
+                  "broad_fts": 0,
+                  "like_fallback": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_refs": []
+            },
+            "code_files": {
+              "requested_limit": 160,
+              "candidate_count": 2,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 4,
+              "lane_counts": {
+                "broad_fts": 2,
+                "structural_fts": 2,
+                "file_identity_fts": 1,
+                "file_semantic_fts": 2,
+                "salient_file_fts": 1
+              },
+              "fielded_retrieval": {
+                "provider": "code_passage_fts/v2",
+                "score_scope": "channel_local_bm25",
+                "channels": {
+                  "file_identity_fts": {
+                    "source_type": "code_file",
+                    "passage_kinds": [
+                      "file"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "identity_terms"
+                    ],
+                    "candidate_count": 1,
+                    "file_path_weight": 6.0,
+                    "identity_terms_weight": 9.0
+                  },
+                  "file_semantic_fts": {
+                    "source_type": "code_file",
+                    "passage_kinds": [
+                      "file"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "semantic_terms"
+                    ],
+                    "candidate_count": 2,
+                    "file_path_weight": 1.0,
+                    "semantic_terms_weight": 7.0
+                  },
+                  "salient_file_fts": {
+                    "source_type": "code_file",
+                    "passage_kinds": [
+                      "file"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "semantic_terms"
+                    ],
+                    "candidate_count": 1,
+                    "query_term_count": 6,
+                    "file_path_weight": 3.0,
+                    "semantic_terms_weight": 8.0
+                  }
+                },
+                "mode": "serving",
+                "serving_candidates_changed": false,
+                "serving_channels": [
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ],
+                "rank_fusion": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "rank_constant": 60,
+                  "channel_count": 3,
+                  "channel_counts": {
+                    "file_identity_fts": 1,
+                    "file_semantic_fts": 2,
+                    "salient_file_fts": 1
+                  },
+                  "fused_candidate_count": 2
+                },
+                "candidate_fusion": {
+                  "5": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.06229508,
+                    "best_rank": 1,
+                    "channel_count": 3,
+                    "contributions": [
+                      {
+                        "channel": "file_identity_fts",
+                        "rank": 1,
+                        "weight": 1.35,
+                        "score": 0.02213115
+                      },
+                      {
+                        "channel": "file_semantic_fts",
+                        "rank": 1,
+                        "weight": 1.0,
+                        "score": 0.01639344
+                      },
+                      {
+                        "channel": "salient_file_fts",
+                        "rank": 1,
+                        "weight": 1.45,
+                        "score": 0.02377049
+                      }
+                    ]
+                  },
+                  "2": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.01612903,
+                    "best_rank": 2,
+                    "channel_count": 1,
+                    "contributions": [
+                      {
+                        "channel": "file_semantic_fts",
+                        "rank": 2,
+                        "weight": 1.0,
+                        "score": 0.01612903
+                      }
+                    ]
+                  }
+                },
+                "candidate_refs": [
+                  {
+                    "id": 5,
+                    "file_path": "RefreshStore.ets",
+                    "symbol": "",
+                    "channels": [
+                      "file_identity_fts",
+                      "file_semantic_fts",
+                      "salient_file_fts"
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "file_path": "GesturePanel.ets",
+                    "symbol": "",
+                    "channels": [
+                      "file_semantic_fts"
+                    ]
+                  }
+                ]
+              },
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 5,
+                "channel_counts": {
+                  "broad_fts": 2,
+                  "structural_fts": 2,
+                  "file_identity_fts": 1,
+                  "file_semantic_fts": 2,
+                  "salient_file_fts": 1
+                },
+                "fused_candidate_count": 2
+              },
+              "candidate_refs": [
+                {
+                  "id": 5,
+                  "file_path": "RefreshStore.ets",
+                  "channels": [
+                    "broad_fts",
+                    "structural_fts",
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 2,
+                  "file_path": "GesturePanel.ets",
+                  "channels": [
+                    "broad_fts",
+                    "structural_fts",
+                    "file_semantic_fts"
+                  ]
+                }
+              ]
+            },
+            "code_symbols": {
+              "requested_limit": 220,
+              "candidate_count": 6,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 5,
+                "method_body_fts": 4,
+                "behavior_method_fts": 2,
+                "symbol_identity_fts": 5,
+                "symbol_semantic_fts": 5,
+                "string_key_fts": 1,
+                "semantic_mechanism_fts": 0,
+                "salient_string_fts": 4
+              },
+              "fielded_retrieval": {
+                "provider": "code_passage_fts/v2",
+                "score_scope": "channel_local_bm25",
+                "channels": {
+                  "symbol_identity_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "symbol",
+                      "callable"
+                    ],
+                    "columns": [
+                      "file_path",
+                      "symbol",
+                      "identity_terms"
+                    ],
+                    "candidate_count": 5,
+                    "file_path_weight": 2.0,
+                    "symbol_weight": 8.0,
+                    "identity_terms_weight": 10.0
+                  },
+                  "symbol_semantic_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "symbol",
+                      "callable"
+                    ],
+                    "columns": [
+                      "symbol",
+                      "semantic_terms"
+                    ],
+                    "candidate_count": 5,
+                    "symbol_weight": 2.0,
+                    "semantic_terms_weight": 7.0
+                  },
+                  "method_body_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "callable"
+                    ],
+                    "columns": [
+                      "body_terms"
+                    ],
+                    "candidate_count": 5,
+                    "body_terms_weight": 8.0
+                  },
+                  "string_key_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "callable"
+                    ],
+                    "columns": [
+                      "string_terms"
+                    ],
+                    "candidate_count": 1,
+                    "string_terms_weight": 9.0
+                  },
+                  "semantic_mechanism_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "symbol",
+                      "callable"
+                    ],
+                    "columns": [
+                      "mechanism_terms"
+                    ],
+                    "candidate_count": 0,
+                    "mechanism_terms_weight": 9.0
+                  },
+                  "salient_string_fts": {
+                    "source_type": "code_symbol",
+                    "passage_kinds": [
+                      "callable"
+                    ],
+                    "columns": [
+                      "body_terms",
+                      "string_terms"
+                    ],
+                    "candidate_count": 4,
+                    "query_term_count": 6,
+                    "body_terms_weight": 3.0,
+                    "string_terms_weight": 10.0
+                  }
+                },
+                "mode": "serving",
+                "serving_candidates_changed": true,
+                "serving_channels": [
+                  "salient_string_fts",
+                  "semantic_mechanism_fts",
+                  "string_key_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "rank_fusion": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "rank_constant": 60,
+                  "channel_count": 6,
+                  "channel_counts": {
+                    "symbol_identity_fts": 5,
+                    "symbol_semantic_fts": 5,
+                    "method_body_fts": 4,
+                    "string_key_fts": 1,
+                    "semantic_mechanism_fts": 0,
+                    "salient_string_fts": 4
+                  },
+                  "fused_candidate_count": 6
+                },
+                "candidate_fusion": {
+                  "12": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.0786092,
+                    "best_rank": 1,
+                    "channel_count": 4,
+                    "contributions": [
+                      {
+                        "channel": "symbol_identity_fts",
+                        "rank": 1,
+                        "weight": 1.45,
+                        "score": 0.02377049
+                      },
+                      {
+                        "channel": "symbol_semantic_fts",
+                        "rank": 2,
+                        "weight": 1.0,
+                        "score": 0.01612903
+                      },
+                      {
+                        "channel": "method_body_fts",
+                        "rank": 2,
+                        "weight": 0.8,
+                        "score": 0.01290323
+                      },
+                      {
+                        "channel": "salient_string_fts",
+                        "rank": 2,
+                        "weight": 1.6,
+                        "score": 0.02580645
+                      }
+                    ]
+                  },
+                  "2": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.07787353,
+                    "best_rank": 1,
+                    "channel_count": 4,
+                    "contributions": [
+                      {
+                        "channel": "symbol_identity_fts",
+                        "rank": 4,
+                        "weight": 1.45,
+                        "score": 0.02265625
+                      },
+                      {
+                        "channel": "symbol_semantic_fts",
+                        "rank": 3,
+                        "weight": 1.0,
+                        "score": 0.01587302
+                      },
+                      {
+                        "channel": "method_body_fts",
+                        "rank": 1,
+                        "weight": 0.8,
+                        "score": 0.01311475
+                      },
+                      {
+                        "channel": "salient_string_fts",
+                        "rank": 1,
+                        "weight": 1.6,
+                        "score": 0.02622951
+                      }
+                    ]
+                  },
+                  "11": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.07767736,
+                    "best_rank": 1,
+                    "channel_count": 4,
+                    "contributions": [
+                      {
+                        "channel": "symbol_identity_fts",
+                        "rank": 2,
+                        "weight": 1.45,
+                        "score": 0.0233871
+                      },
+                      {
+                        "channel": "symbol_semantic_fts",
+                        "rank": 1,
+                        "weight": 1.0,
+                        "score": 0.01639344
+                      },
+                      {
+                        "channel": "method_body_fts",
+                        "rank": 4,
+                        "weight": 0.8,
+                        "score": 0.0125
+                      },
+                      {
+                        "channel": "salient_string_fts",
+                        "rank": 3,
+                        "weight": 1.6,
+                        "score": 0.02539683
+                      }
+                    ]
+                  },
+                  "4": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.07633929,
+                    "best_rank": 3,
+                    "channel_count": 4,
+                    "contributions": [
+                      {
+                        "channel": "symbol_identity_fts",
+                        "rank": 3,
+                        "weight": 1.45,
+                        "score": 0.02301587
+                      },
+                      {
+                        "channel": "symbol_semantic_fts",
+                        "rank": 4,
+                        "weight": 1.0,
+                        "score": 0.015625
+                      },
+                      {
+                        "channel": "method_body_fts",
+                        "rank": 3,
+                        "weight": 0.8,
+                        "score": 0.01269841
+                      },
+                      {
+                        "channel": "salient_string_fts",
+                        "rank": 4,
+                        "weight": 1.6,
+                        "score": 0.025
+                      }
+                    ]
+                  },
+                  "10": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.03769231,
+                    "best_rank": 5,
+                    "channel_count": 2,
+                    "contributions": [
+                      {
+                        "channel": "symbol_identity_fts",
+                        "rank": 5,
+                        "weight": 1.45,
+                        "score": 0.02230769
+                      },
+                      {
+                        "channel": "symbol_semantic_fts",
+                        "rank": 5,
+                        "weight": 1.0,
+                        "score": 0.01538462
+                      }
+                    ]
+                  },
+                  "8": {
+                    "provider": "reciprocal_rank_fusion/v1",
+                    "score": 0.01967213,
+                    "best_rank": 1,
+                    "channel_count": 1,
+                    "contributions": [
+                      {
+                        "channel": "string_key_fts",
+                        "rank": 1,
+                        "weight": 1.2,
+                        "score": 0.01967213
+                      }
+                    ]
+                  }
+                },
+                "candidate_refs": [
+                  {
+                    "id": 12,
+                    "file_path": "RefreshStore.ets",
+                    "symbol": "refreshState",
+                    "channels": [
+                      "symbol_identity_fts",
+                      "symbol_semantic_fts",
+                      "method_body_fts",
+                      "salient_string_fts"
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "file_path": "CommitButton.ets",
+                    "symbol": "dispatchCommit",
+                    "channels": [
+                      "symbol_identity_fts",
+                      "symbol_semantic_fts",
+                      "method_body_fts",
+                      "salient_string_fts"
+                    ]
+                  },
+                  {
+                    "id": 11,
+                    "file_path": "RefreshStore.ets",
+                    "symbol": "dispatch",
+                    "channels": [
+                      "symbol_identity_fts",
+                      "symbol_semantic_fts",
+                      "method_body_fts",
+                      "salient_string_fts"
+                    ]
+                  },
+                  {
+                    "id": 4,
+                    "file_path": "GesturePanel.ets",
+                    "symbol": "onActionStart",
+                    "channels": [
+                      "symbol_identity_fts",
+                      "symbol_semantic_fts",
+                      "method_body_fts",
+                      "salient_string_fts"
+                    ]
+                  },
+                  {
+                    "id": 10,
+                    "file_path": "RefreshStore.ets",
+                    "symbol": "RefreshStore",
+                    "channels": [
+                      "symbol_identity_fts",
+                      "symbol_semantic_fts"
+                    ]
+                  },
+                  {
+                    "id": 8,
+                    "file_path": "NoticeSink.ets",
+                    "symbol": "report",
+                    "channels": [
+                      "string_key_fts"
+                    ]
+                  }
+                ]
+              },
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 8,
+                "channel_counts": {
+                  "broad_fts": 5,
+                  "method_body_fts": 4,
+                  "behavior_method_fts": 2,
+                  "symbol_identity_fts": 5,
+                  "symbol_semantic_fts": 5,
+                  "string_key_fts": 1,
+                  "semantic_mechanism_fts": 0,
+                  "salient_string_fts": 4
+                },
+                "fused_candidate_count": 6
+              },
+              "candidate_refs": [
+                {
+                  "id": 12,
+                  "file_path": "RefreshStore.ets",
+                  "channels": [
+                    "broad_fts",
+                    "method_body_fts",
+                    "behavior_method_fts",
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "salient_string_fts"
+                  ],
+                  "symbol": "refreshState"
+                },
+                {
+                  "id": 4,
+                  "file_path": "GesturePanel.ets",
+                  "channels": [
+                    "broad_fts",
+                    "method_body_fts",
+                    "behavior_method_fts",
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "salient_string_fts"
+                  ],
+                  "symbol": "onActionStart"
+                },
+                {
+                  "id": 11,
+                  "file_path": "RefreshStore.ets",
+                  "channels": [
+                    "broad_fts",
+                    "method_body_fts",
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "salient_string_fts"
+                  ],
+                  "symbol": "dispatch"
+                },
+                {
+                  "id": 2,
+                  "file_path": "CommitButton.ets",
+                  "channels": [
+                    "broad_fts",
+                    "method_body_fts",
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "salient_string_fts"
+                  ],
+                  "symbol": "dispatchCommit"
+                },
+                {
+                  "id": 10,
+                  "file_path": "RefreshStore.ets",
+                  "channels": [
+                    "broad_fts",
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ],
+                  "symbol": "RefreshStore"
+                },
+                {
+                  "id": 8,
+                  "file_path": "NoticeSink.ets",
+                  "channels": [
+                    "string_key_fts"
+                  ],
+                  "symbol": "report"
+                }
+              ]
+            },
+            "code_log_statements": {
+              "requested_limit": 180,
+              "candidate_count": 1,
+              "saturated": false,
+              "broad_saturated": false,
+              "used_fallback": false,
+              "fallback_skipped_for_scale": false,
+              "focus_term_count": 4,
+              "structural_term_count": 0,
+              "lane_counts": {
+                "broad_fts": 1
+              },
+              "fielded_retrieval": {},
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 1,
+                "channel_counts": {
+                  "broad_fts": 1
+                },
+                "fused_candidate_count": 1
+              },
+              "candidate_refs": [
+                {
+                  "id": 1,
+                  "file_path": "NoticeSink.ets",
+                  "channels": [
+                    "broad_fts"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "retrieval_stages": {
+          "scored": {
+            "semantic_facts": 0,
+            "reflections": 0,
+            "episodes": 0,
+            "wiki_matches": 8,
+            "code_log_matches": 2,
+            "edge_matches": 13,
+            "incident_trace_matches": 0
+          },
+          "after_intent_gate": {
+            "semantic_facts": 0,
+            "reflections": 0,
+            "episodes": 0,
+            "wiki_matches": 8,
+            "code_log_matches": 2,
+            "edge_matches": 13,
+            "incident_trace_matches": 0
+          },
+          "selected": {
+            "semantic_facts": 0,
+            "reflections": 0,
+            "episodes": 0,
+            "wiki_matches": 3,
+            "code_log_matches": 2,
+            "edge_matches": 10,
+            "incident_trace_matches": 0
+          }
+        },
+        "top_explanations": {
+          "semantic_facts": [],
+          "reflections": [],
+          "episodes": [],
+          "wiki_matches": [
+            {
+              "type": "wiki_matches",
+              "id": 5,
+              "score": 75.2,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.623,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [
+                "file_path",
+                "file_summary",
+                "search_terms",
+                "exact_path_segment",
+                "structural_behavior",
+                "query_focus_coverage",
+                "multi_concept_coverage",
+                "salient_query_evidence"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "structural_fts",
+                "file_identity_fts",
+                "file_semantic_fts",
+                "salient_file_fts"
+              ],
+              "recall_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.09918033,
+                "best_rank": 1,
+                "channel_count": 5,
+                "contributions": [
+                  {
+                    "channel": "broad_fts",
+                    "rank": 1,
+                    "weight": 1.0,
+                    "score": 0.01639344
+                  },
+                  {
+                    "channel": "structural_fts",
+                    "rank": 1,
+                    "weight": 1.25,
+                    "score": 0.0204918
+                  },
+                  {
+                    "channel": "file_identity_fts",
+                    "rank": 1,
+                    "weight": 1.35,
+                    "score": 0.02213115
+                  },
+                  {
+                    "channel": "file_semantic_fts",
+                    "rank": 1,
+                    "weight": 1.0,
+                    "score": 0.01639344
+                  },
+                  {
+                    "channel": "salient_file_fts",
+                    "rank": 1,
+                    "weight": 1.45,
+                    "score": 0.02377049
+                  }
+                ]
+              },
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "wiki_matches",
+                "score": 75.2,
+                "rerank_score": null,
+                "match_reasons": [
+                  "file_path",
+                  "file_summary",
+                  "search_terms",
+                  "exact_path_segment",
+                  "structural_behavior",
+                  "query_focus_coverage",
+                  "multi_concept_coverage",
+                  "salient_query_evidence"
+                ],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": null,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            },
+            {
+              "type": "wiki_matches",
+              "id": 4,
+              "score": 33.5,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.623,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "query_focus_coverage",
+                "salient_query_evidence",
+                "semantic_behavior",
+                "source_locatable"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "method_body_fts",
+                "behavior_method_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "recall_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.11409543,
+                "best_rank": 1,
+                "channel_count": 6,
+                "contributions": [
+                  {
+                    "channel": "broad_fts",
+                    "rank": 4,
+                    "weight": 1.0,
+                    "score": 0.015625
+                  },
+                  {
+                    "channel": "method_body_fts",
+                    "rank": 3,
+                    "weight": 0.8,
+                    "score": 0.01269841
+                  },
+                  {
+                    "channel": "behavior_method_fts",
+                    "rank": 1,
+                    "weight": 1.35,
+                    "score": 0.02213115
+                  },
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 3,
+                    "weight": 1.45,
+                    "score": 0.02301587
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 4,
+                    "weight": 1.0,
+                    "score": 0.015625
+                  },
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 4,
+                    "weight": 1.6,
+                    "score": 0.025
+                  }
+                ]
+              },
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "wiki_matches",
+                "score": 33.5,
+                "rerank_score": null,
+                "match_reasons": [
+                  "symbol",
+                  "symbol_summary",
+                  "search_terms",
+                  "method_evidence",
+                  "query_focus_coverage",
+                  "salient_query_evidence",
+                  "semantic_behavior",
+                  "source_locatable"
+                ],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": null,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            },
+            {
+              "type": "wiki_matches",
+              "id": 2,
+              "score": 16.0,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.623,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "salient_query_evidence",
+                "source_locatable"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "method_body_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "recall_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.09374654,
+                "best_rank": 1,
+                "channel_count": 5,
+                "contributions": [
+                  {
+                    "channel": "broad_fts",
+                    "rank": 3,
+                    "weight": 1.0,
+                    "score": 0.01587302
+                  },
+                  {
+                    "channel": "method_body_fts",
+                    "rank": 1,
+                    "weight": 0.8,
+                    "score": 0.01311475
+                  },
+                  {
+                    "channel": "symbol_identity_fts",
+                    "rank": 4,
+                    "weight": 1.45,
+                    "score": 0.02265625
+                  },
+                  {
+                    "channel": "symbol_semantic_fts",
+                    "rank": 3,
+                    "weight": 1.0,
+                    "score": 0.01587302
+                  },
+                  {
+                    "channel": "salient_string_fts",
+                    "rank": 1,
+                    "weight": 1.6,
+                    "score": 0.02622951
+                  }
+                ]
+              },
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "wiki_matches",
+                "score": 16.0,
+                "rerank_score": null,
+                "match_reasons": [
+                  "symbol",
+                  "symbol_summary",
+                  "search_terms",
+                  "method_evidence",
+                  "salient_query_evidence",
+                  "source_locatable"
+                ],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": null,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            }
+          ],
+          "code_log_matches": [
+            {
+              "type": "code_log_matches",
+              "id": 1,
+              "score": 10.4,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.623,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [
+                "expanded_query:log_message",
+                "expanded_query:log_context",
+                "expanded_query:search_terms"
+              ],
+              "recall_lanes": [
+                "broad_fts"
+              ],
+              "recall_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "score": 0.01639344,
+                "best_rank": 1,
+                "channel_count": 1,
+                "contributions": [
+                  {
+                    "channel": "broad_fts",
+                    "rank": 1,
+                    "weight": 1.0,
+                    "score": 0.01639344
+                  }
+                ]
+              },
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "code_log_matches",
+                "score": 10.4,
+                "rerank_score": null,
+                "match_reasons": [
+                  "expanded_query:log_message",
+                  "expanded_query:log_context",
+                  "expanded_query:search_terms"
+                ],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": null,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            },
+            {
+              "type": "code_log_matches",
+              "id": 1,
+              "score": 7.2,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.623,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [
+                "expanded_query:log_message",
+                "expanded_query:search_terms",
+                "static_wrapped"
+              ],
+              "recall_lanes": [
+                "log_effect_fts"
+              ],
+              "recall_fusion": {},
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "code_log_matches",
+                "score": 7.2,
+                "rerank_score": null,
+                "match_reasons": [
+                  "expanded_query:log_message",
+                  "expanded_query:search_terms",
+                  "static_wrapped"
+                ],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": null,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            }
+          ],
+          "edge_matches": [
+            {
+              "type": "edge_matches",
+              "id": 15,
+              "score": null,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.87,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [],
+              "recall_lanes": [],
+              "recall_fusion": {},
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "edge_matches",
+                "score": null,
+                "rerank_score": null,
+                "match_reasons": [],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": 0.9,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            },
+            {
+              "type": "edge_matches",
+              "id": 13,
+              "score": null,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.87,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [],
+              "recall_lanes": [],
+              "recall_fusion": {},
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "edge_matches",
+                "score": null,
+                "rerank_score": null,
+                "match_reasons": [],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": 0.9,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            },
+            {
+              "type": "edge_matches",
+              "id": 12,
+              "score": null,
+              "rerank_score": null,
+              "quality_score": null,
+              "trust_score": 0.87,
+              "trust_level": "source_truth",
+              "feedback_penalty": 0.0,
+              "usage_feedback_bonus": 0.0,
+              "usage_feedback_penalty": 0.0,
+              "match_reasons": [],
+              "recall_lanes": [],
+              "recall_fusion": {},
+              "gate_reasons": [],
+              "retrieval_explanation": {
+                "group": "edge_matches",
+                "score": null,
+                "rerank_score": null,
+                "match_reasons": [],
+                "gate_score": null,
+                "gate_reasons": [],
+                "quality_score": null,
+                "quality_band": null,
+                "experience_maturity": null,
+                "experience_maturity_score": null,
+                "feedback_penalty": 0.0,
+                "feedback_reasons": [],
+                "calibration_feedback_bonus": 0.0,
+                "calibration_feedback_penalty": 0.0,
+                "calibration_feedback_reasons": [],
+                "query_risk_flags": [],
+                "intent_alignment": null,
+                "interference_penalty": 0.0,
+                "interference_reasons": [],
+                "trust_cap": null,
+                "trust_cap_reasons": [],
+                "status": null,
+                "confidence": 0.9,
+                "experience_evidence_profile": null,
+                "source_case_quality": null
+              }
+            }
+          ],
+          "incident_trace_matches": []
+        },
+        "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+        "hierarchical_localization": {
+          "schema_version": "agent-hierarchical-localization/v2",
+          "provider": "sqlite_hierarchical_localizer/v2",
+          "mode": "serving",
+          "projection_contract": {
+            "candidate_recall_changed": false,
+            "affects_serving_projection": true,
+            "consumer": "query_handoff.callable_evidence"
+          },
+          "limits": {
+            "files": 8,
+            "file_callable_pool": 128,
+            "direct_callable_pool": 32,
+            "graph_seeds": 6,
+            "graph_owners": 16,
+            "callables": 12,
+            "source_ranges": 8
+          },
+          "stage_counts": {
+            "file_candidates": 4,
+            "file_callable_pool": 6,
+            "graph_seed_count": 6,
+            "graph_owner_pool": 1,
+            "selected_callables": 7,
+            "selected_ranges": 7
+          },
+          "file_candidates": [
+            {
+              "file_path": "RefreshStore.ets",
+              "score": 75.2,
+              "first_rank": 1,
+              "record_ids": [
+                5,
+                11,
+                12,
+                10
+              ],
+              "direct_symbol_ids": [
+                11,
+                12,
+                10
+              ],
+              "match_reasons": [
+                "file_path",
+                "file_summary",
+                "search_terms",
+                "exact_path_segment",
+                "structural_behavior",
+                "query_focus_coverage",
+                "multi_concept_coverage",
+                "salient_query_evidence",
+                "exact_symbol",
+                "symbol",
+                "symbol_summary",
+                "method_evidence",
+                "source_locatable",
+                "semantic_behavior"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "structural_fts",
+                "file_identity_fts",
+                "file_semantic_fts",
+                "salient_file_fts",
+                "method_body_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts",
+                "behavior_method_fts"
+              ],
+              "structural_coverage": 3,
+              "definition_identity": false
+            },
+            {
+              "file_path": "GesturePanel.ets",
+              "score": 33.5,
+              "first_rank": 5,
+              "record_ids": [
+                4,
+                2
+              ],
+              "direct_symbol_ids": [
+                4
+              ],
+              "match_reasons": [
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "query_focus_coverage",
+                "salient_query_evidence",
+                "semantic_behavior",
+                "source_locatable",
+                "file_summary",
+                "structural_behavior"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "method_body_fts",
+                "behavior_method_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts",
+                "structural_fts",
+                "file_semantic_fts"
+              ],
+              "structural_coverage": 1,
+              "definition_identity": false
+            },
+            {
+              "file_path": "CommitButton.ets",
+              "score": 16.0,
+              "first_rank": 6,
+              "record_ids": [
+                2
+              ],
+              "direct_symbol_ids": [
+                2
+              ],
+              "match_reasons": [
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "salient_query_evidence",
+                "source_locatable"
+              ],
+              "recall_lanes": [
+                "broad_fts",
+                "method_body_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "structural_coverage": 0,
+              "definition_identity": false
+            },
+            {
+              "file_path": "NoticeSink.ets",
+              "score": 7.0,
+              "first_rank": 7,
+              "record_ids": [
+                8
+              ],
+              "direct_symbol_ids": [
+                8
+              ],
+              "match_reasons": [
+                "expanded_query:string_evidence",
+                "source_locatable"
+              ],
+              "recall_lanes": [
+                "string_key_fts"
+              ],
+              "structural_coverage": 0,
+              "definition_identity": false
+            }
+          ],
+          "graph_seeds": [
+            {
+              "source_operation_match": null,
+              "symbol_id": 11,
+              "file_path": "RefreshStore.ets",
+              "symbol": "dispatch",
+              "qualified_name": "RefreshStore.dispatch",
+              "start_line": 26,
+              "end_line": 28,
+              "score": 40.5,
+              "evidence_score": 40.5,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "file_path",
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "exact_path_segment",
+                "query_focus_coverage",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "broad_fts",
+                "method_body_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "owner_name": "RefreshStore",
+              "owner_kind": "store",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "async",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 12,
+              "file_path": "RefreshStore.ets",
+              "symbol": "refreshState",
+              "qualified_name": "RefreshStore.refreshState",
+              "start_line": 29,
+              "end_line": 32,
+              "score": 32.5,
+              "evidence_score": 32.5,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "file_path",
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "exact_path_segment",
+                "query_focus_coverage",
+                "salient_query_evidence",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "broad_fts",
+                "method_body_fts",
+                "behavior_method_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "owner_name": "RefreshStore",
+              "owner_kind": "store",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "async",
+                "state_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 4,
+              "file_path": "GesturePanel.ets",
+              "symbol": "onActionStart",
+              "qualified_name": "GesturePanel.onActionStart",
+              "start_line": 2,
+              "end_line": 4,
+              "score": 23.03,
+              "evidence_score": 23.03,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "query_focus_coverage",
+                "salient_query_evidence",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "broad_fts",
+                "method_body_fts",
+                "behavior_method_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "owner_name": "GesturePanel",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 2,
+              "file_path": "CommitButton.ets",
+              "symbol": "dispatchCommit",
+              "qualified_name": "CommitButton.dispatchCommit",
+              "start_line": 2,
+              "end_line": 4,
+              "score": 18.88,
+              "evidence_score": 18.88,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "broad_fts",
+                "method_body_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "owner_name": "CommitButton",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 8,
+              "file_path": "NoticeSink.ets",
+              "symbol": "report",
+              "qualified_name": "NoticeSink.report",
+              "start_line": 2,
+              "end_line": 4,
+              "score": 11.76,
+              "evidence_score": 11.76,
+              "reasons": [
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "string_key_fts"
+              ],
+              "owner_name": "NoticeSink",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 9,
+              "file_path": "NoticeSink.ets",
+              "symbol": "emit",
+              "qualified_name": "NoticeSink.emit",
+              "start_line": 5,
+              "end_line": 7,
+              "score": 5.5,
+              "evidence_score": 5.5,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [],
+              "owner_name": "NoticeSink",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            }
+          ],
+          "graph_owner_candidates": [
+            {
+              "source_operation_match": null,
+              "symbol_id": 6,
+              "file_path": "NoticeRelay.ets",
+              "symbol": "notify",
+              "qualified_name": "NoticeRelay.notify",
+              "start_line": 3,
+              "end_line": 5,
+              "score": 8.2,
+              "evidence_score": 8.2,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "graph_owner:calls",
+                "source_locatable"
+              ],
+              "graph_depth": 1,
+              "graph_relations": [
+                "calls"
+              ],
+              "recall_lanes": [],
+              "owner_name": "NoticeRelay",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": null,
+              "artifact_query_intent": null
+            }
+          ],
+          "callable_candidates": [
+            {
+              "source_operation_match": null,
+              "symbol_id": 11,
+              "file_path": "RefreshStore.ets",
+              "symbol": "dispatch",
+              "qualified_name": "RefreshStore.dispatch",
+              "start_line": 26,
+              "end_line": 28,
+              "score": 40.5,
+              "evidence_score": 40.5,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "file_path",
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "exact_path_segment",
+                "query_focus_coverage",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "broad_fts",
+                "method_body_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "owner_name": "RefreshStore",
+              "owner_kind": "store",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "async",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 12,
+              "file_path": "RefreshStore.ets",
+              "symbol": "refreshState",
+              "qualified_name": "RefreshStore.refreshState",
+              "start_line": 29,
+              "end_line": 32,
+              "score": 32.5,
+              "evidence_score": 32.5,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "file_path",
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "exact_path_segment",
+                "query_focus_coverage",
+                "salient_query_evidence",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "broad_fts",
+                "method_body_fts",
+                "behavior_method_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "owner_name": "RefreshStore",
+              "owner_kind": "store",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "async",
+                "state_write",
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 4,
+              "file_path": "GesturePanel.ets",
+              "symbol": "onActionStart",
+              "qualified_name": "GesturePanel.onActionStart",
+              "start_line": 2,
+              "end_line": 4,
+              "score": 23.03,
+              "evidence_score": 23.03,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "query_focus_coverage",
+                "salient_query_evidence",
+                "semantic_behavior"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "broad_fts",
+                "method_body_fts",
+                "behavior_method_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "owner_name": "GesturePanel",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 2,
+              "file_path": "CommitButton.ets",
+              "symbol": "dispatchCommit",
+              "qualified_name": "CommitButton.dispatchCommit",
+              "start_line": 2,
+              "end_line": 4,
+              "score": 18.88,
+              "evidence_score": 18.88,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "method_evidence",
+                "salient_query_evidence"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "broad_fts",
+                "method_body_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts",
+                "salient_string_fts"
+              ],
+              "owner_name": "CommitButton",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 8,
+              "file_path": "NoticeSink.ets",
+              "symbol": "report",
+              "qualified_name": "NoticeSink.report",
+              "start_line": 2,
+              "end_line": 4,
+              "score": 11.76,
+              "evidence_score": 11.76,
+              "reasons": [
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [
+                "string_key_fts"
+              ],
+              "owner_name": "NoticeSink",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 6,
+              "file_path": "NoticeRelay.ets",
+              "symbol": "notify",
+              "qualified_name": "NoticeRelay.notify",
+              "start_line": 3,
+              "end_line": 5,
+              "score": 8.2,
+              "evidence_score": 8.2,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "graph_owner:calls",
+                "source_locatable"
+              ],
+              "graph_depth": 1,
+              "graph_relations": [
+                "calls"
+              ],
+              "recall_lanes": [],
+              "owner_name": "NoticeRelay",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            },
+            {
+              "source_operation_match": null,
+              "symbol_id": 9,
+              "file_path": "NoticeSink.ets",
+              "symbol": "emit",
+              "qualified_name": "NoticeSink.emit",
+              "start_line": 5,
+              "end_line": 7,
+              "score": 5.5,
+              "evidence_score": 5.5,
+              "reasons": [
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "graph_depth": 0,
+              "graph_relations": [],
+              "recall_lanes": [],
+              "owner_name": "NoticeSink",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation"
+            }
+          ],
+          "source_ranges": [
+            {
+              "symbol_id": 11,
+              "file_path": "RefreshStore.ets",
+              "symbol": "dispatch",
+              "callable_start_line": 26,
+              "callable_end_line": 28,
+              "start_line": 26,
+              "end_line": 28,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 12,
+              "file_path": "RefreshStore.ets",
+              "symbol": "refreshState",
+              "callable_start_line": 29,
+              "callable_end_line": 32,
+              "start_line": 29,
+              "end_line": 32,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 4,
+              "file_path": "GesturePanel.ets",
+              "symbol": "onActionStart",
+              "callable_start_line": 2,
+              "callable_end_line": 4,
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 2,
+              "file_path": "CommitButton.ets",
+              "symbol": "dispatchCommit",
+              "callable_start_line": 2,
+              "callable_end_line": 4,
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 8,
+              "file_path": "NoticeSink.ets",
+              "symbol": "report",
+              "callable_start_line": 2,
+              "callable_end_line": 4,
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 6,
+              "file_path": "NoticeRelay.ets",
+              "symbol": "notify",
+              "callable_start_line": 3,
+              "callable_end_line": 5,
+              "start_line": 3,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            },
+            {
+              "symbol_id": 9,
+              "file_path": "NoticeSink.ets",
+              "symbol": "emit",
+              "callable_start_line": 5,
+              "callable_end_line": 7,
+              "start_line": 5,
+              "end_line": 7,
+              "selection_reason": "callable_symbol_range"
+            }
+          ]
+        },
+        "callable_evidence_set": {
+          "schema_version": "agent-callable-evidence-set/v1",
+          "mode": "shadow",
+          "serving_projection_changed": false,
+          "target_scope": {
+            "kind": "multiple",
+            "basis": [
+              "conjoined_evidence_cue"
+            ]
+          },
+          "members": [
+            {
+              "position": 1,
+              "file_path": "RefreshStore.ets",
+              "symbol": "dispatch",
+              "owner_name": "RefreshStore",
+              "owner_kind": "store",
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation",
+              "source_locatable": true,
+              "support_kinds": [
+                "direct_identity",
+                "source_locatable"
+              ],
+              "excluded_by_query": false
+            },
+            {
+              "position": 2,
+              "file_path": "RefreshStore.ets",
+              "symbol": "refreshState",
+              "owner_name": "RefreshStore",
+              "owner_kind": "store",
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation",
+              "source_locatable": true,
+              "support_kinds": [
+                "source_locatable"
+              ],
+              "excluded_by_query": false
+            },
+            {
+              "position": 3,
+              "file_path": "GesturePanel.ets",
+              "symbol": "onActionStart",
+              "owner_name": "GesturePanel",
+              "owner_kind": "class",
+              "artifact_role": "production",
+              "artifact_query_intent": "implementation",
+              "source_locatable": true,
+              "support_kinds": [
+                "source_locatable"
+              ],
+              "excluded_by_query": false
+            }
+          ],
+          "competition": {
+            "member_count": 3,
+            "distinct_file_count": 2,
+            "same_owner_kind_alternative": true,
+            "graph_backed_alternative": false,
+            "excluded_member_count": 0
+          },
+          "calibration": {
+            "state": "portfolio_required",
+            "basis": [
+              "explicit_multi_target"
+            ]
+          },
+          "boundary": "retrieval_calibration_not_diagnosis"
+        },
+        "callable_passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "fewer_than_two_supported_callable_identities"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    }
+  },
+  {
+    "query": "The action completes but state remains unchanged. Locate action dispatch and authoritative refresh ownership.",
+    "compact": true,
+    "payload": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "87d564a2078dbed9",
+      "query": "The action completes but state remains unchanged. Locate action dispatch and authoritative refresh ownership.",
+      "memory_intent": "memory_maintenance",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "action",
+          "completes",
+          "state",
+          "remains",
+          "unchanged",
+          "locate",
+          "dispatch",
+          "authoritative",
+          "refresh",
+          "ownership",
+          "console",
+          "report"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "message_template": "cached content remains usable after updating",
+            "logger": "console",
+            "file_path": "NoticeRelay.ets",
+            "function": "notify",
+            "line": 4,
+            "effect_id": 1,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "report",
+            "wrapper_depth": 1,
+            "call_path": [
+              "notify",
+              "report",
+              "console.info"
+            ],
+            "call_path_locations": [
+              "NoticeRelay.ets#notify",
+              "NoticeSink.ets#report",
+              "NoticeSink.ets#console.info"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 1,
+            "message_template": "cached content remains usable after updating",
+            "logger": "console",
+            "file_path": "NoticeSink.ets",
+            "function": "report",
+            "line": 3,
+            "evidence_class": "direct",
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "file_path": "RefreshStore.ets",
+            "symbol": "RefreshStore",
+            "symbol_type": "class",
+            "record_ids": [
+              5
+            ],
+            "record_type": "code_file",
+            "source_ranges": [
+              {
+                "symbol": "RefreshStore",
+                "start_line": 1,
+                "end_line": 33
+              }
+            ],
+            "summary": "ArkTS file with 33 non-empty lines; behavior: actiondispatch, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+            "read_window": {
+              "start_line": 1,
+              "end_line": 33
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "RefreshStore",
+                "start_line": 1,
+                "end_line": 18,
+                "content": "export class RefreshStore {\n  private pendingRefreshRevision: number = 0\n  private lastRefreshTimestamp: number = 0\n  private retryDelayMilliseconds: number = 1000\n  private maximumRefreshAttempts: number = 3\n  private successfulRefreshCount: number = 0\n  private configurationValue0: number = 0\n  private configurationValue1: number = 0\n  private configurationValue2: number = 0\n  private configurationValue3: number = 0\n  private configurationValue4: number = 0\n  private configurationValue5: number = 0\n  private configurationValue6: number = 0\n  private configurationValue7: number = 0\n  private configurationValue8: number = 0\n  private configurationValue9: number = 0\n  private configurationValue10: number = 0\n  private configurationValue11: number = 0",
+                "source": "current_worktree",
+                "selection_reason": "anchor_range",
+                "focus_line": null,
+                "truncated": true
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "RefreshStore.ets",
+            "symbol": "dispatch",
+            "owner_name": "RefreshStore",
+            "owner_kind": "store",
+            "file_structural_coverage": 3,
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 40.5,
+            "evidence_score": 40.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 26,
+              "end_line": 28,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "GesturePanel.ets",
+              "symbol": "onActionStart",
+              "owner_name": "GesturePanel",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "state_write",
+                "source_operation_checked:v2.1"
+              ],
+              "score": 23.03,
+              "evidence_score": 23.03,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "CommitButton.ets",
+              "symbol": "dispatchCommit",
+              "owner_name": "CommitButton",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 18.88,
+              "evidence_score": 18.88,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 759
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity",
+          "no_strong_log_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 2,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1482,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  }
+]

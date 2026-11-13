@@ -1,0 +1,14 @@
+{
+  "classification": "independent Development",
+  "sources": {
+    "RefreshStore.ets": "export class RefreshStore {\n  private pendingRefreshRevision: number = 0\n  private lastRefreshTimestamp: number = 0\n  private retryDelayMilliseconds: number = 1000\n  private maximumRefreshAttempts: number = 3\n  private successfulRefreshCount: number = 0\n  private configurationValue0: number = 0\n  private configurationValue1: number = 0\n  private configurationValue2: number = 0\n  private configurationValue3: number = 0\n  private configurationValue4: number = 0\n  private configurationValue5: number = 0\n  private configurationValue6: number = 0\n  private configurationValue7: number = 0\n  private configurationValue8: number = 0\n  private configurationValue9: number = 0\n  private configurationValue10: number = 0\n  private configurationValue11: number = 0\n  private configurationValue12: number = 0\n  private configurationValue13: number = 0\n  private configurationValue14: number = 0\n  private configurationValue15: number = 0\n  private adapter: RefreshAdapter\n  private result: string = ''\n  async dispatch(command: string): Promise<void> {\n    await this.adapter.executeAction(command)\n  }\n  async refreshState(): Promise<void> {\n    const latest = await this.adapter.loadCurrent()\n    this.result = latest\n  }\n}\n",
+    "NoticeSink.ets": "export class NoticeSink {\n  report(command: string): void {\n    console.info('cached content remains usable after updating')\n  }\n  emit(): void {\n    console.info('network task finished with cached result')\n  }\n}\n",
+    "NoticeRelay.ets": "export class NoticeRelay {\n  private logger: NoticeSink\n  notify(command: string): void {\n    this.logger.report(command)\n  }\n}\n",
+    "CommitButton.ets": "export class CommitButton {\n  dispatchCommit(value: string): void {\n    this.service.submit(value)\n  }\n}\n",
+    "GesturePanel.ets": "export class GesturePanel {\n  onActionStart(): void {\n    this.active = true\n  }\n}\n"
+  },
+  "queries": [
+    "The action completes but state remains unchanged. Locate action dispatch and authoritative refresh ownership."
+  ],
+  "contract": "legacy inference retained; explicit overrides authoritative"
+}

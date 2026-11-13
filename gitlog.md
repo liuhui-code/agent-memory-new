@@ -11373,3 +11373,13 @@ Existing metadata fallback would remove unique alternative identities/ranges and
 primary operation roles. Copy-only loss audit fails required identity/mechanism
 retention; stopped before runtime implementation. No lossless or repaired claim.
 See `docs/eval/partial-source-budget-feasibility-20261114/README.md`.
+
+
+## 2026-11-14 — Isolate partial-source ranking trade candidate
+
+Transactional candidate restores an existing verified current-source range only
+when omitting optional ranking diagnostics fits1500 tokens; all identities, roles,
+unknown reasons, alternatives, logs, paths and freshness remain. This is lossy
+ranking detail, not lossless compression. Independent32-line header case restored;
+33-line overbudget unchanged. Post-action1/3->2/3; causal stays3/3;48 focused pass.
+No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/README.md`.

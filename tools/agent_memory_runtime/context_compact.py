@@ -82,7 +82,9 @@ def compact_context(data: dict[str, Any]) -> dict[str, Any]:
         payload["query_handoff"], payload["evidence_gaps"], payload["source_freshness"],
     )
     finalize_budget(payload, COMPACT_TOKEN_BUDGET, truncated=budget_truncated)
-    return payload
+    from .context_source_recovery import recover_partial_primary
+    return recover_partial_primary(payload, data.get('project_path'), COMPACT_TOKEN_BUDGET,
+                                   source_rows=data.get('wiki_matches') or [])
 
 
 def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, Any]:
