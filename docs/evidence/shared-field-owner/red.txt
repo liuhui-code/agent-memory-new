@@ -1,0 +1,29 @@
+FF
+======================================================================
+FAIL: test_public_typed_calls_use_declared_owner_field (tests.test_container_field_scope.ContainerFieldScopeTests.test_public_typed_calls_use_declared_owner_field) (source='CommentCollector.collect')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/shared-object-scope-current/tests/test_container_field_scope.py", line 18, in test_public_typed_calls_use_declared_owner_field
+    with self.subTest(source=source):self.assertEqual({target},{t for s,t in calls if s==source})
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the first set but not the second:
+'RecordStore.read'
+Items in the second set but not the first:
+'PreviewStore.read'
+
+======================================================================
+FAIL: test_public_typed_calls_use_declared_owner_field (tests.test_container_field_scope.ContainerFieldScopeTests.test_public_typed_calls_use_declared_owner_field) (source='NestedTypeCollector.collect')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/shared-object-scope-current/tests/test_container_field_scope.py", line 18, in test_public_typed_calls_use_declared_owner_field
+    with self.subTest(source=source):self.assertEqual({target},{t for s,t in calls if s==source})
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the first set but not the second:
+'RecordStore.read'
+Items in the second set but not the first:
+'PreviewStore.read'
+
+----------------------------------------------------------------------
+Ran 1 test in 1.104s
+
+FAILED (failures=2)

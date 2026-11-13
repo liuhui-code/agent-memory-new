@@ -1,0 +1,20 @@
+{
+  "classification": "independent Development before runtime modification",
+  "sources": {
+    "Stores.ts": "export class RecordStore {\n read(): string {\n  return 'record'\n }\n}\nexport class PreviewStore {\n read(): string {\n  return 'preview'\n }\n}\n",
+    "DirectCollector.ts": "import { RecordStore, PreviewStore } from './Stores'\nexport class DirectCollector {\n private store: RecordStore\n\n collect(): string {\n\n  return this.store.read()\n }\n}\n",
+    "CommentCollector.ts": "import { RecordStore, PreviewStore } from './Stores'\nexport class CommentCollector {\n private store: RecordStore\n /*\n store: PreviewStore\n */\n collect(): string {\n\n  return this.store.read()\n }\n}\n",
+    "NestedTypeCollector.ts": "import { RecordStore, PreviewStore } from './Stores'\nexport class NestedTypeCollector {\n private store: RecordStore\n\n collect(): string {\n  const settings: {\n   store: PreviewStore\n  } = this.settings\n\n  return this.store.read()\n }\n}\n",
+    "RealPreviewCollector.ts": "import { RecordStore, PreviewStore } from './Stores'\nexport class RealPreviewCollector {\n private store: PreviewStore\n\n collect(): string {\n\n  return this.store.read()\n }\n}\n"
+  },
+  "expected_target": {
+    "DirectCollector.collect": "RecordStore.read",
+    "CommentCollector.collect": "RecordStore.read",
+    "NestedTypeCollector.collect": "RecordStore.read",
+    "RealPreviewCollector.collect": "PreviewStore.read"
+  },
+  "queries": [
+    "Locate CommentCollector.collect and its callees.",
+    "Locate NestedTypeCollector.collect and its callees."
+  ]
+}
