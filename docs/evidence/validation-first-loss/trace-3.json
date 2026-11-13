@@ -1,0 +1,828 @@
+[
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [
+        {
+          "file_path": "src/pages/AccountSettingsPage.ets",
+          "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+          "score": 68.4,
+          "symbol": "AccountSettingsPage"
+        }
+      ],
+      true
+    ],
+    "query": "A required account field shows an error but the invalid update still submits. Locate the validation-stop and dispatch owner.",
+    "input": [
+      {
+        "file_path": "src/services/AccountUpdateService.ets",
+        "symbol": "dispatchUpdate",
+        "summary": "ArkTS function or lifecycle method dispatchUpdate in src/services/AccountUpdateService.ets; identifier terms: dispatch update",
+        "method_evidence": "console info dispatch update",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 78.5
+      },
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+        "score": 68.4,
+        "symbol": "AccountSettingsPage"
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "DispatchButton",
+        "summary": "ArkTS function or lifecycle method DispatchButton in src/pages/JobDispatchPage.ets; identifier terms: dispatch button",
+        "method_evidence": "transport submit showbanner show banner dispatch button onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 64.25
+      },
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "saveAccount",
+        "summary": "ArkTS function or lifecycle method saveAccount in src/pages/AccountSettingsPage.ets; identifier terms: save account",
+        "method_evidence": "displayname display name trim promptaction prompt action showtoast show toast updateservice update service dispatchupdate dispatch save account stateread state read statebranch branch conditional",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 56.75
+      },
+      {
+        "file_path": "src/services/AccountUpdateService.ets",
+        "symbol": "AccountUpdateService",
+        "summary": "ArkTS class AccountUpdateService declared in src/services/AccountUpdateService.ets; identifier terms: account update service",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 55.25
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/JobDispatchPage.ets",
+        "method_evidence": "dispatchbutton dispatch button stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 45.5
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "showBanner",
+        "summary": "ArkTS function or lifecycle method showBanner in src/pages/JobDispatchPage.ets; identifier terms: show banner",
+        "method_evidence": "show banner",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 45.0
+      },
+      {
+        "file_path": "src/services/DispatchProfileService.ets",
+        "symbol": "run",
+        "summary": "ArkTS function or lifecycle method run in src/services/DispatchProfileService.ets",
+        "method_evidence": "reporter report stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 44.0
+      },
+      {
+        "file_path": "src/views/JobDispatchButton.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: JobDispatchButton; component terms: job, dispatch, button",
+        "score": 43.8,
+        "symbol": "JobDispatchButton"
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "JobDispatchPage",
+        "summary": "ArkTS component JobDispatchPage declared in src/pages/JobDispatchPage.ets; identifier terms: job dispatch page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/services/DispatchProfileService.ets",
+        "symbol": "DispatchProfileService",
+        "summary": "ArkTS class DispatchProfileService declared in src/services/DispatchProfileService.ets; identifier terms: dispatch profile service",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/views/JobDispatchButton.ets",
+        "symbol": "JobDispatchButton",
+        "summary": "ArkTS component JobDispatchButton declared in src/views/JobDispatchButton.ets; identifier terms: job dispatch button",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "AccountSettingsPage",
+        "summary": "ArkTS component AccountSettingsPage declared in src/pages/AccountSettingsPage.ets; identifier terms: account settings page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.25
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "summary": "ArkTS file with 19 non-empty lines; components: JobDispatchPage; operations: onClick; behavior: callbackboundary, errorpresentationboundary, conditionalbranch, asyncboundary, uicallbackbinding",
+        "score": 41.6,
+        "symbol": "JobDispatchPage"
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "onClick",
+        "summary": "ArkTS function or lifecycle method onClick in src/pages/JobDispatchPage.ets; identifier terms: on click",
+        "method_evidence": "transport submit showbanner show banner button click stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 41.5
+      },
+      {
+        "file_path": "src/services/AccountUpdateService.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 40.6,
+        "symbol": "AccountUpdateService"
+      },
+      {
+        "file_path": "src/services/DispatchProfileService.ets",
+        "summary": "ArkTS file with 10 non-empty lines; behavior: statewrite",
+        "score": 38.8,
+        "symbol": "DispatchProfileService"
+      },
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/AccountSettingsPage.ets",
+        "method_evidence": "",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "displayName",
+        "summary": "state displayName in src/pages/AccountSettingsPage.ets; identifier terms: display name",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/services/DispatchProfileService.ets",
+        "symbol": "constructor",
+        "summary": "ArkTS function or lifecycle method constructor in src/services/DispatchProfileService.ets",
+        "method_evidence": "reporter statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/views/JobDispatchButton.ets",
+        "symbol": "label",
+        "summary": "state label in src/views/JobDispatchButton.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/validation/OrderValidator.ets",
+        "summary": "ArkTS file with 9 non-empty lines; behavior: validationguard, conditionalbranch",
+        "score": 36.8,
+        "symbol": "OrderValidator"
+      },
+      {
+        "file_path": "src/validation/OrderValidator.ets",
+        "symbol": "validate",
+        "summary": "ArkTS function or lifecycle method validate in src/validation/OrderValidator.ets",
+        "method_evidence": "order customerid customer trim console error",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 29.0
+      },
+      {
+        "file_path": "src/validation/OrderValidator.ets",
+        "symbol": "OrderValidator",
+        "summary": "ArkTS class OrderValidator declared in src/validation/OrderValidator.ets; identifier terms: order validator",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "symbol": "dispatchCommit",
+        "summary": "ArkTS function or lifecycle method dispatchCommit in src/actions/OrderActionButton.ets; identifier terms: dispatch commit",
+        "method_evidence": "dispatch commit",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 25.5
+      },
+      {
+        "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+        "symbol": "dispatchCommit",
+        "summary": "ArkTS function or lifecycle method dispatchCommit in src/coordinators/OrderCommitCoordinator.ets; identifier terms: dispatch commit",
+        "method_evidence": "dispatch commit",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 25.5
+      },
+      {
+        "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+        "summary": "ArkTS file with 15 non-empty lines; behavior: actiondispatch, validationguard, persistencewrite, conditionalbranch, asyncboundary",
+        "score": 24.6,
+        "symbol": "commitOrder"
+      },
+      {
+        "file_path": "src/media/VoiceCaptureCoordinator.ets",
+        "symbol": "stopCapture",
+        "summary": "ArkTS function or lifecycle method stopCapture in src/media/VoiceCaptureCoordinator.ets; identifier terms: stop capture",
+        "method_evidence": "audiocapturer audio capturer stop release capture stateread state read asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+        "score": 24.5
+      },
+      {
+        "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+        "symbol": "loadAccount",
+        "summary": "ArkTS function or lifecycle method loadAccount in src/lifecycle/DeadlineBootstrapController.ets; identifier terms: load account",
+        "method_evidence": "load account asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+        "score": 21.25
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "symbol": "onSubmit",
+        "summary": "ArkTS function or lifecycle method onSubmit in src/pages/ProductSearchPage.ets; identifier terms: on submit",
+        "method_evidence": "query submitsearch submit search products product name list foreach each listitem item text stateread state read eventboundary",
+        "callable_roles": "[]",
+        "score": 20.5
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "summary": "ArkTS file with 21 non-empty lines; components: ProductSearchPage; operations: onSubmit; behavior: callbackboundary, actiondispatch, datasourceboundary, statewrite, asyncboundary, uicallbackbinding",
+        "score": 18.6,
+        "symbol": "submitSearch"
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "symbol": "submitSearch",
+        "summary": "ArkTS function or lifecycle method submitSearch in src/pages/ProductSearchPage.ets; identifier terms: submit search",
+        "method_evidence": "products service search query submit statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 18.25
+      },
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: actiondispatch",
+        "score": 16.8,
+        "symbol": "submit"
+      },
+      {
+        "file_path": "src/config/CommandOutputProfile.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: actiondispatch",
+        "score": 16.8
+      },
+      {
+        "file_path": "src/pages/CommandOutputPage.ets",
+        "summary": "ArkTS file with 10 non-empty lines; components: CommandOutputPage; behavior: actiondispatch",
+        "score": 16.8
+      },
+      {
+        "file_path": "src/stores/LightingStore.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: repositoryboundary, actiondispatch, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+        "score": 16.8
+      },
+      {
+        "file_path": "src/logging/FailureReporter.ets",
+        "symbol": "FailureReporter",
+        "summary": "interface FailureReporter in src/logging/FailureReporter.ets; identifier terms: failure reporter",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 16.5
+      },
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "symbol": "submit",
+        "summary": "ArkTS function or lifecycle method submit in src/actions/OrderActionButton.ets",
+        "method_evidence": "dispatchcommit dispatch commit stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 14.0
+      },
+      {
+        "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+        "symbol": "commitOrder",
+        "summary": "ArkTS function or lifecycle method commitOrder in src/coordinators/OrderCommitCoordinator.ets; identifier terms: commit order",
+        "method_evidence": "order customerid customer trim promptaction prompt action showtoast show toast dispatchcommit dispatch commit orderstore store save stateread state read persistencewrite persistence write asyncboundary async",
+        "callable_roles": "[\"async\", \"persistence_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 14.0
+      },
+      {
+        "file_path": "src/theme/SystemBarColorAdapter.ets",
+        "summary": "ArkTS file with 13 non-empty lines; operations: split, join; behavior: colorparser, validationguard, conditionalbranch",
+        "score": 13.8
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ProductSearchPage.ets",
+        "method_evidence": "query submitsearch submit search products product name column onsubmit list foreach each listitem item text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.5
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/VoiceMessagePage.ets",
+        "method_evidence": "recording button stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.5
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "onActionUpdate",
+        "summary": "ArkTS function or lifecycle method onActionUpdate in src/views/BoardGestureSurface.ets; identifier terms: on action update",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety pangesture pan gesture action update stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "onActionUpdate",
+        "summary": "ArkTS function or lifecycle method onActionUpdate in src/views/CanvasInteractionSurface.ets; identifier terms: on action update",
+        "method_evidence": "activehandle active handle event fingerlist finger list action update statewrite state write stateread read eventboundary",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 12.5
+      },
+      {
+        "file_path": "src/widgets/ResizeHandle.ets",
+        "symbol": "onActionUpdate",
+        "summary": "ArkTS function or lifecycle method onActionUpdate in src/widgets/ResizeHandle.ets; identifier terms: on action update",
+        "method_evidence": "event offsetx offset pangesture pan gesture action update eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 12.5
+      },
+      {
+        "file_path": "src/components/KeyboardFocusHint.ets",
+        "symbol": "updateFocusMessage",
+        "summary": "ArkTS function or lifecycle method updateFocusMessage in src/components/KeyboardFocusHint.ets; identifier terms: update focus message",
+        "method_evidence": "focusmessage focus message update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+        "symbol": "updateLabel",
+        "summary": "ArkTS function or lifecycle method updateLabel in src/coordinators/DocumentNavigationCoordinator.ets; identifier terms: update label",
+        "method_evidence": "label update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/gateways/JobTransport.ets",
+        "symbol": "submit",
+        "summary": "ArkTS function or lifecycle method submit in src/gateways/JobTransport.ets",
+        "method_evidence": "socket send logger error stateread state read asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/pages/CheckoutPage.ets",
+        "symbol": "submitOrder",
+        "summary": "ArkTS function or lifecycle method submitOrder in src/pages/CheckoutPage.ets; identifier terms: submit order",
+        "method_evidence": "paymentservice payment service chargeorder charge order submit stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/pages/CollectionPage.ets",
+        "symbol": "updateFolder",
+        "summary": "ArkTS function or lifecycle method updateFolder in src/pages/CollectionPage.ets; identifier terms: update folder",
+        "method_evidence": "folderid folder length update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/pages/ThemePreferencesPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ThemePreferencesPage.ets",
+        "method_evidence": "selectedmode selected mode getuicontext get context configurationconstant configuration constant colormode color color_mode_not_set set color_mode_light light color_mode_dark dark column text tabsegmentbuttonv2 tab segment button gethostcontext host getapplicationcontext application setcolormode statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "summary": "ArkTS file with 430 non-empty lines; components: LedgerMaintenancePage; operations: onClick; behavior: callbackboundary, validationguard, persistencewrite, conditionalbranch, statewrite, asyncboundary, uicallbackbinding",
+        "score": 9.8,
+        "symbol": "inspectLedgerSegment1"
+      },
+      {
+        "file_path": "src/services/AttachmentService.ets",
+        "summary": "ArkTS file with 17 non-empty lines; behavior: validationguard, conditionalbranch, asyncboundary",
+        "score": 9.8
+      },
+      {
+        "file_path": "src/services/SnapshotCoordinator.ets",
+        "summary": "ArkTS file with 10 non-empty lines; behavior: validationguard, lifecyclesync, conditionalbranch, asyncboundary",
+        "score": 9.8
+      },
+      {
+        "file_path": "src/pages/TimelinePage.ets",
+        "symbol": "shouldShowHeader",
+        "summary": "ArkTS function or lifecycle method shouldShowHeader in src/pages/TimelinePage.ets; identifier terms: should show header",
+        "method_evidence": "entries entry category show header stateread state read guardreturn guard",
+        "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+        "score": 9.5
+      },
+      {
+        "file_path": "src/views/EventBubble.ets",
+        "symbol": "showHeader",
+        "summary": "state showHeader in src/views/EventBubble.ets; identifier terms: show header",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.5
+      },
+      {
+        "file_path": "src/views/TimelineRow.ets",
+        "symbol": "showHeader",
+        "summary": "state showHeader in src/views/TimelineRow.ets; identifier terms: show header",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 9.5
+      },
+      {
+        "file_path": "src/logging/ConsoleFailureReporter.ets",
+        "symbol": "report",
+        "summary": "ArkTS function or lifecycle method report in src/logging/ConsoleFailureReporter.ets",
+        "method_evidence": "hilog error",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/logging/FileFailureReporter.ets",
+        "symbol": "report",
+        "summary": "ArkTS function or lifecycle method report in src/logging/FileFailureReporter.ets",
+        "method_evidence": "hilog error",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/logging/LogSink.ets",
+        "symbol": "emit",
+        "summary": "ArkTS function or lifecycle method emit in src/logging/LogSink.ets",
+        "method_evidence": "hilog error",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/network/NetworkClient.ets",
+        "symbol": "request",
+        "summary": "ArkTS function or lifecycle method request in src/network/NetworkClient.ets",
+        "method_evidence": "hilog error",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/gateways/JobTransport.ets",
+        "summary": "ArkTS file with 12 non-empty lines; behavior: errorreturnboundary, asyncboundary",
+        "score": 5.8,
+        "symbol": "submit"
+      },
+      {
+        "file_path": "src/cache/BoundedResultCache.ets",
+        "symbol": "put",
+        "summary": "ArkTS function or lifecycle method put in src/cache/BoundedResultCache.ets",
+        "method_evidence": "entries set date now size capacity max_safe_integer max safe integer candidate updatedat updated delete stateread state read statebranch branch conditional guardreturn guard",
+        "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment1",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment1 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment1",
+        "method_evidence": "statustext status text inspect ledger segment1 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment2",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment2 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment2",
+        "method_evidence": "statustext status text inspect ledger segment2 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment3",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment3 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment3",
+        "method_evidence": "statustext status text inspect ledger segment3 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment4",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment4 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment4",
+        "method_evidence": "statustext status text inspect ledger segment4 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment5",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment5 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment5",
+        "method_evidence": "statustext status text inspect ledger segment5 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment6",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment6 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment6",
+        "method_evidence": "statustext status text inspect ledger segment6 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment7",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment7 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment7",
+        "method_evidence": "statustext status text inspect ledger segment7 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment8",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment8 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment8",
+        "method_evidence": "statustext status text inspect ledger segment8 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment9",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment9 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment9",
+        "method_evidence": "statustext status text inspect ledger segment9 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment10",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment10 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment10",
+        "method_evidence": "statustext status text inspect ledger segment10 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment11",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment11 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment11",
+        "method_evidence": "statustext status text inspect ledger segment11 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment12",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment12 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment12",
+        "method_evidence": "statustext status text inspect ledger segment12 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment13",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment13 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment13",
+        "method_evidence": "statustext status text inspect ledger segment13 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment14",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment14 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment14",
+        "method_evidence": "statustext status text inspect ledger segment14 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment15",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment15 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment15",
+        "method_evidence": "statustext status text inspect ledger segment15 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "inspectLedgerSegment16",
+        "summary": "ArkTS function or lifecycle method inspectLedgerSegment16 in src/pages/LedgerMaintenancePage.ets; identifier terms: inspect ledger segment16",
+        "method_evidence": "statustext status text inspect ledger segment16 statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/services/ProfileService.ets",
+        "symbol": "loadProfile",
+        "summary": "ArkTS function or lifecycle method loadProfile in src/services/ProfileService.ets; identifier terms: load profile",
+        "method_evidence": "hilog error load profile",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/BoardGestureSurface.ets",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety stack gesture pangesture pan onactionupdate action update stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/CanvasInteractionSurface.ets",
+        "method_evidence": "activehandle active handle event fingerlist finger list stack canvas gesture pangesture pan onactionstart action start onactionupdate update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/views/EventBubble.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/EventBubble.ets",
+        "method_evidence": "showheader show header entry category text column stateread state read statebranch branch conditional",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/widgets/ResizeHandle.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/ResizeHandle.ets",
+        "method_evidence": "event offsetx offset circle gesture pangesture pan onactionupdate action update",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/models/ThemeSettings.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 4.0
+      },
+      {
+        "file_path": "src/pages/ThemePreferencesPage.ets",
+        "summary": "ArkTS file with 25 non-empty lines; components: ThemePreferencesPage; operations: getHostContext, setColorMode; behavior: statewrite, platformsensitiveui",
+        "score": 4.0,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/utils/ThemePalette.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 4.0
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: BoardGestureSurface; component terms: board, gesture, surface; operations: gesture, onActionUpdate; behavior: callbackboundary, gestureboundary",
+        "score": 1.8,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "summary": "ArkTS file with 18 non-empty lines; components: CanvasInteractionSurface; component terms: canvas, interaction, surface; operations: gesture, onActionStart, onActionUpdate; behavior: callbackboundary, gestureboundary, indexedread, statewrite",
+        "score": 1.8,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/widgets/ResizeHandle.ets",
+        "summary": "ArkTS file with 11 non-empty lines; components: ResizeHandle; component terms: resize, handle; operations: gesture, onActionUpdate; behavior: callbackboundary, gestureboundary",
+        "score": 1.8,
+        "symbol": "build"
+      }
+    ]
+  },
+  {
+    "function": "preserve_structural_boundary_neighbors",
+    "result": [
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+        "score": 68.4,
+        "symbol": "AccountSettingsPage"
+      }
+    ],
+    "query": "A required account field shows an error but the invalid update still submits. Locate the validation-stop and dispatch owner.",
+    "input": null
+  },
+  {
+    "function": "preserve_salient_evidence_candidates",
+    "result": [
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+        "score": 68.4,
+        "symbol": "AccountSettingsPage"
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "DispatchButton",
+        "summary": "ArkTS function or lifecycle method DispatchButton in src/pages/JobDispatchPage.ets; identifier terms: dispatch button",
+        "method_evidence": "transport submit showbanner show banner dispatch button onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 64.25
+      },
+      {
+        "file_path": "src/services/DispatchProfileService.ets",
+        "symbol": "run",
+        "summary": "ArkTS function or lifecycle method run in src/services/DispatchProfileService.ets",
+        "method_evidence": "reporter report stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 44.0
+      }
+    ],
+    "query": "A required account field shows an error but the invalid update still submits. Locate the validation-stop and dispatch owner.",
+    "input": null
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+        "score": 68.4,
+        "symbol": "AccountSettingsPage"
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "DispatchButton",
+        "summary": "ArkTS function or lifecycle method DispatchButton in src/pages/JobDispatchPage.ets; identifier terms: dispatch button",
+        "method_evidence": "transport submit showbanner show banner dispatch button onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 64.25
+      },
+      {
+        "file_path": "src/services/DispatchProfileService.ets",
+        "symbol": "run",
+        "summary": "ArkTS function or lifecycle method run in src/services/DispatchProfileService.ets",
+        "method_evidence": "reporter report stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 44.0
+      }
+    ],
+    "query": "A required account field shows an error but the invalid update still submits. Locate the validation-stop and dispatch owner.",
+    "input": [
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+        "score": 68.4,
+        "symbol": "AccountSettingsPage"
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "DispatchButton",
+        "summary": "ArkTS function or lifecycle method DispatchButton in src/pages/JobDispatchPage.ets; identifier terms: dispatch button",
+        "method_evidence": "transport submit showbanner show banner dispatch button onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 64.25
+      },
+      {
+        "file_path": "src/services/DispatchProfileService.ets",
+        "symbol": "run",
+        "summary": "ArkTS function or lifecycle method run in src/services/DispatchProfileService.ets",
+        "method_evidence": "reporter report stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 44.0
+      }
+    ]
+  },
+  {
+    "function": "focus_callable_anchors",
+    "result": [
+      {
+        "record_type": "code_file",
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "AccountSettingsPage",
+        "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch"
+      },
+      {
+        "record_type": "code_symbol",
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "DispatchButton",
+        "summary": "ArkTS function or lifecycle method DispatchButton in src/pages/JobDispatchPage.ets; identifier terms: dispatch button"
+      },
+      {
+        "record_type": "code_symbol",
+        "file_path": "src/services/DispatchProfileService.ets",
+        "symbol": "run",
+        "summary": "ArkTS function or lifecycle method run in src/services/DispatchProfileService.ets"
+      },
+      {
+        "record_type": "code_log_statement",
+        "file_path": "src/services/AccountUpdateService.ets",
+        "symbol": "dispatchUpdate",
+        "summary": null
+      },
+      {
+        "record_type": "code_log_effect",
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "saveAccount",
+        "summary": null
+      },
+      {
+        "record_type": "code_log_statement",
+        "file_path": "src/validation/OrderValidator.ets",
+        "symbol": "validate",
+        "summary": null
+      },
+      {
+        "record_type": "code_log_effect",
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "onClick",
+        "summary": null
+      }
+    ],
+    "query": "A required account field shows an error but the invalid update still submits. Locate the validation-stop and dispatch owner.",
+    "input": null
+  }
+]

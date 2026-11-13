@@ -1,0 +1,1086 @@
+[
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [
+        {
+          "file_path": "src/pages/AccountSettingsPage.ets",
+          "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+          "score": 72.4,
+          "symbol": "AccountSettingsPage"
+        }
+      ],
+      true
+    ],
+    "query": "An empty display name reports an error yet submits the account update; return the guarded page action.",
+    "input": [
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+        "score": 72.4,
+        "symbol": "AccountSettingsPage"
+      },
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: actiondispatch",
+        "score": 64.6,
+        "symbol": "OrderActionButton"
+      },
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "saveAccount",
+        "summary": "ArkTS function or lifecycle method saveAccount in src/pages/AccountSettingsPage.ets; identifier terms: save account",
+        "method_evidence": "displayname display name trim promptaction prompt action showtoast show toast updateservice update service dispatchupdate dispatch save account stateread state read statebranch branch conditional",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 63.0
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: MessageActionBar; component terms: message, action, bar",
+        "score": 60.6,
+        "symbol": "MessageActionBar"
+      },
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "displayName",
+        "summary": "state displayName in src/pages/AccountSettingsPage.ets; identifier terms: display name",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 53.25
+      },
+      {
+        "file_path": "src/services/AccountUpdateService.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 46.4,
+        "symbol": "AccountUpdateService"
+      },
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "symbol": "submit",
+        "summary": "ArkTS function or lifecycle method submit in src/actions/OrderActionButton.ets",
+        "method_evidence": "dispatchcommit dispatch commit stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 45.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "onActionUpdate",
+        "summary": "ArkTS function or lifecycle method onActionUpdate in src/views/CanvasInteractionSurface.ets; identifier terms: on action update",
+        "method_evidence": "activehandle active handle event fingerlist finger list action update statewrite state write stateread read eventboundary",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 45.5
+      },
+      {
+        "file_path": "src/services/AccountUpdateService.ets",
+        "symbol": "AccountUpdateService",
+        "summary": "ArkTS class AccountUpdateService declared in src/services/AccountUpdateService.ets; identifier terms: account update service",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 44.25
+      },
+      {
+        "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+        "summary": "ArkTS file with 15 non-empty lines; behavior: actiondispatch, validationguard, persistencewrite, conditionalbranch, asyncboundary",
+        "score": 43.6
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "onActionUpdate",
+        "summary": "ArkTS function or lifecycle method onActionUpdate in src/views/BoardGestureSurface.ets; identifier terms: on action update",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety pangesture pan gesture action update stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/widgets/ResizeHandle.ets",
+        "symbol": "onActionUpdate",
+        "summary": "ArkTS function or lifecycle method onActionUpdate in src/widgets/ResizeHandle.ets; identifier terms: on action update",
+        "method_evidence": "event offsetx offset pangesture pan gesture action update eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 43.5
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "summary": "ArkTS file with 21 non-empty lines; components: ProductSearchPage; operations: onSubmit; behavior: callbackboundary, actiondispatch, datasourceboundary, statewrite, asyncboundary, uicallbackbinding",
+        "score": 43.4,
+        "symbol": "submitSearch"
+      },
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "symbol": "OrderActionButton",
+        "summary": "ArkTS class OrderActionButton declared in src/actions/OrderActionButton.ets; identifier terms: order action button",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.0
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "symbol": "MessageActionBar",
+        "summary": "ArkTS component MessageActionBar declared in src/widgets/MessageActionBar.ets; identifier terms: message action bar",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 43.0
+      },
+      {
+        "file_path": "src/config/CommandOutputProfile.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: actiondispatch",
+        "score": 41.6
+      },
+      {
+        "file_path": "src/pages/CommandOutputPage.ets",
+        "summary": "ArkTS file with 10 non-empty lines; components: CommandOutputPage; behavior: actiondispatch",
+        "score": 41.6,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/stores/LightingStore.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: repositoryboundary, actiondispatch, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+        "score": 41.6
+      },
+      {
+        "file_path": "src/actions/BackupCommandPanel.ets",
+        "summary": "ArkTS file with 33 non-empty lines; components: BackupCommandPanel; component terms: backup, command, panel; operations: onClick; behavior: callbackboundary, commandbinding, lifecyclesync, asyncboundary",
+        "score": 39.6,
+        "symbol": "BackupCommandPanel"
+      },
+      {
+        "file_path": "src/services/AccountUpdateService.ets",
+        "symbol": "dispatchUpdate",
+        "summary": "ArkTS function or lifecycle method dispatchUpdate in src/services/AccountUpdateService.ets; identifier terms: dispatch update",
+        "method_evidence": "console info dispatch update",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 38.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "summary": "ArkTS file with 18 non-empty lines; components: CanvasInteractionSurface; component terms: canvas, interaction, surface; operations: gesture, onActionStart, onActionUpdate; behavior: callbackboundary, gestureboundary, indexedread, statewrite",
+        "score": 38.4,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "symbol": "dispatchCommit",
+        "summary": "ArkTS function or lifecycle method dispatchCommit in src/actions/OrderActionButton.ets; identifier terms: dispatch commit",
+        "method_evidence": "dispatch commit",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "src/models/InteractionState.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: statewrite",
+        "score": 35.6
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: BoardGestureSurface; component terms: board, gesture, surface; operations: gesture, onActionUpdate; behavior: callbackboundary, gestureboundary",
+        "score": 35.4,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/widgets/ResizeHandle.ets",
+        "summary": "ArkTS file with 11 non-empty lines; components: ResizeHandle; component terms: resize, handle; operations: gesture, onActionUpdate; behavior: callbackboundary, gestureboundary",
+        "score": 35.4,
+        "symbol": "build"
+      },
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "AccountSettingsPage",
+        "summary": "ArkTS component AccountSettingsPage declared in src/pages/AccountSettingsPage.ets; identifier terms: account settings page",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 32.25
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/CanvasInteractionSurface.ets",
+        "method_evidence": "activehandle active handle event fingerlist finger list stack canvas gesture pangesture pan onactionstart action start onactionupdate update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 32.0
+      },
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/AccountSettingsPage.ets",
+        "method_evidence": "",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 26.5
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "onActionStart",
+        "summary": "ArkTS function or lifecycle method onActionStart in src/views/CanvasInteractionSurface.ets; identifier terms: on action start",
+        "method_evidence": "activehandle active handle event fingerlist finger list action start statewrite state write stateread read eventboundary",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 25.5
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "symbol": "onSubmit",
+        "summary": "ArkTS function or lifecycle method onSubmit in src/pages/ProductSearchPage.ets; identifier terms: on submit",
+        "method_evidence": "query submitsearch submit search products product name list foreach each listitem item text stateread state read eventboundary",
+        "callable_roles": "[]",
+        "score": 21.25
+      },
+      {
+        "file_path": "src/gateways/JobTransport.ets",
+        "summary": "ArkTS file with 12 non-empty lines; behavior: errorreturnboundary, asyncboundary",
+        "score": 20.4,
+        "symbol": "submit"
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "summary": "ArkTS file with 19 non-empty lines; components: JobDispatchPage; operations: onClick; behavior: callbackboundary, errorpresentationboundary, conditionalbranch, asyncboundary, uicallbackbinding",
+        "score": 18.6,
+        "symbol": "DispatchButton"
+      },
+      {
+        "file_path": "src/logging/ConsoleFailureReporter.ets",
+        "symbol": "report",
+        "summary": "ArkTS function or lifecycle method report in src/logging/ConsoleFailureReporter.ets",
+        "method_evidence": "hilog error",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 18.5
+      },
+      {
+        "file_path": "src/logging/FileFailureReporter.ets",
+        "symbol": "report",
+        "summary": "ArkTS function or lifecycle method report in src/logging/FileFailureReporter.ets",
+        "method_evidence": "hilog error",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 18.5
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "symbol": "submitSearch",
+        "summary": "ArkTS function or lifecycle method submitSearch in src/pages/ProductSearchPage.ets; identifier terms: submit search",
+        "method_evidence": "products service search query submit statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 18.25
+      },
+      {
+        "file_path": "src/actions/BackupCommandPanel.ets",
+        "symbol": "BackupCommand",
+        "summary": "interface BackupCommand in src/actions/BackupCommandPanel.ets; identifier terms: backup command",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 17.5
+      },
+      {
+        "file_path": "src/actions/BackupCommandPanel.ets",
+        "symbol": "SnapshotCoordinator",
+        "summary": "ArkTS class SnapshotCoordinator declared in src/actions/BackupCommandPanel.ets; identifier terms: snapshot coordinator",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 17.5
+      },
+      {
+        "file_path": "src/actions/BackupCommandPanel.ets",
+        "symbol": "createSnapshot",
+        "summary": "ArkTS function or lifecycle method createSnapshot in src/actions/BackupCommandPanel.ets; identifier terms: create snapshot",
+        "method_evidence": "create snapshot asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+        "score": 17.5
+      },
+      {
+        "file_path": "src/actions/BackupCommandPanel.ets",
+        "symbol": "restoreSnapshot",
+        "summary": "ArkTS function or lifecycle method restoreSnapshot in src/actions/BackupCommandPanel.ets; identifier terms: restore snapshot",
+        "method_evidence": "restore snapshot asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+        "score": 17.5
+      },
+      {
+        "file_path": "src/actions/BackupCommandPanel.ets",
+        "symbol": "BackupCommandPanel",
+        "summary": "ArkTS component BackupCommandPanel declared in src/actions/BackupCommandPanel.ets; identifier terms: backup command panel",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 17.5
+      },
+      {
+        "file_path": "src/actions/BackupCommandPanel.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/actions/BackupCommandPanel.ets",
+        "method_evidence": "commands command title invoke column foreach each button onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 17.5
+      },
+      {
+        "file_path": "src/actions/BackupCommandPanel.ets",
+        "symbol": "invoke",
+        "summary": "ArkTS function or lifecycle method invoke in src/actions/BackupCommandPanel.ets",
+        "method_evidence": "coordinator createsnapshot create snapshot stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 17.5
+      },
+      {
+        "file_path": "src/actions/BackupCommandPanel.ets",
+        "symbol": "invoke",
+        "summary": "ArkTS function or lifecycle method invoke in src/actions/BackupCommandPanel.ets",
+        "method_evidence": "coordinator createsnapshot create snapshot stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 17.5
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "summary": "ArkTS file with 430 non-empty lines; components: LedgerMaintenancePage; operations: onClick; behavior: callbackboundary, validationguard, persistencewrite, conditionalbranch, statewrite, asyncboundary, uicallbackbinding",
+        "score": 16.8
+      },
+      {
+        "file_path": "src/services/AttachmentService.ets",
+        "summary": "ArkTS file with 17 non-empty lines; behavior: validationguard, conditionalbranch, asyncboundary",
+        "score": 16.8
+      },
+      {
+        "file_path": "src/services/SnapshotCoordinator.ets",
+        "summary": "ArkTS file with 10 non-empty lines; behavior: validationguard, lifecyclesync, conditionalbranch, asyncboundary",
+        "score": 16.8
+      },
+      {
+        "file_path": "src/theme/SystemBarColorAdapter.ets",
+        "summary": "ArkTS file with 13 non-empty lines; operations: split, join; behavior: colorparser, validationguard, conditionalbranch",
+        "score": 16.8
+      },
+      {
+        "file_path": "src/validation/OrderValidator.ets",
+        "summary": "ArkTS file with 9 non-empty lines; behavior: validationguard, conditionalbranch",
+        "score": 16.8
+      },
+      {
+        "file_path": "src/logging/ConsoleFailureReporter.ets",
+        "summary": "ArkTS file with 7 non-empty lines",
+        "score": 16.6,
+        "symbol": "ConsoleFailureReporter"
+      },
+      {
+        "file_path": "src/logging/FailureReporter.ets",
+        "summary": "ArkTS file with 2 non-empty lines",
+        "score": 16.6,
+        "symbol": "FailureReporter"
+      },
+      {
+        "file_path": "src/logging/FileFailureReporter.ets",
+        "summary": "ArkTS file with 7 non-empty lines",
+        "score": 16.6,
+        "symbol": "FileFailureReporter"
+      },
+      {
+        "file_path": "src/views/BoardGestureSurface.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/views/BoardGestureSurface.ets",
+        "method_evidence": "boardengine board engine shift event offsetx offset offsety stack gesture pangesture pan onactionupdate action update stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 16.5
+      },
+      {
+        "file_path": "src/widgets/ResizeHandle.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/widgets/ResizeHandle.ets",
+        "method_evidence": "event offsetx offset circle gesture pangesture pan onactionupdate action update",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 16.5
+      },
+      {
+        "file_path": "src/pages/WarehouseFacetPage.ets",
+        "summary": "ArkTS file with 17 non-empty lines; components: WarehouseFacetPage; operations: onClick, pushPathByName; behavior: callbackboundary, uicallbackbinding",
+        "score": 14.6
+      },
+      {
+        "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+        "symbol": "loadAccount",
+        "summary": "ArkTS function or lifecycle method loadAccount in src/lifecycle/DeadlineBootstrapController.ets; identifier terms: load account",
+        "method_evidence": "load account asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+        "score": 14.25
+      },
+      {
+        "file_path": "src/cache/BoundedResultCache.ets",
+        "symbol": "put",
+        "summary": "ArkTS function or lifecycle method put in src/cache/BoundedResultCache.ets",
+        "method_evidence": "entries set date now size capacity max_safe_integer max safe integer candidate updatedat updated delete stateread state read statebranch branch conditional guardreturn guard",
+        "callable_roles": "[\"guard\", \"source_operation_checked:v2.1\"]",
+        "score": 14.0
+      },
+      {
+        "file_path": "src/gateways/JobTransport.ets",
+        "symbol": "submit",
+        "summary": "ArkTS function or lifecycle method submit in src/gateways/JobTransport.ets",
+        "method_evidence": "socket send logger error stateread state read asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 14.0
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/ProductSearchPage.ets",
+        "method_evidence": "query submitsearch submit search products product name column onsubmit list foreach each listitem item text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 13.25
+      },
+      {
+        "file_path": "src/abilities/ProfileBootstrapAbility.ets",
+        "summary": "ArkTS file with 22 non-empty lines; behavior: deserialization, eventboundary, persistencewrite, lifecycleboundary, persistenceread",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/abilities/SessionAbility.ets",
+        "summary": "ArkTS file with 7 non-empty lines; behavior: eventboundary, lifecycleboundary, datasourceboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/abilities/SnapshotTransferAbility.ets",
+        "summary": "ArkTS file with 9 non-empty lines; behavior: lifecyclesync, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/abilities/WorkspaceAbility.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: eventboundary, lifecycleboundary, callbackcleanup",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/automation/ReceiptExportCoordinator.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/cache/BoundedResultCache.ets",
+        "summary": "ArkTS file with 25 non-empty lines; behavior: cacheeviction, conditionalbranch",
+        "score": 12.8,
+        "symbol": "put"
+      },
+      {
+        "file_path": "src/components/RecordPreview.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: RecordPreview; component terms: record, preview",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/config/ArchivePackageProfile.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/config/BootstrapDeadlineProfile.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/config/BrowserSchemeManifest.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/config/ClipboardFeatureProfile.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/config/DraftCheckpointPolicy.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/config/JobFailureMessages.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/config/ResultCachePolicy.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/config/RuntimeFeatureManifest.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/config/StartupPermissionProfile.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/controllers/SeatMapController.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: eventboundary, indexedread, collectionwrite",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/controllers/WorkspaceSelectionController.ets",
+        "summary": "ArkTS file with 14 non-empty lines; behavior: eventboundary, statehandoff, statewrite",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+        "summary": "ArkTS file with 21 non-empty lines; behavior: conditionalbranch, datasourceboundary, orderingguard, statewrite, asyncboundary",
+        "score": 12.8,
+        "symbol": "updateLabel"
+      },
+      {
+        "file_path": "src/coordinators/SessionUsageCoordinator.ets",
+        "summary": "ArkTS file with 12 non-empty lines; behavior: persistencewrite, countertimestampwrite, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "summary": "ArkTS file with 18 non-empty lines; behavior: statewrite, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/crypto/SessionCodeGenerator.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/dialogs/ConfirmationDialogController.ets",
+        "summary": "ArkTS file with 7 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/examples/ThumbnailPoolExample.ets",
+        "summary": "ArkTS file with 6 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/gateways/TelemetrySocketGateway.ets",
+        "summary": "ArkTS file with 12 non-empty lines; behavior: callbackboundary, deserialization, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/io/AssetArchiveInstaller.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: archiveioboundary, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/io/ClipboardContentReader.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: clipboardread, conditionalbranch, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/io/ProcessOutputReader.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: outputreadloop",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/logging/DomainLogger.ets",
+        "summary": "ArkTS file with 7 non-empty lines",
+        "score": 12.8,
+        "symbol": "report"
+      },
+      {
+        "file_path": "src/logging/LogSink.ets",
+        "summary": "ArkTS file with 6 non-empty lines",
+        "score": 12.8,
+        "symbol": "emit"
+      },
+      {
+        "file_path": "src/media/VoiceCaptureCoordinator.ets",
+        "summary": "ArkTS file with 10 non-empty lines; behavior: resourceacquire, resourcerelease, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/models/BoardState.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/models/CanvasSelection.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: statewrite",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/models/ProfileList.ets",
+        "summary": "ArkTS file with 2 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/models/ResultCacheEntry.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/models/ThemeSettings.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/models/WorkspaceSchema.ets",
+        "summary": "ArkTS file with 7 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/network/NetworkClient.ets",
+        "summary": "ArkTS file with 6 non-empty lines",
+        "score": 12.8,
+        "symbol": "request"
+      },
+      {
+        "file_path": "src/pages/AppearanceSettingsPage.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: AppearanceSettingsPage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/CacheInspectorPage.ets",
+        "summary": "ArkTS file with 10 non-empty lines; components: CacheInspectorPage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/CapabilitySettingsPage.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: CapabilitySettingsPage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/CatalogPage.ets",
+        "summary": "ArkTS file with 17 non-empty lines; components: CatalogPage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/CheckoutPage.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: CheckoutPage",
+        "score": 12.8,
+        "symbol": "submitOrder"
+      },
+      {
+        "file_path": "src/pages/CollectionPage.ets",
+        "summary": "ArkTS file with 13 non-empty lines; components: CollectionPage; behavior: conditionalbranch, statewrite",
+        "score": 12.8,
+        "symbol": "updateFolder"
+      },
+      {
+        "file_path": "src/pages/DisclosureAppearancePage.ets",
+        "summary": "ArkTS file with 10 non-empty lines; components: DisclosureAppearancePage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/DocumentBrowserSettingsPage.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: DocumentBrowserSettingsPage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/DraftStatusPage.ets",
+        "summary": "ArkTS file with 10 non-empty lines; components: DraftStatusPage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/EditorKeyboardPage.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: EditorKeyboardPage; behavior: keyboardvisibility, lifecycleboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/KeyboardWorkspacePage.ets",
+        "summary": "ArkTS file with 10 non-empty lines; components: KeyboardWorkspacePage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/NotificationDetailsPage.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: NotificationDetailsPage; operations: padding",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/NotificationListPage.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: NotificationListPage; operations: margin",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/PasteImportPage.ets",
+        "summary": "ArkTS file with 10 non-empty lines; components: PasteImportPage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/ProfileArchivePage.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: ProfileArchivePage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/ProfilePage.ets",
+        "summary": "ArkTS file with 10 non-empty lines; components: ProfilePage; behavior: lifecycleboundary, datasourceboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/ShareComposerPage.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: ShareComposerPage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/StartupStatusPage.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: StartupStatusPage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/TimelinePage.ets",
+        "summary": "ArkTS file with 29 non-empty lines; components: TimelinePage; behavior: indexedread, conditionalbranch",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/UpgradeStatusPage.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: UpgradeStatusPage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/VoiceMessagePage.ets",
+        "summary": "ArkTS file with 11 non-empty lines; components: VoiceMessagePage; behavior: statewrite, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/WorkspaceLoadingPage.ets",
+        "summary": "ArkTS file with 10 non-empty lines; components: WorkspaceLoadingPage",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pages/WorkspacePage.ets",
+        "summary": "ArkTS file with 10 non-empty lines; components: WorkspacePage; behavior: lifecycleboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/pools/ThumbnailPool.ets",
+        "summary": "ArkTS file with 12 non-empty lines; operations: next; behavior: conditionalbranch",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/repositories/ParcelRepository.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: repositoryboundary, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/runtime/CommandEligibility.ets",
+        "summary": "ArkTS file with 14 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/runtime/FeatureCapabilityProbe.ets",
+        "summary": "ArkTS file with 9 non-empty lines; behavior: runtimecapability, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/runtime/LeaseController.ets",
+        "summary": "ArkTS file with 16 non-empty lines; behavior: conditionalbranch, resourcerelease, statewrite",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/runtime/PermissionStartupCoordinator.ets",
+        "summary": "ArkTS file with 17 non-empty lines; behavior: permissionrequest, permissionguard, conditionalbranch, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/runtime/TransportRegistry.ets",
+        "summary": "ArkTS file with 10 non-empty lines; behavior: fallbackbranch, repositoryboundary, conditionalbranch, statewrite",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/runtime/WindowRegistry.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/services/AssetSource.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: datasourceboundary, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/services/AudioPermissionService.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/services/CacheService.ets",
+        "summary": "ArkTS file with 3 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/services/DispatchProfileService.ets",
+        "summary": "ArkTS file with 10 non-empty lines; behavior: statewrite",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/services/DocumentLoader.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/services/ParcelDeliveryService.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: repositoryboundary, lifecyclesync, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/services/PaymentService.ets",
+        "summary": "ArkTS file with 6 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/services/ProductSearchService.ets",
+        "summary": "ArkTS file with 10 non-empty lines; behavior: datasourceboundary, asyncboundary",
+        "score": 12.8,
+        "symbol": "search"
+      },
+      {
+        "file_path": "src/services/ProfileService.ets",
+        "summary": "ArkTS file with 6 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/services/WrappedProfileService.ets",
+        "summary": "ArkTS file with 7 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/sharing/SharedRecordCollector.ets",
+        "summary": "ArkTS file with 13 non-empty lines; behavior: collectionfold, conditionalbranch",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/storage/DraftPreferences.ets",
+        "summary": "ArkTS file with 8 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/storage/OrderStore.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/stores/DocumentSelectionStore.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: statewrite",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/stores/SeatStore.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: indexedread, collectionwrite",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/utils/ThemePalette.ets",
+        "summary": "ArkTS file with 5 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/viewmodels/FolderCollectionLoader.ets",
+        "summary": "ArkTS file with 9 non-empty lines; behavior: conditionalbranch, datasourceboundary, statewrite, asyncboundary",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/viewmodels/GalleryListViewModel.ets",
+        "summary": "ArkTS file with 6 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/web/DesktopEditorFocusController.ets",
+        "summary": "ArkTS file with 12 non-empty lines; behavior: keyboardvisibility, focusstate, conditionalbranch, statewrite",
+        "score": 12.8
+      },
+      {
+        "file_path": "tools/receipt_export.py",
+        "summary": "Python file with 3 non-empty lines",
+        "score": 12.8
+      },
+      {
+        "file_path": "src/logging/ConsoleFailureReporter.ets",
+        "symbol": "ConsoleFailureReporter",
+        "summary": "ArkTS class ConsoleFailureReporter declared in src/logging/ConsoleFailureReporter.ets; identifier terms: console failure reporter",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/logging/FailureReporter.ets",
+        "symbol": "FailureReporter",
+        "summary": "interface FailureReporter in src/logging/FailureReporter.ets; identifier terms: failure reporter",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/logging/FileFailureReporter.ets",
+        "symbol": "FileFailureReporter",
+        "summary": "ArkTS class FileFailureReporter declared in src/logging/FileFailureReporter.ets; identifier terms: file failure reporter",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+        "symbol": "initializeWorkspace",
+        "summary": "ArkTS function or lifecycle method initializeWorkspace in src/lifecycle/DeadlineBootstrapController.ets; identifier terms: initialize workspace",
+        "method_evidence": "loadaccount load account cancelled loadworkspace workspace ready initialize statewrite state write stateread read statebranch branch conditional asyncboundary async guardreturn guard",
+        "callable_roles": "[\"async\", \"guard\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 11.5
+      },
+      {
+        "file_path": "src/components/KeyboardFocusHint.ets",
+        "symbol": "updateFocusMessage",
+        "summary": "ArkTS function or lifecycle method updateFocusMessage in src/components/KeyboardFocusHint.ets; identifier terms: update focus message",
+        "method_evidence": "focusmessage focus message update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/coordinators/DocumentNavigationCoordinator.ets",
+        "symbol": "updateLabel",
+        "summary": "ArkTS function or lifecycle method updateLabel in src/coordinators/DocumentNavigationCoordinator.ets; identifier terms: update label",
+        "method_evidence": "label update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/logging/DomainLogger.ets",
+        "symbol": "report",
+        "summary": "ArkTS function or lifecycle method report in src/logging/DomainLogger.ets",
+        "method_evidence": "sink emit stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/pages/CheckoutPage.ets",
+        "symbol": "submitOrder",
+        "summary": "ArkTS function or lifecycle method submitOrder in src/pages/CheckoutPage.ets; identifier terms: submit order",
+        "method_evidence": "paymentservice payment service chargeorder charge order submit stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/pages/CollectionPage.ets",
+        "symbol": "updateFolder",
+        "summary": "ArkTS function or lifecycle method updateFolder in src/pages/CollectionPage.ets; identifier terms: update folder",
+        "method_evidence": "folderid folder length update statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/views/CatalogFilterPanel.ets",
+        "symbol": "CatalogFilterPanel",
+        "summary": "ArkTS component CatalogFilterPanel declared in src/views/CatalogFilterPanel.ets; identifier terms: catalog filter panel",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 6.08
+      },
+      {
+        "file_path": "src/logging/LogSink.ets",
+        "symbol": "emit",
+        "summary": "ArkTS function or lifecycle method emit in src/logging/LogSink.ets",
+        "method_evidence": "hilog error",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/network/NetworkClient.ets",
+        "symbol": "request",
+        "summary": "ArkTS function or lifecycle method request in src/network/NetworkClient.ets",
+        "method_evidence": "hilog error",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/CommandOutputPage.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in src/pages/CommandOutputPage.ets",
+        "method_evidence": "output column text stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "DispatchButton",
+        "summary": "ArkTS function or lifecycle method DispatchButton in src/pages/JobDispatchPage.ets; identifier terms: dispatch button",
+        "method_evidence": "transport submit showbanner show banner dispatch button onclick click stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "symbol": "onClick",
+        "summary": "ArkTS function or lifecycle method onClick in src/pages/JobDispatchPage.ets; identifier terms: on click",
+        "method_evidence": "transport submit showbanner show banner button click stateread state read eventboundary",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:runtimecapability\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/services/ProductSearchService.ets",
+        "symbol": "search",
+        "summary": "ArkTS function or lifecycle method search in src/services/ProductSearchService.ets",
+        "method_evidence": "queryproducts query products stateread state read asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 4.5
+      }
+    ]
+  },
+  {
+    "function": "preserve_structural_boundary_neighbors",
+    "result": [
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+        "score": 72.4,
+        "symbol": "AccountSettingsPage"
+      }
+    ],
+    "query": "An empty display name reports an error yet submits the account update; return the guarded page action.",
+    "input": null
+  },
+  {
+    "function": "preserve_salient_evidence_candidates",
+    "result": [
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+        "score": 72.4,
+        "symbol": "AccountSettingsPage"
+      },
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: actiondispatch",
+        "score": 64.6,
+        "symbol": "OrderActionButton"
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: MessageActionBar; component terms: message, action, bar",
+        "score": 60.6,
+        "symbol": "MessageActionBar"
+      }
+    ],
+    "query": "An empty display name reports an error yet submits the account update; return the guarded page action.",
+    "input": null
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+        "score": 72.4,
+        "symbol": "AccountSettingsPage"
+      },
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: actiondispatch",
+        "score": 64.6,
+        "symbol": "OrderActionButton"
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: MessageActionBar; component terms: message, action, bar",
+        "score": 60.6,
+        "symbol": "MessageActionBar"
+      }
+    ],
+    "query": "An empty display name reports an error yet submits the account update; return the guarded page action.",
+    "input": [
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+        "score": 72.4,
+        "symbol": "AccountSettingsPage"
+      },
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: actiondispatch",
+        "score": 64.6,
+        "symbol": "OrderActionButton"
+      },
+      {
+        "file_path": "src/widgets/MessageActionBar.ets",
+        "summary": "ArkTS file with 9 non-empty lines; components: MessageActionBar; component terms: message, action, bar",
+        "score": 60.6,
+        "symbol": "MessageActionBar"
+      }
+    ]
+  }
+]

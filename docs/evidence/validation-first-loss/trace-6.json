@@ -1,0 +1,289 @@
+[
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [
+        {
+          "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+          "summary": "ArkTS file with 15 non-empty lines; behavior: actiondispatch, validationguard, persistencewrite, conditionalbranch, asyncboundary",
+          "score": 6.0
+        }
+      ],
+      true
+    ],
+    "query": "\u5fc5\u586b\u663e\u793a\u540d\u4e3a\u7a7a\u65f6\u63d0\u793a\u9519\u8bef\u4f46\u4ecd\u63d0\u4ea4\u66f4\u65b0\uff0c\u8bf7\u5b9a\u4f4d\u6821\u9a8c\u4e2d\u6b62\u548c\u52a8\u4f5c\u5206\u53d1\u6e90\u7801\u3002",
+    "input": [
+      {
+        "file_path": "src/logging/ConsoleFailureReporter.ets",
+        "symbol": "ConsoleFailureReporter",
+        "summary": "ArkTS class ConsoleFailureReporter declared in src/logging/ConsoleFailureReporter.ets; identifier terms: console failure reporter",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 22.5
+      },
+      {
+        "file_path": "src/logging/FailureReporter.ets",
+        "symbol": "FailureReporter",
+        "summary": "interface FailureReporter in src/logging/FailureReporter.ets; identifier terms: failure reporter",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 13.031
+      },
+      {
+        "file_path": "src/logging/ConsoleFailureReporter.ets",
+        "symbol": "report",
+        "summary": "ArkTS function or lifecycle method report in src/logging/ConsoleFailureReporter.ets",
+        "method_evidence": "hilog error",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 16.0
+      },
+      {
+        "file_path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "retryFailedParcel",
+        "summary": "ArkTS function or lifecycle method retryFailedParcel in src/pages/ParcelRetryPage.ets; identifier terms: retry failed parcel",
+        "method_evidence": "retrypending retry pending parceldeliveryservice parcel delivery service failed failuremessage failure message statewrite state write stateread read statebranch branch conditional asyncboundary async guardreturn guard",
+        "callable_roles": "[\"async\", \"guard\", \"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 12.5
+      },
+      {
+        "file_path": "src/config/JobFailureMessages.ets",
+        "symbol": "JobFailureMessages",
+        "summary": "object JobFailureMessages in src/config/JobFailureMessages.ets; identifier terms: job failure messages",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/logging/FileFailureReporter.ets",
+        "symbol": "FileFailureReporter",
+        "summary": "ArkTS class FileFailureReporter declared in src/logging/FileFailureReporter.ets; identifier terms: file failure reporter",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.25
+      },
+      {
+        "file_path": "src/logging/DomainLogger.ets",
+        "symbol": "DomainLogger",
+        "summary": "ArkTS class DomainLogger declared in src/logging/DomainLogger.ets; identifier terms: domain logger",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 12.0
+      },
+      {
+        "file_path": "src/pages/ParcelRetryPage.ets",
+        "symbol": "failureMessage",
+        "summary": "state failureMessage in src/pages/ParcelRetryPage.ets; identifier terms: failure message",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 10.25
+      },
+      {
+        "file_path": "src/services/ParcelDeliveryService.ets",
+        "symbol": "retryFailedParcel",
+        "summary": "ArkTS function or lifecycle method retryFailedParcel in src/services/ParcelDeliveryService.ets; identifier terms: retry failed parcel",
+        "method_evidence": "parcelrepository parcel repository markparcelforretry mark retry failed asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 10.0
+      },
+      {
+        "file_path": "src/logging/FileFailureReporter.ets",
+        "symbol": "report",
+        "summary": "ArkTS function or lifecycle method report in src/logging/FileFailureReporter.ets",
+        "method_evidence": "hilog error",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 9.0
+      },
+      {
+        "file_path": "src/logging/ConsoleFailureReporter.ets",
+        "summary": "ArkTS file with 7 non-empty lines",
+        "score": 7.6,
+        "symbol": "ConsoleFailureReporter"
+      },
+      {
+        "file_path": "src/logging/DomainLogger.ets",
+        "symbol": "report",
+        "summary": "ArkTS function or lifecycle method report in src/logging/DomainLogger.ets",
+        "method_evidence": "sink emit stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 6.5
+      },
+      {
+        "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+        "summary": "ArkTS file with 15 non-empty lines; behavior: actiondispatch, validationguard, persistencewrite, conditionalbranch, asyncboundary",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/pages/AccountSettingsPage.ets",
+        "summary": "ArkTS file with 15 non-empty lines; components: AccountSettingsPage; behavior: actiondispatch, validationguard, conditionalbranch",
+        "score": 6.0
+      },
+      {
+        "file_path": "src/services/AttachmentService.ets",
+        "symbol": "loadAttachment",
+        "summary": "ArkTS function or lifecycle method loadAttachment in src/services/AttachmentService.ets; identifier terms: load attachment",
+        "method_evidence": "hilog debug writecache write cache warn error load attachment stateread state read persistencewrite persistence write asyncboundary async",
+        "callable_roles": "[\"async\", \"persistence_write\", \"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/services/DispatchProfileService.ets",
+        "symbol": "run",
+        "summary": "ArkTS function or lifecycle method run in src/services/DispatchProfileService.ets",
+        "method_evidence": "reporter report stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/services/ProfileService.ets",
+        "symbol": "loadProfile",
+        "summary": "ArkTS function or lifecycle method loadProfile in src/services/ProfileService.ets; identifier terms: load profile",
+        "method_evidence": "hilog error load profile",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/services/WrappedProfileService.ets",
+        "symbol": "load",
+        "summary": "ArkTS function or lifecycle method load in src/services/WrappedProfileService.ets",
+        "method_evidence": "logger report stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/logging/LogSink.ets",
+        "symbol": "LogSink",
+        "summary": "ArkTS class LogSink declared in src/logging/LogSink.ets; identifier terms: log sink",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 4.5
+      },
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "summary": "ArkTS file with 6 non-empty lines; behavior: actiondispatch",
+        "score": 4.0
+      },
+      {
+        "file_path": "src/config/CommandOutputProfile.ets",
+        "summary": "ArkTS file with 5 non-empty lines; behavior: actiondispatch",
+        "score": 4.0
+      },
+      {
+        "file_path": "src/pages/CommandOutputPage.ets",
+        "summary": "ArkTS file with 10 non-empty lines; components: CommandOutputPage; behavior: actiondispatch",
+        "score": 4.0
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "summary": "ArkTS file with 430 non-empty lines; components: LedgerMaintenancePage; operations: onClick; behavior: callbackboundary, validationguard, persistencewrite, conditionalbranch, statewrite, asyncboundary, uicallbackbinding",
+        "score": 4.0
+      },
+      {
+        "file_path": "src/pages/ProductSearchPage.ets",
+        "summary": "ArkTS file with 21 non-empty lines; components: ProductSearchPage; operations: onSubmit; behavior: callbackboundary, actiondispatch, datasourceboundary, statewrite, asyncboundary, uicallbackbinding",
+        "score": 4.0
+      },
+      {
+        "file_path": "src/services/AttachmentService.ets",
+        "summary": "ArkTS file with 17 non-empty lines; behavior: validationguard, conditionalbranch, asyncboundary",
+        "score": 4.0,
+        "symbol": "loadAttachment"
+      },
+      {
+        "file_path": "src/services/SnapshotCoordinator.ets",
+        "summary": "ArkTS file with 10 non-empty lines; behavior: validationguard, lifecyclesync, conditionalbranch, asyncboundary",
+        "score": 4.0
+      },
+      {
+        "file_path": "src/stores/LightingStore.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: repositoryboundary, actiondispatch, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+        "score": 4.0
+      },
+      {
+        "file_path": "src/theme/SystemBarColorAdapter.ets",
+        "summary": "ArkTS file with 13 non-empty lines; operations: split, join; behavior: colorparser, validationguard, conditionalbranch",
+        "score": 4.0
+      },
+      {
+        "file_path": "src/validation/OrderValidator.ets",
+        "summary": "ArkTS file with 9 non-empty lines; behavior: validationguard, conditionalbranch",
+        "score": 4.0
+      },
+      {
+        "file_path": "src/config/JobFailureMessages.ets",
+        "summary": "ArkTS file with 4 non-empty lines",
+        "score": 3.8,
+        "symbol": "JobFailureMessages"
+      },
+      {
+        "file_path": "src/logging/DomainLogger.ets",
+        "summary": "ArkTS file with 7 non-empty lines",
+        "score": 3.8,
+        "symbol": "DomainLogger"
+      },
+      {
+        "file_path": "src/logging/FailureReporter.ets",
+        "summary": "ArkTS file with 2 non-empty lines",
+        "score": 3.8,
+        "symbol": "FailureReporter"
+      },
+      {
+        "file_path": "src/logging/FileFailureReporter.ets",
+        "summary": "ArkTS file with 7 non-empty lines",
+        "score": 3.8,
+        "symbol": "FileFailureReporter"
+      },
+      {
+        "file_path": "src/gateways/JobTransport.ets",
+        "summary": "ArkTS file with 12 non-empty lines; behavior: errorreturnboundary, asyncboundary",
+        "score": 1.8
+      },
+      {
+        "file_path": "src/pages/JobDispatchPage.ets",
+        "summary": "ArkTS file with 19 non-empty lines; components: JobDispatchPage; operations: onClick; behavior: callbackboundary, errorpresentationboundary, conditionalbranch, asyncboundary, uicallbackbinding",
+        "score": 1.8
+      }
+    ]
+  },
+  {
+    "function": "preserve_structural_boundary_neighbors",
+    "result": [
+      {
+        "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+        "summary": "ArkTS file with 15 non-empty lines; behavior: actiondispatch, validationguard, persistencewrite, conditionalbranch, asyncboundary",
+        "score": 6.0
+      }
+    ],
+    "query": "\u5fc5\u586b\u663e\u793a\u540d\u4e3a\u7a7a\u65f6\u63d0\u793a\u9519\u8bef\u4f46\u4ecd\u63d0\u4ea4\u66f4\u65b0\uff0c\u8bf7\u5b9a\u4f4d\u6821\u9a8c\u4e2d\u6b62\u548c\u52a8\u4f5c\u5206\u53d1\u6e90\u7801\u3002",
+    "input": null
+  },
+  {
+    "function": "preserve_salient_evidence_candidates",
+    "result": [
+      {
+        "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+        "summary": "ArkTS file with 15 non-empty lines; behavior: actiondispatch, validationguard, persistencewrite, conditionalbranch, asyncboundary",
+        "score": 6.0
+      }
+    ],
+    "query": "\u5fc5\u586b\u663e\u793a\u540d\u4e3a\u7a7a\u65f6\u63d0\u793a\u9519\u8bef\u4f46\u4ecd\u63d0\u4ea4\u66f4\u65b0\uff0c\u8bf7\u5b9a\u4f4d\u6821\u9a8c\u4e2d\u6b62\u548c\u52a8\u4f5c\u5206\u53d1\u6e90\u7801\u3002",
+    "input": null
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [
+      {
+        "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+        "summary": "ArkTS file with 15 non-empty lines; behavior: actiondispatch, validationguard, persistencewrite, conditionalbranch, asyncboundary",
+        "score": 6.0
+      }
+    ],
+    "query": "\u5fc5\u586b\u663e\u793a\u540d\u4e3a\u7a7a\u65f6\u63d0\u793a\u9519\u8bef\u4f46\u4ecd\u63d0\u4ea4\u66f4\u65b0\uff0c\u8bf7\u5b9a\u4f4d\u6821\u9a8c\u4e2d\u6b62\u548c\u52a8\u4f5c\u5206\u53d1\u6e90\u7801\u3002",
+    "input": [
+      {
+        "file_path": "src/coordinators/OrderCommitCoordinator.ets",
+        "summary": "ArkTS file with 15 non-empty lines; behavior: actiondispatch, validationguard, persistencewrite, conditionalbranch, asyncboundary",
+        "score": 6.0
+      }
+    ]
+  }
+]

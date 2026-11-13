@@ -1,0 +1,76 @@
+{
+  "classification": "Development fixed diagnostic; no serving authorization",
+  "sources": {
+    "src/pages/ProfileEditor.ets": "import { ProfileGateway } from '../services/ProfileGateway'\n@Component\nexport struct ProfileEditor {\n  @State displayName: string = ''\n  private gateway: ProfileGateway = new ProfileGateway()\n  saveProfile(): void {\n    if (this.displayName.trim().length === 0) {\n      promptAction.showToast({ message: 'Display name is required' })\n      return\n    }\n    this.gateway.updateProfile(this.displayName)\n  }\n  build() {}\n}\n",
+    "src/services/ProfileGateway.ets": "export class ProfileGateway {\n  updateProfile(name: string): void {\n    profileClient.update(name)\n  }\n}\n",
+    "src/coordinators/PurchaseCoordinator.ets": "export class PurchaseCoordinator {\n  customerCode: string = ''\n  commitPurchase(): void {\n    if (this.customerCode.trim().length === 0) {\n      promptAction.showToast({ message: 'Customer code is required' })\n      return\n    }\n    purchaseClient.placeOrder(this.customerCode)\n    AppStorage.SetOrCreate('lastPurchaseCustomer', this.customerCode)\n  }\n}\n",
+    "src/logging/StatusSink.ets": "export class StatusSink {\n  error(message: string): void {\n    console.error('Profile update rejected:', message)\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "profile-zh",
+      "query": "请定位显示名为空时提示错误并中止个人资料更新的校验和分发源码。",
+      "required": [
+        "src/pages/ProfileEditor.ets"
+      ],
+      "kind": "field-domain-owner"
+    },
+    {
+      "id": "profile-en",
+      "query": "Locate the validation and dispatch implementation that stops a profile update when the display name is empty and reports an error.",
+      "required": [
+        "src/pages/ProfileEditor.ets"
+      ],
+      "kind": "field-domain-owner"
+    },
+    {
+      "id": "purchase",
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "required": [
+        "src/coordinators/PurchaseCoordinator.ets"
+      ],
+      "kind": "explicit-owner"
+    },
+    {
+      "id": "both",
+      "query": "Return both ProfileEditor.saveProfile and PurchaseCoordinator.commitPurchase implementations.",
+      "required": [
+        "src/pages/ProfileEditor.ets",
+        "src/coordinators/PurchaseCoordinator.ets"
+      ],
+      "kind": "explicit-multiple"
+    },
+    {
+      "id": "logging",
+      "query": "Find the source of the log \"Profile update rejected:\".",
+      "required": [
+        "src/logging/StatusSink.ets"
+      ],
+      "kind": "literal-log"
+    },
+    {
+      "id": "generic",
+      "query": "Locate guard-return validation and action dispatch implementations.",
+      "required": [],
+      "kind": "ambiguous-no-exclusive-oracle"
+    }
+  ],
+  "cohorts": {
+    "target": [
+      "src/pages/ProfileEditor.ets",
+      "src/services/ProfileGateway.ets"
+    ],
+    "competition": [
+      "src/pages/ProfileEditor.ets",
+      "src/services/ProfileGateway.ets",
+      "src/coordinators/PurchaseCoordinator.ets"
+    ],
+    "logger": [
+      "src/pages/ProfileEditor.ets",
+      "src/services/ProfileGateway.ets",
+      "src/coordinators/PurchaseCoordinator.ets",
+      "src/logging/StatusSink.ets"
+    ]
+  },
+  "scope": "Run every query in each cohort. Required source absent from cohort is N/A, not failure. Generic query has no unique owner oracle. Other queries report retention and extra sources separately; no invented exclusivity for services or causal proof. Do not reword or add noise after observing results."
+}
