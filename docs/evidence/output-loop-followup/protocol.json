@@ -1,0 +1,35 @@
+{
+  "classification": "independent Development",
+  "base": "4005b65",
+  "sources": {
+    "PipeCollector.ts": "export class PipeCollector {\n  collect(stream: LineStream): string {\n    const chunks: string[] = []\n    let current = stream.readLine()\n    while (current !== null) {\n      chunks.push(current)\n      current = stream.readLine()\n    }\n    return chunks.join(' ')\n  }\n  label(): string {\n    return 'process output line reader accumulation'\n  }\n}\n",
+    "OutputDescription.ts": "export class OutputDescription {\n  label(): string {\n    return 'command output process produces lines'\n  }\n}\n",
+    "SingleRead.ts": "export class SingleRead {\n  read(stream: LineStream): string {\n    return stream.readLine()\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "query": "Locate command output iteration and accumulation ownership when the process line reader has data.",
+      "required": "PipeCollector.ts",
+      "symbol": "collect",
+      "forbidden": [
+        "OutputDescription.ts",
+        "SingleRead.ts"
+      ]
+    },
+    {
+      "query": "Locate PipeCollector.collect.",
+      "required": "PipeCollector.ts",
+      "symbol": "collect",
+      "forbidden": [
+        "OutputDescription.ts",
+        "SingleRead.ts"
+      ]
+    },
+    {
+      "query": "Locate SingleRead.read.",
+      "required": "SingleRead.ts",
+      "symbol": "read",
+      "forbidden": []
+    }
+  ]
+}
