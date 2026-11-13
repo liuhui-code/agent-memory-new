@@ -1,0 +1,1098 @@
+[
+  {
+    "case": {
+      "query": "Find the startup method that reads bookmarks from preferences and restores entries with JSON.parse, not the save or registration method.",
+      "required": "Bootstrap.ets",
+      "excluded": [
+        "Persistence.ets",
+        "Registry.ets"
+      ]
+    },
+    "paths": [
+      "Persistence.ets"
+    ],
+    "passed": false,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3d6465532e685c4e",
+      "query": "Find the startup method that reads bookmarks from preferences and restores entries with JSON.parse, not the save or registration method.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "startup",
+          "method",
+          "reads",
+          "bookmarks",
+          "preferences",
+          "restores",
+          "entries",
+          "json",
+          "parse",
+          "save",
+          "registration"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "Persistence.ets",
+            "symbol": "saveBookmarks",
+            "symbol_type": "function",
+            "record_ids": [
+              4
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "saveBookmarks",
+                "start_line": 2,
+                "end_line": 5
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "saveBookmarks",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class Persistence {\n  saveBookmarks(entries: Entry[]): void {\n    preferences.set('bookmarks', JSON.stringify(entries))\n    preferences.flush()\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "Persistence.ets",
+            "symbol": "saveBookmarks",
+            "owner_name": "Persistence",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 46.325,
+            "evidence_score": 46.325,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "semantic_mechanism_window"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "Bootstrap.ets",
+              "symbol": "onCreate",
+              "owner_name": "Bootstrap",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "lifecycle",
+                "source_operation_checked:v2.1",
+                "source_operation:persistenceread"
+              ],
+              "score": 40.55,
+              "evidence_score": 40.55,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 5,
+                "selection_reason": "semantic_mechanism_window"
+              }
+            },
+            {
+              "file_path": "Registry.ets",
+              "symbol": "registerBookmarks",
+              "owner_name": "Registry",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 33.76,
+              "evidence_score": 33.76,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 156
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1153,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Find the method saving bookmarks to preferences with JSON.stringify and flush.",
+      "required": "Persistence.ets",
+      "excluded": [
+        "Bootstrap.ets",
+        "Registry.ets"
+      ]
+    },
+    "paths": [
+      "Persistence.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3d6465532e685c4e",
+      "query": "Find the method saving bookmarks to preferences with JSON.stringify and flush.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "method",
+          "saving",
+          "bookmarks",
+          "preferences",
+          "json",
+          "stringify",
+          "flush"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "Persistence.ets",
+            "symbol": "saveBookmarks",
+            "symbol_type": "function",
+            "record_ids": [
+              4
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "saveBookmarks",
+                "start_line": 2,
+                "end_line": 5
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "saveBookmarks",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class Persistence {\n  saveBookmarks(entries: Entry[]): void {\n    preferences.set('bookmarks', JSON.stringify(entries))\n    preferences.flush()\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "Persistence.ets",
+            "symbol": "saveBookmarks",
+            "owner_name": "Persistence",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 49.0,
+            "evidence_score": 49.0,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "Registry.ets",
+              "symbol": "registerBookmarks",
+              "owner_name": "Registry",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 36.74,
+              "evidence_score": 36.74,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "Bootstrap.ets",
+              "symbol": "onCreate",
+              "owner_name": "Bootstrap",
+              "owner_kind": "class",
+              "callable_roles": [
+                "lifecycle",
+                "source_operation_checked:v2.1",
+                "source_operation:persistenceread"
+              ],
+              "score": 23.995,
+              "evidence_score": 23.995,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 156
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1117,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Find Registry.registerBookmarks registration.",
+      "required": "Registry.ets",
+      "excluded": []
+    },
+    "paths": [
+      "Registry.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3d6465532e685c4e",
+      "query": "Find Registry.registerBookmarks registration.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "registry",
+          "registerbookmarks",
+          "registration"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "Registry.ets",
+            "symbol": "registerBookmarks",
+            "symbol_type": "function",
+            "record_ids": [
+              6,
+              5
+            ],
+            "source_ranges": [
+              {
+                "symbol": "registerBookmarks",
+                "start_line": 2,
+                "end_line": 4
+              },
+              {
+                "symbol": "Registry",
+                "start_line": 1,
+                "end_line": 5
+              }
+            ],
+            "record_type": "code_symbol",
+            "read_window": {
+              "start_line": 1,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "registerBookmarks",
+                "start_line": 1,
+                "end_line": 5,
+                "content": "export class Registry {\n  registerBookmarks(): void {\n    registry.register('bookmarks', bookmarkFactory)\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "Registry.ets",
+            "symbol": "registerBookmarks",
+            "owner_name": "Registry",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 71.5,
+            "evidence_score": 71.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "Persistence.ets",
+              "symbol": "saveBookmarks",
+              "owner_name": "Persistence",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 31.82,
+              "evidence_score": 31.82,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "Bootstrap.ets",
+              "symbol": "onCreate",
+              "owner_name": "Bootstrap",
+              "owner_kind": "class",
+              "callable_roles": [
+                "lifecycle",
+                "source_operation_checked:v2.1",
+                "source_operation:persistenceread"
+              ],
+              "score": 12.76,
+              "evidence_score": 12.76,
+              "reasons": [
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 111
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1092,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Find both the lifecycle read and preference write owners for the bookmarks restore contract.",
+      "required": "Bootstrap.ets",
+      "excluded": []
+    },
+    "paths": [
+      "Persistence.ets"
+    ],
+    "passed": false,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3d6465532e685c4e",
+      "query": "Find both the lifecycle read and preference write owners for the bookmarks restore contract.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "both",
+          "lifecycle",
+          "read",
+          "preference",
+          "write",
+          "owners",
+          "bookmarks",
+          "restore",
+          "contract"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "Persistence.ets",
+            "symbol": "saveBookmarks",
+            "symbol_type": "function",
+            "record_ids": [
+              4
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "saveBookmarks",
+                "start_line": 2,
+                "end_line": 5
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "saveBookmarks",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class Persistence {\n  saveBookmarks(entries: Entry[]): void {\n    preferences.set('bookmarks', JSON.stringify(entries))\n    preferences.flush()\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "Persistence.ets",
+            "symbol": "saveBookmarks",
+            "owner_name": "Persistence",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 47.0,
+            "evidence_score": 47.0,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "semantic_mechanism_window"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "Registry.ets",
+              "symbol": "registerBookmarks",
+              "owner_name": "Registry",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 35.74,
+              "evidence_score": 35.74,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "Bootstrap.ets",
+              "symbol": "onCreate",
+              "owner_name": "Bootstrap",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "lifecycle",
+                "source_operation_checked:v2.1",
+                "source_operation:persistenceread"
+              ],
+              "score": 35.01,
+              "evidence_score": 35.01,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 5,
+                "selection_reason": "semantic_mechanism_window"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 156
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1135,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Find Persistence.saveBookmarks.",
+      "required": "Persistence.ets",
+      "excluded": []
+    },
+    "paths": [
+      "Persistence.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3d6465532e685c4e",
+      "query": "Find Persistence.saveBookmarks.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "persistence",
+          "savebookmarks"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "Persistence.ets",
+            "symbol": "saveBookmarks",
+            "symbol_type": "function",
+            "record_ids": [
+              4,
+              3
+            ],
+            "source_ranges": [
+              {
+                "symbol": "saveBookmarks",
+                "start_line": 2,
+                "end_line": 5
+              },
+              {
+                "symbol": "Persistence",
+                "start_line": 1,
+                "end_line": 6
+              }
+            ],
+            "record_type": "code_symbol",
+            "read_window": {
+              "start_line": 1,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "saveBookmarks",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class Persistence {\n  saveBookmarks(entries: Entry[]): void {\n    preferences.set('bookmarks', JSON.stringify(entries))\n    preferences.flush()\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "Persistence.ets",
+            "symbol": "saveBookmarks",
+            "owner_name": "Persistence",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 78.5,
+            "evidence_score": 78.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "semantic_mechanism_window"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "Registry.ets",
+              "symbol": "registerBookmarks",
+              "owner_name": "Registry",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 31.82,
+              "evidence_score": 31.82,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "Bootstrap.ets",
+              "symbol": "onCreate",
+              "owner_name": "Bootstrap",
+              "owner_kind": "class",
+              "callable_roles": [
+                "lifecycle",
+                "source_operation_checked:v2.1",
+                "source_operation:persistenceread"
+              ],
+              "score": 16.21,
+              "evidence_score": 16.21,
+              "reasons": [
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior",
+                "semantic_mechanism",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 5,
+                "selection_reason": "semantic_mechanism_window"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 156
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1102,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  }
+]

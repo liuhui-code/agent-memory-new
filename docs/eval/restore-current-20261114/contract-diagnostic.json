@@ -1,0 +1,93 @@
+{
+  "source_roles": {
+    "Bootstrap.ets": {
+      "method_source": "  onCreate(): void {\n    const entries = JSON.parse(preferences.get('bookmarks', '[]'))\n    store.replace(entries)\n  }",
+      "roles": [
+        "source_operation_checked:v2.1",
+        "source_operation:persistenceread"
+      ]
+    },
+    "Persistence.ets": {
+      "method_source": "  saveBookmarks(entries: Entry[]): void {\n    preferences.set('bookmarks', JSON.stringify(entries))\n    preferences.flush()\n  }",
+      "roles": [
+        "source_operation_checked:v2.1",
+        "source_operation_unresolved:persistenceread"
+      ]
+    },
+    "Registry.ets": {
+      "method_source": "  registerBookmarks(): void {\n    registry.register('bookmarks', bookmarkFactory)\n  }",
+      "roles": [
+        "source_operation_checked:v2.1"
+      ]
+    }
+  },
+  "queries": [
+    {
+      "query": "Find the startup method that reads bookmarks from preferences and restores entries with JSON.parse, not the save or registration method.",
+      "positive": "Find the startup method that reads bookmarks from preferences and restores entries with JSON.parse",
+      "scope": {
+        "kind": "multiple",
+        "basis": [
+          "conjoined_evidence_cue"
+        ]
+      },
+      "markers": [
+        "persistenceread",
+        "lifecycleboundary",
+        "persistencewrite"
+      ]
+    },
+    {
+      "query": "Find the method saving bookmarks to preferences with JSON.stringify and flush.",
+      "positive": "Find the method saving bookmarks to preferences with JSON.stringify and flush.",
+      "scope": {
+        "kind": "single",
+        "basis": [
+          "explicit_single_target_cue"
+        ]
+      },
+      "markers": []
+    },
+    {
+      "query": "Find Registry.registerBookmarks registration.",
+      "positive": "Find Registry.registerBookmarks registration.",
+      "scope": {
+        "kind": "unknown",
+        "basis": [
+          "no_explicit_target_scope"
+        ]
+      },
+      "markers": []
+    },
+    {
+      "query": "Find both the lifecycle read and preference write owners for the bookmarks restore contract.",
+      "positive": "Find both the lifecycle read and preference write owners for the bookmarks restore contract.",
+      "scope": {
+        "kind": "multiple",
+        "basis": [
+          "explicit_multi_target_cue"
+        ]
+      },
+      "markers": [
+        "persistenceread",
+        "lifecycleboundary",
+        "persistencewrite",
+        "lifecyclesync",
+        "statewrite"
+      ]
+    },
+    {
+      "query": "Find Persistence.saveBookmarks.",
+      "positive": "Find Persistence.saveBookmarks.",
+      "scope": {
+        "kind": "unknown",
+        "basis": [
+          "no_explicit_target_scope"
+        ]
+      },
+      "markers": [
+        "persistencewrite"
+      ]
+    }
+  ]
+}

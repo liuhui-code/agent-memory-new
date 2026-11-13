@@ -1,0 +1,174 @@
+{
+  "prior_runtime": "23e00f1 (0822bb2 documentation-only descendant; tools/tests diff empty)",
+  "current_runtime": "0dc58f2781d8c567b9e74fd8a14e4ec40028f880",
+  "results": [
+    {
+      "variant": "original",
+      "prior": {
+        "status": "pass",
+        "checks": {
+          "compact_schema_returned": true,
+          "context_within_budget": true,
+          "expected_anchors_within_top_k": true,
+          "minimum_anchor_precision_met": true,
+          "minimum_source_span_recall_met": true,
+          "expected_anchors_recalled": true,
+          "forbidden_anchors_absent": true,
+          "expected_source_excerpt_returned": true
+        },
+        "observed_anchor_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets"
+        ],
+        "observed_primary_anchor_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets"
+        ],
+        "observed_source_excerpt_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets"
+        ],
+        "missing_required_source_spans": [],
+        "context_token_estimate": 1364
+      },
+      "current": {
+        "status": "pass",
+        "checks": {
+          "compact_schema_returned": true,
+          "context_within_budget": true,
+          "expected_anchors_within_top_k": true,
+          "minimum_anchor_precision_met": true,
+          "minimum_source_span_recall_met": true,
+          "expected_anchors_recalled": true,
+          "forbidden_anchors_absent": true,
+          "expected_source_excerpt_returned": true
+        },
+        "observed_anchor_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets"
+        ],
+        "observed_primary_anchor_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets"
+        ],
+        "observed_source_excerpt_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets"
+        ],
+        "missing_required_source_spans": [],
+        "context_token_estimate": 1364
+      },
+      "equal": true
+    },
+    {
+      "variant": "en-paraphrase",
+      "prior": {
+        "status": "fail",
+        "checks": {
+          "compact_schema_returned": true,
+          "context_within_budget": true,
+          "expected_anchors_within_top_k": true,
+          "minimum_anchor_precision_met": false,
+          "minimum_source_span_recall_met": true,
+          "expected_anchors_recalled": true,
+          "forbidden_anchors_absent": true,
+          "expected_source_excerpt_returned": true
+        },
+        "observed_anchor_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets",
+          "src/abilities/SessionAbility.ets",
+          "src/pages/ProfilePage.ets"
+        ],
+        "observed_primary_anchor_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets",
+          "src/abilities/SessionAbility.ets",
+          "src/pages/ProfilePage.ets"
+        ],
+        "observed_source_excerpt_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets",
+          "src/abilities/SessionAbility.ets",
+          "src/pages/ProfilePage.ets"
+        ],
+        "missing_required_source_spans": [],
+        "context_token_estimate": 1497
+      },
+      "current": {
+        "status": "fail",
+        "checks": {
+          "compact_schema_returned": true,
+          "context_within_budget": true,
+          "expected_anchors_within_top_k": true,
+          "minimum_anchor_precision_met": false,
+          "minimum_source_span_recall_met": true,
+          "expected_anchors_recalled": true,
+          "forbidden_anchors_absent": true,
+          "expected_source_excerpt_returned": true
+        },
+        "observed_anchor_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets",
+          "src/abilities/SessionAbility.ets",
+          "src/pages/ProfilePage.ets"
+        ],
+        "observed_primary_anchor_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets",
+          "src/abilities/SessionAbility.ets",
+          "src/pages/ProfilePage.ets"
+        ],
+        "observed_source_excerpt_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets",
+          "src/abilities/SessionAbility.ets",
+          "src/pages/ProfilePage.ets"
+        ],
+        "missing_required_source_spans": [],
+        "context_token_estimate": 1497
+      },
+      "equal": true
+    },
+    {
+      "variant": "zh-noise",
+      "prior": {
+        "status": "pass",
+        "checks": {
+          "compact_schema_returned": true,
+          "context_within_budget": true,
+          "expected_anchors_within_top_k": true,
+          "minimum_anchor_precision_met": true,
+          "minimum_source_span_recall_met": true,
+          "expected_anchors_recalled": true,
+          "forbidden_anchors_absent": true,
+          "expected_source_excerpt_returned": true
+        },
+        "observed_anchor_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets"
+        ],
+        "observed_primary_anchor_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets"
+        ],
+        "observed_source_excerpt_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets"
+        ],
+        "missing_required_source_spans": [],
+        "context_token_estimate": 1470
+      },
+      "current": {
+        "status": "pass",
+        "checks": {
+          "compact_schema_returned": true,
+          "context_within_budget": true,
+          "expected_anchors_within_top_k": true,
+          "minimum_anchor_precision_met": true,
+          "minimum_source_span_recall_met": true,
+          "expected_anchors_recalled": true,
+          "forbidden_anchors_absent": true,
+          "expected_source_excerpt_returned": true
+        },
+        "observed_anchor_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets"
+        ],
+        "observed_primary_anchor_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets"
+        ],
+        "observed_source_excerpt_paths": [
+          "src/abilities/ProfileBootstrapAbility.ets"
+        ],
+        "missing_required_source_spans": [],
+        "context_token_estimate": 1470
+      },
+      "equal": true
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "classification": "development",
+  "base": "ae74a70",
+  "sources": {
+    "Bootstrap.ets": "export class Bootstrap {\n  onCreate(): void {\n    const entries = JSON.parse(preferences.get('bookmarks', '[]'))\n    store.replace(entries)\n  }\n}\n",
+    "Persistence.ets": "export class Persistence {\n  saveBookmarks(entries: Entry[]): void {\n    preferences.set('bookmarks', JSON.stringify(entries))\n    preferences.flush()\n  }\n}\n",
+    "Registry.ets": "export class Registry {\n  registerBookmarks(): void {\n    registry.register('bookmarks', bookmarkFactory)\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "query": "Find the startup method that reads bookmarks from preferences and restores entries with JSON.parse, not the save or registration method.",
+      "required": "Bootstrap.ets",
+      "excluded": [
+        "Persistence.ets",
+        "Registry.ets"
+      ]
+    },
+    {
+      "query": "Find the method saving bookmarks to preferences with JSON.stringify and flush.",
+      "required": "Persistence.ets",
+      "excluded": [
+        "Bootstrap.ets",
+        "Registry.ets"
+      ]
+    },
+    {
+      "query": "Find Registry.registerBookmarks registration.",
+      "required": "Registry.ets",
+      "excluded": []
+    },
+    {
+      "query": "Find both the lifecycle read and preference write owners for the bookmarks restore contract.",
+      "required": "Bootstrap.ets",
+      "excluded": []
+    },
+    {
+      "query": "Find Persistence.saveBookmarks.",
+      "required": "Persistence.ets",
+      "excluded": []
+    }
+  ],
+  "acceptance": "Required owner body present; excluded non-reading/non-writing owners absent for explicitly directed requests. Observe once before deciding whether failure exists.",
+  "hypothesis": "Existing persistence_read mechanism is present but persistenceread marker absent from callable method evidence, unlike lifecycleboundary and persistencewrite. Validate before promotion."
+}

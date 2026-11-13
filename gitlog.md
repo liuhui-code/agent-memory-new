@@ -11383,3 +11383,16 @@ unknown reasons, alternatives, logs, paths and freshness remain. This is lossy
 ranking detail, not lossless compression. Independent32-line header case restored;
 33-line overbudget unchanged. Post-action1/3->2/3; causal stays3/3;48 focused pass.
 No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/README.md`.
+
+## 2026-11-14 — Recheck restore read/write boundary without weakening proof
+
+- Compare unchanged restore scenario on 23e00f1-equivalent runtime and 0dc58f2:
+  both 2/3, all selected checks/paths/spans/token counts equal. Correct stale 1/3
+  status; do not count this as a new partial-source recovery improvement.
+- Reuse frozen independent read/write/registration fixture: 3/5 unchanged.
+  Reader already has a direct method read witness; mixed scope/full inferred
+  mechanism contract, unknown competitors and nested callback proof remain open.
+- English original has correct owner/span plus extras, not missing source body.
+  Stop serving changes rather than lowering proof or multi-target protections.
+- Retain focused evidence in docs/eval/restore-current-20261114. No runtime/test
+  edits, full aggregate, holdout rerun, remote publication or new repair claim.
