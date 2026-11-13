@@ -49,3 +49,8 @@ class NamedComponentRetentionTests(AgentMemoryTestBase):
         # An owner mentioned only in a comparison clause is not a requested pair.
         anchors=self.anchors();anchors[1].update(symbol='panel',file_path='panel.ets')
         self.assertFalse(multiple_requested_anchors_present(anchors,{},'Find EntryTile and MissingPanel compared with CitationPanel'))
+
+    def test_actual_positive_lowercase_owner_is_not_rejected(self):
+        anchors=self.anchors();anchors[1].update(symbol='panel',file_path='panel.ets')
+        self.assertTrue(multiple_requested_anchors_present(anchors,{},'Find EntryTile and panel source.'))
+        self.assertTrue(multiple_requested_anchors_present(anchors,{},'Find EntryTile and panel; exclude MissingPanel'))

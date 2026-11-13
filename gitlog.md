@@ -11324,3 +11324,13 @@ Evidence: `docs/eval/data-topic-expansion-20261114/README.md`.
 - 48 focused regressions pass; actual source excerpt lines remain file-correct.
 - Original cross-preview group stays1/3; this fixes the independent explicit-name
   control, not the unresolved natural English cases. No new recall or portfolio.
+
+## 2026-11-13 — Do not use negative recall terms as explicit owner intent
+
+- Review reproduced a lowercase owner authorized from an excluded PascalCase
+  name's synthetic retrieval token. Standard negative-name control already
+  abstained, but did not cover this real derivative-token case.
+- Read normalized request text stripped of negative/comparison clauses, not
+  retrieval-expanded text. Preserve actual positive lowercase identifiers.
+- 50 related checks pass. No budget, source-operation or legacy qualified-owner
+  behavior changed; original natural-English failures remain unresolved.

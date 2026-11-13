@@ -5,7 +5,10 @@ from __future__ import annotations
 from typing import Any
 import re
 
-from .query_language import positive_retrieval_query
+from .query_language import (
+    COMPARISON_CLAUSE_RE, NEGATIVE_RESULT_CLAUSE_RE,
+    excluded_result_identifiers, result_alternative_query,
+)
 from .query_target_scope import classify_target_scope
 
 from .query_explicit_owner_certificate import CertifiedPortfolio
@@ -262,7 +265,12 @@ def multiple_requested_anchors_present(
     anchors: list[dict[str, Any]], evidence: dict[str, Any], query: str,
 ) -> bool:
     """Decline narrowing existing source, without granting portfolio projection."""
-    positive = positive_retrieval_query(query)
+    # Retrieval adds tokens from excluded/comparison clauses. Those synthesized
+    # terms are useful recall hints, but cannot authorize a requested owner.
+    positive = COMPARISON_CLAUSE_RE.sub(" ", NEGATIVE_RESULT_CLAUSE_RE.sub(
+        " ", result_alternative_query(query),
+    ))
+    excluded = excluded_result_identifiers(query)
     owners: dict[str, set[str]] = {}
     if (classify_target_scope(positive).get("kind") == "multiple"
             and not re.search(r"[`\"']", positive)
@@ -271,6 +279,7 @@ def multiple_requested_anchors_present(
             name = str(anchor.get("symbol") or "")
             if (anchor.get("symbol_type") in {"class", "component", "struct"}
                     and valid_retained_range(anchor) and name
+                    and re.sub(r"[^a-z0-9]", "", name.casefold()) not in excluded
                     and re.search(r"(?<![\w$.])" + re.escape(name) + r"(?![\w$.])", positive)):
                 owners.setdefault(name, set()).add(str(anchor.get("file_path") or ""))
         named_paths = {next(iter(paths)) for paths in owners.values() if len(paths) == 1 and next(iter(paths))}
