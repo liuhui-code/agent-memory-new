@@ -1,5 +1,11 @@
 # Local Development Log
 
+## 2026-11-14 — Review bounded Builder declaration role and existing adapter mapping
+
+- Read existing Builder public competition and generic decorator/header mapping. No produced Builder-specific role is currently dropped; component mapping is coarse by design.
+- A bounded source-bound callable role may reuse existing metadata without automatically requiring two architecture defect classes. Separate producer binding from request-conditioned consumer permission.
+- Define finite source/identity/unknown and request controls before implementation. No new queries, tests or runtime changes; docs/eval/builder-source-role-review/README.md.
+
 ## 2026-11-14 — Summarize thirty remaining categories with bounded next actions
 
 - Reconcile both fifteen-category ledgers with fallback first-loss, rejected literal intent gate and WebView exact range audit.
