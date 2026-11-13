@@ -1,0 +1,230 @@
+[
+  {
+    "id": "cache-0",
+    "query": "Locate executable eviction scan ownership when a cache remains above its entry limit.",
+    "expected_admit": true,
+    "observed": {
+      "admit": true,
+      "markers": [
+        "cacheeviction"
+      ],
+      "vetoes": {
+        "no_target_cue": false,
+        "quoted": false,
+        "multiple": false,
+        "non_source_target": false,
+        "explicit_identity": false,
+        "typed_request": false,
+        "no_markers": false
+      },
+      "positive_query": "Locate executable eviction scan ownership when a cache remains above its entry limit."
+    },
+    "pass": true
+  },
+  {
+    "id": "cache-1",
+    "query": "Locate the timestamp scan and delete implementation for a cache exceeding capacity.",
+    "expected_admit": true,
+    "observed": {
+      "admit": false,
+      "markers": [],
+      "vetoes": {
+        "no_target_cue": false,
+        "quoted": false,
+        "multiple": true,
+        "non_source_target": false,
+        "explicit_identity": false,
+        "typed_request": false,
+        "no_markers": true
+      },
+      "positive_query": "Locate the timestamp scan and delete implementation for a cache exceeding capacity."
+    },
+    "pass": false
+  },
+  {
+    "id": "output",
+    "query": "Locate command output iteration and accumulation ownership when the process line reader has data.",
+    "expected_admit": true,
+    "observed": {
+      "admit": false,
+      "markers": [
+        "outputreadloop"
+      ],
+      "vetoes": {
+        "no_target_cue": false,
+        "quoted": false,
+        "multiple": true,
+        "non_source_target": false,
+        "explicit_identity": false,
+        "typed_request": false,
+        "no_markers": false
+      },
+      "positive_query": "Locate command output iteration and accumulation ownership when the process line reader has data."
+    },
+    "pass": false
+  },
+  {
+    "id": "explicit",
+    "query": "Locate CacheMonitor.render.",
+    "expected_admit": false,
+    "observed": {
+      "admit": false,
+      "markers": [],
+      "vetoes": {
+        "no_target_cue": false,
+        "quoted": false,
+        "multiple": false,
+        "non_source_target": false,
+        "explicit_identity": true,
+        "typed_request": false,
+        "no_markers": true
+      },
+      "positive_query": "Locate CacheMonitor.render."
+    },
+    "pass": true
+  },
+  {
+    "id": "sql-artifact",
+    "query": "Locate the implementation returning the SQL query that reads ready entries from storage.",
+    "expected_admit": false,
+    "observed": {
+      "admit": false,
+      "markers": [],
+      "vetoes": {
+        "no_target_cue": false,
+        "quoted": false,
+        "multiple": false,
+        "non_source_target": false,
+        "explicit_identity": false,
+        "typed_request": false,
+        "no_markers": true
+      },
+      "positive_query": "Locate the implementation returning the SQL query that reads ready entries from storage."
+    },
+    "pass": true
+  },
+  {
+    "id": "html-artifact",
+    "query": "Locate the implementation returning the HTML for the vertical list of ready entries.",
+    "expected_admit": false,
+    "observed": {
+      "admit": true,
+      "markers": [
+        "height",
+        "listdirection",
+        "verticalaxis"
+      ],
+      "vetoes": {
+        "no_target_cue": false,
+        "quoted": false,
+        "multiple": false,
+        "non_source_target": false,
+        "explicit_identity": false,
+        "typed_request": false,
+        "no_markers": false
+      },
+      "positive_query": "Locate the implementation returning the HTML for the vertical list of ready entries."
+    },
+    "pass": false
+  },
+  {
+    "id": "program-artifact",
+    "query": "Locate the implementation returning the program for command output iteration and accumulation.",
+    "expected_admit": false,
+    "observed": {
+      "admit": false,
+      "markers": [],
+      "vetoes": {
+        "no_target_cue": false,
+        "quoted": false,
+        "multiple": true,
+        "non_source_target": false,
+        "explicit_identity": true,
+        "typed_request": false,
+        "no_markers": true
+      },
+      "positive_query": "Locate the implementation returning the program for command output iteration and accumulation."
+    },
+    "pass": true
+  },
+  {
+    "id": "real-log",
+    "query": "Locate the code emitting CACHE_LIMIT_REACHED when a cache exceeds its limit.",
+    "expected_admit": false,
+    "observed": {
+      "admit": false,
+      "markers": [],
+      "vetoes": {
+        "no_target_cue": false,
+        "quoted": false,
+        "multiple": false,
+        "non_source_target": false,
+        "explicit_identity": false,
+        "typed_request": false,
+        "no_markers": true
+      },
+      "positive_query": "Locate the code emitting CACHE_LIMIT_REACHED when a cache exceeds its limit."
+    },
+    "pass": true
+  },
+  {
+    "id": "text",
+    "query": "Find text describing cache eviction and command output accumulation.",
+    "expected_admit": false,
+    "observed": {
+      "admit": false,
+      "markers": [],
+      "vetoes": {
+        "no_target_cue": false,
+        "quoted": false,
+        "multiple": true,
+        "non_source_target": true,
+        "explicit_identity": false,
+        "typed_request": false,
+        "no_markers": true
+      },
+      "positive_query": "Find text describing cache eviction and command output accumulation."
+    },
+    "pass": true
+  },
+  {
+    "id": "multiple",
+    "query": "Locate both ExpiryStore.trim and CacheMonitor.render.",
+    "expected_admit": false,
+    "observed": {
+      "admit": false,
+      "markers": [],
+      "vetoes": {
+        "no_target_cue": false,
+        "quoted": false,
+        "multiple": true,
+        "non_source_target": false,
+        "explicit_identity": true,
+        "typed_request": false,
+        "no_markers": true
+      },
+      "positive_query": "Locate both ExpiryStore.trim and CacheMonitor.render."
+    },
+    "pass": true
+  },
+  {
+    "id": "unknown-history",
+    "query": "A cache eviction happened earlier. Locate the current owner.",
+    "expected_admit": false,
+    "observed": {
+      "admit": false,
+      "markers": [],
+      "vetoes": {
+        "no_target_cue": false,
+        "quoted": false,
+        "multiple": false,
+        "non_source_target": false,
+        "explicit_identity": false,
+        "typed_request": false,
+        "no_markers": true
+      },
+      "positive_query": "A cache eviction happened earlier. Locate the current owner."
+    },
+    "pass": true
+  }
+]

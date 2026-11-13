@@ -12083,3 +12083,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Added a finite request-authority shadow-test proposal using unchanged existing
   inputs, with artifact-return adversarial controls and mandatory stop conditions;
   no serving authority inferred from retrieval marker presence. No experiment run.
+
+## Frozen literal-intent shadow gate rejected
+
+- Eleven fixed permission cells executed once after b3e75d0 freeze;8 agree,3 fail.
+- Original output and timestamp-cache requests are not admitted; legitimate HTML
+  return implementation is falsely granted executable-only permission by existing
+  layout markers. Stop without adding words/veto exceptions or changing serving.
+- docs/evidence/literal-intent-shadow retains sources, origins, gate and all results.
