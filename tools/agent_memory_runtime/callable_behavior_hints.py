@@ -6,6 +6,8 @@ import re
 from pathlib import Path
 from typing import Any
 
+from .arkts_behavior_markers import CALLBACK_CLEANUP_RE
+
 
 LIFECYCLE_NAMES = {
     "abouttoappear", "abouttodisappear", "oncreate", "ondestroy",
@@ -63,12 +65,14 @@ INDEX_WRITE_RE = re.compile(
 
 
 def event_collection_hints(entity: Any, source: str) -> list[str]:
-    """Add only callable-local ECMA event/index-write evidence, not file hints."""
+    """Add callable-local ECMA mechanism evidence, never combined file hints."""
     if Path(str(getattr(entity, "file_path", ""))).suffix not in {".ts", ".ets"}:
         return []
     code = NON_CODE_RE.sub(lambda m: " " * len(m.group()), source)
     name = str(getattr(entity, "name", ""))
     result = ["eventboundary"] if re.fullmatch(r"(?:on|handle)[A-Z_$][\w$]*", name) else []
+    if name.casefold() in LIFECYCLE_NAMES:
+        result.append("lifecycleboundary")
     body = code.partition("{")[2]
     # The existing index carries spans, not nested scope ownership. Fail closed
     # for bodies with callbacks/functions rather than attribute their writes to
@@ -83,4 +87,6 @@ def event_collection_hints(entity: Any, source: str) -> list[str]:
             and not re.search(r"\b(?:function|class)\b", body)):
         if INDEX_WRITE_RE.search(body):
             result.append("collectionwrite")
+        if CALLBACK_CLEANUP_RE.search(body):
+            result.append("callbackcleanup")
     return result

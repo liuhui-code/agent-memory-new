@@ -1,5 +1,12 @@
 # Local Development Log
 
+## 2026-11-13 - Add bounded callable lifecycle cleanup evidence
+
+- On independent 2d48e9c sources, frozen TS/ETS public queries reproduced lifecycle owner mixing and missing TS evidence. Add lifecycleboundary for existing lifecycle names and callbackcleanup through the existing cleanup pattern, within the same non-code/nested-scope guard.
+- Seven new mechanism negatives pass; the existing focused cleanup scenario improves from 1/3 to 3/3. No full suite, file weights, evaluator or query vocabulary changes.
+- This intermediate checkpoint is not yet accepted: a public explicit two-owner query regresses because compact callable focus now becomes bounded and discards an already-present second target. The baseline passes that control; follow-up must preserve existing source without granting cross-file portfolio projection.
+
+
 ## 2026-11-13 - Respect complete method evidence during salient-neighbor retention
 
 - Reproduced lower-coverage neighbors being reinserted after a complete method focus. Gate only this retention step when all requested (at least two) method mechanisms are supported; preserve explicitly qualified target files using the existing exact matcher.
