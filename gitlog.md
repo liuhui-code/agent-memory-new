@@ -11780,3 +11780,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Combined focused verification passes 32 tests, including the Python fingerprint;
   original group results and all unknown-scope boundaries stay unchanged.
 - Evidence: docs/evidence/field-alias-integration/README.md. No full gate run.
+
+## 2026-11-13 — Admit source imports only at known code positions
+
+- Frozen independent public learn/list reproduced four remote call bindings from
+  named/default import-looking block comments and plain templates.
+- Both existing import regexes now filter only their keyword positions through
+  the existing conservative lexical mask; raw module captures remain unchanged.
+  Unknown lexical input preserves legacy behavior. No scope or export-model claim.
+- Four new regressions plus necessary related tests: 45 pass, one optional skip.
+  Same-byte ordinary merge removes old false relations; install alone does not.
+- Evidence: docs/eval/import-lexical-current. No aggregate or original-pack run.

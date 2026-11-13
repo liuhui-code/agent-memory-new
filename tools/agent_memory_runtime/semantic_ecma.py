@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from .ecma_state_access import state_accesses
+from .ecma_import_lexical import admitted_import_matches
 from .ecma_import_alias import alias_target, alias_bindings
 from .ecma_callback_mask import callback_mask_lines
 from .ecma_field_scope import collect_field_types
@@ -393,13 +394,16 @@ def build_file_context(
 def parse_imports(project: Project, path: Path, text: str, language: str) -> list[tuple[str, str, str | None]]:
     result: list[tuple[str, str, str | None]] = []
     extensions = [".ets", ".ts", ".js"] if language == "ArkTS" else [".ts", ".tsx", ".js"]
-    for block, module in IMPORT_RE.findall(text):
+    matches = admitted_import_matches(text, (IMPORT_RE, DEFAULT_IMPORT_RE))
+    for match in matches[0]:
+        block, module = match.groups()
         target_path = resolve_relative_module(project, path, module, extensions)
         for raw in block.split(","):
             parts = re.split(r"\s+as\s+", raw.strip())
             if parts and parts[0]:
                 result.append((parts[0], parts[-1], target_path))
-    for name, module in DEFAULT_IMPORT_RE.findall(text):
+    for match in matches[1]:
+        name, module = match.groups()
         result.append((name, name, resolve_relative_module(project, path, module, extensions)))
     return result
 
