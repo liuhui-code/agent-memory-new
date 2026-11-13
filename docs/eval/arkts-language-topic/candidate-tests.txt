@@ -1,0 +1,28 @@
+test_language_does_not_imply_lifecycle_roles (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_language_does_not_imply_lifecycle_roles) ... ok
+test_platform_and_explicit_roles_remain (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_platform_and_explicit_roles_remain) ... ok
+test_public_language_and_real_platform_controls (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_public_language_and_real_platform_controls) ...
+  test_public_language_and_real_platform_controls (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_public_language_and_real_platform_controls) (query='Locate the ArkTS byte mixing implementation.') ... FAIL
+
+======================================================================
+FAIL: test_public_language_and_real_platform_controls (tests.test_arkts_language_expansion.ArktsLanguageExpansionTests.test_public_language_and_real_platform_controls) (query='Locate the ArkTS byte mixing implementation.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/arkts-language-investigation/tests/test_arkts_language_expansion.py", line 26, in test_public_language_and_real_platform_controls
+    self.assertEqual([expected],[a['file_path'] for a in out['code_anchors']])
+AssertionError: Lists differ: ['ByteMixer.ts'] != ['EntryAbility.ets', 'GlyphList.ets']
+
+First differing element 0:
+'ByteMixer.ts'
+'EntryAbility.ets'
+
+Second list contains 1 additional elements.
+First extra element 1:
+'GlyphList.ets'
+
+- ['ByteMixer.ts']
++ ['EntryAbility.ets', 'GlyphList.ets']
+
+----------------------------------------------------------------------
+Ran 3 tests in 3.479s
+
+FAILED (failures=1)

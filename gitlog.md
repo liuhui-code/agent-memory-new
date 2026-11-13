@@ -11507,3 +11507,16 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - 69 focused tests pass; original command-binding remains 1/3. Normal learn-path
   merge activates the repair for an old index; code replacement alone does not.
   See docs/evidence/property-callback-lexical/README.md. No full gate was run.
+## 2026-11-14 — Reject global ArkTS language-only expansion on startup regressions
+
+- Freeze independent UI language-query pollution: adding ArkTS wrongly selects
+  EntryAbility, plain query selects GlyphList. A language-only alias candidate
+  repairs that independent request without changing explicit platform controls.
+- Additional frozen implicit startup/initialization controls (no Ability/Stage
+  literal) expose four NEW regressions: extra GlyphList or wrong ByteMixer.
+  Reject candidate and restore tools/tests byte-for-byte; do not weaken controls.
+- Original ArkTS UI remains0/3 although correct span improves; scroll remains1/3.
+  Algorithm language red queries also remain red. No new original repair claim.
+- Retain complete diagnostic and rejected patch in docs/eval/arkts-language-topic;
+  no full suite, holdout, runtime change or remote write. ets substring-boundary
+  investigation is a separate stage, not modified here.

@@ -1,0 +1,848 @@
+[
+  {
+    "query": "Find the ArkTS application startup implementation.",
+    "expected": "EntryAbility.ets",
+    "paths": [
+      "EntryAbility.ets"
+    ],
+    "pass": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "80696d1a1bcfa5b2",
+      "query": "Find the ArkTS application startup implementation.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "arkts",
+          "application",
+          "startup",
+          "implementation"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "EntryAbility.ets",
+            "symbol": "EntryAbility",
+            "symbol_type": "class",
+            "record_ids": [
+              3,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "EntryAbility",
+                "start_line": 1,
+                "end_line": 8
+              },
+              {
+                "symbol": "onWindowStageCreate",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "record_type": "code_symbol",
+            "read_window": {
+              "start_line": 1,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "onWindowStageCreate",
+                "start_line": 1,
+                "end_line": 8,
+                "content": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "EntryAbility.ets",
+            "symbol": "onWindowStageCreate",
+            "owner_name": "EntryAbility",
+            "owner_kind": "class",
+            "callable_roles": [
+              "lifecycle",
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 34.235,
+            "evidence_score": 34.235,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "GlyphList.ets",
+              "symbol": "build",
+              "owner_name": "GlyphList",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 16.77,
+              "evidence_score": 16.77,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "expanded_query:file_path"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 7,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "ByteMixer.ts",
+              "symbol": "mixBytes",
+              "owner_name": "ByteMixer",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 12.77,
+              "evidence_score": 12.77,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "expanded_query:file_path"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 174
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1109,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "query": "Find the ets application initialization code.",
+    "expected": "EntryAbility.ets",
+    "paths": [
+      "EntryAbility.ets"
+    ],
+    "pass": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "80696d1a1bcfa5b2",
+      "query": "Find the ets application initialization code.",
+      "memory_intent": "code_location",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "ets",
+          "application",
+          "initialization",
+          "code"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "EntryAbility.ets",
+            "symbol": "EntryAbility",
+            "symbol_type": "class",
+            "record_ids": [
+              3
+            ],
+            "record_type": "code_symbol",
+            "source_ranges": [
+              {
+                "symbol": "EntryAbility",
+                "start_line": 1,
+                "end_line": 8
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "EntryAbility",
+                "start_line": 1,
+                "end_line": 8,
+                "content": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "EntryAbility.ets",
+            "symbol": "onWindowStageCreate",
+            "owner_name": "EntryAbility",
+            "owner_kind": "class",
+            "callable_roles": [
+              "lifecycle",
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 33.365,
+            "evidence_score": 33.365,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "GlyphList.ets",
+              "symbol": "build",
+              "owner_name": "GlyphList",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 15.9,
+              "evidence_score": 15.9,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "file_path"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 7,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 174
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 977,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "query": "ArkTS应用启动源码在哪里？",
+    "expected": "EntryAbility.ets",
+    "paths": [
+      "EntryAbility.ets"
+    ],
+    "pass": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "80696d1a1bcfa5b2",
+      "query": "ArkTS应用启动源码在哪里？",
+      "memory_intent": "code_location",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "arkts应用启动源码在哪里",
+          "ar",
+          "rk",
+          "kt",
+          "ts",
+          "s应",
+          "应用",
+          "用启",
+          "启动",
+          "动源",
+          "源码",
+          "码在"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "EntryAbility.ets",
+            "symbol": "EntryAbility",
+            "symbol_type": "class",
+            "record_ids": [
+              3,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "EntryAbility",
+                "start_line": 1,
+                "end_line": 8
+              },
+              {
+                "symbol": "onWindowStageCreate",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "record_type": "code_symbol",
+            "read_window": {
+              "start_line": 1,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "onWindowStageCreate",
+                "start_line": 1,
+                "end_line": 8,
+                "content": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "EntryAbility.ets",
+            "symbol": "onWindowStageCreate",
+            "owner_name": "EntryAbility",
+            "owner_kind": "class",
+            "callable_roles": [
+              "lifecycle",
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 30.125,
+            "evidence_score": 30.125,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "ByteMixer.ts",
+              "symbol": "mixBytes",
+              "owner_name": "ByteMixer",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 13.77,
+              "evidence_score": 13.77,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "file_path"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "GlyphList.ets",
+              "symbol": "build",
+              "owner_name": "GlyphList",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 11.66,
+              "evidence_score": 11.66,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "expanded_query:file_path"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 7,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 174
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1102,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "query": "查找ets应用初始化实现。",
+    "expected": "EntryAbility.ets",
+    "paths": [
+      "EntryAbility.ets"
+    ],
+    "pass": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "80696d1a1bcfa5b2",
+      "query": "查找ets应用初始化实现。",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "查找ets应用初始化实现",
+          "查找",
+          "找e",
+          "et",
+          "ts",
+          "s应",
+          "应用",
+          "用初",
+          "初始",
+          "始化",
+          "化实",
+          "实现"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "EntryAbility.ets",
+            "symbol": "EntryAbility",
+            "symbol_type": "class",
+            "record_ids": [
+              3,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "EntryAbility",
+                "start_line": 1,
+                "end_line": 8
+              },
+              {
+                "symbol": "onWindowStageCreate",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "record_type": "code_symbol",
+            "read_window": {
+              "start_line": 1,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "onWindowStageCreate",
+                "start_line": 1,
+                "end_line": 8,
+                "content": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "EntryAbility.ets",
+            "symbol": "onWindowStageCreate",
+            "owner_name": "EntryAbility",
+            "owner_kind": "class",
+            "callable_roles": [
+              "lifecycle",
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 29.945,
+            "evidence_score": 29.945,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "ByteMixer.ts",
+              "symbol": "mixBytes",
+              "owner_name": "ByteMixer",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 13.77,
+              "evidence_score": 13.77,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "file_path"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "GlyphList.ets",
+              "symbol": "build",
+              "owner_name": "GlyphList",
+              "owner_kind": "component",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 11.48,
+              "evidence_score": 11.48,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "expanded_query:file_path"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 7,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 174
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1101,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  }
+]

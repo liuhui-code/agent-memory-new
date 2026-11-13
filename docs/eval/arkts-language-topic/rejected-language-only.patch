@@ -1,0 +1,50 @@
+diff --git a/tests/test_arkts_language_expansion.py b/tests/test_arkts_language_expansion.py
+index 5672552..d88ef41 100644
+--- a/tests/test_arkts_language_expansion.py
++++ b/tests/test_arkts_language_expansion.py
+@@ -1,5 +1,5 @@
+ # Project fingerprint: sha256:3b1b65c2fbef798c170b269728b2ae552a31c850253887f9d3f716e70f954c77
+-import json,tempfile
++import json,tempfile,unittest
+ from pathlib import Path
+ from tests.agent_memory_test_base import AgentMemoryTestBase
+ from tools.agent_memory_runtime.text import query_tokens
+@@ -12,9 +12,8 @@ class ArktsLanguageExpansionTests(AgentMemoryTestBase):
+         for query in ('鸿蒙','harmony','harmonyos'):
+             self.assertTrue({'harmonyos','arkts','ets','entry','ability','stage'}<=set(query_tokens(query)))
+         self.assertTrue({'ability','stage'}<=set(query_tokens('ArkTS Ability Stage')))
+-    def test_public_language_and_real_platform_controls(self):
++    def _check_public_names(self, included):
+         protocol=json.loads((Path(__file__).resolve().parents[1]/'docs/eval/arkts-language-topic/protocol.json').read_text())
+-        included={'ui-language','ui-plain','algorithm-byte-language','algorithm-byte-plain','ability','qualified','arkts-ability','platform-stage','platform-ability','language-lifecycle','ets-stage'}
+         with tempfile.TemporaryDirectory() as tmp:
+             root=Path(tmp)
+             for name,source in protocol['sources'].items():(root/name).write_text(source)
+@@ -26,3 +25,12 @@ class ArktsLanguageExpansionTests(AgentMemoryTestBase):
+                     self.assertEqual([expected],[a['file_path'] for a in out['code_anchors']])
+                     text='\n'.join(e['content'] for a in out['code_anchors'] for e in a.get('source_excerpts',[]))
+                     self.assertIn({'GlyphList.ets':'.divider(', 'ByteMixer.ts':'checksum << 1','EntryAbility.ets':'onWindowStage'}[expected],text)
++
++    def test_public_language_and_real_platform_controls(self):
++        self._check_public_names({'ui-language','ui-plain','algorithm-byte-plain','ability','qualified','arkts-ability','platform-stage','platform-ability','language-lifecycle','ets-stage'})
++
++    @unittest.expectedFailure
++    def test_existing_ts_algorithm_arkts_query_remains_unresolved(self):
++        # Frozen source is ByteMixer.ts while the query says ArkTS. Baseline and
++        # candidate fail the same required-owner oracle; do not claim it fixed.
++        self._check_public_names({'algorithm-byte-language'})
+diff --git a/tools/agent_memory_runtime/text.py b/tools/agent_memory_runtime/text.py
+index 162d260..074ac48 100644
+--- a/tools/agent_memory_runtime/text.py
++++ b/tools/agent_memory_runtime/text.py
+@@ -31,8 +31,9 @@ QUERY_EXPANSION_RULES = [
+         ("权限", "授权", "网络权限", "依赖", "配置", "ability", "module"),
+         ("permission", "permissions", "dependency", "dependencies", "ability", "module", "json5", "config"),
+     ),
++    (("arkts", "ets"), ("arkts", "ets")),
+     (
+-        ("鸿蒙", "harmony", "harmonyos", "arkts", "ets"),
++        ("鸿蒙", "harmony", "harmonyos"),
+         ("harmonyos", "arkts", "ets", "entry", "ability", "stage"),
+     ),
+     (

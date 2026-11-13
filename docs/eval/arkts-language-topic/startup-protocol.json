@@ -1,0 +1,16 @@
+{
+  "classification": "independent Development supplemental guard",
+  "sources": {
+    "GlyphList.ets": "@Component\nexport struct GlyphList {\n build() {\n  List() {\n   ListItem() { Text('glyph') }\n  }.divider({ strokeWidth: 2 })\n }\n}\n",
+    "ByteMixer.ts": "export class ByteMixer {\n mixBytes(input: number[]): number {\n  let checksum = 0\n  for (const value of input) { checksum = (checksum << 1) ^ value }\n  return checksum\n }\n}\n",
+    "EntryAbility.ets": "export class EntryAbility {\n onWindowStageCreate(stage: WindowStage): void {\n  stage.loadContent('pages/Entry')\n }\n onWindowStageDestroy(): void {\n  this.stage.release()\n }\n}\n"
+  },
+  "queries": [
+    "Find the ArkTS application startup implementation.",
+    "Find the ets application initialization code.",
+    "ArkTS应用启动源码在哪里？",
+    "查找ets应用初始化实现。"
+  ],
+  "expected": "EntryAbility.ets",
+  "body": "stage.loadContent"
+}
