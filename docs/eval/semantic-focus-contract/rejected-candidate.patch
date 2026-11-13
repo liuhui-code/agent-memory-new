@@ -1,0 +1,44 @@
+diff --git a/tools/agent_memory_runtime/query_code_focus.py b/tools/agent_memory_runtime/query_code_focus.py
+index 1f1bcc1..972db0f 100644
+--- a/tools/agent_memory_runtime/query_code_focus.py
++++ b/tools/agent_memory_runtime/query_code_focus.py
+@@ -91,6 +91,8 @@ def focus_code_candidates(
+         return contracts, True
+     behavior = strongest_semantic_behavior_candidates(items, query)
+     if behavior:
++        if semantic_focus_would_erase_distinct_evidence(items, behavior, query):
++            return items, False
+         return behavior, True
+     method = strongest_method_evidence_candidates(items, query)
+     if method:
+@@ -126,6 +128,30 @@ def focus_code_candidates(
+     return items, False
+ 
+ 
++def semantic_focus_would_erase_distinct_evidence(items, selected, query):
++    """Experiment: retain distinct requested evidence, never certify ownership."""
++    selected_paths = unique_paths(selected)
++    observed = set()
++    for item in selected:
++        observed.update(matching_behavior_markers(str(item.get("method_evidence") or ""), query))
++    if not observed:
++        return False
++    for item in items:
++        if (str(item.get("file_path") or "") in selected_paths
++                or not item.get("file_path") or not valid_source_location(item)
++                or is_graph_neighbor(item)):
++            continue
++        if item.get("kind") == "symbol" and has_reason(item, "semantic_behavior"):
++            text = str(item.get("method_evidence") or "")
++        elif item.get("kind") == "file" and has_reason(item, "structural_behavior"):
++            text = str(item.get("summary") or "")
++        else:
++            continue
++        if set(matching_behavior_markers(text, query)) - observed:
++            return True
++    return False
++
++
+ def strongest_semantic_behavior_candidates(
+     items: list[dict[str, Any]],
+     query: str,

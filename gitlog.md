@@ -11628,3 +11628,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Read-only public trace proves partial two-operation method focus drops the multi-method owner. Independent retained BufferSession family plus new partial PendingQueue reproduces a Chinese public red; exact method and pair controls remain available.
 - No score/threshold or file-to-method proof promotion. Record required same-owner aggregate contract and negative controls, rather than claiming globally blocked or repaired.
 - 22 related tests and fingerprint pass; no full evaluation. Details docs/eval/lifecycle-first-loss.
+## 2026-11-14 — Reject semantic focus non-erasure experiment
+
+- Freeze14 independent public controls on14064c5; baseline11 checks pass and3
+  remain red, including a strict literal-source control.
+- Test one non-exclusive semantic focus veto, without scores/threshold changes or
+  owner/cause proof. Both mandatory public reds remain failures: visual unchanged;
+  lifecycle correct owner reappears alongside forbiddenTextPanel. Stop partial
+  candidate run, preserve first10 results and patch, restore tools/tests exactly.
+- No original pack tests, accepted runtime change, or new repair count. Evidence:
+  docs/eval/semantic-focus-contract/{PLAN.md,protocol.json,RESULT.md}.
