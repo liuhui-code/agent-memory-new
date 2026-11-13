@@ -1,0 +1,3 @@
+# Callback body opening column
+
+Base b9d01e2. Existing ecma_braces.block_end supports opening_column, named callable body uses it, but member callback caller passes only arrow line. Inline enclosing Row and callback share a line in one fixed source; split-line equivalent is a control. Freeze both before public init/learn/list/context. No query/noise adjustment. If the actual public callback range includes sibling onClick, first record exact typed symbol key/range and handoff range then propose reuse of existing body-opening offset. Do not broaden regex/template handling; unknown files retain their legacy behavior. This is not a claim that original touch/gesture precision is repaired.

@@ -1,0 +1,28 @@
+{
+  "classification": "independent Development, callback opening column",
+  "sources": {
+    "InlineTouch.ets": "@Component\nexport struct InlineTouch {\n  @State counter: number = 0\n  build() {\n    Row() { Button('tap').onTouch((event: TouchEvent) => {\n      this.counter = event.touches.length\n    })\n      Button('later').onClick(() => {\n        this.counter = 99\n      })\n    }\n  }\n}\n",
+    "SplitTouch.ets": "@Component\nexport struct SplitTouch {\n  @State counter: number = 0\n  build() {\n    Row() {\n      Button('tap').onTouch((event: TouchEvent) => {\n        this.counter = event.touches.length\n      })\n      Button('later').onClick(() => {\n        this.counter = 99\n      })\n    }\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "query": "Locate InlineTouch.onTouch.",
+      "file": "InlineTouch.ets",
+      "symbol": "onTouch",
+      "expected_range": [
+        5,
+        7
+      ]
+    },
+    {
+      "query": "Locate SplitTouch.onTouch.",
+      "file": "SplitTouch.ets",
+      "symbol": "onTouch",
+      "expected_range": [
+        6,
+        8
+      ]
+    }
+  ],
+  "oracle": "Public symbol onTouch is its callback body, not enclosing Row or subsequent onClick. Query handoff must not label a range including sibling callback as onTouch. Line-granularity opening includes same-line preceding Row text but later unrelated callback lines must not be assigned to onTouch. Preserve actual build and onClick identities."
+}
