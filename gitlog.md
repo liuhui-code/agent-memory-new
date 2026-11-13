@@ -1,5 +1,11 @@
 # Local Development Log
 
+## 2026-11-14 — Challenge cache policy claims and shared-record architecture premise
+
+- Distinguish timestamp scan/select/remove from access recency or LRU; one delete does not guarantee size <= limit. Preserve real FIFO, literal and indirect implementations as evidence rather than absence.
+- Read shared-record frozen controls: broad query is exploratory, exact controls pass, and reduction/return is not the cache paired-key/same-receiver deletion contract.
+- Do not count these as two independently proved failures of one new abstraction. Docs only; no query, fixture, runtime or test changes. See docs/eval/cache-shared-contract-challenge/README.md.
+
 ## 2026-11-14 — Review focus/localizer conflict without approving architecture
 
 - Verify saved history-action trace has actual early focus and later bounded exclusive source loss.
