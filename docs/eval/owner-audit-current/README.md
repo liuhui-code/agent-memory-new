@@ -84,3 +84,16 @@ Raw diagnosis: inspect-clean.py (standard benchmark materialization, formal CLI)
 No holdout, full aggregate, runtime edits, remote publication or new repair claim.
 These are specific proof/design gaps; none is evidence that all possible future
 improvements are blocked. This bounded audit found no safe implementation defect.
+
+### Producer feasibility follow-up
+
+Reviewed semantic_ecma_mechanisms.py, callable_behavior_hints.py and
+arkts_behavior_markers.py for a pre-existing standard UI mechanism lost between
+source and method evidence. ECMA mechanisms can retain ordinary call chains;
+callable hints retain state reads/writes. They do not define a typed rendered-value
+cleanup contract. In this scenario behavior_marker_terms yields no expected markers.
+Text(...) calls are shared by the correct view and the unrelated details panel, so
+simply publishing a UI-call marker would not prove the required distinction. The
+actual cleanup occurs in cleanedBody/plainBody and is consumed by build through a
+call; this requires source-bound transform-to-render relation, not copying an
+existing lost single-call marker. No missing already-defined mechanism was identified.
