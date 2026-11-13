@@ -37,3 +37,23 @@ class SelectedCallableBodyTests(AgentMemoryTestBase):
                         actual = '\n'.join(source.splitlines()[excerpt['start_line']-1:excerpt['end_line']])
                         self.assertEqual(actual, excerpt['content'])
         (EVIDENCE / 'latest.json').write_text(json.dumps(outputs,ensure_ascii=False,indent=2))
+
+    def test_tail_guard_counterexamples(self):
+        from tools.agent_memory_runtime.context_callable_excerpt import retain_callable_tail
+        lines = (EVIDENCE / 'source.ts').read_text().splitlines(True)
+        path = Path('CapabilityReader.ts')
+        original = {'symbol':'label', 'start_line':11, 'end_line':13}
+        focused = {'start_line':1, 'end_line':11}
+        self.assertEqual(13, retain_callable_tail(path, original, focused, lines, 0, 40)['end_line'])
+        controls = [
+            (Path('CapabilityReader.java'), original, focused, 0, 40),
+            (path, {**original,'symbol':'resolve'}, focused, 0, 40),
+            (path, {**original,'end_line':14}, focused, 0, 40),
+            (path, original, {'start_line':12,'end_line':12}, 0, 40),
+            (path, original, {'start_line':1,'end_line':14}, 0, 40),
+            (path, original, focused, 3, 40),
+            (path, original, focused, 0, 10),
+        ]
+        for p, old, window, offset, limit in controls:
+            with self.subTest(old=old,window=window,offset=offset,limit=limit):
+                self.assertEqual(window, retain_callable_tail(p, old, window, lines, offset, limit))

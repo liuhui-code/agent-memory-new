@@ -11114,3 +11114,12 @@ rerun; the pre-existing compact dynamic-template gap stays explicitly open.
 Independent CapabilityReader public queries select label lines 11-13 but deliver
 only lines 1-11. Resolver control keeps its body. Freeze five queries, original
 outputs and source before changing excerpt behavior; no full evaluation run.
+
+## Preserve verified small callable tails in source excerpts
+
+A focused query window could omit the tail of its own parsed callable while
+keeping adjacent-method context. Extend only the trailing edge when the exact
+source symbol/range is parser-confirmed and the union fits the existing line cap.
+Never prepend or replace old context. Five independent public controls preserve
+all old lines and rankings; four label requests now include their missing body.
+Seventeen related excerpt/callback tests pass. No full acceptance claim.

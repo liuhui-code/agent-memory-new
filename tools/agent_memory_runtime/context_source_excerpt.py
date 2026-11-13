@@ -11,6 +11,7 @@ from typing import Any
 from .performance_scoring import estimate_payload_tokens
 from .source_line_window import read_source_interval
 from .context_callback_binding import binding_context_range
+from .context_callable_excerpt import retain_callable_tail
 from .source_range_focus import mechanism_callable_ranges, mechanism_coverage
 from .text import query_tokens, score_text
 
@@ -328,7 +329,7 @@ def focused_source_range(
     if not int(source_range["start_line"]) <= best_line <= int(source_range["end_line"]):
         result.pop("symbol", None)
     result["selection_reason"] = selection_reason
-    return result
+    return retain_callable_tail(path, source_range, result, source_lines, line_offset, MAX_EXCERPT_LINES)
 
 
 def read_source_lines(path: Path | None) -> list[str]:
