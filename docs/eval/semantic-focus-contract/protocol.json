@@ -1,0 +1,232 @@
+{
+  "classification": "independent Development preregistration, no candidate",
+  "base": "14064c5",
+  "cases": [
+    {
+      "id": "visual-background",
+      "sources": {
+        "AmountSurface.ets": "@Component\nexport struct AmountSurface {\n build() {\n  Column() {\n   Grid() { GridItem() { Text('Category picker') } }\n   Row() { TextInput({ placeholder: 'Amount' }) }\n    .shadow({ radius: 7 })\n    .backgroundColor(Color.White)\n  }\n }\n}\n",
+        "GestureLayer.ets": "@Component\nexport struct GestureLayer {\n build() {\n  Stack() {}\n   .onTouch(() => { this.showOverlay() })\n }\n}\n"
+      },
+      "query": "分类选择区遮挡金额输入控件，请定位负责层叠背景的 ArkTS 视图。",
+      "required": [
+        "AmountSurface.ets"
+      ],
+      "exact_paths": [
+        "AmountSurface.ets"
+      ]
+    },
+    {
+      "id": "visual-named",
+      "sources": {
+        "AmountSurface.ets": "@Component\nexport struct AmountSurface {\n build() {\n  Column() {\n   Grid() { GridItem() { Text('Category picker') } }\n   Row() { TextInput({ placeholder: 'Amount' }) }\n    .shadow({ radius: 7 })\n    .backgroundColor(Color.White)\n  }\n }\n}\n",
+        "GestureLayer.ets": "@Component\nexport struct GestureLayer {\n build() {\n  Stack() {}\n   .onTouch(() => { this.showOverlay() })\n }\n}\n"
+      },
+      "query": "Locate AmountSurface.build source.",
+      "required": [
+        "AmountSurface.ets"
+      ],
+      "exact_paths": [
+        "AmountSurface.ets"
+      ]
+    },
+    {
+      "id": "visual-stack",
+      "sources": {
+        "AmountSurface.ets": "@Component\nexport struct AmountSurface {\n build() {\n  Column() {\n   Grid() { GridItem() { Text('Category picker') } }\n   Row() { TextInput({ placeholder: 'Amount' }) }\n    .shadow({ radius: 7 })\n    .backgroundColor(Color.White)\n  }\n }\n}\n",
+        "GestureLayer.ets": "@Component\nexport struct GestureLayer {\n build() {\n  Stack() {}\n   .onTouch(() => { this.showOverlay() })\n }\n}\n"
+      },
+      "query": "Locate GestureLayer.build source.",
+      "required": [
+        "GestureLayer.ets"
+      ],
+      "exact_paths": [
+        "GestureLayer.ets"
+      ]
+    },
+    {
+      "id": "visual-both",
+      "sources": {
+        "AmountSurface.ets": "@Component\nexport struct AmountSurface {\n build() {\n  Column() {\n   Grid() { GridItem() { Text('Category picker') } }\n   Row() { TextInput({ placeholder: 'Amount' }) }\n    .shadow({ radius: 7 })\n    .backgroundColor(Color.White)\n  }\n }\n}\n",
+        "GestureLayer.ets": "@Component\nexport struct GestureLayer {\n build() {\n  Stack() {}\n   .onTouch(() => { this.showOverlay() })\n }\n}\n"
+      },
+      "query": "Locate AmountSurface.build and GestureLayer.build source.",
+      "required": [
+        "AmountSurface.ets",
+        "GestureLayer.ets"
+      ],
+      "exact_paths": [
+        "AmountSurface.ets",
+        "GestureLayer.ets"
+      ]
+    },
+    {
+      "id": "lifecycle-0",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "query": "Find the owner combining lifecycle restore, current text state and storage commit after restart.",
+      "required": [
+        "BufferSession.ets"
+      ],
+      "forbidden": [
+        "WriteQueue.ets",
+        "TextPanel.ets"
+      ]
+    },
+    {
+      "id": "lifecycle-1",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "query": "重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+      "required": [
+        "BufferSession.ets"
+      ],
+      "forbidden": [
+        "WriteQueue.ets",
+        "TextPanel.ets"
+      ]
+    },
+    {
+      "id": "lifecycle-2",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "query": "Find PendingQueue.append.",
+      "required": [
+        "PendingQueue.ets"
+      ],
+      "forbidden": []
+    },
+    {
+      "id": "lifecycle-3",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "query": "Find both BufferSession and PendingQueue source.",
+      "required": [
+        "BufferSession.ets",
+        "PendingQueue.ets"
+      ],
+      "forbidden": []
+    },
+    {
+      "id": "partial",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "query": "Find PendingQueue.append source.",
+      "required": [
+        "PendingQueue.ets"
+      ]
+    },
+    {
+      "id": "split",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "query": "Locate MountHandler.onMount and CommitWriter.commit source.",
+      "required": [
+        "SplitRoles.ets"
+      ]
+    },
+    {
+      "id": "mixed",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n"
+      },
+      "query": "Locate BufferSession and SplitRoles source.",
+      "required": [
+        "BufferSession.ets",
+        "SplitRoles.ets"
+      ]
+    },
+    {
+      "id": "literal",
+      "sources": {
+        "AmountSurface.ets": "@Component\nexport struct AmountSurface {\n build() {\n  Column() {\n   Grid() { GridItem() { Text('Category picker') } }\n   Row() { TextInput({ placeholder: 'Amount' }) }\n    .shadow({ radius: 7 })\n    .backgroundColor(Color.White)\n  }\n }\n}\n",
+        "GestureLayer.ets": "@Component\nexport struct GestureLayer {\n build() {\n  Stack() {}\n   .onTouch(() => { this.showOverlay() })\n }\n}\n",
+        "TextLabels.ets": "export class TextLabels { describe(): string { return \"overlay stack backgroundcolor lifecycle statewrite persistencewrite\" } }",
+        "ConsoleSink.ets": "export class ConsoleSink { report(): void { console.error('layout background failed') } }"
+      },
+      "query": "Find TextLabels.describe literal text source.",
+      "required": [
+        "TextLabels.ets"
+      ],
+      "exact_paths": [
+        "TextLabels.ets"
+      ]
+    },
+    {
+      "id": "real-log",
+      "sources": {
+        "AmountSurface.ets": "@Component\nexport struct AmountSurface {\n build() {\n  Column() {\n   Grid() { GridItem() { Text('Category picker') } }\n   Row() { TextInput({ placeholder: 'Amount' }) }\n    .shadow({ radius: 7 })\n    .backgroundColor(Color.White)\n  }\n }\n}\n",
+        "GestureLayer.ets": "@Component\nexport struct GestureLayer {\n build() {\n  Stack() {}\n   .onTouch(() => { this.showOverlay() })\n }\n}\n",
+        "TextLabels.ets": "export class TextLabels { describe(): string { return \"overlay stack backgroundcolor lifecycle statewrite persistencewrite\" } }",
+        "ConsoleSink.ets": "export class ConsoleSink { report(): void { console.error('layout background failed') } }"
+      },
+      "query": "Find ConsoleSink.report console logging source.",
+      "required": [
+        "ConsoleSink.ets"
+      ],
+      "exact_paths": [
+        "ConsoleSink.ets"
+      ]
+    },
+    {
+      "id": "duplicate-owner-files",
+      "sources": {
+        "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+        "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+        "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n",
+        "SplitRoles.ets": "export class MountHandler {\n  onMount(): void { notifyReady() }\n}\nexport class CommitWriter {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\nexport class StateHolder {\n  private text: string = ''\n  update(next: string): void { this.text = next }\n}\n",
+        "PendingQueue.ets": "export class PendingQueue {\n  private tail: Promise<void> = Promise.resolve()\n  append(text: string): void {\n    this.tail = this.tail.then(async () => {\n      await cache.save(text)\n    })\n  }\n}\n",
+        "OtherBuffer.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n"
+      },
+      "query": "Locate BufferSession.ets and OtherBuffer.ets source.",
+      "required": [
+        "BufferSession.ets",
+        "OtherBuffer.ets"
+      ]
+    }
+  ],
+  "stage_controls": [
+    "unknown or old index unchanged authority",
+    "invalid/missing range unchanged authority",
+    "distinct IDs never merged",
+    "same-file split owners not aggregated",
+    "string/comment tokens not upgraded",
+    "nested deferred operations not upgraded",
+    "explicit multi owner preservation",
+    "1500 token cap and source caps unchanged"
+  ]
+}
