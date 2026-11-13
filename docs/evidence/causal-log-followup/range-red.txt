@@ -1,0 +1,53 @@
+EFFFFF
+======================================================================
+ERROR: test_only_strictly_covered_range_metadata_is_removed (tests.test_lossless_range_budget.LosslessRangeBudgetTests.test_only_strictly_covered_range_metadata_is_removed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/causal-log-followup-work/tests/test_lossless_range_budget.py", line 47, in test_only_strictly_covered_range_metadata_is_removed
+    from tools.agent_memory_runtime.context_budget import deduplicate_source_ranges
+ImportError: cannot import name 'deduplicate_source_ranges' from 'tools.agent_memory_runtime.context_budget' (/workspace/scratch/dcdb41e16594/causal-log-followup-work/tools/agent_memory_runtime/context_budget.py)
+
+======================================================================
+FAIL: test_public_exact_log_budget_has_no_duplicate_range_subsets (tests.test_lossless_range_budget.LosslessRangeBudgetTests.test_public_exact_log_budget_has_no_duplicate_range_subsets) (mode='flat')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/causal-log-followup-work/tests/test_lossless_range_budget.py", line 45, in test_public_exact_log_budget_has_no_duplicate_range_subsets
+    self.assertFalse(subset(left,right) or subset(right,left),(mode,left,right))
+AssertionError: True is not false : ('flat', {'symbol': 'refresh', 'start_line': 3, 'end_line': 5, 'selection_reason': 'selected_log_event_owner', 'focus_line': 4}, {'symbol': 'refresh', 'start_line': 3, 'end_line': 5})
+
+======================================================================
+FAIL: test_public_exact_log_budget_has_no_duplicate_range_subsets (tests.test_lossless_range_budget.LosslessRangeBudgetTests.test_public_exact_log_budget_has_no_duplicate_range_subsets) (mode='nested')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/causal-log-followup-work/tests/test_lossless_range_budget.py", line 45, in test_public_exact_log_budget_has_no_duplicate_range_subsets
+    self.assertFalse(subset(left,right) or subset(right,left),(mode,left,right))
+AssertionError: True is not false : ('nested', {'symbol': 'refresh', 'start_line': 3, 'end_line': 5, 'selection_reason': 'selected_log_event_owner', 'focus_line': 4}, {'symbol': 'refresh', 'start_line': 3, 'end_line': 5})
+
+======================================================================
+FAIL: test_public_exact_log_budget_has_no_duplicate_range_subsets (tests.test_lossless_range_budget.LosslessRangeBudgetTests.test_public_exact_log_budget_has_no_duplicate_range_subsets) (mode='single')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/causal-log-followup-work/tests/test_lossless_range_budget.py", line 45, in test_public_exact_log_budget_has_no_duplicate_range_subsets
+    self.assertFalse(subset(left,right) or subset(right,left),(mode,left,right))
+AssertionError: True is not false : ('single', {'symbol': 'refresh', 'start_line': 3, 'end_line': 5, 'selection_reason': 'selected_log_event_owner', 'focus_line': 4}, {'symbol': 'refresh', 'start_line': 3, 'end_line': 5})
+
+======================================================================
+FAIL: test_public_exact_log_budget_has_no_duplicate_range_subsets (tests.test_lossless_range_budget.LosslessRangeBudgetTests.test_public_exact_log_budget_has_no_duplicate_range_subsets) (mode='three')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/causal-log-followup-work/tests/test_lossless_range_budget.py", line 45, in test_public_exact_log_budget_has_no_duplicate_range_subsets
+    self.assertFalse(subset(left,right) or subset(right,left),(mode,left,right))
+AssertionError: True is not false : ('three', {'symbol': 'refresh', 'start_line': 3, 'end_line': 5, 'selection_reason': 'selected_log_event_owner', 'focus_line': 4}, {'symbol': 'refresh', 'start_line': 3, 'end_line': 5})
+
+======================================================================
+FAIL: test_public_exact_log_budget_has_no_duplicate_range_subsets (tests.test_lossless_range_budget.LosslessRangeBudgetTests.test_public_exact_log_budget_has_no_duplicate_range_subsets) (mode='detailed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/causal-log-followup-work/tests/test_lossless_range_budget.py", line 45, in test_public_exact_log_budget_has_no_duplicate_range_subsets
+    self.assertFalse(subset(left,right) or subset(right,left),(mode,left,right))
+AssertionError: True is not false : ('detailed', {'symbol': 'refresh', 'start_line': 3, 'end_line': 5, 'selection_reason': 'selected_log_event_owner', 'focus_line': 4}, {'symbol': 'refresh', 'start_line': 3, 'end_line': 5})
+
+----------------------------------------------------------------------
+Ran 2 tests in 5.651s
+
+FAILED (failures=5, errors=1)

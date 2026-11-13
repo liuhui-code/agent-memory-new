@@ -28,5 +28,7 @@
     "range annotations with conflicting metadata cannot merge",
     "duplicate range strict subset preserves every field in richer retained range",
     "source freshness/path IDs/uncertainty and source text unchanged by dedupe helper"
-  ]
+  ],
+  "pressure_log": "checkpoint refresh denied because the access credential has expired before the audit service completed the refresh request",
+  "pressure_contract": "Detailed exact event keeps raw reconstructable branches; compact may retain fewer if still truly over budget, but never invents a path or exceeds1500."
 }
