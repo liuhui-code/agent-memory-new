@@ -28,7 +28,7 @@ class NamedInterfaceRetentionTests(AgentMemoryTestBase):
                 out=json.loads(self.run_memory(root,'context','--query',case['query'],'--compact','--json').stdout)
                 anchors=out['query_handoff']['code_anchors']
                 self.assertTrue(set(case['required'])<={a['file_path'] for a in anchors},case['id'])
-                self.assertLessEqual(out['context_budget']['estimated_tokens'],1500)
+                self.assertLessEqual(out['output_budget']['estimated_tokens'],1500)
                 for a in anchors:
                     refs=[r for r in raw['query_handoff']['code_anchors'] if r['file_path']==a['file_path']]
                     for ident in a.get('record_ids',[]):self.assertTrue(any(r.get('record_id')==ident and r.get('record_type')==a.get('record_type') for r in refs))

@@ -1,0 +1,21 @@
+F.F
+======================================================================
+FAIL: test_existing_explicit_pair_contract_includes_interface (tests.test_named_interface_retention.NamedInterfaceRetentionTests.test_existing_explicit_pair_contract_includes_interface)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/structural-role-investigation/tests/test_named_interface_retention.py", line 12, in test_existing_explicit_pair_contract_includes_interface
+    self.assertTrue(multiple_requested_anchors_present(self.anchors(),{},P['queries'][0]['query']))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_public_pair_keeps_identity_typed_refs_and_current_source_under_budget (tests.test_named_interface_retention.NamedInterfaceRetentionTests.test_public_pair_keeps_identity_typed_refs_and_current_source_under_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/structural-role-investigation/tests/test_named_interface_retention.py", line 30, in test_public_pair_keeps_identity_typed_refs_and_current_source_under_budget
+    self.assertTrue(set(case['required'])<={a['file_path'] for a in anchors},case['id'])
+AssertionError: False is not true : named-class-interface
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.080s
+
+FAILED (failures=2)
