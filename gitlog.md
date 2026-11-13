@@ -11495,3 +11495,15 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Reverted all runtime and existing-test changes. Candidate tests/patch and before/
   after outputs retained as diagnostic evidence, not green tests. Legacy intent stays
   unchanged. No original validation rerun or new improvement count. No full suite.
+
+## 2026-11-14 - Reject proven non-code property callback entities
+
+- Independent public red: template/comment examples become static exact callback
+  owners; supplemental same-name contamination drops a second real class owner.
+- Reuse reviewed bounded lexical mask for property admission, with whole-file
+  legacy behavior for unknown syntax. Keep real owner/range/key multiplicity.
+- Update explicitly legacy contaminated-count tests based on public evidence,
+  retaining binding rejection and all duplicate callback controls.
+- 69 focused tests pass; original command-binding remains 1/3. Normal learn-path
+  merge activates the repair for an old index; code replacement alone does not.
+  See docs/evidence/property-callback-lexical/README.md. No full gate was run.

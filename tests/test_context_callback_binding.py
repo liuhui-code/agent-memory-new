@@ -43,7 +43,12 @@ class CallbackBindingContextTests(unittest.TestCase):
 
     def test_fake_callback_in_comment_or_template_rejected(self):
         for wrapper in ['/*\n%s\n*/','const message = `\n%s\n`;']:
-            self.assertIsNone(self.expand(wrapper % "const action = {\n caption: 'Fake',\n execute: () => {\n }\n}"))
+            source = wrapper % "const action = {\n caption: 'Fake',\n execute: () => {\n }\n}"
+            self.assertEqual([], property_callback_ranges(source.splitlines()))
+            # Even a caller-supplied legacy range cannot bind this non-code object.
+            selected = {'symbol': 'execute', 'start_line': 4, 'end_line': 5,
+                        'selection_reason': 'ecma_property_callback_window'}
+            self.assertIsNone(binding_context_range('.ets', source.splitlines(), selected, 40, 1500))
 
     def test_fake_scalar_in_comment_does_not_count(self):
         self.assertIsNone(self.expand("const action = {\n /* caption: 'Fake', */\n execute: () => {\n }\n}"))

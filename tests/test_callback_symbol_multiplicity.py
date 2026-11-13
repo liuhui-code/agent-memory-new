@@ -99,21 +99,21 @@ class CallbackSymbolMultiplicityTests(unittest.TestCase):
     def test_arkts_builder_filter_still_applies(self):
         self.assertNotIn(('Text', 'function'), self.extract('Text: () => {\n}\nText: () => {\n}\n'))
 
-    def test_contaminated_same_name_keeps_old_behavior(self):
+    def test_proven_non_code_does_not_collapse_real_same_name_callbacks(self):
         real = 'execute: () => {\n}\n'
         fake = 'execute: () => {\n}\n'
         for language in ['ArkTS', 'TypeScript', 'JavaScript']:
             for wrapper in ['/*\n%s*/\n', 'const message = `\n%s`;\n']:
-                for source in [wrapper % fake + real, real + wrapper % fake,
-                               real + wrapper % fake + real]:
+                for expected, source in [(1, wrapper % fake + real), (1, real + wrapper % fake),
+                                         (2, real + wrapper % fake + real)]:
                     with self.subTest(language=language, source=source):
-                        self.assertEqual(1, Counter(self.extract(source, language))['execute', 'function'])
+                        self.assertEqual(expected, Counter(self.extract(source, language))['execute', 'function'])
 
     def test_unrelated_contaminated_name_does_not_block_real_multiplicity(self):
         source = 'execute: () => {\n}\n/*\nother: () => {\n}\n*/\nexecute: () => {\n}\n'
         counts = Counter(self.extract(source))
         self.assertEqual(2, counts['execute', 'function'])
-        self.assertEqual(1, counts['other', 'function'])  # unchanged legacy behavior
+        self.assertEqual(0, counts['other', 'function'])  # proven comment-only, not an entity
 
     def test_comment_newlines_do_not_shift_callback_identities(self):
         source = '/*\nordinary comment\n*/\nexecute: () => {\n}\n/*\nsecond comment\n*/\nexecute: () => {\n}\n'

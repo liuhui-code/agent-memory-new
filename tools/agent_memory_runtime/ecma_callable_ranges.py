@@ -58,12 +58,15 @@ def named_callable_ranges(lines: list[str]) -> list[dict[str, Any]]:
 
 def property_callback_ranges(lines: list[str]) -> list[dict[str, Any]]:
     result: list[dict[str, Any]] = []
-    for index, line in enumerate(lines):
+    masked = callback_mask_lines(lines)
+    if masked is None:
+        masked = lines
+    for index, line in enumerate(masked):
         match = PROPERTY_CALLBACK_RE.match(line)
         if match is None:
             continue
         result.append(source_range(
-            match.group(1), index, block_end(lines, index), "ecma_property_callback_window",
+            match.group(1), index, block_end(masked, index), "ecma_property_callback_window",
         ))
         if len(result) >= MAX_CALLBACK_RANGES:
             break

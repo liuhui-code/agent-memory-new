@@ -1,7 +1,8 @@
 {
   "sources": {
     "ExampleGuide.ts": "export class ExampleGuide {\n example = `\n phantomHandler: () => {\n  unavailable()\n }\n `\n /*\n execute: () => {\n  unavailable()\n }\n */\n}\n",
-    "TwoOwners.ts": "export class PrimaryAction {\n execute = () => {\n  launchPrimary()\n }\n}\nexport class SecondaryAction {\n execute = () => {\n  launchSecondary()\n }\n}\n"
+    "TwoOwners.ts": "export class PrimaryAction {\n execute = () => {\n  launchPrimary()\n }\n}\nexport class SecondaryAction {\n execute = () => {\n  launchSecondary()\n }\n}\n",
+    "MixedOwners.ts": "export class PrimaryAction {\n execute = () => {\n  launchPrimary()\n }\n}\n/*\n execute: () => {\n  unavailable()\n }\n*/\nexport class SecondaryAction {\n execute = () => {\n  launchSecondary()\n }\n}\n"
   },
   "query": "Locate ExampleGuide.phantomHandler implementation.",
   "expected": "No fake phantomHandler/execute from ExampleGuide; two distinct real execute rows in TwoOwners with owners PrimaryAction and SecondaryAction and ranges2-4,7-9."

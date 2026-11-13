@@ -16,10 +16,13 @@ class PropertyCallbackLexicalTests(AgentMemoryTestBase):
             real=[s for s in symbols if s['file_path']=='TwoOwners.ts' and s['symbol']=='execute']
             self.assertEqual({('PrimaryAction',2,4),('SecondaryAction',7,9)}, {(s['owner_name'],s['start_line'],s['end_line']) for s in real})
             self.assertEqual(2,len({s['symbol_key'] for s in real}))
+            mixed=[s for s in symbols if s['file_path']=='MixedOwners.ts' and s['symbol']=='execute']
+            self.assertEqual({('PrimaryAction',2,4),('SecondaryAction',12,14)}, {(s['owner_name'],s['start_line'],s['end_line']) for s in mixed})
+            self.assertEqual(2,len(mixed))
             fake=[s for s in symbols if s['file_path']=='ExampleGuide.ts' and s['symbol_type']=='function']
             self.assertEqual([],fake)
             out=json.loads(self.run_memory(root,'context','--query',protocol['query'],'--json').stdout)
-            self.assertNotEqual('phantomHandler',out['query_handoff']['callable_evidence'].get('primary',{}).get('symbol'))
+            self.assertNotEqual('phantomHandler',(out['query_handoff']['callable_evidence'].get('primary') or {}).get('symbol'))
 
     def test_unknown_files_exact_legacy_property_ranges(self):
         from tools.agent_memory_runtime.ecma_callable_ranges import PROPERTY_CALLBACK_RE, MAX_CALLBACK_RANGES, source_range

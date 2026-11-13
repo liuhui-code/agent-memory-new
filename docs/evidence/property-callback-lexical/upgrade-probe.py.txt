@@ -1,0 +1,18 @@
+import json,tempfile,subprocess
+from pathlib import Path
+p=Path('docs/evidence/property-callback-lexical');x=json.loads((p/'protocol.json').read_text()); baseline=Path.cwd().parent/'recovery-current/agent-memory-new/tools/agent_memory.py'
+with tempfile.TemporaryDirectory() as d:
+ root=Path(d)/'src';root.mkdir()
+ for name,source in x['sources'].items():(root/name).write_text(source)
+ def run(cli,*args):
+  r=subprocess.run(['python',str(cli),*args,'--project',str(root),'--memory-home',d+'/memory'],capture_output=True,text=True,check=True);return json.loads(r.stdout) if '--json' in args else r.stdout
+ def rows(cli):return [{k:s.get(k) for k in ['file_path','symbol','owner_name','start_line','end_line','symbol_key']} for s in run(cli,'list','--type','code-symbol','--json')]
+ current=Path('tools/agent_memory.py');run(baseline,'init');run(baseline,'learn-path','--path','.')
+ out={'before':rows(baseline),'code_only':rows(current)}
+ run(current,'learn-path','--path','.');out['after_merge']=rows(current)
+ fake=lambda rs:[s for s in rs if s['file_path']=='ExampleGuide.ts' and s['symbol'] in {'phantomHandler','execute'}]
+ assert fake(out['code_only']) and not fake(out['after_merge'])
+ mixed=[s for s in out['after_merge'] if s['file_path']=='MixedOwners.ts' and s['symbol']=='execute']
+ assert {(s['owner_name'],s['start_line'],s['end_line']) for s in mixed}=={('PrimaryAction',2,4),('SecondaryAction',12,14)}
+ out['activation']='normal learn-path merge removes stale false rows and restores both real identities; code replacement alone leaves prior index unchanged'
+ (p/'upgrade.json').write_text(json.dumps(out,indent=2));print(out['activation'])
