@@ -1,5 +1,12 @@
 # Local Development Log
 
+## 2026-11-13 - Check exact-symbol change on affected scroll/UI owner cases
+
+- Compared fixed 6c666ab and 689eb33 runtimes on abstract-scroll-structure and arkts-ui-operation-owner only (six variants per version, same source digest).
+- Both remain 1/6; all statuses, checks, anchor/source paths and precision/recall values match. No new regression in these controls; the existing five failures remain unresolved.
+- Retain paired results and revision/command-source manifest in docs/eval/exact-symbol-boundary-20261113/. No full suite or remote write.
+
+
 ## 2026-11-13 - Require identifier boundaries for exact-symbol scoring
 
 - Independent frozen ETS Builder competition reproduced a false exact_symbol claim: Builder role text awarded plain build() an exact-identity bonus and compact projection selected the wrong owner.

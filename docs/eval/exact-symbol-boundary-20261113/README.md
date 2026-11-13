@@ -47,3 +47,14 @@ The frozen inputs, before/experiment/after selected scenario results and public 
 projection are retained. Projection hashes identify full raw call outputs beside this
 independent evidence workspace. All newly authored source inputs are synthetic Development
 fixtures. The run.py copy records the original experiment directory layout.
+
+
+## Follow-up affected-scenario comparison
+
+Baseline 6c666ab and candidate 689eb33 separately ran only abstract-scroll-structure
+and arkts-ui-operation-owner, three variants each. Both remain 1/6. All six statuses,
+failed checks, returned primary/anchor/source paths, recalls and precision values are
+identical; no newly failing variant was observed. The five existing failures remain
+failures. Source digest is identical across runs (f524ea25759c61bbf30069c713cca0f2cd6f0d1b1a6f7e8d88921f55f5d6e932).
+See related-before.json, related-after.json and related-comparison.json. This is not
+an expanded full-suite claim; only two preselected affected scenarios were compared.

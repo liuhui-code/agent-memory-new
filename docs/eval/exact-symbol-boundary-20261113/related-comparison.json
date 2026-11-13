@@ -1,0 +1,84 @@
+{
+  "baseline": "6c666abb66fcfee25216843e3957439c5c4d4380",
+  "candidate": "689eb33d40b1098513368ed874e8846297257610",
+  "baseline_runtime": "/workspace/scratch/dcdb41e16594/recovery-current/builder-before-controls/tools/agent_memory.py",
+  "candidate_runtime": "/workspace/scratch/dcdb41e16594/recovery-current/builder-owner-investigation/tools/agent_memory.py",
+  "source_digest_before": "f524ea25759c61bbf30069c713cca0f2cd6f0d1b1a6f7e8d88921f55f5d6e932",
+  "source_digest_after": "f524ea25759c61bbf30069c713cca0f2cd6f0d1b1a6f7e8d88921f55f5d6e932",
+  "case_ids": [
+    "context-abstract-scroll-structure",
+    "context-arkts-ui-operation-owner"
+  ],
+  "summary": "1/6 before and after; no new passing-case regression; existing five failures retained",
+  "compared_fields": [
+    "status",
+    "checks",
+    "observed_anchor_paths",
+    "observed_primary_anchor_paths",
+    "observed_source_excerpt_paths",
+    "anchor_recall",
+    "primary_anchor_recall",
+    "oracle_anchor_precision",
+    "source_excerpt_recall",
+    "source_span_recall"
+  ],
+  "cases": [
+    {
+      "case_id": "context-abstract-scroll-structure::original",
+      "before": "fail",
+      "after": "fail",
+      "failed_checks": [
+        "minimum_anchor_precision_met"
+      ],
+      "compared_outcome_fields_equal": true
+    },
+    {
+      "case_id": "context-abstract-scroll-structure::en-paraphrase",
+      "before": "fail",
+      "after": "fail",
+      "failed_checks": [
+        "minimum_anchor_precision_met"
+      ],
+      "compared_outcome_fields_equal": true
+    },
+    {
+      "case_id": "context-abstract-scroll-structure::zh-noise",
+      "before": "pass",
+      "after": "pass",
+      "failed_checks": [],
+      "compared_outcome_fields_equal": true
+    },
+    {
+      "case_id": "context-arkts-ui-operation-owner::original",
+      "before": "fail",
+      "after": "fail",
+      "failed_checks": [
+        "expected_anchors_within_top_k",
+        "minimum_anchor_precision_met",
+        "minimum_source_span_recall_met",
+        "expected_anchors_recalled",
+        "expected_source_excerpt_returned"
+      ],
+      "compared_outcome_fields_equal": true
+    },
+    {
+      "case_id": "context-arkts-ui-operation-owner::en-paraphrase",
+      "before": "fail",
+      "after": "fail",
+      "failed_checks": [
+        "minimum_anchor_precision_met",
+        "forbidden_anchors_absent"
+      ],
+      "compared_outcome_fields_equal": true
+    },
+    {
+      "case_id": "context-arkts-ui-operation-owner::zh-noise",
+      "before": "fail",
+      "after": "fail",
+      "failed_checks": [
+        "minimum_anchor_precision_met"
+      ],
+      "compared_outcome_fields_equal": true
+    }
+  ]
+}
