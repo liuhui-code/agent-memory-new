@@ -1,0 +1,28 @@
+.FF.
+======================================================================
+FAIL: test_distinct_symbol_records_and_real_duplicate (tests.test_handoff_symbol_identity.HandoffSymbolIdentityTests.test_distinct_symbol_records_and_real_duplicate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/native-listener-scope-current/tests/test_handoff_symbol_identity.py", line 36, in test_distinct_symbol_records_and_real_duplicate
+    self.assertEqual([x['record_id'] for x in code_anchors(values,[])],[1,2])
+AssertionError: Lists differ: [1] != [1, 2]
+
+Second list contains 1 additional elements.
+First extra element 1:
+2
+
+- [1]
++ [1, 2]
+
+======================================================================
+FAIL: test_public_required_direct_method_survives_raw_projection (tests.test_handoff_symbol_identity.HandoffSymbolIdentityTests.test_public_required_direct_method_survives_raw_projection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/native-listener-scope-current/tests/test_handoff_symbol_identity.py", line 29, in test_public_required_direct_method_survives_raw_projection
+    self.assertTrue(any(x.get('record_type')=='code_symbol' and x.get('record_id')==wiki[0]['id']
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.869s
+
+FAILED (failures=2)
