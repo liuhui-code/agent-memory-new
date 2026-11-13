@@ -1,0 +1,5694 @@
+{
+  "data-before": [
+    {
+      "index": 0,
+      "compact": false,
+      "stdout_sha256": "b27e2476f87da4e30bbb602aa5e49c9dbb476f636998b8f96c6f78f9bf86af64",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回读取剪贴板数据的实现。",
+        "log_keywords": [
+          "请返回读取剪贴板数据的实现",
+          "请返",
+          "返回",
+          "回读",
+          "读取",
+          "取剪",
+          "剪贴",
+          "贴板",
+          "板数",
+          "数据",
+          "据的",
+          "的实",
+          "实现",
+          "console",
+          "fetchuser",
+          "load",
+          "request",
+          "network",
+          "profile",
+          "account"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "load request network profile account user data",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "src/ProfileService.ets",
+            "function": "fetchUser",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 6,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method fetchUser in src/ProfileService.ets; identifier terms: fetch user",
+            "start_line": 2,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 1,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "",
+            "symbol_type": null,
+            "summary": "ArkTS file with 5 non-empty lines; operations: getData, getPrimaryText",
+            "start_line": null,
+            "end_line": null,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 5,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "ProfileService",
+            "symbol_type": "class",
+            "summary": "ArkTS class ProfileService declared in src/ProfileService.ets; identifier terms: profile service",
+            "start_line": 1,
+            "end_line": 6,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 9.5,
+              "evidence_score": 9.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 0,
+      "compact": true,
+      "stdout_sha256": "3c6858fb3d5ac722ada96832eeb596a5140e907b29c80beb860123165f257ac8",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回读取剪贴板数据的实现",
+          "请返",
+          "返回",
+          "回读",
+          "读取",
+          "取剪",
+          "剪贴",
+          "贴板",
+          "板数",
+          "数据",
+          "据的",
+          "的实"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "record_ids": [
+              6,
+              5
+            ],
+            "source_ranges": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 2,
+                "end_line": 5
+              },
+              {
+                "symbol": "ProfileService",
+                "start_line": 1,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class ProfileService {\n  fetchUser(): string {\n    console.info('load request network profile account user data')\n    return network.fetch('/user/profile')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 9.5,
+              "evidence_score": 9.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 6,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      }
+    },
+    {
+      "index": 1,
+      "compact": false,
+      "stdout_sha256": "f9c28d33525c37b179f8239c8b83a581c38bad058624c0e22d605f7582b879df",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回读取剪贴板内容的实现。",
+        "log_keywords": [
+          "请返回读取剪贴板内容的实现",
+          "请返",
+          "返回",
+          "回读",
+          "读取",
+          "取剪",
+          "剪贴",
+          "贴板",
+          "板内",
+          "内容",
+          "容的",
+          "的实",
+          "实现"
+        ],
+        "log_anchors": [],
+        "code_anchors": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "unavailable",
+          "primary": null,
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "no_locatable_primary"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "candidate_count": 0,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 1,
+      "compact": true,
+      "stdout_sha256": "f09b335cbc8b5ef940cf8c9cb8dc32db7d0a6b3e0517d0b82d059c320515becf",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回读取剪贴板内容的实现",
+          "请返",
+          "返回",
+          "回读",
+          "读取",
+          "取剪",
+          "剪贴",
+          "贴板",
+          "板内",
+          "内容",
+          "容的",
+          "的实"
+        ],
+        "log_anchors": [],
+        "code_anchors": [],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "unavailable",
+          "primary": null,
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        }
+      }
+    },
+    {
+      "index": 2,
+      "compact": false,
+      "stdout_sha256": "bc79097b7d75033a7f524cf38a1b7636f37b8f7259041afae75ae2d03ad4db21",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回 palette 数据转换实现。",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "palette",
+          "数据转换实现",
+          "数据",
+          "据转",
+          "转换",
+          "换实",
+          "实现",
+          "console",
+          "fetchuser",
+          "load",
+          "request",
+          "network",
+          "profile",
+          "account",
+          "user",
+          "data",
+          "info"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "load request network profile account user data",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "src/ProfileService.ets",
+            "function": "fetchUser",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 6,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method fetchUser in src/ProfileService.ets; identifier terms: fetch user",
+            "start_line": 2,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 3,
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "PaletteConverter",
+            "symbol_type": "class",
+            "summary": "ArkTS class PaletteConverter declared in src/PaletteConverter.ets; identifier terms: palette converter",
+            "start_line": 1,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 1,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "",
+            "symbol_type": null,
+            "summary": "ArkTS file with 5 non-empty lines; operations: getData, getPrimaryText",
+            "start_line": null,
+            "end_line": null,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 4,
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method convertValue in src/PaletteConverter.ets; identifier terms: convert value",
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 5,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "ProfileService",
+            "symbol_type": "class",
+            "summary": "ArkTS class ProfileService declared in src/ProfileService.ets; identifier terms: profile service",
+            "start_line": 1,
+            "end_line": 6,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/PaletteConverter.ets",
+              "symbol": "convertValue",
+              "owner_name": "PaletteConverter",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 13.77,
+              "evidence_score": 13.77,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "file_path"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 8.5,
+              "evidence_score": 8.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 2,
+      "compact": true,
+      "stdout_sha256": "cf6da465fcb6e1d9bc9692dc9eaa514e1923f5f6e531a7d1d2b585432b4b7c72",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "palette",
+          "数据转换实现",
+          "数据",
+          "据转",
+          "转换",
+          "换实",
+          "实现",
+          "console",
+          "fetchuser"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "record_ids": [
+              6,
+              5
+            ],
+            "source_ranges": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 2,
+                "end_line": 5
+              },
+              {
+                "symbol": "ProfileService",
+                "start_line": 1,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class ProfileService {\n  fetchUser(): string {\n    console.info('load request network profile account user data')\n    return network.fetch('/user/profile')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/PaletteConverter.ets",
+              "symbol": "convertValue",
+              "owner_name": "PaletteConverter",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 13.77,
+              "evidence_score": 13.77,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "file_path"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 8.5,
+              "evidence_score": 8.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 6,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      }
+    },
+    {
+      "index": 3,
+      "compact": false,
+      "stdout_sha256": "d51b6ad5a3fa8615c8a572b68b1b49000a171ad0bd6f0355b5d458d6c53ceb8a",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回 palette 内容转换实现。",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "palette",
+          "内容转换实现",
+          "内容",
+          "容转",
+          "转换",
+          "换实",
+          "实现"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 3,
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "PaletteConverter",
+            "symbol_type": "class",
+            "summary": "ArkTS class PaletteConverter declared in src/PaletteConverter.ets; identifier terms: palette converter",
+            "start_line": 1,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 4,
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method convertValue in src/PaletteConverter.ets; identifier terms: convert value",
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteConverter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "candidate_count": 0,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 3,
+      "compact": true,
+      "stdout_sha256": "55ed1d3aa699ccbe30cc0126a687d2dbee8331c4ce048630b6de1819a55f8fd2",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "palette",
+          "内容转换实现",
+          "内容",
+          "容转",
+          "转换",
+          "换实",
+          "实现"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "PaletteConverter",
+            "symbol_type": "class",
+            "record_ids": [
+              3,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "PaletteConverter",
+                "start_line": 1,
+                "end_line": 5
+              },
+              {
+                "symbol": "convertValue",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "convertValue",
+                "start_line": 1,
+                "end_line": 5,
+                "content": "export class PaletteConverter {\n  convertValue(value: string): number {\n    return Number.parseInt(value, 16)\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteConverter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 115
+        }
+      }
+    },
+    {
+      "index": 4,
+      "compact": false,
+      "stdout_sha256": "2daf581387d7cde750c2b0bec97d7e62ebafd9d6c22d078d6c3c029850a90491",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回加载用户资料的网络实现。",
+        "log_keywords": [
+          "请返回加载用户资料的网络实现",
+          "请返",
+          "返回",
+          "回加",
+          "加载",
+          "载用",
+          "用户",
+          "户资",
+          "资料",
+          "料的",
+          "的网",
+          "网络",
+          "络实",
+          "实现",
+          "console",
+          "fetchuser",
+          "load",
+          "request",
+          "network",
+          "profile"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "load request network profile account user data",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "src/ProfileService.ets",
+            "function": "fetchUser",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 6,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method fetchUser in src/ProfileService.ets; identifier terms: fetch user",
+            "start_line": 2,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 1,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "",
+            "symbol_type": null,
+            "summary": "ArkTS file with 5 non-empty lines; operations: getData, getPrimaryText",
+            "start_line": null,
+            "end_line": null,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 5,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "ProfileService",
+            "symbol_type": "class",
+            "summary": "ArkTS class ProfileService declared in src/ProfileService.ets; identifier terms: profile service",
+            "start_line": 1,
+            "end_line": 6,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 9.5,
+              "evidence_score": 9.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 4,
+      "compact": true,
+      "stdout_sha256": "26555934e555408dacb5bf22fccf3bbdc235a9e0cf38953ec48433262a57b1f2",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回加载用户资料的网络实现",
+          "请返",
+          "返回",
+          "回加",
+          "加载",
+          "载用",
+          "用户",
+          "户资",
+          "资料",
+          "料的",
+          "的网",
+          "网络"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "record_ids": [
+              6,
+              5
+            ],
+            "source_ranges": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 2,
+                "end_line": 5
+              },
+              {
+                "symbol": "ProfileService",
+                "start_line": 1,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class ProfileService {\n  fetchUser(): string {\n    console.info('load request network profile account user data')\n    return network.fetch('/user/profile')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 9.5,
+              "evidence_score": 9.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 6,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      }
+    },
+    {
+      "index": 5,
+      "compact": false,
+      "stdout_sha256": "e4211c03cf4961aeac8530af0d7f8b309e59be949d73c9076af8456f07693ad0",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回 ProfileService.fetchUser。",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "profileservice",
+          "fetchuser",
+          "console",
+          "load",
+          "request",
+          "network",
+          "profile",
+          "account",
+          "user",
+          "data",
+          "info"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "load request network profile account user data",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "src/ProfileService.ets",
+            "function": "fetchUser",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 6,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method fetchUser in src/ProfileService.ets; identifier terms: fetch user",
+            "start_line": 2,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 5,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "ProfileService",
+            "symbol_type": "class",
+            "summary": "ArkTS class ProfileService declared in src/ProfileService.ets; identifier terms: profile service",
+            "start_line": 1,
+            "end_line": 6,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 59.5,
+            "evidence_score": 59.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 5,
+      "compact": true,
+      "stdout_sha256": "379faeb7b5624d6930637995fcb636b34b280e4ea4620b071eb4789f276f5a3d",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "profileservice",
+          "fetchuser",
+          "console",
+          "load",
+          "request",
+          "network",
+          "profile",
+          "account",
+          "user"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "record_ids": [
+              6,
+              5
+            ],
+            "source_ranges": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 2,
+                "end_line": 5
+              },
+              {
+                "symbol": "ProfileService",
+                "start_line": 1,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class ProfileService {\n  fetchUser(): string {\n    console.info('load request network profile account user data')\n    return network.fetch('/user/profile')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 59.5,
+            "evidence_score": 59.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 6,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      }
+    }
+  ],
+  "data-frozen-before": [
+    {
+      "index": 0,
+      "compact": false,
+      "stdout_sha256": "ccbf12c1d6adbefd49b4a5b7a7ccedb8d5889c6f23daf4936da7c2f02cce34c9",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回读取 clipboard 剪贴板数据的实现。",
+        "log_keywords": [
+          "请返回读取",
+          "请返",
+          "返回",
+          "回读",
+          "读取",
+          "clipboard",
+          "剪贴板数据的实现",
+          "剪贴",
+          "贴板",
+          "板数",
+          "数据",
+          "据的",
+          "的实",
+          "实现",
+          "console",
+          "fetchuser",
+          "load",
+          "request",
+          "network",
+          "profile"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "load request network profile account user data",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "src/ProfileService.ets",
+            "function": "fetchUser",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 6,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method fetchUser in src/ProfileService.ets; identifier terms: fetch user",
+            "start_line": 2,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 1,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "ClipboardReader",
+            "symbol_type": "class",
+            "summary": "ArkTS class ClipboardReader declared in src/ClipboardReader.ets; identifier terms: clipboard reader",
+            "start_line": 1,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 2,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "readContent",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method readContent in src/ClipboardReader.ets; identifier terms: read content",
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 5,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "ProfileService",
+            "symbol_type": "class",
+            "summary": "ArkTS class ProfileService declared in src/ProfileService.ets; identifier terms: profile service",
+            "start_line": 1,
+            "end_line": 6,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 15.77,
+              "evidence_score": 15.77,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 0,
+      "compact": true,
+      "stdout_sha256": "d5fafa7169fc732350974b49b91ce07bbae38c16adf64580e0557ce012477664",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回读取",
+          "请返",
+          "返回",
+          "回读",
+          "读取",
+          "clipboard",
+          "剪贴板数据的实现",
+          "剪贴",
+          "贴板",
+          "板数",
+          "数据",
+          "据的"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "record_ids": [
+              6,
+              5
+            ],
+            "source_ranges": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 2,
+                "end_line": 5
+              },
+              {
+                "symbol": "ProfileService",
+                "start_line": 1,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class ProfileService {\n  fetchUser(): string {\n    console.info('load request network profile account user data')\n    return network.fetch('/user/profile')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 15.77,
+              "evidence_score": 15.77,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 6,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      }
+    },
+    {
+      "index": 1,
+      "compact": false,
+      "stdout_sha256": "d7ea123f66fcf44deb7b4c2503565696fbf773aa9b11cf84739665fc47af1218",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回读取 clipboard 剪贴板内容的实现。",
+        "log_keywords": [
+          "请返回读取",
+          "请返",
+          "返回",
+          "回读",
+          "读取",
+          "clipboard",
+          "剪贴板内容的实现",
+          "剪贴",
+          "贴板",
+          "板内",
+          "内容",
+          "容的",
+          "的实",
+          "实现"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 1,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "ClipboardReader",
+            "symbol_type": "class",
+            "summary": "ArkTS class ClipboardReader declared in src/ClipboardReader.ets; identifier terms: clipboard reader",
+            "start_line": 1,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 2,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "readContent",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method readContent in src/ClipboardReader.ets; identifier terms: read content",
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "readContent",
+            "owner_name": "ClipboardReader",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "candidate_count": 0,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 1,
+      "compact": true,
+      "stdout_sha256": "8837286374bf2d88acb9230c613b3027694b151a9e9a549d90fcd205b8cd055f",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回读取",
+          "请返",
+          "返回",
+          "回读",
+          "读取",
+          "clipboard",
+          "剪贴板内容的实现",
+          "剪贴",
+          "贴板",
+          "板内",
+          "内容",
+          "容的"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "ClipboardReader",
+            "symbol_type": "class",
+            "record_ids": [
+              1,
+              2
+            ],
+            "source_ranges": [
+              {
+                "symbol": "ClipboardReader",
+                "start_line": 1,
+                "end_line": 5
+              },
+              {
+                "symbol": "readContent",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "readContent",
+                "start_line": 1,
+                "end_line": 5,
+                "content": "export class ClipboardReader {\n  readContent(): string {\n    return pasteboard.getSystemPasteboard().getData().getPrimaryText()\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "readContent",
+            "owner_name": "ClipboardReader",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 133
+        }
+      }
+    },
+    {
+      "index": 2,
+      "compact": false,
+      "stdout_sha256": "35410746c67d6f89d86a5a920a093ff8ddbb5ef81937abd8f9bed881b34e4bea",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回 palette 数据转换实现。",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "palette",
+          "数据转换实现",
+          "数据",
+          "据转",
+          "转换",
+          "换实",
+          "实现",
+          "console",
+          "fetchuser",
+          "load",
+          "request",
+          "network",
+          "profile",
+          "account",
+          "user",
+          "data",
+          "info"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "load request network profile account user data",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "src/ProfileService.ets",
+            "function": "fetchUser",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 6,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method fetchUser in src/ProfileService.ets; identifier terms: fetch user",
+            "start_line": 2,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 3,
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "PaletteConverter",
+            "symbol_type": "class",
+            "summary": "ArkTS class PaletteConverter declared in src/PaletteConverter.ets; identifier terms: palette converter",
+            "start_line": 1,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 1,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "",
+            "symbol_type": null,
+            "summary": "ArkTS file with 5 non-empty lines; operations: getData, getPrimaryText",
+            "start_line": null,
+            "end_line": null,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 4,
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method convertValue in src/PaletteConverter.ets; identifier terms: convert value",
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 5,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "ProfileService",
+            "symbol_type": "class",
+            "summary": "ArkTS class ProfileService declared in src/ProfileService.ets; identifier terms: profile service",
+            "start_line": 1,
+            "end_line": 6,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/PaletteConverter.ets",
+              "symbol": "convertValue",
+              "owner_name": "PaletteConverter",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 13.77,
+              "evidence_score": 13.77,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "file_path"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 8.5,
+              "evidence_score": 8.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 2,
+      "compact": true,
+      "stdout_sha256": "cf6da465fcb6e1d9bc9692dc9eaa514e1923f5f6e531a7d1d2b585432b4b7c72",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "palette",
+          "数据转换实现",
+          "数据",
+          "据转",
+          "转换",
+          "换实",
+          "实现",
+          "console",
+          "fetchuser"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "record_ids": [
+              6,
+              5
+            ],
+            "source_ranges": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 2,
+                "end_line": 5
+              },
+              {
+                "symbol": "ProfileService",
+                "start_line": 1,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class ProfileService {\n  fetchUser(): string {\n    console.info('load request network profile account user data')\n    return network.fetch('/user/profile')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/PaletteConverter.ets",
+              "symbol": "convertValue",
+              "owner_name": "PaletteConverter",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 13.77,
+              "evidence_score": 13.77,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "file_path"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 8.5,
+              "evidence_score": 8.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 6,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      }
+    },
+    {
+      "index": 3,
+      "compact": false,
+      "stdout_sha256": "7adef742945eb736074e21b3f5d234271b0fb54e6ec61715a375ccd2b73fb816",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回 palette 内容转换实现。",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "palette",
+          "内容转换实现",
+          "内容",
+          "容转",
+          "转换",
+          "换实",
+          "实现"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 3,
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "PaletteConverter",
+            "symbol_type": "class",
+            "summary": "ArkTS class PaletteConverter declared in src/PaletteConverter.ets; identifier terms: palette converter",
+            "start_line": 1,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 4,
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method convertValue in src/PaletteConverter.ets; identifier terms: convert value",
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteConverter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "candidate_count": 0,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 3,
+      "compact": true,
+      "stdout_sha256": "55ed1d3aa699ccbe30cc0126a687d2dbee8331c4ce048630b6de1819a55f8fd2",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "palette",
+          "内容转换实现",
+          "内容",
+          "容转",
+          "转换",
+          "换实",
+          "实现"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "PaletteConverter",
+            "symbol_type": "class",
+            "record_ids": [
+              3,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "PaletteConverter",
+                "start_line": 1,
+                "end_line": 5
+              },
+              {
+                "symbol": "convertValue",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "convertValue",
+                "start_line": 1,
+                "end_line": 5,
+                "content": "export class PaletteConverter {\n  convertValue(value: string): number {\n    return Number.parseInt(value, 16)\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteConverter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 115
+        }
+      }
+    },
+    {
+      "index": 4,
+      "compact": false,
+      "stdout_sha256": "d48cad5dc5f86a5bea30c18b9ff8b9dcc33c68dc2d625a0a80a073c49d27934e",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回加载用户资料的网络实现。",
+        "log_keywords": [
+          "请返回加载用户资料的网络实现",
+          "请返",
+          "返回",
+          "回加",
+          "加载",
+          "载用",
+          "用户",
+          "户资",
+          "资料",
+          "料的",
+          "的网",
+          "网络",
+          "络实",
+          "实现",
+          "console",
+          "fetchuser",
+          "load",
+          "request",
+          "network",
+          "profile"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "load request network profile account user data",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "src/ProfileService.ets",
+            "function": "fetchUser",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 6,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method fetchUser in src/ProfileService.ets; identifier terms: fetch user",
+            "start_line": 2,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 1,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "",
+            "symbol_type": null,
+            "summary": "ArkTS file with 5 non-empty lines; operations: getData, getPrimaryText",
+            "start_line": null,
+            "end_line": null,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 5,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "ProfileService",
+            "symbol_type": "class",
+            "summary": "ArkTS class ProfileService declared in src/ProfileService.ets; identifier terms: profile service",
+            "start_line": 1,
+            "end_line": 6,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 9.5,
+              "evidence_score": 9.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 4,
+      "compact": true,
+      "stdout_sha256": "26555934e555408dacb5bf22fccf3bbdc235a9e0cf38953ec48433262a57b1f2",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回加载用户资料的网络实现",
+          "请返",
+          "返回",
+          "回加",
+          "加载",
+          "载用",
+          "用户",
+          "户资",
+          "资料",
+          "料的",
+          "的网",
+          "网络"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "record_ids": [
+              6,
+              5
+            ],
+            "source_ranges": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 2,
+                "end_line": 5
+              },
+              {
+                "symbol": "ProfileService",
+                "start_line": 1,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class ProfileService {\n  fetchUser(): string {\n    console.info('load request network profile account user data')\n    return network.fetch('/user/profile')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 9.5,
+              "evidence_score": 9.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 6,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      }
+    },
+    {
+      "index": 5,
+      "compact": false,
+      "stdout_sha256": "0033b0ca43151059b51920955a71354409bd4b5f0bbd145195517657cecf446f",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回 ProfileService.fetchUser。",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "profileservice",
+          "fetchuser",
+          "console",
+          "load",
+          "request",
+          "network",
+          "profile",
+          "account",
+          "user",
+          "data",
+          "info"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "load request network profile account user data",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "src/ProfileService.ets",
+            "function": "fetchUser",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 6,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method fetchUser in src/ProfileService.ets; identifier terms: fetch user",
+            "start_line": 2,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 5,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "ProfileService",
+            "symbol_type": "class",
+            "summary": "ArkTS class ProfileService declared in src/ProfileService.ets; identifier terms: profile service",
+            "start_line": 1,
+            "end_line": 6,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 59.5,
+            "evidence_score": 59.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 5,
+      "compact": true,
+      "stdout_sha256": "379faeb7b5624d6930637995fcb636b34b280e4ea4620b071eb4789f276f5a3d",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "profileservice",
+          "fetchuser",
+          "console",
+          "load",
+          "request",
+          "network",
+          "profile",
+          "account",
+          "user"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "record_ids": [
+              6,
+              5
+            ],
+            "source_ranges": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 2,
+                "end_line": 5
+              },
+              {
+                "symbol": "ProfileService",
+                "start_line": 1,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class ProfileService {\n  fetchUser(): string {\n    console.info('load request network profile account user data')\n    return network.fetch('/user/profile')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 59.5,
+            "evidence_score": 59.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 6,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      }
+    }
+  ],
+  "data-after": [
+    {
+      "index": 0,
+      "compact": false,
+      "stdout_sha256": "0e3b0560f8e9679e93377a5b5367f2e00af21d25632f7f3303e85529f0704f61",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回读取 clipboard 剪贴板数据的实现。",
+        "log_keywords": [
+          "请返回读取",
+          "请返",
+          "返回",
+          "回读",
+          "读取",
+          "clipboard",
+          "剪贴板数据的实现",
+          "剪贴",
+          "贴板",
+          "板数",
+          "数据",
+          "据的",
+          "的实",
+          "实现",
+          "console",
+          "fetchuser",
+          "load",
+          "request",
+          "network",
+          "profile"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "load request network profile account user data",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "src/ProfileService.ets",
+            "function": "fetchUser",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 1,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "ClipboardReader",
+            "symbol_type": "class",
+            "summary": "ArkTS class ClipboardReader declared in src/ClipboardReader.ets; identifier terms: clipboard reader",
+            "start_line": 1,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 6,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method fetchUser in src/ProfileService.ets; identifier terms: fetch user",
+            "start_line": 2,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 2,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "readContent",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method readContent in src/ClipboardReader.ets; identifier terms: read content",
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "readContent",
+            "owner_name": "ClipboardReader",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 16.77,
+            "evidence_score": 16.77,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ProfileService.ets",
+              "symbol": "fetchUser",
+              "owner_name": "ProfileService",
+              "owner_kind": "service",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 10.81,
+              "evidence_score": 10.81,
+              "reasons": [
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 0,
+      "compact": true,
+      "stdout_sha256": "415fca8672800995db571f82ede901aa2996325f9d741f94f38964dc5002cb3f",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回读取",
+          "请返",
+          "返回",
+          "回读",
+          "读取",
+          "clipboard",
+          "剪贴板数据的实现",
+          "剪贴",
+          "贴板",
+          "板数",
+          "数据",
+          "据的"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "ClipboardReader",
+            "symbol_type": "class",
+            "record_ids": [
+              1,
+              2
+            ],
+            "source_ranges": [
+              {
+                "symbol": "ClipboardReader",
+                "start_line": 1,
+                "end_line": 5
+              },
+              {
+                "symbol": "readContent",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "readContent",
+                "start_line": 1,
+                "end_line": 5,
+                "content": "export class ClipboardReader {\n  readContent(): string {\n    return pasteboard.getSystemPasteboard().getData().getPrimaryText()\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "readContent",
+            "owner_name": "ClipboardReader",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 16.77,
+            "evidence_score": 16.77,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ProfileService.ets",
+              "symbol": "fetchUser",
+              "owner_name": "ProfileService",
+              "owner_kind": "service",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 10.81,
+              "evidence_score": 10.81,
+              "reasons": [
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 133
+        }
+      }
+    },
+    {
+      "index": 1,
+      "compact": false,
+      "stdout_sha256": "611a005436e26671293ef1df6ec96c7a83aad66830b3033951142f265f7938b5",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回读取 clipboard 剪贴板内容的实现。",
+        "log_keywords": [
+          "请返回读取",
+          "请返",
+          "返回",
+          "回读",
+          "读取",
+          "clipboard",
+          "剪贴板内容的实现",
+          "剪贴",
+          "贴板",
+          "板内",
+          "内容",
+          "容的",
+          "的实",
+          "实现"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 1,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "ClipboardReader",
+            "symbol_type": "class",
+            "summary": "ArkTS class ClipboardReader declared in src/ClipboardReader.ets; identifier terms: clipboard reader",
+            "start_line": 1,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 2,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "readContent",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method readContent in src/ClipboardReader.ets; identifier terms: read content",
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "readContent",
+            "owner_name": "ClipboardReader",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "candidate_count": 0,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 1,
+      "compact": true,
+      "stdout_sha256": "8837286374bf2d88acb9230c613b3027694b151a9e9a549d90fcd205b8cd055f",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回读取",
+          "请返",
+          "返回",
+          "回读",
+          "读取",
+          "clipboard",
+          "剪贴板内容的实现",
+          "剪贴",
+          "贴板",
+          "板内",
+          "内容",
+          "容的"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "ClipboardReader",
+            "symbol_type": "class",
+            "record_ids": [
+              1,
+              2
+            ],
+            "source_ranges": [
+              {
+                "symbol": "ClipboardReader",
+                "start_line": 1,
+                "end_line": 5
+              },
+              {
+                "symbol": "readContent",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "readContent",
+                "start_line": 1,
+                "end_line": 5,
+                "content": "export class ClipboardReader {\n  readContent(): string {\n    return pasteboard.getSystemPasteboard().getData().getPrimaryText()\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "readContent",
+            "owner_name": "ClipboardReader",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 133
+        }
+      }
+    },
+    {
+      "index": 2,
+      "compact": false,
+      "stdout_sha256": "9e6d69816fee9cb22aa956d275aff20626abeb04f4223d814d62ca8233cc884e",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回 palette 数据转换实现。",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "palette",
+          "数据转换实现",
+          "数据",
+          "据转",
+          "转换",
+          "换实",
+          "实现",
+          "console",
+          "fetchuser",
+          "load",
+          "request",
+          "network",
+          "profile",
+          "account",
+          "user",
+          "data",
+          "info"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "load request network profile account user data",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "src/ProfileService.ets",
+            "function": "fetchUser",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 3,
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "PaletteConverter",
+            "symbol_type": "class",
+            "summary": "ArkTS class PaletteConverter declared in src/PaletteConverter.ets; identifier terms: palette converter",
+            "start_line": 1,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 6,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method fetchUser in src/ProfileService.ets; identifier terms: fetch user",
+            "start_line": 2,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 1,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "",
+            "symbol_type": null,
+            "summary": "ArkTS file with 5 non-empty lines; operations: getData, getPrimaryText",
+            "start_line": null,
+            "end_line": null,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 4,
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method convertValue in src/PaletteConverter.ets; identifier terms: convert value",
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteConverter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ProfileService.ets",
+              "symbol": "fetchUser",
+              "owner_name": "ProfileService",
+              "owner_kind": "service",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 10.81,
+              "evidence_score": 10.81,
+              "reasons": [
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 8.5,
+              "evidence_score": 8.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 2,
+      "compact": true,
+      "stdout_sha256": "8566231dc49dede42b786c5ed2bedffb540250aef38d83b80f07d8ecdd69e09f",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "palette",
+          "数据转换实现",
+          "数据",
+          "据转",
+          "转换",
+          "换实",
+          "实现",
+          "console",
+          "fetchuser"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "PaletteConverter",
+            "symbol_type": "class",
+            "record_ids": [
+              3,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "PaletteConverter",
+                "start_line": 1,
+                "end_line": 5
+              },
+              {
+                "symbol": "convertValue",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "convertValue",
+                "start_line": 1,
+                "end_line": 5,
+                "content": "export class PaletteConverter {\n  convertValue(value: string): number {\n    return Number.parseInt(value, 16)\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteConverter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ProfileService.ets",
+              "symbol": "fetchUser",
+              "owner_name": "ProfileService",
+              "owner_kind": "service",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 10.81,
+              "evidence_score": 10.81,
+              "reasons": [
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 5,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 8.5,
+              "evidence_score": 8.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 115
+        }
+      }
+    },
+    {
+      "index": 3,
+      "compact": false,
+      "stdout_sha256": "b15e9268f52786c17bb51e8dadf24f432df933ac3b738e0d909528a68789ff75",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回 palette 内容转换实现。",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "palette",
+          "内容转换实现",
+          "内容",
+          "容转",
+          "转换",
+          "换实",
+          "实现"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 3,
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "PaletteConverter",
+            "symbol_type": "class",
+            "summary": "ArkTS class PaletteConverter declared in src/PaletteConverter.ets; identifier terms: palette converter",
+            "start_line": 1,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 4,
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method convertValue in src/PaletteConverter.ets; identifier terms: convert value",
+            "start_line": 2,
+            "end_line": 4,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteConverter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "candidate_count": 0,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 3,
+      "compact": true,
+      "stdout_sha256": "55ed1d3aa699ccbe30cc0126a687d2dbee8331c4ce048630b6de1819a55f8fd2",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "palette",
+          "内容转换实现",
+          "内容",
+          "容转",
+          "转换",
+          "换实",
+          "实现"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "PaletteConverter",
+            "symbol_type": "class",
+            "record_ids": [
+              3,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "PaletteConverter",
+                "start_line": 1,
+                "end_line": 5
+              },
+              {
+                "symbol": "convertValue",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "convertValue",
+                "start_line": 1,
+                "end_line": 5,
+                "content": "export class PaletteConverter {\n  convertValue(value: string): number {\n    return Number.parseInt(value, 16)\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/PaletteConverter.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteConverter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 115
+        }
+      }
+    },
+    {
+      "index": 4,
+      "compact": false,
+      "stdout_sha256": "757937ef3cd48b7c2ff5b8f74815759e16f9a8c29ede14c48a579680b9b71738",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回加载用户资料的网络实现。",
+        "log_keywords": [
+          "请返回加载用户资料的网络实现",
+          "请返",
+          "返回",
+          "回加",
+          "加载",
+          "载用",
+          "用户",
+          "户资",
+          "资料",
+          "料的",
+          "的网",
+          "网络",
+          "络实",
+          "实现",
+          "console",
+          "fetchuser",
+          "load",
+          "request",
+          "network",
+          "profile"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "load request network profile account user data",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "src/ProfileService.ets",
+            "function": "fetchUser",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 6,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method fetchUser in src/ProfileService.ets; identifier terms: fetch user",
+            "start_line": 2,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 1,
+            "file_path": "src/ClipboardReader.ets",
+            "symbol": "",
+            "symbol_type": null,
+            "summary": "ArkTS file with 5 non-empty lines; operations: getData, getPrimaryText",
+            "start_line": null,
+            "end_line": null,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 5,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "ProfileService",
+            "symbol_type": "class",
+            "summary": "ArkTS class ProfileService declared in src/ProfileService.ets; identifier terms: profile service",
+            "start_line": 1,
+            "end_line": 6,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 9.5,
+              "evidence_score": 9.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 4,
+      "compact": true,
+      "stdout_sha256": "26555934e555408dacb5bf22fccf3bbdc235a9e0cf38953ec48433262a57b1f2",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回加载用户资料的网络实现",
+          "请返",
+          "返回",
+          "回加",
+          "加载",
+          "载用",
+          "用户",
+          "户资",
+          "资料",
+          "料的",
+          "的网",
+          "网络"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "record_ids": [
+              6,
+              5
+            ],
+            "source_ranges": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 2,
+                "end_line": 5
+              },
+              {
+                "symbol": "ProfileService",
+                "start_line": 1,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class ProfileService {\n  fetchUser(): string {\n    console.info('load request network profile account user data')\n    return network.fetch('/user/profile')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 51.565,
+            "evidence_score": 51.565,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/ClipboardReader.ets",
+              "symbol": "readContent",
+              "owner_name": "ClipboardReader",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 9.5,
+              "evidence_score": 9.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 6,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      }
+    },
+    {
+      "index": 5,
+      "compact": false,
+      "stdout_sha256": "6947e43bc7907c18ac835458022e2b2febab277855ec3c0aef08b07fd11d2eaf",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff/v1",
+        "input_query": "请返回 ProfileService.fetchUser。",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "profileservice",
+          "fetchuser",
+          "console",
+          "load",
+          "request",
+          "network",
+          "profile",
+          "account",
+          "user",
+          "data",
+          "info"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "effect_id": null,
+            "message_template": "load request network profile account user data",
+            "logger": "console",
+            "business_event": null,
+            "trigger_stage": null,
+            "symptom_terms": [],
+            "process_hint": null,
+            "file_path": "src/ProfileService.ets",
+            "function": "fetchUser",
+            "line": 3,
+            "evidence_class": "direct",
+            "wrapper_symbol": null,
+            "wrapper_depth": null,
+            "truncated": false,
+            "call_path": [],
+            "call_path_locations": []
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wiki",
+            "record_id": 6,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "summary": "ArkTS function or lifecycle method fetchUser in src/ProfileService.ets; identifier terms: fetch user",
+            "start_line": 2,
+            "end_line": 5,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          },
+          {
+            "source": "wiki",
+            "record_id": 5,
+            "file_path": "src/ProfileService.ets",
+            "symbol": "ProfileService",
+            "symbol_type": "class",
+            "summary": "ArkTS class ProfileService declared in src/ProfileService.ets; identifier terms: profile service",
+            "start_line": 1,
+            "end_line": 6,
+            "graph_neighbor": false,
+            "graph_relation": null,
+            "identity_match": false
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "next_query_contract": {
+          "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+          "accepted_inputs": [
+            "exact phrase or identifier observed in the temporary runtime log",
+            "one candidate cause produced by the Agent CLI",
+            "file, symbol, route, resource, error code, logger, or event name"
+          ],
+          "one_candidate_per_query": true
+        },
+        "role_boundary": {
+          "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+          "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+          "runtime_reads_temporary_logs": false,
+          "runtime_builds_causal_chains": false
+        },
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 59.5,
+            "evidence_score": 59.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause",
+          "passage_portfolio": {
+            "schema_version": "agent-callable-passage-portfolio/v1",
+            "mode": "serving",
+            "state": "inactive",
+            "members": [],
+            "selection_basis": [
+              "target_scope_not_composite"
+            ],
+            "candidate_recall_changed": false,
+            "boundary": "source_passage_composition_not_diagnosis"
+          }
+        },
+        "path_context": {
+          "schema_version": "log-anchored-path-context/v1",
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "candidate_count": 1,
+          "seeds": [],
+          "path_candidates": [],
+          "gaps": {},
+          "bounds": {
+            "max_depth": 6,
+            "max_nodes": 80,
+            "max_edges": 160,
+            "max_raw_paths_per_seed": 20,
+            "max_returned_paths": 5,
+            "max_same_entry_paths": 2,
+            "cycle_visit_limit": 1
+          },
+          "lane_isolation": {
+            "log_anchor": "code_log_statements identity fields only",
+            "program_path": "current active code graph edges only",
+            "semantic_correction": "annotation in base context; cannot create or rank paths",
+            "experience": "advisory in base context; cannot create or rank paths"
+          }
+        }
+      }
+    },
+    {
+      "index": 5,
+      "compact": true,
+      "stdout_sha256": "379faeb7b5624d6930637995fcb636b34b280e4ea4620b071eb4789f276f5a3d",
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "请返回",
+          "请返",
+          "返回",
+          "profileservice",
+          "fetchuser",
+          "console",
+          "load",
+          "request",
+          "network",
+          "profile",
+          "account",
+          "user"
+        ],
+        "log_anchors": [],
+        "code_anchors": [
+          {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "symbol_type": "function",
+            "record_ids": [
+              6,
+              5
+            ],
+            "source_ranges": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 2,
+                "end_line": 5
+              },
+              {
+                "symbol": "ProfileService",
+                "start_line": 1,
+                "end_line": 6
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "fetchUser",
+                "start_line": 1,
+                "end_line": 6,
+                "content": "export class ProfileService {\n  fetchUser(): string {\n    console.info('load request network profile account user data')\n    return network.fetch('/user/profile')\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/ProfileService.ets",
+            "symbol": "fetchUser",
+            "owner_name": "ProfileService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 59.5,
+            "evidence_score": 59.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 6,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 168
+        }
+      }
+    }
+  ]
+}

@@ -11305,3 +11305,12 @@ Selected native-color variants remain 2/3. Correct source and excerpt are alread
 present; graph/file/salient supplements violate precision. Existing retention guards
 protect these evidence classes, so no speculative runtime change was made. See
 `docs/eval/color-owner-followup-20261114/README.md`. No full gate or remote write.
+
+
+## 2026-11-14 — Keep generic data translation separate from network topics
+
+Split 数据 into data-only translation instead of inferring network/user/profile.
+Two independent competitive fixtures now return actual local sources; explicit
+network/profile controls remain. Clipboard focused variants improve 2/3 to 3/3;
+44 focused tests pass with one pre-existing expected failure. No full gate.
+Evidence: `docs/eval/data-topic-expansion-20261114/README.md`.

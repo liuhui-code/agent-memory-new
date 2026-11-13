@@ -1,0 +1,24 @@
+{
+  "classification": "independent Development",
+  "sources": {
+    "src/ClipboardReader.ets": "export class ClipboardReader {\n  readContent(): string {\n    return pasteboard.getSystemPasteboard().getData().getPrimaryText()\n  }\n}\n",
+    "src/PaletteConverter.ets": "export class PaletteConverter {\n  convertValue(value: string): number {\n    return Number.parseInt(value, 16)\n  }\n}\n",
+    "src/ProfileService.ets": "export class ProfileService {\n  fetchUser(): string {\n    console.info('load request network profile account user data')\n    return network.fetch('/user/profile')\n  }\n}\n"
+  },
+  "queries": [
+    "请返回读取 clipboard 剪贴板数据的实现。",
+    "请返回读取 clipboard 剪贴板内容的实现。",
+    "请返回 palette 数据转换实现。",
+    "请返回 palette 内容转换实现。",
+    "请返回加载用户资料的网络实现。",
+    "请返回 ProfileService.fetchUser。"
+  ],
+  "expected": [
+    "src/ClipboardReader.ets",
+    "src/ClipboardReader.ets",
+    "src/PaletteConverter.ets",
+    "src/PaletteConverter.ets",
+    "src/ProfileService.ets",
+    "src/ProfileService.ets"
+  ]
+}
