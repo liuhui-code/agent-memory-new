@@ -1,0 +1,86 @@
+FFFFFFFFFF.
+======================================================================
+FAIL: test_language_trigger_ascii_identifier_boundaries (tests.test_language_expansion_boundaries.LanguageExpansionBoundaryTests.test_language_trigger_ascii_identifier_boundaries) (query='packets')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/language-token-boundary-investigation/tests/test_language_expansion_boundaries.py", line 15, in test_language_trigger_ascii_identifier_boundaries
+    self.assertFalse({'entry','ability','stage'} & set(query_tokens(query)))
+AssertionError: {'stage', 'ability', 'entry'} is not false
+
+======================================================================
+FAIL: test_language_trigger_ascii_identifier_boundaries (tests.test_language_expansion_boundaries.LanguageExpansionBoundaryTests.test_language_trigger_ascii_identifier_boundaries) (query='assets')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/language-token-boundary-investigation/tests/test_language_expansion_boundaries.py", line 15, in test_language_trigger_ascii_identifier_boundaries
+    self.assertFalse({'entry','ability','stage'} & set(query_tokens(query)))
+AssertionError: {'stage', 'ability', 'entry'} is not false
+
+======================================================================
+FAIL: test_language_trigger_ascii_identifier_boundaries (tests.test_language_expansion_boundaries.LanguageExpansionBoundaryTests.test_language_trigger_ascii_identifier_boundaries) (query='sets')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/language-token-boundary-investigation/tests/test_language_expansion_boundaries.py", line 15, in test_language_trigger_ascii_identifier_boundaries
+    self.assertFalse({'entry','ability','stage'} & set(query_tokens(query)))
+AssertionError: {'stage', 'ability', 'entry'} is not false
+
+======================================================================
+FAIL: test_language_trigger_ascii_identifier_boundaries (tests.test_language_expansion_boundaries.LanguageExpansionBoundaryTests.test_language_trigger_ascii_identifier_boundaries) (query='getStatus')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/language-token-boundary-investigation/tests/test_language_expansion_boundaries.py", line 15, in test_language_trigger_ascii_identifier_boundaries
+    self.assertFalse({'entry','ability','stage'} & set(query_tokens(query)))
+AssertionError: {'stage', 'ability', 'entry'} is not false
+
+======================================================================
+FAIL: test_language_trigger_ascii_identifier_boundaries (tests.test_language_expansion_boundaries.LanguageExpansionBoundaryTests.test_language_trigger_ascii_identifier_boundaries) (query='arktsHelper')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/language-token-boundary-investigation/tests/test_language_expansion_boundaries.py", line 15, in test_language_trigger_ascii_identifier_boundaries
+    self.assertFalse({'entry','ability','stage'} & set(query_tokens(query)))
+AssertionError: {'stage', 'ability', 'entry'} is not false
+
+======================================================================
+FAIL: test_language_trigger_ascii_identifier_boundaries (tests.test_language_expansion_boundaries.LanguageExpansionBoundaryTests.test_language_trigger_ascii_identifier_boundaries) (query='harmonyosAdapter')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/language-token-boundary-investigation/tests/test_language_expansion_boundaries.py", line 15, in test_language_trigger_ascii_identifier_boundaries
+    self.assertFalse({'entry','ability','stage'} & set(query_tokens(query)))
+AssertionError: {'stage', 'ability', 'entry'} is not false
+
+======================================================================
+FAIL: test_language_trigger_ascii_identifier_boundaries (tests.test_language_expansion_boundaries.LanguageExpansionBoundaryTests.test_language_trigger_ascii_identifier_boundaries) (query='ets_handler')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/language-token-boundary-investigation/tests/test_language_expansion_boundaries.py", line 15, in test_language_trigger_ascii_identifier_boundaries
+    self.assertFalse({'entry','ability','stage'} & set(query_tokens(query)))
+AssertionError: {'stage', 'ability', 'entry'} is not false
+
+======================================================================
+FAIL: test_language_trigger_ascii_identifier_boundaries (tests.test_language_expansion_boundaries.LanguageExpansionBoundaryTests.test_language_trigger_ascii_identifier_boundaries) (query='ets2')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/language-token-boundary-investigation/tests/test_language_expansion_boundaries.py", line 15, in test_language_trigger_ascii_identifier_boundaries
+    self.assertFalse({'entry','ability','stage'} & set(query_tokens(query)))
+AssertionError: {'stage', 'ability', 'entry'} is not false
+
+======================================================================
+FAIL: test_language_trigger_ascii_identifier_boundaries (tests.test_language_expansion_boundaries.LanguageExpansionBoundaryTests.test_language_trigger_ascii_identifier_boundaries) (query='$ets')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/language-token-boundary-investigation/tests/test_language_expansion_boundaries.py", line 15, in test_language_trigger_ascii_identifier_boundaries
+    self.assertFalse({'entry','ability','stage'} & set(query_tokens(query)))
+AssertionError: {'stage', 'ability', 'entry'} is not false
+
+======================================================================
+FAIL: test_public_packets_does_not_recall_unrelated_platform (tests.test_language_expansion_boundaries.LanguageExpansionBoundaryTests.test_public_packets_does_not_recall_unrelated_platform)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/language-token-boundary-investigation/tests/test_language_expansion_boundaries.py", line 30, in test_public_packets_does_not_recall_unrelated_platform
+    self.assertEqual({'packet_decoder.py'},{a['file_path'] for a in out['query_handoff']['code_anchors']})
+AssertionError: Items in the second set but not the first:
+'EntryStage.ets'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.946s
+
+FAILED (failures=10)

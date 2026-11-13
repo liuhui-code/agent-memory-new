@@ -1,0 +1,31 @@
+{
+  "sources": {
+    "packet_decoder.py": "def decode_packets(packets):\n    decoded = []\n    for packet in packets:\n        decoded.append(packet.decode(\"utf-8\"))\n    return decoded\n",
+    "EntryStage.ets": "export class EntryStage {\n onCreate(): void {\n  this.startAbility()\n }\n startAbility(): void {}\n}\n"
+  },
+  "queries": [
+    "Locate packets processing implementation.",
+    "Locate assets processing implementation.",
+    "Locate sets processing implementation."
+  ],
+  "token_negative": [
+    "packets",
+    "assets",
+    "sets",
+    "getStatus",
+    "arktsHelper",
+    "harmonyosAdapter",
+    "ets_handler",
+    "ets2",
+    "$ets"
+  ],
+  "token_positive": [
+    "ETS",
+    "ArkTS",
+    "用ets实现",
+    "使用ArkTS实现",
+    "HarmonyOS",
+    "鸿蒙",
+    "source.ets"
+  ]
+}
