@@ -11255,3 +11255,13 @@ inconsistency is still open. See docs/evidence/owner-integration/RESULT.md.
 - Freeze protocol and observations without modifying original case expectations,
   selection thresholds, or runtime. No full suite run.
   See docs/evidence/output-loop-followup/result.md.
+
+## 2026-11-13 — Avoid duplicate deferred source projection consuming distinct slot
+
+- Frozen budget reproduction loses a real read-loop method while keeping a class
+  and its identical file projection. Reorder only duplicate deferred refill.
+- Require same source digest/path/name/span, plain generated file metadata and
+  no graph provenance; retain explicit paths and all records if budget permits.
+- Actual raw handoff now retains collect. Compact strict case still fails and
+  original group remains 1/3; do not call this a complete output-loop repair.
+- 42 focused related checks pass; no score/limit/marker change or full gate.

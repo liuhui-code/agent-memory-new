@@ -1,0 +1,13 @@
+...F....................
+======================================================================
+FAIL: test_only_same_file_symbol_digest_span_and_empty_file_metadata (tests.test_deferred_source_projection.DeferredSourceProjectionTests.test_only_same_file_symbol_digest_span_and_empty_file_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/output-loop-followup-work/tests/test_deferred_source_projection.py", line 35, in test_only_same_file_symbol_digest_span_and_empty_file_metadata
+    self.assertFalse(same_source_projection(file,symbol))
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.052s
+
+FAILED (failures=1)

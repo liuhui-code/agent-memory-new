@@ -128,8 +128,45 @@ def diverse_code_matches(
             return selected
     if focused_candidates:
         return selected[:limit]
+    if not explicit_paths:
+        distinct, repeated = [], []
+        seen = list(selected)
+        for item in deferred:
+            if any(same_source_projection(item, other) for other in seen):
+                repeated.append(item)
+            else:
+                distinct.append(item)
+                seen.append(item)
+        deferred = [*distinct, *repeated]
     selected.extend(deferred[: max(0, limit - len(selected))])
     return selected[:limit]
+
+
+def same_source_projection(left: dict[str, Any], right: dict[str, Any]) -> bool:
+    """A file projection and symbol at the identical named source span."""
+    if {left.get("kind"), right.get("kind")} != {"file", "symbol"}:
+        return False
+    if any("graph_neighbor" in item.get("match_reasons", []) or item.get("graph_depth")
+           for item in (left, right)):
+        return False
+    file_item = left if left.get("kind") == "file" else right
+    symbol_item = right if left.get("kind") == "file" else left
+    # Do not defer away independently informative file evidence. Only the
+    # generated language/line-count envelope is redundant with this source.
+    if (file_item.get("business_summary") or file_item.get("business_terms")
+            or not file_item.get("source_digest")
+            or file_item.get("source_digest") != symbol_item.get("source_digest")
+            or not re.fullmatch(re.escape(str(file_item.get("language") or ""))
+                                + r" file with \d+ non-empty lines",
+                                str(file_item.get("summary") or ""))):
+        return False
+    start, end = left.get("start_line"), left.get("end_line")
+    if not (type(start) is int and type(end) is int and 0 < start <= end):
+        return False
+    return bool(left.get("file_path") and left.get("symbol") and all(
+        left.get(key) == right.get(key)
+        for key in ("file_path", "symbol", "start_line", "end_line")
+    ))
 
 
 def filter_query_role_candidates(
