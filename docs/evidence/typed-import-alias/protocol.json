@@ -1,0 +1,17 @@
+{
+  "classification": "independent Development frozen before producer change",
+  "sources": {
+    "Stores.ts": "export class ActualStore {\n read(): string {\n  return 'actual'\n }\n}\nexport class OtherStore {\n read(): string {\n  return 'other'\n }\n}\n",
+    "AliasConsumer.ts": "import { ActualStore as LocalStore } from './Stores'\nexport class AliasConsumer {\n store: LocalStore\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "DirectConsumer.ts": "import { ActualStore } from './Stores'\nexport class DirectConsumer {\n store: ActualStore\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "OtherConsumer.ts": "import { OtherStore } from './Stores'\nexport class OtherConsumer {\n store: OtherStore\n collect(): string {\n  return this.store.read()\n }\n}\n"
+  },
+  "expected_target": {
+    "AliasConsumer.collect": "ActualStore.read",
+    "DirectConsumer.collect": "ActualStore.read",
+    "OtherConsumer.collect": "OtherStore.read"
+  },
+  "queries": [
+    "Locate AliasConsumer.collect and its callees."
+  ]
+}
