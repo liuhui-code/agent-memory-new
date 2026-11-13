@@ -1,0 +1,85 @@
+FFFFFFFFFF.
+======================================================================
+FAIL: test_bundle_and_system_api_bindings (tests.test_runtime_shadow_bindings.RuntimeShadowBindingTests.test_bundle_and_system_api_bindings)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/runtime-shadow-repair-work/tests/test_runtime_shadow_bindings.py", line 24, in test_bundle_and_system_api_bindings
+    self.assertIn('source_operation_unresolved:runtimecapability',roles)
+AssertionError: 'source_operation_unresolved:runtimecapability' not found in ['source_operation_checked:v2', 'source_operation:runtimecapability', 'source_operation_unresolved:persistenceread']
+
+======================================================================
+FAIL: test_destructuring_and_direct_rebinding_remain_unknown (tests.test_runtime_shadow_bindings.RuntimeShadowBindingTests.test_destructuring_and_direct_rebinding_remain_unknown) (setup='const {canIUse}=other;')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/runtime-shadow-repair-work/tests/test_runtime_shadow_bindings.py", line 14, in test_destructuring_and_direct_rebinding_remain_unknown
+    self.assertIn('source_operation_unresolved:runtimecapability',roles)
+AssertionError: 'source_operation_unresolved:runtimecapability' not found in ['source_operation_checked:v2', 'source_operation:runtimecapability']
+
+======================================================================
+FAIL: test_destructuring_and_direct_rebinding_remain_unknown (tests.test_runtime_shadow_bindings.RuntimeShadowBindingTests.test_destructuring_and_direct_rebinding_remain_unknown) (setup='let {probe:canIUse}=other;')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/runtime-shadow-repair-work/tests/test_runtime_shadow_bindings.py", line 14, in test_destructuring_and_direct_rebinding_remain_unknown
+    self.assertIn('source_operation_unresolved:runtimecapability',roles)
+AssertionError: 'source_operation_unresolved:runtimecapability' not found in ['source_operation_checked:v2', 'source_operation:runtimecapability']
+
+======================================================================
+FAIL: test_destructuring_and_direct_rebinding_remain_unknown (tests.test_runtime_shadow_bindings.RuntimeShadowBindingTests.test_destructuring_and_direct_rebinding_remain_unknown) (setup='const [canIUse]=other;')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/runtime-shadow-repair-work/tests/test_runtime_shadow_bindings.py", line 14, in test_destructuring_and_direct_rebinding_remain_unknown
+    self.assertIn('source_operation_unresolved:runtimecapability',roles)
+AssertionError: 'source_operation_unresolved:runtimecapability' not found in ['source_operation_checked:v2', 'source_operation:runtimecapability']
+
+======================================================================
+FAIL: test_destructuring_and_direct_rebinding_remain_unknown (tests.test_runtime_shadow_bindings.RuntimeShadowBindingTests.test_destructuring_and_direct_rebinding_remain_unknown) (setup='const {\n canIUse\n}=other;')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/runtime-shadow-repair-work/tests/test_runtime_shadow_bindings.py", line 14, in test_destructuring_and_direct_rebinding_remain_unknown
+    self.assertIn('source_operation_unresolved:runtimecapability',roles)
+AssertionError: 'source_operation_unresolved:runtimecapability' not found in ['source_operation_checked:v2', 'source_operation:runtimecapability']
+
+======================================================================
+FAIL: test_destructuring_and_direct_rebinding_remain_unknown (tests.test_runtime_shadow_bindings.RuntimeShadowBindingTests.test_destructuring_and_direct_rebinding_remain_unknown) (setup='({canIUse}=other);')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/runtime-shadow-repair-work/tests/test_runtime_shadow_bindings.py", line 14, in test_destructuring_and_direct_rebinding_remain_unknown
+    self.assertIn('source_operation_unresolved:runtimecapability',roles)
+AssertionError: 'source_operation_unresolved:runtimecapability' not found in ['source_operation_checked:v2', 'source_operation:runtimecapability']
+
+======================================================================
+FAIL: test_destructuring_and_direct_rebinding_remain_unknown (tests.test_runtime_shadow_bindings.RuntimeShadowBindingTests.test_destructuring_and_direct_rebinding_remain_unknown) (setup='[canIUse]=other;')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/runtime-shadow-repair-work/tests/test_runtime_shadow_bindings.py", line 14, in test_destructuring_and_direct_rebinding_remain_unknown
+    self.assertIn('source_operation_unresolved:runtimecapability',roles)
+AssertionError: 'source_operation_unresolved:runtimecapability' not found in ['source_operation_checked:v2', 'source_operation:runtimecapability']
+
+======================================================================
+FAIL: test_destructuring_and_direct_rebinding_remain_unknown (tests.test_runtime_shadow_bindings.RuntimeShadowBindingTests.test_destructuring_and_direct_rebinding_remain_unknown) (setup='canIUse=localPredicate;')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/runtime-shadow-repair-work/tests/test_runtime_shadow_bindings.py", line 14, in test_destructuring_and_direct_rebinding_remain_unknown
+    self.assertIn('source_operation_unresolved:runtimecapability',roles)
+AssertionError: 'source_operation_unresolved:runtimecapability' not found in ['source_operation_checked:v2', 'source_operation:runtimecapability']
+
+======================================================================
+FAIL: test_destructuring_and_direct_rebinding_remain_unknown (tests.test_runtime_shadow_bindings.RuntimeShadowBindingTests.test_destructuring_and_direct_rebinding_remain_unknown) (setup='canIUse ||= fallback;')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/runtime-shadow-repair-work/tests/test_runtime_shadow_bindings.py", line 14, in test_destructuring_and_direct_rebinding_remain_unknown
+    self.assertIn('source_operation_unresolved:runtimecapability',roles)
+AssertionError: 'source_operation_unresolved:runtimecapability' not found in ['source_operation_checked:v2', 'source_operation:runtimecapability']
+
+======================================================================
+FAIL: test_destructuring_and_direct_rebinding_remain_unknown (tests.test_runtime_shadow_bindings.RuntimeShadowBindingTests.test_destructuring_and_direct_rebinding_remain_unknown) (setup='canIUse ??= fallback;')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/runtime-shadow-repair-work/tests/test_runtime_shadow_bindings.py", line 14, in test_destructuring_and_direct_rebinding_remain_unknown
+    self.assertIn('source_operation_unresolved:runtimecapability',roles)
+AssertionError: 'source_operation_unresolved:runtimecapability' not found in ['source_operation_checked:v2', 'source_operation:runtimecapability']
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+FAILED (failures=10)
