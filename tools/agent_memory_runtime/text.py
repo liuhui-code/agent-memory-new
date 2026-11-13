@@ -75,7 +75,7 @@ def query_tokens(query: str) -> list[str]:
         tokens.extend(english_query_variants(token))
     lowered = query.lower()
     for triggers, expansions in QUERY_EXPANSION_RULES:
-        if any(trigger in lowered for trigger in triggers):
+        if any(query_expansion_trigger_matches(trigger, lowered) for trigger in triggers):
             tokens.extend(expansions)
     seen: set[str] = set()
     deduped: list[str] = []
@@ -85,6 +85,15 @@ def query_tokens(query: str) -> list[str]:
         seen.add(token)
         deduped.append(token)
     return deduped
+
+
+def query_expansion_trigger_matches(trigger: str, lowered: str) -> bool:
+    # The short ETS alias is not a fragment of ordinary ASCII identifiers.
+    # ASCII boundaries intentionally permit Chinese-adjacent language mentions.
+    if trigger == "ets":
+        return re.search(r"(?<![a-z0-9_$])" + re.escape(trigger)
+                         + r"(?![a-z0-9_$])", lowered) is not None
+    return trigger in lowered
 
 
 def bounded_query_tokens(query: str, limit: int) -> list[str]:

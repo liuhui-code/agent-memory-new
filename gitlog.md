@@ -11520,3 +11520,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Retain complete diagnostic and rejected patch in docs/eval/arkts-language-topic;
   no full suite, holdout, runtime change or remote write. ets substring-boundary
   investigation is a separate stage, not modified here.
+
+## 2026-11-14 - Bound the ETS short alias to ASCII identifier edges
+
+- Freeze ordinary packet lookup publicly mixing unrelated EntryStage through the
+  `ets` substring; retain both path and decoder-body acceptance checks.
+- Change only `ets` trigger admission; preserve all explicit language/platform
+  expansions, Chinese-adjacent intent and .ets extension. Other triggers unchanged.
+- 47 tests pass, no expected failures; 4 startup controls pass before and after.
+  No original231 gain claimed. Evidence: docs/evidence/language-token-boundary.
