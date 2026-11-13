@@ -11931,3 +11931,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   established. Record conservative unresolved-read and global graph-protection
   boundaries plus an unexecuted minimum independent before/control plan.
 - Documentation only: docs/eval/restore-owner-retention-current/README.md.
+
+## 2026-11-13 — Execute one fixed graph-wrapper retention before
+
+- Freeze five recipe-catalog source/query controls before one public raw/compact
+  execution. Main reader is red at owner-kind localization, not the intended
+  bounded-reader graph protection branch: selected raw anchors have no graph flag.
+- Preserve 3/5 complete passes, with dual-target identity retained but source span
+  incomplete. Stop without tuning, extra variants, production edits or repair claim.
+- Evidence: docs/eval/restore-owner-retention-before/README.md.

@@ -1,0 +1,324 @@
+[
+  {
+    "function": "collect_graph_neighbor_matches",
+    "event": "return",
+    "input": {
+      "anchors": null,
+      "evidence": null,
+      "path_activated": null,
+      "query": "Locate DeferredReader.schedule and its deferred preference read.",
+      "wiki": null,
+      "logs": null
+    },
+    "result": []
+  },
+  {
+    "function": "admitted_log_owners",
+    "event": "return",
+    "input": {
+      "anchors": null,
+      "evidence": null,
+      "path_activated": null,
+      "query": "Locate DeferredReader.schedule and its deferred preference read.",
+      "wiki": [
+        {
+          "id": 12,
+          "project_id": "db9730f59f2fc5ac",
+          "file_path": "DeferredReader.ets",
+          "symbol": "schedule",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method schedule in DeferredReader.ets",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:cf28d2424646204f223c224f",
+          "qualified_name": "DeferredReader.schedule",
+          "signature": "schedule(context: Context):void",
+          "start_line": 4,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "4e7d90fb050db7038a7a818e9dfa96a66aff69075d716e151fc767f594735aec",
+          "evidence_class": "static",
+          "method_evidence": "preferences getpreferencessync get sync json parse storage getsync queuemicrotask queue microtask consume deferredexecution deferred schedule",
+          "string_evidence": "recipecatalog recipe catalog recipes",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:preferences.getpreferencessync\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:cf28d2424646204f223c224f\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_read:preferences.getPreferencesSync\",\"evidence_class\":\"static\",\"kind\":\"persistence_read\",\"line\":6,\"source_key\":\"symbol:cf28d2424646204f223c224f\",\"terms\":[\"persistence_read\",\"persistenceread\",\"persistence\",\"read\",\"load\",\"restore\",\"get\",\"preferences\",\"sync\"]},{\"confidence\":0.9,\"detail\":\"call:storage.getsync\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":7,\"source_key\":\"symbol:cf28d2424646204f223c224f\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_read:storage.getSync\",\"evidence_class\":\"static\",\"kind\":\"persistence_read\",\"line\":7,\"source_key\":\"symbol:cf28d2424646204f223c224f\",\"terms\":[\"persistence_read\",\"persistenceread\",\"persistence\",\"read\",\"load\",\"restore\",\"get\",\"sync\"]}]",
+          "owner_name": "DeferredReader",
+          "owner_kind": "class",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:02:58+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.11612903,
+            "best_rank": 1,
+            "channel_count": 6,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 130.75,
+          "search_terms": [
+            "deferredreader.ets",
+            "arkts function or lifecycle method schedule in deferredreader.ets",
+            "schedule",
+            "function",
+            "deferredreader",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "deferred",
+            "reader",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "method_evidence",
+            "mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        },
+        {
+          "id": 8,
+          "project_id": "db9730f59f2fc5ac",
+          "file_path": "CatalogRestorer.ets",
+          "symbol": "onCreate",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method onCreate in CatalogRestorer.ets; identifier terms: on create",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:bb7f9b6cd692aa16a348f2ff",
+          "qualified_name": "CatalogRestorer.onCreate",
+          "signature": "onCreate():void",
+          "start_line": 6,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "5f64e21dcde5d552aef421f2ce312d3c5c79cfa517625cdbfb40e08fc90372d2",
+          "evidence_class": "static",
+          "method_evidence": "preferences getpreferencessync get sync context json parse storage getsync repository replace create lifecyclehook lifecycleactivation lifecycle stateread state read eventboundary lifecycleboundary",
+          "string_evidence": "recipecatalog recipe catalog recipes",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:preferences.getpreferencessync\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":7,\"source_key\":\"symbol:bb7f9b6cd692aa16a348f2ff\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_read:preferences.getPreferencesSync\",\"evidence_class\":\"static\",\"kind\":\"persistence_read\",\"line\":7,\"source_key\":\"symbol:bb7f9b6cd692aa16a348f2ff\",\"terms\":[\"persistence_read\",\"persistenceread\",\"persistence\",\"read\",\"load\",\"restore\",\"get\",\"preferences\",\"sync\"]},{\"confidence\":0.9,\"detail\":\"call:storage.getsync\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:bb7f9b6cd692aa16a348f2ff\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_read:storage.getSync\",\"evidence_class\":\"static\",\"kind\":\"persistence_read\",\"line\":8,\"source_key\":\"symbol:bb7f9b6cd692aa16a348f2ff\",\"terms\":[\"persistence_read\",\"persistenceread\",\"persistence\",\"read\",\"load\",\"restore\",\"get\",\"sync\"]},{\"confidence\":0.9,\"detail\":\"call:repository.replace\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:bb7f9b6cd692aa16a348f2ff\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "CatalogRestorer",
+          "owner_kind": "store",
+          "callable_roles": "[\"lifecycle\", \"source_operation_checked:v2.1\", \"source_operation:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:02:58+00:00",
+          "recall_lanes": [
+            "method_body_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05887097,
+            "best_rank": 2,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "method_body_fts",
+                "rank": 2,
+                "weight": 0.8,
+                "score": 0.01290323
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 2,
+                "weight": 1.25,
+                "score": 0.02016129
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 2,
+                "weight": 1.6,
+                "score": 0.02580645
+              }
+            ]
+          },
+          "method_evidence_coverage": 2,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 16.5,
+          "search_terms": [
+            "catalogrestorer.ets",
+            "arkts function or lifecycle method oncreate in catalogrestorer.ets; identifier terms: on create",
+            "oncreate",
+            "function",
+            "catalogrestorer",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "on",
+            "create",
+            "catalog",
+            "restorer",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "method_evidence",
+            "mechanism_evidence",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "db9730f59f2fc5ac",
+          "file_path": "CatalogPanel.ets",
+          "symbol": "aboutToAppear",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method aboutToAppear in CatalogPanel.ets; identifier terms: about to appear",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:73b2f5c30b6e58c1961e43b2",
+          "qualified_name": "CatalogPanel.aboutToAppear",
+          "signature": "aboutToAppear():void",
+          "start_line": 7,
+          "end_line": 9,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "6289c4eae528031714a15cf33055e893a047045e33a9a69f7da51c9304747631",
+          "evidence_class": "static",
+          "method_evidence": "repository load about appear lifecyclehook lifecycleactivation lifecycle stateread state read lifecycleboundary",
+          "string_evidence": "",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:repository.load\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:73b2f5c30b6e58c1961e43b2\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_read:repository.load\",\"evidence_class\":\"static\",\"kind\":\"persistence_read\",\"line\":8,\"source_key\":\"symbol:73b2f5c30b6e58c1961e43b2\",\"terms\":[\"persistence_read\",\"persistenceread\",\"persistence\",\"read\",\"load\",\"restore\"]}]",
+          "owner_name": "CatalogPanel",
+          "owner_kind": "component",
+          "callable_roles": "[\"lifecycle\", \"source_operation_checked:v2.1\", \"source_operation:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:02:58+00:00",
+          "recall_lanes": [
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.04414663,
+            "best_rank": 4,
+            "channel_count": 2,
+            "contributions": [
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 4,
+                "weight": 1.25,
+                "score": 0.01953125
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 5,
+                "weight": 1.6,
+                "score": 0.02461538
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 8.5,
+          "search_terms": [
+            "catalogpanel.ets",
+            "arkts function or lifecycle method abouttoappear in catalogpanel.ets; identifier terms: about to appear",
+            "abouttoappear",
+            "function",
+            "catalogpanel",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "about",
+            "to",
+            "appear",
+            "catalog",
+            "panel",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "mechanism_evidence",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        }
+      ],
+      "logs": []
+    },
+    "result": []
+  }
+]

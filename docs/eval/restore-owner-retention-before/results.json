@@ -1,0 +1,64 @@
+[
+  {
+    "id": "reader",
+    "paths": [
+      "CatalogRepository.ets"
+    ],
+    "identity_pass": false,
+    "source_spans": {
+      "CatalogRestorer.ets": false
+    },
+    "pass": false
+  },
+  {
+    "id": "real-log",
+    "paths": [
+      "CatalogRepository.ets",
+      "CatalogPanel.ets",
+      "CatalogWarmup.ets"
+    ],
+    "identity_pass": true,
+    "source_spans": {
+      "CatalogRepository.ets": true
+    },
+    "pass": true
+  },
+  {
+    "id": "explicit-wrapper",
+    "paths": [
+      "CatalogPanel.ets",
+      "CatalogRepository.ets",
+      "CatalogRestorer.ets"
+    ],
+    "identity_pass": true,
+    "source_spans": {
+      "CatalogPanel.ets": true
+    },
+    "pass": true
+  },
+  {
+    "id": "two-targets",
+    "paths": [
+      "CatalogPanel.ets",
+      "CatalogRestorer.ets",
+      "CatalogRepository.ets"
+    ],
+    "identity_pass": true,
+    "source_spans": {
+      "CatalogRestorer.ets": false,
+      "CatalogPanel.ets": true
+    },
+    "pass": false
+  },
+  {
+    "id": "unknown-reader",
+    "paths": [
+      "DeferredReader.ets"
+    ],
+    "identity_pass": true,
+    "source_spans": {
+      "DeferredReader.ets": true
+    },
+    "pass": true
+  }
+]
