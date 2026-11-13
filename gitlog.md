@@ -11988,3 +11988,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   supported unhandled existing-contract patch found in this bounded set.
 - Deliver table, precise source pointers and next review priorities in
   docs/eval/remaining-owner-actionability/README.md. No production change or gain.
+
+## Remaining consumer feasibility ledger (read-only)
+
+- Reviewed 15 assigned historical categories against saved public/trace reports at
+  e868649; no queries, tests, production or oracle changes.
+- Separated evidence commit dates from unavailable execution timestamps and kept
+  each category's own baseline. Saved source SHA256 pointers with the short table.
+- Prioritized cross-component score/provenance internal contract verification, not
+  an authorized serving patch; independent public dual-suppression red is missing.
+- Report: docs/evidence/remaining-consumer-feasibility/README.md.
