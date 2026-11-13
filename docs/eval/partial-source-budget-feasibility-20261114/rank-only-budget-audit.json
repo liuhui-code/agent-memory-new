@@ -1,0 +1,368 @@
+{
+  "kind": "copy-only diagnostic rank-field budget calculation",
+  "before_estimated_tokens": 1490,
+  "full_source_after_estimated_tokens": 1430,
+  "target": 1500,
+  "removed": [
+    {
+      "row": 0,
+      "field": "score",
+      "value": 34.0
+    },
+    {
+      "row": 0,
+      "field": "evidence_score",
+      "value": 34.0
+    },
+    {
+      "row": 0,
+      "field": "reasons",
+      "value": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ]
+    },
+    {
+      "row": 1,
+      "field": "score",
+      "value": 24.5
+    },
+    {
+      "row": 1,
+      "field": "evidence_score",
+      "value": 24.5
+    },
+    {
+      "row": 1,
+      "field": "reasons",
+      "value": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ]
+    },
+    {
+      "row": 2,
+      "field": "score",
+      "value": 23.02
+    },
+    {
+      "row": 2,
+      "field": "evidence_score",
+      "value": 23.02
+    },
+    {
+      "row": 2,
+      "field": "reasons",
+      "value": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ]
+    }
+  ],
+  "preserved_evidence": {
+    "schema_version": "agent-callable-evidence/v1",
+    "certainty": "bounded",
+    "primary": {
+      "file_path": "src/stores/LightingStore.ets",
+      "symbol": "refreshState",
+      "owner_name": "LightingStore",
+      "owner_kind": "store",
+      "file_structural_coverage": 4,
+      "callable_roles": [
+        "async",
+        "state_write",
+        "source_operation_checked:v2.1",
+        "source_operation:persistenceread"
+      ],
+      "source_range": {
+        "start_line": 9,
+        "end_line": 12,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "alternatives": [
+      {
+        "file_path": "src/actions/OrderActionButton.ets",
+        "symbol": "dispatchCommit",
+        "owner_name": "OrderActionButton",
+        "owner_kind": "class",
+        "file_structural_coverage": 1,
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 6,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      {
+        "file_path": "src/views/CanvasInteractionSurface.ets",
+        "symbol": "onActionStart",
+        "owner_name": "CanvasInteractionSurface",
+        "owner_kind": "component",
+        "file_structural_coverage": 1,
+        "callable_roles": [
+          "state_write",
+          "source_operation_checked:v2.1"
+        ],
+        "source_range": {
+          "start_line": 11,
+          "end_line": 13,
+          "selection_reason": "semantic_mechanism_window"
+        }
+      }
+    ],
+    "boundary": "retrieval_evidence_not_root_cause"
+  },
+  "all_logs_paths_freshness_unchanged": true,
+  "payload": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "a6cecbc446da0774",
+    "query": "The lighting action completes but the details state remains unchanged. Locate action dispatch and authoritative refresh ownership.",
+    "memory_intent": "memory_maintenance",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "lighting",
+        "action",
+        "completes",
+        "details",
+        "state",
+        "remains",
+        "unchanged",
+        "locate",
+        "dispatch",
+        "authoritative",
+        "refresh",
+        "ownership"
+      ],
+      "log_anchors": [
+        {
+          "log_id": 10,
+          "message_template": "attachment cached file remains usable",
+          "logger": "hilog",
+          "file_path": "src/pages/DownloadsPage.ets",
+          "function": "retryDownload",
+          "line": 8,
+          "effect_id": 8,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "loadAttachment",
+          "wrapper_depth": 1,
+          "call_path": [
+            "retryDownload",
+            "loadAttachment",
+            "hilog.debug"
+          ],
+          "call_path_locations": [
+            "src/pages/DownloadsPage.ets#retryDownload",
+            "src/services/AttachmentService.ets#loadAttachment",
+            "src/services/AttachmentService.ets#hilog.debug"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 2,
+          "message_template": "DISPATCH_PROFILE_8A21 load failed",
+          "logger": "hilog",
+          "file_path": "src/services/DispatchProfileService.ets",
+          "function": "run",
+          "line": 11,
+          "effect_id": 11,
+          "evidence_class": "inferred_wrapped",
+          "wrapper_symbol": "report",
+          "wrapper_depth": 1,
+          "call_path": [
+            "run",
+            "report",
+            "hilog.error"
+          ],
+          "call_path_locations": [
+            "src/services/DispatchProfileService.ets#run",
+            "src/logging/ConsoleFailureReporter.ets#report",
+            "src/logging/ConsoleFailureReporter.ets#hilog.error"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 10,
+          "message_template": "attachment cached file remains usable",
+          "logger": "hilog",
+          "file_path": "src/services/AttachmentService.ets",
+          "function": "loadAttachment",
+          "line": 12,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "code_anchors": [
+        {
+          "file_path": "src/stores/LightingStore.ets",
+          "symbol": "LightingStore",
+          "symbol_type": "class",
+          "record_ids": [
+            125
+          ],
+          "record_type": "code_file",
+          "source_ranges": [
+            {
+              "symbol": "LightingStore",
+              "start_line": 1,
+              "end_line": 13
+            }
+          ],
+          "summary": "ArkTS file with 11 non-empty lines; behavior: repositoryboundary, actiondispatch, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+          "read_window": {
+            "start_line": 1,
+            "end_line": 13
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "LightingStore",
+              "start_line": 1,
+              "end_line": 13,
+              "content": "export class LightingStore {\n  @State current: LightState = new LightState()\n  private repository: LightingRepository\n\n  async runCommand(command: LightCommand): Promise<void> {\n    await this.repository.executeAction(command)\n  }\n\n  async refreshState(): Promise<void> {\n    const latest = await this.repository.loadCurrent()\n    this.current = latest\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "anchor_range",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/stores/LightingStore.ets",
+          "symbol": "refreshState",
+          "owner_name": "LightingStore",
+          "owner_kind": "store",
+          "file_structural_coverage": 4,
+          "callable_roles": [
+            "async",
+            "state_write",
+            "source_operation_checked:v2.1",
+            "source_operation:persistenceread"
+          ],
+          "source_range": {
+            "start_line": 9,
+            "end_line": 12,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/actions/OrderActionButton.ets",
+            "symbol": "dispatchCommit",
+            "owner_name": "OrderActionButton",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "source_range": {
+              "start_line": 6,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/views/CanvasInteractionSurface.ets",
+            "symbol": "onActionStart",
+            "owner_name": "CanvasInteractionSurface",
+            "owner_kind": "component",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "state_write",
+              "source_operation_checked:v2.1"
+            ],
+            "source_range": {
+              "start_line": 11,
+              "end_line": 13,
+              "selection_reason": "semantic_mechanism_window"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "no_strong_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 1,
+        "excerpt_chars": 358
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "limited_code_anchor_diversity",
+      "no_strong_log_anchor"
+    ],
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 3,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 1490,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  }
+}
