@@ -1,0 +1,16 @@
+F
+======================================================================
+FAIL: test_public_anchor_matches_certified_method_and_current_source (tests.test_source_operation_anchor_identity.SourceOperationAnchorIdentityTests.test_public_anchor_matches_certified_method_and_current_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/operation-anchor-repair-work/tests/test_source_operation_anchor_identity.py", line 26, in test_public_anchor_matches_certified_method_and_current_source
+    self.assertEqual('inspect',anchor['symbol'])
+AssertionError: 'inspect' != 'label'
+- inspect
++ label
+
+
+----------------------------------------------------------------------
+Ran 1 test in 1.568s
+
+FAILED (failures=1)
