@@ -1,0 +1,22 @@
+{
+  "purpose": "review-discovered inner function-type arrow; new offset must not claim body",
+  "controls": [
+    [
+      "Row() { Button().onTouch((cb: () => {",
+      "  x: number",
+      "}",
+      ") => {",
+      "  consume(cb)",
+      "})",
+      "}"
+    ],
+    [
+      "Row() { Button().onTouch((cb: () => {",
+      "  x: number",
+      "}) => {",
+      "  consume(cb)",
+      "})",
+      "}"
+    ]
+  ]
+}
