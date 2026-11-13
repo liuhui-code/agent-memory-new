@@ -1,0 +1,27 @@
+{
+  "classification": "supplemental independent Development: supported lexical file, original regex/parser interference retained separately",
+  "sources": {
+    "ValidationSamples.ts": "export class ValidationSamples {\n count: number = 0\n literal(): string {\n  return \"if (!ready) { return } this.count = 1\"\n }\n comment(): string {\n  // if (!ready) { return } this.count = 1\n  return 'notes'\n }\n template(): string {\n  return `if (!ready) { return } this.count = 1`\n }\n actual(ready: boolean): void {\n  if (!ready) { return }\n  this.count = 1\n }\n mixed(ready: boolean): void {\n  /* if (!ready) { return } this.count = 9 */\n  if (!ready) { return }\n  this.count = 2\n }\n interpolationUnknown(): string {\n  return `${this.count = 4}`\n }\n}\n"
+  },
+  "synthetic_markers": [
+    "guardreturn",
+    "statewrite"
+  ],
+  "no_markers": [
+    "ValidationSamples.literal",
+    "ValidationSamples.comment",
+    "ValidationSamples.template"
+  ],
+  "real_markers": [
+    "ValidationSamples.actual",
+    "ValidationSamples.mixed"
+  ],
+  "legacy_unknown": [
+    "ValidationSamples.interpolationUnknown"
+  ],
+  "queries": [
+    "Locate ValidationSamples.literal implementation.",
+    "Locate ValidationSamples.actual implementation.",
+    "Find the callable that guards against an invalid request and writes its state."
+  ]
+}
