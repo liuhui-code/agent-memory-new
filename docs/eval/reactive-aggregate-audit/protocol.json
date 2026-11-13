@@ -1,0 +1,72 @@
+{
+  "base": "80feab8",
+  "classification": "Independent Development; fixed before execution",
+  "sources": {
+    "InvoiceRollup.ets": "interface InvoiceLine { units: number; price: number }\nclass InvoiceRollup {\n  @State amount: number = 0\n  recompute(lines: InvoiceLine[]): void {\n    let subtotal: number = 0\n    lines.forEach((line: InvoiceLine) => {\n      subtotal += line.units * line.price\n    })\n    this.amount = subtotal\n  }\n}\n",
+    "CaptionList.ets": "@Component\nstruct CaptionList {\n  @State @Watch('refreshLabels') labels: string[] = []\n  refreshLabels(): void { console.info('labels changed') }\n  build() {\n    Column() {\n      ForEach(this.labels, (label: string) => {\n        Text(label)\n      })\n    }\n  }\n}\n",
+    "LineAuditor.ts": "interface AuditLine { enabled: boolean }\nclass LineAuditor {\n  inspect(lines: AuditLine[]): void {\n    lines.forEach((line: AuditLine) => {\n      console.info(line.enabled)\n    })\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "generic-en",
+      "query": "The total stays unchanged after rows change. Locate the numeric accumulation and state update implementation.",
+      "required": [
+        "InvoiceRollup.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {
+        "InvoiceRollup.ets": [
+          "subtotal += line.units * line.price",
+          "this.amount = subtotal"
+        ]
+      }
+    },
+    {
+      "id": "generic-zh",
+      "query": "条目变化后总计不变，请定位数值累积和状态更新的实现。",
+      "required": [
+        "InvoiceRollup.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {
+        "InvoiceRollup.ets": [
+          "subtotal += line.units * line.price",
+          "this.amount = subtotal"
+        ]
+      }
+    },
+    {
+      "id": "explicit-numeric",
+      "query": "Find InvoiceRollup.recompute source.",
+      "required": [
+        "InvoiceRollup.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {
+        "InvoiceRollup.ets": [
+          "subtotal += line.units * line.price",
+          "this.amount = subtotal"
+        ]
+      }
+    },
+    {
+      "id": "explicit-ui",
+      "query": "Find CaptionList.build source for rendering labels with ForEach.",
+      "required": [
+        "CaptionList.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {}
+    },
+    {
+      "id": "explicit-audit",
+      "query": "Find LineAuditor.inspect source.",
+      "required": [
+        "LineAuditor.ts"
+      ],
+      "forbidden": [],
+      "source_fragments": {}
+    }
+  ],
+  "oracle_note": "Required owner and numeric source only; extras recorded separately, no precision-only failure inflated to missing producer."
+}
