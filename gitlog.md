@@ -11748,3 +11748,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 -22 raw/compact observations preserved. Domain code-parsing control also fails
   before change; do not relabel it as another task-language defect class.
 - Evidence: docs/evidence/query-task-language-plan/RESULT.md. No runtime candidate.
+
+## 2026-11-13 - Preserve typed field owner against nonmember declarations
+
+- Independent public calls edges wrongly targeted PreviewStore when comments or
+  method-local object types shadowed a genuine RecordStore field in the field map.
+- Filter existing field-map input using strict lexical/direct-member scope only;
+  keep FIELD_RE, qualified target lookup and whole-container unknown legacy path.
+-52 focused tests pass; ordinary merge repairs both wrong targets, real owners stay
+  unchanged. Original shared-record group1/3 unchanged; no precision-gain claim.
+- Evidence: docs/evidence/shared-field-owner/README.md.

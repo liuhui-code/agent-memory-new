@@ -1,0 +1,14 @@
+import json,tempfile,subprocess
+from pathlib import Path
+D=Path('docs/evidence/shared-field-owner');p=json.loads((D/'protocol.json').read_text());old=Path('/tmp/shared-field-baseline/tools/agent_memory.py');new=Path.cwd()/'tools/agent_memory.py'
+with tempfile.TemporaryDirectory() as d:
+ root=Path(d)/'source';root.mkdir()
+ for f,s in p['sources'].items():(root/f).write_text(s)
+ def run(script,*args):
+  r=subprocess.run(['python',str(script),*args,'--project',str(root),'--memory-home',d+'/memory'],capture_output=True,text=True,check=True);return json.loads(r.stdout)if '--json'in args else r.stdout
+ def snap(script):
+  syms=run(script,'list','--type','code-symbol','--limit','300','--json');edges=run(script,'list','--type','memory-edge','--limit','300','--json');byid={s['id']:s['qualified_name']for s in syms};return {'symbols':syms,'edges':edges,'calls':sorted([byid[e['source_id']],byid[e['target_id']]]for e in edges if e['source_type']=='code_symbol'and e['target_type']=='code_symbol'and e['relation']=='calls'and e.get('valid_to')is None)}
+ run(old,'init');run(old,'learn-path','--path',str(root));out={'before':snap(old),'code_only':snap(new)};run(new,'learn-path','--path',str(root));out['after_merge']=snap(new)
+ assert out['before']['calls']==out['code_only']['calls']
+ for s,t in p['expected_target'].items():assert {v for u,v in out['after_merge']['calls']if u==s}=={t}
+ (D/'activation.json').write_text(json.dumps(out,indent=2));print([(k,out[k]['calls'])for k in out])
