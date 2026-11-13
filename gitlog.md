@@ -11976,3 +11976,15 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   contract is skipped; multiple/graph protection remains an unresolved authority
   boundary. No production edit, query tuning, aggregate run or repair credit.
 - Evidence: docs/eval/canonical-retention-latest/README.md.
+
+## 2026-11-13 — Audit actionability of fifteen remaining owner categories
+
+- Read ledger and actual latest available reports for categories 25/26/27/28/30/
+  32/33/34/37/38/39/40/42/43/44 at e868649; no queries or tests rerun.
+- Separate historical verification from current single-variant observations;
+  record documentation commit timestamps without inventing test execution dates.
+- Distinguish missing same-layer evidence, new authority contracts, stopped
+  candidates and already-repaired adjacent implementation bugs. No immediately
+  supported unhandled existing-contract patch found in this bounded set.
+- Deliver table, precise source pointers and next review priorities in
+  docs/eval/remaining-owner-actionability/README.md. No production change or gain.
