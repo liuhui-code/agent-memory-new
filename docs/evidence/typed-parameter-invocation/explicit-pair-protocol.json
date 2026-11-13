@@ -1,0 +1,21 @@
+{
+  "sources": {
+    "DeliverySink.ts": "export interface DeliverySink {\n  rejected(reason: string): void\n}\n",
+    "Pair.ts": "import { DeliverySink } from './DeliverySink'\nexport class CommentOnly {\n  forward(target: DeliverySink): void {\n    // target.rejected('documentation only')\n    record(target)\n  }\n}\n\nexport class Direct {\n  forward(target: DeliverySink): void {\n    target.rejected('bad payload')\n  }\n}\n",
+    "Direct.ts": "import { DeliverySink } from './DeliverySink'\nexport class Direct {\n  forward(target: DeliverySink): void {\n    target.rejected('bad payload')\n  }\n}\n",
+    "CommentOnly.ts": "import { DeliverySink } from './DeliverySink'\nexport class CommentOnly {\n  forward(target: DeliverySink): void {\n    // target.rejected('documentation only')\n    record(target)\n  }\n}\n"
+  },
+  "query": "Return both Direct.forward and CommentOnly.forward implementations.",
+  "cohorts": {
+    "samefile": [
+      "DeliverySink.ts",
+      "Pair.ts"
+    ],
+    "crossfile": [
+      "DeliverySink.ts",
+      "CommentOnly.ts",
+      "Direct.ts"
+    ]
+  },
+  "expected": "Both same-file parsed methods are explicitly requested. Raw wiki and handoff must distinguish their real IDs and ranges; no budget increase. Compact independently observed, not promised by raw fix."
+}
