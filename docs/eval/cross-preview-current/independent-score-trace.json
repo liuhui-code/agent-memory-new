@@ -1,0 +1,431 @@
+[
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 1)",
+    "neighbor": "('code_symbol', 5)",
+    "score": 48.170348837209296,
+    "matched": "{('code_file', 1): 64.5, ('code_file', 2): 44.25, ('code_symbol', 1): 54.75, ('code_symbol', 2): 55.0, ('code_symbol', 3): 44.0, ('code_symbol', 4): 64.5, ('code_symbol', 5): 44.25, ('code_symbol', 6): 42.5, ('code_symbol', 7): 33.0}",
+    "edge": {
+      "id": 13,
+      "project_id": "8b6d4986002b946f",
+      "source_type": "code_file",
+      "source_id": 1,
+      "relation": "passes_property",
+      "target_type": "code_symbol",
+      "target_id": 5,
+      "evidence": "ArticleTile.ets passes content to CitationBlurb",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:55:26+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_property_flow",
+      "last_verified_at": "2026-11-13T15:55:26+00:00",
+      "created_at": "2026-11-13T15:55:26+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_symbol', 5)",
+    "neighbor": "('code_file', 1)",
+    "score": 40.535,
+    "matched": "{('code_file', 1): 64.5, ('code_file', 2): 44.25, ('code_symbol', 1): 54.75, ('code_symbol', 2): 55.0, ('code_symbol', 3): 44.0, ('code_symbol', 4): 64.5, ('code_symbol', 5): 44.25, ('code_symbol', 6): 42.5, ('code_symbol', 7): 33.0}",
+    "edge": {
+      "id": 13,
+      "project_id": "8b6d4986002b946f",
+      "source_type": "code_file",
+      "source_id": 1,
+      "relation": "passes_property",
+      "target_type": "code_symbol",
+      "target_id": 5,
+      "evidence": "ArticleTile.ets passes content to CitationBlurb",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:55:26+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_property_flow",
+      "last_verified_at": "2026-11-13T15:55:26+00:00",
+      "created_at": "2026-11-13T15:55:26+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 1)",
+    "neighbor": "('code_symbol', 5)",
+    "score": 46.21874999999999,
+    "matched": "{('code_file', 1): 64.5, ('code_file', 2): 44.25, ('code_symbol', 1): 54.75, ('code_symbol', 2): 55.0, ('code_symbol', 3): 44.0, ('code_symbol', 4): 64.5, ('code_symbol', 5): 44.25, ('code_symbol', 6): 42.5, ('code_symbol', 7): 33.0}",
+    "edge": {
+      "id": 12,
+      "project_id": "8b6d4986002b946f",
+      "source_type": "code_file",
+      "source_id": 1,
+      "relation": "renders_component",
+      "target_type": "code_symbol",
+      "target_id": 5,
+      "evidence": "ArticleTile.ets renders CitationBlurb",
+      "confidence": 0.75,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:55:26+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_composition",
+      "last_verified_at": "2026-11-13T15:55:26+00:00",
+      "created_at": "2026-11-13T15:55:26+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_symbol', 5)",
+    "neighbor": "('code_file', 1)",
+    "score": 37.6125,
+    "matched": "{('code_file', 1): 64.5, ('code_file', 2): 44.25, ('code_symbol', 1): 54.75, ('code_symbol', 2): 55.0, ('code_symbol', 3): 44.0, ('code_symbol', 4): 64.5, ('code_symbol', 5): 44.25, ('code_symbol', 6): 42.5, ('code_symbol', 7): 33.0}",
+    "edge": {
+      "id": 12,
+      "project_id": "8b6d4986002b946f",
+      "source_type": "code_file",
+      "source_id": 1,
+      "relation": "renders_component",
+      "target_type": "code_symbol",
+      "target_id": 5,
+      "evidence": "ArticleTile.ets renders CitationBlurb",
+      "confidence": 0.75,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:55:26+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_composition",
+      "last_verified_at": "2026-11-13T15:55:26+00:00",
+      "created_at": "2026-11-13T15:55:26+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 1)",
+    "neighbor": "('code_file', 2)",
+    "score": 40.78125,
+    "matched": "{('code_file', 1): 64.5, ('code_file', 2): 44.25, ('code_symbol', 1): 54.75, ('code_symbol', 2): 55.0, ('code_symbol', 3): 44.0, ('code_symbol', 4): 64.5, ('code_symbol', 5): 44.25, ('code_symbol', 6): 42.5, ('code_symbol', 7): 33.0}",
+    "edge": {
+      "id": 8,
+      "project_id": "8b6d4986002b946f",
+      "source_type": "code_file",
+      "source_id": 1,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 2,
+      "evidence": "ArticleTile.ets -> CitationBlurb.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:55:26+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T15:55:26+00:00",
+      "created_at": "2026-11-13T15:55:26+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 2)",
+    "neighbor": "('code_file', 1)",
+    "score": 33.1875,
+    "matched": "{('code_file', 1): 64.5, ('code_file', 2): 44.25, ('code_symbol', 1): 54.75, ('code_symbol', 2): 55.0, ('code_symbol', 3): 44.0, ('code_symbol', 4): 64.5, ('code_symbol', 5): 44.25, ('code_symbol', 6): 42.5, ('code_symbol', 7): 33.0}",
+    "edge": {
+      "id": 8,
+      "project_id": "8b6d4986002b946f",
+      "source_type": "code_file",
+      "source_id": 1,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 2,
+      "evidence": "ArticleTile.ets -> CitationBlurb.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:55:26+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T15:55:26+00:00",
+      "created_at": "2026-11-13T15:55:26+00:00"
+    }
+  },
+  {
+    "function": "component_lineage_candidates",
+    "result": {},
+    "query": "Article tiles and citation blurbs show different text sizes. Return both UI source contexts.",
+    "input": null
+  },
+  {
+    "function": "boost_match",
+    "result": null,
+    "query": null,
+    "input": null
+  },
+  {
+    "function": "collect_graph_neighbor_matches",
+    "result": [],
+    "query": "Article tiles and citation blurbs show different text sizes. Return both UI source contexts.",
+    "input": null
+  },
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [
+        {
+          "file_path": "ArticleTile.ets",
+          "symbol": "citation",
+          "summary": "state citation in ArticleTile.ets",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 64.5
+        },
+        {
+          "file_path": "CitationBlurb.ets",
+          "symbol": "CitationBlurb",
+          "summary": "ArkTS component CitationBlurb declared in CitationBlurb.ets; identifier terms: citation blurb",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 48.17
+        },
+        {
+          "file_path": "ArticleTile.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in ArticleTile.ets",
+          "method_evidence": "body citation column text fontsize font size citationblurb blurb stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 55.0
+        },
+        {
+          "file_path": "ArticleTile.ets",
+          "symbol": "ArticleTile",
+          "summary": "ArkTS component ArticleTile declared in ArticleTile.ets; identifier terms: article tile",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 54.75
+        },
+        {
+          "file_path": "ArticleTile.ets",
+          "summary": "ArkTS file with 12 non-empty lines; components: ArticleTile; component terms: article, tile; operations: fontSize",
+          "score": 44.4,
+          "symbol": "ArticleTile"
+        },
+        {
+          "file_path": "ArticleTile.ets",
+          "symbol": "body",
+          "summary": "state body in ArticleTile.ets",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 44.0
+        },
+        {
+          "file_path": "CitationBlurb.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in CitationBlurb.ets",
+          "method_evidence": "content row text fontsize font size stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 42.5
+        },
+        {
+          "file_path": "CitationBlurb.ets",
+          "summary": "ArkTS file with 7 non-empty lines; components: CitationBlurb; component terms: citation, blurb; operations: fontSize",
+          "score": 33.4,
+          "symbol": "CitationBlurb"
+        },
+        {
+          "file_path": "CitationBlurb.ets",
+          "symbol": "content",
+          "summary": "state content in CitationBlurb.ets",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 33.0
+        }
+      ],
+      false
+    ],
+    "query": "Article tiles and citation blurbs show different text sizes. Return both UI source contexts.",
+    "input": [
+      {
+        "file_path": "ArticleTile.ets",
+        "symbol": "citation",
+        "summary": "state citation in ArticleTile.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 64.5
+      },
+      {
+        "file_path": "CitationBlurb.ets",
+        "symbol": "CitationBlurb",
+        "summary": "ArkTS component CitationBlurb declared in CitationBlurb.ets; identifier terms: citation blurb",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 48.17
+      },
+      {
+        "file_path": "ArticleTile.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in ArticleTile.ets",
+        "method_evidence": "body citation column text fontsize font size citationblurb blurb stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 55.0
+      },
+      {
+        "file_path": "ArticleTile.ets",
+        "symbol": "ArticleTile",
+        "summary": "ArkTS component ArticleTile declared in ArticleTile.ets; identifier terms: article tile",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 54.75
+      },
+      {
+        "file_path": "ArticleTile.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: ArticleTile; component terms: article, tile; operations: fontSize",
+        "score": 44.4,
+        "symbol": "ArticleTile"
+      },
+      {
+        "file_path": "ArticleTile.ets",
+        "symbol": "body",
+        "summary": "state body in ArticleTile.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 44.0
+      },
+      {
+        "file_path": "CitationBlurb.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in CitationBlurb.ets",
+        "method_evidence": "content row text fontsize font size stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 42.5
+      },
+      {
+        "file_path": "CitationBlurb.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: CitationBlurb; component terms: citation, blurb; operations: fontSize",
+        "score": 33.4,
+        "symbol": "CitationBlurb"
+      },
+      {
+        "file_path": "CitationBlurb.ets",
+        "symbol": "content",
+        "summary": "state content in CitationBlurb.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 33.0
+      }
+    ]
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [
+      {
+        "file_path": "ArticleTile.ets",
+        "symbol": "citation",
+        "summary": "state citation in ArticleTile.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 64.5
+      },
+      {
+        "file_path": "CitationBlurb.ets",
+        "symbol": "CitationBlurb",
+        "summary": "ArkTS component CitationBlurb declared in CitationBlurb.ets; identifier terms: citation blurb",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 48.17
+      },
+      {
+        "file_path": "ArticleTile.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in ArticleTile.ets",
+        "method_evidence": "body citation column text fontsize font size citationblurb blurb stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 55.0
+      },
+      {
+        "file_path": "ArticleTile.ets",
+        "symbol": "ArticleTile",
+        "summary": "ArkTS component ArticleTile declared in ArticleTile.ets; identifier terms: article tile",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 54.75
+      },
+      {
+        "file_path": "ArticleTile.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: ArticleTile; component terms: article, tile; operations: fontSize",
+        "score": 44.4,
+        "symbol": "ArticleTile"
+      }
+    ],
+    "query": "Article tiles and citation blurbs show different text sizes. Return both UI source contexts.",
+    "input": [
+      {
+        "file_path": "ArticleTile.ets",
+        "symbol": "citation",
+        "summary": "state citation in ArticleTile.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 64.5
+      },
+      {
+        "file_path": "CitationBlurb.ets",
+        "symbol": "CitationBlurb",
+        "summary": "ArkTS component CitationBlurb declared in CitationBlurb.ets; identifier terms: citation blurb",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 48.17
+      },
+      {
+        "file_path": "ArticleTile.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in ArticleTile.ets",
+        "method_evidence": "body citation column text fontsize font size citationblurb blurb stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 55.0
+      },
+      {
+        "file_path": "ArticleTile.ets",
+        "symbol": "ArticleTile",
+        "summary": "ArkTS component ArticleTile declared in ArticleTile.ets; identifier terms: article tile",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 54.75
+      },
+      {
+        "file_path": "ArticleTile.ets",
+        "summary": "ArkTS file with 12 non-empty lines; components: ArticleTile; component terms: article, tile; operations: fontSize",
+        "score": 44.4,
+        "symbol": "ArticleTile"
+      },
+      {
+        "file_path": "ArticleTile.ets",
+        "symbol": "body",
+        "summary": "state body in ArticleTile.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 44.0
+      },
+      {
+        "file_path": "CitationBlurb.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in CitationBlurb.ets",
+        "method_evidence": "content row text fontsize font size stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 42.5
+      },
+      {
+        "file_path": "CitationBlurb.ets",
+        "summary": "ArkTS file with 7 non-empty lines; components: CitationBlurb; component terms: citation, blurb; operations: fontSize",
+        "score": 33.4,
+        "symbol": "CitationBlurb"
+      },
+      {
+        "file_path": "CitationBlurb.ets",
+        "symbol": "content",
+        "summary": "state content in CitationBlurb.ets",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 33.0
+      }
+    ]
+  }
+]
