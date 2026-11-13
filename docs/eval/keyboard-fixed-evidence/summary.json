@@ -1,0 +1,72 @@
+{
+  "protocol_hash_verified": true,
+  "successful_command_count": 10,
+  "context_count": 8,
+  "generic_pass": true,
+  "stop_applied": true,
+  "new_independent_keyboard_red": false,
+  "results": [
+    {
+      "id": "generic",
+      "query": "键盘高度变化后，请定位根据事件高度设置输入焦点开关的注册回调。",
+      "paths": [
+        "FocusBinding.ets"
+      ],
+      "required_present": true,
+      "forbidden_hits": [],
+      "extra_paths": [],
+      "missing_source_fragments": {},
+      "source_bytes_valid": true,
+      "tokens": 1060,
+      "pass": true
+    },
+    {
+      "id": "explicit",
+      "query": "Find FocusBinding.attach source.",
+      "paths": [
+        "FocusBinding.ets"
+      ],
+      "required_present": true,
+      "forbidden_hits": [],
+      "extra_paths": [],
+      "missing_source_fragments": {},
+      "source_bytes_valid": true,
+      "tokens": 1093,
+      "pass": true
+    },
+    {
+      "id": "two",
+      "query": "Find both FocusBinding and FocusPreference source.",
+      "paths": [
+        "FocusPreference.ets",
+        "FocusBinding.ets"
+      ],
+      "required_present": true,
+      "forbidden_hits": [],
+      "extra_paths": [],
+      "missing_source_fragments": {},
+      "source_bytes_valid": true,
+      "tokens": 1283,
+      "pass": true
+    },
+    {
+      "id": "literal",
+      "query": "Find the literal keyboard height focus.",
+      "paths": [
+        "FocusBinding.ets",
+        "FocusPreference.ets",
+        "StatusText.ets"
+      ],
+      "required_present": true,
+      "forbidden_hits": [],
+      "extra_paths": [
+        "FocusBinding.ets",
+        "FocusPreference.ets"
+      ],
+      "missing_source_fragments": {},
+      "source_bytes_valid": true,
+      "tokens": 1410,
+      "pass": true
+    }
+  ]
+}

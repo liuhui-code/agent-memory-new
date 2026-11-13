@@ -11666,3 +11666,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Record existing typed-relation limits and a fixed four-query keyboard evidence pass with positive, negative, unknown, multi-owner, budget and stop controls.
 - No implementation, new producer/schema, tests or original-pack rerun. This proposal does not declare all remaining failures blocked or the task complete.
 - See docs/eval/local-binding-proposal/README.zh-CN.md.
+
+
+## Fixed keyboard independent evidence pass
+
+- Executed the proposal's four frozen queries once, with full source/query/oracle hashes saved beforehand; no original pack or runtime edits.
+- Generic event-height-to-focus request already passes with actual registration/predicate/two-branch source; exact and dual-identity controls pass. Literal source recall passes with two extras, not perfect precision.
+- All outputs <=1500 tokens and source bytes verified. Stop rule applied: no added noise/wording changes or new producer. No independent keyboard red or historical repair gain claimed.
+- Setup-only syntax/init-argument mistakes are retained; neither executed a context query. See docs/eval/keyboard-fixed-evidence.
