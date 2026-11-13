@@ -1,0 +1,38 @@
+{
+  "classification": "development",
+  "sources": {
+    "Commands.ts": "export class ExportCommand {\n  run(): string {\n    return \"export_result\";\n  }\n}\nexport class ClearCommand {\n  run(): string {\n    return \"clear_result\";\n  }\n}\nexport class BatchCommands {\n  save(): string {\n    return \"saved_batch\";\n  }\n  reset(): string {\n    return \"reset_batch\";\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "two-owners-same-name",
+      "query": "Find both ExportCommand.run and ClearCommand.run source.",
+      "fragments": [
+        "return \"export_result\";",
+        "return \"clear_result\";"
+      ]
+    },
+    {
+      "id": "unique-export",
+      "query": "Find ExportCommand.run source.",
+      "fragments": [
+        "return \"export_result\";"
+      ]
+    },
+    {
+      "id": "same-owner-two-methods",
+      "query": "Find both BatchCommands.save and BatchCommands.reset source.",
+      "fragments": [
+        "return \"saved_batch\";",
+        "return \"reset_batch\";"
+      ]
+    },
+    {
+      "id": "unique-clear",
+      "query": "Find ClearCommand.run source.",
+      "fragments": [
+        "return \"clear_result\";"
+      ]
+    }
+  ]
+}
