@@ -12009,3 +12009,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   diagnostic ranks explicitly historical. Recheck other rows' cited boundaries.
 - Add source SHA256 and recording provenance without inventing execution dates.
   No runtime changes, queries or tests.
+
+## Fixed fallback English consumer trace
+
+- Freeze before current raw/compact observation; output-capture list-type error and
+  identical approved replay documented with normalized full-trace equality.
+- Both required classes survive early focus. A bounded store primary narrows them
+  before budget; ordinary cross-file portfolio contains unrelated lexical store
+  entries, not a lost registry/store identity certificate. Public typed edge reads
+  do not prove a connection between owners. No production or oracle change.
+- Evidence: docs/evidence/fallback-consumer-current.

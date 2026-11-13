@@ -1,0 +1,202 @@
+{
+  "schema_version": "agent-context-compact/v1",
+  "project_id": "1bbcc0b5d86301f1",
+  "query": "The offline fallback remains after reconnect; return the registry branch and store sync owners.",
+  "memory_intent": "general_context",
+  "memory_intent_source": "inferred",
+  "source_freshness": {
+    "status": "current",
+    "generation": 1
+  },
+  "query_handoff": {
+    "schema_version": "agent-query-handoff-compact/v1",
+    "log_keywords": [
+      "offline",
+      "fallback",
+      "remains",
+      "after",
+      "reconnect",
+      "return",
+      "registry",
+      "branch"
+    ],
+    "log_anchors": [
+      {
+        "log_id": 10,
+        "message_template": "attachment cached file remains usable",
+        "logger": "hilog",
+        "file_path": "src/pages/DownloadsPage.ets",
+        "function": "retryDownload",
+        "line": 8,
+        "effect_id": 8,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "loadAttachment",
+        "wrapper_depth": 1,
+        "call_path": [
+          "retryDownload",
+          "loadAttachment",
+          "hilog.debug"
+        ],
+        "call_path_locations": [
+          "src/pages/DownloadsPage.ets#retryDownload",
+          "src/services/AttachmentService.ets#loadAttachment",
+          "src/services/AttachmentService.ets#hilog.debug"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 9,
+        "message_template": "attachment download failed after cache write",
+        "logger": "hilog",
+        "file_path": "src/pages/DownloadsPage.ets",
+        "function": "retryDownload",
+        "line": 8,
+        "effect_id": 7,
+        "evidence_class": "static_wrapped",
+        "wrapper_symbol": "loadAttachment",
+        "wrapper_depth": 1,
+        "call_path": [
+          "retryDownload",
+          "loadAttachment",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/pages/DownloadsPage.ets#retryDownload",
+          "src/services/AttachmentService.ets#loadAttachment",
+          "src/services/AttachmentService.ets#hilog.error"
+        ],
+        "truncated": false
+      },
+      {
+        "log_id": 10,
+        "message_template": "attachment cached file remains usable",
+        "logger": "hilog",
+        "file_path": "src/services/AttachmentService.ets",
+        "function": "loadAttachment",
+        "line": 12,
+        "evidence_class": "direct",
+        "truncated": false
+      }
+    ],
+    "code_anchors": [
+      {
+        "file_path": "src/stores/DeviceSyncStore.ets",
+        "symbol": "DeviceSyncStore",
+        "symbol_type": "class",
+        "record_ids": [
+          123
+        ],
+        "record_type": "code_file",
+        "source_ranges": [
+          {
+            "symbol": "DeviceSyncStore",
+            "start_line": 1,
+            "end_line": 9
+          }
+        ],
+        "summary": "ArkTS file with 8 non-empty lines; behavior: repositoryboundary, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+        "read_window": {
+          "start_line": 1,
+          "end_line": 9
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "DeviceSyncStore",
+            "start_line": 1,
+            "end_line": 9,
+            "content": "export class DeviceSyncStore {\n  @State devices: DeviceCard[] = []\n  private repository: DeviceRepository\n\n  async syncFromCompanion(): Promise<void> {\n    const latest = await this.repository.loadDevices()\n    this.devices = latest\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "anchor_range",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable_evidence": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "src/stores/DeviceSyncStore.ets",
+        "symbol": "syncFromCompanion",
+        "owner_kind": "store",
+        "source_range": {
+          "start_line": 5,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": []
+    },
+    "path_context": {
+      "activated": false,
+      "activation_reason": "no_strong_log_anchor",
+      "graph_revision": null,
+      "path_candidates": [],
+      "gaps": {}
+    },
+    "relation_hints": [],
+    "experience_refs": [],
+    "semantic_refs": [],
+    "source_exploration": {
+      "policy": "anchor_first_deterministic_expansion_v8",
+      "limits": {
+        "primary": 3,
+        "rounds": 2,
+        "round_files": 2,
+        "searches": 3,
+        "files": 7,
+        "reads_per_file": 2,
+        "read_lines": 180
+      }
+    },
+    "next_queries": [],
+    "role_boundary": {
+      "runtime": "retrieval_and_current_graph_context_only",
+      "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+      "runtime_reads_temporary_logs": false,
+      "runtime_selects_root_cause": false
+    },
+    "source_excerpt_policy": {
+      "source": "current_worktree",
+      "body_persisted": false,
+      "excerpt_count": 1,
+      "excerpt_chars": 238
+    }
+  },
+  "correction_guards": [],
+  "semantic_patch_notes": [],
+  "blocked_memory_notes": [],
+  "conflict_notes": [],
+  "evidence_gaps": [
+    "limited_code_anchor_diversity",
+    "no_strong_log_anchor"
+  ],
+  "expansion": {
+    "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+    "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+  },
+  "sufficiency": {
+    "schema_version": "agent-context-sufficiency/v1",
+    "kind": "diagnosis",
+    "status": "ready_for_agent_inspection",
+    "next_action": "inspect_primary_source_anchor",
+    "reason_codes": [
+      "limited_code_anchor_diversity",
+      "no_strong_log_anchor"
+    ],
+    "coverage": {
+      "source_locatable_code_anchor": true,
+      "log_anchor_count": 3,
+      "path_candidate_count": 0
+    },
+    "scope": "retrieval_readiness_only_not_agent_reasoning",
+    "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+  },
+  "output_budget": {
+    "estimated_tokens": 1206,
+    "target_tokens": 1500,
+    "truncated": true
+  }
+}

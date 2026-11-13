@@ -1,0 +1,241 @@
+{
+  "replay_checks": {
+    "raw_normalized_full_trace_equal": true,
+    "compact_normalized_full_trace_equal": true
+  },
+  "excluded_comparison_fields": [
+    "fresh project_id",
+    "fresh updated_at",
+    "unordered set repr order",
+    "function object memory address"
+  ],
+  "focus_before": [
+    {
+      "source": "wiki",
+      "record_id": 123,
+      "record_type": "code_file",
+      "file_path": "src/stores/DeviceSyncStore.ets",
+      "symbol": "DeviceSyncStore",
+      "symbol_type": "class",
+      "summary": "ArkTS file with 8 non-empty lines; behavior: repositoryboundary, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+      "start_line": 1,
+      "end_line": 9,
+      "graph_neighbor": false,
+      "graph_relation": null,
+      "identity_match": false
+    },
+    {
+      "source": "wiki",
+      "record_id": 105,
+      "record_type": "code_file",
+      "file_path": "src/runtime/TransportRegistry.ets",
+      "symbol": "TransportRegistry",
+      "symbol_type": "class",
+      "summary": "ArkTS file with 10 non-empty lines; behavior: fallbackbranch, repositoryboundary, conditionalbranch, statewrite",
+      "start_line": 1,
+      "end_line": 11,
+      "graph_neighbor": false,
+      "graph_relation": null,
+      "identity_match": false
+    },
+    {
+      "source": "wiki",
+      "record_id": 125,
+      "record_type": "code_file",
+      "file_path": "src/stores/LightingStore.ets",
+      "symbol": "LightingStore",
+      "symbol_type": "class",
+      "summary": "ArkTS file with 11 non-empty lines; behavior: repositoryboundary, actiondispatch, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+      "start_line": 1,
+      "end_line": 13,
+      "graph_neighbor": false,
+      "graph_relation": null,
+      "identity_match": false
+    },
+    {
+      "source": "wiki",
+      "record_id": 124,
+      "record_type": "code_file",
+      "file_path": "src/stores/DocumentSelectionStore.ets",
+      "symbol": "DocumentSelectionStore",
+      "symbol_type": "class",
+      "summary": "ArkTS file with 6 non-empty lines; behavior: statewrite",
+      "start_line": 1,
+      "end_line": 7,
+      "graph_neighbor": false,
+      "graph_relation": null,
+      "identity_match": false
+    },
+    {
+      "source": "log_emitter",
+      "record_id": 10,
+      "record_type": "code_log_statement",
+      "file_path": "src/services/AttachmentService.ets",
+      "symbol": "loadAttachment",
+      "symbol_type": null,
+      "summary": null,
+      "start_line": 4,
+      "end_line": 14,
+      "graph_neighbor": false,
+      "graph_relation": null,
+      "identity_match": false
+    },
+    {
+      "source": "wrapped_log_caller",
+      "record_id": 8,
+      "record_type": "code_log_effect",
+      "file_path": "src/pages/DownloadsPage.ets",
+      "symbol": "retryDownload",
+      "symbol_type": null,
+      "summary": null,
+      "start_line": 7,
+      "end_line": 9,
+      "graph_neighbor": false,
+      "graph_relation": null,
+      "identity_match": false
+    }
+  ],
+  "focus_after": [
+    {
+      "source": "wiki",
+      "record_id": 123,
+      "record_type": "code_file",
+      "file_path": "src/stores/DeviceSyncStore.ets",
+      "symbol": "DeviceSyncStore",
+      "symbol_type": "class",
+      "summary": "ArkTS file with 8 non-empty lines; behavior: repositoryboundary, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+      "start_line": 1,
+      "end_line": 9,
+      "graph_neighbor": false,
+      "graph_relation": null,
+      "identity_match": false
+    }
+  ],
+  "portfolio": {
+    "schema_version": "agent-callable-passage-portfolio/v1",
+    "mode": "serving",
+    "state": "composed",
+    "target_scope": "multiple",
+    "members": [
+      {
+        "file_path": "src/stores/DeviceSyncStore.ets",
+        "symbol": "syncFromCompanion",
+        "owner_name": "DeviceSyncStore",
+        "source_range": {
+          "start_line": 5,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "file_path": "src/pools/ThumbnailPool.ets",
+        "symbol": "storeThumbnail",
+        "owner_name": "ThumbnailPool",
+        "source_range": {
+          "start_line": 6,
+          "end_line": 13,
+          "selection_reason": "callable_symbol_range"
+        },
+        "support_reasons": [
+          "salient_query_evidence"
+        ]
+      },
+      {
+        "file_path": "src/pages/LedgerMaintenancePage.ets",
+        "symbol": "commitSelectedLedgerBatch",
+        "owner_name": "LedgerMaintenancePage",
+        "source_range": {
+          "start_line": 486,
+          "end_line": 490,
+          "selection_reason": "semantic_mechanism_window",
+          "mechanism_kind": "persistence_write",
+          "mechanism_terms": [
+            "store"
+          ]
+        },
+        "support_reasons": [
+          "salient_query_evidence",
+          "semantic_mechanism"
+        ]
+      }
+    ],
+    "selection_basis": [
+      "existing_localization",
+      "same_owner_scope",
+      "explicit_cross_file_targets",
+      "bounded_passage_diversity"
+    ],
+    "candidate_recall_changed": false,
+    "boundary": "source_passage_composition_not_diagnosis"
+  },
+  "primary": {
+    "file_path": "src/stores/DeviceSyncStore.ets",
+    "symbol": "syncFromCompanion",
+    "owner_name": "DeviceSyncStore",
+    "owner_kind": "store",
+    "file_structural_coverage": 3,
+    "callable_roles": [
+      "async",
+      "state_write",
+      "source_operation_checked:v2.1",
+      "source_operation:persistenceread"
+    ],
+    "score": 32.5,
+    "evidence_score": 32.5,
+    "reasons": [
+      "expanded_query:symbol",
+      "expanded_query:summary",
+      "expanded_query:method_evidence",
+      "first_stage_rank_prior"
+    ],
+    "source_range": {
+      "start_line": 5,
+      "end_line": 8,
+      "selection_reason": "callable_symbol_range"
+    }
+  },
+  "budget": {
+    "estimated_tokens": 1206,
+    "target_tokens": 1500,
+    "truncated": true
+  },
+  "final_anchors": [
+    {
+      "file_path": "src/stores/DeviceSyncStore.ets",
+      "symbol": "DeviceSyncStore",
+      "symbol_type": "class",
+      "record_ids": [
+        123
+      ],
+      "record_type": "code_file",
+      "source_ranges": [
+        {
+          "symbol": "DeviceSyncStore",
+          "start_line": 1,
+          "end_line": 9
+        }
+      ],
+      "summary": "ArkTS file with 8 non-empty lines; behavior: repositoryboundary, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+      "read_window": {
+        "start_line": 1,
+        "end_line": 9
+      },
+      "role": "primary",
+      "source_excerpts": [
+        {
+          "symbol": "DeviceSyncStore",
+          "start_line": 1,
+          "end_line": 9,
+          "content": "export class DeviceSyncStore {\n  @State devices: DeviceCard[] = []\n  private repository: DeviceRepository\n\n  async syncFromCompanion(): Promise<void> {\n    const latest = await this.repository.loadDevices()\n    this.devices = latest\n  }\n}",
+          "source": "current_worktree",
+          "selection_reason": "anchor_range",
+          "focus_line": null,
+          "truncated": false
+        }
+      ]
+    }
+  ]
+}
