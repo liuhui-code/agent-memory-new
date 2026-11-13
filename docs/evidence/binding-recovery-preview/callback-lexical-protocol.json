@@ -1,0 +1,7 @@
+{
+  "query": "Locate GuidePanel.onClick callback implementation.",
+  "sources": {
+    "GuidePanel.ets": "@Component\nexport struct GuidePanel {\n private example: string = '.onClick(() => { this.launch() })'\n // .onClick(() => { this.launch() })\n build() { Text(this.example) }\n}\n",
+    "LivePanel.ets": "@Component\nexport struct LivePanel {\n build() {\n  Button('Launch').onClick(() => {\n   this.launch()\n  })\n }\n private launch(): void {}\n}\n"
+  }
+}

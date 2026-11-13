@@ -1,0 +1,196 @@
+FFFF.FFFFFFF
+======================================================================
+FAIL: test_public_literal_and_comment_are_not_function_owners (tests.test_callback_lexical_admission.CallbackLexicalPublicTests.test_public_literal_and_comment_are_not_function_owners)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_lexical_admission.py", line 47, in test_public_literal_and_comment_are_not_function_owners
+    self.assertFalse(any(s['file_path']=='GuidePanel.ets' and s['symbol']=='onClick' for s in symbols))
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_real_callbacks_after_multiline_non_code_keep_lines (tests.test_callback_lexical_admission.CallbackLexicalTests.test_real_callbacks_after_multiline_non_code_keep_lines) (prefix='/*\n.onClick(() => { fake() })\n*/')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_lexical_admission.py", line 32, in test_real_callbacks_after_multiline_non_code_keep_lines
+    self.assertEqual([('onClick',offset+1,offset+4)],[(r['symbol'],r['start_line'],r['end_line']) for r in found])
+AssertionError: Lists differ: [('onClick', 4, 7)] != [('onClick', 2, 2), ('onClick', 4, 7), ('onTouch', 6, 6)]
+
+First differing element 0:
+('onClick', 4, 7)
+('onClick', 2, 2)
+
+Second list contains 2 additional elements.
+First extra element 1:
+('onClick', 4, 7)
+
+- [('onClick', 4, 7)]
++ [('onClick', 2, 2), ('onClick', 4, 7), ('onTouch', 6, 6)]
+
+======================================================================
+FAIL: test_real_callbacks_after_multiline_non_code_keep_lines (tests.test_callback_lexical_admission.CallbackLexicalTests.test_real_callbacks_after_multiline_non_code_keep_lines) (prefix='const s = `${flag ? `.onClick(() => { fake() })` : ""}`')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_lexical_admission.py", line 32, in test_real_callbacks_after_multiline_non_code_keep_lines
+    self.assertEqual([('onClick',offset+1,offset+4)],[(r['symbol'],r['start_line'],r['end_line']) for r in found])
+AssertionError: Lists differ: [('onClick', 2, 5)] != [('onClick', 1, 1), ('onClick', 2, 5), ('onTouch', 4, 4)]
+
+First differing element 0:
+('onClick', 2, 5)
+('onClick', 1, 1)
+
+Second list contains 2 additional elements.
+First extra element 1:
+('onClick', 2, 5)
+
+- [('onClick', 2, 5)]
++ [('onClick', 1, 1), ('onClick', 2, 5), ('onTouch', 4, 4)]
+
+======================================================================
+FAIL: test_real_callbacks_after_multiline_non_code_keep_lines (tests.test_callback_lexical_admission.CallbackLexicalTests.test_real_callbacks_after_multiline_non_code_keep_lines) (prefix='const s = `${format({value: `.onClick(() => { fake() })`})}`')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_lexical_admission.py", line 32, in test_real_callbacks_after_multiline_non_code_keep_lines
+    self.assertEqual([('onClick',offset+1,offset+4)],[(r['symbol'],r['start_line'],r['end_line']) for r in found])
+AssertionError: Lists differ: [('onClick', 2, 5)] != [('onClick', 1, 1), ('onClick', 2, 5), ('onTouch', 4, 4)]
+
+First differing element 0:
+('onClick', 2, 5)
+('onClick', 1, 1)
+
+Second list contains 2 additional elements.
+First extra element 1:
+('onClick', 2, 5)
+
+- [('onClick', 2, 5)]
++ [('onClick', 1, 1), ('onClick', 2, 5), ('onTouch', 4, 4)]
+
+======================================================================
+FAIL: test_strings_comments_and_templates_do_not_create_callbacks (tests.test_callback_lexical_admission.CallbackLexicalTests.test_strings_comments_and_templates_do_not_create_callbacks) (source="const sample = '.onClick(() => { fake() })'")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_lexical_admission.py", line 20, in test_strings_comments_and_templates_do_not_create_callbacks
+    self.assertEqual([],member_callback_ranges(source.splitlines()))
+AssertionError: Lists differ: [] != [{'symbol': 'onClick', 'start_line': 1, 'e[57 chars]ow'}]
+
+Second list contains 1 additional elements.
+First extra element 0:
+{'symbol': 'onClick', 'start_line': 1, 'end_line': 1, 'selection_reason': 'arkts_dsl_callback_window'}
+
+- []
++ [{'end_line': 1,
++   'selection_reason': 'arkts_dsl_callback_window',
++   'start_line': 1,
++   'symbol': 'onClick'}]
+
+======================================================================
+FAIL: test_strings_comments_and_templates_do_not_create_callbacks (tests.test_callback_lexical_admission.CallbackLexicalTests.test_strings_comments_and_templates_do_not_create_callbacks) (source='// .onTouch(() => { fake() })')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_lexical_admission.py", line 20, in test_strings_comments_and_templates_do_not_create_callbacks
+    self.assertEqual([],member_callback_ranges(source.splitlines()))
+AssertionError: Lists differ: [] != [{'symbol': 'onTouch', 'start_line': 1, 'e[57 chars]ow'}]
+
+Second list contains 1 additional elements.
+First extra element 0:
+{'symbol': 'onTouch', 'start_line': 1, 'end_line': 1, 'selection_reason': 'arkts_dsl_callback_window'}
+
+- []
++ [{'end_line': 1,
++   'selection_reason': 'arkts_dsl_callback_window',
++   'start_line': 1,
++   'symbol': 'onTouch'}]
+
+======================================================================
+FAIL: test_strings_comments_and_templates_do_not_create_callbacks (tests.test_callback_lexical_admission.CallbackLexicalTests.test_strings_comments_and_templates_do_not_create_callbacks) (source='/*\n.onChange(() => {\n fake()\n})\n*/')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_lexical_admission.py", line 20, in test_strings_comments_and_templates_do_not_create_callbacks
+    self.assertEqual([],member_callback_ranges(source.splitlines()))
+AssertionError: Lists differ: [] != [{'symbol': 'onChange', 'start_line': 2, '[58 chars]ow'}]
+
+Second list contains 1 additional elements.
+First extra element 0:
+{'symbol': 'onChange', 'start_line': 2, 'end_line': 4, 'selection_reason': 'arkts_dsl_callback_window'}
+
+- []
++ [{'end_line': 4,
++   'selection_reason': 'arkts_dsl_callback_window',
++   'start_line': 2,
++   'symbol': 'onChange'}]
+
+======================================================================
+FAIL: test_strings_comments_and_templates_do_not_create_callbacks (tests.test_callback_lexical_admission.CallbackLexicalTests.test_strings_comments_and_templates_do_not_create_callbacks) (source='const sample = `\n.onSubmit(() => { fake() })\n`')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_lexical_admission.py", line 20, in test_strings_comments_and_templates_do_not_create_callbacks
+    self.assertEqual([],member_callback_ranges(source.splitlines()))
+AssertionError: Lists differ: [] != [{'symbol': 'onSubmit', 'start_line': 2, '[58 chars]ow'}]
+
+Second list contains 1 additional elements.
+First extra element 0:
+{'symbol': 'onSubmit', 'start_line': 2, 'end_line': 2, 'selection_reason': 'arkts_dsl_callback_window'}
+
+- []
++ [{'end_line': 2,
++   'selection_reason': 'arkts_dsl_callback_window',
++   'start_line': 2,
++   'symbol': 'onSubmit'}]
+
+======================================================================
+FAIL: test_strings_comments_and_templates_do_not_create_callbacks (tests.test_callback_lexical_admission.CallbackLexicalTests.test_strings_comments_and_templates_do_not_create_callbacks) (source='const sample = `${flag ? `.onClick(() => { fake() })` : ""}`')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_lexical_admission.py", line 20, in test_strings_comments_and_templates_do_not_create_callbacks
+    self.assertEqual([],member_callback_ranges(source.splitlines()))
+AssertionError: Lists differ: [] != [{'symbol': 'onClick', 'start_line': 1, 'e[57 chars]ow'}]
+
+Second list contains 1 additional elements.
+First extra element 0:
+{'symbol': 'onClick', 'start_line': 1, 'end_line': 1, 'selection_reason': 'arkts_dsl_callback_window'}
+
+- []
++ [{'end_line': 1,
++   'selection_reason': 'arkts_dsl_callback_window',
++   'start_line': 1,
++   'symbol': 'onClick'}]
+
+======================================================================
+FAIL: test_strings_comments_and_templates_do_not_create_callbacks (tests.test_callback_lexical_admission.CallbackLexicalTests.test_strings_comments_and_templates_do_not_create_callbacks) (source='const sample = `${events.onClick(() => { realButUnsupported() })}`')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_lexical_admission.py", line 20, in test_strings_comments_and_templates_do_not_create_callbacks
+    self.assertEqual([],member_callback_ranges(source.splitlines()))
+AssertionError: Lists differ: [] != [{'symbol': 'onClick', 'start_line': 1, 'e[57 chars]ow'}]
+
+Second list contains 1 additional elements.
+First extra element 0:
+{'symbol': 'onClick', 'start_line': 1, 'end_line': 1, 'selection_reason': 'arkts_dsl_callback_window'}
+
+- []
++ [{'end_line': 1,
++   'selection_reason': 'arkts_dsl_callback_window',
++   'start_line': 1,
++   'symbol': 'onClick'}]
+
+======================================================================
+FAIL: test_strings_comments_and_templates_do_not_create_callbacks (tests.test_callback_lexical_admission.CallbackLexicalTests.test_strings_comments_and_templates_do_not_create_callbacks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/binding-recovery-preview-audit/tests/test_callback_lexical_admission.py", line 22, in test_strings_comments_and_templates_do_not_create_callbacks
+    self.assertEqual([],property_callback_ranges(source.splitlines()))
+AssertionError: Lists differ: [] != [{'symbol': 'execute', 'start_line': 2, 'e[61 chars]ow'}]
+
+Second list contains 1 additional elements.
+First extra element 0:
+{'symbol': 'execute', 'start_line': 2, 'end_line': 4, 'selection_reason': 'ecma_property_callback_window'}
+
+- []
++ [{'end_line': 4,
++   'selection_reason': 'ecma_property_callback_window',
++   'start_line': 2,
++   'symbol': 'execute'}]
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.016s
+
+FAILED (failures=11)
