@@ -11998,3 +11998,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Prioritized cross-component score/provenance internal contract verification, not
   an authorized serving patch; independent public dual-suppression red is missing.
 - Report: docs/evidence/remaining-consumer-feasibility/README.md.
+
+## 2026-11-13 — Correct later evidence omitted from owner actionability audit
+
+- Before publication, add already-present history-action public red/two green
+  controls; category34 needs attribution contract review, not a repeated before.
+- Preserve old color truncation history but record accepted full2..12/1460 recovery;
+  precision remains2/3. Webview remains identity-mismatched and unrecovered.
+- Cite the newer weak-typed-reservation native original-final2/3; keep earlier
+  diagnostic ranks explicitly historical. Recheck other rows' cited boundaries.
+- Add source SHA256 and recording provenance without inventing execution dates.
+  No runtime changes, queries or tests.
