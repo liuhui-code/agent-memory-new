@@ -48,9 +48,13 @@ def focus_callable_anchors(
         projected = [callable_anchor(member, None) for member in portfolio["members"]]
         return merge_incomplete_path(projected, anchors, path_activated) if activated else projected
     if evidence.get("certainty") != "bounded":
+        weak_uncertain = (evidence.get("certainty") == "uncertain"
+                          and primary.get("typed_contract_weak") is True
+                          and primary_range_covered(anchors, primary))
         return (
             reserve_uncertain_primary(anchors, primary)
-            if activated or primary.get("typed_contract_match") else anchors
+            if activated or (primary.get("typed_contract_match")
+                             and not weak_uncertain) else anchors
         )
     if multiple_requested_anchors_present(anchors, evidence, query):
         return anchors
@@ -154,6 +158,18 @@ def portfolio_anchors(
             member, by_path.get(str(member.get("file_path") or "")),
         ))
     return result or existing
+
+
+def primary_range_covered(anchors: list[dict[str, Any]], primary: dict[str, Any]) -> bool:
+    """Check display coverage only, not identity or source-reading authority."""
+    source_range = primary.get("source_range")
+    path = str(primary.get("file_path") or "")
+    if not path or not valid_retained_range(source_range):
+        return False
+    return any(str(anchor.get("file_path") or "") == path
+               and valid_retained_range(anchor)
+               and anchor["start_line"] <= source_range["start_line"]
+               and source_range["end_line"] <= anchor["end_line"] for anchor in anchors)
 
 
 def reserve_uncertain_primary(

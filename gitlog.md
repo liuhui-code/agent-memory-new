@@ -11899,3 +11899,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Preserve distinct recognized code_symbol IDs with valid range metadata; same record remains first-wins, unknown/mixed provenance retains legacy behavior. No cap, ranking, producer or private source-authority changes.
 - Five new focused controls and necessary related regressions: 61 pass plus one pre-existing expected failure. Fixed query raw retains the requested range; compact weak-primary reservation remains unresolved, explicitly not counted repaired.
 - Explicit pair already preserves both class ranges and remains protected; label-only earlier compact-loss diagnosis corrected. Evidence: docs/evidence/typed-parameter-invocation.
+
+## 2026-11-13 — Preserve same-file evidence under weak uncertain typed reservation
+
+- Reused the raw-identity stage's unchanged public source/query; compact still replaced a truly required method with the same-path weak lexical primary.
+- Only exact uncertain + boolean weak True + no activated path + existing complete primary range coverage now preserves existing anchors. Strong/missing/malformed flags, unknown certainty and existing path reservation remain unchanged.
+- Public source range and real receiver-call body recovered within1068/1500 tokens; primary remains weak/uncertain and may be wrong. No authority, ranking or oracle changes.
+- Four new tests and focused related verification; existing native five-control and original native/causal group outcomes retained. Details: docs/evidence/weak-typed-reservation.

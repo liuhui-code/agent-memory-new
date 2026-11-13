@@ -1,0 +1,12 @@
+import json,tempfile,subprocess,shutil
+from pathlib import Path
+D=Path('docs/evidence/weak-typed-reservation');q=json.load(open('docs/evidence/commit-gesture-current/listener-contract-controls.json'))['queries'][0];out={}
+for label,repo in [('before',Path('/workspace/scratch/dcdb41e16594/native-listener-scope-current')),('candidate',Path.cwd())]:
+ with tempfile.TemporaryDirectory() as tmp:
+  root=Path(tmp)/'source';shutil.copytree('docs/eval/fixtures/system-capability/.benchmark-fixtures/evidence-funnel',root,ignore=shutil.ignore_patterns('.agent-memory'))
+  def run(*args):
+   r=subprocess.run(['python',str(repo/'tools/agent_memory.py'),*args,'--project',str(root),'--memory-home',tmp+'/memory'],capture_output=True,text=True,check=True);return json.loads(r.stdout)if'--json'in args else r.stdout
+  run('init');run('learn-path','--path','.')
+  out[label]={m:run('context','--query',q,*flags,'--json')for m,flags in [('raw',[]),('compact',['--compact'])]}
+ (D/'native-operation-preservation.json').write_text(json.dumps(out,indent=2))
+ for m,d in out[label].items():print(label,m,[(a['file_path'],a.get('source_ranges'),a.get('start_line'),a.get('end_line'))for a in d['query_handoff']['code_anchors']],flush=True)

@@ -1,0 +1,15 @@
+import json,tempfile,subprocess
+from pathlib import Path
+D=Path('docs/evidence/weak-typed-reservation');p=json.load(open('docs/eval/native-listener-current-20261114/protocol.json'));out={}
+for label,repo in [('before',Path('/workspace/scratch/dcdb41e16594/native-listener-scope-current')),('after',Path.cwd())]:
+ with tempfile.TemporaryDirectory() as tmp:
+  root=Path(tmp)/'source';root.mkdir()
+  for n,s in p['sources'].items():(root/n).write_text(s)
+  def run(*args):
+   r=subprocess.run(['python',str(repo/'tools/agent_memory.py'),*args,'--project',str(root),'--memory-home',tmp+'/memory'],capture_output=True,text=True,check=True);return json.loads(r.stdout)if'--json'in args else r.stdout
+  run('init');run('learn-path','--path','.')
+  out[label]=[]
+  for q in p['queries']:
+   r=run('context','--query',q['query'],'--compact','--json');h=r['query_handoff'];a=h['code_anchors'];paths=[x['file_path']for x in a];body='\n'.join(e['content']for x in a for e in x.get('source_excerpts',[]));out[label].append({'query':q,'pass':paths==[q['expected']]and q['body']in body,'output':r})
+ (D/'legacy-controls.json').write_text(json.dumps(out,indent=2))
+ print(label,[r['pass']for r in out[label]],flush=True)

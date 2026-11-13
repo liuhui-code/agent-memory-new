@@ -1,0 +1,21 @@
+F.F
+======================================================================
+FAIL: test_no_path_weak_does_not_replace_other_ranges (tests.test_weak_typed_reservation.WeakTypedReservationTests.test_no_path_weak_does_not_replace_other_ranges)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/weak-reservation-current/tests/test_weak_typed_reservation.py", line 23, in test_no_path_weak_does_not_replace_other_ranges
+    self.assertIs(focus_callable_anchors(a,e,False),a)
+AssertionError: [{'file_path': 'Other.ts', 'symbol': 'other', 'start_line': 2, 'end_line': 4}, {'file_path': 'Pair.ts', 'symbol': 'forward', 'start_line': 3, 'end_line': 6, 'record_id': 3, 'callable_focus': True}] is not [{'file_path': 'Pair.ts', 'symbol': 'forward', 'start_line': 3, 'end_line': 6, 'record_id': 3}, {'file_path': 'Pair.ts', 'symbol': 'forward', 'start_line': 10, 'end_line': 12, 'record_id': 5}, {'file_path': 'Other.ts', 'symbol': 'other', 'start_line': 2, 'end_line': 4}]
+
+======================================================================
+FAIL: test_public_unchanged_required_receiver_range_survives_compact (tests.test_weak_typed_reservation.WeakTypedReservationTests.test_public_unchanged_required_receiver_range_survives_compact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/weak-reservation-current/tests/test_weak_typed_reservation.py", line 48, in test_public_unchanged_required_receiver_range_survives_compact
+    self.assertTrue(any(r.get('start_line')==10 and r.get('end_line')==12
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.379s
+
+FAILED (failures=2)

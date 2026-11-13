@@ -1,0 +1,1840 @@
+{
+  "before": [
+    {
+      "query": {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "expected": "Relay.ets",
+        "body": "engine.observe"
+      },
+      "pass": false,
+      "output": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "d7583ab7e589a8dd",
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "find",
+            "callable",
+            "binds",
+            "engine",
+            "observer",
+            "callbacks",
+            "deliverysink",
+            "rejected",
+            "contract"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "Recovery.ets",
+              "symbol": "retryRejectedDelivery",
+              "symbol_type": "function",
+              "record_ids": [
+                2
+              ],
+              "record_type": "code_symbol",
+              "source_ranges": [
+                {
+                  "symbol": "retryRejectedDelivery",
+                  "start_line": 2,
+                  "end_line": 4
+                }
+              ],
+              "read_window": {
+                "start_line": 2,
+                "end_line": 4
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "retryRejectedDelivery",
+                  "start_line": 1,
+                  "end_line": 5,
+                  "content": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "Recovery.ets",
+              "symbol": "retryRejectedDelivery",
+              "owner_name": "Recovery",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 45.0,
+              "evidence_score": 45.0,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [
+              {
+                "file_path": "Relay.ets",
+                "symbol": "rejected",
+                "owner_name": "Relay",
+                "owner_kind": "class",
+                "callable_roles": [
+                  "source_operation_checked:v2.1"
+                ],
+                "score": 31.03,
+                "evidence_score": 31.03,
+                "reasons": [
+                  "exact_symbol",
+                  "expanded_query:symbol",
+                  "expanded_query:summary",
+                  "first_stage_rank_prior"
+                ],
+                "source_range": {
+                  "start_line": 9,
+                  "end_line": 9,
+                  "selection_reason": "callable_symbol_range"
+                }
+              }
+            ],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 146
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 987,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    },
+    {
+      "query": {
+        "query": "Find Relay.connect.",
+        "expected": "Relay.ets",
+        "body": "engine.observe"
+      },
+      "pass": true,
+      "output": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "d7583ab7e589a8dd",
+        "query": "Find Relay.connect.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "find",
+            "relay",
+            "connect"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "Relay.ets",
+              "symbol": "connect",
+              "symbol_type": "function",
+              "record_ids": [
+                5,
+                3
+              ],
+              "source_ranges": [
+                {
+                  "symbol": "connect",
+                  "start_line": 6,
+                  "end_line": 11
+                },
+                {
+                  "symbol": "DeliverySink",
+                  "start_line": 1,
+                  "end_line": 4
+                }
+              ],
+              "record_type": "code_symbol",
+              "read_window": {
+                "start_line": 1,
+                "end_line": 11
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": null,
+                  "start_line": 1,
+                  "end_line": 12,
+                  "content": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (value: string) => { target.accepted(value) },\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "Relay.ets",
+              "symbol": "connect",
+              "owner_name": "Relay",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 36.5,
+              "evidence_score": 36.5,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 6,
+                "end_line": 11,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 329
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 892,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    },
+    {
+      "query": {
+        "query": "Find the callable that accepts DeliverySink.",
+        "expected": "Relay.ets",
+        "body": "engine.observe"
+      },
+      "pass": true,
+      "output": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "d7583ab7e589a8dd",
+        "query": "Find the callable that accepts DeliverySink.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "find",
+            "callable",
+            "accepts",
+            "deliverysink"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "source": "callable_evidence",
+              "file_path": "Relay.ets",
+              "symbol": "connect",
+              "symbol_type": "method",
+              "source_ranges": [
+                {
+                  "symbol": "connect",
+                  "start_line": 6,
+                  "end_line": 11,
+                  "selection_reason": "bounded_callable_primary"
+                }
+              ],
+              "read_window": {
+                "start_line": 6,
+                "end_line": 11
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "connect",
+                  "start_line": 6,
+                  "end_line": 11,
+                  "content": "  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (value: string) => { target.accepted(value) },\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "Relay.ets",
+              "symbol": "connect",
+              "typed_contract_match": true,
+              "typed_contract_weak": false,
+              "owner_name": "Relay",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 10.5,
+              "evidence_score": 10.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 6,
+                "end_line": 11,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [
+              {
+                "file_path": "Recovery.ets",
+                "symbol": "retryRejectedDelivery",
+                "owner_name": "Recovery",
+                "owner_kind": "class",
+                "callable_roles": [
+                  "source_operation_checked:v2.1"
+                ],
+                "score": 19.84,
+                "evidence_score": 19.84,
+                "reasons": [
+                  "expanded_query:symbol",
+                  "expanded_query:summary",
+                  "expanded_query:method_evidence",
+                  "expanded_query:string_evidence"
+                ],
+                "source_range": {
+                  "start_line": 2,
+                  "end_line": 4,
+                  "selection_reason": "callable_symbol_range"
+                }
+              }
+            ],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 214
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 986,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    },
+    {
+      "query": {
+        "query": "Find Recovery.retryRejectedDelivery.",
+        "expected": "Recovery.ets",
+        "body": "queue.schedule"
+      },
+      "pass": true,
+      "output": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "d7583ab7e589a8dd",
+        "query": "Find Recovery.retryRejectedDelivery.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "find",
+            "recovery",
+            "retryrejecteddelivery"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "Recovery.ets",
+              "symbol": "retryRejectedDelivery",
+              "symbol_type": "function",
+              "record_ids": [
+                2,
+                1
+              ],
+              "source_ranges": [
+                {
+                  "symbol": "retryRejectedDelivery",
+                  "start_line": 2,
+                  "end_line": 4
+                },
+                {
+                  "symbol": "Recovery",
+                  "start_line": 1,
+                  "end_line": 5
+                }
+              ],
+              "record_type": "code_symbol",
+              "read_window": {
+                "start_line": 1,
+                "end_line": 5
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "retryRejectedDelivery",
+                  "start_line": 1,
+                  "end_line": 5,
+                  "content": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "Recovery.ets",
+              "symbol": "retryRejectedDelivery",
+              "owner_name": "Recovery",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 66.5,
+              "evidence_score": 66.5,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [
+              {
+                "file_path": "Relay.ets",
+                "symbol": "rejected",
+                "owner_name": "Relay",
+                "owner_kind": "class",
+                "callable_roles": [
+                  "source_operation_checked:v2.1"
+                ],
+                "score": 14.89,
+                "evidence_score": 14.89,
+                "reasons": [
+                  "expanded_query:symbol",
+                  "expanded_query:summary",
+                  "first_stage_rank_prior",
+                  "source_locatable"
+                ],
+                "source_range": {
+                  "start_line": 9,
+                  "end_line": 9,
+                  "selection_reason": "callable_symbol_range"
+                }
+              }
+            ],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 146
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 969,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    },
+    {
+      "query": {
+        "query": "Find the string literal 'engine delivery rejected callback retry target observer'.",
+        "expected": "Recovery.ets",
+        "body": "queue.schedule"
+      },
+      "pass": true,
+      "output": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "d7583ab7e589a8dd",
+        "query": "Find the string literal 'engine delivery rejected callback retry target observer'.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "find",
+            "string",
+            "literal",
+            "engine",
+            "delivery",
+            "rejected",
+            "callback",
+            "retry",
+            "target",
+            "observer"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "Recovery.ets",
+              "symbol": "retryRejectedDelivery",
+              "symbol_type": "function",
+              "record_ids": [
+                2
+              ],
+              "record_type": "code_symbol",
+              "source_ranges": [
+                {
+                  "symbol": "retryRejectedDelivery",
+                  "start_line": 2,
+                  "end_line": 4
+                }
+              ],
+              "read_window": {
+                "start_line": 2,
+                "end_line": 4
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "retryRejectedDelivery",
+                  "start_line": 1,
+                  "end_line": 5,
+                  "content": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "Recovery.ets",
+              "symbol": "retryRejectedDelivery",
+              "owner_name": "Recovery",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 57.5,
+              "evidence_score": 57.5,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [
+              {
+                "file_path": "Relay.ets",
+                "symbol": "rejected",
+                "owner_name": "Relay",
+                "owner_kind": "class",
+                "callable_roles": [
+                  "source_operation_checked:v2.1"
+                ],
+                "score": 31.77,
+                "evidence_score": 31.77,
+                "reasons": [
+                  "exact_symbol",
+                  "expanded_query:symbol",
+                  "expanded_query:summary",
+                  "expanded_query:method_evidence"
+                ],
+                "source_range": {
+                  "start_line": 9,
+                  "end_line": 9,
+                  "selection_reason": "callable_symbol_range"
+                }
+              }
+            ],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 146
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 987,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    }
+  ],
+  "after": [
+    {
+      "query": {
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "expected": "Relay.ets",
+        "body": "engine.observe"
+      },
+      "pass": false,
+      "output": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "f2280825f9522f4a",
+        "query": "Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "find",
+            "callable",
+            "binds",
+            "engine",
+            "observer",
+            "callbacks",
+            "deliverysink",
+            "rejected",
+            "contract"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "Recovery.ets",
+              "symbol": "retryRejectedDelivery",
+              "symbol_type": "function",
+              "record_ids": [
+                2
+              ],
+              "record_type": "code_symbol",
+              "source_ranges": [
+                {
+                  "symbol": "retryRejectedDelivery",
+                  "start_line": 2,
+                  "end_line": 4
+                }
+              ],
+              "read_window": {
+                "start_line": 2,
+                "end_line": 4
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "retryRejectedDelivery",
+                  "start_line": 1,
+                  "end_line": 5,
+                  "content": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "Recovery.ets",
+              "symbol": "retryRejectedDelivery",
+              "owner_name": "Recovery",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 45.0,
+              "evidence_score": 45.0,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [
+              {
+                "file_path": "Relay.ets",
+                "symbol": "rejected",
+                "owner_name": "Relay",
+                "owner_kind": "class",
+                "callable_roles": [
+                  "source_operation_checked:v2.1"
+                ],
+                "score": 31.03,
+                "evidence_score": 31.03,
+                "reasons": [
+                  "exact_symbol",
+                  "expanded_query:symbol",
+                  "expanded_query:summary",
+                  "first_stage_rank_prior"
+                ],
+                "source_range": {
+                  "start_line": 9,
+                  "end_line": 9,
+                  "selection_reason": "callable_symbol_range"
+                }
+              }
+            ],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 146
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 987,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    },
+    {
+      "query": {
+        "query": "Find Relay.connect.",
+        "expected": "Relay.ets",
+        "body": "engine.observe"
+      },
+      "pass": true,
+      "output": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "f2280825f9522f4a",
+        "query": "Find Relay.connect.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "find",
+            "relay",
+            "connect"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "Relay.ets",
+              "symbol": "connect",
+              "symbol_type": "function",
+              "record_ids": [
+                5,
+                3
+              ],
+              "source_ranges": [
+                {
+                  "symbol": "connect",
+                  "start_line": 6,
+                  "end_line": 11
+                },
+                {
+                  "symbol": "DeliverySink",
+                  "start_line": 1,
+                  "end_line": 4
+                }
+              ],
+              "record_type": "code_symbol",
+              "read_window": {
+                "start_line": 1,
+                "end_line": 11
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": null,
+                  "start_line": 1,
+                  "end_line": 12,
+                  "content": "interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (value: string) => { target.accepted(value) },\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "Relay.ets",
+              "symbol": "connect",
+              "owner_name": "Relay",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 36.5,
+              "evidence_score": 36.5,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 6,
+                "end_line": 11,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 329
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 892,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    },
+    {
+      "query": {
+        "query": "Find the callable that accepts DeliverySink.",
+        "expected": "Relay.ets",
+        "body": "engine.observe"
+      },
+      "pass": true,
+      "output": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "f2280825f9522f4a",
+        "query": "Find the callable that accepts DeliverySink.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "find",
+            "callable",
+            "accepts",
+            "deliverysink"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "source": "callable_evidence",
+              "file_path": "Relay.ets",
+              "symbol": "connect",
+              "symbol_type": "method",
+              "source_ranges": [
+                {
+                  "symbol": "connect",
+                  "start_line": 6,
+                  "end_line": 11,
+                  "selection_reason": "bounded_callable_primary"
+                }
+              ],
+              "read_window": {
+                "start_line": 6,
+                "end_line": 11
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "connect",
+                  "start_line": 6,
+                  "end_line": 11,
+                  "content": "  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (value: string) => { target.accepted(value) },\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "Relay.ets",
+              "symbol": "connect",
+              "typed_contract_match": true,
+              "typed_contract_weak": false,
+              "owner_name": "Relay",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 10.5,
+              "evidence_score": 10.5,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 6,
+                "end_line": 11,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [
+              {
+                "file_path": "Recovery.ets",
+                "symbol": "retryRejectedDelivery",
+                "owner_name": "Recovery",
+                "owner_kind": "class",
+                "callable_roles": [
+                  "source_operation_checked:v2.1"
+                ],
+                "score": 19.84,
+                "evidence_score": 19.84,
+                "reasons": [
+                  "expanded_query:symbol",
+                  "expanded_query:summary",
+                  "expanded_query:method_evidence",
+                  "expanded_query:string_evidence"
+                ],
+                "source_range": {
+                  "start_line": 2,
+                  "end_line": 4,
+                  "selection_reason": "callable_symbol_range"
+                }
+              }
+            ],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 214
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 986,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    },
+    {
+      "query": {
+        "query": "Find Recovery.retryRejectedDelivery.",
+        "expected": "Recovery.ets",
+        "body": "queue.schedule"
+      },
+      "pass": true,
+      "output": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "f2280825f9522f4a",
+        "query": "Find Recovery.retryRejectedDelivery.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "find",
+            "recovery",
+            "retryrejecteddelivery"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "Recovery.ets",
+              "symbol": "retryRejectedDelivery",
+              "symbol_type": "function",
+              "record_ids": [
+                2,
+                1
+              ],
+              "source_ranges": [
+                {
+                  "symbol": "retryRejectedDelivery",
+                  "start_line": 2,
+                  "end_line": 4
+                },
+                {
+                  "symbol": "Recovery",
+                  "start_line": 1,
+                  "end_line": 5
+                }
+              ],
+              "record_type": "code_symbol",
+              "read_window": {
+                "start_line": 1,
+                "end_line": 5
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "retryRejectedDelivery",
+                  "start_line": 1,
+                  "end_line": 5,
+                  "content": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "Recovery.ets",
+              "symbol": "retryRejectedDelivery",
+              "owner_name": "Recovery",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 66.5,
+              "evidence_score": 66.5,
+              "reasons": [
+                "exact_symbol",
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [
+              {
+                "file_path": "Relay.ets",
+                "symbol": "rejected",
+                "owner_name": "Relay",
+                "owner_kind": "class",
+                "callable_roles": [
+                  "source_operation_checked:v2.1"
+                ],
+                "score": 14.89,
+                "evidence_score": 14.89,
+                "reasons": [
+                  "expanded_query:symbol",
+                  "expanded_query:summary",
+                  "first_stage_rank_prior",
+                  "source_locatable"
+                ],
+                "source_range": {
+                  "start_line": 9,
+                  "end_line": 9,
+                  "selection_reason": "callable_symbol_range"
+                }
+              }
+            ],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 146
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 969,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    },
+    {
+      "query": {
+        "query": "Find the string literal 'engine delivery rejected callback retry target observer'.",
+        "expected": "Recovery.ets",
+        "body": "queue.schedule"
+      },
+      "pass": true,
+      "output": {
+        "schema_version": "agent-context-compact/v1",
+        "project_id": "f2280825f9522f4a",
+        "query": "Find the string literal 'engine delivery rejected callback retry target observer'.",
+        "memory_intent": "general_context",
+        "memory_intent_source": "inferred",
+        "source_freshness": {
+          "status": "current",
+          "generation": 1
+        },
+        "query_handoff": {
+          "schema_version": "agent-query-handoff-compact/v1",
+          "log_keywords": [
+            "find",
+            "string",
+            "literal",
+            "engine",
+            "delivery",
+            "rejected",
+            "callback",
+            "retry",
+            "target",
+            "observer"
+          ],
+          "log_anchors": [],
+          "code_anchors": [
+            {
+              "file_path": "Recovery.ets",
+              "symbol": "retryRejectedDelivery",
+              "symbol_type": "function",
+              "record_ids": [
+                2
+              ],
+              "record_type": "code_symbol",
+              "source_ranges": [
+                {
+                  "symbol": "retryRejectedDelivery",
+                  "start_line": 2,
+                  "end_line": 4
+                }
+              ],
+              "read_window": {
+                "start_line": 2,
+                "end_line": 4
+              },
+              "role": "primary",
+              "source_excerpts": [
+                {
+                  "symbol": "retryRejectedDelivery",
+                  "start_line": 1,
+                  "end_line": 5,
+                  "content": "export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}",
+                  "source": "current_worktree",
+                  "selection_reason": "query_term_window_within_anchor",
+                  "focus_line": null,
+                  "truncated": false
+                }
+              ]
+            }
+          ],
+          "callable_evidence": {
+            "schema_version": "agent-callable-evidence/v1",
+            "certainty": "bounded",
+            "primary": {
+              "file_path": "Recovery.ets",
+              "symbol": "retryRejectedDelivery",
+              "owner_name": "Recovery",
+              "owner_kind": "class",
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 57.5,
+              "evidence_score": 57.5,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            "alternatives": [
+              {
+                "file_path": "Relay.ets",
+                "symbol": "rejected",
+                "owner_name": "Relay",
+                "owner_kind": "class",
+                "callable_roles": [
+                  "source_operation_checked:v2.1"
+                ],
+                "score": 31.77,
+                "evidence_score": 31.77,
+                "reasons": [
+                  "exact_symbol",
+                  "expanded_query:symbol",
+                  "expanded_query:summary",
+                  "expanded_query:method_evidence"
+                ],
+                "source_range": {
+                  "start_line": 9,
+                  "end_line": 9,
+                  "selection_reason": "callable_symbol_range"
+                }
+              }
+            ],
+            "boundary": "retrieval_evidence_not_root_cause"
+          },
+          "path_context": {
+            "activated": false,
+            "activation_reason": "missing_log_anchor",
+            "graph_revision": null,
+            "path_candidates": [],
+            "gaps": {}
+          },
+          "relation_hints": [],
+          "experience_refs": [],
+          "semantic_refs": [],
+          "source_exploration": {
+            "policy": "anchor_first_deterministic_expansion_v8",
+            "limits": {
+              "primary": 3,
+              "rounds": 2,
+              "round_files": 2,
+              "searches": 3,
+              "files": 7,
+              "reads_per_file": 2,
+              "read_lines": 180
+            }
+          },
+          "next_queries": [],
+          "role_boundary": {
+            "runtime": "retrieval_and_current_graph_context_only",
+            "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+            "runtime_reads_temporary_logs": false,
+            "runtime_selects_root_cause": false
+          },
+          "source_excerpt_policy": {
+            "source": "current_worktree",
+            "body_persisted": false,
+            "excerpt_count": 1,
+            "excerpt_chars": 146
+          }
+        },
+        "correction_guards": [],
+        "semantic_patch_notes": [],
+        "blocked_memory_notes": [],
+        "conflict_notes": [],
+        "evidence_gaps": [
+          "no_log_anchor",
+          "limited_code_anchor_diversity"
+        ],
+        "expansion": {
+          "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+          "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+        },
+        "sufficiency": {
+          "schema_version": "agent-context-sufficiency/v1",
+          "kind": "diagnosis",
+          "status": "ready_for_agent_inspection",
+          "next_action": "inspect_primary_source_anchor",
+          "reason_codes": [
+            "no_log_anchor",
+            "limited_code_anchor_diversity"
+          ],
+          "coverage": {
+            "source_locatable_code_anchor": true,
+            "log_anchor_count": 0,
+            "path_candidate_count": 0
+          },
+          "scope": "retrieval_readiness_only_not_agent_reasoning",
+          "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+        },
+        "output_budget": {
+          "estimated_tokens": 987,
+          "target_tokens": 1500,
+          "truncated": false
+        }
+      }
+    }
+  ]
+}
