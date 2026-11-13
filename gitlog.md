@@ -11906,3 +11906,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Only exact uncertain + boolean weak True + no activated path + existing complete primary range coverage now preserves existing anchors. Strong/missing/malformed flags, unknown certainty and existing path reservation remain unchanged.
 - Public source range and real receiver-call body recovered within1068/1500 tokens; primary remains weak/uncertain and may be wrong. No authority, ranking or oracle changes.
 - Four new tests and focused related verification; existing native five-control and original native/causal group outcomes retained. Details: docs/evidence/weak-typed-reservation.
+
+## 2026-11-13 — Use the known callback body opening for inline member ranges
+
+- Independent public list reproduced onTouch5–11 absorbing sibling onClick when an enclosing Row opened on the same header line; existing context mechanism window already protected5–7 and is not claimed newly repaired.
+- Reuse block_end opening_column only for known mask, selected direct-body arrow at call depth1. Property parsing, arrow selection and unknown whole-file legacy behavior stay unchanged.
+- Preserve the first candidate's function-type truncation failure and conservative depth guard correction. Five focused and74 related tests pass; no full suite.
+- Fresh index and normal learn-path merge remove sibling method terms and correct end7; code installation alone leaves old stored end11. Stable semantic identities/digest, split and sibling ranges preserved.
+- Evidence: docs/evidence/touch-callback-opening. No original precision gain claim.

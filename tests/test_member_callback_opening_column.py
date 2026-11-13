@@ -38,9 +38,20 @@ class MemberCallbackOpeningTests(AgentMemoryTestBase):
         lines=["Row() { Button('}').onTouch((event) => {",'  /* { */ consume(event)','})','}']
         self.assertEqual(3,member_callback_ranges(lines)[0]['end_line'])
 
+    def test_earlier_arrow_and_object_parameter_header(self):
+        lines=["const render = () => { Button().onTouch((event: {code: number}) => {",
+               '  consume(event.code)', '})', '}']
+        self.assertEqual(3,member_callback_ranges(lines)[0]['end_line'])
+
+    def test_inner_function_type_arrow_keeps_legacy_range(self):
+        p=json.loads(Path('docs/evidence/touch-callback-opening/function-type-review-protocol.json').read_text())
+        for lines in p['controls']:
+            self.assertEqual(len(lines),member_callback_ranges(lines)[0]['end_line'])
+
     def test_unknown_mask_keeps_legacy_range(self):
         lines=self.protocol()['sources']['InlineTouch.ets'].splitlines()
         for prefix in ['const ratio = a / b;', 'const s = `${event}`;', 'const pattern = /"/;']:
             result=member_callback_ranges([prefix,*lines])
-            touch=next(x for x in result if x['symbol']=='onTouch')
-            self.assertEqual((6,12),(touch['start_line'],touch['end_line']))
+            self.assertEqual(result,[
+                {'symbol':'onTouch','start_line':6,'end_line':12,'selection_reason':'arkts_dsl_callback_window'},
+                {'symbol':'onClick','start_line':9,'end_line':11,'selection_reason':'arkts_dsl_callback_window'}])

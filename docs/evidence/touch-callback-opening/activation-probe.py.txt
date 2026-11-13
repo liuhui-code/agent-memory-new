@@ -1,0 +1,18 @@
+import json,tempfile,subprocess
+from pathlib import Path
+D=Path('docs/evidence/touch-callback-opening');p=json.load(open(D/'protocol.json'));old=Path('/workspace/scratch/dcdb41e16594/weak-reservation-current/tools/agent_memory.py');new=Path.cwd()/'tools/agent_memory.py'
+with tempfile.TemporaryDirectory()as tmp:
+ root=Path(tmp)/'source';root.mkdir()
+ for n,s in p['sources'].items():(root/n).write_text(s)
+ def run(script,*args):
+  r=subprocess.run(['python',str(script),*args,'--project',str(root),'--memory-home',tmp+'/memory'],capture_output=True,text=True,check=True);return json.loads(r.stdout)if'--json'in args else r.stdout
+ def snap(script):return {r['qualified_name']:r for r in run(script,'list','--type','code-symbol','--limit','100','--json')if r.get('qualified_name')}
+ run(old,'init');run(old,'learn-path','--path','.')
+ out={'before':snap(old),'code_only':snap(new)};run(new,'learn-path','--path','.');out['after_merge']=snap(new)
+ key='InlineTouch.onTouch@5';assert out['before'][key]['end_line']==11;assert out['code_only'][key]['end_line']==11;assert out['after_merge'][key]['end_line']==7
+ assert 'onclick'in out['before'][key]['method_evidence'].split();assert 'onclick'not in out['after_merge'][key]['method_evidence'].split()
+ for name,row in out['before'].items():
+  for f in ['qualified_name','symbol_key','file_path','source_digest','start_line']:
+   assert row.get(f)==out['after_merge'][name].get(f),(name,f)
+  if name!=key:assert row['end_line']==out['after_merge'][name]['end_line'],name
+ (D/'activation.json').write_text(json.dumps(out,indent=2));print('code-only old end11; normal merge end7 and removes sibling terms; stable key/path/digest/start, other range controls unchanged')

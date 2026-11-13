@@ -76,6 +76,7 @@ def property_callback_ranges(lines: list[str]) -> list[dict[str, Any]]:
 def member_callback_ranges(lines: list[str]) -> list[dict[str, Any]]:
     result: list[dict[str, Any]] = []
     masked = callback_mask_lines(lines)
+    mask_known = masked is not None
     if masked is None:
         masked = lines
     for index, line in enumerate(masked):
@@ -85,8 +86,17 @@ def member_callback_ranges(lines: list[str]) -> list[dict[str, Any]]:
         arrow_line = callback_arrow_line(masked, index, match.start())
         if arrow_line is None:
             continue
+        opening_column = 0
+        if mask_known:
+            arrow_column = masked[arrow_line].find("=>", match.start() if arrow_line == index else 0)
+            opening = re.match(r"=>\s*(\{)", masked[arrow_line][arrow_column:])
+            prefix = (masked[index][match.start():arrow_column] if arrow_line == index else
+                      "\n".join([masked[index][match.start():], *masked[index + 1:arrow_line],
+                                 masked[arrow_line][:arrow_column]]))
+            if opening is not None and prefix.count("(") - prefix.count(")") == 1:
+                opening_column = arrow_column + opening.start(1)
         result.append(source_range(
-            match.group(1), index, block_end(masked, arrow_line), "arkts_dsl_callback_window",
+            match.group(1), index, block_end(masked, arrow_line, opening_column), "arkts_dsl_callback_window",
         ))
         if len(result) >= MAX_CALLBACK_RANGES:
             break

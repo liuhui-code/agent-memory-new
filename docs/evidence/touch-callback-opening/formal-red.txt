@@ -1,0 +1,32 @@
+FF.
+======================================================================
+FAIL: test_known_nested_body_string_comment_and_multiline_header (tests.test_member_callback_opening_column.MemberCallbackOpeningTests.test_known_nested_body_string_comment_and_multiline_header)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/touch-callback-range-current/tests/test_member_callback_opening_column.py", line 39, in test_known_nested_body_string_comment_and_multiline_header
+    self.assertEqual(3,member_callback_ranges(lines)[0]['end_line'])
+AssertionError: 3 != 4
+
+======================================================================
+FAIL: test_public_callback_range_and_method_evidence (tests.test_member_callback_opening_column.MemberCallbackOpeningTests.test_public_callback_range_and_method_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/touch-callback-range-current/tests/test_member_callback_opening_column.py", line 22, in test_public_callback_range_and_method_evidence
+    self.assertEqual((5,7),(touch['start_line'],touch['end_line']))
+AssertionError: Tuples differ: (5, 7) != (5, 11)
+
+First differing element 1:
+7
+11
+
+- (5, 7)
+?     ^
+
++ (5, 11)
+?     ^^
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.891s
+
+FAILED (failures=2)
