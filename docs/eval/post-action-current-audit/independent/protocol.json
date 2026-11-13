@@ -1,0 +1,68 @@
+{
+  "base": "bc92352 (runtime equivalent 8ce567b)",
+  "classification": "Independent Development, fixed missing-primary/source-anchor alignment experiment",
+  "sources": {
+    "FanStateStore.ets": "export class FanStateStore {\n  @State current: FanState = new FanState()\n  private gateway: FanGateway\n  async sendCommand(command: FanCommand): Promise<void> {\n    await this.gateway.send(command)\n  }\n  async reloadStatus(): Promise<void> {\n    this.current = await this.gateway.readCurrent()\n  }\n}\n",
+    "NotePreviewPage.ets": "@Component\nexport struct NotePreviewPage {\n  @State preview: string = ''\n  private drafts: DraftRepository\n  async reloadPreview(): Promise<void> {\n    this.preview = await this.drafts.readPreview()\n  }\n  build() {\n    Text(this.preview)\n  }\n}\n",
+    "CommandReceiptPage.ets": "@Component\nexport struct CommandReceiptPage {\n  @State receipt: string = ''\n  build() {\n    Column() {\n      Text('Command completed')\n      Text(this.receipt)\n    }\n  }\n}\n",
+    "PointerSelection.ets": "export class PointerSelection {\n  @State selected: string = ''\n  selectPointer(value: string): void {\n    this.selected = value\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "generic",
+      "query": "A fan command completes while its status stays stale; locate command dispatch and authoritative state reload ownership.",
+      "required": [
+        "FanStateStore.ets"
+      ],
+      "forbidden": [
+        "NotePreviewPage.ets",
+        "CommandReceiptPage.ets",
+        "PointerSelection.ets"
+      ],
+      "source_fragments": {
+        "FanStateStore.ets": [
+          "await this.gateway.send(command)",
+          "this.current = await this.gateway.readCurrent()"
+        ]
+      }
+    },
+    {
+      "id": "explicit-owner",
+      "query": "Find FanStateStore.sendCommand and FanStateStore.reloadStatus source.",
+      "required": [
+        "FanStateStore.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {
+        "FanStateStore.ets": [
+          "await this.gateway.send(command)",
+          "this.current = await this.gateway.readCurrent()"
+        ]
+      }
+    },
+    {
+      "id": "actual-preview",
+      "query": "Find NotePreviewPage.reloadPreview source.",
+      "required": [
+        "NotePreviewPage.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {
+        "NotePreviewPage.ets": [
+          "this.preview = await this.drafts.readPreview()"
+        ]
+      }
+    },
+    {
+      "id": "explicit-multiple",
+      "query": "Find FanStateStore.sendCommand and CommandReceiptPage.build source.",
+      "required": [
+        "FanStateStore.ets",
+        "CommandReceiptPage.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {}
+    }
+  ],
+  "stop": "Run these four queries once. A different first-loss layer or pass does not justify another sample/score/word search. Raw primary mismatch is an observation, not assumed or fabricated."
+}
