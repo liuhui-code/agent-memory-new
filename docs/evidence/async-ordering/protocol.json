@@ -1,0 +1,32 @@
+{
+  "base": "43921fc",
+  "classification": "development",
+  "sources": {
+    "TabReader.ets": "export class TabReader {\n  private pending: number = 0\n  private text: string = ''\n  async select(tab: number): Promise<void> {\n    this.pending = tab\n    const text = await provider.read(tab)\n    if (tab !== this.pending) {\n      return\n    }\n    this.text = text\n  }\n}\n",
+    "EntryWriter.ets": "export class EntryWriter {\n  private text: string = ''\n  async save(text: string): Promise<void> {\n    await repository.save(text)\n    this.text = text\n  }\n}\n",
+    "TabIndicator.ets": "export class TabIndicator {\n  private pending: number = 0\n  setPending(tab: number): void { this.pending = tab }\n}\n"
+  },
+  "queries": [
+    {
+      "query": "An older asynchronous read must not overwrite the current tab text after switching. Locate the state assignment guarded by the pending request.",
+      "required": "TabReader.ets",
+      "excluded": [
+        "EntryWriter.ets",
+        "TabIndicator.ets"
+      ]
+    },
+    {
+      "query": "连续切换后出现陈旧内容，请定位异步加载后检查当前请求并更新状态的方法。",
+      "required": "TabReader.ets",
+      "excluded": [
+        "EntryWriter.ets",
+        "TabIndicator.ets"
+      ]
+    },
+    {
+      "query": "Find EntryWriter.save.",
+      "required": "EntryWriter.ets",
+      "excluded": []
+    }
+  ]
+}
