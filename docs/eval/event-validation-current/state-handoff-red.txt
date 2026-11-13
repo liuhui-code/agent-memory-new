@@ -1,0 +1,28 @@
+test_comparisons_and_unverified_language_not_writes (tests.test_callable_state_handoff.CallableStateHandoffTests.test_comparisons_and_unverified_language_not_writes) ... ok
+test_non_code_and_nested_are_not_current_method (tests.test_callable_state_handoff.CallableStateHandoffTests.test_non_code_and_nested_are_not_current_method) ... ok
+test_partial_or_other_callable_not_unioned (tests.test_callable_state_handoff.CallableStateHandoffTests.test_partial_or_other_callable_not_unioned) ... ok
+test_same_callable_conjunction (tests.test_callable_state_handoff.CallableStateHandoffTests.test_same_callable_conjunction) ... FAIL
+test_independent_same_method_and_explicit_controls (tests.test_callable_state_handoff.StateHandoffPublicTests.test_independent_same_method_and_explicit_controls) ... FAIL
+
+======================================================================
+FAIL: test_same_callable_conjunction (tests.test_callable_state_handoff.CallableStateHandoffTests.test_same_callable_conjunction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/event-validation-investigation/tests/test_callable_state_handoff.py", line 15, in test_same_callable_conjunction
+    self.assertIn('statehandoff',self.hints('this.selected = entry.id; this.openPanel();',suffix=suffix))
+AssertionError: 'statehandoff' not found in {'eventboundary'}
+
+======================================================================
+FAIL: test_independent_same_method_and_explicit_controls (tests.test_callable_state_handoff.StateHandoffPublicTests.test_independent_same_method_and_explicit_controls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/event-validation-investigation/tests/test_callable_state_handoff.py", line 43, in test_independent_same_method_and_explicit_controls
+    else:self.assertEqual(set(required),paths)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the second set but not the first:
+'SelectionHint.ets'
+
+----------------------------------------------------------------------
+Ran 5 tests in 1.264s
+
+FAILED (failures=2)

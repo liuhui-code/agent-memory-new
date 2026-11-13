@@ -1,0 +1,40 @@
+{
+  "classification": "independent Development",
+  "sources": {
+    "SelectionBridge.ets": "export class SelectionBridge {\n currentId: string = ''\n onItemSelected(entry: Entry): void {\n  this.currentId = entry.id\n  this.openEditor()\n }\n openEditor(): void {}\n}\n",
+    "SelectionHint.ets": "export class SelectionHint {\n selected: boolean = false\n onClick(): void {\n  this.selected = !this.selected\n }\n}\n",
+    "PanelLauncher.ets": "export class PanelLauncher {\n onItemSelected(entry: Entry): void {\n  this.openEditor()\n }\n openEditor(): void {}\n}\n",
+    "SplitSelection.ets": "export class SplitSelection {\n currentId: string = ''\n onItemSelected(entry: Entry): void {\n  this.currentId = entry.id\n }\n openEditor(): void {}\n}\n"
+  },
+  "queries": [
+    [
+      "handoff",
+      "Selecting a different row opens the editor for the previous item. Locate the event-to-state handoff owner.",
+      [
+        "SelectionBridge.ets"
+      ]
+    ],
+    [
+      "chinese",
+      "选择另一行却打开之前条目，请定位事件到状态交接源码。",
+      [
+        "SelectionBridge.ets"
+      ]
+    ],
+    [
+      "hint",
+      "Locate SelectionHint.onClick source.",
+      [
+        "SelectionHint.ets"
+      ]
+    ],
+    [
+      "two",
+      "Locate SelectionBridge.onItemSelected and SelectionHint.onClick source.",
+      [
+        "SelectionBridge.ets",
+        "SelectionHint.ets"
+      ]
+    ]
+  ]
+}
