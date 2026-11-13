@@ -1,0 +1,21 @@
+FF
+======================================================================
+FAIL: test_public_executable_source_not_string_monitor (tests.test_callable_cache_eviction_hint.CallableCacheHintTests.test_public_executable_source_not_string_monitor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/cache-eviction-current/tests/test_callable_cache_eviction_hint.py", line 38, in test_public_executable_source_not_string_monitor
+    self.assertIn('ExpiryStore.ts',{a['file_path'] for a in anchors})
+AssertionError: 'ExpiryStore.ts' not found in {'CacheMonitor.ts'}
+
+======================================================================
+FAIL: test_same_method_conjunction_and_unknown_nested_scope (tests.test_callable_cache_eviction_hint.CallableCacheHintTests.test_same_method_conjunction_and_unknown_nested_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/cache-eviction-current/tests/test_callable_cache_eviction_hint.py", line 17, in test_same_method_conjunction_and_unknown_nested_scope
+    self.assertIn('cacheeviction',self.hints(source))
+AssertionError: 'cacheeviction' not found in ['stateread', 'state', 'read', 'statebranch', 'branch', 'conditional']
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.810s
+
+FAILED (failures=2)

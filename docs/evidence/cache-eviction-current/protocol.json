@@ -1,0 +1,30 @@
+{
+  "classification": "independent Development",
+  "base": "a6c1d93",
+  "sources": {
+    "ExpiryStore.ts": "export class ExpiryStore {\n  private records: Map<string, Entry> = new Map()\n  trim(limit: number): void {\n    if (this.records.size <= limit) { return }\n    let chosen: string | undefined = undefined\n    let earliest = Number.MAX_SAFE_INTEGER\n    for (const [name, record] of this.records) {\n      if (record.updatedAt < earliest) {\n        earliest = record.updatedAt\n        chosen = name\n      }\n    }\n    if (chosen !== undefined) { this.records.delete(chosen) }\n  }\n}\n",
+    "CacheMonitor.ts": "export class CacheMonitor {\n  render(): string {\n    return 'full result cache above entry limit oldest key eviction scan'\n  }\n}\n",
+    "ImagePool.ts": "export class ImagePool {\n  private entries: Map<string, string> = new Map()\n  remove(key: string): void {\n    this.entries.delete(key)\n  }\n}\n",
+    "ArrivalPool.ts": "export class ArrivalPool {\n private entries: Map<string,string> = new Map()\n trim(limit: number): void {\n  if (this.entries.size > limit) {\n   const first = this.entries.keys().next().value\n   this.entries.delete(first)\n  }\n }\n}\n",
+    "SplitExpiry.ts": "export class SplitExpiry {\n private records: Map<string,Entry> = new Map()\n inspect(limit: number): void {\n  if (this.records.size > limit) {\n   for (const record of this.records.values()) { console.log(record.updatedAt) }\n  }\n }\n remove(key: string): void {\n  this.records.delete(key)\n }\n}\n",
+    "DeferredExpiry.ts": "export class DeferredExpiry {\n private records: Map<string,Entry> = new Map()\n schedule(limit: number): void {\n  queueMicrotask(() => {\n   if (this.records.size > limit) {\n    for (const [key,record] of this.records) {\n     if (record.updatedAt < 100) { this.records.delete(key) }\n    }\n   }\n  })\n }\n}\n"
+  },
+  "queries": [
+    {
+      "query": "Locate executable eviction scan ownership when a cache remains above its entry limit.",
+      "check": "primary must not be text-only CacheMonitor; genuine FIFO is not absent"
+    },
+    {
+      "query": "Locate the timestamp scan and delete implementation for a cache exceeding capacity.",
+      "check": "ExpiryStore.trim body available; not a proof of unique global ownership"
+    },
+    {
+      "query": "Locate ArrivalPool.trim.",
+      "check": "real FIFO remains locatable"
+    },
+    {
+      "query": "Locate CacheMonitor.render.",
+      "check": "explicit text renderer remains locatable"
+    }
+  ]
+}
