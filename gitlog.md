@@ -12024,3 +12024,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   Registry is ninth under the eight-range cap and independently lacks supported
   portfolio reasons; not ambiguous identity, same-owner filtering or member cap.
   Legacy no-path projection policy/counterexamples and exact test limits recorded.
+## 2026-11-13 — Review a source-bound cache evidence contract without implementation
+
+- Read frozen cache public reds, FIFO/literal controls and rejected conjunction
+  hint. Specify receiver, guard, key/value selection and direct-scope obligations,
+  with unknown for unsupported bindings rather than absence of real eviction.
+- Separate evidence retention from primary/unique-owner authority. Existing fields
+  lack the required def-use/dominance representation; two cache queries do not meet
+  the two-independent-defect-class architecture gate.
+- Deliver gated standalone/public validation plan; no runtime edits, new query,
+  original evaluation, test execution or repair claim.
+- Design: docs/eval/cache-contract-review/PLAN.md.
