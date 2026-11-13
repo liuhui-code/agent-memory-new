@@ -8,6 +8,7 @@ from dataclasses import replace
 from pathlib import Path
 
 from .models import Project
+from .ecma_import_lexical import admitted_module_specs
 from .learning_coverage import record_skip, source_skip_reason
 from .code_wiki_extractors import extract_arkts_reference_symbols, language_for, should_skip_dir
 
@@ -198,7 +199,7 @@ def resolve_js_imports(
     text: str,
     extensions: list[str] | None = None,
 ) -> list[Path]:
-    imports = re.findall(r"(?:from\s+|import\s*\(|require\s*\()\s*['\"]([^'\"]+)['\"]", text)
+    imports = admitted_module_specs(text)
     candidates: list[Path] = []
     extensions = extensions or [".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"]
     for spec in imports:

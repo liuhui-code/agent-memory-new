@@ -1,0 +1,1985 @@
+{
+  "entry": {
+    "source": "/tmp/tmpxuu31olm/source",
+    "entry": "Entry.ts",
+    "scope_id": 1,
+    "depth": 1,
+    "mode": "merge",
+    "files": [
+      "Actual.ts",
+      "Dynamic.ts",
+      "Entry.ts",
+      "Required.ts"
+    ],
+    "count": 4,
+    "parse_stats": {
+      "files_indexed": 4,
+      "skipped_by_reason": {},
+      "languages": {
+        "TypeScript": 4
+      },
+      "symbols_total": 8,
+      "symbols_by_type": {
+        "const": 7,
+        "function": 1
+      },
+      "code_logs_total": 0,
+      "code_logs_by_level": {},
+      "business_semantics_restored": {
+        "code_files": 0,
+        "code_symbols": 0,
+        "code_log_statements": 0
+      },
+      "semantic_index": {
+        "schema_version": "semantic-index/v1",
+        "adapters": [
+          {
+            "id": "typescript-static",
+            "version": "1.2",
+            "language": "TypeScript"
+          }
+        ],
+        "capabilities": [
+          "api_boundaries",
+          "async_flow",
+          "callbacks",
+          "calls",
+          "definitions",
+          "inheritance",
+          "mechanisms",
+          "references",
+          "types"
+        ],
+        "files_indexed": 4,
+        "entities": 1,
+        "relations_extracted": 2,
+        "mechanisms_extracted": 0,
+        "relations_emitted": 2,
+        "unresolved_relations": 0,
+        "method_summaries_enriched": 0,
+        "gaps": [],
+        "adapter_errors": [],
+        "provider_runs": [
+          {
+            "language": "TypeScript",
+            "mode": "auto",
+            "status": "static",
+            "selected": "static",
+            "provider_configured": false,
+            "duration_ms": 0.0,
+            "output_bytes": 0,
+            "batch": 1,
+            "batch_files": 4
+          }
+        ],
+        "log_effects": {
+          "schema_version": "log-effect/v1",
+          "wrappers_resolved": 0,
+          "effects_emitted": 0,
+          "truncated": false,
+          "max_wrapper_depth": 0
+        },
+        "graph_candidate_resolution": {
+          "provider": "scoped-unique-symbols/v1",
+          "local_symbol_count": 8,
+          "reference_name_count": 0,
+          "resolved_external_symbol_count": 0,
+          "candidate_symbol_count": 8
+        }
+      },
+      "passage_index": {
+        "schema_version": "code-passages-v2",
+        "files_written": 4,
+        "symbols_written": 8,
+        "passages_written": 12
+      },
+      "normative_index": {
+        "schema_version": "normative-index/v1",
+        "source_root": "/tmp/tmpxuu31olm/source",
+        "documents_indexed": 0,
+        "documents_added": 0,
+        "documents_updated": 0,
+        "documents_unchanged": 0,
+        "documents_retired": 0,
+        "retirement_counts": {},
+        "retirement_sample": [],
+        "retirement_sample_truncated": false,
+        "indexed_sample": [],
+        "indexed_sample_truncated": false,
+        "documents_requiring_metadata_review": 0,
+        "metadata_issues": [],
+        "metadata_issue_count": 0,
+        "metadata_issues_truncated": false,
+        "read_issues": [],
+        "read_issue_count": 0,
+        "read_issues_truncated": false,
+        "next_action": "no_normative_change",
+        "approval_inferred": false
+      },
+      "reverse_dependents_reindexed": [],
+      "dispatch_dependents_reindexed": [],
+      "edge_rebuild": {
+        "mode": "merge",
+        "scope_file_count": 4,
+        "scope_files": [
+          "Actual.ts",
+          "Dynamic.ts",
+          "Entry.ts",
+          "Required.ts"
+        ],
+        "before": {
+          "node_counts": {
+            "code_file": 0,
+            "code_log_statement": 0,
+            "code_symbol": 0
+          },
+          "edge_count": 0,
+          "relation_counts": {}
+        },
+        "after": {
+          "node_counts": {
+            "code_file": 4,
+            "code_log_statement": 0,
+            "code_symbol": 8
+          },
+          "edge_count": 10,
+          "relation_counts": {
+            "consumes_api": 1,
+            "contains": 8,
+            "exposes_api": 1
+          }
+        },
+        "edges_deleted_estimate": 0,
+        "edges_inserted_estimate": 10,
+        "edge_delta": 10
+      },
+      "phase_ms": {
+        "extract": 2.554,
+        "load_scope": 3.553,
+        "invalidate": 0.748,
+        "prepare_rows": 0.828,
+        "insert_rows": 0.493,
+        "restore_business": 0.056,
+        "rebuild_graph": 14.219,
+        "summarize": 0.255,
+        "commit": 0.222,
+        "total": 22.944
+      },
+      "memory_edges_total": 10,
+      "memory_edges_total_provider": "project-counter/v1",
+      "index_generation": 1,
+      "source_revision": "unversioned"
+    },
+    "semantic_followup": {
+      "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+      "workflow_steps": [
+        "Read the listed files, symbols, and logs in current source.",
+        "Fill missing business_summary and business_terms in followup_payload_template.",
+        "Write the completed payload with learn-business.",
+        "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+      ],
+      "recommended_next_action": "run_learn_business_now",
+      "truncated": false,
+      "returned_counts": {
+        "files": 4,
+        "symbols": 8,
+        "logs": 0
+      },
+      "remaining_counts": {
+        "files": 0,
+        "symbols": 0,
+        "logs": 0
+      },
+      "followup_payload_template": {
+        "files": [
+          {
+            "file_path": "Entry.ts",
+            "summary": "TypeScript file with 11 non-empty lines",
+            "business_summary": "",
+            "business_terms": [],
+            "symbols": [
+              {
+                "symbol": "run",
+                "symbol_type": "function",
+                "summary": "function run in Entry.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "entry",
+                  "ts",
+                  "run",
+                  "function",
+                  "in"
+                ],
+                "hint_context": [
+                  "Entry.ts",
+                  "run",
+                  "function",
+                  "function run in Entry.ts"
+                ]
+              },
+              {
+                "symbol": "old",
+                "symbol_type": "const",
+                "summary": "const old in Entry.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "entry",
+                  "ts",
+                  "old",
+                  "const",
+                  "in"
+                ],
+                "hint_context": [
+                  "Entry.ts",
+                  "old",
+                  "const",
+                  "const old in Entry.ts"
+                ]
+              },
+              {
+                "symbol": "message",
+                "symbol_type": "const",
+                "summary": "const message in Entry.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "entry",
+                  "ts",
+                  "message",
+                  "const",
+                  "in"
+                ],
+                "hint_context": [
+                  "Entry.ts",
+                  "message",
+                  "const",
+                  "const message in Entry.ts"
+                ]
+              },
+              {
+                "symbol": "lazy",
+                "symbol_type": "const",
+                "summary": "const lazy in Entry.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "entry",
+                  "ts",
+                  "lazy",
+                  "const",
+                  "in"
+                ],
+                "hint_context": [
+                  "Entry.ts",
+                  "lazy",
+                  "const",
+                  "const lazy in Entry.ts"
+                ]
+              },
+              {
+                "symbol": "guide",
+                "symbol_type": "const",
+                "summary": "const guide in Entry.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "entry",
+                  "ts",
+                  "guide",
+                  "const",
+                  "in"
+                ],
+                "hint_context": [
+                  "Entry.ts",
+                  "guide",
+                  "const",
+                  "const guide in Entry.ts"
+                ]
+              }
+            ],
+            "logs": [],
+            "priority_score": 112,
+            "priority_reasons": [
+              "missing_file_business_summary",
+              "missing_file_business_terms",
+              "missing_symbol_semantics",
+              "missing_symbol_business_summary",
+              "missing_symbol_business_terms"
+            ],
+            "hint_terms": [
+              "entry",
+              "ts",
+              "typescript",
+              "file",
+              "with",
+              "11",
+              "non",
+              "empty",
+              "lines",
+              "run",
+              "old",
+              "message",
+              "lazy",
+              "guide",
+              "type",
+              "script"
+            ],
+            "hint_context": [
+              "Entry.ts",
+              "TypeScript file with 11 non-empty lines",
+              "run old message lazy guide"
+            ],
+            "truncated_counts": {
+              "symbols": 0,
+              "logs": 0
+            }
+          },
+          {
+            "file_path": "Required.ts",
+            "summary": "TypeScript file with 1 non-empty lines",
+            "business_summary": "",
+            "business_terms": [],
+            "symbols": [
+              {
+                "symbol": "value",
+                "symbol_type": "const",
+                "summary": "const value in Required.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "required",
+                  "ts",
+                  "value",
+                  "const",
+                  "in"
+                ],
+                "hint_context": [
+                  "Required.ts",
+                  "value",
+                  "const",
+                  "const value in Required.ts"
+                ]
+              }
+            ],
+            "logs": [],
+            "priority_score": 32,
+            "priority_reasons": [
+              "missing_file_business_summary",
+              "missing_file_business_terms",
+              "missing_symbol_semantics",
+              "missing_symbol_business_summary",
+              "missing_symbol_business_terms"
+            ],
+            "hint_terms": [
+              "required",
+              "ts",
+              "typescript",
+              "file",
+              "with",
+              "1",
+              "non",
+              "empty",
+              "lines",
+              "value",
+              "type",
+              "script"
+            ],
+            "hint_context": [
+              "Required.ts",
+              "TypeScript file with 1 non-empty lines",
+              "value"
+            ],
+            "truncated_counts": {
+              "symbols": 0,
+              "logs": 0
+            }
+          },
+          {
+            "file_path": "Dynamic.ts",
+            "summary": "TypeScript file with 1 non-empty lines",
+            "business_summary": "",
+            "business_terms": [],
+            "symbols": [
+              {
+                "symbol": "value",
+                "symbol_type": "const",
+                "summary": "const value in Dynamic.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "dynamic",
+                  "ts",
+                  "value",
+                  "const",
+                  "in"
+                ],
+                "hint_context": [
+                  "Dynamic.ts",
+                  "value",
+                  "const",
+                  "const value in Dynamic.ts"
+                ]
+              }
+            ],
+            "logs": [],
+            "priority_score": 32,
+            "priority_reasons": [
+              "missing_file_business_summary",
+              "missing_file_business_terms",
+              "missing_symbol_semantics",
+              "missing_symbol_business_summary",
+              "missing_symbol_business_terms"
+            ],
+            "hint_terms": [
+              "dynamic",
+              "ts",
+              "typescript",
+              "file",
+              "with",
+              "1",
+              "non",
+              "empty",
+              "lines",
+              "value",
+              "type",
+              "script"
+            ],
+            "hint_context": [
+              "Dynamic.ts",
+              "TypeScript file with 1 non-empty lines",
+              "value"
+            ],
+            "truncated_counts": {
+              "symbols": 0,
+              "logs": 0
+            }
+          },
+          {
+            "file_path": "Actual.ts",
+            "summary": "TypeScript file with 1 non-empty lines",
+            "business_summary": "",
+            "business_terms": [],
+            "symbols": [
+              {
+                "symbol": "value",
+                "symbol_type": "const",
+                "summary": "const value in Actual.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "actual",
+                  "ts",
+                  "value",
+                  "const",
+                  "in"
+                ],
+                "hint_context": [
+                  "Actual.ts",
+                  "value",
+                  "const",
+                  "const value in Actual.ts"
+                ]
+              }
+            ],
+            "logs": [],
+            "priority_score": 32,
+            "priority_reasons": [
+              "missing_file_business_summary",
+              "missing_file_business_terms",
+              "missing_symbol_semantics",
+              "missing_symbol_business_summary",
+              "missing_symbol_business_terms"
+            ],
+            "hint_terms": [
+              "actual",
+              "ts",
+              "typescript",
+              "file",
+              "with",
+              "1",
+              "non",
+              "empty",
+              "lines",
+              "value",
+              "type",
+              "script"
+            ],
+            "hint_context": [
+              "Actual.ts",
+              "TypeScript file with 1 non-empty lines",
+              "value"
+            ],
+            "truncated_counts": {
+              "symbols": 0,
+              "logs": 0
+            }
+          }
+        ]
+      }
+    }
+  },
+  "files": [
+    {
+      "id": 4,
+      "project_id": "3387612eec573a00",
+      "file_path": "Required.ts",
+      "summary": "TypeScript file with 1 non-empty lines",
+      "language": "TypeScript",
+      "business_summary": null,
+      "business_terms": null,
+      "source_digest": "527a3c26fa14dc192c91f8d0dc0207b994b380300101b833e56d9822aa173f70",
+      "index_generation": 1,
+      "updated_at": "2026-11-13T15:24:59+00:00"
+    },
+    {
+      "id": 3,
+      "project_id": "3387612eec573a00",
+      "file_path": "Entry.ts",
+      "summary": "TypeScript file with 11 non-empty lines",
+      "language": "TypeScript",
+      "business_summary": null,
+      "business_terms": null,
+      "source_digest": "a0ec925bcabbc03f186e31d5e7fd14f3110e340b82435f9f18050b46d40be3c0",
+      "index_generation": 1,
+      "updated_at": "2026-11-13T15:24:59+00:00"
+    },
+    {
+      "id": 2,
+      "project_id": "3387612eec573a00",
+      "file_path": "Dynamic.ts",
+      "summary": "TypeScript file with 1 non-empty lines",
+      "language": "TypeScript",
+      "business_summary": null,
+      "business_terms": null,
+      "source_digest": "45c7aa8e1d420a06c45bc480c7cfc3b24e103b7cbb77e87115f669723292f10f",
+      "index_generation": 1,
+      "updated_at": "2026-11-13T15:24:59+00:00"
+    },
+    {
+      "id": 1,
+      "project_id": "3387612eec573a00",
+      "file_path": "Actual.ts",
+      "summary": "TypeScript file with 1 non-empty lines",
+      "language": "TypeScript",
+      "business_summary": null,
+      "business_terms": null,
+      "source_digest": "9b23387d8c098f88cc62c7b2c4a0caaf0dcf3be46ee7030dbd8a82bb5a191bdf",
+      "index_generation": 1,
+      "updated_at": "2026-11-13T15:24:59+00:00"
+    }
+  ],
+  "edges": [
+    {
+      "id": 10,
+      "project_id": "3387612eec573a00",
+      "source_type": "code_file",
+      "source_id": 3,
+      "relation": "exposes_api",
+      "target_type": "code_symbol",
+      "target_id": 7,
+      "evidence": "{\"adapter\": \"typescript-static@1.2\", \"detail\": \"exported symbol\", \"evidence_class\": \"static\", \"language\": \"TypeScript\", \"line\": 11, \"schema_version\": \"semantic-evidence/v1\", \"source_digest\": null}",
+      "confidence": 0.95,
+      "source_revision": "unversioned",
+      "extractor_version": "semantic-index:v1/typescript-static@1.2",
+      "valid_from": "2026-11-13T15:24:59+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_semantic_exposes_api",
+      "last_verified_at": "2026-11-13T15:24:59+00:00",
+      "created_at": "2026-11-13T15:24:59+00:00"
+    },
+    {
+      "id": 9,
+      "project_id": "3387612eec573a00",
+      "source_type": "code_file",
+      "source_id": 3,
+      "relation": "consumes_api",
+      "target_type": "code_symbol",
+      "target_id": 1,
+      "evidence": "{\"adapter\": \"typescript-static@1.2\", \"detail\": \"imports value as value\", \"evidence_class\": \"static\", \"language\": \"TypeScript\", \"line\": 1, \"schema_version\": \"semantic-evidence/v1\", \"source_digest\": null}",
+      "confidence": 0.9,
+      "source_revision": "unversioned",
+      "extractor_version": "semantic-index:v1/typescript-static@1.2",
+      "valid_from": "2026-11-13T15:24:59+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_semantic_consumes_api",
+      "last_verified_at": "2026-11-13T15:24:59+00:00",
+      "created_at": "2026-11-13T15:24:59+00:00"
+    },
+    {
+      "id": 8,
+      "project_id": "3387612eec573a00",
+      "source_type": "code_file",
+      "source_id": 4,
+      "relation": "contains",
+      "target_type": "code_symbol",
+      "target_id": 8,
+      "evidence": "Required.ts",
+      "confidence": 0.9,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:24:59+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_containment",
+      "last_verified_at": "2026-11-13T15:24:59+00:00",
+      "created_at": "2026-11-13T15:24:59+00:00"
+    },
+    {
+      "id": 7,
+      "project_id": "3387612eec573a00",
+      "source_type": "code_file",
+      "source_id": 3,
+      "relation": "contains",
+      "target_type": "code_symbol",
+      "target_id": 7,
+      "evidence": "Entry.ts",
+      "confidence": 0.9,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:24:59+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_containment",
+      "last_verified_at": "2026-11-13T15:24:59+00:00",
+      "created_at": "2026-11-13T15:24:59+00:00"
+    },
+    {
+      "id": 6,
+      "project_id": "3387612eec573a00",
+      "source_type": "code_file",
+      "source_id": 3,
+      "relation": "contains",
+      "target_type": "code_symbol",
+      "target_id": 6,
+      "evidence": "Entry.ts",
+      "confidence": 0.9,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:24:59+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_containment",
+      "last_verified_at": "2026-11-13T15:24:59+00:00",
+      "created_at": "2026-11-13T15:24:59+00:00"
+    },
+    {
+      "id": 5,
+      "project_id": "3387612eec573a00",
+      "source_type": "code_file",
+      "source_id": 3,
+      "relation": "contains",
+      "target_type": "code_symbol",
+      "target_id": 5,
+      "evidence": "Entry.ts",
+      "confidence": 0.9,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:24:59+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_containment",
+      "last_verified_at": "2026-11-13T15:24:59+00:00",
+      "created_at": "2026-11-13T15:24:59+00:00"
+    },
+    {
+      "id": 4,
+      "project_id": "3387612eec573a00",
+      "source_type": "code_file",
+      "source_id": 3,
+      "relation": "contains",
+      "target_type": "code_symbol",
+      "target_id": 4,
+      "evidence": "Entry.ts",
+      "confidence": 0.9,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:24:59+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_containment",
+      "last_verified_at": "2026-11-13T15:24:59+00:00",
+      "created_at": "2026-11-13T15:24:59+00:00"
+    },
+    {
+      "id": 3,
+      "project_id": "3387612eec573a00",
+      "source_type": "code_file",
+      "source_id": 3,
+      "relation": "contains",
+      "target_type": "code_symbol",
+      "target_id": 3,
+      "evidence": "Entry.ts",
+      "confidence": 0.9,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:24:59+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_containment",
+      "last_verified_at": "2026-11-13T15:24:59+00:00",
+      "created_at": "2026-11-13T15:24:59+00:00"
+    },
+    {
+      "id": 2,
+      "project_id": "3387612eec573a00",
+      "source_type": "code_file",
+      "source_id": 2,
+      "relation": "contains",
+      "target_type": "code_symbol",
+      "target_id": 2,
+      "evidence": "Dynamic.ts",
+      "confidence": 0.9,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:24:59+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_containment",
+      "last_verified_at": "2026-11-13T15:24:59+00:00",
+      "created_at": "2026-11-13T15:24:59+00:00"
+    },
+    {
+      "id": 1,
+      "project_id": "3387612eec573a00",
+      "source_type": "code_file",
+      "source_id": 1,
+      "relation": "contains",
+      "target_type": "code_symbol",
+      "target_id": 1,
+      "evidence": "Actual.ts",
+      "confidence": 0.9,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T15:24:59+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_containment",
+      "last_verified_at": "2026-11-13T15:24:59+00:00",
+      "created_at": "2026-11-13T15:24:59+00:00"
+    }
+  ],
+  "context": {
+    "project_id": "3387612eec573a00",
+    "project_path": "/tmp/tmpxuu31olm/source",
+    "query": "Find TemplateOnly source.",
+    "memory_intent": "code_current",
+    "memory_intent_v2": "code_location",
+    "memory_intent_source": "inferred",
+    "retrieval_lanes": {
+      "counts": {
+        "main_reflections": 0,
+        "correction_guards": 0,
+        "semantic_patch_notes": 0,
+        "blocked_memory_notes": 0
+      },
+      "intent_profile": {
+        "intent": "code_current",
+        "intent_v2": "code_location",
+        "intent_source": "inferred",
+        "legacy_intent": "code_current",
+        "preferred_lanes": [
+          "wiki_matches",
+          "code_log_matches",
+          "edge_matches"
+        ],
+        "interference_policy": "prefer current code/wiki/log anchors and block broad procedure memories"
+      },
+      "lane_budgets": {
+        "main_reflections": 0,
+        "correction_guards": 4,
+        "semantic_patch_notes": 6,
+        "blocked_memory_notes": 8
+      },
+      "policy": {
+        "procedure_experience": "main context only when the query intent can reuse a procedure",
+        "correction_experience": "guardrail lane; not injected as the main task direction by default",
+        "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+      }
+    },
+    "memory_brief": {
+      "intent": "code_current",
+      "intent_v2": "code_location",
+      "main_reflection_count": 0,
+      "correction_guard_count": 0,
+      "semantic_patch_count": 0,
+      "blocked_count": 0,
+      "conflict_count": 0
+    },
+    "followup_focus": null,
+    "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+    "semantic_facts": [],
+    "reflections": [],
+    "episodes": [
+      {
+        "id": 1,
+        "project_id": "3387612eec573a00",
+        "task": "Learn entry Entry.ts from /tmp/tmpxuu31olm/source",
+        "summary": "Merged 4 files related to Entry.ts with depth 1",
+        "outcome": "learned",
+        "files_touched": null,
+        "commands_run": null,
+        "created_at": "2026-11-13T15:24:59+00:00",
+        "status": "active",
+        "importance": 0.5,
+        "last_used_at": null,
+        "use_count": 0,
+        "reviewed_at": null,
+        "derived_facts": null,
+        "derived_reflections": null,
+        "recall_lanes": [
+          "like_fallback"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.01147541,
+          "best_rank": 1,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "like_fallback",
+              "rank": 1,
+              "weight": 0.7,
+              "score": 0.01147541
+            }
+          ]
+        },
+        "score": 0.8,
+        "match_reasons": [
+          "episode"
+        ],
+        "warning": null,
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.503,
+        "trust_level": "usable_hint",
+        "trust_reasons": [
+          "confidence=0.65"
+        ],
+        "retrieval_explanation": {
+          "group": "episodes",
+          "score": 0.8,
+          "rerank_score": null,
+          "match_reasons": [
+            "episode"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": "active",
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "wiki_matches": [],
+    "code_log_matches": [],
+    "edge_matches": [],
+    "incident_trace_matches": [],
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "suggested_followup_terms": [],
+    "query_handoff": {
+      "schema_version": "agent-query-handoff/v1",
+      "input_query": "Find TemplateOnly source.",
+      "log_keywords": [
+        "find",
+        "templateonly",
+        "source"
+      ],
+      "log_anchors": [],
+      "code_anchors": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "next_query_contract": {
+        "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+        "accepted_inputs": [
+          "exact phrase or identifier observed in the temporary runtime log",
+          "one candidate cause produced by the Agent CLI",
+          "file, symbol, route, resource, error code, logger, or event name"
+        ],
+        "one_candidate_per_query": true
+      },
+      "role_boundary": {
+        "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+        "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+        "runtime_reads_temporary_logs": false,
+        "runtime_builds_causal_chains": false
+      },
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "unavailable",
+        "primary": null,
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "no_locatable_primary"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      },
+      "path_context": {
+        "schema_version": "log-anchored-path-context/v1",
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "candidate_count": 0,
+        "seeds": [],
+        "path_candidates": [],
+        "gaps": {},
+        "bounds": {
+          "max_depth": 6,
+          "max_nodes": 80,
+          "max_edges": 160,
+          "max_raw_paths_per_seed": 20,
+          "max_returned_paths": 5,
+          "max_same_entry_paths": 2,
+          "cycle_visit_limit": 1
+        },
+        "lane_isolation": {
+          "log_anchor": "code_log_statements identity fields only",
+          "program_path": "current active code graph edges only",
+          "semantic_correction": "annotation in base context; cannot create or rank paths",
+          "experience": "advisory in base context; cannot create or rank paths"
+        }
+      }
+    },
+    "network_limits": {
+      "max_depth": 1,
+      "edge_limit": 10,
+      "evidence_chain_limit": 3,
+      "allowed_relations": [
+        "configured_by",
+        "contains",
+        "emits_log",
+        "imports",
+        "passes_property",
+        "renders_component",
+        "routes_to",
+        "uses_resource"
+      ]
+    },
+    "source_freshness": {
+      "schema_version": "source-freshness/v1",
+      "status": "empty",
+      "generation": 1,
+      "source_revision": "unversioned",
+      "extractor_version": "code-derived:v1",
+      "candidate_file_count": 0,
+      "checked_file_count": 0,
+      "current_file_count": 0,
+      "blocked_rows": 0,
+      "blocked_rows_by_table": {
+        "code_files": 0,
+        "code_symbols": 0,
+        "code_log_statements": 0
+      },
+      "stale_paths": [],
+      "missing_paths": [],
+      "unverified_paths": [],
+      "boundary_drift_scope_ids": [],
+      "policy": "digest_mismatch_and_missing_source_blocked"
+    },
+    "memory_use_policy": {
+      "mode": "advisory",
+      "authority_order": [
+        "current_source",
+        "explicit_user_instruction",
+        "source_truth",
+        "verified_experience",
+        "usable_hint",
+        "weak_hint"
+      ],
+      "rules": [
+        "Current source files and explicit user instructions override stored memory.",
+        "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+        "Use weak hints only to choose what to inspect next.",
+        "Do not let recency override evidence, status, confidence, or feedback penalties."
+      ]
+    },
+    "query_audit": {
+      "result_counts": {
+        "semantic_facts": 0,
+        "reflections": 0,
+        "episodes": 1,
+        "wiki_matches": 0,
+        "code_log_matches": 0,
+        "edge_matches": 0,
+        "incident_trace_matches": 0
+      },
+      "candidate_recall": {
+        "schema_version": "agent-candidate-recall-audit/v1",
+        "source_freshness": {
+          "schema_version": "source-freshness/v1",
+          "status": "empty",
+          "generation": 1,
+          "source_revision": "unversioned",
+          "extractor_version": "code-derived:v1",
+          "candidate_file_count": 0,
+          "checked_file_count": 0,
+          "current_file_count": 0,
+          "blocked_rows": 0,
+          "blocked_rows_by_table": {
+            "code_files": 0,
+            "code_symbols": 0,
+            "code_log_statements": 0
+          },
+          "stale_paths": [],
+          "missing_paths": [],
+          "unverified_paths": [],
+          "boundary_drift_scope_ids": [],
+          "policy": "digest_mismatch_and_missing_source_blocked"
+        },
+        "provider": "sqlite_fts5_passage_rrf/v4",
+        "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+        "tables": {
+          "semantic_facts": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 1,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "reflections": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 1,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "episodes": {
+            "requested_limit": 80,
+            "candidate_count": 1,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": true,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 1,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 1
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 1
+              },
+              "fused_candidate_count": 1
+            },
+            "candidate_refs": []
+          },
+          "code_files": {
+            "requested_limit": 160,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 1,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "file_identity_fts": 0,
+              "file_semantic_fts": 0,
+              "salient_file_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "file_identity_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 0,
+                  "file_path_weight": 6.0,
+                  "identity_terms_weight": 9.0
+                },
+                "file_semantic_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 0,
+                  "file_path_weight": 1.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "salient_file_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 0,
+                  "query_term_count": 3,
+                  "file_path_weight": 3.0,
+                  "semantic_terms_weight": 8.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": false,
+              "serving_channels": [
+                "file_identity_fts",
+                "file_semantic_fts",
+                "salient_file_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 3,
+                "channel_counts": {
+                  "file_identity_fts": 0,
+                  "file_semantic_fts": 0,
+                  "salient_file_fts": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_fusion": {},
+              "candidate_refs": []
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 5,
+              "channel_counts": {
+                "broad_fts": 0,
+                "file_identity_fts": 0,
+                "file_semantic_fts": 0,
+                "salient_file_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "code_symbols": {
+            "requested_limit": 220,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 1,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "symbol_identity_fts": 0,
+              "symbol_semantic_fts": 0,
+              "string_key_fts": 0,
+              "semantic_mechanism_fts": 0,
+              "salient_string_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "symbol_identity_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "symbol",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 0,
+                  "file_path_weight": 2.0,
+                  "symbol_weight": 8.0,
+                  "identity_terms_weight": 10.0
+                },
+                "symbol_semantic_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "symbol",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 0,
+                  "symbol_weight": 2.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "method_body_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms"
+                  ],
+                  "candidate_count": 0,
+                  "body_terms_weight": 8.0
+                },
+                "string_key_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "string_terms"
+                  ],
+                  "candidate_count": 0,
+                  "string_terms_weight": 9.0
+                },
+                "semantic_mechanism_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "mechanism_terms"
+                  ],
+                  "candidate_count": 0,
+                  "mechanism_terms_weight": 9.0
+                },
+                "salient_string_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms",
+                    "string_terms"
+                  ],
+                  "candidate_count": 0,
+                  "query_term_count": 3,
+                  "body_terms_weight": 3.0,
+                  "string_terms_weight": 10.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": false,
+              "serving_channels": [
+                "salient_string_fts",
+                "semantic_mechanism_fts",
+                "string_key_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 6,
+                "channel_counts": {
+                  "symbol_identity_fts": 0,
+                  "symbol_semantic_fts": 0,
+                  "method_body_fts": 0,
+                  "string_key_fts": 0,
+                  "semantic_mechanism_fts": 0,
+                  "salient_string_fts": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_fusion": {},
+              "candidate_refs": []
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 7,
+              "channel_counts": {
+                "broad_fts": 0,
+                "symbol_identity_fts": 0,
+                "symbol_semantic_fts": 0,
+                "string_key_fts": 0,
+                "semantic_mechanism_fts": 0,
+                "salient_string_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "code_log_statements": {
+            "requested_limit": 180,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 1,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          }
+        }
+      },
+      "retrieval_stages": {
+        "scored": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 1,
+          "wiki_matches": 0,
+          "code_log_matches": 0,
+          "edge_matches": 0,
+          "incident_trace_matches": 0
+        },
+        "after_intent_gate": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 1,
+          "wiki_matches": 0,
+          "code_log_matches": 0,
+          "edge_matches": 0,
+          "incident_trace_matches": 0
+        },
+        "selected": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 1,
+          "wiki_matches": 0,
+          "code_log_matches": 0,
+          "edge_matches": 0,
+          "incident_trace_matches": 0
+        }
+      },
+      "top_explanations": {
+        "semantic_facts": [],
+        "reflections": [],
+        "episodes": [
+          {
+            "type": "episodes",
+            "id": 1,
+            "score": 0.8,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.503,
+            "trust_level": "usable_hint",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "episode"
+            ],
+            "recall_lanes": [
+              "like_fallback"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.01147541,
+              "best_rank": 1,
+              "channel_count": 1,
+              "contributions": [
+                {
+                  "channel": "like_fallback",
+                  "rank": 1,
+                  "weight": 0.7,
+                  "score": 0.01147541
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "episodes",
+              "score": 0.8,
+              "rerank_score": null,
+              "match_reasons": [
+                "episode"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": "active",
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "wiki_matches": [],
+        "code_log_matches": [],
+        "edge_matches": [],
+        "incident_trace_matches": []
+      },
+      "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+      "hierarchical_localization": {
+        "schema_version": "agent-hierarchical-localization/v2",
+        "provider": "sqlite_hierarchical_localizer/v2",
+        "mode": "serving",
+        "projection_contract": {
+          "candidate_recall_changed": false,
+          "affects_serving_projection": true,
+          "consumer": "query_handoff.callable_evidence"
+        },
+        "limits": {
+          "files": 8,
+          "file_callable_pool": 128,
+          "direct_callable_pool": 32,
+          "graph_seeds": 6,
+          "graph_owners": 16,
+          "callables": 12,
+          "source_ranges": 8
+        },
+        "stage_counts": {
+          "file_candidates": 0,
+          "file_callable_pool": 0,
+          "graph_seed_count": 0,
+          "graph_owner_pool": 0,
+          "selected_callables": 0,
+          "selected_ranges": 0
+        },
+        "file_candidates": [],
+        "graph_seeds": [],
+        "graph_owner_candidates": [],
+        "callable_candidates": [],
+        "source_ranges": []
+      },
+      "callable_evidence_set": {
+        "schema_version": "agent-callable-evidence-set/v1",
+        "mode": "shadow",
+        "serving_projection_changed": false,
+        "target_scope": {
+          "kind": "unknown",
+          "basis": [
+            "no_explicit_target_scope"
+          ]
+        },
+        "members": [],
+        "competition": {
+          "member_count": 0,
+          "distinct_file_count": 0,
+          "same_owner_kind_alternative": false,
+          "graph_backed_alternative": false,
+          "excluded_member_count": 0
+        },
+        "calibration": {
+          "state": "insufficient",
+          "basis": [
+            "no_locatable_primary"
+          ]
+        },
+        "boundary": "retrieval_calibration_not_diagnosis"
+      },
+      "callable_passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "no_locatable_primary"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    }
+  },
+  "pass": true,
+  "depth_zero": {
+    "source": "/tmp/tmpxuu31olm/source",
+    "entry": "Entry.ts",
+    "scope_id": 1,
+    "depth": 0,
+    "mode": "merge",
+    "files": [
+      "Entry.ts"
+    ],
+    "count": 1,
+    "parse_stats": {
+      "files_indexed": 1,
+      "skipped_by_reason": {},
+      "languages": {
+        "TypeScript": 1
+      },
+      "symbols_total": 5,
+      "symbols_by_type": {
+        "const": 4,
+        "function": 1
+      },
+      "code_logs_total": 0,
+      "code_logs_by_level": {},
+      "business_semantics_restored": {
+        "code_files": 0,
+        "code_symbols": 0,
+        "code_log_statements": 0
+      },
+      "semantic_index": {
+        "schema_version": "semantic-index/v1",
+        "adapters": [
+          {
+            "id": "typescript-static",
+            "version": "1.2",
+            "language": "TypeScript"
+          }
+        ],
+        "capabilities": [
+          "api_boundaries",
+          "async_flow",
+          "callbacks",
+          "calls",
+          "definitions",
+          "inheritance",
+          "mechanisms",
+          "references",
+          "types"
+        ],
+        "files_indexed": 1,
+        "entities": 1,
+        "relations_extracted": 2,
+        "mechanisms_extracted": 0,
+        "relations_emitted": 1,
+        "unresolved_relations": 1,
+        "method_summaries_enriched": 0,
+        "gaps": [],
+        "adapter_errors": [],
+        "provider_runs": [
+          {
+            "language": "TypeScript",
+            "mode": "auto",
+            "status": "static",
+            "selected": "static",
+            "provider_configured": false,
+            "duration_ms": 0.0,
+            "output_bytes": 0,
+            "batch": 1,
+            "batch_files": 1
+          }
+        ],
+        "log_effects": {
+          "schema_version": "log-effect/v1",
+          "wrappers_resolved": 0,
+          "effects_emitted": 0,
+          "truncated": false,
+          "max_wrapper_depth": 0
+        },
+        "graph_candidate_resolution": {
+          "provider": "scoped-unique-symbols/v1",
+          "local_symbol_count": 5,
+          "reference_name_count": 0,
+          "resolved_external_symbol_count": 0,
+          "candidate_symbol_count": 5
+        }
+      },
+      "passage_index": {
+        "schema_version": "code-passages-v2",
+        "files_written": 1,
+        "symbols_written": 5,
+        "passages_written": 6
+      },
+      "normative_index": {
+        "schema_version": "normative-index/v1",
+        "source_root": "/tmp/tmpxuu31olm/source",
+        "documents_indexed": 0,
+        "documents_added": 0,
+        "documents_updated": 0,
+        "documents_unchanged": 0,
+        "documents_retired": 0,
+        "retirement_counts": {},
+        "retirement_sample": [],
+        "retirement_sample_truncated": false,
+        "indexed_sample": [],
+        "indexed_sample_truncated": false,
+        "documents_requiring_metadata_review": 0,
+        "metadata_issues": [],
+        "metadata_issue_count": 0,
+        "metadata_issues_truncated": false,
+        "read_issues": [],
+        "read_issue_count": 0,
+        "read_issues_truncated": false,
+        "next_action": "no_normative_change",
+        "approval_inferred": false
+      },
+      "reverse_dependents_reindexed": [],
+      "dispatch_dependents_reindexed": [],
+      "edge_rebuild": {
+        "mode": "merge",
+        "scope_file_count": 1,
+        "scope_files": [
+          "Entry.ts"
+        ],
+        "before": {
+          "node_counts": {
+            "code_file": 0,
+            "code_log_statement": 0,
+            "code_symbol": 0
+          },
+          "edge_count": 0,
+          "relation_counts": {}
+        },
+        "after": {
+          "node_counts": {
+            "code_file": 1,
+            "code_log_statement": 0,
+            "code_symbol": 5
+          },
+          "edge_count": 6,
+          "relation_counts": {
+            "contains": 5,
+            "exposes_api": 1
+          }
+        },
+        "edges_deleted_estimate": 0,
+        "edges_inserted_estimate": 6,
+        "edge_delta": 6
+      },
+      "phase_ms": {
+        "extract": 1.698,
+        "load_scope": 3.623,
+        "invalidate": 0.341,
+        "prepare_rows": 0.915,
+        "insert_rows": 0.573,
+        "restore_business": 0.11,
+        "rebuild_graph": 9.239,
+        "summarize": 0.132,
+        "commit": 0.207,
+        "total": 16.853
+      },
+      "memory_edges_total": 6,
+      "memory_edges_total_provider": "project-counter/v1",
+      "index_generation": 1,
+      "source_revision": "unversioned"
+    },
+    "semantic_followup": {
+      "command_template": "python tools/agent_memory.py learn-business --project . --payload '<json>' --json",
+      "workflow_steps": [
+        "Read the listed files, symbols, and logs in current source.",
+        "Fill missing business_summary and business_terms in followup_payload_template.",
+        "Write the completed payload with learn-business.",
+        "Re-run learn-business, query, or maintain-plan to confirm the semantic gap is reduced."
+      ],
+      "recommended_next_action": "run_learn_business_now",
+      "truncated": false,
+      "returned_counts": {
+        "files": 1,
+        "symbols": 5,
+        "logs": 0
+      },
+      "remaining_counts": {
+        "files": 0,
+        "symbols": 0,
+        "logs": 0
+      },
+      "followup_payload_template": {
+        "files": [
+          {
+            "file_path": "Entry.ts",
+            "summary": "TypeScript file with 11 non-empty lines",
+            "business_summary": "",
+            "business_terms": [],
+            "symbols": [
+              {
+                "symbol": "run",
+                "symbol_type": "function",
+                "summary": "function run in Entry.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "entry",
+                  "ts",
+                  "run",
+                  "function",
+                  "in"
+                ],
+                "hint_context": [
+                  "Entry.ts",
+                  "run",
+                  "function",
+                  "function run in Entry.ts"
+                ]
+              },
+              {
+                "symbol": "old",
+                "symbol_type": "const",
+                "summary": "const old in Entry.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "entry",
+                  "ts",
+                  "old",
+                  "const",
+                  "in"
+                ],
+                "hint_context": [
+                  "Entry.ts",
+                  "old",
+                  "const",
+                  "const old in Entry.ts"
+                ]
+              },
+              {
+                "symbol": "message",
+                "symbol_type": "const",
+                "summary": "const message in Entry.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "entry",
+                  "ts",
+                  "message",
+                  "const",
+                  "in"
+                ],
+                "hint_context": [
+                  "Entry.ts",
+                  "message",
+                  "const",
+                  "const message in Entry.ts"
+                ]
+              },
+              {
+                "symbol": "lazy",
+                "symbol_type": "const",
+                "summary": "const lazy in Entry.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "entry",
+                  "ts",
+                  "lazy",
+                  "const",
+                  "in"
+                ],
+                "hint_context": [
+                  "Entry.ts",
+                  "lazy",
+                  "const",
+                  "const lazy in Entry.ts"
+                ]
+              },
+              {
+                "symbol": "guide",
+                "symbol_type": "const",
+                "summary": "const guide in Entry.ts",
+                "business_summary": "",
+                "business_terms": [],
+                "priority_score": 20,
+                "priority_reasons": [
+                  "missing_symbol_semantics",
+                  "missing_symbol_business_summary",
+                  "missing_symbol_business_terms"
+                ],
+                "hint_terms": [
+                  "entry",
+                  "ts",
+                  "guide",
+                  "const",
+                  "in"
+                ],
+                "hint_context": [
+                  "Entry.ts",
+                  "guide",
+                  "const",
+                  "const guide in Entry.ts"
+                ]
+              }
+            ],
+            "logs": [],
+            "priority_score": 112,
+            "priority_reasons": [
+              "missing_file_business_summary",
+              "missing_file_business_terms",
+              "missing_symbol_semantics",
+              "missing_symbol_business_summary",
+              "missing_symbol_business_terms"
+            ],
+            "hint_terms": [
+              "entry",
+              "ts",
+              "typescript",
+              "file",
+              "with",
+              "11",
+              "non",
+              "empty",
+              "lines",
+              "run",
+              "old",
+              "message",
+              "lazy",
+              "guide",
+              "type",
+              "script"
+            ],
+            "hint_context": [
+              "Entry.ts",
+              "TypeScript file with 11 non-empty lines",
+              "run old message lazy guide"
+            ],
+            "truncated_counts": {
+              "symbols": 0,
+              "logs": 0
+            }
+          }
+        ]
+      }
+    }
+  }
+}

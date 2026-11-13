@@ -11804,3 +11804,15 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   Same-memory merge5→6 relations adds4 correct/removes3 false; numeric IDs rebuild
   normally but semantic key/range/digest stay. Original shared group1/3 unchanged.
 - Evidence: docs/evidence/typed-import-alias/README.md and REVIEW-HISTORY.md.
+
+## 2026-11-13 — Reject lexical text as entry import dependencies
+
+- Independent public learn-entry reproduced seven learned files instead of four;
+  comment/template/string import text also produced three false ArkTS imports edges.
+- Preserve the existing from/import()/require() pattern and raw path captures, but
+  admit known lexical code starts only. Unknown files retain complete legacy logic.
+  No module-binding or new syntax claim; resolver and depth behavior are unchanged.
+- Four new tests and necessary refresh/scope/coverage/typed regressions:37 pass.
+  Fresh scope is correct; ordinary merge clears false import edges but deliberately
+  retains previously learned extra file records. Installation alone changes neither.
+- Evidence: docs/eval/import-traversal-current. No full or original-pack run.
