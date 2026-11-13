@@ -17,12 +17,20 @@ class NamedComponentRetentionTests(AgentMemoryTestBase):
             for case in PROTOCOL['queries']:
                 h=json.loads(self.run_memory(root,'context','--query',case['query'],'--compact','--json').stdout)['query_handoff']
                 self.assertTrue(set(case['required']) <= {a['file_path'] for a in h['code_anchors']},case['query'])
+                if case is PROTOCOL['queries'][2]:
+                    for anchor in h['code_anchors']:
+                        lines=(root/anchor['file_path']).read_text().splitlines()
+                        for excerpt in anchor.get('source_excerpts',[]):
+                            self.assertEqual('\n'.join(lines[excerpt['start_line']-1:excerpt['end_line']]),excerpt['content'])
+                        self.assertIn('.fontSize(', ' '.join(e['content'] for e in anchor.get('source_excerpts',[])))
     def anchors(self):
         return [{'file_path':n+'.ets','symbol':n,'symbol_type':'component','start_line':2,'end_line':12} for n in ('EntryTile','CitationPanel')]
     def test_exact_positive_unique_owner_names_only(self):
         a=self.anchors()
         self.assertTrue(multiple_requested_anchors_present(a,{},'Locate EntryTile and CitationPanel source.'))
-        for q in ['Locate EntryTile source, not CitationPanel.','Locate entry tiles and citation panels.','Locate EntryTileBackup and CitationPanel.','Locate EntryTile source.','EntryTile uses CitationPanel. Locate EntryTile.']:
+        for q in ['Locate EntryTile source, not CitationPanel.','Locate entry tiles and citation panels.','Locate EntryTileBackup and CitationPanel.','Locate EntryTile source.','EntryTile uses CitationPanel. Locate EntryTile.',
+                  'Locate `EntryTile` and `CitationPanel` strings.', 'Locate text EntryTile and CitationPanel.',
+                  'Locate \"EntryTile\" and \"CitationPanel\" source.']:
             self.assertFalse(multiple_requested_anchors_present(a,{},q),q)
         a.append({**a[1],'file_path':'other/CitationPanel.ets'})
         self.assertFalse(multiple_requested_anchors_present(a,{},'Locate EntryTile and CitationPanel source.'))

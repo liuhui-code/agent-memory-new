@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 from typing import Any
+import re
+
+from .query_language import positive_retrieval_query
+from .query_target_scope import classify_target_scope
 
 from .query_explicit_owner_certificate import CertifiedPortfolio
 from .query_certified_portfolio_bounds import certified_projection
@@ -258,6 +262,20 @@ def multiple_requested_anchors_present(
     anchors: list[dict[str, Any]], evidence: dict[str, Any], query: str,
 ) -> bool:
     """Decline narrowing existing source, without granting portfolio projection."""
+    positive = positive_retrieval_query(query)
+    owners: dict[str, set[str]] = {}
+    if (classify_target_scope(positive).get("kind") == "multiple"
+            and not re.search(r"[`\"']", positive)
+            and not re.search(r"\b(?:strings?|text|literals?)\b|字符串|字面量|文本", positive, re.I)):
+        for anchor in anchors:
+            name = str(anchor.get("symbol") or "")
+            if (anchor.get("symbol_type") in {"class", "component", "struct"}
+                    and valid_retained_range(anchor) and name
+                    and re.search(r"(?<![\w$.])" + re.escape(name) + r"(?![\w$.])", positive)):
+                owners.setdefault(name, set()).add(str(anchor.get("file_path") or ""))
+        named_paths = {next(iter(paths)) for paths in owners.values() if len(paths) == 1 and next(iter(paths))}
+        if len(named_paths) >= 2:
+            return True
     paths: set[str] = set()
     candidates = [evidence.get("primary"), *(evidence.get("alternatives") or [])]
     for candidate in candidates:

@@ -11314,3 +11314,13 @@ Two independent competitive fixtures now return actual local sources; explicit
 network/profile controls remain. Clipboard focused variants improve 2/3 to 3/3;
 44 focused tests pass with one pre-existing expected failure. No full gate.
 Evidence: `docs/eval/data-topic-expansion-20261114/README.md`.
+
+## 2026-11-13 — Keep two explicitly named, already-retrieved component owners
+
+- Public independent named pair loses one component during compact narrowing,
+  although both bounded source entities are present in raw context.
+- Refuse narrowing only for multiple distinct exact positive names with unique
+  paths. Quoted/text/negative/ambiguous requests do not grant retention.
+- 48 focused regressions pass; actual source excerpt lines remain file-correct.
+- Original cross-preview group stays1/3; this fixes the independent explicit-name
+  control, not the unresolved natural English cases. No new recall or portfolio.
