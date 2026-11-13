@@ -1,0 +1,40 @@
+{
+  "classification": "independent Development",
+  "sources": {
+    "ModalBridge.ets": "export class ModalBridge {\n finish(): void { this.controller.close() }\n reset(): void { this.controller.reset() }\n}\n",
+    "ConfirmPanel.ets": "import { ModalBridge } from './ModalBridge'\n@Component\nexport struct ConfirmPanel {\n bridge: ModalBridge = new ModalBridge()\n build() {\n  Button('Confirm').onClick(() => {\n   this.bridge.finish()\n  })\n }\n}\n",
+    "ResetPanel.ets": "import { ModalBridge } from './ModalBridge'\n@Component\nexport struct ResetPanel {\n bridge: ModalBridge = new ModalBridge()\n build() {\n  Button('Reset').onClick(() => {\n   this.bridge.reset()\n  })\n }\n}\n"
+  },
+  "queries": [
+    [
+      "finish",
+      "Find the actual caller of ModalBridge.finish.",
+      [
+        "ConfirmPanel.ets"
+      ]
+    ],
+    [
+      "reset",
+      "Find the actual caller of ModalBridge.reset.",
+      [
+        "ResetPanel.ets"
+      ]
+    ],
+    [
+      "both",
+      "Find both actual callers of ModalBridge.finish and ModalBridge.reset.",
+      [
+        "ConfirmPanel.ets",
+        "ResetPanel.ets"
+      ]
+    ],
+    [
+      "broad",
+      "Find the actual callers of ModalBridge.",
+      [
+        "ConfirmPanel.ets",
+        "ResetPanel.ets"
+      ]
+    ]
+  ]
+}

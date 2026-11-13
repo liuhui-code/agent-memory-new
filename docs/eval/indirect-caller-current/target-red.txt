@@ -1,0 +1,64 @@
+test_actual_edges_respect_member_and_broad_file_targets (tests.test_caller_target_identity.CallerTargetIdentityTests.test_actual_edges_respect_member_and_broad_file_targets) ... 
+  test_actual_edges_respect_member_and_broad_file_targets (tests.test_caller_target_identity.CallerTargetIdentityTests.test_actual_edges_respect_member_and_broad_file_targets) (query='Find actual caller of ModalBridge.finish.') ... FAIL
+  test_actual_edges_respect_member_and_broad_file_targets (tests.test_caller_target_identity.CallerTargetIdentityTests.test_actual_edges_respect_member_and_broad_file_targets) (query='Find actual caller of ModalBridge.reset.') ... FAIL
+  test_actual_edges_respect_member_and_broad_file_targets (tests.test_caller_target_identity.CallerTargetIdentityTests.test_actual_edges_respect_member_and_broad_file_targets) (query='Find actual caller of ModalBridge.missing.') ... FAIL
+test_public_explicit_method_is_not_other_method_in_same_file (tests.test_caller_target_identity.CallerTargetIdentityTests.test_public_explicit_method_is_not_other_method_in_same_file) ... FAIL
+test_two_real_callers_are_not_collapsed (tests.test_caller_target_identity.CallerTargetIdentityTests.test_two_real_callers_are_not_collapsed) ... FAIL
+
+======================================================================
+FAIL: test_actual_edges_respect_member_and_broad_file_targets (tests.test_caller_target_identity.CallerTargetIdentityTests.test_actual_edges_respect_member_and_broad_file_targets) (query='Find actual caller of ModalBridge.finish.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/indirect-caller-investigation/tests/test_caller_target_identity.py", line 30, in test_actual_edges_respect_member_and_broad_file_targets
+    with self.subTest(query=query):self.assertEqual(expected,{x['file_path'] for x in self.callers(root,query)})
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the second set but not the first:
+'ResetPanel.ets'
+
+======================================================================
+FAIL: test_actual_edges_respect_member_and_broad_file_targets (tests.test_caller_target_identity.CallerTargetIdentityTests.test_actual_edges_respect_member_and_broad_file_targets) (query='Find actual caller of ModalBridge.reset.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/indirect-caller-investigation/tests/test_caller_target_identity.py", line 30, in test_actual_edges_respect_member_and_broad_file_targets
+    with self.subTest(query=query):self.assertEqual(expected,{x['file_path'] for x in self.callers(root,query)})
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the second set but not the first:
+'ConfirmPanel.ets'
+
+======================================================================
+FAIL: test_actual_edges_respect_member_and_broad_file_targets (tests.test_caller_target_identity.CallerTargetIdentityTests.test_actual_edges_respect_member_and_broad_file_targets) (query='Find actual caller of ModalBridge.missing.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/indirect-caller-investigation/tests/test_caller_target_identity.py", line 30, in test_actual_edges_respect_member_and_broad_file_targets
+    with self.subTest(query=query):self.assertEqual(expected,{x['file_path'] for x in self.callers(root,query)})
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the second set but not the first:
+'ResetPanel.ets'
+'ConfirmPanel.ets'
+
+======================================================================
+FAIL: test_public_explicit_method_is_not_other_method_in_same_file (tests.test_caller_target_identity.CallerTargetIdentityTests.test_public_explicit_method_is_not_other_method_in_same_file)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/indirect-caller-investigation/tests/test_caller_target_identity.py", line 22, in test_public_explicit_method_is_not_other_method_in_same_file
+    self.assertEqual({'ConfirmPanel.ets'},callers)
+AssertionError: Items in the first set but not the second:
+'ConfirmPanel.ets'
+Items in the second set but not the first:
+'ResetPanel.ets'
+
+======================================================================
+FAIL: test_two_real_callers_are_not_collapsed (tests.test_caller_target_identity.CallerTargetIdentityTests.test_two_real_callers_are_not_collapsed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/indirect-caller-investigation/tests/test_caller_target_identity.py", line 35, in test_two_real_callers_are_not_collapsed
+    self.assertEqual({'ConfirmPanel.ets','ReviewPanel.ets'},{r['file_path'] for r in rows})
+AssertionError: Items in the first set but not the second:
+'ConfirmPanel.ets'
+Items in the second set but not the first:
+'ResetPanel.ets'
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.097s
+
+FAILED (failures=5)
