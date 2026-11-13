@@ -1,0 +1,9 @@
+{
+ "purpose":"Trace supplemental candidate retention for two operations owned by one store; do not assume file-level coverage authorizes pruning other owners.",
+ "query":"A command completes while the thermostat view remains stale; find the command and state reload owner.",
+ "sources":{
+  "ThermostatStore.ets":"export class ThermostatStore {\n private adapter: ThermostatAdapter\n private state: string = ''\n async executeCommand(command: string): Promise<void> {\n  await this.adapter.executeAction(command)\n }\n async reloadState(): Promise<void> {\n  const current = await this.adapter.loadCurrent()\n  this.state = current\n }\n}\n",
+  "PointerState.ets":"export class PointerState {\n private selected: number = 0\n selectPointer(value: number): void {\n  this.selected = value\n }\n}\n",
+  "CommandPanel.ets":"@Component\nexport struct CommandPanel {\n @State output: string = ''\n build() {\n  Column() {\n   Text('Command output')\n   Text(this.output)\n  }\n }\n}\n"
+ }
+}

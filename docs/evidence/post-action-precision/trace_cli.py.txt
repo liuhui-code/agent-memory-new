@@ -1,0 +1,21 @@
+import sys,json,runpy
+from pathlib import Path
+repo=Path('/workspace/scratch/dcdb41e16594/recovery-current/partial-source-budget-investigation')
+sys.path.insert(0,str(repo/'tools'))
+import agent_memory_runtime.query_code_selection as selection
+out=Path('/workspace/scratch/dcdb41e16594/post-action-precision-review/selection-trace.jsonl')
+def small(items):
+ return [(x.get('file_path'),x.get('symbol'),x.get('kind'),x.get('match_reasons')) for x in items]
+focus=selection.focus_code_candidates
+salient=selection.preserve_salient_evidence_candidates
+def traced_focus(*args,**kwargs):
+ result=focus(*args,**kwargs)
+ with out.open('a') as f:f.write(json.dumps({'stage':'focus','result':small(result[0]),'focused':result[1]})+'\n')
+ return result
+def traced_salient(*args,**kwargs):
+ before=small(args[0]);result=salient(*args,**kwargs)
+ with out.open('a') as f:f.write(json.dumps({'stage':'salient','before':before,'after':small(result)})+'\n')
+ return result
+selection.focus_code_candidates=traced_focus
+selection.preserve_salient_evidence_candidates=traced_salient
+runpy.run_path(str(repo/'tools/agent_memory.py'),run_name='__main__')

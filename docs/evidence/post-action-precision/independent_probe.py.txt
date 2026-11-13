@@ -1,0 +1,13 @@
+import json,tempfile,subprocess,os
+from pathlib import Path
+p=Path('/workspace/scratch/dcdb41e16594/post-action-precision-review');spec=json.loads((p/'independent-protocol.json').read_text())
+with tempfile.TemporaryDirectory() as d:
+ root=Path(d)
+ for name,source in spec['sources'].items():(root/name).write_text(source)
+ def run(*a):
+  s=subprocess.run(['python','/workspace/scratch/dcdb41e16594/recovery-current/partial-source-budget-investigation/tools/agent_memory.py',*a,'--project',d,'--memory-home',d+'/mem'],env={**os.environ,'PYTHONDONTWRITEBYTECODE':'1'},capture_output=True,text=True,check=True)
+  return json.loads(s.stdout) if '--json' in a else s.stdout
+ run('init');run('learn-path','--path','.')
+ out={m:run('context','--query',spec['query'],*flags,'--json') for m,flags in [('raw',[]),('compact',['--compact'])]}
+ (p/'independent-public.json').write_text(json.dumps(out,indent=2))
+ for m,v in out.items():print(m,[(a.get('file_path'),a.get('symbol')) for a in v['query_handoff']['code_anchors']])
