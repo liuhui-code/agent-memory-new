@@ -1,0 +1,16 @@
+import sys,json,tempfile,subprocess
+from pathlib import Path
+sys.path.insert(0,'.')
+from tests.test_nested_callable_identity import SOURCE
+qs=['An empty alias reports an error yet submits the preference update; return the guarded page action.','A required preference field shows an error but the invalid update still submits. Locate the validation-stop and dispatch owner.','Find the PreferenceEditor implementation for validation guard and update dispatch.','Locate the component method that validates the empty name and returns before dispatching updates.','返回校验空名称后中止更新分发的页面方法。']
+Path('docs/evidence/contract-path-followup/identity-query-protocol.json').write_text(json.dumps(qs,ensure_ascii=False,indent=2))
+with tempfile.TemporaryDirectory() as d:
+ root=Path(d);(root/'src/pages').mkdir(parents=True);(root/'src/services').mkdir(parents=True)
+ (root/'src/pages/PreferenceEditor.ets').write_text(SOURCE)
+ (root/'src/services/PreferenceApi.ets').write_text('export class PreferenceApi {\n dispatchUpdate(value: string): void {\n console.info(`submit preference update ${value}`)\n }\n}\n')
+ def run(*a):return subprocess.run(['python','tools/agent_memory.py',*a,'--project',d,'--memory-home',d+'/mem'],capture_output=True,text=True,check=True)
+ run('init');run('learn-path','--path','.')
+ out=[]
+ for q in qs:
+  p=json.loads(run('context','--query',q,'--compact','--json').stdout);out.append({'query':q,'output':p});print(q,[(a.get('symbol'),a.get('symbol_type'),a.get('record_ids')) for a in p['query_handoff']['code_anchors']])
+ Path('docs/evidence/contract-path-followup/identity-query-results.json').write_text(json.dumps(out,indent=2))

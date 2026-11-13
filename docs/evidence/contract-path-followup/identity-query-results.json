@@ -1,0 +1,1084 @@
+[
+  {
+    "query": "An empty alias reports an error yet submits the preference update; return the guarded page action.",
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3269870f85de409f",
+      "query": "An empty alias reports an error yet submits the preference update; return the guarded page action.",
+      "memory_intent": "runtime_log_diagnosis",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "empty",
+          "alias",
+          "reports",
+          "error",
+          "yet",
+          "submits",
+          "preference",
+          "update",
+          "return",
+          "guarded",
+          "action",
+          "console"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "message_template": "submit preference update ${value}",
+            "logger": "console",
+            "file_path": "src/pages/PreferenceEditor.ets",
+            "function": "commitPreference",
+            "line": 13,
+            "effect_id": 1,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "dispatchUpdate",
+            "wrapper_depth": 1,
+            "call_path": [
+              "commitPreference",
+              "dispatchUpdate",
+              "console.info"
+            ],
+            "call_path_locations": [
+              "src/pages/PreferenceEditor.ets#commitPreference",
+              "src/services/PreferenceApi.ets#dispatchUpdate",
+              "src/services/PreferenceApi.ets#console.info"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 1,
+            "message_template": "submit preference update ${value}",
+            "logger": "console",
+            "file_path": "src/services/PreferenceApi.ets",
+            "function": "dispatchUpdate",
+            "line": 3,
+            "evidence_class": "direct",
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "file_path": "src/pages/PreferenceEditor.ets",
+            "symbol": "commitPreference",
+            "symbol_type": "function",
+            "record_ids": [
+              9
+            ],
+            "source_ranges": [
+              {
+                "symbol": "commitPreference",
+                "start_line": 8,
+                "end_line": 14,
+                "selection_reason": "bounded_callable_primary"
+              }
+            ],
+            "read_window": {
+              "start_line": 8,
+              "end_line": 14
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "commitPreference",
+                "start_line": 8,
+                "end_line": 14,
+                "content": "  commitPreference(): void {\n    if (this.alias.trim().length === 0) {\n      promptAction.showToast({ message: 'Alias required' })\n      return\n    }\n    this.api.dispatchUpdate(this.alias)\n  }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/pages/PreferenceEditor.ets",
+            "symbol": "commitPreference",
+            "owner_name": "PreferenceEditor",
+            "owner_kind": "component",
+            "target_owner_kind_match": true,
+            "file_structural_coverage": 2,
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 44.0,
+            "evidence_score": 44.0,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 8,
+              "end_line": 14,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/services/PreferenceApi.ets",
+              "symbol": "dispatchUpdate",
+              "owner_name": "PreferenceApi",
+              "owner_kind": "service",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:runtimecapability",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 23.43,
+              "evidence_score": 23.43,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 13,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 193
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity",
+          "no_strong_log_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 2,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1316,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "query": "A required preference field shows an error but the invalid update still submits. Locate the validation-stop and dispatch owner.",
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3269870f85de409f",
+      "query": "A required preference field shows an error but the invalid update still submits. Locate the validation-stop and dispatch owner.",
+      "memory_intent": "runtime_log_diagnosis",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "required",
+          "preference",
+          "field",
+          "shows",
+          "error",
+          "invalid",
+          "update",
+          "still",
+          "submits",
+          "locate",
+          "validation",
+          "stop"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "message_template": "submit preference update ${value}",
+            "logger": "console",
+            "file_path": "src/pages/PreferenceEditor.ets",
+            "function": "commitPreference",
+            "line": 13,
+            "effect_id": 1,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "dispatchUpdate",
+            "wrapper_depth": 1,
+            "call_path": [
+              "commitPreference",
+              "dispatchUpdate",
+              "console.info"
+            ],
+            "call_path_locations": [
+              "src/pages/PreferenceEditor.ets#commitPreference",
+              "src/services/PreferenceApi.ets#dispatchUpdate",
+              "src/services/PreferenceApi.ets#console.info"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 1,
+            "message_template": "submit preference update ${value}",
+            "logger": "console",
+            "file_path": "src/services/PreferenceApi.ets",
+            "function": "dispatchUpdate",
+            "line": 3,
+            "evidence_class": "direct",
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "file_path": "src/pages/PreferenceEditor.ets",
+            "symbol": "PreferenceEditor",
+            "symbol_type": "component",
+            "record_ids": [
+              2,
+              1
+            ],
+            "source_ranges": [
+              {
+                "symbol": "PreferenceEditor",
+                "start_line": 5,
+                "end_line": 16
+              },
+              {
+                "symbol": "commitPreference",
+                "start_line": 8,
+                "end_line": 14
+              }
+            ],
+            "summary": "ArkTS file with 15 non-empty lines; components: PreferenceEditor; component terms: preference, editor; behavior: actiondispatch, validationguard, conditionalbranch",
+            "read_window": {
+              "start_line": 5,
+              "end_line": 16
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "commitPreference",
+                "start_line": 8,
+                "end_line": 14,
+                "content": "  commitPreference(): void {\n    if (this.alias.trim().length === 0) {\n      promptAction.showToast({ message: 'Alias required' })\n      return\n    }\n    this.api.dispatchUpdate(this.alias)\n  }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          },
+          {
+            "file_path": "src/services/PreferenceApi.ets",
+            "symbol": "dispatchUpdate",
+            "symbol_type": "function",
+            "record_ids": [
+              13
+            ],
+            "source_ranges": [
+              {
+                "symbol": "dispatchUpdate",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 4
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "dispatchUpdate",
+                "start_line": 1,
+                "end_line": 5,
+                "content": "export class PreferenceApi {\n dispatchUpdate(value: string): void {\n console.info(`submit preference update ${value}`)\n }\n}",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "uncertain",
+          "primary": {
+            "file_path": "src/services/PreferenceApi.ets",
+            "symbol": "dispatchUpdate",
+            "owner_name": "PreferenceApi",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1",
+              "source_operation_unresolved:runtimecapability",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 34.0,
+            "evidence_score": 34.0,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/pages/PreferenceEditor.ets",
+              "symbol": "commitPreference",
+              "owner_name": "PreferenceEditor",
+              "owner_kind": "component",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "source_operation_checked:v2.1"
+              ],
+              "score": 32.5,
+              "evidence_score": 32.5,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "expanded_query:string_evidence"
+              ],
+              "source_range": {
+                "start_line": 8,
+                "end_line": 14,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 13,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 2,
+          "excerpt_chars": 316
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity",
+          "no_strong_log_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 2,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1474,
+        "target_tokens": 1500,
+        "truncated": true
+      }
+    }
+  },
+  {
+    "query": "Find the PreferenceEditor implementation for validation guard and update dispatch.",
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3269870f85de409f",
+      "query": "Find the PreferenceEditor implementation for validation guard and update dispatch.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "preferenceeditor",
+          "implementation",
+          "validation",
+          "guard",
+          "update",
+          "dispatch",
+          "console",
+          "commitpreference",
+          "submit",
+          "preference",
+          "value"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "message_template": "submit preference update ${value}",
+            "logger": "console",
+            "file_path": "src/pages/PreferenceEditor.ets",
+            "function": "commitPreference",
+            "line": 13,
+            "effect_id": 1,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "dispatchUpdate",
+            "wrapper_depth": 1,
+            "call_path": [
+              "commitPreference",
+              "dispatchUpdate",
+              "console.info"
+            ],
+            "call_path_locations": [
+              "src/pages/PreferenceEditor.ets#commitPreference",
+              "src/services/PreferenceApi.ets#dispatchUpdate",
+              "src/services/PreferenceApi.ets#console.info"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 1,
+            "message_template": "submit preference update ${value}",
+            "logger": "console",
+            "file_path": "src/services/PreferenceApi.ets",
+            "function": "dispatchUpdate",
+            "line": 3,
+            "evidence_class": "direct",
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "file_path": "src/pages/PreferenceEditor.ets",
+            "symbol": "PreferenceEditor",
+            "symbol_type": "component",
+            "record_ids": [
+              2,
+              1
+            ],
+            "source_ranges": [
+              {
+                "symbol": "PreferenceEditor",
+                "start_line": 5,
+                "end_line": 16
+              },
+              {
+                "symbol": "commitPreference",
+                "start_line": 8,
+                "end_line": 14
+              }
+            ],
+            "summary": "ArkTS file with 15 non-empty lines; components: PreferenceEditor; component terms: preference, editor; behavior: actiondispatch, validationguard, conditionalbranch",
+            "read_window": {
+              "start_line": 5,
+              "end_line": 16
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "commitPreference",
+                "start_line": 8,
+                "end_line": 14,
+                "content": "  commitPreference(): void {\n    if (this.alias.trim().length === 0) {\n      promptAction.showToast({ message: 'Alias required' })\n      return\n    }\n    this.api.dispatchUpdate(this.alias)\n  }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/pages/PreferenceEditor.ets",
+            "symbol": "commitPreference",
+            "owner_name": "PreferenceEditor",
+            "owner_kind": "component",
+            "file_structural_coverage": 2,
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 35.0,
+            "evidence_score": 35.0,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 8,
+              "end_line": 11,
+              "selection_reason": "semantic_mechanism_window"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/services/PreferenceApi.ets",
+              "symbol": "dispatchUpdate",
+              "owner_name": "PreferenceApi",
+              "owner_kind": "service",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:runtimecapability",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 33.0,
+              "evidence_score": 33.0,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 13,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 193
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity",
+          "no_strong_log_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 2,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1359,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "query": "Locate the component method that validates the empty name and returns before dispatching updates.",
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3269870f85de409f",
+      "query": "Locate the component method that validates the empty name and returns before dispatching updates.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "locate",
+          "method",
+          "validates",
+          "empty",
+          "name",
+          "returns",
+          "before",
+          "dispatching",
+          "updates",
+          "console",
+          "dispatchupdate",
+          "submit"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "message_template": "submit preference update ${value}",
+            "logger": "console",
+            "file_path": "src/pages/PreferenceEditor.ets",
+            "function": "commitPreference",
+            "line": 13,
+            "effect_id": 1,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "dispatchUpdate",
+            "wrapper_depth": 1,
+            "call_path": [
+              "commitPreference",
+              "dispatchUpdate",
+              "console.info"
+            ],
+            "call_path_locations": [
+              "src/pages/PreferenceEditor.ets#commitPreference",
+              "src/services/PreferenceApi.ets#dispatchUpdate",
+              "src/services/PreferenceApi.ets#console.info"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 1,
+            "message_template": "submit preference update ${value}",
+            "logger": "console",
+            "file_path": "src/services/PreferenceApi.ets",
+            "function": "dispatchUpdate",
+            "line": 3,
+            "evidence_class": "direct",
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "file_path": "src/pages/PreferenceEditor.ets",
+            "symbol": "commitPreference",
+            "symbol_type": "function",
+            "record_ids": [
+              2
+            ],
+            "source_ranges": [
+              {
+                "symbol": "commitPreference",
+                "start_line": 8,
+                "end_line": 14,
+                "selection_reason": "bounded_callable_primary"
+              }
+            ],
+            "summary": "ArkTS file with 15 non-empty lines; components: PreferenceEditor; component terms: preference, editor; behavior: actiondispatch, validationguard, conditionalbranch",
+            "read_window": {
+              "start_line": 8,
+              "end_line": 14
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "commitPreference",
+                "start_line": 8,
+                "end_line": 14,
+                "content": "  commitPreference(): void {\n    if (this.alias.trim().length === 0) {\n      promptAction.showToast({ message: 'Alias required' })\n      return\n    }\n    this.api.dispatchUpdate(this.alias)\n  }",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "src/pages/PreferenceEditor.ets",
+            "symbol": "commitPreference",
+            "owner_name": "PreferenceEditor",
+            "owner_kind": "component",
+            "target_owner_kind_match": true,
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 18.945,
+            "evidence_score": 18.945,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "structured_owner_kind"
+            ],
+            "source_range": {
+              "start_line": 8,
+              "end_line": 14,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "src/services/PreferenceApi.ets",
+              "symbol": "dispatchUpdate",
+              "owner_name": "PreferenceApi",
+              "owner_kind": "service",
+              "callable_roles": [
+                "source_operation_checked:v2.1",
+                "source_operation_unresolved:runtimecapability",
+                "source_operation_unresolved:persistenceread"
+              ],
+              "score": 18.885,
+              "evidence_score": 18.885,
+              "reasons": [
+                "expanded_query:symbol",
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 13,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 1,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 193
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity",
+          "no_strong_log_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 2,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1356,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "query": "\u8fd4\u56de\u6821\u9a8c\u7a7a\u540d\u79f0\u540e\u4e2d\u6b62\u66f4\u65b0\u5206\u53d1\u7684\u9875\u9762\u65b9\u6cd5\u3002",
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "3269870f85de409f",
+      "query": "\u8fd4\u56de\u6821\u9a8c\u7a7a\u540d\u79f0\u540e\u4e2d\u6b62\u66f4\u65b0\u5206\u53d1\u7684\u9875\u9762\u65b9\u6cd5\u3002",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "empty",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "\u8fd4\u56de\u6821\u9a8c\u7a7a\u540d\u79f0\u540e\u4e2d\u6b62\u66f4\u65b0\u5206\u53d1\u7684\u9875\u9762\u65b9\u6cd5",
+          "\u8fd4\u56de",
+          "\u56de\u6821",
+          "\u6821\u9a8c",
+          "\u9a8c\u7a7a",
+          "\u7a7a\u540d",
+          "\u540d\u79f0",
+          "\u79f0\u540e",
+          "\u540e\u4e2d",
+          "\u4e2d\u6b62",
+          "\u6b62\u66f4",
+          "\u66f4\u65b0"
+        ],
+        "log_anchors": [],
+        "code_anchors": [],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "unavailable",
+          "primary": null,
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "no_log_anchor",
+        "no_code_anchor"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "insufficient_evidence",
+        "next_action": "narrow_query_or_learn_relevant_scope",
+        "reason_codes": [
+          "no_inspectable_retrieval_evidence",
+          "no_log_anchor",
+          "no_code_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": false,
+          "log_anchor_count": 0,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 564,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  }
+]
