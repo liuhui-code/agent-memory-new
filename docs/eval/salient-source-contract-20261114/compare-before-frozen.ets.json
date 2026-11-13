@@ -1,0 +1,32 @@
+{
+  "revision": "17083b2fb7df51eff59e826d4d4168aeaf380c55",
+  "files": {
+    "src/cache/IconStore.ets": "export class IconStore {\n  private entries: Map<string, string> = new Map()\n  saveIcon(key: string, payload: string): void {\n    this.entries.set(key, payload)\n    if (this.entries.size > 8) {\n      const first = this.entries.keys().next().value\n      this.entries.delete(first)\n    }\n  }\n}\n",
+    "src/examples/IconStoreExample.ets": "import { IconStore } from '../cache/IconStore'\nexport function demonstrateIconStore(): void {\n  const store = new IconStore()\n  store.saveIcon('alpha', 'one')\n  store.saveIcon('beta', 'two')\n}\n",
+    "src/ui/RestoreView.ets": "@Component\nstruct RestoreView {\n  @State retryAllowed: boolean = false\n  @State statusMessage: string = ''\n  enableRecovery(): void {\n    this.retryAllowed = true\n    this.statusMessage = 'capacity recovery available'\n  }\n  build() {\n    Button('Restore capacity').onClick(() => this.enableRecovery())\n    Text(this.statusMessage)\n  }\n}\n",
+    "src/ui/RetryBadge.ets": "@Component\nstruct RetryBadge {\n  @State shown: boolean = false\n  build() {\n    Button('Retry status').onClick(() => this.shown = true)\n  }\n}\n",
+    ".preview/cache/src/ui/RestoreView.ets": "@Component\nstruct RestoreView {\n  @State retryAllowed: boolean = false\n  @State statusMessage: string = ''\n  enableRecovery(): void {\n    this.retryAllowed = true\n    this.statusMessage = 'capacity recovery available'\n  }\n  build() {\n    Button('Restore capacity').onClick(() => this.enableRecovery())\n    Text(this.statusMessage)\n  }\n}\n",
+    "src/cache/KeyCountProbe.ets": "export class KeyCountProbe {\n  readSize(): number {\n    return this.values.size\n  }\n}\n",
+    "src/services/NoticeService.ets": "export class NoticeService {\n  updateNotice(): void {\n    console.info('notice update dispatched')\n  }\n}\n",
+    "src/ui/NoticePreferences.ets": "import { NoticeService } from '../services/NoticeService'\nexport class NoticePreferences {\n  service: NoticeService = new NoticeService()\n  save(): void {\n    this.service.updateNotice()\n  }\n}\n",
+    "src/storage/LiteralCatalog.ets": "export function readArchiveDiagnostic(): string {\n  return 'icon_archive_corrupt'\n}\n",
+    "src/storage/KeyLabel.ets": "export function readKeyLabel(): string {\n  return 'key'\n}\n",
+    "src/cache/ArchiveIconStore.ets": "export class ArchiveIconStore {\n  private entries: Map<string, string> = new Map()\n  saveIcon(key: string, payload: string): void {\n    this.entries.set(key, payload)\n    if (this.entries.size > 8) {\n      const first = this.entries.keys().next().value\n      this.entries.delete(first)\n    }\n  }\n}\n"
+  },
+  "queries": [
+    "Show both implementations that insert an icon and evict its earliest key at capacity.",
+    "比较两处插入图标并在容量上限删除最早键的实现，返回两个来源。",
+    "Locate IconStore.saveIcon source.",
+    "Compare the main icon store against the archival icon store for set, size, keys and delete behavior."
+  ],
+  "expected": [
+    "src/cache/IconStore.ets",
+    "src/cache/IconStore.ets",
+    "src/cache/IconStore.ets",
+    "src/ui/RestoreView.ets",
+    "src/ui/RestoreView.ets",
+    "src/ui/RestoreView.ets",
+    "src/examples/IconStoreExample.ets",
+    "src/ui/RestoreView.ets"
+  ]
+}

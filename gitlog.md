@@ -1,5 +1,14 @@
 # Local Development Log
 
+## 2026-11-14 - Retract redundant salient source supplements without backfill
+
+- Frozen source/literal/multi-target/log controls show that strong method focus can be expanded by redundant source terms. Apply a bounded post-selection subset only with valid actual source evidence; retain novel/quoted literals, exact targets, explicit multi-target scope, all graph lineage and missing-metadata cases.
+- Do not treat unknown scope as single or delete zero-method-coverage evidence generally. Already focused entities stay; lower-ranked sources are not backfilled. The first in-loop filtering candidate failed and remains in evidence.
+- Production/canonical selected scenarios improve 4/6 to 5/6: production Chinese closes, canonical English remains. Actual owner and required source snippet pass. 112 related tests pass including ordinary-template wrapper and distinct same-mechanism natural comparison controls.
+- Initial legacy test-import error and corrected index-shape unit data are recorded. No full gate, consumed holdout, score/recall changes, wrapper changes or remote write.
+- Evidence: docs/eval/salient-source-contract-20261114/README.md.
+
+
 ## 2026-11-13 - Check exact-symbol change on affected scroll/UI owner cases
 
 - Compared fixed 6c666ab and 689eb33 runtimes on abstract-scroll-structure and arkts-ui-operation-owner only (six variants per version, same source digest).

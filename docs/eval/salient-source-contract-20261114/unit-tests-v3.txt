@@ -1,0 +1,22 @@
+test_already_focused_entities_never_removed (tests.test_salient_source_retention.SalientSourceRetentionTests.test_already_focused_entities_never_removed) ... ok
+test_explicit_literal_retained_even_when_word_is_covered (tests.test_salient_source_retention.SalientSourceRetentionTests.test_explicit_literal_retained_even_when_word_is_covered) ... ok
+test_explicit_qualified_and_unqualified_targets_preserved (tests.test_salient_source_retention.SalientSourceRetentionTests.test_explicit_qualified_and_unqualified_targets_preserved) ... ok
+test_file_path_evidence_is_not_reclassified_as_method_source (tests.test_salient_source_retention.SalientSourceRetentionTests.test_file_path_evidence_is_not_reclassified_as_method_source) ... ok
+test_filtered_shortlist_is_not_refilled_from_lower_ranked_source (tests.test_salient_source_retention.SalientSourceRetentionTests.test_filtered_shortlist_is_not_refilled_from_lower_ranked_source) ... ok
+test_graph_evidence_is_not_changed (tests.test_salient_source_retention.SalientSourceRetentionTests.test_graph_evidence_is_not_changed) ... ok
+test_missing_focus_never_silently_removes_all_candidates (tests.test_salient_source_retention.SalientSourceRetentionTests.test_missing_focus_never_silently_removes_all_candidates) ... ok
+test_missing_or_unproven_source_fails_open (tests.test_salient_source_retention.SalientSourceRetentionTests.test_missing_or_unproven_source_fails_open) ... ok
+test_multi_entity_cues_do_not_deduplicate_entities (tests.test_salient_source_retention.SalientSourceRetentionTests.test_multi_entity_cues_do_not_deduplicate_entities) ... ok
+test_novel_literal_is_retained_even_without_method_evidence (tests.test_salient_source_retention.SalientSourceRetentionTests.test_novel_literal_is_retained_even_without_method_evidence) ... ok
+test_zero_method_redundant_literal_is_not_new_source_evidence (tests.test_salient_source_retention.SalientSourceRetentionTests.test_zero_method_redundant_literal_is_not_new_source_evidence) ... ok
+test_lane_score_uses_bounded_prefix_coverage (tests.test_query_salience.QuerySalienceTests.test_lane_score_uses_bounded_prefix_coverage) ... ok
+test_non_salient_lane_cannot_receive_bonus (tests.test_query_salience.QuerySalienceTests.test_non_salient_lane_cannot_receive_bonus) ... ok
+test_serving_lane_preserves_bounded_file_diversity (tests.test_query_salience.QuerySalienceTests.test_serving_lane_preserves_bounded_file_diversity) ... ok
+test_no_behavior_contract_retains_salient_evidence (tests.test_collection_salience_retention.CollectionSalienceRetentionTests.test_no_behavior_contract_retains_salient_evidence) ... ok
+test_partial_neighbor_cannot_reenter_complete_method_focus (tests.test_collection_salience_retention.CollectionSalienceRetentionTests.test_partial_neighbor_cannot_reenter_complete_method_focus) ... ok
+test_two_explicit_qualified_targets_are_not_dropped (tests.test_collection_salience_retention.CollectionSalienceRetentionTests.test_two_explicit_qualified_targets_are_not_dropped) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.017s
+
+OK

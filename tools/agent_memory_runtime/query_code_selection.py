@@ -6,6 +6,7 @@ import re
 from typing import Any
 
 from .query_behavior_concepts import behavior_marker_terms
+from .query_salient_source_retention import redundant_source_supplement
 from .query_code_focus import attach_file_source_locations, focus_code_candidates
 from .query_language import excluded_result_roles, positive_retrieval_query
 from .source_path_policy import (
@@ -404,7 +405,13 @@ def preserve_salient_evidence_candidates(
         added += 1
         if added >= limit:
             break
-    return selected
+    # Retract only from the pre-existing bounded supplement set. Do not promote
+    # lower-ranked replacements when an admitted supplement proves redundant.
+    focused_paths = {str(item.get("file_path") or "") for item in focused}
+    return [item for item in selected if (
+        str(item.get("file_path") or "") in focused_paths | explicit_target_paths
+        or not redundant_source_supplement(item, focused, query)
+    )]
 
 
 def code_candidate_terms(item: dict[str, Any]) -> set[str]:
