@@ -1,0 +1,882 @@
+[
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 6)",
+    "neighbor": "('code_symbol', 10)",
+    "score": 19.55,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 45,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 6,
+      "relation": "passes_property",
+      "target_type": "code_symbol",
+      "target_id": 10,
+      "evidence": "views/TodoListComponent.ets passes thing to ThingComponent",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_property_flow",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_symbol', 10)",
+    "neighbor": "('code_file', 6)",
+    "score": null,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 45,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 6,
+      "relation": "passes_property",
+      "target_type": "code_symbol",
+      "target_id": 10,
+      "evidence": "views/TodoListComponent.ets passes thing to ThingComponent",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_property_flow",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 6)",
+    "neighbor": "('code_symbol', 10)",
+    "score": 18.0625,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 44,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 6,
+      "relation": "renders_component",
+      "target_type": "code_symbol",
+      "target_id": 10,
+      "evidence": "views/TodoListComponent.ets renders ThingComponent",
+      "confidence": 0.75,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_composition",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_symbol', 10)",
+    "neighbor": "('code_file', 6)",
+    "score": null,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 44,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 6,
+      "relation": "renders_component",
+      "target_type": "code_symbol",
+      "target_id": 10,
+      "evidence": "views/TodoListComponent.ets renders ThingComponent",
+      "confidence": 0.75,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_component_composition",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 6)",
+    "neighbor": "('code_file', 5)",
+    "score": 15.9375,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 38,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 6,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 5,
+      "evidence": "views/TodoListComponent.ets -> views/ThingComponent.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 5)",
+    "neighbor": "('code_file', 6)",
+    "score": null,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 38,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 6,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 5,
+      "evidence": "views/TodoListComponent.ets -> views/ThingComponent.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 6)",
+    "neighbor": "('code_file', 4)",
+    "score": 31.875,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 37,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 6,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 4,
+      "evidence": "views/TodoListComponent.ets -> viewmodel/TodoListViewModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 4)",
+    "neighbor": "('code_file', 6)",
+    "score": 42.0,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 37,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 6,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 4,
+      "evidence": "views/TodoListComponent.ets -> viewmodel/TodoListViewModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 6)",
+    "neighbor": "('code_file', 3)",
+    "score": 27.187500000000004,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 36,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 6,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 3,
+      "evidence": "views/TodoListComponent.ets -> viewmodel/ThingViewModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 3)",
+    "neighbor": "('code_file', 6)",
+    "score": 22.5,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 36,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 6,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 3,
+      "evidence": "views/TodoListComponent.ets -> viewmodel/ThingViewModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 5)",
+    "neighbor": "('code_file', 3)",
+    "score": null,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 30,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 5,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 3,
+      "evidence": "views/ThingComponent.ets -> viewmodel/ThingViewModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 3)",
+    "neighbor": "('code_file', 5)",
+    "score": 11.25,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 30,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 5,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 3,
+      "evidence": "views/ThingComponent.ets -> viewmodel/ThingViewModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 4)",
+    "neighbor": "('code_file', 2)",
+    "score": 52.125,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 29,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 4,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 2,
+      "evidence": "viewmodel/TodoListViewModel.ets -> model/TodoListModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 2)",
+    "neighbor": "('code_file', 4)",
+    "score": 52.5,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 29,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 4,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 2,
+      "evidence": "viewmodel/TodoListViewModel.ets -> model/TodoListModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 4)",
+    "neighbor": "('code_file', 3)",
+    "score": 37.3125,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 28,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 4,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 3,
+      "evidence": "viewmodel/TodoListViewModel.ets -> viewmodel/ThingViewModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 3)",
+    "neighbor": "('code_file', 4)",
+    "score": 22.5,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 28,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 4,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 3,
+      "evidence": "viewmodel/TodoListViewModel.ets -> viewmodel/ThingViewModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 3)",
+    "neighbor": "('code_file', 1)",
+    "score": 11.25,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 26,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 3,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 1,
+      "evidence": "viewmodel/ThingViewModel.ets -> model/ThingModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 1)",
+    "neighbor": "('code_file', 3)",
+    "score": null,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 26,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 3,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 1,
+      "evidence": "viewmodel/ThingViewModel.ets -> model/ThingModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 2)",
+    "neighbor": "('code_file', 1)",
+    "score": 26.4375,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 25,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 2,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 1,
+      "evidence": "model/TodoListModel.ets -> model/ThingModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "promote_neighbor",
+    "origin": "('code_file', 1)",
+    "neighbor": "('code_file', 2)",
+    "score": null,
+    "matched": "{('code_file', 2): 70.5, ('code_file', 4): 69.5, ('code_file', 6): 42.5, ('code_symbol', 1): 37.5, ('code_symbol', 2): 70.5, ('code_symbol', 3): 30.0, ('code_symbol', 7): 37.5, ('code_symbol', 8): 69.5, ('code_symbol', 9): 37.5, ('code_symbol', 20): 42.5, ('code_symbol', 21): 39.75, ('code_symbol', 22): 37.5, ('code_log_statement', 1): 37.4, ('code_file', 3): 30.0}",
+    "edge": {
+      "id": 25,
+      "project_id": "ccae952e1dacf1f1",
+      "source_type": "code_file",
+      "source_id": 2,
+      "relation": "imports",
+      "target_type": "code_file",
+      "target_id": 1,
+      "evidence": "model/TodoListModel.ets -> model/ThingModel.ets",
+      "confidence": 0.85,
+      "source_revision": "unversioned",
+      "extractor_version": "code-wiki:v4",
+      "valid_from": "2026-11-13T16:14:16+00:00",
+      "valid_to": null,
+      "evidence_kind": "static_import",
+      "last_verified_at": "2026-11-13T16:14:16+00:00",
+      "created_at": "2026-11-13T16:14:16+00:00"
+    }
+  },
+  {
+    "function": "component_lineage_candidates",
+    "result": {},
+    "query": "Locate both the to-do list's item-component wiring and the child code that styles completed task names.",
+    "input": null
+  },
+  {
+    "function": "boost_match",
+    "result": null,
+    "query": null,
+    "input": null
+  },
+  {
+    "function": "collect_graph_neighbor_matches",
+    "result": [
+      {
+        "file_path": "views/ThingComponent.ets",
+        "symbol": "ThingComponent",
+        "summary": "ArkTS component ThingComponent declared in views/ThingComponent.ets; identifier terms: thing component",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 19.55
+      }
+    ],
+    "query": "Locate both the to-do list's item-component wiring and the child code that styles completed task names.",
+    "input": null
+  },
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [
+        {
+          "file_path": "model/TodoListModel.ets",
+          "symbol": "loadTasks",
+          "summary": "ArkTS function or lifecycle method loadTasks in model/TodoListModel.ets; identifier terms: load tasks",
+          "method_evidence": "common uiabilitycontext ability context resourcemanager resource manager getrawfilecontent get raw file content default_tasks tasks json util textdecoderoptions text decoder options textdecoder create decodetostring decode things parse hilog error stringify message load statewrite state write stateread read asyncboundary async",
+          "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "score": 70.5
+        },
+        {
+          "file_path": "viewmodel/ThingViewModel.ets",
+          "symbol": "updateTask",
+          "summary": "ArkTS function or lifecycle method updateTask in viewmodel/ThingViewModel.ets; identifier terms: update task",
+          "method_evidence": "thingname thing name isfinish finish update task statewrite state write stateread read",
+          "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+          "score": 37.312
+        },
+        {
+          "file_path": "viewmodel/TodoListViewModel.ets",
+          "symbol": "loadTasks",
+          "summary": "ArkTS function or lifecycle method loadTasks in viewmodel/TodoListViewModel.ets; identifier terms: load tasks",
+          "method_evidence": "common uiabilitycontext ability context todolist todo list load tasks things todolistviewmodel view model updatetask update task push todolistmodel thingviewmodel thing stateread state read asyncboundary async",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "score": 69.5
+        },
+        {
+          "file_path": "views/TodoListComponent.ets",
+          "symbol": "TodoListComponent",
+          "summary": "ArkTS component TodoListComponent declared in views/TodoListComponent.ets; identifier terms: todo list component",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 42.5
+        },
+        {
+          "file_path": "views/TodoListComponent.ets",
+          "symbol": "build",
+          "summary": "ArkTS function or lifecycle method build in views/TodoListComponent.ets",
+          "method_evidence": "thingviewmodelarray thing view model array item thingname name column list foreach each listitem thingcomponent margin stateread state read",
+          "callable_roles": "[\"source_operation_checked:v2.1\"]",
+          "score": 39.75
+        },
+        {
+          "file_path": "model/TodoListModel.ets",
+          "symbol": "constructor",
+          "summary": "ArkTS function or lifecycle method constructor in model/TodoListModel.ets",
+          "method_evidence": "things statewrite state write stateread read",
+          "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+          "score": 37.5
+        },
+        {
+          "file_path": "viewmodel/TodoListViewModel.ets",
+          "symbol": "ThingViewModelArray",
+          "summary": "ArkTS class ThingViewModelArray declared in viewmodel/TodoListViewModel.ets; identifier terms: thing view model array",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 37.5
+        },
+        {
+          "file_path": "viewmodel/TodoListViewModel.ets",
+          "symbol": "chooseAll",
+          "summary": "ArkTS function or lifecycle method chooseAll in viewmodel/TodoListViewModel.ets; identifier terms: choose all",
+          "method_evidence": "things thing isfinish finish ischosen chosen choose all statewrite state write stateread read",
+          "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+          "score": 37.5
+        },
+        {
+          "file_path": "views/TodoListComponent.ets",
+          "symbol": "thingViewModelArray",
+          "summary": "state thingViewModelArray in views/TodoListComponent.ets; identifier terms: thing view model array",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 37.5
+        },
+        {
+          "file_path": "views/TodoListComponent.ets",
+          "summary": "ArkTS file with 22 non-empty lines; components: TodoListComponent; component terms: todo, list, component; operations: margin",
+          "score": 35.8,
+          "symbol": "TodoListComponent"
+        },
+        {
+          "file_path": "model/TodoListModel.ets",
+          "summary": "ArkTS file with 23 non-empty lines; behavior: deserialization, statewrite, asyncboundary",
+          "score": 34.8,
+          "symbol": "constructor"
+        },
+        {
+          "file_path": "viewmodel/TodoListViewModel.ets",
+          "summary": "ArkTS file with 26 non-empty lines; behavior: fallbackbranch, datasourceboundary, statewrite, asyncboundary",
+          "score": 34.8,
+          "symbol": "ThingViewModelArray"
+        },
+        {
+          "file_path": "views/ThingComponent.ets",
+          "symbol": "ThingComponent",
+          "summary": "ArkTS component ThingComponent declared in views/ThingComponent.ets; identifier terms: thing component",
+          "method_evidence": "",
+          "callable_roles": "[]",
+          "score": 19.55
+        }
+      ],
+      false
+    ],
+    "query": "Locate both the to-do list's item-component wiring and the child code that styles completed task names.",
+    "input": [
+      {
+        "file_path": "model/TodoListModel.ets",
+        "symbol": "loadTasks",
+        "summary": "ArkTS function or lifecycle method loadTasks in model/TodoListModel.ets; identifier terms: load tasks",
+        "method_evidence": "common uiabilitycontext ability context resourcemanager resource manager getrawfilecontent get raw file content default_tasks tasks json util textdecoderoptions text decoder options textdecoder create decodetostring decode things parse hilog error stringify message load statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 70.5
+      },
+      {
+        "file_path": "viewmodel/ThingViewModel.ets",
+        "symbol": "updateTask",
+        "summary": "ArkTS function or lifecycle method updateTask in viewmodel/ThingViewModel.ets; identifier terms: update task",
+        "method_evidence": "thingname thing name isfinish finish update task statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.312
+      },
+      {
+        "file_path": "viewmodel/TodoListViewModel.ets",
+        "symbol": "loadTasks",
+        "summary": "ArkTS function or lifecycle method loadTasks in viewmodel/TodoListViewModel.ets; identifier terms: load tasks",
+        "method_evidence": "common uiabilitycontext ability context todolist todo list load tasks things todolistviewmodel view model updatetask update task push todolistmodel thingviewmodel thing stateread state read asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 69.5
+      },
+      {
+        "file_path": "views/TodoListComponent.ets",
+        "symbol": "TodoListComponent",
+        "summary": "ArkTS component TodoListComponent declared in views/TodoListComponent.ets; identifier terms: todo list component",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 42.5
+      },
+      {
+        "file_path": "views/TodoListComponent.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in views/TodoListComponent.ets",
+        "method_evidence": "thingviewmodelarray thing view model array item thingname name column list foreach each listitem thingcomponent margin stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 39.75
+      },
+      {
+        "file_path": "model/TodoListModel.ets",
+        "symbol": "constructor",
+        "summary": "ArkTS function or lifecycle method constructor in model/TodoListModel.ets",
+        "method_evidence": "things statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "viewmodel/TodoListViewModel.ets",
+        "symbol": "ThingViewModelArray",
+        "summary": "ArkTS class ThingViewModelArray declared in viewmodel/TodoListViewModel.ets; identifier terms: thing view model array",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "viewmodel/TodoListViewModel.ets",
+        "symbol": "chooseAll",
+        "summary": "ArkTS function or lifecycle method chooseAll in viewmodel/TodoListViewModel.ets; identifier terms: choose all",
+        "method_evidence": "things thing isfinish finish ischosen chosen choose all statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "views/TodoListComponent.ets",
+        "symbol": "thingViewModelArray",
+        "summary": "state thingViewModelArray in views/TodoListComponent.ets; identifier terms: thing view model array",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "views/TodoListComponent.ets",
+        "summary": "ArkTS file with 22 non-empty lines; components: TodoListComponent; component terms: todo, list, component; operations: margin",
+        "score": 35.8,
+        "symbol": "TodoListComponent"
+      },
+      {
+        "file_path": "model/TodoListModel.ets",
+        "summary": "ArkTS file with 23 non-empty lines; behavior: deserialization, statewrite, asyncboundary",
+        "score": 34.8,
+        "symbol": "constructor"
+      },
+      {
+        "file_path": "viewmodel/TodoListViewModel.ets",
+        "summary": "ArkTS file with 26 non-empty lines; behavior: fallbackbranch, datasourceboundary, statewrite, asyncboundary",
+        "score": 34.8,
+        "symbol": "ThingViewModelArray"
+      },
+      {
+        "file_path": "views/ThingComponent.ets",
+        "symbol": "ThingComponent",
+        "summary": "ArkTS component ThingComponent declared in views/ThingComponent.ets; identifier terms: thing component",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 19.55
+      }
+    ]
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [
+      {
+        "file_path": "model/TodoListModel.ets",
+        "symbol": "loadTasks",
+        "summary": "ArkTS function or lifecycle method loadTasks in model/TodoListModel.ets; identifier terms: load tasks",
+        "method_evidence": "common uiabilitycontext ability context resourcemanager resource manager getrawfilecontent get raw file content default_tasks tasks json util textdecoderoptions text decoder options textdecoder create decodetostring decode things parse hilog error stringify message load statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 70.5
+      },
+      {
+        "file_path": "viewmodel/ThingViewModel.ets",
+        "symbol": "updateTask",
+        "summary": "ArkTS function or lifecycle method updateTask in viewmodel/ThingViewModel.ets; identifier terms: update task",
+        "method_evidence": "thingname thing name isfinish finish update task statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.312
+      },
+      {
+        "file_path": "views/TodoListComponent.ets",
+        "symbol": "TodoListComponent",
+        "summary": "ArkTS component TodoListComponent declared in views/TodoListComponent.ets; identifier terms: todo list component",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 42.5
+      },
+      {
+        "file_path": "viewmodel/TodoListViewModel.ets",
+        "symbol": "ThingViewModelArray",
+        "summary": "ArkTS class ThingViewModelArray declared in viewmodel/TodoListViewModel.ets; identifier terms: thing view model array",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "viewmodel/TodoListViewModel.ets",
+        "symbol": "loadTasks",
+        "summary": "ArkTS function or lifecycle method loadTasks in viewmodel/TodoListViewModel.ets; identifier terms: load tasks",
+        "method_evidence": "common uiabilitycontext ability context todolist todo list load tasks things todolistviewmodel view model updatetask update task push todolistmodel thingviewmodel thing stateread state read asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 69.5
+      }
+    ],
+    "query": "Locate both the to-do list's item-component wiring and the child code that styles completed task names.",
+    "input": [
+      {
+        "file_path": "model/TodoListModel.ets",
+        "symbol": "loadTasks",
+        "summary": "ArkTS function or lifecycle method loadTasks in model/TodoListModel.ets; identifier terms: load tasks",
+        "method_evidence": "common uiabilitycontext ability context resourcemanager resource manager getrawfilecontent get raw file content default_tasks tasks json util textdecoderoptions text decoder options textdecoder create decodetostring decode things parse hilog error stringify message load statewrite state write stateread read asyncboundary async",
+        "callable_roles": "[\"async\", \"state_write\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 70.5
+      },
+      {
+        "file_path": "viewmodel/ThingViewModel.ets",
+        "symbol": "updateTask",
+        "summary": "ArkTS function or lifecycle method updateTask in viewmodel/ThingViewModel.ets; identifier terms: update task",
+        "method_evidence": "thingname thing name isfinish finish update task statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.312
+      },
+      {
+        "file_path": "viewmodel/TodoListViewModel.ets",
+        "symbol": "loadTasks",
+        "summary": "ArkTS function or lifecycle method loadTasks in viewmodel/TodoListViewModel.ets; identifier terms: load tasks",
+        "method_evidence": "common uiabilitycontext ability context todolist todo list load tasks things todolistviewmodel view model updatetask update task push todolistmodel thingviewmodel thing stateread state read asyncboundary async",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "score": 69.5
+      },
+      {
+        "file_path": "views/TodoListComponent.ets",
+        "symbol": "TodoListComponent",
+        "summary": "ArkTS component TodoListComponent declared in views/TodoListComponent.ets; identifier terms: todo list component",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 42.5
+      },
+      {
+        "file_path": "views/TodoListComponent.ets",
+        "symbol": "build",
+        "summary": "ArkTS function or lifecycle method build in views/TodoListComponent.ets",
+        "method_evidence": "thingviewmodelarray thing view model array item thingname name column list foreach each listitem thingcomponent margin stateread state read",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "score": 39.75
+      },
+      {
+        "file_path": "model/TodoListModel.ets",
+        "symbol": "constructor",
+        "summary": "ArkTS function or lifecycle method constructor in model/TodoListModel.ets",
+        "method_evidence": "things statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "viewmodel/TodoListViewModel.ets",
+        "symbol": "ThingViewModelArray",
+        "summary": "ArkTS class ThingViewModelArray declared in viewmodel/TodoListViewModel.ets; identifier terms: thing view model array",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "viewmodel/TodoListViewModel.ets",
+        "symbol": "chooseAll",
+        "summary": "ArkTS function or lifecycle method chooseAll in viewmodel/TodoListViewModel.ets; identifier terms: choose all",
+        "method_evidence": "things thing isfinish finish ischosen chosen choose all statewrite state write stateread read",
+        "callable_roles": "[\"state_write\", \"source_operation_checked:v2.1\"]",
+        "score": 37.5
+      },
+      {
+        "file_path": "views/TodoListComponent.ets",
+        "symbol": "thingViewModelArray",
+        "summary": "state thingViewModelArray in views/TodoListComponent.ets; identifier terms: thing view model array",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 37.5
+      },
+      {
+        "file_path": "views/TodoListComponent.ets",
+        "summary": "ArkTS file with 22 non-empty lines; components: TodoListComponent; component terms: todo, list, component; operations: margin",
+        "score": 35.8,
+        "symbol": "TodoListComponent"
+      },
+      {
+        "file_path": "model/TodoListModel.ets",
+        "summary": "ArkTS file with 23 non-empty lines; behavior: deserialization, statewrite, asyncboundary",
+        "score": 34.8,
+        "symbol": "constructor"
+      },
+      {
+        "file_path": "viewmodel/TodoListViewModel.ets",
+        "summary": "ArkTS file with 26 non-empty lines; behavior: fallbackbranch, datasourceboundary, statewrite, asyncboundary",
+        "score": 34.8,
+        "symbol": "ThingViewModelArray"
+      },
+      {
+        "file_path": "views/ThingComponent.ets",
+        "symbol": "ThingComponent",
+        "summary": "ArkTS component ThingComponent declared in views/ThingComponent.ets; identifier terms: thing component",
+        "method_evidence": "",
+        "callable_roles": "[]",
+        "score": 19.55
+      }
+    ]
+  }
+]

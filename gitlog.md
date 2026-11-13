@@ -11863,3 +11863,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Independent four-query parent/child controls and one frozen equivalent-property
   rename control both pass4/4. This is not a new red; no serving fix is proposed.
 - Evidence: docs/eval/cross-preview-current. No full gate or production changes.
+
+## 2026-11-13 — Frozen official documentation component public-before
+
+- Extracted six exact small source blocks with CC BY4.0 attribution from a verified
+  OpenHarmony docs revision; no native sample repo or device execution claim.
+- One pre-registered task raw/compact is red: parent retained, child absent already
+  in raw. Actual graph proposal sees no existing child score, so this does not
+  cover the original both-strong-endpoints provenance suppression condition.
+- No new variants, thresholds, serving edits or full tests. Preserve mismatched
+  red rather than repurpose it as proof of the earlier compact hypothesis.
+- Evidence: docs/eval/official-component-development.

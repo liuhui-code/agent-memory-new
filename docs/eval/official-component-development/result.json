@@ -1,0 +1,24 @@
+{
+  "required_files_retained": false,
+  "compact_paths": [
+    "model/TodoListModel.ets",
+    "viewmodel/ThingViewModel.ets",
+    "views/TodoListComponent.ets"
+  ],
+  "required_spans": [
+    {
+      "file_path": "views/TodoListComponent.ets",
+      "start_line": 12,
+      "end_line": 19,
+      "covered": true
+    },
+    {
+      "file_path": "views/ThingComponent.ets",
+      "start_line": 29,
+      "end_line": 31,
+      "covered": false
+    }
+  ],
+  "same_original_branch_covered": false,
+  "reason": "Child absent from final raw wiki; graph proposal19.55 has no preexisting child matched score, not both endpoints suppressed."
+}
