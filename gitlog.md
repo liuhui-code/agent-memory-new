@@ -1,5 +1,13 @@
 # Local Development Log
 
+## 2026-11-13 - Index bounded method-local event and collection-write evidence
+
+- Independent fixed d7c156d Development fixtures reproduced scalar/sibling owner confusion through public query_handoff, in both TS and ETS.
+- Add callable-local event/indexed-write labels without changing file weights or query vocabulary. Mask strings/comments; abstain from indexed-write attribution for nested functions/callbacks/methods and ambiguous slash bodies.
+- Negative controls cover scalar-only, writer-only, split methods, strings/comments, nested callbacks/object accessors, regex literals and comparisons.
+- This evidence-only candidate is NOT a completed adjacent-owner repair: focused original scenario remained 1/3; two English precision failures remained. Follow-up selection correction is tracked separately. No full suite or consumed holdout run.
+
+
 ## 2026-11-09 - Resume verified repair branch and record evidence boundary
 
 - Restore the delivered Git history at d0b82c5 and verify all 1,270 snapshot

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from pathlib import Path
 from typing import Any
 
 
@@ -48,4 +49,38 @@ def callable_behavior_hints(entity: Any, source: str) -> list[str]:
         hints.extend(("asyncboundary", "async"))
     if EARLY_RETURN_GUARD_RE.search(source):
         hints.extend(("guardreturn", "guard"))
+    hints.extend(event_collection_hints(entity, source))
     return list(dict.fromkeys(hints))
+
+
+# Mask non-code before recognizing writes. Template interpolation is deliberately
+# not inspected: it is not proof of a direct operation owned by this callable.
+NON_CODE_RE = re.compile(r"//[^\n]*|/\*[\s\S]*?\*/|\"(?:\\.|[^\"\\])*\"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`")
+INDEX_WRITE_RE = re.compile(
+    r"\bthis\.[A-Za-z_$][\w$]*(?:\s*\[[^\]\n]+\])+"
+    r"(?:\.[A-Za-z_$][\w$]*)?\s*(?:=(?!=|>)|[+*/%-]=|\+\+|--)"
+)
+
+
+def event_collection_hints(entity: Any, source: str) -> list[str]:
+    """Add only callable-local ECMA event/index-write evidence, not file hints."""
+    if Path(str(getattr(entity, "file_path", ""))).suffix not in {".ts", ".ets"}:
+        return []
+    code = NON_CODE_RE.sub(lambda m: " " * len(m.group()), source)
+    name = str(getattr(entity, "name", ""))
+    result = ["eventboundary"] if re.fullmatch(r"(?:on|handle)[A-Z_$][\w$]*", name) else []
+    body = code.partition("{")[2]
+    # The existing index carries spans, not nested scope ownership. Fail closed
+    # for bodies with callbacks/functions rather than attribute their writes to
+    # the enclosing callable. This does not remove prior behavior labels.
+    nested_method = re.search(
+        r"\b(?!(?:if|for|while|switch|catch|with)\b)[A-Za-z_$][\w$]*"
+        r"\s*\([^)]*\)\s*(?::[^{};]+)?\{", body,
+    )
+    # Slash can start a regex literal, which this bounded lexer does not parse.
+    # Abstain for ambiguous slash-containing bodies rather than index its text.
+    if ("=>" not in body and "/" not in body and nested_method is None
+            and not re.search(r"\b(?:function|class)\b", body)):
+        if INDEX_WRITE_RE.search(body):
+            result.append("collectionwrite")
+    return result
