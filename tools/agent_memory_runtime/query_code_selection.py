@@ -144,13 +144,12 @@ def diverse_code_matches(
 
 def same_source_projection(left: dict[str, Any], right: dict[str, Any]) -> bool:
     """A file projection and symbol at the identical named source span."""
-    if {left.get("kind"), right.get("kind")} != {"file", "symbol"}:
+    if left.get("kind") != "file" or right.get("kind") != "symbol":
         return False
     if any("graph_neighbor" in item.get("match_reasons", []) or item.get("graph_depth")
            for item in (left, right)):
         return False
-    file_item = left if left.get("kind") == "file" else right
-    symbol_item = right if left.get("kind") == "file" else left
+    file_item, symbol_item = left, right
     # Do not defer away independently informative file evidence. Only the
     # generated language/line-count envelope is redundant with this source.
     if (file_item.get("business_summary") or file_item.get("business_terms")

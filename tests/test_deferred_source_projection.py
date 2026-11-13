@@ -47,3 +47,24 @@ class DeferredSourceProjectionTests(unittest.TestCase):
         actual=diverse_code_matches([symbol,file],2,query='Locate class OutputDescription')
         self.assertEqual('symbol',actual[0]['kind'])
         self.assertEqual('class',actual[0]['symbol_type'])
+
+    def test_symbol_proof_is_never_repeated_behind_file_projection(self):
+        from tools.agent_memory_runtime.query_code_selection import same_source_projection
+        file,symbol=self.records()
+        symbol['callable_roles']=['source_operation_checked:v2','source_operation:runtimecapability']
+        symbol['method_evidence']='runtimecapability'
+        symbol['mechanism_evidence']='[{"kind":"operation"}]'
+        self.assertFalse(same_source_projection(symbol,file))
+        self.assertTrue(same_source_projection(file,symbol))
+
+    def test_file_first_budget_refill_does_not_push_symbol_after_other_deferred_items(self):
+        rows=json.loads((EVIDENCE/'selection-stage.json').read_text())[0]['before']
+        file_index=next(i for i,r in enumerate(rows) if r['kind']=='file' and r['file_path']=='OutputDescription.ts')
+        symbol_index=next(i for i,r in enumerate(rows) if r['kind']=='symbol' and r['symbol']=='OutputDescription')
+        rows[file_index],rows[symbol_index]=rows[symbol_index],rows[file_index]
+        symbol=rows[file_index]
+        symbol['callable_roles']=['source_operation_checked:v2','source_operation:runtimecapability']
+        symbol['method_evidence']='runtimecapability'
+        actual=diverse_code_matches(rows,5,query='')
+        self.assertIn(symbol,actual)
+        self.assertEqual(['source_operation_checked:v2','source_operation:runtimecapability'],symbol['callable_roles'])

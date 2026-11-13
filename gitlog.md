@@ -11265,3 +11265,11 @@ inconsistency is still open. See docs/evidence/owner-integration/RESULT.md.
 - Actual raw handoff now retains collect. Compact strict case still fails and
   original group remains 1/3; do not call this a complete output-loop repair.
 - 42 focused related checks pass; no score/limit/marker change or full gate.
+
+## 2026-11-13 — Preserve symbol proof in file-first deferred order
+
+- Review exposed asymmetric information: plain file projections cannot cover
+  method evidence/callable roles on symbols. Restrict repeated classification to
+  later file behind symbol; preserve original file-first ordering.
+- Reverse-order helper and actual budget regression added; 44 related tests pass.
+  No new selection policy, swapping, budget change or loop-proof extension.

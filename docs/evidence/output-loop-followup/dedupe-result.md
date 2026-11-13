@@ -38,3 +38,13 @@ retention. Initial graph-control failure revealed that existing graph helper
 allowed direct overrides; candidate now conservatively preserves any graph
 provenance. Historical failed output is retained in dedupe-tests.txt.
 Only original output-loop group was rerun (1/3); no full suite or remote write.
+
+## Publication review correction: directional information coverage
+
+The initial helper was incorrectly symmetric. A file projection lacks the
+symbol's callable roles and method/operation evidence, so it cannot cover a later
+symbol even at the identical range/digest. Now only a later plain file projection
+can be considered repeated behind an existing symbol, never the reverse.
+The conservative file-first order is unchanged rather than introducing a swap.
+Added red/green reverse-order proof and actual five-slot refill controls carrying
+source-operation/method metadata. Final necessary related checks: 44 pass.

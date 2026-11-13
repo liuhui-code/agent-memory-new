@@ -1,0 +1,13 @@
+....F
+======================================================================
+FAIL: test_symbol_proof_is_never_repeated_behind_file_projection (tests.test_deferred_source_projection.DeferredSourceProjectionTests.test_symbol_proof_is_never_repeated_behind_file_projection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/output-budget-review-work/tests/test_deferred_source_projection.py", line 57, in test_symbol_proof_is_never_repeated_behind_file_projection
+    self.assertFalse(same_source_projection(symbol,file))
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.011s
+
+FAILED (failures=1)
