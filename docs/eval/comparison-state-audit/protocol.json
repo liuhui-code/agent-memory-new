@@ -1,0 +1,86 @@
+{
+  "classification": "independent Development",
+  "base": "623981f",
+  "purpose": "Same variable/state owner versus different variable and different owner; actual edit/create comparison preservation. No implementation pre-authorized.",
+  "sources": {
+    "EditPanel.ets": "@Component\nexport struct EditPanel {\n  @State expanded: boolean = false;\n  @Builder\n  renderDetails() {\n    Row() {\n      SymbolGlyph('arrow').rotate({ angle: this.expanded ? 0 : 180 });\n    }.onClick(() => {\n      this.expanded = !this.expanded;\n    });\n  }\n  build() { this.renderDetails(); }\n}\n",
+    "SplitPanel.ets": "@Component\nexport struct SplitPanel {\n  @State displayed: boolean = false;\n  @State selected: boolean = false;\n  @Builder\n  renderDetails() {\n    Row() {\n      SymbolGlyph('arrow').rotate({ angle: this.displayed ? 0 : 180 });\n    }.onClick(() => {\n      this.selected = !this.selected;\n    });\n  }\n  build() { this.renderDetails(); }\n}\n",
+    "OtherStateReader.ets": "@Component\nexport struct OtherStateReader {\n  @State expanded: boolean = false;\n  build() { SymbolGlyph('arrow').rotate({ angle: this.expanded ? 0 : 180 }); }\n}\n",
+    "OtherStateWriter.ets": "export class OtherStateWriter {\n  private expanded: boolean = false;\n  update(): void { this.expanded = !this.expanded; }\n}\n",
+    "CreatePanel.ets": "@Component\nexport struct CreatePanel {\n  build() { Column() { Text('Create a new entry'); } }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "same-state",
+      "query": "请定位点击时切换同一状态并用该状态控制箭头旋转的编辑面板源码。",
+      "required": [
+        "EditPanel.ets"
+      ],
+      "forbidden": [
+        "SplitPanel.ets",
+        "OtherStateReader.ets",
+        "OtherStateWriter.ets",
+        "CreatePanel.ets"
+      ],
+      "source_fragments": {
+        "EditPanel.ets": [
+          "this.expanded ? 0 : 180",
+          "this.expanded = !this.expanded"
+        ]
+      }
+    },
+    {
+      "id": "exact",
+      "query": "Find EditPanel.renderDetails source.",
+      "required": [
+        "EditPanel.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {
+        "EditPanel.ets": [
+          "this.expanded ? 0 : 180",
+          "this.expanded = !this.expanded"
+        ]
+      }
+    },
+    {
+      "id": "different-state",
+      "query": "Find SplitPanel.renderDetails source.",
+      "required": [
+        "SplitPanel.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {
+        "SplitPanel.ets": [
+          "this.displayed ? 0 : 180",
+          "this.selected = !this.selected"
+        ]
+      }
+    },
+    {
+      "id": "different-owner",
+      "query": "Find OtherStateWriter.update source.",
+      "required": [
+        "OtherStateWriter.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {
+        "OtherStateWriter.ets": [
+          "this.expanded = !this.expanded"
+        ]
+      }
+    },
+    {
+      "id": "edit-create",
+      "query": "Find both EditPanel and CreatePanel source for an editor/create comparison.",
+      "required": [
+        "EditPanel.ets",
+        "CreatePanel.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {},
+      "note": "Required owner recall, not zero-extras claim."
+    }
+  ],
+  "stop": "Execute fixed five raw/compact queries once; inspect existing indexed state endpoints and first loss. No query/source tuning or original full pack."
+}
