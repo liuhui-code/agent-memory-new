@@ -1,5 +1,12 @@
 # Local Development Log
 
+## 2026-11-14 — Respect positive query intent in structural graph retention
+
+- Reproduce an excluded build-artifact phrase incorrectly activating import-neighbor retention in an independent public context fixture.
+- Reuse the existing positive retrieval query contract at the structural-boundary gate; preserve explicit structural graph, multi-target and ordinary wrapper controls.
+- Preserve all-negative fallback and named-identifier retention limits. Canonical/production selected variants remain 5/6; do not count this independent fix as closing canonical English.
+- Evidence: docs/eval/structural-exclusion-contract-20261114/. No full suite or remote write.
+
 ## 2026-11-14 - Retract redundant salient source supplements without backfill
 
 - Frozen source/literal/multi-target/log controls show that strong method focus can be expanded by redundant source terms. Apply a bounded post-selection subset only with valid actual source evidence; retain novel/quoted literals, exact targets, explicit multi-target scope, all graph lineage and missing-metadata cases.

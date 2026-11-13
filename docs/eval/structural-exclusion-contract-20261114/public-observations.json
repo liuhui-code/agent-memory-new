@@ -1,0 +1,4144 @@
+{
+  "graph-positive-before": [
+    {
+      "index": 0,
+      "compact": false,
+      "query": "Locate RestoreView.enableCapacityRecovery handler that enables retry and updates the notice; exclude generated build artifacts.",
+      "output_sha256": "8b6acde44fe83726c17daf113932830e0da804c01d5a632d7a41ce64864cbf69",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 13,
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method enableCapacityRecovery in src/ui/RestoreView.ets; identifier terms: enable capacity recovery",
+          "start_line": 5,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/app/ScreenRegistry.ets",
+          "symbol": "registerScreens",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method registerScreens in src/app/ScreenRegistry.ets; identifier terms: register screens",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": true,
+          "graph_relation": "imports",
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method updateNotice in src/services/NoticeService.ets; identifier terms: update notice",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 11,
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method save in src/ui/NoticePreferences.ets",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 1,
+          "effect_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 71.0,
+          "evidence_score": 71.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 36.5,
+            "evidence_score": 36.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 20.46,
+            "evidence_score": 20.46,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 0,
+      "compact": true,
+      "query": "Locate RestoreView.enableCapacityRecovery handler that enables retry and updates the notice; exclude generated build artifacts.",
+      "output_sha256": "46448a9b72effb9595266336e249e85816db8c56d14bcbc61d579335f9177d76",
+      "code_anchors": [
+        {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "record_ids": [
+            13
+          ],
+          "source_ranges": [
+            {
+              "symbol": "enableCapacityRecovery",
+              "start_line": 5,
+              "end_line": 8
+            }
+          ],
+          "read_window": {
+            "start_line": 5,
+            "end_line": 8
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 2,
+              "end_line": 6,
+              "content": "struct RestoreView {\n  @State retryAllowed: boolean = false\n  @State notice: string = ''\n  enableCapacityRecovery(): void {\n    this.retryAllowed = true",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": true
+            }
+          ]
+        },
+        {
+          "file_path": "src/app/ScreenRegistry.ets",
+          "symbol": "registerScreens",
+          "symbol_type": "function",
+          "graph_relation": "imports",
+          "record_ids": [
+            1
+          ],
+          "source_ranges": [
+            {
+              "symbol": "registerScreens",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 4,
+              "content": "import { RestoreView } from '../ui/RestoreView'\nexport function registerScreens(): string {\n return 'registered'\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "record_ids": [
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "updateNotice",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "updateNotice",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class NoticeService {\n  updateNotice(): void {\n    console.info('notice update dispatched')\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "effect_id": 1,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 71.0,
+          "evidence_score": 71.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 36.5,
+            "evidence_score": 36.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 1,
+      "compact": false,
+      "query": "Locate RestoreView.enableCapacityRecovery handler that enables retry and updates the notice.",
+      "output_sha256": "308b0f6af17b76b9dda0580606cf13eb2a62adf923c42e949c3101295aeac402",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 13,
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method enableCapacityRecovery in src/ui/RestoreView.ets; identifier terms: enable capacity recovery",
+          "start_line": 5,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method updateNotice in src/services/NoticeService.ets; identifier terms: update notice",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 11,
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method save in src/ui/NoticePreferences.ets",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 1,
+          "effect_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 71.0,
+          "evidence_score": 71.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 36.5,
+            "evidence_score": 36.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 20.46,
+            "evidence_score": 20.46,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 1,
+      "compact": true,
+      "query": "Locate RestoreView.enableCapacityRecovery handler that enables retry and updates the notice.",
+      "output_sha256": "e8900c291e20220df2b22dd4d0ec2a052fe20cc592fc96e69a88d7e6db8e4447",
+      "code_anchors": [
+        {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "record_ids": [
+            13
+          ],
+          "source_ranges": [
+            {
+              "symbol": "enableCapacityRecovery",
+              "start_line": 5,
+              "end_line": 8
+            }
+          ],
+          "read_window": {
+            "start_line": 5,
+            "end_line": 8
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 2,
+              "end_line": 13,
+              "content": "struct RestoreView {\n  @State retryAllowed: boolean = false\n  @State notice: string = ''\n  enableCapacityRecovery(): void {\n    this.retryAllowed = true\n    this.notice = 'capacity recovery available'\n  }\n  build() {\n    Button('Restore capacity').onClick(() => this.enableCapacityRecovery())\n    Text(this.notice)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "effect_id": 1,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 71.0,
+          "evidence_score": 71.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 36.5,
+            "evidence_score": 36.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 20.46,
+            "evidence_score": 20.46,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 2,
+      "compact": false,
+      "query": "Locate the capacity recovery handler that enables retry and updates the notice; exclude generated build artifacts.",
+      "output_sha256": "6befc09dc2c6385193c2cb0fd09f37009086df51fec8cb383724a47563511bc4",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 13,
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method enableCapacityRecovery in src/ui/RestoreView.ets; identifier terms: enable capacity recovery",
+          "start_line": 5,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/app/ScreenRegistry.ets",
+          "symbol": "registerScreens",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method registerScreens in src/app/ScreenRegistry.ets; identifier terms: register screens",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": true,
+          "graph_relation": "imports",
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method updateNotice in src/services/NoticeService.ets; identifier terms: update notice",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 11,
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method save in src/ui/NoticePreferences.ets",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 1,
+          "effect_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 49.0,
+          "evidence_score": 49.0,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 36.5,
+            "evidence_score": 36.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 20.46,
+            "evidence_score": 20.46,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "composed",
+          "target_scope": "multiple",
+          "members": [
+            {
+              "file_path": "src/ui/RestoreView.ets",
+              "symbol": "enableCapacityRecovery",
+              "owner_name": "RestoreView",
+              "source_range": {
+                "start_line": 5,
+                "end_line": 8,
+                "selection_reason": "callable_symbol_range",
+                "callable_start_line": 5,
+                "callable_end_line": 8
+              },
+              "support_reasons": [
+                "multi_term_method_evidence",
+                "query_symbol_terms",
+                "salient_query_evidence"
+              ]
+            },
+            {
+              "file_path": "src/ui/RestoreView.ets",
+              "symbol": "build",
+              "owner_name": "RestoreView",
+              "source_range": {
+                "start_line": 9,
+                "end_line": 12,
+                "selection_reason": "callable_symbol_range",
+                "callable_start_line": 9,
+                "callable_end_line": 12
+              },
+              "support_reasons": [
+                "multi_term_method_evidence",
+                "salient_query_evidence"
+              ]
+            }
+          ],
+          "selection_basis": [
+            "existing_localization",
+            "same_owner_scope",
+            "explicit_callable_identity",
+            "bounded_passage_diversity",
+            "certified_same_owner_callable_bounds"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 2,
+      "compact": true,
+      "query": "Locate the capacity recovery handler that enables retry and updates the notice; exclude generated build artifacts.",
+      "output_sha256": "536f44dd9cc96d6e1e3af3a110e2c58d7ec391b13f0ad5afbd2f2d6f996d2e88",
+      "code_anchors": [
+        {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "record_ids": [
+            13
+          ],
+          "source_ranges": [
+            {
+              "symbol": "enableCapacityRecovery",
+              "start_line": 5,
+              "end_line": 8
+            }
+          ],
+          "read_window": {
+            "start_line": 5,
+            "end_line": 8
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 2,
+              "end_line": 6,
+              "content": "struct RestoreView {\n  @State retryAllowed: boolean = false\n  @State notice: string = ''\n  enableCapacityRecovery(): void {\n    this.retryAllowed = true",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": true
+            }
+          ]
+        },
+        {
+          "file_path": "src/app/ScreenRegistry.ets",
+          "symbol": "registerScreens",
+          "symbol_type": "function",
+          "graph_relation": "imports",
+          "record_ids": [
+            1
+          ],
+          "source_ranges": [
+            {
+              "symbol": "registerScreens",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "registerScreens",
+              "start_line": 2,
+              "end_line": 4,
+              "content": "export function registerScreens(): string {\n return 'registered'\n}",
+              "source": "current_worktree",
+              "selection_reason": "anchor_range",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "record_ids": [
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "updateNotice",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "updateNotice",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class NoticeService {\n  updateNotice(): void {\n    console.info('notice update dispatched')\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "effect_id": 1,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 49.0,
+          "evidence_score": 49.0,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 36.5,
+            "evidence_score": 36.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 20.46,
+            "evidence_score": 20.46,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 3,
+      "compact": false,
+      "query": "Locate both RestoreView.enableCapacityRecovery and NoticePreferences.save source.",
+      "output_sha256": "12cfff844184a1758e8fb26ad1090da9edf0a73fdf0a6c885e83d36d3a536382",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 13,
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method enableCapacityRecovery in src/ui/RestoreView.ets; identifier terms: enable capacity recovery",
+          "start_line": 5,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 11,
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method save in src/ui/NoticePreferences.ets",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method updateNotice in src/services/NoticeService.ets; identifier terms: update notice",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": true,
+          "graph_relation": "imports",
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/storage/IncidentalNotice.ets",
+          "symbol": "IncidentalNotice",
+          "symbol_type": "class",
+          "summary": "ArkTS class IncidentalNotice declared in src/storage/IncidentalNotice.ets; identifier terms: incidental notice",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/cache/IconStore.ets",
+          "symbol": "saveIcon",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method saveIcon in src/cache/IconStore.ets; identifier terms: save icon",
+          "start_line": 3,
+          "end_line": 9,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 69.0,
+          "evidence_score": 69.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 43.5,
+            "evidence_score": 43.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 25.444,
+            "evidence_score": 25.444,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "composed",
+          "target_scope": "multiple",
+          "members": [
+            {
+              "file_path": "src/ui/RestoreView.ets",
+              "symbol": "enableCapacityRecovery",
+              "owner_name": "RestoreView",
+              "source_range": {
+                "start_line": 5,
+                "end_line": 8,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "exact_symbol",
+                "query_symbol_terms"
+              ]
+            },
+            {
+              "file_path": "src/ui/NoticePreferences.ets",
+              "symbol": "save",
+              "owner_name": "NoticePreferences",
+              "source_range": {
+                "start_line": 4,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "exact_symbol"
+              ]
+            },
+            {
+              "file_path": "src/cache/IconStore.ets",
+              "symbol": "saveIcon",
+              "owner_name": "IconStore",
+              "source_range": {
+                "start_line": 3,
+                "end_line": 9,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "salient_query_evidence"
+              ]
+            }
+          ],
+          "selection_basis": [
+            "existing_localization",
+            "same_owner_scope",
+            "explicit_cross_file_targets",
+            "bounded_passage_diversity"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 3,
+      "compact": true,
+      "query": "Locate both RestoreView.enableCapacityRecovery and NoticePreferences.save source.",
+      "output_sha256": "6e835d9478d8579618af2ee8a0bc42da96338e1aa5edc281664f1ccce1cc54c7",
+      "code_anchors": [
+        {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "record_ids": [
+            13
+          ],
+          "source_ranges": [
+            {
+              "symbol": "enableCapacityRecovery",
+              "start_line": 5,
+              "end_line": 8
+            }
+          ],
+          "read_window": {
+            "start_line": 5,
+            "end_line": 8
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 2,
+              "end_line": 9,
+              "content": "struct RestoreView {\n  @State retryAllowed: boolean = false\n  @State notice: string = ''\n  enableCapacityRecovery(): void {\n    this.retryAllowed = true\n    this.notice = 'capacity recovery available'\n  }\n  build() {",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": true
+            }
+          ]
+        },
+        {
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "record_ids": [
+            11
+          ],
+          "source_ranges": [
+            {
+              "symbol": "save",
+              "start_line": 4,
+              "end_line": 6
+            }
+          ],
+          "read_window": {
+            "start_line": 4,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "save",
+              "start_line": 1,
+              "end_line": 7,
+              "content": "import { NoticeService } from '../services/NoticeService'\nexport class NoticePreferences {\n  service: NoticeService = new NoticeService()\n  save(): void {\n    this.service.updateNotice()\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "graph_relation": "imports",
+          "record_ids": [
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "updateNotice",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "updateNotice",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class NoticeService {\n  updateNotice(): void {\n    console.info('notice update dispatched')\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "effect_id": 1,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ],
+          "truncated": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 69.0,
+          "evidence_score": 69.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 43.5,
+            "evidence_score": 43.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 25.444,
+            "evidence_score": 25.444,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 4,
+      "compact": false,
+      "query": "Locate the caller and emitter of the ordinary log message notice update dispatched.",
+      "output_sha256": "24e288b1d10b93b8523cab45e7215a902af778ecdb0cb97b17fe7a01f67260ba",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method updateNotice in src/services/NoticeService.ets; identifier terms: update notice",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 11,
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method save in src/ui/NoticePreferences.ets",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/storage/IncidentalNotice.ets",
+          "symbol": "IncidentalNotice",
+          "symbol_type": "class",
+          "summary": "ArkTS class IncidentalNotice declared in src/storage/IncidentalNotice.ets; identifier terms: incidental notice",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 16,
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "notice",
+          "symbol_type": "state",
+          "summary": "state notice in src/ui/RestoreView.ets",
+          "start_line": 4,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 1,
+          "effect_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "owner_name": "NoticeService",
+          "owner_kind": "service",
+          "score": 40.0,
+          "evidence_score": 40.0,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 19.48,
+            "evidence_score": 19.48,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/storage/IncidentalNotice.ets",
+            "symbol": "describeSnapshot",
+            "owner_name": "IncidentalNotice",
+            "owner_kind": "class",
+            "score": 12.77,
+            "evidence_score": 12.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "fewer_than_two_supported_callable_identities"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 4,
+      "compact": true,
+      "query": "Locate the caller and emitter of the ordinary log message notice update dispatched.",
+      "output_sha256": "dc024ece53d9d322893748900c63249edc7dfd8cdd3bdbddbb3d4ca9a2a5e15b",
+      "code_anchors": [
+        {
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "record_ids": [
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "updateNotice",
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 3
+            },
+            {
+              "symbol": "updateNotice",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "updateNotice",
+              "start_line": 2,
+              "end_line": 4,
+              "content": "  updateNotice(): void {\n    console.info('notice update dispatched')\n  }",
+              "source": "current_worktree",
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 3,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "record_ids": [
+            11
+          ],
+          "source_ranges": [
+            {
+              "symbol": "save",
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 5
+            },
+            {
+              "symbol": "save",
+              "start_line": 4,
+              "end_line": 6
+            }
+          ],
+          "read_window": {
+            "start_line": 4,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "save",
+              "start_line": 4,
+              "end_line": 6,
+              "content": "  save(): void {\n    this.service.updateNotice()\n  }",
+              "source": "current_worktree",
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 5,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "effect_id": 1,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "owner_kind": "service",
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": []
+      }
+    },
+    {
+      "index": 5,
+      "compact": false,
+      "query": "Locate RestoreView.enableCapacityRecovery native build imports and source.",
+      "output_sha256": "a7756b3e0a46a43834958a3307f39d1777be2149d560644a3f122175b21a431d",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 13,
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method enableCapacityRecovery in src/ui/RestoreView.ets; identifier terms: enable capacity recovery",
+          "start_line": 5,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 18,
+          "file_path": "src/ui/RetryBadge.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/RetryBadge.ets",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/app/ScreenRegistry.ets",
+          "symbol": "registerScreens",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method registerScreens in src/app/ScreenRegistry.ets; identifier terms: register screens",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": true,
+          "graph_relation": "imports",
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 67.0,
+          "evidence_score": 67.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/RetryBadge.ets",
+            "symbol": "build",
+            "owner_name": "RetryBadge",
+            "owner_kind": "component",
+            "callable_roles": [
+              "state_write"
+            ],
+            "score": 30.895,
+            "evidence_score": 30.895,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 5,
+      "compact": true,
+      "query": "Locate RestoreView.enableCapacityRecovery native build imports and source.",
+      "output_sha256": "3114ae75ec8e32b90b44cedf7a569b7a13c99e632e72f0d4dc8c44726e5ee543",
+      "code_anchors": [
+        {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "record_ids": [
+            13
+          ],
+          "source_ranges": [
+            {
+              "symbol": "enableCapacityRecovery",
+              "start_line": 5,
+              "end_line": 8
+            }
+          ],
+          "read_window": {
+            "start_line": 5,
+            "end_line": 8
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 2,
+              "end_line": 13,
+              "content": "struct RestoreView {\n  @State retryAllowed: boolean = false\n  @State notice: string = ''\n  enableCapacityRecovery(): void {\n    this.retryAllowed = true\n    this.notice = 'capacity recovery available'\n  }\n  build() {\n    Button('Restore capacity').onClick(() => this.enableCapacityRecovery())\n    Text(this.notice)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/ui/RetryBadge.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "record_ids": [
+            18
+          ],
+          "source_ranges": [
+            {
+              "symbol": "build",
+              "start_line": 4,
+              "end_line": 6
+            }
+          ],
+          "read_window": {
+            "start_line": 4,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "build",
+              "start_line": 1,
+              "end_line": 7,
+              "content": "@Component\nstruct RetryBadge {\n  @State shown: boolean = false\n  build() {\n    Button('Retry status').onClick(() => this.shown = true)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/app/ScreenRegistry.ets",
+          "symbol": "registerScreens",
+          "symbol_type": "function",
+          "graph_relation": "imports",
+          "record_ids": [
+            1
+          ],
+          "source_ranges": [
+            {
+              "symbol": "registerScreens",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 4,
+              "content": "import { RestoreView } from '../ui/RestoreView'\nexport function registerScreens(): string {\n return 'registered'\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 67.0,
+          "evidence_score": 67.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/RetryBadge.ets",
+            "symbol": "build",
+            "owner_name": "RetryBadge",
+            "owner_kind": "component",
+            "callable_roles": [
+              "state_write"
+            ],
+            "score": 30.895,
+            "evidence_score": 30.895,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    }
+  ],
+  "graph-positive-after": [
+    {
+      "index": 0,
+      "compact": false,
+      "query": "Locate RestoreView.enableCapacityRecovery handler that enables retry and updates the notice; exclude generated build artifacts.",
+      "output_sha256": "efa9990fd6b38e98adcd7f52765d6152870129756b263358572d7e118c831e27",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 13,
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method enableCapacityRecovery in src/ui/RestoreView.ets; identifier terms: enable capacity recovery",
+          "start_line": 5,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method updateNotice in src/services/NoticeService.ets; identifier terms: update notice",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 11,
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method save in src/ui/NoticePreferences.ets",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 1,
+          "effect_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 71.0,
+          "evidence_score": 71.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 36.5,
+            "evidence_score": 36.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 20.46,
+            "evidence_score": 20.46,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 0,
+      "compact": true,
+      "query": "Locate RestoreView.enableCapacityRecovery handler that enables retry and updates the notice; exclude generated build artifacts.",
+      "output_sha256": "76093a4baa3d8be8d7e907fb1416d8ea1c177a69b89c64c984c66c0376d4549b",
+      "code_anchors": [
+        {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "record_ids": [
+            13
+          ],
+          "source_ranges": [
+            {
+              "symbol": "enableCapacityRecovery",
+              "start_line": 5,
+              "end_line": 8
+            }
+          ],
+          "read_window": {
+            "start_line": 5,
+            "end_line": 8
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 2,
+              "end_line": 13,
+              "content": "struct RestoreView {\n  @State retryAllowed: boolean = false\n  @State notice: string = ''\n  enableCapacityRecovery(): void {\n    this.retryAllowed = true\n    this.notice = 'capacity recovery available'\n  }\n  build() {\n    Button('Restore capacity').onClick(() => this.enableCapacityRecovery())\n    Text(this.notice)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "effect_id": 1,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 71.0,
+          "evidence_score": 71.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 36.5,
+            "evidence_score": 36.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 20.46,
+            "evidence_score": 20.46,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 1,
+      "compact": false,
+      "query": "Locate RestoreView.enableCapacityRecovery handler that enables retry and updates the notice.",
+      "output_sha256": "b71bf2f4924808af3ab2c138e724c502bd66310c9d13e2e02a6aedd4e28b6433",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 13,
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method enableCapacityRecovery in src/ui/RestoreView.ets; identifier terms: enable capacity recovery",
+          "start_line": 5,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method updateNotice in src/services/NoticeService.ets; identifier terms: update notice",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 11,
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method save in src/ui/NoticePreferences.ets",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 1,
+          "effect_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 71.0,
+          "evidence_score": 71.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 36.5,
+            "evidence_score": 36.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 20.46,
+            "evidence_score": 20.46,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 1,
+      "compact": true,
+      "query": "Locate RestoreView.enableCapacityRecovery handler that enables retry and updates the notice.",
+      "output_sha256": "e8900c291e20220df2b22dd4d0ec2a052fe20cc592fc96e69a88d7e6db8e4447",
+      "code_anchors": [
+        {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "record_ids": [
+            13
+          ],
+          "source_ranges": [
+            {
+              "symbol": "enableCapacityRecovery",
+              "start_line": 5,
+              "end_line": 8
+            }
+          ],
+          "read_window": {
+            "start_line": 5,
+            "end_line": 8
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 2,
+              "end_line": 13,
+              "content": "struct RestoreView {\n  @State retryAllowed: boolean = false\n  @State notice: string = ''\n  enableCapacityRecovery(): void {\n    this.retryAllowed = true\n    this.notice = 'capacity recovery available'\n  }\n  build() {\n    Button('Restore capacity').onClick(() => this.enableCapacityRecovery())\n    Text(this.notice)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "effect_id": 1,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 71.0,
+          "evidence_score": 71.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 36.5,
+            "evidence_score": 36.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 20.46,
+            "evidence_score": 20.46,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 2,
+      "compact": false,
+      "query": "Locate the capacity recovery handler that enables retry and updates the notice; exclude generated build artifacts.",
+      "output_sha256": "9d87b4e5eb89666318791ad9fbacc951ea323ed3d436db152b64298f70ff0294",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 13,
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method enableCapacityRecovery in src/ui/RestoreView.ets; identifier terms: enable capacity recovery",
+          "start_line": 5,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method updateNotice in src/services/NoticeService.ets; identifier terms: update notice",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 11,
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method save in src/ui/NoticePreferences.ets",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 1,
+          "effect_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 49.0,
+          "evidence_score": 49.0,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 36.5,
+            "evidence_score": 36.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 20.46,
+            "evidence_score": 20.46,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "composed",
+          "target_scope": "multiple",
+          "members": [
+            {
+              "file_path": "src/ui/RestoreView.ets",
+              "symbol": "enableCapacityRecovery",
+              "owner_name": "RestoreView",
+              "source_range": {
+                "start_line": 5,
+                "end_line": 8,
+                "selection_reason": "callable_symbol_range",
+                "callable_start_line": 5,
+                "callable_end_line": 8
+              },
+              "support_reasons": [
+                "multi_term_method_evidence",
+                "query_symbol_terms",
+                "salient_query_evidence"
+              ]
+            },
+            {
+              "file_path": "src/ui/RestoreView.ets",
+              "symbol": "build",
+              "owner_name": "RestoreView",
+              "source_range": {
+                "start_line": 9,
+                "end_line": 12,
+                "selection_reason": "callable_symbol_range",
+                "callable_start_line": 9,
+                "callable_end_line": 12
+              },
+              "support_reasons": [
+                "multi_term_method_evidence",
+                "salient_query_evidence"
+              ]
+            }
+          ],
+          "selection_basis": [
+            "existing_localization",
+            "same_owner_scope",
+            "explicit_callable_identity",
+            "bounded_passage_diversity",
+            "certified_same_owner_callable_bounds"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 2,
+      "compact": true,
+      "query": "Locate the capacity recovery handler that enables retry and updates the notice; exclude generated build artifacts.",
+      "output_sha256": "c33ac8eb6eebfd5afcbd5a73a36be1d4f352add3b9fba0f88c3b9c66a17c207c",
+      "code_anchors": [
+        {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "record_ids": [
+            13
+          ],
+          "source_ranges": [
+            {
+              "symbol": "enableCapacityRecovery",
+              "start_line": 5,
+              "end_line": 8,
+              "selection_reason": "bounded_callable_primary"
+            },
+            {
+              "symbol": "build",
+              "start_line": 9,
+              "end_line": 12,
+              "selection_reason": "bounded_callable_primary"
+            }
+          ],
+          "read_window": {
+            "start_line": 5,
+            "end_line": 12
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "enableCapacityRecovery",
+              "start_line": 5,
+              "end_line": 8,
+              "content": "  enableCapacityRecovery(): void {\n    this.retryAllowed = true\n    this.notice = 'capacity recovery available'\n  }",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            },
+            {
+              "symbol": "build",
+              "start_line": 9,
+              "end_line": 12,
+              "content": "  build() {\n    Button('Restore capacity').onClick(() => this.enableCapacityRecovery())\n    Text(this.notice)\n  }",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "effect_id": 1,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 49.0,
+          "evidence_score": 49.0,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 36.5,
+            "evidence_score": 36.5,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 20.46,
+            "evidence_score": 20.46,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 3,
+      "compact": false,
+      "query": "Locate both RestoreView.enableCapacityRecovery and NoticePreferences.save source.",
+      "output_sha256": "45b6dc1076e25abb9902ef58161f3c8d15549cf9f99d07d4a64a18e7945b4aac",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 13,
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method enableCapacityRecovery in src/ui/RestoreView.ets; identifier terms: enable capacity recovery",
+          "start_line": 5,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 11,
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method save in src/ui/NoticePreferences.ets",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method updateNotice in src/services/NoticeService.ets; identifier terms: update notice",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": true,
+          "graph_relation": "imports",
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/storage/IncidentalNotice.ets",
+          "symbol": "IncidentalNotice",
+          "symbol_type": "class",
+          "summary": "ArkTS class IncidentalNotice declared in src/storage/IncidentalNotice.ets; identifier terms: incidental notice",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/cache/IconStore.ets",
+          "symbol": "saveIcon",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method saveIcon in src/cache/IconStore.ets; identifier terms: save icon",
+          "start_line": 3,
+          "end_line": 9,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 69.0,
+          "evidence_score": 69.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 43.5,
+            "evidence_score": 43.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 25.444,
+            "evidence_score": 25.444,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "composed",
+          "target_scope": "multiple",
+          "members": [
+            {
+              "file_path": "src/ui/RestoreView.ets",
+              "symbol": "enableCapacityRecovery",
+              "owner_name": "RestoreView",
+              "source_range": {
+                "start_line": 5,
+                "end_line": 8,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "exact_symbol",
+                "query_symbol_terms"
+              ]
+            },
+            {
+              "file_path": "src/ui/NoticePreferences.ets",
+              "symbol": "save",
+              "owner_name": "NoticePreferences",
+              "source_range": {
+                "start_line": 4,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "exact_symbol"
+              ]
+            },
+            {
+              "file_path": "src/cache/IconStore.ets",
+              "symbol": "saveIcon",
+              "owner_name": "IconStore",
+              "source_range": {
+                "start_line": 3,
+                "end_line": 9,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "salient_query_evidence"
+              ]
+            }
+          ],
+          "selection_basis": [
+            "existing_localization",
+            "same_owner_scope",
+            "explicit_cross_file_targets",
+            "bounded_passage_diversity"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 3,
+      "compact": true,
+      "query": "Locate both RestoreView.enableCapacityRecovery and NoticePreferences.save source.",
+      "output_sha256": "6e835d9478d8579618af2ee8a0bc42da96338e1aa5edc281664f1ccce1cc54c7",
+      "code_anchors": [
+        {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "record_ids": [
+            13
+          ],
+          "source_ranges": [
+            {
+              "symbol": "enableCapacityRecovery",
+              "start_line": 5,
+              "end_line": 8
+            }
+          ],
+          "read_window": {
+            "start_line": 5,
+            "end_line": 8
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 2,
+              "end_line": 9,
+              "content": "struct RestoreView {\n  @State retryAllowed: boolean = false\n  @State notice: string = ''\n  enableCapacityRecovery(): void {\n    this.retryAllowed = true\n    this.notice = 'capacity recovery available'\n  }\n  build() {",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": true
+            }
+          ]
+        },
+        {
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "record_ids": [
+            11
+          ],
+          "source_ranges": [
+            {
+              "symbol": "save",
+              "start_line": 4,
+              "end_line": 6
+            }
+          ],
+          "read_window": {
+            "start_line": 4,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "save",
+              "start_line": 1,
+              "end_line": 7,
+              "content": "import { NoticeService } from '../services/NoticeService'\nexport class NoticePreferences {\n  service: NoticeService = new NoticeService()\n  save(): void {\n    this.service.updateNotice()\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "graph_relation": "imports",
+          "record_ids": [
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "updateNotice",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "updateNotice",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class NoticeService {\n  updateNotice(): void {\n    console.info('notice update dispatched')\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "effect_id": 1,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ],
+          "truncated": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 69.0,
+          "evidence_score": 69.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 43.5,
+            "evidence_score": 43.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/services/NoticeService.ets",
+            "symbol": "updateNotice",
+            "owner_name": "NoticeService",
+            "owner_kind": "service",
+            "score": 25.444,
+            "evidence_score": 25.444,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 4,
+      "compact": false,
+      "query": "Locate the caller and emitter of the ordinary log message notice update dispatched.",
+      "output_sha256": "48422fe337ac57284a35ef47e45756aeb3f446905fe79749022c7d81225f1e13",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method updateNotice in src/services/NoticeService.ets; identifier terms: update notice",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 11,
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method save in src/ui/NoticePreferences.ets",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/storage/IncidentalNotice.ets",
+          "symbol": "IncidentalNotice",
+          "symbol_type": "class",
+          "summary": "ArkTS class IncidentalNotice declared in src/storage/IncidentalNotice.ets; identifier terms: incidental notice",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 16,
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "notice",
+          "symbol_type": "state",
+          "summary": "state notice in src/ui/RestoreView.ets",
+          "start_line": 4,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 1,
+          "effect_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "owner_name": "NoticeService",
+          "owner_kind": "service",
+          "score": 40.0,
+          "evidence_score": 40.0,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/NoticePreferences.ets",
+            "symbol": "save",
+            "owner_name": "NoticePreferences",
+            "owner_kind": "class",
+            "score": 19.48,
+            "evidence_score": 19.48,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/storage/IncidentalNotice.ets",
+            "symbol": "describeSnapshot",
+            "owner_name": "IncidentalNotice",
+            "owner_kind": "class",
+            "score": 12.77,
+            "evidence_score": 12.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "fewer_than_two_supported_callable_identities"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 4,
+      "compact": true,
+      "query": "Locate the caller and emitter of the ordinary log message notice update dispatched.",
+      "output_sha256": "dc024ece53d9d322893748900c63249edc7dfd8cdd3bdbddbb3d4ca9a2a5e15b",
+      "code_anchors": [
+        {
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "symbol_type": "function",
+          "record_ids": [
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "updateNotice",
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 3
+            },
+            {
+              "symbol": "updateNotice",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "updateNotice",
+              "start_line": 2,
+              "end_line": 4,
+              "content": "  updateNotice(): void {\n    console.info('notice update dispatched')\n  }",
+              "source": "current_worktree",
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 3,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/ui/NoticePreferences.ets",
+          "symbol": "save",
+          "symbol_type": "function",
+          "record_ids": [
+            11
+          ],
+          "source_ranges": [
+            {
+              "symbol": "save",
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 5
+            },
+            {
+              "symbol": "save",
+              "start_line": 4,
+              "end_line": 6
+            }
+          ],
+          "read_window": {
+            "start_line": 4,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "save",
+              "start_line": 4,
+              "end_line": 6,
+              "content": "  save(): void {\n    this.service.updateNotice()\n  }",
+              "source": "current_worktree",
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 5,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/ui/NoticePreferences.ets",
+          "function": "save",
+          "line": 5,
+          "effect_id": 1,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "updateNotice",
+          "wrapper_depth": 1,
+          "call_path": [
+            "save",
+            "updateNotice",
+            "console.info"
+          ],
+          "call_path_locations": [
+            "src/ui/NoticePreferences.ets#save",
+            "src/services/NoticeService.ets#updateNotice",
+            "src/services/NoticeService.ets#console.info"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 1,
+          "message_template": "notice update dispatched",
+          "logger": "console",
+          "file_path": "src/services/NoticeService.ets",
+          "function": "updateNotice",
+          "line": 3,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/services/NoticeService.ets",
+          "symbol": "updateNotice",
+          "owner_kind": "service",
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": []
+      }
+    },
+    {
+      "index": 5,
+      "compact": false,
+      "query": "Locate RestoreView.enableCapacityRecovery native build imports and source.",
+      "output_sha256": "197aac53d0b2240f89fb0d76e2566a4e7cd4dceb5496292c358cedd30432c909",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 13,
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method enableCapacityRecovery in src/ui/RestoreView.ets; identifier terms: enable capacity recovery",
+          "start_line": 5,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 18,
+          "file_path": "src/ui/RetryBadge.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/RetryBadge.ets",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/app/ScreenRegistry.ets",
+          "symbol": "registerScreens",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method registerScreens in src/app/ScreenRegistry.ets; identifier terms: register screens",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": true,
+          "graph_relation": "imports",
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 67.0,
+          "evidence_score": 67.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/RetryBadge.ets",
+            "symbol": "build",
+            "owner_name": "RetryBadge",
+            "owner_kind": "component",
+            "callable_roles": [
+              "state_write"
+            ],
+            "score": 30.895,
+            "evidence_score": 30.895,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 5,
+      "compact": true,
+      "query": "Locate RestoreView.enableCapacityRecovery native build imports and source.",
+      "output_sha256": "3114ae75ec8e32b90b44cedf7a569b7a13c99e632e72f0d4dc8c44726e5ee543",
+      "code_anchors": [
+        {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "symbol_type": "function",
+          "record_ids": [
+            13
+          ],
+          "source_ranges": [
+            {
+              "symbol": "enableCapacityRecovery",
+              "start_line": 5,
+              "end_line": 8
+            }
+          ],
+          "read_window": {
+            "start_line": 5,
+            "end_line": 8
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 2,
+              "end_line": 13,
+              "content": "struct RestoreView {\n  @State retryAllowed: boolean = false\n  @State notice: string = ''\n  enableCapacityRecovery(): void {\n    this.retryAllowed = true\n    this.notice = 'capacity recovery available'\n  }\n  build() {\n    Button('Restore capacity').onClick(() => this.enableCapacityRecovery())\n    Text(this.notice)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/ui/RetryBadge.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "record_ids": [
+            18
+          ],
+          "source_ranges": [
+            {
+              "symbol": "build",
+              "start_line": 4,
+              "end_line": 6
+            }
+          ],
+          "read_window": {
+            "start_line": 4,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "build",
+              "start_line": 1,
+              "end_line": 7,
+              "content": "@Component\nstruct RetryBadge {\n  @State shown: boolean = false\n  build() {\n    Button('Retry status').onClick(() => this.shown = true)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/app/ScreenRegistry.ets",
+          "symbol": "registerScreens",
+          "symbol_type": "function",
+          "graph_relation": "imports",
+          "record_ids": [
+            1
+          ],
+          "source_ranges": [
+            {
+              "symbol": "registerScreens",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 4,
+              "content": "import { RestoreView } from '../ui/RestoreView'\nexport function registerScreens(): string {\n return 'registered'\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/RestoreView.ets",
+          "symbol": "enableCapacityRecovery",
+          "owner_name": "RestoreView",
+          "owner_kind": "component",
+          "callable_roles": [
+            "state_write"
+          ],
+          "score": 67.0,
+          "evidence_score": 67.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 5,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/RetryBadge.ets",
+            "symbol": "build",
+            "owner_name": "RetryBadge",
+            "owner_kind": "component",
+            "callable_roles": [
+              "state_write"
+            ],
+            "score": 30.895,
+            "evidence_score": 30.895,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    }
+  ]
+}

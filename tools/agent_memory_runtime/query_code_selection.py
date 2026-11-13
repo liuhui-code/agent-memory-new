@@ -365,7 +365,7 @@ def preserve_structural_boundary_neighbors(
 
 
 def structural_boundary_query(query: str) -> bool:
-    lowered = query.casefold()
+    lowered = positive_retrieval_query(query).casefold()
     return any(marker in lowered for marker in STRUCTURAL_BOUNDARY_QUERY_MARKERS)
 
 
