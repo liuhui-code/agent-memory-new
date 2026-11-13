@@ -1,0 +1,19 @@
+import json,tempfile,subprocess,hashlib
+from pathlib import Path
+D=Path('docs/evidence/query-task-language-plan');raw=(D/'controls.json').read_bytes();p=json.loads(raw)
+out={'baseline':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'protocol_sha256':hashlib.sha256(raw).hexdigest(),'families':{}}
+for fam in p['families']:
+ with tempfile.TemporaryDirectory() as d:
+  root=Path(d)/'source';root.mkdir()
+  for f,s in {**fam['sources'],**p['shared_sources']}.items():(root/f).write_text(s)
+  def run(*args):
+   r=subprocess.run(['python','tools/agent_memory.py',*args,'--project',str(root),'--memory-home',d+'/memory'],capture_output=True,text=True,check=True);return json.loads(r.stdout) if '--json'in args else r.stdout
+  run('init');run('learn-path','--path',str(root))
+  results=[]
+  for v in [fam,*p['controls']]:
+   pair={m:run('context','--query',v['query'],*flags,'--json')for m,flags in [('raw',[]),('compact',['--compact'])]};h=pair['raw']['query_handoff'];primary=h['callable_evidence']['primary'];files={a['file_path']for a in pair['compact']['query_handoff']['code_anchors']}
+   verdict=primary and primary['file_path']==v['expected_primary'] if 'expected_primary'in v else (set(v['expected_files'])<=files if 'expected_files'in v else None)
+   results.append({'query':v['query'],'expected_primary':v.get('expected_primary'),'pass':verdict,**pair})
+  out['families'][fam['id']]=results
+  (D/'before.json').write_text(json.dumps(out,indent=2))
+  print(fam['id'],[(r['query'],r['pass'],(r['raw']['query_handoff']['callable_evidence'].get('primary')or{}).get('file_path'))for r in results],flush=True)

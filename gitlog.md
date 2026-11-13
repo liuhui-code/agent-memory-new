@@ -11733,3 +11733,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   replaces2 incorrect write edges with reads. Five true write forms remain unchanged.
   Comparison original group2/3 unchanged, no original231 improvement claim.
 - Evidence: docs/evidence/state-edge-equality/README.md. Separate from lexical stage.
+
+## 2026-11-13 - Stop task-language proposal after fixed before controls
+
+- Predeclared two task families for source-code-for/of attribution. Public before
+  reproduces layout red but guard/dispatch is already green; two-family criterion
+  fails. Stop without modifying queries, distractors or production.
+-22 raw/compact observations preserved. Domain code-parsing control also fails
+  before change; do not relabel it as another task-language defect class.
+- Evidence: docs/evidence/query-task-language-plan/RESULT.md. No runtime candidate.

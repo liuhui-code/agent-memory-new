@@ -1,0 +1,84 @@
+{
+  "classification": "pre-experiment frozen independent Development inputs; not observed",
+  "families": [
+    {
+      "id": "vertical-layout",
+      "sources": {
+        "ActivityPane.ets": "@Component\nstruct ActivityPane {\n @State activities: string[] = []\n build() {\n  Column() {\n   List() { ForEach(this.activities, (item: string) => { ListItem() { Text(item) } }) }\n   .listDirection(Axis.Vertical).height(\"100%\")\n  }\n }\n}\n",
+        "NoticePane.ets": "@Component\nstruct NoticePane {\n build() {\n  Scroll() { Column() { Text(\"Notices\") } }.height(\"100%\")\n }\n}\n"
+      },
+      "query": "Locate the source code for the vertical activity layout.",
+      "expected_primary": "ActivityPane.ets"
+    },
+    {
+      "id": "guard-dispatch",
+      "sources": {
+        "LabelSubmission.ts": "export class LabelSubmission {\n submit(label: string): boolean {\n  if (label.trim().length === 0) { return false }\n  this.dispatcher.send(label)\n  return true\n }\n}\n",
+        "DirectDispatcher.ts": "export class DirectDispatcher {\n send(label: string): void {\n  this.transport.deliver(label)\n }\n}\n"
+      },
+      "query": "Find the source code for rejecting blank labels before dispatch.",
+      "expected_primary": "LabelSubmission.ts"
+    }
+  ],
+  "shared_sources": {
+    "AccessCodeGenerator.ts": "export class AccessCodeGenerator {\n generateAccessCode(seed: string): string {\n  return seed.slice(0, 8)\n }\n}\n",
+    "AccessCodeParser.ts": "export class AccessCodeParser {\n parseAccessCode(code: string): string[] {\n  return code.split(\"-\")\n }\n}\n"
+  },
+  "controls": [
+    {
+      "query": "Locate the source code for generating access codes.",
+      "domain_terms_must_remain": [
+        "generating",
+        "access",
+        "codes"
+      ],
+      "expected_primary": "AccessCodeGenerator.ts"
+    },
+    {
+      "query": "Find source code for parsing access codes.",
+      "domain_terms_must_remain": [
+        "parsing",
+        "access",
+        "codes"
+      ],
+      "expected_primary": "AccessCodeParser.ts"
+    },
+    {
+      "query": "Locate AccessCodeGenerator.generateAccessCode implementation.",
+      "projection": "identity",
+      "expected_primary": "AccessCodeGenerator.ts"
+    },
+    {
+      "query": "Find the literal \"source code for\".",
+      "projection": "identity"
+    },
+    {
+      "query": "Find source code for AccessCodeParser.parseAccessCode; exclude AccessCodeGenerator.",
+      "projection": "identity"
+    },
+    {
+      "query": "Return source code for both AccessCodeParser.parseAccessCode and AccessCodeGenerator.generateAccessCode.",
+      "projection": "identity",
+      "expected_files": [
+        "AccessCodeParser.ts",
+        "AccessCodeGenerator.ts"
+      ]
+    },
+    {
+      "query": "Show both layout owners; return source code for one generator.",
+      "projection": "identity"
+    },
+    {
+      "query": "The viewport clips activity entries. Return the current code owner.",
+      "projection": "identity"
+    },
+    {
+      "query": "Locate the source code generator.",
+      "projection": "identity"
+    },
+    {
+      "query": "Find the implementation owner.",
+      "projection": "identity"
+    }
+  ]
+}
