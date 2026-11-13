@@ -27,7 +27,10 @@ CONTAINER_RE = re.compile(
     r"^\s*(export\s+)?(?:default\s+)?(class|struct|interface)\s+([A-Za-z_$][\w$]*)"
     r"(?:\s+extends\s+([A-Za-z_$][\w$]*))?(?:[^\n{]*?\s+implements\s+([^\n{]+))?"
 )
-STATE_RE = re.compile(r"@(?:State|Prop|Link|Provide|Consume|ObjectLink|Local|Param)\s+([A-Za-z_$][\w$]*)")
+STATE_RE = re.compile(
+    r"@(?:State|Prop|Link|Provide|Consume|ObjectLink|Local|Param)\s+"
+    r"(?:(?:public|private|protected|readonly|static)\s+)*([A-Za-z_$][\w$]*)"
+)
 FIELD_RE = re.compile(
     r"^\s*(?:(?:public|private|protected|readonly|static)\s+)*([A-Za-z_$][\w$]*)\s*:\s*([A-Za-z_$][\w$<>,.? ]*)"
 )

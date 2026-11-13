@@ -1,0 +1,583 @@
+.FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='private ', name='expanded')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'expanded' != 'private'
+- expanded
++ private
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='private ', name='public')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'public' != 'private'
+- public
++ private
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='private ', name='protected')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'protected' != 'private'
+- protected
++ private
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='private ', name='readonly')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'readonly' != 'private'
+- readonly
++ private
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='private ', name='static')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'static' != 'private'
+- static
++ private
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='private ', name='privateValue')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'privateValue' != 'private'
+- privateValue
+?        -----
++ private
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='public ', name='expanded')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'expanded' != 'public'
+- expanded
++ public
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='public ', name='private')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'private' != 'public'
+- private
++ public
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='public ', name='protected')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'protected' != 'public'
+- protected
++ public
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='public ', name='readonly')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'readonly' != 'public'
+- readonly
++ public
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='public ', name='static')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'static' != 'public'
+- static
++ public
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='public ', name='privateValue')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'privateValue' != 'public'
+- privateValue
++ public
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='protected ', name='expanded')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'expanded' != 'protected'
+- expanded
++ protected
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='protected ', name='private')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'private' != 'protected'
+- private
++ protected
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='protected ', name='public')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'public' != 'protected'
+- public
++ protected
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='protected ', name='readonly')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'readonly' != 'protected'
+- readonly
++ protected
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='protected ', name='static')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'static' != 'protected'
+- static
++ protected
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='protected ', name='privateValue')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'privateValue' != 'protected'
+- privateValue
++ protected
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='readonly ', name='expanded')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'expanded' != 'readonly'
+- expanded
++ readonly
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='readonly ', name='private')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'private' != 'readonly'
+- private
++ readonly
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='readonly ', name='public')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'public' != 'readonly'
+- public
++ readonly
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='readonly ', name='protected')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'protected' != 'readonly'
+- protected
++ readonly
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='readonly ', name='static')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'static' != 'readonly'
+- static
++ readonly
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='readonly ', name='privateValue')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'privateValue' != 'readonly'
+- privateValue
++ readonly
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='private readonly ', name='expanded')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'expanded' != 'private'
+- expanded
++ private
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='private readonly ', name='public')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'public' != 'private'
+- public
++ private
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='private readonly ', name='protected')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'protected' != 'private'
+- protected
++ private
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='private readonly ', name='readonly')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'readonly' != 'private'
+- readonly
++ private
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='private readonly ', name='static')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'static' != 'private'
+- static
++ private
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='private readonly ', name='privateValue')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'privateValue' != 'private'
+- privateValue
+?        -----
++ private
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='protected readonly ', name='expanded')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'expanded' != 'protected'
+- expanded
++ protected
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='protected readonly ', name='private')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'private' != 'protected'
+- private
++ protected
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='protected readonly ', name='public')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'public' != 'protected'
+- public
++ protected
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='protected readonly ', name='readonly')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'readonly' != 'protected'
+- readonly
++ protected
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='protected readonly ', name='static')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'static' != 'protected'
+- static
++ protected
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='protected readonly ', name='privateValue')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'privateValue' != 'protected'
+- privateValue
++ protected
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='public static readonly ', name='expanded')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'expanded' != 'public'
+- expanded
++ public
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='public static readonly ', name='private')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'private' != 'public'
+- private
++ public
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='public static readonly ', name='protected')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'protected' != 'public'
+- protected
++ public
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='public static readonly ', name='readonly')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'readonly' != 'public'
+- readonly
++ public
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='public static readonly ', name='static')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'static' != 'public'
+- static
++ public
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names) (prefix='public static readonly ', name='privateValue')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 14, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'privateValue' != 'public'
+- privateValue
++ public
+
+
+======================================================================
+FAIL: test_field_prefix_vocabulary_and_keyword_names (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_field_prefix_vocabulary_and_keyword_names)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 15, in test_field_prefix_vocabulary_and_keyword_names
+    self.assertEqual('expanded',STATE_RE.search('@State private expanded = false;').group(1))
+AssertionError: 'expanded' != 'private'
+- expanded
++ private
+
+
+======================================================================
+FAIL: test_public_state_identity_and_edges_use_actual_field (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_public_state_identity_and_edges_use_actual_field) (modifier='private')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 33, in test_public_state_identity_and_edges_use_actual_field
+    self.assertEqual(['expanded'],[s['symbol'] for s in states]);state=states[0]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['expanded'] != ['private']
+
+First differing element 0:
+'expanded'
+'private'
+
+- ['expanded']
++ ['private']
+
+======================================================================
+FAIL: test_public_state_identity_and_edges_use_actual_field (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_public_state_identity_and_edges_use_actual_field) (modifier='public')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 33, in test_public_state_identity_and_edges_use_actual_field
+    self.assertEqual(['expanded'],[s['symbol'] for s in states]);state=states[0]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['expanded'] != ['public']
+
+First differing element 0:
+'expanded'
+'public'
+
+- ['expanded']
++ ['public']
+
+======================================================================
+FAIL: test_public_state_identity_and_edges_use_actual_field (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_public_state_identity_and_edges_use_actual_field) (modifier='protected')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 33, in test_public_state_identity_and_edges_use_actual_field
+    self.assertEqual(['expanded'],[s['symbol'] for s in states]);state=states[0]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['expanded'] != ['protected']
+
+First differing element 0:
+'expanded'
+'protected'
+
+- ['expanded']
++ ['protected']
+
+======================================================================
+FAIL: test_same_field_name_in_distinct_owners_does_not_merge (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_same_field_name_in_distinct_owners_does_not_merge)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 49, in test_same_field_name_in_distinct_owners_does_not_merge
+    self.assertEqual({'FirstPanel.expanded','SecondPanel.expanded'},{s['qualified_name'] for s in states})
+AssertionError: Items in the first set but not the second:
+'SecondPanel.expanded'
+'FirstPanel.expanded'
+Items in the second set but not the first:
+'SecondPanel.private'
+'FirstPanel.private'
+
+----------------------------------------------------------------------
+Ran 4 tests in 4.391s
+
+FAILED (failures=47)

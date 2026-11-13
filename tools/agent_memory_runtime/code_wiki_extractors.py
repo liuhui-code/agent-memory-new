@@ -229,7 +229,7 @@ def extract_arkts_reference_symbols(text: str) -> list[tuple[str, str]]:
         text,
     ):
         symbols.append((match.group(1), "native_module"))
-    for match in re.finditer(r"@(State|Prop|Link|Provide|Consume|ObjectLink|Local|Param)\s+([A-Za-z_][A-Za-z0-9_]*)", text):
+    for match in re.finditer(r"@(State|Prop|Link|Provide|Consume|ObjectLink|Local|Param)\s+(?:(?:public|private|protected|readonly|static)\s+)*([A-Za-z_][A-Za-z0-9_]*)", text):
         symbols.append((match.group(2), "state"))
     for match in re.finditer(r"@Event\s+([A-Za-z_][A-Za-z0-9_]*)", text):
         symbols.append((match.group(1), "event"))

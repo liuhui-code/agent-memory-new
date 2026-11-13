@@ -1,5 +1,13 @@
 # Local Development Log
 
+## 2026-11-14 — Preserve decorated state identity after declaration modifiers
+
+- Freeze independent public state symbol/edge evidence before correcting both semantic and legacy declaration extractors; modifier words are no longer mistaken for the field name.
+- Preserve keyword-named fields, same-name different-owner identities, readonly reads, existing parser scope, and FIELD_RE modifier vocabulary. Retain the failed semantic-only intermediate candidate.
+- 39 focused tests pass. Original comparison group remains 2/3, so this adds no original failure repair count and is not full acceptance.
+- Old archives remain unchanged on installation; ordinary merge learn-path was verified to replace the wrong private entity with expanded and restore state edges.
+- Evidence: docs/eval/comparison-state-audit/README.md. No ranking/schema/oracle changes.
+
 ## 2026-11-14 — Stop interpreting a generic locate command as log intent
 
 - Two independent non-log domains reproduce Chinese 定位 adding unrelated diagnostic topic terms and selecting a logger. Remove only that request-action trigger; keep literal tokens and all explicit log/error/exception expansions.

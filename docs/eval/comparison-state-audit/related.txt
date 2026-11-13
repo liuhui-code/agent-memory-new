@@ -1,0 +1,65 @@
+....................................FFFF
+======================================================================
+FAIL: test_public_state_identity_and_edges_use_actual_field (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_public_state_identity_and_edges_use_actual_field) (modifier='private')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 33, in test_public_state_identity_and_edges_use_actual_field
+    self.assertEqual(['expanded'],[s['symbol'] for s in states]);state=states[0]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['expanded'] != ['private']
+
+First differing element 0:
+'expanded'
+'private'
+
+- ['expanded']
++ ['private']
+
+======================================================================
+FAIL: test_public_state_identity_and_edges_use_actual_field (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_public_state_identity_and_edges_use_actual_field) (modifier='public')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 33, in test_public_state_identity_and_edges_use_actual_field
+    self.assertEqual(['expanded'],[s['symbol'] for s in states]);state=states[0]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['expanded'] != ['public']
+
+First differing element 0:
+'expanded'
+'public'
+
+- ['expanded']
++ ['public']
+
+======================================================================
+FAIL: test_public_state_identity_and_edges_use_actual_field (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_public_state_identity_and_edges_use_actual_field) (modifier='protected')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 33, in test_public_state_identity_and_edges_use_actual_field
+    self.assertEqual(['expanded'],[s['symbol'] for s in states]);state=states[0]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['expanded'] != ['protected']
+
+First differing element 0:
+'expanded'
+'protected'
+
+- ['expanded']
++ ['protected']
+
+======================================================================
+FAIL: test_same_field_name_in_distinct_owners_does_not_merge (tests.test_state_declaration_modifiers.StateDeclarationModifierTests.test_same_field_name_in_distinct_owners_does_not_merge)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/comparison-state-audit/tests/test_state_declaration_modifiers.py", line 49, in test_same_field_name_in_distinct_owners_does_not_merge
+    self.assertEqual({'FirstPanel.expanded','SecondPanel.expanded'},{s['qualified_name'] for s in states})
+AssertionError: Items in the first set but not the second:
+'SecondPanel.expanded'
+'FirstPanel.expanded'
+Items in the second set but not the first:
+None
+
+----------------------------------------------------------------------
+Ran 38 tests in 12.085s
+
+FAILED (failures=4)

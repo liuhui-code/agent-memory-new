@@ -3,6 +3,7 @@ import json,tempfile
 from pathlib import Path
 from tests.agent_memory_test_base import AgentMemoryTestBase
 from tools.agent_memory_runtime.semantic_ecma import STATE_RE
+from tools.agent_memory_runtime.code_wiki_extractors import extract_arkts_reference_symbols
 P=Path(__file__).resolve().parents[1]/'docs/eval/comparison-state-audit/modifier-protocol.json'
 class StateDeclarationModifierTests(AgentMemoryTestBase):
     def test_field_prefix_vocabulary_and_keyword_names(self):
@@ -12,6 +13,7 @@ class StateDeclarationModifierTests(AgentMemoryTestBase):
                 with self.subTest(prefix=prefix,name=name):
                     m=STATE_RE.search('@State '+prefix+name+': boolean = false;')
                     self.assertIsNotNone(m);self.assertEqual(name,m.group(1))
+                    self.assertEqual([(name,"state")],extract_arkts_reference_symbols("@State "+prefix+name+": boolean = false;"))
         self.assertEqual('expanded',STATE_RE.search('@State private expanded = false;').group(1))
     def test_existing_single_line_and_unknown_decorator_boundary(self):
         # parse_members passes one physical line; no new multiline/decorator support.
@@ -53,3 +55,16 @@ class StateDeclarationModifierTests(AgentMemoryTestBase):
                 a,b=byid[e['source_id']],byid[e['target_id']]
                 self.assertEqual(a['qualified_name'].split('.')[0],b['qualified_name'].split('.')[0]);observed.add(b['qualified_name'])
             self.assertEqual({'FirstPanel.expanded','SecondPanel.expanded'},observed)
+
+    def test_public_access_readonly_field_retains_read_identity(self):
+        for modifiers in ('private readonly','protected readonly'):
+            with self.subTest(modifiers=modifiers),tempfile.TemporaryDirectory() as d:
+                root=Path(d)
+                (root/'ReadOnlyPanel.ets').write_text('export class ReadOnlyPanel {\n @State '+modifiers+' expanded: boolean = false;\n read(): boolean {\n return this.expanded;\n }\n}\n')
+                self.run_memory(root,'init');self.run_memory(root,'learn-path','--path','.')
+                symbols=json.loads(self.run_memory(root,'list','--type','code-symbol','--limit','100','--json').stdout)
+                edges=json.loads(self.run_memory(root,'list','--type','memory-edge','--limit','100','--json').stdout)
+                state=next(s for s in symbols if s['symbol_type']=='state')
+                self.assertEqual('ReadOnlyPanel.expanded',state['qualified_name'])
+                relations={e['relation'] for e in edges if e['target_type']=='code_symbol' and e['target_id']==state['id']}
+                self.assertIn('reads_state',relations);self.assertNotIn('writes_state',relations)
