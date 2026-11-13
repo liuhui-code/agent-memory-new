@@ -56,3 +56,21 @@ PYTHONPATH=tests:. python -m unittest tests.test_import_traversal_lexical tests.
 ```
 Final: **37 passed**, zero failures/skips. Initial new+prior lexical run:8 passed.
 Runtime files: ecma_import_lexical.py32 lines and code_wiki_imports.py295 lines.
+
+## Separate post-hoc ArkTS UI single-group observation
+
+After the accepted implementation commit 7e22084, the parent requested only
+context-arkts-ui-operation-owner (three variants). Before execution, the original
+pack's governance was confirmed: split=development, change_policy=editable,
+source_isolation=project_neutral, reviewed synthetic lineage. No consumed sealed
+holdout was accessed or run. The original query/oracle and production were unchanged.
+
+```
+python tools/agent_memory.py eval-context-capability --project . --memory-home /tmp/import-traversal-arkts-eval-memory --cases docs/eval/system-capability-cases.json --case-id context-arkts-ui-operation-owner --json
+```
+
+Result in arkts-ui-posthoc.json: **0/3**, one scenario only. Original misses the
+expected anchor/source; en-paraphrase and zh-noise recover expected source but
+fail precision; en-paraphrase additionally includes a forbidden anchor. All three
+remain within context budget. This is not a full gate,
+not an original-failure improvement claim, and did not prompt any further edits.
