@@ -11559,3 +11559,17 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   close either public failure. Original group stays 2/3. No weight/oracle changes.
 - Revert candidate runtime, archive patch and frozen failing tests. Final serving
   code equals a6c1d93; evidence in docs/evidence/cache-eviction-current/README.md.
+## 2026-11-14 — Respect explicit called-method identity in caller graph admission
+
+- Independent public request for ModalBridge.finish previously selected a true
+  caller of sibling reset as caller_owner because SQL targeted all symbols in the
+  seed file. Constrain explicit caller-of qualified targets by real project-local
+  symbol IDs. Complete file/generic query behavior remains unchanged.
+- Resolve qualified members across project definitions with LIMIT2, not only bounded
+  recall seeds; unknown or ambiguous identities cannot authorize sibling callers.
+  Keep existing edge types, project/validity checks and caller limits, no new edges.
+- Final32 related tests:31 pass plus1 pre-existing expected failure. Public false
+  caller replaced with correct caller, but callee context remains, so original
+  strict caller-only probe is still false. Original indirect-dialog remains1/3.
+- Preserve logs/unknown/multi-caller/actual unrecalled duplicate controls and failed
+  initial candidates. No score/scope/schema changes, full gate or remote write.

@@ -1,0 +1,26 @@
+[
+  {
+    "source_type": "code_symbol",
+    "source_id": 3,
+    "source_path": "ConfirmPanel.ets",
+    "source_symbol": "onClick",
+    "relation": "calls",
+    "target_type": "code_symbol",
+    "target_id": 5,
+    "target_path": "ModalBridge.ets",
+    "owner_name": "ModalBridge",
+    "target_symbol": "finish"
+  },
+  {
+    "source_type": "code_symbol",
+    "source_id": 9,
+    "source_path": "ResetPanel.ets",
+    "source_symbol": "onClick",
+    "relation": "calls",
+    "target_type": "code_symbol",
+    "target_id": 6,
+    "target_path": "ModalBridge.ets",
+    "owner_name": "ModalBridge",
+    "target_symbol": "reset"
+  }
+]
