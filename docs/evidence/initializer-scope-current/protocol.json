@@ -1,0 +1,40 @@
+{
+  "classification": "independent Development read-only feasibility controls",
+  "scenarios": [
+    {
+      "id": "instance-command-field",
+      "sources": {
+        "ActionDeck.ts": "export class ActionDeck {\n commands = [\n  {\n   title: 'Upload draft',\n   execute: () => {\n    this.service.sendDraft()\n   }\n  },\n  {\n   title: 'Discard draft',\n   execute: () => {\n    this.service.clearDraft()\n   }\n  }\n ]\n}\n",
+        "TransferWorker.ts": "export class TransferWorker {\n sendDraft(): void {\n  this.transport.send()\n }\n}\n"
+      },
+      "queries": [
+        "Locate the Upload draft command title and its execute binding.",
+        "Locate ActionDeck.commands field initializer.",
+        "Locate TransferWorker.sendDraft."
+      ]
+    },
+    {
+      "id": "nested-object-owner",
+      "sources": {
+        "OperationPlan.ts": "export const OperationPlan = {\n upload: {\n  title: 'Upload draft',\n  execute: () => {\n   sendDraft()\n  }\n },\n discard: {\n  title: 'Discard draft',\n  execute: () => {\n   clearDraft()\n  }\n }\n}\n"
+      },
+      "queries": [
+        "Locate OperationPlan.upload.execute.",
+        "Locate OperationPlan.discard.execute.",
+        "Locate the Upload draft title and its execute binding.",
+        "Locate OperationPlan."
+      ]
+    },
+    {
+      "id": "same-file-declared-owners",
+      "sources": {
+        "TwinHandlers.ts": "export class UploadHandler {\n execute = () => {\n  uploadDraft()\n }\n}\nexport class DiscardHandler {\n execute = () => {\n  discardDraft()\n }\n}\n"
+      },
+      "queries": [
+        "Locate UploadHandler.execute implementation.",
+        "Locate DiscardHandler.execute implementation.",
+        "Locate execute implementation."
+      ]
+    }
+  ]
+}

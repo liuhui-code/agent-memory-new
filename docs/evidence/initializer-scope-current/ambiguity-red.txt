@@ -1,0 +1,28 @@
+F.F.
+======================================================================
+FAIL: test_unqualified_is_uncertain_but_named_owners_still_resolve (tests.test_same_file_callable_ambiguity.SameFileAmbiguityPublicTests.test_unqualified_is_uncertain_but_named_owners_still_resolve)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/initializer-scope-audit/tests/test_same_file_callable_ambiguity.py", line 35, in test_unqualified_is_uncertain_but_named_owners_still_resolve
+    self.assertEqual('uncertain' if expected is None else 'bounded',out['certainty'])
+AssertionError: 'uncertain' != 'bounded'
+- uncertain
++ bounded
+
+
+======================================================================
+FAIL: test_same_file_distinct_ranges_are_not_erased_for_certainty (tests.test_same_file_callable_ambiguity.SameFileAmbiguityTests.test_same_file_distinct_ranges_are_not_erased_for_certainty)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/initializer-scope-audit/tests/test_same_file_callable_ambiguity.py", line 18, in test_same_file_distinct_ranges_are_not_erased_for_certainty
+    self.assertEqual('uncertain',out['certainty']);self.assertEqual([],out['alternatives'])
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'uncertain' != 'bounded'
+- uncertain
++ bounded
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.016s
+
+FAILED (failures=2)
