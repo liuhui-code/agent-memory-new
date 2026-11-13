@@ -1,0 +1,14 @@
+test_explicit_two_owner_targets_without_paths (tests.test_collection_owner_public.CollectionOwnerPublicTests.test_explicit_two_owner_targets_without_paths) ... FAIL
+
+======================================================================
+FAIL: test_explicit_two_owner_targets_without_paths (tests.test_collection_owner_public.CollectionOwnerPublicTests.test_explicit_two_owner_targets_without_paths)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/owner-precision-investigation/runtime/tests/test_collection_owner_public.py", line 36, in test_explicit_two_owner_targets_without_paths
+    self.assertTrue({'LaneController.ts','TileWidget.ts'} <= paths, paths)
+AssertionError: False is not true : {'LaneController.ts'}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.968s
+
+FAILED (failures=1)

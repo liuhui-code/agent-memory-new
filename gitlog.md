@@ -1,5 +1,13 @@
 # Local Development Log
 
+## 2026-11-13 - Respect complete method evidence during salient-neighbor retention
+
+- Reproduced lower-coverage neighbors being reinserted after a complete method focus. Gate only this retention step when all requested (at least two) method mechanisms are supported; preserve explicitly qualified target files using the existing exact matcher.
+- Retained and corrected an intermediate two-owner regression, verified via public compact context without file paths. No file weights, query vocabulary, case pack or evaluator changes.
+- Final focused tests: 68 pass. Existing adjacent-collection scenario: 3/3, including the two previously failing English variants. No full evaluation run. Callable evidence primary may still disagree with the returned anchors and is an explicitly unresolved separate boundary.
+- Evidence and plan: docs/eval/owner-method-evidence-20261113/README.md. Local stage commits only; integration/publication remains with the coordinating worker.
+
+
 ## 2026-11-13 - Index bounded method-local event and collection-write evidence
 
 - Independent fixed d7c156d Development fixtures reproduced scalar/sibling owner confusion through public query_handoff, in both TS and ETS.

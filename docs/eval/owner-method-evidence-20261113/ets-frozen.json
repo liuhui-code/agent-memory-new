@@ -1,0 +1,27 @@
+{
+  "runtime": "d7c156d551995d01ec41323e218226c65934c88d",
+  "sources": {
+    "LaneController.ets": "export class LaneController {\n  flags: boolean[] = [false, false, false];\n  onClick(index: number): void {\n    this.flags[index] = !this.flags[index];\n    if (index + 1 < this.flags.length) {\n      this.flags[index + 1] = this.flags[index];\n    }\n  }\n}\n",
+    "TileWidget.ets": "export class TileWidget {\n  selected: boolean = false;\n  onClick(): void {\n    this.selected = !this.selected;\n  }\n}\n",
+    "FlagStore.ets": "export class FlagStore {\n  flags: boolean[] = [false, false, false];\n  setAt(index: number, value: boolean): void {\n    this.flags[index] = value;\n  }\n}\n",
+    "SplitController.ets": "export class SplitController {\n  selected: boolean = false;\n  flags: boolean[] = [false, false, false];\n  onClick(): void {\n    this.selected = !this.selected;\n  }\n  saveAt(index: number, value: boolean): void {\n    this.flags[index] = value;\n  }\n}\n"
+  },
+  "queries": [
+    "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "Locate TileWidget.onClick source.",
+    "Locate FlagStore.setAt source.",
+    "Locate SplitController.onClick source."
+  ],
+  "expectation": {
+    "first_three": "LaneController.ts is only same-method event plus indexed collection write owner",
+    "controls": "exactly named methods; no ranking change in this investigation"
+  },
+  "sha256": {
+    "LaneController.ets": "ccfb7562f0ba96e9677572967c5d0e8b1ba6934aac8315ad4f3502855639bbb2",
+    "TileWidget.ets": "db09b017164328abf9bed28c3a7513dde00a4adea7f2530163a42143023e9bbb",
+    "FlagStore.ets": "1ad139671a4b037b884da6027613d447bb8f6d6ef580bb8b7bf5ea456e193029",
+    "SplitController.ets": "4fb43444a55152f1a13aa1c2bfc27002ba4895161e98d29b6c4cf48aec9cf5ea"
+  }
+}

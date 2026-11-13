@@ -75,7 +75,7 @@ def diverse_code_matches(
             items = preserve_structural_boundary_neighbors(
                 items, recalled_items, query,
             )
-            items = preserve_salient_evidence_candidates(items, recalled_items)
+            items = preserve_salient_evidence_candidates(items, recalled_items, query=query)
     selected: list[dict[str, Any]] = []
     deferred: list[dict[str, Any]] = []
     file_counts: dict[str, int] = {}
@@ -370,15 +370,31 @@ def structural_boundary_query(query: str) -> bool:
 
 def preserve_salient_evidence_candidates(
     focused: list[dict[str, Any]], recalled: list[dict[str, Any]], limit: int = 2,
+    query: str = "",
 ) -> list[dict[str, Any]]:
     selected = list(focused)
     selected_paths = {str(item.get("file_path") or "") for item in selected}
+    explicit_target_paths = {
+        str(item.get("file_path") or "") for item in recalled
+        if explicitly_named_candidate(item, query)
+    }
+    expected = set(behavior_marker_terms(query))
+    complete_callable = len(expected) >= 2 and any(
+        int(item.get("semantic_behavior_coverage") or 0) >= len(expected)
+        and "semantic_behavior" in (item.get("match_reasons") or [])
+        for item in focused
+    )
     added = 0
     for item in recalled:
         reasons = {str(reason) for reason in item.get("match_reasons") or []}
         path = str(item.get("file_path") or "")
         if (
             "salient_query_evidence" not in reasons
+            or (
+                complete_callable
+                and int(item.get("semantic_behavior_coverage") or 0) < len(expected)
+                and path not in explicit_target_paths
+            )
             or not path
             or path in selected_paths
         ):

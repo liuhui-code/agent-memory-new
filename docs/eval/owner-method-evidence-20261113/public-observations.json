@@ -1,0 +1,2238 @@
+[
+  {
+    "artifact": "outputs.json",
+    "artifact_sha256": "78b03ac568c3ffb5a6a6932c4cc894028a87b01c6c2a8599dfb0d09291418bdb",
+    "query": "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ts",
+      "TileWidget.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 16.75,
+      "evidence_score": 16.75,
+      "reasons": [
+        "expanded_query:summary",
+        "first_stage_rank_prior",
+        "source_locatable",
+        "file_path"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "outputs.json",
+    "artifact_sha256": "78b03ac568c3ffb5a6a6932c4cc894028a87b01c6c2a8599dfb0d09291418bdb",
+    "query": "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 16.75,
+      "evidence_score": 16.75,
+      "reasons": [
+        "expanded_query:summary",
+        "first_stage_rank_prior",
+        "source_locatable",
+        "file_path"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "outputs.json",
+    "artifact_sha256": "78b03ac568c3ffb5a6a6932c4cc894028a87b01c6c2a8599dfb0d09291418bdb",
+    "query": "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ts",
+      "TileWidget.ts",
+      "SplitController.ts",
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 28.5,
+      "evidence_score": 28.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "outputs.json",
+    "artifact_sha256": "78b03ac568c3ffb5a6a6932c4cc894028a87b01c6c2a8599dfb0d09291418bdb",
+    "query": "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 28.5,
+      "evidence_score": 28.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "outputs.json",
+    "artifact_sha256": "78b03ac568c3ffb5a6a6932c4cc894028a87b01c6c2a8599dfb0d09291418bdb",
+    "query": "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [],
+    "callable_primary": null
+  },
+  {
+    "artifact": "outputs.json",
+    "artifact_sha256": "78b03ac568c3ffb5a6a6932c4cc894028a87b01c6c2a8599dfb0d09291418bdb",
+    "query": "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [],
+    "callable_primary": null
+  },
+  {
+    "artifact": "outputs.json",
+    "artifact_sha256": "78b03ac568c3ffb5a6a6932c4cc894028a87b01c6c2a8599dfb0d09291418bdb",
+    "query": "Locate TileWidget.onClick source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "outputs.json",
+    "artifact_sha256": "78b03ac568c3ffb5a6a6932c4cc894028a87b01c6c2a8599dfb0d09291418bdb",
+    "query": "Locate TileWidget.onClick source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "outputs.json",
+    "artifact_sha256": "78b03ac568c3ffb5a6a6932c4cc894028a87b01c6c2a8599dfb0d09291418bdb",
+    "query": "Locate FlagStore.setAt source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "FlagStore.ts",
+      "FlagStore.ts"
+    ],
+    "callable_primary": {
+      "file_path": "FlagStore.ts",
+      "symbol": "setAt",
+      "owner_name": "FlagStore",
+      "owner_kind": "store",
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "outputs.json",
+    "artifact_sha256": "78b03ac568c3ffb5a6a6932c4cc894028a87b01c6c2a8599dfb0d09291418bdb",
+    "query": "Locate FlagStore.setAt source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "FlagStore.ts"
+    ],
+    "callable_primary": {
+      "file_path": "FlagStore.ts",
+      "symbol": "setAt",
+      "owner_name": "FlagStore",
+      "owner_kind": "store",
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "outputs.json",
+    "artifact_sha256": "78b03ac568c3ffb5a6a6932c4cc894028a87b01c6c2a8599dfb0d09291418bdb",
+    "query": "Locate SplitController.onClick source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "SplitController.ts",
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "SplitController.ts",
+      "symbol": "onClick",
+      "owner_name": "SplitController",
+      "owner_kind": "controller",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "outputs.json",
+    "artifact_sha256": "78b03ac568c3ffb5a6a6932c4cc894028a87b01c6c2a8599dfb0d09291418bdb",
+    "query": "Locate SplitController.onClick source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "SplitController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "SplitController.ts",
+      "symbol": "onClick",
+      "owner_name": "SplitController",
+      "owner_kind": "controller",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "ets-outputs.json",
+    "artifact_sha256": "15f606b617ddbc061632b17c1455703d917d8e5b022b8137d25a452704d10f31",
+    "query": "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets",
+      "TileWidget.ets",
+      "SplitController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 16.75,
+      "evidence_score": 16.75,
+      "reasons": [
+        "expanded_query:summary",
+        "first_stage_rank_prior",
+        "source_locatable",
+        "file_path"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "ets-outputs.json",
+    "artifact_sha256": "15f606b617ddbc061632b17c1455703d917d8e5b022b8137d25a452704d10f31",
+    "query": "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 16.75,
+      "evidence_score": 16.75,
+      "reasons": [
+        "expanded_query:summary",
+        "first_stage_rank_prior",
+        "source_locatable",
+        "file_path"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "ets-outputs.json",
+    "artifact_sha256": "15f606b617ddbc061632b17c1455703d917d8e5b022b8137d25a452704d10f31",
+    "query": "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets",
+      "FlagStore.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 28.5,
+      "evidence_score": 28.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "ets-outputs.json",
+    "artifact_sha256": "15f606b617ddbc061632b17c1455703d917d8e5b022b8137d25a452704d10f31",
+    "query": "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets",
+      "FlagStore.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 28.5,
+      "evidence_score": 28.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "ets-outputs.json",
+    "artifact_sha256": "15f606b617ddbc061632b17c1455703d917d8e5b022b8137d25a452704d10f31",
+    "query": "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "LaneController.ets",
+      "symbol": "onClick",
+      "owner_name": "LaneController",
+      "owner_kind": "controller",
+      "file_structural_coverage": 2,
+      "score": 8.5,
+      "evidence_score": 8.5,
+      "reasons": [
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 8,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "ets-outputs.json",
+    "artifact_sha256": "15f606b617ddbc061632b17c1455703d917d8e5b022b8137d25a452704d10f31",
+    "query": "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "LaneController.ets",
+      "symbol": "onClick",
+      "owner_name": "LaneController",
+      "owner_kind": "controller",
+      "file_structural_coverage": 2,
+      "score": 8.5,
+      "evidence_score": 8.5,
+      "reasons": [
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 8,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "ets-outputs.json",
+    "artifact_sha256": "15f606b617ddbc061632b17c1455703d917d8e5b022b8137d25a452704d10f31",
+    "query": "Locate TileWidget.onClick source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "ets-outputs.json",
+    "artifact_sha256": "15f606b617ddbc061632b17c1455703d917d8e5b022b8137d25a452704d10f31",
+    "query": "Locate TileWidget.onClick source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "ets-outputs.json",
+    "artifact_sha256": "15f606b617ddbc061632b17c1455703d917d8e5b022b8137d25a452704d10f31",
+    "query": "Locate FlagStore.setAt source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "FlagStore.ets",
+      "FlagStore.ets"
+    ],
+    "callable_primary": {
+      "file_path": "FlagStore.ets",
+      "symbol": "setAt",
+      "owner_name": "FlagStore",
+      "owner_kind": "store",
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "ets-outputs.json",
+    "artifact_sha256": "15f606b617ddbc061632b17c1455703d917d8e5b022b8137d25a452704d10f31",
+    "query": "Locate FlagStore.setAt source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "FlagStore.ets"
+    ],
+    "callable_primary": {
+      "file_path": "FlagStore.ets",
+      "symbol": "setAt",
+      "owner_name": "FlagStore",
+      "owner_kind": "store",
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "ets-outputs.json",
+    "artifact_sha256": "15f606b617ddbc061632b17c1455703d917d8e5b022b8137d25a452704d10f31",
+    "query": "Locate SplitController.onClick source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "SplitController.ets",
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "SplitController.ets",
+      "symbol": "onClick",
+      "owner_name": "SplitController",
+      "owner_kind": "controller",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "ets-outputs.json",
+    "artifact_sha256": "15f606b617ddbc061632b17c1455703d917d8e5b022b8137d25a452704d10f31",
+    "query": "Locate SplitController.onClick source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "SplitController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "SplitController.ets",
+      "symbol": "onClick",
+      "owner_name": "SplitController",
+      "owner_kind": "controller",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-outputs.json",
+    "artifact_sha256": "aa64bd9badb57930e84d3c730f76bbeebd5bc7c098873e82b95cb15d49007f1f",
+    "query": "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 20.865,
+      "evidence_score": 20.865,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-outputs.json",
+    "artifact_sha256": "aa64bd9badb57930e84d3c730f76bbeebd5bc7c098873e82b95cb15d49007f1f",
+    "query": "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 20.865,
+      "evidence_score": 20.865,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-outputs.json",
+    "artifact_sha256": "aa64bd9badb57930e84d3c730f76bbeebd5bc7c098873e82b95cb15d49007f1f",
+    "query": "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ts",
+      "FlagStore.ts",
+      "SplitController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 28.5,
+      "evidence_score": 28.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-outputs.json",
+    "artifact_sha256": "aa64bd9badb57930e84d3c730f76bbeebd5bc7c098873e82b95cb15d49007f1f",
+    "query": "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ts",
+      "FlagStore.ts",
+      "SplitController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 28.5,
+      "evidence_score": 28.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-outputs.json",
+    "artifact_sha256": "aa64bd9badb57930e84d3c730f76bbeebd5bc7c098873e82b95cb15d49007f1f",
+    "query": "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "LaneController.ts",
+      "symbol": "onClick",
+      "owner_name": "LaneController",
+      "owner_kind": "controller",
+      "file_structural_coverage": 2,
+      "score": 10.66,
+      "evidence_score": 10.66,
+      "reasons": [
+        "first_stage_rank_prior",
+        "source_locatable",
+        "semantic_behavior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 8,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-outputs.json",
+    "artifact_sha256": "aa64bd9badb57930e84d3c730f76bbeebd5bc7c098873e82b95cb15d49007f1f",
+    "query": "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "LaneController.ts",
+      "symbol": "onClick",
+      "owner_name": "LaneController",
+      "owner_kind": "controller",
+      "file_structural_coverage": 2,
+      "score": 10.66,
+      "evidence_score": 10.66,
+      "reasons": [
+        "first_stage_rank_prior",
+        "source_locatable",
+        "semantic_behavior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 8,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-outputs.json",
+    "artifact_sha256": "aa64bd9badb57930e84d3c730f76bbeebd5bc7c098873e82b95cb15d49007f1f",
+    "query": "Locate TileWidget.onClick source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-outputs.json",
+    "artifact_sha256": "aa64bd9badb57930e84d3c730f76bbeebd5bc7c098873e82b95cb15d49007f1f",
+    "query": "Locate TileWidget.onClick source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-outputs.json",
+    "artifact_sha256": "aa64bd9badb57930e84d3c730f76bbeebd5bc7c098873e82b95cb15d49007f1f",
+    "query": "Locate FlagStore.setAt source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "FlagStore.ts",
+      "FlagStore.ts"
+    ],
+    "callable_primary": {
+      "file_path": "FlagStore.ts",
+      "symbol": "setAt",
+      "owner_name": "FlagStore",
+      "owner_kind": "store",
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-outputs.json",
+    "artifact_sha256": "aa64bd9badb57930e84d3c730f76bbeebd5bc7c098873e82b95cb15d49007f1f",
+    "query": "Locate FlagStore.setAt source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "FlagStore.ts"
+    ],
+    "callable_primary": {
+      "file_path": "FlagStore.ts",
+      "symbol": "setAt",
+      "owner_name": "FlagStore",
+      "owner_kind": "store",
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-outputs.json",
+    "artifact_sha256": "aa64bd9badb57930e84d3c730f76bbeebd5bc7c098873e82b95cb15d49007f1f",
+    "query": "Locate SplitController.onClick source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "SplitController.ts",
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "SplitController.ts",
+      "symbol": "onClick",
+      "owner_name": "SplitController",
+      "owner_kind": "controller",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-outputs.json",
+    "artifact_sha256": "aa64bd9badb57930e84d3c730f76bbeebd5bc7c098873e82b95cb15d49007f1f",
+    "query": "Locate SplitController.onClick source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "SplitController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "SplitController.ts",
+      "symbol": "onClick",
+      "owner_name": "SplitController",
+      "owner_kind": "controller",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-ets-outputs.json",
+    "artifact_sha256": "eb9a708e4071ce9bc8a28f0ffe32b776bbd260bacd006f52cc7696171fe09871",
+    "query": "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 20.865,
+      "evidence_score": 20.865,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-ets-outputs.json",
+    "artifact_sha256": "eb9a708e4071ce9bc8a28f0ffe32b776bbd260bacd006f52cc7696171fe09871",
+    "query": "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 20.865,
+      "evidence_score": 20.865,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-ets-outputs.json",
+    "artifact_sha256": "eb9a708e4071ce9bc8a28f0ffe32b776bbd260bacd006f52cc7696171fe09871",
+    "query": "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets",
+      "FlagStore.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 28.5,
+      "evidence_score": 28.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-ets-outputs.json",
+    "artifact_sha256": "eb9a708e4071ce9bc8a28f0ffe32b776bbd260bacd006f52cc7696171fe09871",
+    "query": "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets",
+      "FlagStore.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 28.5,
+      "evidence_score": 28.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-ets-outputs.json",
+    "artifact_sha256": "eb9a708e4071ce9bc8a28f0ffe32b776bbd260bacd006f52cc7696171fe09871",
+    "query": "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "LaneController.ets",
+      "symbol": "onClick",
+      "owner_name": "LaneController",
+      "owner_kind": "controller",
+      "file_structural_coverage": 2,
+      "score": 10.66,
+      "evidence_score": 10.66,
+      "reasons": [
+        "first_stage_rank_prior",
+        "source_locatable",
+        "semantic_behavior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 8,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-ets-outputs.json",
+    "artifact_sha256": "eb9a708e4071ce9bc8a28f0ffe32b776bbd260bacd006f52cc7696171fe09871",
+    "query": "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "LaneController.ets",
+      "symbol": "onClick",
+      "owner_name": "LaneController",
+      "owner_kind": "controller",
+      "file_structural_coverage": 2,
+      "score": 10.66,
+      "evidence_score": 10.66,
+      "reasons": [
+        "first_stage_rank_prior",
+        "source_locatable",
+        "semantic_behavior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 8,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-ets-outputs.json",
+    "artifact_sha256": "eb9a708e4071ce9bc8a28f0ffe32b776bbd260bacd006f52cc7696171fe09871",
+    "query": "Locate TileWidget.onClick source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-ets-outputs.json",
+    "artifact_sha256": "eb9a708e4071ce9bc8a28f0ffe32b776bbd260bacd006f52cc7696171fe09871",
+    "query": "Locate TileWidget.onClick source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-ets-outputs.json",
+    "artifact_sha256": "eb9a708e4071ce9bc8a28f0ffe32b776bbd260bacd006f52cc7696171fe09871",
+    "query": "Locate FlagStore.setAt source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "FlagStore.ets",
+      "FlagStore.ets"
+    ],
+    "callable_primary": {
+      "file_path": "FlagStore.ets",
+      "symbol": "setAt",
+      "owner_name": "FlagStore",
+      "owner_kind": "store",
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-ets-outputs.json",
+    "artifact_sha256": "eb9a708e4071ce9bc8a28f0ffe32b776bbd260bacd006f52cc7696171fe09871",
+    "query": "Locate FlagStore.setAt source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "FlagStore.ets"
+    ],
+    "callable_primary": {
+      "file_path": "FlagStore.ets",
+      "symbol": "setAt",
+      "owner_name": "FlagStore",
+      "owner_kind": "store",
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-ets-outputs.json",
+    "artifact_sha256": "eb9a708e4071ce9bc8a28f0ffe32b776bbd260bacd006f52cc7696171fe09871",
+    "query": "Locate SplitController.onClick source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "SplitController.ets",
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "SplitController.ets",
+      "symbol": "onClick",
+      "owner_name": "SplitController",
+      "owner_kind": "controller",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "candidate-ets-outputs.json",
+    "artifact_sha256": "eb9a708e4071ce9bc8a28f0ffe32b776bbd260bacd006f52cc7696171fe09871",
+    "query": "Locate SplitController.onClick source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "SplitController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "SplitController.ets",
+      "symbol": "onClick",
+      "owner_name": "SplitController",
+      "owner_kind": "controller",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-outputs.json",
+    "artifact_sha256": "8ae5de3713f9dc35f29229dd2305410237f8412b2db9bd5d0d83ded6be79a91a",
+    "query": "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 20.865,
+      "evidence_score": 20.865,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-outputs.json",
+    "artifact_sha256": "8ae5de3713f9dc35f29229dd2305410237f8412b2db9bd5d0d83ded6be79a91a",
+    "query": "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 20.865,
+      "evidence_score": 20.865,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-outputs.json",
+    "artifact_sha256": "8ae5de3713f9dc35f29229dd2305410237f8412b2db9bd5d0d83ded6be79a91a",
+    "query": "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 28.5,
+      "evidence_score": 28.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-outputs.json",
+    "artifact_sha256": "8ae5de3713f9dc35f29229dd2305410237f8412b2db9bd5d0d83ded6be79a91a",
+    "query": "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 28.5,
+      "evidence_score": 28.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-outputs.json",
+    "artifact_sha256": "8ae5de3713f9dc35f29229dd2305410237f8412b2db9bd5d0d83ded6be79a91a",
+    "query": "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "LaneController.ts",
+      "symbol": "onClick",
+      "owner_name": "LaneController",
+      "owner_kind": "controller",
+      "file_structural_coverage": 2,
+      "score": 10.66,
+      "evidence_score": 10.66,
+      "reasons": [
+        "first_stage_rank_prior",
+        "source_locatable",
+        "semantic_behavior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 8,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-outputs.json",
+    "artifact_sha256": "8ae5de3713f9dc35f29229dd2305410237f8412b2db9bd5d0d83ded6be79a91a",
+    "query": "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "LaneController.ts",
+      "symbol": "onClick",
+      "owner_name": "LaneController",
+      "owner_kind": "controller",
+      "file_structural_coverage": 2,
+      "score": 10.66,
+      "evidence_score": 10.66,
+      "reasons": [
+        "first_stage_rank_prior",
+        "source_locatable",
+        "semantic_behavior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 8,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-outputs.json",
+    "artifact_sha256": "8ae5de3713f9dc35f29229dd2305410237f8412b2db9bd5d0d83ded6be79a91a",
+    "query": "Locate TileWidget.onClick source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-outputs.json",
+    "artifact_sha256": "8ae5de3713f9dc35f29229dd2305410237f8412b2db9bd5d0d83ded6be79a91a",
+    "query": "Locate TileWidget.onClick source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ts"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ts",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-outputs.json",
+    "artifact_sha256": "8ae5de3713f9dc35f29229dd2305410237f8412b2db9bd5d0d83ded6be79a91a",
+    "query": "Locate FlagStore.setAt source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "FlagStore.ts",
+      "FlagStore.ts"
+    ],
+    "callable_primary": {
+      "file_path": "FlagStore.ts",
+      "symbol": "setAt",
+      "owner_name": "FlagStore",
+      "owner_kind": "store",
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-outputs.json",
+    "artifact_sha256": "8ae5de3713f9dc35f29229dd2305410237f8412b2db9bd5d0d83ded6be79a91a",
+    "query": "Locate FlagStore.setAt source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "FlagStore.ts"
+    ],
+    "callable_primary": {
+      "file_path": "FlagStore.ts",
+      "symbol": "setAt",
+      "owner_name": "FlagStore",
+      "owner_kind": "store",
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-outputs.json",
+    "artifact_sha256": "8ae5de3713f9dc35f29229dd2305410237f8412b2db9bd5d0d83ded6be79a91a",
+    "query": "Locate SplitController.onClick source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "SplitController.ts",
+      "LaneController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "SplitController.ts",
+      "symbol": "onClick",
+      "owner_name": "SplitController",
+      "owner_kind": "controller",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-outputs.json",
+    "artifact_sha256": "8ae5de3713f9dc35f29229dd2305410237f8412b2db9bd5d0d83ded6be79a91a",
+    "query": "Locate SplitController.onClick source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "SplitController.ts"
+    ],
+    "callable_primary": {
+      "file_path": "SplitController.ts",
+      "symbol": "onClick",
+      "owner_name": "SplitController",
+      "owner_kind": "controller",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-ets-outputs.json",
+    "artifact_sha256": "f14c227a77c17f59476f0f3cb6161fc4e536247882dd277b3d72634e1d52d521",
+    "query": "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 20.865,
+      "evidence_score": 20.865,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-ets-outputs.json",
+    "artifact_sha256": "f14c227a77c17f59476f0f3cb6161fc4e536247882dd277b3d72634e1d52d521",
+    "query": "Clicking a tile should propagate selection to adjacent tiles. Locate the complete event-to-collection mutation owner.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 20.865,
+      "evidence_score": 20.865,
+      "reasons": [
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-ets-outputs.json",
+    "artifact_sha256": "f14c227a77c17f59476f0f3cb6161fc4e536247882dd277b3d72634e1d52d521",
+    "query": "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 28.5,
+      "evidence_score": 28.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-ets-outputs.json",
+    "artifact_sha256": "f14c227a77c17f59476f0f3cb6161fc4e536247882dd277b3d72634e1d52d521",
+    "query": "A tile click toggles only one item instead of neighboring entries; return the handler that writes the indexed collection.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 28.5,
+      "evidence_score": 28.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-ets-outputs.json",
+    "artifact_sha256": "f14c227a77c17f59476f0f3cb6161fc4e536247882dd277b3d72634e1d52d521",
+    "query": "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "LaneController.ets",
+      "symbol": "onClick",
+      "owner_name": "LaneController",
+      "owner_kind": "controller",
+      "file_structural_coverage": 2,
+      "score": 10.66,
+      "evidence_score": 10.66,
+      "reasons": [
+        "first_stage_rank_prior",
+        "source_locatable",
+        "semantic_behavior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 8,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-ets-outputs.json",
+    "artifact_sha256": "f14c227a77c17f59476f0f3cb6161fc4e536247882dd277b3d72634e1d52d521",
+    "query": "点击方块后选择状态没有传播到相邻项，请只返回同时拥有事件和集合写入的源码。",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "LaneController.ets",
+      "symbol": "onClick",
+      "owner_name": "LaneController",
+      "owner_kind": "controller",
+      "file_structural_coverage": 2,
+      "score": 10.66,
+      "evidence_score": 10.66,
+      "reasons": [
+        "first_stage_rank_prior",
+        "source_locatable",
+        "semantic_behavior"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 8,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-ets-outputs.json",
+    "artifact_sha256": "f14c227a77c17f59476f0f3cb6161fc4e536247882dd277b3d72634e1d52d521",
+    "query": "Locate TileWidget.onClick source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-ets-outputs.json",
+    "artifact_sha256": "f14c227a77c17f59476f0f3cb6161fc4e536247882dd277b3d72634e1d52d521",
+    "query": "Locate TileWidget.onClick source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "TileWidget.ets"
+    ],
+    "callable_primary": {
+      "file_path": "TileWidget.ets",
+      "symbol": "onClick",
+      "owner_name": "TileWidget",
+      "owner_kind": "class",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-ets-outputs.json",
+    "artifact_sha256": "f14c227a77c17f59476f0f3cb6161fc4e536247882dd277b3d72634e1d52d521",
+    "query": "Locate FlagStore.setAt source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "FlagStore.ets",
+      "FlagStore.ets"
+    ],
+    "callable_primary": {
+      "file_path": "FlagStore.ets",
+      "symbol": "setAt",
+      "owner_name": "FlagStore",
+      "owner_kind": "store",
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-ets-outputs.json",
+    "artifact_sha256": "f14c227a77c17f59476f0f3cb6161fc4e536247882dd277b3d72634e1d52d521",
+    "query": "Locate FlagStore.setAt source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "FlagStore.ets"
+    ],
+    "callable_primary": {
+      "file_path": "FlagStore.ets",
+      "symbol": "setAt",
+      "owner_name": "FlagStore",
+      "owner_kind": "store",
+      "score": 45.0,
+      "evidence_score": 45.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 5,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-ets-outputs.json",
+    "artifact_sha256": "f14c227a77c17f59476f0f3cb6161fc4e536247882dd277b3d72634e1d52d521",
+    "query": "Locate SplitController.onClick source.",
+    "compact": false,
+    "exit_code": 0,
+    "anchor_paths": [
+      "SplitController.ets",
+      "LaneController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "SplitController.ets",
+      "symbol": "onClick",
+      "owner_name": "SplitController",
+      "owner_kind": "controller",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  },
+  {
+    "artifact": "selection-ets-outputs.json",
+    "artifact_sha256": "f14c227a77c17f59476f0f3cb6161fc4e536247882dd277b3d72634e1d52d521",
+    "query": "Locate SplitController.onClick source.",
+    "compact": true,
+    "exit_code": 0,
+    "anchor_paths": [
+      "SplitController.ets"
+    ],
+    "callable_primary": {
+      "file_path": "SplitController.ets",
+      "symbol": "onClick",
+      "owner_name": "SplitController",
+      "owner_kind": "controller",
+      "callable_roles": [
+        "state_write"
+      ],
+      "score": 47.0,
+      "evidence_score": 47.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    }
+  }
+]
