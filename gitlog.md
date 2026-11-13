@@ -11921,3 +11921,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Replayed only source-replacement's unchanged original variant with public raw/compact and an ordinary clean comparison. Correct replaceSource remains after focus and raw handoff; bounded localizer chooses load via historical query-token exact_symbol and field scores, then compact removes correct owner.
 - All log event priorities are0 and path is inactive; wrapped flag does not bypass activation. No log identity or weak-typed authority misbinding was found. Concrete missing boundary is current-target/history-clause attribution, not missing producer data.
 - Detailed trace and limitations: docs/evidence/source-replacement-first-loss. No serving/oracle or original score changes.
+
+## 2026-11-13 — Audit restore graph and wrapper retention separately
+
+- Read saved English restore raw/compact against ed3fd70 consumer code, without
+  rerunning queries. Session is graph/import-derived; ProfilePage is a wrapped-log
+  caller, not a generic salient supplement. Preserve actual method-source evidence.
+- No applicable exclusive certificate or matching independent consumer red is
+  established. Record conservative unresolved-read and global graph-protection
+  boundaries plus an unexecuted minimum independent before/control plan.
+- Documentation only: docs/eval/restore-owner-retention-current/README.md.
