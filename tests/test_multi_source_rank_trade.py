@@ -31,6 +31,56 @@ class MultiSourceTradeTests(unittest.TestCase):
                 self.assertLessEqual(estimate_payload_tokens(result),1500)
                 self.assertEqual(sum(len(e['content']) for a in result['query_handoff']['code_anchors'] for e in a.get('source_excerpts',[])),result['query_handoff']['source_excerpt_policy']['excerpt_chars'])
 
+    def test_ambiguous_unknown_and_caps_rollback_without_mutation(self):
+        data=json.loads((D/'length-6-before.json').read_text())
+        with tempfile.TemporaryDirectory() as d:
+            for name,source in M[0]['protocol']['sources'].items():(Path(d)/name).write_text(source)
+            def check(change=lambda p,r:None, **kwargs):
+                payload=copy.deepcopy(data['compact']);rows=copy.deepcopy(data['raw']['wiki_matches'])
+                change(payload,rows);before=copy.deepcopy(payload)
+                result=recover_partial_primary(payload,d,kwargs.pop('budget',1500),source_rows=rows,**kwargs)
+                self.assertIs(result,payload);self.assertEqual(before,payload)
+            check(lambda p,r:p['query_handoff']['code_anchors'].append(copy.deepcopy(p['query_handoff']['code_anchors'][1])))
+            check(lambda p,r:p['query_handoff']['code_anchors'][1]['source_ranges'].append({'symbol':'other'}))
+            check(lambda p,r:p['query_handoff'].__setitem__('callable_evidence',None))
+            check(lambda p,r:p['query_handoff']['callable_evidence']['primary']['source_range'].__setitem__('start_line',2))
+            check(lambda p,r:p['query_handoff']['callable_evidence']['primary']['source_range'].__setitem__('start_line',True))
+            check(lambda p,r:p['query_handoff']['code_anchors'][0]['source_excerpts'][0].__setitem__('source','unknown'))
+            check(lambda p,r:p['query_handoff']['code_anchors'][1].__setitem__('record_type','unknown'))
+            check(lambda p,r:r.clear())
+            check(total_char_cap=600)  # target524 fits alone, all source718 does not.
+            check(source_char_cap=500);check(source_line_cap=10);check(budget=1000)
+            (Path(d)/'ByteFormatter.ts').write_text(M[0]['protocol']['sources']['ByteFormatter.ts']+'// changed')
+            check()
+
+    def test_other_partial_source_stays_partial_and_unchanged(self):
+        data=json.loads((D/'length-6-before.json').read_text());payload=data['compact']
+        other=payload['query_handoff']['code_anchors'][0]['source_excerpts'][0]
+        other.update(content=other['content'].splitlines()[0],end_line=1,truncated=True)
+        saved=copy.deepcopy(other)
+        with tempfile.TemporaryDirectory() as d:
+            for name,source in M[0]['protocol']['sources'].items():(Path(d)/name).write_text(source)
+            result=recover_partial_primary(payload,d,1500,source_rows=data['raw']['wiki_matches'])
+            self.assertIsNot(result,payload)
+            self.assertEqual(saved,result['query_handoff']['code_anchors'][0]['source_excerpts'][0])
+            self.assertFalse(result['query_handoff']['code_anchors'][1]['source_excerpts'][0]['truncated'])
+
+    def test_logs_paths_unknown_reasons_and_certificates_are_not_sacrificed(self):
+        data=json.loads((D/'length-6-before.json').read_text());payload=data['compact']
+        h=payload['query_handoff'];h['log_anchors']=[{'record_id':91,'message_template':'keep me'}]
+        h['path_context']['unknown_certificate']={'edges':[1,2],'uncertainty':'unresolved'}
+        h['callable_evidence']['primary']['reasons']+=['unknown_future_reason']
+        h['callable_evidence']['primary']['certificate']={'id':'proof','scope':'bounded'}
+        with tempfile.TemporaryDirectory() as d:
+            for name,source in M[0]['protocol']['sources'].items():(Path(d)/name).write_text(source)
+            before=copy.deepcopy(payload)
+            result=recover_partial_primary(payload,d,1500,source_rows=data['raw']['wiki_matches'])
+            self.assertIsNot(result,payload);self.assertEqual(before,payload)
+            for key in ['log_anchors','path_context']:
+                self.assertEqual(before['query_handoff'][key],result['query_handoff'][key])
+            row=result['query_handoff']['callable_evidence']['primary']
+            self.assertIn('unknown_future_reason',row['reasons']);self.assertEqual({'id':'proof','scope':'bounded'},row['certificate'])
+
 class MultiSourcePublicTests(AgentMemoryTestBase):
     def test_explicit_multiple_sources_keep_roles_and_complete_selected_body(self):
         p=M[0]['protocol']

@@ -11573,3 +11573,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   strict caller-only probe is still false. Original indirect-dialog remains1/3.
 - Preserve logs/unknown/multi-caller/actual unrecalled duplicate controls and failed
   initial candidates. No score/scope/schema changes, full gate or remote write.
+## 2026-11-14 - Restore one selected callable without dropping companion sources
+
+- Freeze public three-source comparison budget reds and independent length matrix.
+- Match existing callable primary to exactly one source-bound anchor, retaining all
+  other anchors/roles/bodies; extend only the accepted optional-rank-detail trade.
+- Preserve source/digest/line/byte/token guards; total source chars include every
+  retained excerpt. Ambiguity/unknown/cap overflow returns the original object.
+- Targeted causal/color/webview groups stay7/9. Color English body is complete but
+  precision still fails; no original231 gain or full-gate claim.
+  See docs/evidence/multi-source-recovery/README.md.

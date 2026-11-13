@@ -35,11 +35,41 @@ def recover_partial_primary(payload, project_path, token_budget, *,
         return payload
     handoff = payload.get('query_handoff', {})
     anchors = handoff.get('code_anchors', [])
-    if len(anchors) != 1 or anchors[0].get('role') != 'primary':
+    if not isinstance(anchors, list) or not anchors or any(not isinstance(a, dict) for a in anchors):
         return payload
-    anchor = anchors[0]
+    target_index = 0
+    if len(anchors) != 1:
+        evidence = handoff.get('callable_evidence')
+        primary = evidence.get('primary') if isinstance(evidence, dict) else None
+        if not isinstance(primary, dict) or not isinstance(primary.get('source_range'), dict):
+            return payload
+        bounds = primary['source_range']
+        if (type(bounds.get('start_line')) is not int or type(bounds.get('end_line')) is not int
+                or not 0 < bounds['start_line'] <= bounds['end_line']
+                or not isinstance(primary.get('file_path'), str) or not primary['file_path']
+                or not isinstance(primary.get('symbol'), str) or not primary['symbol']
+                or sum(item.get('file_path') == primary['file_path'] for item in anchors) != 1):
+            return payload
+        matches = [index for index, item in enumerate(anchors)
+                   if item.get('role') == 'primary'
+                   and item.get('file_path') == primary.get('file_path')
+                   and isinstance(item.get('source_ranges'), list)
+                   and len(item['source_ranges']) == 1
+                   and isinstance(item['source_ranges'][0], dict)
+                   and item['source_ranges'][0].get('symbol') == primary.get('symbol')
+                   and item['source_ranges'][0].get('start_line') == bounds.get('start_line')
+                   and item['source_ranges'][0].get('end_line') == bounds.get('end_line')]
+        if len(matches) != 1:
+            return payload
+        target_index = matches[0]
+    anchor = anchors[target_index]
+    if anchor.get('role') != 'primary':
+        return payload
     spans, excerpts = anchor.get('source_ranges', []), anchor.get('source_excerpts', [])
-    if len(spans) != 1 or len(excerpts) != 1 or excerpts[0].get('truncated') is not True:
+    if (not isinstance(spans, list) or not isinstance(excerpts, list)
+            or len(spans) != 1 or len(excerpts) != 1
+            or not isinstance(spans[0], dict) or not isinstance(excerpts[0], dict)
+            or excerpts[0].get('truncated') is not True):
         return payload
     span, old = spans[0], excerpts[0]
     start, end = span.get('start_line'), span.get('end_line')
@@ -90,7 +120,20 @@ def recover_partial_primary(payload, project_path, token_budget, *,
     new_lines = complete['content'].splitlines()
     if not old_lines or old_lines != new_lines[:len(old_lines)]:
         return payload
-    if len(complete['content']) > min(total_char_cap, MAX_TOTAL_EXCERPT_CHARS):
+    other_chars = 0
+    for index, item in enumerate(anchors):
+        if index == target_index:
+            continue
+        others = item.get('source_excerpts', [])
+        if not isinstance(others, list):
+            return payload
+        for excerpt in others:
+            if (not isinstance(excerpt, dict) or not isinstance(excerpt.get('content'), str)
+                    or excerpt.get('source') != 'current_worktree'):
+                return payload
+            other_chars += len(excerpt['content'])
+    total_chars = other_chars + len(complete['content'])
+    if total_chars > min(total_char_cap, MAX_TOTAL_EXCERPT_CHARS):
         return payload
     candidate = deepcopy(payload)
     evidence = candidate['query_handoff'].get('callable_evidence', {})
@@ -112,12 +155,12 @@ def recover_partial_primary(payload, project_path, token_budget, *,
                 changed = True
     if not changed:
         return payload
-    updated = candidate['query_handoff']['code_anchors'][0]['source_excerpts'][0]
+    updated = candidate['query_handoff']['code_anchors'][target_index]['source_excerpts'][0]
     # Keep existing selection/focus metadata: only restore the same source interval.
     updated.update(content=complete['content'], end_line=end, truncated=False)
     policy = candidate['query_handoff'].get('source_excerpt_policy')
     if isinstance(policy, dict):
-        policy['excerpt_chars'] = len(complete['content'])
+        policy['excerpt_chars'] = total_chars
     budget = candidate.get('output_budget')
     if not isinstance(budget, dict):
         return payload

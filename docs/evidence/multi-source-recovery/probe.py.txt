@@ -1,0 +1,12 @@
+import json,tempfile,subprocess,sys
+from pathlib import Path
+p=Path('docs/evidence/multi-source-recovery');x=json.loads((p/'protocol.json').read_text())
+with tempfile.TemporaryDirectory() as d:
+ root=Path(d)/'source';root.mkdir()
+ for name,source in x['sources'].items():(root/name).write_text(source)
+ def run(*a):
+  r=subprocess.run(['python','tools/agent_memory.py',*a,'--project',str(root),'--memory-home',d+'/memory'],capture_output=True,text=True,check=True);return json.loads(r.stdout) if '--json' in a else r.stdout
+ run('init');run('learn-path','--path','.')
+ out={mode:run('context','--query',x['query'],*flags,'--json') for mode,flags in [('raw',[]),('compact',['--compact'])]}
+(p/(sys.argv[1]+'.json')).write_text(json.dumps(out,indent=2))
+h=out['compact']['query_handoff'];print(h['callable_evidence']);print([(a['file_path'],a.get('role'),a.get('source_ranges'),[(e['start_line'],e['end_line'],e.get('truncated')) for e in a.get('source_excerpts',[])]) for a in h['code_anchors']])

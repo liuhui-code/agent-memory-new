@@ -1,0 +1,3723 @@
+{
+  "raw": {
+    "project_id": "f6cc73c8322ad1c5",
+    "project_path": "/tmp/tmpau0y1sp0/source",
+    "query": "Compare formatBytes in ByteFormatter.ts with statusDescription in StatusPanel.ts and auditDescription in AuditPresenter.ts.",
+    "memory_intent": "general_context",
+    "memory_intent_v2": "general_context",
+    "memory_intent_source": "inferred",
+    "retrieval_lanes": {
+      "counts": {
+        "main_reflections": 0,
+        "correction_guards": 0,
+        "semantic_patch_notes": 0,
+        "blocked_memory_notes": 0
+      },
+      "intent_profile": {
+        "intent": "general_context",
+        "intent_v2": "general_context",
+        "intent_source": "inferred",
+        "legacy_intent": "general_context",
+        "preferred_lanes": [
+          "semantic_facts",
+          "wiki_matches",
+          "reusable_procedure",
+          "historical_reflection"
+        ],
+        "interference_policy": "prefer source-backed and high-quality memories"
+      },
+      "lane_budgets": {
+        "main_reflections": 2,
+        "correction_guards": 4,
+        "semantic_patch_notes": 6,
+        "blocked_memory_notes": 8
+      },
+      "policy": {
+        "procedure_experience": "main context only when the query intent can reuse a procedure",
+        "correction_experience": "guardrail lane; not injected as the main task direction by default",
+        "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+      }
+    },
+    "memory_brief": {
+      "intent": "general_context",
+      "intent_v2": "general_context",
+      "main_reflection_count": 0,
+      "correction_guard_count": 0,
+      "semantic_patch_count": 0,
+      "blocked_count": 0,
+      "conflict_count": 0
+    },
+    "followup_focus": null,
+    "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+    "semantic_facts": [],
+    "reflections": [],
+    "episodes": [],
+    "wiki_matches": [
+      {
+        "id": 1,
+        "project_id": "f6cc73c8322ad1c5",
+        "file_path": "AuditPresenter.ts",
+        "symbol": "auditDescription",
+        "symbol_type": "function",
+        "summary": "function auditDescription in AuditPresenter.ts; identifier terms: audit description",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:6db87bc9cd948acfb5bd936a",
+        "qualified_name": "auditDescription",
+        "signature": "auditDescription():string",
+        "start_line": 1,
+        "end_line": 3,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "b1748db48d43ce05bf86e2bb25d3d0f08077635f808886ce34622676a85fa216",
+        "evidence_class": "static",
+        "method_evidence": "audit description",
+        "string_evidence": "byte format verification audit details",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "module",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T13:48:54+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07526441,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 2,
+              "weight": 1.2,
+              "score": 0.01935484
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 121.75,
+        "search_terms": [
+          "auditpresenter.ts",
+          "function auditdescription in auditpresenter.ts; identifier terms: audit description",
+          "auditdescription",
+          "function",
+          "auditpresenter",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "audit",
+          "description",
+          "presenter"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "exact_file_path",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 121.75,
+          "rerank_score": null,
+          "match_reasons": [
+            "exact_symbol",
+            "exact_file_path",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 2,
+        "project_id": "f6cc73c8322ad1c5",
+        "file_path": "ByteFormatter.ts",
+        "symbol": "formatBytes",
+        "symbol_type": "function",
+        "summary": "function formatBytes in ByteFormatter.ts; identifier terms: format bytes",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:0d29258a4a223316e3d64d8e",
+        "qualified_name": "formatBytes",
+        "signature": "formatBytes(input: number[]):string",
+        "start_line": 1,
+        "end_line": 13,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "f65db23fe2b1873b4aa2ac1d380b004af0e207e127a27b9da859e762f842c5fe",
+        "evidence_class": "static",
+        "method_evidence": "output touppercase upper format bytes tostring padstart pad start",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:output.touppercase\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":12,\"source_key\":\"symbol:0d29258a4a223316e3d64d8e\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "",
+        "owner_kind": "module",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T13:48:54+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.0547619,
+          "best_rank": 3,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 111.0,
+        "search_terms": [
+          "byteformatter.ts",
+          "function formatbytes in byteformatter.ts; identifier terms: format bytes",
+          "formatbytes",
+          "function",
+          "byteformatter",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "format",
+          "bytes",
+          "byte",
+          "formatter"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "exact_file_path",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 111.0,
+          "rerank_score": null,
+          "match_reasons": [
+            "exact_symbol",
+            "exact_file_path",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 11,
+        "project_id": "f6cc73c8322ad1c5",
+        "file_path": "StatusPanel.ts",
+        "symbol": "statusDescription",
+        "symbol_type": "function",
+        "summary": "function statusDescription in StatusPanel.ts; identifier terms: status description",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:019c6412b9725a92ae74a9cc",
+        "qualified_name": "statusDescription",
+        "signature": "statusDescription():string",
+        "start_line": 1,
+        "end_line": 3,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "1249ddd0ea5fcdf65d14a9ff8b1b36da897725a7ef523aab85bdc840e3b31685",
+        "evidence_class": "static",
+        "method_evidence": "status description",
+        "string_evidence": "byte format diagnostic status information",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "module",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T13:48:54+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.0759651,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 92.0,
+        "search_terms": [
+          "statuspanel.ts",
+          "function statusdescription in statuspanel.ts; identifier terms: status description",
+          "statusdescription",
+          "function",
+          "statuspanel",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "status",
+          "description",
+          "panel"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "exact_file_path",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:string_evidence",
+          "exact_path_segment",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 92.0,
+          "rerank_score": null,
+          "match_reasons": [
+            "exact_symbol",
+            "exact_file_path",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:string_evidence",
+            "exact_path_segment",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 1,
+        "project_id": "f6cc73c8322ad1c5",
+        "file_path": "AuditPresenter.ts",
+        "summary": "TypeScript file with 3 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "b1748db48d43ce05bf86e2bb25d3d0f08077635f808886ce34622676a85fa216",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T13:48:54+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07806716,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 2,
+              "weight": 1.35,
+              "score": 0.02177419
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 72.2,
+        "search_terms": [
+          "auditpresenter.ts",
+          "typescript",
+          "typescript file with 3 non-empty lines",
+          "auditpresenter",
+          "ts",
+          "file",
+          "with",
+          "3",
+          "non",
+          "empty",
+          "lines",
+          "audit",
+          "presenter",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "exact_file_path",
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "auditDescription",
+        "symbol_type": "function",
+        "start_line": 1,
+        "end_line": 3,
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 72.2,
+          "rerank_score": null,
+          "match_reasons": [
+            "exact_file_path",
+            "expanded_query:file_path",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 2,
+        "project_id": "f6cc73c8322ad1c5",
+        "file_path": "ByteFormatter.ts",
+        "summary": "TypeScript file with 13 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "f65db23fe2b1873b4aa2ac1d380b004af0e207e127a27b9da859e762f842c5fe",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T13:48:54+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07644649,
+          "best_rank": 2,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 3,
+              "weight": 1.35,
+              "score": 0.02142857
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 65.0,
+        "search_terms": [
+          "byteformatter.ts",
+          "typescript",
+          "typescript file with 13 non-empty lines",
+          "byteformatter",
+          "ts",
+          "file",
+          "with",
+          "13",
+          "non",
+          "empty",
+          "lines",
+          "byte",
+          "formatter",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "exact_file_path",
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "salient_query_evidence"
+        ],
+        "symbol": "formatBytes",
+        "symbol_type": "function",
+        "start_line": 1,
+        "end_line": 13,
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 65.0,
+          "rerank_score": null,
+          "match_reasons": [
+            "exact_file_path",
+            "expanded_query:file_path",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "salient_query_evidence"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "code_log_matches": [],
+    "edge_matches": [
+      {
+        "id": 11,
+        "project_id": "f6cc73c8322ad1c5",
+        "source_type": "code_file",
+        "source_id": 3,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 11,
+        "evidence": "StatusPanel.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:48:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:48:54+00:00",
+        "created_at": "2026-11-13T13:48:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 10,
+        "project_id": "f6cc73c8322ad1c5",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 10,
+        "evidence": "ByteFormatter.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:48:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:48:54+00:00",
+        "created_at": "2026-11-13T13:48:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 9,
+        "project_id": "f6cc73c8322ad1c5",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 9,
+        "evidence": "ByteFormatter.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:48:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:48:54+00:00",
+        "created_at": "2026-11-13T13:48:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 8,
+        "project_id": "f6cc73c8322ad1c5",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 8,
+        "evidence": "ByteFormatter.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:48:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:48:54+00:00",
+        "created_at": "2026-11-13T13:48:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 7,
+        "project_id": "f6cc73c8322ad1c5",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 7,
+        "evidence": "ByteFormatter.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:48:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:48:54+00:00",
+        "created_at": "2026-11-13T13:48:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 6,
+        "project_id": "f6cc73c8322ad1c5",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 6,
+        "evidence": "ByteFormatter.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:48:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:48:54+00:00",
+        "created_at": "2026-11-13T13:48:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 5,
+        "project_id": "f6cc73c8322ad1c5",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 5,
+        "evidence": "ByteFormatter.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:48:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:48:54+00:00",
+        "created_at": "2026-11-13T13:48:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 4,
+        "project_id": "f6cc73c8322ad1c5",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 4,
+        "evidence": "ByteFormatter.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:48:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:48:54+00:00",
+        "created_at": "2026-11-13T13:48:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 3,
+        "project_id": "f6cc73c8322ad1c5",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 3,
+        "evidence": "ByteFormatter.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:48:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:48:54+00:00",
+        "created_at": "2026-11-13T13:48:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 2,
+        "project_id": "f6cc73c8322ad1c5",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 2,
+        "evidence": "ByteFormatter.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:48:54+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:48:54+00:00",
+        "created_at": "2026-11-13T13:48:54+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "incident_trace_matches": [],
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "suggested_followup_terms": [
+      "auditpresenter.ts",
+      "function auditdescription in auditpresenter.ts; identifier terms: audit description",
+      "byteformatter.ts",
+      "function formatbytes in byteformatter.ts; identifier terms: format bytes",
+      "statuspanel.ts",
+      "function statusdescription in statuspanel.ts; identifier terms: status description",
+      "auditdescription",
+      "function",
+      "auditpresenter",
+      "ts",
+      "in",
+      "identifier"
+    ],
+    "query_handoff": {
+      "schema_version": "agent-query-handoff/v1",
+      "input_query": "Compare formatBytes in ByteFormatter.ts with statusDescription in StatusPanel.ts and auditDescription in AuditPresenter.ts.",
+      "log_keywords": [
+        "compare",
+        "formatbytes",
+        "in",
+        "byteformatter",
+        "ts",
+        "with",
+        "statusdescription",
+        "statuspanel",
+        "and",
+        "auditdescription",
+        "auditpresenter"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "record_type": "code_symbol",
+          "file_path": "AuditPresenter.ts",
+          "symbol": "auditDescription",
+          "symbol_type": "function",
+          "summary": "function auditDescription in AuditPresenter.ts; identifier terms: audit description",
+          "start_line": 1,
+          "end_line": 3,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "record_type": "code_symbol",
+          "file_path": "ByteFormatter.ts",
+          "symbol": "formatBytes",
+          "symbol_type": "function",
+          "summary": "function formatBytes in ByteFormatter.ts; identifier terms: format bytes",
+          "start_line": 1,
+          "end_line": 13,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 11,
+          "record_type": "code_symbol",
+          "file_path": "StatusPanel.ts",
+          "symbol": "statusDescription",
+          "symbol_type": "function",
+          "summary": "function statusDescription in StatusPanel.ts; identifier terms: status description",
+          "start_line": 1,
+          "end_line": 3,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "next_query_contract": {
+        "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+        "accepted_inputs": [
+          "exact phrase or identifier observed in the temporary runtime log",
+          "one candidate cause produced by the Agent CLI",
+          "file, symbol, route, resource, error code, logger, or event name"
+        ],
+        "one_candidate_per_query": true
+      },
+      "role_boundary": {
+        "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+        "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+        "runtime_reads_temporary_logs": false,
+        "runtime_builds_causal_chains": false
+      },
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "ByteFormatter.ts",
+          "symbol": "formatBytes",
+          "owner_kind": "module",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 66.5,
+          "evidence_score": 66.5,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 1,
+            "end_line": 13,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "AuditPresenter.ts",
+            "symbol": "auditDescription",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 62.0,
+            "evidence_score": 62.0,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 1,
+              "end_line": 3,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "StatusPanel.ts",
+            "symbol": "statusDescription",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 60.0,
+            "evidence_score": 60.0,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 1,
+              "end_line": 3,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      },
+      "path_context": {
+        "schema_version": "log-anchored-path-context/v1",
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "candidate_count": 0,
+        "seeds": [],
+        "path_candidates": [],
+        "gaps": {},
+        "bounds": {
+          "max_depth": 6,
+          "max_nodes": 80,
+          "max_edges": 160,
+          "max_raw_paths_per_seed": 20,
+          "max_returned_paths": 5,
+          "max_same_entry_paths": 2,
+          "cycle_visit_limit": 1
+        },
+        "lane_isolation": {
+          "log_anchor": "code_log_statements identity fields only",
+          "program_path": "current active code graph edges only",
+          "semantic_correction": "annotation in base context; cannot create or rank paths",
+          "experience": "advisory in base context; cannot create or rank paths"
+        }
+      }
+    },
+    "network_limits": {
+      "max_depth": 1,
+      "edge_limit": 10,
+      "evidence_chain_limit": 3,
+      "allowed_relations": [
+        "configured_by",
+        "contains",
+        "emits_log",
+        "imports",
+        "passes_property",
+        "renders_component",
+        "routes_to",
+        "uses_resource"
+      ]
+    },
+    "source_freshness": {
+      "schema_version": "source-freshness/v1",
+      "status": "current",
+      "generation": 1,
+      "source_revision": "unversioned",
+      "extractor_version": "code-derived:v1",
+      "candidate_file_count": 3,
+      "checked_file_count": 3,
+      "current_file_count": 3,
+      "blocked_rows": 0,
+      "blocked_rows_by_table": {
+        "code_files": 0,
+        "code_symbols": 0,
+        "code_log_statements": 0
+      },
+      "stale_paths": [],
+      "missing_paths": [],
+      "unverified_paths": [],
+      "boundary_drift_scope_ids": [],
+      "policy": "digest_mismatch_and_missing_source_blocked"
+    },
+    "memory_use_policy": {
+      "mode": "advisory",
+      "authority_order": [
+        "current_source",
+        "explicit_user_instruction",
+        "source_truth",
+        "verified_experience",
+        "usable_hint",
+        "weak_hint"
+      ],
+      "rules": [
+        "Current source files and explicit user instructions override stored memory.",
+        "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+        "Use weak hints only to choose what to inspect next.",
+        "Do not let recency override evidence, status, confidence, or feedback penalties."
+      ]
+    },
+    "query_audit": {
+      "result_counts": {
+        "semantic_facts": 0,
+        "reflections": 0,
+        "episodes": 0,
+        "wiki_matches": 5,
+        "code_log_matches": 0,
+        "edge_matches": 10,
+        "incident_trace_matches": 0
+      },
+      "candidate_recall": {
+        "schema_version": "agent-candidate-recall-audit/v1",
+        "source_freshness": {
+          "schema_version": "source-freshness/v1",
+          "status": "current",
+          "generation": 1,
+          "source_revision": "unversioned",
+          "extractor_version": "code-derived:v1",
+          "candidate_file_count": 3,
+          "checked_file_count": 3,
+          "current_file_count": 3,
+          "blocked_rows": 0,
+          "blocked_rows_by_table": {
+            "code_files": 0,
+            "code_symbols": 0,
+            "code_log_statements": 0
+          },
+          "stale_paths": [],
+          "missing_paths": [],
+          "unverified_paths": [],
+          "boundary_drift_scope_ids": [],
+          "policy": "digest_mismatch_and_missing_source_blocked"
+        },
+        "provider": "sqlite_fts5_passage_rrf/v4",
+        "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+        "tables": {
+          "semantic_facts": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "reflections": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "episodes": {
+            "requested_limit": 80,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "code_files": {
+            "requested_limit": 160,
+            "candidate_count": 3,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 3,
+              "file_identity_fts": 3,
+              "file_semantic_fts": 3,
+              "salient_file_fts": 3
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "file_identity_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 3,
+                  "file_path_weight": 6.0,
+                  "identity_terms_weight": 9.0
+                },
+                "file_semantic_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 3,
+                  "file_path_weight": 1.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "salient_file_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 3,
+                  "query_term_count": 9,
+                  "file_path_weight": 3.0,
+                  "semantic_terms_weight": 8.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": true,
+              "serving_channels": [
+                "file_identity_fts",
+                "file_semantic_fts",
+                "salient_file_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 3,
+                "channel_counts": {
+                  "file_identity_fts": 3,
+                  "file_semantic_fts": 3,
+                  "salient_file_fts": 3
+                },
+                "fused_candidate_count": 3
+              },
+              "candidate_fusion": {
+                "3": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.06191169,
+                  "best_rank": 1,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 1,
+                      "weight": 1.35,
+                      "score": 0.02213115
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 2,
+                      "weight": 1.45,
+                      "score": 0.0233871
+                    }
+                  ]
+                },
+                "1": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.06167372,
+                  "best_rank": 1,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 2,
+                      "weight": 1.35,
+                      "score": 0.02177419
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 2,
+                      "weight": 1.0,
+                      "score": 0.01612903
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 1,
+                      "weight": 1.45,
+                      "score": 0.02377049
+                    }
+                  ]
+                },
+                "2": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.06031746,
+                  "best_rank": 3,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 3,
+                      "weight": 1.35,
+                      "score": 0.02142857
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 3,
+                      "weight": 1.0,
+                      "score": 0.01587302
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 3,
+                      "weight": 1.45,
+                      "score": 0.02301587
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 3,
+                  "file_path": "StatusPanel.ts",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "file_path": "AuditPresenter.ts",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                },
+                {
+                  "id": 2,
+                  "file_path": "ByteFormatter.ts",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 4,
+              "channel_counts": {
+                "broad_fts": 3,
+                "file_identity_fts": 3,
+                "file_semantic_fts": 3,
+                "salient_file_fts": 3
+              },
+              "fused_candidate_count": 3
+            },
+            "candidate_refs": [
+              {
+                "id": 1,
+                "file_path": "AuditPresenter.ts",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 3,
+                "file_path": "StatusPanel.ts",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              },
+              {
+                "id": 2,
+                "file_path": "ByteFormatter.ts",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              }
+            ]
+          },
+          "code_symbols": {
+            "requested_limit": 220,
+            "candidate_count": 11,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 11,
+              "method_body_fts": 0,
+              "symbol_identity_fts": 11,
+              "symbol_semantic_fts": 11,
+              "string_key_fts": 2,
+              "semantic_mechanism_fts": 0,
+              "salient_string_fts": 0
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "symbol_identity_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "symbol",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 11,
+                  "file_path_weight": 2.0,
+                  "symbol_weight": 8.0,
+                  "identity_terms_weight": 10.0
+                },
+                "symbol_semantic_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "symbol",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 11,
+                  "symbol_weight": 2.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "method_body_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms"
+                  ],
+                  "candidate_count": 3,
+                  "body_terms_weight": 8.0
+                },
+                "string_key_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "string_terms"
+                  ],
+                  "candidate_count": 2,
+                  "string_terms_weight": 9.0
+                },
+                "semantic_mechanism_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "mechanism_terms"
+                  ],
+                  "candidate_count": 0,
+                  "mechanism_terms_weight": 9.0
+                },
+                "salient_string_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms",
+                    "string_terms"
+                  ],
+                  "candidate_count": 0,
+                  "query_term_count": 9,
+                  "body_terms_weight": 3.0,
+                  "string_terms_weight": 10.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": true,
+              "serving_channels": [
+                "salient_string_fts",
+                "semantic_mechanism_fts",
+                "string_key_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 6,
+                "channel_counts": {
+                  "symbol_identity_fts": 11,
+                  "symbol_semantic_fts": 11,
+                  "method_body_fts": 0,
+                  "string_key_fts": 2,
+                  "semantic_mechanism_fts": 0,
+                  "salient_string_fts": 0
+                },
+                "fused_candidate_count": 11
+              },
+              "candidate_fusion": {
+                "11": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.05983607,
+                  "best_rank": 1,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 1,
+                      "weight": 1.45,
+                      "score": 0.02377049
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    },
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 1,
+                      "weight": 1.2,
+                      "score": 0.01967213
+                    }
+                  ]
+                },
+                "1": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.05887097,
+                  "best_rank": 2,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 2,
+                      "weight": 1.45,
+                      "score": 0.0233871
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 2,
+                      "weight": 1.0,
+                      "score": 0.01612903
+                    },
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 2,
+                      "weight": 1.2,
+                      "score": 0.01935484
+                    }
+                  ]
+                },
+                "2": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03888889,
+                  "best_rank": 3,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 3,
+                      "weight": 1.45,
+                      "score": 0.02301587
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 3,
+                      "weight": 1.0,
+                      "score": 0.01587302
+                    }
+                  ]
+                },
+                "3": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03828125,
+                  "best_rank": 4,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 4,
+                      "weight": 1.45,
+                      "score": 0.02265625
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 4,
+                      "weight": 1.0,
+                      "score": 0.015625
+                    }
+                  ]
+                },
+                "4": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03769231,
+                  "best_rank": 5,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 5,
+                      "weight": 1.45,
+                      "score": 0.02230769
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 5,
+                      "weight": 1.0,
+                      "score": 0.01538462
+                    }
+                  ]
+                },
+                "5": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03712121,
+                  "best_rank": 6,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 6,
+                      "weight": 1.45,
+                      "score": 0.0219697
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 6,
+                      "weight": 1.0,
+                      "score": 0.01515152
+                    }
+                  ]
+                },
+                "6": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03656716,
+                  "best_rank": 7,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 7,
+                      "weight": 1.45,
+                      "score": 0.02164179
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 7,
+                      "weight": 1.0,
+                      "score": 0.01492537
+                    }
+                  ]
+                },
+                "7": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03602941,
+                  "best_rank": 8,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 8,
+                      "weight": 1.45,
+                      "score": 0.02132353
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 8,
+                      "weight": 1.0,
+                      "score": 0.01470588
+                    }
+                  ]
+                },
+                "8": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03550725,
+                  "best_rank": 9,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 9,
+                      "weight": 1.45,
+                      "score": 0.02101449
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 9,
+                      "weight": 1.0,
+                      "score": 0.01449275
+                    }
+                  ]
+                },
+                "9": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.035,
+                  "best_rank": 10,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 10,
+                      "weight": 1.45,
+                      "score": 0.02071429
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 10,
+                      "weight": 1.0,
+                      "score": 0.01428571
+                    }
+                  ]
+                },
+                "10": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03450704,
+                  "best_rank": 11,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 11,
+                      "weight": 1.45,
+                      "score": 0.02042254
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 11,
+                      "weight": 1.0,
+                      "score": 0.01408451
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 11,
+                  "file_path": "StatusPanel.ts",
+                  "symbol": "statusDescription",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "file_path": "AuditPresenter.ts",
+                  "symbol": "auditDescription",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "string_key_fts"
+                  ]
+                },
+                {
+                  "id": 2,
+                  "file_path": "ByteFormatter.ts",
+                  "symbol": "formatBytes",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 3,
+                  "file_path": "ByteFormatter.ts",
+                  "symbol": "slot0",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 4,
+                  "file_path": "ByteFormatter.ts",
+                  "symbol": "slot1",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 5,
+                  "file_path": "ByteFormatter.ts",
+                  "symbol": "slot2",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 6,
+                  "file_path": "ByteFormatter.ts",
+                  "symbol": "slot3",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 7,
+                  "file_path": "ByteFormatter.ts",
+                  "symbol": "slot4",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 8,
+                  "file_path": "ByteFormatter.ts",
+                  "symbol": "slot5",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 9,
+                  "file_path": "ByteFormatter.ts",
+                  "symbol": "slot6",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 10,
+                  "file_path": "ByteFormatter.ts",
+                  "symbol": "slot7",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 7,
+              "channel_counts": {
+                "broad_fts": 11,
+                "method_body_fts": 0,
+                "symbol_identity_fts": 11,
+                "symbol_semantic_fts": 11,
+                "string_key_fts": 2,
+                "semantic_mechanism_fts": 0,
+                "salient_string_fts": 0
+              },
+              "fused_candidate_count": 11
+            },
+            "candidate_refs": [
+              {
+                "id": 11,
+                "file_path": "StatusPanel.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "string_key_fts"
+                ],
+                "symbol": "statusDescription"
+              },
+              {
+                "id": 1,
+                "file_path": "AuditPresenter.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "string_key_fts"
+                ],
+                "symbol": "auditDescription"
+              },
+              {
+                "id": 2,
+                "file_path": "ByteFormatter.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "formatBytes"
+              },
+              {
+                "id": 3,
+                "file_path": "ByteFormatter.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "slot0"
+              },
+              {
+                "id": 4,
+                "file_path": "ByteFormatter.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "slot1"
+              },
+              {
+                "id": 5,
+                "file_path": "ByteFormatter.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "slot2"
+              },
+              {
+                "id": 6,
+                "file_path": "ByteFormatter.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "slot3"
+              },
+              {
+                "id": 7,
+                "file_path": "ByteFormatter.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "slot4"
+              },
+              {
+                "id": 8,
+                "file_path": "ByteFormatter.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "slot5"
+              },
+              {
+                "id": 9,
+                "file_path": "ByteFormatter.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "slot6"
+              },
+              {
+                "id": 10,
+                "file_path": "ByteFormatter.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "slot7"
+              }
+            ]
+          },
+          "code_log_statements": {
+            "requested_limit": 180,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          }
+        }
+      },
+      "retrieval_stages": {
+        "scored": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 14,
+          "code_log_matches": 0,
+          "edge_matches": 11,
+          "incident_trace_matches": 0
+        },
+        "after_intent_gate": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 14,
+          "code_log_matches": 0,
+          "edge_matches": 11,
+          "incident_trace_matches": 0
+        },
+        "selected": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 5,
+          "code_log_matches": 0,
+          "edge_matches": 10,
+          "incident_trace_matches": 0
+        }
+      },
+      "top_explanations": {
+        "semantic_facts": [],
+        "reflections": [],
+        "episodes": [],
+        "wiki_matches": [
+          {
+            "type": "wiki_matches",
+            "id": 1,
+            "score": 121.75,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "exact_symbol",
+              "exact_file_path",
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "expanded_query:string_evidence",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "multi_concept_coverage",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.07526441,
+              "best_rank": 1,
+              "channel_count": 4,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "symbol_identity_fts",
+                  "rank": 2,
+                  "weight": 1.45,
+                  "score": 0.0233871
+                },
+                {
+                  "channel": "symbol_semantic_fts",
+                  "rank": 2,
+                  "weight": 1.0,
+                  "score": 0.01612903
+                },
+                {
+                  "channel": "string_key_fts",
+                  "rank": 2,
+                  "weight": 1.2,
+                  "score": 0.01935484
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 121.75,
+              "rerank_score": null,
+              "match_reasons": [
+                "exact_symbol",
+                "exact_file_path",
+                "expanded_query:file_path",
+                "expanded_query:symbol",
+                "expanded_query:symbol_summary",
+                "expanded_query:search_terms",
+                "expanded_query:string_evidence",
+                "exact_path_segment",
+                "query_focus_coverage",
+                "multi_concept_coverage",
+                "source_locatable"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "wiki_matches",
+            "id": 2,
+            "score": 111.0,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "exact_symbol",
+              "exact_file_path",
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.0547619,
+              "best_rank": 3,
+              "channel_count": 3,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 3,
+                  "weight": 1.0,
+                  "score": 0.01587302
+                },
+                {
+                  "channel": "symbol_identity_fts",
+                  "rank": 3,
+                  "weight": 1.45,
+                  "score": 0.02301587
+                },
+                {
+                  "channel": "symbol_semantic_fts",
+                  "rank": 3,
+                  "weight": 1.0,
+                  "score": 0.01587302
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 111.0,
+              "rerank_score": null,
+              "match_reasons": [
+                "exact_symbol",
+                "exact_file_path",
+                "expanded_query:file_path",
+                "expanded_query:symbol",
+                "expanded_query:symbol_summary",
+                "expanded_query:search_terms",
+                "exact_path_segment",
+                "query_focus_coverage",
+                "source_locatable"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "wiki_matches",
+            "id": 11,
+            "score": 92.0,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "exact_symbol",
+              "exact_file_path",
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "expanded_query:string_evidence",
+              "exact_path_segment",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.0759651,
+              "best_rank": 1,
+              "channel_count": 4,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 2,
+                  "weight": 1.0,
+                  "score": 0.01612903
+                },
+                {
+                  "channel": "symbol_identity_fts",
+                  "rank": 1,
+                  "weight": 1.45,
+                  "score": 0.02377049
+                },
+                {
+                  "channel": "symbol_semantic_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "string_key_fts",
+                  "rank": 1,
+                  "weight": 1.2,
+                  "score": 0.01967213
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 92.0,
+              "rerank_score": null,
+              "match_reasons": [
+                "exact_symbol",
+                "exact_file_path",
+                "expanded_query:file_path",
+                "expanded_query:symbol",
+                "expanded_query:symbol_summary",
+                "expanded_query:search_terms",
+                "expanded_query:string_evidence",
+                "exact_path_segment",
+                "source_locatable"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "code_log_matches": [],
+        "edge_matches": [
+          {
+            "type": "edge_matches",
+            "id": 11,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 10,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 9,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "incident_trace_matches": []
+      },
+      "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+      "hierarchical_localization": {
+        "schema_version": "agent-hierarchical-localization/v2",
+        "provider": "sqlite_hierarchical_localizer/v2",
+        "mode": "serving",
+        "projection_contract": {
+          "candidate_recall_changed": false,
+          "affects_serving_projection": true,
+          "consumer": "query_handoff.callable_evidence"
+        },
+        "limits": {
+          "files": 8,
+          "file_callable_pool": 128,
+          "direct_callable_pool": 32,
+          "graph_seeds": 6,
+          "graph_owners": 16,
+          "callables": 12,
+          "source_ranges": 8
+        },
+        "stage_counts": {
+          "file_candidates": 3,
+          "file_callable_pool": 3,
+          "graph_seed_count": 3,
+          "graph_owner_pool": 0,
+          "selected_callables": 3,
+          "selected_ranges": 3
+        },
+        "file_candidates": [
+          {
+            "file_path": "AuditPresenter.ts",
+            "score": 121.75,
+            "first_rank": 1,
+            "record_ids": [
+              1
+            ],
+            "direct_symbol_ids": [
+              1
+            ],
+            "match_reasons": [
+              "exact_symbol",
+              "exact_file_path",
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "expanded_query:string_evidence",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "multi_concept_coverage",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "ByteFormatter.ts",
+            "score": 111.0,
+            "first_rank": 2,
+            "record_ids": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "direct_symbol_ids": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "match_reasons": [
+              "exact_symbol",
+              "exact_file_path",
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "StatusPanel.ts",
+            "score": 92.0,
+            "first_rank": 3,
+            "record_ids": [
+              11,
+              3
+            ],
+            "direct_symbol_ids": [
+              11
+            ],
+            "match_reasons": [
+              "exact_symbol",
+              "exact_file_path",
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "expanded_query:string_evidence",
+              "exact_path_segment",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          }
+        ],
+        "graph_seeds": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 1,
+            "file_path": "AuditPresenter.ts",
+            "symbol": "auditDescription",
+            "qualified_name": "auditDescription",
+            "start_line": 1,
+            "end_line": 3,
+            "score": 62.0,
+            "evidence_score": 62.0,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "exact_file_path",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "multi_concept_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "owner_name": "",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 2,
+            "file_path": "ByteFormatter.ts",
+            "symbol": "formatBytes",
+            "qualified_name": "formatBytes",
+            "start_line": 1,
+            "end_line": 13,
+            "score": 66.5,
+            "evidence_score": 66.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "exact_file_path",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 11,
+            "file_path": "StatusPanel.ts",
+            "symbol": "statusDescription",
+            "qualified_name": "statusDescription",
+            "start_line": 1,
+            "end_line": 3,
+            "score": 60.0,
+            "evidence_score": 60.0,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "exact_file_path",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "owner_name": "",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "graph_owner_candidates": [],
+        "callable_candidates": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 2,
+            "file_path": "ByteFormatter.ts",
+            "symbol": "formatBytes",
+            "qualified_name": "formatBytes",
+            "start_line": 1,
+            "end_line": 13,
+            "score": 66.5,
+            "evidence_score": 66.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "exact_file_path",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 1,
+            "file_path": "AuditPresenter.ts",
+            "symbol": "auditDescription",
+            "qualified_name": "auditDescription",
+            "start_line": 1,
+            "end_line": 3,
+            "score": 62.0,
+            "evidence_score": 62.0,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "exact_file_path",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "multi_concept_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "owner_name": "",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 11,
+            "file_path": "StatusPanel.ts",
+            "symbol": "statusDescription",
+            "qualified_name": "statusDescription",
+            "start_line": 1,
+            "end_line": 3,
+            "score": 60.0,
+            "evidence_score": 60.0,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "exact_file_path",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts"
+            ],
+            "owner_name": "",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "source_ranges": [
+          {
+            "symbol_id": 2,
+            "file_path": "ByteFormatter.ts",
+            "symbol": "formatBytes",
+            "callable_start_line": 1,
+            "callable_end_line": 13,
+            "start_line": 1,
+            "end_line": 13,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 1,
+            "file_path": "AuditPresenter.ts",
+            "symbol": "auditDescription",
+            "callable_start_line": 1,
+            "callable_end_line": 3,
+            "start_line": 1,
+            "end_line": 3,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 11,
+            "file_path": "StatusPanel.ts",
+            "symbol": "statusDescription",
+            "callable_start_line": 1,
+            "callable_end_line": 3,
+            "start_line": 1,
+            "end_line": 3,
+            "selection_reason": "callable_symbol_range"
+          }
+        ]
+      },
+      "callable_evidence_set": {
+        "schema_version": "agent-callable-evidence-set/v1",
+        "mode": "shadow",
+        "serving_projection_changed": false,
+        "target_scope": {
+          "kind": "unknown",
+          "basis": [
+            "no_explicit_target_scope"
+          ]
+        },
+        "members": [
+          {
+            "position": 1,
+            "file_path": "ByteFormatter.ts",
+            "symbol": "formatBytes",
+            "owner_kind": "module",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "direct_identity",
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 2,
+            "file_path": "AuditPresenter.ts",
+            "symbol": "auditDescription",
+            "owner_kind": "module",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "direct_identity",
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 3,
+            "file_path": "StatusPanel.ts",
+            "symbol": "statusDescription",
+            "owner_kind": "module",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "direct_identity",
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          }
+        ],
+        "competition": {
+          "member_count": 3,
+          "distinct_file_count": 3,
+          "same_owner_kind_alternative": true,
+          "graph_backed_alternative": false,
+          "excluded_member_count": 0
+        },
+        "calibration": {
+          "state": "unresolved",
+          "basis": [
+            "target_scope_unresolved",
+            "same_owner_kind_competition"
+          ]
+        },
+        "boundary": "retrieval_calibration_not_diagnosis"
+      },
+      "callable_passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    }
+  },
+  "compact": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "f6cc73c8322ad1c5",
+    "query": "Compare formatBytes in ByteFormatter.ts with statusDescription in StatusPanel.ts and auditDescription in AuditPresenter.ts.",
+    "memory_intent": "general_context",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "compare",
+        "formatbytes",
+        "byteformatter",
+        "ts",
+        "statusdescription",
+        "statuspanel",
+        "auditdescription",
+        "auditpresenter"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "file_path": "AuditPresenter.ts",
+          "symbol": "auditDescription",
+          "symbol_type": "function",
+          "record_ids": [
+            1
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "auditDescription",
+              "start_line": 1,
+              "end_line": 3
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 3
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "auditDescription",
+              "start_line": 1,
+              "end_line": 3,
+              "content": "export function auditDescription(): string {\n return \"byte format verification audit details\"\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "ByteFormatter.ts",
+          "symbol": "formatBytes",
+          "symbol_type": "function",
+          "record_ids": [
+            2
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "formatBytes",
+              "start_line": 1,
+              "end_line": 13
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 13
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "formatBytes",
+              "start_line": 1,
+              "end_line": 13,
+              "content": "export function formatBytes(input: number[]): string {\n let output = \"\"\n const slot0 = (input[0] || 0).toString(16).padStart(2, \"0\")\n const slot1 = (input[1] || 0).toString(16).padStart(2, \"0\")\n const slot2 = (input[2] || 0).toString(16).padStart(2, \"0\")\n const slot3 = (input[3] || 0).toString(16).padStart(2, \"0\")\n const slot4 = (input[4] || 0).toString(16).padStart(2, \"0\")\n const slot5 = (input[5] || 0).toString(16).padStart(2, \"0\")\n const slot6 = (input[6] || 0).toString(16).padStart(2, \"0\")\n const slot7 = (input[7] || 0).toString(16).padStart(2, \"0\")\n output = slot0 + slot1 + slot2 + slot3 + slot4 + slot5 + slot6 + slot7\n return output.toUpperCase()\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_window_with_callable_tail",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "StatusPanel.ts",
+          "symbol": "statusDescription",
+          "symbol_type": "function",
+          "record_ids": [
+            11
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "statusDescription",
+              "start_line": 1,
+              "end_line": 3
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 3
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "statusDescription",
+              "start_line": 1,
+              "end_line": 3,
+              "content": "export function statusDescription(): string {\n return \"byte format diagnostic status information\"\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "ByteFormatter.ts",
+          "symbol": "formatBytes",
+          "owner_kind": "module",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "reasons": [
+            "exact_symbol"
+          ],
+          "source_range": {
+            "start_line": 1,
+            "end_line": 13,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "AuditPresenter.ts",
+            "symbol": "auditDescription",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "reasons": [
+              "exact_symbol"
+            ],
+            "source_range": {
+              "start_line": 1,
+              "end_line": 3,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "StatusPanel.ts",
+            "symbol": "statusDescription",
+            "owner_kind": "module",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "reasons": [
+              "exact_symbol"
+            ],
+            "source_range": {
+              "start_line": 1,
+              "end_line": 3,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 3,
+        "excerpt_chars": 856
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_log_anchor"
+    ],
+    "expansion": {
+      "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+      "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+    },
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_log_anchor"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 0,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 1407,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  }
+}
