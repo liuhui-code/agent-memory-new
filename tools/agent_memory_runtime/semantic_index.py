@@ -384,6 +384,9 @@ def resolve_source(key: str, lookup: dict[str, Any]) -> tuple[str, int] | None:
 
 
 def resolve_target(item: SemanticRelation, lookup: dict[str, Any]) -> tuple[str, int] | None:
+    if item.detail.startswith(("aliased typed field call;", "aliased typed field await;")):
+        row = lookup["by_file_qualified"].get((item.target_file_path, item.target_qualified_name))
+        return ("code_symbol", int(row["id"])) if row else None
     row = lookup["by_key"].get(item.target_key or "")
     if not row and item.target_file_path and item.target_qualified_name:
         row = lookup["by_file_qualified"].get((item.target_file_path, item.target_qualified_name))

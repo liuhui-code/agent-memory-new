@@ -1,0 +1,22 @@
+import json,tempfile,subprocess
+from pathlib import Path
+D=Path('docs/evidence/typed-import-alias');p=json.loads((D/'protocol.json').read_text());extra=json.loads((D/'review-negative-protocol.json').read_text());old=Path('/tmp/typed-class-baseline/tools/agent_memory.py');new=Path.cwd()/'tools/agent_memory.py'
+with tempfile.TemporaryDirectory() as d:
+ root=Path(d)/'source';root.mkdir()
+ for f,s in {**p['sources'],**extra['sources']}.items():(root/f).write_text(s)
+ def run(script,*args):
+  r=subprocess.run(['python',str(script),*args,'--project',str(root),'--memory-home',d+'/memory'],capture_output=True,text=True,check=True);return json.loads(r.stdout)if '--json'in args else r.stdout
+ def snap(script):
+  syms=run(script,'list','--type','code-symbol','--limit','300','--json');edges=run(script,'list','--type','memory-edge','--limit','300','--json');byid={s['id']:s for s in syms}
+  typed=sorted([byid[e['source_id']]['qualified_name'],e['relation'],byid[e['target_id']]['file_path'],byid[e['target_id']]['qualified_name']]for e in edges if e['source_type']=='code_symbol'and e['target_type']=='code_symbol'and e['relation']in ['calls','awaits']and e.get('valid_to')is None)
+  return {'symbols':syms,'edges':edges,'typed':typed}
+ run(old,'init');run(old,'learn-path','--path',str(root));out={'before':snap(old),'code_only':snap(new)};run(new,'learn-path','--path',str(root));out['after_merge']=snap(new)
+ assert out['before']['typed']==out['code_only']['typed']
+ expected={n:['Stores.ts',t]for n,t in p['expected_target'].items()};expected.update(extra['expected_target'])
+ for n,t in expected.items():assert [n,'calls',*t]in out['after_merge']['typed']
+ for n,t in extra['expected_await_target'].items():assert[n,'awaits',*t]in out['after_merge']['typed']
+ for n in extra['expected_no_new_alias_binding']:assert not any(e[0]==n for e in out['after_merge']['typed'])
+ def identities(snapshot):return sorted((r['id'],r['file_path'],r['symbol_key'],r['qualified_name'],r['start_line'],r['end_line'],r['source_digest'])for r in snapshot['symbols'])
+ out['identity_comparison']={'before':identities(out['before']),'after':identities(out['after_merge'])}
+ assert {tuple(r[1:])for r in identities(out['before'])}=={tuple(r[1:])for r in identities(out['after_merge'])}
+ (D/'activation.json').write_text(json.dumps(out,indent=2));print([(k,len(out[k]['typed']))for k in ['before','code_only','after_merge']])

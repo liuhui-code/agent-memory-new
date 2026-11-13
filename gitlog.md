@@ -11791,3 +11791,16 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Four new regressions plus necessary related tests: 45 pass, one optional skip.
   Same-byte ordinary merge removes old false relations; install alone does not.
 - Evidence: docs/eval/import-lexical-current. No aggregate or original-pack run.
+
+## 2026-11-13 - Bind supported typed field aliases exactly within their module
+
+- Public named-type aliases lost calls/awaits or fell back to a different class's
+  same-named method. New conservative field alias binding uses original imported
+  type and exact module-qualified target, with no name fallback.
+- Keep verified bare top-level fields/straight-line own bodies only; preserve
+  reviewer explicit-this/generic-function/arrow-scope candidate failures and reject
+  unknown scopes, composite types, duplicate identities and unsupported syntax.
+- Private file/owner cache avoids repeated full-file scans;64 focused tests pass.
+  Same-memory merge5→6 relations adds4 correct/removes3 false; numeric IDs rebuild
+  normally but semantic key/range/digest stay. Original shared group1/3 unchanged.
+- Evidence: docs/evidence/typed-import-alias/README.md and REVIEW-HISTORY.md.

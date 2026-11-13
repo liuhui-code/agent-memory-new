@@ -7,9 +7,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .ecma_typed_import_alias import aliased_field_relations
+from .semantic_ecma_context import ParsedFileContext, build_context
 from .ecma_state_access import state_accesses
 from .ecma_import_lexical import admitted_import_matches
-from .ecma_import_alias import alias_target, alias_bindings
+from .ecma_import_alias import alias_target
 from .ecma_callback_mask import callback_mask_lines
 from .ecma_field_scope import collect_field_types
 from .ecma_braces import block_end
@@ -71,12 +73,6 @@ class ParsedFile:
     mechanisms: list[SemanticMechanism]
     gaps: list[dict[str, str]]
 
-@dataclass(frozen=True)
-class ParsedFileContext:
-    fields_by_owner: dict[str, dict[str, str]]
-    state_names_by_owner: dict[str, tuple[str, ...]]
-    imported_paths: dict[str, str | None]
-    imported_aliases: dict[str, str | None]
 
 def index_ecma_files(
     project: Project,
@@ -300,6 +296,7 @@ def callable_relations(
     body = "\n".join(body_lines)
     fields = context.fields_by_owner.get(block.owner or "", {})
     imported_paths = context.imported_paths
+    result.extend(aliased_field_relations(lines, block, context))
     local_prefix = f"{block.owner}." if block.owner else ""
     mask = code_mask(body)
     local_calls = scan_calls_masked(body, mask, r"\bthis\.([A-Za-z_$][\w$]*)\s*\(")
@@ -328,7 +325,7 @@ def callable_relations(
     for call_line, call in typed_calls:
         field_name, method_name = re.search(r"\b(?:this\.)?([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)", call).groups()
         type_name = fields.get(field_name) or (field_name if field_name in imported_paths else None)
-        if not type_name or field_name == "this":
+        if not type_name or field_name == "this" or (field_name in fields and type_name in context.imported_aliases):
             continue
         result.append(SemanticRelation(
             source_key=block.entity.key, relation="calls", target_name=method_name,
@@ -357,6 +354,8 @@ def callable_relations(
     )
     for field_name, method_name in typed_awaits:
         type_name = fields.get(field_name) or (field_name if field_name in imported_paths else None)
+        if field_name in fields and type_name in context.imported_aliases:
+            continue
         if not type_name:
             gaps.append({
                 "kind": "unresolved_await_target", "file_path": block.entity.file_path,
@@ -369,28 +368,9 @@ def callable_relations(
             line=block.start + 1, confidence=0.9, detail=f"typed awaited call through {field_name}",
         ))
     return result
-def build_file_context(
-    lines: list[str],
-    containers: list[Container],
-    entities: list[SemanticEntity],
-    imports: list[tuple[str, str, str | None]],
-) -> ParsedFileContext:
-    fields_by_owner = {
-        container.name: container_fields(lines, container)
-        for container in containers
-    }
-    state_names: dict[str, list[str]] = {}
-    for entity in entities:
-        if entity.kind != "state" or "." not in entity.qualified_name:
-            continue
-        owner, _separator, _name = entity.qualified_name.partition(".")
-        state_names.setdefault(owner, []).append(entity.name)
-    return ParsedFileContext(
-        fields_by_owner=fields_by_owner,
-        state_names_by_owner={owner: tuple(names) for owner, names in state_names.items()},
-        imported_paths={alias: path for _name, alias, path in imports},
-        imported_aliases=alias_bindings(imports),
-    )
+def build_file_context(lines, containers, entities, imports):
+    return build_context(lines, containers, entities, imports, FIELD_RE)
+
 def parse_imports(project: Project, path: Path, text: str, language: str) -> list[tuple[str, str, str | None]]:
     result: list[tuple[str, str, str | None]] = []
     extensions = [".ets", ".ts", ".js"] if language == "ArkTS" else [".ts", ".tsx", ".js"]

@@ -5,10 +5,18 @@ from .ecma_callback_mask import callback_mask_lines
 
 
 def direct_field_lines(lines, start, end):
-    original = lines[start + 1:end]
+    verified = verified_direct_field_lines(lines, start, end)
+    return lines[start + 1:end] if verified is None else verified
+
+
+def verified_direct_field_lines(lines, start, end):
     masked = callback_mask_lines(lines[start:end + 1])
     if masked is None:
-        return original
+        return None
+    return verified_masked_field_lines(masked)
+
+
+def verified_masked_field_lines(masked):
     stack = []
     result = []
     pairs = {')': '(', ']': '[', '}': '{'}
@@ -20,9 +28,9 @@ def direct_field_lines(lines, start, end):
                 stack.append(char)
             elif char in ')]}':
                 if not stack or stack.pop() != pairs[char]:
-                    return original
+                    return None
     # Unsupported/unbalanced scope falls back as a whole, not an absence claim.
-    return original if stack else result
+    return None if stack else result
 
 
 def collect_field_types(lines, container, field_re):
