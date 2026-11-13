@@ -11602,3 +11602,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   generic/multiple precision reds are retained. Do not weaken multiple-target policy
   or copy file mechanisms into causal/unique-owner proof. No serving changes.
 - Evidence: docs/eval/conditional-consumer-current.
+## 2026-11-14 - Verify remaining commit, gesture and listener evidence layers
+
+- At8d03c8a, each targeted group remains2/3. Correct commit/gesture method bodies
+  are already retained; competing real gesture and wrapped-log evidence remains.
+- Correct listener fixture confirms attach signature/types/range exist. Explicit
+  declaration/member controls work; nested forwarding relation remains weak.
+- Retain wrong-fixture initial trace as excluded, rerun correct group. No serving
+  change, altered oracle or full-gate claim. See docs/evidence/commit-gesture-current.

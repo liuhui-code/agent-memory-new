@@ -1,0 +1,516 @@
+{
+  "Find the callable that accepts ResultListener and invokes onFailure on that parameter.": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "c93148f376770954",
+    "query": "Find the callable that accepts ResultListener and invokes onFailure on that parameter.",
+    "memory_intent": "runtime_log_diagnosis",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "find",
+        "callable",
+        "accepts",
+        "resultlistener",
+        "invokes",
+        "onfailure",
+        "parameter"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "file_path": "src/recovery/NativeResultRecovery.ets",
+          "symbol": "retryFailedResult",
+          "symbol_type": "function",
+          "record_ids": [
+            18
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "retryFailedResult",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "retryFailedResult",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class NativeResultRecovery {\n  retryFailedResult(): void {\n    this.retryQueue.schedule('native result failure callback retry host')\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "source": "callable_evidence",
+          "file_path": "src/adapters/NativeResultBoundary.ets",
+          "symbol": "attach",
+          "symbol_type": "method",
+          "source_ranges": [
+            {
+              "symbol": "attach",
+              "start_line": 7,
+              "end_line": 16,
+              "selection_reason": "bounded_callable_primary"
+            }
+          ],
+          "read_window": {
+            "start_line": 7,
+            "end_line": 16
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "attach",
+              "start_line": 7,
+              "end_line": 16,
+              "content": "  attach(runtime: NativeRuntime, listener: ResultListener): void {\n    runtime.setObserver({\n      onReady: (surfaceId: string) => {\n        listener.onReady(surfaceId)\n      },\n      onFailure: (code: number, message: string) => {\n        listener.onFailure(code, message)\n      }\n    })\n  }",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "uncertain",
+        "primary": {
+          "file_path": "src/adapters/NativeResultBoundary.ets",
+          "symbol": "attach",
+          "typed_contract_match": true,
+          "typed_contract_weak": true,
+          "owner_name": "NativeResultBoundary",
+          "owner_kind": "boundary",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 25.84,
+          "evidence_score": 25.84,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "semantic_mechanism"
+          ],
+          "source_range": {
+            "start_line": 7,
+            "end_line": 16,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/recovery/NativeResultRecovery.ets",
+            "symbol": "retryFailedResult",
+            "owner_name": "NativeResultRecovery",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 26.66,
+            "evidence_score": 26.66,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 2,
+        "excerpt_chars": 437
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "expansion": {
+      "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+      "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+    },
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 0,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 1235,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  "Find the ResultListener interface declaration.": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "c93148f376770954",
+    "query": "Find the ResultListener interface declaration.",
+    "memory_intent": "general_context",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "find",
+        "resultlistener",
+        "interface",
+        "declaration"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "file_path": "src/adapters/NativeResultBoundary.ets",
+          "symbol": "ResultListener",
+          "symbol_type": "interface",
+          "record_ids": [
+            1
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "ResultListener",
+              "start_line": 1,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 2,
+              "end_line": 17,
+              "content": "  onReady(surfaceId: string): void\n  onFailure(code: number, message: string): void\n}\n\nexport class NativeResultBoundary {\n  attach(runtime: NativeRuntime, listener: ResultListener): void {\n    runtime.setObserver({\n      onReady: (surfaceId: string) => {\n        listener.onReady(surfaceId)\n      },\n      onFailure: (code: number, message: string) => {\n        listener.onFailure(code, message)\n      }\n    })\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {},
+      "path_context": {
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 1,
+        "excerpt_chars": 417
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "expansion": {
+      "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+      "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+    },
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 0,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 788,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  },
+  "Locate NativeResultBoundary.attach implementation.": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "c93148f376770954",
+    "query": "Locate NativeResultBoundary.attach implementation.",
+    "memory_intent": "general_context",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "locate",
+        "nativeresultboundary",
+        "attach",
+        "implementation"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "file_path": "src/adapters/NativeResultBoundary.ets",
+          "symbol": "attach",
+          "symbol_type": "function",
+          "record_ids": [
+            3
+          ],
+          "record_type": "code_symbol",
+          "source_ranges": [
+            {
+              "symbol": "attach",
+              "start_line": 7,
+              "end_line": 16
+            }
+          ],
+          "read_window": {
+            "start_line": 7,
+            "end_line": 16
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 16,
+              "content": "export interface ResultListener {\n  onReady(surfaceId: string): void\n  onFailure(code: number, message: string): void\n}\n\nexport class NativeResultBoundary {\n  attach(runtime: NativeRuntime, listener: ResultListener): void {\n    runtime.setObserver({\n      onReady: (surfaceId: string) => {\n        listener.onReady(surfaceId)\n      },\n      onFailure: (code: number, message: string) => {\n        listener.onFailure(code, message)\n      }\n    })\n  }",
+              "source": "current_worktree",
+              "selection_reason": "query_window_with_callable_tail",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/adapters/NativeResultBoundary.ets",
+          "symbol": "attach",
+          "owner_name": "NativeResultBoundary",
+          "owner_kind": "boundary",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 41.0,
+          "evidence_score": 41.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 7,
+            "end_line": 16,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/recovery/NativeResultRecovery.ets",
+            "symbol": "retryFailedResult",
+            "owner_name": "NativeResultRecovery",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 29.33,
+            "evidence_score": 29.33,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      },
+      "path_context": {
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "graph_revision": null,
+        "path_candidates": [],
+        "gaps": {}
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 1,
+        "excerpt_chars": 449
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [
+      "no_log_anchor",
+      "limited_code_anchor_diversity"
+    ],
+    "expansion": {
+      "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+      "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+    },
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [
+        "no_log_anchor",
+        "limited_code_anchor_diversity"
+      ],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 0,
+        "path_candidate_count": 0
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 1059,
+      "target_tokens": 1500,
+      "truncated": false
+    }
+  }
+}
