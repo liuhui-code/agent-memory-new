@@ -1,0 +1,29 @@
+{
+  "base": "66050ad",
+  "classification": "Development independent public symbol identity",
+  "sources": {
+    "StateBoard.ets": "class StateBoard {\n  @State private live: boolean = false\n  note: string = \"@State stringGhost: boolean = true\"\n  // @State lineGhost: boolean = false\n  /* @State blockGhost: boolean = false */\n  template: string = `@State templateGhost: boolean = false`\n  same: string = \"@State live: boolean = false\"\n  read(): boolean { return this.live }\n}\nclass SecondBoard {\n  @State live: boolean = false\n  same: string = '@State live: boolean = false'\n  read(): boolean { return this.live }\n}\n",
+    "UnknownBoard.ets": "class UnknownBoard {\n  @State real: boolean = false\n  interpolated: string = `prefix ${this.real} @State interpolationGhost: boolean = false`\n  pattern = /@State slashGhost/\n  read(): boolean { return this.real }\n}\n"
+  },
+  "expected": {
+    "StateBoard.ets": {
+      "state_names": [
+        "live"
+      ],
+      "qualified": [
+        "StateBoard.live",
+        "SecondBoard.live"
+      ],
+      "forbidden": [
+        "stringGhost",
+        "lineGhost",
+        "blockGhost",
+        "templateGhost"
+      ],
+      "same_name_occurrences": 2
+    },
+    "UnknownBoard.ets": {
+      "status": "unknown lexical boundary, observe only; do not claim repair or alter oracle"
+    }
+  }
+}
