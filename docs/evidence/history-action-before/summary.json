@@ -1,0 +1,253 @@
+{
+  "freeze": "568597d7d01bb87c01eae24a5d3d17a8d81308db",
+  "source_hashes_unchanged": true,
+  "results": [
+    {
+      "id": "historical-action",
+      "stages": {
+        "raw": {
+          "required_range_retained": true,
+          "actual_excerpts": [],
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "ThumbnailLoader.ts",
+            "symbol": "load",
+            "owner_name": "ThumbnailLoader",
+            "owner_kind": "class",
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 36.57,
+            "evidence_score": 36.57,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "path_activated": false
+        },
+        "compact": {
+          "required_range_retained": false,
+          "actual_excerpts": [],
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "ThumbnailLoader.ts",
+            "symbol": "load",
+            "owner_name": "ThumbnailLoader",
+            "owner_kind": "class",
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 36.57,
+            "evidence_score": 36.57,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "path_activated": false
+        }
+      }
+    },
+    {
+      "id": "actual-load",
+      "stages": {
+        "raw": {
+          "required_range_retained": true,
+          "actual_excerpts": [],
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "ThumbnailLoader.ts",
+            "symbol": "load",
+            "owner_name": "ThumbnailLoader",
+            "owner_kind": "class",
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 41.5,
+            "evidence_score": 41.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "path_activated": false
+        },
+        "compact": {
+          "required_range_retained": true,
+          "actual_excerpts": [
+            {
+              "symbol": "load",
+              "start_line": 1,
+              "end_line": 9,
+              "content": "export class ThumbnailLoader {\n  async load(path: string): Promise<void> {\n    try {\n      await fetch(path)\n    } catch (error) {\n      console.error('THUMBNAIL_READ_FAILED: load failed')\n    }\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ],
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "ThumbnailLoader.ts",
+            "symbol": "load",
+            "owner_name": "ThumbnailLoader",
+            "owner_kind": "class",
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 41.5,
+            "evidence_score": 41.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "path_activated": false
+        }
+      }
+    },
+    {
+      "id": "actual-literal",
+      "stages": {
+        "raw": {
+          "required_range_retained": true,
+          "actual_excerpts": [],
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "ThumbnailLoader.ts",
+            "symbol": "load",
+            "owner_name": "ThumbnailLoader",
+            "owner_kind": "class",
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 49.0,
+            "evidence_score": 49.0,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "path_activated": true
+        },
+        "compact": {
+          "required_range_retained": true,
+          "actual_excerpts": [
+            {
+              "symbol": "load",
+              "start_line": 2,
+              "end_line": 8,
+              "content": "  async load(path: string): Promise<void> {\n    try {\n      await fetch(path)\n    } catch (error) {\n      console.error('THUMBNAIL_READ_FAILED: load failed')\n    }\n  }",
+              "source": "current_worktree",
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 6,
+              "truncated": false
+            }
+          ],
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "ThumbnailLoader.ts",
+            "symbol": "load",
+            "owner_name": "ThumbnailLoader",
+            "owner_kind": "class",
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 49.0,
+            "evidence_score": 49.0,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "path_activated": true
+        }
+      }
+    }
+  ],
+  "early_chain": [
+    {
+      "function": "focus_code_candidates",
+      "rows": [
+        {
+          "id": 3,
+          "file_path": "DocumentSession.ts",
+          "symbol": "swapDocument",
+          "start_line": 5,
+          "end_line": 9,
+          "score": 46.75
+        }
+      ]
+    },
+    {
+      "function": "preserve_salient_evidence_candidates",
+      "rows": [
+        {
+          "id": 3,
+          "file_path": "DocumentSession.ts",
+          "symbol": "swapDocument",
+          "start_line": 5,
+          "end_line": 9,
+          "score": 46.75
+        },
+        {
+          "id": 7,
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "start_line": 2,
+          "end_line": 8,
+          "score": 36.5
+        }
+      ]
+    }
+  ]
+}

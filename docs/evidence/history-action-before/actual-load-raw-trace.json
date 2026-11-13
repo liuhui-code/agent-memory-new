@@ -1,0 +1,3888 @@
+[
+  {
+    "function": "focus_code_candidates",
+    "input": {
+      "items": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.10181121,
+            "best_rank": 1,
+            "channel_count": 5,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 76.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "function load in thumbnailloader.ts",
+            "load",
+            "function",
+            "thumbnailloader",
+            "ts",
+            "in",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 6,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "summary": "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:c261cd0679984d62445658fb",
+          "qualified_name": "ThumbnailLoader",
+          "signature": "class ThumbnailLoader",
+          "start_line": 1,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05629297,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 53.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "class thumbnailloader in thumbnailloader.ts; identifier terms: thumbnail loader",
+            "thumbnailloader",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "language": "TypeScript",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07868852,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 42.6,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "typescript",
+            "typescript file with 9 non-empty lines",
+            "thumbnailloader",
+            "ts",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "thumbnail",
+            "loader",
+            "type",
+            "script"
+          ],
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 9
+        }
+      ],
+      "query": "Find the load method that fetches the thumbnail and reports a failure.",
+      "named": [],
+      "callers": [],
+      "contracts": [],
+      "behavior": [],
+      "method": [],
+      "structural": [],
+      "explicit_method": [],
+      "dominant": [],
+      "strong_identity": [],
+      "flow": []
+    },
+    "result": [
+      [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.10181121,
+            "best_rank": 1,
+            "channel_count": 5,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 76.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "function load in thumbnailloader.ts",
+            "load",
+            "function",
+            "thumbnailloader",
+            "ts",
+            "in",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 6,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "summary": "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:c261cd0679984d62445658fb",
+          "qualified_name": "ThumbnailLoader",
+          "signature": "class ThumbnailLoader",
+          "start_line": 1,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05629297,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 53.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "class thumbnailloader in thumbnailloader.ts; identifier terms: thumbnail loader",
+            "thumbnailloader",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "language": "TypeScript",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07868852,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 42.6,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "typescript",
+            "typescript file with 9 non-empty lines",
+            "thumbnailloader",
+            "ts",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "thumbnail",
+            "loader",
+            "type",
+            "script"
+          ],
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 9
+        }
+      ],
+      false
+    ]
+  },
+  {
+    "function": "diverse_code_matches",
+    "input": {
+      "items": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.10181121,
+            "best_rank": 1,
+            "channel_count": 5,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 76.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "function load in thumbnailloader.ts",
+            "load",
+            "function",
+            "thumbnailloader",
+            "ts",
+            "in",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 6,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "summary": "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:c261cd0679984d62445658fb",
+          "qualified_name": "ThumbnailLoader",
+          "signature": "class ThumbnailLoader",
+          "start_line": 1,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05629297,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 53.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "class thumbnailloader in thumbnailloader.ts; identifier terms: thumbnail loader",
+            "thumbnailloader",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "language": "TypeScript",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07868852,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 42.6,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "typescript",
+            "typescript file with 9 non-empty lines",
+            "thumbnailloader",
+            "ts",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "thumbnail",
+            "loader",
+            "type",
+            "script"
+          ],
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 9
+        }
+      ],
+      "limit": 5,
+      "max_per_file": 2,
+      "query": "Find the load method that fetches the thumbnail and reports a failure.",
+      "recalled_items": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.10181121,
+            "best_rank": 1,
+            "channel_count": 5,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 76.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "function load in thumbnailloader.ts",
+            "load",
+            "function",
+            "thumbnailloader",
+            "ts",
+            "in",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 6,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "summary": "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:c261cd0679984d62445658fb",
+          "qualified_name": "ThumbnailLoader",
+          "signature": "class ThumbnailLoader",
+          "start_line": 1,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05629297,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 53.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "class thumbnailloader in thumbnailloader.ts; identifier terms: thumbnail loader",
+            "thumbnailloader",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "language": "TypeScript",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07868852,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 42.6,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "typescript",
+            "typescript file with 9 non-empty lines",
+            "thumbnailloader",
+            "ts",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "thumbnail",
+            "loader",
+            "type",
+            "script"
+          ],
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 9
+        }
+      ],
+      "focused": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.10181121,
+            "best_rank": 1,
+            "channel_count": 5,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 76.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "function load in thumbnailloader.ts",
+            "load",
+            "function",
+            "thumbnailloader",
+            "ts",
+            "in",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 6,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "summary": "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:c261cd0679984d62445658fb",
+          "qualified_name": "ThumbnailLoader",
+          "signature": "class ThumbnailLoader",
+          "start_line": 1,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05629297,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 53.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "class thumbnailloader in thumbnailloader.ts; identifier terms: thumbnail loader",
+            "thumbnailloader",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "language": "TypeScript",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07868852,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 42.6,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "typescript",
+            "typescript file with 9 non-empty lines",
+            "thumbnailloader",
+            "ts",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "thumbnail",
+            "loader",
+            "type",
+            "script"
+          ],
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 9
+        }
+      ],
+      "focused_candidates": false,
+      "item": {
+        "id": 2,
+        "project_id": "50dc649789cc448f",
+        "file_path": "ThumbnailLoader.ts",
+        "summary": "TypeScript file with 9 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T17:06:22+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 42.6,
+        "search_terms": [
+          "thumbnailloader.ts",
+          "typescript",
+          "typescript file with 9 non-empty lines",
+          "thumbnailloader",
+          "ts",
+          "file",
+          "with",
+          "9",
+          "non",
+          "empty",
+          "lines",
+          "thumbnail",
+          "loader",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "file_path",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "ThumbnailLoader",
+        "symbol_type": "class",
+        "start_line": 1,
+        "end_line": 9
+      },
+      "selected": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.10181121,
+            "best_rank": 1,
+            "channel_count": 5,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 76.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "function load in thumbnailloader.ts",
+            "load",
+            "function",
+            "thumbnailloader",
+            "ts",
+            "in",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 6,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "summary": "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:c261cd0679984d62445658fb",
+          "qualified_name": "ThumbnailLoader",
+          "signature": "class ThumbnailLoader",
+          "start_line": 1,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05629297,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 53.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "class thumbnailloader in thumbnailloader.ts; identifier terms: thumbnail loader",
+            "thumbnailloader",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "language": "TypeScript",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07868852,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 42.6,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "typescript",
+            "typescript file with 9 non-empty lines",
+            "thumbnailloader",
+            "ts",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "thumbnail",
+            "loader",
+            "type",
+            "script"
+          ],
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 9
+        }
+      ],
+      "deferred": [
+        {
+          "id": 6,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "summary": "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:c261cd0679984d62445658fb",
+          "qualified_name": "ThumbnailLoader",
+          "signature": "class ThumbnailLoader",
+          "start_line": 1,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05629297,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 53.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "class thumbnailloader in thumbnailloader.ts; identifier terms: thumbnail loader",
+            "thumbnailloader",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "language": "TypeScript",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07868852,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 42.6,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "typescript",
+            "typescript file with 9 non-empty lines",
+            "thumbnailloader",
+            "ts",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "thumbnail",
+            "loader",
+            "type",
+            "script"
+          ],
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 9
+        }
+      ],
+      "file_counts": {
+        "ThumbnailLoader.ts": 1
+      },
+      "selected_terms": [
+        "{'ts', 'loader', 'thumbnailloader', 'load', 'thumbnail'}"
+      ],
+      "direct_scores": [
+        76.0,
+        53.0,
+        42.6
+      ],
+      "seed_score": 76.0,
+      "index": 2,
+      "file_path": "ThumbnailLoader.ts",
+      "reserved_graph_lane": false,
+      "explicit_target": false,
+      "weak_graph_neighbor": false,
+      "distinct": [
+        {
+          "id": 6,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "summary": "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:c261cd0679984d62445658fb",
+          "qualified_name": "ThumbnailLoader",
+          "signature": "class ThumbnailLoader",
+          "start_line": 1,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05629297,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 53.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "class thumbnailloader in thumbnailloader.ts; identifier terms: thumbnail loader",
+            "thumbnailloader",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        }
+      ],
+      "repeated": [
+        {
+          "id": 2,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "language": "TypeScript",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07868852,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 42.6,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "typescript",
+            "typescript file with 9 non-empty lines",
+            "thumbnailloader",
+            "ts",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "thumbnail",
+            "loader",
+            "type",
+            "script"
+          ],
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 9
+        }
+      ],
+      "seen": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.10181121,
+            "best_rank": 1,
+            "channel_count": 5,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 76.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "function load in thumbnailloader.ts",
+            "load",
+            "function",
+            "thumbnailloader",
+            "ts",
+            "in",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 6,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "summary": "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:c261cd0679984d62445658fb",
+          "qualified_name": "ThumbnailLoader",
+          "signature": "class ThumbnailLoader",
+          "start_line": 1,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05629297,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 53.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "class thumbnailloader in thumbnailloader.ts; identifier terms: thumbnail loader",
+            "thumbnailloader",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        }
+      ],
+      "explicit_paths": "set()",
+      "terms": "{'thumbnailloader', 'ts', 'loader', 'thumbnail'}"
+    },
+    "result": [
+      {
+        "id": 7,
+        "project_id": "50dc649789cc448f",
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "symbol_type": "function",
+        "summary": "function load in ThumbnailLoader.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:227ea4051dff0ee44da29287",
+        "qualified_name": "ThumbnailLoader.load",
+        "signature": "async load(path: string):Promise<void>",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+        "evidence_class": "static",
+        "method_evidence": "console error fetch asyncboundary async",
+        "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T17:06:22+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10181121,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 76.0,
+        "search_terms": [
+          "thumbnailloader.ts",
+          "function load in thumbnailloader.ts",
+          "load",
+          "function",
+          "thumbnailloader",
+          "ts",
+          "in",
+          "thumbnail",
+          "loader"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 6,
+        "project_id": "50dc649789cc448f",
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "ThumbnailLoader",
+        "symbol_type": "class",
+        "summary": "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:c261cd0679984d62445658fb",
+        "qualified_name": "ThumbnailLoader",
+        "signature": "class ThumbnailLoader",
+        "start_line": 1,
+        "end_line": 9,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T17:06:22+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05629297,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 53.0,
+        "search_terms": [
+          "thumbnailloader.ts",
+          "class thumbnailloader in thumbnailloader.ts; identifier terms: thumbnail loader",
+          "thumbnailloader",
+          "class",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "thumbnail",
+          "loader"
+        ],
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ]
+      },
+      {
+        "id": 2,
+        "project_id": "50dc649789cc448f",
+        "file_path": "ThumbnailLoader.ts",
+        "summary": "TypeScript file with 9 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T17:06:22+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 42.6,
+        "search_terms": [
+          "thumbnailloader.ts",
+          "typescript",
+          "typescript file with 9 non-empty lines",
+          "thumbnailloader",
+          "ts",
+          "file",
+          "with",
+          "9",
+          "non",
+          "empty",
+          "lines",
+          "thumbnail",
+          "loader",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "file_path",
+          "search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "ThumbnailLoader",
+        "symbol_type": "class",
+        "start_line": 1,
+        "end_line": 9
+      }
+    ]
+  },
+  {
+    "function": "rank_callables",
+    "input": {
+      "items": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "source_rank": 1,
+          "source_count": 1,
+          "preferred_rank": 0,
+          "stratum_rank": 1,
+          "file_pool_rank": 1,
+          "file_rank": 1,
+          "file_structural_coverage": 0,
+          "direct_score": 76.0,
+          "direct_match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "direct_recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "graph_depth": 0,
+          "typed_contract_match": false,
+          "typed_contract_weak": false,
+          "first_stage_rank_prior": 8.0,
+          "owner_kind_match": false,
+          "explicit_owner_identity_match": false,
+          "target_owner_kind_match": false,
+          "localization_score": 41.5,
+          "evidence_score": 41.5,
+          "localization_reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "mechanism_hits": []
+        }
+      ],
+      "query": "Find the load method that fetches the thumbnail and reports a failure.",
+      "use_direct_score": true,
+      "terms": [
+        "find",
+        "load",
+        "method",
+        "fetches",
+        "thumbnail",
+        "reports",
+        "failure",
+        "fetche",
+        "report"
+      ],
+      "expanded_terms": "{'report', 'fetche', 'find', 'load', 'thumbnail', 'failure', 'reports', 'fetches', 'method'}",
+      "contract": null,
+      "scored": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "source_rank": 1,
+          "source_count": 1,
+          "preferred_rank": 0,
+          "stratum_rank": 1,
+          "file_pool_rank": 1,
+          "file_rank": 1,
+          "file_structural_coverage": 0,
+          "direct_score": 76.0,
+          "direct_match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "direct_recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "graph_depth": 0,
+          "typed_contract_match": false,
+          "typed_contract_weak": false,
+          "first_stage_rank_prior": 8.0,
+          "owner_kind_match": false,
+          "explicit_owner_identity_match": false,
+          "target_owner_kind_match": false,
+          "localization_score": 41.5,
+          "evidence_score": 41.5,
+          "localization_reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "mechanism_hits": []
+        }
+      ],
+      "item": {
+        "id": 7,
+        "project_id": "50dc649789cc448f",
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "symbol_type": "function",
+        "summary": "function load in ThumbnailLoader.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:227ea4051dff0ee44da29287",
+        "qualified_name": "ThumbnailLoader.load",
+        "signature": "async load(path: string):Promise<void>",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+        "evidence_class": "static",
+        "method_evidence": "console error fetch asyncboundary async",
+        "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T17:06:22+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 0,
+        "direct_score": 76.0,
+        "direct_match_reasons": [
+          "exact_symbol",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 41.5,
+        "evidence_score": 41.5,
+        "localization_reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ],
+        "mechanism_hits": []
+      },
+      "lexical": 24.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:string_evidence",
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "mechanism_hits": [],
+      "direct_score": 76.0,
+      "score": 41.5,
+      "file_rank": 1,
+      "rank_prior": 8.0,
+      "owner_kind_match": false,
+      "owner_identity_match": false,
+      "certify_source_operation": "<function certify_source_operation at 0x7f6d2c6cdee0>",
+      "role_aware": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "source_rank": 1,
+          "source_count": 1,
+          "preferred_rank": 0,
+          "stratum_rank": 1,
+          "file_pool_rank": 1,
+          "file_rank": 1,
+          "file_structural_coverage": 0,
+          "direct_score": 76.0,
+          "direct_match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "direct_recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "graph_depth": 0,
+          "typed_contract_match": false,
+          "typed_contract_weak": false,
+          "first_stage_rank_prior": 8.0,
+          "owner_kind_match": false,
+          "explicit_owner_identity_match": false,
+          "target_owner_kind_match": false,
+          "localization_score": 41.5,
+          "evidence_score": 41.5,
+          "localization_reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "mechanism_hits": [],
+          "artifact_role": "production",
+          "artifact_family": "thumbnailloader",
+          "artifact_query_intent": "implementation",
+          "artifact_role_affinity": 1
+        }
+      ]
+    },
+    "result": [
+      {
+        "id": 7,
+        "project_id": "50dc649789cc448f",
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "symbol_type": "function",
+        "summary": "function load in ThumbnailLoader.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:227ea4051dff0ee44da29287",
+        "qualified_name": "ThumbnailLoader.load",
+        "signature": "async load(path: string):Promise<void>",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+        "evidence_class": "static",
+        "method_evidence": "console error fetch asyncboundary async",
+        "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T17:06:22+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 0,
+        "direct_score": 76.0,
+        "direct_match_reasons": [
+          "exact_symbol",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 41.5,
+        "evidence_score": 41.5,
+        "localization_reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "thumbnailloader",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      }
+    ]
+  },
+  {
+    "function": "rank_callables",
+    "input": {
+      "items": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "source_rank": 1,
+          "source_count": 1,
+          "preferred_rank": 0,
+          "stratum_rank": 1,
+          "file_pool_rank": 1,
+          "file_rank": 1,
+          "file_structural_coverage": 0,
+          "direct_score": 76.0,
+          "direct_match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "direct_recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "graph_depth": 0,
+          "typed_contract_match": false,
+          "typed_contract_weak": false,
+          "first_stage_rank_prior": 8.0,
+          "owner_kind_match": false,
+          "explicit_owner_identity_match": false,
+          "target_owner_kind_match": false,
+          "localization_score": 41.5,
+          "evidence_score": 41.5,
+          "localization_reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "mechanism_hits": []
+        }
+      ],
+      "query": "Find the load method that fetches the thumbnail and reports a failure.",
+      "use_direct_score": true,
+      "terms": [
+        "find",
+        "load",
+        "method",
+        "fetches",
+        "thumbnail",
+        "reports",
+        "failure",
+        "fetche",
+        "report"
+      ],
+      "expanded_terms": "{'report', 'fetche', 'find', 'load', 'thumbnail', 'failure', 'reports', 'fetches', 'method'}",
+      "contract": null,
+      "scored": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "source_rank": 1,
+          "source_count": 1,
+          "preferred_rank": 0,
+          "stratum_rank": 1,
+          "file_pool_rank": 1,
+          "file_rank": 1,
+          "file_structural_coverage": 0,
+          "direct_score": 76.0,
+          "direct_match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "direct_recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "graph_depth": 0,
+          "typed_contract_match": false,
+          "typed_contract_weak": false,
+          "first_stage_rank_prior": 8.0,
+          "owner_kind_match": false,
+          "explicit_owner_identity_match": false,
+          "target_owner_kind_match": false,
+          "localization_score": 41.5,
+          "evidence_score": 41.5,
+          "localization_reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "mechanism_hits": []
+        }
+      ],
+      "item": {
+        "id": 7,
+        "project_id": "50dc649789cc448f",
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "symbol_type": "function",
+        "summary": "function load in ThumbnailLoader.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:227ea4051dff0ee44da29287",
+        "qualified_name": "ThumbnailLoader.load",
+        "signature": "async load(path: string):Promise<void>",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+        "evidence_class": "static",
+        "method_evidence": "console error fetch asyncboundary async",
+        "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T17:06:22+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 0,
+        "direct_score": 76.0,
+        "direct_match_reasons": [
+          "exact_symbol",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 41.5,
+        "evidence_score": 41.5,
+        "localization_reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ],
+        "mechanism_hits": []
+      },
+      "lexical": 24.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:string_evidence",
+        "first_stage_rank_prior",
+        "source_locatable"
+      ],
+      "mechanism_hits": [],
+      "direct_score": 76.0,
+      "score": 41.5,
+      "file_rank": 1,
+      "rank_prior": 8.0,
+      "owner_kind_match": false,
+      "owner_identity_match": false,
+      "certify_source_operation": "<function certify_source_operation at 0x7f6d2c6cdee0>",
+      "role_aware": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": null,
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "source_rank": 1,
+          "source_count": 1,
+          "preferred_rank": 0,
+          "stratum_rank": 1,
+          "file_pool_rank": 1,
+          "file_rank": 1,
+          "file_structural_coverage": 0,
+          "direct_score": 76.0,
+          "direct_match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "direct_recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "graph_depth": 0,
+          "typed_contract_match": false,
+          "typed_contract_weak": false,
+          "first_stage_rank_prior": 8.0,
+          "owner_kind_match": false,
+          "explicit_owner_identity_match": false,
+          "target_owner_kind_match": false,
+          "localization_score": 41.5,
+          "evidence_score": 41.5,
+          "localization_reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "mechanism_hits": [],
+          "artifact_role": "production",
+          "artifact_family": "thumbnailloader",
+          "artifact_query_intent": "implementation",
+          "artifact_role_affinity": 1
+        }
+      ]
+    },
+    "result": [
+      {
+        "id": 7,
+        "project_id": "50dc649789cc448f",
+        "file_path": "ThumbnailLoader.ts",
+        "symbol": "load",
+        "symbol_type": "function",
+        "summary": "function load in ThumbnailLoader.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": null,
+        "symbol_key": "symbol:227ea4051dff0ee44da29287",
+        "qualified_name": "ThumbnailLoader.load",
+        "signature": "async load(path: string):Promise<void>",
+        "start_line": 2,
+        "end_line": 8,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+        "evidence_class": "static",
+        "method_evidence": "console error fetch asyncboundary async",
+        "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "ThumbnailLoader",
+        "owner_kind": "class",
+        "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T17:06:22+00:00",
+        "source_rank": 1,
+        "source_count": 1,
+        "preferred_rank": 0,
+        "stratum_rank": 1,
+        "file_pool_rank": 1,
+        "file_rank": 1,
+        "file_structural_coverage": 0,
+        "direct_score": 76.0,
+        "direct_match_reasons": [
+          "exact_symbol",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "direct_recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "graph_depth": 0,
+        "typed_contract_match": false,
+        "typed_contract_weak": false,
+        "first_stage_rank_prior": 8.0,
+        "owner_kind_match": false,
+        "explicit_owner_identity_match": false,
+        "target_owner_kind_match": false,
+        "localization_score": 41.5,
+        "evidence_score": 41.5,
+        "localization_reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:string_evidence",
+          "first_stage_rank_prior",
+          "source_locatable",
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "string_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ],
+        "mechanism_hits": [],
+        "artifact_role": "production",
+        "artifact_family": "thumbnailloader",
+        "artifact_query_intent": "implementation",
+        "artifact_role_affinity": 1
+      }
+    ]
+  },
+  {
+    "function": "admitted_log_owners",
+    "input": {
+      "wiki": [
+        {
+          "id": 7,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "load",
+          "symbol_type": "function",
+          "summary": "function load in ThumbnailLoader.ts",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:227ea4051dff0ee44da29287",
+          "qualified_name": "ThumbnailLoader.load",
+          "signature": "async load(path: string):Promise<void>",
+          "start_line": 2,
+          "end_line": 8,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "console error fetch asyncboundary async",
+          "string_evidence": "thumbnail_read_failed: load failed thumbnail read failed",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:console.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":6,\"source_key\":\"symbol:227ea4051dff0ee44da29287\",\"terms\":[\"operation\",\"call\"]}]",
+          "owner_name": "ThumbnailLoader",
+          "owner_kind": "class",
+          "callable_roles": "[\"async\", \"source_operation_checked:v2.1\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.10181121,
+            "best_rank": 1,
+            "channel_count": 5,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 76.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "function load in thumbnailloader.ts",
+            "load",
+            "function",
+            "thumbnailloader",
+            "ts",
+            "in",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 6,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "summary": "class ThumbnailLoader in ThumbnailLoader.ts; identifier terms: thumbnail loader",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:c261cd0679984d62445658fb",
+          "qualified_name": "ThumbnailLoader",
+          "signature": "class ThumbnailLoader",
+          "start_line": 1,
+          "end_line": 9,
+          "semantic_adapter": "typescript-static@1.2",
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "class",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05629297,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 53.0,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "class thumbnailloader in thumbnailloader.ts; identifier terms: thumbnail loader",
+            "thumbnailloader",
+            "class",
+            "ts",
+            "in",
+            "identifier",
+            "terms",
+            "thumbnail",
+            "loader"
+          ],
+          "match_reasons": [
+            "file_path",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 2,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "summary": "TypeScript file with 9 non-empty lines",
+          "language": "TypeScript",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts",
+            "salient_file_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.07868852,
+            "best_rank": 1,
+            "channel_count": 4,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "salient_file_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 42.6,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "typescript",
+            "typescript file with 9 non-empty lines",
+            "thumbnailloader",
+            "ts",
+            "file",
+            "with",
+            "9",
+            "non",
+            "empty",
+            "lines",
+            "thumbnail",
+            "loader",
+            "type",
+            "script"
+          ],
+          "match_reasons": [
+            "file_path",
+            "search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "symbol": "ThumbnailLoader",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 9
+        }
+      ],
+      "logs": [
+        {
+          "id": 1,
+          "project_id": "50dc649789cc448f",
+          "file_path": "ThumbnailLoader.ts",
+          "line": 6,
+          "function": "load",
+          "level": "error",
+          "logger": "console",
+          "message_template": "THUMBNAIL_READ_FAILED: load failed",
+          "raw_statement": "console.error('THUMBNAIL_READ_FAILED: load failed')",
+          "business_summary": null,
+          "business_terms": [],
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": null,
+          "process_hint": null,
+          "neighbor_terms": null,
+          "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T17:06:22+00:00",
+          "start_line": 2,
+          "end_line": 8,
+          "recall_lanes": [
+            "broad_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.01639344,
+            "best_rank": 1,
+            "channel_count": 1,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "kind": "log_statement",
+          "score": 46.4,
+          "search_terms": [
+            "thumbnailloader.ts",
+            "error",
+            "console",
+            "thumbnail_read_failed: load failed",
+            "load",
+            "thumbnailloader",
+            "ts",
+            "thumbnail_read_failed",
+            "failed",
+            "thumbnail",
+            "loader",
+            "read",
+            "log",
+            "logger",
+            "hilog",
+            "debug",
+            "warning",
+            "failure"
+          ],
+          "match_reasons": [
+            "exact_function",
+            "log_message",
+            "log_context",
+            "search_terms",
+            "query_focus_coverage",
+            "multi_concept_coverage"
+          ],
+          "log_signal_score": 0.51,
+          "log_signal_band": "poor",
+          "present_signals": [
+            "level",
+            "logger",
+            "stage",
+            "route_or_resource",
+            "entity_id_or_key",
+            "action_result",
+            "neighbor_context"
+          ],
+          "missing_signals": [
+            "timestamp",
+            "process",
+            "event_type",
+            "business_event",
+            "error_code",
+            "reason",
+            "request_or_session_id"
+          ],
+          "suggested_log_fields": [
+            "timestamp",
+            "process",
+            "event_type",
+            "business_event",
+            "error_code",
+            "reason",
+            "request_id",
+            "session_id"
+          ],
+          "observability_gaps": [
+            "missing_time",
+            "missing_process",
+            "missing_event_name",
+            "missing_reason",
+            "missing_correlation"
+          ]
+        }
+      ],
+      "query": "Find the load method that fetches the thumbnail and reports a failure.",
+      "expected": "set()"
+    },
+    "result": [
+      {
+        "id": 1,
+        "project_id": "50dc649789cc448f",
+        "file_path": "ThumbnailLoader.ts",
+        "line": 6,
+        "function": "load",
+        "level": "error",
+        "logger": "console",
+        "message_template": "THUMBNAIL_READ_FAILED: load failed",
+        "raw_statement": "console.error('THUMBNAIL_READ_FAILED: load failed')",
+        "business_summary": null,
+        "business_terms": [],
+        "business_event": null,
+        "trigger_stage": null,
+        "symptom_terms": null,
+        "process_hint": null,
+        "neighbor_terms": null,
+        "source_digest": "0ea5ea195a3423e8d0c36af26cf2a150822d959e0c5cb1531e26c9c3b0ee3849",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T17:06:22+00:00",
+        "start_line": 2,
+        "end_line": 8,
+        "recall_lanes": [
+          "broad_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.01639344,
+          "best_rank": 1,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "kind": "log_statement",
+        "score": 46.4,
+        "search_terms": [
+          "thumbnailloader.ts",
+          "error",
+          "console",
+          "thumbnail_read_failed: load failed",
+          "load",
+          "thumbnailloader",
+          "ts",
+          "thumbnail_read_failed",
+          "failed",
+          "thumbnail",
+          "loader",
+          "read",
+          "log",
+          "logger",
+          "hilog",
+          "debug",
+          "warning",
+          "failure"
+        ],
+        "match_reasons": [
+          "exact_function",
+          "log_message",
+          "log_context",
+          "search_terms",
+          "query_focus_coverage",
+          "multi_concept_coverage"
+        ],
+        "log_signal_score": 0.51,
+        "log_signal_band": "poor",
+        "present_signals": [
+          "level",
+          "logger",
+          "stage",
+          "route_or_resource",
+          "entity_id_or_key",
+          "action_result",
+          "neighbor_context"
+        ],
+        "missing_signals": [
+          "timestamp",
+          "process",
+          "event_type",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_or_session_id"
+        ],
+        "suggested_log_fields": [
+          "timestamp",
+          "process",
+          "event_type",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_id",
+          "session_id"
+        ],
+        "observability_gaps": [
+          "missing_time",
+          "missing_process",
+          "missing_event_name",
+          "missing_reason",
+          "missing_correlation"
+        ]
+      }
+    ]
+  }
+]

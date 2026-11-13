@@ -11949,3 +11949,13 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   does not authorize filling the reader alternative. No missing private receipt
   or safe contract application established; exact allocation/trim step untraced.
 - Read-only addendum: docs/eval/restore-owner-retention-before/SOURCE-BUDGET-AUDIT.md.
+
+## Independent historical-action attribution before experiment
+
+- Froze two synthetic source files, three query/oracle controls and stop conditions
+  in 568597d before one public raw/compact run; no serving changes or retries.
+- Current document-reset owner is recalled and initially focused, then loses compact
+  source to a historical `load` lexical winner under score-gap boundedness. Actual
+  load and real literal controls retain their bodies. One Development red, two
+  controls pass; no original-case score claim or architecture gate claim.
+- Evidence and review-only contract proposal: docs/evidence/history-action-before.
