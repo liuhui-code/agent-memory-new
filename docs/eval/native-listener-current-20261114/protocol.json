@@ -1,0 +1,14 @@
+{
+ "classification":"independent Development",
+ "sources":{
+ "Relay.ets":"interface DeliverySink {\n  accepted(value: string): void\n  rejected(reason: string): void\n}\nexport class Relay {\n  connect(engine: Engine, target: DeliverySink): void {\n    engine.observe({\n      accepted: (value: string) => { target.accepted(value) },\n      rejected: (reason: string) => { target.rejected(reason) }\n    })\n  }\n}\n",
+ "Recovery.ets":"export class Recovery {\n  retryRejectedDelivery(): void {\n    this.queue.schedule('engine delivery rejected callback retry target observer')\n  }\n}\n"
+ },
+ "queries":[
+ {"query":"Find the callable that binds engine observer callbacks to the DeliverySink rejected contract.","expected":"Relay.ets","body":"engine.observe"},
+ {"query":"Find Relay.connect.","expected":"Relay.ets","body":"engine.observe"},
+ {"query":"Find the callable that accepts DeliverySink.","expected":"Relay.ets","body":"engine.observe"},
+ {"query":"Find Recovery.retryRejectedDelivery.","expected":"Recovery.ets","body":"queue.schedule"},
+ {"query":"Find the string literal 'engine delivery rejected callback retry target observer'.","expected":"Recovery.ets","body":"queue.schedule"}
+ ]
+}

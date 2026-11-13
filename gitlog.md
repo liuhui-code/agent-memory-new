@@ -11449,3 +11449,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   controls. Existing collectionfold is a lexical hint, not value-flow proof.
 - Record missing source/consumer contract; no serving, test or oracle changes.
   Evidence: docs/evidence/shared-record-current/README.md.
+## 2026-11-14 - Trace native listener localization without inventing binding proof
+
+- On e760097 the selected listener group stays2/3. attach and its typed parameter,
+  callbacks/ranges and semantic mechanisms are present; rank pool contains attach.
+  Retry38.0 outranks callback36.0 and attach34.5, compact follows that primary.
+- New frozen DeliverySink/Relay public fixture reproduces generic bind-contract
+  failure with real descriptive retry source; explicit method/parameter/retry/literal
+  controls pass4/4. This is not a dropped producer or source range contract.
+- Existing typed relation contract intentionally does not infer callback dataflow;
+  no weight/scope/unknown/serving/oracle changes justified. Required proof boundaries
+  and evidence saved in docs/eval/native-listener-current-20261114. No full suite.

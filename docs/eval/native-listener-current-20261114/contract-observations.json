@@ -1,0 +1,52 @@
+{
+  "base": "e7600976d0c2ca9a4f9031ad68caa21931fba411",
+  "query": "Find the callable that binds native runtime observer callbacks to the host ResultListener failure contract.",
+  "typed_contract": null,
+  "markers": [],
+  "matched_mechanisms": {
+    "ResultListener": [],
+    "NativeResultBoundary": [],
+    "attach": [
+      {
+        "line": 13,
+        "kind": "callback_binding",
+        "matched_terms": [
+          "callback",
+          "failure"
+        ],
+        "detail": "callback:onFailure"
+      },
+      {
+        "line": 10,
+        "kind": "callback_binding",
+        "matched_terms": [
+          "callback"
+        ],
+        "detail": "callback:onReady"
+      }
+    ],
+    "onReady": [
+      {
+        "line": 10,
+        "kind": "callback_binding",
+        "matched_terms": [
+          "callback"
+        ],
+        "detail": "callback:onReady"
+      }
+    ],
+    "onFailure": [
+      {
+        "line": 13,
+        "kind": "callback_binding",
+        "matched_terms": [
+          "callback",
+          "failure"
+        ],
+        "detail": "callback:onFailure"
+      }
+    ],
+    "NativeResultRecovery": [],
+    "retryFailedResult": []
+  }
+}
