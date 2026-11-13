@@ -1,0 +1,21 @@
+..xFF.
+======================================================================
+FAIL: test_public_sources_and_log_conservation (tests.test_weak_log_owner_admission.WeakLogOwnerAdmissionTests.test_public_sources_and_log_conservation) (suffix='.ets', index=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/async-followup-work/tests/test_weak_log_owner_admission.py", line 32, in test_public_sources_and_log_conservation
+    self.assertFalse({Path(p).stem for p in case['excluded']} & paths)
+AssertionError: {'RetryPanel'} is not false
+
+======================================================================
+FAIL: test_public_sources_and_log_conservation (tests.test_weak_log_owner_admission.WeakLogOwnerAdmissionTests.test_public_sources_and_log_conservation) (suffix='.ts', index=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/async-followup-work/tests/test_weak_log_owner_admission.py", line 32, in test_public_sources_and_log_conservation
+    self.assertFalse({Path(p).stem for p in case['excluded']} & paths)
+AssertionError: {'RetryPanel'} is not false
+
+----------------------------------------------------------------------
+Ran 5 tests in 6.396s
+
+FAILED (failures=2, expected failures=1)
