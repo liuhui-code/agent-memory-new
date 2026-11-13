@@ -20,7 +20,11 @@
     "UnionTypeConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class UnionTypeConsumer {\n store: LocalStore | OtherStore\n collect(): string {\n  return this.store.read()\n }\n}\n",
     "IntersectionTypeConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class IntersectionTypeConsumer {\n store: LocalStore & OtherStore\n collect(): string {\n  return this.store.read()\n }\n}\n",
     "GenericTypeConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class GenericTypeConsumer {\n store: LocalStore<OtherStore>\n collect(): string {\n  return this.store.read()\n }\n}\n",
-    "SuffixReceiverConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class SuffixReceiverConsumer {\n store: LocalStore\n collect(): string {\n  return obj.this.store.read()\n }\n}\n"
+    "SuffixReceiverConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class SuffixReceiverConsumer {\n store: LocalStore\n collect(): string {\n  return obj.this.store.read()\n }\n}\n",
+    "ExplicitThisConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nclass OtherReceiver {\n store: OtherStore\n}\nexport class ExplicitThisConsumer {\n store: LocalStore\n collect(this: OtherReceiver): string {\n  return this.store.read()\n }\n async wait(this: OtherReceiver): Promise<string> {\n  return await this.store.read()\n }\n}\n",
+    "FactoryConsumer.ts": "import { ActualStore as LocalStore } from './Stores'\nexport function make<LocalStore>() {\n class FactoryConsumer {\n  store: LocalStore\n  collect(): string {\n   return this.store.read()\n  }\n }\n return FactoryConsumer\n}\n",
+    "FactoryExpressionConsumer.ts": "import { ActualStore as LocalStore } from './Stores'\nconst make = <LocalStore>() => (\nclass FactoryExpressionConsumer {\n store: LocalStore\n collect(): string {\n  return this.store.read()\n }\n}\n)\n",
+    "BareArrowConsumer.ts": "import { ActualStore as LocalStore } from './Stores'\nconst make = <LocalStore>() => \nclass BareArrowConsumer {\n store: LocalStore\n collect(): string {\n  return this.store.read()\n }\n}\n\n"
   },
   "expected_target": {
     "SecondConsumer.collect": [
@@ -48,7 +52,12 @@
     "UnionTypeConsumer.collect",
     "IntersectionTypeConsumer.collect",
     "GenericTypeConsumer.collect",
-    "SuffixReceiverConsumer.collect"
+    "SuffixReceiverConsumer.collect",
+    "ExplicitThisConsumer.collect",
+    "ExplicitThisConsumer.wait",
+    "FactoryConsumer.collect",
+    "FactoryExpressionConsumer.collect",
+    "BareArrowConsumer.collect"
   ],
   "expected_await_target": {
     "AwaitConsumer.collect": [

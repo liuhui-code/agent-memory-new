@@ -1,0 +1,25 @@
+..FF
+======================================================================
+FAIL: test_public_named_type_alias_has_exact_module_qualified_target (tests.test_typed_import_alias.TypedImportAliasTests.test_public_named_type_alias_has_exact_module_qualified_target) (unknown='FactoryExpressionConsumer.collect')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/typed-import-alias-implementation/tests/test_typed_import_alias.py", line 33, in test_public_named_type_alias_has_exact_module_qualified_target
+    with self.subTest(unknown=name):self.assertEqual(set(),targets(name,'calls'));self.assertEqual(set(),targets(name,'awaits'))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the second set but not the first:
+('Stores.ts', 'ActualStore.read')
+
+======================================================================
+FAIL: test_public_named_type_alias_has_exact_module_qualified_target (tests.test_typed_import_alias.TypedImportAliasTests.test_public_named_type_alias_has_exact_module_qualified_target) (unknown='BareArrowConsumer.collect')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/typed-import-alias-implementation/tests/test_typed_import_alias.py", line 33, in test_public_named_type_alias_has_exact_module_qualified_target
+    with self.subTest(unknown=name):self.assertEqual(set(),targets(name,'calls'));self.assertEqual(set(),targets(name,'awaits'))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the second set but not the first:
+('Stores.ts', 'ActualStore.read')
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.240s
+
+FAILED (failures=2)
