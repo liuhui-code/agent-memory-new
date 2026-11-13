@@ -23,6 +23,7 @@ from .context_source_excerpt import (
 )
 from .index_freshness import compact_freshness_report
 from .query_behavior_concepts import behavior_marker_terms
+from .query_log_admission import compatible_opaque_template
 from .source_exploration import assign_anchor_roles, exploration_contract
 from .context_code_exclusions import project_code_exclusions
 from .text import ENGLISH_QUERY_STOPWORDS
@@ -90,7 +91,9 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
     candidate_logs = prioritized_log_anchors(
         records(handoff.get("log_anchors")), data.get("query"),
     )
-    log_anchors = candidate_logs if path_context["activated"] or has_wrapped_log_anchor(candidate_logs) else []
+    log_anchors = candidate_logs if path_context["activated"] or has_wrapped_log_anchor(candidate_logs) else [
+        item for item in candidate_logs if compatible_opaque_template(item, str(data.get("query") or ""))
+    ]
     path_context = path_context_for_log_anchors(path_context, log_anchors)
     code_candidates = path_scoped_code_anchors(
         records(handoff.get("code_anchors")), path_context, log_anchors, data.get("query"),

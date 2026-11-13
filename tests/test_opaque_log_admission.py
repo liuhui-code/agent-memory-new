@@ -52,10 +52,7 @@ class OpaqueLogAdmissionTests(AgentMemoryTestBase):
                         self.assertEqual(present, bool(anchors), handoff)
             Path('docs/evidence/opaque-rebuild/latest-public.json').write_text(json.dumps(outputs, ensure_ascii=False, indent=2))
 
-    @unittest.expectedFailure
-    def test_known_compact_template_gap(self):
-        # Frozen baseline already loses this template in compact. This repair
-        # governs admission; it does not yet repair compact callable focus.
+    def test_compact_retains_compatible_template_without_bound_event(self):
         with tempfile.TemporaryDirectory() as tmp:
             project = Path(tmp) / 'archive-fixture'
             project.mkdir()
@@ -67,6 +64,7 @@ class OpaqueLogAdmissionTests(AgentMemoryTestBase):
             self.assertTrue(raw['query_handoff']['log_anchors'])
             compact = json.loads(self.run_memory(project, 'context', '--query', query, '--compact', '--json').stdout)
             self.assertTrue(compact['query_handoff']['log_anchors'])
+            self.assertFalse(compact['query_handoff']['path_context']['activated'])
 
 
 class OpaqueTemplateAdmissionTests(AgentMemoryTestBase):

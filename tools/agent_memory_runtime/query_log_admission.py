@@ -48,3 +48,11 @@ def ordered_literals(parts: list[str], text: str) -> bool:
             return False
         cursor = offset + len(part)
     return True
+
+
+def compatible_opaque_template(item: dict[str, Any], query: str) -> bool:
+    """Possible literal/value-gap compatibility, never a proven event binding."""
+    identifiers = {value.casefold() for value in OPAQUE_IDENTIFIER_RE.findall(query)}
+    parts = PLACEHOLDER_RE.split(str(item.get('message_template') or ''))
+    return bool(identifiers and len(parts) > 1 and any(part.strip() for part in parts)
+                and template_contains_identity(parts, query, identifiers))
