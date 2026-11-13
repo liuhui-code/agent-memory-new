@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_existing_public_reproduction_keeps_distinct_method (tests.test_deferred_source_projection.DeferredSourceProjectionTests.test_existing_public_reproduction_keeps_distinct_method)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/output-loop-followup-work/tests/test_deferred_source_projection.py", line 14, in test_existing_public_reproduction_keeps_distinct_method
+    self.assertIn(('PipeCollector.ts','collect'),{(r['file_path'],r['symbol']) for r in actual})
+AssertionError: ('PipeCollector.ts', 'collect') not found in {('SingleRead.ts', 'read'), ('OutputDescription.ts', 'label'), ('PipeCollector.ts', 'label'), ('OutputDescription.ts', 'OutputDescription')}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=1)
