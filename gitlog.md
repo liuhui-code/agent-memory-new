@@ -11216,3 +11216,12 @@ inconsistency is still open. See docs/evidence/owner-integration/RESULT.md.
 - Keep only already-recalled templates passing existing literal/value-gap compatibility, without activating paths or binding runtime values.
 - Prior compact expected failure now passes. Multi-owner, ordered literal, absent/no-gap/invalid ID controls preserved; existing dynamic and abstention six variants pass.
 - This closes an independent positive-control defect, not an old 231 failure. No full run or aggregate claim.
+
+## 2026-11-13 — Restore public fingerprint coverage in new Python files
+
+- Historical path-suffix test header is already present; do not change it.
+- Reproduce unchanged fingerprint assertion failing on eight newer source/test
+  and diagnostic scripts. Add only the standard public fingerprint comment.
+- Verify AST equivalence and preserve all original bytes after the header.
+- Fingerprint, path-suffix and structural query exclusion focused checks: 11 pass.
+  No full gate run. Evidence: docs/evidence/fingerprint-followup/result.md.

@@ -1,0 +1,27 @@
+F
+======================================================================
+FAIL: test_all_project_python_files_include_public_fingerprint (tests.test_agent_memory_part_01.AgentMemoryRuntimePart01Tests.test_all_project_python_files_include_public_fingerprint)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/fingerprint-followup-work/tests/test_agent_memory_part_01.py", line 50, in test_all_project_python_files_include_public_fingerprint
+    self.assertEqual([], missing)
+AssertionError: Lists differ: [] != ['tests/test_structural_query_exclusions.p[434 chars].py']
+
+Second list contains 8 additional elements.
+First extra element 0:
+'tests/test_structural_query_exclusions.py'
+
+- []
++ ['tests/test_structural_query_exclusions.py',
++  'docs/eval/lifecycle-method-evidence-20261113/run.py',
++  'docs/eval/structural-exclusion-contract-20261114/run-positive-graph.py',
++  'docs/eval/salient-source-contract-20261114/run.py',
++  'docs/eval/salient-source-contract-20261114/run-source-proof.py',
++  'docs/eval/salient-source-contract-20261114/run-literal-positive.py',
++  'docs/eval/salient-source-contract-20261114/run-twins-compare.py',
++  'docs/eval/exact-symbol-boundary-20261113/run.py']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.022s
+
+FAILED (failures=1)
