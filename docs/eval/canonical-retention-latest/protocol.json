@@ -1,0 +1,62 @@
+{
+  "base": "3a7aea5",
+  "classification": "Development, unchanged reviewed synthetic fixture",
+  "case": {
+    "id": "context-canonical-source-over-preview-artifact",
+    "task_type": "diagnosis",
+    "review_status": "validated",
+    "task": {
+      "description": "The quota recovery button does not enable retry. Return the maintained source owner, not a generated preview copy."
+    },
+    "query_variants": [
+      {
+        "id": "original",
+        "description": "The quota recovery button does not enable retry. Return the maintained source owner, not a generated preview copy."
+      },
+      {
+        "id": "en-paraphrase",
+        "description": "Locate the canonical quota recovery click handler that enables retry and updates the notice; exclude generated build artifacts."
+      },
+      {
+        "id": "zh-noise",
+        "description": "quota recovery \u914d\u989d\u6062\u590d\u6309\u94ae\u70b9\u51fb\u540e\u6ca1\u6709\u542f\u7528\u91cd\u8bd5\uff0c\u8bf7\u8fd4\u56de\u6b63\u5f0f\u6e90\u7801\u4e2d\u7684\u72b6\u6001\u66f4\u65b0\uff0c\u4e0d\u8981\u8fd4\u56de\u9884\u89c8\u7f13\u5b58\u751f\u6210\u7269\u3002"
+      }
+    ],
+    "source": {
+      "before_revision": "working-tree"
+    },
+    "provenance": {
+      "kind": "reviewed_synthetic_context_fixture"
+    },
+    "oracle": {
+      "expected_files": [
+        "src/pages/QuotaRecoveryPage.ets"
+      ],
+      "forbidden_files": [
+        ".preview/default/cache/src/pages/QuotaRecoveryPage.ets"
+      ],
+      "root_cause_category": "ui_state",
+      "expected_causal_level": "association",
+      "context_requirements": {
+        "required_top_k": 2,
+        "min_anchor_precision": 1.0,
+        "require_source_excerpt": true,
+        "required_source_spans": [
+          {
+            "file_path": "src/pages/QuotaRecoveryPage.ets",
+            "start_line": 6,
+            "end_line": 9
+          }
+        ],
+        "min_source_span_recall": 1.0
+      }
+    }
+  },
+  "variant": {
+    "id": "en-paraphrase",
+    "description": "Locate the canonical quota recovery click handler that enables retry and updates the notice; exclude generated build artifacts."
+  },
+  "pack_sha256": "8af1074414c3db63e164145ad8b9a1fcaf8dee69120ebe4d22876a15d8bb801e",
+  "run": "Only this remaining variant raw+compact once; init/learn materialized existing source; trace existing selection returns. No candidate, query/source/oracle edits or full suite.",
+  "stop": "Report first supplement/loss and current policy; no new variants or production edits."
+}
