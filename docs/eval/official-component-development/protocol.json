@@ -1,0 +1,31 @@
+{
+  "classification": "Development official documentation-derived static source only; not holdout",
+  "runtime_base": "9dcd4f3",
+  "query": "Locate both the to-do list's item-component wiring and the child code that styles completed task names.",
+  "required_files": [
+    "views/TodoListComponent.ets",
+    "views/ThingComponent.ets"
+  ],
+  "required_spans": [
+    {
+      "file_path": "views/TodoListComponent.ets",
+      "start_line": 12,
+      "end_line": 19
+    },
+    {
+      "file_path": "views/ThingComponent.ets",
+      "start_line": 29,
+      "end_line": 31
+    }
+  ],
+  "query_limit": "One fixed query; raw and compact once each. No variant, rename, score tweak, repeated oracle optimization. Stop if green or forward<=existing branch not covered.",
+  "confounds": "both explicitly requests two roles; it may invoke existing multiple-target protection. Green alone does not establish original general-query branch coverage. ObjectLink and template text may invoke conservative legacy lexical fallback.",
+  "source_hashes": {
+    "model/ThingModel.ets": "8df49bdc9d5f374d7590c209ac155ea5e8cca90f118b5a389a78aa9297bca2aa",
+    "model/TodoListModel.ets": "208635a96d16e38966799dc787741eecd791968a81b2621ae8fb614d0ec34d02",
+    "viewmodel/ThingViewModel.ets": "9de310fd1bbb3addc4631fc4955cbaaf26b9275bbaedc2c42c3e36beed2fd239",
+    "viewmodel/TodoListViewModel.ets": "6e6a8719b3c847e71593e97e98222926388fa08bc616bd47c692a7d632403dfb",
+    "views/ThingComponent.ets": "621f99533ee552b8a5874eadb5885e72799b1f6b1d7c4c83b2a3b81ea9d9b4c7",
+    "views/TodoListComponent.ets": "72efbd5130873054ace5fce5017f156526b8d3aa54b6147472d2a05da5746999"
+  }
+}

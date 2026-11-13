@@ -1,0 +1,46 @@
+{
+  "upstream": "openharmony/docs",
+  "revision": "f41b9345badd47c7ab0c263344cd7f4b5a549afb",
+  "document": "en/application-dev/ui/state-management/arkts-mvvm.md",
+  "document_blob": "7b4cfa80997fa337480ecd137cbe0146799a3fbb",
+  "license_blob": "2f244ac814036ecd9ba9f69782e89ce6b1dca9eb",
+  "adaptations": "Code fence delimiters excluded. Body lines and indentation kept verbatim. Named .ets snippets materialized in documented views/viewmodel/model layout. No identifier/comment changes. No media/resources copied.",
+  "files": [
+    {
+      "path": "views/TodoListComponent.ets",
+      "marker": "to_do_list_component_view",
+      "document_start_line": 867,
+      "document_end_line": 890
+    },
+    {
+      "path": "views/ThingComponent.ets",
+      "marker": "thing_component_view",
+      "document_start_line": 793,
+      "document_end_line": 837
+    },
+    {
+      "path": "viewmodel/ThingViewModel.ets",
+      "marker": "thing_view_model",
+      "document_start_line": 898,
+      "document_end_line": 919
+    },
+    {
+      "path": "viewmodel/TodoListViewModel.ets",
+      "marker": "to_do_list_view_model",
+      "document_start_line": 928,
+      "document_end_line": 957
+    },
+    {
+      "path": "model/ThingModel.ets",
+      "marker": "thing_model_class",
+      "document_start_line": 665,
+      "document_end_line": 668
+    },
+    {
+      "path": "model/TodoListModel.ets",
+      "marker": "to_do_list_model_class",
+      "document_start_line": 676,
+      "document_end_line": 702
+    }
+  ]
+}
