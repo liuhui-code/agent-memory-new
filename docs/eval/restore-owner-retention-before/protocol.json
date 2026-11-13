@@ -1,0 +1,102 @@
+{
+  "classification": "development",
+  "base": "ed3fd70",
+  "lineage": "New synthetic static recipe-catalog example authored before execution. Not copied from original benchmark; no execution/causal proof. Relation and wrapper expectations follow these source statements, not path proximity.",
+  "sources": {
+    "CatalogRestorer.ets": "import { preferences } from '@kit.ArkData';\nimport { CatalogRepository } from './CatalogRepository';\n\nexport class CatalogRestorer {\n  private repository: CatalogRepository = new CatalogRepository();\n  onCreate(): void {\n    const storage = preferences.getPreferencesSync(this.context, { name: 'RecipeCatalog' });\n    const recipes = JSON.parse(storage.getSync('recipes', '[]') as string);\n    this.repository.replace(recipes);\n  }\n}\n",
+    "CatalogRepository.ets": "import hilog from '@ohos.hilog';\n\nexport class CatalogRepository {\n  private recipes: string[] = [];\n  replace(recipes: string[]): void {\n    this.recipes = recipes;\n  }\n  load(): void {\n    hilog.error(0x1000, 'CatalogRepository', 'recipe catalog load failed');\n  }\n}\n",
+    "CatalogWarmup.ets": "import { CatalogRepository } from './CatalogRepository';\n\nexport class CatalogWarmup {\n  private repository: CatalogRepository = new CatalogRepository();\n  onCreate(): void {\n    this.repository.load();\n  }\n}\n",
+    "CatalogPanel.ets": "import { CatalogRepository } from './CatalogRepository';\n\n@Entry\n@Component\nstruct CatalogPanel {\n  private repository: CatalogRepository = new CatalogRepository();\n  aboutToAppear(): void {\n    this.repository.load();\n  }\n  build() {}\n}\n",
+    "DeferredReader.ets": "import { preferences } from '@kit.ArkData';\n\nexport class DeferredReader {\n  schedule(context: Context): void {\n    queueMicrotask(() => {\n      const storage = preferences.getPreferencesSync(context, { name: 'RecipeCatalog' });\n      const recipes = JSON.parse(storage.getSync('recipes', '[]') as string);\n      consume(recipes);\n    });\n  }\n}\n"
+  },
+  "sha256": {
+    "CatalogRestorer.ets": "5f64e21dcde5d552aef421f2ce312d3c5c79cfa517625cdbfb40e08fc90372d2",
+    "CatalogRepository.ets": "77d53304576125db65da614ef8dfb2f966b5a5a7cb2e2ab0f64fe282e35457ce",
+    "CatalogWarmup.ets": "0cd82cb1ff53cc1473372cf59e6868296aae5dbd145a5dfb9e6f999048b281af",
+    "CatalogPanel.ets": "6289c4eae528031714a15cf33055e893a047045e33a9a69f7da51c9304747631",
+    "DeferredReader.ets": "4e7d90fb050db7038a7a818e9dfa96a66aff69075d716e151fc767f594735aec"
+  },
+  "queries": [
+    {
+      "id": "reader",
+      "query": "Locate the startup implementation that reads the saved recipe catalog and rebuilds its repository.",
+      "required": [
+        "CatalogRestorer.ets"
+      ],
+      "excluded": [
+        "CatalogPanel.ets",
+        "CatalogWarmup.ets"
+      ],
+      "spans": {
+        "CatalogRestorer.ets": [
+          6,
+          9
+        ]
+      }
+    },
+    {
+      "id": "real-log",
+      "query": "Locate the code emitting the log \"recipe catalog load failed\".",
+      "required": [
+        "CatalogRepository.ets"
+      ],
+      "excluded": [],
+      "spans": {
+        "CatalogRepository.ets": [
+          9,
+          9
+        ]
+      }
+    },
+    {
+      "id": "explicit-wrapper",
+      "query": "Locate CatalogPanel.aboutToAppear, the caller of the catalog load operation.",
+      "required": [
+        "CatalogPanel.ets"
+      ],
+      "excluded": [],
+      "spans": {
+        "CatalogPanel.ets": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "id": "two-targets",
+      "query": "Show both CatalogRestorer.onCreate and CatalogPanel.aboutToAppear implementations.",
+      "required": [
+        "CatalogRestorer.ets",
+        "CatalogPanel.ets"
+      ],
+      "excluded": [],
+      "spans": {
+        "CatalogRestorer.ets": [
+          6,
+          9
+        ],
+        "CatalogPanel.ets": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "id": "unknown-reader",
+      "query": "Locate DeferredReader.schedule and its deferred preference read.",
+      "required": [
+        "DeferredReader.ets"
+      ],
+      "excluded": [],
+      "spans": {
+        "DeferredReader.ets": [
+          5,
+          9
+        ]
+      }
+    }
+  ],
+  "oracle_limit": "reader targets the read/rebuild method; warmup and panel only invoke logging load and do not read or rebuild. Exclusion is limited to this implementation task, not all diagnostic relevance. Controls allow additional evidence unless explicitly excluded. Source span coverage must be reported separately from identity pass.",
+  "branch_requirement": "reader must have bounded correct callable primary plus a true import graph anchor and a separate wrapped_log_caller before focus_callable_anchors; return must retain the wrapper due to graph-neighbor early guard. A red elsewhere does not match.",
+  "stop": "Run these five frozen queries once raw/compact. If reader is green or does not cover exact graph guard, stop; no variants, source tuning or production changes. Any matching red is proposal-only pending contract review."
+}
