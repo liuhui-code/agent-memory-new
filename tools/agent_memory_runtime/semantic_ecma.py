@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .ecma_state_access import state_accesses
 from .ecma_braces import block_end
 from .ecma_callable_body import callable_block_end
 from .ecma_callable_headers import method_header, top_level_callable_header
@@ -325,14 +326,10 @@ def callable_relations(
             detail=f"typed field call through {field_name}; arity={call_argument_count(call)}",
         ))
     if block.owner:
-        for name in context.state_names_by_owner.get(block.owner, ()):
+        for name, kind, confidence, detail in state_accesses(body, context.state_names_by_owner.get(block.owner, ())):
             target = by_qualified.get(local_prefix + name)
-            if not target:
-                continue
-            if re.search(rf"\bthis\.{re.escape(name)}\s*(?:=|\+=|-=|\+\+|--)", body):
-                result.append(relation(block.entity.key, "writes_state", target.key, block.start + 1, 0.95, "state assignment"))
-            if re.search(rf"\bthis\.{re.escape(name)}\b(?!\s*(?:=|\+=|-=|\+\+|--))", body):
-                result.append(relation(block.entity.key, "reads_state", target.key, block.start + 1, 0.9, "state read"))
+            if target:
+                result.append(relation(block.entity.key, kind, target.key, block.start + 1, confidence, detail))
     callbacks = set(re.findall(r"\.(?:onClick|onChange|onSubmit|onTouch)\s*\([^)]*\bthis\.([A-Za-z_$][\w$]*)", body))
     for name in callbacks:
         target = by_qualified.get(local_prefix + name)

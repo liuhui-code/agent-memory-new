@@ -11700,3 +11700,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - No serving change: missing task-word attribution contract is not replaced by
   score tuning, absent-source claims or source-operation authority expansion.
   Evidence: docs/evidence/scroll-structure-current/README.md.
+## 2026-11-13 - Filter verified noncode from state relation extraction
+
+- Independent public learn/list demonstrates six false state edges from three
+  text-only methods; strict existing lexical mask removes them without changing
+  qualified owner binding or edge metadata. Unknown syntax preserves legacy.
+-47 focused tests pass. Same-index merge13→7 edges, while code-only leaves13.
+  Original comparison group2/3 unchanged. No cause/order or nested-scope claim.
+- Evidence: docs/evidence/state-edge-lexical/README.md.
