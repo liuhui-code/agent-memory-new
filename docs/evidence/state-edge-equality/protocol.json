@@ -1,0 +1,15 @@
+{
+  "classification": "independent Development operator-boundary freeze before production change",
+  "source": "@Component\nstruct EqualityBoard {\n @State count: number = 0\n loose(): boolean {\n  return this.count == 2\n }\n strict(): boolean {\n  return this.count === 2\n }\n assign(): void {\n  this.count = 2\n }\n add(): void {\n  this.count += 2\n }\n subtract(): void {\n  this.count -= 2\n }\n increment(): void {\n  this.count++\n }\n decrement(): void {\n  this.count--\n }\n}\n",
+  "read_only": [
+    "EqualityBoard.loose",
+    "EqualityBoard.strict"
+  ],
+  "write_only": [
+    "EqualityBoard.assign",
+    "EqualityBoard.add",
+    "EqualityBoard.subtract",
+    "EqualityBoard.increment",
+    "EqualityBoard.decrement"
+  ]
+}

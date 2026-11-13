@@ -1,0 +1,29 @@
+FF
+======================================================================
+FAIL: test_public_equality_is_read_not_assignment (tests.test_state_edge_equality.StateEqualityTests.test_public_equality_is_read_not_assignment) (name='EqualityBoard.loose')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/state-edge-lexical-current/tests/test_state_edge_equality.py", line 17, in test_public_equality_is_read_not_assignment
+    with self.subTest(name=name):self.assertEqual({(name,'reads_state','EqualityBoard.count')},{e for e in actual if e[0]==name})
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the first set but not the second:
+('EqualityBoard.loose', 'reads_state', 'EqualityBoard.count')
+Items in the second set but not the first:
+('EqualityBoard.loose', 'writes_state', 'EqualityBoard.count')
+
+======================================================================
+FAIL: test_public_equality_is_read_not_assignment (tests.test_state_edge_equality.StateEqualityTests.test_public_equality_is_read_not_assignment) (name='EqualityBoard.strict')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/state-edge-lexical-current/tests/test_state_edge_equality.py", line 17, in test_public_equality_is_read_not_assignment
+    with self.subTest(name=name):self.assertEqual({(name,'reads_state','EqualityBoard.count')},{e for e in actual if e[0]==name})
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Items in the first set but not the second:
+('EqualityBoard.strict', 'reads_state', 'EqualityBoard.count')
+Items in the second set but not the first:
+('EqualityBoard.strict', 'writes_state', 'EqualityBoard.count')
+
+----------------------------------------------------------------------
+Ran 1 test in 0.947s
+
+FAILED (failures=2)
