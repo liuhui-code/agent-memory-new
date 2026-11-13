@@ -12108,3 +12108,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - No matching independent identity-violation red or safe relaxed recovery found.
   No queries, production edits or original-result changes.
 - Evidence: docs/eval/webview-range-contract-audit/README.md.
+
+## 2026-11-13 — Observe fixed graph promotion score boundary internally
+
+- Freeze typed endpoint/edge inputs, vary only neighbor score10/60/90, and run
+  existing promotion/resolution-item/boost helpers once. Higher90 suppresses
+  proposal and graph reasons while the supplied edge remains unchanged.
+- No current code/test promise of score-independent exhaustive graph provenance
+  established. Existing reasons carry retention/selection authority, so adding
+  them is not neutral metadata repair. Internal check is not independent public red.
+- No production edits, query/noise variants, original rerun or repair claim.
+- Evidence: docs/eval/graph-provenance-boundary/README.md.
