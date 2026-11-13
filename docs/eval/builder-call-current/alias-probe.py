@@ -29,7 +29,7 @@ struct DirectView {
 }
 '''}
 p={'classification':'independent Development frozen imported-builder alias identity','sources':sources,'required_calls':[['AliasView.build','paintLine'],['AliasView.build','AliasView.formatLabel'],['DirectView.build','paintLine'],['DirectView.build','DirectView.formatLabel']],'forbidden_call':['AliasView.build','renderLine'],'query':'Find callers of paintLine in RowBuilders.ets.'}
-(D/'alias-protocol.json').write_text(json.dumps(p,indent=2))
+assert p == json.loads((D/'alias-protocol.json').read_text())
 b=AgentMemoryTestBase()
 with tempfile.TemporaryDirectory() as d:
  root=Path(d)
@@ -40,5 +40,5 @@ with tempfile.TemporaryDirectory() as d:
  raw=json.loads(b.run_memory(root,'context','--query',p['query'],'--json').stdout)
  byid={s['id']:s for s in symbols}
  calls=[{'source':byid[e['source_id']]['qualified_name'],'target':byid[e['target_id']]['qualified_name'],'edge':e} for e in edges if e['relation']=='calls' and e['source_type']=='code_symbol' and e['target_type']=='code_symbol']
- (D/'alias-before.json').write_text(json.dumps(dict(symbols=symbols,edges=edges,calls=calls,raw=raw),indent=2))
+ (D/sys.argv[1]).write_text(json.dumps(dict(symbols=symbols,edges=edges,calls=calls,raw=raw),indent=2))
  print([(e['source'],e['target']) for e in calls])

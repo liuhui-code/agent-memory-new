@@ -389,6 +389,8 @@ def resolve_target(item: SemanticRelation, lookup: dict[str, Any]) -> tuple[str,
         row = lookup["by_file_qualified"].get((item.target_file_path, item.target_qualified_name))
     if not row and item.target_file_path and item.target_name:
         row = lookup["by_file_name"].get((item.target_file_path, item.target_name))
+    if not row and item.target_file_path and item.detail.startswith("aliased imported module call;"):
+        return None
     if not row and item.target_qualified_name:
         row = lookup["by_qualified"].get(item.target_qualified_name)
     if not row and item.target_name:

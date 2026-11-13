@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from .ecma_state_access import state_accesses
+from .ecma_import_alias import alias_target, alias_bindings
 from .ecma_callback_mask import callback_mask_lines
 from .ecma_field_scope import direct_field_lines
 from .ecma_braces import block_end
@@ -74,6 +75,7 @@ class ParsedFileContext:
     fields_by_owner: dict[str, dict[str, str]]
     state_names_by_owner: dict[str, tuple[str, ...]]
     imported_paths: dict[str, str | None]
+    imported_aliases: dict[str, str | None]
 
 def index_ecma_files(
     project: Project,
@@ -101,7 +103,6 @@ def bounded_gaps(gaps: list[dict[str, str]]) -> list[dict[str, str]]:
 
 def parse_file(project: Project, path: Path, language: str, state_annotations: bool) -> ParsedFile:
     return parse_source(project, path, read_source_bytes(path), language, state_annotations)
-
 def parse_source(
     project: Project,
     path: Path,
@@ -188,7 +189,6 @@ def parse_containers(lines: list[str], language: str, file_path: str) -> list[Co
             spec.exported, None, [], entity))
     result.sort(key=lambda item: item.start)
     return result
-
 def parse_container_members(
     lines: list[str],
     language: str,
@@ -227,7 +227,6 @@ def parse_container_members(
                 states.append(make_entity(language, file_path, name, "state", qualified, name, index + 1, index + 1, False))
         index += 1
     return methods, states
-
 def parse_top_level_functions(
     lines: list[str],
     language: str,
@@ -259,7 +258,6 @@ def parse_top_level_functions(
         result.append(CallableBlock(None, index, end, entity))
         index = end + 1
     return result
-
 def inheritance_relations(container: Container, methods: list[CallableBlock]) -> list[SemanticRelation]:
     result: list[SemanticRelation] = []
     if container.extends:
@@ -283,7 +281,6 @@ def inheritance_relations(container: Container, methods: list[CallableBlock]) ->
                     line=method.start + 1, confidence=0.9, detail="explicit override",
                 ))
     return result
-
 def callable_relations(
     lines: list[str],
     block: CallableBlock,
@@ -314,11 +311,17 @@ def callable_relations(
     for call_line, call in imported_calls:
         name = re.search(r"\b([A-Za-z_$][\w$]*)", call).group(1)
         target_path = imported_paths.get(name)
+        target_name = name
+        aliased = name in context.imported_aliases
+        if aliased:
+            target_name = alias_target(name, context.imported_aliases[name], body, block.entity.signature, by_name)
+            if not target_name:
+                continue
         if target_path:
             result.append(SemanticRelation(
-                source_key=block.entity.key, relation="calls", target_name=name,
+                source_key=block.entity.key, relation="calls", target_name=target_name,
                 target_file_path=target_path, line=block.start + call_line,
-                confidence=0.9, detail=f"imported module call; arity={call_argument_count(call)}",
+                confidence=0.9, detail=f"{'aliased ' if aliased else ''}imported module call; arity={call_argument_count(call)}",
             ))
     typed_calls = scan_calls_masked(body, mask, r"\b(?:this\.)?([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\s*\(")
     for call_line, call in typed_calls:
@@ -365,7 +368,6 @@ def callable_relations(
             line=block.start + 1, confidence=0.9, detail=f"typed awaited call through {field_name}",
         ))
     return result
-
 def build_file_context(
     lines: list[str],
     containers: list[Container],
@@ -386,8 +388,8 @@ def build_file_context(
         fields_by_owner=fields_by_owner,
         state_names_by_owner={owner: tuple(names) for owner, names in state_names.items()},
         imported_paths={alias: path for _name, alias, path in imports},
+        imported_aliases=alias_bindings(imports),
     )
-
 def parse_imports(project: Project, path: Path, text: str, language: str) -> list[tuple[str, str, str | None]]:
     result: list[tuple[str, str, str | None]] = []
     extensions = [".ets", ".ts", ".js"] if language == "ArkTS" else [".ts", ".tsx", ".js"]

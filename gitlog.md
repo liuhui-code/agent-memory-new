@@ -11758,3 +11758,16 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 -52 focused tests pass; ordinary merge repairs both wrong targets, real owners stay
   unchanged. Original shared-record group1/3 unchanged; no precision-gain claim.
 - Evidence: docs/evidence/shared-field-owner/README.md.
+
+## 2026-11-14 — Bind direct named import aliases to the original module symbol
+
+- Independent public Builder-call fixture exposed a real wrong callee: local alias
+  renderLine linked the module's unrelated renderLine instead of imported paintLine.
+  Preserve original import tuple identity and forbid cross-module fallback for
+  unresolved aliased calls. Do not create new owner/role authority or alter ranking.
+- New alias binding deliberately abstains on any local declaration, nested/unknown
+  scope, shadow or member access; multiline declaration review counterexamples
+  are retained. Default/namespace capabilities are not expanded.
+- Existing archives require ordinary merge learn-path; installation alone retains
+  old edges. Original Builder acceptance remains2/3, not counted as a repaired
+  historical failure. Evidence: docs/eval/builder-call-current.

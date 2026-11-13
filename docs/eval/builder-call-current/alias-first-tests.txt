@@ -1,0 +1,19 @@
+test_missing_remote_never_binds_other_module (tests.test_named_import_alias_identity.NamedImportAliasTests.test_missing_remote_never_binds_other_module) ... ok
+test_public_alias_binds_original_and_preserves_nested_local_calls (tests.test_named_import_alias_identity.NamedImportAliasTests.test_public_alias_binds_original_and_preserves_nested_local_calls) ... ok
+test_two_modules_same_original_name_keep_exact_destinations (tests.test_named_import_alias_identity.NamedImportAliasTests.test_two_modules_same_original_name_keep_exact_destinations) ... FAIL
+test_unknown_and_shadow_not_certified (tests.test_named_import_alias_identity.NamedImportAliasTests.test_unknown_and_shadow_not_certified) ... ok
+
+======================================================================
+FAIL: test_two_modules_same_original_name_keep_exact_destinations (tests.test_named_import_alias_identity.NamedImportAliasTests.test_two_modules_same_original_name_keep_exact_destinations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/builder-call-current/tests/test_named_import_alias_identity.py", line 28, in test_two_modules_same_original_name_keep_exact_destinations
+    self.assertEqual({('run','One.ts','paintLine'),('run','Two.ts','paintLine')},actual)
+AssertionError: Items in the first set but not the second:
+('run', 'Two.ts', 'paintLine')
+('run', 'One.ts', 'paintLine')
+
+----------------------------------------------------------------------
+Ran 4 tests in 3.252s
+
+FAILED (failures=1)
