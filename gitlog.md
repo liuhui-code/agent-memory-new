@@ -11209,3 +11209,10 @@ inconsistency is still open. See docs/evidence/owner-integration/RESULT.md.
 - Gate only log-to-code promotion when current method evidence completely covers requested behavior; retain all log/path evidence and independent/strong/explicit/multi-target/unknown-owner controls.
 - Original async-navigation improves 2/3 to 3/3. Independent TS/ETS controls preserve full target bodies and exact log/path outputs.
 - 42 related tests: 40 pass, 2 documented existing expected failures. No full/aggregate run.
+
+## 2026-11-13 — Preserve compatible opaque template evidence in compact
+
+- Base 6fa506c; independent raw-positive template logs were dropped because compact required activated path/wrapped evidence.
+- Keep only already-recalled templates passing existing literal/value-gap compatibility, without activating paths or binding runtime values.
+- Prior compact expected failure now passes. Multi-owner, ordered literal, absent/no-gap/invalid ID controls preserved; existing dynamic and abstention six variants pass.
+- This closes an independent positive-control defect, not an old 231 failure. No full run or aggregate claim.
