@@ -15,7 +15,12 @@
     "PoisonConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class PoisonConsumer {\n note = `${value}`\n store: OtherStore\n helper(): void {\n  const settings: {\n   store: LocalStore\n  } = value\n }\n collect(): string {\n  return this.store.read()\n }\n}\n",
     "FakeAwaitConsumer.ts": "import { ActualStore as LocalStore } from './Stores'\nexport class FakeAwaitConsumer {\n store: LocalStore\n collect(): string {\n  return \"await this.store.read()\"\n }\n}\n",
     "MissingAwaitConsumer.ts": "import { ActualStore as LocalStore } from './MissingStores'\nexport class MissingAwaitConsumer {\n store: LocalStore\n async collect(): Promise<string> {\n  return await this.store.read()\n }\n}\n",
-    "UnavailableConsumer.ts": "import { ActualStore as LocalStore } from './Unavailable'\nexport class UnavailableConsumer {\n store: LocalStore\n collect(): string {\n  return this.store.read()\n }\n}\n"
+    "UnavailableConsumer.ts": "import { ActualStore as LocalStore } from './Unavailable'\nexport class UnavailableConsumer {\n store: LocalStore\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "QualifiedTypeConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class QualifiedTypeConsumer {\n store: LocalStore.Nested\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "UnionTypeConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class UnionTypeConsumer {\n store: LocalStore | OtherStore\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "IntersectionTypeConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class IntersectionTypeConsumer {\n store: LocalStore & OtherStore\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "GenericTypeConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class GenericTypeConsumer {\n store: LocalStore<OtherStore>\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "SuffixReceiverConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class SuffixReceiverConsumer {\n store: LocalStore\n collect(): string {\n  return obj.this.store.read()\n }\n}\n"
   },
   "expected_target": {
     "SecondConsumer.collect": [
@@ -38,7 +43,12 @@
     "PoisonConsumer.collect",
     "FakeAwaitConsumer.collect",
     "MissingAwaitConsumer.collect",
-    "UnavailableConsumer.collect"
+    "UnavailableConsumer.collect",
+    "QualifiedTypeConsumer.collect",
+    "UnionTypeConsumer.collect",
+    "IntersectionTypeConsumer.collect",
+    "GenericTypeConsumer.collect",
+    "SuffixReceiverConsumer.collect"
   ],
   "expected_await_target": {
     "AwaitConsumer.collect": [
