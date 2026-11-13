@@ -11620,3 +11620,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   explicit pair controls pass. Preserve full outputs and original three-query
   return traces. No score/threshold/concept changes or accepted repair.
 - Evidence: docs/eval/visual-overlap-current.
+
+
+## Lifecycle persistence first-loss diagnostic
+
+- Current f9ecd08 original group remains 1/3; correct coordinator and methods are present before focus, not missing at initial recall.
+- Read-only public trace proves partial two-operation method focus drops the multi-method owner. Independent retained BufferSession family plus new partial PendingQueue reproduces a Chinese public red; exact method and pair controls remain available.
+- No score/threshold or file-to-method proof promotion. Record required same-owner aggregate contract and negative controls, rather than claiming globally blocked or repaired.
+- 22 related tests and fingerprint pass; no full evaluation. Details docs/eval/lifecycle-first-loss.

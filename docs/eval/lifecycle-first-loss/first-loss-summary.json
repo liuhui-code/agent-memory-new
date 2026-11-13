@@ -1,0 +1,442 @@
+[
+  {
+    "query": "Restart loses the saved editor text; return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "draft_inputs": [
+      {
+        "kind": "symbol",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "restoreDraft",
+        "owner_name": "DraftSessionCoordinator",
+        "start_line": 9,
+        "end_line": 11,
+        "method_evidence": "drafttext draft text draftpreferences preferences load restore statewrite state write stateread read asyncboundary async",
+        "string_evidence": "",
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "method_evidence",
+          "mechanism_evidence",
+          "exact_path_segment",
+          "semantic_behavior",
+          "source_locatable",
+          "multi_term_method_evidence"
+        ],
+        "graph_depth": null,
+        "score": 49.0,
+        "semantic_behavior_coverage": 1
+      },
+      {
+        "kind": "symbol",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "saveDraft",
+        "owner_name": "DraftSessionCoordinator",
+        "start_line": 13,
+        "end_line": 15,
+        "method_evidence": "draftpreferences draft preferences save drafttext text stateread state read persistencewrite persistence write asyncboundary async",
+        "string_evidence": "",
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "mechanism_evidence",
+          "exact_path_segment",
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 46.25,
+        "semantic_behavior_coverage": 1
+      },
+      {
+        "kind": "file",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "DraftSessionCoordinator",
+        "owner_name": null,
+        "start_line": 1,
+        "end_line": 16,
+        "method_evidence": null,
+        "string_evidence": null,
+        "match_reasons": [
+          "file_path",
+          "file_summary",
+          "search_terms",
+          "exact_path_segment",
+          "structural_behavior",
+          "salient_query_evidence"
+        ],
+        "graph_depth": null,
+        "score": 43.4,
+        "semantic_behavior_coverage": null
+      },
+      {
+        "kind": "symbol",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "aboutToAppear",
+        "owner_name": "DraftSessionCoordinator",
+        "start_line": 5,
+        "end_line": 7,
+        "method_evidence": "restoredraft restore draft about appear lifecyclehook lifecycleactivation lifecycle stateread state read lifecycleboundary",
+        "string_evidence": "",
+        "match_reasons": [
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "method_evidence",
+          "exact_path_segment",
+          "salient_query_evidence",
+          "source_locatable",
+          "multi_term_method_evidence"
+        ],
+        "graph_depth": null,
+        "score": 39.25,
+        "semantic_behavior_coverage": 0
+      },
+      {
+        "kind": "symbol",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "draftText",
+        "owner_name": "",
+        "start_line": 2,
+        "end_line": 2,
+        "method_evidence": "",
+        "string_evidence": "",
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_type",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 38.5,
+        "semantic_behavior_coverage": 0
+      },
+      {
+        "kind": "symbol",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "DraftSessionCoordinator",
+        "owner_name": "",
+        "start_line": 1,
+        "end_line": 16,
+        "method_evidence": "",
+        "string_evidence": "",
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 32.5,
+        "semantic_behavior_coverage": 0
+      }
+    ],
+    "focused_output": [
+      {
+        "kind": "symbol",
+        "file_path": "src/streaming/ConversationDraftStore.ets",
+        "symbol": "queueIncrementalWrite",
+        "owner_name": "ConversationDraftStore",
+        "start_line": 22,
+        "end_line": 27,
+        "method_evidence": "normalizecontent normalize content writetail write tail repository savedraft save draft queue incremental statewrite state write stateread read persistencewrite persistence",
+        "string_evidence": "",
+        "match_reasons": [
+          "symbol_summary",
+          "search_terms",
+          "method_evidence",
+          "mechanism_evidence",
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 21.0,
+        "semantic_behavior_coverage": 2
+      }
+    ]
+  },
+  {
+    "query": "Restart loses the saved editor text; return the coordinator owning restore lifecycle, current state, and storage commit.",
+    "draft_inputs": [
+      {
+        "kind": "symbol",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "restoreDraft",
+        "owner_name": "DraftSessionCoordinator",
+        "start_line": 9,
+        "end_line": 11,
+        "method_evidence": "drafttext draft text draftpreferences preferences load restore statewrite state write stateread read asyncboundary async",
+        "string_evidence": "",
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "method_evidence",
+          "mechanism_evidence",
+          "exact_path_segment",
+          "semantic_behavior",
+          "source_locatable",
+          "multi_term_method_evidence"
+        ],
+        "graph_depth": null,
+        "score": 49.0,
+        "semantic_behavior_coverage": 1
+      },
+      {
+        "kind": "symbol",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "saveDraft",
+        "owner_name": "DraftSessionCoordinator",
+        "start_line": 13,
+        "end_line": 15,
+        "method_evidence": "draftpreferences draft preferences save drafttext text stateread state read persistencewrite persistence write asyncboundary async",
+        "string_evidence": "",
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "mechanism_evidence",
+          "exact_path_segment",
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 46.25,
+        "semantic_behavior_coverage": 1
+      },
+      {
+        "kind": "file",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "DraftSessionCoordinator",
+        "owner_name": null,
+        "start_line": 1,
+        "end_line": 16,
+        "method_evidence": null,
+        "string_evidence": null,
+        "match_reasons": [
+          "file_path",
+          "file_summary",
+          "search_terms",
+          "exact_path_segment",
+          "structural_behavior",
+          "salient_query_evidence"
+        ],
+        "graph_depth": null,
+        "score": 43.4,
+        "semantic_behavior_coverage": null
+      },
+      {
+        "kind": "symbol",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "aboutToAppear",
+        "owner_name": "DraftSessionCoordinator",
+        "start_line": 5,
+        "end_line": 7,
+        "method_evidence": "restoredraft restore draft about appear lifecyclehook lifecycleactivation lifecycle stateread state read lifecycleboundary",
+        "string_evidence": "",
+        "match_reasons": [
+          "file_path",
+          "symbol_summary",
+          "search_terms",
+          "method_evidence",
+          "exact_path_segment",
+          "salient_query_evidence",
+          "source_locatable",
+          "multi_term_method_evidence"
+        ],
+        "graph_depth": null,
+        "score": 39.25,
+        "semantic_behavior_coverage": 0
+      },
+      {
+        "kind": "symbol",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "draftText",
+        "owner_name": "",
+        "start_line": 2,
+        "end_line": 2,
+        "method_evidence": "",
+        "string_evidence": "",
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_type",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 38.5,
+        "semantic_behavior_coverage": 0
+      },
+      {
+        "kind": "symbol",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "DraftSessionCoordinator",
+        "owner_name": "",
+        "start_line": 1,
+        "end_line": 16,
+        "method_evidence": "",
+        "string_evidence": "",
+        "match_reasons": [
+          "file_path",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "exact_path_segment",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 32.5,
+        "semantic_behavior_coverage": 0
+      }
+    ],
+    "focused_output": [
+      {
+        "kind": "symbol",
+        "file_path": "src/streaming/ConversationDraftStore.ets",
+        "symbol": "queueIncrementalWrite",
+        "owner_name": "ConversationDraftStore",
+        "start_line": 22,
+        "end_line": 27,
+        "method_evidence": "normalizecontent normalize content writetail write tail repository savedraft save draft queue incremental statewrite state write stateread read persistencewrite persistence",
+        "string_evidence": "",
+        "match_reasons": [
+          "symbol_summary",
+          "search_terms",
+          "method_evidence",
+          "mechanism_evidence",
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 21.0,
+        "semantic_behavior_coverage": 2
+      }
+    ]
+  },
+  {
+    "query": "草稿保存后重启仍被清空，请只返回同时负责生命周期恢复、状态写入和持久化的协调源码。",
+    "draft_inputs": [
+      {
+        "kind": "symbol",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "saveDraft",
+        "owner_name": "DraftSessionCoordinator",
+        "start_line": 13,
+        "end_line": 15,
+        "method_evidence": "draftpreferences draft preferences save drafttext text stateread state read persistencewrite persistence write asyncboundary async",
+        "string_evidence": "",
+        "match_reasons": [
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 9.0,
+        "semantic_behavior_coverage": 1
+      },
+      {
+        "kind": "file",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "saveDraft",
+        "owner_name": null,
+        "start_line": 13,
+        "end_line": 15,
+        "method_evidence": null,
+        "string_evidence": null,
+        "match_reasons": [
+          "structural_behavior"
+        ],
+        "graph_depth": null,
+        "score": 8.0,
+        "semantic_behavior_coverage": null
+      }
+    ],
+    "focused_output": [
+      {
+        "kind": "symbol",
+        "file_path": "src/streaming/ConversationDraftStore.ets",
+        "symbol": "queueIncrementalWrite",
+        "owner_name": "ConversationDraftStore",
+        "start_line": 22,
+        "end_line": 27,
+        "method_evidence": "normalizecontent normalize content writetail write tail repository savedraft save draft queue incremental statewrite state write stateread read persistencewrite persistence",
+        "string_evidence": "",
+        "match_reasons": [
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 12.0,
+        "semantic_behavior_coverage": 2
+      }
+    ]
+  },
+  {
+    "query": "草稿保存后重启仍被清空，请只返回同时负责生命周期恢复、状态写入和持久化的协调源码。",
+    "draft_inputs": [
+      {
+        "kind": "symbol",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "saveDraft",
+        "owner_name": "DraftSessionCoordinator",
+        "start_line": 13,
+        "end_line": 15,
+        "method_evidence": "draftpreferences draft preferences save drafttext text stateread state read persistencewrite persistence write asyncboundary async",
+        "string_evidence": "",
+        "match_reasons": [
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 9.0,
+        "semantic_behavior_coverage": 1
+      },
+      {
+        "kind": "file",
+        "file_path": "src/coordinators/DraftSessionCoordinator.ets",
+        "symbol": "saveDraft",
+        "owner_name": null,
+        "start_line": 13,
+        "end_line": 15,
+        "method_evidence": null,
+        "string_evidence": null,
+        "match_reasons": [
+          "structural_behavior"
+        ],
+        "graph_depth": null,
+        "score": 8.0,
+        "semantic_behavior_coverage": null
+      }
+    ],
+    "focused_output": [
+      {
+        "kind": "symbol",
+        "file_path": "src/streaming/ConversationDraftStore.ets",
+        "symbol": "queueIncrementalWrite",
+        "owner_name": "ConversationDraftStore",
+        "start_line": 22,
+        "end_line": 27,
+        "method_evidence": "normalizecontent normalize content writetail write tail repository savedraft save draft queue incremental statewrite state write stateread read persistencewrite persistence",
+        "string_evidence": "",
+        "match_reasons": [
+          "semantic_behavior",
+          "source_locatable"
+        ],
+        "graph_depth": null,
+        "score": 12.0,
+        "semantic_behavior_coverage": 2
+      }
+    ]
+  }
+]
