@@ -1,0 +1,27 @@
+{
+ "classification":"independent development contract probes, not an accepted serving rule",
+ "cases":[
+  {
+   "id":"action-refresh-owner",
+   "query":"The actuator action finishes but state stays unchanged. Locate action dispatch and authoritative refresh ownership.",
+   "sources":{
+    "ActuatorStore.ets":"export class ActuatorStore {\n private adapter: ActuatorAdapter\n private state: string = ''\n async execute(command: string): Promise<void> {\n  await this.adapter.executeAction(command)\n }\n async synchronize(): Promise<void> {\n  const current = await this.adapter.loadCurrent()\n  this.state = current\n }\n}\n",
+    "DraftState.ets":"export class DraftState {\n private state: string = ''\n reload(): void {\n  this.state = 'draft'\n }\n}\n",
+    "ActuatorCommandView.ets":"@Component\nexport struct ActuatorCommandView {\n build() {\n  Column() { Text('Actuator command state') }\n }\n}\n"
+   },
+   "target_owner":"ActuatorStore",
+   "required_members":["execute","synchronize"]
+  },
+  {
+   "id":"lifecycle-persist-owner",
+   "query":"The session resets after reopening the component. Locate lifecycle restoration and persistent state saving ownership.",
+   "sources":{
+    "SessionKeeper.ets":"@Component\nexport struct SessionKeeper {\n @State session: string = ''\n aboutToAppear(): void {\n  this.session = AppStorage.get<string>('session.value') || ''\n }\n aboutToDisappear(): void {\n  AppStorage.setOrCreate('session.value', this.session)\n }\n build() {}\n}\n",
+    "SessionWriter.ets":"export class SessionWriter {\n save(value: string): void {\n  AppStorage.setOrCreate('session.value', value)\n }\n}\n",
+    "SessionReader.ets":"export class SessionReader {\n read(): string {\n  return AppStorage.get<string>('session.value') || ''\n }\n}\n"
+   },
+   "target_owner":"SessionKeeper",
+   "required_members":["aboutToAppear","aboutToDisappear"]
+  }
+ ]
+}
