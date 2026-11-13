@@ -8,10 +8,11 @@ p = json.loads((D / 'protocol.json').read_text())
 with tempfile.TemporaryDirectory() as tmp, materialized_workspace(Path(p['source_root']).resolve(), p['original_case']) as root:
     def run(label, *args):
         r = subprocess.run([sys.executable, str(D / 'trace-cli.py'), *args, '--project', str(root), '--memory-home', tmp + '/memory'], text=True, capture_output=True, check=True, env=dict(os.environ, TRACE_FILE=str(D / (label + '-trace.json'))))
+        (D / (label + '-stdout.txt')).write_text(r.stdout)
         return json.loads(r.stdout) if '--json' in args else r.stdout
     run('init', 'init')
     run('learn', 'learn-path', '--path', '.')
     out = {mode: run(mode, 'context', '--query', p['query']['description'], *(['--compact'] if mode == 'compact' else []), '--json') for mode in ('raw', 'compact')}
     out['symbols'] = run('symbols', 'list', '--type', 'code-symbol', '--limit', '2000', '--json')
-    out['edges'] = run('edges', 'list', '--type', 'code-edge', '--limit', '3000', '--json')
+    out['edges'] = run('edges', 'list', '--type', 'memory-edge', '--limit', '3000', '--json')
     (D / 'public.json').write_text(json.dumps(out, indent=2) + '\n')
