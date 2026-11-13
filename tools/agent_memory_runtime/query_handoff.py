@@ -6,6 +6,7 @@ from typing import Any
 
 from .text import json_list, tokenize, unique_list
 from .query_log_owner_admission import admitted_log_owners
+from .query_handoff_identity import anchor_display_key, display_key_seen
 
 
 MAX_KEYWORDS = 20
@@ -89,7 +90,7 @@ def code_anchors(
     logs: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     anchors: list[dict[str, Any]] = []
-    seen: set[tuple[str, str]] = set()
+    seen: set[tuple[Any, ...]] = set()
     file_counts: dict[str, int] = {}
     for source, values in (("wiki", wiki), ("log_emitter", logs)):
         for item in values:
@@ -106,14 +107,14 @@ def code_anchors(
 
 def append_code_anchor(
     anchors: list[dict[str, Any]],
-    seen: set[tuple[str, str]],
+    seen: set[tuple[Any, ...]],
     item: dict[str, Any],
     source: str,
 ) -> bool:
     file_path = str(item.get("file_path") or "")
     symbol = str(item.get("symbol") or item.get("function") or "")
-    key = (file_path, symbol)
-    if not file_path or key in seen:
+    key = anchor_display_key(item, source)
+    if not file_path or display_key_seen(key, seen):
         return False
     seen.add(key)
     anchors.append({

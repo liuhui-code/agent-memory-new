@@ -50,6 +50,14 @@ class HandoffSymbolIdentityTests(AgentMemoryTestBase):
         legacy=row(2,10,12);legacy['kind']='file'
         self.assertEqual(len(code_anchors([legacy,row()],[])),1)
 
+    def test_same_record_conflicting_description_keeps_first(self):
+        first=row();second=row(1,10,12);second["symbol"]="other"
+        self.assertEqual(len(code_anchors([first,second],[])),1)
+        second["file_path"]="Other.ts"
+        self.assertEqual(len(code_anchors([first,second],[])),1)
+        first["symbol"]="";second=row(2,10,12);second["symbol"]=""
+        self.assertEqual(len(code_anchors([first,second],[])),1)
+
     def test_budget_and_order_unchanged(self):
         values=[]
         for i in range(20):

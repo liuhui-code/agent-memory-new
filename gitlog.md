@@ -11892,3 +11892,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Separately froze same-file/cross-file controls: raw wiki includes two distinct same-name methods but raw handoff coalesces them by path/name for the invocation query.
 - Separately froze explicit two-owner request: raw already keeps both class ranges with method bodies, so this is not a raw dual-target red; compact ambiguity is a different unresolved consumer boundary.
 - No serving changes or original listener improvement claimed; independent protocols, chronology and actual differences retained in docs/evidence/typed-parameter-invocation.
+
+## 2026-11-13 — Keep distinct known symbol records in raw handoff
+
+- Reproduced required Direct.forward range10–12 present in raw wiki but lost behind same-file same-name CommentOnly.forward range3–6 through bare path/name deduplication.
+- Preserve distinct recognized code_symbol IDs with valid range metadata; same record remains first-wins, unknown/mixed provenance retains legacy behavior. No cap, ranking, producer or private source-authority changes.
+- Five new focused controls and necessary related regressions: 61 pass plus one pre-existing expected failure. Fixed query raw retains the requested range; compact weak-primary reservation remains unresolved, explicitly not counted repaired.
+- Explicit pair already preserves both class ranges and remains protected; label-only earlier compact-loss diagnosis corrected. Evidence: docs/evidence/typed-parameter-invocation.
