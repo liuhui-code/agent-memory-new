@@ -11914,3 +11914,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Preserve the first candidate's function-type truncation failure and conservative depth guard correction. Five focused and74 related tests pass; no full suite.
 - Fresh index and normal learn-path merge remove sibling method terms and correct end7; code installation alone leaves old stored end11. Stable semantic identities/digest, split and sibling ranges preserved.
 - Evidence: docs/evidence/touch-callback-opening. No original precision gain claim.
+
+## 2026-11-13 — Source replacement consumer first-loss trace
+
+- Reviewed retained validation/scroll/visual/lifecycle independent evidence and rejected experiments without reruns; no misused existing certificate found that authorizes a speculative focus/weight patch.
+- Replayed only source-replacement's unchanged original variant with public raw/compact and an ordinary clean comparison. Correct replaceSource remains after focus and raw handoff; bounded localizer chooses load via historical query-token exact_symbol and field scores, then compact removes correct owner.
+- All log event priorities are0 and path is inactive; wrapped flag does not bypass activation. No log identity or weak-typed authority misbinding was found. Concrete missing boundary is current-target/history-clause attribution, not missing producer data.
+- Detailed trace and limitations: docs/evidence/source-replacement-first-loss. No serving/oracle or original score changes.

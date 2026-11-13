@@ -1,0 +1,430 @@
+{
+  "logs": [
+    {
+      "file_path": "src/services/AttachmentService.ets",
+      "function": "loadAttachment",
+      "kind": "log_statement",
+      "match_reasons": [
+        "log_message",
+        "log_context",
+        "search_terms"
+      ],
+      "event_match": {
+        "band": "none",
+        "priority": 0,
+        "matched_literal": "",
+        "identity": {
+          "schema_version": "log-event-identity/v1",
+          "fingerprint": "a2b254a1bfd72994",
+          "template_skeleton": "attachment download failed after cache write",
+          "literal_segments": [
+            "attachment download failed after cache write"
+          ],
+          "owner": "src/services/AttachmentService.ets#loadAttachment"
+        }
+      }
+    },
+    {
+      "file_path": "src/services/WrappedProfileService.ets",
+      "function": "load",
+      "kind": "log_effect",
+      "match_reasons": [
+        "exact_function",
+        "log_message",
+        "log_context",
+        "search_terms",
+        "static_wrapped"
+      ],
+      "event_match": {
+        "band": "none",
+        "priority": 0,
+        "matched_literal": "",
+        "identity": {
+          "schema_version": "log-event-identity/v1",
+          "fingerprint": "a246268f44e23926",
+          "template_skeleton": "wrap_profile_7f19 load failed",
+          "literal_segments": [
+            "wrap_profile_7f19 load failed"
+          ],
+          "owner": "src/services/WrappedProfileService.ets#load"
+        }
+      }
+    },
+    {
+      "file_path": "src/pages/DownloadsPage.ets",
+      "function": "retryDownload",
+      "kind": "log_effect",
+      "match_reasons": [
+        "log_message",
+        "log_context",
+        "search_terms",
+        "static_wrapped"
+      ],
+      "event_match": {
+        "band": "none",
+        "priority": 0,
+        "matched_literal": "",
+        "identity": {
+          "schema_version": "log-event-identity/v1",
+          "fingerprint": "a447166e345915b6",
+          "template_skeleton": "attachment download failed after cache write",
+          "literal_segments": [
+            "attachment download failed after cache write"
+          ],
+          "owner": "src/pages/DownloadsPage.ets#retryDownload"
+        }
+      }
+    },
+    {
+      "file_path": "src/services/ProfileService.ets",
+      "function": "loadProfile",
+      "kind": "log_statement",
+      "match_reasons": [
+        "log_message",
+        "log_context",
+        "search_terms"
+      ],
+      "event_match": {
+        "band": "none",
+        "priority": 0,
+        "matched_literal": "",
+        "identity": {
+          "schema_version": "log-event-identity/v1",
+          "fingerprint": "48efee64315b393f",
+          "template_skeleton": "profile load failed session invalid",
+          "literal_segments": [
+            "profile load failed session invalid"
+          ],
+          "owner": "src/services/ProfileService.ets#loadProfile"
+        }
+      }
+    },
+    {
+      "file_path": "src/abilities/SessionAbility.ets",
+      "function": "onCreate",
+      "kind": "log_effect",
+      "match_reasons": [
+        "log_message",
+        "log_context",
+        "search_terms",
+        "static_wrapped"
+      ],
+      "event_match": {
+        "band": "none",
+        "priority": 0,
+        "matched_literal": "",
+        "identity": {
+          "schema_version": "log-event-identity/v1",
+          "fingerprint": "7d35a4965437b749",
+          "template_skeleton": "profile load failed session invalid",
+          "literal_segments": [
+            "profile load failed session invalid"
+          ],
+          "owner": "src/abilities/SessionAbility.ets#onCreate"
+        }
+      }
+    }
+  ],
+  "raw": {
+    "anchors": [
+      {
+        "source": "wiki",
+        "record_id": 78,
+        "record_type": "code_symbol",
+        "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+        "symbol": "replaceSource",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method replaceSource in src/coordinators/SourceSwapCoordinator.ets; identifier terms: replace source",
+        "start_line": 17,
+        "end_line": 21,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 42,
+        "record_type": "code_file",
+        "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+        "symbol": "DeadlineBootstrapController",
+        "symbol_type": "class",
+        "summary": "ArkTS file with 27 non-empty lines; behavior: timeoutboundary, cancellationguard, conditionalbranch, datasourceboundary, statewrite, asyncboundary",
+        "start_line": 1,
+        "end_line": 31,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wiki",
+        "record_id": 401,
+        "record_type": "code_symbol",
+        "file_path": "src/services/WrappedProfileService.ets",
+        "symbol": "load",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method load in src/services/WrappedProfileService.ets",
+        "start_line": 6,
+        "end_line": 8,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "log_emitter",
+        "record_id": 9,
+        "record_type": "code_log_statement",
+        "file_path": "src/services/AttachmentService.ets",
+        "symbol": "loadAttachment",
+        "symbol_type": null,
+        "summary": null,
+        "start_line": 4,
+        "end_line": 14,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wrapped_log_caller",
+        "record_id": 7,
+        "record_type": "code_log_effect",
+        "file_path": "src/pages/DownloadsPage.ets",
+        "symbol": "retryDownload",
+        "symbol_type": null,
+        "summary": null,
+        "start_line": 7,
+        "end_line": 9,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "log_emitter",
+        "record_id": 12,
+        "record_type": "code_log_statement",
+        "file_path": "src/services/ProfileService.ets",
+        "symbol": "loadProfile",
+        "symbol_type": null,
+        "summary": null,
+        "start_line": 4,
+        "end_line": 6,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      },
+      {
+        "source": "wrapped_log_caller",
+        "record_id": 1,
+        "record_type": "code_log_effect",
+        "file_path": "src/abilities/SessionAbility.ets",
+        "symbol": "onCreate",
+        "symbol_type": null,
+        "summary": null,
+        "start_line": 6,
+        "end_line": 8,
+        "graph_neighbor": false,
+        "graph_relation": null,
+        "identity_match": false
+      }
+    ],
+    "callable": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "src/services/WrappedProfileService.ets",
+        "symbol": "load",
+        "owner_name": "WrappedProfileService",
+        "owner_kind": "service",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 38.88,
+        "evidence_score": 38.88,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+          "symbol": "replaceSource",
+          "owner_name": "SourceSwapCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": [
+            "async",
+            "state_write",
+            "source_operation_checked:v2.1"
+          ],
+          "score": 32.5,
+          "evidence_score": 32.5,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 17,
+            "end_line": 21,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        {
+          "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+          "symbol": "loadAccount",
+          "owner_name": "DeadlineBootstrapController",
+          "owner_kind": "controller",
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2.1"
+          ],
+          "score": 22.62,
+          "evidence_score": 22.62,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 28,
+            "end_line": 28,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause",
+      "passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    }
+  },
+  "compact": {
+    "anchors": [
+      {
+        "file_path": "src/services/WrappedProfileService.ets",
+        "symbol": "load",
+        "symbol_type": "function",
+        "record_ids": [
+          401
+        ],
+        "record_type": "code_symbol",
+        "source_ranges": [
+          {
+            "symbol": "load",
+            "start_line": 6,
+            "end_line": 8
+          }
+        ],
+        "read_window": {
+          "start_line": 6,
+          "end_line": 8
+        },
+        "role": "primary",
+        "source_excerpts": [
+          {
+            "symbol": "load",
+            "start_line": 1,
+            "end_line": 9,
+            "content": "import { DomainLogger } from '../logging/DomainLogger'\n\nexport class WrappedProfileService {\n  private logger: DomainLogger = new DomainLogger()\n\n  load(): void {\n    this.logger.report('WRAP_PROFILE_7F19 load failed')\n  }\n}",
+            "source": "current_worktree",
+            "selection_reason": "query_term_window_within_anchor",
+            "focus_line": null,
+            "truncated": false
+          }
+        ]
+      }
+    ],
+    "callable": {
+      "schema_version": "agent-callable-evidence/v1",
+      "certainty": "bounded",
+      "primary": {
+        "file_path": "src/services/WrappedProfileService.ets",
+        "symbol": "load",
+        "owner_name": "WrappedProfileService",
+        "owner_kind": "service",
+        "callable_roles": [
+          "source_operation_checked:v2.1"
+        ],
+        "score": 38.88,
+        "evidence_score": 38.88,
+        "reasons": [
+          "exact_symbol",
+          "expanded_query:symbol",
+          "expanded_query:summary",
+          "expanded_query:method_evidence"
+        ],
+        "source_range": {
+          "start_line": 6,
+          "end_line": 8,
+          "selection_reason": "callable_symbol_range"
+        }
+      },
+      "alternatives": [
+        {
+          "file_path": "src/coordinators/SourceSwapCoordinator.ets",
+          "symbol": "replaceSource",
+          "owner_name": "SourceSwapCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": [
+            "async",
+            "state_write",
+            "source_operation_checked:v2.1"
+          ],
+          "score": 32.5,
+          "evidence_score": 32.5,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 17,
+            "end_line": 21,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        {
+          "file_path": "src/lifecycle/DeadlineBootstrapController.ets",
+          "symbol": "loadAccount",
+          "owner_name": "DeadlineBootstrapController",
+          "owner_kind": "controller",
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2.1"
+          ],
+          "score": 22.62,
+          "evidence_score": 22.62,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 28,
+            "end_line": 28,
+            "selection_reason": "callable_symbol_range"
+          }
+        }
+      ],
+      "boundary": "retrieval_evidence_not_root_cause"
+    }
+  }
+}
