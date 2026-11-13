@@ -1,0 +1,13 @@
+{
+  "sources": {
+    "NoticeFactory.ts": "export class NoticeFactory {\n  create(): string {\n    return 'NoticeToken'\n  }\n}\n",
+    "NoticeConsumer.ts": "export class NoticeConsumer {\n  inspect(value: string): void {\n    console.info(value)\n  }\n}\n"
+  },
+  "query": "Find the callable that returns the string literal NoticeToken.",
+  "required": "NoticeFactory.ts",
+  "required_content": "return 'NoticeToken'",
+  "require_branch": {
+    "typed_contract_weak": true,
+    "certainty": "uncertain"
+  }
+}
