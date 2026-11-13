@@ -1,0 +1,40 @@
+FF.
+======================================================================
+FAIL: test_comment_and_template_do_not_hide_two_real_ranges (tests.test_property_callback_lexical.PropertyCallbackLexicalTests.test_comment_and_template_do_not_hide_two_real_ranges)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/property-callback-investigation/tests/test_property_callback_lexical.py", line 43, in test_comment_and_template_do_not_hide_two_real_ranges
+    self.assertEqual([(1,2),(7,8)],[(r['start_line'],r['end_line']) for r in found])
+AssertionError: Lists differ: [(1, 2), (7, 8)] != [(1, 2), (4, 5), (7, 8)]
+
+First differing element 1:
+(7, 8)
+(4, 5)
+
+Second list contains 1 additional elements.
+First extra element 2:
+(7, 8)
+
+- [(1, 2), (7, 8)]
++ [(1, 2), (4, 5), (7, 8)]
+?          ++++++++
+
+
+======================================================================
+FAIL: test_public_fake_owner_and_true_duplicate_owners (tests.test_property_callback_lexical.PropertyCallbackLexicalTests.test_public_fake_owner_and_true_duplicate_owners)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/property-callback-investigation/tests/test_property_callback_lexical.py", line 20, in test_public_fake_owner_and_true_duplicate_owners
+    self.assertEqual([],fake)
+AssertionError: Lists differ: [] != [{'id': 3, 'project_id': 'c5b2729dfad0cd66[1647 chars]00'}]
+
+Second list contains 2 additional elements.
+First extra element 0:
+{'id': 3, 'project_id': 'c5b2729dfad0cd66', 'file_path': 'ExampleGuide.ts', 'symbol': 'execute', 'symbol_type': 'function', 'summary': 'function execute in ExampleGuide.ts', 'calls': '', 'business_summary': None, 'business_terms': None, 'symbol_key': 'symbol:36202bbd36bc482432dc8758', 'qualified_name': 'ExampleGuide.execute@8', 'signature': 'callback execute@8', 'start_line': 8, 'end_line': 10, 'semantic_adapter': 'typescript-static@1.2', 'source_digest': 'baef060b9b49c174defb575318e99d9773cd0dfc7ffe6c64c2c6171cc6b388a7', 'evidence_class': 'static', 'method_evidence': 'unavailable', 'string_evidence': '', 'mechanism_evidence': '[]', 'owner_name': 'ExampleGuide', 'owner_kind': 'class', 'callable_roles': '["source_operation_checked:v2.1"]', 'index_generation': 1, 'updated_at': '2026-11-13T13:15:41+00:00'}
+
+Diff is 1915 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.762s
+
+FAILED (failures=2)

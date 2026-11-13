@@ -1,0 +1,2420 @@
+{
+  "symbols": [
+    {
+      "id": 7,
+      "project_id": "f6a9450a3f151d7f",
+      "file_path": "TwoOwners.ts",
+      "symbol": "execute",
+      "symbol_type": "function",
+      "summary": "function execute in TwoOwners.ts",
+      "calls": "",
+      "business_summary": null,
+      "business_terms": null,
+      "symbol_key": "symbol:3e37511339917bc56bfc274d",
+      "qualified_name": "SecondaryAction.execute@7",
+      "signature": "callback execute@7",
+      "start_line": 7,
+      "end_line": 9,
+      "semantic_adapter": "typescript-static@1.2",
+      "source_digest": "ffdeaae112b3676ea1c8550d9bcc169d796b62437cc7e5e382ebc8d5bf9bcec8",
+      "evidence_class": "static",
+      "method_evidence": "launchsecondary launch secondary",
+      "string_evidence": "",
+      "mechanism_evidence": "[]",
+      "owner_name": "SecondaryAction",
+      "owner_kind": "class",
+      "callable_roles": "[\"source_operation_checked:v2.1\"]",
+      "index_generation": 1,
+      "updated_at": "2026-11-13T13:15:02+00:00"
+    },
+    {
+      "id": 6,
+      "project_id": "f6a9450a3f151d7f",
+      "file_path": "TwoOwners.ts",
+      "symbol": "execute",
+      "symbol_type": "function",
+      "summary": "function execute in TwoOwners.ts",
+      "calls": "",
+      "business_summary": null,
+      "business_terms": null,
+      "symbol_key": "symbol:7492cb7bb9885c192ed9f17b",
+      "qualified_name": "PrimaryAction.execute@2",
+      "signature": "callback execute@2",
+      "start_line": 2,
+      "end_line": 4,
+      "semantic_adapter": "typescript-static@1.2",
+      "source_digest": "ffdeaae112b3676ea1c8550d9bcc169d796b62437cc7e5e382ebc8d5bf9bcec8",
+      "evidence_class": "static",
+      "method_evidence": "launchprimary launch primary",
+      "string_evidence": "",
+      "mechanism_evidence": "[]",
+      "owner_name": "PrimaryAction",
+      "owner_kind": "class",
+      "callable_roles": "[\"source_operation_checked:v2.1\"]",
+      "index_generation": 1,
+      "updated_at": "2026-11-13T13:15:02+00:00"
+    },
+    {
+      "id": 5,
+      "project_id": "f6a9450a3f151d7f",
+      "file_path": "TwoOwners.ts",
+      "symbol": "SecondaryAction",
+      "symbol_type": "class",
+      "summary": "class SecondaryAction in TwoOwners.ts; identifier terms: secondary action",
+      "calls": "",
+      "business_summary": null,
+      "business_terms": null,
+      "symbol_key": "symbol:26ea745ca97e6f6d66e0003f",
+      "qualified_name": "SecondaryAction",
+      "signature": "class SecondaryAction",
+      "start_line": 6,
+      "end_line": 10,
+      "semantic_adapter": "typescript-static@1.2",
+      "source_digest": "ffdeaae112b3676ea1c8550d9bcc169d796b62437cc7e5e382ebc8d5bf9bcec8",
+      "evidence_class": "static",
+      "method_evidence": "",
+      "string_evidence": "",
+      "mechanism_evidence": "[]",
+      "owner_name": "",
+      "owner_kind": "class",
+      "callable_roles": "[]",
+      "index_generation": 1,
+      "updated_at": "2026-11-13T13:15:02+00:00"
+    },
+    {
+      "id": 4,
+      "project_id": "f6a9450a3f151d7f",
+      "file_path": "TwoOwners.ts",
+      "symbol": "PrimaryAction",
+      "symbol_type": "class",
+      "summary": "class PrimaryAction in TwoOwners.ts; identifier terms: primary action",
+      "calls": "",
+      "business_summary": null,
+      "business_terms": null,
+      "symbol_key": "symbol:64d5b05236463fcda0798575",
+      "qualified_name": "PrimaryAction",
+      "signature": "class PrimaryAction",
+      "start_line": 1,
+      "end_line": 5,
+      "semantic_adapter": "typescript-static@1.2",
+      "source_digest": "ffdeaae112b3676ea1c8550d9bcc169d796b62437cc7e5e382ebc8d5bf9bcec8",
+      "evidence_class": "static",
+      "method_evidence": "",
+      "string_evidence": "",
+      "mechanism_evidence": "[]",
+      "owner_name": "",
+      "owner_kind": "class",
+      "callable_roles": "[]",
+      "index_generation": 1,
+      "updated_at": "2026-11-13T13:15:02+00:00"
+    },
+    {
+      "id": 3,
+      "project_id": "f6a9450a3f151d7f",
+      "file_path": "ExampleGuide.ts",
+      "symbol": "execute",
+      "symbol_type": "function",
+      "summary": "function execute in ExampleGuide.ts",
+      "calls": "",
+      "business_summary": null,
+      "business_terms": null,
+      "symbol_key": "symbol:36202bbd36bc482432dc8758",
+      "qualified_name": "ExampleGuide.execute@8",
+      "signature": "callback execute@8",
+      "start_line": 8,
+      "end_line": 10,
+      "semantic_adapter": "typescript-static@1.2",
+      "source_digest": "baef060b9b49c174defb575318e99d9773cd0dfc7ffe6c64c2c6171cc6b388a7",
+      "evidence_class": "static",
+      "method_evidence": "unavailable",
+      "string_evidence": "",
+      "mechanism_evidence": "[]",
+      "owner_name": "ExampleGuide",
+      "owner_kind": "class",
+      "callable_roles": "[\"source_operation_checked:v2.1\"]",
+      "index_generation": 1,
+      "updated_at": "2026-11-13T13:15:02+00:00"
+    },
+    {
+      "id": 2,
+      "project_id": "f6a9450a3f151d7f",
+      "file_path": "ExampleGuide.ts",
+      "symbol": "phantomHandler",
+      "symbol_type": "function",
+      "summary": "function phantomHandler in ExampleGuide.ts; identifier terms: phantom handler",
+      "calls": "",
+      "business_summary": null,
+      "business_terms": null,
+      "symbol_key": "symbol:137aea39815e8781d8100951",
+      "qualified_name": "ExampleGuide.phantomHandler@3",
+      "signature": "callback phantomHandler@3",
+      "start_line": 3,
+      "end_line": 5,
+      "semantic_adapter": "typescript-static@1.2",
+      "source_digest": "baef060b9b49c174defb575318e99d9773cd0dfc7ffe6c64c2c6171cc6b388a7",
+      "evidence_class": "static",
+      "method_evidence": "unavailable",
+      "string_evidence": "",
+      "mechanism_evidence": "[]",
+      "owner_name": "ExampleGuide",
+      "owner_kind": "class",
+      "callable_roles": "[\"source_operation_checked:v2.1\"]",
+      "index_generation": 1,
+      "updated_at": "2026-11-13T13:15:02+00:00"
+    },
+    {
+      "id": 1,
+      "project_id": "f6a9450a3f151d7f",
+      "file_path": "ExampleGuide.ts",
+      "symbol": "ExampleGuide",
+      "symbol_type": "class",
+      "summary": "class ExampleGuide in ExampleGuide.ts; identifier terms: example guide",
+      "calls": "",
+      "business_summary": null,
+      "business_terms": null,
+      "symbol_key": "symbol:e4a4b51f4ec558a9c5e18329",
+      "qualified_name": "ExampleGuide",
+      "signature": "class ExampleGuide",
+      "start_line": 1,
+      "end_line": 12,
+      "semantic_adapter": "typescript-static@1.2",
+      "source_digest": "baef060b9b49c174defb575318e99d9773cd0dfc7ffe6c64c2c6171cc6b388a7",
+      "evidence_class": "static",
+      "method_evidence": "",
+      "string_evidence": "",
+      "mechanism_evidence": "[]",
+      "owner_name": "",
+      "owner_kind": "class",
+      "callable_roles": "[]",
+      "index_generation": 1,
+      "updated_at": "2026-11-13T13:15:02+00:00"
+    }
+  ],
+  "context": {
+    "project_id": "f6a9450a3f151d7f",
+    "project_path": "/tmp/tmp0pg0c5m7/src",
+    "query": "Locate ExampleGuide.phantomHandler implementation.",
+    "memory_intent": "general_context",
+    "memory_intent_v2": "general_context",
+    "memory_intent_source": "inferred",
+    "retrieval_lanes": {
+      "counts": {
+        "main_reflections": 0,
+        "correction_guards": 0,
+        "semantic_patch_notes": 0,
+        "blocked_memory_notes": 0
+      },
+      "intent_profile": {
+        "intent": "general_context",
+        "intent_v2": "general_context",
+        "intent_source": "inferred",
+        "legacy_intent": "general_context",
+        "preferred_lanes": [
+          "semantic_facts",
+          "wiki_matches",
+          "reusable_procedure",
+          "historical_reflection"
+        ],
+        "interference_policy": "prefer source-backed and high-quality memories"
+      },
+      "lane_budgets": {
+        "main_reflections": 2,
+        "correction_guards": 4,
+        "semantic_patch_notes": 6,
+        "blocked_memory_notes": 8
+      },
+      "policy": {
+        "procedure_experience": "main context only when the query intent can reuse a procedure",
+        "correction_experience": "guardrail lane; not injected as the main task direction by default",
+        "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+      }
+    },
+    "memory_brief": {
+      "intent": "general_context",
+      "intent_v2": "general_context",
+      "main_reflection_count": 0,
+      "correction_guard_count": 0,
+      "semantic_patch_count": 0,
+      "blocked_count": 0,
+      "conflict_count": 0
+    },
+    "followup_focus": null,
+    "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+    "semantic_facts": [],
+    "reflections": [],
+    "episodes": [],
+    "wiki_matches": [
+      {
+        "id": 2,
+        "project_id": "f6a9450a3f151d7f",
+        "file_path": "ExampleGuide.ts",
+        "symbol": "phantomHandler",
+        "symbol_type": "function",
+        "summary": "function phantomHandler in ExampleGuide.ts; identifier terms: phantom handler",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:137aea39815e8781d8100951",
+        "qualified_name": "ExampleGuide.phantomHandler@3",
+        "signature": "callback phantomHandler@3",
+        "start_line": 3,
+        "end_line": 5,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "baef060b9b49c174defb575318e99d9773cd0dfc7ffe6c64c2c6171cc6b388a7",
+        "evidence_class": "static",
+        "method_evidence": "unavailable",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "ExampleGuide",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T13:15:02+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05655738,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 108.5,
+        "search_terms": [
+          "exampleguide.ts",
+          "function phantomhandler in exampleguide.ts; identifier terms: phantom handler",
+          "phantomhandler",
+          "function",
+          "exampleguide",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "phantom",
+          "handler",
+          "example",
+          "guide"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 108.5,
+          "rerank_score": null,
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 1,
+        "project_id": "f6a9450a3f151d7f",
+        "file_path": "ExampleGuide.ts",
+        "symbol": "ExampleGuide",
+        "symbol_type": "class",
+        "summary": "class ExampleGuide in ExampleGuide.ts; identifier terms: example guide",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:e4a4b51f4ec558a9c5e18329",
+        "qualified_name": "ExampleGuide",
+        "signature": "class ExampleGuide",
+        "start_line": 1,
+        "end_line": 12,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "baef060b9b49c174defb575318e99d9773cd0dfc7ffe6c64c2c6171cc6b388a7",
+        "evidence_class": "static",
+        "method_evidence": "",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "",
+        "owner_kind": "class",
+        "callable_roles": "[]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T13:15:02+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05564516,
+          "best_rank": 2,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 2,
+              "weight": 1.45,
+              "score": 0.0233871
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 2,
+              "weight": 1.0,
+              "score": 0.01612903
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 80.5,
+        "search_terms": [
+          "exampleguide.ts",
+          "class exampleguide in exampleguide.ts; identifier terms: example guide",
+          "exampleguide",
+          "class",
+          "ts",
+          "in",
+          "identifier",
+          "terms",
+          "example",
+          "guide"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 80.5,
+          "rerank_score": null,
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 3,
+        "project_id": "f6a9450a3f151d7f",
+        "file_path": "ExampleGuide.ts",
+        "symbol": "execute",
+        "symbol_type": "function",
+        "summary": "function execute in ExampleGuide.ts",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:36202bbd36bc482432dc8758",
+        "qualified_name": "ExampleGuide.execute@8",
+        "signature": "callback execute@8",
+        "start_line": 8,
+        "end_line": 10,
+        "semantic_adapter": "typescript-static@1.2",
+        "source_digest": "baef060b9b49c174defb575318e99d9773cd0dfc7ffe6c64c2c6171cc6b388a7",
+        "evidence_class": "static",
+        "method_evidence": "unavailable",
+        "string_evidence": "",
+        "mechanism_evidence": "[]",
+        "owner_name": "ExampleGuide",
+        "owner_kind": "class",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T13:15:02+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.0547619,
+          "best_rank": 3,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 3,
+              "weight": 1.45,
+              "score": 0.02301587
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 3,
+              "weight": 1.0,
+              "score": 0.01587302
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 51.5,
+        "search_terms": [
+          "exampleguide.ts",
+          "function execute in exampleguide.ts",
+          "execute",
+          "function",
+          "exampleguide",
+          "ts",
+          "in",
+          "example",
+          "guide"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 51.5,
+          "rerank_score": null,
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 1,
+        "project_id": "f6a9450a3f151d7f",
+        "file_path": "ExampleGuide.ts",
+        "summary": "TypeScript file with 12 non-empty lines",
+        "language": "TypeScript",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "baef060b9b49c174defb575318e99d9773cd0dfc7ffe6c64c2c6171cc6b388a7",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T13:15:02+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts",
+          "salient_file_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.07868852,
+          "best_rank": 1,
+          "channel_count": 4,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "salient_file_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 55.4,
+        "search_terms": [
+          "exampleguide.ts",
+          "typescript",
+          "typescript file with 12 non-empty lines",
+          "exampleguide",
+          "ts",
+          "file",
+          "with",
+          "12",
+          "non",
+          "empty",
+          "lines",
+          "example",
+          "guide",
+          "type",
+          "script"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "salient_query_evidence"
+        ],
+        "symbol": "ExampleGuide",
+        "symbol_type": "class",
+        "start_line": 1,
+        "end_line": 12,
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 55.4,
+          "rerank_score": null,
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "salient_query_evidence"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "code_log_matches": [],
+    "edge_matches": [
+      {
+        "id": 3,
+        "project_id": "f6a9450a3f151d7f",
+        "source_type": "code_file",
+        "source_id": 1,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 3,
+        "evidence": "ExampleGuide.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:15:02+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:15:02+00:00",
+        "created_at": "2026-11-13T13:15:02+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 2,
+        "project_id": "f6a9450a3f151d7f",
+        "source_type": "code_file",
+        "source_id": 1,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 2,
+        "evidence": "ExampleGuide.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:15:02+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:15:02+00:00",
+        "created_at": "2026-11-13T13:15:02+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 1,
+        "project_id": "f6a9450a3f151d7f",
+        "source_type": "code_file",
+        "source_id": 1,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 1,
+        "evidence": "ExampleGuide.ts",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T13:15:02+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T13:15:02+00:00",
+        "created_at": "2026-11-13T13:15:02+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "incident_trace_matches": [],
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "suggested_followup_terms": [
+      "exampleguide.ts",
+      "function phantomhandler in exampleguide.ts; identifier terms: phantom handler",
+      "class exampleguide in exampleguide.ts; identifier terms: example guide",
+      "function execute in exampleguide.ts",
+      "phantomhandler",
+      "function",
+      "exampleguide",
+      "ts",
+      "in",
+      "identifier",
+      "terms",
+      "phantom"
+    ],
+    "query_handoff": {
+      "schema_version": "agent-query-handoff/v1",
+      "input_query": "Locate ExampleGuide.phantomHandler implementation.",
+      "log_keywords": [
+        "locate",
+        "exampleguide",
+        "phantomhandler",
+        "implementation"
+      ],
+      "log_anchors": [],
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "record_type": "code_symbol",
+          "file_path": "ExampleGuide.ts",
+          "symbol": "phantomHandler",
+          "symbol_type": "function",
+          "summary": "function phantomHandler in ExampleGuide.ts; identifier terms: phantom handler",
+          "start_line": 3,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "record_type": "code_symbol",
+          "file_path": "ExampleGuide.ts",
+          "symbol": "ExampleGuide",
+          "symbol_type": "class",
+          "summary": "class ExampleGuide in ExampleGuide.ts; identifier terms: example guide",
+          "start_line": 1,
+          "end_line": 12,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "next_query_contract": {
+        "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+        "accepted_inputs": [
+          "exact phrase or identifier observed in the temporary runtime log",
+          "one candidate cause produced by the Agent CLI",
+          "file, symbol, route, resource, error code, logger, or event name"
+        ],
+        "one_candidate_per_query": true
+      },
+      "role_boundary": {
+        "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+        "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+        "runtime_reads_temporary_logs": false,
+        "runtime_builds_causal_chains": false
+      },
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "ExampleGuide.ts",
+          "symbol": "phantomHandler",
+          "owner_name": "ExampleGuide",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 50.5,
+          "evidence_score": 50.5,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      },
+      "path_context": {
+        "schema_version": "log-anchored-path-context/v1",
+        "activated": false,
+        "activation_reason": "missing_log_anchor",
+        "candidate_count": 0,
+        "seeds": [],
+        "path_candidates": [],
+        "gaps": {},
+        "bounds": {
+          "max_depth": 6,
+          "max_nodes": 80,
+          "max_edges": 160,
+          "max_raw_paths_per_seed": 20,
+          "max_returned_paths": 5,
+          "max_same_entry_paths": 2,
+          "cycle_visit_limit": 1
+        },
+        "lane_isolation": {
+          "log_anchor": "code_log_statements identity fields only",
+          "program_path": "current active code graph edges only",
+          "semantic_correction": "annotation in base context; cannot create or rank paths",
+          "experience": "advisory in base context; cannot create or rank paths"
+        }
+      }
+    },
+    "network_limits": {
+      "max_depth": 1,
+      "edge_limit": 10,
+      "evidence_chain_limit": 3,
+      "allowed_relations": [
+        "configured_by",
+        "contains",
+        "emits_log",
+        "imports",
+        "passes_property",
+        "renders_component",
+        "routes_to",
+        "uses_resource"
+      ]
+    },
+    "source_freshness": {
+      "schema_version": "source-freshness/v1",
+      "status": "current",
+      "generation": 1,
+      "source_revision": "unversioned",
+      "extractor_version": "code-derived:v1",
+      "candidate_file_count": 1,
+      "checked_file_count": 1,
+      "current_file_count": 1,
+      "blocked_rows": 0,
+      "blocked_rows_by_table": {
+        "code_files": 0,
+        "code_symbols": 0,
+        "code_log_statements": 0
+      },
+      "stale_paths": [],
+      "missing_paths": [],
+      "unverified_paths": [],
+      "boundary_drift_scope_ids": [],
+      "policy": "digest_mismatch_and_missing_source_blocked"
+    },
+    "memory_use_policy": {
+      "mode": "advisory",
+      "authority_order": [
+        "current_source",
+        "explicit_user_instruction",
+        "source_truth",
+        "verified_experience",
+        "usable_hint",
+        "weak_hint"
+      ],
+      "rules": [
+        "Current source files and explicit user instructions override stored memory.",
+        "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+        "Use weak hints only to choose what to inspect next.",
+        "Do not let recency override evidence, status, confidence, or feedback penalties."
+      ]
+    },
+    "query_audit": {
+      "result_counts": {
+        "semantic_facts": 0,
+        "reflections": 0,
+        "episodes": 0,
+        "wiki_matches": 4,
+        "code_log_matches": 0,
+        "edge_matches": 3,
+        "incident_trace_matches": 0
+      },
+      "candidate_recall": {
+        "schema_version": "agent-candidate-recall-audit/v1",
+        "source_freshness": {
+          "schema_version": "source-freshness/v1",
+          "status": "current",
+          "generation": 1,
+          "source_revision": "unversioned",
+          "extractor_version": "code-derived:v1",
+          "candidate_file_count": 1,
+          "checked_file_count": 1,
+          "current_file_count": 1,
+          "blocked_rows": 0,
+          "blocked_rows_by_table": {
+            "code_files": 0,
+            "code_symbols": 0,
+            "code_log_statements": 0
+          },
+          "stale_paths": [],
+          "missing_paths": [],
+          "unverified_paths": [],
+          "boundary_drift_scope_ids": [],
+          "policy": "digest_mismatch_and_missing_source_blocked"
+        },
+        "provider": "sqlite_fts5_passage_rrf/v4",
+        "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+        "tables": {
+          "semantic_facts": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 3,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "reflections": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 3,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "episodes": {
+            "requested_limit": 80,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 3,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "code_files": {
+            "requested_limit": 160,
+            "candidate_count": 1,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 3,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 1,
+              "file_identity_fts": 1,
+              "file_semantic_fts": 1,
+              "salient_file_fts": 1
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "file_identity_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 1,
+                  "file_path_weight": 6.0,
+                  "identity_terms_weight": 9.0
+                },
+                "file_semantic_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 1,
+                  "file_path_weight": 1.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "salient_file_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 1,
+                  "query_term_count": 4,
+                  "file_path_weight": 3.0,
+                  "semantic_terms_weight": 8.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": false,
+              "serving_channels": [
+                "file_identity_fts",
+                "file_semantic_fts",
+                "salient_file_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 3,
+                "channel_counts": {
+                  "file_identity_fts": 1,
+                  "file_semantic_fts": 1,
+                  "salient_file_fts": 1
+                },
+                "fused_candidate_count": 1
+              },
+              "candidate_fusion": {
+                "1": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.06229508,
+                  "best_rank": 1,
+                  "channel_count": 3,
+                  "contributions": [
+                    {
+                      "channel": "file_identity_fts",
+                      "rank": 1,
+                      "weight": 1.35,
+                      "score": 0.02213115
+                    },
+                    {
+                      "channel": "file_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    },
+                    {
+                      "channel": "salient_file_fts",
+                      "rank": 1,
+                      "weight": 1.45,
+                      "score": 0.02377049
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 1,
+                  "file_path": "ExampleGuide.ts",
+                  "symbol": "",
+                  "channels": [
+                    "file_identity_fts",
+                    "file_semantic_fts",
+                    "salient_file_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 4,
+              "channel_counts": {
+                "broad_fts": 1,
+                "file_identity_fts": 1,
+                "file_semantic_fts": 1,
+                "salient_file_fts": 1
+              },
+              "fused_candidate_count": 1
+            },
+            "candidate_refs": [
+              {
+                "id": 1,
+                "file_path": "ExampleGuide.ts",
+                "channels": [
+                  "broad_fts",
+                  "file_identity_fts",
+                  "file_semantic_fts",
+                  "salient_file_fts"
+                ]
+              }
+            ]
+          },
+          "code_symbols": {
+            "requested_limit": 220,
+            "candidate_count": 3,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 3,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 3,
+              "method_body_fts": 0,
+              "symbol_identity_fts": 3,
+              "symbol_semantic_fts": 3,
+              "string_key_fts": 0,
+              "semantic_mechanism_fts": 0,
+              "salient_string_fts": 0
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "symbol_identity_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "symbol",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 3,
+                  "file_path_weight": 2.0,
+                  "symbol_weight": 8.0,
+                  "identity_terms_weight": 10.0
+                },
+                "symbol_semantic_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "symbol",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 3,
+                  "symbol_weight": 2.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "method_body_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms"
+                  ],
+                  "candidate_count": 0,
+                  "body_terms_weight": 8.0
+                },
+                "string_key_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "string_terms"
+                  ],
+                  "candidate_count": 0,
+                  "string_terms_weight": 9.0
+                },
+                "semantic_mechanism_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "mechanism_terms"
+                  ],
+                  "candidate_count": 0,
+                  "mechanism_terms_weight": 9.0
+                },
+                "salient_string_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms",
+                    "string_terms"
+                  ],
+                  "candidate_count": 0,
+                  "query_term_count": 4,
+                  "body_terms_weight": 3.0,
+                  "string_terms_weight": 10.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": false,
+              "serving_channels": [
+                "salient_string_fts",
+                "semantic_mechanism_fts",
+                "string_key_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 6,
+                "channel_counts": {
+                  "symbol_identity_fts": 3,
+                  "symbol_semantic_fts": 3,
+                  "method_body_fts": 0,
+                  "string_key_fts": 0,
+                  "semantic_mechanism_fts": 0,
+                  "salient_string_fts": 0
+                },
+                "fused_candidate_count": 3
+              },
+              "candidate_fusion": {
+                "2": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.04016393,
+                  "best_rank": 1,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 1,
+                      "weight": 1.45,
+                      "score": 0.02377049
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    }
+                  ]
+                },
+                "1": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03951613,
+                  "best_rank": 2,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 2,
+                      "weight": 1.45,
+                      "score": 0.0233871
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 2,
+                      "weight": 1.0,
+                      "score": 0.01612903
+                    }
+                  ]
+                },
+                "3": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.03888889,
+                  "best_rank": 3,
+                  "channel_count": 2,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 3,
+                      "weight": 1.45,
+                      "score": 0.02301587
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 3,
+                      "weight": 1.0,
+                      "score": 0.01587302
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 2,
+                  "file_path": "ExampleGuide.ts",
+                  "symbol": "phantomHandler",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 1,
+                  "file_path": "ExampleGuide.ts",
+                  "symbol": "ExampleGuide",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                },
+                {
+                  "id": 3,
+                  "file_path": "ExampleGuide.ts",
+                  "symbol": "execute",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 7,
+              "channel_counts": {
+                "broad_fts": 3,
+                "method_body_fts": 0,
+                "symbol_identity_fts": 3,
+                "symbol_semantic_fts": 3,
+                "string_key_fts": 0,
+                "semantic_mechanism_fts": 0,
+                "salient_string_fts": 0
+              },
+              "fused_candidate_count": 3
+            },
+            "candidate_refs": [
+              {
+                "id": 2,
+                "file_path": "ExampleGuide.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "phantomHandler"
+              },
+              {
+                "id": 1,
+                "file_path": "ExampleGuide.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "ExampleGuide"
+              },
+              {
+                "id": 3,
+                "file_path": "ExampleGuide.ts",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts"
+                ],
+                "symbol": "execute"
+              }
+            ]
+          },
+          "code_log_statements": {
+            "requested_limit": 180,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 3,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          }
+        }
+      },
+      "retrieval_stages": {
+        "scored": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 4,
+          "code_log_matches": 0,
+          "edge_matches": 3,
+          "incident_trace_matches": 0
+        },
+        "after_intent_gate": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 4,
+          "code_log_matches": 0,
+          "edge_matches": 3,
+          "incident_trace_matches": 0
+        },
+        "selected": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 4,
+          "code_log_matches": 0,
+          "edge_matches": 3,
+          "incident_trace_matches": 0
+        }
+      },
+      "top_explanations": {
+        "semantic_facts": [],
+        "reflections": [],
+        "episodes": [],
+        "wiki_matches": [
+          {
+            "type": "wiki_matches",
+            "id": 2,
+            "score": 108.5,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "exact_symbol",
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "multi_concept_coverage",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.05655738,
+              "best_rank": 1,
+              "channel_count": 3,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "symbol_identity_fts",
+                  "rank": 1,
+                  "weight": 1.45,
+                  "score": 0.02377049
+                },
+                {
+                  "channel": "symbol_semantic_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 108.5,
+              "rerank_score": null,
+              "match_reasons": [
+                "exact_symbol",
+                "expanded_query:file_path",
+                "expanded_query:symbol",
+                "expanded_query:symbol_summary",
+                "expanded_query:search_terms",
+                "exact_path_segment",
+                "query_focus_coverage",
+                "multi_concept_coverage",
+                "source_locatable"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "wiki_matches",
+            "id": 1,
+            "score": 80.5,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "exact_symbol",
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.05564516,
+              "best_rank": 2,
+              "channel_count": 3,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 2,
+                  "weight": 1.0,
+                  "score": 0.01612903
+                },
+                {
+                  "channel": "symbol_identity_fts",
+                  "rank": 2,
+                  "weight": 1.45,
+                  "score": 0.0233871
+                },
+                {
+                  "channel": "symbol_semantic_fts",
+                  "rank": 2,
+                  "weight": 1.0,
+                  "score": 0.01612903
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 80.5,
+              "rerank_score": null,
+              "match_reasons": [
+                "exact_symbol",
+                "expanded_query:file_path",
+                "expanded_query:symbol",
+                "expanded_query:symbol_summary",
+                "expanded_query:search_terms",
+                "exact_path_segment",
+                "query_focus_coverage",
+                "source_locatable"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "wiki_matches",
+            "id": 1,
+            "score": 55.4,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "expanded_query:file_path",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.07868852,
+              "best_rank": 1,
+              "channel_count": 4,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "file_identity_fts",
+                  "rank": 1,
+                  "weight": 1.35,
+                  "score": 0.02213115
+                },
+                {
+                  "channel": "file_semantic_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "salient_file_fts",
+                  "rank": 1,
+                  "weight": 1.45,
+                  "score": 0.02377049
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 55.4,
+              "rerank_score": null,
+              "match_reasons": [
+                "expanded_query:file_path",
+                "expanded_query:search_terms",
+                "exact_path_segment",
+                "query_focus_coverage",
+                "salient_query_evidence"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "code_log_matches": [],
+        "edge_matches": [
+          {
+            "type": "edge_matches",
+            "id": 3,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 2,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 1,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "incident_trace_matches": []
+      },
+      "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+      "hierarchical_localization": {
+        "schema_version": "agent-hierarchical-localization/v2",
+        "provider": "sqlite_hierarchical_localizer/v2",
+        "mode": "serving",
+        "projection_contract": {
+          "candidate_recall_changed": false,
+          "affects_serving_projection": true,
+          "consumer": "query_handoff.callable_evidence"
+        },
+        "limits": {
+          "files": 8,
+          "file_callable_pool": 128,
+          "direct_callable_pool": 32,
+          "graph_seeds": 6,
+          "graph_owners": 16,
+          "callables": 12,
+          "source_ranges": 8
+        },
+        "stage_counts": {
+          "file_candidates": 1,
+          "file_callable_pool": 2,
+          "graph_seed_count": 2,
+          "graph_owner_pool": 0,
+          "selected_callables": 2,
+          "selected_ranges": 2
+        },
+        "file_candidates": [
+          {
+            "file_path": "ExampleGuide.ts",
+            "score": 108.5,
+            "first_rank": 1,
+            "record_ids": [
+              2,
+              1,
+              3
+            ],
+            "direct_symbol_ids": [
+              2,
+              1,
+              3
+            ],
+            "match_reasons": [
+              "exact_symbol",
+              "expanded_query:file_path",
+              "expanded_query:symbol",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "multi_concept_coverage",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "file_identity_fts",
+              "file_semantic_fts",
+              "salient_file_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": true
+          }
+        ],
+        "graph_seeds": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 2,
+            "file_path": "ExampleGuide.ts",
+            "symbol": "phantomHandler",
+            "qualified_name": "ExampleGuide.phantomHandler@3",
+            "start_line": 3,
+            "end_line": 5,
+            "score": 50.5,
+            "evidence_score": 50.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "multi_concept_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "ExampleGuide",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 3,
+            "file_path": "ExampleGuide.ts",
+            "symbol": "execute",
+            "qualified_name": "ExampleGuide.execute@8",
+            "start_line": 8,
+            "end_line": 10,
+            "score": 22.0,
+            "evidence_score": 22.0,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "ExampleGuide",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "graph_owner_candidates": [],
+        "callable_candidates": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 2,
+            "file_path": "ExampleGuide.ts",
+            "symbol": "phantomHandler",
+            "qualified_name": "ExampleGuide.phantomHandler@3",
+            "start_line": 3,
+            "end_line": 5,
+            "score": 50.5,
+            "evidence_score": 50.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage",
+              "multi_concept_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "ExampleGuide",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 3,
+            "file_path": "ExampleGuide.ts",
+            "symbol": "execute",
+            "qualified_name": "ExampleGuide.execute@8",
+            "start_line": 8,
+            "end_line": 10,
+            "score": 22.0,
+            "evidence_score": 22.0,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path",
+              "expanded_query:symbol_summary",
+              "expanded_query:search_terms",
+              "exact_path_segment",
+              "query_focus_coverage"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts"
+            ],
+            "owner_name": "ExampleGuide",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "source_ranges": [
+          {
+            "symbol_id": 2,
+            "file_path": "ExampleGuide.ts",
+            "symbol": "phantomHandler",
+            "callable_start_line": 3,
+            "callable_end_line": 5,
+            "start_line": 3,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 3,
+            "file_path": "ExampleGuide.ts",
+            "symbol": "execute",
+            "callable_start_line": 8,
+            "callable_end_line": 10,
+            "start_line": 8,
+            "end_line": 10,
+            "selection_reason": "callable_symbol_range"
+          }
+        ]
+      },
+      "callable_evidence_set": {
+        "schema_version": "agent-callable-evidence-set/v1",
+        "mode": "shadow",
+        "serving_projection_changed": false,
+        "target_scope": {
+          "kind": "unknown",
+          "basis": [
+            "no_explicit_target_scope"
+          ]
+        },
+        "members": [
+          {
+            "position": 1,
+            "file_path": "ExampleGuide.ts",
+            "symbol": "phantomHandler",
+            "owner_name": "ExampleGuide",
+            "owner_kind": "class",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "direct_identity",
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 2,
+            "file_path": "ExampleGuide.ts",
+            "symbol": "execute",
+            "owner_name": "ExampleGuide",
+            "owner_kind": "class",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          }
+        ],
+        "competition": {
+          "member_count": 2,
+          "distinct_file_count": 1,
+          "same_owner_kind_alternative": true,
+          "graph_backed_alternative": false,
+          "excluded_member_count": 0
+        },
+        "calibration": {
+          "state": "unresolved",
+          "basis": [
+            "target_scope_unresolved",
+            "same_owner_kind_competition"
+          ]
+        },
+        "boundary": "retrieval_calibration_not_diagnosis"
+      },
+      "callable_passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    }
+  }
+}
