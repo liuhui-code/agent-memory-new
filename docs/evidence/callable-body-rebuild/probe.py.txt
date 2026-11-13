@@ -1,0 +1,29 @@
+import json,tempfile,sys
+from pathlib import Path
+sys.path.insert(0,str(Path.cwd()))
+from tests.agent_memory_test_base import AgentMemoryTestBase
+source='''export class CapabilityReader {
+  private available: boolean = false
+
+  resolve(): boolean {
+    this.available = canIUse('SystemCapability.ArkUI.ArkUI.Full')
+    return this.available
+  }
+
+
+
+  label(): string {
+    return this.available ? 'available' : 'unavailable'
+  }
+}
+'''
+queries=['Find CapabilityReader.label that formats the capability status label.', 'Return source for CapabilityReader.label.', '查找 CapabilityReader.label 能力状态文案方法', 'Find CapabilityReader.resolve capability detection.', 'Return CapabilityReader.label and CapabilityReader.resolve.']
+out=[]
+t=AgentMemoryTestBase()
+with tempfile.TemporaryDirectory() as d:
+ p=Path(d)/'project';p.mkdir();(p/'CapabilityReader.ts').write_text(source)
+ t.run_memory(p,'init');t.run_memory(p,'learn-path','--path','CapabilityReader.ts','--json')
+ for q in queries:
+  data=json.loads(t.run_memory(p,'context','--query',q,'--compact','--json').stdout);h=data['query_handoff'];out.append({'query':q,'data':data})
+  print(q);print(h.get('callable_evidence',{}).get('primary'));print([(a.get('source_ranges'),a.get('source_excerpts')) for a in h.get('code_anchors',[])])
+Path('/tmp/body-probe.json').write_text(json.dumps(out,ensure_ascii=False,indent=2))

@@ -11108,3 +11108,9 @@ identifier: require literal identity or compatible source-template text. Keep
 independently requested qualified methods and explicit source paths. Existing
 abstention Development variants pass 3/3 versus baseline 1/3. No full evaluation
 rerun; the pre-existing compact dynamic-template gap stays explicitly open.
+
+## Reproduce selected callable body omission
+
+Independent CapabilityReader public queries select label lines 11-13 but deliver
+only lines 1-11. Resolver control keeps its body. Freeze five queries, original
+outputs and source before changing excerpt behavior; no full evaluation run.

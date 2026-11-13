@@ -1,0 +1,37 @@
+FFFF
+======================================================================
+FAIL: test_public_target_body_and_existing_lines (tests.test_selected_callable_body.SelectedCallableBodyTests.test_public_target_body_and_existing_lines) (query='Find CapabilityReader.label that formats the capability status label.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/agent-memory-new/tests/test_selected_callable_body.py", line 32, in test_public_target_body_and_existing_lines
+    self.assertTrue(set(expected) <= lines, excerpts)
+AssertionError: False is not true : [{'symbol': None, 'start_line': 1, 'end_line': 11, 'content': "export class CapabilityReader {\n  private available: boolean = false\n\n  resolve(): boolean {\n    this.available = canIUse('SystemCapability.ArkUI.ArkUI.Full')\n    return this.available\n  }\n\n\n\n  label(): string {", 'source': 'current_worktree', 'selection_reason': 'query_term_window_within_anchor', 'focus_line': None, 'truncated': False}]
+
+======================================================================
+FAIL: test_public_target_body_and_existing_lines (tests.test_selected_callable_body.SelectedCallableBodyTests.test_public_target_body_and_existing_lines) (query='Return source for CapabilityReader.label.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/agent-memory-new/tests/test_selected_callable_body.py", line 32, in test_public_target_body_and_existing_lines
+    self.assertTrue(set(expected) <= lines, excerpts)
+AssertionError: False is not true : [{'symbol': None, 'start_line': 1, 'end_line': 11, 'content': "export class CapabilityReader {\n  private available: boolean = false\n\n  resolve(): boolean {\n    this.available = canIUse('SystemCapability.ArkUI.ArkUI.Full')\n    return this.available\n  }\n\n\n\n  label(): string {", 'source': 'current_worktree', 'selection_reason': 'query_term_window_within_anchor', 'focus_line': None, 'truncated': False}]
+
+======================================================================
+FAIL: test_public_target_body_and_existing_lines (tests.test_selected_callable_body.SelectedCallableBodyTests.test_public_target_body_and_existing_lines) (query='查找 CapabilityReader.label 能力状态文案方法')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/agent-memory-new/tests/test_selected_callable_body.py", line 32, in test_public_target_body_and_existing_lines
+    self.assertTrue(set(expected) <= lines, excerpts)
+AssertionError: False is not true : [{'symbol': None, 'start_line': 1, 'end_line': 11, 'content': "export class CapabilityReader {\n  private available: boolean = false\n\n  resolve(): boolean {\n    this.available = canIUse('SystemCapability.ArkUI.ArkUI.Full')\n    return this.available\n  }\n\n\n\n  label(): string {", 'source': 'current_worktree', 'selection_reason': 'query_term_window_within_anchor', 'focus_line': None, 'truncated': False}]
+
+======================================================================
+FAIL: test_public_target_body_and_existing_lines (tests.test_selected_callable_body.SelectedCallableBodyTests.test_public_target_body_and_existing_lines) (query='Return CapabilityReader.label and CapabilityReader.resolve.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/agent-memory-new/tests/test_selected_callable_body.py", line 32, in test_public_target_body_and_existing_lines
+    self.assertTrue(set(expected) <= lines, excerpts)
+AssertionError: False is not true : [{'symbol': None, 'start_line': 1, 'end_line': 11, 'content': "export class CapabilityReader {\n  private available: boolean = false\n\n  resolve(): boolean {\n    this.available = canIUse('SystemCapability.ArkUI.ArkUI.Full')\n    return this.available\n  }\n\n\n\n  label(): string {", 'source': 'current_worktree', 'selection_reason': 'query_term_window_within_anchor', 'focus_line': None, 'truncated': False}]
+
+----------------------------------------------------------------------
+Ran 1 test in 1.931s
+
+FAILED (failures=4)
