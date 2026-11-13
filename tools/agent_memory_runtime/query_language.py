@@ -52,8 +52,39 @@ def target_role_terms(query: str) -> list[str]:
     ])
 
 
+_RESULT_TARGETS = EXCLUDED_ROLE_TERMS | {
+    'source', 'code', 'implementation', 'method', 'function', 'owner', 'query',
+    'declaration', 'text', 'literal', 'example', 'sample',
+}
+_RESULT_ALTERNATIVE_RE = re.compile(
+    r'(?P<target>\b(?:find|locate|identify|return|show)\s+[^.;\n!?]{0,140}?'
+    r'(?:\b(?:' + '|'.join(sorted(_RESULT_TARGETS)) + r')\b|'
+    r'\b[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)+))\s*,?\s+instead\s+of\b', re.I,
+)
+_ALTERNATIVE_OPERATION_RE = re.compile(
+    r'\b(?:that|which|who|using|uses?|with|containing|from|to|into|convert(?:s|ing)?|replace(?:s|ment|ing)?)\b', re.I,
+)
+
+
+def result_alternative_query(query: str) -> str:
+    """Normalize only an explicit returned-result alternative, not A/B operations."""
+    quoted = [(match.start(), match.end()) for match in re.finditer(
+        r"`[^`\n]*`|\"[^\"\n]*\"|'[^'\n]*'", query,
+    )]
+    def normalize(match):
+        prefix = query[:match.start()].rstrip(' \t')
+        if (prefix and prefix[-1] not in '.;!?\n') or any(
+            start < match.end() and end > match.start() for start, end in quoted
+        ) or _ALTERNATIVE_OPERATION_RE.search(match['target']):
+            return match.group()
+        return match['target'] + ' rather than'
+    return _RESULT_ALTERNATIVE_RE.sub(normalize, query)
+
+
+
 def positive_retrieval_query(query: str) -> str:
     """Remove explicit result exclusions from positive evidence retrieval."""
+    query = result_alternative_query(query)
     retained_terms = unique_list([
         term
         for clause in NEGATIVE_RESULT_CLAUSE_RE.findall(query)
@@ -68,6 +99,7 @@ def positive_retrieval_query(query: str) -> str:
 
 
 def excluded_result_roles(query: str) -> set[str]:
+    query = result_alternative_query(query)
     return {
         term
         for clause in NEGATIVE_RESULT_CLAUSE_RE.findall(query)
@@ -77,6 +109,7 @@ def excluded_result_roles(query: str) -> set[str]:
 
 
 def excluded_result_identifiers(query: str) -> set[str]:
+    query = result_alternative_query(query)
     return {
         re.sub(r"[^a-z0-9]", "", value.casefold())
         for clause in NEGATIVE_RESULT_CLAUSE_RE.findall(query)
@@ -86,6 +119,7 @@ def excluded_result_identifiers(query: str) -> set[str]:
 
 
 def excluded_code_candidate(query: str, item: dict[str, object]) -> bool:
+    query = result_alternative_query(query)
     clauses = NEGATIVE_RESULT_CLAUSE_RE.findall(query)
     if not clauses:
         return False

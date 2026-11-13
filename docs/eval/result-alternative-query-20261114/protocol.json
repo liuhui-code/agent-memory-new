@@ -1,0 +1,18 @@
+{
+  "files": {
+    "src/runtime/ExtensionInspector.ets": "import { bundleManager } from '@kit.AbilityKit'\nexport class ExtensionInspector {\n  async inspectInstalled(): Promise<boolean> {\n    const details = await bundleManager.getBundleInfoForSelf(0)\n    return details.extensionAbilityInfo.length > 0\n  }\n}\n",
+    "src/config/ExtensionManifest.ets": "export const ExtensionManifest = {\n  capability: 'Runtime capability unavailable',\n  declaredExtension: 'Share',\n  probeRequired: true,\n}\n",
+    "src/ui/ExtensionSettings.ets": "@Component\nstruct ExtensionSettings {\n  build() {\n    Column() {\n      Text('Runtime capability inspection unavailable')\n      Text('Bundle extension capability query settings')\n    }\n  }\n}\n",
+    "src/runtime/ProbeNotes.ets": "export class ProbeNotes {\n  explain(): string {\n    return 'bundleManager.getBundleInfoForSelf(0) runtime capability'\n  }\n}\n"
+  },
+  "queries": [
+    "Runtime capability inspection is unavailable; find the executable source instead of manifest metadata or settings text.",
+    "Runtime capability inspection is unavailable; find the executable source rather than manifest metadata or settings text.",
+    "Find runtime capability manifest metadata instead of executable source.",
+    "Locate ExtensionSettings.build instead of ExtensionInspector.inspectInstalled.",
+    "Find both ExtensionInspector.inspectInstalled and ExtensionSettings.build source.",
+    "Find the literal `runtime capability` instead of executable source."
+  ],
+  "expected_primary": "src/runtime/ExtensionInspector.ets",
+  "controls": "explicit settings and two targets preserved"
+}

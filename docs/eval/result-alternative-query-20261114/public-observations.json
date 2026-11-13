@@ -1,0 +1,3208 @@
+{
+  "independent-before": [
+    {
+      "index": 0,
+      "compact": false,
+      "query": "Runtime capability inspection is unavailable; find the executable source instead of manifest metadata or settings text.",
+      "stdout_sha256": "809633b71d33a010e5088983bc945fb799d9813a18b1c472bf91a87f416430aa",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 7 non-empty lines; behavior: runtimecapability, asyncboundary",
+          "start_line": 2,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/ExtensionSettings.ets",
+          "start_line": 3,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "owner_name": "ExtensionSettings",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2"
+          ],
+          "score": 40.0,
+          "evidence_score": 40.0,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ProbeNotes.ets",
+            "symbol": "explain",
+            "owner_name": "ProbeNotes",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 23.6,
+            "evidence_score": 23.6,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/runtime/ExtensionInspector.ets",
+            "symbol": "inspectInstalled",
+            "owner_name": "ExtensionInspector",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2",
+              "source_operation:runtimecapability",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 17.75,
+            "evidence_score": 17.75,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 0,
+      "compact": true,
+      "query": "Runtime capability inspection is unavailable; find the executable source instead of manifest metadata or settings text.",
+      "stdout_sha256": "7bec9b3e97e551dcaf47a7ebd439d41c804f9e26890d9820d63b119bbd67d9e3",
+      "code_anchors": [
+        {
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "record_ids": [
+            7
+          ],
+          "source_ranges": [
+            {
+              "symbol": "build",
+              "start_line": 3,
+              "end_line": 8
+            }
+          ],
+          "read_window": {
+            "start_line": 3,
+            "end_line": 8
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 9,
+              "content": "@Component\nstruct ExtensionSettings {\n  build() {\n    Column() {\n      Text('Runtime capability inspection unavailable')\n      Text('Bundle extension capability query settings')\n    }\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "owner_name": "ExtensionSettings",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2"
+          ],
+          "score": 40.0,
+          "evidence_score": 40.0,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ProbeNotes.ets",
+            "symbol": "explain",
+            "owner_name": "ProbeNotes",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 23.6,
+            "evidence_score": 23.6,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/runtime/ExtensionInspector.ets",
+            "symbol": "inspectInstalled",
+            "owner_name": "ExtensionInspector",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2",
+              "source_operation:runtimecapability",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 17.75,
+            "evidence_score": 17.75,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 1,
+      "compact": false,
+      "query": "Runtime capability inspection is unavailable; find the executable source rather than manifest metadata or settings text.",
+      "stdout_sha256": "3000f1721bf4c58b598c9b33dcaba8f2e73b2793ed8c547bf90398762bfaf108",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 7 non-empty lines; behavior: runtimecapability, asyncboundary",
+          "start_line": 2,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 5,
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method explain in src/runtime/ProbeNotes.ets",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/ExtensionSettings.ets",
+          "start_line": 3,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "source_operation_match": true,
+          "owner_name": "ExtensionInspector",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2",
+            "source_operation:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 18.75,
+          "evidence_score": 18.75,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ProbeNotes.ets",
+            "symbol": "explain",
+            "owner_name": "ProbeNotes",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 25.32,
+            "evidence_score": 25.32,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 23.05,
+            "evidence_score": 23.05,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 1,
+      "compact": true,
+      "query": "Runtime capability inspection is unavailable; find the executable source rather than manifest metadata or settings text.",
+      "stdout_sha256": "2aed8e13b8cdc48cc8b72f161120e4472c37f1dedc27e66456728de648908d6c",
+      "code_anchors": [
+        {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "record_ids": [
+            2
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ExtensionInspector",
+              "start_line": 2,
+              "end_line": 7
+            }
+          ],
+          "summary": "ArkTS file with 7 non-empty lines; behavior: runtimecapability, asyncboundary",
+          "read_window": {
+            "start_line": 2,
+            "end_line": 7
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "inspectInstalled",
+              "start_line": 3,
+              "end_line": 6,
+              "content": "  async inspectInstalled(): Promise<boolean> {\n    const details = await bundleManager.getBundleInfoForSelf(0)\n    return details.extensionAbilityInfo.length > 0\n  }",
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "source_operation_match": true,
+          "owner_name": "ExtensionInspector",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2",
+            "source_operation:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 18.75,
+          "evidence_score": 18.75,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ProbeNotes.ets",
+            "symbol": "explain",
+            "owner_name": "ProbeNotes",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 25.32,
+            "evidence_score": 25.32,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 23.05,
+            "evidence_score": 23.05,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 2,
+      "compact": false,
+      "query": "Find runtime capability manifest metadata instead of executable source.",
+      "stdout_sha256": "ee569e13bbeea21cfb14e28e095e203f3e930a378381efc71e5a65253a850c32",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 7 non-empty lines; behavior: runtimecapability, asyncboundary",
+          "start_line": 2,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 5,
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method explain in src/runtime/ProbeNotes.ets",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/ExtensionSettings.ets",
+          "start_line": 3,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "owner_name": "ProbeNotes",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2"
+          ],
+          "score": 25.32,
+          "evidence_score": 25.32,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ExtensionInspector.ets",
+            "symbol": "inspectInstalled",
+            "owner_name": "ExtensionInspector",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2",
+              "source_operation:runtimecapability",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 18.75,
+            "evidence_score": 18.75,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 15.43,
+            "evidence_score": 15.43,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 2,
+      "compact": true,
+      "query": "Find runtime capability manifest metadata instead of executable source.",
+      "stdout_sha256": "06bb95274d1f4477fd37861c217946ac2bcb5da6990c0d2da23fabbabf217e57",
+      "code_anchors": [
+        {
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "symbol_type": "function",
+          "record_ids": [
+            5
+          ],
+          "source_ranges": [
+            {
+              "symbol": "explain",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "explain",
+              "start_line": 2,
+              "end_line": 4,
+              "content": "  explain(): string {\n    return 'bundleManager.getBundleInfoForSelf(0) runtime capability'\n  }",
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "owner_name": "ProbeNotes",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2"
+          ],
+          "score": 25.32,
+          "evidence_score": 25.32,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ExtensionInspector.ets",
+            "symbol": "inspectInstalled",
+            "owner_name": "ExtensionInspector",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2",
+              "source_operation:runtimecapability",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 18.75,
+            "evidence_score": 18.75,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 15.43,
+            "evidence_score": 15.43,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 3,
+      "compact": false,
+      "query": "Locate ExtensionSettings.build instead of ExtensionInspector.inspectInstalled.",
+      "stdout_sha256": "c4c9871ae5496df4347523349ef3a282341b97bbc076587001dc160321f8f286",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method inspectInstalled in src/runtime/ExtensionInspector.ets; identifier terms: inspect installed",
+          "start_line": 3,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/ExtensionSettings.ets",
+          "start_line": 3,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "ExtensionSettings",
+          "symbol_type": "component",
+          "summary": "ArkTS component ExtensionSettings declared in src/ui/ExtensionSettings.ets; identifier terms: extension settings",
+          "start_line": 2,
+          "end_line": 9,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "summary": "ArkTS class ExtensionInspector declared in src/runtime/ExtensionInspector.ets; identifier terms: extension inspector",
+          "start_line": 2,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/config/ExtensionManifest.ets",
+          "symbol": "ExtensionManifest",
+          "symbol_type": "object",
+          "summary": "object ExtensionManifest in src/config/ExtensionManifest.ets; identifier terms: extension manifest",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "owner_name": "ExtensionInspector",
+          "owner_kind": "class",
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2",
+            "source_operation:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 56.5,
+          "evidence_score": 56.5,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 51.5,
+            "evidence_score": 51.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 3,
+      "compact": true,
+      "query": "Locate ExtensionSettings.build instead of ExtensionInspector.inspectInstalled.",
+      "stdout_sha256": "d21c45ae5550e283a7a8e93ff60c7a34bd971058aef1f9539582b246f48ad3d5",
+      "code_anchors": [
+        {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "symbol_type": "function",
+          "record_ids": [
+            3,
+            2
+          ],
+          "source_ranges": [
+            {
+              "symbol": "inspectInstalled",
+              "start_line": 3,
+              "end_line": 6
+            },
+            {
+              "symbol": "ExtensionInspector",
+              "start_line": 2,
+              "end_line": 7
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 7
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "inspectInstalled",
+              "start_line": 1,
+              "end_line": 7,
+              "content": "import { bundleManager } from '@kit.AbilityKit'\nexport class ExtensionInspector {\n  async inspectInstalled(): Promise<boolean> {\n    const details = await bundleManager.getBundleInfoForSelf(0)\n    return details.extensionAbilityInfo.length > 0\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "record_ids": [
+            7,
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "build",
+              "start_line": 3,
+              "end_line": 8
+            },
+            {
+              "symbol": "ExtensionSettings",
+              "start_line": 2,
+              "end_line": 9
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 9
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 9,
+              "content": "@Component\nstruct ExtensionSettings {\n  build() {\n    Column() {\n      Text('Runtime capability inspection unavailable')\n      Text('Bundle extension capability query settings')\n    }\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/config/ExtensionManifest.ets",
+          "symbol": "ExtensionManifest",
+          "symbol_type": "object",
+          "record_ids": [
+            1
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ExtensionManifest",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "ExtensionManifest",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export const ExtensionManifest = {\n  capability: 'Runtime capability unavailable',\n  declaredExtension: 'Share',\n  probeRequired: true,\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "owner_name": "ExtensionInspector",
+          "owner_kind": "class",
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2",
+            "source_operation:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 56.5,
+          "evidence_score": 56.5,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 51.5,
+            "evidence_score": 51.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 4,
+      "compact": false,
+      "query": "Find both ExtensionInspector.inspectInstalled and ExtensionSettings.build source.",
+      "stdout_sha256": "5966cef568dd45baa887013a2128776e243e4f8664c5597604147fcad1acaee9",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method inspectInstalled in src/runtime/ExtensionInspector.ets; identifier terms: inspect installed",
+          "start_line": 3,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/ExtensionSettings.ets",
+          "start_line": 3,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "ExtensionSettings",
+          "symbol_type": "component",
+          "summary": "ArkTS component ExtensionSettings declared in src/ui/ExtensionSettings.ets; identifier terms: extension settings",
+          "start_line": 2,
+          "end_line": 9,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "summary": "ArkTS class ExtensionInspector declared in src/runtime/ExtensionInspector.ets; identifier terms: extension inspector",
+          "start_line": 2,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/config/ExtensionManifest.ets",
+          "symbol": "ExtensionManifest",
+          "symbol_type": "object",
+          "summary": "object ExtensionManifest in src/config/ExtensionManifest.ets; identifier terms: extension manifest",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "owner_name": "ExtensionInspector",
+          "owner_kind": "class",
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2",
+            "source_operation:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 56.5,
+          "evidence_score": 56.5,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 51.5,
+            "evidence_score": 51.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "composed",
+          "target_scope": "multiple",
+          "members": [
+            {
+              "file_path": "src/runtime/ExtensionInspector.ets",
+              "symbol": "inspectInstalled",
+              "owner_name": "ExtensionInspector",
+              "source_range": {
+                "start_line": 3,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "exact_symbol",
+                "query_symbol_terms"
+              ]
+            },
+            {
+              "file_path": "src/ui/ExtensionSettings.ets",
+              "symbol": "build",
+              "owner_name": "ExtensionSettings",
+              "source_range": {
+                "start_line": 3,
+                "end_line": 8,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "exact_symbol"
+              ]
+            }
+          ],
+          "selection_basis": [
+            "existing_localization",
+            "same_owner_scope",
+            "explicit_cross_file_targets",
+            "bounded_passage_diversity"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 4,
+      "compact": true,
+      "query": "Find both ExtensionInspector.inspectInstalled and ExtensionSettings.build source.",
+      "stdout_sha256": "bfe4a470437ceaeb79cb7eeeeb084734294e0d22c3e408f2e09ec76ad3adb15c",
+      "code_anchors": [
+        {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "symbol_type": "function",
+          "record_ids": [
+            3,
+            2
+          ],
+          "source_ranges": [
+            {
+              "symbol": "inspectInstalled",
+              "start_line": 3,
+              "end_line": 6
+            },
+            {
+              "symbol": "ExtensionInspector",
+              "start_line": 2,
+              "end_line": 7
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 7
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "inspectInstalled",
+              "start_line": 1,
+              "end_line": 7,
+              "content": "import { bundleManager } from '@kit.AbilityKit'\nexport class ExtensionInspector {\n  async inspectInstalled(): Promise<boolean> {\n    const details = await bundleManager.getBundleInfoForSelf(0)\n    return details.extensionAbilityInfo.length > 0\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "record_ids": [
+            7,
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "build",
+              "start_line": 3,
+              "end_line": 8
+            },
+            {
+              "symbol": "ExtensionSettings",
+              "start_line": 2,
+              "end_line": 9
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 9
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 9,
+              "content": "@Component\nstruct ExtensionSettings {\n  build() {\n    Column() {\n      Text('Runtime capability inspection unavailable')\n      Text('Bundle extension capability query settings')\n    }\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/config/ExtensionManifest.ets",
+          "symbol": "ExtensionManifest",
+          "symbol_type": "object",
+          "record_ids": [
+            1
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ExtensionManifest",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "ExtensionManifest",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export const ExtensionManifest = {\n  capability: 'Runtime capability unavailable',\n  declaredExtension: 'Share',\n  probeRequired: true,\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "owner_name": "ExtensionInspector",
+          "owner_kind": "class",
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2",
+            "source_operation:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 56.5,
+          "evidence_score": 56.5,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 51.5,
+            "evidence_score": 51.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 5,
+      "compact": false,
+      "query": "Find the literal `runtime capability` instead of executable source.",
+      "stdout_sha256": "2d5772f505f43fcd8bcc33c50e84b510dbb0d2399cfbea9b7c8c914e430c366f",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 7 non-empty lines; behavior: runtimecapability, asyncboundary",
+          "start_line": 2,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 5,
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method explain in src/runtime/ProbeNotes.ets",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/ExtensionSettings.ets",
+          "start_line": 3,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "owner_name": "ProbeNotes",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2"
+          ],
+          "score": 26.32,
+          "evidence_score": 26.32,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ExtensionInspector.ets",
+            "symbol": "inspectInstalled",
+            "owner_name": "ExtensionInspector",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2",
+              "source_operation:runtimecapability",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 17.75,
+            "evidence_score": 17.75,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 16.43,
+            "evidence_score": 16.43,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 5,
+      "compact": true,
+      "query": "Find the literal `runtime capability` instead of executable source.",
+      "stdout_sha256": "d75315d12950f23c07508d4415c0e376f96bd5a8b746340327a3ee1646435dfd",
+      "code_anchors": [
+        {
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "symbol_type": "function",
+          "record_ids": [
+            5
+          ],
+          "source_ranges": [
+            {
+              "symbol": "explain",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "explain",
+              "start_line": 2,
+              "end_line": 4,
+              "content": "  explain(): string {\n    return 'bundleManager.getBundleInfoForSelf(0) runtime capability'\n  }",
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "owner_name": "ProbeNotes",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2"
+          ],
+          "score": 26.32,
+          "evidence_score": 26.32,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ExtensionInspector.ets",
+            "symbol": "inspectInstalled",
+            "owner_name": "ExtensionInspector",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2",
+              "source_operation:runtimecapability",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 17.75,
+            "evidence_score": 17.75,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 16.43,
+            "evidence_score": 16.43,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    }
+  ],
+  "independent-final": [
+    {
+      "index": 0,
+      "compact": false,
+      "query": "Runtime capability inspection is unavailable; find the executable source instead of manifest metadata or settings text.",
+      "stdout_sha256": "94020d8768a8445b40d5bfb2c6e9690cd0855b116ba68daebc53644e796f164e",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 7 non-empty lines; behavior: runtimecapability, asyncboundary",
+          "start_line": 2,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 5,
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method explain in src/runtime/ProbeNotes.ets",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/ExtensionSettings.ets",
+          "start_line": 3,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "source_operation_match": true,
+          "owner_name": "ExtensionInspector",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2",
+            "source_operation:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 18.75,
+          "evidence_score": 18.75,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ProbeNotes.ets",
+            "symbol": "explain",
+            "owner_name": "ProbeNotes",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 25.32,
+            "evidence_score": 25.32,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 23.05,
+            "evidence_score": 23.05,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 0,
+      "compact": true,
+      "query": "Runtime capability inspection is unavailable; find the executable source instead of manifest metadata or settings text.",
+      "stdout_sha256": "f6e2b27cde27a93d89d9a174359d7af7f1211003183aa2837cc26d973c93b6c4",
+      "code_anchors": [
+        {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "record_ids": [
+            2
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ExtensionInspector",
+              "start_line": 2,
+              "end_line": 7
+            }
+          ],
+          "summary": "ArkTS file with 7 non-empty lines; behavior: runtimecapability, asyncboundary",
+          "read_window": {
+            "start_line": 2,
+            "end_line": 7
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "inspectInstalled",
+              "start_line": 3,
+              "end_line": 6,
+              "content": "  async inspectInstalled(): Promise<boolean> {\n    const details = await bundleManager.getBundleInfoForSelf(0)\n    return details.extensionAbilityInfo.length > 0\n  }",
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "source_operation_match": true,
+          "owner_name": "ExtensionInspector",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2",
+            "source_operation:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 18.75,
+          "evidence_score": 18.75,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ProbeNotes.ets",
+            "symbol": "explain",
+            "owner_name": "ProbeNotes",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 25.32,
+            "evidence_score": 25.32,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 23.05,
+            "evidence_score": 23.05,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 1,
+      "compact": false,
+      "query": "Runtime capability inspection is unavailable; find the executable source rather than manifest metadata or settings text.",
+      "stdout_sha256": "52e54b55958d140f6ca07210570c8615e862084b4e749fc7ff1ab68c8c92da6b",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 7 non-empty lines; behavior: runtimecapability, asyncboundary",
+          "start_line": 2,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 5,
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method explain in src/runtime/ProbeNotes.ets",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/ExtensionSettings.ets",
+          "start_line": 3,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "source_operation_match": true,
+          "owner_name": "ExtensionInspector",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2",
+            "source_operation:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 18.75,
+          "evidence_score": 18.75,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ProbeNotes.ets",
+            "symbol": "explain",
+            "owner_name": "ProbeNotes",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 25.32,
+            "evidence_score": 25.32,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 23.05,
+            "evidence_score": 23.05,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 1,
+      "compact": true,
+      "query": "Runtime capability inspection is unavailable; find the executable source rather than manifest metadata or settings text.",
+      "stdout_sha256": "2aed8e13b8cdc48cc8b72f161120e4472c37f1dedc27e66456728de648908d6c",
+      "code_anchors": [
+        {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "record_ids": [
+            2
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ExtensionInspector",
+              "start_line": 2,
+              "end_line": 7
+            }
+          ],
+          "summary": "ArkTS file with 7 non-empty lines; behavior: runtimecapability, asyncboundary",
+          "read_window": {
+            "start_line": 2,
+            "end_line": 7
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "inspectInstalled",
+              "start_line": 3,
+              "end_line": 6,
+              "content": "  async inspectInstalled(): Promise<boolean> {\n    const details = await bundleManager.getBundleInfoForSelf(0)\n    return details.extensionAbilityInfo.length > 0\n  }",
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "source_operation_match": true,
+          "owner_name": "ExtensionInspector",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2",
+            "source_operation:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 18.75,
+          "evidence_score": 18.75,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ProbeNotes.ets",
+            "symbol": "explain",
+            "owner_name": "ProbeNotes",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 25.32,
+            "evidence_score": 25.32,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 23.05,
+            "evidence_score": 23.05,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 2,
+      "compact": false,
+      "query": "Find runtime capability manifest metadata instead of executable source.",
+      "stdout_sha256": "d8fc5284c353280c253a886e0a8a7f1cb543b13edf1b80c63df33e0b81a153f0",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 7 non-empty lines; behavior: runtimecapability, asyncboundary",
+          "start_line": 2,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 5,
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method explain in src/runtime/ProbeNotes.ets",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/ExtensionSettings.ets",
+          "start_line": 3,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "owner_name": "ProbeNotes",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2"
+          ],
+          "score": 25.32,
+          "evidence_score": 25.32,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ExtensionInspector.ets",
+            "symbol": "inspectInstalled",
+            "owner_name": "ExtensionInspector",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2",
+              "source_operation:runtimecapability",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 18.75,
+            "evidence_score": 18.75,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 15.43,
+            "evidence_score": 15.43,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 2,
+      "compact": true,
+      "query": "Find runtime capability manifest metadata instead of executable source.",
+      "stdout_sha256": "06bb95274d1f4477fd37861c217946ac2bcb5da6990c0d2da23fabbabf217e57",
+      "code_anchors": [
+        {
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "symbol_type": "function",
+          "record_ids": [
+            5
+          ],
+          "source_ranges": [
+            {
+              "symbol": "explain",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "explain",
+              "start_line": 2,
+              "end_line": 4,
+              "content": "  explain(): string {\n    return 'bundleManager.getBundleInfoForSelf(0) runtime capability'\n  }",
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "owner_name": "ProbeNotes",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2"
+          ],
+          "score": 25.32,
+          "evidence_score": 25.32,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ExtensionInspector.ets",
+            "symbol": "inspectInstalled",
+            "owner_name": "ExtensionInspector",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2",
+              "source_operation:runtimecapability",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 18.75,
+            "evidence_score": 18.75,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 15.43,
+            "evidence_score": 15.43,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 3,
+      "compact": false,
+      "query": "Locate ExtensionSettings.build instead of ExtensionInspector.inspectInstalled.",
+      "stdout_sha256": "40334f25bb8ff25005766ae8706042f3729eed99f1f96315c03967e25d0a46e0",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/ExtensionSettings.ets",
+          "start_line": 3,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method inspectInstalled in src/runtime/ExtensionInspector.ets; identifier terms: inspect installed",
+          "start_line": 3,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "ExtensionSettings",
+          "symbol_type": "component",
+          "summary": "ArkTS component ExtensionSettings declared in src/ui/ExtensionSettings.ets; identifier terms: extension settings",
+          "start_line": 2,
+          "end_line": 9,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "summary": "ArkTS class ExtensionInspector declared in src/runtime/ExtensionInspector.ets; identifier terms: extension inspector",
+          "start_line": 2,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/config/ExtensionManifest.ets",
+          "symbol": "ExtensionManifest",
+          "symbol_type": "object",
+          "summary": "object ExtensionManifest in src/config/ExtensionManifest.ets; identifier terms: extension manifest",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "owner_name": "ExtensionSettings",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2"
+          ],
+          "score": 52.5,
+          "evidence_score": 52.5,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:string_evidence"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 3,
+      "compact": true,
+      "query": "Locate ExtensionSettings.build instead of ExtensionInspector.inspectInstalled.",
+      "stdout_sha256": "c503c848c1f8cfda2a3d6fb8aed36bd74c1dd251fd5e698a42a945ee4e6230bf",
+      "code_anchors": [
+        {
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "record_ids": [
+            7,
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "build",
+              "start_line": 3,
+              "end_line": 8
+            },
+            {
+              "symbol": "ExtensionSettings",
+              "start_line": 2,
+              "end_line": 9
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 9
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 9,
+              "content": "@Component\nstruct ExtensionSettings {\n  build() {\n    Column() {\n      Text('Runtime capability inspection unavailable')\n      Text('Bundle extension capability query settings')\n    }\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "owner_name": "ExtensionSettings",
+          "owner_kind": "component",
+          "callable_roles": [
+            "source_operation_checked:v2"
+          ],
+          "score": 52.5,
+          "evidence_score": 52.5,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:string_evidence"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 4,
+      "compact": false,
+      "query": "Find both ExtensionInspector.inspectInstalled and ExtensionSettings.build source.",
+      "stdout_sha256": "df9b39deecc3b583d1c33ed3889b1c96234ab4aaeb9bf6be7fa31ca85194c464",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method inspectInstalled in src/runtime/ExtensionInspector.ets; identifier terms: inspect installed",
+          "start_line": 3,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/ExtensionSettings.ets",
+          "start_line": 3,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "ExtensionSettings",
+          "symbol_type": "component",
+          "summary": "ArkTS component ExtensionSettings declared in src/ui/ExtensionSettings.ets; identifier terms: extension settings",
+          "start_line": 2,
+          "end_line": 9,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "summary": "ArkTS class ExtensionInspector declared in src/runtime/ExtensionInspector.ets; identifier terms: extension inspector",
+          "start_line": 2,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/config/ExtensionManifest.ets",
+          "symbol": "ExtensionManifest",
+          "symbol_type": "object",
+          "summary": "object ExtensionManifest in src/config/ExtensionManifest.ets; identifier terms: extension manifest",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "owner_name": "ExtensionInspector",
+          "owner_kind": "class",
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2",
+            "source_operation:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 56.5,
+          "evidence_score": 56.5,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 51.5,
+            "evidence_score": 51.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "composed",
+          "target_scope": "multiple",
+          "members": [
+            {
+              "file_path": "src/runtime/ExtensionInspector.ets",
+              "symbol": "inspectInstalled",
+              "owner_name": "ExtensionInspector",
+              "source_range": {
+                "start_line": 3,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "exact_symbol",
+                "query_symbol_terms"
+              ]
+            },
+            {
+              "file_path": "src/ui/ExtensionSettings.ets",
+              "symbol": "build",
+              "owner_name": "ExtensionSettings",
+              "source_range": {
+                "start_line": 3,
+                "end_line": 8,
+                "selection_reason": "callable_symbol_range"
+              },
+              "support_reasons": [
+                "exact_symbol"
+              ]
+            }
+          ],
+          "selection_basis": [
+            "existing_localization",
+            "same_owner_scope",
+            "explicit_cross_file_targets",
+            "bounded_passage_diversity"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 4,
+      "compact": true,
+      "query": "Find both ExtensionInspector.inspectInstalled and ExtensionSettings.build source.",
+      "stdout_sha256": "bfe4a470437ceaeb79cb7eeeeb084734294e0d22c3e408f2e09ec76ad3adb15c",
+      "code_anchors": [
+        {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "symbol_type": "function",
+          "record_ids": [
+            3,
+            2
+          ],
+          "source_ranges": [
+            {
+              "symbol": "inspectInstalled",
+              "start_line": 3,
+              "end_line": 6
+            },
+            {
+              "symbol": "ExtensionInspector",
+              "start_line": 2,
+              "end_line": 7
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 7
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "inspectInstalled",
+              "start_line": 1,
+              "end_line": 7,
+              "content": "import { bundleManager } from '@kit.AbilityKit'\nexport class ExtensionInspector {\n  async inspectInstalled(): Promise<boolean> {\n    const details = await bundleManager.getBundleInfoForSelf(0)\n    return details.extensionAbilityInfo.length > 0\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "record_ids": [
+            7,
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "build",
+              "start_line": 3,
+              "end_line": 8
+            },
+            {
+              "symbol": "ExtensionSettings",
+              "start_line": 2,
+              "end_line": 9
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 9
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 9,
+              "content": "@Component\nstruct ExtensionSettings {\n  build() {\n    Column() {\n      Text('Runtime capability inspection unavailable')\n      Text('Bundle extension capability query settings')\n    }\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/config/ExtensionManifest.ets",
+          "symbol": "ExtensionManifest",
+          "symbol_type": "object",
+          "record_ids": [
+            1
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ExtensionManifest",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "ExtensionManifest",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export const ExtensionManifest = {\n  capability: 'Runtime capability unavailable',\n  declaredExtension: 'Share',\n  probeRequired: true,\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "inspectInstalled",
+          "owner_name": "ExtensionInspector",
+          "owner_kind": "class",
+          "callable_roles": [
+            "async",
+            "source_operation_checked:v2",
+            "source_operation:runtimecapability",
+            "source_operation_unresolved:persistenceread"
+          ],
+          "score": 56.5,
+          "evidence_score": 56.5,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 51.5,
+            "evidence_score": 51.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "index": 5,
+      "compact": false,
+      "query": "Find the literal `runtime capability` instead of executable source.",
+      "stdout_sha256": "7402d0773bedfd7d029d6572b2ea16e53dd313f20fafa9fa36785c178648076a",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/runtime/ExtensionInspector.ets",
+          "symbol": "ExtensionInspector",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 7 non-empty lines; behavior: runtimecapability, asyncboundary",
+          "start_line": 2,
+          "end_line": 7,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 5,
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method explain in src/runtime/ProbeNotes.ets",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 7,
+          "file_path": "src/ui/ExtensionSettings.ets",
+          "symbol": "build",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method build in src/ui/ExtensionSettings.ets",
+          "start_line": 3,
+          "end_line": 8,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "owner_name": "ProbeNotes",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2"
+          ],
+          "score": 26.32,
+          "evidence_score": 26.32,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ExtensionInspector.ets",
+            "symbol": "inspectInstalled",
+            "owner_name": "ExtensionInspector",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2",
+              "source_operation:runtimecapability",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 17.75,
+            "evidence_score": 17.75,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 16.43,
+            "evidence_score": 16.43,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "index": 5,
+      "compact": true,
+      "query": "Find the literal `runtime capability` instead of executable source.",
+      "stdout_sha256": "d75315d12950f23c07508d4415c0e376f96bd5a8b746340327a3ee1646435dfd",
+      "code_anchors": [
+        {
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "symbol_type": "function",
+          "record_ids": [
+            5
+          ],
+          "source_ranges": [
+            {
+              "symbol": "explain",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 2,
+            "end_line": 4
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "explain",
+              "start_line": 2,
+              "end_line": 4,
+              "content": "  explain(): string {\n    return 'bundleManager.getBundleInfoForSelf(0) runtime capability'\n  }",
+              "source": "current_worktree",
+              "selection_reason": "callable_mechanism_window",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/runtime/ProbeNotes.ets",
+          "symbol": "explain",
+          "owner_name": "ProbeNotes",
+          "owner_kind": "class",
+          "file_structural_coverage": 1,
+          "callable_roles": [
+            "source_operation_checked:v2"
+          ],
+          "score": 26.32,
+          "evidence_score": 26.32,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior",
+            "source_locatable"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/ExtensionInspector.ets",
+            "symbol": "inspectInstalled",
+            "owner_name": "ExtensionInspector",
+            "owner_kind": "class",
+            "file_structural_coverage": 1,
+            "callable_roles": [
+              "async",
+              "source_operation_checked:v2",
+              "source_operation:runtimecapability",
+              "source_operation_unresolved:persistenceread"
+            ],
+            "score": 17.75,
+            "evidence_score": 17.75,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/ExtensionSettings.ets",
+            "symbol": "build",
+            "owner_name": "ExtensionSettings",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2"
+            ],
+            "score": 16.43,
+            "evidence_score": 16.43,
+            "reasons": [
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    }
+  ]
+}

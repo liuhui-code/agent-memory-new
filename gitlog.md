@@ -1,5 +1,11 @@
 # Local Development Log
 
+## 2026-11-14 — Normalize explicit instead-of result exclusions
+
+- Reproduce source retrieval misreading instead-of metadata as a positive target; equivalent rather-than already works. Normalize only explicit nominal result alternatives, leaving operation comparisons and quoted/original text untouched.
+- Capability variants improve 2/3 to 3/3 with real source snippets. 73 focused tests pass; sourceop v2 and ranking/thresholds are unchanged.
+- Evidence: docs/eval/result-alternative-query-20261114/. No full suite or remote write.
+
 ## 2026-11-14 — Keep unresolved persistence access out of absence certificates
 
 - Treat optional/computed persistence access and visible aliases as unresolved, never proof that a competing callable lacks reads. Freeze competition regressions and bump checked evidence to v2 so v1 archives remain unknown.
