@@ -38,3 +38,17 @@ Artifacts: before/after.json, red.txt, related.txt, startup-before/after.json.
 The broad-expansion green prototype log is not the final result; related.txt
 records the final ETS-only candidate. Normalization is query-time, not an index
 schema change.
+
+## Targeted existing-query impact check
+
+A static dependency review identified three original queries containing `resets`
+that can lose the unintended ETS expansion. Both baseline and final candidate
+were run on their three complete variant groups (9 variants total), same original
+oracle: 7 pass / 2 fail before AND after, with each individual status unchanged.
+- lifecycle-persistence-owner-precision: 1/3 both (original passes).
+- mechanism-owner-over-domain-neighbors: 3/3 both.
+- large-file-method-window: 3/3 both.
+
+Saved affected-before.json and affected-after.json. This is the necessary focused
+regression for actual dependent queries, not a full gate or an original-failure
+gain. All seven prior green variants remain green. The two prior failures remain.

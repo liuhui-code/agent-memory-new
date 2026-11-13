@@ -11529,3 +11529,7 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   expansions, Chinese-adjacent intent and .ets extension. Other triggers unchanged.
 - 47 tests pass, no expected failures; 4 startup controls pass before and after.
   No original231 gain claimed. Evidence: docs/evidence/language-token-boundary.
+- Follow-up dependency audit: three original query groups affected by the `resets`
+  substring were rerun on baseline and candidate (9 variants). Both are 7/9,
+  every individual pass/fail unchanged; no prior pass regressed. See affected
+  before/after evidence in the same directory.
