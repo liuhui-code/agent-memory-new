@@ -11094,3 +11094,9 @@ spans remain incomplete. One non-target public wrapped path is replaced while
 its indexed fields remain intact; this exception is explicitly recorded.
 Original repository and frozen inputs remain untouched. No push or later
 historical-score recovery claim. See local-reconstruction-result-20261111.md.
+
+## Reconstruct opaque log admission
+
+Freeze new ArchiveReporter public-output reproduction and red test evidence.
+Unmatched opaque event identifiers currently admit unrelated log anchors.
+No serving change yet; full historical candidate was not recovered.
