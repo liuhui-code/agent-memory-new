@@ -12,7 +12,7 @@ def source_operation_roles(source: str, file_path: str) -> list[str]:
     if Path(file_path).suffix not in {".ts", ".ets"}:
         return []
     if '`' in source:
-        return ['source_operation_checked:v1', 'source_operation_unresolved:runtimecapability', 'source_operation_unresolved:persistenceread']
+        return ['source_operation_checked:v2', 'source_operation_unresolved:runtimecapability', 'source_operation_unresolved:persistenceread']
     code = NON_CODE_RE.sub(lambda match: ' ' * len(match.group()), source)
     if '{' not in code or code.count('{') != code.count('}'):
         return []
@@ -29,9 +29,20 @@ def source_operation_roles(source: str, file_path: str) -> list[str]:
         result.append('source_operation:runtimecapability')
     elif re.search(r'\b(?:bundleManager|canIUse|hasSystemCapability)\b', body):
         result.append('source_operation_unresolved:runtimecapability')
-    if any(PERSISTENCE_RECEIVER_RE.search(receiver.rsplit('.', 1)[-1]) and READ_METHOD_RE.match(method)
-           for receiver, method in PERSISTENCE_CALL_RE.findall(body)):
+    calls = PERSISTENCE_CALL_RE.findall(body)
+    reads = [(receiver, method) for receiver, method in calls if READ_METHOD_RE.match(method)]
+    direct_reads = [receiver for receiver, _ in reads
+                    if PERSISTENCE_RECEIVER_RE.search(receiver.rsplit('.', 1)[-1])]
+    if direct_reads:
         result.append('source_operation:persistenceread')
+    # Dynamic/optional syntax is not absence; this scanner does not resolve it.
+    if '?.' in body or re.search(r'\]\s*\(', body):
+        result.append('source_operation_unresolved:persistenceread')
+    persistence_reference = any(PERSISTENCE_RECEIVER_RE.search(name)
+                                for name in re.findall(r'[A-Za-z_$][\w$]*', body))
+    unknown_read_receiver = len(direct_reads) != len(reads)
+    if unknown_read_receiver or (persistence_reference and not direct_reads):
+        result.append('source_operation_unresolved:persistenceread')
     if not body or '=>' in body or '/' in body or nested or re.search(r'\b(?:function|class)\b', body):
-        return ['source_operation_checked:v1', *[value.replace('source_operation:', 'source_operation_unresolved:') for value in result]]
-    return ['source_operation_checked:v1', *result]
+        return ['source_operation_checked:v2', *[value.replace('source_operation:', 'source_operation_unresolved:') for value in result]]
+    return ['source_operation_checked:v2', *result]

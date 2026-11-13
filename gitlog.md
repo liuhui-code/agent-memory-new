@@ -1,5 +1,11 @@
 # Local Development Log
 
+## 2026-11-14 — Keep unresolved persistence access out of absence certificates
+
+- Treat optional/computed persistence access and visible aliases as unresolved, never proof that a competing callable lacks reads. Freeze competition regressions and bump checked evidence to v2 so v1 archives remain unknown.
+- Preserve static-syntax-only scope; arbitrary alias bindings are not resolved. Existing six focused variants remain 3/6, with 41 focused tests passing.
+- Evidence: docs/eval/source-operation-optional-read-20261114/. No full suite or remote write.
+
 ## 2026-11-14 — Preserve bounded source-operation evidence through localization
 
 - Reproduce static capability probes losing to strings and restore readers losing to other lexical candidates. Introduce a versioned, fail-closed source-operation admission contract, not a score/threshold change.

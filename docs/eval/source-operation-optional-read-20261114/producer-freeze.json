@@ -1,0 +1,56 @@
+{
+  "version": "source_operation_checked:v2",
+  "cases": [
+    {
+      "source": "inspect(){return preferences['get']('x');}",
+      "roles": [
+        "source_operation_checked:v2",
+        "source_operation_unresolved:persistenceread",
+        "source_operation_unresolved:persistenceread"
+      ]
+    },
+    {
+      "source": "inspect(){return prefs?.get(\"x\");}",
+      "roles": [
+        "source_operation_checked:v2",
+        "source_operation_unresolved:persistenceread"
+      ]
+    },
+    {
+      "source": "inspect(){return preferences?.get(\"x\");}",
+      "roles": [
+        "source_operation_checked:v2",
+        "source_operation_unresolved:persistenceread",
+        "source_operation_unresolved:persistenceread"
+      ]
+    },
+    {
+      "source": "inspect(){const alias=preferences; return alias.get(\"x\");}",
+      "roles": [
+        "source_operation_checked:v2",
+        "source_operation_unresolved:persistenceread"
+      ]
+    },
+    {
+      "source": "inspect(){const read=preferences.get; return read(\"x\");}",
+      "roles": [
+        "source_operation_checked:v2",
+        "source_operation_unresolved:persistenceread"
+      ]
+    },
+    {
+      "source": "inspect(){return externalAlias.read(\"x\");}",
+      "roles": [
+        "source_operation_checked:v2",
+        "source_operation_unresolved:persistenceread"
+      ]
+    },
+    {
+      "source": "inspect(){return preferences.get(\"x\");}",
+      "roles": [
+        "source_operation_checked:v2",
+        "source_operation:persistenceread"
+      ]
+    }
+  ]
+}

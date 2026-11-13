@@ -4,7 +4,7 @@ import unittest
 from tools.agent_memory_runtime.source_operation_roles import source_operation_roles
 from tools.agent_memory_runtime.query_source_operation import certify_source_operation
 
-CHECKED='source_operation_checked:v1'
+CHECKED='source_operation_checked:v2'
 def candidate(proof=None, **values):
     return dict(start_line=1,end_line=5,symbol_key='symbol:fixture',source_digest='digest',
                 file_path='src/Fixture.ets',semantic_adapter='arkts-static@1.2',
@@ -93,3 +93,24 @@ class SourceOperationContractTests(unittest.TestCase):
                      'inspect(){ const canIUse=localPredicate; return canIUse("X"); }',
                      'inspect(canIUse: Function){return canIUse("X");}']:
             self.assertIn('source_operation_unresolved:runtimecapability',source_operation_roles(code,'x.ts'))
+
+    def test_dynamic_optional_and_local_alias_reads_are_unresolved_competitors(self):
+        from unittest.mock import patch
+        bodies=["return preferences['get']('x');", 'return prefs?.get("x");',
+                'return preferences?.get("x");', 'const alias=preferences; return alias.get("x");',
+                'const read=preferences.get; return read("x");', 'return externalAlias.read("x");']
+        for body in bodies:
+            roles=source_operation_roles('inspect(){'+body+'}','x.ets')
+            self.assertIn('source_operation_unresolved:persistenceread',roles,body)
+            self.assertNotIn('source_operation:persistenceread',roles,body)
+            rows=[candidate('persistenceread'),candidate()];rows[1]['callable_roles']=roles
+            # Existing restore concept is composite and already abstains. Also
+            # exercise the source-competition gate under a single requested read.
+            with patch('tools.agent_memory_runtime.query_source_operation.behavior_marker_terms',return_value=['persistenceread']):
+                certify_source_operation(rows,'Locate persistence read source.')
+            self.assertFalse(any(row.get('source_operation_match') for row in rows),body)
+    def test_old_v1_checked_absence_is_unknown_to_v2_consumer(self):
+        rows=[candidate('runtimecapability'),candidate()]
+        rows[1]['callable_roles']=['source_operation_checked:v1']
+        certify_source_operation(rows,QUERY)
+        self.assertFalse(any(row.get('source_operation_match') for row in rows))
