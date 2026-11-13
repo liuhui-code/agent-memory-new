@@ -38,3 +38,14 @@ class NamedComponentRetentionTests(AgentMemoryTestBase):
         for key,value in [('end_line',None),('symbol_type','state')]:
             a=self.anchors();a[1][key]=value
             self.assertFalse(multiple_requested_anchors_present(a,{},'Locate EntryTile and CitationPanel source.'))
+
+    def test_negative_target_and_its_retained_retrieval_tokens_never_authorize_owner(self):
+        query='Find EntryTile and MissingPanel; exclude CitationPanel'
+        for negative_name in ('CitationPanel','panel','citation'):
+            anchors=self.anchors();anchors[1].update(symbol=negative_name,file_path=negative_name+'.ets')
+            self.assertFalse(multiple_requested_anchors_present(anchors,{},query),negative_name)
+        # Existing positive pair still works when an unrelated exclusion exists.
+        self.assertTrue(multiple_requested_anchors_present(self.anchors(),{},'Find EntryTile and CitationPanel; exclude MissingPanel'))
+        # An owner mentioned only in a comparison clause is not a requested pair.
+        anchors=self.anchors();anchors[1].update(symbol='panel',file_path='panel.ets')
+        self.assertFalse(multiple_requested_anchors_present(anchors,{},'Find EntryTile and MissingPanel compared with CitationPanel'))

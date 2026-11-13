@@ -1,0 +1,13 @@
+.F..
+======================================================================
+FAIL: test_negative_target_and_its_retained_retrieval_tokens_never_authorize_owner (tests.test_named_component_retention.NamedComponentRetentionTests.test_negative_target_and_its_retained_retrieval_tokens_never_authorize_owner)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/cross-preview-followup-work/tests/test_named_component_retention.py", line 46, in test_negative_target_and_its_retained_retrieval_tokens_never_authorize_owner
+    self.assertFalse(multiple_requested_anchors_present(anchors,{},query),negative_name)
+AssertionError: True is not false : panel
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.566s
+
+FAILED (failures=1)
