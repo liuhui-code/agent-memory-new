@@ -1,0 +1,21 @@
+FF.
+======================================================================
+FAIL: test_exact_positive_unique_owner_names_only (tests.test_named_component_retention.NamedComponentRetentionTests.test_exact_positive_unique_owner_names_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/cross-preview-followup-work/tests/test_named_component_retention.py", line 24, in test_exact_positive_unique_owner_names_only
+    self.assertTrue(multiple_requested_anchors_present(a,{},'Locate EntryTile and CitationPanel source.'))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_public_named_component_pair_is_not_narrowed (tests.test_named_component_retention.NamedComponentRetentionTests.test_public_named_component_pair_is_not_narrowed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/cross-preview-followup-work/tests/test_named_component_retention.py", line 19, in test_public_named_component_pair_is_not_narrowed
+    self.assertTrue(set(case['required']) <= {a['file_path'] for a in h['code_anchors']},case['query'])
+AssertionError: False is not true : Locate EntryTile and CitationPanel source.
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.663s
+
+FAILED (failures=2)
