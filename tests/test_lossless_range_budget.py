@@ -63,3 +63,18 @@ class LosslessRangeBudgetTests(AgentMemoryTestBase):
         h={'code_anchors':[{'source_ranges':[invalid,dict(invalid)]}]}
         deduplicate_source_ranges(h)
         self.assertEqual(2,len(h['code_anchors'][0]['source_ranges']))
+
+    def test_reverse_order_and_unique_range_evidence_are_preserved(self):
+        from tools.agent_memory_runtime.context_budget import deduplicate_source_ranges
+        base={'symbol':'run','start_line':3,'end_line':7}
+        rich={**base,'selection_reason':'actual_owner'}
+        different_span={**base,'end_line':8}
+        distinct_metadata={**base,'freshness':{'current':True}}
+        numeric_metadata={**base,'freshness':{'current':1}}
+        ranges=[rich,base,dict(rich),different_span,distinct_metadata,numeric_metadata]
+        anchor={'source_ranges':ranges,'source_digest':'retained','source_excerpts':[{'content':'body one'},{'content':'body two'}]}
+        h={'code_anchors':[anchor]}
+        deduplicate_source_ranges(h)
+        self.assertEqual([rich,different_span,distinct_metadata,numeric_metadata],anchor['source_ranges'])
+        self.assertEqual('retained',anchor['source_digest'])
+        self.assertEqual([{'content':'body one'},{'content':'body two'}],anchor['source_excerpts'])

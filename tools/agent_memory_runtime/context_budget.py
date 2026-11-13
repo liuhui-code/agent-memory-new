@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import json
 from typing import Any, Callable
 
 from .performance_scoring import estimate_payload_tokens
@@ -37,6 +38,42 @@ def bounded_log_evidence(items: list[dict[str, Any]], limit: int) -> list[dict[s
     return [emitter, *linked, *remaining][:limit]
 
 
+
+def deduplicate_source_ranges(handoff: dict[str, Any]) -> None:
+    """Keep all range information while folding identical or covered records."""
+    def valid(item: Any) -> bool:
+        return (isinstance(item, dict) and isinstance(item.get("symbol"), str)
+                and bool(item["symbol"]) and type(item.get("start_line")) is int
+                and type(item.get("end_line")) is int
+                and 0 < item["start_line"] <= item["end_line"])
+
+    def covered(left: dict[str, Any], right: dict[str, Any]) -> bool:
+        return all(key in right and json.dumps(value, sort_keys=True)
+                   == json.dumps(right[key], sort_keys=True)
+                   for key, value in left.items())
+
+    for anchor in handoff.get("code_anchors", []):
+        ranges = anchor.get("source_ranges")
+        if not isinstance(ranges, list):
+            continue
+        kept: list[Any] = []
+        for item in ranges:
+            if not valid(item):
+                kept.append(item)
+                continue
+            if any(valid(prior) and covered(item, prior) for prior in kept):
+                continue
+            replaced = [i for i, prior in enumerate(kept)
+                        if valid(prior) and covered(prior, item)]
+            if replaced:
+                first = replaced[0]
+                kept = [prior for i, prior in enumerate(kept) if i not in replaced]
+                kept.insert(first, item)
+            else:
+                kept.append(item)
+        anchor["source_ranges"] = kept
+
+
 def enforce_budget(
     payload: dict[str, Any],
     token_budget: int,
@@ -44,10 +81,11 @@ def enforce_budget(
     protected_paths: frozenset[str] = frozenset(),
 ) -> bool:
     """Return whether budget enforcement removed projected content or metadata."""
-    if estimate_payload_tokens(payload) <= token_budget - reserve_tokens:
-        return False
     before = deepcopy(payload)
     handoff = payload["query_handoff"]
+    deduplicate_source_ranges(handoff)
+    if estimate_payload_tokens(payload) <= token_budget - reserve_tokens:
+        return payload != before
     paths = handoff["path_context"]["path_candidates"]
     normative = handoff.get("normative_context")
     while (estimate_payload_tokens(payload) > token_budget - reserve_tokens

@@ -1,0 +1,4051 @@
+{
+  "raw": {
+    "project_id": "576223e800ec9475",
+    "project_path": "/tmp/tmpepr7j8h0",
+    "query": "Given observed log checkpoint refresh denied expired token, show the bounded caller-to-emitter source paths.",
+    "memory_intent": "general_context",
+    "memory_intent_v2": "memory_maintenance",
+    "memory_intent_source": "inferred",
+    "retrieval_lanes": {
+      "counts": {
+        "main_reflections": 0,
+        "correction_guards": 0,
+        "semantic_patch_notes": 0,
+        "blocked_memory_notes": 0
+      },
+      "intent_profile": {
+        "intent": "general_context",
+        "intent_v2": "memory_maintenance",
+        "intent_source": "inferred",
+        "legacy_intent": "general_context",
+        "preferred_lanes": [
+          "blocked_memory_notes",
+          "semantic_patch",
+          "correction_guard",
+          "semantic_facts"
+        ],
+        "interference_policy": "prefer governance notes and records needing review"
+      },
+      "lane_budgets": {
+        "main_reflections": 0,
+        "correction_guards": 4,
+        "semantic_patch_notes": 6,
+        "blocked_memory_notes": 8
+      },
+      "policy": {
+        "procedure_experience": "main context only when the query intent can reuse a procedure",
+        "correction_experience": "guardrail lane; not injected as the main task direction by default",
+        "semantic_patch_experience": "semantic patch lane; used to explain or repair code business semantics"
+      }
+    },
+    "memory_brief": {
+      "intent": "general_context",
+      "intent_v2": "memory_maintenance",
+      "main_reflection_count": 0,
+      "correction_guard_count": 0,
+      "semantic_patch_count": 0,
+      "blocked_count": 0,
+      "conflict_count": 0
+    },
+    "followup_focus": "log",
+    "advisory_notice": "Memory is advisory. Current source files and explicit user instructions override stored memory.",
+    "semantic_facts": [],
+    "reflections": [],
+    "episodes": [],
+    "wiki_matches": [
+      {
+        "id": 11,
+        "project_id": "576223e800ec9475",
+        "file_path": "src/services/AuditService.ets",
+        "symbol": "refresh",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method refresh in src/services/AuditService.ets",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:5e5bc16199adb61a5172f15b",
+        "qualified_name": "AuditService.refresh",
+        "signature": "refresh():void",
+        "start_line": 3,
+        "end_line": 5,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "1a420e469780557b01a636271dec1f3700f4410bb136d35da9c0f94d5a807e49",
+        "evidence_class": "static",
+        "method_evidence": "hilog error",
+        "string_evidence": "auditservice audit service checkpoint refresh denied expired token",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:hilog.error\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:5e5bc16199adb61a5172f15b\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "AuditService",
+        "owner_kind": "service",
+        "callable_roles": "[\"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T11:37:17+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.10245902,
+          "best_rank": 1,
+          "channel_count": 5,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 52.75,
+        "search_terms": [
+          "src/services/auditservice.ets",
+          "arkts function or lifecycle method refresh in src/services/auditservice.ets",
+          "refresh",
+          "function",
+          "src",
+          "services",
+          "auditservice",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "audit",
+          "service",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "symbol",
+          "symbol_summary",
+          "search_terms",
+          "string_evidence",
+          "salient_query_evidence",
+          "source_locatable"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 52.75,
+          "rerank_score": null,
+          "match_reasons": [
+            "exact_symbol",
+            "symbol",
+            "symbol_summary",
+            "search_terms",
+            "string_evidence",
+            "salient_query_evidence",
+            "source_locatable"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 9,
+        "project_id": "576223e800ec9475",
+        "file_path": "src/runtime/StartupCoordinator.ets",
+        "symbol": "onCreate",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method onCreate in src/runtime/StartupCoordinator.ets; identifier terms: on create",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:1aa944e0bfaa53e6594738df",
+        "qualified_name": "StartupCoordinator.onCreate",
+        "signature": "onCreate():void",
+        "start_line": 4,
+        "end_line": 6,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "fbb54ee4c52e0305437c41d323d1fe6460fca9194deef6c2aaf13aa1176983ce",
+        "evidence_class": "static",
+        "method_evidence": "audit refresh create lifecyclehook lifecycleactivation lifecycle stateread state read eventboundary lifecycleboundary",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:audit.refresh\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:1aa944e0bfaa53e6594738df\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "StartupCoordinator",
+        "owner_kind": "coordinator",
+        "callable_roles": "[\"lifecycle\", \"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T11:37:17+00:00",
+        "recall_lanes": [
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.02580645,
+          "best_rank": 2,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "salient_string_fts",
+              "rank": 2,
+              "weight": 1.6,
+              "score": 0.02580645
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 31.324,
+        "search_terms": [
+          "src/runtime/startupcoordinator.ets",
+          "arkts function or lifecycle method oncreate in src/runtime/startupcoordinator.ets; identifier terms: on create",
+          "oncreate",
+          "function",
+          "src",
+          "runtime",
+          "startupcoordinator",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "identifier",
+          "terms",
+          "on",
+          "create",
+          "startup",
+          "coordinator",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "salient_query_evidence",
+          "source_locatable",
+          "graph_neighbor",
+          "graph_relation:imports"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 31.324,
+          "rerank_score": null,
+          "match_reasons": [
+            "salient_query_evidence",
+            "source_locatable",
+            "graph_neighbor",
+            "graph_relation:imports"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 13,
+        "project_id": "576223e800ec9475",
+        "file_path": "src/ui/SessionPanel.ets",
+        "symbol": "aboutToAppear",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method aboutToAppear in src/ui/SessionPanel.ets; identifier terms: about to appear",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:7fd52be3ba710f468f767f6c",
+        "qualified_name": "SessionPanel.aboutToAppear",
+        "signature": "aboutToAppear():void",
+        "start_line": 6,
+        "end_line": 8,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "76ade820c9ad21303f5d26e4887b6c3a56046d4a28f6e4abedb45104b5e6b86d",
+        "evidence_class": "static",
+        "method_evidence": "audit refresh about appear lifecyclehook lifecycleactivation lifecycle stateread state read lifecycleboundary",
+        "string_evidence": "",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"call:audit.refresh\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":7,\"source_key\":\"symbol:7fd52be3ba710f468f767f6c\",\"terms\":[\"operation\",\"call\"]}]",
+        "owner_name": "SessionPanel",
+        "owner_kind": "component",
+        "callable_roles": "[\"lifecycle\", \"source_operation_checked:v2.1\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T11:37:17+00:00",
+        "recall_lanes": [
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.02539683,
+          "best_rank": 3,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "salient_string_fts",
+              "rank": 3,
+              "weight": 1.6,
+              "score": 0.02539683
+            }
+          ]
+        },
+        "method_evidence_coverage": 0,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 31.324,
+        "search_terms": [
+          "src/ui/sessionpanel.ets",
+          "arkts function or lifecycle method abouttoappear in src/ui/sessionpanel.ets; identifier terms: about to appear",
+          "abouttoappear",
+          "function",
+          "src",
+          "ui",
+          "sessionpanel",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "identifier",
+          "terms",
+          "about",
+          "to",
+          "appear",
+          "session",
+          "panel",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "salient_query_evidence",
+          "source_locatable",
+          "graph_neighbor",
+          "graph_relation:imports"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "wiki_matches",
+          "score": 31.324,
+          "rerank_score": null,
+          "match_reasons": [
+            "salient_query_evidence",
+            "source_locatable",
+            "graph_neighbor",
+            "graph_relation:imports"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "code_log_matches": [
+      {
+        "id": 1,
+        "project_id": "576223e800ec9475",
+        "file_path": "src/services/AuditService.ets",
+        "line": 4,
+        "function": "refresh",
+        "level": "error",
+        "logger": "hilog",
+        "message_template": "checkpoint refresh denied expired token",
+        "raw_statement": "hilog.error(0, 'AuditService', 'checkpoint refresh denied expired token')",
+        "business_summary": null,
+        "business_terms": [],
+        "business_event": null,
+        "trigger_stage": null,
+        "symptom_terms": null,
+        "process_hint": null,
+        "neighbor_terms": null,
+        "source_digest": "1a420e469780557b01a636271dec1f3700f4410bb136d35da9c0f94d5a807e49",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T11:37:17+00:00",
+        "start_line": 3,
+        "end_line": 5,
+        "recall_lanes": [
+          "broad_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.01639344,
+          "best_rank": 1,
+          "channel_count": 1,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "kind": "log_statement",
+        "score": 44.0,
+        "search_terms": [
+          "src/services/auditservice.ets",
+          "error",
+          "hilog",
+          "checkpoint refresh denied expired token",
+          "refresh",
+          "src",
+          "services",
+          "auditservice",
+          "ets",
+          "checkpoint",
+          "denied",
+          "expired",
+          "token",
+          "0",
+          "audit",
+          "service",
+          "arkts",
+          "harmonyos",
+          "component",
+          "page",
+          "log",
+          "logger",
+          "console",
+          "debug",
+          "warning",
+          "failed",
+          "failure"
+        ],
+        "match_reasons": [
+          "exact_log_message",
+          "exact_function",
+          "log_message",
+          "log_context",
+          "search_terms"
+        ],
+        "log_signal_score": 0.35,
+        "log_signal_band": "poor",
+        "present_signals": [
+          "level",
+          "logger",
+          "route_or_resource",
+          "entity_id_or_key",
+          "neighbor_context"
+        ],
+        "missing_signals": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_or_session_id",
+          "action_result"
+        ],
+        "suggested_log_fields": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_id",
+          "session_id",
+          "result"
+        ],
+        "observability_gaps": [
+          "missing_time",
+          "missing_process",
+          "missing_event_name",
+          "missing_stage",
+          "missing_reason",
+          "missing_correlation",
+          "missing_result"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "code_log_matches",
+          "score": 44.0,
+          "rerank_score": null,
+          "match_reasons": [
+            "exact_log_message",
+            "exact_function",
+            "log_message",
+            "log_context",
+            "search_terms"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 1,
+        "project_id": "576223e800ec9475",
+        "file_path": "src/runtime/StartupCoordinator.ets",
+        "line": 5,
+        "function": "onCreate",
+        "wrapper_symbol": "refresh",
+        "sink_log_id": 1,
+        "level": "error",
+        "logger": "hilog",
+        "message_template": "checkpoint refresh denied expired token",
+        "evidence_class": "static_wrapped",
+        "wrapper_depth": 1,
+        "truncated": 0,
+        "call_path": [
+          "onCreate",
+          "refresh",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/runtime/StartupCoordinator.ets#onCreate",
+          "src/services/AuditService.ets#refresh",
+          "src/services/AuditService.ets#hilog.error"
+        ],
+        "raw_call": "audit.refresh()",
+        "source_digest": "fbb54ee4c52e0305437c41d323d1fe6460fca9194deef6c2aaf13aa1176983ce",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T11:37:18+00:00",
+        "kind": "log_effect",
+        "raw_statement": "audit.refresh()",
+        "business_summary": "",
+        "business_terms": [],
+        "business_event": "",
+        "trigger_stage": "",
+        "symptom_terms": "[]",
+        "process_hint": "",
+        "neighbor_terms": "[]",
+        "recall_lanes": [
+          "log_effect_fts"
+        ],
+        "recall_fusion": {},
+        "start_line": 4,
+        "end_line": 6,
+        "score": 30.780000000000005,
+        "search_terms": [
+          "src/runtime/startupcoordinator.ets",
+          "error",
+          "hilog",
+          "checkpoint refresh denied expired token",
+          "oncreate",
+          "src",
+          "runtime",
+          "startupcoordinator",
+          "ets",
+          "checkpoint",
+          "refresh",
+          "denied",
+          "expired",
+          "token",
+          "audit",
+          "startup",
+          "coordinator",
+          "on",
+          "create",
+          "arkts",
+          "harmonyos",
+          "component",
+          "page",
+          "log",
+          "logger",
+          "console",
+          "debug",
+          "warning",
+          "failed",
+          "failure"
+        ],
+        "match_reasons": [
+          "exact_log_message",
+          "log_message",
+          "log_context",
+          "search_terms",
+          "static_wrapped"
+        ],
+        "log_signal_score": 0.35,
+        "log_signal_band": "poor",
+        "present_signals": [
+          "level",
+          "logger",
+          "route_or_resource",
+          "entity_id_or_key",
+          "neighbor_context"
+        ],
+        "missing_signals": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_or_session_id",
+          "action_result"
+        ],
+        "suggested_log_fields": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_id",
+          "session_id",
+          "result"
+        ],
+        "observability_gaps": [
+          "missing_time",
+          "missing_process",
+          "missing_event_name",
+          "missing_stage",
+          "missing_reason",
+          "missing_correlation",
+          "missing_result"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "code_log_matches",
+          "score": 30.780000000000005,
+          "rerank_score": null,
+          "match_reasons": [
+            "exact_log_message",
+            "log_message",
+            "log_context",
+            "search_terms",
+            "static_wrapped"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 2,
+        "project_id": "576223e800ec9475",
+        "file_path": "src/ui/SessionPanel.ets",
+        "line": 7,
+        "function": "aboutToAppear",
+        "wrapper_symbol": "refresh",
+        "sink_log_id": 1,
+        "level": "error",
+        "logger": "hilog",
+        "message_template": "checkpoint refresh denied expired token",
+        "evidence_class": "static_wrapped",
+        "wrapper_depth": 1,
+        "truncated": 0,
+        "call_path": [
+          "aboutToAppear",
+          "refresh",
+          "hilog.error"
+        ],
+        "call_path_locations": [
+          "src/ui/SessionPanel.ets#aboutToAppear",
+          "src/services/AuditService.ets#refresh",
+          "src/services/AuditService.ets#hilog.error"
+        ],
+        "raw_call": "audit.refresh()",
+        "source_digest": "76ade820c9ad21303f5d26e4887b6c3a56046d4a28f6e4abedb45104b5e6b86d",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T11:37:18+00:00",
+        "kind": "log_effect",
+        "raw_statement": "audit.refresh()",
+        "business_summary": "",
+        "business_terms": [],
+        "business_event": "",
+        "trigger_stage": "",
+        "symptom_terms": "[]",
+        "process_hint": "",
+        "neighbor_terms": "[]",
+        "recall_lanes": [
+          "log_effect_fts"
+        ],
+        "recall_fusion": {},
+        "start_line": 6,
+        "end_line": 8,
+        "score": 30.780000000000005,
+        "search_terms": [
+          "src/ui/sessionpanel.ets",
+          "error",
+          "hilog",
+          "checkpoint refresh denied expired token",
+          "abouttoappear",
+          "src",
+          "ui",
+          "sessionpanel",
+          "ets",
+          "checkpoint",
+          "refresh",
+          "denied",
+          "expired",
+          "token",
+          "audit",
+          "session",
+          "panel",
+          "about",
+          "to",
+          "appear",
+          "arkts",
+          "harmonyos",
+          "component",
+          "page",
+          "log",
+          "logger",
+          "console",
+          "debug",
+          "warning",
+          "failed",
+          "failure"
+        ],
+        "match_reasons": [
+          "exact_log_message",
+          "log_message",
+          "log_context",
+          "search_terms",
+          "static_wrapped"
+        ],
+        "log_signal_score": 0.35,
+        "log_signal_band": "poor",
+        "present_signals": [
+          "level",
+          "logger",
+          "route_or_resource",
+          "entity_id_or_key",
+          "neighbor_context"
+        ],
+        "missing_signals": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_or_session_id",
+          "action_result"
+        ],
+        "suggested_log_fields": [
+          "timestamp",
+          "process",
+          "event_type",
+          "stage",
+          "business_event",
+          "error_code",
+          "reason",
+          "request_id",
+          "session_id",
+          "result"
+        ],
+        "observability_gaps": [
+          "missing_time",
+          "missing_process",
+          "missing_event_name",
+          "missing_stage",
+          "missing_reason",
+          "missing_correlation",
+          "missing_result"
+        ],
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.623,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.65",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "code_log_matches",
+          "score": 30.780000000000005,
+          "rerank_score": null,
+          "match_reasons": [
+            "exact_log_message",
+            "log_message",
+            "log_context",
+            "search_terms",
+            "static_wrapped"
+          ],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": null,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "edge_matches": [
+      {
+        "id": 18,
+        "project_id": "576223e800ec9475",
+        "source_type": "code_file",
+        "source_id": 4,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 3,
+        "evidence": "src/ui/SessionPanel.ets -> src/services/AuditService.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T11:37:18+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-13T11:37:18+00:00",
+        "created_at": "2026-11-13T11:37:18+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 17,
+        "project_id": "576223e800ec9475",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "imports",
+        "target_type": "code_file",
+        "target_id": 3,
+        "evidence": "src/runtime/StartupCoordinator.ets -> src/services/AuditService.ets",
+        "confidence": 0.85,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T11:37:18+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_import",
+        "last_verified_at": "2026-11-13T11:37:18+00:00",
+        "created_at": "2026-11-13T11:37:18+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.853,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.85",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.85,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 15,
+        "project_id": "576223e800ec9475",
+        "source_type": "code_file",
+        "source_id": 3,
+        "relation": "contains",
+        "target_type": "code_log_statement",
+        "target_id": 1,
+        "evidence": "src/services/AuditService.ets:4",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T11:37:18+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T11:37:18+00:00",
+        "created_at": "2026-11-13T11:37:18+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 14,
+        "project_id": "576223e800ec9475",
+        "source_type": "code_file",
+        "source_id": 4,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 14,
+        "evidence": "src/ui/SessionPanel.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T11:37:18+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T11:37:18+00:00",
+        "created_at": "2026-11-13T11:37:18+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 13,
+        "project_id": "576223e800ec9475",
+        "source_type": "code_file",
+        "source_id": 4,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 13,
+        "evidence": "src/ui/SessionPanel.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T11:37:18+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T11:37:18+00:00",
+        "created_at": "2026-11-13T11:37:18+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 12,
+        "project_id": "576223e800ec9475",
+        "source_type": "code_file",
+        "source_id": 4,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 12,
+        "evidence": "src/ui/SessionPanel.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T11:37:18+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T11:37:18+00:00",
+        "created_at": "2026-11-13T11:37:18+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 11,
+        "project_id": "576223e800ec9475",
+        "source_type": "code_file",
+        "source_id": 3,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 11,
+        "evidence": "src/services/AuditService.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T11:37:18+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T11:37:18+00:00",
+        "created_at": "2026-11-13T11:37:18+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 10,
+        "project_id": "576223e800ec9475",
+        "source_type": "code_file",
+        "source_id": 3,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 10,
+        "evidence": "src/services/AuditService.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T11:37:18+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T11:37:18+00:00",
+        "created_at": "2026-11-13T11:37:18+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 9,
+        "project_id": "576223e800ec9475",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 9,
+        "evidence": "src/runtime/StartupCoordinator.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T11:37:18+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T11:37:18+00:00",
+        "created_at": "2026-11-13T11:37:18+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      },
+      {
+        "id": 8,
+        "project_id": "576223e800ec9475",
+        "source_type": "code_file",
+        "source_id": 2,
+        "relation": "contains",
+        "target_type": "code_symbol",
+        "target_id": 8,
+        "evidence": "src/runtime/StartupCoordinator.ets",
+        "confidence": 0.9,
+        "source_revision": "unversioned",
+        "extractor_version": "code-wiki:v4",
+        "valid_from": "2026-11-13T11:37:18+00:00",
+        "valid_to": null,
+        "evidence_kind": "static_containment",
+        "last_verified_at": "2026-11-13T11:37:18+00:00",
+        "created_at": "2026-11-13T11:37:18+00:00",
+        "query_risk_flags": [],
+        "trust_cap": null,
+        "trust_cap_reasons": [],
+        "trust_score": 0.87,
+        "trust_level": "source_truth",
+        "trust_reasons": [
+          "confidence=0.9",
+          "has explicit evidence",
+          "source-like code/log evidence"
+        ],
+        "retrieval_explanation": {
+          "group": "edge_matches",
+          "score": null,
+          "rerank_score": null,
+          "match_reasons": [],
+          "gate_score": null,
+          "gate_reasons": [],
+          "quality_score": null,
+          "quality_band": null,
+          "experience_maturity": null,
+          "experience_maturity_score": null,
+          "feedback_penalty": 0.0,
+          "feedback_reasons": [],
+          "calibration_feedback_bonus": 0.0,
+          "calibration_feedback_penalty": 0.0,
+          "calibration_feedback_reasons": [],
+          "query_risk_flags": [],
+          "intent_alignment": null,
+          "interference_penalty": 0.0,
+          "interference_reasons": [],
+          "trust_cap": null,
+          "trust_cap_reasons": [],
+          "status": null,
+          "confidence": 0.9,
+          "experience_evidence_profile": null,
+          "source_case_quality": null
+        }
+      }
+    ],
+    "incident_trace_matches": [],
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "suggested_followup_terms": [
+      "error",
+      "hilog",
+      "log",
+      "logger",
+      "warning",
+      "failed",
+      "src/ui/sessionpanel.ets",
+      "sessionpanel",
+      "session",
+      "arkts function or lifecycle method abouttoappear in src/ui/sessionpanel.ets; identifier terms: about to appear",
+      "arkts function or lifecycle method oncreate in src/runtime/startupcoordinator.ets; identifier terms: on create",
+      "checkpoint refresh denied expired token"
+    ],
+    "query_handoff": {
+      "schema_version": "agent-query-handoff/v1",
+      "input_query": "Given observed log checkpoint refresh denied expired token, show the bounded caller-to-emitter source paths.",
+      "log_keywords": [
+        "given",
+        "observed",
+        "log",
+        "checkpoint",
+        "refresh",
+        "denied",
+        "expired",
+        "token",
+        "show",
+        "the",
+        "bounded",
+        "caller",
+        "to",
+        "emitter",
+        "source",
+        "paths",
+        "hilog",
+        "error",
+        "auditservice",
+        "oncreate"
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "checkpoint refresh denied expired token",
+          "logger": "hilog",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/services/AuditService.ets",
+          "function": "refresh",
+          "line": 4,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        },
+        {
+          "log_id": 1,
+          "effect_id": 1,
+          "message_template": "checkpoint refresh denied expired token",
+          "logger": "hilog",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/runtime/StartupCoordinator.ets",
+          "function": "onCreate",
+          "line": 5,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "refresh",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "onCreate",
+            "refresh",
+            "hilog.error"
+          ],
+          "call_path_locations": [
+            "src/runtime/StartupCoordinator.ets#onCreate",
+            "src/services/AuditService.ets#refresh",
+            "src/services/AuditService.ets#hilog.error"
+          ]
+        },
+        {
+          "log_id": 1,
+          "effect_id": 2,
+          "message_template": "checkpoint refresh denied expired token",
+          "logger": "hilog",
+          "business_event": "",
+          "trigger_stage": "",
+          "symptom_terms": [],
+          "process_hint": "",
+          "file_path": "src/ui/SessionPanel.ets",
+          "function": "aboutToAppear",
+          "line": 7,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "refresh",
+          "wrapper_depth": 1,
+          "truncated": false,
+          "call_path": [
+            "aboutToAppear",
+            "refresh",
+            "hilog.error"
+          ],
+          "call_path_locations": [
+            "src/ui/SessionPanel.ets#aboutToAppear",
+            "src/services/AuditService.ets#refresh",
+            "src/services/AuditService.ets#hilog.error"
+          ]
+        }
+      ],
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 11,
+          "file_path": "src/services/AuditService.ets",
+          "symbol": "refresh",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method refresh in src/services/AuditService.ets",
+          "start_line": 3,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 9,
+          "file_path": "src/runtime/StartupCoordinator.ets",
+          "symbol": "onCreate",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method onCreate in src/runtime/StartupCoordinator.ets; identifier terms: on create",
+          "start_line": 4,
+          "end_line": 6,
+          "graph_neighbor": true,
+          "graph_relation": "imports",
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 13,
+          "file_path": "src/ui/SessionPanel.ets",
+          "symbol": "aboutToAppear",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method aboutToAppear in src/ui/SessionPanel.ets; identifier terms: about to appear",
+          "start_line": 6,
+          "end_line": 8,
+          "graph_neighbor": true,
+          "graph_relation": "imports",
+          "identity_match": false
+        }
+      ],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "next_query_contract": {
+        "command": "python tools/agent_memory.py context --project . --query <agent-extracted-term> --compact --json",
+        "accepted_inputs": [
+          "exact phrase or identifier observed in the temporary runtime log",
+          "one candidate cause produced by the Agent CLI",
+          "file, symbol, route, resource, error code, logger, or event name"
+        ],
+        "one_candidate_per_query": true
+      },
+      "role_boundary": {
+        "runtime": "retrieve historical memory, code-log keywords, current code anchors, and stored graph edges",
+        "agent_cli": "analyze temporary logs, form candidate causes, infer call/causal chains, inspect source, and verify",
+        "runtime_reads_temporary_logs": false,
+        "runtime_builds_causal_chains": false
+      },
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/services/AuditService.ets",
+          "symbol": "refresh",
+          "owner_name": "AuditService",
+          "owner_kind": "service",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 47.5,
+          "evidence_score": 47.5,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:string_evidence"
+          ],
+          "source_range": {
+            "start_line": 3,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/runtime/StartupCoordinator.ets",
+            "symbol": "onCreate",
+            "owner_name": "StartupCoordinator",
+            "owner_kind": "coordinator",
+            "callable_roles": [
+              "lifecycle",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 15.138,
+            "evidence_score": 15.138,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/ui/SessionPanel.ets",
+            "symbol": "aboutToAppear",
+            "owner_name": "SessionPanel",
+            "owner_kind": "component",
+            "callable_roles": [
+              "lifecycle",
+              "source_operation_checked:v2.1"
+            ],
+            "score": 14.138,
+            "evidence_score": 14.138,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence"
+            ],
+            "source_range": {
+              "start_line": 6,
+              "end_line": 8,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      },
+      "path_context": {
+        "schema_version": "log-anchored-path-context/v1",
+        "activated": true,
+        "activation_reason": "exact_log_template",
+        "candidate_count": 1,
+        "graph_revision": 1,
+        "seeds": [
+          {
+            "seed_id": "log_1_emitter_11",
+            "log_statement_id": 1,
+            "message_template": "checkpoint refresh denied expired token",
+            "logger": "hilog",
+            "event_name": "",
+            "emitter": {
+              "id": "code_symbol:11",
+              "entity_type": "code_symbol",
+              "entity_id": 11,
+              "kind": "symbol",
+              "name": "refresh",
+              "qualified_name": "AuditService.refresh",
+              "file_path": "src/services/AuditService.ets",
+              "symbol_type": "function",
+              "language": "ArkTS",
+              "source_span": {
+                "start_line": 3,
+                "end_line": 5
+              }
+            },
+            "source_revision": 1,
+            "match_kind": "exact_template",
+            "anchor_match_score": 1.0
+          }
+        ],
+        "path_candidates": [
+          {
+            "path_id": "path_5a88a94b19db9641",
+            "seed_id": "log_1_emitter_11",
+            "entry": {
+              "node": {
+                "id": "code_symbol:9",
+                "entity_type": "code_symbol",
+                "entity_id": 9,
+                "kind": "symbol",
+                "name": "onCreate",
+                "qualified_name": "StartupCoordinator.onCreate",
+                "file_path": "src/runtime/StartupCoordinator.ets",
+                "symbol_type": "function",
+                "language": "ArkTS",
+                "source_span": {
+                  "start_line": 4,
+                  "end_line": 6
+                }
+              },
+              "category": "lifecycle",
+              "reason": "ArkTS lifecycle function onCreate"
+            },
+            "emitter": {
+              "id": "code_symbol:11",
+              "entity_type": "code_symbol",
+              "entity_id": 11,
+              "kind": "symbol",
+              "name": "refresh",
+              "qualified_name": "AuditService.refresh",
+              "file_path": "src/services/AuditService.ets",
+              "symbol_type": "function",
+              "language": "ArkTS",
+              "source_span": {
+                "start_line": 3,
+                "end_line": 5
+              }
+            },
+            "nodes": [
+              {
+                "id": "code_symbol:9",
+                "entity_type": "code_symbol",
+                "entity_id": 9,
+                "kind": "symbol",
+                "name": "onCreate",
+                "qualified_name": "StartupCoordinator.onCreate",
+                "file_path": "src/runtime/StartupCoordinator.ets",
+                "symbol_type": "function",
+                "language": "ArkTS",
+                "source_span": {
+                  "start_line": 4,
+                  "end_line": 6
+                }
+              },
+              {
+                "id": "code_symbol:11",
+                "entity_type": "code_symbol",
+                "entity_id": 11,
+                "kind": "symbol",
+                "name": "refresh",
+                "qualified_name": "AuditService.refresh",
+                "file_path": "src/services/AuditService.ets",
+                "symbol_type": "function",
+                "language": "ArkTS",
+                "source_span": {
+                  "start_line": 3,
+                  "end_line": 5
+                }
+              }
+            ],
+            "edges": [
+              {
+                "edge_id": 35,
+                "source": "code_symbol:9",
+                "target": "code_symbol:11",
+                "relation": "calls",
+                "evidence_class": "static",
+                "evidence_kind": "static_semantic_calls",
+                "extractor_version": "semantic-index:v1/arkts-static@1.2",
+                "source_revision": "unversioned",
+                "confidence": 0.9,
+                "ambiguity": ""
+              }
+            ],
+            "expected_log_anchors": [
+              {
+                "log_id": 1,
+                "node_id": "code_symbol:11",
+                "message_template": "checkpoint refresh denied expired token",
+                "logger": "hilog",
+                "event_name": "",
+                "file_path": "src/services/AuditService.ets",
+                "function": "refresh",
+                "line": 4
+              }
+            ],
+            "structural_score": 0.904,
+            "score_components": {
+              "edge_evidence": 0.85,
+              "edge_confidence": 0.9,
+              "entry_point": 1.0,
+              "compactness": 1.0,
+              "relation_specificity": 0.7,
+              "completeness": 1.0,
+              "ambiguity_penalty": 0.0,
+              "truncation_penalty": 0.0
+            },
+            "uncertainty": [],
+            "missing_segments": [],
+            "source_revision": 1,
+            "complete": true,
+            "truncated": false
+          },
+          {
+            "path_id": "path_30fead861f8fabfd",
+            "seed_id": "log_1_emitter_11",
+            "entry": {
+              "node": {
+                "id": "code_symbol:13",
+                "entity_type": "code_symbol",
+                "entity_id": 13,
+                "kind": "symbol",
+                "name": "aboutToAppear",
+                "qualified_name": "SessionPanel.aboutToAppear",
+                "file_path": "src/ui/SessionPanel.ets",
+                "symbol_type": "function",
+                "language": "ArkTS",
+                "source_span": {
+                  "start_line": 6,
+                  "end_line": 8
+                }
+              },
+              "category": "lifecycle",
+              "reason": "ArkTS lifecycle function aboutToAppear"
+            },
+            "emitter": {
+              "id": "code_symbol:11",
+              "entity_type": "code_symbol",
+              "entity_id": 11,
+              "kind": "symbol",
+              "name": "refresh",
+              "qualified_name": "AuditService.refresh",
+              "file_path": "src/services/AuditService.ets",
+              "symbol_type": "function",
+              "language": "ArkTS",
+              "source_span": {
+                "start_line": 3,
+                "end_line": 5
+              }
+            },
+            "nodes": [
+              {
+                "id": "code_symbol:13",
+                "entity_type": "code_symbol",
+                "entity_id": 13,
+                "kind": "symbol",
+                "name": "aboutToAppear",
+                "qualified_name": "SessionPanel.aboutToAppear",
+                "file_path": "src/ui/SessionPanel.ets",
+                "symbol_type": "function",
+                "language": "ArkTS",
+                "source_span": {
+                  "start_line": 6,
+                  "end_line": 8
+                }
+              },
+              {
+                "id": "code_symbol:11",
+                "entity_type": "code_symbol",
+                "entity_id": 11,
+                "kind": "symbol",
+                "name": "refresh",
+                "qualified_name": "AuditService.refresh",
+                "file_path": "src/services/AuditService.ets",
+                "symbol_type": "function",
+                "language": "ArkTS",
+                "source_span": {
+                  "start_line": 3,
+                  "end_line": 5
+                }
+              }
+            ],
+            "edges": [
+              {
+                "edge_id": 36,
+                "source": "code_symbol:13",
+                "target": "code_symbol:11",
+                "relation": "calls",
+                "evidence_class": "static",
+                "evidence_kind": "static_semantic_calls",
+                "extractor_version": "semantic-index:v1/arkts-static@1.2",
+                "source_revision": "unversioned",
+                "confidence": 0.9,
+                "ambiguity": ""
+              }
+            ],
+            "expected_log_anchors": [
+              {
+                "log_id": 1,
+                "node_id": "code_symbol:11",
+                "message_template": "checkpoint refresh denied expired token",
+                "logger": "hilog",
+                "event_name": "",
+                "file_path": "src/services/AuditService.ets",
+                "function": "refresh",
+                "line": 4
+              }
+            ],
+            "structural_score": 0.904,
+            "score_components": {
+              "edge_evidence": 0.85,
+              "edge_confidence": 0.9,
+              "entry_point": 1.0,
+              "compactness": 1.0,
+              "relation_specificity": 0.7,
+              "completeness": 1.0,
+              "ambiguity_penalty": 0.0,
+              "truncation_penalty": 0.0
+            },
+            "uncertainty": [],
+            "missing_segments": [],
+            "source_revision": 1,
+            "complete": true,
+            "truncated": false
+          }
+        ],
+        "gaps": {
+          "anchors_without_emitters": [],
+          "no_reconstructable_path": false
+        },
+        "bounds": {
+          "max_depth": 6,
+          "max_nodes": 80,
+          "max_edges": 160,
+          "max_raw_paths_per_seed": 20,
+          "max_returned_paths": 5,
+          "max_same_entry_paths": 2,
+          "cycle_visit_limit": 1
+        },
+        "lane_isolation": {
+          "log_anchor": "code_log_statements identity fields only",
+          "program_path": "current active code graph edges only",
+          "semantic_correction": "annotation in base context; cannot create or rank paths",
+          "experience": "advisory in base context; cannot create or rank paths"
+        },
+        "agent_usage": {
+          "purpose": "compare candidate paths with the user's temporary log order and current source",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        }
+      }
+    },
+    "network_limits": {
+      "max_depth": 1,
+      "edge_limit": 10,
+      "evidence_chain_limit": 3,
+      "allowed_relations": [
+        "configured_by",
+        "contains",
+        "emits_log",
+        "imports",
+        "passes_property",
+        "renders_component",
+        "routes_to",
+        "uses_resource"
+      ]
+    },
+    "source_freshness": {
+      "schema_version": "source-freshness/v1",
+      "status": "current",
+      "generation": 1,
+      "source_revision": "unversioned",
+      "extractor_version": "code-derived:v1",
+      "candidate_file_count": 3,
+      "checked_file_count": 3,
+      "current_file_count": 3,
+      "blocked_rows": 0,
+      "blocked_rows_by_table": {
+        "code_files": 0,
+        "code_symbols": 0,
+        "code_log_statements": 0
+      },
+      "stale_paths": [],
+      "missing_paths": [],
+      "unverified_paths": [],
+      "boundary_drift_scope_ids": [],
+      "policy": "digest_mismatch_and_missing_source_blocked"
+    },
+    "memory_use_policy": {
+      "mode": "advisory",
+      "authority_order": [
+        "current_source",
+        "explicit_user_instruction",
+        "source_truth",
+        "verified_experience",
+        "usable_hint",
+        "weak_hint"
+      ],
+      "rules": [
+        "Current source files and explicit user instructions override stored memory.",
+        "Use conflict warnings and correction guards as inspection guardrails, not conclusions.",
+        "Use weak hints only to choose what to inspect next.",
+        "Do not let recency override evidence, status, confidence, or feedback penalties."
+      ]
+    },
+    "query_audit": {
+      "result_counts": {
+        "semantic_facts": 0,
+        "reflections": 0,
+        "episodes": 0,
+        "wiki_matches": 3,
+        "code_log_matches": 3,
+        "edge_matches": 10,
+        "incident_trace_matches": 0
+      },
+      "candidate_recall": {
+        "schema_version": "agent-candidate-recall-audit/v1",
+        "source_freshness": {
+          "schema_version": "source-freshness/v1",
+          "status": "current",
+          "generation": 1,
+          "source_revision": "unversioned",
+          "extractor_version": "code-derived:v1",
+          "candidate_file_count": 3,
+          "checked_file_count": 3,
+          "current_file_count": 3,
+          "blocked_rows": 0,
+          "blocked_rows_by_table": {
+            "code_files": 0,
+            "code_symbols": 0,
+            "code_log_statements": 0
+          },
+          "stale_paths": [],
+          "missing_paths": [],
+          "unverified_paths": [],
+          "boundary_drift_scope_ids": [],
+          "policy": "digest_mismatch_and_missing_source_blocked"
+        },
+        "provider": "sqlite_fts5_passage_rrf/v4",
+        "rank_fusion_provider": "reciprocal_rank_fusion/v1",
+        "tables": {
+          "semantic_facts": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "reflections": {
+            "requested_limit": 120,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "episodes": {
+            "requested_limit": 80,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 2,
+              "channel_counts": {
+                "broad_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "code_files": {
+            "requested_limit": 160,
+            "candidate_count": 0,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 0,
+              "file_identity_fts": 0,
+              "file_semantic_fts": 0,
+              "salient_file_fts": 0,
+              "like_fallback": 0
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "file_identity_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 0,
+                  "file_path_weight": 6.0,
+                  "identity_terms_weight": 9.0
+                },
+                "file_semantic_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 0,
+                  "file_path_weight": 1.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "salient_file_fts": {
+                  "source_type": "code_file",
+                  "passage_kinds": [
+                    "file"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 0,
+                  "query_term_count": 12,
+                  "file_path_weight": 3.0,
+                  "semantic_terms_weight": 8.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": false,
+              "serving_channels": [
+                "file_identity_fts",
+                "file_semantic_fts",
+                "salient_file_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 3,
+                "channel_counts": {
+                  "file_identity_fts": 0,
+                  "file_semantic_fts": 0,
+                  "salient_file_fts": 0
+                },
+                "fused_candidate_count": 0
+              },
+              "candidate_fusion": {},
+              "candidate_refs": []
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 5,
+              "channel_counts": {
+                "broad_fts": 0,
+                "file_identity_fts": 0,
+                "file_semantic_fts": 0,
+                "salient_file_fts": 0,
+                "like_fallback": 0
+              },
+              "fused_candidate_count": 0
+            },
+            "candidate_refs": []
+          },
+          "code_symbols": {
+            "requested_limit": 220,
+            "candidate_count": 3,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 1,
+              "method_body_fts": 0,
+              "symbol_identity_fts": 1,
+              "symbol_semantic_fts": 1,
+              "string_key_fts": 1,
+              "semantic_mechanism_fts": 0,
+              "salient_string_fts": 3
+            },
+            "fielded_retrieval": {
+              "provider": "code_passage_fts/v2",
+              "score_scope": "channel_local_bm25",
+              "channels": {
+                "symbol_identity_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "file_path",
+                    "symbol",
+                    "identity_terms"
+                  ],
+                  "candidate_count": 1,
+                  "file_path_weight": 2.0,
+                  "symbol_weight": 8.0,
+                  "identity_terms_weight": 10.0
+                },
+                "symbol_semantic_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "symbol",
+                    "semantic_terms"
+                  ],
+                  "candidate_count": 1,
+                  "symbol_weight": 2.0,
+                  "semantic_terms_weight": 7.0
+                },
+                "method_body_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms"
+                  ],
+                  "candidate_count": 2,
+                  "body_terms_weight": 8.0
+                },
+                "string_key_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "string_terms"
+                  ],
+                  "candidate_count": 1,
+                  "string_terms_weight": 9.0
+                },
+                "semantic_mechanism_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "symbol",
+                    "callable"
+                  ],
+                  "columns": [
+                    "mechanism_terms"
+                  ],
+                  "candidate_count": 0,
+                  "mechanism_terms_weight": 9.0
+                },
+                "salient_string_fts": {
+                  "source_type": "code_symbol",
+                  "passage_kinds": [
+                    "callable"
+                  ],
+                  "columns": [
+                    "body_terms",
+                    "string_terms"
+                  ],
+                  "candidate_count": 3,
+                  "query_term_count": 12,
+                  "body_terms_weight": 3.0,
+                  "string_terms_weight": 10.0
+                }
+              },
+              "mode": "serving",
+              "serving_candidates_changed": true,
+              "serving_channels": [
+                "salient_string_fts",
+                "semantic_mechanism_fts",
+                "string_key_fts",
+                "symbol_identity_fts",
+                "symbol_semantic_fts"
+              ],
+              "rank_fusion": {
+                "provider": "reciprocal_rank_fusion/v1",
+                "rank_constant": 60,
+                "channel_count": 6,
+                "channel_counts": {
+                  "symbol_identity_fts": 1,
+                  "symbol_semantic_fts": 1,
+                  "method_body_fts": 0,
+                  "string_key_fts": 1,
+                  "semantic_mechanism_fts": 0,
+                  "salient_string_fts": 3
+                },
+                "fused_candidate_count": 3
+              },
+              "candidate_fusion": {
+                "11": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.08606557,
+                  "best_rank": 1,
+                  "channel_count": 4,
+                  "contributions": [
+                    {
+                      "channel": "symbol_identity_fts",
+                      "rank": 1,
+                      "weight": 1.45,
+                      "score": 0.02377049
+                    },
+                    {
+                      "channel": "symbol_semantic_fts",
+                      "rank": 1,
+                      "weight": 1.0,
+                      "score": 0.01639344
+                    },
+                    {
+                      "channel": "string_key_fts",
+                      "rank": 1,
+                      "weight": 1.2,
+                      "score": 0.01967213
+                    },
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 1,
+                      "weight": 1.6,
+                      "score": 0.02622951
+                    }
+                  ]
+                },
+                "9": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02580645,
+                  "best_rank": 2,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 2,
+                      "weight": 1.6,
+                      "score": 0.02580645
+                    }
+                  ]
+                },
+                "13": {
+                  "provider": "reciprocal_rank_fusion/v1",
+                  "score": 0.02539683,
+                  "best_rank": 3,
+                  "channel_count": 1,
+                  "contributions": [
+                    {
+                      "channel": "salient_string_fts",
+                      "rank": 3,
+                      "weight": 1.6,
+                      "score": 0.02539683
+                    }
+                  ]
+                }
+              },
+              "candidate_refs": [
+                {
+                  "id": 11,
+                  "file_path": "src/services/AuditService.ets",
+                  "symbol": "refresh",
+                  "channels": [
+                    "symbol_identity_fts",
+                    "symbol_semantic_fts",
+                    "string_key_fts",
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 9,
+                  "file_path": "src/runtime/StartupCoordinator.ets",
+                  "symbol": "onCreate",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                },
+                {
+                  "id": 13,
+                  "file_path": "src/ui/SessionPanel.ets",
+                  "symbol": "aboutToAppear",
+                  "channels": [
+                    "salient_string_fts"
+                  ]
+                }
+              ]
+            },
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 7,
+              "channel_counts": {
+                "broad_fts": 1,
+                "method_body_fts": 0,
+                "symbol_identity_fts": 1,
+                "symbol_semantic_fts": 1,
+                "string_key_fts": 1,
+                "semantic_mechanism_fts": 0,
+                "salient_string_fts": 3
+              },
+              "fused_candidate_count": 3
+            },
+            "candidate_refs": [
+              {
+                "id": 11,
+                "file_path": "src/services/AuditService.ets",
+                "channels": [
+                  "broad_fts",
+                  "symbol_identity_fts",
+                  "symbol_semantic_fts",
+                  "string_key_fts",
+                  "salient_string_fts"
+                ],
+                "symbol": "refresh"
+              },
+              {
+                "id": 9,
+                "file_path": "src/runtime/StartupCoordinator.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "onCreate"
+              },
+              {
+                "id": 13,
+                "file_path": "src/ui/SessionPanel.ets",
+                "channels": [
+                  "salient_string_fts"
+                ],
+                "symbol": "aboutToAppear"
+              }
+            ]
+          },
+          "code_log_statements": {
+            "requested_limit": 180,
+            "candidate_count": 1,
+            "saturated": false,
+            "broad_saturated": false,
+            "used_fallback": false,
+            "fallback_skipped_for_scale": false,
+            "focus_term_count": 4,
+            "structural_term_count": 0,
+            "lane_counts": {
+              "broad_fts": 1
+            },
+            "fielded_retrieval": {},
+            "rank_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "rank_constant": 60,
+              "channel_count": 1,
+              "channel_counts": {
+                "broad_fts": 1
+              },
+              "fused_candidate_count": 1
+            },
+            "candidate_refs": [
+              {
+                "id": 1,
+                "file_path": "src/services/AuditService.ets",
+                "channels": [
+                  "broad_fts"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "retrieval_stages": {
+        "scored": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 3,
+          "code_log_matches": 3,
+          "edge_matches": 11,
+          "incident_trace_matches": 0
+        },
+        "after_intent_gate": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 3,
+          "code_log_matches": 3,
+          "edge_matches": 11,
+          "incident_trace_matches": 0
+        },
+        "selected": {
+          "semantic_facts": 0,
+          "reflections": 0,
+          "episodes": 0,
+          "wiki_matches": 3,
+          "code_log_matches": 3,
+          "edge_matches": 10,
+          "incident_trace_matches": 0
+        }
+      },
+      "top_explanations": {
+        "semantic_facts": [],
+        "reflections": [],
+        "episodes": [],
+        "wiki_matches": [
+          {
+            "type": "wiki_matches",
+            "id": 11,
+            "score": 52.75,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "exact_symbol",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "string_evidence",
+              "salient_query_evidence",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts",
+              "salient_string_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.10245902,
+              "best_rank": 1,
+              "channel_count": 5,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "symbol_identity_fts",
+                  "rank": 1,
+                  "weight": 1.45,
+                  "score": 0.02377049
+                },
+                {
+                  "channel": "symbol_semantic_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                },
+                {
+                  "channel": "string_key_fts",
+                  "rank": 1,
+                  "weight": 1.2,
+                  "score": 0.01967213
+                },
+                {
+                  "channel": "salient_string_fts",
+                  "rank": 1,
+                  "weight": 1.6,
+                  "score": 0.02622951
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 52.75,
+              "rerank_score": null,
+              "match_reasons": [
+                "exact_symbol",
+                "symbol",
+                "symbol_summary",
+                "search_terms",
+                "string_evidence",
+                "salient_query_evidence",
+                "source_locatable"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "wiki_matches",
+            "id": 13,
+            "score": 31.324,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "salient_query_evidence",
+              "source_locatable",
+              "graph_neighbor",
+              "graph_relation:imports"
+            ],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.02539683,
+              "best_rank": 3,
+              "channel_count": 1,
+              "contributions": [
+                {
+                  "channel": "salient_string_fts",
+                  "rank": 3,
+                  "weight": 1.6,
+                  "score": 0.02539683
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 31.324,
+              "rerank_score": null,
+              "match_reasons": [
+                "salient_query_evidence",
+                "source_locatable",
+                "graph_neighbor",
+                "graph_relation:imports"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "wiki_matches",
+            "id": 9,
+            "score": 31.324,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "salient_query_evidence",
+              "source_locatable",
+              "graph_neighbor",
+              "graph_relation:imports"
+            ],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.02580645,
+              "best_rank": 2,
+              "channel_count": 1,
+              "contributions": [
+                {
+                  "channel": "salient_string_fts",
+                  "rank": 2,
+                  "weight": 1.6,
+                  "score": 0.02580645
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "wiki_matches",
+              "score": 31.324,
+              "rerank_score": null,
+              "match_reasons": [
+                "salient_query_evidence",
+                "source_locatable",
+                "graph_neighbor",
+                "graph_relation:imports"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "code_log_matches": [
+          {
+            "type": "code_log_matches",
+            "id": 1,
+            "score": 44.0,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "exact_log_message",
+              "exact_function",
+              "log_message",
+              "log_context",
+              "search_terms"
+            ],
+            "recall_lanes": [
+              "broad_fts"
+            ],
+            "recall_fusion": {
+              "provider": "reciprocal_rank_fusion/v1",
+              "score": 0.01639344,
+              "best_rank": 1,
+              "channel_count": 1,
+              "contributions": [
+                {
+                  "channel": "broad_fts",
+                  "rank": 1,
+                  "weight": 1.0,
+                  "score": 0.01639344
+                }
+              ]
+            },
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "code_log_matches",
+              "score": 44.0,
+              "rerank_score": null,
+              "match_reasons": [
+                "exact_log_message",
+                "exact_function",
+                "log_message",
+                "log_context",
+                "search_terms"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "code_log_matches",
+            "id": 2,
+            "score": 30.780000000000005,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "exact_log_message",
+              "log_message",
+              "log_context",
+              "search_terms",
+              "static_wrapped"
+            ],
+            "recall_lanes": [
+              "log_effect_fts"
+            ],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "code_log_matches",
+              "score": 30.780000000000005,
+              "rerank_score": null,
+              "match_reasons": [
+                "exact_log_message",
+                "log_message",
+                "log_context",
+                "search_terms",
+                "static_wrapped"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "code_log_matches",
+            "id": 1,
+            "score": 30.780000000000005,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.623,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [
+              "exact_log_message",
+              "log_message",
+              "log_context",
+              "search_terms",
+              "static_wrapped"
+            ],
+            "recall_lanes": [
+              "log_effect_fts"
+            ],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "code_log_matches",
+              "score": 30.780000000000005,
+              "rerank_score": null,
+              "match_reasons": [
+                "exact_log_message",
+                "log_message",
+                "log_context",
+                "search_terms",
+                "static_wrapped"
+              ],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": null,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "edge_matches": [
+          {
+            "type": "edge_matches",
+            "id": 15,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 14,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          },
+          {
+            "type": "edge_matches",
+            "id": 13,
+            "score": null,
+            "rerank_score": null,
+            "quality_score": null,
+            "trust_score": 0.87,
+            "trust_level": "source_truth",
+            "feedback_penalty": 0.0,
+            "usage_feedback_bonus": 0.0,
+            "usage_feedback_penalty": 0.0,
+            "match_reasons": [],
+            "recall_lanes": [],
+            "recall_fusion": {},
+            "gate_reasons": [],
+            "retrieval_explanation": {
+              "group": "edge_matches",
+              "score": null,
+              "rerank_score": null,
+              "match_reasons": [],
+              "gate_score": null,
+              "gate_reasons": [],
+              "quality_score": null,
+              "quality_band": null,
+              "experience_maturity": null,
+              "experience_maturity_score": null,
+              "feedback_penalty": 0.0,
+              "feedback_reasons": [],
+              "calibration_feedback_bonus": 0.0,
+              "calibration_feedback_penalty": 0.0,
+              "calibration_feedback_reasons": [],
+              "query_risk_flags": [],
+              "intent_alignment": null,
+              "interference_penalty": 0.0,
+              "interference_reasons": [],
+              "trust_cap": null,
+              "trust_cap_reasons": [],
+              "status": null,
+              "confidence": 0.9,
+              "experience_evidence_profile": null,
+              "source_case_quality": null
+            }
+          }
+        ],
+        "incident_trace_matches": []
+      },
+      "audit_notice": "Ranking audit is advisory; inspect current source before trusting historical memory.",
+      "hierarchical_localization": {
+        "schema_version": "agent-hierarchical-localization/v2",
+        "provider": "sqlite_hierarchical_localizer/v2",
+        "mode": "serving",
+        "projection_contract": {
+          "candidate_recall_changed": false,
+          "affects_serving_projection": true,
+          "consumer": "query_handoff.callable_evidence"
+        },
+        "limits": {
+          "files": 8,
+          "file_callable_pool": 128,
+          "direct_callable_pool": 32,
+          "graph_seeds": 6,
+          "graph_owners": 16,
+          "callables": 12,
+          "source_ranges": 8
+        },
+        "stage_counts": {
+          "file_candidates": 3,
+          "file_callable_pool": 4,
+          "graph_seed_count": 4,
+          "graph_owner_pool": 2,
+          "selected_callables": 4,
+          "selected_ranges": 4
+        },
+        "file_candidates": [
+          {
+            "file_path": "src/services/AuditService.ets",
+            "score": 52.75,
+            "first_rank": 1,
+            "record_ids": [
+              11
+            ],
+            "direct_symbol_ids": [
+              11
+            ],
+            "match_reasons": [
+              "exact_symbol",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "string_evidence",
+              "salient_query_evidence",
+              "source_locatable"
+            ],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts",
+              "salient_string_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/runtime/StartupCoordinator.ets",
+            "score": 31.324,
+            "first_rank": 2,
+            "record_ids": [
+              9
+            ],
+            "direct_symbol_ids": [
+              9
+            ],
+            "match_reasons": [
+              "salient_query_evidence",
+              "source_locatable",
+              "graph_neighbor",
+              "graph_relation:imports"
+            ],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          },
+          {
+            "file_path": "src/ui/SessionPanel.ets",
+            "score": 31.324,
+            "first_rank": 3,
+            "record_ids": [
+              13
+            ],
+            "direct_symbol_ids": [
+              13
+            ],
+            "match_reasons": [
+              "salient_query_evidence",
+              "source_locatable",
+              "graph_neighbor",
+              "graph_relation:imports"
+            ],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "structural_coverage": 0,
+            "definition_identity": false
+          }
+        ],
+        "graph_seeds": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 11,
+            "file_path": "src/services/AuditService.ets",
+            "symbol": "refresh",
+            "qualified_name": "AuditService.refresh",
+            "start_line": 3,
+            "end_line": 5,
+            "score": 47.5,
+            "evidence_score": 47.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "string_evidence",
+              "salient_query_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts",
+              "salient_string_fts"
+            ],
+            "owner_name": "AuditService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 9,
+            "file_path": "src/runtime/StartupCoordinator.ets",
+            "symbol": "onCreate",
+            "qualified_name": "StartupCoordinator.onCreate",
+            "start_line": 4,
+            "end_line": 6,
+            "score": 15.138,
+            "evidence_score": 15.138,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence",
+              "graph_neighbor",
+              "graph_relation:imports"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "owner_name": "StartupCoordinator",
+            "owner_kind": "coordinator",
+            "callable_roles": [
+              "lifecycle",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 13,
+            "file_path": "src/ui/SessionPanel.ets",
+            "symbol": "aboutToAppear",
+            "qualified_name": "SessionPanel.aboutToAppear",
+            "start_line": 6,
+            "end_line": 8,
+            "score": 14.138,
+            "evidence_score": 14.138,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence",
+              "graph_neighbor",
+              "graph_relation:imports"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "owner_name": "SessionPanel",
+            "owner_kind": "component",
+            "callable_roles": [
+              "lifecycle",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 14,
+            "file_path": "src/ui/SessionPanel.ets",
+            "symbol": "build",
+            "qualified_name": "SessionPanel.build",
+            "start_line": 9,
+            "end_line": 9,
+            "score": 6.5,
+            "evidence_score": 6.5,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "SessionPanel",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "graph_owner_candidates": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 9,
+            "file_path": "src/runtime/StartupCoordinator.ets",
+            "symbol": "onCreate",
+            "qualified_name": "StartupCoordinator.onCreate",
+            "start_line": 4,
+            "end_line": 6,
+            "score": null,
+            "evidence_score": null,
+            "reasons": [],
+            "graph_depth": 1,
+            "graph_relations": [
+              "calls"
+            ],
+            "recall_lanes": [],
+            "owner_name": "StartupCoordinator",
+            "owner_kind": "coordinator",
+            "callable_roles": [
+              "lifecycle",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": null,
+            "artifact_query_intent": null
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 13,
+            "file_path": "src/ui/SessionPanel.ets",
+            "symbol": "aboutToAppear",
+            "qualified_name": "SessionPanel.aboutToAppear",
+            "start_line": 6,
+            "end_line": 8,
+            "score": null,
+            "evidence_score": null,
+            "reasons": [],
+            "graph_depth": 1,
+            "graph_relations": [
+              "calls"
+            ],
+            "recall_lanes": [],
+            "owner_name": "SessionPanel",
+            "owner_kind": "component",
+            "callable_roles": [
+              "lifecycle",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": null,
+            "artifact_query_intent": null
+          }
+        ],
+        "callable_candidates": [
+          {
+            "source_operation_match": null,
+            "symbol_id": 11,
+            "file_path": "src/services/AuditService.ets",
+            "symbol": "refresh",
+            "qualified_name": "AuditService.refresh",
+            "start_line": 3,
+            "end_line": 5,
+            "score": 47.5,
+            "evidence_score": 47.5,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "symbol",
+              "symbol_summary",
+              "search_terms",
+              "string_evidence",
+              "salient_query_evidence"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "broad_fts",
+              "symbol_identity_fts",
+              "symbol_semantic_fts",
+              "string_key_fts",
+              "salient_string_fts"
+            ],
+            "owner_name": "AuditService",
+            "owner_kind": "service",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 9,
+            "file_path": "src/runtime/StartupCoordinator.ets",
+            "symbol": "onCreate",
+            "qualified_name": "StartupCoordinator.onCreate",
+            "start_line": 4,
+            "end_line": 6,
+            "score": 15.138,
+            "evidence_score": 15.138,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence",
+              "graph_neighbor",
+              "graph_relation:imports"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "owner_name": "StartupCoordinator",
+            "owner_kind": "coordinator",
+            "callable_roles": [
+              "lifecycle",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 13,
+            "file_path": "src/ui/SessionPanel.ets",
+            "symbol": "aboutToAppear",
+            "qualified_name": "SessionPanel.aboutToAppear",
+            "start_line": 6,
+            "end_line": 8,
+            "score": 14.138,
+            "evidence_score": 14.138,
+            "reasons": [
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "salient_query_evidence",
+              "graph_neighbor",
+              "graph_relation:imports"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [
+              "salient_string_fts"
+            ],
+            "owner_name": "SessionPanel",
+            "owner_kind": "component",
+            "callable_roles": [
+              "lifecycle",
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          },
+          {
+            "source_operation_match": null,
+            "symbol_id": 14,
+            "file_path": "src/ui/SessionPanel.ets",
+            "symbol": "build",
+            "qualified_name": "SessionPanel.build",
+            "start_line": 9,
+            "end_line": 9,
+            "score": 6.5,
+            "evidence_score": 6.5,
+            "reasons": [
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "graph_depth": 0,
+            "graph_relations": [],
+            "recall_lanes": [],
+            "owner_name": "SessionPanel",
+            "owner_kind": "component",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation"
+          }
+        ],
+        "source_ranges": [
+          {
+            "symbol_id": 11,
+            "file_path": "src/services/AuditService.ets",
+            "symbol": "refresh",
+            "callable_start_line": 3,
+            "callable_end_line": 5,
+            "start_line": 3,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 9,
+            "file_path": "src/runtime/StartupCoordinator.ets",
+            "symbol": "onCreate",
+            "callable_start_line": 4,
+            "callable_end_line": 6,
+            "start_line": 4,
+            "end_line": 6,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 13,
+            "file_path": "src/ui/SessionPanel.ets",
+            "symbol": "aboutToAppear",
+            "callable_start_line": 6,
+            "callable_end_line": 8,
+            "start_line": 6,
+            "end_line": 8,
+            "selection_reason": "callable_symbol_range"
+          },
+          {
+            "symbol_id": 14,
+            "file_path": "src/ui/SessionPanel.ets",
+            "symbol": "build",
+            "callable_start_line": 9,
+            "callable_end_line": 9,
+            "start_line": 9,
+            "end_line": 9,
+            "selection_reason": "callable_symbol_range"
+          }
+        ]
+      },
+      "callable_evidence_set": {
+        "schema_version": "agent-callable-evidence-set/v1",
+        "mode": "shadow",
+        "serving_projection_changed": false,
+        "target_scope": {
+          "kind": "unknown",
+          "basis": [
+            "no_explicit_target_scope"
+          ]
+        },
+        "members": [
+          {
+            "position": 1,
+            "file_path": "src/services/AuditService.ets",
+            "symbol": "refresh",
+            "owner_name": "AuditService",
+            "owner_kind": "service",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "direct_identity",
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 2,
+            "file_path": "src/runtime/StartupCoordinator.ets",
+            "symbol": "onCreate",
+            "owner_name": "StartupCoordinator",
+            "owner_kind": "coordinator",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          },
+          {
+            "position": 3,
+            "file_path": "src/ui/SessionPanel.ets",
+            "symbol": "aboutToAppear",
+            "owner_name": "SessionPanel",
+            "owner_kind": "component",
+            "artifact_role": "production",
+            "artifact_query_intent": "implementation",
+            "source_locatable": true,
+            "support_kinds": [
+              "source_locatable"
+            ],
+            "excluded_by_query": false
+          }
+        ],
+        "competition": {
+          "member_count": 3,
+          "distinct_file_count": 3,
+          "same_owner_kind_alternative": false,
+          "graph_backed_alternative": false,
+          "excluded_member_count": 0
+        },
+        "calibration": {
+          "state": "unresolved",
+          "basis": [
+            "target_scope_unresolved"
+          ]
+        },
+        "boundary": "retrieval_calibration_not_diagnosis"
+      },
+      "callable_passage_portfolio": {
+        "schema_version": "agent-callable-passage-portfolio/v1",
+        "mode": "serving",
+        "state": "inactive",
+        "members": [],
+        "selection_basis": [
+          "target_scope_not_composite"
+        ],
+        "candidate_recall_changed": false,
+        "boundary": "source_passage_composition_not_diagnosis"
+      }
+    }
+  },
+  "compact": {
+    "schema_version": "agent-context-compact/v1",
+    "project_id": "576223e800ec9475",
+    "query": "Given observed log checkpoint refresh denied expired token, show the bounded caller-to-emitter source paths.",
+    "memory_intent": "memory_maintenance",
+    "memory_intent_source": "inferred",
+    "source_freshness": {
+      "status": "current",
+      "generation": 1
+    },
+    "query_handoff": {
+      "schema_version": "agent-query-handoff-compact/v1",
+      "log_keywords": [
+        "given",
+        "observed",
+        "log",
+        "checkpoint",
+        "refresh",
+        "denied",
+        "expired",
+        "token"
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "message_template": "checkpoint refresh denied expired token",
+          "logger": "hilog",
+          "file_path": "src/runtime/StartupCoordinator.ets",
+          "function": "onCreate",
+          "line": 5,
+          "effect_id": 1,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "refresh",
+          "wrapper_depth": 1,
+          "call_path": [
+            "onCreate",
+            "refresh",
+            "hilog.error"
+          ],
+          "call_path_locations": [
+            "src/runtime/StartupCoordinator.ets#onCreate",
+            "src/services/AuditService.ets#refresh",
+            "src/services/AuditService.ets#hilog.error"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 1,
+          "message_template": "checkpoint refresh denied expired token",
+          "logger": "hilog",
+          "file_path": "src/ui/SessionPanel.ets",
+          "function": "aboutToAppear",
+          "line": 7,
+          "effect_id": 2,
+          "evidence_class": "static_wrapped",
+          "wrapper_symbol": "refresh",
+          "wrapper_depth": 1,
+          "call_path": [
+            "aboutToAppear",
+            "refresh",
+            "hilog.error"
+          ],
+          "call_path_locations": [
+            "src/ui/SessionPanel.ets#aboutToAppear",
+            "src/services/AuditService.ets#refresh",
+            "src/services/AuditService.ets#hilog.error"
+          ],
+          "truncated": false
+        },
+        {
+          "log_id": 1,
+          "message_template": "checkpoint refresh denied expired token",
+          "logger": "hilog",
+          "file_path": "src/services/AuditService.ets",
+          "function": "refresh",
+          "line": 4,
+          "evidence_class": "direct",
+          "truncated": false
+        }
+      ],
+      "code_anchors": [
+        {
+          "file_path": "src/services/AuditService.ets",
+          "symbol": "refresh",
+          "symbol_type": "function",
+          "record_ids": [
+            11
+          ],
+          "source_ranges": [
+            {
+              "symbol": "refresh",
+              "start_line": 3,
+              "end_line": 5,
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 4
+            },
+            {
+              "symbol": "refresh",
+              "start_line": 3,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 3,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "refresh",
+              "start_line": 3,
+              "end_line": 3,
+              "content": "  refresh(): void {",
+              "source": "current_worktree",
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 4,
+              "truncated": true
+            }
+          ]
+        },
+        {
+          "file_path": "src/runtime/StartupCoordinator.ets",
+          "symbol": "onCreate",
+          "symbol_type": "function",
+          "graph_relation": "imports",
+          "record_ids": [
+            9
+          ],
+          "source_ranges": [
+            {
+              "symbol": "onCreate",
+              "start_line": 4,
+              "end_line": 6,
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 5
+            },
+            {
+              "symbol": "onCreate",
+              "start_line": 4,
+              "end_line": 6
+            }
+          ],
+          "read_window": {
+            "start_line": 4,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "onCreate",
+              "start_line": 4,
+              "end_line": 6,
+              "content": "  onCreate(): void {\n    this.audit.refresh()\n  }",
+              "source": "current_worktree",
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 5,
+              "truncated": false
+            }
+          ]
+        },
+        {
+          "file_path": "src/ui/SessionPanel.ets",
+          "symbol": "aboutToAppear",
+          "symbol_type": "function",
+          "graph_relation": "imports",
+          "record_ids": [
+            13
+          ],
+          "source_ranges": [
+            {
+              "symbol": "aboutToAppear",
+              "start_line": 6,
+              "end_line": 8,
+              "selection_reason": "selected_log_event_owner",
+              "focus_line": 7
+            },
+            {
+              "symbol": "aboutToAppear",
+              "start_line": 6,
+              "end_line": 8
+            }
+          ],
+          "read_window": {
+            "start_line": 6,
+            "end_line": 8
+          },
+          "role": "primary"
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/services/AuditService.ets",
+          "symbol": "refresh",
+          "owner_kind": "service",
+          "source_range": {
+            "start_line": 3,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": []
+      },
+      "path_context": {
+        "activated": true,
+        "activation_reason": "exact_log_template",
+        "graph_revision": 1,
+        "path_candidates": [
+          {
+            "path_id": "path_5a88a94b19db9641",
+            "entry": {
+              "name": "StartupCoordinator.onCreate",
+              "file_path": "src/runtime/StartupCoordinator.ets",
+              "line": 4,
+              "category": "lifecycle"
+            },
+            "emitter": {
+              "name": "AuditService.refresh",
+              "file_path": "src/services/AuditService.ets",
+              "line": 3
+            },
+            "relations": [
+              {
+                "relation": "calls"
+              }
+            ],
+            "structural_score": 0.904,
+            "expected_logs": [],
+            "uncertainty": []
+          },
+          {
+            "path_id": "path_30fead861f8fabfd",
+            "entry": {
+              "name": "SessionPanel.aboutToAppear",
+              "file_path": "src/ui/SessionPanel.ets",
+              "line": 6,
+              "category": "lifecycle"
+            },
+            "relations": [
+              {
+                "relation": "calls"
+              }
+            ],
+            "projection": "alternate_entry",
+            "expected_logs": [],
+            "uncertainty": []
+          }
+        ],
+        "gaps": {
+          "anchors_without_emitters": [],
+          "no_reconstructable_path": false
+        }
+      },
+      "relation_hints": [],
+      "experience_refs": [],
+      "semantic_refs": [],
+      "source_exploration": {
+        "policy": "anchor_first_deterministic_expansion_v8",
+        "limits": {
+          "primary": 3,
+          "rounds": 2,
+          "round_files": 2,
+          "searches": 3,
+          "files": 7,
+          "reads_per_file": 2,
+          "read_lines": 180
+        }
+      },
+      "next_queries": [],
+      "role_boundary": {
+        "runtime": "retrieval_and_current_graph_context_only",
+        "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+        "runtime_reads_temporary_logs": false,
+        "runtime_selects_root_cause": false
+      },
+      "source_excerpt_policy": {
+        "source": "current_worktree",
+        "body_persisted": false,
+        "excerpt_count": 2,
+        "excerpt_chars": 68
+      }
+    },
+    "correction_guards": [],
+    "semantic_patch_notes": [],
+    "blocked_memory_notes": [],
+    "conflict_notes": [],
+    "evidence_gaps": [],
+    "sufficiency": {
+      "schema_version": "agent-context-sufficiency/v1",
+      "kind": "diagnosis",
+      "status": "ready_for_agent_inspection",
+      "next_action": "inspect_primary_source_anchor",
+      "reason_codes": [],
+      "coverage": {
+        "source_locatable_code_anchor": true,
+        "log_anchor_count": 3,
+        "path_candidate_count": 2
+      },
+      "scope": "retrieval_readiness_only_not_agent_reasoning",
+      "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+    },
+    "output_budget": {
+      "estimated_tokens": 1488,
+      "target_tokens": 1500,
+      "truncated": true
+    }
+  }
+}

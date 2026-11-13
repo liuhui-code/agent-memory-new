@@ -11339,3 +11339,13 @@ Evidence: `docs/eval/data-topic-expansion-20261114/README.md`.
 ## Integration: restore data diagnostic fingerprint
 
 - The combined focused fingerprint check found run-data.py missing its standard comment. Add only the public header; AST remains identical and no assertions change. Rerun the same focused checks before publication.
+
+## 2026-11-13 — Lossless range normalization before compact budget cuts
+
+- Reproduced redundant source range subsets through public exact-log handoffs in
+  five independent development layouts before changing production behavior.
+- Fold only valid same-anchor range records wholly covered by richer records;
+  preserve conflicting metadata, source excerpts, digest, path identity and logs.
+- Targeted causal-profile-path group improves 1/3 to 3/3 without budget/score/oracle
+  changes. 43 necessary focused regressions pass. No full acceptance run.
+- Evidence: docs/evidence/causal-log-followup/result.md.
