@@ -1,0 +1,39 @@
+test_frozen_cleanup_owner_and_named_controls (tests.test_lifecycle_owner_public.LifecycleOwnerPublicTests.test_frozen_cleanup_owner_and_named_controls) ... 
+  test_frozen_cleanup_owner_and_named_controls (tests.test_lifecycle_owner_public.LifecycleOwnerPublicTests.test_frozen_cleanup_owner_and_named_controls) (suffix='.ts', query='Panel shutdown leaves a callback registered; return the ability that owns both destruction and callback cleanup.') ... FAIL
+  test_frozen_cleanup_owner_and_named_controls (tests.test_lifecycle_owner_public.LifecycleOwnerPublicTests.test_frozen_cleanup_owner_and_named_controls) (suffix='.ts', query='面板上下文销毁前没有注销监听回调，请只返回同时拥有生命周期边界和清理动作的源码。') ... FAIL
+  test_frozen_cleanup_owner_and_named_controls (tests.test_lifecycle_owner_public.LifecycleOwnerPublicTests.test_frozen_cleanup_owner_and_named_controls) (suffix='.ets', query='Panel shutdown leaves a callback registered; return the ability that owns both destruction and callback cleanup.') ... FAIL
+
+======================================================================
+FAIL: test_frozen_cleanup_owner_and_named_controls (tests.test_lifecycle_owner_public.LifecycleOwnerPublicTests.test_frozen_cleanup_owner_and_named_controls) (suffix='.ts', query='Panel shutdown leaves a callback registered; return the ability that owns both destruction and callback cleanup.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/lifecycle-owner-investigation/tests/test_lifecycle_owner_public.py", line 53, in test_frozen_cleanup_owner_and_named_controls
+    self.assertEqual({owner+suffix},paths)
+AssertionError: Items in the second set but not the first:
+'SplitAbility.ts'
+'PanelWidget.ts'
+'CallbackRegistry.ts'
+
+======================================================================
+FAIL: test_frozen_cleanup_owner_and_named_controls (tests.test_lifecycle_owner_public.LifecycleOwnerPublicTests.test_frozen_cleanup_owner_and_named_controls) (suffix='.ts', query='面板上下文销毁前没有注销监听回调，请只返回同时拥有生命周期边界和清理动作的源码。')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/lifecycle-owner-investigation/tests/test_lifecycle_owner_public.py", line 53, in test_frozen_cleanup_owner_and_named_controls
+    self.assertEqual({owner+suffix},paths)
+AssertionError: Items in the first set but not the second:
+'PanelAbility.ts'
+
+======================================================================
+FAIL: test_frozen_cleanup_owner_and_named_controls (tests.test_lifecycle_owner_public.LifecycleOwnerPublicTests.test_frozen_cleanup_owner_and_named_controls) (suffix='.ets', query='Panel shutdown leaves a callback registered; return the ability that owns both destruction and callback cleanup.')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/lifecycle-owner-investigation/tests/test_lifecycle_owner_public.py", line 53, in test_frozen_cleanup_owner_and_named_controls
+    self.assertEqual({owner+suffix},paths)
+AssertionError: Items in the second set but not the first:
+'CallbackRegistry.ets'
+'SplitAbility.ets'
+
+----------------------------------------------------------------------
+Ran 1 test in 4.980s
+
+FAILED (failures=3)

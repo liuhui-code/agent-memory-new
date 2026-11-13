@@ -6,10 +6,12 @@ from typing import Any
 
 from .query_explicit_owner_certificate import CertifiedPortfolio
 from .query_certified_portfolio_bounds import certified_projection
+from .query_code_selection import explicitly_named_candidate
 
 
 def focus_callable_anchors(
     anchors: list[dict[str, Any]], evidence: Any, path_activated: Any,
+    query: str = "",
 ) -> list[dict[str, Any]]:
     """Narrow compact source anchors only for a bounded callable-local query."""
     activated = path_scope_activated(path_activated)
@@ -43,6 +45,8 @@ def focus_callable_anchors(
             reserve_uncertain_primary(anchors, primary)
             if activated or primary.get("typed_contract_match") else anchors
         )
+    if multiple_requested_anchors_present(anchors, evidence, query):
+        return anchors
     composed = isinstance(portfolio, dict) and portfolio.get("state") == "composed"
     cross_file = composed and "explicit_cross_file_targets" in set(
         portfolio.get("selection_basis") or []
@@ -248,3 +252,25 @@ def complete_retained_members(members: list[dict[str, Any]]) -> list[dict[str, A
             return members
         expanded.append({**member, "source_range": {**window, **bounds}})
     return expanded
+
+
+def multiple_requested_anchors_present(
+    anchors: list[dict[str, Any]], evidence: dict[str, Any], query: str,
+) -> bool:
+    """Decline narrowing existing source, without granting portfolio projection."""
+    paths: set[str] = set()
+    candidates = [evidence.get("primary"), *(evidence.get("alternatives") or [])]
+    for candidate in candidates:
+        if not isinstance(candidate, dict) or not explicitly_named_candidate(candidate, query):
+            continue
+        span = candidate.get("source_range")
+        if not valid_retained_range(span):
+            continue
+        path = candidate.get("file_path")
+        if any(
+            anchor.get("file_path") == path and valid_retained_range(anchor)
+            and anchor["start_line"] <= span["start_line"] <= span["end_line"] <= anchor["end_line"]
+            for anchor in anchors
+        ):
+            paths.add(str(path))
+    return len(paths) >= 2

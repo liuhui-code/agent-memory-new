@@ -1,5 +1,13 @@
 # Local Development Log
 
+## 2026-11-13 - Preserve already-supplied explicit cross-file targets in compact focus
+
+- Caught and fixed a regression introduced by stronger lifecycle method evidence: raw context retained two explicitly requested owners but bounded compact focus removed one.
+- Decline narrowing only when two exact qualified requested targets have valid ranges already contained in existing anchors on different paths. Do not add anchors, project cross-file portfolios or grant certification; existing private certificate checks remain first.
+- Final focused regression: 123 tests pass. Cleanup and adjacent-collection scenarios: 6/6. Cleanup alone improves from baseline 1/3 to 3/3. Full suite and consumed holdouts were not run.
+- Plan, frozen synthetic inputs, earlier failures, public observations and final results: docs/eval/lifecycle-method-evidence-20261113/. Existing callable-primary consistency limitation remains outside this repair.
+
+
 ## 2026-11-13 - Add bounded callable lifecycle cleanup evidence
 
 - On independent 2d48e9c sources, frozen TS/ETS public queries reproduced lifecycle owner mixing and missing TS evidence. Add lifecycleboundary for existing lifecycle names and callbackcleanup through the existing cleanup pattern, within the same non-code/nested-scope guard.

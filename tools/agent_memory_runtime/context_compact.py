@@ -104,7 +104,7 @@ def compact_handoff(handoff: dict[str, Any], data: dict[str, Any]) -> dict[str, 
         code_candidates, callable_evidence = declaration, None
     else:
         code_candidates = focus_callable_anchors(
-            code_candidates, callable_evidence, projection_path,
+            code_candidates, callable_evidence, projection_path, str(data.get("query") or ""),
         )
     code_anchors = assign_anchor_roles(
         diverse_code_anchors(

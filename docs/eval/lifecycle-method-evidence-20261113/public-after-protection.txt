@@ -1,0 +1,14 @@
+test_frozen_cleanup_owner_and_named_controls (tests.test_lifecycle_owner_public.LifecycleOwnerPublicTests.test_frozen_cleanup_owner_and_named_controls) ... FAIL
+
+======================================================================
+FAIL: test_frozen_cleanup_owner_and_named_controls (tests.test_lifecycle_owner_public.LifecycleOwnerPublicTests.test_frozen_cleanup_owner_and_named_controls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/lifecycle-owner-investigation/tests/test_lifecycle_owner_public.py", line 57, in test_frozen_cleanup_owner_and_named_controls
+    self.assertTrue({'PanelAbility'+suffix,'PanelWidget'+suffix} <= paths,paths)
+AssertionError: False is not true : {'PanelAbility.ts'}
+
+----------------------------------------------------------------------
+Ran 1 test in 2.293s
+
+FAILED (failures=1)
