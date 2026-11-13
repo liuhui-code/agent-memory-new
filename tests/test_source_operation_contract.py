@@ -4,7 +4,7 @@ import unittest
 from tools.agent_memory_runtime.source_operation_roles import source_operation_roles
 from tools.agent_memory_runtime.query_source_operation import certify_source_operation
 
-CHECKED='source_operation_checked:v2'
+CHECKED='source_operation_checked:v2.1'
 def candidate(proof=None, **values):
     return dict(start_line=1,end_line=5,symbol_key='symbol:fixture',source_digest='digest',
                 file_path='src/Fixture.ets',semantic_adapter='arkts-static@1.2',

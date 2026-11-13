@@ -11273,3 +11273,12 @@ inconsistency is still open. See docs/evidence/owner-integration/RESULT.md.
   later file behind symbol; preserve original file-first ordering.
 - Reverse-order helper and actual budget regression added; 44 related tests pass.
   No new selection policy, swapping, budget change or loop-proof extension.
+
+## 2026-11-13 — Reject destructured or rebound runtime operation names
+
+- Reproduce unsafe operation privilege after declaration/assignment
+  destructuring and direct rebinding; recognize these forms as unknown.
+- Upgrade checked token to v2.1 so cached v2 proof cannot bypass the correction.
+  Relearning restores verified roles; ordinary retrieval remains available.
+- 20 focused regressions pass; original capability group remains 3/3.
+  No full suite or archive/loop feature mixed into this hotfix.

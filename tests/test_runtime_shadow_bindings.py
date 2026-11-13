@@ -27,3 +27,10 @@ class RuntimeShadowBindingTests(unittest.TestCase):
         for setup in ['const {other}=local;', '// canIUse=local\n', 'const label="const {canIUse}=local";', 'if (other === canIUse) {}']:
             roles=source_operation_roles('inspect(){'+setup+'return canIUse("X");}','x.ts')
             self.assertIn('source_operation:runtimecapability',roles)
+
+    def test_pre_fix_v2_roles_do_not_reuse_unsafe_proof(self):
+        for prior in ['source_operation_checked:v1','source_operation_checked:v2']:
+            rows=[candidate('runtimecapability'),candidate()]
+            rows[0]['callable_roles']=[prior,'source_operation:runtimecapability']
+            certify_source_operation(rows,QUERY)
+            self.assertFalse(any(r.get('source_operation_match') for r in rows))

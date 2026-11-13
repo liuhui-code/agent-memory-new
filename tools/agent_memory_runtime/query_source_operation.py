@@ -29,7 +29,7 @@ def certify_source_operation(items, query):
     supported = {'runtimecapability', 'persistenceread'}
     if not expected or not expected <= supported:
         return
-    if any('source_operation_checked:v2' not in json_list(item.get('callable_roles'))
+    if any('source_operation_checked:v2.1' not in json_list(item.get('callable_roles'))
            or Path(str(item.get('file_path') or '')).suffix not in {'.ts', '.ets'}
            or str(item.get('semantic_adapter') or '').partition('@')[0] not in {'arkts-static', 'typescript-static'}
            for item in items):

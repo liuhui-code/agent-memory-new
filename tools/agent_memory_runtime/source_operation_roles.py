@@ -12,7 +12,7 @@ def source_operation_roles(source: str, file_path: str) -> list[str]:
     if Path(file_path).suffix not in {".ts", ".ets"}:
         return []
     if '`' in source:
-        return ['source_operation_checked:v2', 'source_operation_unresolved:runtimecapability', 'source_operation_unresolved:persistenceread']
+        return ['source_operation_checked:v2.1', 'source_operation_unresolved:runtimecapability', 'source_operation_unresolved:persistenceread']
     code = NON_CODE_RE.sub(lambda match: ' ' * len(match.group()), source)
     if '{' not in code or code.count('{') != code.count('}'):
         return []
@@ -22,6 +22,16 @@ def source_operation_roles(source: str, file_path: str) -> list[str]:
     runtime_calls = list(RUNTIME_CAPABILITY_RE.finditer(body))
     shadowed = re.search(r'\b(?:const|let|var|function|class)\s+(?:bundleManager|canIUse|hasSystemCapability)\b', code)
     shadowed = shadowed or re.search(r'\b(?:bundleManager|canIUse|hasSystemCapability)\b', code.partition('{')[0])
+    names = r'(?:bundleManager|canIUse|hasSystemCapability)'
+    # Destructuring and reassignment invalidate this bounded name-shape witness;
+    # absence of these patterns is still not resolved platform API identity.
+    shadowed = shadowed or re.search(
+        r'\b(?:const|let|var)\s*[\[{][^;=]*\b' + names + r'\b', code,
+    ) or re.search(
+        r'[\[{][^;=]*\b' + names + r'\b[^;=]*[\]}]\s*=', body,
+    ) or re.search(
+        r'\b' + names + r'\s*(?:=(?!=|>)|[+*/%&|^-]=|\?\?=|\|\|=|&&=|\+\+|--)', body,
+    )
     qualified_other = any(match.start() and body[:match.start()].rstrip().endswith('.') for match in runtime_calls)
     if runtime_calls and (shadowed or qualified_other):
         result.append('source_operation_unresolved:runtimecapability')
@@ -44,5 +54,5 @@ def source_operation_roles(source: str, file_path: str) -> list[str]:
     if unknown_read_receiver or (persistence_reference and not direct_reads):
         result.append('source_operation_unresolved:persistenceread')
     if not body or '=>' in body or '/' in body or nested or re.search(r'\b(?:function|class)\b', body):
-        return ['source_operation_checked:v2', *[value.replace('source_operation:', 'source_operation_unresolved:') for value in result]]
-    return ['source_operation_checked:v2', *result]
+        return ['source_operation_checked:v2.1', *[value.replace('source_operation:', 'source_operation_unresolved:') for value in result]]
+    return ['source_operation_checked:v2.1', *result]
