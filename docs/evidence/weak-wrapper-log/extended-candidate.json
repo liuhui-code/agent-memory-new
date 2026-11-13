@@ -1,0 +1,2327 @@
+[
+  {
+    "case": {
+      "query": "Repeated entry changes after tapping can show an older asynchronous result; locate loading and visible state assignment ownership.",
+      "required": "TabReader.ets",
+      "excluded": [
+        "RetryPanel.ets",
+        "Telemetry.ets",
+        "EntryWriter.ets",
+        "TabIndicator.ets"
+      ]
+    },
+    "paths": [
+      "TabReader.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "60a64b66dab99ada",
+      "query": "Repeated entry changes after tapping can show an older asynchronous result; locate loading and visible state assignment ownership.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "repeated",
+          "entry",
+          "changes",
+          "after",
+          "tapping",
+          "show",
+          "older",
+          "asynchronous",
+          "result",
+          "locate",
+          "loading",
+          "visible"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "retry",
+            "line": 4,
+            "effect_id": 1,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportPacket",
+            "wrapper_depth": 1,
+            "call_path": [
+              "retry",
+              "reportPacket",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#retry",
+              "Telemetry.ets#reportPacket",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 2,
+            "message_template": "packet ${key} buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "dynamicRetry",
+            "line": 5,
+            "effect_id": 2,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportDynamic",
+            "wrapper_depth": 1,
+            "call_path": [
+              "dynamicRetry",
+              "reportDynamic",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#dynamicRetry",
+              "Telemetry.ets#reportDynamic",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "Telemetry.ets",
+            "function": "reportPacket",
+            "line": 3,
+            "evidence_class": "direct",
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "file_path": "TabReader.ets",
+            "symbol": "select",
+            "symbol_type": "function",
+            "record_ids": [
+              9
+            ],
+            "source_ranges": [
+              {
+                "symbol": "select",
+                "start_line": 4,
+                "end_line": 11
+              }
+            ],
+            "read_window": {
+              "start_line": 4,
+              "end_line": 11
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "select",
+                "start_line": 4,
+                "end_line": 11,
+                "content": "  async select(tab: number): Promise<void> {\n    this.pending = tab\n    const text = await provider.read(tab)\n    if (tab !== this.pending) {\n      return\n    }\n    this.text = text\n  }",
+                "source": "current_worktree",
+                "selection_reason": "callable_mechanism_window",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "EntryWriter.ets",
+            "symbol": "save",
+            "owner_name": "EntryWriter",
+            "owner_kind": "class",
+            "file_structural_coverage": 2,
+            "callable_roles": [
+              "async",
+              "state_write",
+              "persistence_write"
+            ],
+            "score": 21.0,
+            "evidence_score": 21.0,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior",
+              "source_locatable"
+            ],
+            "source_range": {
+              "start_line": 3,
+              "end_line": 6,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "TabReader.ets",
+              "symbol": "select",
+              "owner_name": "TabReader",
+              "owner_kind": "class",
+              "file_structural_coverage": 3,
+              "callable_roles": [
+                "async",
+                "guard",
+                "state_write"
+              ],
+              "score": 12.92,
+              "evidence_score": 12.92,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "source_range": {
+                "start_line": 4,
+                "end_line": 11,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "TabIndicator.ets",
+              "symbol": "setPending",
+              "owner_name": "TabIndicator",
+              "owner_kind": "class",
+              "file_structural_coverage": 1,
+              "callable_roles": [
+                "state_write"
+              ],
+              "score": 10.84,
+              "evidence_score": 10.84,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 3,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 185
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity",
+          "no_strong_log_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 3,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1406,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Locate the log packet buffered after reconnect.",
+      "required": "RetryPanel.ets",
+      "excluded": []
+    },
+    "paths": [
+      "Telemetry.ets",
+      "RetryPanel.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "60a64b66dab99ada",
+      "query": "Locate the log packet buffered after reconnect.",
+      "memory_intent": "runtime_log_diagnosis",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "locate",
+          "log",
+          "packet",
+          "buffered",
+          "after",
+          "reconnect",
+          "console",
+          "reportpacket",
+          "error",
+          "retry",
+          "telemetry",
+          "reportdynamic"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "retry",
+            "line": 4,
+            "effect_id": 1,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportPacket",
+            "wrapper_depth": 1,
+            "call_path": [
+              "retry",
+              "reportPacket",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#retry",
+              "Telemetry.ets#reportPacket",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "Telemetry.ets",
+            "function": "reportPacket",
+            "line": 3,
+            "evidence_class": "direct",
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "file_path": "Telemetry.ets",
+            "symbol": "reportPacket",
+            "symbol_type": "function",
+            "record_ids": [
+              11,
+              2
+            ],
+            "source_ranges": [
+              {
+                "symbol": "reportPacket",
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "selected_log_event_owner",
+                "focus_line": 3
+              },
+              {
+                "symbol": "reportPacket",
+                "start_line": 2,
+                "end_line": 4
+              },
+              {
+                "symbol": "reportDynamic",
+                "start_line": 5,
+                "end_line": 7
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 7
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "reportPacket",
+                "start_line": 2,
+                "end_line": 4,
+                "content": "  reportPacket(): void {\n    console.error('packet buffered after reconnect')\n  }",
+                "source": "current_worktree",
+                "selection_reason": "selected_log_event_owner",
+                "focus_line": 3,
+                "truncated": false
+              }
+            ]
+          },
+          {
+            "file_path": "RetryPanel.ets",
+            "symbol": "retry",
+            "symbol_type": "function",
+            "record_ids": [
+              4,
+              2
+            ],
+            "source_ranges": [
+              {
+                "symbol": "retry",
+                "start_line": 4,
+                "end_line": 4,
+                "selection_reason": "selected_log_event_owner",
+                "focus_line": 4
+              },
+              {
+                "symbol": "retry",
+                "start_line": 4,
+                "end_line": 4
+              },
+              {
+                "symbol": "dynamicRetry",
+                "start_line": 5,
+                "end_line": 5
+              }
+            ],
+            "read_window": {
+              "start_line": 4,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "retry",
+                "start_line": 4,
+                "end_line": 4,
+                "content": "  retry(): void { this.telemetry.reportPacket() }",
+                "source": "current_worktree",
+                "selection_reason": "selected_log_event_owner",
+                "focus_line": 4,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "Telemetry.ets",
+            "symbol": "reportPacket",
+            "owner_name": "Telemetry",
+            "owner_kind": "class",
+            "score": 34.46,
+            "evidence_score": 34.46,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "RetryPanel.ets",
+              "symbol": "retry",
+              "owner_name": "RetryPanel",
+              "owner_kind": "class",
+              "score": 10.58,
+              "evidence_score": 10.58,
+              "reasons": [
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "salient_query_evidence"
+              ],
+              "source_range": {
+                "start_line": 4,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": true,
+          "activation_reason": "exact_log_template",
+          "graph_revision": 1,
+          "path_candidates": [
+            {
+              "path_id": "path_cf362d343a4d8663",
+              "entry": {
+                "id": "code_symbol:4",
+                "name": "RetryPanel.retry",
+                "file_path": "RetryPanel.ets",
+                "line": 4,
+                "category": "unknown_entry"
+              },
+              "emitter": {
+                "id": "code_symbol:11",
+                "name": "Telemetry.reportPacket",
+                "file_path": "Telemetry.ets",
+                "line": 2
+              },
+              "nodes": [
+                {
+                  "id": "code_symbol:4",
+                  "name": "RetryPanel.retry",
+                  "file_path": "RetryPanel.ets",
+                  "line": 4
+                },
+                {
+                  "id": "code_symbol:11",
+                  "name": "Telemetry.reportPacket",
+                  "file_path": "Telemetry.ets",
+                  "line": 2
+                }
+              ],
+              "relations": [
+                {
+                  "relation": "calls",
+                  "evidence_class": "static",
+                  "confidence": 0.9
+                }
+              ],
+              "expected_logs": [
+                {
+                  "message_template": "packet buffered after reconnect",
+                  "logger": "console",
+                  "function": "reportPacket",
+                  "line": 3
+                }
+              ],
+              "structural_score": 0.666,
+              "uncertainty": [
+                "entry point is not present in the current graph"
+              ],
+              "missing_segments": [
+                "no known caller"
+              ],
+              "source_revision": 1,
+              "complete": false,
+              "truncated": false
+            }
+          ],
+          "gaps": {
+            "anchors_without_emitters": [],
+            "no_reconstructable_path": false
+          }
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 2,
+          "excerpt_chars": 130
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity"
+      ],
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 2,
+          "path_candidate_count": 1
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1494,
+        "target_tokens": 1500,
+        "truncated": true
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Find RetryPanel.retry.",
+      "required": "RetryPanel.ets",
+      "excluded": []
+    },
+    "paths": [
+      "RetryPanel.ets",
+      "Telemetry.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "60a64b66dab99ada",
+      "query": "Find RetryPanel.retry.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "retrypanel",
+          "retry",
+          "console",
+          "packet",
+          "buffered",
+          "after",
+          "reconnect",
+          "telemetry",
+          "reportpacket",
+          "dynamicretry",
+          "key"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "retry",
+            "line": 4,
+            "effect_id": 1,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportPacket",
+            "wrapper_depth": 1,
+            "call_path": [
+              "retry",
+              "reportPacket",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#retry",
+              "Telemetry.ets#reportPacket",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 2,
+            "message_template": "packet ${key} buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "dynamicRetry",
+            "line": 5,
+            "effect_id": 2,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportDynamic",
+            "wrapper_depth": 1,
+            "call_path": [
+              "dynamicRetry",
+              "reportDynamic",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#dynamicRetry",
+              "Telemetry.ets#reportDynamic",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "file_path": "RetryPanel.ets",
+            "symbol": "RetryPanel",
+            "symbol_type": "class",
+            "record_ids": [
+              3,
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "RetryPanel",
+                "start_line": 2,
+                "end_line": 6
+              },
+              {
+                "symbol": "retry",
+                "start_line": 4,
+                "end_line": 4
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 6
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "retry",
+                "start_line": 1,
+                "end_line": 7,
+                "content": "import { Telemetry } from './Telemetry'\nexport class RetryPanel {\n  private telemetry: Telemetry = new Telemetry()\n  retry(): void { this.telemetry.reportPacket() }\n  dynamicRetry(key: string): void { this.telemetry.reportDynamic(key) }\n}\n",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          },
+          {
+            "file_path": "Telemetry.ets",
+            "symbol": "Telemetry",
+            "symbol_type": "class",
+            "graph_relation": "imports",
+            "record_ids": [
+              10
+            ],
+            "source_ranges": [
+              {
+                "symbol": "Telemetry",
+                "start_line": 1,
+                "end_line": 8
+              }
+            ],
+            "read_window": {
+              "start_line": 1,
+              "end_line": 8
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "Telemetry",
+                "start_line": 1,
+                "end_line": 8,
+                "content": "export class Telemetry {\n  reportPacket(): void {\n    console.error('packet buffered after reconnect')\n  }\n  reportDynamic(key: string): void {\n    console.error(`packet ${key} buffered after reconnect`)\n  }\n}",
+                "source": "current_worktree",
+                "selection_reason": "anchor_range",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "RetryPanel.ets",
+            "symbol": "retry",
+            "owner_name": "RetryPanel",
+            "owner_kind": "class",
+            "score": 38.0,
+            "evidence_score": 38.0,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "missing_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 12,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 2,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 2,
+          "excerpt_chars": 448
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity",
+          "no_strong_log_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 2,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1330,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Find logs about buffered packets.",
+      "required": "RetryPanel.ets",
+      "excluded": []
+    },
+    "paths": [
+      "Telemetry.ets"
+    ],
+    "passed": false,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "60a64b66dab99ada",
+      "query": "Find logs about buffered packets.",
+      "memory_intent": "runtime_log_diagnosis",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "find",
+          "logs",
+          "about",
+          "buffered",
+          "packets",
+          "console",
+          "reportpacket",
+          "packet",
+          "after",
+          "reconnect",
+          "error",
+          "reportdynamic"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "retry",
+            "line": 4,
+            "effect_id": 1,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportPacket",
+            "wrapper_depth": 1,
+            "call_path": [
+              "retry",
+              "reportPacket",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#retry",
+              "Telemetry.ets#reportPacket",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 2,
+            "message_template": "packet ${key} buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "dynamicRetry",
+            "line": 5,
+            "effect_id": 2,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportDynamic",
+            "wrapper_depth": 1,
+            "call_path": [
+              "dynamicRetry",
+              "reportDynamic",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#dynamicRetry",
+              "Telemetry.ets#reportDynamic",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "Telemetry.ets",
+            "function": "reportPacket",
+            "line": 3,
+            "evidence_class": "direct",
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "file_path": "Telemetry.ets",
+            "symbol": "reportPacket",
+            "symbol_type": "function",
+            "record_ids": [
+              11
+            ],
+            "source_ranges": [
+              {
+                "symbol": "reportPacket",
+                "start_line": 2,
+                "end_line": 4
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 4
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "reportPacket",
+                "start_line": 1,
+                "end_line": 9,
+                "content": "export class Telemetry {\n  reportPacket(): void {\n    console.error('packet buffered after reconnect')\n  }\n  reportDynamic(key: string): void {\n    console.error(`packet ${key} buffered after reconnect`)\n  }\n}\n",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "Telemetry.ets",
+            "symbol": "reportPacket",
+            "owner_name": "Telemetry",
+            "owner_kind": "class",
+            "score": 29.58,
+            "evidence_score": 29.58,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "EntryWriter.ets",
+              "symbol": "save",
+              "owner_name": "EntryWriter",
+              "owner_kind": "class",
+              "callable_roles": [
+                "async",
+                "state_write",
+                "persistence_write"
+              ],
+              "score": 14.61,
+              "evidence_score": 14.61,
+              "reasons": [
+                "expanded_query:summary",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "expanded_query:file_path"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "RetryPanel.ets",
+              "symbol": "retry",
+              "owner_name": "RetryPanel",
+              "owner_kind": "class",
+              "score": 13.3,
+              "evidence_score": 13.3,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 4,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 210
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity",
+          "no_strong_log_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 3,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1352,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Locate packet ABC buffered after reconnect.",
+      "required": "RetryPanel.ets",
+      "excluded": []
+    },
+    "paths": [
+      "Telemetry.ets",
+      "RetryPanel.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "60a64b66dab99ada",
+      "query": "Locate packet ABC buffered after reconnect.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "locate",
+          "packet",
+          "abc",
+          "buffered",
+          "after",
+          "reconnect",
+          "console",
+          "reportpacket"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 2,
+            "message_template": "packet ${key} buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "dynamicRetry",
+            "line": 5,
+            "effect_id": 2,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportDynamic",
+            "wrapper_depth": 1,
+            "call_path": [
+              "dynamicRetry",
+              "reportDynamic",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#dynamicRetry",
+              "Telemetry.ets#reportDynamic",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 2,
+            "message_template": "packet ${key} buffered after reconnect",
+            "logger": "console",
+            "file_path": "Telemetry.ets",
+            "function": "reportDynamic",
+            "line": 6,
+            "evidence_class": "direct",
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "file_path": "Telemetry.ets",
+            "symbol": "reportPacket",
+            "symbol_type": "function",
+            "record_ids": [
+              11,
+              2
+            ],
+            "source_ranges": [
+              {
+                "symbol": "reportDynamic",
+                "start_line": 5,
+                "end_line": 7,
+                "selection_reason": "selected_log_event_owner",
+                "focus_line": 6
+              },
+              {
+                "symbol": "reportPacket",
+                "start_line": 2,
+                "end_line": 4
+              },
+              {
+                "symbol": "reportDynamic",
+                "start_line": 5,
+                "end_line": 7
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 7
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "reportDynamic",
+                "start_line": 5,
+                "end_line": 7,
+                "content": "  reportDynamic(key: string): void {\n    console.error(`packet ${key} buffered after reconnect`)\n  }",
+                "source": "current_worktree",
+                "selection_reason": "selected_log_event_owner",
+                "focus_line": 6,
+                "truncated": false
+              }
+            ]
+          },
+          {
+            "file_path": "RetryPanel.ets",
+            "symbol": "retry",
+            "symbol_type": "function",
+            "record_ids": [
+              4,
+              2
+            ],
+            "source_ranges": [
+              {
+                "symbol": "dynamicRetry",
+                "start_line": 5,
+                "end_line": 5,
+                "selection_reason": "selected_log_event_owner",
+                "focus_line": 5
+              },
+              {
+                "symbol": "retry",
+                "start_line": 4,
+                "end_line": 4
+              },
+              {
+                "symbol": "dynamicRetry",
+                "start_line": 5,
+                "end_line": 5
+              }
+            ],
+            "read_window": {
+              "start_line": 4,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "dynamicRetry",
+                "start_line": 5,
+                "end_line": 5,
+                "content": "  dynamicRetry(key: string): void { this.telemetry.reportDynamic(key) }",
+                "source": "current_worktree",
+                "selection_reason": "selected_log_event_owner",
+                "focus_line": 5,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "Telemetry.ets",
+            "symbol": "reportPacket",
+            "owner_kind": "class",
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": []
+        },
+        "path_context": {
+          "activated": true,
+          "activation_reason": "strong_log_identity",
+          "graph_revision": 1,
+          "path_candidates": [
+            {
+              "path_id": "path_cf362d343a4d8663",
+              "entry": {
+                "id": "code_symbol:4",
+                "name": "RetryPanel.retry",
+                "file_path": "RetryPanel.ets",
+                "line": 4,
+                "category": "unknown_entry"
+              },
+              "emitter": {
+                "id": "code_symbol:11",
+                "name": "Telemetry.reportPacket",
+                "file_path": "Telemetry.ets",
+                "line": 2
+              },
+              "nodes": [
+                {
+                  "id": "code_symbol:4",
+                  "name": "RetryPanel.retry",
+                  "file_path": "RetryPanel.ets",
+                  "line": 4
+                },
+                {
+                  "id": "code_symbol:11",
+                  "name": "Telemetry.reportPacket",
+                  "file_path": "Telemetry.ets",
+                  "line": 2
+                }
+              ],
+              "relations": [
+                {
+                  "relation": "calls",
+                  "evidence_class": "static",
+                  "confidence": 0.9
+                }
+              ],
+              "expected_logs": [
+                {
+                  "message_template": "packet buffered after reconnect",
+                  "logger": "console",
+                  "function": "reportPacket",
+                  "line": 3
+                }
+              ],
+              "structural_score": 0.666,
+              "uncertainty": [
+                "entry point is not present in the current graph"
+              ],
+              "missing_segments": [
+                "no known caller"
+              ],
+              "source_revision": 1,
+              "complete": false,
+              "truncated": false
+            }
+          ],
+          "gaps": {
+            "anchors_without_emitters": [],
+            "no_reconstructable_path": false
+          }
+        },
+        "relation_hints": [
+          {
+            "source_type": "code_symbol",
+            "source_id": 12,
+            "relation": "emits_log",
+            "target_type": "code_log_statement",
+            "target_id": 2,
+            "confidence": 0.8,
+            "evidence_kind": "code_observability"
+          }
+        ],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [
+          "error",
+          "log",
+          "logger"
+        ],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 2,
+          "excerpt_chars": 171
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 2,
+          "path_candidate_count": 1
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1451,
+        "target_tokens": 1500,
+        "truncated": true
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Repeated entry changes after tapping can show an older asynchronous result; locate loading and visible state assignment ownership. Observe packet buffered after reconnect.",
+      "required": "RetryPanel.ets",
+      "excluded": []
+    },
+    "paths": [
+      "RetryPanel.ets",
+      "Telemetry.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "60a64b66dab99ada",
+      "query": "Repeated entry changes after tapping can show an older asynchronous result; locate loading and visible state assignment ownership. Observe packet buffered after reconnect.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "repeated",
+          "entry",
+          "changes",
+          "after",
+          "tapping",
+          "show",
+          "older",
+          "asynchronous"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "retry",
+            "line": 4,
+            "effect_id": 1,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportPacket",
+            "wrapper_depth": 1,
+            "call_path": [
+              "retry",
+              "reportPacket",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#retry",
+              "Telemetry.ets#reportPacket",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "Telemetry.ets",
+            "function": "reportPacket",
+            "line": 3,
+            "evidence_class": "direct",
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wrapped_log_caller",
+            "file_path": "RetryPanel.ets",
+            "symbol": "retry",
+            "record_ids": [
+              1,
+              2
+            ],
+            "source_ranges": [
+              {
+                "symbol": "retry",
+                "start_line": 4,
+                "end_line": 4,
+                "selection_reason": "selected_log_event_owner",
+                "focus_line": 4
+              },
+              {
+                "symbol": "retry",
+                "start_line": 4,
+                "end_line": 4
+              },
+              {
+                "symbol": "dynamicRetry",
+                "start_line": 5,
+                "end_line": 5
+              }
+            ],
+            "read_window": {
+              "start_line": 4,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "retry",
+                "start_line": 4,
+                "end_line": 4,
+                "content": "  retry(): void { this.telemetry.reportPacket() }",
+                "source": "current_worktree",
+                "selection_reason": "selected_log_event_owner",
+                "focus_line": 4,
+                "truncated": false
+              }
+            ]
+          },
+          {
+            "source": "log_emitter",
+            "file_path": "Telemetry.ets",
+            "symbol": "reportPacket",
+            "record_ids": [
+              1,
+              2
+            ],
+            "source_ranges": [
+              {
+                "symbol": "reportPacket",
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "selected_log_event_owner",
+                "focus_line": 3
+              },
+              {
+                "symbol": "reportPacket",
+                "start_line": 2,
+                "end_line": 4
+              },
+              {
+                "symbol": "reportDynamic",
+                "start_line": 5,
+                "end_line": 7
+              }
+            ],
+            "read_window": {
+              "start_line": 2,
+              "end_line": 7
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "reportPacket",
+                "start_line": 2,
+                "end_line": 4,
+                "content": "  reportPacket(): void {\n    console.error('packet buffered after reconnect')\n  }",
+                "source": "current_worktree",
+                "selection_reason": "selected_log_event_owner",
+                "focus_line": 3,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "Telemetry.ets",
+            "symbol": "reportPacket",
+            "owner_kind": "class",
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": []
+        },
+        "path_context": {
+          "activated": true,
+          "activation_reason": "exact_log_template",
+          "graph_revision": 1,
+          "path_candidates": [
+            {
+              "path_id": "path_cf362d343a4d8663",
+              "entry": {
+                "id": "code_symbol:4",
+                "name": "RetryPanel.retry",
+                "file_path": "RetryPanel.ets",
+                "line": 4,
+                "category": "unknown_entry"
+              },
+              "emitter": {
+                "id": "code_symbol:11",
+                "name": "Telemetry.reportPacket",
+                "file_path": "Telemetry.ets",
+                "line": 2
+              },
+              "nodes": [
+                {
+                  "id": "code_symbol:4",
+                  "name": "RetryPanel.retry",
+                  "file_path": "RetryPanel.ets",
+                  "line": 4
+                },
+                {
+                  "id": "code_symbol:11",
+                  "name": "Telemetry.reportPacket",
+                  "file_path": "Telemetry.ets",
+                  "line": 2
+                }
+              ],
+              "relations": [
+                {
+                  "relation": "calls",
+                  "evidence_class": "static",
+                  "confidence": 0.9
+                }
+              ],
+              "expected_logs": [
+                {
+                  "message_template": "packet buffered after reconnect",
+                  "logger": "console",
+                  "function": "reportPacket",
+                  "line": 3
+                }
+              ],
+              "structural_score": 0.666,
+              "uncertainty": [
+                "entry point is not present in the current graph"
+              ],
+              "missing_segments": [
+                "no known caller"
+              ],
+              "source_revision": 1,
+              "complete": false,
+              "truncated": false
+            }
+          ],
+          "gaps": {
+            "anchors_without_emitters": [],
+            "no_reconstructable_path": false
+          }
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [
+          "error",
+          "log",
+          "logger"
+        ],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 2,
+          "excerpt_chars": 130
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 2,
+          "path_candidate_count": 1
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1413,
+        "target_tokens": 1500,
+        "truncated": true
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Repeated entry changes after tapping can show an older asynchronous result; locate loading and visible state assignment ownership. Inspect RetryPanel.retry.",
+      "required": "RetryPanel.ets",
+      "excluded": []
+    },
+    "paths": [
+      "RetryPanel.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "60a64b66dab99ada",
+      "query": "Repeated entry changes after tapping can show an older asynchronous result; locate loading and visible state assignment ownership. Inspect RetryPanel.retry.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "repeated",
+          "entry",
+          "changes",
+          "after",
+          "tapping",
+          "show",
+          "older",
+          "asynchronous",
+          "result",
+          "locate",
+          "loading",
+          "visible"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "retry",
+            "line": 4,
+            "effect_id": 1,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportPacket",
+            "wrapper_depth": 1,
+            "call_path": [
+              "retry",
+              "reportPacket",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#retry",
+              "Telemetry.ets#reportPacket",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 2,
+            "message_template": "packet ${key} buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "dynamicRetry",
+            "line": 5,
+            "effect_id": 2,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportDynamic",
+            "wrapper_depth": 1,
+            "call_path": [
+              "dynamicRetry",
+              "reportDynamic",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#dynamicRetry",
+              "Telemetry.ets#reportDynamic",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "Telemetry.ets",
+            "function": "reportPacket",
+            "line": 3,
+            "evidence_class": "direct",
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "file_path": "RetryPanel.ets",
+            "symbol": "retry",
+            "symbol_type": "function",
+            "record_ids": [
+              4
+            ],
+            "source_ranges": [
+              {
+                "symbol": "retry",
+                "start_line": 4,
+                "end_line": 4
+              }
+            ],
+            "read_window": {
+              "start_line": 4,
+              "end_line": 4
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "retry",
+                "start_line": 1,
+                "end_line": 7,
+                "content": "import { Telemetry } from './Telemetry'\nexport class RetryPanel {\n  private telemetry: Telemetry = new Telemetry()\n  retry(): void { this.telemetry.reportPacket() }\n  dynamicRetry(key: string): void { this.telemetry.reportDynamic(key) }\n}\n",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "RetryPanel.ets",
+            "symbol": "retry",
+            "owner_name": "RetryPanel",
+            "owner_kind": "class",
+            "score": 40.0,
+            "evidence_score": 40.0,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "EntryWriter.ets",
+              "symbol": "save",
+              "owner_name": "EntryWriter",
+              "owner_kind": "class",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "async",
+                "state_write",
+                "persistence_write"
+              ],
+              "score": 20.0,
+              "evidence_score": 20.0,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "Telemetry.ets",
+              "symbol": "reportPacket",
+              "owner_name": "Telemetry",
+              "owner_kind": "class",
+              "score": 15.966,
+              "evidence_score": 15.966,
+              "reasons": [
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "string_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 239
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity",
+          "no_strong_log_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 3,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1384,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  },
+  {
+    "case": {
+      "query": "Repeated entry changes after tapping can show an older asynchronous result; locate loading and visible state assignment ownership. Find both the state owner and the retry caller.",
+      "required": "RetryPanel.ets",
+      "excluded": []
+    },
+    "paths": [
+      "RetryPanel.ets"
+    ],
+    "passed": true,
+    "output": {
+      "schema_version": "agent-context-compact/v1",
+      "project_id": "60a64b66dab99ada",
+      "query": "Repeated entry changes after tapping can show an older asynchronous result; locate loading and visible state assignment ownership. Find both the state owner and the retry caller.",
+      "memory_intent": "general_context",
+      "memory_intent_source": "inferred",
+      "source_freshness": {
+        "status": "current",
+        "generation": 1
+      },
+      "query_handoff": {
+        "schema_version": "agent-query-handoff-compact/v1",
+        "log_keywords": [
+          "repeated",
+          "entry",
+          "changes",
+          "after",
+          "tapping",
+          "show",
+          "older",
+          "asynchronous",
+          "result",
+          "locate",
+          "loading",
+          "visible"
+        ],
+        "log_anchors": [
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "retry",
+            "line": 4,
+            "effect_id": 1,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportPacket",
+            "wrapper_depth": 1,
+            "call_path": [
+              "retry",
+              "reportPacket",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#retry",
+              "Telemetry.ets#reportPacket",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 2,
+            "message_template": "packet ${key} buffered after reconnect",
+            "logger": "console",
+            "file_path": "RetryPanel.ets",
+            "function": "dynamicRetry",
+            "line": 5,
+            "effect_id": 2,
+            "evidence_class": "static_wrapped",
+            "wrapper_symbol": "reportDynamic",
+            "wrapper_depth": 1,
+            "call_path": [
+              "dynamicRetry",
+              "reportDynamic",
+              "console.error"
+            ],
+            "call_path_locations": [
+              "RetryPanel.ets#dynamicRetry",
+              "Telemetry.ets#reportDynamic",
+              "Telemetry.ets#console.error"
+            ],
+            "truncated": false
+          },
+          {
+            "log_id": 1,
+            "message_template": "packet buffered after reconnect",
+            "logger": "console",
+            "file_path": "Telemetry.ets",
+            "function": "reportPacket",
+            "line": 3,
+            "evidence_class": "direct",
+            "truncated": false
+          }
+        ],
+        "code_anchors": [
+          {
+            "source": "wrapped_log_caller",
+            "file_path": "RetryPanel.ets",
+            "symbol": "retry",
+            "record_ids": [
+              1,
+              2
+            ],
+            "source_ranges": [
+              {
+                "symbol": "retry",
+                "start_line": 4,
+                "end_line": 4
+              },
+              {
+                "symbol": "dynamicRetry",
+                "start_line": 5,
+                "end_line": 5
+              }
+            ],
+            "read_window": {
+              "start_line": 4,
+              "end_line": 5
+            },
+            "role": "primary",
+            "source_excerpts": [
+              {
+                "symbol": "retry",
+                "start_line": 1,
+                "end_line": 7,
+                "content": "import { Telemetry } from './Telemetry'\nexport class RetryPanel {\n  private telemetry: Telemetry = new Telemetry()\n  retry(): void { this.telemetry.reportPacket() }\n  dynamicRetry(key: string): void { this.telemetry.reportDynamic(key) }\n}\n",
+                "source": "current_worktree",
+                "selection_reason": "query_term_window_within_anchor",
+                "focus_line": null,
+                "truncated": false
+              }
+            ]
+          }
+        ],
+        "callable_evidence": {
+          "schema_version": "agent-callable-evidence/v1",
+          "certainty": "bounded",
+          "primary": {
+            "file_path": "RetryPanel.ets",
+            "symbol": "retry",
+            "owner_name": "RetryPanel",
+            "owner_kind": "class",
+            "score": 37.0,
+            "evidence_score": 37.0,
+            "reasons": [
+              "exact_symbol",
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence"
+            ],
+            "source_range": {
+              "start_line": 4,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          "alternatives": [
+            {
+              "file_path": "EntryWriter.ets",
+              "symbol": "save",
+              "owner_name": "EntryWriter",
+              "owner_kind": "class",
+              "file_structural_coverage": 2,
+              "callable_roles": [
+                "async",
+                "state_write",
+                "persistence_write"
+              ],
+              "score": 20.0,
+              "evidence_score": 20.0,
+              "reasons": [
+                "expanded_query:summary",
+                "expanded_query:method_evidence",
+                "first_stage_rank_prior",
+                "source_locatable"
+              ],
+              "source_range": {
+                "start_line": 3,
+                "end_line": 6,
+                "selection_reason": "callable_symbol_range"
+              }
+            },
+            {
+              "file_path": "Telemetry.ets",
+              "symbol": "reportPacket",
+              "owner_name": "Telemetry",
+              "owner_kind": "class",
+              "score": 13.317,
+              "evidence_score": 13.317,
+              "reasons": [
+                "expanded_query:string_evidence",
+                "first_stage_rank_prior",
+                "source_locatable",
+                "string_evidence"
+              ],
+              "source_range": {
+                "start_line": 2,
+                "end_line": 4,
+                "selection_reason": "callable_symbol_range"
+              }
+            }
+          ],
+          "boundary": "retrieval_evidence_not_root_cause"
+        },
+        "path_context": {
+          "activated": false,
+          "activation_reason": "no_strong_log_anchor",
+          "graph_revision": null,
+          "path_candidates": [],
+          "gaps": {}
+        },
+        "relation_hints": [],
+        "experience_refs": [],
+        "semantic_refs": [],
+        "source_exploration": {
+          "policy": "anchor_first_deterministic_expansion_v8",
+          "limits": {
+            "primary": 3,
+            "rounds": 2,
+            "round_files": 2,
+            "searches": 3,
+            "files": 7,
+            "reads_per_file": 2,
+            "read_lines": 180
+          }
+        },
+        "next_queries": [],
+        "role_boundary": {
+          "runtime": "retrieval_and_current_graph_context_only",
+          "agent_cli": "temporary_log_analysis_diagnosis_and_verification",
+          "runtime_reads_temporary_logs": false,
+          "runtime_selects_root_cause": false
+        },
+        "source_excerpt_policy": {
+          "source": "current_worktree",
+          "body_persisted": false,
+          "excerpt_count": 1,
+          "excerpt_chars": 239
+        }
+      },
+      "correction_guards": [],
+      "semantic_patch_notes": [],
+      "blocked_memory_notes": [],
+      "conflict_notes": [],
+      "evidence_gaps": [
+        "limited_code_anchor_diversity",
+        "no_strong_log_anchor"
+      ],
+      "expansion": {
+        "command": "python tools/agent_memory.py context --project . --query <focused-term> --json",
+        "use_when": "inspect ranking audit, full records, or one unresolved candidate"
+      },
+      "sufficiency": {
+        "schema_version": "agent-context-sufficiency/v1",
+        "kind": "diagnosis",
+        "status": "ready_for_agent_inspection",
+        "next_action": "inspect_primary_source_anchor",
+        "reason_codes": [
+          "limited_code_anchor_diversity",
+          "no_strong_log_anchor"
+        ],
+        "coverage": {
+          "source_locatable_code_anchor": true,
+          "log_anchor_count": 3,
+          "path_candidate_count": 0
+        },
+        "scope": "retrieval_readiness_only_not_agent_reasoning",
+        "agent_ownership": "Read anchored source or compare real logs; Agent determines hypotheses and diagnosis."
+      },
+      "output_budget": {
+        "estimated_tokens": 1407,
+        "target_tokens": 1500,
+        "truncated": false
+      }
+    }
+  }
+]

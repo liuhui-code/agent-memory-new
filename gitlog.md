@@ -11186,3 +11186,10 @@ inconsistency is still open. See docs/evidence/owner-integration/RESULT.md.
 - Independent Chinese/public body passes in TS/ETS; English remains explicitly failed. 46 focused tests =45 pass +1 expected failure.
 - Existing async-navigation three variants improve 1/3 to 2/3, fixing zh-noise only; original extra-anchor precision failure remains. No full eval.
 - Lifecycle-persistence competing and split-owner fixtures pass without edits; original scenario remains 1/3.
+
+## 2026-11-13 — Preserve weak log evidence without promoting unrelated code owners
+
+- Base 17083b2; independent weak wrapper overlap reproduces original async extra-owner failure.
+- Gate only log-to-code promotion when current method evidence completely covers requested behavior; retain all log/path evidence and independent/strong/explicit/multi-target/unknown-owner controls.
+- Original async-navigation improves 2/3 to 3/3. Independent TS/ETS controls preserve full target bodies and exact log/path outputs.
+- 42 related tests: 40 pass, 2 documented existing expected failures. No full/aggregate run.
