@@ -11591,3 +11591,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Fresh public @Builder fixture returns instructional-text component for general Builder request; exact Builder, ordinary layout, dual owner and literal controls pass.
 - Correct callable/range already exist. Existing builder alias certifies only component, no decorator-specific producer role exists; no projection patch or ranking change made.
 - Record precise decorator-to-callable contract needed and preserve real text/layout controls. No full evaluation or new repair count. See docs/eval/builder-role-current.
+
+## 2026-11-14 — Recheck conditional and touch consumer boundaries
+
+- Fixed 3d62965 single-scenario checks: conditional loading is now3/3 (older2/3
+  ledger stale), touch safety remains2/3. No new repair or aggregate score claim.
+- Freeze independent source/log/multiple-target public touch diagnostic; correct
+  raw file survives, while conjoined target scope admits wrapped log owners and
+  callable primary prefers the sink. Explicit source and log controls pass; strict
+  generic/multiple precision reds are retained. Do not weaken multiple-target policy
+  or copy file mechanisms into causal/unique-owner proof. No serving changes.
+- Evidence: docs/eval/conditional-consumer-current.

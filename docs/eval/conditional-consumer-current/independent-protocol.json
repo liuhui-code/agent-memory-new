@@ -1,0 +1,39 @@
+{
+  "classification": "independent Development diagnostic, no serving candidate",
+  "sources": {
+    "TouchReader.ets": "export class TouchReader {\n onTouch(event: TouchEvent): void {\n  const finger = event.touches[0]\n  this.x = finger.x\n }\n}\n",
+    "ConsoleSink.ets": "export class ConsoleSink {\n report(error: Error): void {\n  console.error('touch interaction failed', error)\n }\n}\n",
+    "AuditPage.ets": "import { ConsoleSink } from './ConsoleSink'\nexport class AuditPage {\n sink: ConsoleSink = new ConsoleSink()\n onFailure(error: Error): void { this.sink.report(error) }\n}\n"
+  },
+  "queries": [
+    [
+      "source",
+      "触摸事件为空时第一个手指缺失并导致交互异常，请只返回触摸回调和索引读取所在源码。",
+      [
+        "TouchReader.ets"
+      ]
+    ],
+    [
+      "named",
+      "Locate TouchReader.onTouch source.",
+      [
+        "TouchReader.ets"
+      ]
+    ],
+    [
+      "log",
+      "Find the console error logging implementation.",
+      [
+        "ConsoleSink.ets"
+      ]
+    ],
+    [
+      "multiple",
+      "Locate TouchReader.onTouch and ConsoleSink.report source.",
+      [
+        "TouchReader.ets",
+        "ConsoleSink.ets"
+      ]
+    ]
+  ]
+}
