@@ -1,0 +1,26 @@
+{
+  "classification": "independent Development public learn-entry source scope",
+  "sources": {
+    "Entry.ts": "import { value } from './Actual'\nconst lazy = import('./Dynamic')\nconst old = require('./Required')\n/*\nimport { ghost } from './CommentOnly'\n*/\nconst guide = `\nimport { ghost } from './TemplateOnly'\n`;\nconst message = \"require('./StringOnly')\";\nexport function run() { return value }\n",
+    "Actual.ts": "export const value = \"Actual\";\n",
+    "Dynamic.ts": "export const value = \"Dynamic\";\n",
+    "Required.ts": "export const value = \"Required\";\n",
+    "CommentOnly.ts": "export const value = \"CommentOnly\";\n",
+    "TemplateOnly.ts": "export const value = \"TemplateOnly\";\n",
+    "StringOnly.ts": "export const value = \"StringOnly\";\n"
+  },
+  "entry": "Entry.ts",
+  "depth": 1,
+  "expected_files": [
+    "Actual.ts",
+    "Dynamic.ts",
+    "Entry.ts",
+    "Required.ts"
+  ],
+  "forbidden_files": [
+    "CommentOnly.ts",
+    "TemplateOnly.ts",
+    "StringOnly.ts"
+  ],
+  "query": "Find TemplateOnly source."
+}
