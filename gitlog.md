@@ -12035,3 +12035,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Deliver gated standalone/public validation plan; no runtime edits, new query,
   original evaluation, test execution or repair claim.
 - Design: docs/eval/cache-contract-review/PLAN.md.
+
+## 2026-11-13 — Clarify cache witness is not recency or capacity proof
+
+- Independent challenge confirms missing access→updatedAt refresh lineage and
+  that one deletion does not ensure final size<=limit. Clarify first-key removal
+  is not a complete verified FIFO policy either; it remains genuine operation.
+- Existing design already excludes LRU/runtime-success claims; add explicit
+  original-task non-closure and reversed-max/different-receiver/rebound-key limits.
+- Documentation only, no new fixture, query, runtime or validation execution.

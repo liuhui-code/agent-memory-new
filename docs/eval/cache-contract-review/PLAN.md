@@ -57,6 +57,30 @@ alone does not prove the runtime object is an unmodified built-in Map. Exact lim
 on type/import binding and possible overrides must be recorded; an unproven API
 binding cannot be described as verified runtime deletion.
 
+### Challenge clarification: minimum timestamp is not access recency
+
+The frozen ExpiryStore never shows how updatedAt is initialized or updated on a
+successful access. A minimum stored field is therefore not a demonstrated least-
+recently-used item. There is no cross-method access→timestamp-update→selection
+binding, and a method merely named get/update would not supply it. Different clocks,
+stale fields, creation timestamps and non-refreshing reads remain unresolved.
+
+Likewise, one selected-key delete does not prove the collection ends at or below
+limit: it may begin more than one item over capacity. Successful deletion and
+runtime Map behavior are also not certified. ArrivalPool contains genuine first-key
+removal syntax, but a complete FIFO policy additionally depends on insertion and
+refresh ordering; it must never be called absent just because timestamp proof is
+missing. References to FIFO elsewhere in this plan denote that frozen first-key
+removal control, not a verified global eviction policy.
+
+Consequently this proposal is ONLY a static deletion-chain witness. It cannot
+claim to satisfy the original cache task's access-recency or final-capacity
+requirements, even if the independent scan queries later pass. A reversed maximum
+comparison, unrelated delete parameter, reassigned chosen key, or size/iteration/
+delete on different receivers must fail the minimum-selection witness. Proving
+actual recency would require separately sourced access/update linkage and its
+unknown controls; no such expansion or new fixture is authorized in this stage.
+
 The witness can support inclusion of the actual method/source as operation evidence.
 It cannot by itself authorize deleting other owners, choosing a unique primary,
 changing the 1500-token budget, or turning a diagnostic task into a single-method
