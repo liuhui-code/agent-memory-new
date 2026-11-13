@@ -1,0 +1,17 @@
+{
+  "files": {
+    "src/runtime/ExtensionInspector.ets": "import { bundleManager } from '@kit.AbilityKit'\nexport class ExtensionInspector {\n  async inspectInstalled(): Promise<boolean> {\n    const details = await bundleManager.getBundleInfoForSelf(0)\n    return details.extensionAbilityInfo.length > 0\n  }\n}\n",
+    "src/config/ExtensionManifest.ets": "export const ExtensionManifest = {\n  capability: 'Runtime capability unavailable',\n  declaredExtension: 'Share',\n  probeRequired: true,\n}\n",
+    "src/ui/ExtensionSettings.ets": "@Component\nstruct ExtensionSettings {\n  build() {\n    Column() {\n      Text('Runtime capability inspection unavailable')\n      Text('Bundle extension capability query settings')\n    }\n  }\n}\n",
+    "src/runtime/ProbeNotes.ets": "export class ProbeNotes {\n  explain(): string {\n    return 'bundleManager.getBundleInfoForSelf(0) runtime capability'\n  }\n}\n"
+  },
+  "queries": [
+    "The manifest declares a capability but runtime inspection rejects it. Locate executable runtime capability probing source.",
+    "Find the bundle capability query that checks an installed extension, not the settings text.",
+    "运行时扩展能力检查不可用，请定位执行 bundle 能力探测的方法，不要返回设置页面。",
+    "Locate ExtensionSettings.build source.",
+    "Locate ExtensionInspector.inspectInstalled and ExtensionSettings.build source."
+  ],
+  "expected_primary": "src/runtime/ExtensionInspector.ets",
+  "controls": "explicit settings and two targets preserved"
+}

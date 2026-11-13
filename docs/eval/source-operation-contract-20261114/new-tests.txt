@@ -1,0 +1,21 @@
+test_existing_api_family_is_method_local (tests.test_runtime_capability_method.RuntimeCapabilityMethodTests.test_existing_api_family_is_method_local) ... ok
+test_nested_callable_ownership_fails_closed (tests.test_runtime_capability_method.RuntimeCapabilityMethodTests.test_nested_callable_ownership_fails_closed) ... ok
+test_non_code_and_metadata_do_not_claim_operation (tests.test_runtime_capability_method.RuntimeCapabilityMethodTests.test_non_code_and_metadata_do_not_claim_operation) ... ok
+test_other_method_and_language_do_not_inherit_file_marker (tests.test_runtime_capability_method.RuntimeCapabilityMethodTests.test_other_method_and_language_do_not_inherit_file_marker) ... ok
+test_executable_probe_beats_declared_and_textual_claims (tests.test_runtime_capability_public.RuntimeCapabilityPublicTests.test_executable_probe_beats_declared_and_textual_claims) ... FAIL
+
+======================================================================
+FAIL: test_executable_probe_beats_declared_and_textual_claims (tests.test_runtime_capability_public.RuntimeCapabilityPublicTests.test_executable_probe_beats_declared_and_textual_claims)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/capability-owner-investigation/tests/test_runtime_capability_public.py", line 53, in test_executable_probe_beats_declared_and_textual_claims
+    self.assertEqual({'src/runtime/ExtensionInspector.ets'},{a['file_path'] for a in h['code_anchors']},query)
+AssertionError: Items in the first set but not the second:
+'src/runtime/ExtensionInspector.ets'
+Items in the second set but not the first:
+'src/runtime/ProbeNotes.ets' : The manifest declares a capability but runtime inspection rejects it. Locate executable runtime capability probing source.
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.881s
+
+FAILED (failures=1)

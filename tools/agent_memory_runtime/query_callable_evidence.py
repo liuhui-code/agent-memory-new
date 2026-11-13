@@ -40,6 +40,7 @@ def compact_candidate(item: dict[str, Any], ranges: list[dict[str, Any]]) -> dic
         "file_path": path,
         "symbol": symbol,
         **({"typed_contract_match": True, "typed_contract_weak": bool(item.get("typed_contract_weak"))} if item.get("typed_contract_match") else {}),
+        "source_operation_match": item.get("source_operation_match"),
         "owner_name": item.get("owner_name"),
         "owner_kind": item.get("owner_kind"),
         "target_owner_kind_match": item.get("target_owner_kind_match"),
@@ -80,6 +81,8 @@ def diverse_alternatives(items: list[dict[str, Any]], primary: dict[str, Any]) -
 def certainty(primary: dict[str, Any], alternatives: list[dict[str, Any]]) -> str:
     if not primary.get("source_range"):
         return "uncertain"
+    if primary.get("source_operation_match"):
+        return "bounded"
     if primary.get("typed_contract_weak"):
         return "uncertain"
     if primary.get("typed_contract_match"):

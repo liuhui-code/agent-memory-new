@@ -343,6 +343,8 @@ def rank_callables(
         ])
         item["mechanism_hits"] = mechanism_hits
         scored.append(item)
+    from .query_source_operation import certify_source_operation
+    certify_source_operation(scored, query)
     role_aware = annotate_artifact_roles(scored, query)
     return sorted(
         role_aware,
@@ -351,6 +353,7 @@ def rank_callables(
             artifact_role_shadow_priority(item),
             -int(bool(item.get("explicit_owner_identity_match"))),
             -int(bool(item.get("target_owner_kind_match"))),
+            -int(bool(item.get("source_operation_match"))),
             -artifact_role_rank_score(item),
             artifact_role_tiebreak(item),
             int(item.get("graph_depth") or 0),
@@ -360,16 +363,13 @@ def rank_callables(
         ),
     )
 
-
 def file_rank_prior(rank: int) -> float:
     if rank <= 0 or rank > MAX_FILES:
         return 0.0
     return round(FILE_RANK_PRIOR_MAX * (FILE_RANK_PRIOR_K + 1) / (FILE_RANK_PRIOR_K + rank), 3)
 
-
 def linear_file_rank_prior(rank: int) -> float:
     return float(max(0, MAX_FILES + 1 - rank)) if rank > 0 else 0.0
-
 
 def dedupe_callables(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     chosen: dict[int, dict[str, Any]] = {}
@@ -398,7 +398,6 @@ def select_diverse_callables(items: list[dict[str, Any]], limit: int) -> list[di
             return selected
     selected.extend(deferred[: max(0, limit - len(selected))])
     return selected[:limit]
-
 
 def matching_mechanisms(payload: Any, query: str) -> list[dict[str, Any]]:
     try:
@@ -429,6 +428,7 @@ def matching_mechanisms(payload: Any, query: str) -> list[dict[str, Any]]:
 def compact_callable(item: dict[str, Any]) -> dict[str, Any]:
     return {
         **({"typed_contract_match": True, "typed_contract_weak": bool(item.get("typed_contract_weak"))} if item.get("typed_contract_match") else {}),
+        "source_operation_match": item.get("source_operation_match"),
         "symbol_id": item.get("id"),
         "file_path": item.get("file_path"),
         "symbol": item.get("symbol"),

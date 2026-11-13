@@ -72,7 +72,7 @@ def owner_kind(name: str, container_kind: str, file_path: str) -> str:
     return "module"
 
 
-def callable_roles(name: str, signature: str, source: str) -> list[str]:
+def callable_roles(name: str, signature: str, source: str, file_path: str = "") -> list[str]:
     """Return inspectable callable roles; mechanisms retain operation-level detail."""
     roles: list[str] = []
     if "async " in signature:
@@ -87,7 +87,8 @@ def callable_roles(name: str, signature: str, source: str) -> list[str]:
         roles.append("persistence_write")
     if NAVIGATION_RE.search(source):
         roles.append("navigation")
-    return roles
+    from .source_operation_roles import source_operation_roles
+    return [*roles, *source_operation_roles(source, file_path)]
 
 
 def matching_owner_kind(query: str, candidate_kind: object) -> bool:

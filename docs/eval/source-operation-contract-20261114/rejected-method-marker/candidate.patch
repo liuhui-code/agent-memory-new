@@ -1,0 +1,22 @@
+diff --git a/tools/agent_memory_runtime/callable_behavior_hints.py b/tools/agent_memory_runtime/callable_behavior_hints.py
+index 8c7e437..7b517f9 100644
+--- a/tools/agent_memory_runtime/callable_behavior_hints.py
++++ b/tools/agent_memory_runtime/callable_behavior_hints.py
+@@ -6,7 +6,7 @@ import re
+ from pathlib import Path
+ from typing import Any
+ 
+-from .arkts_behavior_markers import CALLBACK_CLEANUP_RE, ASYNC_ORDER_GUARD_RE
++from .arkts_behavior_markers import CALLBACK_CLEANUP_RE, ASYNC_ORDER_GUARD_RE, RUNTIME_CAPABILITY_RE
+ 
+ 
+ LIFECYCLE_NAMES = {
+@@ -89,6 +89,8 @@ def event_collection_hints(entity: Any, source: str) -> list[str]:
+             result.append("collectionwrite")
+         if ASYNC_ORDER_GUARD_RE.search(body) and re.search(r"\basync\b|\bawait\b", code):
+             result.append("orderingguard")
++        if RUNTIME_CAPABILITY_RE.search(body):
++            result.append("runtimecapability")
+         if CALLBACK_CLEANUP_RE.search(body):
+             result.append("callbackcleanup")
+     return result

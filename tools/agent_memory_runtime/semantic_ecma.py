@@ -206,7 +206,7 @@ def parse_container_members(
                 language, file_path, name, "function", qualified, signature, index + 1,
                 end + 1, exported, owner_name=container.name,
                 owner_kind=container.entity.owner_kind,
-                callable_roles=callable_roles(name, signature, source),
+                callable_roles=callable_roles(name, signature, source, file_path),
             )
             methods.append(CallableBlock(container.name, index, end, entity, method.override))
             index = end + 1
@@ -246,7 +246,7 @@ def parse_top_level_functions(
         entity = make_entity(
             language, file_path, name, "function", name, signature, index + 1, end + 1,
             header.exported, owner_kind="module",
-            callable_roles=callable_roles(name, signature, source),
+            callable_roles=callable_roles(name, signature, source, file_path),
         )
         result.append(CallableBlock(None, index, end, entity))
         index = end + 1
@@ -463,7 +463,7 @@ def parse_callback_callables(
             language, file_path, spec["name"], "function", spec["qualified_name"],
             spec["signature"], spec["start"] + 1, spec["end"] + 1, False,
             owner_name=spec["owner"], owner_kind=spec["owner_kind"],
-            callable_roles=callable_roles(spec["name"], spec["signature"], source),
+            callable_roles=callable_roles(spec["name"], spec["signature"], source, file_path),
         )
         result.append(CallableBlock(spec["owner"] or None, spec["start"], spec["end"], entity))
     return result

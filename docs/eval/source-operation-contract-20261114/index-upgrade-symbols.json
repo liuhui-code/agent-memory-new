@@ -1,0 +1,151 @@
+{
+  "schema_equal": true,
+  "before_schema_sha256": "b908e5e859765712813aed4fea5c4287a23bf48c641bec6b18ee97c5cafc1b2e",
+  "after_schema_sha256": "b908e5e859765712813aed4fea5c4287a23bf48c641bec6b18ee97c5cafc1b2e",
+  "user_version_before": 0,
+  "user_version_after": 0,
+  "symbols_before": [
+    {
+      "symbol_key": "symbol:086d3c55f2d9924b5bd893d6",
+      "file_path": "src/config/ExtensionManifest.ets",
+      "symbol": "ExtensionManifest",
+      "start_line": 1,
+      "end_line": 5,
+      "source_digest": "df50cfc37a58c4d6b00664caa7f87b6e224d11cce1370dc8686b0fd054774322",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[]"
+    },
+    {
+      "symbol_key": "symbol:7115c51b1a10a37a917bf13c",
+      "file_path": "src/runtime/ExtensionInspector.ets",
+      "symbol": "inspectInstalled",
+      "start_line": 3,
+      "end_line": 6,
+      "source_digest": "c920da9e1be8590edee07549d1a61fc92364bb6a5208b7573428bbbb02b50c4a",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[\"async\"]"
+    },
+    {
+      "symbol_key": "symbol:a133cec07a449132f99f2649",
+      "file_path": "src/runtime/ProbeNotes.ets",
+      "symbol": "ProbeNotes",
+      "start_line": 1,
+      "end_line": 5,
+      "source_digest": "d97d3600e4e20197d252c5997ae105c80ecae630befc3026c342a4ec797ac85f",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[]"
+    },
+    {
+      "symbol_key": "symbol:ab742746a928b17dd3bce2a1",
+      "file_path": "src/ui/ExtensionSettings.ets",
+      "symbol": "build",
+      "start_line": 3,
+      "end_line": 8,
+      "source_digest": "4c3f79cafd36b6c07b815772830ea0ee1217d1503c92d8ba586d2031ca6ba8c2",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[]"
+    },
+    {
+      "symbol_key": "symbol:cb60646f21aefb8bbbb1dca1",
+      "file_path": "src/runtime/ExtensionInspector.ets",
+      "symbol": "ExtensionInspector",
+      "start_line": 2,
+      "end_line": 7,
+      "source_digest": "c920da9e1be8590edee07549d1a61fc92364bb6a5208b7573428bbbb02b50c4a",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[]"
+    },
+    {
+      "symbol_key": "symbol:ed90ebc563b49222b54ec812",
+      "file_path": "src/ui/ExtensionSettings.ets",
+      "symbol": "ExtensionSettings",
+      "start_line": 2,
+      "end_line": 9,
+      "source_digest": "4c3f79cafd36b6c07b815772830ea0ee1217d1503c92d8ba586d2031ca6ba8c2",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[]"
+    },
+    {
+      "symbol_key": "symbol:f53a824c17271706c4c17fa1",
+      "file_path": "src/runtime/ProbeNotes.ets",
+      "symbol": "explain",
+      "start_line": 2,
+      "end_line": 4,
+      "source_digest": "d97d3600e4e20197d252c5997ae105c80ecae630befc3026c342a4ec797ac85f",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[]"
+    }
+  ],
+  "symbols_after": [
+    {
+      "symbol_key": "symbol:086d3c55f2d9924b5bd893d6",
+      "file_path": "src/config/ExtensionManifest.ets",
+      "symbol": "ExtensionManifest",
+      "start_line": 1,
+      "end_line": 5,
+      "source_digest": "df50cfc37a58c4d6b00664caa7f87b6e224d11cce1370dc8686b0fd054774322",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[]"
+    },
+    {
+      "symbol_key": "symbol:7115c51b1a10a37a917bf13c",
+      "file_path": "src/runtime/ExtensionInspector.ets",
+      "symbol": "inspectInstalled",
+      "start_line": 3,
+      "end_line": 6,
+      "source_digest": "c920da9e1be8590edee07549d1a61fc92364bb6a5208b7573428bbbb02b50c4a",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[\"async\", \"source_operation_checked:v1\", \"source_operation:runtimecapability\"]"
+    },
+    {
+      "symbol_key": "symbol:a133cec07a449132f99f2649",
+      "file_path": "src/runtime/ProbeNotes.ets",
+      "symbol": "ProbeNotes",
+      "start_line": 1,
+      "end_line": 5,
+      "source_digest": "d97d3600e4e20197d252c5997ae105c80ecae630befc3026c342a4ec797ac85f",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[]"
+    },
+    {
+      "symbol_key": "symbol:ab742746a928b17dd3bce2a1",
+      "file_path": "src/ui/ExtensionSettings.ets",
+      "symbol": "build",
+      "start_line": 3,
+      "end_line": 8,
+      "source_digest": "4c3f79cafd36b6c07b815772830ea0ee1217d1503c92d8ba586d2031ca6ba8c2",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[\"source_operation_checked:v1\"]"
+    },
+    {
+      "symbol_key": "symbol:cb60646f21aefb8bbbb1dca1",
+      "file_path": "src/runtime/ExtensionInspector.ets",
+      "symbol": "ExtensionInspector",
+      "start_line": 2,
+      "end_line": 7,
+      "source_digest": "c920da9e1be8590edee07549d1a61fc92364bb6a5208b7573428bbbb02b50c4a",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[]"
+    },
+    {
+      "symbol_key": "symbol:ed90ebc563b49222b54ec812",
+      "file_path": "src/ui/ExtensionSettings.ets",
+      "symbol": "ExtensionSettings",
+      "start_line": 2,
+      "end_line": 9,
+      "source_digest": "4c3f79cafd36b6c07b815772830ea0ee1217d1503c92d8ba586d2031ca6ba8c2",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[]"
+    },
+    {
+      "symbol_key": "symbol:f53a824c17271706c4c17fa1",
+      "file_path": "src/runtime/ProbeNotes.ets",
+      "symbol": "explain",
+      "start_line": 2,
+      "end_line": 4,
+      "source_digest": "d97d3600e4e20197d252c5997ae105c80ecae630befc3026c342a4ec797ac85f",
+      "semantic_adapter": "arkts-static@1.2",
+      "callable_roles": "[\"source_operation_checked:v1\"]"
+    }
+  ]
+}

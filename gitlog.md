@@ -1,5 +1,12 @@
 # Local Development Log
 
+## 2026-11-14 — Preserve bounded source-operation evidence through localization
+
+- Reproduce static capability probes losing to strings and restore readers losing to other lexical candidates. Introduce a versioned, fail-closed source-operation admission contract, not a score/threshold change.
+- Keep old index, unknown scope/language, partial requested mechanisms, explicit/multi-target and textual requests outside priority. Record the initial restore regression and add fixed three-state negative tests.
+- Capability selected variants improve 0/3 to 2/3; restore remains 1/3 without new regression. Independent source/string controls and 97 focused tests pass. No aggregate/full-suite claim.
+- Merge learn-path updates the new callable roles without schema or symbol identity changes. Evidence: docs/eval/source-operation-contract-20261114/.
+
 ## 2026-11-14 — Respect positive query intent in structural graph retention
 
 - Reproduce an excluded build-artifact phrase incorrectly activating import-neighbor retention in an independent public context fixture.
