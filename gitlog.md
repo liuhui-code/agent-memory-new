@@ -11583,3 +11583,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Targeted causal/color/webview groups stay7/9. Color English body is complete but
   precision still fails; no original231 gain or full-gate claim.
   See docs/evidence/multi-source-recovery/README.md.
+
+
+## Builder-role independent public diagnostic
+
+- On 640f90b, original builder category remains 2/3.
+- Fresh public @Builder fixture returns instructional-text component for general Builder request; exact Builder, ordinary layout, dual owner and literal controls pass.
+- Correct callable/range already exist. Existing builder alias certifies only component, no decorator-specific producer role exists; no projection patch or ranking change made.
+- Record precise decorator-to-callable contract needed and preserve real text/layout controls. No full evaluation or new repair count. See docs/eval/builder-role-current.
