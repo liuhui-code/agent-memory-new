@@ -1,0 +1,13 @@
+F.
+======================================================================
+FAIL: test_public_executable_source_not_string_monitor (tests.test_callable_cache_eviction_hint.CallableCacheHintTests.test_public_executable_source_not_string_monitor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/cache-eviction-current/tests/test_callable_cache_eviction_hint.py", line 38, in test_public_executable_source_not_string_monitor
+    self.assertIn('ExpiryStore.ts',{a['file_path'] for a in anchors})
+AssertionError: 'ExpiryStore.ts' not found in {'CacheMonitor.ts'}
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.777s
+
+FAILED (failures=1)

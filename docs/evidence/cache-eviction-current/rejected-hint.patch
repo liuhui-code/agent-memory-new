@@ -1,0 +1,23 @@
+diff --git a/tools/agent_memory_runtime/callable_behavior_hints.py b/tools/agent_memory_runtime/callable_behavior_hints.py
+index cafcde2..af3f9b3 100644
+--- a/tools/agent_memory_runtime/callable_behavior_hints.py
++++ b/tools/agent_memory_runtime/callable_behavior_hints.py
+@@ -7,6 +7,7 @@ from pathlib import Path
+ from typing import Any
+ 
+ from .arkts_behavior_markers import CALLBACK_CLEANUP_RE, ASYNC_ORDER_GUARD_RE, PRESENTATION_CALL_RE
++from .arkts_behavior_markers import CACHE_SIZE_RE, FOR_OF_RE, CACHE_DELETE_RE, CACHE_AGE_RE
+ from .ecma_callback_mask import callback_mask_lines
+ 
+ 
+@@ -98,6 +99,10 @@ def event_collection_hints(entity: Any, source: str) -> list[str]:
+         if ("eventboundary" in result and DIRECT_STATE_WRITE_RE.search(direct_body)
+                 and PRESENTATION_CALL_RE.search(direct_body)):
+             result.append("statehandoff")
++        # Retrieval conjunction within this callable, not cache policy proof.
++        if (CACHE_SIZE_RE.search(direct_body) and FOR_OF_RE.search(direct_body)
++                and CACHE_DELETE_RE.search(direct_body) and CACHE_AGE_RE.search(direct_body)):
++            result.append("cacheeviction")
+         if INDEX_WRITE_RE.search(body):
+             result.append("collectionwrite")
+         if ASYNC_ORDER_GUARD_RE.search(body) and re.search(r"\basync\b|\bawait\b", code):

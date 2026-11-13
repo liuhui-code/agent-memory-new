@@ -11551,3 +11551,11 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Preserve single-interface, actual dual-callable, generic multi/two-action, excluded/quoted and same-name ambiguity behavior.
 - 25 focused tests (including 3 new) and separate 52 projection regressions pass; fingerprint passes. Long-interface budget addendum retains identities under 1500 without claiming full source.
 - Native-color remains 2/3; no full evaluation or new historical repair count. See docs/eval/named-interface-retention/README.md.
+## 2026-11-14 - Retain cache callable hint experiment without publishing it
+
+- Freeze two independent public text-over-executable failures with timestamp,
+  true FIFO, split-method, deferred and explicit text controls.
+- Same-callable lexical conjunction reaches real method evidence but does not
+  close either public failure. Original group stays 2/3. No weight/oracle changes.
+- Revert candidate runtime, archive patch and frozen failing tests. Final serving
+  code equals a6c1d93; evidence in docs/evidence/cache-eviction-current/README.md.

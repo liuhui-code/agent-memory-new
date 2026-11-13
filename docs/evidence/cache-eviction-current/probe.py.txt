@@ -1,0 +1,14 @@
+import json,tempfile,subprocess,sys
+from pathlib import Path
+p=Path('docs/evidence/cache-eviction-current');x=json.loads((p/'protocol.json').read_text());out={}
+with tempfile.TemporaryDirectory() as d:
+ root=Path(d)/'source';root.mkdir()
+ for name,source in x['sources'].items():(root/name).write_text(source)
+ def run(*a):
+  r=subprocess.run(['python','tools/agent_memory.py',*a,'--project',str(root),'--memory-home',d+'/memory'],capture_output=True,text=True,check=True);return json.loads(r.stdout) if '--json' in a else r.stdout
+ run('init');run('learn-path','--path','.')
+ out['symbols']=run('list','--type','code-symbol','--json')
+ out['public']={q['query']:{'raw':run('context','--query',q['query'],'--json'),'compact':run('context','--query',q['query'],'--compact','--json')} for q in x['queries']}
+(p/(sys.argv[1]+'.json')).write_text(json.dumps(out,indent=2))
+for q,v in out['public'].items():
+ h=v['compact']['query_handoff'];print(q, h['callable_evidence'].get('primary'),[a['file_path'] for a in h['code_anchors']])
