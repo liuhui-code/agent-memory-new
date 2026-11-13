@@ -1,0 +1,49 @@
+{
+  "classification": "supplemental controls frozen before alias implementation; original protocol unchanged",
+  "sources": {
+    "MoreStores.ts": "export class ActualStore {\n read(): string { return 'second-module' }\n}\nexport class SecondOther {\n read(): string { return 'other-second-module' }\n}\n",
+    "MissingStores.ts": "export class ActualStore {\n write(): void { send() }\n}\nexport class OtherStore {\n read(): string { return 'must-not-bind' }\n}\n",
+    "SecondConsumer.ts": "import { ActualStore as LocalStore } from './MoreStores'\nexport class SecondConsumer {\n store: LocalStore\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "MissingConsumer.ts": "import { ActualStore as LocalStore } from './MissingStores'\nexport class MissingConsumer {\n store: LocalStore\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "GenericConsumer.ts": "import { ActualStore as LocalStore } from './Stores'\nexport class GenericConsumer<LocalStore> {\n store: LocalStore\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "ParameterConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class ParameterConsumer {\n store: LocalStore\n collect(store: OtherStore): string {\n  return store.read()\n }\n}\n",
+    "DuplicateConsumer.ts": "import { ActualStore as LocalStore } from './Stores'\nimport { ActualStore as LocalStore } from './MoreStores'\nexport class DuplicateConsumer {\n store: LocalStore\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "UnknownConsumer.ts": "export class UnknownConsumer {\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "DynamicConsumer.ts": "export class DynamicConsumer {\n store: any\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "AwaitConsumer.ts": "import { ActualStore as LocalStore } from './Stores'\nexport class AwaitConsumer {\n store: LocalStore\n async collect(): Promise<string> {\n  return await this.store.read()\n }\n}\n",
+    "NestedConsumer.ts": "import { ActualStore as LocalStore } from './Stores'\nexport class NestedConsumer {\n store: LocalStore\n collect(): void {\n  const nested = { run() { return this.store.read() } }\n }\n}\n",
+    "PoisonConsumer.ts": "import { ActualStore as LocalStore, OtherStore } from './Stores'\nexport class PoisonConsumer {\n note = `${value}`\n store: OtherStore\n helper(): void {\n  const settings: {\n   store: LocalStore\n  } = value\n }\n collect(): string {\n  return this.store.read()\n }\n}\n",
+    "FakeAwaitConsumer.ts": "import { ActualStore as LocalStore } from './Stores'\nexport class FakeAwaitConsumer {\n store: LocalStore\n collect(): string {\n  return \"await this.store.read()\"\n }\n}\n",
+    "MissingAwaitConsumer.ts": "import { ActualStore as LocalStore } from './MissingStores'\nexport class MissingAwaitConsumer {\n store: LocalStore\n async collect(): Promise<string> {\n  return await this.store.read()\n }\n}\n",
+    "UnavailableConsumer.ts": "import { ActualStore as LocalStore } from './Unavailable'\nexport class UnavailableConsumer {\n store: LocalStore\n collect(): string {\n  return this.store.read()\n }\n}\n"
+  },
+  "expected_target": {
+    "SecondConsumer.collect": [
+      "MoreStores.ts",
+      "ActualStore.read"
+    ],
+    "AwaitConsumer.collect": [
+      "Stores.ts",
+      "ActualStore.read"
+    ]
+  },
+  "expected_no_new_alias_binding": [
+    "MissingConsumer.collect",
+    "GenericConsumer.collect",
+    "ParameterConsumer.collect",
+    "DuplicateConsumer.collect",
+    "UnknownConsumer.collect",
+    "DynamicConsumer.collect",
+    "NestedConsumer.collect",
+    "PoisonConsumer.collect",
+    "FakeAwaitConsumer.collect",
+    "MissingAwaitConsumer.collect",
+    "UnavailableConsumer.collect"
+  ],
+  "expected_await_target": {
+    "AwaitConsumer.collect": [
+      "Stores.ts",
+      "ActualStore.read"
+    ]
+  }
+}
