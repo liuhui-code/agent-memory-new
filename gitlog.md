@@ -11771,3 +11771,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Existing archives require ordinary merge learn-path; installation alone retains
   old edges. Original Builder acceptance remains2/3, not counted as a repaired
   historical failure. Evidence: docs/eval/builder-call-current.
+
+## 2026-11-14 - Integrate field scope and named-import identity
+
+- Retain both independent fixes and log entries; move the identical field-map
+  regex loop to its scope helper with the same FIELD_RE object and thin wrapper.
+  This keeps semantic_ecma at 494 lines without weakening the 500-line gate.
+- Combined focused verification passes 32 tests, including the Python fingerprint;
+  original group results and all unknown-scope boundaries stay unchanged.
+- Evidence: docs/evidence/field-alias-integration/README.md. No full gate run.

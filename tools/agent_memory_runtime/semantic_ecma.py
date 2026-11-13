@@ -10,7 +10,7 @@ from typing import Any
 from .ecma_state_access import state_accesses
 from .ecma_import_alias import alias_target, alias_bindings
 from .ecma_callback_mask import callback_mask_lines
-from .ecma_field_scope import direct_field_lines
+from .ecma_field_scope import collect_field_types
 from .ecma_braces import block_end
 from .ecma_callable_body import callable_block_end
 from .ecma_callable_headers import method_header, top_level_callable_header
@@ -420,14 +420,7 @@ def resolve_relative_module(project: Project, path: Path, module: str, extension
 
 
 def container_fields(lines: list[str], container: Container | None) -> dict[str, str]:
-    if not container:
-        return {}
-    result: dict[str, str] = {}
-    for line in direct_field_lines(lines, container.start, container.end):
-        match = FIELD_RE.match(line)
-        if match and "(" not in line.split(":", 1)[0]:
-            result[match.group(1)] = re.split(r"[<,?. ]", match.group(2).strip())[0]
-    return result
+    return collect_field_types(lines, container, FIELD_RE)
 
 
 def callable_signature(name: str, params: str, return_type: str | None, async_value: bool) -> str:
