@@ -11885,3 +11885,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   review gates, with identity, ambiguity, source and budget refusal boundaries.
 - No runtime, source, query, oracle or threshold changes; no new gain or full gate.
 - Report: docs/eval/official-component-development/DESIGN-GAP.md.
+
+## 2026-11-13 — Typed invocation and same-file projection investigation
+
+- Froze and ran four independent public invocation controls; discovered initial strong-authority hypothesis was false because operation matches are explicitly weak/uncertain.
+- Separately froze same-file/cross-file controls: raw wiki includes two distinct same-name methods but raw handoff coalesces them by path/name for the invocation query.
+- Separately froze explicit two-owner request: raw already keeps both class ranges with method bodies, so this is not a raw dual-target red; compact ambiguity is a different unresolved consumer boundary.
+- No serving changes or original listener improvement claimed; independent protocols, chronology and actual differences retained in docs/evidence/typed-parameter-invocation.
