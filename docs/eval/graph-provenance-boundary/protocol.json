@@ -1,0 +1,12 @@
+{
+  "classification": "deterministic internal boundary observation, NOT public Development red",
+  "base": "f8191a5",
+  "origin": ["code_symbol", 11],
+  "neighbor": ["code_symbol", 22],
+  "edge": {"source_type":"code_symbol", "source_id":11, "target_type":"code_symbol", "target_id":22, "relation":"passes_property", "confidence":1.0},
+  "origin_score": 100.0,
+  "neighbor_scores": [10.0, 60.0, 90.0],
+  "variation": "Only neighbor existing score changes; identity, edge, relation, direction and all other fields fixed.",
+  "observe": "Actual promote_neighbor candidates and actual neighbor_item/boost_match propagation only when candidate emitted. Edge object remains equal. Do not manufacture independent query or adjust thresholds.",
+  "stop": "One internal run; document coupling and consumer authority. No production patch, public context call or original case rerun. Predictions are not assertions of promised behavior."
+}
