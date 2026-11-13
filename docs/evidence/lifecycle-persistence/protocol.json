@@ -1,0 +1,32 @@
+{
+  "base": "43921fc",
+  "classification": "development",
+  "sources": {
+    "BufferSession.ets": "export class BufferSession {\n  private text: string = ''\n  onMount(): void {\n    this.reload()\n  }\n  async reload(): Promise<void> {\n    this.text = await cache.load()\n  }\n  async commit(): Promise<void> {\n    await cache.save(this.text)\n  }\n}\n",
+    "WriteQueue.ets": "export class WriteQueue {\n  async commit(text: string): Promise<void> {\n    await cache.save(text)\n  }\n}\n",
+    "TextPanel.ets": "export class TextPanel {\n  private text: string = ''\n  setText(next: string): void {\n    this.text = next\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "query": "Find the owner combining lifecycle restore, current text state and storage commit after restart.",
+      "required": "BufferSession.ets",
+      "excluded": [
+        "WriteQueue.ets",
+        "TextPanel.ets"
+      ]
+    },
+    {
+      "query": "重启后恢复文本，请定位同时负责生命周期恢复、状态更新和持久化的源码。",
+      "required": "BufferSession.ets",
+      "excluded": [
+        "WriteQueue.ets",
+        "TextPanel.ets"
+      ]
+    },
+    {
+      "query": "Find WriteQueue.commit.",
+      "required": "WriteQueue.ets",
+      "excluded": []
+    }
+  ]
+}
