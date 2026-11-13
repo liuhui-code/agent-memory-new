@@ -1,0 +1,16 @@
+{
+  "classification": "independent Development modifier-only addendum frozen before production edit",
+  "query": "Find DisclosureState.expanded source.",
+  "sources": {
+    "plain": "export class DisclosureState {\n  @State expanded: boolean = false;\n  read(): boolean {\n    return this.expanded;\n  }\n  toggle(): void {\n    this.expanded = !this.expanded;\n  }\n}\n",
+    "private": "export class DisclosureState {\n  @State private expanded: boolean = false;\n  read(): boolean {\n    return this.expanded;\n  }\n  toggle(): void {\n    this.expanded = !this.expanded;\n  }\n}\n",
+    "public": "export class DisclosureState {\n  @State public expanded: boolean = false;\n  read(): boolean {\n    return this.expanded;\n  }\n  toggle(): void {\n    this.expanded = !this.expanded;\n  }\n}\n",
+    "protected": "export class DisclosureState {\n  @State protected expanded: boolean = false;\n  read(): boolean {\n    return this.expanded;\n  }\n  toggle(): void {\n    this.expanded = !this.expanded;\n  }\n}\n"
+  },
+  "expected_state": "expanded",
+  "expected_edges": [
+    "reads_state",
+    "writes_state"
+  ],
+  "unknown": "No changed consumer inference or combined-variable certification."
+}
