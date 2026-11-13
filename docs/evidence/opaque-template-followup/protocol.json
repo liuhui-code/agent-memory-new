@@ -1,0 +1,21 @@
+{
+  "base": "6fa506c",
+  "classification": "development",
+  "sources": {
+    "ParcelTrace.ts": "export class ParcelTrace {\n  rejected(event: string): void {\n    console.error(`parcel rejected code=${event}`)\n  }\n  unrelated(): void {\n    console.error('CACHE_EVENT_827B cache clear rejected')\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "query": "Locate parcel rejected code=DELIVERY_EVENT_59D3",
+      "required_template": "parcel rejected code=${event}"
+    },
+    {
+      "query": "Locate CACHE_EVENT_827B cache clear rejected",
+      "required_template": "CACHE_EVENT_827B cache clear rejected"
+    },
+    {
+      "query": "Locate UNKNOWN_EVENT_48C2 parcel lost",
+      "required_template": null
+    }
+  ]
+}
