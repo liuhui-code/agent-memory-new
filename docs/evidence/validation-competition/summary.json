@@ -1,0 +1,646 @@
+[
+  {
+    "cohort": "target",
+    "query": "profile-zh",
+    "markers": [],
+    "retention": "pass",
+    "compact_sources": [
+      "src/pages/ProfileEditor.ets",
+      "src/services/ProfileGateway.ets"
+    ],
+    "focus_branch": [],
+    "focus_narrowed": false,
+    "primary": {
+      "file_path": "src/pages/ProfileEditor.ets",
+      "symbol": "saveProfile",
+      "owner_name": "ProfileEditor",
+      "owner_kind": "component",
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 18.205,
+      "evidence_score": 18.205,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 6,
+        "end_line": 12,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "certainty": "uncertain"
+  },
+  {
+    "cohort": "target",
+    "query": "profile-en",
+    "markers": [
+      "actiondispatch",
+      "validationguard"
+    ],
+    "retention": "pass",
+    "compact_sources": [
+      "src/pages/ProfileEditor.ets"
+    ],
+    "focus_branch": [
+      "strongest_method_evidence_candidates"
+    ],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/pages/ProfileEditor.ets",
+      "symbol": "saveProfile",
+      "owner_name": "ProfileEditor",
+      "owner_kind": "component",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 42.0,
+      "evidence_score": 42.0,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "expanded_query:string_evidence"
+      ],
+      "source_range": {
+        "start_line": 6,
+        "end_line": 9,
+        "selection_reason": "semantic_mechanism_window"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "target",
+    "query": "purchase",
+    "markers": [],
+    "retention": "N/A-source-not-in-cohort",
+    "compact_sources": [],
+    "focus_branch": [],
+    "focus_narrowed": false,
+    "primary": null,
+    "certainty": "unavailable"
+  },
+  {
+    "cohort": "target",
+    "query": "both",
+    "markers": [],
+    "retention": "N/A-source-not-in-cohort",
+    "compact_sources": [
+      "src/pages/ProfileEditor.ets",
+      "src/services/ProfileGateway.ets"
+    ],
+    "focus_branch": [],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/pages/ProfileEditor.ets",
+      "symbol": "saveProfile",
+      "owner_name": "ProfileEditor",
+      "owner_kind": "component",
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 53.0,
+      "evidence_score": 53.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 6,
+        "end_line": 12,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "target",
+    "query": "logging",
+    "markers": [],
+    "retention": "N/A-source-not-in-cohort",
+    "compact_sources": [
+      "src/services/ProfileGateway.ets"
+    ],
+    "focus_branch": [],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/services/ProfileGateway.ets",
+      "symbol": "updateProfile",
+      "owner_name": "ProfileGateway",
+      "owner_kind": "service",
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 32.5,
+      "evidence_score": 32.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 2,
+        "end_line": 4,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "target",
+    "query": "generic",
+    "markers": [
+      "actiondispatch",
+      "validationguard"
+    ],
+    "retention": "ambiguous-no-exclusive-oracle",
+    "compact_sources": [
+      "src/pages/ProfileEditor.ets"
+    ],
+    "focus_branch": [
+      "strongest_structural_candidates"
+    ],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/pages/ProfileEditor.ets",
+      "symbol": "saveProfile",
+      "owner_name": "ProfileEditor",
+      "owner_kind": "component",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 15.48,
+      "evidence_score": 15.48,
+      "reasons": [
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "semantic_mechanism",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 6,
+        "end_line": 9,
+        "selection_reason": "semantic_mechanism_window"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "competition",
+    "query": "profile-zh",
+    "markers": [],
+    "retention": "pass",
+    "compact_sources": [
+      "src/pages/ProfileEditor.ets",
+      "src/services/ProfileGateway.ets"
+    ],
+    "focus_branch": [],
+    "focus_narrowed": false,
+    "primary": {
+      "file_path": "src/pages/ProfileEditor.ets",
+      "symbol": "saveProfile",
+      "owner_name": "ProfileEditor",
+      "owner_kind": "component",
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 18.205,
+      "evidence_score": 18.205,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 6,
+        "end_line": 12,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "certainty": "uncertain"
+  },
+  {
+    "cohort": "competition",
+    "query": "profile-en",
+    "markers": [
+      "actiondispatch",
+      "validationguard"
+    ],
+    "retention": "pass",
+    "compact_sources": [
+      "src/pages/ProfileEditor.ets"
+    ],
+    "focus_branch": [
+      "strongest_method_evidence_candidates"
+    ],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/pages/ProfileEditor.ets",
+      "symbol": "saveProfile",
+      "owner_name": "ProfileEditor",
+      "owner_kind": "component",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 42.0,
+      "evidence_score": 42.0,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "expanded_query:string_evidence"
+      ],
+      "source_range": {
+        "start_line": 6,
+        "end_line": 9,
+        "selection_reason": "semantic_mechanism_window"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "competition",
+    "query": "purchase",
+    "markers": [],
+    "retention": "pass",
+    "compact_sources": [
+      "src/coordinators/PurchaseCoordinator.ets"
+    ],
+    "focus_branch": [
+      "strongest_method_evidence_candidates"
+    ],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/coordinators/PurchaseCoordinator.ets",
+      "symbol": "commitPurchase",
+      "owner_name": "PurchaseCoordinator",
+      "owner_kind": "coordinator",
+      "callable_roles": [
+        "source_operation_checked:v2.1",
+        "source_operation_unresolved:persistenceread"
+      ],
+      "score": 74.5,
+      "evidence_score": 74.5,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 6,
+        "selection_reason": "semantic_mechanism_window"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "competition",
+    "query": "both",
+    "markers": [],
+    "retention": "pass",
+    "compact_sources": [
+      "src/coordinators/PurchaseCoordinator.ets",
+      "src/pages/ProfileEditor.ets",
+      "src/services/ProfileGateway.ets"
+    ],
+    "focus_branch": [],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/coordinators/PurchaseCoordinator.ets",
+      "symbol": "commitPurchase",
+      "owner_name": "PurchaseCoordinator",
+      "owner_kind": "coordinator",
+      "callable_roles": [
+        "source_operation_checked:v2.1",
+        "source_operation_unresolved:persistenceread"
+      ],
+      "score": 61.5,
+      "evidence_score": 61.5,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 7,
+        "end_line": 10,
+        "selection_reason": "semantic_mechanism_window"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "competition",
+    "query": "logging",
+    "markers": [],
+    "retention": "N/A-source-not-in-cohort",
+    "compact_sources": [
+      "src/services/ProfileGateway.ets"
+    ],
+    "focus_branch": [],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/services/ProfileGateway.ets",
+      "symbol": "updateProfile",
+      "owner_name": "ProfileGateway",
+      "owner_kind": "service",
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 32.5,
+      "evidence_score": 32.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 2,
+        "end_line": 4,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "competition",
+    "query": "generic",
+    "markers": [
+      "actiondispatch",
+      "validationguard"
+    ],
+    "retention": "ambiguous-no-exclusive-oracle",
+    "compact_sources": [
+      "src/coordinators/PurchaseCoordinator.ets",
+      "src/pages/ProfileEditor.ets"
+    ],
+    "focus_branch": [
+      "strongest_structural_candidates"
+    ],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/coordinators/PurchaseCoordinator.ets",
+      "symbol": "commitPurchase",
+      "owner_name": "PurchaseCoordinator",
+      "owner_kind": "coordinator",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "source_operation_checked:v2.1",
+        "source_operation_unresolved:persistenceread"
+      ],
+      "score": 15.48,
+      "evidence_score": 15.48,
+      "reasons": [
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "semantic_mechanism",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 6,
+        "selection_reason": "semantic_mechanism_window"
+      }
+    },
+    "certainty": "uncertain"
+  },
+  {
+    "cohort": "logger",
+    "query": "profile-zh",
+    "markers": [],
+    "retention": "fail",
+    "compact_sources": [
+      "src/logging/StatusSink.ets"
+    ],
+    "focus_branch": [],
+    "focus_narrowed": false,
+    "primary": {
+      "file_path": "src/logging/StatusSink.ets",
+      "symbol": "error",
+      "owner_name": "StatusSink",
+      "owner_kind": "class",
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 20.705,
+      "evidence_score": 20.705,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "expanded_query:string_evidence"
+      ],
+      "source_range": {
+        "start_line": 2,
+        "end_line": 4,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "logger",
+    "query": "profile-en",
+    "markers": [
+      "actiondispatch",
+      "validationguard"
+    ],
+    "retention": "pass",
+    "compact_sources": [
+      "src/pages/ProfileEditor.ets"
+    ],
+    "focus_branch": [
+      "strongest_method_evidence_candidates"
+    ],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/pages/ProfileEditor.ets",
+      "symbol": "saveProfile",
+      "owner_name": "ProfileEditor",
+      "owner_kind": "component",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 42.0,
+      "evidence_score": 42.0,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "expanded_query:string_evidence"
+      ],
+      "source_range": {
+        "start_line": 6,
+        "end_line": 9,
+        "selection_reason": "semantic_mechanism_window"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "logger",
+    "query": "purchase",
+    "markers": [],
+    "retention": "pass",
+    "compact_sources": [
+      "src/coordinators/PurchaseCoordinator.ets"
+    ],
+    "focus_branch": [
+      "strongest_method_evidence_candidates"
+    ],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/coordinators/PurchaseCoordinator.ets",
+      "symbol": "commitPurchase",
+      "owner_name": "PurchaseCoordinator",
+      "owner_kind": "coordinator",
+      "callable_roles": [
+        "source_operation_checked:v2.1",
+        "source_operation_unresolved:persistenceread"
+      ],
+      "score": 74.5,
+      "evidence_score": 74.5,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 6,
+        "selection_reason": "semantic_mechanism_window"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "logger",
+    "query": "both",
+    "markers": [],
+    "retention": "pass",
+    "compact_sources": [
+      "src/coordinators/PurchaseCoordinator.ets",
+      "src/pages/ProfileEditor.ets",
+      "src/services/ProfileGateway.ets"
+    ],
+    "focus_branch": [],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/coordinators/PurchaseCoordinator.ets",
+      "symbol": "commitPurchase",
+      "owner_name": "PurchaseCoordinator",
+      "owner_kind": "coordinator",
+      "callable_roles": [
+        "source_operation_checked:v2.1",
+        "source_operation_unresolved:persistenceread"
+      ],
+      "score": 61.5,
+      "evidence_score": 61.5,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 7,
+        "end_line": 10,
+        "selection_reason": "semantic_mechanism_window"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "logger",
+    "query": "logging",
+    "markers": [],
+    "retention": "pass",
+    "compact_sources": [
+      "src/logging/StatusSink.ets"
+    ],
+    "focus_branch": [],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/services/ProfileGateway.ets",
+      "symbol": "updateProfile",
+      "owner_name": "ProfileGateway",
+      "owner_kind": "service",
+      "callable_roles": [
+        "source_operation_checked:v2.1"
+      ],
+      "score": 32.5,
+      "evidence_score": 32.5,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 2,
+        "end_line": 4,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "certainty": "bounded"
+  },
+  {
+    "cohort": "logger",
+    "query": "generic",
+    "markers": [
+      "actiondispatch",
+      "validationguard"
+    ],
+    "retention": "ambiguous-no-exclusive-oracle",
+    "compact_sources": [
+      "src/coordinators/PurchaseCoordinator.ets",
+      "src/pages/ProfileEditor.ets"
+    ],
+    "focus_branch": [
+      "strongest_structural_candidates"
+    ],
+    "focus_narrowed": true,
+    "primary": {
+      "file_path": "src/coordinators/PurchaseCoordinator.ets",
+      "symbol": "commitPurchase",
+      "owner_name": "PurchaseCoordinator",
+      "owner_kind": "coordinator",
+      "file_structural_coverage": 1,
+      "callable_roles": [
+        "source_operation_checked:v2.1",
+        "source_operation_unresolved:persistenceread"
+      ],
+      "score": 15.48,
+      "evidence_score": 15.48,
+      "reasons": [
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior",
+        "semantic_mechanism",
+        "source_locatable"
+      ],
+      "source_range": {
+        "start_line": 3,
+        "end_line": 6,
+        "selection_reason": "semantic_mechanism_window"
+      }
+    },
+    "certainty": "uncertain"
+  }
+]

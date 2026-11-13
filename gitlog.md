@@ -11838,3 +11838,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 -46 focused tests pass; normal merge removes2 false hints,6 true-write controls
   remain. Originalvalidation1/3/comparison2/3 unchanged. No aggregate claim.
 - Evidence: docs/evidence/validation-marker-equality/README.md.
+
+## 2026-11-13 — Fixed validation competition diagnostic, no serving change
+
+- Preserved original three-variant first-loss traces; corrected Chinese diagnosis from initial recall absence to focus elimination with target present at input 14.
+- Froze four independent sources, six queries and three cohorts at 419fcdc before public execution. Pre-execution mechanism review found Chinese control unactivated; retained it unchanged rather than tuning phrasing.
+- Executed 18 raw/compact public probe cells: 10 applicable retention passes, one localization loss, four absent-source N/A, three generic ambiguity controls. English same-mechanism target stays present. Chinese logger loss is a different first layer, not proof of original focus defect.
+- Stopped without runtime candidate, oracle change, full gate or original failure improvement. Details: docs/evidence/validation-competition/README.md.

@@ -1,0 +1,86 @@
+[
+  {
+    "function": "strongest_owner_contract_candidates",
+    "result": [],
+    "locals": {
+      "items": [],
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "expected": "set()"
+    }
+  },
+  {
+    "function": "strongest_semantic_behavior_candidates",
+    "result": [],
+    "locals": {
+      "items": [],
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "expected": []
+    }
+  },
+  {
+    "function": "strongest_method_evidence_candidates",
+    "result": [],
+    "locals": {
+      "items": [],
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "candidates": []
+    }
+  },
+  {
+    "function": "strongest_structural_candidates",
+    "result": [],
+    "locals": {
+      "items": [],
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "matches": [],
+      "ranked": [],
+      "selected": [],
+      "covered": "set()",
+      "selected_ids": "set()"
+    }
+  },
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [],
+      false
+    ],
+    "locals": {
+      "items": [],
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "named": [],
+      "callers": [],
+      "contracts": [],
+      "behavior": [],
+      "method": [],
+      "structural": [],
+      "explicit_method": [],
+      "dominant": [],
+      "strong_identity": [],
+      "flow": []
+    }
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [],
+    "locals": {
+      "items": [],
+      "limit": 5,
+      "max_per_file": 2,
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "recalled_items": [],
+      "focused": [],
+      "focused_candidates": false,
+      "selected": [],
+      "deferred": [],
+      "file_counts": {},
+      "selected_terms": [],
+      "direct_scores": [],
+      "seed_score": 0.0,
+      "distinct": [],
+      "repeated": [],
+      "seen": [],
+      "explicit_paths": "set()"
+    }
+  }
+]

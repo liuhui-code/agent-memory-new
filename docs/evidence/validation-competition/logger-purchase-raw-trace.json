@@ -1,0 +1,4307 @@
+[
+  {
+    "function": "strongest_owner_contract_candidates",
+    "result": [],
+    "locals": {
+      "items": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "summary": "ArkTS class PurchaseCoordinator declared in src/coordinators/PurchaseCoordinator.ets; identifier terms: purchase coordinator",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:79973ef291501a1db1f75d01",
+          "qualified_name": "PurchaseCoordinator",
+          "signature": "class PurchaseCoordinator",
+          "start_line": 1,
+          "end_line": 11,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "coordinator",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05564516,
+            "best_rank": 2,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 80.5,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts class purchasecoordinator declared in src/coordinators/purchasecoordinator.ets; identifier terms: purchase coordinator",
+            "purchasecoordinator",
+            "class",
+            "src",
+            "coordinators",
+            "ets",
+            "arkts",
+            "declared",
+            "in",
+            "identifier",
+            "terms",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "summary": "ArkTS file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+          "language": "ArkTS",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05491803,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 46.4,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts",
+            "arkts file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "file",
+            "with",
+            "11",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "validationguard",
+            "conditionalbranch",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage"
+          ],
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 11
+        }
+      ],
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "expected": "set()"
+    }
+  },
+  {
+    "function": "strongest_semantic_behavior_candidates",
+    "result": [],
+    "locals": {
+      "items": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "summary": "ArkTS class PurchaseCoordinator declared in src/coordinators/PurchaseCoordinator.ets; identifier terms: purchase coordinator",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:79973ef291501a1db1f75d01",
+          "qualified_name": "PurchaseCoordinator",
+          "signature": "class PurchaseCoordinator",
+          "start_line": 1,
+          "end_line": 11,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "coordinator",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05564516,
+            "best_rank": 2,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 80.5,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts class purchasecoordinator declared in src/coordinators/purchasecoordinator.ets; identifier terms: purchase coordinator",
+            "purchasecoordinator",
+            "class",
+            "src",
+            "coordinators",
+            "ets",
+            "arkts",
+            "declared",
+            "in",
+            "identifier",
+            "terms",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "summary": "ArkTS file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+          "language": "ArkTS",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05491803,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 46.4,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts",
+            "arkts file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "file",
+            "with",
+            "11",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "validationguard",
+            "conditionalbranch",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage"
+          ],
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 11
+        }
+      ],
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "expected": []
+    }
+  },
+  {
+    "function": "strongest_method_evidence_candidates",
+    "result": [
+      {
+        "id": 2,
+        "project_id": "9a01c79c546b1fe2",
+        "file_path": "src/coordinators/PurchaseCoordinator.ets",
+        "symbol": "commitPurchase",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:d587d31f42e623f44c564fac",
+        "qualified_name": "PurchaseCoordinator.commitPurchase",
+        "signature": "commitPurchase():void",
+        "start_line": 3,
+        "end_line": 10,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+        "evidence_class": "static",
+        "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+        "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+        "owner_name": "PurchaseCoordinator",
+        "owner_kind": "coordinator",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T15:45:25+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "method_body_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "semantic_mechanism_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.13606557,
+          "best_rank": 1,
+          "channel_count": 7,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "method_body_fts",
+              "rank": 1,
+              "weight": 0.8,
+              "score": 0.01311475
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "semantic_mechanism_fts",
+              "rank": 1,
+              "weight": 1.25,
+              "score": 0.0204918
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 4,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 147.0,
+        "search_terms": [
+          "src/coordinators/purchasecoordinator.ets",
+          "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+          "commitpurchase",
+          "function",
+          "src",
+          "coordinators",
+          "purchasecoordinator",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "identifier",
+          "terms",
+          "commit",
+          "purchase",
+          "coordinator",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence",
+          "expanded_query:mechanism_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable",
+          "multi_term_method_evidence"
+        ]
+      }
+    ],
+    "locals": {
+      "items": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "summary": "ArkTS class PurchaseCoordinator declared in src/coordinators/PurchaseCoordinator.ets; identifier terms: purchase coordinator",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:79973ef291501a1db1f75d01",
+          "qualified_name": "PurchaseCoordinator",
+          "signature": "class PurchaseCoordinator",
+          "start_line": 1,
+          "end_line": 11,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "coordinator",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05564516,
+            "best_rank": 2,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 80.5,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts class purchasecoordinator declared in src/coordinators/purchasecoordinator.ets; identifier terms: purchase coordinator",
+            "purchasecoordinator",
+            "class",
+            "src",
+            "coordinators",
+            "ets",
+            "arkts",
+            "declared",
+            "in",
+            "identifier",
+            "terms",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "summary": "ArkTS file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+          "language": "ArkTS",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05491803,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 46.4,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts",
+            "arkts file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "file",
+            "with",
+            "11",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "validationguard",
+            "conditionalbranch",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage"
+          ],
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 11
+        }
+      ],
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "candidates": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        }
+      ],
+      "threshold": 110.25,
+      "selected": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        }
+      ],
+      "selected_paths": [
+        "src/coordinators/PurchaseCoordinator.ets"
+      ],
+      "allowed_paths": "{'src/coordinators/PurchaseCoordinator.ets'}",
+      "candidate_paths": "{'src/coordinators/PurchaseCoordinator.ets'}",
+      "top_score": 147.0
+    }
+  },
+  {
+    "function": "focus_code_candidates",
+    "result": [
+      [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        }
+      ],
+      true
+    ],
+    "locals": {
+      "items": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "summary": "ArkTS class PurchaseCoordinator declared in src/coordinators/PurchaseCoordinator.ets; identifier terms: purchase coordinator",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:79973ef291501a1db1f75d01",
+          "qualified_name": "PurchaseCoordinator",
+          "signature": "class PurchaseCoordinator",
+          "start_line": 1,
+          "end_line": 11,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "coordinator",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05564516,
+            "best_rank": 2,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 80.5,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts class purchasecoordinator declared in src/coordinators/purchasecoordinator.ets; identifier terms: purchase coordinator",
+            "purchasecoordinator",
+            "class",
+            "src",
+            "coordinators",
+            "ets",
+            "arkts",
+            "declared",
+            "in",
+            "identifier",
+            "terms",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "summary": "ArkTS file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+          "language": "ArkTS",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05491803,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 46.4,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts",
+            "arkts file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "file",
+            "with",
+            "11",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "validationguard",
+            "conditionalbranch",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage"
+          ],
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 11
+        }
+      ],
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "named": [],
+      "callers": [],
+      "contracts": [],
+      "behavior": [],
+      "method": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "function": "preserve_structural_boundary_neighbors",
+    "result": [
+      {
+        "id": 2,
+        "project_id": "9a01c79c546b1fe2",
+        "file_path": "src/coordinators/PurchaseCoordinator.ets",
+        "symbol": "commitPurchase",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:d587d31f42e623f44c564fac",
+        "qualified_name": "PurchaseCoordinator.commitPurchase",
+        "signature": "commitPurchase():void",
+        "start_line": 3,
+        "end_line": 10,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+        "evidence_class": "static",
+        "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+        "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+        "owner_name": "PurchaseCoordinator",
+        "owner_kind": "coordinator",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T15:45:25+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "method_body_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "semantic_mechanism_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.13606557,
+          "best_rank": 1,
+          "channel_count": 7,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "method_body_fts",
+              "rank": 1,
+              "weight": 0.8,
+              "score": 0.01311475
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "semantic_mechanism_fts",
+              "rank": 1,
+              "weight": 1.25,
+              "score": 0.0204918
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 4,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 147.0,
+        "search_terms": [
+          "src/coordinators/purchasecoordinator.ets",
+          "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+          "commitpurchase",
+          "function",
+          "src",
+          "coordinators",
+          "purchasecoordinator",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "identifier",
+          "terms",
+          "commit",
+          "purchase",
+          "coordinator",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence",
+          "expanded_query:mechanism_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable",
+          "multi_term_method_evidence"
+        ]
+      }
+    ],
+    "locals": {
+      "focused": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        }
+      ],
+      "recalled": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "summary": "ArkTS class PurchaseCoordinator declared in src/coordinators/PurchaseCoordinator.ets; identifier terms: purchase coordinator",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:79973ef291501a1db1f75d01",
+          "qualified_name": "PurchaseCoordinator",
+          "signature": "class PurchaseCoordinator",
+          "start_line": 1,
+          "end_line": 11,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "coordinator",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05564516,
+            "best_rank": 2,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 80.5,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts class purchasecoordinator declared in src/coordinators/purchasecoordinator.ets; identifier terms: purchase coordinator",
+            "purchasecoordinator",
+            "class",
+            "src",
+            "coordinators",
+            "ets",
+            "arkts",
+            "declared",
+            "in",
+            "identifier",
+            "terms",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "summary": "ArkTS file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+          "language": "ArkTS",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05491803,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 46.4,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts",
+            "arkts file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "file",
+            "with",
+            "11",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "validationguard",
+            "conditionalbranch",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage"
+          ],
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 11
+        }
+      ],
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer."
+    }
+  },
+  {
+    "function": "preserve_salient_evidence_candidates",
+    "result": [
+      {
+        "id": 2,
+        "project_id": "9a01c79c546b1fe2",
+        "file_path": "src/coordinators/PurchaseCoordinator.ets",
+        "symbol": "commitPurchase",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:d587d31f42e623f44c564fac",
+        "qualified_name": "PurchaseCoordinator.commitPurchase",
+        "signature": "commitPurchase():void",
+        "start_line": 3,
+        "end_line": 10,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+        "evidence_class": "static",
+        "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+        "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+        "owner_name": "PurchaseCoordinator",
+        "owner_kind": "coordinator",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T15:45:25+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "method_body_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "semantic_mechanism_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.13606557,
+          "best_rank": 1,
+          "channel_count": 7,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "method_body_fts",
+              "rank": 1,
+              "weight": 0.8,
+              "score": 0.01311475
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "semantic_mechanism_fts",
+              "rank": 1,
+              "weight": 1.25,
+              "score": 0.0204918
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 4,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 147.0,
+        "search_terms": [
+          "src/coordinators/purchasecoordinator.ets",
+          "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+          "commitpurchase",
+          "function",
+          "src",
+          "coordinators",
+          "purchasecoordinator",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "identifier",
+          "terms",
+          "commit",
+          "purchase",
+          "coordinator",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence",
+          "expanded_query:mechanism_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable",
+          "multi_term_method_evidence"
+        ]
+      }
+    ],
+    "locals": {
+      "focused": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        }
+      ],
+      "recalled": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "summary": "ArkTS class PurchaseCoordinator declared in src/coordinators/PurchaseCoordinator.ets; identifier terms: purchase coordinator",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:79973ef291501a1db1f75d01",
+          "qualified_name": "PurchaseCoordinator",
+          "signature": "class PurchaseCoordinator",
+          "start_line": 1,
+          "end_line": 11,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "coordinator",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05564516,
+            "best_rank": 2,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 80.5,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts class purchasecoordinator declared in src/coordinators/purchasecoordinator.ets; identifier terms: purchase coordinator",
+            "purchasecoordinator",
+            "class",
+            "src",
+            "coordinators",
+            "ets",
+            "arkts",
+            "declared",
+            "in",
+            "identifier",
+            "terms",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "summary": "ArkTS file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+          "language": "ArkTS",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05491803,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 46.4,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts",
+            "arkts file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "file",
+            "with",
+            "11",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "validationguard",
+            "conditionalbranch",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage"
+          ],
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 11
+        }
+      ],
+      "limit": 2,
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "selected": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        }
+      ],
+      "item": {
+        "id": 1,
+        "project_id": "9a01c79c546b1fe2",
+        "file_path": "src/coordinators/PurchaseCoordinator.ets",
+        "summary": "ArkTS file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+        "language": "ArkTS",
+        "business_summary": null,
+        "business_terms": [],
+        "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T15:45:25+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "file_identity_fts",
+          "file_semantic_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.05491803,
+          "best_rank": 1,
+          "channel_count": 3,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "file_identity_fts",
+              "rank": 1,
+              "weight": 1.35,
+              "score": 0.02213115
+            },
+            {
+              "channel": "file_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            }
+          ]
+        },
+        "kind": "file",
+        "score": 46.4,
+        "search_terms": [
+          "src/coordinators/purchasecoordinator.ets",
+          "arkts",
+          "arkts file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+          "src",
+          "coordinators",
+          "purchasecoordinator",
+          "ets",
+          "file",
+          "with",
+          "11",
+          "non",
+          "empty",
+          "lines",
+          "behavior",
+          "validationguard",
+          "conditionalbranch",
+          "purchase",
+          "coordinator",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "expanded_query:file_path",
+          "expanded_query:search_terms",
+          "exact_path_segment",
+          "query_focus_coverage"
+        ],
+        "symbol": "PurchaseCoordinator",
+        "symbol_type": "class",
+        "start_line": 1,
+        "end_line": 11
+      },
+      "selected_paths": "{'src/coordinators/PurchaseCoordinator.ets'}",
+      "explicit_target_paths": "{'src/coordinators/PurchaseCoordinator.ets'}",
+      "complete_callable": false,
+      "added": 0,
+      "reasons": "{'expanded_query:file_path', 'expanded_query:search_terms', 'exact_path_segment', 'query_focus_coverage'}",
+      "path": "src/coordinators/PurchaseCoordinator.ets",
+      "focused_paths": "{'src/coordinators/PurchaseCoordinator.ets'}",
+      "expected": "set()"
+    }
+  },
+  {
+    "function": "diverse_code_matches",
+    "result": [
+      {
+        "id": 2,
+        "project_id": "9a01c79c546b1fe2",
+        "file_path": "src/coordinators/PurchaseCoordinator.ets",
+        "symbol": "commitPurchase",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:d587d31f42e623f44c564fac",
+        "qualified_name": "PurchaseCoordinator.commitPurchase",
+        "signature": "commitPurchase():void",
+        "start_line": 3,
+        "end_line": 10,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+        "evidence_class": "static",
+        "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+        "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+        "owner_name": "PurchaseCoordinator",
+        "owner_kind": "coordinator",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T15:45:25+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "method_body_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "semantic_mechanism_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.13606557,
+          "best_rank": 1,
+          "channel_count": 7,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "method_body_fts",
+              "rank": 1,
+              "weight": 0.8,
+              "score": 0.01311475
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "semantic_mechanism_fts",
+              "rank": 1,
+              "weight": 1.25,
+              "score": 0.0204918
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 4,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 147.0,
+        "search_terms": [
+          "src/coordinators/purchasecoordinator.ets",
+          "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+          "commitpurchase",
+          "function",
+          "src",
+          "coordinators",
+          "purchasecoordinator",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "identifier",
+          "terms",
+          "commit",
+          "purchase",
+          "coordinator",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence",
+          "expanded_query:mechanism_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable",
+          "multi_term_method_evidence"
+        ]
+      }
+    ],
+    "locals": {
+      "items": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        }
+      ],
+      "limit": 5,
+      "max_per_file": 2,
+      "query": "Locate PurchaseCoordinator.commitPurchase validating customerCode before placing an order and saving the customer.",
+      "recalled_items": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "summary": "ArkTS class PurchaseCoordinator declared in src/coordinators/PurchaseCoordinator.ets; identifier terms: purchase coordinator",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:79973ef291501a1db1f75d01",
+          "qualified_name": "PurchaseCoordinator",
+          "signature": "class PurchaseCoordinator",
+          "start_line": 1,
+          "end_line": 11,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "",
+          "string_evidence": "",
+          "mechanism_evidence": "[]",
+          "owner_name": "",
+          "owner_kind": "coordinator",
+          "callable_roles": "[]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05564516,
+            "best_rank": 2,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 2,
+                "weight": 1.45,
+                "score": 0.0233871
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 2,
+                "weight": 1.0,
+                "score": 0.01612903
+              }
+            ]
+          },
+          "method_evidence_coverage": 0,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 80.5,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts class purchasecoordinator declared in src/coordinators/purchasecoordinator.ets; identifier terms: purchase coordinator",
+            "purchasecoordinator",
+            "class",
+            "src",
+            "coordinators",
+            "ets",
+            "arkts",
+            "declared",
+            "in",
+            "identifier",
+            "terms",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "source_locatable"
+          ]
+        },
+        {
+          "id": 1,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "summary": "ArkTS file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+          "language": "ArkTS",
+          "business_summary": null,
+          "business_terms": [],
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "file_identity_fts",
+            "file_semantic_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.05491803,
+            "best_rank": 1,
+            "channel_count": 3,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "file_identity_fts",
+                "rank": 1,
+                "weight": 1.35,
+                "score": 0.02213115
+              },
+              {
+                "channel": "file_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              }
+            ]
+          },
+          "kind": "file",
+          "score": 46.4,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts",
+            "arkts file with 11 non-empty lines; behavior: validationguard, conditionalbranch",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "file",
+            "with",
+            "11",
+            "non",
+            "empty",
+            "lines",
+            "behavior",
+            "validationguard",
+            "conditionalbranch",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "expanded_query:file_path",
+            "expanded_query:search_terms",
+            "exact_path_segment",
+            "query_focus_coverage"
+          ],
+          "symbol": "PurchaseCoordinator",
+          "symbol_type": "class",
+          "start_line": 1,
+          "end_line": 11
+        }
+      ],
+      "focused": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        }
+      ],
+      "focused_candidates": true,
+      "item": {
+        "id": 2,
+        "project_id": "9a01c79c546b1fe2",
+        "file_path": "src/coordinators/PurchaseCoordinator.ets",
+        "symbol": "commitPurchase",
+        "symbol_type": "function",
+        "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+        "calls": "",
+        "business_summary": null,
+        "business_terms": [],
+        "symbol_key": "symbol:d587d31f42e623f44c564fac",
+        "qualified_name": "PurchaseCoordinator.commitPurchase",
+        "signature": "commitPurchase():void",
+        "start_line": 3,
+        "end_line": 10,
+        "semantic_adapter": "arkts-static@1.2",
+        "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+        "evidence_class": "static",
+        "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+        "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+        "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+        "owner_name": "PurchaseCoordinator",
+        "owner_kind": "coordinator",
+        "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+        "index_generation": 1,
+        "updated_at": "2026-11-13T15:45:25+00:00",
+        "recall_lanes": [
+          "broad_fts",
+          "method_body_fts",
+          "symbol_identity_fts",
+          "symbol_semantic_fts",
+          "string_key_fts",
+          "semantic_mechanism_fts",
+          "salient_string_fts"
+        ],
+        "recall_fusion": {
+          "provider": "reciprocal_rank_fusion/v1",
+          "score": 0.13606557,
+          "best_rank": 1,
+          "channel_count": 7,
+          "contributions": [
+            {
+              "channel": "broad_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "method_body_fts",
+              "rank": 1,
+              "weight": 0.8,
+              "score": 0.01311475
+            },
+            {
+              "channel": "symbol_identity_fts",
+              "rank": 1,
+              "weight": 1.45,
+              "score": 0.02377049
+            },
+            {
+              "channel": "symbol_semantic_fts",
+              "rank": 1,
+              "weight": 1.0,
+              "score": 0.01639344
+            },
+            {
+              "channel": "string_key_fts",
+              "rank": 1,
+              "weight": 1.2,
+              "score": 0.01967213
+            },
+            {
+              "channel": "semantic_mechanism_fts",
+              "rank": 1,
+              "weight": 1.25,
+              "score": 0.0204918
+            },
+            {
+              "channel": "salient_string_fts",
+              "rank": 1,
+              "weight": 1.6,
+              "score": 0.02622951
+            }
+          ]
+        },
+        "method_evidence_coverage": 4,
+        "semantic_behavior_coverage": 0,
+        "kind": "symbol",
+        "score": 147.0,
+        "search_terms": [
+          "src/coordinators/purchasecoordinator.ets",
+          "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+          "commitpurchase",
+          "function",
+          "src",
+          "coordinators",
+          "purchasecoordinator",
+          "ets",
+          "arkts",
+          "or",
+          "lifecycle",
+          "method",
+          "in",
+          "identifier",
+          "terms",
+          "commit",
+          "purchase",
+          "coordinator",
+          "ark",
+          "ts",
+          "harmonyos",
+          "component",
+          "page"
+        ],
+        "match_reasons": [
+          "exact_symbol",
+          "expanded_query:file_path",
+          "expanded_query:symbol",
+          "expanded_query:symbol_summary",
+          "expanded_query:search_terms",
+          "expanded_query:method_evidence",
+          "expanded_query:string_evidence",
+          "expanded_query:mechanism_evidence",
+          "exact_path_segment",
+          "query_focus_coverage",
+          "multi_concept_coverage",
+          "salient_query_evidence",
+          "source_locatable",
+          "multi_term_method_evidence"
+        ]
+      },
+      "selected": [
+        {
+          "id": 2,
+          "project_id": "9a01c79c546b1fe2",
+          "file_path": "src/coordinators/PurchaseCoordinator.ets",
+          "symbol": "commitPurchase",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method commitPurchase in src/coordinators/PurchaseCoordinator.ets; identifier terms: commit purchase",
+          "calls": "",
+          "business_summary": null,
+          "business_terms": [],
+          "symbol_key": "symbol:d587d31f42e623f44c564fac",
+          "qualified_name": "PurchaseCoordinator.commitPurchase",
+          "signature": "commitPurchase():void",
+          "start_line": 3,
+          "end_line": 10,
+          "semantic_adapter": "arkts-static@1.2",
+          "source_digest": "2ced8fa3e3494a0e0022af518f88d21c9ea5bc2787b256cc249811e4bddba0d6",
+          "evidence_class": "static",
+          "method_evidence": "customercode customer code trim promptaction prompt action showtoast show toast purchaseclient purchase client placeorder place order appstorage app storage setorcreate set create commit stateread state read statebranch branch conditional",
+          "string_evidence": "customer code is required lastpurchasecustomer last purchase customer",
+          "mechanism_evidence": "[{\"confidence\":0.9,\"detail\":\"conditional guard\",\"evidence_class\":\"static\",\"kind\":\"guard\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"guard\",\"conditional\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:customercode.trim\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"bounded resource comparison\",\"evidence_class\":\"static\",\"kind\":\"resource_bound\",\"line\":4,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"resource_bound\",\"resourcebound\",\"resource\",\"bound\",\"size\",\"limit\",\"maximum\",\"customer\",\"code\"]},{\"confidence\":0.9,\"detail\":\"call:promptaction.showtoast\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":5,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:purchaseclient.placeorder\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":8,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"call:appstorage.setorcreate\",\"evidence_class\":\"static\",\"kind\":\"operation\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"operation\",\"call\"]},{\"confidence\":0.9,\"detail\":\"persistence_write:AppStorage.SetOrCreate\",\"evidence_class\":\"static\",\"kind\":\"persistence_write\",\"line\":9,\"source_key\":\"symbol:d587d31f42e623f44c564fac\",\"terms\":[\"persistence_write\",\"persistencewrite\",\"persistence\",\"write\",\"save\",\"commit\",\"app\",\"storage\",\"set\",\"or\",\"create\"]}]",
+          "owner_name": "PurchaseCoordinator",
+          "owner_kind": "coordinator",
+          "callable_roles": "[\"source_operation_checked:v2.1\", \"source_operation_unresolved:persistenceread\"]",
+          "index_generation": 1,
+          "updated_at": "2026-11-13T15:45:25+00:00",
+          "recall_lanes": [
+            "broad_fts",
+            "method_body_fts",
+            "symbol_identity_fts",
+            "symbol_semantic_fts",
+            "string_key_fts",
+            "semantic_mechanism_fts",
+            "salient_string_fts"
+          ],
+          "recall_fusion": {
+            "provider": "reciprocal_rank_fusion/v1",
+            "score": 0.13606557,
+            "best_rank": 1,
+            "channel_count": 7,
+            "contributions": [
+              {
+                "channel": "broad_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "method_body_fts",
+                "rank": 1,
+                "weight": 0.8,
+                "score": 0.01311475
+              },
+              {
+                "channel": "symbol_identity_fts",
+                "rank": 1,
+                "weight": 1.45,
+                "score": 0.02377049
+              },
+              {
+                "channel": "symbol_semantic_fts",
+                "rank": 1,
+                "weight": 1.0,
+                "score": 0.01639344
+              },
+              {
+                "channel": "string_key_fts",
+                "rank": 1,
+                "weight": 1.2,
+                "score": 0.01967213
+              },
+              {
+                "channel": "semantic_mechanism_fts",
+                "rank": 1,
+                "weight": 1.25,
+                "score": 0.0204918
+              },
+              {
+                "channel": "salient_string_fts",
+                "rank": 1,
+                "weight": 1.6,
+                "score": 0.02622951
+              }
+            ]
+          },
+          "method_evidence_coverage": 4,
+          "semantic_behavior_coverage": 0,
+          "kind": "symbol",
+          "score": 147.0,
+          "search_terms": [
+            "src/coordinators/purchasecoordinator.ets",
+            "arkts function or lifecycle method commitpurchase in src/coordinators/purchasecoordinator.ets; identifier terms: commit purchase",
+            "commitpurchase",
+            "function",
+            "src",
+            "coordinators",
+            "purchasecoordinator",
+            "ets",
+            "arkts",
+            "or",
+            "lifecycle",
+            "method",
+            "in",
+            "identifier",
+            "terms",
+            "commit",
+            "purchase",
+            "coordinator",
+            "ark",
+            "ts",
+            "harmonyos",
+            "component",
+            "page"
+          ],
+          "match_reasons": [
+            "exact_symbol",
+            "expanded_query:file_path",
+            "expanded_query:symbol",
+            "expanded_query:symbol_summary",
+            "expanded_query:search_terms",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "expanded_query:mechanism_evidence",
+            "exact_path_segment",
+            "query_focus_coverage",
+            "multi_concept_coverage",
+            "salient_query_evidence",
+            "source_locatable",
+            "multi_term_method_evidence"
+          ]
+        }
+      ],
+      "deferred": [],
+      "file_counts": {
+        "src/coordinators/PurchaseCoordinator.ets": 1
+      },
+      "selected_terms": [
+        "{'coordinators', 'commit', 'commitpurchase', 'coordinator', 'purchasecoordinator', 'purchase'}"
+      ],
+      "direct_scores": [
+        147.0
+      ],
+      "seed_score": 147.0,
+      "index": 0,
+      "file_path": "src/coordinators/PurchaseCoordinator.ets",
+      "reserved_graph_lane": false,
+      "explicit_target": false,
+      "weak_graph_neighbor": false,
+      "explicit_paths": "set()",
+      "terms": "{'coordinators', 'commit', 'commitpurchase', 'coordinator', 'purchasecoordinator', 'purchase'}"
+    }
+  }
+]
