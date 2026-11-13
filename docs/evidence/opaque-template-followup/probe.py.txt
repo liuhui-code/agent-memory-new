@@ -1,0 +1,17 @@
+import json,tempfile,sys
+from pathlib import Path
+sys.path.insert(0,str(Path.cwd()))
+from tests.agent_memory_test_base import AgentMemoryTestBase
+b=AgentMemoryTestBase();e=Path('docs/evidence/opaque-template-followup');p=json.loads((e/'protocol.json').read_text());out=[]
+with tempfile.TemporaryDirectory() as d:
+ root=Path(d)
+ for name,s in p['sources'].items():(root/name).write_text(s)
+ b.run_memory(root,'init');b.run_memory(root,'learn-path','--path','.')
+ for case in p['queries']:
+  for compact in (False,True):
+   args=['context','--query',case['query'],'--json']
+   if compact:args.append('--compact')
+   data=json.loads(b.run_memory(root,*args).stdout)
+   out.append({'case':case,'compact':compact,'output':data})
+   print(compact,case['query'],data['query_handoff']['log_anchors'],data['query_handoff'].get('path_context'))
+(e/'baseline.json').write_text(json.dumps(out,indent=2))
