@@ -1,0 +1,80 @@
+{
+  "classification": "independent Development, preregistered fixed four-query pass",
+  "base": "c711f32f153be12c73a454a418e691b03cc4f041",
+  "proposal": "docs/eval/local-binding-proposal/README.zh-CN.md",
+  "stop": "Run exactly these four raw+compact queries once; no substitutions or added noise. If generic passes stop; if fails inspect existing indexed/returned evidence only, no serving changes.",
+  "sources": {
+    "FocusBinding.ets": "export class FocusBinding {\n  private canFocus: boolean = false;\n  attach(viewport: WindowViewport): void {\n    viewport.on('keyboardHeightChange', (pixels: number) => {\n      if (pixels > 0) {\n        this.canFocus = true;\n      } else {\n        this.canFocus = false;\n      }\n    });\n  }\n}\n",
+    "RegistrationOnly.ets": "export class RegistrationOnly {\n  attach(viewport: WindowViewport): void {\n    viewport.on('keyboardHeightChange', (pixels: number) => {});\n  }\n}\n",
+    "FocusPreference.ets": "@Component\nexport struct FocusPreference {\n  @State canFocus: boolean = false;\n  build() {\n    Button('Enable focus').onClick(() => {\n      this.canFocus = true;\n    });\n  }\n}\n",
+    "StatusText.ets": "@Component\nexport struct StatusText {\n  build() {\n    Text('keyboard height focus');\n  }\n}\n",
+    "OtherViewport.ets": "export class OtherViewport {\n  private available: boolean = false;\n  attach(display: DisplayViewport): void {\n    display.on('visibilityChange', (visible: boolean) => {\n      this.available = visible;\n    });\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "id": "generic",
+      "query": "键盘高度变化后，请定位根据事件高度设置输入焦点开关的注册回调。",
+      "required": [
+        "FocusBinding.ets"
+      ],
+      "forbidden": [
+        "RegistrationOnly.ets",
+        "FocusPreference.ets",
+        "StatusText.ets",
+        "OtherViewport.ets"
+      ],
+      "source_fragments": {
+        "FocusBinding.ets": [
+          "viewport.on('keyboardHeightChange'",
+          "if (pixels > 0)",
+          "this.canFocus = true;",
+          "this.canFocus = false;"
+        ]
+      }
+    },
+    {
+      "id": "explicit",
+      "query": "Find FocusBinding.attach source.",
+      "required": [
+        "FocusBinding.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {
+        "FocusBinding.ets": [
+          "viewport.on('keyboardHeightChange'",
+          "this.canFocus = true;",
+          "this.canFocus = false;"
+        ]
+      }
+    },
+    {
+      "id": "two",
+      "query": "Find both FocusBinding and FocusPreference source.",
+      "required": [
+        "FocusBinding.ets",
+        "FocusPreference.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {},
+      "note": "Required identity recall only; extras separately reported, not perfect precision."
+    },
+    {
+      "id": "literal",
+      "query": "Find the literal keyboard height focus.",
+      "required": [
+        "StatusText.ets"
+      ],
+      "forbidden": [],
+      "source_fragments": {
+        "StatusText.ets": [
+          "Text('keyboard height focus')"
+        ]
+      }
+    }
+  ],
+  "oracle_notes": [
+    "Generic has one real event-height-controlled focus write owner. Forbidden competitors implement only different duties.",
+    "Source-byte coverage and identity recall recorded separately; range metadata does not prove body completeness.",
+    "All compact outputs must remain within existing 1500 token budget."
+  ]
+}
