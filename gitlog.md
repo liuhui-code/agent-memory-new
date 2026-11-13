@@ -11685,3 +11685,8 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
   field identity focus differs from original and is not claimed identical.
 - No native/build exception, score/query/oracle edit or serving change. Evidence:
   docs/eval/canonical-current.
+## Explicit same-file callable source controls
+
+- Freeze four independent public queries before execution. All already retain the requested source bodies; pair evidence remains uncertain, named single controls bounded.
+- Do not broaden multiple-target or field contracts without a red. Preserve results as a no-change control, not an original failure repair.
+- Evidence: docs/eval/same-file-explicit-pair; no runtime or original-pack changes.
