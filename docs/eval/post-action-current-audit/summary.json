@@ -1,0 +1,106 @@
+{
+  "base": "bc92352 runtime equivalent 8ce567b",
+  "original_summary": {
+    "case_count": 3,
+    "passed_case_count": 2,
+    "failed_case_count": 1,
+    "scenario_count": 1,
+    "stable_scenario_count": 0,
+    "query_variant_pass_rate": 0.6667,
+    "staged_scenario_count": 0,
+    "complete_staged_scenario_count": 0,
+    "average_context_tokens": 1364.3333,
+    "average_memory_prepare_ms": 1822.0,
+    "average_query_elapsed_ms": 452.0
+  },
+  "raw_paths": [
+    "src/stores/LightingStore.ets",
+    "src/models/InteractionState.ets",
+    "src/pages/CommandOutputPage.ets"
+  ],
+  "compact_paths": [
+    "src/stores/LightingStore.ets",
+    "src/models/InteractionState.ets",
+    "src/pages/CommandOutputPage.ets"
+  ],
+  "callable_primary": {
+    "file_path": "src/pages/DraftPage.ets",
+    "symbol": "reloadPreview",
+    "owner_name": "DraftPage",
+    "owner_kind": "component",
+    "file_structural_coverage": 2,
+    "callable_roles": [
+      "state_write",
+      "source_operation_checked:v2.1"
+    ],
+    "score": 34.735,
+    "evidence_score": 34.735,
+    "reasons": [
+      "expanded_query:symbol",
+      "expanded_query:summary",
+      "expanded_query:method_evidence",
+      "first_stage_rank_prior"
+    ],
+    "source_range": {
+      "start_line": 10,
+      "end_line": 12,
+      "selection_reason": "callable_symbol_range"
+    }
+  },
+  "primary_in_anchors": false,
+  "target_anchor": {
+    "file_path": "src/stores/LightingStore.ets",
+    "symbol": "LightingStore",
+    "symbol_type": "class",
+    "record_ids": [
+      125
+    ],
+    "record_type": "code_file",
+    "source_ranges": [
+      {
+        "symbol": "LightingStore",
+        "start_line": 1,
+        "end_line": 13
+      }
+    ],
+    "summary": "ArkTS file with 11 non-empty lines; behavior: repositoryboundary, actiondispatch, lifecyclesync, datasourceboundary, statewrite, asyncboundary",
+    "read_window": {
+      "start_line": 1,
+      "end_line": 13
+    },
+    "role": "primary",
+    "source_excerpts": [
+      {
+        "symbol": "LightingStore",
+        "start_line": 1,
+        "end_line": 9,
+        "content": "export class LightingStore {\n  @State current: LightState = new LightState()\n  private repository: LightingRepository\n\n  async runCommand(command: LightCommand): Promise<void> {\n    await this.repository.executeAction(command)\n  }\n\n  async refreshState(): Promise<void> {",
+        "source": "current_worktree",
+        "selection_reason": "anchor_range",
+        "focus_line": null,
+        "truncated": true
+      }
+    ]
+  },
+  "required_range": {
+    "start_line": 5,
+    "end_line": 13
+  },
+  "actual_excerpt_range": {
+    "start_line": 1,
+    "end_line": 9
+  },
+  "missing_required_lines": [
+    10,
+    11,
+    12,
+    13
+  ],
+  "budget": {
+    "estimated_tokens": 1479,
+    "target_tokens": 1500,
+    "truncated": false
+  },
+  "recovery_first_reject": "multiple anchors and primary.file_path appears zero times; recovery returns original before safe_source_path or any source open",
+  "existing_contract": "primary exact file/symbol/range binding and private raw rows; no new reads/JSON authority permitted"
+}

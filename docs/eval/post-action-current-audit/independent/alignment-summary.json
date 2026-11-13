@@ -1,0 +1,167 @@
+[
+  {
+    "id": "generic",
+    "pass": true,
+    "raw_paths": [
+      "FanStateStore.ets",
+      "CommandReceiptPage.ets",
+      "NotePreviewPage.ets"
+    ],
+    "primary": {
+      "file_path": "FanStateStore.ets",
+      "symbol": "reloadStatus",
+      "owner_name": "FanStateStore",
+      "owner_kind": "store",
+      "file_structural_coverage": 3,
+      "callable_roles": [
+        "async",
+        "state_write",
+        "source_operation_checked:v2.1",
+        "source_operation_unresolved:persistenceread"
+      ],
+      "score": 36.0,
+      "evidence_score": 36.0,
+      "reasons": [
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence",
+        "first_stage_rank_prior"
+      ],
+      "source_range": {
+        "start_line": 7,
+        "end_line": 9,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "primary_in_raw_paths": true,
+    "compact_paths": [
+      "FanStateStore.ets"
+    ],
+    "missing_source_fragments": {},
+    "extra_paths": []
+  },
+  {
+    "id": "explicit-owner",
+    "pass": true,
+    "raw_paths": [
+      "FanStateStore.ets",
+      "CommandReceiptPage.ets"
+    ],
+    "primary": {
+      "file_path": "FanStateStore.ets",
+      "symbol": "sendCommand",
+      "owner_name": "FanStateStore",
+      "owner_kind": "store",
+      "callable_roles": [
+        "async",
+        "source_operation_checked:v2.1"
+      ],
+      "score": 56.5,
+      "evidence_score": 56.5,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "primary_in_raw_paths": true,
+    "compact_paths": [
+      "FanStateStore.ets",
+      "CommandReceiptPage.ets"
+    ],
+    "missing_source_fragments": {},
+    "extra_paths": [
+      "CommandReceiptPage.ets"
+    ]
+  },
+  {
+    "id": "actual-preview",
+    "pass": true,
+    "raw_paths": [
+      "NotePreviewPage.ets",
+      "FanStateStore.ets",
+      "NotePreviewPage.ets"
+    ],
+    "primary": {
+      "file_path": "NotePreviewPage.ets",
+      "symbol": "reloadPreview",
+      "owner_name": "NotePreviewPage",
+      "owner_kind": "component",
+      "callable_roles": [
+        "async",
+        "state_write",
+        "source_operation_checked:v2.1",
+        "source_operation_unresolved:persistenceread"
+      ],
+      "score": 53.0,
+      "evidence_score": 53.0,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 5,
+        "end_line": 7,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "primary_in_raw_paths": true,
+    "compact_paths": [
+      "NotePreviewPage.ets"
+    ],
+    "missing_source_fragments": {},
+    "extra_paths": []
+  },
+  {
+    "id": "explicit-multiple",
+    "pass": true,
+    "raw_paths": [
+      "FanStateStore.ets",
+      "CommandReceiptPage.ets",
+      "FanStateStore.ets",
+      "CommandReceiptPage.ets",
+      "NotePreviewPage.ets"
+    ],
+    "primary": {
+      "file_path": "FanStateStore.ets",
+      "symbol": "sendCommand",
+      "owner_name": "FanStateStore",
+      "owner_kind": "store",
+      "callable_roles": [
+        "async",
+        "source_operation_checked:v2.1"
+      ],
+      "score": 56.5,
+      "evidence_score": 56.5,
+      "reasons": [
+        "exact_symbol",
+        "expanded_query:symbol",
+        "expanded_query:summary",
+        "expanded_query:method_evidence"
+      ],
+      "source_range": {
+        "start_line": 4,
+        "end_line": 6,
+        "selection_reason": "callable_symbol_range"
+      }
+    },
+    "primary_in_raw_paths": true,
+    "compact_paths": [
+      "FanStateStore.ets",
+      "CommandReceiptPage.ets",
+      "NotePreviewPage.ets"
+    ],
+    "missing_source_fragments": {},
+    "extra_paths": [
+      "NotePreviewPage.ets"
+    ]
+  }
+]

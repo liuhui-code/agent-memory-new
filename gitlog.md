@@ -1,5 +1,12 @@
 # Local Development Log
 
+## 2026-11-14 — Recheck post-action primary alignment and actual source completeness
+
+- Current selected group remains 2/3: English precision 1/3 and LightingStore excerpt lines 1–9 omit required 10–13 despite overlap metric passing.
+- Callable primary remains absent DraftPage.reloadPreview; multi-anchor recovery correctly abstains before opening a source under existing binding contract.
+- Freeze and execute one four-query independent public experiment. All meet fixed source/owner/budget oracles with primary present in raw anchors; the mismatch was not reproduced. Stop without extra samples or runtime changes.
+- Evidence: docs/eval/post-action-current-audit/README.md. No full gate or new original repair claim.
+
 ## 2026-11-14 — Trace reactive aggregate loss without changing ranking
 
 - Five independently frozen public numeric/UI/traversal queries retain required source and owners; no same-layer missing-owner red was manufactured.
