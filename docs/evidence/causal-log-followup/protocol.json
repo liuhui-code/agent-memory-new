@@ -13,5 +13,20 @@
   ],
   "emitter": "AuditService.ets",
   "budget": 1500,
-  "contract": "Preserve both already reconstructed same-emitter caller branches if they fit the existing budget after lossless duplicate metadata removal; no extra paths, roots, source changes or numeric budget increases."
+  "contract": "Preserve both already reconstructed same-emitter caller branches if they fit the existing budget after lossless duplicate metadata removal; no extra paths, roots, source changes or numeric budget increases.",
+  "layout_control": {
+    "mapping": {
+      "AuditService.ets": "src/services/AuditService.ets",
+      "StartupCoordinator.ets": "src/runtime/StartupCoordinator.ets",
+      "SessionPanel.ets": "src/ui/SessionPanel.ets"
+    },
+    "hypothesis": "Same independent code and exact log in conventional nested layout; retain two caller entries only if lossless duplicate range metadata removal makes them fit. Flat layout is passing baseline, not claimed repaired."
+  },
+  "additional_controls": [
+    "single caller retains one existing path",
+    "three callers never invent extra paths or exceed unchanged budget",
+    "range annotations with conflicting metadata cannot merge",
+    "duplicate range strict subset preserves every field in richer retained range",
+    "source freshness/path IDs/uncertainty and source text unchanged by dedupe helper"
+  ]
 }
