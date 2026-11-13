@@ -1,0 +1,10 @@
+{
+  "classification": "independent Development frozen budget probe",
+  "sources": {
+    "ByteFormatter.ts": "export function formatBytes(input: number[]): string {\n  let output = \"\"\n  const slot0 = (input[0] || 0).toString(16).padStart(2, \"0\")\n  const slot1 = (input[1] || 0).toString(16).padStart(2, \"0\")\n  const slot2 = (input[2] || 0).toString(16).padStart(2, \"0\")\n  const slot3 = (input[3] || 0).toString(16).padStart(2, \"0\")\n  const slot4 = (input[4] || 0).toString(16).padStart(2, \"0\")\n  const slot5 = (input[5] || 0).toString(16).padStart(2, \"0\")\n  const slot6 = (input[6] || 0).toString(16).padStart(2, \"0\")\n  const slot7 = (input[7] || 0).toString(16).padStart(2, \"0\")\n  const slot8 = (input[8] || 0).toString(16).padStart(2, \"0\")\n  const slot9 = (input[9] || 0).toString(16).padStart(2, \"0\")\n  const slot10 = (input[10] || 0).toString(16).padStart(2, \"0\")\n  const slot11 = (input[11] || 0).toString(16).padStart(2, \"0\")\n  output = slot0 + slot1 + slot2 + slot3 + slot4 + slot5 + slot6 + slot7 + slot8 + slot9 + slot10 + slot11\n  return output.toUpperCase()\n }\n",
+    "StatusPanel.ts": "export function statusDescription(): string {\n return \"byte format diagnostic status information\"\n}\n",
+    "AuditPresenter.ts": "export function auditDescription(): string {\n return \"byte format verification audit details\"\n}\n"
+  },
+  "query": "Return formatBytes together with statusDescription and auditDescription.",
+  "expectation": "Existing selected formatter full method may be restored only if all other anchors, roles, sources, logs and paths unchanged and strict caps fit; no unique target/precision claim."
+}
