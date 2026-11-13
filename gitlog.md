@@ -11,6 +11,12 @@
 - Distinguish timestamp scan/select/remove from access recency or LRU; one delete does not guarantee size <= limit. Preserve real FIFO, literal and indirect implementations as evidence rather than absence.
 - Read shared-record frozen controls: broad query is exploratory, exact controls pass, and reduction/return is not the cache paired-key/same-receiver deletion contract.
 - Do not count these as two independently proved failures of one new abstraction. Docs only; no query, fixture, runtime or test changes. See docs/eval/cache-shared-contract-challenge/README.md.
+## 2026-11-14 — Review sole-literal source fact across cache and output competition
+
+- Confirm literal-return bodies and frozen operation queries in two domains; distinguish output's early budget loss from its later post-dedupe lexical-localizer loss.
+- A shared negative syntax fact merits bounded feasibility review, not automatic serving/architecture approval or positive source-operation authority.
+- Preserve explicit/text/log/mixed/unknown/FIFO/indirect controls and unchanged strict output oracles. No new queries, tests, runtime changes or certificate widening.
+- Details: docs/eval/sole-literal-contract-review/README.md.
 
 ## 2026-11-14 — Review focus/localizer conflict without approving architecture
 
