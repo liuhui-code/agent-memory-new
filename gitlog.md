@@ -11139,3 +11139,11 @@ source symbol/range is parser-confirmed and the union fits the existing line cap
 Never prepend or replace old context. Five independent public controls preserve
 all old lines and rankings; four label requests now include their missing body.
 Seventeen related excerpt/callback tests pass. No full acceptance claim.
+
+## Integrate callable-local owner evidence after source-tail repair
+
+Cherry-pick bounded method evidence and partial-salience protection onto the
+published source-tail stage. 74 related tests: 73 pass, one existing expected
+failure. Adjacent-collection scenario passes 3/3, including two former English
+failures. Full evaluation remains deferred; independent callable-primary metadata
+inconsistency is still open. See docs/evidence/owner-integration/RESULT.md.
