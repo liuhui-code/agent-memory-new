@@ -277,7 +277,7 @@ def multiple_requested_anchors_present(
             and not re.search(r"\b(?:strings?|text|literals?)\b|字符串|字面量|文本", positive, re.I)):
         for anchor in anchors:
             name = str(anchor.get("symbol") or "")
-            if (anchor.get("symbol_type") in {"class", "component", "struct"}
+            if (anchor.get("symbol_type") in {"class", "component", "struct", "interface"}
                     and valid_retained_range(anchor) and name
                     and re.sub(r"[^a-z0-9]", "", name.casefold()) not in excluded
                     and re.search(r"(?<![\w$.])" + re.escape(name) + r"(?![\w$.])", positive)):

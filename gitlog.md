@@ -11542,3 +11542,12 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Froze and ran independent operation, declaration, composite and logging controls; retained two red boundaries instead of changing weights or oracles.
 - Corrected source-span reporting: overlap success is not full excerpt delivery; compact excerpts remain budget-truncated.
 - 20 existing related tests pass; no full evaluation. Details: docs/eval/structural-role-current/README.md.
+
+
+## Explicit interface composite projection retention
+
+- Independent public red showed raw PacketScaler + UnitSpec declarations narrowed to the callable file only.
+- Add interface to existing explicit unique multi-declaration retention guard; no new portfolio authority or retrieval/ranking changes.
+- Preserve single-interface, actual dual-callable, generic multi/two-action, excluded/quoted and same-name ambiguity behavior.
+- 25 focused tests (including 3 new) and separate 52 projection regressions pass; fingerprint passes. Long-interface budget addendum retains identities under 1500 without claiming full source.
+- Native-color remains 2/3; no full evaluation or new historical repair count. See docs/eval/named-interface-retention/README.md.
