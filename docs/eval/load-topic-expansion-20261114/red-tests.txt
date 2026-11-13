@@ -1,0 +1,64 @@
+test_explicit_other_triggers_preserve_prior_translation (tests.test_load_topic_expansion.LoadTopicExpansionTests.test_explicit_other_triggers_preserve_prior_translation) ... ok
+test_generic_loading_does_not_imply_network_or_user (tests.test_load_topic_expansion.LoadTopicExpansionTests.test_generic_loading_does_not_imply_network_or_user) ... FAIL
+test_public_local_loaders_keep_real_source (tests.test_load_topic_expansion.LoadTopicExpansionTests.test_public_local_loaders_keep_real_source) ... 
+  test_public_local_loaders_keep_real_source (tests.test_load_topic_expansion.LoadTopicExpansionTests.test_public_local_loaders_keep_real_source) (query='定位加载 texture 的方法。') ... FAIL
+  test_public_local_loaders_keep_real_source (tests.test_load_topic_expansion.LoadTopicExpansionTests.test_public_local_loaders_keep_real_source) (query='定位加载 scene 的方法。') ... FAIL
+  test_public_local_loaders_keep_real_source (tests.test_load_topic_expansion.LoadTopicExpansionTests.test_public_local_loaders_keep_real_source) (query='定位 NetworkClient 的网络请求方法。') ... FAIL
+
+======================================================================
+FAIL: test_generic_loading_does_not_imply_network_or_user (tests.test_load_topic_expansion.LoadTopicExpansionTests.test_generic_loading_does_not_imply_network_or_user)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/load-translation-investigation/tests/test_load_topic_expansion.py", line 14, in test_generic_loading_does_not_imply_network_or_user
+    self.assertFalse(tokens & {'request', 'fetch', 'network', 'profile', 'account', 'user', 'data'})
+AssertionError: {'request', 'account', 'fetch', 'network', 'data', 'profile', 'user'} is not false
+
+======================================================================
+FAIL: test_public_local_loaders_keep_real_source (tests.test_load_topic_expansion.LoadTopicExpansionTests.test_public_local_loaders_keep_real_source) (query='定位加载 texture 的方法。')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/load-translation-investigation/tests/test_load_topic_expansion.py", line 39, in test_public_local_loaders_keep_real_source
+    self.assertEqual([case['expected']], [a['file_path'] for a in anchors])
+AssertionError: Lists differ: ['TextureDecoder.ts'] != ['ProfileService.ts']
+
+First differing element 0:
+'TextureDecoder.ts'
+'ProfileService.ts'
+
+- ['TextureDecoder.ts']
++ ['ProfileService.ts']
+
+======================================================================
+FAIL: test_public_local_loaders_keep_real_source (tests.test_load_topic_expansion.LoadTopicExpansionTests.test_public_local_loaders_keep_real_source) (query='定位加载 scene 的方法。')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/load-translation-investigation/tests/test_load_topic_expansion.py", line 39, in test_public_local_loaders_keep_real_source
+    self.assertEqual([case['expected']], [a['file_path'] for a in anchors])
+AssertionError: Lists differ: ['SceneReader.ts'] != ['ProfileService.ts']
+
+First differing element 0:
+'SceneReader.ts'
+'ProfileService.ts'
+
+- ['SceneReader.ts']
++ ['ProfileService.ts']
+
+======================================================================
+FAIL: test_public_local_loaders_keep_real_source (tests.test_load_topic_expansion.LoadTopicExpansionTests.test_public_local_loaders_keep_real_source) (query='定位 NetworkClient 的网络请求方法。')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/dcdb41e16594/recovery-current/load-translation-investigation/tests/test_load_topic_expansion.py", line 39, in test_public_local_loaders_keep_real_source
+    self.assertEqual([case['expected']], [a['file_path'] for a in anchors])
+AssertionError: Lists differ: ['NetworkClient.ts'] != ['NetworkClient.ts', 'ProfileService.ts', 'SceneReader.ts', 'TextureDecoder.ts']
+
+Second list contains 3 additional elements.
+First extra element 1:
+'ProfileService.ts'
+
+- ['NetworkClient.ts']
++ ['NetworkClient.ts', 'ProfileService.ts', 'SceneReader.ts', 'TextureDecoder.ts']
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.172s
+
+FAILED (failures=4)

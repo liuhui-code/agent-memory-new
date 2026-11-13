@@ -11408,3 +11408,10 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Record per-group first observed admission and missing event-callback/state-binding
   contracts in docs/eval/owner-audit-current/README.md. No runtime/oracle changes,
   full suite, new holdout or remote write. All new Python files retain fingerprint.
+## 2026-11-14 - Freeze generic loading translation Development red
+
+- Independent local texture and scene loaders are displaced by ProfileService only
+  when the Chinese generic loading verb is present; actual public compact outputs
+  and unmodified source assertions reproduce the error before serving changes.
+- User-profile and explicitly named network controls are retained. The generic
+  network-only request is already red and remains a separately recorded limitation.

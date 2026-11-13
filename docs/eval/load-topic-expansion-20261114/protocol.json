@@ -1,0 +1,39 @@
+{
+  "classification": "independent Development",
+  "sources": {
+    "TextureDecoder.ts": "export class TextureDecoder {\n  loadTexture(bytes: Uint8Array): Texture {\n    return this.decoder.decodeTexture(bytes)\n  }\n}\n",
+    "SceneReader.ts": "export class SceneReader {\n  loadScene(path: string): Scene {\n    return this.disk.readScene(path)\n  }\n}\n",
+    "ProfileService.ts": "export class ProfileService {\n  loadProfile(): string {\n    return this.userAccount.fetchProfileData()\n  }\n}\n",
+    "NetworkClient.ts": "export class NetworkClient {\n  request(url: string): string {\n    return this.network.fetch(url)\n  }\n}\n"
+  },
+  "queries": [
+    {
+      "query": "定位加载 texture 的方法。",
+      "expected": "TextureDecoder.ts"
+    },
+    {
+      "query": "定位 texture 的方法。",
+      "expected": "TextureDecoder.ts"
+    },
+    {
+      "query": "定位加载 scene 的方法。",
+      "expected": "SceneReader.ts"
+    },
+    {
+      "query": "定位 scene 的方法。",
+      "expected": "SceneReader.ts"
+    },
+    {
+      "query": "定位加载用户资料的方法。",
+      "expected": "ProfileService.ts"
+    },
+    {
+      "query": "定位网络请求的方法。",
+      "expected": "NetworkClient.ts"
+    },
+    {
+      "query": "定位 NetworkClient 的网络请求方法。",
+      "expected": "NetworkClient.ts"
+    }
+  ]
+}
