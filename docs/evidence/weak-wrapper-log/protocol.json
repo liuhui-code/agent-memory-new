@@ -1,0 +1,33 @@
+{
+  "base": "17083b2",
+  "classification": "development",
+  "sources": {
+    "TabReader.ets": "export class TabReader {\n  private pending: number = 0\n  private text: string = ''\n  async select(tab: number): Promise<void> {\n    this.pending = tab\n    const text = await provider.read(tab)\n    if (tab !== this.pending) {\n      return\n    }\n    this.text = text\n  }\n}\n",
+    "EntryWriter.ets": "export class EntryWriter {\n  private text: string = ''\n  async save(text: string): Promise<void> {\n    await repository.save(text)\n    this.text = text\n  }\n}\n",
+    "TabIndicator.ets": "export class TabIndicator {\n  private pending: number = 0\n  setPending(tab: number): void { this.pending = tab }\n}\n",
+    "Telemetry.ets": "export class Telemetry {\n  reportPacket(): void {\n    console.error('packet buffered after reconnect')\n  }\n}\n",
+    "RetryPanel.ets": "import { Telemetry } from './Telemetry'\nexport class RetryPanel {\n  private telemetry: Telemetry = new Telemetry()\n  retry(): void { this.telemetry.reportPacket() }\n}\n"
+  },
+  "queries": [
+    {
+      "query": "Repeated entry changes after tapping can show an older asynchronous result; locate loading and visible state assignment ownership.",
+      "required": "TabReader.ets",
+      "excluded": [
+        "RetryPanel.ets",
+        "Telemetry.ets",
+        "EntryWriter.ets",
+        "TabIndicator.ets"
+      ]
+    },
+    {
+      "query": "Locate the log packet buffered after reconnect.",
+      "required": "RetryPanel.ets",
+      "excluded": []
+    },
+    {
+      "query": "Find RetryPanel.retry.",
+      "required": "RetryPanel.ets",
+      "excluded": []
+    }
+  ]
+}
