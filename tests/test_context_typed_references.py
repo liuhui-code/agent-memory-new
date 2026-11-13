@@ -45,3 +45,18 @@ class TypedReferenceUnitTests(unittest.TestCase):
         projected=[compact_code_anchor(a) for a in raw]
         merge_anchor_evidence(projected[0],projected[1])
         self.assertEqual([['code_file',7],['code_symbol',7]],projected[0]['record_refs'])
+
+    def test_homogeneous_ids_and_unknown_merge_keep_compatibility(self):
+        target=compact_code_anchor({'record_id':7,'record_type':'code_symbol','file_path':'A.ts'})
+        self.assertEqual([7],target['record_ids'])
+        self.assertEqual('code_symbol',target['record_type'])
+        merge_anchor_evidence(target,{'record_ids':[8]})
+        self.assertEqual([7,8],target['record_ids'])
+        self.assertNotIn('record_type',target)
+        self.assertEqual([['code_symbol',7]],target['record_refs'])
+        edge={'source_type':'code_symbol','source_id':8,'relation':'calls','target_type':'code_symbol','target_id':99}
+        self.assertEqual([],relevant_relations([edge],[target],[]))
+    def test_direct_and_wrapped_logs_preserve_distinct_provenance(self):
+        raw=code_anchors([], [{'id':4,'file_path':'Logger.ts','function':'emit'}, {'id':4,'kind':'log_effect','file_path':'Caller.ts','function':'call'}])
+        self.assertEqual(['code_log_statement','code_log_effect'],[a['record_type'] for a in raw])
+        self.assertEqual([4],compact_code_anchor(raw[0])['record_ids'])

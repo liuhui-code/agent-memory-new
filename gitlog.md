@@ -11349,3 +11349,14 @@ Evidence: `docs/eval/data-topic-expansion-20261114/README.md`.
 - Targeted causal-profile-path group improves 1/3 to 3/3 without budget/score/oracle
   changes. 43 necessary focused regressions pass. No full acceptance run.
 - Evidence: docs/evidence/causal-log-followup/result.md.
+
+## 2026-11-13 — Preserve typed provenance when projecting relation hints
+
+- Independent public learn/context showed a real file import omitted because
+  compact relation selection misinterpreted a file ID as a symbol ID.
+- Carry raw record_type; retain compact record_ids compatibility with homogeneous
+  record_type or mixed record_refs. Old unknown IDs never imply symbol identity.
+- Keep relation selection limits and all source/budget semantics unchanged.
+- Focused validation: 47 pass, 1 historical expected failure; causal profile path
+  remains 3/3 under 1500. No full gate and no inferred original failure reductions.
+- Evidence: docs/evidence/contract-path-followup/typed-reference-result.md.

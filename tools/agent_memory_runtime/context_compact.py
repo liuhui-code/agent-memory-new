@@ -234,15 +234,17 @@ def compact_code_anchor(item: dict[str, Any]) -> dict[str, Any]:
     result = clean_record(
         item,
         (
-            "source", "record_id", "file_path", "symbol", "symbol_type",
+            "source", "record_id", "record_type", "file_path", "symbol", "symbol_type",
             "start_line", "end_line", "identity_match", "callable_focus",
             "graph_relation",
         ),
     )
-    record_id = result.get("record_id")
-    if isinstance(record_id, int):
+    record_id = result.pop("record_id", None)
+    record_type = result.pop("record_type", None)
+    if type(record_id) is int:
         result["record_ids"] = [record_id]
-        result.pop("record_id", None)
+        if record_type in {"code_file", "code_symbol", "code_log_statement", "code_log_effect"}:
+            result["record_type"] = record_type
     source_range = anchor_source_range(result)
     if source_range:
         result["source_ranges"] = [source_range]
@@ -330,10 +332,21 @@ def anchor_source_range(anchor: dict[str, Any]) -> dict[str, Any]:
 
 
 def merge_anchor_evidence(target: dict[str, Any], source: dict[str, Any]) -> None:
+    refs = typed_anchor_refs(target)
+    for ref in typed_anchor_refs(source):
+        if ref not in refs and len(refs) < 3:
+            refs.append(ref)
     record_ids = target.setdefault("record_ids", [])
     for source_id in source.get("record_ids") or []:
-        if isinstance(source_id, int) and source_id not in record_ids and len(record_ids) < 3:
+        if type(source_id) is int and source_id not in record_ids and len(record_ids) < 3:
             record_ids.append(source_id)
+    types = {ref[0] for ref in refs}
+    target.pop("record_type", None)
+    target.pop("record_refs", None)
+    if len(types) == 1 and {ref[1] for ref in refs} == set(record_ids):
+        target["record_type"] = next(iter(types))
+    elif refs:
+        target["record_refs"] = refs
     ranges = target.setdefault("source_ranges", [])
     for source_range in source.get("source_ranges") or []:
         if source_range not in ranges and len(ranges) < 3:
@@ -347,22 +360,25 @@ def generated_anchor_summary(summary: str, anchor: dict[str, Any]) -> bool:
     return bool(file_path and file_path in lowered and (not symbol or symbol in lowered))
 
 
+def typed_anchor_refs(item: dict[str, Any]) -> list[list[Any]]:
+    types = {"code_file", "code_symbol", "code_log_statement", "code_log_effect"}
+    refs = item.get("record_refs")
+    if not isinstance(refs, list):
+        refs = [[item.get("record_type"), value] for value in item.get("record_ids") or []]
+    return [list(ref) for ref in refs if isinstance(ref, (list, tuple)) and len(ref) == 2
+            and isinstance(ref[0], str) and ref[0] in types and type(ref[1]) is int]
+
+
 def relevant_relations(
     value: Any,
     code_anchors: list[dict[str, Any]],
     log_anchors: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     endpoints = {
-        ("code_symbol", int(item["record_id"]))
+        (ref[0], ref[1])
         for item in code_anchors
-        if isinstance(item.get("record_id"), int)
+        for ref in typed_anchor_refs(item)
     }
-    endpoints.update(
-        ("code_symbol", int(record_id))
-        for item in code_anchors
-        for record_id in item.get("record_ids") or []
-        if isinstance(record_id, int)
-    )
     endpoints.update(
         ("code_log_statement", int(item["log_id"]))
         for item in log_anchors
