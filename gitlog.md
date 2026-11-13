@@ -1,5 +1,11 @@
 # Local Development Log
 
+## 2026-11-14 — Stop interpreting a generic locate command as log intent
+
+- Two independent non-log domains reproduce Chinese 定位 adding unrelated diagnostic topic terms and selecting a logger. Remove only that request-action trigger; keep literal tokens and all explicit log/error/exception expansions.
+- Language-priority selected variants improve 2/3 to 3/3 with required source excerpts. Focused checks: 66 pass, one pre-existing expected failure; no full-suite claim.
+- Evidence: docs/eval/locator-intent-expansion-20261114/. No remote write.
+
 ## 2026-11-14 — Normalize explicit instead-of result exclusions
 
 - Reproduce source retrieval misreading instead-of metadata as a positive target; equivalent rather-than already works. Normalize only explicit nominal result alternatives, leaving operation comparisons and quoted/original text untouched.

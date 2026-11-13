@@ -18,7 +18,7 @@ QUERY_EXPANSION_RULES = [
         ("resource", "resources", "media", "image", "string", "app.media", "app.string", "$r"),
     ),
     (
-        ("日志", "报错", "错误", "异常", "失败", "崩溃", "打印", "定位"),
+        ("日志", "报错", "错误", "异常", "失败", "崩溃", "打印"),
         ("log", "logger", "console", "hilog", "error", "warning", "exception", "failed", "failure", "debug"),
     ),
     (

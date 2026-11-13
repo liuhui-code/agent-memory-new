@@ -1,0 +1,28 @@
+{
+  "classification": "independent Development",
+  "sources": {
+    "src/InvoiceExporter.ets": "export class InvoiceExporter {\n  writeFile(context: UIContext): string {\n    const directory = context.filesDir\n    return directory + '/invoice.json'\n  }\n}\n",
+    "src/PaletteParser.ets": "export class PaletteParser {\n  convertValue(value: string): number {\n    const digits = value.replace('#', '')\n    return Number.parseInt(digits, 16)\n  }\n}\n",
+    "src/ErrorConsoleSink.ets": "export class ErrorConsoleSink {\n  writeWarning(message: string): void {\n    console.error(message)\n  }\n}\n"
+  },
+  "queries": [
+    "请定位 invoice export 的 ArkTS 实现。",
+    "请查找 invoice export 的 ArkTS 实现。",
+    "请定位 palette 颜色转换的源码实现。",
+    "请查找 palette 颜色转换的源码实现。",
+    "请定位错误日志的输出入口。",
+    "请定位 ErrorConsoleSink.writeWarning。",
+    "请查找错误日志的输出入口。",
+    "请定位异常打印的 console 源码。"
+  ],
+  "expected": [
+    "src/InvoiceExporter.ets",
+    "src/InvoiceExporter.ets",
+    "src/PaletteParser.ets",
+    "src/PaletteParser.ets",
+    "src/ErrorConsoleSink.ets",
+    "src/ErrorConsoleSink.ets",
+    "src/ErrorConsoleSink.ets",
+    "src/ErrorConsoleSink.ets"
+  ]
+}

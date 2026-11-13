@@ -1,0 +1,3257 @@
+{
+  "competition-before": [
+    {
+      "query": "请定位 invoice export 的 ArkTS 实现。",
+      "index": 0,
+      "compact": false,
+      "stdout_sha256": "2f04ab2b7d3de30747dccab85cd25c17441eef4500a810cd34449355674bf58a",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "InvoiceExporter",
+          "symbol_type": "class",
+          "summary": "ArkTS class InvoiceExporter declared in src/InvoiceExporter.ets; identifier terms: invoice exporter",
+          "start_line": 1,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS class ErrorConsoleSink declared in src/ErrorConsoleSink.ets; identifier terms: error console sink",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "PaletteParser",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 6 non-empty lines",
+          "start_line": 1,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 4,
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "writeFile",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeFile in src/InvoiceExporter.ets; identifier terms: write file",
+          "start_line": 2,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeWarning in src/ErrorConsoleSink.ets; identifier terms: write warning",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "{message}",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "function": "writeWarning",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 34.195,
+          "evidence_score": 34.195,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/InvoiceExporter.ets",
+            "symbol": "writeFile",
+            "owner_name": "InvoiceExporter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 29.5,
+            "evidence_score": 29.5,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/PaletteParser.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteParser",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 15.59,
+            "evidence_score": 15.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请定位 invoice export 的 ArkTS 实现。",
+      "index": 0,
+      "compact": true,
+      "stdout_sha256": "75b0e94c2bb6ded2a21c73e26d7c3a2e9373978350d8386764ac719905584bb5",
+      "code_anchors": [
+        {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "record_ids": [
+            1,
+            2
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ErrorConsoleSink",
+              "start_line": 1,
+              "end_line": 5
+            },
+            {
+              "symbol": "writeWarning",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class ErrorConsoleSink {\n  writeWarning(message: string): void {\n    console.error(message)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 34.195,
+          "evidence_score": 34.195,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/InvoiceExporter.ets",
+            "symbol": "writeFile",
+            "owner_name": "InvoiceExporter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 29.5,
+            "evidence_score": 29.5,
+            "reasons": [
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "expanded_query:string_evidence",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/PaletteParser.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteParser",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 15.59,
+            "evidence_score": 15.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请查找 invoice export 的 ArkTS 实现。",
+      "index": 1,
+      "compact": false,
+      "stdout_sha256": "993644e9ebd39ce4641f135b5de0802ee2279450540fdeba3518bc16540158dd",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "InvoiceExporter",
+          "symbol_type": "class",
+          "summary": "ArkTS class InvoiceExporter declared in src/InvoiceExporter.ets; identifier terms: invoice exporter",
+          "start_line": 1,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 5 non-empty lines",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "PaletteParser",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 6 non-empty lines",
+          "start_line": 1,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 4,
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "writeFile",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeFile in src/InvoiceExporter.ets; identifier terms: write file",
+          "start_line": 2,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "writeFile",
+          "owner_name": "InvoiceExporter",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 29.5,
+          "evidence_score": 29.5,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ErrorConsoleSink.ets",
+            "symbol": "writeWarning",
+            "owner_name": "ErrorConsoleSink",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 16.59,
+            "evidence_score": 16.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/PaletteParser.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteParser",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 15.59,
+            "evidence_score": 15.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请查找 invoice export 的 ArkTS 实现。",
+      "index": 1,
+      "compact": true,
+      "stdout_sha256": "cd44d3560ead7c7edc879150b17f324ea0065b4e113af54986d17ee1a5c83b9c",
+      "code_anchors": [
+        {
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "InvoiceExporter",
+          "symbol_type": "class",
+          "record_ids": [
+            3,
+            4
+          ],
+          "source_ranges": [
+            {
+              "symbol": "InvoiceExporter",
+              "start_line": 1,
+              "end_line": 6
+            },
+            {
+              "symbol": "writeFile",
+              "start_line": 2,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 6,
+              "content": "export class InvoiceExporter {\n  writeFile(context: UIContext): string {\n    const directory = context.filesDir\n    return directory + '/invoice.json'\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "writeFile",
+          "owner_name": "InvoiceExporter",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 29.5,
+          "evidence_score": 29.5,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ErrorConsoleSink.ets",
+            "symbol": "writeWarning",
+            "owner_name": "ErrorConsoleSink",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 16.59,
+            "evidence_score": 16.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/PaletteParser.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteParser",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 15.59,
+            "evidence_score": 15.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请定位 palette 颜色转换的源码实现。",
+      "index": 2,
+      "compact": false,
+      "stdout_sha256": "3101b08e848edbac2900d56041997f65c9a7e485feb08174e33cbff086522099",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 5,
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "PaletteParser",
+          "symbol_type": "class",
+          "summary": "ArkTS class PaletteParser declared in src/PaletteParser.ets; identifier terms: palette parser",
+          "start_line": 1,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS class ErrorConsoleSink declared in src/ErrorConsoleSink.ets; identifier terms: error console sink",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "convertValue",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method convertValue in src/PaletteParser.ets; identifier terms: convert value",
+          "start_line": 2,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeWarning in src/ErrorConsoleSink.ets; identifier terms: write warning",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "{message}",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "function": "writeWarning",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 25.465,
+          "evidence_score": 25.465,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/PaletteParser.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteParser",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请定位 palette 颜色转换的源码实现。",
+      "index": 2,
+      "compact": true,
+      "stdout_sha256": "221193df886bb74f30e5005190662b6f21cc12e442e2aeb2c77bb42ffc5441e0",
+      "code_anchors": [
+        {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "record_ids": [
+            1,
+            2
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ErrorConsoleSink",
+              "start_line": 1,
+              "end_line": 5
+            },
+            {
+              "symbol": "writeWarning",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class ErrorConsoleSink {\n  writeWarning(message: string): void {\n    console.error(message)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 25.465,
+          "evidence_score": 25.465,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/PaletteParser.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteParser",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 14.77,
+            "evidence_score": 14.77,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请查找 palette 颜色转换的源码实现。",
+      "index": 3,
+      "compact": false,
+      "stdout_sha256": "087c46aebe3ef5c731f8be2934ed30116a5f3c047ae2f79df4475d3c3b852fa7",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 5,
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "PaletteParser",
+          "symbol_type": "class",
+          "summary": "ArkTS class PaletteParser declared in src/PaletteParser.ets; identifier terms: palette parser",
+          "start_line": 1,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "convertValue",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method convertValue in src/PaletteParser.ets; identifier terms: convert value",
+          "start_line": 2,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "convertValue",
+          "owner_name": "PaletteParser",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 14.77,
+          "evidence_score": 14.77,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请查找 palette 颜色转换的源码实现。",
+      "index": 3,
+      "compact": true,
+      "stdout_sha256": "1dbef94be74c4c5c079173274e2d900e28992ba6d96b0101985f62f6fe08bdd1",
+      "code_anchors": [
+        {
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "PaletteParser",
+          "symbol_type": "class",
+          "record_ids": [
+            5,
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "PaletteParser",
+              "start_line": 1,
+              "end_line": 6
+            },
+            {
+              "symbol": "convertValue",
+              "start_line": 2,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "convertValue",
+              "start_line": 1,
+              "end_line": 6,
+              "content": "export class PaletteParser {\n  convertValue(value: string): number {\n    const digits = value.replace('#', '')\n    return Number.parseInt(digits, 16)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "convertValue",
+          "owner_name": "PaletteParser",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 14.77,
+          "evidence_score": 14.77,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请定位错误日志的输出入口。",
+      "index": 4,
+      "compact": false,
+      "stdout_sha256": "9275add4c597a9a98fb01d1db01a1801a5acafac18e27eb2e3366eb0cceb191e",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS class ErrorConsoleSink declared in src/ErrorConsoleSink.ets; identifier terms: error console sink",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeWarning in src/ErrorConsoleSink.ets; identifier terms: write warning",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "{message}",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "function": "writeWarning",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 26.465,
+          "evidence_score": 26.465,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请定位错误日志的输出入口。",
+      "index": 4,
+      "compact": true,
+      "stdout_sha256": "fb6e2d1ce6f13896bd9f19003e89e9c584f3a61b001f9ea19b4fc277f3f9f5e0",
+      "code_anchors": [
+        {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "record_ids": [
+            1,
+            2
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ErrorConsoleSink",
+              "start_line": 1,
+              "end_line": 5
+            },
+            {
+              "symbol": "writeWarning",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class ErrorConsoleSink {\n  writeWarning(message: string): void {\n    console.error(message)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 26.465,
+          "evidence_score": 26.465,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请定位 ErrorConsoleSink.writeWarning。",
+      "index": 5,
+      "compact": false,
+      "stdout_sha256": "ccc54f72cf077c86c0b14c560b7341c47b172050888f9f7b7bfc0fb283e0b8da",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeWarning in src/ErrorConsoleSink.ets; identifier terms: write warning",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 4,
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "writeFile",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeFile in src/InvoiceExporter.ets; identifier terms: write file",
+          "start_line": 2,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS class ErrorConsoleSink declared in src/ErrorConsoleSink.ets; identifier terms: error console sink",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "{message}",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "function": "writeWarning",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 60.0,
+          "evidence_score": 60.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/InvoiceExporter.ets",
+            "symbol": "writeFile",
+            "owner_name": "InvoiceExporter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 16.755,
+            "evidence_score": 16.755,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请定位 ErrorConsoleSink.writeWarning。",
+      "index": 5,
+      "compact": true,
+      "stdout_sha256": "92c249981b3a4872e49067fb283034ce945d07dbb0d673c1509e4a3b2b30f07e",
+      "code_anchors": [
+        {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "record_ids": [
+            2,
+            1
+          ],
+          "source_ranges": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 2,
+              "end_line": 4
+            },
+            {
+              "symbol": "ErrorConsoleSink",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class ErrorConsoleSink {\n  writeWarning(message: string): void {\n    console.error(message)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 60.0,
+          "evidence_score": 60.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/InvoiceExporter.ets",
+            "symbol": "writeFile",
+            "owner_name": "InvoiceExporter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 16.755,
+            "evidence_score": 16.755,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请查找错误日志的输出入口。",
+      "index": 6,
+      "compact": false,
+      "stdout_sha256": "2f97afa0ce9f2871457ae06dc957e1fd9f97394e2892e268875b5896565f52ae",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS class ErrorConsoleSink declared in src/ErrorConsoleSink.ets; identifier terms: error console sink",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeWarning in src/ErrorConsoleSink.ets; identifier terms: write warning",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "{message}",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "function": "writeWarning",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 26.465,
+          "evidence_score": 26.465,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请查找错误日志的输出入口。",
+      "index": 6,
+      "compact": true,
+      "stdout_sha256": "071cbf1543e61b9e65e4c3404874818c672dd61edeffc298769eda1713a26b05",
+      "code_anchors": [
+        {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "record_ids": [
+            1,
+            2
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ErrorConsoleSink",
+              "start_line": 1,
+              "end_line": 5
+            },
+            {
+              "symbol": "writeWarning",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class ErrorConsoleSink {\n  writeWarning(message: string): void {\n    console.error(message)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 26.465,
+          "evidence_score": 26.465,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请定位异常打印的 console 源码。",
+      "index": 7,
+      "compact": false,
+      "stdout_sha256": "eea3dd7022be16171c4b59fff0a20c20614f460d72086730aea2e3c67ca81a1e",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeWarning in src/ErrorConsoleSink.ets; identifier terms: write warning",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS class ErrorConsoleSink declared in src/ErrorConsoleSink.ets; identifier terms: error console sink",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "{message}",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "function": "writeWarning",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 32.0,
+          "evidence_score": 32.0,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请定位异常打印的 console 源码。",
+      "index": 7,
+      "compact": true,
+      "stdout_sha256": "7b59ca38ab947006773e68f7174657f22751263743117589cf90fee7a2d971cb",
+      "code_anchors": [
+        {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "record_ids": [
+            2,
+            1
+          ],
+          "source_ranges": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 2,
+              "end_line": 4
+            },
+            {
+              "symbol": "ErrorConsoleSink",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class ErrorConsoleSink {\n  writeWarning(message: string): void {\n    console.error(message)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 32.0,
+          "evidence_score": 32.0,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    }
+  ],
+  "competition-after": [
+    {
+      "query": "请定位 invoice export 的 ArkTS 实现。",
+      "index": 0,
+      "compact": false,
+      "stdout_sha256": "a14acb536905af6bab7b2b9def05e57e72721c492435ac4fed0095f3c530c931",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "InvoiceExporter",
+          "symbol_type": "class",
+          "summary": "ArkTS class InvoiceExporter declared in src/InvoiceExporter.ets; identifier terms: invoice exporter",
+          "start_line": 1,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 5 non-empty lines",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "PaletteParser",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 6 non-empty lines",
+          "start_line": 1,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 4,
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "writeFile",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeFile in src/InvoiceExporter.ets; identifier terms: write file",
+          "start_line": 2,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "writeFile",
+          "owner_name": "InvoiceExporter",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 29.5,
+          "evidence_score": 29.5,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ErrorConsoleSink.ets",
+            "symbol": "writeWarning",
+            "owner_name": "ErrorConsoleSink",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 16.59,
+            "evidence_score": 16.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/PaletteParser.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteParser",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 15.59,
+            "evidence_score": 15.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请定位 invoice export 的 ArkTS 实现。",
+      "index": 0,
+      "compact": true,
+      "stdout_sha256": "2110183a53d521971b9bbb0076052a155aa4c5fe0711c900b59b5af31689560d",
+      "code_anchors": [
+        {
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "InvoiceExporter",
+          "symbol_type": "class",
+          "record_ids": [
+            3,
+            4
+          ],
+          "source_ranges": [
+            {
+              "symbol": "InvoiceExporter",
+              "start_line": 1,
+              "end_line": 6
+            },
+            {
+              "symbol": "writeFile",
+              "start_line": 2,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 6,
+              "content": "export class InvoiceExporter {\n  writeFile(context: UIContext): string {\n    const directory = context.filesDir\n    return directory + '/invoice.json'\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "writeFile",
+          "owner_name": "InvoiceExporter",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 29.5,
+          "evidence_score": 29.5,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ErrorConsoleSink.ets",
+            "symbol": "writeWarning",
+            "owner_name": "ErrorConsoleSink",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 16.59,
+            "evidence_score": 16.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/PaletteParser.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteParser",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 15.59,
+            "evidence_score": 15.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请查找 invoice export 的 ArkTS 实现。",
+      "index": 1,
+      "compact": false,
+      "stdout_sha256": "a59928794185178a6b95089d95804d7ecea98b7aa25ee7d2e64cfcbfbdd9dc02",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "InvoiceExporter",
+          "symbol_type": "class",
+          "summary": "ArkTS class InvoiceExporter declared in src/InvoiceExporter.ets; identifier terms: invoice exporter",
+          "start_line": 1,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 5 non-empty lines",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 3,
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "PaletteParser",
+          "symbol_type": "class",
+          "summary": "ArkTS file with 6 non-empty lines",
+          "start_line": 1,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 4,
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "writeFile",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeFile in src/InvoiceExporter.ets; identifier terms: write file",
+          "start_line": 2,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "writeFile",
+          "owner_name": "InvoiceExporter",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 29.5,
+          "evidence_score": 29.5,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ErrorConsoleSink.ets",
+            "symbol": "writeWarning",
+            "owner_name": "ErrorConsoleSink",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 16.59,
+            "evidence_score": 16.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/PaletteParser.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteParser",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 15.59,
+            "evidence_score": 15.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请查找 invoice export 的 ArkTS 实现。",
+      "index": 1,
+      "compact": true,
+      "stdout_sha256": "cd44d3560ead7c7edc879150b17f324ea0065b4e113af54986d17ee1a5c83b9c",
+      "code_anchors": [
+        {
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "InvoiceExporter",
+          "symbol_type": "class",
+          "record_ids": [
+            3,
+            4
+          ],
+          "source_ranges": [
+            {
+              "symbol": "InvoiceExporter",
+              "start_line": 1,
+              "end_line": 6
+            },
+            {
+              "symbol": "writeFile",
+              "start_line": 2,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": null,
+              "start_line": 1,
+              "end_line": 6,
+              "content": "export class InvoiceExporter {\n  writeFile(context: UIContext): string {\n    const directory = context.filesDir\n    return directory + '/invoice.json'\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "writeFile",
+          "owner_name": "InvoiceExporter",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 29.5,
+          "evidence_score": 29.5,
+          "reasons": [
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "expanded_query:string_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/ErrorConsoleSink.ets",
+            "symbol": "writeWarning",
+            "owner_name": "ErrorConsoleSink",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 16.59,
+            "evidence_score": 16.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 4,
+              "selection_reason": "callable_symbol_range"
+            }
+          },
+          {
+            "file_path": "src/PaletteParser.ets",
+            "symbol": "convertValue",
+            "owner_name": "PaletteParser",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 15.59,
+            "evidence_score": 15.59,
+            "reasons": [
+              "expanded_query:summary",
+              "first_stage_rank_prior",
+              "source_locatable",
+              "expanded_query:file_path"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请定位 palette 颜色转换的源码实现。",
+      "index": 2,
+      "compact": false,
+      "stdout_sha256": "25e8d6759b7502c2d254c437ed9d6021a8bd51b7b438359a1ec2fff783972688",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 5,
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "PaletteParser",
+          "symbol_type": "class",
+          "summary": "ArkTS class PaletteParser declared in src/PaletteParser.ets; identifier terms: palette parser",
+          "start_line": 1,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "convertValue",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method convertValue in src/PaletteParser.ets; identifier terms: convert value",
+          "start_line": 2,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "convertValue",
+          "owner_name": "PaletteParser",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 14.77,
+          "evidence_score": 14.77,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请定位 palette 颜色转换的源码实现。",
+      "index": 2,
+      "compact": true,
+      "stdout_sha256": "345d2a0a2c46f56581934f3c01017659dedf74da91020606adf8b022ce2f99f6",
+      "code_anchors": [
+        {
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "PaletteParser",
+          "symbol_type": "class",
+          "record_ids": [
+            5,
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "PaletteParser",
+              "start_line": 1,
+              "end_line": 6
+            },
+            {
+              "symbol": "convertValue",
+              "start_line": 2,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "convertValue",
+              "start_line": 1,
+              "end_line": 6,
+              "content": "export class PaletteParser {\n  convertValue(value: string): number {\n    const digits = value.replace('#', '')\n    return Number.parseInt(digits, 16)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "convertValue",
+          "owner_name": "PaletteParser",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 14.77,
+          "evidence_score": 14.77,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请查找 palette 颜色转换的源码实现。",
+      "index": 3,
+      "compact": false,
+      "stdout_sha256": "edc45adc91f1997cfd23f7b608975b043eef45c0dd979db6fb59c7e25de4eab3",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 5,
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "PaletteParser",
+          "symbol_type": "class",
+          "summary": "ArkTS class PaletteParser declared in src/PaletteParser.ets; identifier terms: palette parser",
+          "start_line": 1,
+          "end_line": 6,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 6,
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "convertValue",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method convertValue in src/PaletteParser.ets; identifier terms: convert value",
+          "start_line": 2,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "convertValue",
+          "owner_name": "PaletteParser",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 14.77,
+          "evidence_score": 14.77,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请查找 palette 颜色转换的源码实现。",
+      "index": 3,
+      "compact": true,
+      "stdout_sha256": "1dbef94be74c4c5c079173274e2d900e28992ba6d96b0101985f62f6fe08bdd1",
+      "code_anchors": [
+        {
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "PaletteParser",
+          "symbol_type": "class",
+          "record_ids": [
+            5,
+            6
+          ],
+          "source_ranges": [
+            {
+              "symbol": "PaletteParser",
+              "start_line": 1,
+              "end_line": 6
+            },
+            {
+              "symbol": "convertValue",
+              "start_line": 2,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 6
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "convertValue",
+              "start_line": 1,
+              "end_line": 6,
+              "content": "export class PaletteParser {\n  convertValue(value: string): number {\n    const digits = value.replace('#', '')\n    return Number.parseInt(digits, 16)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/PaletteParser.ets",
+          "symbol": "convertValue",
+          "owner_name": "PaletteParser",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 14.77,
+          "evidence_score": 14.77,
+          "reasons": [
+            "expanded_query:summary",
+            "first_stage_rank_prior",
+            "source_locatable",
+            "file_path"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 5,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请定位错误日志的输出入口。",
+      "index": 4,
+      "compact": false,
+      "stdout_sha256": "5fa8157765c2c0f5dc406f5541d06846ba7c17d507f92e11edd91faa0f27a4c3",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS class ErrorConsoleSink declared in src/ErrorConsoleSink.ets; identifier terms: error console sink",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeWarning in src/ErrorConsoleSink.ets; identifier terms: write warning",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "{message}",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "function": "writeWarning",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 26.465,
+          "evidence_score": 26.465,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请定位错误日志的输出入口。",
+      "index": 4,
+      "compact": true,
+      "stdout_sha256": "fb6e2d1ce6f13896bd9f19003e89e9c584f3a61b001f9ea19b4fc277f3f9f5e0",
+      "code_anchors": [
+        {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "record_ids": [
+            1,
+            2
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ErrorConsoleSink",
+              "start_line": 1,
+              "end_line": 5
+            },
+            {
+              "symbol": "writeWarning",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class ErrorConsoleSink {\n  writeWarning(message: string): void {\n    console.error(message)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 26.465,
+          "evidence_score": 26.465,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请定位 ErrorConsoleSink.writeWarning。",
+      "index": 5,
+      "compact": false,
+      "stdout_sha256": "ae30cdff5906878647da8da0edf498ba01d6091459305803e3fb8e224209f29a",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeWarning in src/ErrorConsoleSink.ets; identifier terms: write warning",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 4,
+          "file_path": "src/InvoiceExporter.ets",
+          "symbol": "writeFile",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeFile in src/InvoiceExporter.ets; identifier terms: write file",
+          "start_line": 2,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS class ErrorConsoleSink declared in src/ErrorConsoleSink.ets; identifier terms: error console sink",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "{message}",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "function": "writeWarning",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 60.0,
+          "evidence_score": 60.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/InvoiceExporter.ets",
+            "symbol": "writeFile",
+            "owner_name": "InvoiceExporter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 16.755,
+            "evidence_score": 16.755,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请定位 ErrorConsoleSink.writeWarning。",
+      "index": 5,
+      "compact": true,
+      "stdout_sha256": "92c249981b3a4872e49067fb283034ce945d07dbb0d673c1509e4a3b2b30f07e",
+      "code_anchors": [
+        {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "record_ids": [
+            2,
+            1
+          ],
+          "source_ranges": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 2,
+              "end_line": 4
+            },
+            {
+              "symbol": "ErrorConsoleSink",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class ErrorConsoleSink {\n  writeWarning(message: string): void {\n    console.error(message)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 60.0,
+          "evidence_score": 60.0,
+          "reasons": [
+            "exact_symbol",
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [
+          {
+            "file_path": "src/InvoiceExporter.ets",
+            "symbol": "writeFile",
+            "owner_name": "InvoiceExporter",
+            "owner_kind": "class",
+            "callable_roles": [
+              "source_operation_checked:v2.1"
+            ],
+            "score": 16.755,
+            "evidence_score": 16.755,
+            "reasons": [
+              "expanded_query:symbol",
+              "expanded_query:summary",
+              "expanded_query:method_evidence",
+              "first_stage_rank_prior"
+            ],
+            "source_range": {
+              "start_line": 2,
+              "end_line": 5,
+              "selection_reason": "callable_symbol_range"
+            }
+          }
+        ],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请查找错误日志的输出入口。",
+      "index": 6,
+      "compact": false,
+      "stdout_sha256": "03170aacde689d4cba00598560c0816769ca128a0872ee9a7d44e48422a45218",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS class ErrorConsoleSink declared in src/ErrorConsoleSink.ets; identifier terms: error console sink",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeWarning in src/ErrorConsoleSink.ets; identifier terms: write warning",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "{message}",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "function": "writeWarning",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 26.465,
+          "evidence_score": 26.465,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请查找错误日志的输出入口。",
+      "index": 6,
+      "compact": true,
+      "stdout_sha256": "071cbf1543e61b9e65e4c3404874818c672dd61edeffc298769eda1713a26b05",
+      "code_anchors": [
+        {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "record_ids": [
+            1,
+            2
+          ],
+          "source_ranges": [
+            {
+              "symbol": "ErrorConsoleSink",
+              "start_line": 1,
+              "end_line": 5
+            },
+            {
+              "symbol": "writeWarning",
+              "start_line": 2,
+              "end_line": 4
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class ErrorConsoleSink {\n  writeWarning(message: string): void {\n    console.error(message)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 26.465,
+          "evidence_score": 26.465,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    },
+    {
+      "query": "请定位异常打印的 console 源码。",
+      "index": 7,
+      "compact": false,
+      "stdout_sha256": "bcdcee2f4d3072990c25cd38c0fdf9fae208e5d8dd36680bc6fa157dd3605efa",
+      "code_anchors": [
+        {
+          "source": "wiki",
+          "record_id": 2,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "summary": "ArkTS function or lifecycle method writeWarning in src/ErrorConsoleSink.ets; identifier terms: write warning",
+          "start_line": 2,
+          "end_line": 4,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        },
+        {
+          "source": "wiki",
+          "record_id": 1,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "ErrorConsoleSink",
+          "symbol_type": "class",
+          "summary": "ArkTS class ErrorConsoleSink declared in src/ErrorConsoleSink.ets; identifier terms: error console sink",
+          "start_line": 1,
+          "end_line": 5,
+          "graph_neighbor": false,
+          "graph_relation": null,
+          "identity_match": false
+        }
+      ],
+      "log_anchors": [
+        {
+          "log_id": 1,
+          "effect_id": null,
+          "message_template": "{message}",
+          "logger": "console",
+          "business_event": null,
+          "trigger_stage": null,
+          "symptom_terms": [],
+          "process_hint": null,
+          "file_path": "src/ErrorConsoleSink.ets",
+          "function": "writeWarning",
+          "line": 3,
+          "evidence_class": "direct",
+          "wrapper_symbol": null,
+          "wrapper_depth": null,
+          "truncated": false,
+          "call_path": [],
+          "call_path_locations": []
+        }
+      ],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 32.0,
+          "evidence_score": 32.0,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause",
+        "passage_portfolio": {
+          "schema_version": "agent-callable-passage-portfolio/v1",
+          "mode": "serving",
+          "state": "inactive",
+          "members": [],
+          "selection_basis": [
+            "target_scope_not_composite"
+          ],
+          "candidate_recall_changed": false,
+          "boundary": "source_passage_composition_not_diagnosis"
+        }
+      }
+    },
+    {
+      "query": "请定位异常打印的 console 源码。",
+      "index": 7,
+      "compact": true,
+      "stdout_sha256": "7b59ca38ab947006773e68f7174657f22751263743117589cf90fee7a2d971cb",
+      "code_anchors": [
+        {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "symbol_type": "function",
+          "record_ids": [
+            2,
+            1
+          ],
+          "source_ranges": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 2,
+              "end_line": 4
+            },
+            {
+              "symbol": "ErrorConsoleSink",
+              "start_line": 1,
+              "end_line": 5
+            }
+          ],
+          "read_window": {
+            "start_line": 1,
+            "end_line": 5
+          },
+          "role": "primary",
+          "source_excerpts": [
+            {
+              "symbol": "writeWarning",
+              "start_line": 1,
+              "end_line": 5,
+              "content": "export class ErrorConsoleSink {\n  writeWarning(message: string): void {\n    console.error(message)\n  }\n}",
+              "source": "current_worktree",
+              "selection_reason": "query_term_window_within_anchor",
+              "focus_line": null,
+              "truncated": false
+            }
+          ]
+        }
+      ],
+      "log_anchors": [],
+      "callable_evidence": {
+        "schema_version": "agent-callable-evidence/v1",
+        "certainty": "bounded",
+        "primary": {
+          "file_path": "src/ErrorConsoleSink.ets",
+          "symbol": "writeWarning",
+          "owner_name": "ErrorConsoleSink",
+          "owner_kind": "class",
+          "callable_roles": [
+            "source_operation_checked:v2.1"
+          ],
+          "score": 32.0,
+          "evidence_score": 32.0,
+          "reasons": [
+            "expanded_query:symbol",
+            "expanded_query:summary",
+            "expanded_query:method_evidence",
+            "first_stage_rank_prior"
+          ],
+          "source_range": {
+            "start_line": 2,
+            "end_line": 4,
+            "selection_reason": "callable_symbol_range"
+          }
+        },
+        "alternatives": [],
+        "boundary": "retrieval_evidence_not_root_cause"
+      }
+    }
+  ]
+}
