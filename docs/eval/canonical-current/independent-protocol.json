@@ -1,0 +1,48 @@
+{
+  "classification": "independent Development current canonical/preview/structural competition",
+  "sources": {
+    "src/ui/RestoreView.ets": "@Component\nstruct RestoreView {\n  @State retryAllowed: boolean = false\n  @State notice: string = ''\n  enableCapacityRecovery(): void {\n    this.retryAllowed = true\n    this.notice = 'capacity recovery available'\n  }\n  build() {\n    Button('Restore capacity').onClick(() => this.enableCapacityRecovery())\n    Text(this.notice)\n  }\n}\n",
+    "src/ui/RetryBadge.ets": "@Component\nstruct RetryBadge {\n @State notice: string = ''\n build() {\n  Button('Retry delivery').onClick(() => { this.notice = 'retry status updated' })\n }\n}\n",
+    ".preview/cache/src/ui/RestoreView.ets": "@Component\nstruct RestoreView {\n  @State retryAllowed: boolean = false\n  @State statusMessage: string = ''\n  enableRecovery(): void {\n    this.retryAllowed = true\n    this.statusMessage = 'capacity recovery available'\n  }\n  build() {\n    Button('Restore capacity').onClick(() => this.enableRecovery())\n    Text(this.statusMessage)\n  }\n}\n",
+    "src/app/ScreenRegistry.ets": "import { RestoreView } from '../ui/RestoreView'\nexport function registerScreens(): string {\n return 'retry notice registry'\n}\n"
+  },
+  "queries": [
+    [
+      "canonical",
+      "Locate the canonical capacity recovery click handler that enables retry and updates the notice; exclude generated build artifacts.",
+      [
+        "src/ui/RestoreView.ets"
+      ]
+    ],
+    [
+      "named",
+      "Locate RestoreView.enableCapacityRecovery source.",
+      [
+        "src/ui/RestoreView.ets"
+      ]
+    ],
+    [
+      "retry",
+      "Locate RetryBadge.build source.",
+      [
+        "src/ui/RetryBadge.ets"
+      ]
+    ],
+    [
+      "both",
+      "Locate RestoreView.enableCapacityRecovery and RetryBadge.build source.",
+      [
+        "src/ui/RestoreView.ets",
+        "src/ui/RetryBadge.ets"
+      ]
+    ],
+    [
+      "structural",
+      "Locate RestoreView.enableCapacityRecovery native build imports and source.",
+      [
+        "src/ui/RestoreView.ets",
+        "src/app/ScreenRegistry.ets"
+      ]
+    ]
+  ]
+}

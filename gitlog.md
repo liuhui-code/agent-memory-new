@@ -11674,3 +11674,14 @@ No full gate or remote write. See `docs/eval/partial-source-rank-trade-20261114/
 - Generic event-height-to-focus request already passes with actual registration/predicate/two-branch source; exact and dual-identity controls pass. Literal source recall passes with two extras, not perfect precision.
 - All outputs <=1500 tokens and source bytes verified. Stop rule applied: no added noise/wording changes or new producer. No independent keyboard red or historical repair gain claimed.
 - Setup-only syntax/init-argument mistakes are retained; neither executed a context query. See docs/eval/keyboard-fixed-evidence.
+
+## 2026-11-14 — Recheck canonical supplement provenance
+
+- Fixed623981f original group remains2/3. Correct focused source is unchanged by
+  structural retention; ordinary lexical and import-provenance supplements enter
+  later via salience, protected by existing multiple/graph fail-open rules.
+- Freeze canonical/preview/retry/import public competition. Strict single-source
+  and structural precision reds retained; explicit pair green. Independent initial
+  field identity focus differs from original and is not claimed identical.
+- No native/build exception, score/query/oracle edit or serving change. Evidence:
+  docs/eval/canonical-current.
